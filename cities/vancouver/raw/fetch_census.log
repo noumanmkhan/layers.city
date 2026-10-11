@@ -1,0 +1,50 @@
+code lists: {'CL_DECIMALS': 16, 'CL_FREQ': 19, 'CL_CHARACTERISTIC': 2631, 'CL_DESC_DA': 57936, 'CL_FLAG': 8, 'CL_GENDER': 3, 'CL_GEO_DA': 57936, 'CL_GEO_LEVEL': 21, 'CL_NOTE': 205, 'CL_PROV_TERR': 19, 'CL_STATISTIC': 2, 'CL_TOPIC': 18}
+characteristics: 2631 · examples: [('1', 'Population, 2021', 0), ('2', 'Population, 2016', 0), ('3', 'Population percentage change, 2016 to 2021', 0), ('4', 'Total private dwellings', 0), ('5', 'Private dwellings occupied by usual residents', 0)]
+nesting from parents: True
+kept: 413 · section rows: ['Total - Age groups of the population - 100% data', 'Total - Occupied private dwellings by structural type of dwelling - 100% data', 'Total - Language spoken most often at home for the total population excluding institutional residents - 100% data', 'Total - Private households by tenure - 25% sample data', 'Total - Occupied private dwellings by period of construction - 25% sample data', 'Total - Owner households in non-farm, non-reserve private dwellings - 25% sample data', 'Total - Tenant households in non-farm, non-reserve private dwellings - 25% sample data', 'Total - Immigrant status and period of immigration for the population in private households - 25% sample data', 'Total - Main mode of commuting for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address - 25% sample data']
+csv columns: ['DATAFLOW', 'FREQ', 'TIME_PERIOD', 'REF_AREA', 'GENDER', 'CHARACTERISTIC', 'STATISTIC', 'OBS_VALUE', 'DECIMALS', 'FLAG', 'TOPIC', 'NOTE', 'RELEASE_DATE', 'GEO_LEVEL', 'ALT_GEO_CODE', 'GEO_DESC', 'PROV_TERR', 'DATA_QUALITY_FLAG', 'TNR_LF', 'TNR_SF', 'CI_LOW', 'CI_HIGH'] · first row: {'DATAFLOW': 'STC_CP:DF_DA(1.3)', 'FREQ': 'A5', 'TIME_PERIOD': '2021', 'REF_AREA': '2021S051259150039', 'GENDER': '1', 'CHARACTERISTIC': '129', 'STATISTIC': '1', 'OBS_VALUE': '285', 'DECIMALS': '0', 'FLAG': '', 'TOPIC': '7', 'NOTE': '', 'RELEASE_DATE': '2022-07-13', 'GEO_LEVEL': '13', 'ALT_GEO_CODE': '59150039', 'GEO_DESC': '2021S051259150039', 'PROV_TERR': '59', 'DATA_QUALITY_FLAG': '00000', 'TNR_LF': '0.0', 'TNR_SF': '0.0', 'CI_LOW': '256', 'CI_HIGH': '317'}
+  batch 1 105240 rows
+  batch 2 105240 rows
+  batch 3 105240 rows
+  batch 4 105240 rows
+  batch 5 105240 rows
+  batch 6 105240 rows
+  batch 7 105240 rows
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_DA/A5.2021S051259150409+2021S051259150410+2021S051259150412+2021S051259150414+2021 HTTP Error 504: Gateway Time-out
+  batch 8 105240 rows
+  batch 9 105240 rows
+  batch 10 105240 rows
+  batch 11 105240 rows
+  batch 12 105240 rows
+  batch 13 105240 rows
+  batch 14 105240 rows
+  batch 15 105240 rows
+  batch 16 105240 rows
+  batch 17 105240 rows
+  batch 18 105240 rows
+  batch 19 105240 rows
+  batch 20 105240 rows
+  batch 21 105240 rows
+  batch 22 105240 rows
+  batch 23 105240 rows
+  batch 24 105240 rows
+  batch 25 105240 rows
+  batch 26 105240 rows
+  batch 27 105240 rows
+  batch 28 105240 rows
+  batch 29 105240 rows
+  batch 30 105240 rows
+  batch 31 105240 rows
+  batch 32 105240 rows
+  batch 33 105240 rows
+  batch 34 105240 rows
+  batch 35 105240 rows
+  batch 36 105240 rows
+  batch 37 105240 rows
+  batch 38 105240 rows
+  batch 39 105240 rows
+  batch 40 105240 rows
+  batch 41 105240 rows
+  batch 42 63144 rows
+DAs with data: 1664 of 1664
+wrote census_da.json 7217 KB
