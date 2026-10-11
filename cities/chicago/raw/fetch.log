@@ -14,7 +14,21 @@ wrote il_senate.geojson
 wrote il_house.geojson
   retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
   retry 2 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
-wrote osm_expressways.json
+  retry 3 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
+FAILED expressways RuntimeError('failed: https://overpass-api.de/api/interpreter')
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/cities/chicago/fetch.py", line 39, in step
+    fn()
+  File "/home/runner/work/city-layers/city-layers/cities/chicago/fetch.py", line 101, in <lambda>
+    step('expressways', lambda: overpass(q1, 'osm_expressways.json'))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/city-layers/city-layers/cities/chicago/fetch.py", line 94, in overpass
+    d = json.loads(get(OVERPASS, data=urllib.parse.urlencode({'data': query}).encode()))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/city-layers/city-layers/cities/chicago/fetch.py", line 30, in get
+    raise RuntimeError('failed: ' + url)
+RuntimeError: failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
 wrote osm_arterials.json
 FAILED metra KeyError('trip_id')
 Traceback (most recent call last):
@@ -24,4 +38,4 @@ Traceback (most recent call last):
     trip_route[t['trip_id']] = t['route_id']
                ~^^^^^^^^^^^
 KeyError: 'trip_id'
-failed: ['metra']
+failed: ['expressways', 'metra']
