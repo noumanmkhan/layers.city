@@ -492,6 +492,20 @@ const KINDS = {
     }
     return g;
   },
+  // Heritage buildings: a small diamond per individually protected property, from zoom 12; names (when the
+  // record has one) from zoom 16. Tap for its name, year, architect and designation.
+  heritage: (it, fc) => {
+    const g = L.layerGroup();
+    fc.features.forEach(f => {
+      const p = f.properties;
+      const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true,
+        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="hb"><i></i>' + (p.n ? '<b>' + esc(p.n) + '</b>' : '') + '</span>'})});
+      hoverTip(m, esc(p.n || p.a) + (p.y ? ' · ' + esc(p.y) : ''));
+      m.on('click', e => { L.DomEvent.stop(e); hbPopup(it, p, e.latlng); });
+      g.addLayer(m);
+    });
+    return g;
+  },
   // What's changing: a dot per site, coloured by stage; demolitions dashed. Loads on first use (it.lazy).
   // Stage chips (several at once) narrow it. Tap a dot for what it is, its stage and date, and a link.
   changes: it => {
@@ -596,6 +610,26 @@ function cxPopup(it, p, latlng, station){
     (p.about ? '<p>' + esc(p.about) + '</p>' : '') +
     rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
     (p.link ? '<a href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(it.linkText || 'Project page') + '</a>' : '')).openOn(map);
+}
+/* ---------- Heritage buildings ---------- */
+const HB = byKind('heritage');
+const hbFeatures = () => (HB && loaded[HB.file] ? loaded[HB.file].features : []);
+const hbWhen = p => [p.y && fill(HB.builtText, {y: p.y}), p.ar && fill(HB.byText, {ar: p.ar}), p.d && fill(HB.designatedText, {d: p.d})].filter(Boolean).join(' · ');
+function hbPopup(it, p, latlng){
+  L.popup({className:'info-pop', maxWidth: 280, autoPanPadding:[24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.n || p.a) + '</b><small>' + esc(it.place) + (p.t ? ' · ' + esc(p.t) : '') + '</small>' +
+    (p.n ? '<p class="chg-a">' + esc(p.a) + '</p>' : '') + '<p>' + esc(hbWhen(p)) + '</p>' +
+    (p.b ? '<div class="kv"><span>' + esc(it.bylawText) + '</span><span>' + esc(p.b) + '</span></div>' : '') +
+    (p.hcd ? '<div class="kv"><span>' + esc(it.hcdText) + '</span><span>' + esc(p.hcd.replace(/ HCD$/, '')) + '</span></div>' : '')).openOn(map);
+}
+// The card's Heritage building row: the protected property the spot is on (within 40 m, or the one a
+// searched name matches within 150 m). [label, text] or null.
+function heritageRow(r, x, y, title){
+  let best = null, bd = Infinity;
+  hbFeatures().forEach(f => { const p = f.properties, d = metres([x, y], f.geometry.coordinates);
+    if (d < ((title && p.n === title) ? 150 : 40) && d < bd){ best = p; bd = d; } });
+  if (!best) return null;
+  return [r.label, (best.n || best.a) + (best.y || best.d ? ' (' + [best.y && fill(HB.builtText, {y: best.y}), best.d && fill(HB.designatedText, {d: best.d})].filter(Boolean).join(', ') + ')' : '')];
 }
 /* ---------- What's changing ----------
    Sites from engine/changes.py: kind (rezoning, siteplan, subdivision, building, demolition), stage
@@ -860,7 +894,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -1312,6 +1346,7 @@ function cardOf(latlng, title, muniName){
   });
   const facts = CITY.card.facts.filter(r => !r.onlyInside || hits[r.layer]).map(r => {
     if (r.address) return addressRow(x, y);
+    if (r.heritageBuilding) return heritageRow(r, x, y, title);
     if (r.knownas) return [r.label, near.length ? near.map(a => a[0].properties.name).join(', ') : '—'];
     if (r.boards){ const it = LAYERS.find(l => l.id === r.boards), bh = hits[r.boards] || {};
       const t = it.boards.filter(([b]) => bh[b]).map(([b]) => fill(r.text, boardCtx(it, bh[b]))).join(' · ');
@@ -1768,6 +1803,11 @@ function suggestions(text){
     const p = f.properties, b = score([p.name + (p.sub && /campus|centre|site/i.test(p.sub) ? ' ' + p.sub : ''), p.name].concat((it.aliases || {})[p.name] || []));
     if (b) out.push({s: b.s, rank: 2.5, name: p.name, sub: [it.place || it.name, p.sub].filter(Boolean).join(' · ') + (b.alias && b.alias !== p.name ? ' · also called ' + b.alias : ''), go: () => goLandmark(f)});
   });
+  // Heritage buildings with a name, unless a landmark already stands on it (Robie House, Casa Loma).
+  const lmAt = out.filter(o => o.at);
+  hbFeatures().forEach(f => { const p = f.properties; if (!p.n) return;
+    const b = score([p.n]);
+    if (b && !lmAt.some(o => metres(o.at, f.geometry.coordinates) < 40)) out.push({s: b.s, rank: 3.2, name: p.n, sub: HB.place + ' · ' + p.a + (p.y ? ' · ' + p.y : ''), go: () => goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), p.n, true)}); });
   // Skyscrapers, unless a landmark suggested for the same words stands on it (Willis Tower, the Hancock).
   const lmHits = out.filter(o => o.at);
   towerFeatures().forEach(f => {

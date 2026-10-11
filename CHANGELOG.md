@@ -3,6 +3,15 @@
 ## Since 1.1
 
 ### Both cities
+- **Heritage buildings** (October 11): a layer of buildings protected one by one, after Heritage districts.
+  Toronto: 1,515 properties designated under Part IV (City Heritage Register; listed and district-only
+  properties left out; names taken from the register's descriptions where they start with one, 767 of
+  them). Chicago: 412 Chicago Landmarks (Individual Landmarks dataset). Small diamonds from zoom 12, names
+  from 16; popup with year, architect, designation, and Toronto's by-law and district; a Heritage building
+  row on the card (within 40 m); named ones in search. Fetched monthly by
+  `engine/fetch_heritage_buildings.py` (fetch-heritage-buildings.yml), built by
+  `engine/heritage_buildings.py`. The Attributions page lists the new sources. For the iOS app:
+  `heritage_buildings.geojson`, layer kind `heritage`, fact `heritageBuilding`; contract sections 3, 4, 5.
 - **What's changing** (October 11): a layer of big changes (new buildings that aren't single houses,
   demolitions of bigger buildings, Toronto's rezoning, site plan and subdivision applications), one dot per
   site coloured by stage (proposed, approved, under construction, finished in the last two years;

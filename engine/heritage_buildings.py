@@ -41,8 +41,15 @@ if city == 'toronto':
     def name_of(desc):
         d = (desc or '').strip()
         if not d or COUNCIL.match(d): return ''
-        n = re.split(r'[,;(]|\s-\s?adopted|\s-adopted', d, 1)[0].strip(' .-"\'“”')
-        if re.match(r'^(see|refer|formerly|portion|rear|front|row|east|west|north|south)\b', n, re.I): return ''
+        n = re.split(r'[,;(]|\s-\s?adopted|\s-adopted', d, maxsplit=1)[0].strip(' .-"\'“”')
+        if re.match(r'^(see|refer|formerly|portion|rear|front|row|east|west|north|south|at|and|the|a|an|on|in|of)\b', n, re.I): return ''
+        if re.search(r'identified through|convenience address|planning study|plan review|secondary plan|^exhibition pl$|^shop$|^pair of shops$|^city buildings$', n, re.I): return ''
+        n = re.split(r'\.\s{2,}|\n', n, maxsplit=1)[0].strip(' .')
+        if n.isupper(): n = re.sub(r"\b(And|Of|The|For|At)\b", lambda m: m.group(1).lower(), n.title()).replace("'S ", "'s ")   # "Glen Road Houses.  Semi-detached house" -> "Glen Road Houses"
+        # A building type alone isn't a name ("Semi-detached house", "Commercial building", "Houses").
+        if re.match(r'^((semi-?detached|detached|row|terrace|double|single|pair of|two|three|four|brick|frame|stone|stucco|commercial|residential|'
+                    r'industrial|office|apartment|mixed[- ]use)\s+)*(house|houses|home|homes|building|buildings|residence|dwelling|store|stores|'
+                    r'block|church|school|warehouse|factory|structure|townhouses?|row ?houses?|semi-detached|cottage|garage|stable)s?$', n, re.I): return ''
         if not n or len(n) > 70 or re.match(r'^\d', n) or re.search(r'adopted|council|by-law|designat', n, re.I): return ''
         return n
     best = {}
@@ -65,7 +72,7 @@ else:
     for r in R['rows']:
         if r.get('lat') is None: continue
         ar = g(r, 'architect')
-        p = {'n': g(r, 'name', 'landmark_name'), 'a': re.sub(r'\bAv\b', 'Ave', g(r, 'address')), 'y': year(g(r, 'date_built')),
+        p = {'n': re.sub(r'\bBldg\b', 'Building', g(r, 'name', 'landmark_name')), 'a': re.sub(r'\bAv\b', 'Ave', g(r, 'address')), 'y': year(g(r, 'date_built')),
              'ar': '' if re.match(r'^(architect )?unknown$', ar, re.I) else ar, 'd': year(g(r, 'landmark', 'landmark_designation_date')), 'id': g(r, 'id')}
         feats.append({'type': 'Feature', 'properties': {k: v for k, v in p.items() if v}, 'geometry': {'type': 'Point', 'coordinates': [round(r['lon'], 6), round(r['lat'], 6)]}})
 feats.sort(key=lambda f: f['properties'].get('n') or f['properties'].get('a', ''))

@@ -38,6 +38,7 @@ python3 ../../engine/regions.py toronto   # outlines for Focus on a county / reg
 [ -f raw/closures/permits.json ] && python3 ../../engine/closures.py toronto       # after construction: closures from that work (fetch-closures.yml, daily)
 [ -f raw/surface/routes.json ] && python3 ../../engine/surface.py toronto       # streetcars and buses from the agency GTFS (fetch-surface.yml)
 [ -d raw/changes ] && python3 ../../engine/changes.py toronto   # what's changing: applications and permits (fetch-changes.yml, weekly)
+[ -f raw/heritage_buildings.json ] && python3 ../../engine/heritage_buildings.py toronto   # protected buildings (fetch-heritage-buildings.yml, monthly)
 python3 ../../engine/addresses.py toronto   # after streets and collectors: how addresses work (cities/toronto/addresses.json)
 python3 ../../engine/assemble.py toronto
 echo "Done. Preview: cd docs && python3 -m http.server 8000"

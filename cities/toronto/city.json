@@ -20,7 +20,7 @@
     {"name": "Lake Ontario", "at": [43.585, -79.40], "cls": "lake-near"},
     {"name": "Lake Ontario", "at": [43.45, -78.75], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Changes: City of Toronto development applications and building permits",
+  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Heritage buildings: City of Toronto Heritage Register · Changes: City of Toronto development applications and building permits",
   "example": {"at": [43.67194, -79.38667], "name": "Toronto Reference Library (example)"},
 
   "search": {
@@ -66,6 +66,7 @@
       {"id": "heritage", "kind": "districts", "file": "heritage", "name": "Heritage districts", "note": "29 Heritage Conservation Districts in force", "label": "{name}", "hover": "{name} Heritage Conservation District"}
     ]],
     ["Representation", [
+      {"id": "hbld", "kind": "heritage", "file": "heritage_buildings", "name": "Heritage buildings", "note": "1,515 properties designated one by one (Part IV); from zoom 12", "place": "Designated heritage property", "builtText": "built {y}", "byText": "{ar}", "designatedText": "designated {d}", "bylawText": "By-law", "hcdText": "Also in (district)"},
       {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "25 wards, one councillor each", "label": "Ward {num}", "hover": "Ward {num} · {name}"},
       {"id": "prov", "kind": "outline", "level": "state", "file": "wards", "name": "Provincial ridings", "note": "25 MPPs · same lines as the wards", "label": "{prov}", "hover": "Provincial: {prov}"},
       {"id": "fed", "kind": "outline", "level": "national", "file": "federal", "name": "Federal ridings", "note": "24 MPs · 2023 boundaries", "label": "{name}", "hover": "Federal: {name}"},
@@ -165,6 +166,7 @@
       {"label": "Known as", "knownas": true},
       {"label": "Address", "address": true},
       {"label": "Heritage district", "layer": "heritage", "text": "{name}[ (designated {since})]", "onlyInside": true},
+      {"label": "Heritage building", "heritageBuilding": true},
       {"label": "BIA", "layer": "bia", "text": "{name}[ (since {since})]", "empty": "None"},
       {"label": "City ward", "layer": "wards", "text": "Ward {num} · {name}"},
       {"label": "Provincial", "layer": "wards", "text": "{prov}"},

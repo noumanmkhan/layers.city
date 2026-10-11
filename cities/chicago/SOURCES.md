@@ -51,3 +51,6 @@ Hand-kept lists, in code: the nine sides, the known-as additions and the major s
 
 ## What's changing
 `raw/changes/permits.json`: City of Chicago Data Portal "Building Permits" (ydr8-5enu), permit types NEW CONSTRUCTION and WRECKING/DEMOLITION issued in the last two years, without owner or contractor names; fetched weekly by `engine/fetch_changes.py` (*Fetch what's changing* Action, `fetch-changes.yml`). `engine/changes.py` drops single houses, garages, decks, tents and other small jobs by the work description (patterns in `changes.json`).
+
+## Heritage buildings
+`raw/heritage_buildings.json`: City of Chicago Data Portal "Individual Landmarks" (uct4-hrvh, GeoJSON), one point per landmark inside its shape. Fetched monthly by `engine/fetch_heritage_buildings.py` (*Fetch heritage buildings* Action). The older point dataset (tdab-kixi) has only 317 of the 412.

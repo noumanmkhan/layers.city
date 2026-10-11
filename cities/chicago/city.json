@@ -21,7 +21,7 @@
     {"name": "Lake Michigan", "at": [41.97, -87.57], "cls": "lake-near"},
     {"name": "Lake Michigan", "at": [42.40, -87.55], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Changes: City of Chicago building permits",
+  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Heritage buildings: City of Chicago Individual Landmarks · Changes: City of Chicago building permits",
   "example": {"at": [41.8763, -87.6282], "name": "Harold Washington Library (example)"},
 
   "search": {
@@ -59,6 +59,7 @@
       {"id": "heritage", "kind": "districts", "file": "heritage", "name": "Landmark districts", "note": "59 Chicago Landmark Districts · boundaries as of 2012", "label": "{name}", "hover": "{name} Landmark District"}
     ]],
     ["Representation", [
+      {"id": "hbld", "kind": "heritage", "file": "heritage_buildings", "name": "Heritage buildings", "note": "412 Chicago Landmarks designated one by one; from zoom 12", "place": "Chicago Landmark", "builtText": "built {y}", "byText": "{ar}", "designatedText": "designated {d}"},
       {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "50 wards, one alderperson each", "label": "Ward {num}", "hover": "Ward {num}"},
       {"id": "house", "kind": "outline", "level": "state", "file": "il_house", "name": "Illinois House districts", "note": "Two House districts make one Senate district", "label": "{num}", "hover": "Illinois House {num} · Senate {senate}"},
       {"id": "congress", "kind": "outline", "level": "national", "file": "congress", "name": "Congressional districts", "note": "Illinois seats in the U.S. House", "label": "IL-{num}", "hover": "Congressional district IL-{num}"},
@@ -152,6 +153,7 @@
       {"label": "Known as", "knownas": true},
       {"label": "Address grid", "address": true},
       {"label": "Landmark district", "layer": "heritage", "text": "{name}[ (designated {since})]", "onlyInside": true},
+      {"label": "Heritage building", "heritageBuilding": true},
       {"label": "SSA", "layer": "ssa", "text": "{name}[ (#{num})]", "empty": "None"},
       {"label": "City ward", "layer": "wards", "text": "Ward {num}"},
       {"label": "Illinois House", "layer": "house", "text": "District {num}"},
