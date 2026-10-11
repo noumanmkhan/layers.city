@@ -53,11 +53,24 @@ def tidied(path):
     """Rewrite a GTFS zip with every header and value stripped of surrounding spaces, leaving out
     tables that have a header but no rows (R5 rejects those)."""
     out = path.replace('.zip', '-clean.zip')
+    # R5 also refuses a shape with a single point (TransLink's feed has some): drop those shapes, and the
+    # trips that point at them lose their shape (R5 then draws them stop to stop).
+    with zipfile.ZipFile(path) as zi:
+        n_pts = {}
+        if 'shapes.txt' in zi.namelist():
+            for v in csv.DictReader(io.TextIOWrapper(zi.open('shapes.txt'), encoding='utf-8-sig')):
+                k = (v.get('shape_id') or '').strip(); n_pts[k] = n_pts.get(k, 0) + 1
+    bad = {k for k, n in n_pts.items() if n < 2}
+    print('  shapes with fewer than 2 points, dropped:', len(bad))
     with zipfile.ZipFile(path) as zi, zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as zo:
         for n in zi.namelist():
             if not n.endswith('.txt'):
                 zo.writestr(n, zi.read(n)); continue
             rows = [[v.strip() for v in row] for row in csv.reader(io.TextIOWrapper(zi.open(n), encoding='utf-8-sig')) if any(v.strip() for v in row)]
+            if bad and n in ('shapes.txt', 'trips.txt') and rows and 'shape_id' in rows[0]:
+                k = rows[0].index('shape_id')
+                if n == 'shapes.txt': rows = [rows[0]] + [r for r in rows[1:] if r[k] not in bad]
+                else: rows = [rows[0]] + [r[:k] + [''] + r[k + 1:] if r[k] in bad else r for r in rows[1:]]
             if len(rows) < 2:
                 print('  leaving out empty', n, 'from', os.path.basename(path)); continue
             buf = io.StringIO(); csv.writer(buf, lineterminator='\n').writerows(rows)
