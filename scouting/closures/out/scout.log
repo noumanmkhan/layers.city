@@ -1,12 +1,12 @@
 Toronto: road restrictions feed
-  groups: {'Closure': 2250} records 2250
+  groups: {'Closure': 2232} records 2232
 Chicago: CDOT permits
-  active rows: [{'n': '56685'}]
+  active rows: [{'n': '56392'}]
   transit-related rows: 268
 {
- "run_utc": "2026-10-10T11:31:02+00:00",
+ "run_utc": "2026-10-11T23:05:19+00:00",
  "toronto": {
-  "records_in_feed": 2250,
+  "records_in_feed": 2232,
   "cors": {
    "Access-Control-Allow-Origin": "*",
    "Access-Control-Allow-Methods": "POST,GET,OPTIONS",
@@ -20,19 +20,19 @@ Chicago: CDOT permits
     "ROAD_CLOSED/ROAD_CLOSED_CONSTRUCTION": 9
    },
    "by_roadClass": {
+    "Local Road": 29,
     "Major Arterial Road": 50,
     "Minor Arterial Road": 18,
-    "Local Road": 29,
     "Unknown": 2
    },
    "by_contractor": {
+    "Peter Kiewit Sons ULC": 1,
     "Entera Utility Contractors": 2,
     "ONxpress Civils Contractor GP": 19,
-    "Peter Kiewit Sons ULC": 1,
-    "Aecon Infrastructure Management Inc": 6,
-    "GREEN INFRASTRUCTURE PARTNERS INC.": 7,
-    "Leaside Valley Builders": 1,
     "Grascan Construction Ltd.": 1,
+    "Aecon Infrastructure Management Inc": 6,
+    "Leaside Valley Builders": 1,
+    "GREEN INFRASTRUCTURE PARTNERS INC.": 7,
     "Ontario Transit Group": 5,
     "Mosaic Transit Group": 3,
     "Trillium Guideway Partners": 21,
@@ -61,10 +61,10 @@ Chicago: CDOT permits
    "on_drawn_roads": {
     "Finch Ave W": 5,
     "Birchmount Rd": 9,
-    "Danforth Ave": 2,
-    "Pape Ave": 1,
-    "Millwood Rd": 1,
     "Sheppard Ave W": 1,
+    "Millwood Rd": 1,
+    "Pape Ave": 1,
+    "Danforth Ave": 2,
     "Queen St E": 2,
     "Jarvis St": 1,
     "Carlaw Ave": 3,
@@ -87,10 +87,10 @@ Chicago: CDOT permits
    "off_drawn_roads": {
     "Sudbury St": 1,
     "Mack Ave": 4,
+    "Galloway Rd": 2,
     "Chantrey Crt": 1,
     "Jane St": 1,
     "Westlake Rd": 2,
-    "Galloway Rd": 2,
     "Gertrude Pl": 2,
     "Augusta Ave": 1,
     "Mutual St": 1,
@@ -112,9 +112,9 @@ Chicago: CDOT permits
     "Simcoe St": 1
    },
    "class_vs_drawn": {
+    "Local Road -> not drawn": 29,
     "Major Arterial Road -> drawn": 46,
     "Minor Arterial Road -> drawn": 18,
-    "Local Road -> not drawn": 29,
     "Major Arterial Road -> not drawn": 4,
     "Unknown -> not drawn": 1,
     "Unknown -> drawn": 1
@@ -132,9 +132,9 @@ Chicago: CDOT permits
   "not_metrolinx_but_transit_words": {
    "count": 32,
    "by_source": {
-    "Toronto Hydro": 9,
-    "Gasmain": 2,
     "Other": 15,
+    "Gasmain": 2,
+    "Toronto Hydro": 9,
     "{\"tabledata\":[{\"Option\":\"Toronto Water\"": 1,
     "Operation of cherry picker": 1,
     "Waterfront Toronto": 1,
@@ -142,12 +142,12 @@ Chicago: CDOT permits
     "null": 2
    },
    "by_contractor": {
-    "Tristar Electrical Inc": 5,
-    "Enbridge Gas Inc": 2,
-    "Entera Utility Contractors": 2,
-    "Alliance Verdi Civil Inc.": 2,
-    "Tristar Electric Inc.": 2,
     "Ontario Transit Group": 5,
+    "Alliance Verdi Civil Inc.": 2,
+    "Enbridge Gas Inc": 2,
+    "Tristar Electrical Inc": 5,
+    "Entera Utility Contractors": 2,
+    "Tristar Electric Inc.": 2,
     "Miller Paving Ltd.": 4,
     "Hatch Ltd.": 1,
     "Kenaidan CONTRACTING": 1,
@@ -160,50 +160,29 @@ Chicago: CDOT permits
    },
    "examples": [
     {
-     "road": "Adelaide St E",
-     "source": "Toronto Hydro",
-     "contractor": "Tristar Electrical Inc",
+     "road": "Ln S Queen W Spadina",
+     "source": "Other",
+     "contractor": "Ontario Transit Group",
      "type": "CONSTRUCTION",
-     "description": "Cable replacement project. Cable chamber work. No surface cuts required. Metrolinx permit attached. (Natasha)"
+     "description": "Extension/reissue of previously submitted RoDARS (using old method) with new permit for the EB curb lane closure during working, non-peak hours adjacent to OTG's Queen-Spadina Station South Shaft location. Closure utilized Monday - Friday, sometimes Sat. for piling activities/station works."
     },
     {
-     "road": "Church St",
-     "source": "Toronto Hydro",
-     "contractor": "Tristar Electrical Inc",
+     "road": "Queen St W",
+     "source": "Other",
+     "contractor": "Ontario Transit Group",
      "type": "CONSTRUCTION",
-     "description": "Cable replacement project. Cable chamber work. No surface cuts required. Metrolinx permit attached. (Natasha)"
-    },
-    {
-     "road": "Adelaide St E",
-     "source": "Toronto Hydro",
-     "contractor": "Tristar Electrical Inc",
-     "type": "CONSTRUCTION",
-     "description": "Cable replacement project. Cable chamber work. No surface cuts required. Metrolinx permit attached. (Natasha)"
-    },
-    {
-     "road": "Milton St",
-     "source": "Gasmain",
-     "contractor": "Enbridge Gas Inc",
-     "type": "CONSTRUCTION",
-     "description": "Gas main installation for regulator station relocation."
-    },
-    {
-     "road": "Oxford St",
-     "source": "Gasmain",
-     "contractor": "Enbridge Gas Inc",
-     "type": "CONSTRUCTION",
-     "description": "Gas main installation for regulator station relocation."
-    },
-    {
-     "road": "Holly St",
-     "source": "Toronto Hydro",
-     "contractor": "Entera Utility Contractors",
-     "type": "CONSTRUCTION",
-     "description": "- The project is Underground Civil Infrastructure project. The project includes rebuilding an old cable chamber. - The project will be executed by Entera Utility Contractors under the contract with Toronto Hydro. Cut permit have been received from City of Toronto. - Metrolinx no conflict letter has been received. - Construction notices has been delivered. Residents and offices around are aware of our existence on the site."
+     "description": "Extension/reissue of previously submitted RoDARS (using old method) with new permit for the EB curb lane closure during working, non-peak hours adjacent to OTG's Queen-Spadina Station South Shaft location. Closure utilized Monday - Friday, sometimes Sat. for piling activities/station works."
     },
     {
      "road": "Finch Ave W",
      "source": "Other",
      "contractor": "Alliance Verdi Civil Inc.",
      "type": "CONSTRUCTION",
-     "description": "Rehabilitation work under Metrol
+     "description": "Rehabilitation work under Metrolinx contract IT-2024RTMD-766 for the bridge over Finch Ave West. Scope of work includes installation of lumber against the edge of the bridge to facilitate waterproofing operation on the tracks. Equipment includes skid steer, scissor lift/boom lift, traffic barrels and signs. Temporary alternating lane closures will be used in both the EB and WB directions simultaneously while maintaining at least one lane of traffic in both directions. One sidewalk is to be closed continuously to facilitate the safe storage of necessary equipment. One sidewalk to remain opened at all times. Pedestrians to be detoured from closed sidewalk to opened sidewalk at nearest crossings. A maximum of 1 lane + HOV would be closed in the EBL and WBL simultaneously."
+    },
+    {
+     "road": "Oxford St",
+     "source": "Gasmain",
+     "contractor": "Enbridge Gas Inc",
+     "type": "CONSTRUCTION",
+     "description": "Gas main installation for regulator station

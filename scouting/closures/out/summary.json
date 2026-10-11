@@ -1,7 +1,7 @@
 {
- "run_utc": "2026-10-10T11:31:02+00:00",
+ "run_utc": "2026-10-11T23:05:19+00:00",
  "toronto": {
-  "records_in_feed": 2250,
+  "records_in_feed": 2232,
   "cors": {
    "Access-Control-Allow-Origin": "*",
    "Access-Control-Allow-Methods": "POST,GET,OPTIONS",
@@ -15,19 +15,19 @@
     "ROAD_CLOSED/ROAD_CLOSED_CONSTRUCTION": 9
    },
    "by_roadClass": {
+    "Local Road": 29,
     "Major Arterial Road": 50,
     "Minor Arterial Road": 18,
-    "Local Road": 29,
     "Unknown": 2
    },
    "by_contractor": {
+    "Peter Kiewit Sons ULC": 1,
     "Entera Utility Contractors": 2,
     "ONxpress Civils Contractor GP": 19,
-    "Peter Kiewit Sons ULC": 1,
-    "Aecon Infrastructure Management Inc": 6,
-    "GREEN INFRASTRUCTURE PARTNERS INC.": 7,
-    "Leaside Valley Builders": 1,
     "Grascan Construction Ltd.": 1,
+    "Aecon Infrastructure Management Inc": 6,
+    "Leaside Valley Builders": 1,
+    "GREEN INFRASTRUCTURE PARTNERS INC.": 7,
     "Ontario Transit Group": 5,
     "Mosaic Transit Group": 3,
     "Trillium Guideway Partners": 21,
@@ -56,10 +56,10 @@
    "on_drawn_roads": {
     "Finch Ave W": 5,
     "Birchmount Rd": 9,
-    "Danforth Ave": 2,
-    "Pape Ave": 1,
-    "Millwood Rd": 1,
     "Sheppard Ave W": 1,
+    "Millwood Rd": 1,
+    "Pape Ave": 1,
+    "Danforth Ave": 2,
     "Queen St E": 2,
     "Jarvis St": 1,
     "Carlaw Ave": 3,
@@ -82,10 +82,10 @@
    "off_drawn_roads": {
     "Sudbury St": 1,
     "Mack Ave": 4,
+    "Galloway Rd": 2,
     "Chantrey Crt": 1,
     "Jane St": 1,
     "Westlake Rd": 2,
-    "Galloway Rd": 2,
     "Gertrude Pl": 2,
     "Augusta Ave": 1,
     "Mutual St": 1,
@@ -107,9 +107,9 @@
     "Simcoe St": 1
    },
    "class_vs_drawn": {
+    "Local Road -> not drawn": 29,
     "Major Arterial Road -> drawn": 46,
     "Minor Arterial Road -> drawn": 18,
-    "Local Road -> not drawn": 29,
     "Major Arterial Road -> not drawn": 4,
     "Unknown -> not drawn": 1,
     "Unknown -> drawn": 1
@@ -127,9 +127,9 @@
   "not_metrolinx_but_transit_words": {
    "count": 32,
    "by_source": {
-    "Toronto Hydro": 9,
-    "Gasmain": 2,
     "Other": 15,
+    "Gasmain": 2,
+    "Toronto Hydro": 9,
     "{\"tabledata\":[{\"Option\":\"Toronto Water\"": 1,
     "Operation of cherry picker": 1,
     "Waterfront Toronto": 1,
@@ -137,12 +137,12 @@
     "null": 2
    },
    "by_contractor": {
-    "Tristar Electrical Inc": 5,
-    "Enbridge Gas Inc": 2,
-    "Entera Utility Contractors": 2,
-    "Alliance Verdi Civil Inc.": 2,
-    "Tristar Electric Inc.": 2,
     "Ontario Transit Group": 5,
+    "Alliance Verdi Civil Inc.": 2,
+    "Enbridge Gas Inc": 2,
+    "Tristar Electrical Inc": 5,
+    "Entera Utility Contractors": 2,
+    "Tristar Electric Inc.": 2,
     "Miller Paving Ltd.": 4,
     "Hatch Ltd.": 1,
     "Kenaidan CONTRACTING": 1,
@@ -154,6 +154,41 @@
     "null": 2
    },
    "examples": [
+    {
+     "road": "Ln S Queen W Spadina",
+     "source": "Other",
+     "contractor": "Ontario Transit Group",
+     "type": "CONSTRUCTION",
+     "description": "Extension/reissue of previously submitted RoDARS (using old method) with new permit for the EB curb lane closure during working, non-peak hours adjacent to OTG's Queen-Spadina Station South Shaft location. Closure utilized Monday - Friday, sometimes Sat. for piling activities/station works."
+    },
+    {
+     "road": "Queen St W",
+     "source": "Other",
+     "contractor": "Ontario Transit Group",
+     "type": "CONSTRUCTION",
+     "description": "Extension/reissue of previously submitted RoDARS (using old method) with new permit for the EB curb lane closure during working, non-peak hours adjacent to OTG's Queen-Spadina Station South Shaft location. Closure utilized Monday - Friday, sometimes Sat. for piling activities/station works."
+    },
+    {
+     "road": "Finch Ave W",
+     "source": "Other",
+     "contractor": "Alliance Verdi Civil Inc.",
+     "type": "CONSTRUCTION",
+     "description": "Rehabilitation work under Metrolinx contract IT-2024RTMD-766 for the bridge over Finch Ave West. Scope of work includes installation of lumber against the edge of the bridge to facilitate waterproofing operation on the tracks. Equipment includes skid steer, scissor lift/boom lift, traffic barrels and signs. Temporary alternating lane closures will be used in both the EB and WB directions simultaneously while maintaining at least one lane of traffic in both directions. One sidewalk is to be closed continuously to facilitate the safe storage of necessary equipment. One sidewalk to remain opened at all times. Pedestrians to be detoured from closed sidewalk to opened sidewalk at nearest crossings. A maximum of 1 lane + HOV would be closed in the EBL and WBL simultaneously."
+    },
+    {
+     "road": "Oxford St",
+     "source": "Gasmain",
+     "contractor": "Enbridge Gas Inc",
+     "type": "CONSTRUCTION",
+     "description": "Gas main installation for regulator station relocation."
+    },
+    {
+     "road": "Milton St",
+     "source": "Gasmain",
+     "contractor": "Enbridge Gas Inc",
+     "type": "CONSTRUCTION",
+     "description": "Gas main installation for regulator station relocation."
+    },
     {
      "road": "Adelaide St E",
      "source": "Toronto Hydro",
@@ -176,32 +211,11 @@
      "description": "Cable replacement project. Cable chamber work. No surface cuts required. Metrolinx permit attached. (Natasha)"
     },
     {
-     "road": "Milton St",
-     "source": "Gasmain",
-     "contractor": "Enbridge Gas Inc",
-     "type": "CONSTRUCTION",
-     "description": "Gas main installation for regulator station relocation."
-    },
-    {
-     "road": "Oxford St",
-     "source": "Gasmain",
-     "contractor": "Enbridge Gas Inc",
-     "type": "CONSTRUCTION",
-     "description": "Gas main installation for regulator station relocation."
-    },
-    {
      "road": "Holly St",
      "source": "Toronto Hydro",
      "contractor": "Entera Utility Contractors",
      "type": "CONSTRUCTION",
      "description": "- The project is Underground Civil Infrastructure project. The project includes rebuilding an old cable chamber. - The project will be executed by Entera Utility Contractors under the contract with Toronto Hydro. Cut permit have been received from City of Toronto. - Metrolinx no conflict letter has been received. - Construction notices has been delivered. Residents and offices around are aware of our existence on the site."
-    },
-    {
-     "road": "Finch Ave W",
-     "source": "Other",
-     "contractor": "Alliance Verdi Civil Inc.",
-     "type": "CONSTRUCTION",
-     "description": "Rehabilitation work under Metrolinx contract IT-2024RTMD-766 for the bridge over Finch Ave West. Scope of work includes installation of lumber against the edge of the bridge to facilitate waterproofing operation on the tracks. Equipment includes skid steer, scissor lift/boom lift, traffic barrels and signs. Temporary alternating lane closures will be used in both the EB and WB directions simultaneously while maintaining at least one lane of traffic in both directions. One sidewalk is to be closed continuously to facilitate the safe storage of necessary equipment. One sidewalk to remain opened at all times. Pedestrians to be detoured from closed sidewalk to opened sidewalk at nearest crossings. A maximum of 1 lane + HOV would be closed in the EBL and WBL simultaneously."
     },
     {
      "road": "Bain Ave",
@@ -216,20 +230,6 @@
      "contractor": "Tristar Electric Inc.",
      "type": "CONSTRUCTION",
      "description": "Replacing a switch in vault, and splicing in pits. Pedestrian access will remain open. Temporary street occupation permit only, no road cuts. Working at one work area at a time. Metrolinx No Conflict Response Letter attached."
-    },
-    {
-     "road": "Ln S Queen W Spadina",
-     "source": "Other",
-     "contractor": "Ontario Transit Group",
-     "type": "CONSTRUCTION",
-     "description": "Extension/reissue of previously submitted RoDARS (using old method) with new permit for the EB curb lane closure during working, non-peak hours adjacent to OTG's Queen-Spadina Station South Shaft location. Closure utilized Monday - Friday, sometimes Sat. for piling activities/station works."
-    },
-    {
-     "road": "Queen St W",
-     "source": "Other",
-     "contractor": "Ontario Transit Group",
-     "type": "CONSTRUCTION",
-     "description": "Extension/reissue of previously submitted RoDARS (using old method) with new permit for the EB curb lane closure during working, non-peak hours adjacent to OTG's Queen-Spadina Station South Shaft location. Closure utilized Monday - Friday, sometimes Sat. for piling activities/station works."
     },
     {
      "road": "Yonge St",
@@ -334,12 +334,12 @@
  },
  "chicago": {
   "active_window": [
-   "2026-10-03",
-   "2026-12-09"
+   "2026-10-04",
+   "2026-12-10"
   ],
   "active_rows_citywide": [
    {
-    "n": "56685"
+    "n": "56392"
    }
   ],
   "cors": {
@@ -347,31 +347,31 @@
   },
   "citywide_streetclosure_values": [
    {
-    "n": "39429"
+    "n": "39307"
    },
    {
     "streetclosure": "Curblane",
-    "n": "5458"
+    "n": "5426"
    },
    {
     "streetclosure": "NA",
-    "n": "5151"
+    "n": "5126"
    },
    {
     "streetclosure": "None",
-    "n": "3310"
-   },
-   {
-    "streetclosure": "Full",
-    "n": "1409"
+    "n": "3280"
    },
    {
     "streetclosure": "Sidewalk",
-    "n": "1350"
+    "n": "1348"
+   },
+   {
+    "streetclosure": "Full",
+    "n": "1336"
    },
    {
     "streetclosure": "Partial",
-    "n": "574"
+    "n": "565"
    },
    {
     "streetclosure": "Intermitte",
@@ -381,17 +381,17 @@
   "citywide_status_values": [
    {
     "applicationstatus": "Open",
-    "n": "53877"
+    "n": "53707"
    },
    {
     "applicationstatus": "Closed",
-    "n": "2808"
+    "n": "2685"
    }
   ],
   "top_applicants_citywide": [
    {
     "primarycontactlast": "ComED North*",
-    "n": "2722"
+    "n": "2695"
    },
    {
     "primarycontactlast": "Peoples Gas*",
@@ -399,11 +399,11 @@
    },
    {
     "primarycontactlast": "SEVEN-D CONSTRUCTION CO*",
-    "n": "2024"
+    "n": "2019"
    },
    {
     "primarycontactlast": "DWM*",
-    "n": "1705"
+    "n": "1695"
    },
    {
     "primarycontactlast": "CROWN CASTLE NG CENTRAL LLC",
@@ -434,24 +434,24 @@
     "n": "431"
    },
    {
-    "primarycontactlast": "BRACKENBOX INC*",
-    "n": "414"
-   },
-   {
     "primarycontactlast": "CHICAGO PUBLIC SCHOOLS",
     "n": "406"
    },
    {
     "primarycontactlast": "CITYWIDE DISPOSAL INC*",
-    "n": "390"
+    "n": "394"
    },
    {
     "primarycontactlast": "CDOT - In-House Construction",
-    "n": "385"
+    "n": "382"
    },
    {
     "primarycontactlast": "COMCAST OF CHICAGO INC*",
-    "n": "379"
+    "n": "375"
+   },
+   {
+    "primarycontactlast": "BRACKENBOX INC*",
+    "n": "369"
    },
    {
     "primarycontactlast": "CITY LIGHTS LTD*",
@@ -467,7 +467,7 @@
    },
    {
     "primarycontactlast": "JOHN BURNS CONSTRUCTION CO.*",
-    "n": "309"
+    "n": "307"
    },
    {
     "primarycontactlast": "MQ CONSTRUCTION CO*",
@@ -483,7 +483,7 @@
    },
    {
     "primarycontactlast": "MILLENNIUM CONTRACTING CORP*",
-    "n": "219"
+    "n": "218"
    },
    {
     "primarycontactlast": "CDOT-Sign Management",
@@ -491,7 +491,7 @@
    },
    {
     "primarycontactlast": "MCI METRO ACCESS TRANSMISSION SERVICES LLC",
-    "n": "186"
+    "n": "184"
    },
    {
     "primarycontactlast": "CROWN CASTLE FIBER LLC*",
@@ -503,15 +503,19 @@
    },
    {
     "primarycontactlast": "CHICAGO SCAFFOLDING*",
-    "n": "147"
+    "n": "145"
    },
    {
     "primarycontactlast": "UNITED SCAFFOLDING INC*",
-    "n": "146"
+    "n": "140"
    },
    {
     "primarycontactlast": "RAVENSWOOD DISPOSAL SERVICE INC*",
-    "n": "141"
+    "n": "137"
+   },
+   {
+    "primarycontactlast": "PLUMBING PROFESSIONALS CO*",
+    "n": "128"
    },
    {
     "primarycontactlast": "WALSH CONSTRUCTION COMPANY II, LLC*",
@@ -519,11 +523,7 @@
    },
    {
     "primarycontactlast": "CONTRACTORS ACCESS***",
-    "n": "128"
-   },
-   {
-    "primarycontactlast": "PLUMBING PROFESSIONALS CO*",
-    "n": "128"
+    "n": "127"
    },
    {
     "primarycontactlast": "CHICAGO  PUBLIC  SCHOOLS",
@@ -535,11 +535,7 @@
    },
    {
     "primarycontactlast": "TOMORROW GREENWAY LLC, D/B/A GREENWAY RECYCLING SE",
-    "n": "119"
-   },
-   {
-    "primarycontactlast": "LAKESHORE RECYCLING SYSTEMS, INC (LRS HOLDINGS)*",
-    "n": "105"
+    "n": "115"
    },
    {
     "primarycontactlast": "MOBILITIE LLC",
@@ -550,15 +546,15 @@
     "n": "102"
    },
    {
+    "primarycontactlast": "LAKESHORE RECYCLING SYSTEMS, INC (LRS HOLDINGS)*",
+    "n": "101"
+   },
+   {
     "primarycontactlast": "ECONOMY DISPOSAL",
-    "n": "99"
+    "n": "95"
    },
    {
     "primarycontactlast": "PRIME SCAFFOLD INC*",
-    "n": "97"
-   },
-   {
-    "primarycontactlast": "TRI-STATE DISPOSAL INC*",
     "n": "94"
    },
    {
@@ -566,8 +562,12 @@
     "n": "93"
    },
    {
+    "primarycontactlast": "TRI-STATE DISPOSAL INC*",
+    "n": "91"
+   },
+   {
     "primarycontactlast": "D & P CONSTRUCTION CO INC***",
-    "n": "87"
+    "n": "85"
    },
    {
     "primarycontactlast": "COMMONWEALTH EDISON CO",
@@ -582,12 +582,12 @@
     "n": "70"
    },
    {
-    "primarycontactlast": "AA SCAFFOLD XPRESS INC*",
+    "primarycontactlast": "CITY OF CHICAGO",
     "n": "70"
    },
    {
-    "primarycontactlast": "CITY OF CHICAGO",
-    "n": "70"
+    "primarycontactlast": "AA SCAFFOLD XPRESS INC*",
+    "n": "69"
    },
    {
     "primarycontactlast": "PRACTICAL PLUMBING, LLC*",
@@ -606,11 +606,11 @@
     "n": "54"
    },
    {
-    "primarycontactlast": "ALLIED WASTE TRANSPORTATION INC DBA REPUBLIC SERV*",
-    "n": "53"
+    "primarycontactlast": "WATERMAX PLUMBING INC*",
+    "n": "51"
    },
    {
-    "primarycontactlast": "WATERMAX PLUMBING INC*",
+    "primarycontactlast": "ALLIED WASTE TRANSPORTATION INC DBA REPUBLIC SERV*",
     "n": "51"
    },
    {
@@ -622,23 +622,19 @@
     "n": "48"
    },
    {
-    "primarycontactlast": "JAM PRODUCTIONS LTD*",
-    "n": "48"
-   },
-   {
     "primarycontactlast": "GSG CONSULTANTS, INC.*",
     "n": "47"
-   },
-   {
-    "primarycontactlast": "INDEPENDENT RECYCLING SERVICES*",
-    "n": "46"
    },
    {
     "primarycontactlast": "CHICAGO PARK DISTRICT",
     "n": "45"
    },
    {
-    "primarycontactlast": "ALF CARTAGE INC (OVERSIZE)",
+    "primarycontactlast": "INDEPENDENT RECYCLING SERVICES*",
+    "n": "45"
+   },
+   {
+    "primarycontactlast": "STEVENSON CRANE SERVICE INC (OVERSIZE)",
     "n": "44"
    },
    {
@@ -646,12 +642,12 @@
     "n": "44"
    },
    {
-    "primarycontactlast": "STEVENSON CRANE SERVICE INC (OVERSIZE)",
+    "primarycontactlast": "ALF CARTAGE INC (OVERSIZE)",
     "n": "44"
    },
    {
-    "primarycontactlast": "RENEWAL BY ANDERSEN LLC*",
-    "n": "42"
+    "primarycontactlast": "JAM PRODUCTIONS LTD*",
+    "n": "43"
    },
    {
     "primarycontactlast": "GILCO SCAFFOLDING COMPANY LLC*",
@@ -662,11 +658,11 @@
     "n": "41"
    },
    {
-    "primarycontactlast": "DESIGNED EQUIPMENT CORPORATION*",
-    "n": "41"
+    "primarycontactlast": "MAT CONSTRUCTION LEASING INC dba MAT CONSTRUCTION*",
+    "n": "40"
    },
    {
-    "primarycontactlast": "MAT CONSTRUCTION LEASING INC dba MAT CONSTRUCTION*",
+    "primarycontactlast": "DESIGNED EQUIPMENT CORPORATION*",
     "n": "40"
    },
    {
@@ -674,11 +670,15 @@
     "n": "39"
    },
    {
+    "primarycontactlast": "RENEWAL BY ANDERSEN LLC*",
+    "n": "39"
+   },
+   {
     "primarycontactlast": "LOPEZ PLUMBING SYSTEMS, INC.*",
     "n": "37"
    },
    {
-    "primarycontactlast": "TAYLOR EXCAVATING & CONSTRUCTION INC (SEAL)*",
+    "primarycontactlast": "METRA",
     "n": "36"
    },
    {
@@ -686,28 +686,28 @@
     "n": "36"
    },
    {
-    "primarycontactlast": "METRA",
-    "n": "36"
-   },
-   {
     "primarycontactlast": "WALGREENS COMPANY STORE# 05124 MS 685",
     "n": "35"
+   },
+   {
+    "primarycontactlast": "TAYLOR EXCAVATING & CONSTRUCTION INC (SEAL)*",
+    "n": "34"
    },
    {
     "primarycontactlast": "Shift Transit, LLC",
     "n": "33"
    },
    {
-    "primarycontactlast": "MC DONALD'S CORP",
-    "n": "32"
-   },
-   {
     "primarycontactlast": "BULLEY & ANDREWS, LLC*",
     "n": "32"
    },
    {
-    "primarycontactlast": "J.L. ROLL-OFF SERVICE*",
+    "primarycontactlast": "MC DONALD'S CORP",
     "n": "32"
+   },
+   {
+    "primarycontactlast": "CJ ERICKSON PLUMBING CO*",
+    "n": "31"
    }
   ],
   "transit": {
