@@ -66,9 +66,14 @@ const filt = {};
 const clearFilters = () => FILTERS.forEach(f => { filt[f.lens] = f.max ? 0 : new Set(); });
 clearFilters();
 const filtOn = () => FILTERS.some(f => f.max ? filt[f.lens] > 0 : filt[f.lens].size);
+// A "top" filter on a pick lens (housing type) keeps units whose largest share is one of the picked categories.
+const topOf = (L_, d) => { const v = d[L_.field]; if (!v || !v.length) return null;
+  let i = 0; v.forEach((x, j) => { if (x > v[i]) i = j; }); return L_.pick[i][0]; };
+FILTERS.forEach(f => { if (f.top && !f.options) f.options = LENSES[f.lens].pick.map(([v, t]) => [v, t]); });
 const matches = d => !!d && FILTERS.every(f => {
   const L_ = LENSES[f.lens];
   if (f.max) return !filt[f.lens] || (d[L_.minutes] != null && d[L_.minutes] <= filt[f.lens]);
+  if (f.top) return !filt[f.lens].size || filt[f.lens].has(topOf(L_, d));
   return !filt[f.lens].size || filt[f.lens].has(keyOf(L_, d));
 });
 const lensClass = d => { const L_ = LENSES[lens], k = keyOf(L_, d); return 'lens ' + (k ? L_.id + '-' + k : '') + (filtOn() && !matches(d) ? ' out' : ''); };

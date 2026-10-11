@@ -167,6 +167,10 @@ How the website's search does it, for an app that wants to match:
 - `lens.file` (the profiles file) and `lens.lenses`: each has `key` (the profile field holding a
   tier id) and `tiers: [[tierId, label, colourVariable], …]`. Use the label; the colour variable
   resolves through `palette`.
+- `lens.filters` (the website's "Narrow it down" rows): `{lens, label, options}` picks tiers of that lens;
+  `max: true` is a minutes ceiling; `top: true` (Most common home, on the `homes` lens) has no `options`
+  of its own: its choices are the lens's `pick` ids, and a unit matches when its largest share in the
+  lens's `field` list is a picked one.
 - `palette`: every colour the website uses, keyed by its CSS variable name with the leading `--`
   (`"--bia": {"light": "#E0791A", "dark": "#F39A45"}`). Every colour reference elsewhere in
   `city.json` (a fill layer's `colors`, a pill's `color`, a lens tier) is a key here. Only the

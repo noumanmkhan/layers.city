@@ -3,6 +3,10 @@
 ## Since 1.1
 
 ### Both cities
+- **Narrow it down: Most common home** (October 11): pick detached, semi & row, low-rise or towers (Chicago:
+  detached, attached, 2–19 or 20+ units) and only places where that is the commonest home type stay. A filter
+  with `"top": true` on a pick lens; it takes its chips from the lens. Largest share rather than a 50% cut,
+  since at 50% half of Toronto's neighbourhoods have no majority type and only 4 are mostly semi or row.
 - **Heritage buildings** (October 11): a layer of buildings protected one by one, after Heritage districts.
   Toronto: 1,515 properties designated under Part IV (City Heritage Register; listed and district-only
   properties left out; names taken from the register's descriptions where they start with one, 767 of

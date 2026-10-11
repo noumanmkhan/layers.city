@@ -130,7 +130,8 @@
       {"lens": "cost", "label": "Housing cost", "options": [["lower", "Lower"], ["middle", "Middle"], ["higher", "Higher"]]},
       {"lens": "union", "label": "To Union by transit", "max": true, "options": [[30, "Up to 30 min"], [45, "45 min"], [60, "60 min"]]},
       {"lens": "commute", "label": "Getting to work", "options": [["transit", "Transit, walk, bike"], ["mixed", "Mixed"], ["car", "Car"]]},
-      {"lens": "tenure", "label": "Households", "options": [["owners", "Mostly own"], ["mix", "A mix"], ["renters", "Mostly rent"]]}
+      {"lens": "tenure", "label": "Households", "options": [["owners", "Mostly own"], ["mix", "A mix"], ["renters", "Mostly rent"]]},
+      {"lens": "homes", "label": "Most common home", "top": true}
     ]
   },
 
