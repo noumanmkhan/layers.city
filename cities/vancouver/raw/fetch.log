@@ -1,43 +1,41 @@
 wrote local_areas.geojson 52 KB
-  retry 1 https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lcsd000b21a_e.zip HTTP Error 403: Forbidden
-  retry 2 https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lcsd000b21a_e.zip HTTP Error 403: Forbidden
-  retry 3 https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lcsd000b21a_e.zip HTTP Error 403: Forbidden
-FAILED census subdivisions RuntimeError('failed: https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lcsd000b21a_e.zip')
+  retry 1 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/9/query?where=CDUID+%3D+%275915%27&outFields=CSDUI HTTP Error 500: Internal Server Error
+FAILED census subdivisions RuntimeError({'code': 400, 'message': 'Failed to execute query.', 'details': []})
 Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 59, in step
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 57, in step
     fn()
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 93, in csds
-    z = download(GEO + 'lcsd000b21a_e.zip', os.path.join(TMP, 'csd.zip'))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 54, in download
-    raise RuntimeError('failed: ' + url)
-RuntimeError: failed: https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lcsd000b21a_e.zip
-  retry 1 https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lda_000b21a_e.zip HTTP Error 403: Forbidden
-  retry 2 https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lda_000b21a_e.zip HTTP Error 403: Forbidden
-  retry 3 https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lda_000b21a_e.zip HTTP Error 403: Forbidden
-FAILED dissemination areas RuntimeError('failed: https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lda_000b21a_e.zip')
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 107, in <lambda>
+    step('census subdivisions', lambda: arcgis(9, "CDUID = '5915'", 'CSDUID,CSDNAME,CSDTYPE,CDUID', 0.00005, 'csds.geojson'))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 97, in arcgis
+    if 'error' in d: raise RuntimeError(d['error'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: {'code': 400, 'message': 'Failed to execute query.', 'details': []}
+FAILED land around the region RuntimeError({'code': 400, 'message': 'Failed to execute query.', 'details': []})
 Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 59, in step
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 57, in step
     fn()
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 102, in das
-    z = download(GEO + 'lda_000b21a_e.zip', os.path.join(TMP, 'da.zip'))
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 54, in download
-    raise RuntimeError('failed: ' + url)
-RuntimeError: failed: https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lda_000b21a_e.zip
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 108, in <lambda>
+    step('land around the region', lambda: arcgis(9, "CDUID IN ('5909','5931','5929','5927','5917','5919','5921','5923','5926')",
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 97, in arcgis
+    if 'error' in d: raise RuntimeError(d['error'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: {'code': 400, 'message': 'Failed to execute query.', 'details': []}
+  retry 1 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/12/query?where=CSDUID+%3D+%275915022%27&outFields= HTTP Error 500: Internal Server Error
+FAILED dissemination areas RuntimeError({'code': 400, 'message': 'Failed to execute query.', 'details': []})
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 57, in step
+    fn()
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 110, in <lambda>
+    step('dissemination areas', lambda: arcgis(12, "CSDUID = '5915022'", 'DAUID,DGUID,CSDUID', 0.00002, 'das.geojson'))
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 97, in arcgis
+    if 'error' in d: raise RuntimeError(d['error'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: {'code': 400, 'message': 'Failed to execute query.', 'details': []}
   downloaded us.zip 3 MB
 wrote washington.geojson 1 features
-FAILED census profile FileNotFoundError(2, 'No such file or directory')
-Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 59, in step
-    fn()
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 135, in profile
-    das = {f['properties']['DAUID'] for f in json.load(open(os.path.join(RAW, 'das.geojson')))['features']}
-                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/city-layers/city-layers/cities/vancouver/raw/das.geojson'
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
-  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-wrote osm_streets.json 2777 KB
   retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
   overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
   retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
@@ -50,28 +48,25 @@ wrote osm_streets.json 2777 KB
   overpass retry 5 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
   retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
   overpass retry 6 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
-FAILED osm highways RuntimeError('overpass failed: osm_highways.json')
+FAILED osm streets RuntimeError('overpass failed: osm_streets.json')
 Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 59, in step
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 57, in step
     fn()
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 205, in <lambda>
-    step('osm highways', lambda: overpass(f'[out:json][timeout:300];way["highway"~"^(motorway|trunk)$"]({bb(REGION)});out tags geom;', 'osm_highways.json'))
-                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 200, in overpass
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 138, in <lambda>
+    step('osm streets', lambda: overpass(f'[out:json][timeout:300];way["highway"~"^(trunk|primary|secondary|tertiary)$"]["name"]({bb(CITY)});out tags geom;', 'osm_streets.json'))
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 134, in overpass
     raise RuntimeError('overpass failed: ' + name)
-RuntimeError: overpass failed: osm_highways.json
+RuntimeError: overpass failed: osm_streets.json
+wrote osm_highways.json 1843 KB
+wrote osm_places.json 66 KB
   retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
   overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
   retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
   overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
-  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
   overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
-  overpass retry 4 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
-  overpass retry 5 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
-wrote osm_places.json 66 KB
 wrote osm_landmarks.json 98 KB
   rail routes: [('', 'Canada Line', '1', '007c9f'), ('', 'Millennium Line', '1', 'ffcd00'), ('', 'Expo Line', '1', '0033a0'), ('WCE', 'West Coast Express', '2', '87189d'), ('', 'SeaBus', '4', '746661')]
 wrote translink_rail.json 397 KB
-done; failed: ['census subdivisions', 'dissemination areas', 'census profile', 'osm highways']
+done; failed: ['census subdivisions', 'land around the region', 'dissemination areas', 'osm streets']
