@@ -505,7 +505,7 @@ const KINDS = {
     const make = f => {
       const p = f.properties;
       const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true,
-        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="hb"><i></i>' + (p.n ? '<b>' + esc(p.n) + '</b>' : '') + '</span>'})});
+        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="hbm"><i></i>' + (p.n ? '<b>' + esc(p.n) + '</b>' : '') + '</span>'})});
       hoverTip(m, esc(p.n || p.a) + (p.y ? ' · ' + esc(p.y) : ''));
       m.on('click', e => { L.DomEvent.stop(e); hbPopup(it, p, e.latlng); });
       return m;

@@ -534,11 +534,11 @@ dl.facts dd{margin:0;font-weight:500;min-width:0}
   .sec dl.facts,.live{padding-left:12px;padding-right:12px}
   .leaflet-top.leaflet-left{display:none}
 }
-/* ---------- Heritage buildings ---------- */
-.hb{position:absolute;left:0;top:0;display:flex;align-items:center;gap:5px;transform:translate(-4.5px,-50%);white-space:nowrap;pointer-events:auto;cursor:pointer}
-.hb i{flex:none;width:7px;height:7px;transform:rotate(45deg);background:var(--hd);box-shadow:0 0 0 1.5px var(--city)}
-.hb b{font:600 10.5px/1.15 var(--font);color:var(--hd);text-shadow:0 0 2px var(--city),0 0 3px var(--city),0 0 5px var(--city)}
-#map:not(.z16) .hb b{display:none}
+/* ---------- Heritage buildings (.hbm: .hb is the card header's buttons) ---------- */
+.hbm{position:absolute;left:0;top:0;display:flex;align-items:center;gap:5px;transform:translate(-4.5px,-50%);white-space:nowrap;pointer-events:auto;cursor:pointer}
+.hbm i{flex:none;width:7px;height:7px;transform:rotate(45deg);background:var(--hd);box-shadow:0 0 0 1.5px var(--city)}
+.hbm b{font:600 10.5px/1.15 var(--font);color:var(--hd);text-shadow:0 0 2px var(--city),0 0 3px var(--city),0 0 5px var(--city)}
+#map:not(.z16) .hbm b{display:none}
 .sw.k-heritage{position:relative;background:var(--city)}
 .sw.k-heritage::after{content:'';position:absolute;inset:0;margin:auto;width:8px;height:8px;transform:rotate(45deg);background:var(--hd)}
 /* ---------- What's changing ---------- */
