@@ -1106,6 +1106,7 @@ document.getElementById('reset').addEventListener('click', () => {
   setLens(FIRST_LENS);
   setScope('inner', true);
   closeHere();
+  clearPreset();
   // Back to a plain URL; the address bar follows again from the next change.
   clearTimeout(hashTimer); linkReady = false; lastHash = '';
   try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
@@ -1679,6 +1680,104 @@ document.addEventListener('keydown', e => {
   else if (e.key === 'ArrowLeft' && tourI > 0) showStep(tourI - 1);
 });
 
+/* ---------- Views: named presets (CITY.presets) ----------
+   A chip row at the top of the panel. Each view replaces the whole map state: exactly its layers (and
+   sub-toggles), its lens, its bus families, the regional or city scope, no filters, picks, focus or card,
+   then frames its view. Changing anything after that (a layer, the lens, a chip) marks the view "Custom";
+   moving the map, tapping a spot or focusing on a place doesn't. Links carry preset= while it holds.
+   A view with "boundaries" (Who represents me) shows one of them at a time, with chips to switch: it leads
+   with the layer of the next election within "window" days (CITY.presets.elections), else its "lead". */
+const PRESETS = CITY.presets && CITY.presets.items && CITY.presets.items.length ? CITY.presets : null;
+const presetBox = document.getElementById('presets'), qHint = document.getElementById('qhint');
+var presetOn = null, presetSig = '', presetCustom = false;   // var: queueHash can run before this line
+const presetById = id => PRESETS && PRESETS.items.find(p => p.id === id);
+// The link without the parts that don't make a view custom: map position, pins, focus and the view itself.
+const PRESET_LOOSE = new Set(['map', 'pin', 'name', 'pin2', 'name2', 'focus', 'preset']);
+const presetState = () => linkState().split('&').filter(kv => !PRESET_LOOSE.has(kv.split('=')[0])).join('&');
+const todayISO = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+// The next election (today counts) within the window, if any.
+function nextElection(){
+  const t = todayISO(), win = (PRESETS.window || 180) * 864e5;
+  return (PRESETS.elections || []).filter(e => e.date >= t && Date.parse(e.date) - Date.parse(t) <= win)
+    .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
+}
+function presetLead(p){
+  const e = nextElection(), ok = id => p.boundaries.includes(id) && LAYERS.some(it => it.id === id);
+  return e && ok(e.lead) ? e.lead : p.lead || p.boundaries[0];
+}
+function presetFrame(p){
+  frame(p.view === 'region' ? REGION_VIEW : Array.isArray(p.view) ? L.latLngBounds(p.view) : CITY_BOUNDS);
+}
+function applyPreset(id){
+  const p = presetById(id); if (!p) return;
+  if (tourI >= 0){ tourSnap = null; endTour(); }
+  const lyr = (p.layers || []).slice();
+  if (p.boundaries) lyr.push(presetLead(p));
+  const parts = ['layers=' + (lyr.length ? lyr.join(',') : 'none')];
+  if (p.scope === 'outer') parts.push('view=region');
+  clearFilters(); applyFilter();
+  Object.keys(pick).forEach(k => { pick[k] = LENSES[k].pick[0][0]; });
+  BOARDS.forEach(it => setBoard(it.id, it.boards[0][0]));
+  if (BUSES) setBusFams(BUS_DEFAULT);
+  setLens(FIRST_LENS);
+  if (p.lens) parts.push('lens=' + p.lens);
+  if (p.bus) parts.push('bus=' + p.bus.join('+'));
+  applyHash('#' + parts.join('&'));
+  presetFrame(p);
+  presetOn = p.id; presetSig = presetState(); presetCustom = false;
+  drawPresets();
+  tourInv.hidden = true;   // they've found their way in; the invitation can go
+  if (!wide()) panel.classList.add('collapsed');
+  queueHash();
+}
+// Who represents me: show one set of boundaries in place of another, still the same view.
+function presetBoundary(id){
+  const p = presetById(presetOn); if (!p || !p.boundaries) return;
+  p.boundaries.forEach(b => { const cb = document.getElementById('lyr-' + b); if (!cb) return; const w = b === id; if (cb.checked !== w){ cb.checked = w; setLayer(b, w); } });
+  presetSig = presetState(); presetCustom = false;
+  drawPresets(); queueHash();
+}
+function drawPresets(){
+  if (!PRESETS || !presetBox) return;
+  const p = presetById(presetOn);
+  let h = '<b class="pr-h">' + esc(PRESETS.label || 'Views') + '</b><div class="chips" role="radiogroup" aria-label="' + esc(PRESETS.label || 'Views') + '">' +
+    PRESETS.items.map(it => '<button type="button" role="radio" data-preset="' + esc(it.id) + '" aria-checked="' + (it.id === presetOn && !presetCustom) + '"' +
+      (it.note ? ' title="' + esc(it.note) + '"' : '') + '>' + esc(it.name) + '</button>').join('') +
+    (p && presetCustom ? '<span class="pr-custom" title="' + esc(fill(PRESETS.customNote || 'Changed from {name}', {name: p.name})) + '">' + esc(PRESETS.customText || 'Custom') + '</span>' : '') + '</div>';
+  if (p && !presetCustom){
+    if (p.note) h += '<p class="pr-note">' + esc(p.note) + '</p>';
+    if (p.boundaries){
+      const on = p.boundaries.filter(b => state[b]);
+      h += '<div class="chips pr-b" role="radiogroup" aria-label="' + esc(PRESETS.boundaryLabel || 'Boundaries') + '">' + p.boundaries.filter(b => LAYERS.some(it => it.id === b)).map(b => {
+        const it = LAYERS.find(x => x.id === b);
+        return '<button type="button" role="radio" data-pb="' + esc(b) + '" aria-checked="' + on.includes(b) + '">' + esc(it.name) + '</button>';
+      }).join('') + '</div>';
+      const e = nextElection();
+      if (e) h += '<p class="pr-note">' + esc(fill(PRESETS.electionText || 'Next: {label}', {label: e.label})) + '</p>';
+    }
+  }
+  presetBox.innerHTML = h;
+  presetBox.hidden = false;
+  presetBox.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => applyPreset(b.dataset.preset)));
+  presetBox.querySelectorAll('[data-pb]').forEach(b => b.addEventListener('click', () => presetBoundary(b.dataset.pb)));
+  presetHint();
+}
+// The search box's hint, while a view asks for an address and no spot is pinned.
+function presetHint(){
+  if (!qHint) return;
+  const p = presetById(presetOn), show = !!(p && p.hint && !presetCustom && !pin);
+  if (show) qHint.textContent = p.hint;
+  qHint.hidden = !show;
+}
+// Called whenever the map's state may have changed (from queueHash).
+function checkPreset(){
+  if (!presetOn) return;
+  const c = presetState() !== presetSig;
+  if (c !== presetCustom){ presetCustom = c; drawPresets(); } else presetHint();
+}
+function clearPreset(){ presetOn = null; presetCustom = false; drawPresets(); }
+if (qHint) qHint.addEventListener('click', () => document.getElementById('q').focus());
+
 /* ---------- Theme: Auto (device setting), Light or Dark; remembered in this browser ---------- */
 function applyTheme(choice){
   if (choice === 'light' || choice === 'dark') document.documentElement.dataset.theme = choice;
@@ -2197,7 +2296,7 @@ function armLink(){
   const start = () => { ev.forEach(e => removeEventListener(e, start, true)); linkReady = true; };
   setTimeout(() => ev.forEach(e => addEventListener(e, start, true)), 1200);
 }
-function queueHash(){ if (linkReady){ clearTimeout(hashTimer); hashTimer = setTimeout(writeHash, 250); } }
+function queueHash(){ if (typeof checkPreset === 'function') checkPreset(); if (linkReady){ clearTimeout(hashTimer); hashTimer = setTimeout(writeHash, 250); } }
 function linkState(){
   const c = map.getCenter(), z = map.getZoom();
   const parts = [['map', (Math.round(z * 4) / 4) + '/' + c.lat.toFixed(5) + '/' + c.lng.toFixed(5)]];
@@ -2218,6 +2317,7 @@ function linkState(){
   if (brd.length) parts.push(['board', brd.join(',')]);
   if (BUSES && state[BUSES.id] && busKey() !== (BUSES.default === 'all' ? 'all' : BUS_DEFAULT.join('+'))) parts.push(['bus', busKey()]);
   if (picked.size) parts.push(['routes', [...picked].join(',')]);
+  if (presetOn && !presetCustom) parts.push(['preset', presetOn]);
   return parts.map(([k, v]) => k + '=' + enc(v)).join('&');
 }
 function writeHash(){
@@ -2234,7 +2334,9 @@ function readHash(h){
 // Put the map into the state a link describes. Unknown ids and malformed parts are skipped.
 function applyHash(h){
   const o = readHash(h);
-  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg'].some(k => k in o)) return false;
+  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg', 'preset'].some(k => k in o)) return false;
+  // A bare preset= link (no layers of its own) sets up that view; otherwise the link wins and the view is noted.
+  if (o.preset && presetById(o.preset) && !o.layers){ applyPreset(o.preset); if (!o.map && !o.pin) return true; }
   const num = s => s.split(/[,/]/).map(Number);
   // focus= is a county or region (regional view), or "layer:name" for one place in the city.
   const pfo = placeFromLink(o.focus);
@@ -2288,6 +2390,8 @@ function applyHash(h){
       if (!ok(m)) frame(L.latLngBounds([at, L.latLng(p2[0], p2[1])]).pad(.3));
     }
   } else closeHere();
+  if (o.preset && presetById(o.preset)){ presetOn = o.preset; presetSig = presetState(); presetCustom = false; drawPresets(); }
+  else if (o.layers && presetOn){ presetOn = null; presetCustom = false; drawPresets(); }
   if (!ok(m) && !(ok(p) && p.length === 2)) frame(placeF ? L.geoJSON(placeF.f).getBounds() : scope === 'inner' ? CITY_BOUNDS : focusKey ? L.geoJSON(regionFeature(focusKey)).getBounds() : REGION_VIEW);
   return true;
 }
@@ -2543,6 +2647,7 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
   }
   lastHash = location.hash;
   if (location.hash) linkReady = true; else armLink();
+  drawPresets();
   tourInvite();
   window.cityMapReady = true;
   // Stops and the route list: fetched after the map is up, then stops are drawn and the open card redrawn.

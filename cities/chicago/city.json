@@ -2,7 +2,7 @@
   "id": "chicago",
   "schema": 1,
   "title": "Chicago Layers",
-  "description": "A map of the City of Chicago with toggleable layers: the nine sides, 77 community areas, known-as names, wards, state and congressional districts, Special Service Areas, main streets, expressways, the 'L' and Metra.",
+  "description": "A map of the City of Chicago with toggleable layers: the nine sides, 77 community areas, known-as names, wards, state and congressional districts, Special Service Areas, main streets, expressways, the ‘L’ and Metra.",
   "mapLabel": "Map of the City of Chicago",
   "locale": "en-US",
   "distance": "mi",
@@ -138,6 +138,25 @@
       {"title": "The address grid", "layers": ["addr", "streets"], "hi": ["addr"], "view": "city", "text": "Chicago's addresses are a grid. State and Madison, in the Loop, are 0, and numbers count out from there, 800 to a mile: 2400 N is three miles north, and 1600 W is Ashland. Tap any spot and the card gives its numbers."},
       {"title": "Getting around", "layers": ["cta", "metra", "hwy"], "hi": ["cta", "metra"], "scope": "outer", "view": [[41.6, -88.2], [42.15, -87.5]], "text": "The 'L' is named for its elevated tracks, and its lines meet around the Loop, the ring of track downtown. Metra commuter trains run from downtown stations out to the suburbs."},
       {"title": "Tap anywhere", "layers": ["sides", "ca", "knownas", "streets", "hwy", "metra", "cta"], "pin": {}, "view": "city", "text": "Tap any spot or search an address, and the card shows the boundaries it falls in, what living there is like, transit nearby and who represents it. Compare puts two places side by side. Switch layers on and off in the panel to explore."}
+    ]
+  },
+  "presets": {
+    "label": "Views",
+    "customText": "Custom",
+    "customNote": "Changed from {name}. Pick a view again to go back to it.",
+    "boundaryLabel": "Boundaries",
+    "electionText": "Next on the ballot: {label}",
+    "window": 180,
+    "items": [
+      {"id": "explore", "name": "Explore downtown", "note": "Landmarks, towers and heritage in the Loop, River North and Streeterville, with the ‘L’ and Metra.", "layers": ["sides", "knownas", "landmarks", "towers", "heritage", "hbld", "streets", "metra", "cta", "stnNames"], "view": [[41.866, -87.66], [41.905, -87.608]]},
+      {"id": "local", "name": "Know your city", "note": "Every community area coloured by its transit trip to the Loop. Try the other lenses below.", "layers": ["ca", "lens", "knownas", "streets", "cta", "stnNames", "bus"], "lens": "loop", "bus": ["exp"], "view": "city"},
+      {"id": "civic", "name": "Who represents me", "note": "Search your address or tap the map to see your districts and every representative.", "layers": ["streets"], "boundaries": ["wards", "house", "congress", "school"], "lead": "wards", "view": "city", "hint": "Enter your address to find your ward, districts and representatives."},
+      {"id": "newcomer", "name": "Where to live", "note": "Housing cost by community area, with frequent transit. Tap a spot for transit nearby and what's changing.", "layers": ["ca", "lens", "knownas", "streets", "cta", "stnNames", "bus"], "lens": "cost", "bus": ["freq"], "view": "city"},
+      {"id": "transit", "name": "Getting around", "note": "The ‘L’, frequent and express buses, Metra, and the line being built.", "layers": ["streets", "cta", "stnNames", "bus", "metra", "build"], "bus": ["freq", "exp"], "view": "city"}
+    ],
+    "elections": [
+      {"date": "2026-11-03", "lead": "school", "label": "School board, Illinois General Assembly and Congress, November 3"},
+      {"date": "2027-02-23", "lead": "wards", "label": "Mayor and City Council, February 23, 2027"}
     ]
   },
   "card": {

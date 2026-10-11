@@ -29,6 +29,15 @@
   leaves `unlisted` cities out of the other cities' switchers. Toronto and Chicago look the same.
 
 ### Both cities
+- **Views** (October 11, Toronto and Chicago): a chip row at the top of the panel with five one-tap views:
+  Explore downtown, Know your city (neighbourhood/community area lens on the transit time downtown, express
+  buses), Who represents me, Where to live (housing cost, frequent transit) and Getting around. Each replaces
+  the whole map state and frames its area; changing anything after that shows "Custom". Who represents me
+  shows one set of boundaries at a time with chips to switch, leading with the layer of the next election
+  within 180 days (Toronto: City wards for October 26; Chicago: school board districts for November 3, then
+  wards for February 23), and a hint under the search box until a spot is pinned. Links carry `preset=`;
+  Reset and first load are unchanged. For the iOS app: a new optional `presets` key in `city.json`
+  (contract section 5), which it can ignore.
 - **Rent relabelled** (October 11, all three cities): the Housing row reads "renters pay $X/mo" instead of
   "rent $X/mo", and each city's caveat says what the figure counts: what renting households pay, utilities
   included, long-time tenants and subsidized homes too (basement suites in Toronto and Vancouver), so it sits

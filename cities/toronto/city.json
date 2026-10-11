@@ -152,6 +152,27 @@
       {"title": "Tap anywhere", "layers": ["boroughs", "areas", "nbhd", "cultural", "streets", "hwy", "go", "subway"], "pin": {}, "view": "city", "text": "Tap any spot or search an address, and the card shows the boundaries it falls in, what living there is like, transit nearby and who represents it. Compare puts two places side by side. Switch layers on and off in the panel to explore."}
     ]
   },
+  "presets": {
+    "label": "Views",
+    "customText": "Custom",
+    "customNote": "Changed from {name}. Pick a view again to go back to it.",
+    "boundaryLabel": "Boundaries",
+    "electionText": "Next on the ballot: {label}",
+    "window": 180,
+    "items": [
+      {"id": "explore", "name": "Explore downtown", "note": "Landmarks, towers and heritage downtown, with the subway, streetcars and GO.", "layers": ["boroughs", "areas", "cultural", "landmarks", "towers", "heritage", "hbld", "streets", "go", "subway", "stnNames", "tram"], "view": [[43.637, -79.413], [43.672, -79.358]]},
+      {"id": "local", "name": "Know your city", "note": "Every neighbourhood coloured by its transit trip to Union. Try the other lenses below.", "layers": ["nbhd", "lens", "cultural", "streets", "subway", "stnNames", "tram", "bus"], "lens": "union", "bus": ["exp"], "view": "city"},
+      {"id": "civic", "name": "Who represents me", "note": "Search your address or tap the map to see your ward and every representative.", "layers": ["streets"], "boundaries": ["wards", "prov", "fed", "school"], "lead": "wards", "view": "city", "hint": "Enter your address to find your ward, riding and representatives."},
+      {"id": "newcomer", "name": "Where to live", "note": "Housing cost by neighbourhood, with frequent transit. Tap a spot for transit nearby and what's changing.", "layers": ["nbhd", "lens", "cultural", "streets", "subway", "stnNames", "tram", "bus"], "lens": "cost", "bus": ["freq"], "view": "city"},
+      {"id": "transit", "name": "Getting around", "note": "Subway, streetcars, frequent and express buses, GO trains and buses, and lines being built.", "layers": ["streets", "subway", "stnNames", "tram", "bus", "go", "gobus", "build"], "bus": ["freq", "exp"], "view": "city"}
+    ],
+    "elections": [
+      {"date": "2026-10-26", "lead": "wards", "label": "City council and school boards, October 26"},
+      {"date": "2029-06-07", "lead": "prov", "label": "Ontario election, June 7, 2029 (scheduled)"},
+      {"date": "2029-10-15", "lead": "fed", "label": "Federal election, October 15, 2029 (scheduled)"},
+      {"date": "2030-10-28", "lead": "wards", "label": "City council and school boards, October 28, 2030"}
+    ]
+  },
   "card": {
     "pills": [
       {"layer": "areas", "else": "boroughs"},
