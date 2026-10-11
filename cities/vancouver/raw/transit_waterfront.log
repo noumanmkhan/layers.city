@@ -1,0 +1,25 @@
+  got https://gtfs-static.translink.ca/gtfs/google_transit.zip 15771 KB
+  got https://download.bbbike.org/osm/bbbike/Vancouver/Vancouver.osm.pbf 63630 KB
+feed ranges [('20260907', '20270103')]
+departure 2026-10-20 08:00:00
+753 origin points, 1 destination
+Traceback (most recent call last):
+  File "GTFSFeed.java", line 885, in com.conveyal.gtfs.GTFSFeed.writableTempFileFromGtfs
+java.lang.java.lang.IllegalArgumentException: java.lang.IllegalArgumentException: Invalid number of points in LineString (found 1 - must be 0 or >= 2)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "GTFSFeed.java", line 890, in com.conveyal.gtfs.GTFSFeed.writableTempFileFromGtfs
+Exception: Java Exception
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch_transit_waterfront.py", line 141, in <module>
+    net = TransportNetwork(pbf, feeds)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 124, in __init__
+    gtfs_feed = com.conveyal.gtfs.GTFSFeed.writableTempFileFromGtfs(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+java.lang.java.lang.RuntimeException: java.lang.RuntimeException: java.lang.IllegalArgumentException: Invalid number of points in LineString (found 1 - must be 0 or >= 2)
