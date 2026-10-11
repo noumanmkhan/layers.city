@@ -5,7 +5,7 @@ A city is divided up in a dozen ways at once: official neighbourhoods, council w
 The maps share one engine, with a folder of data and settings per city:
 
 - **Toronto Layers:** https://maps.noumankhan.ca/toronto/
-- **Chicago Layers** (work in progress): https://maps.noumankhan.ca/chicago/
+- **Chicago Layers**: https://maps.noumankhan.ca/chicago/
 
 ## Toronto Layers
 
@@ -128,7 +128,7 @@ The boundary lookup runs in the browser with point-in-polygon tests against ever
 
 ## Chicago Layers
 
-**Live site (work in progress):** https://maps.noumankhan.ca/chicago/
+**Live site:** https://maps.noumankhan.ca/chicago/
 
 The second city runs on the same engine with its own data and config (`cities/chicago/`). Chicago's layers line up with Toronto's:
 
