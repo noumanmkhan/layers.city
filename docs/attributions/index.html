@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Attributions · Maps · Nouman Khan</title>
+<meta name="description" content="The data sources, licences and open-source software behind the maps on maps.noumankhan.ca and the City Layers app.">
+<link rel="canonical" href="https://maps.noumankhan.ca/attributions/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maps.noumankhan.ca/attributions/">
+<meta property="og:title" content="Attributions · Maps · Nouman Khan">
+<meta property="og:description" content="The data sources, licences and open-source software behind the maps on maps.noumankhan.ca and the City Layers app.">
+<meta property="og:image" content="https://noumankhan.ca/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nouman Khan, noumankhan.ca">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#F2F4F3">
+
+<link rel="preload" href="/fonts/archivo-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2')}
+
+:root{
+  --bg:#F2F4F3; --card:#FFFFFF; --ink:#16201C; --ink-2:#3A4641; --ink-3:#4A5651; --rule:#C9D0CD;
+  --accent:#0B5F55; --accent-soft:rgba(11,95,85,.15); --grid:rgba(22,32,28,.06);
+  --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px}
+a{color:inherit;text-decoration:none}
+.page{min-height:100vh;display:flex;flex-direction:column}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding-left:24px;padding-right:24px}
+
+header{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.08em}
+.mark .sub{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.08em;color:var(--accent)}
+.mark .sep{width:1.5px;height:16px;background:var(--rule)}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--rule)}
+.pill .short{display:none}
+.pill.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+
+main{flex-grow:1;padding-top:72px;padding-bottom:64px;display:flex;flex-direction:column;gap:56px}
+.hero{display:flex;flex-direction:column;gap:20px;max-width:760px}
+.coords{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--accent)}
+h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,84px);line-height:.98;letter-spacing:-.02em}
+.lede{margin:0;font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--ink-2)}
+
+.line{display:flex;align-items:center}
+.line span{width:14px;height:14px;border-radius:50%;border:3px solid var(--accent);background:var(--bg)}
+.line s{flex-grow:1;height:4px;background:var(--accent)}
+
+.group{display:flex;flex-direction:column;gap:20px}
+.label{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.12em;color:var(--ink-3)}
+.label::after{content:"";flex-grow:1;height:1px;background:var(--rule)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:24px}
+.card{display:flex;flex-direction:column;gap:20px;background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:32px}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.icon{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;background:var(--accent);flex:none}
+.icon.dark{background:var(--ink)}
+.host{font-family:var(--mono);font-size:13px;color:var(--ink-3);overflow-wrap:break-word;text-align:right}
+.card h2{margin:0 0 10px;font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
+.card p{margin:0;font-size:17px;line-height:1.6;color:var(--ink-2)}
+.go{margin-top:auto;display:flex;align-items:center;gap:8px;font-weight:500;font-size:16px;color:var(--accent)}
+.go.dark{color:var(--ink)}
+
+/* Print-map card: a thumbnail on top, then the same text layout */
+.card.print{padding:0;overflow:hidden;gap:0}
+.card.print .thumb{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--bg);border-bottom:1.5px solid var(--rule)}
+.card.print .body{display:flex;flex-direction:column;gap:16px;padding:28px 32px 32px;flex-grow:1}
+.card.print h2{font-size:24px}
+
+/* Placeholder shown until the first print map is published */
+.soon{display:flex;flex-direction:column;gap:14px;border:1.5px dashed var(--rule);border-radius:14px;padding:32px;background:rgba(255,255,255,.5)}
+.card .tag{display:inline-block;margin-bottom:12px}
+.soon .tag,.card .tag{align-self:flex-start;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:5px 12px}
+.soon h2{margin:0;font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.01em}
+.soon p{margin:0;font-size:17px;line-height:1.6;color:var(--ink-2)}
+
+.pill,.card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.pill:hover,.card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(22,32,28,.10);border-color:var(--ink)}
+.pill:focus-visible,.card:focus-visible,.mark a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.pill,.card{transition:none}.pill:hover,.card:hover{transform:none}}
+
+footer{padding-top:24px;padding-bottom:24px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-family:var(--mono);font-size:13px;color:var(--ink-3)}
+footer a:hover{color:var(--ink)}
+.made{display:flex;align-items:center;gap:8px}
+@media (max-width:520px){.pill .full{display:none}.pill .short{display:inline}main{padding-top:40px;gap:40px}.card,.soon{padding:24px}.card.print .body{padding:22px 24px 24px}}
+
+/* Document pages (privacy, attributions) */
+main.doc{padding-top:56px;gap:40px}
+.doc .hero{gap:16px}
+.toc{display:flex;flex-wrap:wrap;gap:10px}
+.toc a{display:flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--rule)}
+.toc a:hover{border-color:var(--ink)}
+.summary{background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:28px 32px}
+.summary h2,.policy h2{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
+.policy{background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:32px;max-width:860px;scroll-margin-top:24px}
+.policy h3{margin:28px 0 8px;font-family:var(--display);font-weight:700;font-size:19px}
+.policy p,.policy li,.summary p,.summary li{font-size:17px;line-height:1.6;color:var(--ink-2)}
+.policy p,.summary p{margin:0 0 12px}
+.policy ul,.summary ul{margin:0 0 12px;padding-left:22px}
+.policy li,.summary li{margin-bottom:6px}
+.policy a,.summary a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.policy code{font-family:var(--mono);font-size:15px}
+.dated{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--ink-3)}
+@media (max-width:520px){.policy,.summary{padding:24px}main.doc{padding-top:32px}}
+
+/* Attributions page */
+.policy .src{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-direction:column}
+.policy .src li{margin:0;padding:16px 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,15rem);gap:6px 24px}
+.src li:first-child{border-top:0;padding-top:4px}
+.src .who{font-weight:500;color:var(--ink);font-size:17px;line-height:1.45}
+.src .use{grid-column:1;margin:2px 0 0;font-size:16px;line-height:1.55;color:var(--ink-2)}
+.src .lic{grid-column:2;grid-row:1 / span 2;font-family:var(--mono);font-size:13px;line-height:1.5;color:var(--ink-3)}
+.src .lic a{color:var(--accent)}
+.policy h3:first-of-type{margin-top:20px}
+@media (max-width:640px){.src li{grid-template-columns:1fr}.src .lic{grid-column:1;grid-row:auto}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="wrap">
+    <div class="mark">
+      <a href="https://noumankhan.ca">NOUMAN KHAN</a>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="sub" href="/">MAPS</a>
+    </div>
+    <nav class="links" aria-label="Elsewhere">
+      <a class="pill" href="/">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2.5 8 12 13l9.5-5L12 3Z"/><path d="m2.5 12 9.5 5 9.5-5"/><path d="m2.5 16 9.5 5 9.5-5"/></svg>
+        <span class="full">All maps</span><span class="short">Maps</span>
+      </a>
+    </nav>
+  </header>
+
+  <main class="wrap doc">
+    <section class="hero">
+      <div class="coords">LAST UPDATED · OCTOBER 11, 2026</div>
+      <h1>Attributions</h1>
+      <p class="lede">Every map here is built from other people’s open data and open-source software. This page lists each source, what it’s used for, and the terms it’s used under.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#toronto">Toronto</a>
+        <a href="#chicago">Chicago</a>
+        <a href="#both">Both cities</a>
+        <a href="#software">Software and fonts</a>
+      </nav>
+    </section>
+
+    <section class="summary" aria-labelledby="short">
+      <h2 id="short">In short</h2>
+      <ul>
+        <li>The maps are drawn from public data published by governments, transit agencies and open projects such as OpenStreetMap and Wikipedia. No map tiles are borrowed from other sites.</li>
+        <li>Each data source is used under its own licence or terms of use, linked below. Where a licence asks for credit, the credit is also shown on the map itself.</li>
+        <li>The data is reshaped for the maps (simplified, merged, summarised). Any mistakes in that are mine, not the publishers’, and no publisher endorses these maps.</li>
+        <li>The City Layers iOS app reads the same published files and credits the same sources.</li>
+      </ul>
+    </section>
+
+    <section class="policy" id="toronto" aria-labelledby="toronto-h">
+      <h2 id="toronto-h">Toronto Layers</h2>
+
+      <h3>City of Toronto</h3>
+      <ul class="src">
+        <li>
+          <span class="who">City of Toronto Open Data</span>
+          <p class="use">Neighbourhoods, wards, former municipalities, land and water, street centrelines and expressways, Business Improvement Areas, Heritage Conservation Districts, Parks and Recreation facilities, Toronto Public Library branches, Neighbourhood Profiles (2021 Census), road restrictions for transit construction, and the TTC’s schedules (GTFS).</p>
+          <span class="lic">Contains information licensed under the <a href="https://open.toronto.ca/open-data-licence/">Open Government Licence – Toronto</a></span>
+        </li>
+        <li>
+          <span class="who">Statistics Canada, 2021 Census of Population</span>
+          <p class="use">Housing, commuting, home types, year built, language, ages and recent immigration, through the City’s Neighbourhood Profiles.</p>
+          <span class="lic"><a href="https://www.statcan.gc.ca/en/reference/licence">Statistics Canada Open Licence</a></span>
+        </li>
+        <li>
+          <span class="who">City of Toronto, City Clerk’s Office</span>
+          <p class="use">The 2026 school board ward reference chart (which City wards make up each trustee ward), and the 2026 election candidates and unofficial results.</p>
+          <span class="lic">Public election information, <a href="https://www.toronto.ca/city-government/elections/">toronto.ca</a></span>
+        </li>
+      </ul>
+
+      <h3>Transit</h3>
+      <ul class="src">
+        <li>
+          <span class="who">Toronto Transit Commission (TTC)</span>
+          <p class="use">Streetcar and bus routes, stops and frequencies, subway and LRT lines, and transit times to Union Station. Published through City of Toronto Open Data.</p>
+          <span class="lic"><a href="https://open.toronto.ca/open-data-licence/">Open Government Licence – Toronto</a></span>
+        </li>
+        <li>
+          <span class="who">Metrolinx (GO Transit and UP Express)</span>
+          <p class="use">GO train lines and stations, GO bus routes and stops, and GO and UP Express trips in the transit-time lens.</p>
+          <span class="lic"><a href="https://www.metrolinx.com/en/about-us/open-data">Open Government Licence – Ontario – Metrolinx</a></span>
+        </li>
+      </ul>
+
+      <h3>Representatives and ridings</h3>
+      <ul class="src">
+        <li>
+          <span class="who">Elections Canada, via Open North’s Represent</span>
+          <p class="use">Federal electoral district boundaries (2023 Representation Order).</p>
+          <span class="lic"><a href="https://open.canada.ca/en/open-government-licence-canada">Open Government Licence – Canada</a></span>
+        </li>
+        <li>
+          <span class="who">Elections Ontario, via Open North’s Represent</span>
+          <p class="use">Provincial riding names only. The riding shapes on the map are built from the City’s wards, which share the same lines.</p>
+          <span class="lic"><a href="https://www.elections.on.ca/en/voting-in-ontario/electoral-district-shapefiles/limited-use-data-product-licence-agreement.html">Elections Ontario data licence</a></span>
+        </li>
+        <li>
+          <span class="who">House of Commons, Legislative Assembly of Ontario and City of Toronto</span>
+          <p class="use">Names of the current MP, MPP and city councillor for each riding and ward, from each body’s public member list.</p>
+          <span class="lic">Public information: <a href="https://www.ourcommons.ca/members/en">ourcommons.ca</a>, <a href="https://www.ola.org/en/members/current">ola.org</a>, <a href="https://www.toronto.ca/city-government/council/members-of-council/">toronto.ca</a></span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="policy" id="chicago" aria-labelledby="chicago-h">
+      <h2 id="chicago-h">Chicago Layers</h2>
+
+      <h3>City of Chicago and Chicago Public Schools</h3>
+      <ul class="src">
+        <li>
+          <span class="who">City of Chicago Data Portal</span>
+          <p class="use">Community areas, neighbourhoods, wards and ward offices, the city boundary, Special Service Areas, Landmark Districts, the ‘L’ lines and stops, library branches, DFSS community service centres, CDOT permits for transit construction, and Chicago Public Schools attendance boundaries and school profiles.</p>
+          <span class="lic"><a href="https://www.chicago.gov/city/en/narr/foia/data_disclaimer.html">City of Chicago Data Portal Terms of Use</a></span>
+        </li>
+        <li>
+          <span class="who">Chicago Park District</span>
+          <p class="use">Names and addresses of Park District fieldhouses, for the nearest community centre on the card.</p>
+          <span class="lic">Public facility list, <a href="https://www.chicagoparkdistrict.com/facilities/fieldhouses">chicagoparkdistrict.com</a></span>
+        </li>
+      </ul>
+
+      <h3>U.S. government</h3>
+      <ul class="src">
+        <li>
+          <span class="who">U.S. Census Bureau</span>
+          <p class="use">American Community Survey 2020–2024 tables (housing, commuting, home types, year built, language, ages, period of entry); TIGER boundaries for counties, municipalities, congressional and state legislative districts, tracts and Lake Michigan; and the Census Geocoder for placing addresses.</p>
+          <span class="lic">Public domain (U.S. government work); <a href="https://www.census.gov/data/developers/about/terms-of-service.html">Census Bureau terms</a></span>
+        </li>
+        <li>
+          <span class="who">U.S. Department of Education, NCES (IPEDS)</span>
+          <p class="use">Which universities and colleges appear, and their campuses.</p>
+          <span class="lic">Public domain (U.S. government work)</span>
+        </li>
+        <li>
+          <span class="who">Centers for Medicare &amp; Medicaid Services</span>
+          <p class="use">Which hospitals have an emergency department, and their ownership.</p>
+          <span class="lic">Public domain (U.S. government work), <a href="https://data.cms.gov/provider-data/">data.cms.gov</a></span>
+        </li>
+        <li>
+          <span class="who">Clerk of the U.S. House of Representatives</span>
+          <p class="use">The current U.S. representative for each congressional district.</p>
+          <span class="lic">Public domain (U.S. government work)</span>
+        </li>
+      </ul>
+
+      <h3>Transit</h3>
+      <ul class="src">
+        <li>
+          <span class="who">Chicago Transit Authority (CTA)</span>
+          <p class="use">Bus routes, stops and frequencies, and CTA trips in the transit-time lens. Data provided by Chicago Transit Authority.</p>
+          <span class="lic"><a href="https://www.transitchicago.com/developers/terms/">CTA Developer License Agreement &amp; Terms of Use</a></span>
+        </li>
+        <li>
+          <span class="who">Metra</span>
+          <p class="use">Metra lines, stations and trips.</p>
+          <span class="lic"><a href="https://metra.com/developers">Metra developer license agreement</a></span>
+        </li>
+        <li>
+          <span class="who">Northern Indiana Commuter Transportation District (South Shore Line)</span>
+          <p class="use">South Shore Line trips in the transit-time lens.</p>
+          <span class="lic">Published GTFS feed, <a href="https://www.mysouthshoreline.com/">mysouthshoreline.com</a></span>
+        </li>
+      </ul>
+
+      <h3>Representatives and the school board</h3>
+      <ul class="src">
+        <li>
+          <span class="who">Open States (Plural)</span>
+          <p class="use">Current Illinois state representatives and senators.</p>
+          <span class="lic"><a href="https://open.pluralpolicy.com/data/">Public domain dedication</a></span>
+        </li>
+        <li>
+          <span class="who">Illinois Senate Redistricting Committee</span>
+          <p class="use">Chicago Board of Education districts enacted by Public Act 103-0584.</p>
+          <span class="lic">Public record, <a href="https://www.ilsenateredistricting.com/">ilsenateredistricting.com</a></span>
+        </li>
+        <li>
+          <span class="who">Chicago Board of Election Commissioners</span>
+          <p class="use">Board of Education candidates for November 3, 2026, and the results once posted.</p>
+          <span class="lic">Public election information, <a href="https://www.chicagoelections.gov/">chicagoelections.gov</a></span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="policy" id="both" aria-labelledby="both-h">
+      <h2 id="both-h">Used for both cities</h2>
+      <ul class="src">
+        <li>
+          <span class="who">OpenStreetMap contributors</span>
+          <p class="use">Neighbouring municipalities and the lakeshore around Toronto, highways, Chicago’s streets and expressways, named places for search, universities, colleges and hospitals, parks and playgrounds, transit lines under construction, and the walking network for transit times. Some come through extracts by Geofabrik, BBBike and the osm-boundaries project.</p>
+          <span class="lic">© OpenStreetMap contributors, <a href="https://www.openstreetmap.org/copyright">Open Database Licence (ODbL)</a></span>
+        </li>
+        <li>
+          <span class="who">Nominatim (OpenStreetMap Foundation)</span>
+          <p class="use">Address search on the website, and placing a few landmarks and towers.</p>
+          <span class="lic"><a href="https://operations.osmfoundation.org/policies/nominatim/">Nominatim Usage Policy</a></span>
+        </li>
+        <li>
+          <span class="who">OSRM (Project OSRM)</span>
+          <p class="use">Free-flow drive times to downtown in the suburban lens, on OpenStreetMap roads.</p>
+          <span class="lic"><a href="https://github.com/Project-OSRM/osrm-backend/wiki/Demo-server">OSRM demo server usage policy</a></span>
+        </li>
+        <li>
+          <span class="who">Wikipedia contributors</span>
+          <p class="use">Facts about skyscrapers: height, floors, year, use and location, from each city’s “List of tallest buildings” and the linked articles. The card’s short descriptions are written for this site.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>; Wikidata ids <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a></span>
+        </li>
+        <li>
+          <span class="who">ESA WorldCover</span>
+          <p class="use">Tree canopy: © ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021) processed by ESA WorldCover consortium.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, <a href="https://esa-worldcover.org">esa-worldcover.org</a></span>
+        </li>
+        <li>
+          <span class="who">Natural Earth</span>
+          <p class="use">The Great Lakes away from each city’s shore.</p>
+          <span class="lic"><a href="https://www.naturalearthdata.com/about/terms-of-use/">Public domain</a></span>
+        </li>
+        <li>
+          <span class="who">toronto-bus-map (Miqell24)</span>
+          <p class="use">Toronto’s subway, LRT and GO train lines and stations, extracted from that project’s files, which are built from the TTC and Metrolinx schedules credited above.</p>
+          <span class="lic">Underlying data: TTC and Metrolinx licences above</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="policy" id="software" aria-labelledby="sw-h">
+      <h2 id="sw-h">Software and fonts</h2>
+      <ul class="src">
+        <li>
+          <span class="who">Leaflet</span>
+          <p class="use">Draws the interactive map.</p>
+          <span class="lic"><a href="https://github.com/Leaflet/Leaflet/blob/main/LICENSE">BSD 2-Clause</a></span>
+        </li>
+        <li>
+          <span class="who">Leaflet.PolylineOffset</span>
+          <p class="use">Draws transit lines that share a street side by side.</p>
+          <span class="lic"><a href="https://github.com/bbecquet/Leaflet.PolylineOffset">MIT</a></span>
+        </li>
+        <li>
+          <span class="who">html-to-image</span>
+          <p class="use">Saves the map as a picture.</p>
+          <span class="lic"><a href="https://github.com/bubkoo/html-to-image">MIT</a></span>
+        </li>
+        <li>
+          <span class="who">mapshaper, Shapely, r5py and R5</span>
+          <p class="use">Build tools that simplify shapes and compute transit times. They run when the maps are built, not in your browser.</p>
+          <span class="lic">Each under its own open-source licence</span>
+        </li>
+        <li>
+          <span class="who">Inter, Archivo and IBM Plex</span>
+          <p class="use">Typefaces for the maps (Inter, from Google Fonts) and for these pages (Archivo, IBM Plex Sans and Mono).</p>
+          <span class="lic"><a href="https://openfontlicense.org/">SIL Open Font License 1.1</a></span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="policy" id="contact" aria-labelledby="contact-h">
+      <h2 id="contact-h">Corrections</h2>
+      <p>If you publish one of these sources and something here is missing or wrong, or you’d like the credit worded differently, write to <a href="mailto:hello@noumankhan.ca">hello@noumankhan.ca</a> and I’ll fix it.</p>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <a href="https://noumankhan.ca">© 2026 Nouman Khan</a>
+    <a href="/privacy/">Privacy</a>
+    <a href="/">All maps</a>
+  </footer>
+</div>
+</body>
+</html>
