@@ -1,13 +1,21 @@
-fields: ['address', 'architect', 'date_built', 'id', 'landmark_designation_date', 'landmark_name', 'lat', 'latitude', 'lon', 'longitude']
-rows: 317 · with a point: 317
-  address 317 values, e.g. ['2543 - 2545 W Diversey Av', '4122 S Ellis Av', '431 S Dearborn St', '100 W 33rd St', '4726 S Dr Martin Luther King Jr Dr']
-  architect 199 values, e.g. ['None', 'Frank Lloyd Wright', 'Architect Unknown', 'Unknown', 'Adler & Sullivan']
-  date_built 139 values, e.g. ['None', '1892', '1928', '1886', '1901']
-  id 316 values, e.g. ['L- 78', 'L-265', 'L- 89', 'L-139', 'L- 12']
-  landmark_designation_date 162 values, e.g. ['2007-12-12T08:00:00.000Z', '2003-10-01T07:00:00.000Z', 'None', '1996-04-16T07:00:00.000Z', '2011-07-06T07:00:00.000Z']
-  landmark_name 314 values, e.g. ['Illinois Central Swing Bridge', 'American System-Built Houses', 'Gauler Twin House', 'Vassar Swiss Underwear Company Building', 'Mathilde Eliel House']
-  lat 317 values, e.g. ['41.9316266084', '41.819255751', '41.8760657234', '41.8351614122', '41.808529769']
-  latitude 317 values, e.g. ['41.93162660840', '41.81925575100', '41.87606572340', '41.83516141220', '41.80852976900']
-  lon 317 values, e.g. ['-87.6921000957', '-87.6027879992', '-87.6289644505', '-87.6292212235', '-87.6172043949']
-  longitude 317 values, e.g. ['-87.69210009570', '-87.60278799920', '-87.62896445050', '-87.62922122350', '-87.61720439490']
-wrote /home/runner/work/city-layers/city-layers/cities/chicago/raw/heritage_buildings.json 92 KB
+fields: ['address', 'architect', 'date_built', 'id', 'landmark', 'lat', 'lon', 'name', 'valid_date']
+rows: 412 · with a point: 412
+  address 412 values, e.g. ['833 W. Aldine Avenue', '5749 W Race Av', '509 W Wrightwood Av', '3600 N. Halsted St', '1800 S Prairie Av']
+  architect 293 values, e.g. ['Unknown', 'Frank Lloyd Wright', 'None', 'Karl M. Vitzthum & Co.', 'Holabird and Roche']
+  date_built 215 values, e.g. ['1892', '1928', '1886', '1927', '1914']
+  id 412 values, e.g. ['L-349', 'L-224', 'L- 82', 'L-322', 'L-104']
+  landmark 231 values, e.g. ['2003-10-01T00:00:00.000', '2007-12-12T00:00:00.000', '2008-10-08T00:00:00.000', '1996-04-16T00:00:00.000', '2011-07-06T00:00:00.000']
+  lat 410 values, e.g. ['41.885489', '41.892881', '41.941506', '41.889759', '41.930278']
+  lon 410 values, e.g. ['-87.624979', '-87.629221', '-87.650642', '-87.769717', '-87.641769']
+  name 407 values, e.g. ['(Former) Schlitz Brewery-Tied House', 'Illinois Central Swing Bridge', 'Gauler Twin House', 'American System-Built Houses', 'Charles M. Netterstrom House']
+  valid_date {'2026-04-17T00:00:00.000': 412}
+wrote /home/runner/work/city-layers/city-layers/cities/chicago/raw/heritage_buildings.json 103 KB
+chicago: 412 heritage buildings (412 named, 383 with an architect) · 91 KB
+   {'n': '(Former) Anshe Sholom Synagogue Building', 'a': '754 S. Independence Blvd', 'y': '1924', 'ar': 'Newhouse and Bernham', 'd': '2014', 'id': 'L-330'}
+   {'n': '(Former) Belmont-Sheffield Trust & Savings Bldg', 'a': '3150 N Sheffield Ave', 'y': '1928', 'ar': 'John A. Nyden & Co.', 'd': '2008', 'id': 'L-258'}
+   {'n': '(Former) Calumet National Bank Bldg', 'a': '9117 S Commercial Ave', 'y': '1910', 'ar': 'John A. Domicksen', 'd': '2008', 'id': 'L-259'}
+   {'n': '(Former) Chicago City Bank & Trust Co.', 'a': '815-815 W 63rd St', 'y': '1930', 'ar': 'Abraham Epstein', 'd': '2008', 'id': 'L-266'}
+   {'n': '(Former) Chicago Historical Society Building', 'a': '632 N Dearborn St', 'y': '1892', 'ar': 'Henry Ives Cobb', 'd': '1997', 'id': 'L- 96'}
+   {'n': 'Wrigley Field', 'a': '1060 W Addison St', 'y': '1914', 'ar': 'Zachary T. & Charles G. Davis', 'd': '2004', 'id': 'L- 04'}
+   {'n': 'Yale Apartments', 'a': '6565 S Yale Ave', 'y': '1892', 'ar': 'John T. Long', 'd': '2003', 'id': 'L-215'}
+   {'n': 'Yondorf Block and Hall', 'a': '758 W North Ave', 'y': '1887', 'ar': 'Frederick Ahlschlager', 'd': '2001', 'id': 'L-216'}
