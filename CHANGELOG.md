@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Vancouver (in progress, unlisted)
+- **First build** (October 11): maps.noumankhan.ca/vancouver/, kept out of the other cities' switchers and the
+  maps hub (`"unlisted": true` in its `city.json`) until it's announced. Downtown / West Side / East Side, the
+  City's 22 local areas (plus Stanley Park, which belongs to none of them), known-as names, landmarks, main
+  streets, BC highways, SkyTrain and SeaBus, the West Coast Express, and a local area lens with Living here
+  rows from the 2021 Census (dissemination areas summed into local areas; the City publishes no 2021 local-area
+  profiles). Representatives come after the October 17 civic and October 24 provincial elections. For the iOS
+  app: `la_profiles.json`, a unit with `park` and no profile; contract sections 3 and 4. Additive.
+- **Engine**: a unit with no figures takes no lens fill (it showed Leaflet's default blue); `assemble.py`
+  leaves `unlisted` cities out of the other cities' switchers. Toronto and Chicago look the same.
+
 ### Both cities
 - **Narrow it down: Most common home** (October 11): pick detached, semi & row, low-rise or towers (Chicago:
   detached, attached, 2–19 or 20+ units) and only places where that is the commonest home type stay. A filter

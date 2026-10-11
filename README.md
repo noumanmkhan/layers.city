@@ -160,6 +160,12 @@ The community area lens uses the American Community Survey (2020–2024 five-yea
 
 *To the Loop* is Chicago's version of Toronto's time to Union: the typical transit trip on a weekday morning, from about 3,700 points 400 m apart across the 77 community areas, routed with r5py on the CTA, Metra and South Shore Line schedules. Because the Loop is a district rather than one station, each point counts its quickest arrival at any of five spots: Union Station or Ogilvie, LaSalle/Van Buren, Clark/Lake, State & Madison, or Millennium Station. It's banded like Toronto's (under 30 minutes, 30–45, 45–60, over an hour) and works with *Narrow it down*.
 
+## Vancouver Layers (in progress)
+
+**Address:** https://maps.noumankhan.ca/vancouver/ (live but not linked from the maps hub yet)
+
+The third city, on the same engine (`cities/vancouver/`). The first build has the base: Downtown and the East and West Sides (Ontario Street splits east from west), the City's 22 local areas plus Stanley Park, 21 known-as names (Gastown, Yaletown, Commercial Drive, Punjabi Market…), landmarks, main streets, BC highways across Metro Vancouver, SkyTrain and SeaBus, and the West Coast Express. The local area lens and Living here rows use the 2021 Census: the City hasn't published 2021 profiles for its local areas, so Statistics Canada's dissemination areas are summed into them. Vancouver elects its council, park board and school board at large, so there are no wards; representatives (mayor, council, MLA, MP) come after the October 2026 civic and provincial elections. Sources and quirks are in `cities/vancouver/SOURCES.md`.
+
 ## How it's built
 
 - **One engine, one folder per city.** The map page is a shared engine (`engine/`) that knows how to draw kinds of layer: filled areas, official neighbourhoods, representation boundaries, business areas, streets, highways, regional rail and rapid transit. Everything about Toronto lives in `cities/toronto/`: `city.json` holds the layer list, labels, lenses and the rows of the "What's here" card, and `city.css` holds Toronto's colours. Adding a city means adding its data and config, not changing the engine.

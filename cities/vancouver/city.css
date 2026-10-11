@@ -1,0 +1,22 @@
+/* Vancouver's own colours: the three sides, SkyTrain lines (TransLink's colours), SeaBus and the
+   West Coast Express swatch. Everything else (page, civic layers, lenses, streets) comes from the engine. */
+:root{
+  --s-downtown:#EE6E73; --s-west:#7DAFE0; --s-east:#95CA7E;
+  --l-expo:#1D59AF; --l-millennium:#FDD005; --l-canada:#0098C9; --l-seabus:#7D6A5C;
+  --wce:#6B2C91;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --s-downtown:#C2484E; --s-west:#4C7FB5; --s-east:#5E9A48;
+  --l-expo:#5B8FE0; --l-seabus:#B29C8B; --wce:#A47CC8;
+}}
+:root[data-theme="dark"]{
+  --s-downtown:#C2484E; --s-west:#4C7FB5; --s-east:#5E9A48;
+  --l-expo:#5B8FE0; --l-seabus:#B29C8B; --wce:#A47CC8;
+}
+.sw.sides{background:conic-gradient(var(--s-west) 0 40%,var(--s-downtown) 0 60%,var(--s-east) 0)}
+.sw.skytrain{background:linear-gradient(var(--l-expo) 0 33%,var(--l-millennium) 0 66%,var(--l-canada) 0)}
+.sw.wce{background:var(--wce)}
+.fill-major.downtown{fill:var(--s-downtown)} .fill-major.west-side{fill:var(--s-west)} .fill-major.east-side{fill:var(--s-east)}
+.sub-line.lexpo{stroke:var(--l-expo)} .sub-line.lmillennium{stroke:var(--l-millennium)} .sub-line.lcanada{stroke:var(--l-canada)}
+/* SeaBus is a ferry: dashed across the water, thinner than the trains. */
+.sub-line.lseabus{stroke:var(--l-seabus);stroke-dasharray:6 5}

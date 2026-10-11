@@ -47,7 +47,7 @@ All coordinates are WGS84. GeoJSON positions are `[longitude, latitude]`; most o
 | `base.geojson` | Outline shapes. `properties.kind`: `city` (the city itself), `neighbour` (each surrounding municipality, with `name`, `region`, `lp`, `drive`), `outside` (land beyond the region). |
 | `regions.geojson` | Label points for regions/counties. Not needed for the card. |
 | Layer files | One per map layer, named by `file`/`files` in `city.json` `groups`. Section 5 lists the ones the card uses. |
-| `nbhd_profiles.json` / `ca_profiles.json` | Census figures per neighbourhood / community area. File name is `lens.file` in `city.json`. Section 7. |
+| `nbhd_profiles.json` / `ca_profiles.json` / `la_profiles.json` | Census figures per neighbourhood / community area / local area (Vancouver, in progress). File name is `lens.file` in `city.json`. Section 7. A unit with no entry here (Vancouver's Stanley Park, code 23) has no Living here rows and takes no lens tier. |
 | `representatives.json` | Who holds each seat. Section 8. |
 | `drive_grid.json` | Free-flow drive minutes to the hub on a ~1.5 km grid, outside the city. Section 6. |
 | `region_places.json` | Toronto only: ~470 named GTA communities. `[{name, muni, region, kind, at:[lon,lat]}]`. |
@@ -78,7 +78,7 @@ Properties that appear on many features: `name`, `lp` (a label point, `[lon, lat
   Scotiabank Arena; may be empty).
 - **Known-as names** (the `knownas`-kind layer; `cultural.geojson` in Toronto,
   `knownas.geojson` in Chicago): `name` and `kind` (`district`, `village`, `enclave`).
-- **Units** (the `units`-kind layer): `name` and `code`.
+- **Units** (the `units`-kind layer): `name` and `code`. A unit that isn't one of the city's official units carries a text `park` (Vancouver's Stanley Park, code 23: "a park, not one of the 22"); it has no profile.
 - **`region_places.json`** (Toronto only): see the table above; an entry may also have `alt`,
   a list of other names.
 - **Institutions** (`places` layers): `name`, plus the layer's `aliases` for that name (U of T, UIC…).
@@ -102,6 +102,7 @@ How the website's search does it, for an app that wants to match:
 ## 4. city.json: the parts an app uses
 
 - `id`, `schema`, `title`, `locale` (`en-CA` or `en-US`, for number and date formatting).
+- `unlisted` (optional, `true`): the city is published but not announced yet (Vancouver, October 2026): the other cities' switchers and the maps hub leave it out. An app can skip it.
 - `distance` (optional): the unit for distances shown on the card, `"km"` (the default when absent; Toronto) or `"mi"` (Chicago). Config values such as `card.nearby.radius` stay in metres either way.
 - `units.singular` / `units.plural`: what the city calls its units ("Neighbourhood",
   "community areas").

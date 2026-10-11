@@ -93,7 +93,7 @@ for k in KNOWN_AS: k.setdefault('osm', k['name'])
 
 # Street names as Vancouver writes them on signs: a short direction before, a short suffix after
 # ("West Broadway" -> "W Broadway", "East 41st Avenue" -> "E 41st Ave").
-DIRS = {'West': 'W', 'East': 'E', 'North': 'N', 'South': 'S'}
+DIRS = {'West': 'W', 'East': 'E', 'North': 'N', 'South': 'S', 'Southwest': 'SW', 'Southeast': 'SE', 'Northwest': 'NW', 'Northeast': 'NE'}
 SUFFIX = {'Avenue': 'Ave', 'Street': 'St', 'Road': 'Rd', 'Boulevard': 'Blvd', 'Drive': 'Dr', 'Parkway': 'Pkwy',
           'Highway': 'Hwy', 'Place': 'Pl', 'Crescent': 'Cres', 'Diversion': 'Diversion', 'Way': 'Way'}
 
