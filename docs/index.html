@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Layers.City · Maps that explain how a city fits together</title>
-<meta name="description" content="Layers.City: Toronto Layers and Chicago Layers, interactive maps of every way each city is divided, plus high-resolution print maps. By Nouman Khan.">
+<meta name="description" content="Layers.City: interactive maps of Toronto and Chicago that show every way each city is divided, plus high-resolution print maps. By Nouman Khan.">
 <link rel="canonical" href="https://layers.city/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://layers.city/">
 <meta property="og:site_name" content="Layers.City">
 <meta property="og:title" content="Layers.City">
-<meta property="og:description" content="Toronto Layers and Chicago Layers, interactive maps of every way each city is divided, plus high-resolution print maps.">
+<meta property="og:description" content="Interactive maps of Toronto and Chicago that show every way each city is divided, plus high-resolution print maps.">
 <meta property="og:image" content="https://layers.city/og-layers.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -101,9 +101,18 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,
 
 /* Print-map card: a thumbnail on top, then the same text layout */
 .card.print{padding:0;overflow:hidden;gap:0}
-.card.print .thumb{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--bg);border-bottom:1.5px solid var(--rule)}
+.card.print .thumb{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--bg);border-bottom:1.5px solid var(--rule)}
 .card.print .body{display:flex;flex-direction:column;gap:16px;padding:28px 32px 32px;flex-grow:1}
 .card.print h2{font-size:24px}
+
+/* City map card: the city's outline on a grid, then Layers.City with the city as a subheading */
+.card.map{padding:0;overflow:hidden;gap:0}
+.card.map .thumb{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--bg);border-bottom:1.5px solid var(--rule)}
+.card.map .body{display:flex;flex-direction:column;gap:20px;padding:24px 32px 32px;flex-grow:1}
+.card.map .host{text-align:left;margin-bottom:12px}
+.card.map h2{margin:0}
+.card.map h2 b{font-weight:700;color:var(--accent)}
+.card.map h3{margin:2px 0 12px;font-family:var(--display);font-weight:700;font-size:20px;color:var(--ink-3)}
 
 /* Placeholder shown until the first print map is published */
 .soon{display:flex;flex-direction:column;gap:14px;border:1.5px dashed var(--rule);border-radius:14px;padding:32px;background:rgba(255,255,255,.5)}
@@ -120,7 +129,7 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,
 footer{padding-top:24px;padding-bottom:24px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-family:var(--mono);font-size:13px;color:var(--ink-3)}
 footer a:hover{color:var(--ink)}
 .made{display:flex;align-items:center;gap:8px}
-@media (max-width:520px){.pill .full{display:none}.pill .short{display:inline}main{padding-top:40px;gap:40px}.card,.soon{padding:24px}.card.print .body{padding:22px 24px 24px}}
+@media (max-width:520px){.pill .full{display:none}.pill .short{display:inline}main{padding-top:40px;gap:40px}.card,.soon{padding:24px}.card.print .body,.card.map .body{padding:22px 24px 24px}}
 </style>
 </head>
 <body>
@@ -155,31 +164,33 @@ footer a:hover{color:var(--ink)}
     <section class="group" aria-labelledby="interactive">
       <div class="label" id="interactive">INTERACTIVE</div>
       <div class="cards">
-        <a class="card" href="/toronto/">
-          <div class="card-top">
-            <div class="icon"><svg width="34" height="44" viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#fff"/><polygon points="60,52 84,63 60,74 36,63" fill="#C8102E" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#C8102E" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#C8102E"/><path transform="translate(51,24.5) scale(0.9)" d="M10 0 L11.6 3.2 L13.2 2.4 L12.6 6.6 L15.2 4.2 L15.8 5.8 L18.4 5.2 L17.4 8.2 L19.2 9.2 L14.6 12.8 L15.2 14.6 L10.6 14 L10.8 18.6 L9.2 18.6 L9.4 14 L4.8 14.6 L5.4 12.8 L0.8 9.2 L2.6 8.2 L1.6 5.2 L4.2 5.8 L4.8 4.2 L7.4 6.6 L6.8 2.4 L8.4 3.2 Z" fill="#fff"/></svg></div>
-            <div class="host">layers.city/<wbr>toronto</div>
-          </div>
-          <div>
-            <h2>Toronto Layers</h2>
-            <p>Toronto’s 158 neighbourhoods, 25 wards, 85 BIAs, old boroughs and the names locals actually use, like King West, live in a dozen separate city datasets. Toronto Layers puts them all on one map you can switch on and off. Type in any address to see every one it falls in.</p>
-          </div>
-          <div class="go">Open the map
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        <a class="card map" href="/toronto/">
+          <img class="thumb" src="/thumbs/toronto.svg" alt="Outline of the City of Toronto on a grid" width="800" height="600">
+          <div class="body">
+            <div>
+              <div class="host">layers.city/<wbr>toronto</div>
+              <h2>Layers<b>.City</b></h2>
+              <h3>Toronto</h3>
+              <p>Toronto’s 158 neighbourhoods, 25 wards, 85 BIAs, old boroughs and the names locals actually use, like King West, live in a dozen separate city datasets. Layers.City puts them all on one map you can switch on and off. Type in any address to see every one it falls in.</p>
+            </div>
+            <div class="go">Open the map
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </div>
           </div>
         </a>
 
-        <a class="card" href="/chicago/">
-          <div class="card-top">
-            <div class="icon"><svg width="34" height="44" viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#fff"/><polygon points="60,52 84,63 60,74 36,63" fill="#C8102E" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#C8102E" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#C8102E"/><path transform="translate(51,24.5) scale(0.9)" d="M10 0 L11.6 3.2 L13.2 2.4 L12.6 6.6 L15.2 4.2 L15.8 5.8 L18.4 5.2 L17.4 8.2 L19.2 9.2 L14.6 12.8 L15.2 14.6 L10.6 14 L10.8 18.6 L9.2 18.6 L9.4 14 L4.8 14.6 L5.4 12.8 L0.8 9.2 L2.6 8.2 L1.6 5.2 L4.2 5.8 L4.8 4.2 L7.4 6.6 L6.8 2.4 L8.4 3.2 Z" fill="#fff"/></svg></div>
-            <div class="host">layers.city/<wbr>chicago</div>
-          </div>
-          <div>
-            <h2>Chicago Layers</h2>
-            <p>The same map for Chicago: the nine sides, 77 community areas, 50 wards, Special Service Areas, the ‘L’ and Metra, and the neighbourhood names people actually use, like Wicker Park. Type in any address or place to see every boundary it falls in and who represents it.</p>
-          </div>
-          <div class="go">Open the map
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        <a class="card map" href="/chicago/">
+          <img class="thumb" src="/thumbs/chicago.svg" alt="Outline of the City of Chicago on a grid" width="800" height="600">
+          <div class="body">
+            <div>
+              <div class="host">layers.city/<wbr>chicago</div>
+              <h2>Layers<b>.City</b></h2>
+              <h3>Chicago</h3>
+              <p>The same map for Chicago: the nine sides, 77 community areas, 50 wards, Special Service Areas, the ‘L’ and Metra, and the neighbourhood names people actually use, like Wicker Park. Type in any address or place to see every boundary it falls in and who represents it.</p>
+            </div>
+            <div class="go">Open the map
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </div>
           </div>
         </a>
 
@@ -190,7 +201,7 @@ footer a:hover{color:var(--ink)}
           </div>
           <div>
             <h2>The source code</h2>
-            <p>The public repo behind Toronto Layers and Chicago Layers: one map engine with a folder per city, the data, and the commit history of building it with AI as a collaborator.</p>
+            <p>The public repo behind Layers.City: one map engine with a folder per city, the data, and the commit history of building it with AI as a collaborator.</p>
           </div>
           <div class="go dark">View on GitHub
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
