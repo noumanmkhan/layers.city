@@ -2,17 +2,90 @@
   "_about": "What's changing here (engine/fetch_changes.py in fetch-changes.yml, then engine/changes.py). Proposals from Development Applications; approved and finished work from Building Permits, placed on the City's Address Points.",
   "sources": {
     "devapps": {
-      "type": "ckan_devapps", "years": 2,
+      "type": "ckan_devapps",
+      "years": 2,
       "ckan": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=development-applications",
-      "closed": ["Closed", "Application Withdrawn", "Withdrawn", "Refused", "Council Refused", "Approved", "Council Approved", "OMB Approved", "OLT Approved", "NOAC Issued", "Final Approval Completed", "Draft Plan Approved", "Registered", "Cancelled"]
+      "closed": [
+        "Closed",
+        "Application Withdrawn",
+        "Withdrawn",
+        "Refused",
+        "Council Refused",
+        "Approved",
+        "Council Approved",
+        "OMB Approved",
+        "OLT Approved",
+        "NOAC Issued",
+        "Final Approval Completed",
+        "Draft Plan Approved",
+        "Registered",
+        "Cancelled"
+      ]
     },
     "permits": {
-      "type": "ckan_permits", "years": 2,
-      "ckan": ["https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=building-permits-active-permits",
-               "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=building-permits-cleared-permits"],
-      "types": ["New Building", "New Houses", "Demolition Folder (DM)"],
-      "works": ["New Building", "Demolition", "Addition(s)"],
-      "addresses": {"ckan": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=address-points-municipal-toronto-one-address-repository"}
+      "type": "ckan_permits",
+      "years": 2,
+      "ckan": [
+        "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=building-permits-active-permits",
+        "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=building-permits-cleared-permits"
+      ],
+      "types": [
+        "New Building",
+        "Residential Building Permit",
+        "Non-Residential Building Permit",
+        "Multiple Use Permit",
+        "Conditional Permit",
+        "Demolition Folder (DM)"
+      ],
+      "works": [
+        "New Building",
+        "Demolition"
+      ],
+      "addresses": {
+        "ckan": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=address-points-municipal-toronto-one-address-repository"
+      },
+      "skip_uses": "\\bsfd\\b|single[ -]famil|single family|\\bsemi\\b|semi-|\\bdetached\\b|townhouse|\\bhouse\\b|\\bhouses\\b|carport|accessory|\\bshed\\b|swimming pool|sfd garages|^\\s*\\|\\s*$"
+    }
+  },
+  "build": {
+    "years": 2,
+    "open_years": 6,
+    "approved_years": 4,
+    "devapps": {
+      "types": {
+        "OZ": "rezoning",
+        "SA": "siteplan",
+        "SB": "subdivision"
+      },
+      "stages": {
+        "Application Received": "proposed",
+        "Under Review": "proposed",
+        "Appeal Received": "proposed",
+        "OMB Appeal": "proposed",
+        "Council Approved": "approved",
+        "OMB Approved": "approved",
+        "NOAC Issued": "approved",
+        "Final Approval Completed": "approved",
+        "Draft Plan Approved": "approved"
+      }
+    },
+    "permits": {
+      "stages": {
+        "Application Received": "proposed",
+        "Under Review": "proposed",
+        "Examiner's Notice Sent": "proposed",
+        "Application Acceptable": "proposed",
+        "Response Received": "proposed",
+        "Application On Hold": "proposed",
+        "Issuance Pending": "approved",
+        "Ready for Issuance": "approved",
+        "Permit Issued": "approved",
+        "Not Started": "approved",
+        "Work Not Started": "approved",
+        "Inspection": "building",
+        "Revision Issued": "building",
+        "Closed": "finished"
+      }
     }
   }
 }

@@ -122,8 +122,19 @@ def ckan_permits(spec):
         rows += ckan_rows(pkg, lambda r: 'since 2017' in r['name'].lower() or 'active' in r['name'].lower())
     allt = collections.Counter((r['PERMIT_TYPE'], r['WORK']) for r in rows)
     print('  permit type / work (top 60):'); [print('   ', k, n) for k, n in allt.most_common(60)]
-    sel = [r for r in rows if (r['PERMIT_TYPE'] in types or r['WORK'] in works) and
-           ('active' in r['_resource'].lower() or (r.get('COMPLETED_DATE') or '')[:10] >= cut)]
+    import re
+    houses = re.compile(spec['skip_uses'], re.I) if spec.get('skip_uses') else None
+    sel = [r for r in rows if r['PERMIT_TYPE'] in types and r['WORK'] in works and
+           ('active' in r['_resource'].lower() or (r.get('COMPLETED_DATE') or '')[:10] >= cut) and
+           not (houses and houses.search(r['STRUCTURE_TYPE'] + ' | ' + r['CURRENT_USE'] if r['WORK'] == 'Demolition' else r['STRUCTURE_TYPE']))]
+    # One row per permit: its latest revision, with the original (revision 00) description, which says what the
+    # project is ("Proposal to construct a 16-storey office building"); revisions describe only what changed.
+    first = {r['PERMIT_NUM']: r['DESCRIPTION'] for r in sel if r['REVISION_NUM'] in ('00', '0', '')}
+    last = {}
+    for r in sel:
+        if r['PERMIT_NUM'] not in last or r['REVISION_NUM'] > last[r['PERMIT_NUM']]['REVISION_NUM']: last[r['PERMIT_NUM']] = r
+    for k, r in last.items(): r['DESCRIPTION'] = first.get(k) or r['DESCRIPTION']
+    sel = list(last.values())
     print('  selected', len(sel), '· by status', dict(collections.Counter(r['STATUS'] for r in sel).most_common(25)))
     by_id, by_addr = address_points(spec['addresses'])
     keep, placed = [], collections.Counter()

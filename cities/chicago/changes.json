@@ -2,9 +2,31 @@
   "_about": "What's changing here (engine/fetch_changes.py in fetch-changes.yml, then engine/changes.py). Chicago publishes no development proposals; approved and finished work comes from Building Permits (new construction and wrecking).",
   "sources": {
     "permits": {
-      "type": "socrata_permits", "years": 2,
+      "type": "socrata_permits",
+      "years": 2,
       "url": "https://data.cityofchicago.org/resource/ydr8-5enu.json",
-      "types": ["PERMIT - NEW CONSTRUCTION", "PERMIT - WRECKING/DEMOLITION"]
+      "types": [
+        "PERMIT - NEW CONSTRUCTION",
+        "PERMIT - WRECKING/DEMOLITION"
+      ]
+    }
+  },
+  "build": {
+    "years": 2,
+    "permits": {
+      "stages": {
+        "ACTIVE|PERMIT ISSUED (FEE DUE)": "approved",
+        "PHASED PERMITTING": "approved",
+        "ACTIVE": "building",
+        "ACTIVE|CERTIFICATE OF OCCUPANCY ISSUED": "finished",
+        "COMPLETE": "finished"
+      },
+      "always": "\\b(TENTS?|STAGES?|BLEACHERS?|GRANDSTANDS?|REVIEWING STAND|REINSTATEMENT|ANTENNAS?|MONOPOLE|BILLBOARD|SIGNS?|SCAFFOLD\\w*|TEMPORARY|SHIPPING CONTAINERS?)\\b|^\\W*(REVISION|REVISED|REPAIRS?|RENOVAT\\w*|INTERIOR|REPLACE\\w*)\\b|\\bREVISION TO (EXISTING )?PERMIT\\b",
+      "accessory": "\\b(GARAGES?|SHEDS?|DECKS?|PORCH(ES)?|FENCES?|CARPORTS?|PERGOLAS?|GAZEBOS?|CANOP(Y|IES)|STAIRS?|BALCON(Y|IES)|RAMPS?)\\b",
+      "core": "\\b(RESIDENCE|BUILDING|DWELLING|D\\.?\\s?U\\.?|SFR|APARTMENTS?|WAREHOUSE|SCHOOL|STORE|HOTEL|OFFICE|RESTAURANT|CHURCH|FACILITY|CENTER|PLANT|FLAT|HOME|HOUSE)\\b",
+      "house": "SINGLE.FAMILY|\\bSFR\\b|\\bSFD\\b|RESIDENCE|\\bHOUSE\\b|\\bHOME\\b|\\b[12]\\s*D\\.?\\s?U\\b|TWO.FLAT|2.FLAT|DUPLEX|COACH HOUSE|\\bADU\\b",
+      "multi": "\\b([3-9]|[1-9]\\d+)\\s*(D\\.?\\s?U\\.?|DWELLING UNITS?|RESIDENTIAL UNITS?|UNITS?)\\b|MULTI|APARTMENT",
+      "noise": "\\bPERMIT EXPIRES ON [\\d/]+|\\bERECTION (STARTS|ENDS):? [\\d/]+|\\b(SELF[- ]?CERT\\w*\\.?|SC|SPR|DDS|EPP|STANDARD PLAN REVIEW|DEVELOPER SERVICES)\\b[:.\\-]?|\\b(19|20)\\d\\d\\s*(CBC|CBRC|CHICAGO BUILDING CODE)\\b[:.\\-]?|\\bCBC\\s*(19|20)\\d\\d\\b[:.\\-]?|\\bPER PLANS?\\b|\\*+[^*]*\\*+"
     }
   }
 }
