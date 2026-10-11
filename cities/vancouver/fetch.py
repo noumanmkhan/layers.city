@@ -2,15 +2,13 @@
 (.github/workflows/fetch-vancouver.yml); the sandbox can't reach these hosts.
 
 - City of Vancouver Open Data (Opendatasoft): the 22 local areas (OGL – Vancouver)
-- Statistics Canada 2021 cartographic boundary files (land-clipped): census subdivisions (municipalities
-  and reserves) around the Lower Mainland, and dissemination areas inside the City of Vancouver
-- Statistics Canada 2021 Census Profile for dissemination areas (British Columbia), cut down to the City's
-  DAs and the profile sections the map uses (Statistics Canada Open Licence)
+- Statistics Canada 2021 cartographic boundaries (land-clipped), from its ArcGIS service: census subdivisions
+  (municipalities and reserves) around the Lower Mainland, and dissemination areas inside the City of Vancouver
 - U.S. Census Bureau cartographic boundary: Washington State, so the land south of the border shows
 - OpenStreetMap via Overpass (ODbL): main streets and collectors in the city, highways across the region,
   neighbourhood place points and the curated landmarks
 - TransLink GTFS: SkyTrain, SeaBus and West Coast Express lines and stations
-Each step logs its own failure and the rest carry on. Needs gdal-bin (ogr2ogr) for the shapefiles.
+Each step logs its own failure and the rest carry on. Needs gdal-bin (ogr2ogr) for Washington's shapefile.
 """
 import csv, io, json, os, re, subprocess, sys, tempfile, time, urllib.parse, urllib.request, zipfile
 from collections import Counter, defaultdict
@@ -86,22 +84,30 @@ ODS = 'https://opendata.vancouver.ca/api/explore/v2.1/catalog/datasets/'
 step('local areas', lambda: save('local_areas.geojson', json.loads(get(ODS + 'local-area-boundary/exports/geojson'))))
 
 # ---------- Statistics Canada boundaries (2021, cartographic: clipped to the shoreline) ----------
-GEO = 'https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/'
+# From Statistics Canada's ArcGIS service (www12.statcan.gc.ca refuses GitHub's runners with 403; this answers).
+GEO = 'https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/'
 
 
-def csds():
-    z = download(GEO + 'lcsd000b21a_e.zip', os.path.join(TMP, 'csd.zip'))
-    # Every BC subdivision whose census division touches the frame: Metro Vancouver (5915), Fraser Valley (5909),
-    # Squamish-Lillooet (5931), Sunshine Coast (5929), and the east side of Vancouver Island (5917, 5919, 5921, 5923, 5926).
-    shp_to_geojson(z, "CDUID IN ('5915','5909','5931','5929','5917','5919','5921','5923','5926','5927')", 'csds.geojson',
-                   'CSDUID,CSDNAME,CSDTYPE,CDUID')
-step('census subdivisions', csds)
+def arcgis(layer, where, fields, offset_deg, out):
+    feats, start = [], 0
+    while True:
+        q = urllib.parse.urlencode({'where': where, 'outFields': fields, 'outSR': 4326, 'f': 'geojson', 'returnGeometry': 'true',
+                                    'maxAllowableOffset': offset_deg, 'geometryPrecision': 6, 'resultOffset': start, 'resultRecordCount': 500})
+        d = json.loads(get(GEO + str(layer) + '/query?' + q))
+        if 'error' in d: raise RuntimeError(d['error'])
+        feats += d.get('features', [])
+        if not d.get('exceededTransferLimit') and len(d.get('features', [])) < 500: break
+        start += 500; time.sleep(1)
+    save(out, {'type': 'FeatureCollection', 'features': feats})
+    print('  ', out, len(feats), 'features')
 
 
-def das():
-    z = download(GEO + 'lda_000b21a_e.zip', os.path.join(TMP, 'da.zip'))
-    shp_to_geojson(z, "CSDUID = '5915022'", 'das.geojson', 'DAUID,CSDUID')
-step('dissemination areas', das)
+# Metro Vancouver's municipalities and reserves in detail; the census divisions around it (Fraser Valley,
+# Squamish-Lillooet, Sunshine Coast, qathet, the east side of Vancouver Island) coarser, as land beyond the region.
+step('census subdivisions', lambda: arcgis(9, "CDUID = '5915'", 'CSDUID,CSDNAME,CSDTYPE,CDUID', 0.00005, 'csds.geojson'))
+step('land around the region', lambda: arcgis(9, "CDUID IN ('5909','5931','5929','5927','5917','5919','5921','5923','5926')",
+                                               'CSDUID,CSDNAME,CSDTYPE,CDUID', 0.0005, 'csds_around.geojson'))
+step('dissemination areas', lambda: arcgis(12, "CSDUID = '5915022'", 'DAUID,DGUID,CSDUID', 0.00002, 'das.geojson'))
 
 # ---------- Washington State (U.S. Census cartographic boundary, 1:500k) ----------
 def washington():
@@ -109,79 +115,7 @@ def washington():
     shp_to_geojson(z, "STATEFP = '53'", 'washington.geojson', 'NAME')
 step('washington', washington)
 
-# ---------- 2021 Census Profile: dissemination areas in the City of Vancouver ----------
-# The profile sections the map reads (by the "Total - ..." row that opens each); every row up to the next
-# "Total - " row is kept. Plus the two medians, which sit outside those sections.
-SECTIONS = [
-    'Total - Age groups of the population - 25% sample data',
-    'Total - Private households by tenure - 25% sample data',
-    'Total - Occupied private dwellings by structural type of dwelling - 25% sample data',
-    'Total - Occupied private dwellings by period of construction - 25% sample data',
-    'Total - Language spoken most often at home for the population in private households - 25% sample data',
-    'Total - Immigrant status and period of immigration for the population in private households - 25% sample data',
-    'Total - Main mode of commuting for the employed labour force aged 15 years and over with a usual place of work or no fixed workplace address - 25% sample data',
-    'Total - Owner households in non-farm, non-reserve private dwellings - 25% sample data',
-    'Total - Tenant households in non-farm, non-reserve private dwellings - 25% sample data',
-]
-SINGLE = ['Population, 2021', 'Median value of dwellings ($)', 'Median monthly shelter costs for rented dwellings ($)',
-          'Median monthly shelter costs for owned dwellings ($)', 'Private households by household size']
-PROFILE_URLS = [
-    'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/download-telecharger/comp/GetFile.cfm?Lang=E&FILETYPE=CSV&GEONO=006_BC',
-    'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/download-telecharger/comp/GetFile.cfm?Lang=E&FILETYPE=CSV&GEONO=006',
-]
-
-
-def profile():
-    das = {f['properties']['DAUID'] for f in json.load(open(os.path.join(RAW, 'das.geojson')))['features']}
-    z = None
-    for u in PROFILE_URLS:
-        try:
-            z = download(u, os.path.join(TMP, 'profile.zip'), tries=2)
-            zipfile.ZipFile(z)
-            break
-        except Exception as e:
-            print('  profile source failed', u, e); z = None
-    if not z: raise RuntimeError('no census profile download worked')
-    zf = zipfile.ZipFile(z)
-    print('  zip members:', zf.namelist())
-    member = next(n for n in zf.namelist() if n.lower().endswith('.csv') and 'data' in n.lower()
-                  and ('british' in n.lower() or '_bc' in n.lower() or len([m for m in zf.namelist() if m.lower().endswith('.csv')]) <= 2))
-    print('  reading', member)
-    keep, labels, out, city = set(), {}, defaultdict(dict), {}
-    in_sec = False
-    with zf.open(member) as fh:
-        rdr = csv.reader(io.TextIOWrapper(fh, 'latin-1'))
-        head = next(rdr)
-        col = {h.strip().lstrip('﻿'): i for i, h in enumerate(head)}
-        print('  columns:', head[:14])
-        iD, iL, iN, iC, iV = col['DGUID'], col['GEO_LEVEL'], col['CHARACTERISTIC_NAME'], col['CHARACTERISTIC_ID'], col['C1_COUNT_TOTAL']
-        iG = col['ALT_GEO_CODE']
-        first_geo, n = None, 0
-        for r in rdr:
-            n += 1
-            g = r[iG]
-            cid = int(r[iC]); name = r[iN]
-            # Work out which characteristic ids to keep from the first geography (they repeat in the same order).
-            if first_geo is None: first_geo = g
-            if g == first_geo:
-                s = name.strip()
-                if s.startswith('Total - '): in_sec = s in SECTIONS
-                if in_sec or s in SINGLE:
-                    keep.add(cid); labels[cid] = name
-            if cid not in keep: continue
-            v = r[iV].strip()
-            val = float(v) if re.fullmatch(r'-?[\d.]+', v) else None
-            if r[iL] == 'Dissemination area' and g in das:
-                out[g][cid] = val
-            elif g == '5915022':   # the City of Vancouver as a whole, for checks
-                city[cid] = val
-            if n % 5_000_000 == 0: print('   ', n, 'rows')
-    print('  rows read', n, '· DAs kept', len(out), 'of', len(das), '· characteristics', len(keep))
-    save('census_da.json', {'source': 'Statistics Canada, 2021 Census of Population, Census Profile (98-401-X2021006)',
-                            'labels': {str(k): labels[k] for k in sorted(labels)},
-                            'city': {str(k): v for k, v in city.items()},
-                            'das': {g: {str(k): v for k, v in d.items()} for g, d in out.items()}})
-step('census profile', profile)
+# The 2021 Census Profile for the City's dissemination areas: fetch_census.py (run after this one).
 
 # ---------- OpenStreetMap ----------
 SERVERS = ['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter',
@@ -202,7 +136,7 @@ def overpass(q, name):
 
 bb = lambda b: '%s,%s,%s,%s' % (b[1], b[0], b[3], b[2])
 step('osm streets', lambda: overpass(f'[out:json][timeout:300];way["highway"~"^(trunk|primary|secondary|tertiary)$"]["name"]({bb(CITY)});out tags geom;', 'osm_streets.json'))
-step('osm highways', lambda: overpass(f'[out:json][timeout:300];way["highway"~"^(motorway|trunk)$"]({bb(REGION)});out tags geom;', 'osm_highways.json'))
+step('osm highways', lambda: overpass(f'[out:json][timeout:600];way["highway"~"^(motorway|trunk)$"]["ref"]({bb(REGION)});out tags geom;', 'osm_highways.json'))
 step('osm places', lambda: overpass(f'[out:json][timeout:200];node["place"~"^(neighbourhood|quarter|suburb|locality|village|town|city)$"]["name"]({bb(REGION)});out tags;', 'osm_places.json'))
 
 
