@@ -1,0 +1,9 @@
+  got https://gtfs-static.translink.ca/gtfs/google_transit.zip 15771 KB
+  shapes with fewer than 2 points, dropped: 1
+  got https://download.bbbike.org/osm/bbbike/Vancouver/Vancouver.osm.pbf 63630 KB
+feed ranges [('20260907', '20270103')]
+departure 2026-10-20 08:00:00
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch_transit_waterfront.py", line 129, in <module>
+    import geopandas as gpd
+ModuleNotFoundError: No module named 'geopandas'
