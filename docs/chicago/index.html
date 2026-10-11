@@ -1044,6 +1044,8 @@ circle.cl{stroke-width:3;fill:var(--city)}
 .lens:hover{fill-opacity:.92}
 /* tier fills (.lens.<lens>-<tier>) are written from the city config when the page loads */
 .lens.out{fill-opacity:.1;stroke-opacity:.35}
+/* a unit with no figures (e.g. a park that is no neighbourhood): no tier to show */
+.lens.none{fill:none}
 .lens.out:hover{fill-opacity:.25}
 #map.z13 .lens{fill-opacity:.5} #map.z13 .lens:hover{fill-opacity:.62} #map.z13 .lens.out{fill-opacity:.06}
 .drv{fill-opacity:.8;stroke:var(--land-out-line);stroke-width:.7}
@@ -1455,7 +1457,7 @@ const matches = d => !!d && FILTERS.every(f => {
   if (f.top) return !filt[f.lens].size || filt[f.lens].has(topOf(L_, d));
   return !filt[f.lens].size || filt[f.lens].has(keyOf(L_, d));
 });
-const lensClass = d => { const L_ = LENSES[lens], k = keyOf(L_, d); return 'lens ' + (k ? L_.id + '-' + k : '') + (filtOn() && !matches(d) ? ' out' : ''); };
+const lensClass = d => { const L_ = LENSES[lens], k = keyOf(L_, d); return 'lens ' + (k ? L_.id + '-' + k : 'none') + (filtOn() && !matches(d) ? ' out' : ''); };
 let lens = FIRST_LENS;
 const TIER_LABEL = {};
 Object.values(LENSES).forEach(L_ => L_.tiers.forEach(([k, label, v]) => { TIER_LABEL[L_.key + ':' + k] = [label, v]; }));

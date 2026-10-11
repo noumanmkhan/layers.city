@@ -76,7 +76,7 @@ const matches = d => !!d && FILTERS.every(f => {
   if (f.top) return !filt[f.lens].size || filt[f.lens].has(topOf(L_, d));
   return !filt[f.lens].size || filt[f.lens].has(keyOf(L_, d));
 });
-const lensClass = d => { const L_ = LENSES[lens], k = keyOf(L_, d); return 'lens ' + (k ? L_.id + '-' + k : '') + (filtOn() && !matches(d) ? ' out' : ''); };
+const lensClass = d => { const L_ = LENSES[lens], k = keyOf(L_, d); return 'lens ' + (k ? L_.id + '-' + k : 'none') + (filtOn() && !matches(d) ? ' out' : ''); };
 let lens = FIRST_LENS;
 const TIER_LABEL = {};
 Object.values(LENSES).forEach(L_ => L_.tiers.forEach(([k, label, v]) => { TIER_LABEL[L_.key + ':' + k] = [label, v]; }));

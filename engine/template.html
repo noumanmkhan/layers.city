@@ -379,6 +379,8 @@ circle.cl{stroke-width:3;fill:var(--city)}
 .lens:hover{fill-opacity:.92}
 /* tier fills (.lens.<lens>-<tier>) are written from the city config when the page loads */
 .lens.out{fill-opacity:.1;stroke-opacity:.35}
+/* a unit with no figures (e.g. a park that is no neighbourhood): no tier to show */
+.lens.none{fill:none}
 .lens.out:hover{fill-opacity:.25}
 #map.z13 .lens{fill-opacity:.5} #map.z13 .lens:hover{fill-opacity:.62} #map.z13 .lens.out{fill-opacity:.06}
 .drv{fill-opacity:.8;stroke:var(--land-out-line);stroke-width:.7}
