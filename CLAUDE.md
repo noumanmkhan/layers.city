@@ -16,7 +16,8 @@ the landing page, stop and say so; don't change this repo.
 ## How the site is built
 - `docs/` is what GitHub Pages serves (it holds the `CNAME` for layers.city).
   - `docs/index.html`, `docs/fonts/` and the icons are the **maps hub**, hand-written and
-    styled to match the noumankhan.ca landing page. Edit them directly. Print maps get
+    laid out like the noumankhan.ca landing page, in the Layers.City brand (red #C8102E, pin logo).
+    The logo files in `docs/` are drawn by `assets/brand/build.py`: change the shapes there and re-run. Edit them directly. Print maps get
     added there as cards (a template is commented out in the HTML), with images in `docs/prints/`.
   - `docs/<city>/` is each city's map (Toronto Layers is `docs/toronto/`). Don't hand-edit
     `docs/<city>/index.html` or `docs/<city>/data/*`; they are build output.
