@@ -2,16 +2,16 @@
    West Coast Express swatch. Everything else (page, civic layers, lenses, streets) comes from the engine. */
 :root{
   --s-downtown:#EE6E73; --s-west:#7DAFE0; --s-east:#95CA7E;
-  --l-expo:#1D59AF; --l-millennium:#FDD005; --l-canada:#0098C9; --l-seabus:#7D6A5C;
+  --l-expo:#0033A0; --l-millennium:#FFCD00; --l-canada:#007C9F; --l-seabus:#7D6A5C;
   --wce:#6B2C91;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --s-downtown:#C2484E; --s-west:#4C7FB5; --s-east:#5E9A48;
-  --l-expo:#5B8FE0; --l-seabus:#B29C8B; --wce:#A47CC8;
+  --l-expo:#4D7FE0; --l-seabus:#B29C8B; --wce:#A47CC8;
 }}
 :root[data-theme="dark"]{
   --s-downtown:#C2484E; --s-west:#4C7FB5; --s-east:#5E9A48;
-  --l-expo:#5B8FE0; --l-seabus:#B29C8B; --wce:#A47CC8;
+  --l-expo:#4D7FE0; --l-seabus:#B29C8B; --wce:#A47CC8;
 }
 .sw.sides{background:conic-gradient(var(--s-west) 0 40%,var(--s-downtown) 0 60%,var(--s-east) 0)}
 .sw.skytrain{background:linear-gradient(var(--l-expo) 0 33%,var(--l-millennium) 0 66%,var(--l-canada) 0)}

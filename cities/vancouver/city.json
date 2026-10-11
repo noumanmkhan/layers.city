@@ -3,7 +3,7 @@
   "schema": 1,
   "unlisted": true,
   "title": "Vancouver Layers",
-  "description": "A map of the City of Vancouver with toggleable layers: Downtown and the East and West Sides, 22 local areas, known-as names, main streets, highways, SkyTrain, SeaBus and the West Coast Express.",
+  "description": "A map of the City of Vancouver with toggleable layers: Downtown and the East and West Sides, 22 local areas, known-as names, main streets, highways, SkyTrain, SeaBus, the West Coast Express and every bus route.",
   "mapLabel": "Map of the City of Vancouver",
   "locale": "en-CA",
   "view": {
@@ -91,7 +91,7 @@
       "cls": "lake-far"
     }
   ],
-  "attribution": "Local areas: City of Vancouver Open Data (OGL – Vancouver) · Municipalities, reserves & 2021 Census: Statistics Canada · SkyTrain, SeaBus & West Coast Express: TransLink GTFS · Streets, highways, landmark positions & address search: © OpenStreetMap contributors via Nominatim",
+  "attribution": "Local areas: City of Vancouver Open Data (OGL – Vancouver) · Municipalities, reserves & 2021 Census: Statistics Canada · SkyTrain, SeaBus, West Coast Express & buses: TransLink GTFS · Streets, highways, landmark positions & address search: © OpenStreetMap contributors via Nominatim",
   "example": {
     "at": [
       49.2797,
@@ -232,6 +232,48 @@
             "label": "Show station names",
             "on": true
           }
+        },
+        {
+          "id": "bus",
+          "kind": "buses",
+          "file": "transit_routes",
+          "lazy": true,
+          "name": "Bus routes",
+          "note": "Every bus route, by how often it runs, or the NightBus routes; stops from zoom 15",
+          "allText": "All",
+          "default": "all",
+          "allNote": "Every daytime bus route.",
+          "families": [
+            [
+              "freq",
+              "Frequent",
+              "Every 10 minutes or better each way, weekdays 7 am to 7 pm."
+            ],
+            [
+              "exp",
+              "Express",
+              "RapidBus (R1–R6), the 99 B-Line and routes TransLink names express: fewer stops."
+            ],
+            [
+              "reg",
+              "Regular",
+              "Every other daytime route."
+            ],
+            [
+              "night",
+              "Overnight",
+              "At least hourly each way from 2 to 4 am on weeknights: TransLink's NightBus."
+            ]
+          ],
+          "solo": [
+            "night"
+          ],
+          "comboText": "Express routes are dashed.",
+          "countText": "{n} routes",
+          "hint": "Tap a route or its number to see it alone; tap elsewhere for all.",
+          "pickText": "Drawn on the map",
+          "unpickText": "Stop drawing route {r}",
+          "clearText": "Clear"
         }
       ]
     ]
@@ -566,6 +608,30 @@
       "file": "representatives.json",
       "offices": [],
       "note": ""
+    },
+    "transit": {
+      "file": "transit.json",
+      "routes": "transit_routes",
+      "title": "Transit nearby",
+      "radius": 400,
+      "station": "Nearest station",
+      "stationSub": "{lines} · {dist} away",
+      "rows": [
+        [
+          "bus",
+          "Buses",
+          false
+        ]
+      ],
+      "night": "NightBus",
+      "stop": "Nearest stop",
+      "none": "No stop within 400 m",
+      "every": "about every {h} min on weekday middays",
+      "nightOnly": "overnight only",
+      "kinds": {
+        "bus": "Bus route"
+      },
+      "note": "Routes with a stop within 400 m, about a 5-minute walk. Filled numbers come every 10 minutes or better on weekdays. Tap a number to draw the route. TransLink schedules, week of {week}."
     }
   },
   "tour": {

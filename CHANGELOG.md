@@ -10,6 +10,12 @@
   rows from the 2021 Census (dissemination areas summed into local areas; the City publishes no 2021 local-area
   profiles). Representatives come after the October 17 civic and October 24 provincial elections. For the iOS
   app: `la_profiles.json`, a unit with `park` and no profile; contract sections 3 and 4. Additive.
+- **Bus routes and Transit nearby** (October 11): all 232 TransLink bus routes in families (8 frequent;
+  15 express: RapidBus R1–R6, the 99 B-Line and routes named express; 5 overnight NightBus), stops from zoom
+  15, and the card's Transit nearby section (nearest SkyTrain or SeaBus station, buses within 400 m, NightBus).
+  `surface.json` gains `expressRoutes` (express by route number) and `stripZeros` (TransLink pads numbers:
+  002 is shown as 2). Fetched weekly with the other cities. For the iOS app: `transit.json`,
+  `transit_routes.geojson`, `card.transit`, as in Chicago.
 - **Engine**: a unit with no figures takes no lens fill (it showed Leaflet's default blue); `assemble.py`
   leaves `unlisted` cities out of the other cities' switchers. Toronto and Chicago look the same.
 

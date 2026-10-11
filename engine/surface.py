@@ -36,6 +36,8 @@ NIGHT = CFG.get('overnight', {'from': 2, 'to': 4})
 EXPRESS = re.compile(CFG.get('express', r'\bExpress\b'), re.I)
 # Routes an agency brands as express by number rather than name (Vancouver's RapidBus R1-R6 and the 99 B-Line).
 EXPRESS_NO = re.compile(CFG['expressRoutes']) if CFG.get('expressRoutes') else None
+# Route numbers as riders say them: TransLink pads its numbers ("002", "099"); "stripZeros" drops the padding.
+num = (lambda s: s.lstrip('0') or s) if CFG.get('stripZeros') else (lambda s: s)
 
 
 def dirs(counts):
@@ -99,7 +101,7 @@ for r in R['routes']:
     if day and 'freq' not in fam and 'exp' not in fam: fam.append('reg')
     g = geometry(r)
     minx, miny, maxx, maxy = g.bounds
-    entry = {'r': r['short'], 'n': r['long'], 'm': r['mode'], 'f': fam, 'day': day, 'h': midday(r),
+    entry = {'r': num(r['short']), 'n': r['long'], 'm': r['mode'], 'f': fam, 'day': day, 'h': midday(r),
              'b': [round(minx, 4), round(miny, 4), round(maxx, 4), round(maxy, 4)]}
     routes.append(entry)
     props = {k: entry[k] for k in ('r', 'n', 'm', 'f', 'day', 'h')}
@@ -108,7 +110,7 @@ for r in R['routes']:
     if r['mode'] == 'tram' and day: cars.append(feat)
 
 idx = {e['r']: i for i, e in enumerate(routes)}
-stops = [[s[2], s[3], s[1], [idx[x] for x in s[4] if x in idx]] for s in S['stops']]
+stops = [[s[2], s[3], s[1], [idx[num(x)] for x in s[4] if num(x) in idx]] for s in S['stops']]
 stops = [s for s in stops if s[3]]
 
 # Other agencies (surface.json "feeds"): same shapes and midday waits, no families.
