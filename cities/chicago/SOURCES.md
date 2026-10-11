@@ -48,3 +48,6 @@ Hand-kept lists, in code: the nine sides, the known-as additions and the major s
 
 ## Tree canopy
 `raw/canopy/canopy.json`: share of each community area's land under tree cover (water left out), from ESA WorldCover 2021 v200 (10 m, CC BY 4.0, https://esa-worldcover.org), the tiles fetched from `esa-worldcover.s3.eu-central-1.amazonaws.com` by `engine/fetch_canopy.py` in the *Fetch tree canopy* Action (`fetch-canopy.yml`, on change or by hand); `raw/canopy/fetch.log` is its log. `engine/canopy.py` adds `canopy` and `canopyBand` to the profiles (cuts in `canopy.json`).
+
+## What's changing
+`raw/changes/permits.json`: City of Chicago Data Portal "Building Permits" (ydr8-5enu), permit types NEW CONSTRUCTION and WRECKING/DEMOLITION issued in the last two years, without owner or contractor names; fetched weekly by `engine/fetch_changes.py` (*Fetch what's changing* Action, `fetch-changes.yml`). `engine/changes.py` drops single houses, garages, decks, tents and other small jobs by the work description (patterns in `changes.json`).

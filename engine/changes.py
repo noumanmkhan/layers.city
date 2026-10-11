@@ -64,6 +64,7 @@ def sentence(t):
 def short(t, n=170):
     t = re.sub(r'\s+', ' ', (t or '').strip())
     t = re.sub(r'\[.*$', '', t).strip()          # Toronto revisions append the original text in brackets
+    t = t[:1].upper() + t[1:]
     if len(t) <= n: return t
     cut = t[:n]
     m = max(cut.rfind('. '), cut.rfind('; '))
@@ -96,6 +97,11 @@ if os.path.exists(p) and city == 'toronto':
         stage = S['stages'].get(r['STATUS'].strip())
         if not stage: continue
         if stage == 'finished' and (r['COMPLETED_DATE'] or '')[:10] < ago(WIN): continue
+        # Permits never closed out stay "Inspection" for years: under way only if issued in the last open_years,
+        # issued-not-started only within approved_years, under review only within open_years.
+        if stage == 'building' and (r['ISSUED_DATE'] or '')[:10] < ago(OPEN_Y): continue
+        if stage == 'approved' and (r['ISSUED_DATE'] or r['APPLICATION_DATE'] or '')[:10] < ago(APPR_Y): continue
+        if stage == 'proposed' and (r['APPLICATION_DATE'] or '')[:10] < ago(OPEN_Y): continue
         kind = 'demolition' if r['WORK'] == 'Demolition' else 'building'
         try: units = int(float(r['DWELLING_UNITS_CREATED'] or 0))
         except ValueError: units = 0
@@ -118,10 +124,11 @@ if os.path.exists(p) and city == 'chicago':
         st, ms = (r.get('permit_status') or ''), (r.get('permit_milestone') or '')
         stage = S['stages'].get(st + '|' + ms) or S['stages'].get(st)
         if not stage: continue
+        if stage == 'building' and (r.get('issue_date') or '')[:10] < ago(OPEN_Y): continue
         if kind == 'demolition' and stage == 'building': stage = 'approved' if 'ISSUED' in ms else 'building'
         m = re.search(r'(\d+)\s*(?:D\.?\s?U\.?|DWELLING UNITS?|RESIDENTIAL UNITS?|UNITS?)\b', t)
         clean = rx['noise'].sub(' ', t).strip(' .:-*;,/')
-        items.append({'k': kind, 's': stage, 'date': (r.get('issue_date') or '')[:10], 'dl': 'finished' if stage == 'finished' else 'issued',
+        items.append({'k': kind, 's': stage, 'date': (r.get('issue_date') or '')[:10], 'dl': 'issued',   # Chicago's permits carry no completion date
                       'a': address(r.get('street_number'), r.get('street_name'), '', r.get('street_direction')), 'd': short(sentence(clean)),
                       'n': r.get('permit_'), 'at': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)],
                       'units': int(m.group(1)) if m else None, 'cost': int(float(r['reported_cost'])) if r.get('reported_cost') else None, 'status': st.title()})

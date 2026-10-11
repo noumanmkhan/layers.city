@@ -20,7 +20,7 @@
     {"name": "Lake Ontario", "at": [43.585, -79.40], "cls": "lake-near"},
     {"name": "Lake Ontario", "at": [43.45, -78.75], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0)",
+  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Changes: City of Toronto development applications and building permits",
   "example": {"at": [43.67194, -79.38667], "name": "Toronto Reference Library (example)"},
 
   "search": {
@@ -93,6 +93,7 @@
        "allText": "All", "default": "all", "allNote": "Every daytime bus route.",
        "families": [["freq", "Frequent", "Every 10 minutes or better each way, weekdays 7 am to 7 pm."], ["exp", "Express", "Named express by the TTC: fewer stops."], ["reg", "Regular", "Every other daytime route."], ["night", "Overnight", "At least hourly each way from 2 to 4 am on weeknights: the Blue Night network, buses and streetcars."]],
        "solo": ["night"], "comboText": "Express routes are dashed.", "countText": "{n} routes", "hint": "Streetcars have their own layer. Tap a route or its number to see it alone; tap elsewhere for all.", "pickText": "Drawn on the map", "unpickText": "Stop drawing route {r}", "clearText": "Clear"},
+      {"id": "chg", "kind": "changes", "file": "changes", "lazy": true, "optional": true, "name": "What's changing", "note": "Rezonings, site plans and subdivisions proposed; new buildings and demolitions with permits. Leaves out houses and small jobs.", "stages": {"proposed": ["Proposed", "Applied for and under review: a proposal, not a decision"], "approved": ["Approved", "Approved, or permit issued; work not started"], "building": ["Under construction", "Permit inspections under way"], "finished": ["Finished", "Finished in the last two years"]}, "kinds": {"rezoning": "Rezoning application", "siteplan": "Site plan application", "subdivision": "Subdivision application", "building": "New building", "demolition": "Demolition"}, "dates": {"applied": "applied {date}", "issued": "permit {date}", "finished": "{date}"}, "unitsText": "{n} homes", "alsoText": "Also here", "linkText": "City's application page", "legend": "Proposals from the City’s development applications; approved and finished work from building permits. Demolitions are dashed rings. Applications still open, and anything approved, started or finished in the last two years."},
       {"id": "build", "kind": "construction", "file": "construction", "name": "Transit under construction", "note": "Ontario Line, Line 2 and Line 5 extensions, Hazel McCallion Line",
        "ucText": "Under construction", "linkText": "Project page"},
       {"id": "closures", "kind": "closures", "under": "build", "file": "closures", "optional": true, "name": "Road closures", "note": "From transit and GO construction; side streets when zoomed in",
@@ -182,6 +183,7 @@
       "ages": {"label": "Ages", "bands": ["Under 15", "15–24", "25–44", "45–64", "65+"]},
       "recent": {"label": "Recent immigrants", "text": "{pct}% arrived in Canada 2016–21", "caveat": "Share of residents who immigrated in the five years before the 2021 Census."}
     },
+    "changes": {"title": "Changing nearby", "radius": 500, "max": 6, "none": "Nothing big proposed, approved, under way or finished within 500 m in the last two years.", "more": "And {n} more nearby: turn on What's changing to see them.", "note": "Development applications are proposals, not decisions. Big changes within 500 m: no houses or small jobs. City of Toronto development applications and building permits, as of {date}."},
     "transit": {
       "file": "transit.json", "routes": "transit_routes", "title": "Transit nearby", "radius": 400,
       "station": "Nearest station", "stationSub": "Line {lines} · {dist} away",

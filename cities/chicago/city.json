@@ -21,7 +21,7 @@
     {"name": "Lake Michigan", "at": [41.97, -87.57], "cls": "lake-near"},
     {"name": "Lake Michigan", "at": [42.40, -87.55], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0)",
+  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Changes: City of Chicago building permits",
   "example": {"at": [41.8763, -87.6282], "name": "Harold Washington Library (example)"},
 
   "search": {
@@ -81,6 +81,7 @@
        "allText": "All", "default": "all", "allNote": "Every daytime bus route.",
        "families": [["freq", "Frequent", "Every 10 minutes or better each way, weekdays 7 am to 7 pm."], ["exp", "Express", "Named express by the CTA: fewer stops."], ["reg", "Regular", "Every other daytime route."], ["night", "Overnight", "At least hourly each way from 2 to 4 am on weeknights: the CTA's Owl routes."]],
        "solo": ["night"], "comboText": "Express routes are dashed.", "countText": "{n} routes", "hint": "Tap a route or its number to see it alone; tap elsewhere for all.", "pickText": "Drawn on the map", "unpickText": "Stop drawing route {r}", "clearText": "Clear"},
+      {"id": "chg", "kind": "changes", "file": "changes", "lazy": true, "optional": true, "name": "What's changing", "note": "New buildings and demolitions with permits. Leaves out single houses, garages and small jobs.", "stages": {"approved": ["Approved", "Approved, or permit issued; work not started"], "building": ["Under construction", "Permit inspections under way"], "finished": ["Finished", "Finished in the last two years"]}, "kinds": {"rezoning": "Rezoning application", "siteplan": "Site plan application", "subdivision": "Subdivision application", "building": "New building", "demolition": "Demolition"}, "dates": {"applied": "applied {date}", "issued": "permit {date}", "finished": "{date}"}, "unitsText": "{n} homes", "alsoText": "Also here", "linkText": "Permit details", "legend": "Approved and finished work from the City’s building permits. Chicago publishes no proposals. Demolitions are dashed rings. Applications still open, and anything approved, started or finished in the last two years."},
       {"id": "build", "kind": "construction", "file": "construction", "name": "Transit under construction", "note": "Red Line Extension, 95th to 130th Street",
        "ucText": "Under construction", "linkText": "Project page"},
       {"id": "closures", "kind": "closures", "under": "build", "file": "closures", "optional": true, "name": "Street closures", "note": "From the Red Line Extension and Red/Purple rebuild; side streets when zoomed in",
@@ -176,6 +177,7 @@
       "sub": "Grades {grades} · {dist} away", "subNoDist": "Grades {grades}",
       "note": "The Chicago Public Schools whose attendance area this spot is in, from CPS’s {year} boundaries. Distances are straight-line to the school building. Boundaries change; CPS’s school locator has the final word."
     },
+    "changes": {"title": "Changing nearby", "radius": 805, "max": 6, "none": "Nothing big proposed, approved, under way or finished within ½ mile in the last two years.", "more": "And {n} more nearby: turn on What's changing to see them.", "note": "Big changes within ½ mile: no houses or small jobs. City of Chicago building permits, as of {date}."},
     "transit": {
       "file": "transit.json", "routes": "transit_routes", "title": "Transit nearby", "radius": 402,
       "station": "Nearest ‘L’ station", "stationSub": "{lines} · {dist} away",

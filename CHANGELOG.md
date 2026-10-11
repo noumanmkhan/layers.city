@@ -3,6 +3,15 @@
 ## Since 1.1
 
 ### Both cities
+- **What's changing** (October 11): a layer of big changes (new buildings that aren't single houses,
+  demolitions of bigger buildings, Toronto's rezoning, site plan and subdivision applications), one dot per
+  site coloured by stage (proposed, approved, under construction, finished in the last two years;
+  demolitions dashed), stage chips, a popup with the City's application page, and a *Changing nearby* card
+  section (500 m / ½ mile). Toronto: 2,845 sites from development applications and building permits
+  (permits placed on the City's address points); Chicago: 1,225 sites from building permits (no proposals
+  data). Fetched weekly by `engine/fetch_changes.py` (fetch-changes.yml), built by `engine/changes.py`.
+  Contact, owner and builder names are never kept. For the iOS app: `changes.geojson`, layer kind
+  `changes`, `card.changes`; contract sections 3, 4, 5. Additive.
 - **Tree canopy** (October 11): a new lens (*Tree canopy*: four bands per city, Toronto under 15 / 15–30 /
   30–45 / 45%+, Chicago under 8 / 8–15 / 15–25 / 25%+), a Living here row ("67% of the land is under
   trees") and a high-end fact ("Among the leafiest in Etobicoke"; facts now cover 121 Toronto and 64

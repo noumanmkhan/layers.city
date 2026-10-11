@@ -492,6 +492,27 @@ const KINDS = {
     }
     return g;
   },
+  // What's changing: a dot per site, coloured by stage; demolitions dashed. Loads on first use (it.lazy).
+  // Stage chips (several at once) narrow it. Tap a dot for what it is, its stage and date, and a link.
+  changes: it => {
+    const g = L.layerGroup(); let cur = null;
+    g._draw = () => {
+      if (cur){ g.removeLayer(cur); cur = null; }
+      if (!data.changes) return;
+      cur = L.layerGroup();
+      data.changes.features.forEach(f => {
+        const p = f.properties; if (!chgStages.has(p.s)) return;
+        const m = L.circleMarker(ll(f.geometry.coordinates), {pane:'pts', radius: chgR(), className: 'chg s-' + p.s + (p.k === 'demolition' ? ' demo' : '')});
+        hoverTip(m, esc(CHG.kinds[p.k] || p.k) + ' · ' + esc(p.a) + ' · ' + esc(CHG.stages[p.s][0]));
+        m.on('click', e => { L.DomEvent.stop(e); chgPopup(p, e.latlng); });
+        cur.addLayer(m);
+      });
+      g.addLayer(cur);
+    };
+    map.on('zoomend', () => cur && cur.eachLayer(m => m.setRadius(chgR())));
+    g.on('add', () => ensureChanges().then(() => g._draw()));
+    return g;
+  },
   // Another agency's buses (it.mode, e.g. GO): every route in the regional view; in the city view only the
   // routes with a stop in the city, numbered where they run inside it. Lines sit in the rail pane, under the
   // mask, so a route's stretch outside the city fades with the rest of the region. Shapes load on first use.
@@ -575,6 +596,46 @@ function cxPopup(it, p, latlng, station){
     (p.about ? '<p>' + esc(p.about) + '</p>' : '') +
     rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
     (p.link ? '<a href="' + esc(p.link) + '" target="_blank" rel="noopener">' + esc(it.linkText || 'Project page') + '</a>' : '')).openOn(map);
+}
+/* ---------- What's changing ----------
+   Sites from engine/changes.py: kind (rezoning, siteplan, subdivision, building, demolition), stage
+   (proposed, approved, building, finished), date and what kind of date (applied, issued, finished). */
+const CHG = byKind('changes'), CC = CITY.card.changes;
+const chgStages = new Set(CHG ? Object.keys(CHG.stages) : []);
+let chgP = null;
+function ensureChanges(){
+  if (!CHG) return Promise.resolve(null);
+  return chgP || (chgP = get(CHG.file).then(d => { data.changes = d; return d; }).catch(() => { chgP = null; return null; }));
+}
+const chgR = () => { const z = map.getZoom(); return z < 12 ? 2.8 : z < 14 ? 4 : 5.5; };
+const chgWhen = p => fill(CHG.dates[p.dl] || '{date}', {date: niceDate(p.date, true)});
+const chgKind = p => CHG.kinds[p.k] || p.k;
+function chgPopup(p, latlng){
+  const also = (p.also || []).map(([k, s, d, u]) => '<li>' + esc(CHG.kinds[k] || k) + ' · ' + esc(CHG.stages[s][0]) + (d ? ' · ' + esc(d.slice(0, 4)) : '') + '</li>').join('');
+  L.popup({className:'info-pop chg-pop', maxWidth: 300, autoPanPadding:[24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(chgKind(p)) + '</b><small><i class="chg-dot s-' + p.s + '"></i>' + esc(CHG.stages[p.s][0]) + ' · ' + esc(chgWhen(p)) + '</small>' +
+    '<p class="chg-a">' + esc(p.a) + (p.units ? ' · ' + esc(fill(CHG.unitsText, {n: p.units})) : '') + '</p>' +
+    (p.d ? '<p>' + esc(p.d) + '</p>' : '') +
+    (also ? '<div class="chg-also"><span>' + esc(CHG.alsoText) + '</span><ul>' + also + '</ul></div>' : '') +
+    (p.u ? '<a href="' + esc(p.u) + '" target="_blank" rel="noopener">' + esc(CHG.linkText) + '</a>' : '')).openOn(map);
+}
+function setChgStage(s){
+  if (chgStages.has(s) && chgStages.size > 1) chgStages.delete(s); else chgStages.add(s);
+  document.querySelectorAll('[data-chg]').forEach(b => b.setAttribute('aria-pressed', String(chgStages.has(b.dataset.chg))));
+  if (layers[CHG.id] && layers[CHG.id]._draw) layers[CHG.id]._draw();
+  queueHash();
+}
+/* The card's Changing nearby section: sites within the radius, nearest first, each with what it is, its
+   stage and date, the address and distance, a short description and the City's page when there is one. */
+function changesHere(x, y){
+  const D = data.changes; if (!CC || !CHG || !D) return '';
+  const near = D.features.map(f => [f, metres([x, y], f.geometry.coordinates)]).filter(a => a[1] <= CC.radius).sort((a, b) => a[1] - b[1]);
+  if (!near.length) return '<div class="live"><p class="chg-none">' + esc(CC.none) + '</p><p>' + esc(fill(CC.note, {date: niceDate(D.asof, true)})) + '</p></div>';
+  const rows = near.slice(0, CC.max || 6).map(([f, d]) => { const p = f.properties;
+    return '<dt><i class="chg-dot s-' + p.s + (p.k === 'demolition' ? ' demo' : '') + '"></i>' + esc(chgKind(p)) + '</dt><dd>' + esc(p.a) + ' <span class="chg-sub">' + esc(CHG.stages[p.s][0]) + ' · ' + esc(chgWhen(p)) + ' · ' + dist(d) + ' away</span>' +
+      (p.d ? '<span class="chg-d">' + esc(p.d.length > 110 ? p.d.slice(0, 110).replace(/\s+\S*$/, '') + '…' : p.d) + '</span>' : '') + (p.u ? '<a class="chg-l" href="' + esc(p.u) + '" target="_blank" rel="noopener">' + esc(CHG.linkText) + '</a>' : '') + '</dd>'; }).join('');
+  const more = near.length > (CC.max || 6) ? '<p>' + esc(fill(CC.more, {n: near.length - (CC.max || 6)})) + '</p>' : '';
+  return '<div class="live chg"><dl>' + rows + '</dl>' + more + '<p>' + esc(fill(CC.note, {date: niceDate(D.asof, true)})) + '</p></div>';
 }
 function clPopup(it, p, latlng, soon, asof){
   const long = p.end && p.end.slice(0, 4) - new Date().getFullYear() >= 2;
@@ -799,7 +860,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, highways: 10, addresses: 9.5, rail: 11, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -851,6 +912,14 @@ CITY.groups.forEach(([title, items]) => {
         '<div class="legend"><small id="busnote"></small></div><div class="buspick" id="buspick" hidden></div>';
       grp.appendChild(box);
       box.querySelectorAll('[data-fam]').forEach(b => b.addEventListener('click', () => tapBusFam(b.dataset.fam)));
+    }
+    if (it.kind === 'changes'){   // stages, any mix, each chip its own colour key
+      const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'chgbox'; box.hidden = !it.on;
+      box.innerHTML = '<div class="chips pick" role="group" aria-label="' + esc(it.name) + '">' + Object.entries(it.stages).map(([s, [short, long]]) =>
+        '<button type="button" data-chg="' + s + '" aria-pressed="true" title="' + esc(long) + '"><i class="chg-dot s-' + s + '"></i>' + esc(short) + '</button>').join('') +
+        '</div><div class="legend"><small>' + esc(it.legend) + '</small></div>';
+      grp.appendChild(box);
+      box.querySelectorAll('[data-chg]').forEach(b => b.addEventListener('click', () => setChgStage(b.dataset.chg)));
     }
     if (it.kind === 'towers'){   // key to the badges, shown while the layer is on
       const box = document.createElement('div'); box.className = 'lensbox child'; box.id = 'twkey-' + it.id; box.hidden = !it.on;
@@ -953,6 +1022,7 @@ function setLayer(id, on){
   if (METRO && id === METRO.id) syncStnNames();
   if (kindOf(id) === 'towers'){ const box = document.getElementById('twkey-' + id); if (box) box.hidden = !on; }
   if (kindOf(id) === 'buses'){ document.getElementById('busbox').hidden = !on; drawBusBox(); }
+  if (kindOf(id) === 'changes'){ const b = document.getElementById('chgbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'buses' || kindOf(id) === 'streetcars' || kindOf(id) === 'regional') drawStops();
   if (kindOf(id) === 'boards'){ const box = document.getElementById('brd-' + id); if (box) box.hidden = !on; if (on) setBoard(id, boardPick[id]); }
   if (kindOf(id) === 'suburbs'){
@@ -977,6 +1047,7 @@ document.getElementById('reset').addEventListener('click', () => {
   clearFilters(); applyFilter();
   Object.keys(pick).forEach(id => { pick[id] = LENSES[id].pick[0][0]; });
   BOARDS.forEach(it => setBoard(it.id, it.boards[0][0]));
+  if (CHG){ Object.keys(CHG.stages).forEach(k => chgStages.add(k)); document.querySelectorAll('[data-chg]').forEach(b => b.setAttribute('aria-pressed', 'true')); if (layers[CHG.id] && layers[CHG.id]._draw) layers[CHG.id]._draw(); }
   if (BUSES) setBusFams(BUS_DEFAULT);
   if (picked.size){ picked.clear(); drawPicks(); }
   if (placeF) setPlaceFocus(null, null, false);
@@ -1065,7 +1136,7 @@ function langRow(cfg, d){
     (cfg.note ? '<span class="caveat">' + esc(fill(cfg.note, {multi: d.langMulti})) + '</span>' : '') + '</dd>';
 }
 // Collapsible card sections. Open/closed is remembered in this browser; phones start with all closed.
-const SEC_DEFAULT = matchMedia('(max-width:760px)').matches ? {bounds:false, live:false, schools:false, transit:false, near:false, reps:false} : {bounds:true, live:true, schools:true, transit:true, near:true, reps:false};
+const SEC_DEFAULT = matchMedia('(max-width:760px)').matches ? {bounds:false, live:false, schools:false, transit:false, near:false, chg:false, reps:false} : {bounds:true, live:true, schools:true, transit:true, near:true, chg:true, reps:false};
 let secOpen = Object.assign({}, SEC_DEFAULT);
 try { Object.assign(secOpen, JSON.parse(localStorage.getItem('cardSections') || '{}')); } catch (e) {}
 function section(id, title, body){
@@ -1264,6 +1335,7 @@ function cardOf(latlng, title, muniName){
                ['schools', (CITY.card.schools && CITY.card.schools.title) || 'Schools', schools(x, y)],
                ['transit', (TR && TR.title) || 'Transit', transitHere(x, y)],
                ['near', 'Nearby', nearby(x, y)],
+               ['chg', (CC && CC.title) || 'Changing nearby', changesHere(x, y)],
                ['reps', 'Representatives', representatives(hits)]]};
 }
 /* The card's address row (card.address in city.json; data from the addresses layer's file). A grid city:
@@ -2062,6 +2134,7 @@ function linkState(){
   const c = map.getCenter(), z = map.getZoom();
   const parts = [['map', (Math.round(z * 4) / 4) + '/' + c.lat.toFixed(5) + '/' + c.lng.toFixed(5)]];
   if (pin && !pinIsMe){ const p = pin.getLatLng(); parts.push(['pin', p.lat.toFixed(5) + ',' + p.lng.toFixed(5)]); if (pinName) parts.push(['name', pinName]); }
+  if (CHG && chgStages.size < Object.keys(CHG.stages).length) parts.push(['chg', [...chgStages].join('+')]);
   if (cmp && cmp.b){ const p = cmp.b[0]; parts.push(['pin2', p.lat.toFixed(5) + ',' + p.lng.toFixed(5)]); if (cmp.b[1]) parts.push(['name2', cmp.b[1]]); }
   if (scope === 'outer') parts.push(['view', 'region']);
   if (focusKey) parts.push(['focus', focusKey]);
@@ -2093,7 +2166,7 @@ function readHash(h){
 // Put the map into the state a link describes. Unknown ids and malformed parts are skipped.
 function applyHash(h){
   const o = readHash(h);
-  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes'].some(k => k in o)) return false;
+  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg'].some(k => k in o)) return false;
   const num = s => s.split(/[,/]/).map(Number);
   // focus= is a county or region (regional view), or "layer:name" for one place in the city.
   const pfo = placeFromLink(o.focus);
@@ -2112,6 +2185,11 @@ function applyHash(h){
   }
   (o.board || '').split(',').forEach(part => { const [id, b] = part.split(':'); if (b) setBoard(id, b); });
   if (o.bus) setBusFams(o.bus.split('+'));
+  if (CHG){ const want = o.chg ? o.chg.split('+').filter(k => k in CHG.stages) : Object.keys(CHG.stages);
+    Object.keys(CHG.stages).forEach(k => { if (want.includes(k) !== chgStages.has(k)) { if (want.includes(k)) chgStages.add(k); else chgStages.delete(k); } });
+    if (!chgStages.size) Object.keys(CHG.stages).forEach(k => chgStages.add(k));
+    document.querySelectorAll('[data-chg]').forEach(b => b.setAttribute('aria-pressed', String(chgStages.has(b.dataset.chg))));
+    if (layers[CHG.id] && layers[CHG.id]._draw) layers[CHG.id]._draw(); }
   picked.clear(); (o.routes || '').split(',').filter(Boolean).forEach(r => picked.add(r));
   if (TR && (picked.size || pickLayer.getLayers().length)) ensureRoutes().then(drawPicks);
   const [lk, lp] = (o.lens || '').split(':');
@@ -2405,6 +2483,8 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
     drawStops(); drawBusBox(); if (placeF) drawPlaceBox();
     redrawCard();
   }).catch(() => { data.transit = null; });
+  // What's changing: fetched after the map is up for the card's Changing nearby section.
+  if (CC && CHG) ensureChanges().then(() => redrawCard());
   // Attendance areas are big: fetched after the map is up, then the open card is redrawn with them.
   if (CITY.card.schools) get(CITY.card.schools.file).then(d => {
     data.schools = d;
