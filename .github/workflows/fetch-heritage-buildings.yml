@@ -1,0 +1,38 @@
+name: Fetch heritage buildings
+# Individually protected buildings (engine/fetch_heritage_buildings.py, cities/<city>/heritage_buildings.json)
+# into cities/<city>/raw/heritage_buildings.json, then docs/<city>/data/heritage_buildings.geojson with
+# engine/heritage_buildings.py when it exists. Monthly (the 7th), on change, or by hand.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 7 * *'
+  push:
+    branches: [main]
+    paths: ['engine/fetch_heritage_buildings.py', 'engine/heritage_buildings.py', 'cities/*/heritage_buildings.json', '.github/workflows/fetch-heritage-buildings.yml']
+permissions:
+  contents: write
+concurrency: fetch-heritage-buildings
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q pyshp shapely
+      - run: |
+          for c in toronto chicago; do
+            mkdir -p cities/$c/raw
+            python3 -u engine/fetch_heritage_buildings.py $c 2>&1 | tee cities/$c/raw/fetch_heritage_buildings.log || true
+            if [ -f engine/heritage_buildings.py ]; then python3 -u engine/heritage_buildings.py $c 2>&1 | tee -a cities/$c/raw/fetch_heritage_buildings.log || true; fi
+          done
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw cities/chicago/raw
+          for c in toronto chicago; do [ -f docs/$c/data/heritage_buildings.geojson ] && git add docs/$c/data/heritage_buildings.geojson; done
+          git commit -m "Update heritage buildings" || echo "no changes"
+          git pull --rebase
+          git push
