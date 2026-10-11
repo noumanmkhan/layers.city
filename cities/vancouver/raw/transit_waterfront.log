@@ -1,25 +1,29 @@
   got https://gtfs-static.translink.ca/gtfs/google_transit.zip 15771 KB
+  shapes with fewer than 2 points, dropped: 1
   got https://download.bbbike.org/osm/bbbike/Vancouver/Vancouver.osm.pbf 63630 KB
 feed ranges [('20260907', '20270103')]
 departure 2026-10-20 08:00:00
 753 origin points, 1 destination
-Traceback (most recent call last):
-  File "GTFSFeed.java", line 885, in com.conveyal.gtfs.GTFSFeed.writableTempFileFromGtfs
-java.lang.java.lang.IllegalArgumentException: java.lang.IllegalArgumentException: Invalid number of points in LineString (found 1 - must be 0 or >= 2)
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "GTFSFeed.java", line 890, in com.conveyal.gtfs.GTFSFeed.writableTempFileFromGtfs
-Exception: Java Exception
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch_transit_waterfront.py", line 141, in <module>
-    net = TransportNetwork(pbf, feeds)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 124, in __init__
-    gtfs_feed = com.conveyal.gtfs.GTFSFeed.writableTempFileFromGtfs(
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-java.lang.java.lang.RuntimeException: java.lang.RuntimeException: java.lang.IllegalArgumentException: Invalid number of points in LineString (found 1 - must be 0 or >= 2)
+wrote raw/transit_waterfront.json: 22 local areas; minutes min/median/max 15 35 48
+   1 Arbutus Ridge {'minutes': 41, 'best': 32, 'points': 23, 'reached': 23}
+   2 Downtown {'minutes': 15, 'best': 2, 'points': 29, 'reached': 29}
+   3 Dunbar-Southlands {'minutes': 48, 'best': 39, 'points': 58, 'reached': 50}
+   4 Fairview {'minutes': 26, 'best': 15, 'points': 26, 'reached': 26}
+   5 Grandview-Woodland {'minutes': 28, 'best': 17, 'points': 32, 'reached': 32}
+   6 Hastings-Sunrise {'minutes': 37, 'best': 27, 'points': 53, 'reached': 53}
+   7 Kensington-Cedar Cottage {'minutes': 33, 'best': 20, 'points': 46, 'reached': 46}
+   8 Kerrisdale {'minutes': 46, 'best': 38, 'points': 40, 'reached': 40}
+   9 Killarney {'minutes': 46, 'best': 31, 'points': 44, 'reached': 44}
+   10 Kitsilano {'minutes': 34, 'best': 25, 'points': 39, 'reached': 39}
+   11 Marpole {'minutes': 44, 'best': 32, 'points': 43, 'reached': 42}
+   12 Mount Pleasant {'minutes': 26, 'best': 13, 'points': 26, 'reached': 26}
+   13 Oakridge {'minutes': 35, 'best': 25, 'points': 24, 'reached': 24}
+   14 Renfrew-Collingwood {'minutes': 30, 'best': 17, 'points': 49, 'reached': 49}
+   15 Riley Park {'minutes': 33, 'best': 22, 'points': 31, 'reached': 31}
+   16 Shaughnessy {'minutes': 36, 'best': 30, 'points': 27, 'reached': 27}
+   17 South Cambie {'minutes': 32, 'best': 23, 'points': 14, 'reached': 14}
+   18 Strathcona {'minutes': 24, 'best': 13, 'points': 27, 'reached': 27}
+   19 Sunset {'minutes': 42, 'best': 34, 'points': 39, 'reached': 39}
+   20 Victoria-Fraserview {'minutes': 47, 'best': 34, 'points': 35, 'reached': 35}
+   21 West End {'minutes': 22, 'best': 11, 'points': 16, 'reached': 16}
+   22 West Point Grey {'minutes': 42, 'best': 33, 'points': 32, 'reached': 32}
