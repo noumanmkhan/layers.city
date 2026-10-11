@@ -128,8 +128,10 @@
     ('Mechanical(MS)', 'Alter: Boiler/Furnace/AC Replacement') 749
     ('Residential Building Permit', 'Alteration to Existing Building') 747
     ('Small Residential Projects', 'Canopy') 742
-  selected 32754 · by status {'Closed': 12462, 'Inspection': 10907, 'Revision Issued': 3245, 'Permit Issued': 2127, 'Cancelled': 1142, 'Closed - Dormant': 840, 'Under Review ': 563, "Examiner's Notice Sent": 554, 'Issuance Pending': 145, 'Not Started': 143, 'Revocation Pending': 139, 'Refusal Notice': 105, 'Response Received': 74, 'Work Not Started': 69, 'Application Acceptable': 63, 'Pending Cancellation': 61, 'Application On Hold': 37, 'Ready for Issuance': 25, 'Application Received': 19, 'Abandoned': 8, 'Order Complied': 5, 'Application Withdrawn': 4, 'Revised': 4, 'Agreement in Progress': 3, 'VIOLATION': 2}
+  selected 3907 · by status {'Inspection': 1119, 'Closed': 1102, 'Revision Issued': 476, 'Permit Issued': 372, 'Under Review ': 239, "Examiner's Notice Sent": 194, 'Cancelled': 124, 'Closed - Dormant': 70, 'Response Received': 62, 'Revocation Pending': 23, 'Work Not Started': 23, 'Refusal Notice': 22, 'Application Acceptable': 22, 'Not Started': 14, 'Pending Cancellation': 14, 'Issuance Pending': 10, 'Application On Hold': 9, 'Application Received': 3, 'Ready for Issuance': 3, 'Abandoned': 1, 'Agreement in Progress': 1, 'Forwarded for Issuance': 1, 'Extension Granted': 1, 'Application Withdrawn': 1, 'Notice Sent': 1}
   got https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/abedd8bc-e3dd-4d45-8e69-79165a76e4fa/resource/64d4e54b-738f-4cd9 174 MB
   address points: 525364
-  placed: {'geo_id': 26203, 'none': 2596, 'address': 3955}
-  wrote permits 30158 rows, 19773 KB
+  placed: {'geo_id': 3126, 'address': 455, 'none': 326}
+  wrote permits 3581 rows, 2442 KB
+toronto: 6960 items → 3455 sites · 1599 KB
+  by kind/stage: {('building', 'building'): 832, ('siteplan', 'proposed'): 712, ('demolition', 'finished'): 487, ('rezoning', 'proposed'): 414, ('building', 'finished'): 272, ('building', 'proposed'): 170, ('demolition', 'approved'): 150, ('subdivision', 'proposed'): 131, ('demolition', 'building'): 109, ('building', 'approved'): 78, ('siteplan', 'approved'): 35, ('demolition', 'proposed'): 35, ('rezoning', 'approved'): 30}
