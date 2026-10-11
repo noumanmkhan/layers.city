@@ -1,0 +1,30 @@
+name: Scout Vancouver data
+# One-off check of what Vancouver open data, TransLink GTFS, DataBC and UBC Dataverse publish, before building the city.
+# Writes scouting/vancouver/out/ and commits it to main. Doesn't touch the site.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scouting/vancouver/scout.py']
+permissions:
+  contents: write
+concurrency: scout-vancouver
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          mkdir -p scouting/vancouver/out
+          python3 -u scouting/vancouver/scout.py 2>&1 | tee scouting/vancouver/out/scout.log || true
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add scouting/vancouver/out
+          git commit -m "Vancouver scouting report" || echo "no changes"
+          git pull --rebase
+          git push
