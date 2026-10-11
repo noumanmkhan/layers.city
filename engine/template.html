@@ -2,6 +2,18 @@
 <title>{{title}}</title>
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="description" content="{{description}}">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Layers.City">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:image" content="https://layers.city/og-layers.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Layers.City logo: a red map pin holding stacked map layers">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
@@ -78,6 +90,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 /* City switcher: a native dropdown laid invisibly over the title, so phones get their own picker. */
 .hub-link{display:flex;width:max-content;align-items:center;gap:3px;margin:0 0 6px -2px;font-size:11.5px;font-weight:600;color:var(--ink-3);text-decoration:none}
 .hub-link svg{width:13px;height:13px}
+.hub-link .mk{width:12px;height:15px;margin:0 2px 0 1px}
 .hub-link:hover{color:var(--accent)}
 .hub-link:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:4px}
 .switch{position:relative;display:inline-block;max-width:100%}
@@ -649,7 +662,7 @@ dl.facts dd span.ag-sub{display:block;font-weight:400;color:var(--ink-2);font-si
     <div class="ph" id="ph">
       <div class="grab" aria-hidden="true"></div>
       <button type="button" class="fold" id="fold" aria-label="Hide the layer panel" title="Hide the panel"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <a class="hub-link" href="../"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>All maps</a>
+      <a class="hub-link" href="../" title="All maps"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="mk" viewBox="16 6 88 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,42 86,54 60,66 34,54" fill="#fff" fill-opacity=".5"/><polygon points="60,24 86,36 60,48 34,36" fill="#fff"/></svg>Layers.City</a>
       <!--CITY_SWITCH-->
       <p>Turn layers on and off. Search an address or tap anywhere on the map to see every boundary that spot falls inside.</p>
     </div>
