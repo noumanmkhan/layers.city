@@ -1,0 +1,98 @@
+[
+ {
+  "url": "https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lcsd000b21a_e.zip",
+  "ua": "map",
+  "error": "HTTP Error 403: Forbidden"
+ },
+ {
+  "url": "https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lcsd000b21a_e.zip",
+  "ua": "browser",
+  "error": "HTTP Error 403: Forbidden"
+ },
+ {
+  "url": "https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lcsd000b21a_e.zip",
+  "ua": "curl",
+  "error": "HTTP Error 403: Forbidden"
+ },
+ {
+  "url": "https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lda_000b21a_e.zip",
+  "ua": "map",
+  "error": "HTTP Error 403: Forbidden"
+ },
+ {
+  "url": "https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lda_000b21a_e.zip",
+  "ua": "browser",
+  "error": "HTTP Error 403: Forbidden"
+ },
+ {
+  "url": "https://www12.statcan.gc.ca/census-recensement/2021/geo/sip-pis/boundary-limites/files-fichiers/lda_000b21a_e.zip",
+  "ua": "curl",
+  "error": "HTTP Error 403: Forbidden"
+ },
+ {
+  "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/download-telecharger/comp/GetFile.cfm?Lang=E&FILETYPE=CSV&GEONO=006",
+  "ua": "map",
+  "error": "HTTP Error 403: Forbidden"
+ },
+ {
+  "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/download-telecharger/comp/GetFile.cfm?Lang=E&FILETYPE=CSV&GEONO=006",
+  "ua": "browser",
+  "error": "HTTP Error 403: Forbidden"
+ },
+ {
+  "url": "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/download-telecharger/comp/GetFile.cfm?Lang=E&FILETYPE=CSV&GEONO=006",
+  "ua": "curl",
+  "error": "HTTP Error 403: Forbidden"
+ },
+ {
+  "url": "https://www150.statcan.gc.ca/n1/en/catalogue/98-401-X2021006",
+  "ua": "map",
+  "status": 200,
+  "type": "text/html; charset=UTF-8",
+  "length": null,
+  "range": null,
+  "head": "<!DOCTYPE html>\n<!--[if lt IE 9]><html lang=\"en\" dir=\"ltr\" class=\"no-js\"><![endif]-->\n<!--[if gt IE 8]><!-->\n<html lang=\"en\" dir=\"ltr\" class=\"no-js\">\n<!--<![endif]-->\n  <head>\n    <meta charset=\"utf-8"
+ },
+ {
+  "url": "https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/dataflow/STC_CP/DF_DA?references=none",
+  "ua": "map",
+  "error": "HTTP Error 416: Range Not Satisfiable"
+ },
+ {
+  "url": "https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/dataflow/STC_CP/DF_DA?references=none",
+  "ua": "browser",
+  "error": "HTTP Error 416: Range Not Satisfiable"
+ },
+ {
+  "url": "https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/dataflow/STC_CP/DF_DA?references=none",
+  "ua": "curl",
+  "error": "HTTP Error 416: Range Not Satisfiable"
+ },
+ {
+  "url": "https://open.canada.ca/data/api/action/package_show?id=750e6035-adf8-4426-966f-4c25b12a999e",
+  "ua": "map",
+  "status": 200,
+  "type": "application/json;charset=utf-8",
+  "length": "62974",
+  "range": null,
+  "head": "{\"help\": \"https://open.canada.ca/data/api/3/action/help_show?name=package_show\", \"success\": true, \"result\": {\"association_type\": [], \"audience\": [\"general_public\", \"government\"], \"author\": null, \"auth"
+ },
+ {
+  "url": "https://openmaps.gov.bc.ca/geo/pub/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=WHSE_LEGAL_ADMIN_BOUNDARIES.ABMS_MUNICIPALITIES_SP&count=1&outputFormat=json",
+  "ua": "map",
+  "status": 200,
+  "type": "application/json;charset=UTF-8",
+  "length": null,
+  "range": null,
+  "head": "{\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"id\":\"WHSE_LEGAL_ADMIN_BOUNDARIES.ABMS_MUNICIPALITIES_SP.39\",\"geometry\":{\"type\":\"Polygon\",\"coordinates\":[[[1451164.198,889210.813],[1451263.16"
+ },
+ {
+  "url": "https://osmdata.openstreetmap.de/download/land-polygons-split-4326.zip",
+  "ua": "map",
+  "status": 206,
+  "type": "application/zip",
+  "length": "2048",
+  "range": "bytes 0-2047/928042196",
+  "head": "PK\u0003\u0004\u0014\u0000\u0000\u0000\b\u0000&\u001dK]\u008fi\u0099\u00f1\u00d5\u0001\u0000\u00008\u0003\u0000\u0000#\u0000\u001c\u0000land-polygons-split-4326/README.txtUT\t\u0000\u0003W\u0005\u00cbjW\u0005\u00cbjux\u000b\u0000\u0001\u0004\u00e7\u0003\u0000\u0000\u0004\u00e5\u0003\u0000\u0000\u0085R_o\u00da@\f\u007f\u00bfO\u00e1G\u0090\u009a\u0010\u00a00\u008a\u00b4\u0087\u008af\u00a8\u001a\u0003$\u0090\u00a6\u00eee2\u0089INKr\u00d1\u00d94\u00e5\u00db\u00cfI\u0007Z\u00bbM\u008bN\u00ca\u00c9>\u00db\u00bf?6\u00fb\u00dc2\u00a4(\b\r\u00ea\u00c55U\u00e10\u00a5\u0014\u008e\u00de\u0095\u00e0\u00b8ls\u00a1\u00ab\u00a9b\u00f1DRb\u001d\u00a6\u0004Mn\u0093\u001c\u00dc\u00f1H\u009e\r\u00bd\u0088\u00c7D\u0018\u00b0J\u00a1\u00f6"
+ }
+]
