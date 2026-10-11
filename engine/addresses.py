@@ -15,6 +15,10 @@ Two kinds of city, set by "type" in addresses.json:
     dividing street (role "divide") and every drawn street whose name ends in " E" or " W" (role "e"/"w"),
     so the page can show which side a spot is on and an example street. Numbers aren't a grid there:
     each street counts up from its own start, which the card says in words.
+    Options: "also" (more dividing streets, e.g. Vancouver's Carrall St downtown beside Ontario St);
+    "prefix": true for cities that write the side first ("W Broadway", Vancouver) rather than last;
+    "axes": a file in the city's folder with {"ns", "ew", "area"} (as a grid city's axes, plus the
+    [west, south, east, north] box where they hold), so the card can add a spot's block numbers.
 
 Usage: python3 engine/addresses.py <city>
 """
@@ -71,24 +75,35 @@ if CFG['type'] == 'grid':
     meta = {'type': 'grid', 'axes': axes}
     print(f"{city}: {len(axes['ns'])} north-south positions, {len(axes['ew'])} east-west, {len(out)} line pieces")
 else:
-    div = linemerge(unary_union(by_name.get(CFG['street'], [])))
-    if div.is_empty: raise SystemExit(f'{city}: no drawn street called {CFG["street"]!r}')
-    for l in getattr(div, 'geoms', [div]):
-        out.append({'type': 'Feature', 'properties': {'role': 'divide', 'street': CFG['street']}, 'geometry': {'type': 'LineString', 'coordinates': rnd(l)}})
+    div_names = [CFG['street']] + CFG.get('also', [])
+    for dn in div_names:
+        u = unary_union(by_name.get(dn, []))
+        d1 = linemerge(u) if u.geom_type == 'MultiLineString' else u
+        if d1.is_empty: raise SystemExit(f'{city}: no drawn street called {dn!r}')
+        for l in getattr(d1, 'geoms', [d1]):
+            out.append({'type': 'Feature', 'properties': {'role': 'divide', 'street': dn}, 'geometry': {'type': 'LineString', 'coordinates': rnd(l)}})
+    div = unary_union([g for dn in div_names for g in by_name[dn]])
+    PRE = CFG.get('prefix')
+    side_of = (lambda n: 'e' if n.startswith('E ') else 'w' if n.startswith('W ') else None) if PRE else \
+              (lambda n: 'e' if n.endswith(' E') else 'w' if n.endswith(' W') else None)
+    base_of = (lambda n: n[2:]) if PRE else (lambda n: n[:-2])
     # Only streets whose East/West comes from the dividing street: some part of the street (either half)
     # within "near" metres of it. That leaves out pairs split by something else (Denison Rd E at Weston Rd,
     # Lakeshore Rd E in Mississauga, the two sides of a divided road).
     near = div.buffer(CFG.get('near', 400) / 111000)
-    meets = {name[:-2] for name, gs in by_name.items() if name[-2:] in (' E', ' W') and any(g.intersects(near) for g in gs)}
+    meets = {base_of(name) for name, gs in by_name.items() if side_of(name) and any(g.intersects(near) for g in gs)}
     n = {'e': 0, 'w': 0}
     for name, gs in sorted(by_name.items()):
-        side = 'e' if name.endswith(' E') else 'w' if name.endswith(' W') else None
-        if not side or name in CFG.get('skip', []) or name[:-2] not in meets: continue
+        side = side_of(name)
+        if not side or name in CFG.get('skip', []) or base_of(name) not in meets: continue
         n[side] += 1
         for g in gs:
             for l in getattr(g, 'geoms', [g]):
                 out.append({'type': 'Feature', 'properties': {'role': side, 'street': name}, 'geometry': {'type': 'LineString', 'coordinates': rnd(l)}})
     meta = {'type': 'divide', 'street': CFG['street']}
+    if CFG.get('axes'):
+        ax = json.load(open(os.path.join(ROOT, 'cities', city, CFG['axes'])))
+        meta['axes'] = {'ns': ax['ns'], 'ew': ax['ew']}; meta['axesArea'] = ax['area']
     print(f"{city}: {CFG['street']} divides {n['e']} East and {n['w']} West streets")
 
 path = os.path.join(DATA, 'addresses.geojson')

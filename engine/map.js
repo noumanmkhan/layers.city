@@ -1428,7 +1428,17 @@ function addressRow(x, y){
   let ex = null, ed = 1500;
   D.features.filter(f => f.properties.role === side).forEach(f => f.geometry.coordinates.forEach(c => { const d = metres([x, y], c); if (d < ed){ ed = d; ex = f.properties.street; } }));
   ex = ex || (A.example || {})[side] || '';
-  return [A.label, esc(side === 'e' ? A.east : A.west) + (A.sub ? '<span class="ag-sub">' + esc(fill(A.sub, {street: ex})) + '</span>' : ''), true];
+  // Where the city's blocks follow a grid (D.axes, inside D.axesArea), the spot's block numbers too:
+  // north-south streets' number, then east-west streets' number with the side (A.blocks).
+  let blk = '';
+  const ar = D.axesArea;
+  if (D.axes && A.blocks && ar && x >= ar[0] && y >= ar[1] && x <= ar[2] && y <= ar[3]){
+    const at = (pts, v) => { let i = 1; while (i < pts.length - 1 && pts[i][0] < v) i++; const [a, b] = [pts[i - 1], pts[i]]; return a[1] + (b[1] - a[1]) * (v - a[0]) / ((b[0] - a[0]) || 1); };
+    const r = v => Math.max(0, Math.round(Math.abs(v) / 100) * 100);
+    const n = at(D.axes.ns, y), e = at(D.axes.ew, x);
+    blk = '<span class="ag-blk">' + esc(fill(A.blocks, {ns: r(n), ew: r(e) ? r(e) + ' ' + (e < 0 ? 'W' : 'E') : '0'})) + '</span>';
+  }
+  return [A.label, esc(side === 'e' ? A.east : A.west) + blk + (A.sub ? '<span class="ag-sub">' + esc(fill(A.sub, {street: ex})) + '</span>' : ''), true];
 }
 const cardHead = (small, heading, extra) => '<div class="hh"><div><small>' + esc(small) + '</small><strong>' + esc(heading) + '</strong></div><div class="hb">' + (extra || '') +
   '<button type="button" class="share" aria-label="Share this spot" title="Share a link to this spot">' + SHARE_ICON + '</button><button type="button" aria-label="Close" id="hereX">×</button></div></div>';

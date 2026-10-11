@@ -1255,6 +1255,7 @@ dl.facts dd{margin:0;font-weight:500;min-width:0}
 .lbl-ag.div{display:flex;align-items:center;gap:8px;font-size:11px}
 .lbl-ag.div i{font-style:normal;color:var(--ag-w)} .lbl-ag.div i:last-child{color:var(--ag-e)} .lbl-ag.div b{color:var(--ag)}
 .sw.k-addresses{background:var(--city) repeating-linear-gradient(90deg,var(--ag) 0 4px,transparent 4px 7px) 0 50%/100% 2px no-repeat}
+dl.facts dd span.ag-blk{display:block;font-weight:500;margin-top:1px}
 dl.facts dd span.ag-sub{display:block;font-weight:400;color:var(--ink-2);font-size:11.5px;margin-top:1px;line-height:1.4}
 /* ---------- Compare two places ---------- */
 .cmp-go{display:block;margin:0 16px 12px;font:inherit;font-size:12px;font-weight:600;border:1px solid var(--rule);border-radius:8px;padding:6px 10px;background:none;color:var(--accent);cursor:pointer}
@@ -2809,7 +2810,17 @@ function addressRow(x, y){
   let ex = null, ed = 1500;
   D.features.filter(f => f.properties.role === side).forEach(f => f.geometry.coordinates.forEach(c => { const d = metres([x, y], c); if (d < ed){ ed = d; ex = f.properties.street; } }));
   ex = ex || (A.example || {})[side] || '';
-  return [A.label, esc(side === 'e' ? A.east : A.west) + (A.sub ? '<span class="ag-sub">' + esc(fill(A.sub, {street: ex})) + '</span>' : ''), true];
+  // Where the city's blocks follow a grid (D.axes, inside D.axesArea), the spot's block numbers too:
+  // north-south streets' number, then east-west streets' number with the side (A.blocks).
+  let blk = '';
+  const ar = D.axesArea;
+  if (D.axes && A.blocks && ar && x >= ar[0] && y >= ar[1] && x <= ar[2] && y <= ar[3]){
+    const at = (pts, v) => { let i = 1; while (i < pts.length - 1 && pts[i][0] < v) i++; const [a, b] = [pts[i - 1], pts[i]]; return a[1] + (b[1] - a[1]) * (v - a[0]) / ((b[0] - a[0]) || 1); };
+    const r = v => Math.max(0, Math.round(Math.abs(v) / 100) * 100);
+    const n = at(D.axes.ns, y), e = at(D.axes.ew, x);
+    blk = '<span class="ag-blk">' + esc(fill(A.blocks, {ns: r(n), ew: r(e) ? r(e) + ' ' + (e < 0 ? 'W' : 'E') : '0'})) + '</span>';
+  }
+  return [A.label, esc(side === 'e' ? A.east : A.west) + blk + (A.sub ? '<span class="ag-sub">' + esc(fill(A.sub, {street: ex})) + '</span>' : ''), true];
 }
 const cardHead = (small, heading, extra) => '<div class="hh"><div><small>' + esc(small) + '</small><strong>' + esc(heading) + '</strong></div><div class="hb">' + (extra || '') +
   '<button type="button" class="share" aria-label="Share this spot" title="Share a link to this spot">' + SHARE_ICON + '</button><button type="button" aria-label="Close" id="hereX">×</button></div></div>';
