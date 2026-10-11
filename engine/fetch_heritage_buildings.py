@@ -30,7 +30,19 @@ def get(url, tries=4):
 
 
 S = CFG['source']
-if S['type'] == 'socrata':
+if S['type'] == 'socrata_geo':
+    # Polygons (each landmark's parcel or footprint): one point per landmark at its shape's centre.
+    from shapely.geometry import shape
+    fc = json.loads(get(S['url'] + '?' + urllib.parse.urlencode({'$limit': 5000})))
+    rows = []
+    for f in fc['features']:
+        r = {k: v for k, v in f['properties'].items() if not k.startswith(':@')}
+        if f.get('geometry'):
+            g = shape(f['geometry']); c = g.representative_point()
+            r['lon'], r['lat'] = round(c.x, 6), round(c.y, 6)
+        rows.append(r)
+    fields = sorted({k for r in rows for k in r})
+elif S['type'] == 'socrata':
     rows = json.loads(get(S['url'] + '?' + urllib.parse.urlencode({'$limit': 5000})))
     for r in rows:
         r['lon'], r['lat'] = (float(r['longitude']), float(r['latitude'])) if r.get('latitude') else (None, None)
@@ -58,9 +70,14 @@ else:
         rows.append({k: (v.isoformat() if hasattr(v, 'isoformat') else v) for k, v in rec.items()})
     for n in [n for n in z.namelist() if n.lower().endswith('.txt')]:
         print('--', n); print(z.read(n).decode('utf8', 'replace')[:3000])
+keep = S.get('keep')
+if keep:   # e.g. {"STATUS": ["Part IV"]}: only rows whose field has one of these values are written
+    rows = [r for r in rows if all(str(r.get(k)) in v for k, v in keep.items())]
+    print('kept by', keep, ':', len(rows))
+if S.get('fields'): rows = [{k: r.get(k) for k in S['fields'] + ['lon', 'lat']} for r in rows]
 print('fields:', fields)
 print('rows:', len(rows), '· with a point:', sum(1 for r in rows if r.get('lat')))
-for f in fields:
+for f in (S.get('fields') or fields):
     vals = collections.Counter(str(r.get(f)) for r in rows)
     if len(vals) <= 40: print(' ', f, dict(vals.most_common(40)))
     else: print(' ', f, len(vals), 'values, e.g.', [v for v, _ in vals.most_common(5)])

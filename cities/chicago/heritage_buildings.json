@@ -1,4 +1,7 @@
 {
   "_about": "Heritage buildings (engine/fetch_heritage_buildings.py, engine/heritage_buildings.py): Chicago Landmarks designated one by one by City Council, from the City's Individual Landmarks dataset.",
-  "source": {"type": "socrata", "url": "https://data.cityofchicago.org/resource/tdab-kixi.json"}
+  "source": {
+    "type": "socrata_geo",
+    "url": "https://data.cityofchicago.org/resource/uct4-hrvh.geojson"
+  }
 }
