@@ -452,9 +452,10 @@ const KINDS = {
     g._draw = () => {
       if (cur){ g.removeLayer(cur); cur = null; }
       if (!routeGeo) return;
-      // With two families on, the express routes are dashed so they read apart from the locals they shadow.
+      // With two families on, the express routes are dashed (class dash) so they read apart from the locals
+      // they shadow. Showing the overnight family, every route drawn gets the night class.
       const mixed = busFams.size > 1;
-      cur = routeLines(routeGeo.features.filter(f => busShows(f.properties)), false, p => mixed && p.f.includes('exp') ? ' exp' : '');
+      cur = routeLines(routeGeo.features.filter(f => busShows(f.properties)), false, p => mixed && p.f.includes('exp') ? ' dash' : '', {night: busFams.has('night')});
       g.addLayer(cur);
     };
     g.on('add', () => ensureRoutes().then(() => { g._draw(); drawBusBox(); }));
@@ -730,6 +731,12 @@ function ensureRoutes(){
   return routeGeoP || (routeGeoP = get(TR.routes).then(d => { routeGeo = d; return d; }).catch(() => { routeGeoP = null; return null; }));
 }
 const routeName = r => r.r + (r.n ? ' ' + r.n : '');
+// Classes a route's line, number badge and card chip carry, so a city's CSS can style them the way its
+// agency does: freq, exp, night (overnight-only routes always, every route when night says so) and any
+// card.transit.routeClasses [[pattern, class]] whose pattern matches the route number (e.g. "^X").
+const RCLS = ((TR && TR.routeClasses) || []).map(([re, c]) => [new RegExp(re), c]);
+const routeCls = (r, night) => (r.f.includes('freq') ? ' freq' : '') + (r.f.includes('exp') ? ' exp' : '') +
+  (night || r.day === false ? ' night' : '') + RCLS.filter(([re]) => re.test(r.r)).map(([, c]) => ' ' + c).join('');
 const routeTip = p => esc(routeName(p)) + (p.h ? ' · ' + esc(fill(TR.every, {h: p.h})) : '') + (p.day === false ? ' · ' + esc(TR.nightOnly) : '');
 // A point a fraction t of the way along a line (lengths roughly in metres-per-degree at these latitudes).
 function along(c, t){
@@ -756,7 +763,7 @@ function routeLines(feats, pick, extra, opts){
   g.addLayer(cases); g.addLayer(lines);
   feats.forEach(f => {
     const p = f.properties, parts = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.coordinates;
-    const x = ' ' + p.m + (pick ? ' pick' : '') + (extra ? extra(p) : '');
+    const x = ' ' + p.m + (pick ? ' pick' : '') + routeCls(p, opts && opts.night) + (extra ? extra(p) : '');
     parts.forEach(c => {
       cases.addLayer(L.polyline(c.map(ll), {pane, className:'rt-case' + x, interactive:false, feat: f}));
       const pl = L.polyline(c.map(ll), {pane, className:'rt' + x, bubblingMouseEvents:false, feat: f});
@@ -895,7 +902,7 @@ function transitHere(x, y){
     if (!best || d < best[1]) best = [s, d];
   });
   const list = [...near].sort((a, b) => a[1] - b[1]).map(([i]) => T.routes[i]);
-  const chip = (r, named) => '<button type="button" class="rt-chip ' + r.m + (r.f.includes('freq') ? ' freq' : '') + '" data-route="' + esc(r.r) + '" aria-pressed="' + picked.has(r.r) + '" title="' + routeTip(r) + '">' + esc(named ? routeName(r) : r.r) + '</button>';
+  const chip = (r, named, night) => '<button type="button" class="rt-chip ' + r.m + routeCls(r, night) + '" data-route="' + esc(r.r) + '" aria-pressed="' + picked.has(r.r) + '" title="' + routeTip(r) + '">' + esc(named ? routeName(r) : r.r) + '</button>';
   let rows = '';
   const stns = METRO && loaded[[].concat(METRO.files)[1]];
   if (TR.station && stns){
@@ -907,7 +914,7 @@ function transitHere(x, y){
     if (rs.length) rows += '<dt>' + esc(label) + '</dt><dd><span class="rt-chips">' + rs.map(r => chip(r, named)).join('') + '</span></dd>';
   });
   const night = list.filter(r => r.f.includes('night'));
-  if (night.length) rows += '<dt>' + esc(TR.night) + '</dt><dd><span class="rt-chips">' + night.map(r => chip(r, false)).join('') + '</span></dd>';
+  if (night.length) rows += '<dt>' + esc(TR.night) + '</dt><dd><span class="rt-chips">' + night.map(r => chip(r, false, true)).join('') + '</span></dd>';
   rows += '<dt>' + esc(TR.stop) + '</dt><dd>' + (best ? esc(best[0][2]) + '<span>' + dist(best[1]) + ' away</span>' : '<span>' + esc(TR.none) + '</span>') + '</dd>';
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
@@ -2242,10 +2249,10 @@ function drawPlaceBox(){
   const T = data.transit;
   if (TR && T){
     const rs = [...placeRoutes()].map(i => T.routes[i]).sort((a, b) => String(a.r).localeCompare(String(b.r), undefined, {numeric: true}));
-    const chip = r => '<button type="button" class="rt-chip ' + r.m + (r.f.includes('freq') ? ' freq' : '') + '" data-route="' + esc(r.r) + '" aria-pressed="' + picked.has(r.r) + '" title="' + routeTip(r) + '">' + esc(r.r) + '</button>';
-    TR.rows.forEach(([mode, label]) => { const x = rs.filter(r => r.m === mode && r.day); if (x.length) rows.push([label, '<span class="rt-chips">' + x.map(chip).join('') + '</span>']); });
+    const chip = (r, night) => '<button type="button" class="rt-chip ' + r.m + routeCls(r, night) + '" data-route="' + esc(r.r) + '" aria-pressed="' + picked.has(r.r) + '" title="' + routeTip(r) + '">' + esc(r.r) + '</button>';
+    TR.rows.forEach(([mode, label]) => { const x = rs.filter(r => r.m === mode && r.day); if (x.length) rows.push([label, '<span class="rt-chips">' + x.map(r => chip(r)).join('') + '</span>']); });
     const night = rs.filter(r => r.f.includes('night'));
-    if (night.length) rows.push([TR.night, '<span class="rt-chips">' + night.map(chip).join('') + '</span>']);
+    if (night.length) rows.push([TR.night, '<span class="rt-chips">' + night.map(r => chip(r, true)).join('') + '</span>']);
   }
   LAYERS.filter(it => it.kind === 'construction').forEach(it => lineRow(it, loaded[it.file], 'uc'));
   LAYERS.filter(it => it.kind === 'streets' && !it.under).forEach(it => {

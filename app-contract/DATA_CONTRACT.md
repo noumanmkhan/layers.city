@@ -155,6 +155,14 @@ How the website's search does it, for an app that wants to match:
   city has a `streetcars` layer, daytime streetcar routes (`m: "tram"`, `day: true`) are left to that
   layer; streetcars that run only overnight show in `night`. Routes are drawn in their mode's colour
   (`--bus`, `--tram`); with more than one family on, routes in `exp` are dashed (`comboText` says so).
+  Toronto and Chicago style buses after their agency (city.css, website only): Toronto streetcar badges red
+  with white numbers, bus badges white with a red outline, `exp` green, overnight (`night`, or any route
+  while the overnight family shows) white with a blue outline; bus lines charcoal, `exp` green and dashed
+  when mixed, overnight blue. Chicago (the CTA's bus map legend): local badges dark grey, `exp` red, X routes
+  white with a green outline (green lines), Jump routes blue, Owl white with a blue outline (blue lines).
+  In both, `freq` routes are drawn with a heavier line than the rest. Optional `card.transit.routeClasses`
+  `[[pattern, class]]` (Chicago `[["^X", "xr"], ["^J", "jump"]]`) names extra route types by a regular
+  expression on `r`; an app may ignore it or use it for its own styling.
   Stops from zoom 15. Text: `countText` (`{n}` routes), `hint`, `pickText`, `unpickText` (`{r}`),
   `clearText`. The website's links write the families as `bus=freq+exp`, or `bus=all`. Tapping a route's line or number badge shows that route
   alone (the rest of the route layers fade to 12% and their badges hide; only its stops show); the next tap
@@ -293,7 +301,8 @@ first matching feature in file order wins.
      and `{dist}`.
    - For each `[mode, label, named]` in `rows`: the routes of that `m` with `day: true` that have a stop
      within `radius` metres, nearest stop first; each shown as its number (`named`: number and name,
-     "501 Queen"). A route in family `freq` is drawn filled; the note says so.
+     "501 Queen"). A route in family `freq` is marked (filled by default; a double ring in Toronto and Chicago, whose
+     chips follow the map's badge styles); the note says so.
      Toronto has a third row, `["go", "GO buses", false]`: GO routes with a stop within `radius`.
    - `night`: routes in family `night` with a stop within `radius` (Toronto's 300-series, Chicago's
      overnight routes), numbers only.

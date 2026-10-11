@@ -29,6 +29,16 @@
   leaves `unlisted` cities out of the other cities' switchers. Toronto and Chicago look the same.
 
 ### Both cities
+- **Buses in each agency's own colours** (October 12): Toronto follows the TTC: streetcar numbers red with
+  white text, bus numbers white with a red outline (frequent and regular alike), express green, Blue Night
+  white with a blue outline; bus lines charcoal as on TTC route maps, express green (dashed when shown with
+  other families), overnight blue. Chicago follows the CTA's bus map legend: local numbers dark grey, express
+  red, X routes white with a green outline and green lines, the J14 Jump blue, Owl white with a blue outline
+  and blue lines. In both, frequent routes are drawn heavier than regular ones, and the card's Transit nearby
+  chips match the badges, with a double ring for frequent routes. Engine: route lines, badges and chips now
+  carry `freq`, `exp` and `night` classes (night also on every route while the Overnight family shows), and
+  optional `card.transit.routeClasses` adds classes by route number; the dashed rule is now `.rt.dash`.
+  Vancouver looks as before. Website styling only; for the iOS app, contract section 5 describes the styles.
 - **Views** (October 11, Toronto and Chicago): a chip row at the top of the panel with five one-tap views:
   Explore downtown, Know your city (neighbourhood/community area lens on the transit time downtown, express
   buses), Who represents me, Where to live (housing cost, frequent transit) and Getting around. Each replaces

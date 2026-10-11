@@ -81,7 +81,7 @@
       {"id": "bus", "kind": "buses", "file": "transit_routes", "lazy": true, "name": "Bus routes", "note": "Every bus route, by how often it runs, or the overnight ones; stops from zoom 15",
        "allText": "All", "default": "all", "allNote": "Every daytime bus route.",
        "families": [["freq", "Frequent", "Every 10 minutes or better each way, weekdays 7 am to 7 pm."], ["exp", "Express", "Named express by the CTA: fewer stops."], ["reg", "Regular", "Every other daytime route."], ["night", "Overnight", "At least hourly each way from 2 to 4 am on weeknights: the CTA's Owl routes."]],
-       "solo": ["night"], "comboText": "Express routes are dashed.", "countText": "{n} routes", "hint": "Tap a route or its number to see it alone; tap elsewhere for all.", "pickText": "Drawn on the map", "unpickText": "Stop drawing route {r}", "clearText": "Clear"},
+       "solo": ["night"], "comboText": "Express routes are dashed.", "countText": "{n} routes", "hint": "Tap a route or its number to see it alone; tap elsewhere for all. Frequent routes are drawn heavier.", "pickText": "Drawn on the map", "unpickText": "Stop drawing route {r}", "clearText": "Clear"},
       {"id": "chg", "kind": "changes", "file": "changes", "lazy": true, "optional": true, "name": "What's changing", "note": "New buildings and demolitions with permits. Leaves out single houses, garages and small jobs.", "stages": {"approved": ["Approved", "Approved, or permit issued; work not started"], "building": ["Under construction", "Permit inspections under way"], "finished": ["Finished", "Finished in the last two years"]}, "kinds": {"rezoning": "Rezoning application", "siteplan": "Site plan application", "subdivision": "Subdivision application", "building": "New building", "demolition": "Demolition"}, "dates": {"applied": "applied {date}", "issued": "permit {date}", "finished": "{date}"}, "unitsText": "{n} homes", "alsoText": "Also here", "linkText": "Permit details", "legend": "Approved and finished work from the City’s building permits. Chicago publishes no proposals. Demolitions are dashed rings. Applications still open, and anything approved, started or finished in the last two years."},
       {"id": "build", "kind": "construction", "file": "construction", "name": "Transit under construction", "note": "Red Line Extension, 95th to 130th Street",
        "ucText": "Under construction", "linkText": "Project page"},
@@ -205,9 +205,9 @@
       "station": "Nearest ‘L’ station", "stationSub": "{lines} · {dist} away",
       "rows": [["bus", "Buses", false]],
       "night": "Overnight", "stop": "Nearest stop", "none": "No stop within ¼ mile",
-      "every": "about every {h} min on weekday middays", "nightOnly": "overnight only",
+      "every": "about every {h} min on weekday middays", "nightOnly": "overnight only", "routeClasses": [["^X", "xr"], ["^J", "jump"]],
       "kinds": {"bus": "Bus route"},
-      "note": "Routes with a stop within ¼ mile, about a 5-minute walk. Filled numbers come every 10 minutes or better on weekdays. Tap a number to draw the route. CTA schedules, week of {week}."
+      "note": "Routes with a stop within ¼ mile, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. CTA schedules, week of {week}."
     },
     "nearby": {
       "file": "nearby.json", "radius": 805,

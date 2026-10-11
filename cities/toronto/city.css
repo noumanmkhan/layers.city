@@ -36,3 +36,27 @@
 #map:not(.z12) .rt.go{stroke-width:2.6px} #map:not(.z12) .rt-case.go{stroke-width:4.6px}
 .stop.go{stroke-width:2}
 .sw.gobus{background:var(--city) linear-gradient(var(--gobus),var(--gobus)) 0 50%/100% 3px no-repeat}
+/* Buses and streetcars in the TTC's own badge styles: streetcars red with white numbers; buses white with a red
+   outline (frequent and regular alike); express green; overnight (Blue Night, buses and streetcars) white with a
+   blue outline. Bus lines are charcoal, as on TTC route maps, express green and overnight blue; frequent routes are
+   drawn heavier than regular ones. Card chips follow the badges, with a double ring for frequent routes. */
+:root{ --ttc-bus:#4A4F57; --ttc-exp:#15924A; --ttc-exp-line:#15924A; --ttc-night:#1F4FA3; --ttc-badge:#FFFFFF; }
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){ --ttc-bus:#A9AFB8; --ttc-exp-line:#4CC777; --ttc-night:#86AAF4; --ttc-badge:#1E2126; }}
+:root[data-theme="dark"]{ --ttc-bus:#A9AFB8; --ttc-exp-line:#4CC777; --ttc-night:#86AAF4; --ttc-badge:#1E2126; }
+.rt.bus:not(.pick){stroke:var(--ttc-bus);stroke-width:1.4px} #map.z12 .rt.bus:not(.pick){stroke-width:1.8px} #map.z14 .rt.bus:not(.pick){stroke-width:2.4px}
+.rt.bus.freq:not(.pick){stroke-width:2.4px} #map.z12 .rt.bus.freq:not(.pick){stroke-width:3.2px} #map.z14 .rt.bus.freq:not(.pick){stroke-width:4.2px}
+.rt-case.bus:not(.pick){stroke-width:3px} #map.z12 .rt-case.bus:not(.pick){stroke-width:3.8px} #map.z14 .rt-case.bus:not(.pick){stroke-width:4.8px}
+.rt-case.bus.freq:not(.pick){stroke-width:4.2px} #map.z12 .rt-case.bus.freq:not(.pick){stroke-width:5.4px} #map.z14 .rt-case.bus.freq:not(.pick){stroke-width:6.8px}
+.rt.bus.exp:not(.pick){stroke:var(--ttc-exp-line)}
+.rt.bus.night:not(.pick),.rt.tram.night:not(.pick){stroke:var(--ttc-night)}
+.rt-b.bus:not(.pick){background:var(--ttc-badge);color:var(--tram);box-shadow:inset 0 0 0 1.5px var(--tram),0 0 0 1.5px var(--city)}
+.rt-b.bus.exp:not(.pick){background:var(--ttc-exp);color:#fff;box-shadow:0 0 0 1.5px var(--city)}
+.rt-b.bus.night:not(.pick),.rt-b.tram.night:not(.pick){background:var(--ttc-badge);color:var(--ttc-night);box-shadow:inset 0 0 0 1.5px var(--ttc-night),0 0 0 1.5px var(--city)}
+.stop.bus{stroke:var(--ttc-bus)}
+.sw.k-buses{background:var(--city) linear-gradient(var(--ttc-bus),var(--ttc-bus)) 0 50%/100% 3px no-repeat}
+.rt-chips{gap:6px}
+.rt-chip:not([aria-pressed="true"]).tram{background:var(--tram);border-color:var(--tram);color:#fff;--rc:var(--tram)}
+.rt-chip:not([aria-pressed="true"]).bus{background:var(--ttc-badge);border-color:var(--tram);color:var(--tram);--rc:var(--tram)}
+.rt-chip:not([aria-pressed="true"]).bus.exp{background:var(--ttc-exp);border-color:var(--ttc-exp);color:#fff;--rc:var(--ttc-exp)}
+.rt-chip:not([aria-pressed="true"]).night{background:var(--ttc-badge);border-color:var(--ttc-night);color:var(--ttc-night);--rc:var(--ttc-night)}
+.rt-chip:not([aria-pressed="true"]).freq{box-shadow:0 0 0 1.5px var(--panel),0 0 0 3px var(--rc)}
