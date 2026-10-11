@@ -1,62 +1,23 @@
 wrote local_areas.geojson 52 KB
-  retry 1 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/9/query?where=CSDUID+LIKE+%275915%25%27&outFields= HTTP Error 500: Internal Server Error
-  retry 2 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/9/query?where=CSDUID+LIKE+%275915%25%27&outFields= HTTP Error 500: Internal Server Error
-  retry 3 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/9/query?where=CSDUID+LIKE+%275915%25%27&outFields= HTTP Error 500: Internal Server Error
 wrote csds.geojson 235 KB
    csds.geojson 38 features
-  retry 1 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/9/query?where=CSDUID+LIKE+%275909%25%27+OR+CSDUID+ HTTP Error 500: Internal Server Error
-  retry 2 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/9/query?where=CSDUID+LIKE+%275909%25%27+OR+CSDUID+ HTTP Error 500: Internal Server Error
-  retry 3 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/9/query?where=CSDUID+LIKE+%275909%25%27+OR+CSDUID+ HTTP Error 500: Internal Server Error
-  retry 4 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/9/query?where=CSDUID+LIKE+%275909%25%27+OR+CSDUID+ HTTP Error 500: Internal Server Error
-FAILED land around the region RuntimeError('failed: https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/9/query?where=CSDUID+LIKE+%275909%25%27+OR+CSDUID+LIKE+%275931%25%27+OR+CSDUID+LIKE+%275929%25%27+OR+CSDUID+LIKE+%275927%25%27+OR+CSDUID+LIKE+%275917%25%27+OR+CSDUID+LIKE+%275919%25%27+OR+CSDUID+LIKE+%275921%25%27+OR+CSDUID+LIKE+%275923%25%27+OR+CSDUID+LIKE+%275926%25%27&outFields=%2A&outSR=4326&f=geojson&returnGeometry=true&orderByFields=OBJECTID&maxAllowableOffset=0.0005&resultOffset=0&resultRecordCount=500')
-Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 57, in step
-    fn()
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 111, in <lambda>
-    step('land around the region', lambda: arcgis(9, ' OR '.join("CSDUID LIKE '%s%%'" % cd for cd in ('5909', '5931', '5929', '5927', '5917', '5919', '5921', '5923', '5926')),
-                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 98, in arcgis
-    d = json.loads(get(GEO + str(layer) + '/query?' + q))
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 37, in get
-    raise RuntimeError('failed: ' + url)
-RuntimeError: failed: https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/9/query?where=CSDUID+LIKE+%275909%25%27+OR+CSDUID+LIKE+%275931%25%27+OR+CSDUID+LIKE+%275929%25%27+OR+CSDUID+LIKE+%275927%25%27+OR+CSDUID+LIKE+%275917%25%27+OR+CSDUID+LIKE+%275919%25%27+OR+CSDUID+LIKE+%275921%25%27+OR+CSDUID+LIKE+%275923%25%27+OR+CSDUID+LIKE+%275926%25%27&outFields=%2A&outSR=4326&f=geojson&returnGeometry=true&orderByFields=OBJECTID&maxAllowableOffset=0.0005&resultOffset=0&resultRecordCount=500
+wrote csds_around.geojson 1013 KB
+   csds_around.geojson 227 features
+  retry 1 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/12/query?where=DAUID+LIKE+%275915%25%27&outFields= HTTP Error 500: Internal Server Error
 wrote das.geojson 1103 KB
    das.geojson 1664 features
   downloaded us.zip 3 MB
 wrote washington.geojson 1 features
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
-  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
-  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
 wrote osm_streets.json 2876 KB
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
-  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-wrote osm_highways.json 1545 KB
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
-  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-wrote osm_places.json 65 KB
+wrote osm_highways.json 1843 KB
   retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
   overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
   retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
   overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
-  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
-  overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+wrote osm_places.json 66 KB
   retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
-  overpass retry 4 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
-  overpass retry 5 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
-  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
-  overpass retry 6 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
-FAILED osm landmarks RuntimeError('overpass failed: osm_landmarks.json')
-Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 57, in step
-    fn()
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 150, in landmarks
-    overpass(f'[out:json][timeout:300];nwr["name"~"^({rx})$"]({bb((-123.30, 49.15, -123.00, 49.35))});out tags center;', 'osm_landmarks.json')
-  File "/home/runner/work/city-layers/city-layers/cities/vancouver/fetch.py", line 138, in overpass
-    raise RuntimeError('overpass failed: ' + name)
-RuntimeError: overpass failed: osm_landmarks.json
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+wrote osm_landmarks.json 98 KB
   rail routes: [('', 'Canada Line', '1', '007c9f'), ('', 'Millennium Line', '1', 'ffcd00'), ('', 'Expo Line', '1', '0033a0'), ('WCE', 'West Coast Express', '2', '87189d'), ('', 'SeaBus', '4', '746661')]
 wrote translink_rail.json 397 KB
-done; failed: ['land around the region', 'osm landmarks']
+done; failed: none
