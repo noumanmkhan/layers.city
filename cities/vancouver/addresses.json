@@ -1,0 +1,10 @@
+{
+  "_about": "How addresses work (engine/addresses.py; inputs from address_prep.py): Ontario Street (Carrall Street downtown) splits the city into East and West. Streets that cross it take W or E before the name (W Broadway, E Hastings St) and their numbers rise 100 a block going away from it. North-south streets count up going south from the inlet, about 100 an avenue: the hundreds are the avenue plus 15 south of False Creek (4000 Main St is at 25th Avenue).",
+  "type": "divide",
+  "street": "Ontario St",
+  "also": ["Carrall St"],
+  "prefix": true,
+  "near": 600,
+  "files": ["streets_ew"],
+  "axes": "raw/address_axes.json"
+}

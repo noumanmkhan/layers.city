@@ -16,6 +16,11 @@
   `surface.json` gains `expressRoutes` (express by route number) and `stripZeros` (TransLink pads numbers:
   002 is shown as 2). Fetched weekly with the other cities. For the iOS app: `transit.json`,
   `transit_routes.geojson`, `card.transit`, as in Chicago.
+- **How addresses work** (October 11): a layer under Main streets, *Ontario St: East and West* (Ontario Street,
+  Carrall Street downtown, and the main streets that take W or E), an Address row on the card (side, and south of
+  False Creek the spot's block numbers, read off the City's street blocks: "About 5600 on north–south streets,
+  1500 W on east–west ones"), and a tour step. Engine: the divide type takes `also` (more dividing streets),
+  `prefix` (W/E before the name) and `axes` (block numbers); `card.address.blocks`. Contract section 3.
 - **Engine**: a unit with no figures takes no lens fill (it showed Leaflet's default blue); `assemble.py`
   leaves `unlisted` cities out of the other cities' switchers. Toronto and Chicago look the same.
 

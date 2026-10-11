@@ -188,6 +188,16 @@
           "on": true
         },
         {
+          "id": "addr",
+          "kind": "addresses",
+          "under": "streets",
+          "file": "addresses",
+          "name": "Ontario St: East and West",
+          "note": "Ontario Street (Carrall downtown) splits streets into W and E; numbers rise 100 a block away from it",
+          "eastText": "East",
+          "westText": "West"
+        },
+        {
           "id": "hwy",
           "kind": "highways",
           "files": [
@@ -546,6 +556,10 @@
       {
         "label": "Known as",
         "knownas": true
+      },
+      {
+        "label": "Address",
+        "address": true
       }
     ],
     "living": {
@@ -632,6 +646,17 @@
         "bus": "Bus route"
       },
       "note": "Routes with a stop within 400 m, about a 5-minute walk. Filled numbers come every 10 minutes or better on weekdays. Tap a number to draw the route. TransLink schedules, week of {week}."
+    },
+    "address": {
+      "label": "Address",
+      "east": "East of Ontario St",
+      "west": "West of Ontario St",
+      "example": {
+        "e": "E Broadway",
+        "w": "W Broadway"
+      },
+      "blocks": "About {ns} on north–south streets, {ew} on east–west ones",
+      "sub": "Streets that cross Ontario (Carrall St downtown) take W or E ({street}), and numbers rise 100 a block away from it. North–south streets count up going south, 100 an avenue: south of False Creek, the hundreds are the avenue plus 15 (4000 Main St is at 25th Ave)."
     }
   },
   "tour": {
@@ -678,6 +703,28 @@
           ]
         ],
         "text": "The City divides itself into 22 local areas, like Kitsilano, Mount Pleasant or Strathcona. The names in italics are the places people actually say that aren't local areas of their own: Gastown, Yaletown, Chinatown, Commercial Drive."
+      },
+      {
+        "title": "How addresses work",
+        "layers": [
+          "addr",
+          "streets",
+          "sides"
+        ],
+        "hi": [
+          "addr"
+        ],
+        "view": [
+          [
+            49.21,
+            -123.17
+          ],
+          [
+            49.29,
+            -123.04
+          ]
+        ],
+        "text": "Ontario Street, one block west of Main, is Vancouver's zero line (downtown, Carrall Street takes its place). Streets that cross it take W or E, like W Broadway and E Hastings, and count up 100 a block going away from it. North–south streets count up going south: south of False Creek the hundreds are the avenue plus 15, so 4000 Main St is at 25th Avenue. Tap any spot and the card gives its numbers."
       },
       {
         "title": "Getting around",

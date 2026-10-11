@@ -16,6 +16,7 @@ for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval
 npx mapshaper -i tmp/region_highways.geojson -simplify interval=15 -o $OUT/region_highways.geojson precision=0.00001 -quiet
 for f in wce_lines wce_lines_inner; do npx mapshaper -i tmp/$f.geojson -simplify interval=30 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 npx mapshaper -i tmp/skytrain_lines.geojson -simplify interval=5 -o $OUT/skytrain_lines.geojson precision=0.00001 -quiet
+[ -f raw/public_streets.geojson ] && python3 address_prep.py && python3 ../../engine/addresses.py vancouver   # after streets: how addresses work
 python3 ../../engine/facts.py vancouver   # after profiles and the simplified local areas: what makes each stand out
 python3 ../../engine/assemble.py vancouver
 echo "Done. Preview: cd docs && python3 -m http.server 8000"

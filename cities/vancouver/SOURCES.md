@@ -37,3 +37,10 @@ in `scouting/vancouver/FINDINGS.md`.
 TransLink's terms let it ask who uses the data and charge commercial users who charge end users. OpenStreetMap's
 ODbL is share-alike for the database. The City's and Statistics Canada's licences allow commercial use with
 attribution.
+
+## How addresses work
+- `fetch_streets.py` fetches the City's `public-streets` blocks (OGL – Vancouver): each block of each public
+  street with its hundred-block address ("2300 W 47TH AV"). `address_prep.py` takes the dividing streets (Ontario
+  St, Carrall St) from them, the W/E main streets from OpenStreetMap, and fits how block numbers run south of
+  False Creek (raw/address_axes.json). Downtown's grid is turned 45 degrees and numbered on its own, so the card's
+  block readout stops at False Creek.
