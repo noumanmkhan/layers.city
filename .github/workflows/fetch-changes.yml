@@ -1,0 +1,39 @@
+name: Fetch what's changing
+# Development applications and building permits for "What's changing here" (engine/fetch_changes.py,
+# cities/<city>/changes.json) into cities/<city>/raw/changes/, then rebuilds docs/<city>/data/changes.geojson
+# with engine/changes.py when it exists. Weekly (Tuesdays), when the scripts or a changes.json change on main,
+# or by hand.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 8 * * 2'
+  push:
+    branches: [main]
+    paths: ['engine/fetch_changes.py', 'engine/changes.py', 'cities/*/changes.json', '.github/workflows/fetch-changes.yml']
+permissions:
+  contents: write
+concurrency: fetch-changes
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q pyproj shapely
+      - run: |
+          for c in toronto chicago; do
+            mkdir -p cities/$c/raw/changes
+            python3 -u engine/fetch_changes.py $c 2>&1 | tee cities/$c/raw/changes/fetch.log || true
+            if [ -f engine/changes.py ]; then python3 -u engine/changes.py $c 2>&1 | tee -a cities/$c/raw/changes/fetch.log || true; fi
+          done
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/changes cities/chicago/raw/changes
+          for c in toronto chicago; do [ -f docs/$c/data/changes.geojson ] && git add docs/$c/data/changes.geojson; done
+          git commit -m "Update what's changing: development applications and building permits" || echo "no changes"
+          git pull --rebase
+          git push

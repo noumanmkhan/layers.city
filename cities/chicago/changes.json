@@ -1,0 +1,10 @@
+{
+  "_about": "What's changing here (engine/fetch_changes.py in fetch-changes.yml, then engine/changes.py). Chicago publishes no development proposals; approved and finished work comes from Building Permits (new construction and wrecking).",
+  "sources": {
+    "permits": {
+      "type": "socrata_permits", "years": 2,
+      "url": "https://data.cityofchicago.org/resource/ydr8-5enu.json",
+      "types": ["PERMIT - NEW CONSTRUCTION", "PERMIT - WRECKING/DEMOLITION"]
+    }
+  }
+}

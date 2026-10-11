@@ -1,0 +1,18 @@
+{
+  "_about": "What's changing here (engine/fetch_changes.py in fetch-changes.yml, then engine/changes.py). Proposals from Development Applications; approved and finished work from Building Permits, placed on the City's Address Points.",
+  "sources": {
+    "devapps": {
+      "type": "ckan_devapps", "years": 2,
+      "ckan": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=development-applications",
+      "closed": ["Closed", "Application Withdrawn", "Withdrawn", "Refused", "Council Refused", "Approved", "Council Approved", "OMB Approved", "OLT Approved", "NOAC Issued", "Final Approval Completed", "Draft Plan Approved", "Registered", "Cancelled"]
+    },
+    "permits": {
+      "type": "ckan_permits", "years": 2,
+      "ckan": ["https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=building-permits-active-permits",
+               "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=building-permits-cleared-permits"],
+      "types": ["New Building", "New Houses", "Demolition Folder (DM)"],
+      "works": ["New Building", "Demolition", "Addition(s)"],
+      "addresses": {"ckan": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=address-points-municipal-toronto-one-address-repository"}
+    }
+  }
+}
