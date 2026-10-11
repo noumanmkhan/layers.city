@@ -14,6 +14,9 @@ in `scouting/vancouver/FINDINGS.md`.
 | 2021 Census figures by dissemination area | Statistics Canada, Census Profile web data service (STC_CP, DF_DA) | Statistics Canada Open Licence | `fetch_census.py` |
 | Main streets, highways, place points, landmark positions | OpenStreetMap via Overpass | ODbL (© OpenStreetMap contributors) | `fetch.py`, `fetch_land.py` |
 | SkyTrain, SeaBus, West Coast Express | TransLink GTFS (static, weekly) | TransLink's GTFS terms of use | `fetch.py` |
+| Bus routes and stops | TransLink GTFS, weekly with the other cities | TransLink's GTFS terms of use | `engine/fetch_surface.py` (surface.json) |
+| Transit time to Waterfront | TransLink GTFS + OpenStreetMap (BBBike extract), routed with r5py | as above, ODbL | `fetch_transit_waterfront.py` |
+| Street blocks with hundred-block addresses | City of Vancouver Open Data, `public-streets` | OGL – Vancouver | `fetch_streets.py` |
 
 ## Quirks
 - www12.statcan.gc.ca (bulk boundary and profile downloads) answers GitHub's runners with 403 Forbidden, whatever

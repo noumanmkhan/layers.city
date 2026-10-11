@@ -16,6 +16,10 @@
   `surface.json` gains `expressRoutes` (express by route number) and `stripZeros` (TransLink pads numbers:
   002 is shown as 2). Fetched weekly with the other cities. For the iOS app: `transit.json`,
   `transit_routes.geojson`, `card.transit`, as in Chicago.
+- **To Waterfront** (October 11): the transit-time lens, card row and *Narrow it down* filter, like To Union and
+  To the Loop: r5py on TransLink's schedules from 753 points in the 22 local areas, weekday 8–9 am, to Waterfront
+  Station (`cities/vancouver/fetch_transit_waterfront.py`, fetch-transit-waterfront.yml). 15 min (Downtown) to
+  48 (Dunbar-Southlands). Profile fields `waterfront`, `waterfrontBand`.
 - **How addresses work** (October 11): a layer under Main streets, *Ontario St: East and West* (Ontario Street,
   Carrall Street downtown, and the main streets that take W or E), an Address row on the card (side, and south of
   False Creek the spot's block numbers, read off the City's street blocks: "About 5600 on north–south streets,
