@@ -1,0 +1,22 @@
+  CD 5909 ['Fraser Valley']
+  CD 5931 ['Squamish-Lillooet']
+  CD 5929 ['Sunshine Coast']
+  CD 5927 ['Powell River']
+  CD 5917 ['Capital']
+  retry 1 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/4/query?where=CDUID+%3D+%275919%27&outFields=CDUID HTTP Error 500: Internal Server Error
+  CD 5919 ['Cowichan Valley']
+  CD 5921 ['Nanaimo']
+  retry 1 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/4/query?where=CDUID+%3D+%275923%27&outFields=CDUID HTTP Error 500: Internal Server Error
+  CD 5923 ['Alberni-Clayoquot']
+  CD 5926 ['Comox Valley']
+wrote cds_around.geojson 508 KB
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
+  overpass retry 4 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+wrote osm_landmarks.json 93 KB
+done; failed: none
