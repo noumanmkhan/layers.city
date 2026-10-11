@@ -1,0 +1,525 @@
+{
+ "id": "parking-meters",
+ "title": "Parking meters",
+ "modified": "2026-10-05T19:09:32+00:00",
+ "records": 3642,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset contains information on the rates and time limits for parking meters in the City.  Information is shown at the block level rather than for the individual meter.</p></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database.  The extract on this web site is updated weekly.  </p></div> <h3>Data accuracy</h3><div><p>Locations are shown for entire block faces however that does not mean that there are parking meters along the entire block face.</p></div> ",
+ "fields": [
+  {
+   "name": "object_id",
+   "type": "text",
+   "label": "Object ID"
+  },
+  {
+   "name": "meter_id",
+   "type": "text",
+   "label": "Meter ID"
+  },
+  {
+   "name": "service_status",
+   "type": "text",
+   "label": "Service Status"
+  },
+  {
+   "name": "meter_head",
+   "type": "text",
+   "label": "Meter Head"
+  },
+  {
+   "name": "credit_card",
+   "type": "text",
+   "label": "Credit Card"
+  },
+  {
+   "name": "mobile_payment_number",
+   "type": "int",
+   "label": "Mobile Payment Number"
+  },
+  {
+   "name": "local_area",
+   "type": "text",
+   "label": "Local Area"
+  },
+  {
+   "name": "sector",
+   "type": "int",
+   "label": "Sector"
+  },
+  {
+   "name": "direction",
+   "type": "text",
+   "label": "Direction"
+  },
+  {
+   "name": "rate_9am_6pm",
+   "type": "text",
+   "label": "Rate 9AM - 6PM"
+  },
+  {
+   "name": "rate_6pm_10pm",
+   "type": "text",
+   "label": "Rate 6PM - 10PM"
+  },
+  {
+   "name": "flat_rate",
+   "type": "text",
+   "label": "Flat Rate"
+  },
+  {
+   "name": "time_limit_9am_6pm",
+   "type": "text",
+   "label": "Time Limit 9AM - 6PM"
+  },
+  {
+   "name": "time_limit_6pm_10pm",
+   "type": "text",
+   "label": "Time Limit 6PM - 10PM"
+  },
+  {
+   "name": "time_limit_weekend_9am_6pm",
+   "type": "text",
+   "label": "Time Limit Weekend 9AM - 6PM"
+  },
+  {
+   "name": "time_limit_weekend_6pm_10pm",
+   "type": "text",
+   "label": "Time Limit Weekend 6PM - 10PM"
+  },
+  {
+   "name": "time_limit_override",
+   "type": "text",
+   "label": "Time Limit Override"
+  },
+  {
+   "name": "am_rush_hours",
+   "type": "text",
+   "label": "AM Rush Hours"
+  },
+  {
+   "name": "pm_rush_hours",
+   "type": "text",
+   "label": "PM Rush Hours"
+  },
+  {
+   "name": "prohibition_1_days",
+   "type": "text",
+   "label": "Prohibition 1 Days"
+  },
+  {
+   "name": "prohibition_1_time",
+   "type": "text",
+   "label": "Prohibition 1 Time"
+  },
+  {
+   "name": "prohibition_1_zone",
+   "type": "text",
+   "label": "Prohibition 1 Zone"
+  },
+  {
+   "name": "prohibition_2_days",
+   "type": "text",
+   "label": "Prohibition 2 Days"
+  },
+  {
+   "name": "prohibition_2_time",
+   "type": "text",
+   "label": "Prohibition 2 Time"
+  },
+  {
+   "name": "prohibition_2_zone",
+   "type": "text",
+   "label": "Prohibition 2 Zone"
+  },
+  {
+   "name": "prohibition_override",
+   "type": "text",
+   "label": "Prohibition Override"
+  },
+  {
+   "name": "vehicle_type",
+   "type": "text",
+   "label": "Vehicle Type"
+  },
+  {
+   "name": "feature_id",
+   "type": "int",
+   "label": "Feature ID"
+  },
+  {
+   "name": "post_feature_id",
+   "type": "int",
+   "label": "Post Feature ID"
+  },
+  {
+   "name": "meter_mechanism",
+   "type": "text",
+   "label": "Meter Mechanism"
+  },
+  {
+   "name": "meter_manufacturer",
+   "type": "text",
+   "label": "Meter Manufacturer"
+  },
+  {
+   "name": "parking_zone_feature_id",
+   "type": "text",
+   "label": "Parking Zone Feature ID"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "service_status",
+   "top": [
+    [
+     "In Service",
+     3264
+    ],
+    [
+     "Out of Service",
+     359
+    ],
+    [
+     "Removed",
+     19
+    ]
+   ]
+  },
+  {
+   "name": "meter_head",
+   "top": [
+    [
+     "Twin",
+     1404
+    ],
+    [
+     "Pay Station",
+     1219
+    ],
+    [
+     "Zone Only",
+     491
+    ],
+    [
+     "Single",
+     308
+    ],
+    [
+     "Dual",
+     220
+    ]
+   ]
+  },
+  {
+   "name": "vehicle_type",
+   "top": [
+    [
+     "Any Vehicle",
+     3394
+    ],
+    [
+     "Motorcycle",
+     139
+    ],
+    [
+     "Accessibility",
+     106
+    ],
+    [
+     "Electric Vehicle",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "rate_6pm_10pm",
+   "top": [
+    [
+     "$0.75",
+     58
+    ],
+    [
+     "$1.00",
+     27
+    ],
+    [
+     "$1.25",
+     8
+    ],
+    [
+     "$1.50",
+     2015
+    ],
+    [
+     "$1.75",
+     19
+    ],
+    [
+     "$2.00",
+     428
+    ],
+    [
+     "$2.50",
+     129
+    ],
+    [
+     "$3.00",
+     459
+    ],
+    [
+     "$3.50",
+     234
+    ],
+    [
+     "$4.00",
+     265
+    ]
+   ]
+  },
+  {
+   "name": "rate_9am_6pm",
+   "top": [
+    [
+     "$0.75",
+     44
+    ],
+    [
+     "$1.00",
+     27
+    ],
+    [
+     "$1.25",
+     13
+    ],
+    [
+     "$1.50",
+     980
+    ],
+    [
+     "$1.75",
+     14
+    ],
+    [
+     "$2.00",
+     1224
+    ],
+    [
+     "$2.25",
+     2
+    ],
+    [
+     "$2.50",
+     174
+    ],
+    [
+     "$2.75",
+     6
+    ],
+    [
+     "$3.00",
+     81
+    ],
+    [
+     "$3.25",
+     9
+    ],
+    [
+     "$3.50",
+     262
+    ],
+    [
+     "$4.00",
+     54
+    ],
+    [
+     "$4.50",
+     67
+    ],
+    [
+     "$5.00",
+     159
+    ],
+    [
+     "$5.50",
+     429
+    ],
+    [
+     "$6.50",
+     97
+    ]
+   ]
+  },
+  {
+   "name": "meter_mechanism",
+   "top": [
+    [
+     "Mobile Payment Only",
+     1162
+    ],
+    [
+     "GRDX5",
+     848
+    ],
+    [
+     "CWT S5",
+     602
+    ],
+    [
+     "Tango",
+     601
+    ],
+    [
+     "Beacon Dual",
+     220
+    ],
+    [
+     "ATC Zone",
+     139
+    ],
+    [
+     "Beacon Single",
+     55
+    ],
+    [
+     "mkORA",
+     15
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "object_id": "31",
+   "meter_id": "081034",
+   "service_status": "In Service",
+   "meter_head": "Pay Station",
+   "credit_card": "Yes",
+   "mobile_payment_number": 67601,
+   "local_area": "Downtown",
+   "sector": 30,
+   "direction": null,
+   "rate_9am_6pm": "$5.00",
+   "rate_6pm_10pm": "$3.50",
+   "flat_rate": null,
+   "time_limit_9am_6pm": "2 Hr",
+   "time_limit_6pm_10pm": "4 Hr",
+   "time_limit_weekend_9am_6pm": "2 Hr",
+   "time_limit_weekend_6pm_10pm": "4 Hr",
+   "time_limit_override": "No",
+   "am_rush_hours": "7:00am to 9:30am",
+   "pm_rush_hours": "3:00pm to 6:00pm",
+   "prohibition_1_days": null,
+   "prohibition_1_time": null,
+   "prohibition_1_zone": null,
+   "prohibition_2_days": null,
+   "prohibition_2_time": null,
+   "prohibition_2_zone": null,
+   "prohibition_override": "No",
+   "vehicle_type": "Any Vehicle",
+   "feature_id": 3340,
+   "post_feature_id": 9402,
+   "meter_mechanism": "Tango",
+   "meter_manufacturer": "MacKay",
+   "parking_zone_feature_id": null,
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.119580347467,
+    "lat": 49.287201408011455
+   }
+  },
+  {
+   "object_id": "32",
+   "meter_id": "B20226",
+   "service_status": "In Service",
+   "meter_head": "Dual",
+   "credit_card": "Yes",
+   "mobile_payment_number": 56345,
+   "local_area": "Mount Pleasant",
+   "sector": 16,
+   "direction": "East",
+   "rate_9am_6pm": "$2.00",
+   "rate_6pm_10pm": "$1.50",
+   "flat_rate": null,
+   "time_limit_9am_6pm": "2 Hr",
+   "time_limit_6pm_10pm": "4 Hr",
+   "time_limit_weekend_9am_6pm": "4 Hr",
+   "time_limit_weekend_6pm_10pm": "4 Hr",
+   "time_limit_override": "Yes",
+   "am_rush_hours": null,
+   "pm_rush_hours": "3:00pm to 6:00pm",
+   "prohibition_1_days": null,
+   "prohibition_1_time": null,
+   "prohibition_1_zone": null,
+   "prohibition_2_days": null,
+   "prohibition_2_time": null,
+   "prohibition_2_zone": null,
+   "prohibition_override": "No",
+   "vehicle_type": "Any Vehicle",
+   "feature_id": 18993,
+   "post_feature_id": 18990,
+   "meter_mechanism": "Beacon Dual",
+   "meter_manufacturer": "MacKay",
+   "parking_zone_feature_id": null,
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.1104934610317,
+    "lat": 49.26865748015749
+   }
+  },
+  {
+   "object_id": "37",
+   "meter_id": "600813",
+   "service_status": "In Service",
+   "meter_head": "Pay Station",
+   "credit_card": "Yes",
+   "mobile_payment_number": 61445,
+   "local_area": "Downtown",
+   "sector": 34,
+   "direction": null,
+   "rate_9am_6pm": "$6.50",
+   "rate_6pm_10pm": "$4.00",
+   "flat_rate": null,
+   "time_limit_9am_6pm": "2 Hr",
+   "time_limit_6pm_10pm": "4 Hr",
+   "time_limit_weekend_9am_6pm": "4 Hr",
+   "time_limit_weekend_6pm_10pm": "4 Hr",
+   "time_limit_override": "Yes",
+   "am_rush_hours": "7:00am to 9:30am",
+   "pm_rush_hours": null,
+   "prohibition_1_days": null,
+   "prohibition_1_time": null,
+   "prohibition_1_zone": null,
+   "prohibition_2_days": null,
+   "prohibition_2_time": null,
+   "prohibition_2_zone": null,
+   "prohibition_override": "No",
+   "vehicle_type": "Any Vehicle",
+   "feature_id": 15439,
+   "post_feature_id": 15421,
+   "meter_mechanism": "CWT S5",
+   "meter_manufacturer": "Precise",
+   "parking_zone_feature_id": null,
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.11952381124904,
+    "lat": 49.28035654848512
+   }
+  }
+ ]
+}

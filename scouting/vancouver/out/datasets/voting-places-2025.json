@@ -1,0 +1,200 @@
+{
+ "id": "voting-places-2025",
+ "title": "Voting places 2025",
+ "modified": "2025-03-13T20:04:39+00:00",
+ "records": 26,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<p>This dataset includes all of the voting places available to voters for the 2025 general election. The City of Vancouver uses a Vote-Anywhere model.​​ Since 2014, voters can vote at any voting place within the City.​​</p><p>​The City operates an at-large ​​voting system.​​</p><p>​​​​Advance voting days: March 26 and April 1, 2025</p><p>​​Election day: April 5, 2025</p><p>​​​​​​​Voting hours for all locations are 8am to 8pm.</p><p><br></p><h3 class=\"\">Note</h3><p>Residents of UBC and the University Endowment Lands were not eligible to vote in this by-election as there was no School Trustee contest.</p><p><br></p><p></p><h3>Data currency</h3><p>​​These are the voting places used for the ​City's 2025 local by-election during advance voting and on general voting day.​​</p><p><br></p><h3 class=\"\">Websites for further information</h3><p><a href=\"https://vancouver.ca/your-government/2025-by-election.aspx\" target=\"_blank\">Municipal elections​</a></p>",
+ "fields": [
+  {
+   "name": "vp_id",
+   "type": "int",
+   "label": "Voting Place ID"
+  },
+  {
+   "name": "facility_name",
+   "type": "text",
+   "label": "Facility Name"
+  },
+  {
+   "name": "facility_address",
+   "type": "text",
+   "label": "Facility Address"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "Location"
+  },
+  {
+   "name": "advance_only",
+   "type": "text",
+   "label": "Advance Only"
+  },
+  {
+   "name": "supercentre",
+   "type": "text",
+   "label": "Supercentre"
+  },
+  {
+   "name": "accessibility",
+   "type": "text",
+   "label": "Accessibility"
+  },
+  {
+   "name": "local_area",
+   "type": "text",
+   "label": "Local Area"
+  },
+  {
+   "name": "geom",
+   "type": "geo_point_2d",
+   "label": "Geom"
+  }
+ ],
+ "facets": [
+  {
+   "name": "local_area",
+   "top": [
+    [
+     "Mount Pleasant",
+     4
+    ],
+    [
+     "Downtown",
+     3
+    ],
+    [
+     "Hastings-Sunrise",
+     2
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     2
+    ],
+    [
+     "Killarney",
+     2
+    ],
+    [
+     "Dunbar-Southlands",
+     1
+    ],
+    [
+     "Fairview",
+     1
+    ],
+    [
+     "Grandview-Woodland",
+     1
+    ],
+    [
+     "Kerrisdale",
+     1
+    ],
+    [
+     "Kitsilano",
+     1
+    ],
+    [
+     "Marpole",
+     1
+    ],
+    [
+     "Renfrew-Collingwood",
+     1
+    ],
+    [
+     "Riley Park",
+     1
+    ],
+    [
+     "South Cambie",
+     1
+    ],
+    [
+     "Strathcona",
+     1
+    ],
+    [
+     "Sunset",
+     1
+    ],
+    [
+     "West End",
+     1
+    ],
+    [
+     "West Point Grey",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "advance_only",
+   "top": [
+    [
+     "No",
+     25
+    ],
+    [
+     "Yes",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "supercentre",
+   "top": [
+    [
+     "n/a",
+     26
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "vp_id": 1,
+   "facility_name": "Carnegie Community Centre",
+   "facility_address": "401 Main Street",
+   "location": "Theatre, main floor",
+   "advance_only": "No",
+   "supercentre": "n/a",
+   "accessibility": "accessible by ramp",
+   "local_area": "Downtown",
+   "geom": {
+    "lon": -123.1001345,
+    "lat": 49.28106725
+   }
+  },
+  {
+   "vp_id": 2,
+   "facility_name": "Coal Harbour Community Centre",
+   "facility_address": "480 Broughton Street",
+   "location": "Multipurpose Room, main floor",
+   "advance_only": "No",
+   "supercentre": "n/a",
+   "accessibility": "accessible through main entrance",
+   "local_area": "Downtown",
+   "geom": {
+    "lon": -123.1250534,
+    "lat": 49.29035078
+   }
+  },
+  {
+   "vp_id": 3,
+   "facility_name": "Roundhouse Community Arts and Recreation Centre",
+   "facility_address": "181 Roundhouse Mews",
+   "location": "Gymnasium, main floor",
+   "advance_only": "No",
+   "supercentre": "n/a",
+   "accessibility": "accessible from main entrances",
+   "local_area": "Downtown",
+   "geom": {
+    "lon": -123.1217441,
+    "lat": 49.27331739
+   }
+  }
+ ]
+}

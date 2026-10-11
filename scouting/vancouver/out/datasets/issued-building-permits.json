@@ -1,0 +1,565 @@
+{
+ "id": "issued-building-permits",
+ "title": "Issued building permits",
+ "modified": "2026-10-10T13:51:01+00:00",
+ "records": 52337,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>​Building permits are required for new buildings, additions or alterations to existing buildings, and for demolitions or salvage and abatement work.</p><p>As permit application processing is a collaboration between the customer / applicant and the City, this dataset has been updated with the elapsed time from the date at which an application generated a permit number to when the permit was first issued. Specifically, the fields PermitNumberCreatedDate and PermitElapsedDays (includes weekends and holidays) are available in all views as well as through data exports and API access. In addition to existing fields that allow this data to be grouped (PropertyUse, TypeofWork, SpecificUseCategory) we have created a new group field, PermitCategory, that focuses on higher volume, lower complexity project scopes.</p><p>This dataset includes information of all building permits issued by the City of Vancouver, starting in 2017. The data is based on permit issuance date and does not show current status of a permit or changes after a permit is originally issued.<br></p></div> <h3>Data currency</h3><div><p>​The extract for the current year is updated daily but the extract for prior year is static.<br></p></div> <h3>Data accuracy</h3><div><p>There may be addresses that do not return coordinates through the geocoding process (using BC Address Geocoder API). These Issued Building Permits do not appear on the Map. Please consult the Table view for a complete list of Issued building permi",
+ "fields": [
+  {
+   "name": "permitnumber",
+   "type": "text",
+   "label": "PermitNumber"
+  },
+  {
+   "name": "permitnumbercreateddate",
+   "type": "date",
+   "label": "PermitNumberCreatedDate"
+  },
+  {
+   "name": "issuedate",
+   "type": "date",
+   "label": "IssueDate"
+  },
+  {
+   "name": "permitelapseddays",
+   "type": "int",
+   "label": "PermitElapsedDays"
+  },
+  {
+   "name": "projectvalue",
+   "type": "double",
+   "label": "ProjectValue"
+  },
+  {
+   "name": "typeofwork",
+   "type": "text",
+   "label": "TypeOfWork"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "Address"
+  },
+  {
+   "name": "projectdescription",
+   "type": "text",
+   "label": "ProjectDescription"
+  },
+  {
+   "name": "permitcategory",
+   "type": "text",
+   "label": "PermitCategory"
+  },
+  {
+   "name": "applicant",
+   "type": "text",
+   "label": "Applicant"
+  },
+  {
+   "name": "applicantaddress",
+   "type": "text",
+   "label": "ApplicantAddress"
+  },
+  {
+   "name": "propertyuse",
+   "type": "text",
+   "label": "PropertyUse"
+  },
+  {
+   "name": "specificusecategory",
+   "type": "text",
+   "label": "SpecificUseCategory"
+  },
+  {
+   "name": "buildingcontractor",
+   "type": "text",
+   "label": "BuildingContractor"
+  },
+  {
+   "name": "buildingcontractoraddress",
+   "type": "text",
+   "label": "BuildingContractorAddress"
+  },
+  {
+   "name": "issueyear",
+   "type": "text",
+   "label": "IssueYear"
+  },
+  {
+   "name": "geolocalarea",
+   "type": "text",
+   "label": "GeoLocalArea"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "yearmonth",
+   "type": "text",
+   "label": "YearMonth"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "specificusecategory",
+   "top": [
+    [
+     "Single Detached House",
+     14218
+    ],
+    [
+     "Multiple Dwelling",
+     7196
+    ],
+    [
+     "General Office",
+     6125
+    ],
+    [
+     "Single Detached House w/Sec Suite",
+     6111
+    ],
+    [
+     "Laneway House",
+     4262
+    ],
+    [
+     "Retail Store",
+     2765
+    ],
+    [
+     "Duplex",
+     2228
+    ],
+    [
+     "Restaurant - Class 1",
+     1266
+    ],
+    [
+     "Dwelling Unit",
+     942
+    ],
+    [
+     "Duplex w/Secondary Suite",
+     924
+    ],
+    [
+     "Health Care Office",
+     791
+    ],
+    [
+     "Not Applicable",
+     660
+    ],
+    [
+     "Multiple Conversion Dwelling",
+     420
+    ],
+    [
+     "Parking Garage",
+     362
+    ],
+    [
+     "Beauty and Wellness Centre",
+     286
+    ],
+    [
+     "Hospital",
+     279
+    ],
+    [
+     "Barber Shop or Beauty Salon",
+     265
+    ],
+    [
+     "Financial Institution",
+     237
+    ],
+    [
+     "Infill Single Detached House",
+     233
+    ],
+    [
+     "Wholesaling - Class A",
+     233
+    ],
+    [
+     "Park or Playground",
+     227
+    ],
+    [
+     "School - Elementary or Secondary",
+     201
+    ],
+    [
+     "Secondary Suite",
+     197
+    ],
+    [
+     "School - University or College",
+     176
+    ],
+    [
+     "Storage Warehouse",
+     171
+    ]
+   ]
+  },
+  {
+   "name": "propertyuse",
+   "top": [
+    [
+     "Dwelling Uses",
+     37056
+    ],
+    [
+     "Office Uses",
+     7345
+    ],
+    [
+     "Retail Uses",
+     3356
+    ],
+    [
+     "Service Uses",
+     2718
+    ],
+    [
+     "Institutional Uses",
+     1205
+    ],
+    [
+     "Cultural/Recreational Uses",
+     1081
+    ],
+    [
+     "Manufacturing Uses",
+     532
+    ],
+    [
+     "Parking Uses",
+     431
+    ],
+    [
+     "Wholesale Uses",
+     323
+    ],
+    [
+     "Transportation and Storage Uses",
+     257
+    ],
+    [
+     "Utility and Communication Uses",
+     90
+    ],
+    [
+     "Live-Work Uses",
+     34
+    ],
+    [
+     "Agricultural Uses",
+     9
+    ],
+    [
+     "Deposition or Extraction Uses",
+     1
+    ],
+    [
+     "Mural",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "typeofwork",
+   "top": [
+    [
+     "Addition / Alteration",
+     25890
+    ],
+    [
+     "New Building",
+     11990
+    ],
+    [
+     "Demolition / Deconstruction",
+     7144
+    ],
+    [
+     "Salvage and Abatement",
+     6751
+    ],
+    [
+     "Temporary Building / Structure",
+     500
+    ],
+    [
+     "Outdoor Uses (No Buildings Proposed)",
+     62
+    ]
+   ]
+  },
+  {
+   "name": "issuedate",
+   "top": [
+    [
+     "2026",
+     3217
+    ],
+    [
+     "2025",
+     5137
+    ],
+    [
+     "2024",
+     4916
+    ],
+    [
+     "2023",
+     4685
+    ],
+    [
+     "2022",
+     5946
+    ],
+    [
+     "2021",
+     5019
+    ],
+    [
+     "2020",
+     4378
+    ],
+    [
+     "2019",
+     5581
+    ],
+    [
+     "2018",
+     6747
+    ],
+    [
+     "2017",
+     6711
+    ]
+   ]
+  },
+  {
+   "name": "permitcategory",
+   "top": [
+    [
+     "Renovation - Commercial/ Mixed Use - Lower Complexity",
+     10817
+    ],
+    [
+     "Renovation - Residential - Lower Complexity",
+     9312
+    ],
+    [
+     "New Build - Low Density Housing",
+     7612
+    ],
+    [
+     "New Build - Standalone Laneway",
+     2306
+    ]
+   ]
+  },
+  {
+   "name": "geolocalarea",
+   "top": [
+    [
+     "Downtown",
+     7600
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     3994
+    ],
+    [
+     "Renfrew-Collingwood",
+     3343
+    ],
+    [
+     "Hastings-Sunrise",
+     3195
+    ],
+    [
+     "Sunset",
+     2809
+    ],
+    [
+     "Kitsilano",
+     2630
+    ],
+    [
+     "Dunbar-Southlands",
+     2607
+    ],
+    [
+     "West End",
+     2496
+    ],
+    [
+     "Riley Park",
+     2487
+    ],
+    [
+     "Fairview",
+     2349
+    ],
+    [
+     "Victoria-Fraserview",
+     2210
+    ],
+    [
+     "Mount Pleasant",
+     2031
+    ],
+    [
+     "Marpole",
+     1937
+    ],
+    [
+     "Grandview-Woodland",
+     1815
+    ],
+    [
+     "Killarney",
+     1721
+    ],
+    [
+     "West Point Grey",
+     1600
+    ],
+    [
+     "Kerrisdale",
+     1392
+    ],
+    [
+     "Oakridge",
+     1335
+    ],
+    [
+     "Arbutus Ridge",
+     1334
+    ],
+    [
+     "Strathcona",
+     1098
+    ],
+    [
+     "Shaughnessy",
+     1003
+    ],
+    [
+     "South Cambie",
+     952
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "permitnumber": "DB-2017-01948",
+   "permitnumbercreateddate": "2017-04-13",
+   "issuedate": "2018-06-01",
+   "permitelapseddays": 414,
+   "projectvalue": 15000.0,
+   "typeofwork": "Demolition / Deconstruction",
+   "address": "3275 W 22ND AVENUE, Vancouver, BC V6L 1N1",
+   "projectdescription": "Low Density Housing - Demolition / Deconstruction - To demolish the existing one family dwelling building on this site.\r\n\r\nDemo Declaration Signed By: Canadian Excavating Ltd",
+   "permitcategory": null,
+   "applicant": "Danny Lung & Sharon Chen DBA: Lung Designs Group Ltd.",
+   "applicantaddress": "LUNG DESIGNS GROUP LTD\r\nUNIT 268-2633 VIKING WAY\r\nRICHMOND, BC  V6V3B6",
+   "propertyuse": [
+    "Dwelling Uses"
+   ],
+   "specificusecategory": [
+    "Single Detached House"
+   ],
+   "buildingcontractor": "Canadian Excavating Ltd",
+   "buildingcontractoraddress": "6898 130 St\r\nSurrey, BC  V3W 4J5",
+   "issueyear": "2018",
+   "geolocalarea": "Dunbar-Southlands",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "yearmonth": "2018-06",
+   "geo_point_2d": {
+    "lon": -123.1777523,
+    "lat": 49.253097
+   }
+  },
+  {
+   "permitnumber": "BP-2017-01949",
+   "permitnumbercreateddate": "2017-04-13",
+   "issuedate": "2017-06-27",
+   "permitelapseddays": 75,
+   "projectvalue": 0.0,
+   "typeofwork": "Salvage and Abatement",
+   "address": "3275 W 22ND AVENUE, Vancouver, BC V6L 1N1",
+   "projectdescription": "Low Density Housing - Salvage and Abatement - Salvage and Abatement of a 1 family dwelling",
+   "permitcategory": null,
+   "applicant": "Danny Lung & Sharon Chen DBA: Lung Designs Group Ltd.",
+   "applicantaddress": "LUNG DESIGNS GROUP LTD\r\nUNIT 268-2633 VIKING WAY\r\nRICHMOND, BC  V6V3B6",
+   "propertyuse": [
+    "Dwelling Uses"
+   ],
+   "specificusecategory": [
+    "Single Detached House"
+   ],
+   "buildingcontractor": null,
+   "buildingcontractoraddress": null,
+   "issueyear": "2017",
+   "geolocalarea": "Dunbar-Southlands",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "yearmonth": "2017-06",
+   "geo_point_2d": {
+    "lon": -123.1777523,
+    "lat": 49.253097
+   }
+  },
+  {
+   "permitnumber": "DB-2017-01357",
+   "permitnumbercreateddate": "2017-03-15",
+   "issuedate": "2017-07-27",
+   "permitelapseddays": 134,
+   "projectvalue": 1217500.0,
+   "typeofwork": "New Building",
+   "address": "6561 HEATHER STREET, Vancouver, BC V6P 3P3",
+   "projectdescription": "Low Density Housing - New Building - To construct a 2 storey + cellar one-family dwelling with a \r\ndetached accessory building (garage), at the rear \r\nproviding 4 parking spaces, having vehicular access from the lane.\r\nAL-2017-00353 has been accepted on May 17, 2017.\r\nStructural:Antony Wang\r\nPhone: 604-618-6236\r\n\r\nA/C Proposed",
+   "permitcategory": "New Build - Low Density Housing",
+   "applicant": "Danny Lung & Sharon Chen DBA: Lung Designs Group Ltd.",
+   "applicantaddress": "LUNG DESIGNS GROUP LTD\r\nUNIT 268-2633 VIKING WAY\r\nRICHMOND, BC  V6V3B6",
+   "propertyuse": [
+    "Dwelling Uses"
+   ],
+   "specificusecategory": [
+    "Single Detached House"
+   ],
+   "buildingcontractor": "Accent Construction Co Ltd",
+   "buildingcontractoraddress": "3126 W 12TH AV  \r\nVancouver, BC  V6K 2R7",
+   "issueyear": "2017",
+   "geolocalarea": "Oakridge",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "yearmonth": "2017-07",
+   "geo_point_2d": {
+    "lon": -123.1240484,
+    "lat": 49.2256555
+   }
+  }
+ ]
+}

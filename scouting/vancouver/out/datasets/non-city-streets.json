@@ -1,0 +1,193 @@
+{
+ "id": "non-city-streets",
+ "title": "Non-City streets",
+ "modified": "2026-05-04T13:31:20+00:00",
+ "records": 953,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The non-City streets dataset is one of several that describe streets in Vancouver. The others are:</p><div><ul><li>Lanes</li>\n<li>One way streets</li><li>Public streets</li><li>Right-of-way widths</li><li>Street intersections</li></ul><p>          Street  centerline and names are included.  The  street centerline network includes linear street objects that reflect the  approximate center of the dedicated street right-of-way. Street names are  typically displayed for each segment of the street centerline network. The  linear network is broken at the intersection of two or more City streets or  alleyways. </p></div></div> <h3>Data currency</h3><div><p>This data in City systems is updated frequently  in the normal course of business, however priorities and resources determine  how fast a change in reality is reflected in the database.  The extract on this website is updated  weekly.</p></div> <h3>Data accuracy</h3><div><p>Some of the City's data is created using survey accuracy however some features are not as precise.</p></div> ",
+ "fields": [
+  {
+   "name": "type",
+   "type": "text",
+   "label": "TYPE"
+  },
+  {
+   "name": "from_hblk",
+   "type": "text",
+   "label": "FROM_HBLK"
+  },
+  {
+   "name": "streetname",
+   "type": "text",
+   "label": "STREETNAME"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "streetname",
+   "top": [
+    [
+     "STANLEY PARK DRIVE",
+     133
+    ],
+    [
+     "TRANS CANADA HIGHWAY",
+     81
+    ],
+    [
+     "WALKWAY",
+     39
+    ],
+    [
+     "CASSIAR CONNECTOR",
+     26
+    ],
+    [
+     "COMMISSIONER ST",
+     11
+    ],
+    [
+     "PIPELINE ROAD",
+     11
+    ],
+    [
+     "STEWART ST",
+     10
+    ],
+    [
+     "AVISON WAY",
+     8
+    ],
+    [
+     "GARIBALDI DRIVE",
+     8
+    ],
+    [
+     "KNIGHT ST BRIDGE",
+     8
+    ],
+    [
+     "CORSICA WAY",
+     6
+    ],
+    [
+     "FIELDSTONE AV",
+     6
+    ],
+    [
+     "ANDERSON ST",
+     5
+    ],
+    [
+     "ARTHUR LAING BRIDGE",
+     5
+    ],
+    [
+     "MCMULLEN AV",
+     5
+    ],
+    [
+     "RAINIER PLACE",
+     5
+    ],
+    [
+     "AQUA DRIVE",
+     4
+    ],
+    [
+     "COBBLESTONE AV",
+     4
+    ],
+    [
+     "DEASE LANE",
+     4
+    ],
+    [
+     "DURANLEAU ST",
+     4
+    ],
+    [
+     "FOUNTAIN WAY",
+     4
+    ],
+    [
+     "GAOLER'S MEWS",
+     4
+    ],
+    [
+     "HYACK DRIVE",
+     4
+    ],
+    [
+     "JOHNSTON ST",
+     4
+    ],
+    [
+     "PORTSIDE COURT",
+     4
+    ]
+   ]
+  },
+  {
+   "name": "type",
+   "top": [
+    [
+     "Private",
+     687
+    ],
+    [
+     "Other Non-City",
+     266
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "type": "Other Non-City",
+   "from_hblk": "8100",
+   "streetname": "KNIGHT ST BRIDGE",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.07722969422807,
+    "lat": 49.209371489805136
+   }
+  },
+  {
+   "type": "Other Non-City",
+   "from_hblk": "8100",
+   "streetname": "KNIGHT ST BRIDGE",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.07728126654463,
+    "lat": 49.20954577501596
+   }
+  },
+  {
+   "type": "Private",
+   "from_hblk": "3100",
+   "streetname": "SONGBIRD MEWS",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.04097227141237,
+    "lat": 49.20705320252344
+   }
+  }
+ ]
+}

@@ -1,0 +1,209 @@
+{
+ "id": "voting-places-2017",
+ "title": "Voting places 2017",
+ "modified": "2019-07-12T18:18:44+00:00",
+ "records": 52,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset includes all of the voting places available to voters for the 2017 by-election. Since 2014, voters can vote at any voting place within the City. </p><p>Prior to the 2014 municipal election, the city was divided into voting divisions and voters were required to vote at a designated voting place within their assigned voting division.</p><p>The City operates an at-large voting system. </p><p>\n<strong>Note:</strong></p><p>UBC Lands and UEL residents are only eligible to vote for School Trustees.</p>\n</div> <h3>Data currency</h3><div><p>​​These are the voting places used for the City's 2017 municipal by-election during Advance Voting and on General Voting Day.</p></div> <h3>Websites for further information</h3><div><ul><li>​<a href=\"https://opendata.vancouver.ca/explore/dataset/municipal-election-results/\">Municipal election results</a></li></ul></div>",
+ "fields": [
+  {
+   "name": "voting_place_id",
+   "type": "int",
+   "label": "Voting Place ID"
+  },
+  {
+   "name": "facility_name",
+   "type": "text",
+   "label": "Facility Name"
+  },
+  {
+   "name": "facility_address",
+   "type": "text",
+   "label": "Facility Address"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "Location"
+  },
+  {
+   "name": "advance_only",
+   "type": "text",
+   "label": "Advance Only"
+  },
+  {
+   "name": "local_area",
+   "type": "text",
+   "label": "Local Area"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "advance_only",
+   "top": [
+    [
+     "NO",
+     51
+    ],
+    [
+     "YES",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "local_area",
+   "top": [
+    [
+     "Arbutus-Ridge",
+     2
+    ],
+    [
+     "Downtown",
+     3
+    ],
+    [
+     "Dunbar-Southlands",
+     2
+    ],
+    [
+     "Fairview",
+     2
+    ],
+    [
+     "Grandview-Woodland",
+     2
+    ],
+    [
+     "Hastings-Sunrise",
+     3
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     3
+    ],
+    [
+     "Kerrisdale",
+     3
+    ],
+    [
+     "Killarney",
+     3
+    ],
+    [
+     "Kitsilano",
+     3
+    ],
+    [
+     "Marpole",
+     2
+    ],
+    [
+     "Mount Pleasant",
+     4
+    ],
+    [
+     "Oakridge",
+     3
+    ],
+    [
+     "Renfrew-Collingwood",
+     2
+    ],
+    [
+     "Riley Park",
+     2
+    ],
+    [
+     "Shaughnessy",
+     2
+    ],
+    [
+     "South Cambie",
+     1
+    ],
+    [
+     "Strathcona",
+     2
+    ],
+    [
+     "Sunset",
+     2
+    ],
+    [
+     "UBC Lands and UEL",
+     1
+    ],
+    [
+     "Victoria-Fraserview",
+     2
+    ],
+    [
+     "West End",
+     2
+    ],
+    [
+     "West Point Grey",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "voting_place_id": 34,
+   "facility_name": "Point Grey Secondary School",
+   "facility_address": "5350 EAST BOULEVARD",
+   "location": "Cafeteria",
+   "advance_only": "NO",
+   "local_area": "Shaughnessy",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.153430604,
+    "lat": 49.237289037
+   }
+  },
+  {
+   "voting_place_id": 1,
+   "facility_name": "Vancouver City Hall",
+   "facility_address": "453 12TH AVE W",
+   "location": "Main Floor",
+   "advance_only": "NO",
+   "local_area": "Mount Pleasant",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.113935739,
+    "lat": 49.2613158936
+   }
+  },
+  {
+   "voting_place_id": 2,
+   "facility_name": "King George Secondary School",
+   "facility_address": "1755 BARCLAY ST",
+   "location": "Gymnasium",
+   "advance_only": "NO",
+   "local_area": "West End",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.136073784,
+    "lat": 49.2899129592
+   }
+  }
+ ]
+}

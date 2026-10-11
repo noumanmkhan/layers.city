@@ -1,0 +1,109 @@
+{
+ "id": "municipal-election-results",
+ "title": "Municipal election results",
+ "modified": "2025-04-10T00:29:22+00:00",
+ "records": 13,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>Official result for each municipal election since 1996, including results for the Olympic plebiscite (2003) and City’s electoral system reform plebiscite (2004).</p><h3>Data Access</h3><p>This dataset has not yet been converted to a format compatible with our new platform. The data table provided contains links to access attributes information and election results data in CSV and XLS format​. <br></p><h3>Dataset schema (Attributes)</h3><p>Links to pages describing the attributes are included in the data table. </p></div> <h3>Data currency</h3><div><p>Before 4 p.m. on the fourth day following the close of General Voting, the Chief Election Officer must declare the official results of the election. This data set is a reflection of official  results, and includes a breakdown of results by voting place.</p></div> <h3>Data accuracy</h3><div><p>These are official and accurate results.</p><p>\n<span class=\"note\">Note:</span> Some attribute names and calculation methods may change from election to election and are not directly comparable over time. Please consult corresponding attribute description for details.</p></div> <h3>Websites for further information</h3><div><ul><li>\n<a href=\"https://opendata.vancouver.ca/explore/dataset/anonymous-ballot-marking/\">Anonymous ballot marking</a> dataset</li><li>\n<a href=\"https://opendata.vancouver.ca/explore/?refine.keyword=voting\">Voting Places datasets</a></li><li>\n<a href=\"https://vancouver.ca/your-government/civic-elections.aspx\">Muni",
+ "fields": [
+  {
+   "name": "election",
+   "type": "text",
+   "label": "Election"
+  },
+  {
+   "name": "link_to_csv",
+   "type": "text",
+   "label": "Link to CSV"
+  },
+  {
+   "name": "link_to_xls",
+   "type": "text",
+   "label": "Link to XLS"
+  },
+  {
+   "name": "link_to_attributes",
+   "type": "text",
+   "label": "Link to Attributes"
+  }
+ ],
+ "facets": [
+  {
+   "name": "election",
+   "top": [
+    [
+     "2025 Municipal By-Election",
+     1
+    ],
+    [
+     "2022 Municipal Election",
+     1
+    ],
+    [
+     "2018 Municipal Election",
+     1
+    ],
+    [
+     "2017 Municipal By-Election",
+     1
+    ],
+    [
+     "2014 Municipal Election",
+     1
+    ],
+    [
+     "2011 Municipal Election",
+     1
+    ],
+    [
+     "2008 Municipal Election",
+     1
+    ],
+    [
+     "2005 Municipal Election",
+     1
+    ],
+    [
+     "2004 At Large or Wards",
+     1
+    ],
+    [
+     "2003 Olympic Vote",
+     1
+    ],
+    [
+     "2002 Municipal Election",
+     1
+    ],
+    [
+     "1999 Municipal Election",
+     1
+    ],
+    [
+     "1996 Municipal Election",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "election": "2008 Municipal Election",
+   "link_to_csv": "https://webtransfer.vancouver.ca/OpenData/csv/2008MunicipalElectionResults.csv",
+   "link_to_xls": "https://webtransfer.vancouver.ca/OpenData/xls/2008MunicipalElectionResults.xls",
+   "link_to_attributes": "https://opendata.vancouver.ca/pages/municipal-election-results-2008-attributes"
+  },
+  {
+   "election": "2005 Municipal Election",
+   "link_to_csv": "https://webtransfer.vancouver.ca/OpenData/csv/2005MunicipalElectionResults.csv",
+   "link_to_xls": "https://webtransfer.vancouver.ca/OpenData/xls/2005MunicipalElectionResults.xls",
+   "link_to_attributes": "https://opendata.vancouver.ca/pages/municipal-election-results-2005-attributes"
+  },
+  {
+   "election": "2017 Municipal By-Election",
+   "link_to_csv": "https://webtransfer.vancouver.ca/OpenData/csv/2017By-electionResults.zip",
+   "link_to_xls": "https://webtransfer.vancouver.ca/OpenData/xls/2017By-electionResults.xls",
+   "link_to_attributes": "https://opendata.vancouver.ca/pages/municipal-election-results-attributes"
+  }
+ ]
+}

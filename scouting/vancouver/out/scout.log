@@ -1,0 +1,168 @@
+catalogue: 200 datasets
+dataset bikeways
+dataset block-outlines
+dataset census-local-area-profiles-2001
+dataset census-local-area-profiles-2006
+dataset census-local-area-profiles-2011
+dataset census-local-area-profiles-2016
+dataset city-project-package-street
+dataset community-centres
+dataset council-voting-records
+dataset cultural-spaces
+dataset development-cost-levy-dcl-areas
+dataset disability-parking
+dataset dog-off-leash-parks
+dataset drinking-fountains
+dataset heritage-sites
+dataset issued-building-permits
+dataset libraries
+dataset local-area-boundary
+dataset motorcycle-parking
+dataset municipal-election-results
+dataset non-city-streets
+dataset olympic-transportation-plan-parking-restrictions
+dataset olympic-transportation-plan-venue-closure-areas
+dataset olympic-transportation-plan-venue-closure-roads
+dataset one-way-streets
+dataset parking-meters
+dataset parking-tickets
+dataset parking-tickets-2010-2013
+dataset parking-tickets-2014-2016
+dataset parking-tickets-2017-2019
+dataset parking-tickets-2020-2025
+dataset parks
+dataset parks-facilities
+dataset parks-polygon-representation
+dataset parks-special-features
+dataset property-addresses
+dataset property-cadastral-boundaries
+dataset property-easements
+dataset property-parcel-polygons
+dataset property-tax-report
+dataset property-tax-report-2006-2010
+dataset property-tax-report-2011-2015
+dataset property-tax-report-2016-2019
+dataset property-tie-lines
+dataset property-use-inspection-districts
+dataset public-art
+dataset public-art-artists
+dataset public-streets
+dataset rapid-transit-lines
+dataset rapid-transit-stations
+dataset road-ahead-current-road-closures
+dataset road-ahead-projects-under-construction
+dataset road-ahead-upcoming-projects
+dataset schools
+dataset shoreline-2002
+dataset street-intersections
+dataset street-lighting-abandoned-conduits
+dataset street-lighting-conduits
+dataset street-lighting-junction-boxes
+dataset street-lighting-poles
+dataset street-lighting-service-panels
+dataset street-operations-district-maintenance-areas
+dataset voting-division-boundaries-2008
+dataset voting-division-boundaries-2011
+dataset voting-places-2011
+dataset voting-places-2014
+dataset voting-places-2017
+dataset voting-places-2018
+dataset voting-places-2022
+dataset voting-places-2025
+dataset voting-places-2026
+dataset zoning-districts-and-labels
+local areas: 22
+translink: [('3', 233), ('1', 3), ('2', 1), ('4', 1), ('715', 1)]
+{
+ "catalog": {
+  "datasets": 200,
+  "licences": [
+   [
+    "Open Government Licence - Vancouver",
+    196
+   ],
+   [
+    null,
+    4
+   ]
+  ]
+ },
+ "local_areas": {
+  "dataset": "local-area-boundary",
+  "count": 22,
+  "names": [
+   "Arbutus Ridge",
+   "Downtown",
+   "Dunbar-Southlands",
+   "Fairview",
+   "Grandview-Woodland",
+   "Hastings-Sunrise",
+   "Kensington-Cedar Cottage",
+   "Kerrisdale",
+   "Killarney",
+   "Kitsilano",
+   "Marpole",
+   "Mount Pleasant",
+   "Oakridge",
+   "Renfrew-Collingwood",
+   "Riley Park",
+   "Shaughnessy",
+   "South Cambie",
+   "Strathcona",
+   "Sunset",
+   "Victoria-Fraserview",
+   "West End",
+   "West Point Grey"
+  ]
+ },
+ "translink": {
+  "bytes": 16150292,
+  "agencies": [
+   "TransLink"
+  ],
+  "routes_by_type": [
+   [
+    "3",
+    233
+   ],
+   [
+    "1",
+    3
+   ],
+   [
+    "2",
+    1
+   ],
+   [
+    "4",
+    1
+   ],
+   [
+    "715",
+    1
+   ]
+  ],
+  "stops": 8927,
+  "calendar_span": [
+   "20260907",
+   "20270103"
+  ]
+ },
+ "databc": {
+  "provincial_districts": 93,
+  "municipalities": 160
+ },
+ "old_streams": {
+  "files": 7,
+  "license": {
+   "name": "CC0 1.0",
+   "uri": "http://creativecommons.org/publicdomain/zero/1.0",
+   "iconUri": "https://licensebuttons.net/p/zero/1.0/88x31.png",
+   "rightsIdentifier": "CC0-1.0",
+   "rightsIdentifierScheme": "SPDX",
+   "schemeUri": "https://spdx.org/licenses/",
+   "languageCode": "en"
+  }
+ }
+}
+picked 72

@@ -1,0 +1,165 @@
+{
+ "id": "parks-facilities",
+ "title": "Parks facilities",
+ "modified": "2026-07-30T18:42:14+00:00",
+ "records": 645,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The Vancouver Board of Parks and Recreation maintains over 220 parks and 40 major facilities throughout the City of Vancouver.  This dataset provides information of the parks and facilities that are available in them. </p><p>Park washrooms and special features are found in separate datasets. </p></div> <h3>Data currency</h3><div><p>The extract on this website is updated weekly.</p></div>  ",
+ "fields": [
+  {
+   "name": "parkid",
+   "type": "int",
+   "label": "ParkID"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "Name"
+  },
+  {
+   "name": "facilitytype",
+   "type": "text",
+   "label": "FacilityType"
+  },
+  {
+   "name": "facilitycount",
+   "type": "int",
+   "label": "FacilityCount"
+  },
+  {
+   "name": "facilityurl",
+   "type": "text",
+   "label": "FacilityURL"
+  }
+ ],
+ "facets": [
+  {
+   "name": "facilitytype",
+   "top": [
+    [
+     "Playgrounds",
+     114
+    ],
+    [
+     "Soccer Fields",
+     62
+    ],
+    [
+     "Field Houses",
+     56
+    ],
+    [
+     "Tennis Courts",
+     43
+    ],
+    [
+     "Softball",
+     38
+    ],
+    [
+     "Dogs Off-Leash Areas",
+     37
+    ],
+    [
+     "Basketball Courts",
+     31
+    ],
+    [
+     "Baseball Diamonds",
+     24
+    ],
+    [
+     "Wading Pool",
+     20
+    ],
+    [
+     "Ultimate Fields",
+     18
+    ],
+    [
+     "Water/Spray Parks",
+     15
+    ],
+    [
+     "Ball Hockey",
+     14
+    ],
+    [
+     "Community Centres",
+     14
+    ],
+    [
+     "Lighted Fields",
+     14
+    ],
+    [
+     "Picnic Sites",
+     14
+    ],
+    [
+     "Jogging Trails",
+     11
+    ],
+    [
+     "Football Fields",
+     10
+    ],
+    [
+     "Pickleball",
+     9
+    ],
+    [
+     "Rugby Fields",
+     9
+    ],
+    [
+     "Swimming Pools",
+     9
+    ],
+    [
+     "Food Concessions",
+     8
+    ],
+    [
+     "Restaurants",
+     8
+    ],
+    [
+     "Skateboard Parks",
+     8
+    ],
+    [
+     "Field Hockey",
+     7
+    ],
+    [
+     "Rinks",
+     7
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "parkid": 2,
+   "name": "Carnarvon Park",
+   "facilitytype": "Softball",
+   "facilitycount": 2,
+   "facilityurl": null
+  },
+  {
+   "parkid": 2,
+   "name": "Carnarvon Park",
+   "facilitytype": "Football Fields",
+   "facilitycount": 1,
+   "facilityurl": null
+  },
+  {
+   "parkid": 2,
+   "name": "Carnarvon Park",
+   "facilitytype": "Soccer Fields",
+   "facilitycount": 1,
+   "facilityurl": null
+  }
+ ]
+}

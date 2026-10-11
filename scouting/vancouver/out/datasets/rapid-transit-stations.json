@@ -1,0 +1,112 @@
+{
+ "id": "rapid-transit-stations",
+ "title": "Rapid transit stations",
+ "modified": "2023-02-22T13:22:23+00:00",
+ "records": 22,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset contains the stations of the three rapid transit lines.  Only those portions within the boundaries of the City of Vancouver are shown.</p></div> <h3>Data currency</h3><div><p>This data in City systems is updated as required in the normal course of business.  The extract on this website is updated weekly.  This dataset rarely if ever changes.</p></div>  ",
+ "fields": [
+  {
+   "name": "station",
+   "type": "text",
+   "label": "STATION"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Downtown",
+     8
+    ],
+    [
+     "Renfrew-Collingwood",
+     5
+    ],
+    [
+     "Oakridge",
+     2
+    ],
+    [
+     "Fairview",
+     1
+    ],
+    [
+     "Grandview-Woodland",
+     1
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     1
+    ],
+    [
+     "Marpole",
+     1
+    ],
+    [
+     "Mount Pleasant",
+     1
+    ],
+    [
+     "Riley Park",
+     1
+    ],
+    [
+     "Strathcona",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "station": "Yaletown - Roundhouse",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Downtown",
+   "geo_point_2d": {
+    "lon": -123.1218903777964,
+    "lat": 49.2743622548375
+   }
+  },
+  {
+   "station": "Langara - 49th Avenue",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Oakridge",
+   "geo_point_2d": {
+    "lon": -123.11632486084643,
+    "lat": 49.22638691960162
+   }
+  },
+  {
+   "station": "Nanaimo",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Renfrew-Collingwood",
+   "geo_point_2d": {
+    "lon": -123.05587151633279,
+    "lat": 49.248272210616825
+   }
+  }
+ ]
+}

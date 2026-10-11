@@ -1,0 +1,58 @@
+{
+ "id": "street-lighting-conduits",
+ "title": "Street lighting conduits",
+ "modified": "2026-09-28T13:37:29+00:00",
+ "records": 65458,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The street light conduits (ducts) dataset represents part of the City's Street Lighting network, which also includes: </p><ul><li>street lighting poles (nodes)</li>\n<li>abandoned conduits</li><li>junction boxes</li><li>service panels</li></ul></div> <h3>Data currency</h3><div><p>This data is updated frequently in the normal  course of business, however priorities and resources determine how fast a change in reality is reflected in the database. The extract of this website is updated weekly.</p></div> <h3>Data accuracy</h3><div><p>Street lighting features are generally created with survey accuracy.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "wireset_type",
+   "type": "text",
+   "label": "WIRESET_TYPE"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "wireset_type": "3-8",
+   "geo_point_2d": {
+    "lon": -123.11940282731616,
+    "lat": 49.23628759943281
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "wireset_type": "3-6",
+   "geo_point_2d": {
+    "lon": -123.11941585895892,
+    "lat": 49.235918070102905
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "wireset_type": "2-8",
+   "geo_point_2d": {
+    "lon": -123.11944777379416,
+    "lat": 49.233843178897885
+   }
+  }
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "id": "property-cadastral-boundaries",
+ "title": "Property cadastral boundaries",
+ "modified": "2026-10-05T13:37:34+00:00",
+ "records": 321749,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The property cadastral boundaries include lot lines, property lines and their dimensions (lengths). Other related datasets can be found by \n      <a href=\"https://opendata.vancouver.ca/explore/?refine.keyword=property\"> filtering on the \n         <em>property </em>keyword</a>. </p></div> <h3>Data currency</h3><div><p>This data in City systems is updated frequently  in the normal course of business, however priorities and resources determine  how fast a change in reality is reflected in the database.  The extract on this website is updated  weekly.</p></div> <h3>Data accuracy</h3><div><p>Much of the City's land base is created using survey  accuracy however some features are not as precise.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "dimensions",
+   "type": "text",
+   "label": "DIMENSIONS"
+  },
+  {
+   "name": "type",
+   "type": "text",
+   "label": "TYPE"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "type",
+   "top": [
+    [
+     "PROPERTY LINE",
+     222419
+    ],
+    [
+     "LOT LINE",
+     99330
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "dimensions": "15.212",
+   "type": "PROPERTY LINE",
+   "geo_point_2d": {
+    "lon": -123.16727902446365,
+    "lat": 49.26701901008061
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "dimensions": null,
+   "type": "PROPERTY LINE",
+   "geo_point_2d": {
+    "lon": -123.16738318851795,
+    "lat": 49.267031227680924
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "dimensions": null,
+   "type": "PROPERTY LINE",
+   "geo_point_2d": {
+    "lon": -123.16717129941746,
+    "lat": 49.267071612554844
+   }
+  }
+ ]
+}

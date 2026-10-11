@@ -1,0 +1,50 @@
+{
+ "id": "block-outlines",
+ "title": "Block outlines",
+ "modified": "2026-05-23T13:30:34+00:00",
+ "records": 4633,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>Block outlines are one dataset among many that provide information about property. Other related datasets can be found by \n   <a href=\"https://opendata.vancouver.ca/explore/?refine.keyword=Property\">\n    \nfiltering on the \n            <em>Property</em> keyword</a>. </p></div> <h3>Data currency</h3><div><p>This data in City systems is updated frequently  in the normal course of business, however priorities and resources determine  how fast a change in reality is reflected in the database.  The extract on this website is updated  weekly.</p></div> <h3>Data accuracy</h3><div><p>Much of the City's land base is created using survey  accuracy however some features are not as precise.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.13342699194112,
+    "lat": 49.27025550729518
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.07070014053416,
+    "lat": 49.228774501985924
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.09515692030509,
+    "lat": 49.27854115897703
+   }
+  }
+ ]
+}

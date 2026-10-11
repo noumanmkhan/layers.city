@@ -1,0 +1,449 @@
+{
+ "id": "cultural-spaces",
+ "title": "Cultural Spaces",
+ "modified": "2022-06-09T12:03:30+00:00",
+ "records": 1942,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p> This data set provides locations and attributes of cultural spaces in the City of Vancouver, University Endowment Lands and Musqueam Community.</p><p> The majority of cultural spaces are privately-owned.</p><p> Office spaces are excluded for privacy reasons.</p><p> This data set is maintained manually. </p></div> <h3>Note</h3><div><p>This dataset is published as part of the City of Vancouver Cultural Spaces Map Pilot Project. The data is verified and updated through a survey of stakeholders in the cultural community annually in June. In order for a space to be included, information associated with the space such as a website and contact information must be publically available.</p></div> <h3>Data currency</h3><div><p>The extract on this website will be updated annually or as necessary.</p></div> <h3>Data accuracy</h3><div><p>Data is drawn primarily from public sources such as websites and brochures. Data for City of Vancouver spaces was compiled from various departments.</p><p> City staff selected the attributes for Primary Use and Ownership for each space.</p><p> For Square Feet and Number of Seats, data reported may have been calculated differently prior to publication.</p><p> There is no known error but there may be some loss of quality from data entry errors.</p></div> <h3>Websites for further information</h3><div><ul><li><a href=\"http://vancouver.ca/parks-recreation-culture/cultural-spaces-online-map.aspx\">Cultural spaces map</a></li><li><a href=\"http://vancouve",
+ "fields": [
+  {
+   "name": "year",
+   "type": "text",
+   "label": "YEAR"
+  },
+  {
+   "name": "cultural_space_name",
+   "type": "text",
+   "label": "CULTURAL_SPACE_NAME"
+  },
+  {
+   "name": "website",
+   "type": "text",
+   "label": "WEBSITE"
+  },
+  {
+   "name": "type",
+   "type": "text",
+   "label": "TYPE"
+  },
+  {
+   "name": "primary_use",
+   "type": "text",
+   "label": "PRIMARY_USE"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "ADDRESS"
+  },
+  {
+   "name": "local_area",
+   "type": "text",
+   "label": "LOCAL_AREA"
+  },
+  {
+   "name": "ownership",
+   "type": "text",
+   "label": "OWNERSHIP"
+  },
+  {
+   "name": "square_feet",
+   "type": "int",
+   "label": "SQUARE_FEET"
+  },
+  {
+   "name": "number_of_seats",
+   "type": "int",
+   "label": "NUMBER_OF_SEATS"
+  },
+  {
+   "name": "active_space",
+   "type": "text",
+   "label": "ACTIVE_SPACE"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "type",
+   "top": [
+    [
+     "Museum/Gallery",
+     535
+    ],
+    [
+     "Studio/Rehearsal",
+     452
+    ],
+    [
+     "Community Space",
+     415
+    ],
+    [
+     "Theatre/Performance",
+     271
+    ],
+    [
+     "Educational",
+     135
+    ],
+    [
+     "Cafe/Restaurant/Bar",
+     67
+    ],
+    [
+     "Café/Restaurant/Bar",
+     40
+    ],
+    [
+     "Other",
+     27
+    ]
+   ]
+  },
+  {
+   "name": "primary_use",
+   "top": [
+    [
+     "Museum/Gallery",
+     478
+    ],
+    [
+     "Community Centre/Hall",
+     250
+    ],
+    [
+     "Artist Studio",
+     217
+    ],
+    [
+     "Theatre",
+     146
+    ],
+    [
+     "Educational Institution",
+     135
+    ],
+    [
+     "Rehearsal Studio",
+     111
+    ],
+    [
+     "Plaza/Park/Band Shell",
+     105
+    ],
+    [
+     "Performance Space",
+     100
+    ],
+    [
+     "Bar/Lounge/Cabaret",
+     64
+    ],
+    [
+     "Film/Recording Studio",
+     46
+    ],
+    [
+     "Workshop",
+     43
+    ],
+    [
+     "Garden/Aquarium/Science Centre",
+     39
+    ],
+    [
+     "Place of Worship",
+     34
+    ],
+    [
+     "Cafe/Restaurant",
+     27
+    ],
+    [
+     "Arena/Stadium",
+     25
+    ],
+    [
+     "Cinema",
+     24
+    ],
+    [
+     "Artist Studio with Residence",
+     23
+    ],
+    [
+     "Library/Archives",
+     20
+    ],
+    [
+     "Retail",
+     20
+    ],
+    [
+     "Café/Restaurant",
+     16
+    ],
+    [
+     "Artist Studio w/Residence",
+     6
+    ],
+    [
+     "Other",
+     6
+    ],
+    [
+     "Artist Housing",
+     5
+    ],
+    [
+     "Admin/Artist Studio/Presentation",
+     1
+    ],
+    [
+     "Artist studio",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "local_area",
+   "top": [
+    [
+     "Downtown",
+     472
+    ],
+    [
+     "Fairview",
+     268
+    ],
+    [
+     "Strathcona",
+     263
+    ],
+    [
+     "Mount Pleasant",
+     218
+    ],
+    [
+     "Grandview-Woodland",
+     145
+    ],
+    [
+     "Kitsilano",
+     92
+    ],
+    [
+     "UBC",
+     59
+    ],
+    [
+     "Marpole",
+     49
+    ],
+    [
+     "Renfrew-Collingwood",
+     45
+    ],
+    [
+     "Hastings-Sunrise",
+     43
+    ],
+    [
+     "Riley Park",
+     39
+    ],
+    [
+     "West End",
+     34
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     31
+    ],
+    [
+     "Oakridge",
+     30
+    ],
+    [
+     "Sunset",
+     25
+    ],
+    [
+     "Stanley Park",
+     24
+    ],
+    [
+     "West Point Grey",
+     22
+    ],
+    [
+     "Kerrisdale",
+     15
+    ],
+    [
+     "Downtown Eastside",
+     13
+    ],
+    [
+     "Dunbar-Southlands",
+     10
+    ],
+    [
+     "Killarney",
+     10
+    ],
+    [
+     "South Cambie",
+     10
+    ],
+    [
+     "Shaughnessy",
+     5
+    ],
+    [
+     "Victoria-Fraserview",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "ownership",
+   "top": [
+    [
+     "Privately Owned",
+     959
+    ],
+    [
+     "City of Vancouver",
+     327
+    ],
+    [
+     "Government",
+     182
+    ],
+    [
+     "Vancouver Park Board/COV",
+     171
+    ],
+    [
+     "Non-Profit",
+     127
+    ],
+    [
+     "Other",
+     117
+    ],
+    [
+     "Park Board/COV",
+     42
+    ]
+   ]
+  },
+  {
+   "name": "year",
+   "top": [
+    [
+     "2020",
+     435
+    ],
+    [
+     "2017",
+     387
+    ],
+    [
+     "2016",
+     390
+    ],
+    [
+     "2015",
+     376
+    ],
+    [
+     "2014",
+     354
+    ]
+   ]
+  },
+  {
+   "name": "active_space",
+   "top": [
+    [
+     "Yes",
+     1942
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "year": "2017",
+   "cultural_space_name": "Acme Studios",
+   "website": "https://www.facebook.com/ACMEstudiobuilding",
+   "type": "Studio/Rehearsal",
+   "primary_use": "Artist Studio",
+   "address": "112 E Hastings St, Vancouver, BC, V6A 4J1",
+   "local_area": "Downtown",
+   "ownership": "Privately Owned",
+   "square_feet": 18000,
+   "number_of_seats": null,
+   "active_space": "Yes",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.101791,
+    "lat": 49.281101
+   }
+  },
+  {
+   "year": "2017",
+   "cultural_space_name": "Al Mozaico Flamenco Dance Academy",
+   "website": "http://www.mozaicoflamenco.com/",
+   "type": "Educational",
+   "primary_use": "Educational Institution",
+   "address": "828 E Hastings St, Vancouver, BC, V6A 1R6",
+   "local_area": "Strathcona",
+   "ownership": "Privately Owned",
+   "square_feet": null,
+   "number_of_seats": null,
+   "active_space": "Yes",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.0864434,
+    "lat": 49.2810234
+   }
+  },
+  {
+   "year": "2017",
+   "cultural_space_name": "Alternative Creations Studio",
+   "website": "http://www.arthives.org/arthives/alternative-creations-studio",
+   "type": "Studio/Rehearsal",
+   "primary_use": "Artist Studio",
+   "address": "1387 Venables St, Vancouver, BC, V5L 2G1",
+   "local_area": "Strathcona",
+   "ownership": "Privately Owned",
+   "square_feet": null,
+   "number_of_seats": null,
+   "active_space": "Yes",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.075559,
+    "lat": 49.277071
+   }
+  }
+ ]
+}

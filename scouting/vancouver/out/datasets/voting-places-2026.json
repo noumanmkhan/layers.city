@@ -1,0 +1,248 @@
+{
+ "id": "voting-places-2026",
+ "title": "Voting places 2026",
+ "modified": "2026-08-20T18:25:19+00:00",
+ "records": 147,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<p class=\"\">This dataset includes all of the voting places available to voters for the 2026 general election. The City of Vancouver uses a Vote-Anywhere model. Since 2014, Vancouver voters can vote at any voting place within the City.</p><p>The City operates an at-large voting system.</p><p>Advance voting days: October 3, 7, 10 and 13, 2026</p><p>Election day: October 17, 2026</p><p>Voting hours for all locations are 8am to 8pm.</p><p><h3>Note</h3></p><p>UBC and UEL voters are only eligible to vote for School Trustees. They can vote at the 59 advance voting places on October 3, 7, 10 and 13. On October 7 and 13, they can also vote at the UBC AMS Student Nest. On election day, October 17, they can vote at either the UBC AMS Student Nest or University Hill Secondary School.</p><p><h3>Data currency</h3></p><p>These are the voting places used for the City's 2026 local election during advance voting and on general voting day.</p><p><h3>Websites for further information</h3></p><p><a href=\"https://vancouver.ca/your-government/2026-election.aspx\" target=\"_blank\">Municipal elections</a></p>",
+ "fields": [
+  {
+   "name": "voting_place_id",
+   "type": "double",
+   "label": "Voting Place ID"
+  },
+  {
+   "name": "facility_name",
+   "type": "text",
+   "label": "Facility Name"
+  },
+  {
+   "name": "facility_address",
+   "type": "text",
+   "label": "Facility Address"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "Location"
+  },
+  {
+   "name": "advance_only",
+   "type": "text",
+   "label": "Advance Only"
+  },
+  {
+   "name": "supercentre",
+   "type": "text",
+   "label": "Supercentre"
+  },
+  {
+   "name": "imagecast_evolution",
+   "type": "text",
+   "label": "ImageCast Evolution"
+  },
+  {
+   "name": "accessbility",
+   "type": "text",
+   "label": "Accessbility"
+  },
+  {
+   "name": "bike_rack_location",
+   "type": "text",
+   "label": "Bike Rack Location"
+  },
+  {
+   "name": "nearest_transit_within_5_min_walk",
+   "type": "text",
+   "label": "Nearest Transit within 5 min Walk"
+  },
+  {
+   "name": "local_area",
+   "type": "text",
+   "label": "Local Area"
+  },
+  {
+   "name": "geometry",
+   "type": "geo_point_2d",
+   "label": "Geom"
+  }
+ ],
+ "facets": [
+  {
+   "name": "local_area",
+   "top": [
+    [
+     "Downtown",
+     14
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     10
+    ],
+    [
+     "Kitsilano",
+     10
+    ],
+    [
+     "Mount Pleasant",
+     9
+    ],
+    [
+     "Hastings-Sunrise",
+     8
+    ],
+    [
+     "West End",
+     8
+    ],
+    [
+     "Fairview",
+     7
+    ],
+    [
+     "Grandview-Woodland",
+     7
+    ],
+    [
+     "Killarney",
+     7
+    ],
+    [
+     "Renfrew-Collingwood",
+     7
+    ],
+    [
+     "Victoria-Fraserview",
+     7
+    ],
+    [
+     "Dunbar-Southlands",
+     6
+    ],
+    [
+     "Marpole",
+     6
+    ],
+    [
+     "Oakridge",
+     6
+    ],
+    [
+     "Sunset",
+     6
+    ],
+    [
+     "Riley Park",
+     5
+    ],
+    [
+     "West Point Grey",
+     5
+    ],
+    [
+     "Arbutus-Ridge",
+     4
+    ],
+    [
+     "Kerrisdale",
+     4
+    ],
+    [
+     "Shaughnessy",
+     3
+    ],
+    [
+     "Strathcona",
+     3
+    ],
+    [
+     "UBC Lands & UEL",
+     3
+    ],
+    [
+     "South Cambie",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "advance_only",
+   "top": [
+    [
+     "NO",
+     146
+    ],
+    [
+     "YES",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "supercentre",
+   "top": [
+    [
+     "YES",
+     141
+    ],
+    [
+     "NO",
+     6
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "voting_place_id": 7.0,
+   "facility_name": "Morris J. Wosk Centre for Dialogue",
+   "facility_address": "580 W Hastings Street",
+   "location": "ICBC Concourse & Salons, basement",
+   "advance_only": "NO",
+   "supercentre": "YES",
+   "imagecast_evolution": "NO",
+   "accessbility": "accessible by elevator from main entrance",
+   "bike_rack_location": "on Seymour, near the Conference Plaza",
+   "nearest_transit_within_5_min_walk": "#003, #004, #005, #008, #010, #014, #016, #017, #019, #020, #022, #050, #209, #210, #211, #214, #R5\nSkytrain: Expo, Canada Line\nSeabus",
+   "local_area": "Downtown",
+   "geometry": {
+    "lon": -123.1130153,
+    "lat": 49.28428113
+   }
+  },
+  {
+   "voting_place_id": 10.0,
+   "facility_name": "Dunbar Community Centre",
+   "facility_address": "4747 Dunbar Street",
+   "location": "Gymnasium, main floor",
+   "advance_only": "NO",
+   "supercentre": "YES",
+   "imagecast_evolution": "NO",
+   "accessbility": "accessible through main community centre entrance",
+   "bike_rack_location": "near Dunbar St entrance",
+   "nearest_transit_within_5_min_walk": "#007",
+   "local_area": "Dunbar-Southlands",
+   "geometry": {
+    "lon": -123.1859217,
+    "lat": 49.24380814
+   }
+  },
+  {
+   "voting_place_id": 15.0,
+   "facility_name": "Holy Trinity Anglican Church",
+   "facility_address": "1440 West 12th Avenue",
+   "location": "Parish Hall, second floor",
+   "advance_only": "NO",
+   "supercentre": "YES",
+   "imagecast_evolution": "NO",
+   "accessbility": "accessible by elevator from main entrance",
+   "bike_rack_location": "near main entrance",
+   "nearest_transit_within_5_min_walk": "#010, #016",
+   "local_area": "Fairview",
+   "geometry": {
+    "lon": -123.1369151,
+    "lat": 49.26053482
+   }
+  }
+ ]
+}

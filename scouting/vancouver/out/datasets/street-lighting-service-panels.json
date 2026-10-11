@@ -1,0 +1,160 @@
+{
+ "id": "street-lighting-service-panels",
+ "title": "Street lighting service panels",
+ "modified": "2026-09-28T13:36:50+00:00",
+ "records": 1455,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The City's Street Lighting network includes: </p><ul><li>street lighting poles (nodes)</li><li>conduits (ducts)</li><li>abandoned conduits</li><li>junction boxes</li><li>service panels</li></ul></div> <h3>Data currency</h3><div><p>This data is updated frequently in the normal  course of business, however priorities and resources determine how fast a change in reality is reflected in the database. The extract of this website is updated weekly.</p></div> <h3>Data accuracy</h3><div><p>Street lighting features are generally created with survey accuracy.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "service_panel_number",
+   "type": "text",
+   "label": "SERVICE_PANEL_NUMBER"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Downtown",
+     131
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     109
+    ],
+    [
+     "Renfrew-Collingwood",
+     106
+    ],
+    [
+     "Victoria-Fraserview",
+     83
+    ],
+    [
+     "Dunbar-Southlands",
+     79
+    ],
+    [
+     "Hastings-Sunrise",
+     77
+    ],
+    [
+     "Kitsilano",
+     77
+    ],
+    [
+     "Marpole",
+     74
+    ],
+    [
+     "Mount Pleasant",
+     72
+    ],
+    [
+     "Sunset",
+     70
+    ],
+    [
+     "Fairview",
+     61
+    ],
+    [
+     "Riley Park",
+     61
+    ],
+    [
+     "Killarney",
+     60
+    ],
+    [
+     "Grandview-Woodland",
+     58
+    ],
+    [
+     "Shaughnessy",
+     50
+    ],
+    [
+     "Arbutus Ridge",
+     47
+    ],
+    [
+     "Kerrisdale",
+     47
+    ],
+    [
+     "Oakridge",
+     44
+    ],
+    [
+     "Strathcona",
+     44
+    ],
+    [
+     "West End",
+     39
+    ],
+    [
+     "West Point Grey",
+     34
+    ],
+    [
+     "South Cambie",
+     27
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "service_panel_number": "0113RG",
+   "geo_local_area": "Downtown",
+   "geo_point_2d": {
+    "lon": -123.12339767167913,
+    "lat": 49.27307053949425
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "service_panel_number": "U8132LEBLR",
+   "geo_local_area": "Renfrew-Collingwood",
+   "geo_point_2d": {
+    "lon": -123.03897543712623,
+    "lat": 49.2551613540866
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "service_panel_number": "0928WF",
+   "geo_local_area": "Fairview",
+   "geo_point_2d": {
+    "lon": -123.12618652787648,
+    "lat": 49.26008834113717
+   }
+  }
+ ]
+}

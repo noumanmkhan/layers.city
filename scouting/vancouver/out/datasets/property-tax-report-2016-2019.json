@@ -1,0 +1,290 @@
+{
+ "id": "property-tax-report-2016-2019",
+ "title": "Property tax report 2016-2019",
+ "modified": "2021-05-08T10:10:39+00:00",
+ "records": 832969,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>​This dataset contains information on properties from BC Assessment (BCA) and City sources from 2016 to 2019.<br></p><p>To limit the size of individual datasets, we segmented the property tax data into multiple datasets.  See ​<a href=\"https://opendata.vancouver.ca/explore/?q=property+tax\" style=\"text-decoration-line:underline;\">other property tax datasets</a>​ for data since 2006<br></p><p><a href=\"https://opendata.vancouver.ca/explore/?q=property+tax\"><span style=\"text-decoration:underline;\"><font color=\"#0066cc\"></font></span></a> </p></div> <h3>Note</h3><div><ul><li>Tax coordinates and particularly the legal description information should not be viewed as definitive or legal.</li><li>For zoning data information please consult the City's zoning pages.<br></li><li>Zoning data is not available in historical property tax data sets.<br></li><li>Values for the \"previous improvement value\" and \"previous land value\" columns are not available for the 2006-2013 reports. </li></ul></div> <h3>Data currency</h3><div><p>The data for past years is static</p></div> <h3>Data accuracy</h3><div><p>​Accuracy is dependent on the matching of records between multiple agencies including non-City sources.</p></div> <h3>Websites for further information</h3><div><ul><li>\n<a href=\"http://vancouver.ca/home-property-development/property-tax.aspx\">\n<span style=\"text-decoration:underline;\">\n<font color=\"#0066cc\">Property Tax</font></span></a></li>\n<li>\n<a href=\"http://www.bcassessment.ca/Pages/d",
+ "fields": [
+  {
+   "name": "pid",
+   "type": "text",
+   "label": "PID"
+  },
+  {
+   "name": "legal_type",
+   "type": "text",
+   "label": "LEGAL_TYPE"
+  },
+  {
+   "name": "folio",
+   "type": "text",
+   "label": "FOLIO"
+  },
+  {
+   "name": "land_coordinate",
+   "type": "text",
+   "label": "LAND_COORDINATE"
+  },
+  {
+   "name": "zoning_district",
+   "type": "text",
+   "label": "ZONING_DISTRICT"
+  },
+  {
+   "name": "zoning_classification",
+   "type": "text",
+   "label": "ZONING_CLASSIFICATION"
+  },
+  {
+   "name": "lot",
+   "type": "text",
+   "label": "LOT"
+  },
+  {
+   "name": "plan",
+   "type": "text",
+   "label": "PLAN"
+  },
+  {
+   "name": "block",
+   "type": "text",
+   "label": "BLOCK"
+  },
+  {
+   "name": "district_lot",
+   "type": "text",
+   "label": "DISTRICT_LOT"
+  },
+  {
+   "name": "from_civic_number",
+   "type": "text",
+   "label": "FROM_CIVIC_NUMBER"
+  },
+  {
+   "name": "to_civic_number",
+   "type": "text",
+   "label": "TO_CIVIC_NUMBER"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "STREET_NAME"
+  },
+  {
+   "name": "property_postal_code",
+   "type": "text",
+   "label": "PROPERTY_POSTAL_CODE"
+  },
+  {
+   "name": "narrative_legal_line1",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE1"
+  },
+  {
+   "name": "narrative_legal_line2",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE2"
+  },
+  {
+   "name": "narrative_legal_line3",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE3"
+  },
+  {
+   "name": "current_land_value",
+   "type": "int",
+   "label": "CURRENT_LAND_VALUE"
+  },
+  {
+   "name": "current_improvement_value",
+   "type": "int",
+   "label": "CURRENT_IMPROVEMENT_VALUE"
+  },
+  {
+   "name": "tax_assessment_year",
+   "type": "text",
+   "label": "TAX_ASSESSMENT_YEAR"
+  },
+  {
+   "name": "narrative_legal_line4",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE4"
+  },
+  {
+   "name": "narrative_legal_line5",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE5"
+  },
+  {
+   "name": "previous_improvement_value",
+   "type": "int",
+   "label": "PREVIOUS_IMPROVEMENT_VALUE"
+  },
+  {
+   "name": "previous_land_value",
+   "type": "int",
+   "label": "PREVIOUS_LAND_VALUE"
+  },
+  {
+   "name": "year_built",
+   "type": "text",
+   "label": "YEAR_BUILT"
+  },
+  {
+   "name": "big_improvement_year",
+   "type": "text",
+   "label": "BIG_IMPROVEMENT_YEAR"
+  },
+  {
+   "name": "tax_levy",
+   "type": "double",
+   "label": "TAX_LEVY"
+  },
+  {
+   "name": "neighbourhood_code",
+   "type": "text",
+   "label": "NEIGHBOURHOOD_CODE"
+  },
+  {
+   "name": "report_year",
+   "type": "text",
+   "label": "REPORT_YEAR"
+  }
+ ],
+ "facets": [
+  {
+   "name": "legal_type",
+   "top": [
+    [
+     "STRATA",
+     471824
+    ],
+    [
+     "LAND",
+     360207
+    ],
+    [
+     "OTHER",
+     938
+    ]
+   ]
+  },
+  {
+   "name": "report_year",
+   "top": [
+    [
+     "2019",
+     213182
+    ],
+    [
+     "2018",
+     209649
+    ],
+    [
+     "2017",
+     206480
+    ],
+    [
+     "2016",
+     203658
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "pid": "012-890-812",
+   "legal_type": "LAND",
+   "folio": "641184060000",
+   "land_coordinate": "64118406",
+   "zoning_district": "I-1",
+   "zoning_classification": "Industrial",
+   "lot": "A",
+   "plan": "VAP3437",
+   "block": "18",
+   "district_lot": "200A",
+   "from_civic_number": null,
+   "to_civic_number": "6",
+   "street_name": "3RD AVE E",
+   "property_postal_code": "V5T 1C3",
+   "narrative_legal_line1": "LOT A  BLOCK 18  PLAN VAP3437  DIST",
+   "narrative_legal_line2": "RICT LOT 200A  NEW WESTMINSTER",
+   "narrative_legal_line3": null,
+   "current_land_value": 1906000,
+   "current_improvement_value": 6200,
+   "tax_assessment_year": "2016",
+   "narrative_legal_line4": null,
+   "narrative_legal_line5": null,
+   "previous_improvement_value": 136000,
+   "previous_land_value": 1451000,
+   "year_built": "1973",
+   "big_improvement_year": "1973",
+   "tax_levy": 20831.5,
+   "neighbourhood_code": "013",
+   "report_year": "2016"
+  },
+  {
+   "pid": "026-347-229",
+   "legal_type": "STRATA",
+   "folio": "148606030097",
+   "land_coordinate": "14860603",
+   "zoning_district": "DD",
+   "zoning_classification": "Comprehensive Development",
+   "lot": "97",
+   "plan": "BCS1399",
+   "block": null,
+   "district_lot": "541",
+   "from_civic_number": "1702",
+   "to_civic_number": "1001",
+   "street_name": "HOMER ST",
+   "property_postal_code": "V6B 1M9",
+   "narrative_legal_line1": "LOT 97  PLAN BCS1399  DISTRICT LOT",
+   "narrative_legal_line2": "541  NEW WESTMINSTER GROUP 1.",
+   "narrative_legal_line3": null,
+   "current_land_value": 283000,
+   "current_improvement_value": 187000,
+   "tax_assessment_year": "2016",
+   "narrative_legal_line4": null,
+   "narrative_legal_line5": null,
+   "previous_improvement_value": 182000,
+   "previous_land_value": 252000,
+   "year_built": "2005",
+   "big_improvement_year": "2005",
+   "tax_levy": 1487.86,
+   "neighbourhood_code": "029",
+   "report_year": "2016"
+  },
+  {
+   "pid": "015-617-882",
+   "legal_type": "STRATA",
+   "folio": "606110190014",
+   "land_coordinate": "60611019",
+   "zoning_district": "RM-5A",
+   "zoning_classification": "Multiple Dwelling",
+   "lot": "14",
+   "plan": "VAS2571",
+   "block": null,
+   "district_lot": "185",
+   "from_civic_number": "503",
+   "to_civic_number": "1771",
+   "street_name": "NELSON ST",
+   "property_postal_code": "V6G 1M6",
+   "narrative_legal_line1": "LOT 14  PLAN VAS2571  DISTRICT LOT",
+   "narrative_legal_line2": "185  NEW WESTMINSTER UNDIV 481/1000",
+   "narrative_legal_line3": "0 SHARE IN COM PROP THEREIN.",
+   "current_land_value": 210000,
+   "current_improvement_value": 253000,
+   "tax_assessment_year": "2016",
+   "narrative_legal_line4": null,
+   "narrative_legal_line5": null,
+   "previous_improvement_value": 248000,
+   "previous_land_value": 142000,
+   "year_built": "1990",
+   "big_improvement_year": "1990",
+   "tax_levy": 1465.7,
+   "neighbourhood_code": "027",
+   "report_year": "2016"
+  }
+ ]
+}

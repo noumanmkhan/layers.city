@@ -1,0 +1,350 @@
+{
+ "id": "libraries",
+ "title": "Libraries",
+ "modified": "2020-11-19T11:33:47+00:00",
+ "records": 22,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This data set contains the name, address and  latitude and longitude of each of the City's public libraries. The extract on this website is updated weekly.</p></div> <h3>Data currency</h3><div><p>This data was updated in July 2009.</p></div> <h3>Data accuracy</h3><div><p>This data is taken from the Vancouver Public Library website. </p></div> ",
+ "fields": [
+  {
+   "name": "address",
+   "type": "text",
+   "label": "ADDRESS"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "NAME"
+  },
+  {
+   "name": "urllink",
+   "type": "text",
+   "label": "URLLINK"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Downtown",
+     3
+    ],
+    [
+     "Dunbar-Southlands",
+     1
+    ],
+    [
+     "Fairview",
+     1
+    ],
+    [
+     "Grandview-Woodland",
+     1
+    ],
+    [
+     "Hastings-Sunrise",
+     1
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     1
+    ],
+    [
+     "Kerrisdale",
+     1
+    ],
+    [
+     "Killarney",
+     1
+    ],
+    [
+     "Kitsilano",
+     1
+    ],
+    [
+     "Marpole",
+     1
+    ],
+    [
+     "Mount Pleasant",
+     1
+    ],
+    [
+     "Oakridge",
+     1
+    ],
+    [
+     "Renfrew-Collingwood",
+     2
+    ],
+    [
+     "Riley Park",
+     1
+    ],
+    [
+     "Strathcona",
+     1
+    ],
+    [
+     "Sunset",
+     1
+    ],
+    [
+     "Victoria-Fraserview",
+     1
+    ],
+    [
+     "West End",
+     1
+    ],
+    [
+     "West Point Grey",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "name",
+   "top": [
+    [
+     "Britannia",
+     1
+    ],
+    [
+     "Carnegie",
+     1
+    ],
+    [
+     "Central Branch",
+     1
+    ],
+    [
+     "Champlain Heights",
+     1
+    ],
+    [
+     "Collingwood",
+     1
+    ],
+    [
+     "Dunbar",
+     1
+    ],
+    [
+     "Firehall",
+     1
+    ],
+    [
+     "Fraserview",
+     1
+    ],
+    [
+     "Hastings",
+     1
+    ],
+    [
+     "Joe Fortes",
+     1
+    ],
+    [
+     "Kensington",
+     1
+    ],
+    [
+     "Kerrisdale",
+     1
+    ],
+    [
+     "Kitsilano",
+     1
+    ],
+    [
+     "Marpole",
+     1
+    ],
+    [
+     "Mount Pleasant",
+     1
+    ],
+    [
+     "Oakridge",
+     1
+    ],
+    [
+     "Outreach Services",
+     1
+    ],
+    [
+     "Renfrew",
+     1
+    ],
+    [
+     "South Hill",
+     1
+    ],
+    [
+     "Strathcona",
+     1
+    ],
+    [
+     "Terry Salman",
+     1
+    ],
+    [
+     "West Point Grey",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "address",
+   "top": [
+    [
+     "1 Kingsway",
+     1
+    ],
+    [
+     "1428 Cedar Cottage Mews",
+     1
+    ],
+    [
+     "1455 W 10th Av",
+     1
+    ],
+    [
+     "1661 Napier St",
+     1
+    ],
+    [
+     "191-650 W 41st Av",
+     1
+    ],
+    [
+     "1950 Argyle Drive",
+     1
+    ],
+    [
+     "2112 W 42nd Av",
+     1
+    ],
+    [
+     "2425 Macdonald St",
+     1
+    ],
+    [
+     "2674 E Hastings St",
+     1
+    ],
+    [
+     "2969 E 22nd Av",
+     1
+    ],
+    [
+     "2985 Kingsway",
+     1
+    ],
+    [
+     "302-345 Robson St",
+     1
+    ],
+    [
+     "350 W Georgia St",
+     1
+    ],
+    [
+     "401 Main St",
+     1
+    ],
+    [
+     "4480 W 10th Av",
+     1
+    ],
+    [
+     "4515 Dunbar St",
+     1
+    ],
+    [
+     "4575 Clancy Loranger Way",
+     1
+    ],
+    [
+     "592 E Pender St",
+     1
+    ],
+    [
+     "6076 Fraser St",
+     1
+    ],
+    [
+     "7110 Kerr St",
+     1
+    ],
+    [
+     "8386 Granville St",
+     1
+    ],
+    [
+     "870 Denman St",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "address": "1950 Argyle Drive",
+   "name": "Fraserview",
+   "urllink": "http://www.vpl.ca/branches/details/fraserview_branch",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Victoria-Fraserview",
+   "geo_point_2d": {
+    "lon": -123.0669,
+    "lat": 49.2197
+   }
+  },
+  {
+   "address": "302-345 Robson St",
+   "name": "Outreach Services",
+   "urllink": "http://www.vpl.ca/branches/details/outreach_branch",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Downtown",
+   "geo_point_2d": {
+    "lon": -123.1156,
+    "lat": 49.2797
+   }
+  },
+  {
+   "address": "2425 Macdonald St",
+   "name": "Kitsilano",
+   "urllink": "http://www.vpl.ca/branches/details/kitsilano_branch",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Kitsilano",
+   "geo_point_2d": {
+    "lon": -123.1687,
+    "lat": 49.2647
+   }
+  }
+ ]
+}

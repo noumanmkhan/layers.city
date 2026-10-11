@@ -1,0 +1,330 @@
+{
+ "id": "zoning-districts-and-labels",
+ "title": "Zoning districts and labels",
+ "modified": "2026-06-29T13:47:51+00:00",
+ "records": 1621,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset consists of zoning polygons throughout the City  and labels describing them.<br></p><p>Zoning regulates the development of property in Vancouver by encouraging land use and building in accordance with community goals and visions for the future of Vancouver and its neighbourhoods. The city is divided into many development zones, with each zone further broken down into districts. The Zoning Development Bylaw describes each district and its list of permitted uses and regulations. Some districts are scattered across the city, while others are found only in a single neighbourhood or local area.​<br></p></div> <h3>Data currency</h3><div><p>This data in City systems is updated frequently in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database.  The extract on this website is updated weekly.</p></div> <h3>Data accuracy</h3><div><p>Some of the City's data is created using survey  accuracy however some features are not as precise.</p></div> <h3>Websites for further information</h3><div><ul><li>\n<a href=\"https://vancouver.ca/home-property-development/zoning-and-land-use-policies-document-library.aspx\" target=\"_blank\">Zoning and land use document library</a></li><li>\n<a href=\"https://vancouver.ca/home-property-development/zoning-and-development-bylaw.aspx\" target=\"_blank\">Zoning &amp; Development By-​law 3575</a><br></li><li><span style=\"font-size:11pt;font-family:calibri, sans-serif;color",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "object_id",
+   "type": "text",
+   "label": "Object ID"
+  },
+  {
+   "name": "zoning_classification",
+   "type": "text",
+   "label": "Zoning Classification"
+  },
+  {
+   "name": "zoning_category",
+   "type": "text",
+   "label": "Zoning Category"
+  },
+  {
+   "name": "zoning_district",
+   "type": "text",
+   "label": "Zoning District"
+  },
+  {
+   "name": "cd_1_number",
+   "type": "text",
+   "label": "CD-1 Number"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "zoning_classification",
+   "top": [
+    [
+     "Commercial",
+     183
+    ],
+    [
+     "Comprehensive Development",
+     911
+    ],
+    [
+     "Historical Area",
+     5
+    ],
+    [
+     "Industrial",
+     68
+    ],
+    [
+     "Limited Agriculture",
+     2
+    ],
+    [
+     "Residential",
+     345
+    ],
+    [
+     "Residential Inclusive",
+     85
+    ],
+    [
+     "Residential Rental",
+     22
+    ]
+   ]
+  },
+  {
+   "name": "zoning_district",
+   "top": [
+    [
+     "BCPED",
+     7
+    ],
+    [
+     "C-1",
+     65
+    ],
+    [
+     "C-2",
+     16
+    ],
+    [
+     "C-2A",
+     67
+    ],
+    [
+     "C-2B",
+     1
+    ],
+    [
+     "C-2C",
+     11
+    ],
+    [
+     "C-2C1",
+     6
+    ],
+    [
+     "C-3A",
+     3
+    ],
+    [
+     "C-5",
+     3
+    ],
+    [
+     "C-5A",
+     2
+    ],
+    [
+     "C-6",
+     1
+    ],
+    [
+     "C-7",
+     4
+    ],
+    [
+     "C-8",
+     1
+    ],
+    [
+     "CD-1 (1)",
+     1
+    ],
+    [
+     "CD-1 (2)",
+     1
+    ],
+    [
+     "CD-1 (3A)",
+     1
+    ],
+    [
+     "CD-1 (3B)",
+     1
+    ],
+    [
+     "CD-1 (4)",
+     1
+    ],
+    [
+     "CD-1 (5)",
+     1
+    ],
+    [
+     "CD-1 (7A)",
+     1
+    ],
+    [
+     "CD-1 (7B)",
+     1
+    ],
+    [
+     "CD-1 (8)",
+     1
+    ],
+    [
+     "CD-1 (9)",
+     1
+    ],
+    [
+     "CD-1 (10)",
+     1
+    ],
+    [
+     "CD-1 (11A)",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "zoning_category",
+   "top": [
+    [
+     "BCPED",
+     7
+    ],
+    [
+     "C",
+     180
+    ],
+    [
+     "CD",
+     891
+    ],
+    [
+     "CWD",
+     1
+    ],
+    [
+     "DD",
+     7
+    ],
+    [
+     "DEOD",
+     1
+    ],
+    [
+     "FC",
+     3
+    ],
+    [
+     "FCCDD",
+     3
+    ],
+    [
+     "FM",
+     2
+    ],
+    [
+     "FSD",
+     1
+    ],
+    [
+     "HA",
+     5
+    ],
+    [
+     "I",
+     29
+    ],
+    [
+     "IC",
+     7
+    ],
+    [
+     "M",
+     27
+    ],
+    [
+     "MC",
+     5
+    ],
+    [
+     "R1",
+     85
+    ],
+    [
+     "R3",
+     31
+    ],
+    [
+     "R4",
+     3
+    ],
+    [
+     "R5",
+     36
+    ],
+    [
+     "RA",
+     2
+    ],
+    [
+     "RM",
+     172
+    ],
+    [
+     "RR",
+     22
+    ],
+    [
+     "RT",
+     101
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "object_id": "495374",
+   "zoning_classification": "Comprehensive Development",
+   "zoning_category": "CD",
+   "zoning_district": "CD-1 (302)",
+   "cd_1_number": "302",
+   "geo_point_2d": {
+    "lon": -123.02786158710653,
+    "lat": 49.23231027641015
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "object_id": "495375",
+   "zoning_classification": "Comprehensive Development",
+   "zoning_category": "CD",
+   "zoning_district": "CD-1 (303)",
+   "cd_1_number": "303",
+   "geo_point_2d": {
+    "lon": -123.12153381997425,
+    "lat": 49.25737606366172
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "object_id": "495378",
+   "zoning_classification": "Comprehensive Development",
+   "zoning_category": "CD",
+   "zoning_district": "CD-1 (306)",
+   "cd_1_number": "306",
+   "geo_point_2d": {
+    "lon": -123.15146910469574,
+    "lat": 49.26169066209512
+   }
+  }
+ ]
+}

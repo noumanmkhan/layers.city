@@ -1,0 +1,58 @@
+{
+ "id": "property-tie-lines",
+ "title": "Property tie lines",
+ "modified": "2024-04-29T12:27:14+00:00",
+ "records": 3151,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>Property tie lines are graphical indicators that two or more lots are being treated by the BC Assessment Authority as one large parcel (these lots will have the same owner and share one assessment roll number).  Property tie lines is one dataset among many that provide information about property. Other related datasets can be found by \n      <a href=\"https://opendata.vancouver.ca/explore/?refine.keyword=property\"> filtering on the \n         <em>property</em> keyword</a>. </p></div>\n<h3>Data currency</h3><div><p>This data in City systems is updated frequently  in the normal course of business, however priorities and resources determine  how fast a change in reality is reflected in the database.  The extract on this website is updated  weekly.</p></div> <h3>Data accuracy</h3><div><p>Much of the City's land base is created using survey  accuracy however some features are not as precise.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "p_annotation_lbl_id",
+   "type": "text",
+   "label": "P_ANNOTATION_LBL_ID"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "p_annotation_lbl_id": "__FJ7JEA",
+   "geo_point_2d": {
+    "lon": -123.14860164039305,
+    "lat": 49.26053491146497
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "p_annotation_lbl_id": "__FJ7JEM",
+   "geo_point_2d": {
+    "lon": -123.15283657270501,
+    "lat": 49.25760476814609
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "p_annotation_lbl_id": "__FJ7JEQ",
+   "geo_point_2d": {
+    "lon": -123.14557784768908,
+    "lat": 49.255379365455425
+   }
+  }
+ ]
+}

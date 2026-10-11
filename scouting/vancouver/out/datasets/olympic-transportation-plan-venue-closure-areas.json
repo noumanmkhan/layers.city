@@ -1,0 +1,66 @@
+{
+ "id": "olympic-transportation-plan-venue-closure-areas",
+ "title": "Olympic transportation plan venue closure areas",
+ "modified": "2019-06-21T16:42:18+00:00",
+ "records": 7,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset contains the venue closure areas as part of the 2010 Olympic Transportation Plan. </p><p>​The Olympic Transportation Plan areas are only in effect for the Olympic period—specific dates vary from area to area. </p></div> <h3>Data accuracy</h3><div><p>​Transportation Plan components follow streets or other areas so they are approximate.</p></div> ",
+ "fields": [
+  {
+   "name": "bi_id",
+   "type": "text",
+   "label": "BI_ID"
+  },
+  {
+   "name": "in_effect",
+   "type": "text",
+   "label": "IN_EFFECT"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "bi_id": "7",
+   "in_effect": "Mid_Jan to Mar 1, 2010",
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.107596275,
+    "lat": 49.2437335059
+   }
+  },
+  {
+   "bi_id": "5",
+   "in_effect": "Mid_Jan to Mar 1, 2010",
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.108976863,
+    "lat": 49.2708809699
+   }
+  },
+  {
+   "bi_id": "6",
+   "in_effect": "Mid_Jan to Mar 1, 2010",
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.041016664,
+    "lat": 49.2844075577
+   }
+  }
+ ]
+}

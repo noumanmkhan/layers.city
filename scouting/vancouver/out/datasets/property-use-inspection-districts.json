@@ -1,0 +1,58 @@
+{
+ "id": "property-use-inspection-districts",
+ "title": "Property use inspection districts",
+ "modified": "2021-10-02T10:33:35+00:00",
+ "records": 23,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The Property Use Inspections Branch enforces a number of bylaws. In addition, inspectors serve on \"Neighbourhood Integrated Service Teams\", and also enforce a number of other programs, such as the Secondary Suite Program. The division has come to be a catch-all for solving community problems of many types. Inspectors are assigned a field district and are responsible for all bylaw enforcement in that district. In particular, the City of Vancouver is divided into 23 Property Use Inspection Districts. Each district is unique, depending on the type of neighbourhood and the types of issues that typically arise there. The bylaw enforcement conducted by this branch normally results from complaints, re-check of permit conditions, or routine observation by the inspectors. Enforcement is carried out by the issuing of letters and orders relating to bylaw violations, which may ultimately result in charges being laid through the Bylaw Prosecutor's office or \"Show Cause Hearings\" held before Council. The Bylaws that the Property Use Inspectors enforce are the following:</p><ul><li> Zoning and Development Bylaw No. 3575</li><li>Parking Bylaw No. 6059</li><li>License Bylaw No. 4450</li><li>Standards of Maintenance Bylaw No. 5462</li><li>Sign Bylaw No. 4810</li><li>Untidy Premises Bylaw No. 4548 </li></ul></div> <h3>Data currency</h3><div><p>The extract for this dataset is updated weekly.  There may be no change in data content from one week to the next because there is no change in s",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "NAME"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "name": "PUID-8",
+   "geo_point_2d": {
+    "lon": -123.066676752,
+    "lat": 49.2798283336
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "name": "PUID-25",
+   "geo_point_2d": {
+    "lon": -123.14300647,
+    "lat": 49.2159118656
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "name": "PUID-5",
+   "geo_point_2d": {
+    "lon": -123.113185665,
+    "lat": 49.2848087713
+   }
+  }
+ ]
+}

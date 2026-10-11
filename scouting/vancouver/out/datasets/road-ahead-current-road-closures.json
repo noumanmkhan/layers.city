@@ -1,0 +1,108 @@
+{
+ "id": "road-ahead-current-road-closures",
+ "title": "Road Ahead current road closures",
+ "modified": "2026-09-17T13:31:44+00:00",
+ "records": 23,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset is one of three that provides information on construction activity and projects that may affect the flow of traffic in the City.  This dataset describes current road closures. The others are for projects currently under construction, and upcoming projects. All will affect the flow of traffic. </p><h3>Additional data access options </h3><p>Road Ahead data are also available as a data feed, updated hourly from 7am to 7pm Monday to Friday:</p><div><ul><li>Atom feed <a href=\"https://vanmapp1.vancouver.ca/georss/roadahead_atom.xml\">https://vanmapp1.vancouver.ca/georss/roadahead_atom.xml</a></li><li>GeoRSS feed <a href=\"https://vanmapp1.vancouver.ca/georss/roadahead_georss.xml\">https://vanmapp1.vancouver.ca/georss/roadahead_georss.xml</a></li></ul></div></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database. The extract on this web site is updated daily with the exception of the Atom feeds which are updated hourly from 7am to 7pm Monday to Friday.</p></div> <h3>Data accuracy</h3><div><p>Locations are tied to street segments and may not show the exact location of the work being, or to be, done.</p></div> <h3>Websites for further information</h3><div><ul><li><a href=\"http://vancouver.ca/streets-transportation/roadwork.aspx\">Road construction and improvements</a></li><li><a href=\"http://vancouver.ca/streets-trans",
+ "fields": [
+  {
+   "name": "project",
+   "type": "text",
+   "label": "PROJECT"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "STREET"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "comp_date",
+   "type": "date",
+   "label": "COMP_DATE"
+  },
+  {
+   "name": "url_link",
+   "type": "text",
+   "label": "URL_LINK"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "comp_date",
+   "top": [
+    [
+     "2026",
+     10
+    ],
+    [
+     "2027",
+     11
+    ],
+    [
+     "2028",
+     2
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "project": "Manitoba St from W 23rd Av to W King Edward Av",
+   "street": null,
+   "location": "Manitoba St from W 23rd Av to W King Edward Av",
+   "comp_date": "2027-05-28",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/14a078dc-e00d-4cd5-b930-770b52c1513d",
+   "geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.10742580719152,
+    "lat": 49.24942456029466
+   }
+  },
+  {
+   "project": "E 22nd Av between Welwyn and Commercial St",
+   "street": null,
+   "location": "E 22nd Av between Welwyn and Commercial St",
+   "comp_date": "2027-06-30",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/30c1defc-dc6d-46ea-95b4-a4f549d2d0b7",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.06878376301069,
+    "lat": 49.25033631034441
+   }
+  },
+  {
+   "project": null,
+   "street": null,
+   "location": null,
+   "comp_date": "2026-11-20",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/4190b8ca-bcb0-40dd-a42d-c1589556110f",
+   "geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.1732726104186,
+    "lat": 49.248614646122135
+   }
+  }
+ ]
+}

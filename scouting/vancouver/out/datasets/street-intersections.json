@@ -1,0 +1,176 @@
+{
+ "id": "street-intersections",
+ "title": "Street intersections",
+ "modified": "2026-07-27T13:35:47+00:00",
+ "records": 6125,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The street intersections dataset is one of several that describe city streets. The others are:</p><div><ul><li>Lanes</li><li>Non-City streets</li><li>One way streets</li><li>Public streets</li><li>Right-of-way widths</li></ul></div><p>          Street  centerline and names are included.  The  street centerline network includes linear street objects that reflect the  approximate center of the dedicated street right-of-way. Street names are  typically displayed for each segment of the street centerline network. The  linear network is broken at the intersection of two or more City streets or  alleyways. </p></div> <h3>Data currency</h3><div><p>This data in City systems is updated frequently  in the normal course of business, however priorities and resources determine  how fast a change in reality is reflected in the database.  The extract on this website is updated  weekly.</p></div> <h3>Data accuracy</h3><div><p>Some of the City's data is created using survey accuracy however some features are not as precise.</p></div> ",
+ "fields": [
+  {
+   "name": "at_street",
+   "type": "text",
+   "label": "AT_STREET"
+  },
+  {
+   "name": "on_street",
+   "type": "text",
+   "label": "ON_STREET"
+  },
+  {
+   "name": "xstreet",
+   "type": "text",
+   "label": "XSTREET"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Kensington-Cedar Cottage",
+     515
+    ],
+    [
+     "Renfrew-Collingwood",
+     485
+    ],
+    [
+     "Hastings-Sunrise",
+     398
+    ],
+    [
+     "Kitsilano",
+     374
+    ],
+    [
+     "Grandview-Woodland",
+     331
+    ],
+    [
+     "Victoria-Fraserview",
+     314
+    ],
+    [
+     "Sunset",
+     310
+    ],
+    [
+     "Dunbar-Southlands",
+     307
+    ],
+    [
+     "Mount Pleasant",
+     303
+    ],
+    [
+     "Riley Park",
+     284
+    ],
+    [
+     "Marpole",
+     277
+    ],
+    [
+     "Killarney",
+     257
+    ],
+    [
+     "Downtown",
+     244
+    ],
+    [
+     "Shaughnessy",
+     239
+    ],
+    [
+     "Kerrisdale",
+     234
+    ],
+    [
+     "Fairview",
+     223
+    ],
+    [
+     "Arbutus Ridge",
+     198
+    ],
+    [
+     "West Point Grey",
+     187
+    ],
+    [
+     "Strathcona",
+     185
+    ],
+    [
+     "Oakridge",
+     184
+    ],
+    [
+     "West End",
+     121
+    ],
+    [
+     "South Cambie",
+     115
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "at_street": "214",
+   "on_street": "683",
+   "xstreet": "ST. CATHERINES ST AND E 13TH AV",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Mount Pleasant",
+   "geo_point_2d": {
+    "lon": -123.08531277712291,
+    "lat": 49.25878048293704
+   }
+  },
+  {
+   "at_street": "214",
+   "on_street": "684",
+   "xstreet": "E 14TH AV AND ST. CATHERINES ST",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Mount Pleasant",
+   "geo_point_2d": {
+    "lon": -123.0853308980802,
+    "lat": 49.257875946873064
+   }
+  },
+  {
+   "at_street": "214",
+   "on_street": "770",
+   "xstreet": "ST. CATHERINES ST AND KINGSWAY",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Kensington-Cedar Cottage",
+   "geo_point_2d": {
+    "lon": -123.08560146630914,
+    "lat": 49.254734347229544
+   }
+  }
+ ]
+}

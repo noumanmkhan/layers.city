@@ -1,0 +1,139 @@
+{
+ "id": "development-cost-levy-dcl-areas",
+ "title": "Development Cost Levy (DCL) areas",
+ "modified": "2026-10-05T13:30:40+00:00",
+ "records": 6,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><div style=\"margin-top:14px;margin-bottom:14px;\">Development Cost Levies (DCLs) are collected from new development requiring a Building Permit. DCLs help pay for new infrastructure and facilities (e.g. utilities, transportation, parks, fire, housing, and childcare) needed to service new development. There are three DCL By-laws, including a Vancouver DCL By-law (funding transportation, parks, fire, housing, and childcare), a Utilities DCL By-law (funding sewer, water, and drainage infrastructure), and an Area Specific DCL By-law which provides DCL funding for local areas. Some areas are excluded from DCLs as there are other funding mechanisms in place to fund infrastructure and amenities. For more information on DCLs, see the <a href=\"https://guidelines.vancouver.ca/bulletins/bulletin-development-cost-levies.pdf\" title=\"DCL Bulletin\">DCL Bulletin</a> (pdf).\n      </div></div> <h3>Data currency</h3><div><p><span style='font-size:11pt;font-family:\"segoe ui\";'>DCL rates are typically updated on an annual basis. Data\nis updated in the normal course of business; however priorities and resources\ndetermine how fast a change in reality is reflected in the database.</span></p></div> <h3>Data accuracy</h3><div><p>This data has not been entered with survey accuracy.</p></div> <h3>Websites for further information</h3><div><ul><li><a href=\"http://vancouver.ca/home-property-development/development-cost-levies.aspx\">Development Cost Levies</a></li></ul></div>",
+ "fields": [
+  {
+   "name": "name",
+   "type": "text",
+   "label": "Name"
+  },
+  {
+   "name": "effective_date",
+   "type": "int",
+   "label": "Effective Date"
+  },
+  {
+   "name": "expiry_date",
+   "type": "text",
+   "label": "Expiry Date"
+  },
+  {
+   "name": "dcl_url",
+   "type": "text",
+   "label": "DCL URL"
+  },
+  {
+   "name": "by_law_number",
+   "type": "int",
+   "label": "By-law Number"
+  },
+  {
+   "name": "dcl_district",
+   "type": "text",
+   "label": "DCL District"
+  },
+  {
+   "name": "commercial_other_rate_sqft",
+   "type": "double",
+   "label": "Commercial Other Rate SqFt"
+  },
+  {
+   "name": "industrial_rate_sqft",
+   "type": "double",
+   "label": "Industrial Rate SqFt"
+  },
+  {
+   "name": "low_density_rate_sqft",
+   "type": "double",
+   "label": "Low Density Rate SqFt"
+  },
+  {
+   "name": "medium_density_rate_sqft",
+   "type": "double",
+   "label": "Medium Density Rate SqFt"
+  },
+  {
+   "name": "mixed_employment_rate_sqft",
+   "type": "double",
+   "label": "Mixed Employment Rate SqFt"
+  },
+  {
+   "name": "high_density_rate_sqft",
+   "type": "double",
+   "label": "High Density Rate SqFt"
+  },
+  {
+   "name": "notes",
+   "type": "text",
+   "label": "Notes"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "name": "False Creek North ODP",
+   "effective_date": null,
+   "expiry_date": null,
+   "dcl_url": "https://guidelines.vancouver.ca/bulletins/bulletin-development-cost-levies.pdf",
+   "by_law_number": 6650,
+   "dcl_district": "Exempt Area",
+   "commercial_other_rate_sqft": null,
+   "industrial_rate_sqft": null,
+   "low_density_rate_sqft": null,
+   "medium_density_rate_sqft": null,
+   "mixed_employment_rate_sqft": null,
+   "high_density_rate_sqft": null,
+   "notes": "Excluded from DCL By-Laws",
+   "geom": null,
+   "geo_point_2d": null
+  },
+  {
+   "name": "Utilities Development Cost Levy",
+   "effective_date": null,
+   "expiry_date": null,
+   "dcl_url": "https://guidelines.vancouver.ca/bulletins/bulletin-development-cost-levies.pdf",
+   "by_law_number": 12183,
+   "dcl_district": "City-wide",
+   "commercial_other_rate_sqft": 6.25,
+   "industrial_rate_sqft": 2.5,
+   "low_density_rate_sqft": 2.9,
+   "medium_density_rate_sqft": 6.25,
+   "mixed_employment_rate_sqft": 4.69,
+   "high_density_rate_sqft": 12.51,
+   "notes": "Applied to development across the City",
+   "geom": null,
+   "geo_point_2d": null
+  },
+  {
+   "name": "Vancouver Development Cost Levy",
+   "effective_date": null,
+   "expiry_date": null,
+   "dcl_url": "https://guidelines.vancouver.ca/bulletins/bulletin-development-cost-levies.pdf",
+   "by_law_number": 9755,
+   "dcl_district": "City-wide",
+   "commercial_other_rate_sqft": 19.96,
+   "industrial_rate_sqft": 7.99,
+   "low_density_rate_sqft": 4.63,
+   "medium_density_rate_sqft": 9.97,
+   "mixed_employment_rate_sqft": 14.96,
+   "high_density_rate_sqft": 19.96,
+   "notes": "Applied to development across the City",
+   "geom": null,
+   "geo_point_2d": null
+  }
+ ]
+}

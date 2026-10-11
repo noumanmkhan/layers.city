@@ -1,0 +1,551 @@
+{
+ "id": "council-voting-records",
+ "title": "Council voting records",
+ "modified": "2026-10-07T13:49:38+00:00",
+ "records": 83472,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The posting of voting records for City of Vancouver Council members is part of the City's ongoing commitment to open, transparent and proactive disclosure of data. In 2016, City Council began using an electronic voting system which has enabled the City to capture individual Council member vote records for Council, Special Council, Standing Committee, Public Hearing, Courts of Revision, and Auditor General Committee meeting types.</p><p>\n<strong> Note:</strong> </p><ul><li>Please consult corresponding meeting minutes for official vote records.<br></li><li>On September 21, 2021, <em>Vote</em> attribute definition for \n            <em>No Vote </em>was updated to improve clarity. See \n            <a href=\"https://opendata.vancouver.ca/explore/dataset/open-data-change-log/log/?disjunctive.datasets&amp;sort=logdate&amp;refine.datasetids=council-voting-records\">change log</a> on this date for details.​​</li></ul></div> <h3>Data currency</h3><div><p>The voting records extract is updated following Council, Special Council, Standing Committees, Public Hearing, Courts of Revision, and Auditor General Committee meetings.  The most recent data will be available within two business days of the meeting minutes being published.</p><p>\n<strong> Note:</strong> </p><ul><li>​​Following complex meetings with a large number of agenda items, data release may be delayed by several business days. </li><li>On November 26, 2019, Council approved the changes to the Procedure By-law included upda",
+ "fields": [
+  {
+   "name": "meeting_id",
+   "type": "int",
+   "label": "Meeting ID"
+  },
+  {
+   "name": "meeting_type",
+   "type": "text",
+   "label": "Meeting Type"
+  },
+  {
+   "name": "vote_date",
+   "type": "date",
+   "label": "Vote Date"
+  },
+  {
+   "name": "vote_number",
+   "type": "text",
+   "label": "Vote Number"
+  },
+  {
+   "name": "agenda_description",
+   "type": "text",
+   "label": "Agenda Description"
+  },
+  {
+   "name": "vote_start_date_time",
+   "type": "datetime",
+   "label": "Vote Start Date Time"
+  },
+  {
+   "name": "council_member",
+   "type": "text",
+   "label": "Council Member"
+  },
+  {
+   "name": "vote",
+   "type": "text",
+   "label": "Vote"
+  },
+  {
+   "name": "decision",
+   "type": "text",
+   "label": "Decision"
+  },
+  {
+   "name": "vote_detail_id",
+   "type": "text",
+   "label": "Vote Detail Id"
+  }
+ ],
+ "facets": [
+  {
+   "name": "meeting_type",
+   "top": [
+    [
+     "Council",
+     24049
+    ],
+    [
+     "Policy & Strategic Priorities",
+     17035
+    ],
+    [
+     "City Finance & Services",
+     15156
+    ],
+    [
+     "Regular Council",
+     14115
+    ],
+    [
+     "Public Hearing",
+     10095
+    ],
+    [
+     "Special Council",
+     2596
+    ],
+    [
+     "Courts of Revision",
+     220
+    ],
+    [
+     "Auditor General Committee",
+     206
+    ]
+   ]
+  },
+  {
+   "name": "vote_date",
+   "top": [
+    [
+     "2026",
+     5005
+    ],
+    [
+     "2025",
+     6805
+    ],
+    [
+     "2024",
+     6180
+    ],
+    [
+     "2023",
+     7230
+    ],
+    [
+     "2022",
+     8096
+    ],
+    [
+     "2021",
+     8151
+    ],
+    [
+     "2020",
+     10274
+    ],
+    [
+     "2019",
+     12276
+    ],
+    [
+     "2018",
+     8591
+    ],
+    [
+     "2017",
+     5925
+    ],
+    [
+     "2016",
+     4939
+    ]
+   ]
+  },
+  {
+   "name": "vote_number",
+   "top": [
+    [
+     "9604",
+     16
+    ],
+    [
+     "1634",
+     10
+    ],
+    [
+     "5062",
+     10
+    ],
+    [
+     "7605",
+     10
+    ],
+    [
+     "9169",
+     10
+    ],
+    [
+     "10089",
+     9
+    ],
+    [
+     "10897",
+     9
+    ],
+    [
+     "11017",
+     9
+    ],
+    [
+     "11442",
+     9
+    ],
+    [
+     "11597",
+     9
+    ],
+    [
+     "1578",
+     9
+    ],
+    [
+     "1755",
+     9
+    ],
+    [
+     "2709",
+     9
+    ],
+    [
+     "3460",
+     9
+    ],
+    [
+     "3753",
+     9
+    ],
+    [
+     "3926",
+     9
+    ],
+    [
+     "3970",
+     9
+    ],
+    [
+     "4742",
+     9
+    ],
+    [
+     "4979",
+     9
+    ],
+    [
+     "5191",
+     9
+    ],
+    [
+     "5489",
+     9
+    ],
+    [
+     "5564",
+     9
+    ],
+    [
+     "5958",
+     9
+    ],
+    [
+     "6118",
+     9
+    ],
+    [
+     "6252",
+     9
+    ]
+   ]
+  },
+  {
+   "name": "agenda_description",
+   "top": [
+    [
+     "1. Mayor's Overdose Emergency Task Force",
+     330
+    ],
+    [
+     "1.  Vancouver Plan: A long range plan to guide growth and change",
+     231
+    ],
+    [
+     "1. Emergency COVID-19 Relief for Unsheltered Vancouver Residents",
+     209
+    ],
+    [
+     "6. False Creek Flats Arterial Grade Separation",
+     209
+    ],
+    [
+     "1.  Chinatown Transformation: Cultural Heritage Assets Management Plan (CHAMP)",
+     154
+    ],
+    [
+     "1. 2023-2026 Capital Plan: Final Plan",
+     154
+    ],
+    [
+     "1. Adapting to Provincial Legislative Changes Related to Passenger Directed Vehicles",
+     143
+    ],
+    [
+     "2. By-laws to Reduce Single-Use Items - motion as amended",
+     143
+    ],
+    [
+     "3. Reallocation of Road Space to Support Shared Use During Pandemic",
+     143
+    ],
+    [
+     "1. Miscellaneous Amendments Concerning Various CD-1 By-laws",
+     132
+    ],
+    [
+     "11. Enabling the Requisitioning and Hiring of 100 New Police Officers and 100 Mental Health Nurses (Member's Motion B.5)",
+     132
+    ],
+    [
+     "Request for Leave of Absence",
+     132
+    ],
+    [
+     "1. Broadway Plan - Amendment",
+     121
+    ],
+    [
+     "2. 2021-2025 Budget Outlook",
+     121
+    ],
+    [
+     "R3. DTES Directions and Initiatives: Actions Update",
+     121
+    ],
+    [
+     "R1. Citywide Development Guidelines Early Actions - Public Views, Solar Access, and Residential Tower Floorplates",
+     110
+    ],
+    [
+     "Requests for Leaves of Absence",
+     110
+    ],
+    [
+     "UB-2 Recovering Outstanding CoV Related Costs from 4/20 2019",
+     110
+    ],
+    [
+     "1. Rapid Transit From Arbutus Street to UBC",
+     99
+    ],
+    [
+     "1. The Code of Conduct for Council and Advisory Board (By-Law No.____)",
+     99
+    ],
+    [
+     "2. REPORT BACK - Increasing the Empty Homes Tax to Five Percent and Improving Compliance",
+     99
+    ],
+    [
+     "3. Costs of Consultation, Time Constraints & Impacts (re Remove Two-family Dwellings 'Duplex' from RS Zones)",
+     99
+    ],
+    [
+     "3. ï¿½ï¿½Missing Middleï¿½ Housing Pilots",
+     99
+    ],
+    [
+     "4. A Collaborative and New Approach to Oppenheimer Park and Other Public Spaces - motion as amended",
+     99
+    ],
+    [
+     "Administrative Report 3 - 2019 Downtown Eastside Capital Grant Program Allocation",
+     99
+    ]
+   ]
+  },
+  {
+   "name": "council_member",
+   "top": [
+    [
+     "Councillor A Carr",
+     6475
+    ],
+    [
+     "Councillor P Fry",
+     6084
+    ],
+    [
+     "Councillor S Kirby-Yung",
+     6084
+    ],
+    [
+     "Councillor L Dominato",
+     6080
+    ],
+    [
+     "Councillor R Bligh",
+     6055
+    ],
+    [
+     "Councillor M De Genova",
+     5215
+    ],
+    [
+     "Councillor C Boyle",
+     4968
+    ],
+    [
+     "Councillor C Hardwick",
+     3670
+    ],
+    [
+     "Councillor M Wiebe",
+     3670
+    ],
+    [
+     "Councillor J Swanson",
+     3666
+    ],
+    [
+     "Mayor K Stewart",
+     3666
+    ],
+    [
+     "Councillor B Montague",
+     2423
+    ],
+    [
+     "Councillor L Zhou",
+     2399
+    ],
+    [
+     "Councillor M Klassen",
+     2394
+    ],
+    [
+     "Councillor P Meiszner",
+     2384
+    ],
+    [
+     "Mayor K Sim",
+     2384
+    ],
+    [
+     "Councillor A Reimer",
+     1549
+    ],
+    [
+     "Councillor E Ball",
+     1549
+    ],
+    [
+     "Councillor G Affleck",
+     1549
+    ],
+    [
+     "Councillor H Deal",
+     1549
+    ],
+    [
+     "Councillor K Jang",
+     1549
+    ],
+    [
+     "Councillor R Louie",
+     1549
+    ],
+    [
+     "Councillor T Stevenson",
+     1549
+    ],
+    [
+     "Mayor G Robertson",
+     1549
+    ],
+    [
+     "Councillor S Orr",
+     965
+    ]
+   ]
+  },
+  {
+   "name": "vote",
+   "top": [
+    [
+     "In Favour",
+     66538
+    ],
+    [
+     "Absent",
+     7815
+    ],
+    [
+     "In Opposition",
+     7344
+    ],
+    [
+     "Abstain",
+     991
+    ],
+    [
+     "No Vote",
+     454
+    ],
+    [
+     "Declared Conflict",
+     307
+    ],
+    [
+     "Ineligible",
+     23
+    ]
+   ]
+  },
+  {
+   "name": "decision",
+   "top": [
+    [
+     "Carried Unanimously",
+     59134
+    ],
+    [
+     "Carried",
+     18231
+    ],
+    [
+     "Lost",
+     6107
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "meeting_id": 18682,
+   "meeting_type": "Public Hearing",
+   "vote_date": "2025-10-21",
+   "vote_number": "11044",
+   "agenda_description": "1. Enabling Outdoor Cold Plunges and Saunas - Amendments to the Zoning and Development By-law and Licence By-law",
+   "vote_start_date_time": "2025-10-22T01:39:26+00:00",
+   "council_member": "Councillor S Orr",
+   "vote": "In Favour",
+   "decision": "Carried Unanimously",
+   "vote_detail_id": "116716"
+  },
+  {
+   "meeting_id": 18682,
+   "meeting_type": "Public Hearing",
+   "vote_date": "2025-10-21",
+   "vote_number": "11045",
+   "agenda_description": "2. Modernizing Business Licence Land Uses and Policies - Amendments to the Zoning and Development By-law, Downtown Official Development Plan By-law an",
+   "vote_start_date_time": "2025-10-22T01:58:10+00:00",
+   "council_member": "Councillor S Kirby-Yung",
+   "vote": "Absent",
+   "decision": "Carried Unanimously",
+   "vote_detail_id": "116719"
+  },
+  {
+   "meeting_id": 18682,
+   "meeting_type": "Public Hearing",
+   "vote_date": "2025-10-21",
+   "vote_number": "11045",
+   "agenda_description": "2. Modernizing Business Licence Land Uses and Policies - Amendments to the Zoning and Development By-law, Downtown Official Development Plan By-law an",
+   "vote_start_date_time": "2025-10-22T01:58:10+00:00",
+   "council_member": "Councillor L Dominato",
+   "vote": "In Favour",
+   "decision": "Carried Unanimously",
+   "vote_detail_id": "116720"
+  }
+ ]
+}

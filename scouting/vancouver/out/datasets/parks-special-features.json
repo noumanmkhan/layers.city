@@ -1,0 +1,186 @@
+{
+ "id": "parks-special-features",
+ "title": "Parks special features",
+ "modified": "2020-11-19T11:34:31+00:00",
+ "records": 26,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The Vancouver Board of Parks and Recreation maintains over 220 parks and 40 major facilities throughout the City of Vancouver.  This dataset provides a list of special features in the parks. </p></div> <h3>Data currency</h3><div><p>The extract on this website is updated weekly.</p></div>  ",
+ "fields": [
+  {
+   "name": "parkid",
+   "type": "int",
+   "label": "ParkID"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "Name"
+  },
+  {
+   "name": "specialfeature",
+   "type": "text",
+   "label": "SpecialFeature"
+  }
+ ],
+ "facets": [
+  {
+   "name": "specialfeature",
+   "top": [
+    [
+     "Seawall",
+     16
+    ],
+    [
+     "Exercise Stations",
+     1
+    ],
+    [
+     "Hellenic Garden",
+     1
+    ],
+    [
+     "Horseshoe Pitch",
+     1
+    ],
+    [
+     "Perimeter Walking Path",
+     1
+    ],
+    [
+     "Perimeter Walking Path (730m)",
+     1
+    ],
+    [
+     "Picnic Benches",
+     1
+    ],
+    [
+     "Senior's Wellness Circuit",
+     1
+    ],
+    [
+     "Sport Court",
+     1
+    ],
+    [
+     "Wedding Ceremony Site",
+     1
+    ],
+    [
+     "Wedding Ceremony Site (x3)",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "name",
+   "top": [
+    [
+     "Fraserview Park",
+     2
+    ],
+    [
+     "Oppenheimer Park",
+     2
+    ],
+    [
+     "Quilchena Park",
+     2
+    ],
+    [
+     "Stanley Park",
+     2
+    ],
+    [
+     "Cardero Park",
+     1
+    ],
+    [
+     "Charleson Park",
+     1
+    ],
+    [
+     "Coopers' Park",
+     1
+    ],
+    [
+     "Creekside Park",
+     1
+    ],
+    [
+     "David Lam Park",
+     1
+    ],
+    [
+     "Devonian Harbour Park",
+     1
+    ],
+    [
+     "English Bay Beach Park",
+     1
+    ],
+    [
+     "George Wainborn Park",
+     1
+    ],
+    [
+     "Hadden Park",
+     1
+    ],
+    [
+     "Harbour Green Park",
+     1
+    ],
+    [
+     "Kitsilano Beach Park",
+     1
+    ],
+    [
+     "Marina Square",
+     1
+    ],
+    [
+     "Oak Meadows Park",
+     1
+    ],
+    [
+     "Spanish Banks Beach Park",
+     1
+    ],
+    [
+     "Sunset Beach Park",
+     1
+    ],
+    [
+     "Sutcliffe Park",
+     1
+    ],
+    [
+     "Tisdall Park",
+     1
+    ],
+    [
+     "Vanier Park",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "parkid": 11,
+   "name": "Cardero Park",
+   "specialfeature": "Seawall"
+  },
+  {
+   "parkid": 228,
+   "name": "Oak Meadows Park",
+   "specialfeature": "Perimeter Walking Path (730m)"
+  },
+  {
+   "parkid": 16,
+   "name": "David Lam Park",
+   "specialfeature": "Seawall"
+  }
+ ]
+}

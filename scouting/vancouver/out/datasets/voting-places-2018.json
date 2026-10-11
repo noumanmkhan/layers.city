@@ -1,0 +1,192 @@
+{
+ "id": "voting-places-2018",
+ "title": "Voting places 2018",
+ "modified": "2022-10-20T16:33:33+00:00",
+ "records": 126,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset includes all of the voting places available to voters for the 2018 general election. The City of Vancouver uses a Vote-Anywhere model. Since 2014, voters can vote at any voting place within the City. </p>\n<p>The City operates an at-large voting system. </p><p>\n<strong>Note:</strong></p><p>UBC and UEL residents are only eligible to vote for School Trustees.</p></div> <h3>Data currency</h3><div><p>​​​​These are the voting places used for the City's 2018 municipal general election during Advance Voting and on General Voting Day.</p></div> <h3>Websites for further information</h3><div><ul><li>\n<a href=\"https://vancouver.ca/your-government/civic-elections.aspx\">Municipal elections</a>​​<br></li><li>\n<a href=\"https://opendata.vancouver.ca/explore/dataset/municipal-election-results/information/?refine.election=2018+Municipal+Election\">​Municipal election results</a><br></li></ul></div>",
+ "fields": [
+  {
+   "name": "voting_place_id",
+   "type": "int",
+   "label": "Voting Place ID"
+  },
+  {
+   "name": "facility_name",
+   "type": "text",
+   "label": "Facility Name"
+  },
+  {
+   "name": "facility_address",
+   "type": "text",
+   "label": "Facility Address"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "Location"
+  },
+  {
+   "name": "advance_only",
+   "type": "text",
+   "label": "Advance Only"
+  },
+  {
+   "name": "local_area",
+   "type": "text",
+   "label": "Local Area"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  }
+ ],
+ "facets": [
+  {
+   "name": "advance_only",
+   "top": [
+    [
+     "No",
+     114
+    ],
+    [
+     "Yes",
+     12
+    ]
+   ]
+  },
+  {
+   "name": "local_area",
+   "top": [
+    [
+     "Arbutus-Ridge",
+     3
+    ],
+    [
+     "Downtown",
+     8
+    ],
+    [
+     "Dunbar-Southlands",
+     5
+    ],
+    [
+     "Fairview",
+     7
+    ],
+    [
+     "Grandview-Woodland",
+     7
+    ],
+    [
+     "Hastings-Sunrise",
+     8
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     10
+    ],
+    [
+     "Kerrisdale",
+     5
+    ],
+    [
+     "Killarney",
+     6
+    ],
+    [
+     "Kitsilano",
+     7
+    ],
+    [
+     "Marpole",
+     5
+    ],
+    [
+     "Mount Pleasant",
+     8
+    ],
+    [
+     "Oakridge",
+     4
+    ],
+    [
+     "Renfrew-Collingwood",
+     8
+    ],
+    [
+     "Riley Park",
+     4
+    ],
+    [
+     "Shaughnessy",
+     3
+    ],
+    [
+     "South Cambie",
+     3
+    ],
+    [
+     "Strathcona",
+     2
+    ],
+    [
+     "Sunset",
+     6
+    ],
+    [
+     "UEL & UBC Lands",
+     2
+    ],
+    [
+     "Victoria-Fraserview",
+     3
+    ],
+    [
+     "West End",
+     9
+    ],
+    [
+     "West Point Grey",
+     3
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "voting_place_id": 8,
+   "facility_name": "St. Mary's Ukrainian Catholic Centre",
+   "facility_address": "3150 Ash St",
+   "location": "Main Hall",
+   "advance_only": "No",
+   "local_area": "Fairview",
+   "geom": {
+    "geometry_type": "Point"
+   }
+  },
+  {
+   "voting_place_id": 9,
+   "facility_name": "Park Inn & Suites by Radisson",
+   "facility_address": "898 W Broadway",
+   "location": "Oak Room",
+   "advance_only": "No",
+   "local_area": "Fairview",
+   "geom": {
+    "geometry_type": "Point"
+   }
+  },
+  {
+   "voting_place_id": 10,
+   "facility_name": "False Creek Elementary School",
+   "facility_address": "900 School Green",
+   "location": "Gymnasium",
+   "advance_only": "No",
+   "local_area": "Fairview",
+   "geom": {
+    "geometry_type": "Point"
+   }
+  }
+ ]
+}

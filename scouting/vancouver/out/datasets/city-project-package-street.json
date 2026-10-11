@@ -1,0 +1,112 @@
+{
+ "id": "city-project-package-street",
+ "title": "City project package - Street",
+ "modified": "2026-09-21T13:30:41+00:00",
+ "records": 290,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The City Projects package is divided into two datasets (site- and street-based) and provides information about City initiatives, projects, development proposals, and construction and roadwork.  These include projects that are of a public interest or projects that affect others. </p></div> <h3>Note</h3><div><p>​See also \n      <a href=\"https://opendata.vancouver.ca/explore/dataset/city-projects-package-site/information/\">City Projects - Site</a>.</p></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database.  The extract on this web site is updated weekly.  </p></div> <h3>Data accuracy</h3><div><p>Locations which are tied to street segments may not show the exact location of the project.</p></div> ",
+ "fields": [
+  {
+   "name": "expected_completion_date",
+   "type": "date",
+   "label": "EXPECTED_COMPLETION_DATE"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "project_title",
+   "type": "text",
+   "label": "PROJECT_TITLE"
+  },
+  {
+   "name": "url_link",
+   "type": "text",
+   "label": "URL_LINK"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "expected_completion_date",
+   "top": [
+    [
+     "2024",
+     11
+    ],
+    [
+     "2025",
+     40
+    ],
+    [
+     "2026",
+     205
+    ],
+    [
+     "2027",
+     30
+    ],
+    [
+     "2028",
+     3
+    ],
+    [
+     "2029",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "expected_completion_date": "2026-09-18",
+   "location": "Both Sides of 5800-5900 Block of McKinnon Street F",
+   "project_title": "FortisBC Gas Service Connection on 5800-5900 Block of McKinnon Street",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/002e36aa-0e09-4b71-a15e-9fca6c5f84e3",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.03883413399116,
+    "lat": 49.23074031657038
+   }
+  },
+  {
+   "expected_completion_date": "2026-09-30",
+   "location": "Both sides of 3900-4000 Block from Alexandra St fr",
+   "project_title": "BC Hydro - Utility Maintenance on 3900-4000 Block Alexandra St",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/00bcd472-8205-4d16-b200-b449db0c733e",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.14147534531917,
+    "lat": 49.25016724508721
+   }
+  },
+  {
+   "expected_completion_date": "2026-09-24",
+   "location": "Skeena St & Grandview Hwy",
+   "project_title": "Street Horticulture (Local Garden Crew) Work",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/05539a08-4018-44e4-b0f4-d4e688febd62",
+   "geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.02741309296029,
+    "lat": 49.25815737693493
+   }
+  }
+ ]
+}

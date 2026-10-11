@@ -1,0 +1,41 @@
+{
+ "id": "shoreline-2002",
+ "title": "Shoreline 2002",
+ "modified": "2020-11-19T11:58:30+00:00",
+ "records": 2,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The dataset reflects the approximate shoreline in 2002 as digitized from 2002 orthophotos.  It is not exact and has not been updated.</p></div> <h3>Data currency</h3><div><p>This dataset reflects conditions in 2002 and is not being updated.</p></div> <h3>Data accuracy</h3><div><p>The dataset reflects the approximate shoreline in 2002 as digitized from 2002 orthophotos.  It is not exact and has not been updated.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.149641811,
+    "lat": 49.2618893545
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.033593678,
+    "lat": 49.2031727276
+   }
+  }
+ ]
+}

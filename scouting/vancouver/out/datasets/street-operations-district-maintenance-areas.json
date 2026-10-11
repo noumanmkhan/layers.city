@@ -1,0 +1,48 @@
+{
+ "id": "street-operations-district-maintenance-areas",
+ "title": "Street operations district maintenance areas",
+ "modified": "2020-11-19T11:35:13+00:00",
+ "records": 2,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This data set contains the boundaries of administrative areas for managing street operations. </p></div> <h3>Data currency</h3><div><p>The extract for this dataset is updated weekly.  There may be no change in data content from one week to the next because there is no change in source data.  Priorities and resources will also determine how fast a change in reality is reflected in the database.</p></div> <h3>Data accuracy</h3><div><p>These areas follow street centrelines so their placement in the street right of way is approximate.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "NAME"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "name": "North District Streets Operations",
+   "geo_point_2d": {
+    "lon": -123.10856309,
+    "lat": 49.2756657819
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "name": "South District Streets Operations",
+   "geo_point_2d": {
+    "lon": -123.117497915,
+    "lat": 49.2298122498
+   }
+  }
+ ]
+}

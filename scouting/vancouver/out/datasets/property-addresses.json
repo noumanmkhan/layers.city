@@ -1,0 +1,200 @@
+{
+ "id": "property-addresses",
+ "title": "Property addresses",
+ "modified": "2026-10-05T13:34:41+00:00",
+ "records": 99743,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The property addresses dataset contains addresses       used for parcel polygon display. <span class=\"boldText\">Please note</span>: these addresses are the primary addresses displayed in VanMap and do not represent a complete set of all addresses.  Some addresses are duplicated because they appear more than once on VanMap.</p><p>For other related property datasets, such as property parcel polygons and property cadastral boundaries, you may wish to <a href=\"https://opendata.vancouver.ca/explore/?refine.keyword=Property\">filter datasets on the <em>property </em>keyword. </a></p></div> <h3>Data currency</h3><div><p>This data in City systems is updated frequently  in the normal course of business, however priorities and resources determine  how fast a change in reality is reflected in the database.  The extract on this website is updated  weekly.</p></div> <h3>Data accuracy</h3><div><p>Much of the City's land base is created using survey  accuracy however some features are not as precise.</p></div> ",
+ "fields": [
+  {
+   "name": "civic_number",
+   "type": "text",
+   "label": "CIVIC_NUMBER"
+  },
+  {
+   "name": "std_street",
+   "type": "text",
+   "label": "STD_STREET"
+  },
+  {
+   "name": "p_parcel_id",
+   "type": "text",
+   "label": "P_PARCEL_ID"
+  },
+  {
+   "name": "pcoord",
+   "type": "text",
+   "label": "PCOORD"
+  },
+  {
+   "name": "site_id",
+   "type": "text",
+   "label": "SITE_ID"
+  },
+  {
+   "name": "note",
+   "type": "text",
+   "label": "NOTE"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Kensington-Cedar Cottage",
+     9803
+    ],
+    [
+     "Renfrew-Collingwood",
+     9168
+    ],
+    [
+     "Hastings-Sunrise",
+     8409
+    ],
+    [
+     "Sunset",
+     7175
+    ],
+    [
+     "Dunbar-Southlands",
+     6916
+    ],
+    [
+     "Kitsilano",
+     6318
+    ],
+    [
+     "Victoria-Fraserview",
+     6105
+    ],
+    [
+     "Riley Park",
+     5329
+    ],
+    [
+     "Grandview-Woodland",
+     4853
+    ],
+    [
+     "Marpole",
+     4354
+    ],
+    [
+     "Killarney",
+     3745
+    ],
+    [
+     "Kerrisdale",
+     3720
+    ],
+    [
+     "West Point Grey",
+     3674
+    ],
+    [
+     "Mount Pleasant",
+     3383
+    ],
+    [
+     "Arbutus Ridge",
+     3241
+    ],
+    [
+     "Oakridge",
+     2459
+    ],
+    [
+     "Shaughnessy",
+     2402
+    ],
+    [
+     "Strathcona",
+     2053
+    ],
+    [
+     "Fairview",
+     1978
+    ],
+    [
+     "Downtown",
+     1810
+    ],
+    [
+     "South Cambie",
+     1488
+    ],
+    [
+     "West End",
+     1292
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "civic_number": "3707",
+   "std_street": "W 3RD AV",
+   "p_parcel_id": "__FIY1P8",
+   "pcoord": "63803795",
+   "site_id": "011482613",
+   "note": null,
+   "geo_local_area": "West Point Grey",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.18589112298811,
+    "lat": 49.269762535859265
+   }
+  },
+  {
+   "civic_number": "3755",
+   "std_street": "W 3RD AV",
+   "p_parcel_id": "__FIY1PE",
+   "pcoord": "63803761",
+   "site_id": "011482711",
+   "note": null,
+   "geo_local_area": "West Point Grey",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.1865109806424,
+    "lat": 49.269771881431915
+   }
+  },
+  {
+   "civic_number": "3792",
+   "std_street": "W 3RD AV",
+   "p_parcel_id": "__FIY1PO",
+   "pcoord": "63803704",
+   "site_id": "011482869",
+   "note": null,
+   "geo_local_area": "West Point Grey",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.18736281294066,
+    "lat": 49.26928520315092
+   }
+  }
+ ]
+}

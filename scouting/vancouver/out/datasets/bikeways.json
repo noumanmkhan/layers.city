@@ -1,0 +1,526 @@
+{
+ "id": "bikeways",
+ "title": "Bikeways",
+ "modified": "2026-09-21T13:30:24+00:00",
+ "records": 3763,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset contains information about bikeways in City of Vancouver.  </p></div> <h3>Note</h3><div><p>Some fields may be blank or have zero values if the information is not available.</p></div> <h3>Data currency</h3><div><p>This data are updated frequently in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database.  The extract on this website is updated weekly.</p></div> <h3>Data accuracy</h3><div><p>These bikeways follow street centrelines so their placement in the street right of way is approximate. This dataset is maintained manually.</p><p>This dataset includes data on shorter bikeway segments which can be different than how the bikeways are displayed in the Vancouver Cycling Map. <br><br></p></div> <h3>Websites for further information</h3><div><ul><li><a href=\"http://vancouver.ca/streets-transportation/cycling-routes-maps-and-trip-planner.aspx\">Cycling routes and maps</a></li></ul></div>",
+ "fields": [
+  {
+   "name": "object_id",
+   "type": "text",
+   "label": "Object ID"
+  },
+  {
+   "name": "bike_route_name",
+   "type": "text",
+   "label": "Bike route name"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "Street name"
+  },
+  {
+   "name": "bikeway_type",
+   "type": "text",
+   "label": "Bikeway type"
+  },
+  {
+   "name": "subtype",
+   "type": "text",
+   "label": "Subtype"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "Status"
+  },
+  {
+   "name": "street_segment_type",
+   "type": "text",
+   "label": "Street segment type"
+  },
+  {
+   "name": "overall_direction",
+   "type": "text",
+   "label": "Overall direction"
+  },
+  {
+   "name": "bikeway_direction",
+   "type": "text",
+   "label": "Bikeway direction"
+  },
+  {
+   "name": "vehicle_direction",
+   "type": "text",
+   "label": "Vehicle direction"
+  },
+  {
+   "name": "speed_limit",
+   "type": "int",
+   "label": "Speed limit"
+  },
+  {
+   "name": "surface_type",
+   "type": "text",
+   "label": "Surface type"
+  },
+  {
+   "name": "aaa_network",
+   "type": "text",
+   "label": "AAA Network"
+  },
+  {
+   "name": "aaa_segment",
+   "type": "text",
+   "label": "AAA segment"
+  },
+  {
+   "name": "w_n_bound_type",
+   "type": "text",
+   "label": "W/N bound type"
+  },
+  {
+   "name": "e_s_bound_type",
+   "type": "text",
+   "label": "E/S bound type"
+  },
+  {
+   "name": "snow_removal",
+   "type": "text",
+   "label": "Snow removal"
+  },
+  {
+   "name": "construction_note",
+   "type": "text",
+   "label": "Construction note"
+  },
+  {
+   "name": "upgrade_year",
+   "type": "text",
+   "label": "Upgrade year"
+  },
+  {
+   "name": "notes",
+   "type": "text",
+   "label": "Notes"
+  },
+  {
+   "name": "year_of_construction",
+   "type": "text",
+   "label": "Year of construction"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "status",
+   "top": [
+    [
+     "Active",
+     3744
+    ],
+    [
+     "Temporarily Removed",
+     19
+    ]
+   ]
+  },
+  {
+   "name": "year_of_construction",
+   "top": [
+    [
+     "1984",
+     10
+    ],
+    [
+     "1986",
+     45
+    ],
+    [
+     "1990",
+     136
+    ],
+    [
+     "1993",
+     102
+    ],
+    [
+     "1994",
+     125
+    ],
+    [
+     "1995",
+     106
+    ],
+    [
+     "1996",
+     123
+    ],
+    [
+     "1997",
+     176
+    ],
+    [
+     "1998",
+     357
+    ],
+    [
+     "1999",
+     98
+    ],
+    [
+     "2001",
+     6
+    ],
+    [
+     "2002",
+     3
+    ],
+    [
+     "2003",
+     215
+    ],
+    [
+     "2004",
+     122
+    ],
+    [
+     "2005",
+     76
+    ],
+    [
+     "2006",
+     154
+    ],
+    [
+     "2007",
+     51
+    ],
+    [
+     "2008",
+     153
+    ],
+    [
+     "2009",
+     448
+    ],
+    [
+     "2010",
+     92
+    ],
+    [
+     "2011",
+     117
+    ],
+    [
+     "2012",
+     188
+    ],
+    [
+     "2013",
+     211
+    ],
+    [
+     "2014",
+     62
+    ],
+    [
+     "2015",
+     34
+    ]
+   ]
+  },
+  {
+   "name": "bike_route_name",
+   "top": [
+    [
+     "3rd Ave",
+     15
+    ],
+    [
+     "3rd Ave/Wallace",
+     2
+    ],
+    [
+     "4th Ave",
+     12
+    ],
+    [
+     "5th Ave",
+     1
+    ],
+    [
+     "10th Ave",
+     68
+    ],
+    [
+     "14th Ave",
+     34
+    ],
+    [
+     "15th Ave",
+     1
+    ],
+    [
+     "22nd Ave",
+     24
+    ],
+    [
+     "29th Ave",
+     78
+    ],
+    [
+     "33rd Ave",
+     12
+    ],
+    [
+     "41st Ave",
+     9
+    ],
+    [
+     "42nd Ave",
+     6
+    ],
+    [
+     "45th Ave",
+     128
+    ],
+    [
+     "49th Ave",
+     12
+    ],
+    [
+     "63rd Ave",
+     10
+    ],
+    [
+     "67th Ave",
+     27
+    ],
+    [
+     "Adanac",
+     65
+    ],
+    [
+     "Alberni",
+     7
+    ],
+    [
+     "Alder",
+     14
+    ],
+    [
+     "Alexander",
+     13
+    ],
+    [
+     "Arbutus Greenway",
+     48
+    ],
+    [
+     "Arthur Laing Bridge",
+     2
+    ],
+    [
+     "Balaclava",
+     111
+    ],
+    [
+     "BC Parkway",
+     43
+    ],
+    [
+     "Beach",
+     26
+    ]
+   ]
+  },
+  {
+   "name": "bikeway_type",
+   "top": [
+    [
+     "Local Street",
+     2377
+    ],
+    [
+     "Protected Bike Lanes",
+     836
+    ],
+    [
+     "Painted Lanes",
+     431
+    ],
+    [
+     "Shared Lanes",
+     119
+    ]
+   ]
+  },
+  {
+   "name": "aaa_network",
+   "top": [
+    [
+     "NO",
+     3140
+    ],
+    [
+     "YES",
+     623
+    ]
+   ]
+  },
+  {
+   "name": "snow_removal",
+   "top": [
+    [
+     "No",
+     2379
+    ],
+    [
+     "Yes",
+     1369
+    ]
+   ]
+  },
+  {
+   "name": "subtype",
+   "top": [
+    [
+     "NB",
+     268
+    ],
+    [
+     "OSB",
+     173
+    ],
+    [
+     "OSS",
+     186
+    ],
+    [
+     "PBP",
+     81
+    ],
+    [
+     "PBPT",
+     1
+    ],
+    [
+     "PBT",
+     83
+    ],
+    [
+     "R",
+     196
+    ],
+    [
+     "SL",
+     273
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "object_id": "93",
+   "bike_route_name": "Beach",
+   "street_name": "Beach Ave",
+   "bikeway_type": "Local Street",
+   "subtype": null,
+   "status": "Active",
+   "street_segment_type": "Residential",
+   "overall_direction": "EW",
+   "bikeway_direction": "2W",
+   "vehicle_direction": "2W",
+   "speed_limit": 30,
+   "surface_type": "Paved",
+   "aaa_network": "YES",
+   "aaa_segment": "YES",
+   "w_n_bound_type": "Local Street",
+   "e_s_bound_type": "Local Street",
+   "snow_removal": "Yes",
+   "construction_note": "pre-2011",
+   "upgrade_year": null,
+   "notes": null,
+   "year_of_construction": "2011",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.13329929736967,
+    "lat": 49.275687282176584
+   }
+  },
+  {
+   "object_id": "95",
+   "bike_route_name": "Central Valley",
+   "street_name": "Off Street",
+   "bikeway_type": "Protected Bike Lanes",
+   "subtype": "OSS",
+   "status": "Active",
+   "street_segment_type": "Off-street",
+   "overall_direction": "EW",
+   "bikeway_direction": "Bidirectional",
+   "vehicle_direction": "Off Street",
+   "speed_limit": 50,
+   "surface_type": "Paved",
+   "aaa_network": "YES",
+   "aaa_segment": "YES",
+   "w_n_bound_type": "Protected Bike Lanes",
+   "e_s_bound_type": "Protected Bike Lanes",
+   "snow_removal": "Yes",
+   "construction_note": null,
+   "upgrade_year": null,
+   "notes": null,
+   "year_of_construction": "2009",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.08034456703513,
+    "lat": 49.265206623836434
+   }
+  },
+  {
+   "object_id": "96",
+   "bike_route_name": "10th Ave",
+   "street_name": "W 10th Ave",
+   "bikeway_type": "Local Street",
+   "subtype": null,
+   "status": "Active",
+   "street_segment_type": "Residential",
+   "overall_direction": "EW",
+   "bikeway_direction": "CFlow",
+   "vehicle_direction": "OW",
+   "speed_limit": 30,
+   "surface_type": "Paved",
+   "aaa_network": "NO",
+   "aaa_segment": "NO",
+   "w_n_bound_type": "Local Street",
+   "e_s_bound_type": "Local Street",
+   "snow_removal": "Yes",
+   "construction_note": "year const- Peter Stary",
+   "upgrade_year": null,
+   "notes": null,
+   "year_of_construction": "2004",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.10314227632414,
+    "lat": 49.262048056829805
+   }
+  }
+ ]
+}

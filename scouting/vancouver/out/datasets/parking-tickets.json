@@ -1,0 +1,370 @@
+{
+ "id": "parking-tickets",
+ "title": "Parking tickets",
+ "modified": "2026-07-15T13:50:32+00:00",
+ "records": 237792,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The City of Vancouver regulates parking to balance the needs of residents, commuters, and visitors. This dataset includes parking ticket records data available from Parking Operations and Enforcement branch, starting from 2020. </p><p>Due to platform limitation, records from previous years need to split into multiple datasets. See \n      <a href=\"https://opendata.vancouver.ca/explore/?disjunctive.features&amp;disjunctive.theme&amp;disjunctive.keyword&amp;disjunctive.data-owner&amp;disjunctive.data-team&amp;sort=modified&amp;q=parking+tickets\">other parking tickets datasets</a> for data starting from 2010.</p><p>\n<strong>Notes:</strong> </p><div><ul><li>This dataset also includes water tickets that are issued by the branch</li><li>This dataset does not include parking tickets issued by Vancouver Police Department</li><li>Ticket issued location information was aggregated to 100-block unit level.​</li><li>Testing in production may result in test record</li><li>Effective April 30, 2018, data files starting from year 2011 have been updated to reflect change in new software platform.​​</li></ul></div></div> <h3>Data currency</h3><div><p>​The extract on this website is updated quarterly.</p></div> <h3>Data accuracy</h3><div><p>​Data is based on infraction occurred date and does not show current status of a parking ticket or changes after the ticket is originally issued.</p></div> <h3>Websites for further information</h3><div><ul><li>\n<a href=\"http://app.vancouver.ca/bylaw_ne",
+ "fields": [
+  {
+   "name": "block",
+   "type": "int",
+   "label": "Block"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "Street"
+  },
+  {
+   "name": "entrydate",
+   "type": "date",
+   "label": "EntryDate"
+  },
+  {
+   "name": "bylaw",
+   "type": "int",
+   "label": "Bylaw"
+  },
+  {
+   "name": "section",
+   "type": "text",
+   "label": "Section"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "Status"
+  },
+  {
+   "name": "infractiontext",
+   "type": "text",
+   "label": "InfractionText"
+  },
+  {
+   "name": "year",
+   "type": "text",
+   "label": "Year"
+  },
+  {
+   "name": "bi_id",
+   "type": "int",
+   "label": "BI_ID"
+  }
+ ],
+ "facets": [
+  {
+   "name": "infractiontext",
+   "top": [
+    [
+     "PARK IN A METERED SPACE IF THE TIME RECORDED BY THE OPERATOR UNDER THE PAY BY PHONE OR PAY BY LICENCE PLATE OPTION HAS EXPIRED",
+     83432
+    ],
+    [
+     "STOP AT A PLACE WHERE A TRAFFIC SIGN PROHIBITS STOPPING",
+     27392
+    ],
+    [
+     "PARK ON A STREET WHERE A TRAFFIC SIGN RESTRICTS PARKING, EXCEPT IN ACCORDANCE WITH SUCH RESTRICTION",
+     24328
+    ],
+    [
+     "PARK ON ANY PORTION OF A STREET FOR A LONGER PERIOD OF TIME THAN INDICATED ON ANY TRAFFIC SIGN GOVERNING THAT PORTION OF A STREET",
+     18748
+    ],
+    [
+     "PARK IN A METERED SPACE IF THE PARKING METER HEAD DISPLAYS FOUR FLASHING ZEROS IN A WINDOW",
+     12391
+    ],
+    [
+     "STOP ON ANY STREET OR PORTION OF A STREET DESIGNATED AS A PRIORITY CONGESTION MANAGEMENT ROADWAY DURING THE TIME STOPPING IS PROHIBITED",
+     9274
+    ],
+    [
+     "STOP WITHIN 6 METRES OF THE NEAREST EDGE OF THE CLOSEST SIDEWALK ON AN INTERSECTING STREET",
+     6623
+    ],
+    [
+     "STOP IN COMMERCIAL LOADING ZONE",
+     5115
+    ],
+    [
+     "STOP OR PARK OTHER THAN WITH THE CURBSIDE WHEELS OF THE VEHICLE WITHIN 30 CM OF THE CURB OR EDGE OF THE ROADWAY",
+     4548
+    ],
+    [
+     "NO PERSON SHALL PLACE, LEAVE, ABANDON ANY DERELICT MOTOR VEHICLE ON ANY STREET",
+     4116
+    ],
+    [
+     "STOP ON ANY PORTION OF A STREET INDICATED BY A SIGN OR OTHER MARKER AS RESERVED FOR ONE OR MORE CLASS OF VEHICLE, EXCEPT FOR RECOGNIZED VEHICLES OF THAT CLASS",
+     3593
+    ],
+    [
+     "STOP ON EITHER SIDE OF A LANE WHICH ABUTS COMMERCIALLY USED PROPERTY",
+     3464
+    ],
+    [
+     "STOP IN FRONT OF OR WITHIN 1.5 METRES OF THE NEAREST SIDE OF A PRIVATE ROAD, BOULEVARD CROSSING OR SIDEWALK CROSSING",
+     3272
+    ],
+    [
+     "LARGE VEHICLE - BE PARKED ON A STREET ABUTTING PROPERTY USED FOR A PUBLIC PARK,SCHOOL,CHURCH OR RESIDENTIAL PURPOSES",
+     2926
+    ],
+    [
+     "STOP ON ANY PORTION OF A STREET DESIGNATED AS A BUS STOP",
+     2795
+    ],
+    [
+     "PARK ON A STREET ABUTTING RESIDENTIAL OR COMMERCIAL PREMISES FOR MORE THAN 3 HRS BETWEEN 8:00A.M. AND 6:00 P.M.",
+     2515
+    ],
+    [
+     "STOP IN PASSENGER ZONE",
+     2363
+    ],
+    [
+     "STOP WITHIN 5 METRES OF A FIRE HYDRANT",
+     2215
+    ],
+    [
+     "STOP WITHIN 6 METRES OF THE APPROACH SIDE OF A STOP SIGN",
+     2209
+    ],
+    [
+     "STOP ON ANY PORTION OF A STREET THAT IS DESIGNATED FOR PARKING USE BY VEHICLES DISPLAYING A DISABLED PERSON'S PARKING PLACARD AUTHORIZED BY THE CITY",
+     1896
+    ],
+    [
+     "STOP OR PARK OTHER THAN HEADED IN THE DIRECTION OF TRAFFIC",
+     1855
+    ],
+    [
+     "STOP IN TOUR BUS ZONE",
+     1263
+    ],
+    [
+     "STOP ON A LANE WITHIN AN AREA 1.5M FROM EITHER SIDE AND 5.5M IN FRONT OF A DRIVE -WAY OR PRIVATE ROAD ADJOINING SUCH LANE",
+     1210
+    ],
+    [
+     "PARK AT A PLACE ON A STREET WHERE A TRAFFIC SIGN PROHIBITS PARKING",
+     1061
+    ],
+    [
+     "LARGE VEHICLE - BE PARKED ON A STREET BETWEEN THE HOURS OF 10 PM AND 6 AM OF THE FOLLOWING DAY",
+     913
+    ]
+   ]
+  },
+  {
+   "name": "year",
+   "top": [
+    [
+     "2026",
+     237792
+    ]
+   ]
+  },
+  {
+   "name": "status",
+   "top": [
+    [
+     "IS",
+     199294
+    ],
+    [
+     "VA",
+     37495
+    ],
+    [
+     "WR",
+     925
+    ],
+    [
+     "VS",
+     78
+    ]
+   ]
+  },
+  {
+   "name": "section",
+   "top": [
+    [
+     "5(4)(B)",
+     83432
+    ],
+    [
+     "17.1(B)",
+     27392
+    ],
+    [
+     "17.6(B)",
+     24544
+    ],
+    [
+     "17.6(E)",
+     18748
+    ],
+    [
+     "5(4)(A)(ii)",
+     12391
+    ],
+    [
+     "17.2(K)",
+     9274
+    ],
+    [
+     "17.5(C)(ii)",
+     6623
+    ],
+    [
+     "21.5",
+     5115
+    ],
+    [
+     "18.1(C)(ii)",
+     4548
+    ],
+    [
+     "72A(1)",
+     4116
+    ],
+    [
+     "17.2(J)",
+     3593
+    ],
+    [
+     "19.1(H)",
+     3464
+    ],
+    [
+     "17.2(D)(ii)",
+     3272
+    ],
+    [
+     "20.2",
+     2926
+    ],
+    [
+     "17.3",
+     2795
+    ],
+    [
+     "17.6(F)",
+     2515
+    ],
+    [
+     "21.1",
+     2363
+    ],
+    [
+     "17.2(C)",
+     2215
+    ],
+    [
+     "17.2(A)(ii)",
+     2209
+    ],
+    [
+     "17.2(M)",
+     1896
+    ],
+    [
+     "18.1(B)(ii)",
+     1855
+    ],
+    [
+     "21.7",
+     1263
+    ],
+    [
+     "19.1(G)",
+     1210
+    ],
+    [
+     "17.6(A)",
+     1061
+    ],
+    [
+     "20.1(B)",
+     913
+    ]
+   ]
+  },
+  {
+   "name": "entrydate",
+   "top": [
+    [
+     "2026",
+     237792
+    ]
+   ]
+  },
+  {
+   "name": "bylaw",
+   "top": [
+    [
+     "2849",
+     139849
+    ],
+    [
+     "2952",
+     96371
+    ],
+    [
+     "12086",
+     1019
+    ],
+    [
+     "13323",
+     370
+    ],
+    [
+     "9978",
+     98
+    ],
+    [
+     "9344",
+     85
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "block": 500,
+   "street": "ABBOTT ST",
+   "entrydate": "2026-01-29",
+   "bylaw": 2849,
+   "section": "17.1(B)",
+   "status": "IS",
+   "infractiontext": "STOP AT A PLACE WHERE A TRAFFIC SIGN PROHIBITS STOPPING",
+   "year": "2026",
+   "bi_id": 4147777
+  },
+  {
+   "block": 500,
+   "street": "ABBOTT ST",
+   "entrydate": "2026-01-29",
+   "bylaw": 2849,
+   "section": "17.1(B)",
+   "status": "VA",
+   "infractiontext": "STOP AT A PLACE WHERE A TRAFFIC SIGN PROHIBITS STOPPING",
+   "year": "2026",
+   "bi_id": 4147781
+  },
+  {
+   "block": 500,
+   "street": "ABBOTT ST",
+   "entrydate": "2026-01-29",
+   "bylaw": 2849,
+   "section": "17.1(B)",
+   "status": "IS",
+   "infractiontext": "STOP AT A PLACE WHERE A TRAFFIC SIGN PROHIBITS STOPPING",
+   "year": "2026",
+   "bi_id": 4147782
+  }
+ ]
+}

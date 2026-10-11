@@ -1,0 +1,41 @@
+{
+ "id": "olympic-transportation-plan-venue-closure-roads",
+ "title": "Olympic transportation plan venue closure roads",
+ "modified": "2019-06-21T16:42:19+00:00",
+ "records": 29,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset contains the venue closure roads as part of the 2010 Olympic Transportation Plan. </p><p>​The Olympic Transportation Plan areas are only in effect for the Olympic period—specific dates vary from area to area. </p></div> <h3>Data accuracy</h3><div><p>​Transportation Plan components follow streets or other areas so they are approximate.</p></div> ",
+ "fields": [
+  {
+   "name": "in_effect",
+   "type": "text",
+   "label": "IN_EFFECT"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "in_effect": "Mid_Jan to Mar 1, 2010",
+   "geom": {
+    "geometry_type": "LineString"
+   }
+  },
+  {
+   "in_effect": "Mid_Jan to Mar 1, 2010",
+   "geom": {
+    "geometry_type": "LineString"
+   }
+  },
+  {
+   "in_effect": "Mid_Jan to Mar 1, 2010",
+   "geom": {
+    "geometry_type": "LineString"
+   }
+  }
+ ]
+}

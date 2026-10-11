@@ -1,0 +1,200 @@
+{
+ "id": "voting-places-2011",
+ "title": "Voting places 2011",
+ "modified": "2019-07-04T17:52:48+00:00",
+ "records": 142,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div class=\"ExternalClass574CEF0F73C84159A135A5A57C106C30\"><p>This dataset includes all of the voting places available to voters for the 2011 general election.</p><p>Prior to the 2014 municipal election, the city was divided into voting divisions and voters were required to vote at a designated voting place within their assigned voting division.</p><p>The City of Vancouver now uses a Vote-Anywhere model. Voters can vote at any voting place within the City. </p><p>The City operates an at-large voting system. </p><p><strong>Note:</strong></p><p>UBC Lands and UEL residents are only eligible to vote for School Trustees.</p></div><h3>Data accuracy</h3><div class=\"ExternalClass9139D9F174A9441A9639FDC02B941F8B\"><p>Some attribute names may change from election to election and are not directly comparable over time.</p></div><h3>Data currency</h3><div class=\"ExternalClass312633447D704227A42A07677C3CC9DC\"><p>These are the voting places used for the City's 2011 municipal elections during Advance Voting and on General Voting Day.</p></div><h3>Websites for further information</h3><div class=\"ExternalClass55CF9FB5FE4B4D6A90106F1057DFD0D2\"><ul><li><a href=\"https://opendata.vancouver.ca/explore/dataset/municipal-election-results/\">Municipal election results</a></li><li><a href=\"https://opendata.vancouver.ca/explore/dataset/voting-division-boundaries-2011/\">Voting division boundaries</a> (applicable only for municipal elections prior to 2014)</li></ul></div>",
+ "fields": [
+  {
+   "name": "voting_div",
+   "type": "text",
+   "label": "VOTING_DIV"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "NAME"
+  },
+  {
+   "name": "civic_num",
+   "type": "text",
+   "label": "CIVIC_NUM"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "STREET"
+  },
+  {
+   "name": "postal",
+   "type": "text",
+   "label": "POSTAL"
+  },
+  {
+   "name": "room",
+   "type": "text",
+   "label": "ROOM"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Kitsilano",
+     12
+    ],
+    [
+     "Renfrew-Collingwood",
+     12
+    ],
+    [
+     "West End",
+     12
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     9
+    ],
+    [
+     "Mount Pleasant",
+     9
+    ],
+    [
+     "Downtown",
+     8
+    ],
+    [
+     "Hastings-Sunrise",
+     8
+    ],
+    [
+     "Sunset",
+     8
+    ],
+    [
+     "Fairview",
+     7
+    ],
+    [
+     "Dunbar-Southlands",
+     6
+    ],
+    [
+     "Grandview-Woodland",
+     6
+    ],
+    [
+     "Kerrisdale",
+     5
+    ],
+    [
+     "Killarney",
+     5
+    ],
+    [
+     "Victoria-Fraserview",
+     5
+    ],
+    [
+     "Arbutus-Ridge",
+     4
+    ],
+    [
+     "Marpole",
+     4
+    ],
+    [
+     "Oakridge",
+     4
+    ],
+    [
+     "Riley Park",
+     4
+    ],
+    [
+     "Shaughnessy",
+     3
+    ],
+    [
+     "Strathcona",
+     3
+    ],
+    [
+     "West Point Grey",
+     3
+    ],
+    [
+     "South Cambie",
+     2
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "voting_div": "127",
+   "name": "Point Grey Community Church",
+   "civic_num": "3512",
+   "street": "W 7TH AV",
+   "postal": null,
+   "room": "Sanctuary",
+   "geo_local_area": "Kitsilano",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.182087347,
+    "lat": 49.265765215
+   }
+  },
+  {
+   "voting_div": "109",
+   "name": "Point Grey Secondary School",
+   "civic_num": "5350",
+   "street": "EAST BOULEVARD",
+   "postal": null,
+   "room": "Cafeteria",
+   "geo_local_area": "Shaughnessy",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.1534306,
+    "lat": 49.2372890337
+   }
+  },
+  {
+   "voting_div": "11",
+   "name": "Lord Roberts School Annex",
+   "civic_num": "1150",
+   "street": "NELSON ST",
+   "postal": null,
+   "room": "Gymnasium",
+   "geo_local_area": "West End",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.129737723,
+    "lat": 49.2831442123
+   }
+  }
+ ]
+}

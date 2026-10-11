@@ -1,0 +1,88 @@
+{
+ "id": "one-way-streets",
+ "title": "One way streets",
+ "modified": "2026-04-27T13:31:27+00:00",
+ "records": 314,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The one-way streets dataset is one of several that describe streets in Vancouver. The others are:</p><ul><li>Lanes</li><li>Non-City streets</li>\n<li>Public streets</li><li>Right-of-way widths</li><li>Street intersections</li></ul><p>          Street  centerline and names are included.  The  street centerline network includes linear street objects that reflect the  approximate center of the dedicated street right-of-way. Street names are  typically displayed for each segment of the street centerline network. The  linear network is broken at the intersection of two or more City streets or  alleyways. </p></div> <h3>Data currency</h3><div><p>This data in City systems is updated frequently  in the normal course of business, however priorities and resources determine  how fast a change in reality is reflected in the database.  The extract on this website is updated  weekly.</p></div> <h3>Data accuracy</h3><div><p>Some of the City's data is created using survey accuracy however some features are not as precise.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "hblock",
+   "type": "text",
+   "label": "HBLOCK"
+  },
+  {
+   "name": "streetuse",
+   "type": "text",
+   "label": "STREETUSE"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "streetuse",
+   "top": [
+    [
+     "Arterial",
+     264
+    ],
+    [
+     "Residential",
+     46
+    ],
+    [
+     "Secondary Arterial",
+     3
+    ],
+    [
+     "Collector",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "hblock": "8000 KNIGHT ST OFF-RAMP",
+   "streetuse": "Arterial",
+   "geo_point_2d": {
+    "lon": -123.07744660397451,
+    "lat": 49.21177570562829
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "hblock": "8000 KNIGHT ST OFF-RAMP",
+   "streetuse": "Arterial",
+   "geo_point_2d": {
+    "lon": -123.07847939997723,
+    "lat": 49.21135687640788
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "hblock": "8100 KNIGHT ST ON-RAMP",
+   "streetuse": "Arterial",
+   "geo_point_2d": {
+    "lon": -123.07915797250247,
+    "lat": 49.21072020028879
+   }
+  }
+ ]
+}

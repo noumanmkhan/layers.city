@@ -1,0 +1,1018 @@
+{
+ "id": "public-art",
+ "title": "Public art",
+ "modified": "2026-10-05T13:32:05+00:00",
+ "records": 751,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This package contains information on the location of public art and corresponding artist(s) in the City.</p></div> <h3>Note</h3><div><p>​See also <a href=\"https://opendata.vancouver.ca/explore/dataset/public-art-artists/information/\">Public ​art - Artists​</a><br></p></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database.  The extract on this web site is updated weekly.  </p></div> <h3>Data accuracy</h3><div><p>For the most part, these locations are based on address and are therefore approximate.</p><p> There is no known error but there may be some loss of quality from data entry errors.</p><p> Information is accurate as of the time the information is provided by the artist and/or owner.  Information related to artist may or may not be current.</p></div> <h3>Websites for further information</h3><div><ul><li><a href=\"http://vancouver.ca/parks-recreation-culture/explore-the-public-art-registries.aspx\">Explore public art</a></li></ul></div>",
+ "fields": [
+  {
+   "name": "registryid",
+   "type": "int",
+   "label": "RegistryID"
+  },
+  {
+   "name": "title_of_work",
+   "type": "text",
+   "label": "Title of Work"
+  },
+  {
+   "name": "artistprojectstatement",
+   "type": "text",
+   "label": "ArtistProjectStatement"
+  },
+  {
+   "name": "type",
+   "type": "text",
+   "label": "Type"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "Status"
+  },
+  {
+   "name": "sitename",
+   "type": "text",
+   "label": "SiteName"
+  },
+  {
+   "name": "siteaddress",
+   "type": "text",
+   "label": "SiteAddress"
+  },
+  {
+   "name": "primarymaterial",
+   "type": "text",
+   "label": "PrimaryMaterial"
+  },
+  {
+   "name": "url",
+   "type": "text",
+   "label": "URL"
+  },
+  {
+   "name": "photourl",
+   "type": "file",
+   "label": "PhotoURL"
+  },
+  {
+   "name": "ownership",
+   "type": "text",
+   "label": "Ownership"
+  },
+  {
+   "name": "neighbourhood",
+   "type": "text",
+   "label": "Neighbourhood"
+  },
+  {
+   "name": "locationonsite",
+   "type": "text",
+   "label": "LocationOnsite"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "descriptionofwork",
+   "type": "text",
+   "label": "DescriptionOfwork"
+  },
+  {
+   "name": "artists",
+   "type": "text",
+   "label": "Artists"
+  },
+  {
+   "name": "photocredits",
+   "type": "text",
+   "label": "PhotoCredits"
+  },
+  {
+   "name": "yearofinstallation",
+   "type": "text",
+   "label": "YearOfInstallation"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "status",
+   "top": [
+    [
+     "In place",
+     478
+    ],
+    [
+     "No longer in place",
+     268
+    ],
+    [
+     "Deaccessioned",
+     4
+    ],
+    [
+     "In progress",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "sitename",
+   "top": [
+    [
+     "Arbutus Greenway",
+     26
+    ],
+    [
+     "VanDusen Botanical Garden",
+     20
+    ],
+    [
+     "Brockton Point",
+     11
+    ],
+    [
+     "CBC Vancouver Broadcast Centre Plaza",
+     11
+    ],
+    [
+     "Shangri-la - Offsite",
+     11
+    ],
+    [
+     "Vanlive! Video Screens",
+     10
+    ],
+    [
+     "Transit shelters around the city",
+     9
+    ],
+    [
+     "Marine Gateway",
+     8
+    ],
+    [
+     "Ridgeway Greenway",
+     8
+    ],
+    [
+     "Vancouver City Hall",
+     7
+    ],
+    [
+     "Shangri-La - Offsite",
+     6
+    ],
+    [
+     "Various",
+     6
+    ],
+    [
+     "Shangri-La, Offsite",
+     5
+    ],
+    [
+     "Stanley Park",
+     5
+    ],
+    [
+     "Transit Shelter Ad Spaces",
+     5
+    ],
+    [
+     "VanDusen Botanical Gardens",
+     5
+    ],
+    [
+     "Vancouver Art Gallery",
+     5
+    ],
+    [
+     "Arts Factory",
+     4
+    ],
+    [
+     "Billboard at Arbutus Street and West 12th Avenue",
+     4
+    ],
+    [
+     "Vancouver Public Library, Central Branch",
+     4
+    ],
+    [
+     "Various Downtown Screens",
+     4
+    ],
+    [
+     "šx???ex?n Xwtl’a7shn Plaza (formerly Queen Elizabeth Theatre Plaza)",
+     4
+    ],
+    [
+     "Arts Factory Annex",
+     3
+    ],
+    [
+     "Canada Line - Vancouver City Centre Station",
+     3
+    ],
+    [
+     "Canada Line City Centre Station",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "photocredits",
+   "top": [
+    [
+     "City of Vancouver",
+     107
+    ],
+    [
+     "Barbara Cole",
+     34
+    ],
+    [
+     "Rachel Topham",
+     27
+    ],
+    [
+     "Heide Dobler",
+     23
+    ],
+    [
+     "Maxime Cyr-Morton",
+     16
+    ],
+    [
+     "SITE Photography",
+     14
+    ],
+    [
+     "Rachel Topham, Vancouver Art Gallery",
+     9
+    ],
+    [
+     "Create Vancouver Society",
+     6
+    ],
+    [
+     "Rachel Topham Photography",
+     6
+    ],
+    [
+     "Skai Fowler",
+     6
+    ],
+    [
+     "Karen Henry",
+     5
+    ],
+    [
+     "Maureen Smith",
+     5
+    ],
+    [
+     "Blaine Campbell",
+     4
+    ],
+    [
+     "Ed White",
+     3
+    ],
+    [
+     "Germaine Koh",
+     3
+    ],
+    [
+     "Henri Robideau",
+     3
+    ],
+    [
+     "Ian Lefebvre, Vancouver Art Gallery",
+     3
+    ],
+    [
+     "Michael Love",
+     3
+    ],
+    [
+     "Robert Keziere",
+     3
+    ],
+    [
+     "Trevor Mills, Vancouver Art Gallery",
+     3
+    ],
+    [
+     "courtesy of the artist",
+     3
+    ],
+    [
+     "Courtesy of the artist",
+     2
+    ],
+    [
+     "Jiahe Photography",
+     2
+    ],
+    [
+     "Justin Langlois",
+     2
+    ],
+    [
+     "Lila Bujold",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "ownership",
+   "top": [
+    [
+     "City of Vancouver",
+     364
+    ],
+    [
+     "Privately owned",
+     216
+    ],
+    [
+     "private",
+     22
+    ],
+    [
+     "Province of British Columbia",
+     11
+    ],
+    [
+     "Vancouver Art Gallery",
+     10
+    ],
+    [
+     "Vancouver Heritage Foundation",
+     10
+    ],
+    [
+     "Vancouver School Board",
+     5
+    ],
+    [
+     "Government of Canada",
+     3
+    ],
+    [
+     "Vancouver Board of Parks and Recreation",
+     3
+    ],
+    [
+     "Privately owned - Strata",
+     2
+    ],
+    [
+     "VanDusen Botanical Garden Association (VBGA)",
+     2
+    ],
+    [
+     "BC Housing",
+     1
+    ],
+    [
+     "BC Sports Hall of Fame & Museum",
+     1
+    ],
+    [
+     "Bob Rennie",
+     1
+    ],
+    [
+     "Cadillac Fairview",
+     1
+    ],
+    [
+     "Canadian Imperial Bank of Commerce",
+     1
+    ],
+    [
+     "GVRD (Metro Vancouver)",
+     1
+    ],
+    [
+     "Janet Echelman",
+     1
+    ],
+    [
+     "Lookout Emergency Aid Society",
+     1
+    ],
+    [
+     "Pavco",
+     1
+    ],
+    [
+     "Polaris Realty / Harbour Centre",
+     1
+    ],
+    [
+     "Project Rainbow",
+     1
+    ],
+    [
+     "Prov. of B.C.",
+     1
+    ],
+    [
+     "Squamish Nation",
+     1
+    ],
+    [
+     "St James Community Services Society/BC Housing",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "artists",
+   "top": [
+    [
+     "195",
+     12
+    ],
+    [
+     "148",
+     10
+    ],
+    [
+     "131",
+     9
+    ],
+    [
+     "3",
+     8
+    ],
+    [
+     "241",
+     7
+    ],
+    [
+     "41",
+     7
+    ],
+    [
+     "515",
+     7
+    ],
+    [
+     "140",
+     6
+    ],
+    [
+     "344",
+     6
+    ],
+    [
+     "83",
+     6
+    ],
+    [
+     "98",
+     6
+    ],
+    [
+     "264",
+     5
+    ],
+    [
+     "300",
+     5
+    ],
+    [
+     "391",
+     5
+    ],
+    [
+     "168",
+     4
+    ],
+    [
+     "226",
+     4
+    ],
+    [
+     "259",
+     4
+    ],
+    [
+     "260",
+     4
+    ],
+    [
+     "284",
+     4
+    ],
+    [
+     "389",
+     4
+    ],
+    [
+     "395",
+     4
+    ],
+    [
+     "425",
+     4
+    ],
+    [
+     "47",
+     4
+    ],
+    [
+     "508",
+     4
+    ],
+    [
+     "109",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "siteaddress",
+   "top": [
+    [
+     "5251 Oak Street",
+     25
+    ],
+    [
+     "Stanley Park",
+     25
+    ],
+    [
+     "1128 West Georgia Street",
+     21
+    ],
+    [
+     "700 Hamilton Street",
+     11
+    ],
+    [
+     "350 West Georgia Street",
+     9
+    ],
+    [
+     "780 East Cordova",
+     7
+    ],
+    [
+     "450 SW Marine Drive",
+     6
+    ],
+    [
+     "1100 Chestnut Street",
+     5
+    ],
+    [
+     "281 Industrial Avenue",
+     5
+    ],
+    [
+     "370 East Broadway",
+     5
+    ],
+    [
+     "750 Hornby Street",
+     5
+    ],
+    [
+     "453 West 12th Avenue",
+     4
+    ],
+    [
+     "798 Granville Street",
+     4
+    ],
+    [
+     "237 Southern Street",
+     3
+    ],
+    [
+     "246 Southern Street",
+     3
+    ],
+    [
+     "Georgia & Granville Street",
+     3
+    ],
+    [
+     "Robson & Hornby Street",
+     3
+    ],
+    [
+     "Various",
+     3
+    ],
+    [
+     "108 East Broadway",
+     2
+    ],
+    [
+     "1128 West Georgia",
+     2
+    ],
+    [
+     "1201 West Pender Street",
+     2
+    ],
+    [
+     "149 West Hastings Street",
+     2
+    ],
+    [
+     "1661 Napier Street",
+     2
+    ],
+    [
+     "237 SOUTHERN STREET",
+     2
+    ],
+    [
+     "2630 Main Street",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "type",
+   "top": [
+    [
+     "Sculpture",
+     187
+    ],
+    [
+     "Two-dimensional artwork",
+     174
+    ],
+    [
+     "Site-integrated work",
+     119
+    ],
+    [
+     "Mural",
+     87
+    ],
+    [
+     "Media work",
+     45
+    ],
+    [
+     "Memorial or monument",
+     32
+    ],
+    [
+     "Totem pole",
+     24
+    ],
+    [
+     "Relief",
+     20
+    ],
+    [
+     "Mosaic",
+     17
+    ],
+    [
+     "Fountain or water feature",
+     16
+    ],
+    [
+     "Socially engaged art",
+     11
+    ],
+    [
+     "Figurative",
+     10
+    ],
+    [
+     "Gateway",
+     4
+    ],
+    [
+     "Welcome figure",
+     4
+    ],
+    [
+     "Other",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "primarymaterial",
+   "top": [
+    [
+     "Bronze",
+     49
+    ],
+    [
+     "Paint",
+     34
+    ],
+    [
+     "Cedar",
+     12
+    ],
+    [
+     "Steel",
+     11
+    ],
+    [
+     "Marble",
+     10
+    ],
+    [
+     "Digitally printed onto adhesive vinyl",
+     9
+    ],
+    [
+     "Aluminum",
+     8
+    ],
+    [
+     "Stainless steel",
+     8
+    ],
+    [
+     "Aerosol",
+     7
+    ],
+    [
+     "Ink on paper",
+     7
+    ],
+    [
+     "Granite",
+     6
+    ],
+    [
+     "Paint and aerosol",
+     6
+    ],
+    [
+     "Concrete",
+     5
+    ],
+    [
+     "Glass",
+     5
+    ],
+    [
+     "Digital print on vinyl",
+     4
+    ],
+    [
+     "Red cedar",
+     4
+    ],
+    [
+     "Travertine",
+     4
+    ],
+    [
+     "Vinyl",
+     4
+    ],
+    [
+     "bronze",
+     4
+    ],
+    [
+     "cedar",
+     4
+    ],
+    [
+     "Cast iron",
+     3
+    ],
+    [
+     "Corten steel",
+     3
+    ],
+    [
+     "Digital artwork printed on vinyl banners",
+     3
+    ],
+    [
+     "Digitally printed onto adhesive vinyl.",
+     3
+    ],
+    [
+     "Fibreglass and steel",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "neighbourhood",
+   "top": [
+    [
+     "Downtown",
+     217
+    ],
+    [
+     "Mount Pleasant",
+     57
+    ],
+    [
+     "DowntownEastside",
+     52
+    ],
+    [
+     "Fairview",
+     49
+    ],
+    [
+     "West End",
+     41
+    ],
+    [
+     "Strathcona",
+     31
+    ],
+    [
+     "Stanley Park",
+     28
+    ],
+    [
+     "Shaughnessy",
+     26
+    ],
+    [
+     "Kitsilano",
+     24
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     23
+    ],
+    [
+     "Grandview-Woodland",
+     21
+    ],
+    [
+     "Marpole",
+     19
+    ],
+    [
+     "RileyPark",
+     14
+    ],
+    [
+     "South Cambie",
+     11
+    ],
+    [
+     "Renfrew-Collingwood",
+     8
+    ],
+    [
+     "Hastings-Sunrise",
+     7
+    ],
+    [
+     "Sunset",
+     6
+    ],
+    [
+     "Killarney",
+     5
+    ],
+    [
+     "Oakridge",
+     5
+    ],
+    [
+     "Arbutus Ridge",
+     2
+    ],
+    [
+     "Dunbar-Southlands",
+     2
+    ],
+    [
+     "West Point Grey",
+     2
+    ],
+    [
+     "Kerrisdale",
+     1
+    ],
+    [
+     "Victoria-Fraserview",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "registryid": 1,
+   "title_of_work": "Captain George Vancouver",
+   "artistprojectstatement": "A new city hall and a statue of Captain George Vancouver were commissioned to commemorate Vancouver's Golden Jubilee in 1936. The architect of the new City Hall at Strathcona Park on West 12th Avenue, Fred Townley, proposed the sculpture, commissioned by the Vancouver Canadian Club, be placed on the plaza on the north side of the building. Noted BC sculptor, Charles Marega, was commissioned (for about $5500) to create a life-size sculpture of the man who mapped the harbour in 1792 and after whom the city is named. \r\nMarega began by setting up 500 pounds of clay on a turntable in his Hornby Street Studio. From the clay model, he made a plaster cast which was then used to cast the finished work in \"Roman bronze\". It was cast at Ornamental Bronze, a foundry in Vancouver. The work was installed on August 20, 1936.The bronze figure standing atop the granite plinth is said to bear little physical resemblance to Captain George. The sculpture was copied from a maquette, which had been fashioned after a painting that was in turn, a copy from an original painting.\r\nAn interesting conversation is recorded between Major Matthews, the City Archivist, and Townley. \r\nMatthews: \"Mr. Townley, the \"Sun\" newspaper wants to know how much the Vancouver statue cost and who paid for it.\"\r\nTownley: \"What do they want to bring that up for? Leave sleeping dogs lie. I've been afraid that matter would come up, but it has not...why bring it up now? It was all in the contract; everything was above board; there's nothing to hide; but if it gets out what it cost, then some fool will start writing to the newspapers, or something, and complain of the waste of money; say it ought to have been given towards the support of some fool scheme of his own, the \"home for incurable dogs\", or some other idiotic thing\".\r\nMatthews: \"Alright; drop it, I don't want to know; the \"Sun\" is publishing a story on the statue, and I suppose they want to put the cost in.\"\r\nTownley: \"Well, Charles Marega made it, and baby bonds paid for it...I don't know exactly what it cost; it would be hard to find out; part of it was in the stone work cost. Marega for $5000, and then there was the base; so much per square foot for the base, perhaps $500 for that...\"\r\nThe statue was cleaned in 2001, 65 years after its installation and in time for the city's 115th birthday. The bill for cost of cleaning was $5800, almost the same amount as the original statue cost. This sculpture is on the City of Vancouver's Heritage Inventory list and, as a proud homage to a great explorer, has stood the test of time.",
+   "type": "Figurative",
+   "status": "In place",
+   "sitename": "Vancouver City Hall",
+   "siteaddress": "453 West 12th Avenue",
+   "primarymaterial": "bronze",
+   "url": "https://covapp.vancouver.ca/PublicArtRegistry/ArtworkDetail.aspx?ArtworkId=1",
+   "photourl": null,
+   "ownership": "City of Vancouver",
+   "neighbourhood": "Mount Pleasant",
+   "locationonsite": "North entrance, exterior, in front of stairs",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Mount Pleasant",
+   "descriptionofwork": "A full figure bronze statue of Captain George Vancouver stands on the north side of City Hall, pointing towards Vancouver harbour and holding a partially open scroll in his left hand. The figure commemorates the events of 1792, when Captain George, a representative of King George III of England, sailed into Burrard Inlet and charted the area.",
+   "artists": [
+    "98"
+   ],
+   "photocredits": "Barbara Cole",
+   "yearofinstallation": "1936",
+   "geo_point_2d": {
+    "lon": -123.113918,
+    "lat": 49.261185
+   }
+  },
+  {
+   "registryid": 2,
+   "title_of_work": "The Swimmer",
+   "artistprojectstatement": "Commissioned by Duncan McNab and Associates, architects, and the engineering firm working on the Aquatic Centre.",
+   "type": "Sculpture",
+   "status": "In place",
+   "sitename": "Vancouver Aquatic Centre",
+   "siteaddress": "1050 Beach Avenue",
+   "primarymaterial": "Silicon bronze",
+   "url": "https://covapp.vancouver.ca/PublicArtRegistry/ArtworkDetail.aspx?ArtworkId=2",
+   "photourl": null,
+   "ownership": "City of Vancouver",
+   "neighbourhood": "West End",
+   "locationonsite": "North side of front entrance",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "West End",
+   "descriptionofwork": "An abstract form representing the motion of swimming, this bronze sculpture is mounted on two poles in front of the Aquatic Centre.",
+   "artists": [
+    "264"
+   ],
+   "photocredits": "Barbara Cole",
+   "yearofinstallation": "1977",
+   "geo_point_2d": {
+    "lon": -123.13504,
+    "lat": 49.27701
+   }
+  },
+  {
+   "registryid": 4,
+   "title_of_work": "Two Steel and Copper Fountains",
+   "artistprojectstatement": null,
+   "type": "Fountain or water feature",
+   "status": "No longer in place",
+   "sitename": "Beach Towers Apartments",
+   "siteaddress": "1600 Beach Avenue",
+   "primarymaterial": "Steel & copper, mosaic tile",
+   "url": "https://covapp.vancouver.ca/PublicArtRegistry/ArtworkDetail.aspx?ArtworkId=4",
+   "photourl": null,
+   "ownership": "private",
+   "neighbourhood": "West End",
+   "locationonsite": "On west and east sides of the east tower",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "West End",
+   "descriptionofwork": "Two copper ship-like abstract forms grace a pool of green water at this apartment dwelling.",
+   "artists": [
+    "145"
+   ],
+   "photocredits": null,
+   "yearofinstallation": "1965",
+   "geo_point_2d": {
+    "lon": -123.142216,
+    "lat": 49.28408
+   }
+  }
+ ]
+}

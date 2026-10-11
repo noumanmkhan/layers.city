@@ -1,0 +1,381 @@
+{
+ "id": "parking-tickets-2020-2025",
+ "title": "Parking tickets 2020-2025",
+ "modified": "2026-06-01T23:08:21+00:00",
+ "records": 2472917,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The City of Vancouver regulates parking to balance the needs of residents, commuters, and visitors. This dataset includes parking ticket records data available from Parking Operations and Enforcement branch, from 2020 to 2025. </p><p>Due to platform limitation, records from other years need to split into multiple datasets. See \n      <a href=\"https://opendata.vancouver.ca/explore/?disjunctive.features&amp;disjunctive.theme&amp;disjunctive.keyword&amp;disjunctive.data-owner&amp;disjunctive.data-team&amp;sort=modified&amp;q=parking+tickets\">other parking tickets datasets</a> for data starting from 2010.</p><p>\n<strong>Notes:</strong> </p><div><ul><li>This dataset also includes water tickets that are issued by the branch</li><li>This dataset does not include parking tickets issued by Vancouver Police Department</li><li>Ticket issued location information was aggregated to 100-block unit level.​</li><li>Testing in production may result in test record</li><li>Effective April 30, 2018, data files starting from year 2011 have been updated to reflect change in new software platform.​​</li></ul></div></div> <h3>Data currency</h3><div><p>The data for past years is static</p></div> <h3>Data accuracy</h3><div><p>​Data is based on infraction occurred date and does not show current status of a parking ticket or changes after the ticket is originally issued.</p></div> <h3>Websites for further information</h3><div><ul><li>\n<a href=\"http://app.vancouver.ca/bylaw_net/ConsolidatedReport.",
+ "fields": [
+  {
+   "name": "block",
+   "type": "int",
+   "label": "Block"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "Street"
+  },
+  {
+   "name": "entrydate",
+   "type": "date",
+   "label": "EntryDate"
+  },
+  {
+   "name": "bylaw",
+   "type": "int",
+   "label": "Bylaw"
+  },
+  {
+   "name": "section",
+   "type": "text",
+   "label": "Section"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "Status"
+  },
+  {
+   "name": "infractiontext",
+   "type": "text",
+   "label": "InfractionText"
+  },
+  {
+   "name": "year",
+   "type": "text",
+   "label": "Year"
+  },
+  {
+   "name": "bi_id",
+   "type": "int",
+   "label": "BI_ID"
+  }
+ ],
+ "facets": [
+  {
+   "name": "infractiontext",
+   "top": [
+    [
+     "PARK IN A METERED SPACE IF THE PARKING METER HEAD DISPLAYS FOUR FLASHING ZEROS IN A WINDOW",
+     439184
+    ],
+    [
+     "PARK IN A METERED SPACE IF THE TIME RECORDED BY THE OPERATOR UNDER THE PAY BY PHONE OR PAY BY LICENCE PLATE OPTION HAS EXPIRED",
+     255050
+    ],
+    [
+     "STOP AT A PLACE WHERE A TRAFFIC SIGN PROHIBITS STOPPING",
+     137896
+    ],
+    [
+     "PARK ON A STREET WHERE A TRAFFIC SIGN RESTRICTS PARKING, EXCEPT IN ACCORDANCE WITH SUCH RESTRICTION",
+     130723
+    ],
+    [
+     "PARK ON ANY PORTION OF A STREET FOR A LONGER PERIOD OF TIME THAN INDICATED ON ANY TRAFFIC SIGN GOVERNING THAT PORTION OF A STREET",
+     83955
+    ],
+    [
+     "STOP ON ANY STREET OR PORTION OF A STREET DESIGNATED AS A PRIORITY CONGESTION MANAGEMENT ROADWAY DURING THE TIME STOPPING IS PROHIBITED",
+     69952
+    ],
+    [
+     "STOP WITHIN 6 METRES OF THE NEAREST EDGE OF THE CLOSEST SIDEWALK ON AN INTERSECTING STREET",
+     36556
+    ],
+    [
+     "STOP IN COMMERCIAL LOADING ZONE",
+     28069
+    ],
+    [
+     "STOP ON EITHER SIDE OF A LANE WHICH ABUTS COMMERCIALLY USED PROPERTY",
+     21836
+    ],
+    [
+     "STOP ON ANY PORTION OF A STREET INDICATED BY A SIGN OR OTHER MARKER AS RESERVED FOR ONE OR MORE CLASS OF VEHICLE, EXCEPT FOR RECOGNIZED VEHICLES OF THAT CLASS",
+     21808
+    ],
+    [
+     "STOP IN FRONT OF OR WITHIN 1.5 METRES OF THE NEAREST SIDE OF A PRIVATE ROAD, BOULEVARD CROSSING OR SIDEWALK CROSSING",
+     20278
+    ],
+    [
+     "NO PERSON SHALL PLACE, LEAVE, ABANDON ANY DERELICT MOTOR VEHICLE ON ANY STREET",
+     18168
+    ],
+    [
+     "STOP ON ANY PORTION OF A STREET DESIGNATED AS A BUS STOP",
+     16137
+    ],
+    [
+     "PARK ON A STREET ABUTTING RESIDENTIAL OR COMMERCIAL PREMISES FOR MORE THAN 3 HRS BETWEEN 8:00A.M. AND 6:00 P.M.",
+     15107
+    ],
+    [
+     "STOP WITHIN 6 METRES OF THE APPROACH SIDE OF A STOP SIGN",
+     14826
+    ],
+    [
+     "LARGE VEHICLE - BE PARKED ON A STREET ABUTTING PROPERTY USED FOR A PUBLIC PARK,SCHOOL,CHURCH OR RESIDENTIAL PURPOSES",
+     13457
+    ],
+    [
+     "STOP OR PARK OTHER THAN WITH THE CURBSIDE WHEELS OF THE VEHICLE WITHIN 30 CM OF THE CURB OR EDGE OF THE ROADWAY",
+     12677
+    ],
+    [
+     "STOP IN PASSENGER ZONE",
+     12275
+    ],
+    [
+     "STOP WITHIN 5 METRES OF A FIRE HYDRANT",
+     11659
+    ],
+    [
+     "STOP OR PARK OTHER THAN HEADED IN THE DIRECTION OF TRAFFIC",
+     10592
+    ],
+    [
+     "STOP ON ANY PORTION OF A STREET THAT IS DESIGNATED FOR PARKING USE BY VEHICLES DISPLAYING A DISABLED PERSON'S PARKING PLACARD AUTHORIZED BY THE CITY",
+     8808
+    ],
+    [
+     "PARK AT A PLACE ON A STREET WHERE A TRAFFIC SIGN PROHIBITS PARKING",
+     6923
+    ],
+    [
+     "STOP ON A LANE WITHIN AN AREA 1.5M FROM EITHER SIDE AND 5.5M IN FRONT OF A DRIVE -WAY OR PRIVATE ROAD ADJOINING SUCH LANE",
+     5426
+    ],
+    [
+     "STOP IN TOUR BUS ZONE",
+     5158
+    ],
+    [
+     "STOP WITHIN 1.5 METRES OF THAT PORTION OF AN INTERSECTING LANE THAT IS USEABLE FOR TRAVEL",
+     4300
+    ]
+   ]
+  },
+  {
+   "name": "entrydate",
+   "top": [
+    [
+     "2025",
+     452324
+    ],
+    [
+     "2024",
+     444682
+    ],
+    [
+     "2023",
+     424371
+    ],
+    [
+     "2022",
+     406130
+    ],
+    [
+     "2021",
+     406439
+    ],
+    [
+     "2020",
+     338971
+    ]
+   ]
+  },
+  {
+   "name": "status",
+   "top": [
+    [
+     "IS",
+     2131010
+    ],
+    [
+     "VA",
+     321890
+    ],
+    [
+     "WR",
+     16677
+    ],
+    [
+     "VS",
+     3340
+    ]
+   ]
+  },
+  {
+   "name": "section",
+   "top": [
+    [
+     "5(4)(A)(ii)",
+     775872
+    ],
+    [
+     "5(4)(B)",
+     416768
+    ],
+    [
+     "17.1(B)",
+     233090
+    ],
+    [
+     "17.6(B)",
+     227835
+    ],
+    [
+     "17.6(E)",
+     142310
+    ],
+    [
+     "17.2(K)",
+     116248
+    ],
+    [
+     "17.5(C)(ii)",
+     63480
+    ],
+    [
+     "21.5",
+     49099
+    ],
+    [
+     "17.2(J)",
+     38920
+    ],
+    [
+     "19.1(H)",
+     37046
+    ],
+    [
+     "17.2(D)(ii)",
+     34019
+    ],
+    [
+     "72A(1)",
+     29417
+    ],
+    [
+     "17.3",
+     27296
+    ],
+    [
+     "17.6(F)",
+     26607
+    ],
+    [
+     "17.2(A)(ii)",
+     25610
+    ],
+    [
+     "20.2",
+     23689
+    ],
+    [
+     "21.1",
+     21416
+    ],
+    [
+     "17.2(C)",
+     19639
+    ],
+    [
+     "18.1(B)(ii)",
+     18024
+    ],
+    [
+     "18.1(C)(ii)",
+     17953
+    ],
+    [
+     "17.2(M)",
+     15296
+    ],
+    [
+     "17.6(A)",
+     11974
+    ],
+    [
+     "19.1(G)",
+     8877
+    ],
+    [
+     "20.1(A)",
+     8216
+    ],
+    [
+     "21.7",
+     7681
+    ]
+   ]
+  },
+  {
+   "name": "bylaw",
+   "top": [
+    [
+     "2849",
+     1261949
+    ],
+    [
+     "2952",
+     1196187
+    ],
+    [
+     "12086",
+     10144
+    ],
+    [
+     "9978",
+     2116
+    ],
+    [
+     "13323",
+     1351
+    ],
+    [
+     "9344",
+     1170
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "block": 600,
+   "street": "RAYMUR AVE",
+   "entrydate": "2021-04-22",
+   "bylaw": 2849,
+   "section": "17.2(C)",
+   "status": "IS",
+   "infractiontext": "STOP WITHIN 5 METRES OF A FIRE HYDRANT",
+   "year": "2021",
+   "bi_id": 4165295
+  },
+  {
+   "block": 1000,
+   "street": "DAVIE ST",
+   "entrydate": "2021-04-22",
+   "bylaw": 2849,
+   "section": "21.5",
+   "status": "IS",
+   "infractiontext": "STOP IN COMMERCIAL LOADING ZONE",
+   "year": "2021",
+   "bi_id": 4165297
+  },
+  {
+   "block": 1700,
+   "street": "NELSON ST",
+   "entrydate": "2021-04-22",
+   "bylaw": 2849,
+   "section": "21.5",
+   "status": "VA",
+   "infractiontext": "STOP IN COMMERCIAL LOADING ZONE",
+   "year": "2021",
+   "bi_id": 4165298
+  }
+ ]
+}

@@ -1,0 +1,181 @@
+{
+ "id": "public-art-artists",
+ "title": "Public art - Artists",
+ "modified": "2026-10-05T13:47:15+00:00",
+ "records": 638,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset contains information on the artists associated with public art in the City. </p></div> <h3>Note</h3><div><p>​See also <a href=\"https://opendata.vancouver.ca/explore/dataset/public-art/information/\">Public art</a> dataset<br></p></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database.  The extract on this web site is updated weekly.  </p></div> <h3>Data accuracy</h3><div><p> There is no known error but there may be some loss of quality from data entry errors.</p><p> Information is accurate as of the time the information is provided by the artist and/or owner.  Information related to artist may or may not be current.</p></div> <h3>Websites for further information</h3><div><ul><li><a href=\"http://vancouver.ca/parks-recreation-culture/explore-the-public-art-registries.aspx\">Explore public art</a></li></ul></div>",
+ "fields": [
+  {
+   "name": "artistid",
+   "type": "int",
+   "label": "ArtistID"
+  },
+  {
+   "name": "firstname",
+   "type": "text",
+   "label": "FirstName"
+  },
+  {
+   "name": "lastname",
+   "type": "text",
+   "label": "LastName"
+  },
+  {
+   "name": "artisturl",
+   "type": "text",
+   "label": "ArtistURL"
+  },
+  {
+   "name": "biography",
+   "type": "text",
+   "label": "Biography"
+  },
+  {
+   "name": "country",
+   "type": "text",
+   "label": "Country"
+  },
+  {
+   "name": "photo",
+   "type": "text",
+   "label": "Photo"
+  },
+  {
+   "name": "photocredit",
+   "type": "text",
+   "label": "PhotoCredit"
+  },
+  {
+   "name": "website",
+   "type": "text",
+   "label": "Website"
+  }
+ ],
+ "facets": [
+  {
+   "name": "country",
+   "top": [
+    [
+     "Canada",
+     383
+    ],
+    [
+     "USA",
+     16
+    ],
+    [
+     "Germany",
+     6
+    ],
+    [
+     "China",
+     5
+    ],
+    [
+     "Italy",
+     3
+    ],
+    [
+     "Japan",
+     3
+    ],
+    [
+     "Portugal",
+     3
+    ],
+    [
+     "Sweden",
+     3
+    ],
+    [
+     "Switzerland",
+     3
+    ],
+    [
+     "Austria",
+     2
+    ],
+    [
+     "France",
+     2
+    ],
+    [
+     "England",
+     1
+    ],
+    [
+     "Finland",
+     1
+    ],
+    [
+     "Greece",
+     1
+    ],
+    [
+     "Netherlands",
+     1
+    ],
+    [
+     "New Zealand",
+     1
+    ],
+    [
+     "Poland",
+     1
+    ],
+    [
+     "Scotland",
+     1
+    ],
+    [
+     "Serbia",
+     1
+    ],
+    [
+     "Taiwan",
+     1
+    ],
+    [
+     "United States",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "artistid": 2,
+   "firstname": "Rick",
+   "lastname": "Switzer",
+   "artisturl": "https://covapp.vancouver.ca/PublicArtRegistry/ArtistDetail.aspx?FromArtistIndex=False&ArtistId=2",
+   "biography": null,
+   "country": null,
+   "photo": null,
+   "photocredit": null,
+   "website": null
+  },
+  {
+   "artistid": 3,
+   "firstname": "Ken",
+   "lastname": "Lum",
+   "artisturl": "https://covapp.vancouver.ca/PublicArtRegistry/ArtistDetail.aspx?FromArtistIndex=False&ArtistId=3",
+   "biography": "Ken Lum was born and raised in Vancouver in 1956.  He has a long exhibition history as an artist, dating back to the early 1980s, including Documenta, S&atilde;o Paolo Bienal, Whitney Biennial, and Istanbul Biennale.  He served as Director of the Or Gallery from 1982 to 1984. He is co-founder and founding editor of Yishu Journal of Contemporary Chinese Art. A prolific writer, he has authored numerous essays for both academic and non-academic publications. He has delivered many keynote addresses, including at the World Museums Conference in Shanghai, the International Association of Empirical Aesthetics in Philadelphia, and the Annual Duldig Lecture on Sculpture in Melbourne. A collection of his writings titled &quot;Everything is Relevant: Writings on Art and Life 1991 - 2018&quot; was published in 2020 by Concordia University Press. He also authored two screenplays about Chinese indentured labourers set in 1868 and 1885, respectively.  \r\n\r\nLum is the co-founder and Senior Curatorial Advisor at Monument Lab, a public art and history think tank in Philadelphia. He managed the influential exhibition, The Short Century: Independence and Liberation Movements in Africa, 1945 - 1994. He has co-curated several major exhibitions, including Sharjah Biennial 7 in the UAE, Monument Lab: Creative Speculations for Philadelphia, and Shanghai Modern: 1919 - 1945, which was shown in Munich. Since 2012, he has been the Marilyn Jordan Taylor Penn Presidential Professor at the University of Pennsylvania.",
+   "country": "USA",
+   "photo": "https://covapp.vancouver.ca/PublicArtRegistry/ImageDisplay.aspx?AreaId=3&ImageId=512",
+   "photocredit": "Photo Credit: Bob Kronbauer",
+   "website": "http://kenlumart.com/"
+  },
+  {
+   "artistid": 4,
+   "firstname": "Clay",
+   "lastname": "Ellis",
+   "artisturl": "https://covapp.vancouver.ca/PublicArtRegistry/ArtistDetail.aspx?FromArtistIndex=False&ArtistId=4",
+   "biography": null,
+   "country": null,
+   "photo": null,
+   "photocredit": null,
+   "website": null
+  }
+ ]
+}

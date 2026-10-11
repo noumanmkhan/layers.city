@@ -1,0 +1,281 @@
+{
+ "id": "parks",
+ "title": "Parks",
+ "modified": "2025-09-22T13:47:09+00:00",
+ "records": 218,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The Vancouver Board of Parks and Recreation maintains over 220 parks and 40 major facilities throughout the City of Vancouver.  This dataset provides information of the parks and facilities that are available in them. Additional details are found in related datasets: </p><div><ul><li>Parks washrooms</li><li>Parks facilities</li><li>Parks special features</li></ul></div><p>The parks - polygon representation dataset shows the boundaries of the parks.<br></p></div> <h3>Note</h3><div><p>For advisories, please consult the press release or the official website of the Vancouver Board of Parks and Recreation.</p></div> <h3>Data currency</h3><div><p>The extract on this website is updated weekly</p></div> <h3>Websites for further information</h3><div><ul><li><a href=\"https://vancouver.ca/parks-recreation-culture/parks-and-recreation.aspx\">​Parks and recreation​</a>​</li></ul><br></div>",
+ "fields": [
+  {
+   "name": "parkid",
+   "type": "int",
+   "label": "ParkID"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "Name"
+  },
+  {
+   "name": "official",
+   "type": "int",
+   "label": "Official"
+  },
+  {
+   "name": "advisories",
+   "type": "text",
+   "label": "Advisories"
+  },
+  {
+   "name": "specialfeatures",
+   "type": "text",
+   "label": "SpecialFeatures"
+  },
+  {
+   "name": "facilities",
+   "type": "text",
+   "label": "Facilities"
+  },
+  {
+   "name": "washrooms",
+   "type": "text",
+   "label": "Washrooms"
+  },
+  {
+   "name": "streetnumber",
+   "type": "text",
+   "label": "StreetNumber"
+  },
+  {
+   "name": "streetname",
+   "type": "text",
+   "label": "StreetName"
+  },
+  {
+   "name": "ewstreet",
+   "type": "text",
+   "label": "EWStreet"
+  },
+  {
+   "name": "nsstreet",
+   "type": "text",
+   "label": "NSStreet"
+  },
+  {
+   "name": "neighbourhoodname",
+   "type": "text",
+   "label": "NeighbourhoodName"
+  },
+  {
+   "name": "neighbourhoodurl",
+   "type": "text",
+   "label": "NeighbourhoodURL"
+  },
+  {
+   "name": "hectare",
+   "type": "double",
+   "label": "Hectare"
+  },
+  {
+   "name": "googlemapdest",
+   "type": "geo_point_2d",
+   "label": "GoogleMapDest"
+  }
+ ],
+ "facets": [
+  {
+   "name": "facilities",
+   "top": [
+    [
+     "Y",
+     155
+    ],
+    [
+     "N",
+     63
+    ]
+   ]
+  },
+  {
+   "name": "washrooms",
+   "top": [
+    [
+     "N",
+     147
+    ],
+    [
+     "Y",
+     71
+    ]
+   ]
+  },
+  {
+   "name": "specialfeatures",
+   "top": [
+    [
+     "N",
+     196
+    ],
+    [
+     "Y",
+     22
+    ]
+   ]
+  },
+  {
+   "name": "neighbourhoodname",
+   "top": [
+    [
+     "Downtown",
+     23
+    ],
+    [
+     "Hastings-Sunrise",
+     16
+    ],
+    [
+     "Kitsilano",
+     16
+    ],
+    [
+     "Renfrew-Collingwood",
+     15
+    ],
+    [
+     "Grandview-Woodland",
+     14
+    ],
+    [
+     "Mount Pleasant",
+     13
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     11
+    ],
+    [
+     "Marpole",
+     11
+    ],
+    [
+     "Arbutus-Ridge",
+     10
+    ],
+    [
+     "Kerrisdale",
+     9
+    ],
+    [
+     "Killarney",
+     9
+    ],
+    [
+     "Dunbar-Southlands",
+     8
+    ],
+    [
+     "West End",
+     8
+    ],
+    [
+     "Fairview",
+     7
+    ],
+    [
+     "Riley Park",
+     7
+    ],
+    [
+     "Victoria-Fraserview",
+     7
+    ],
+    [
+     "West Point Grey",
+     7
+    ],
+    [
+     "Strathcona",
+     6
+    ],
+    [
+     "Sunset",
+     6
+    ],
+    [
+     "Oakridge",
+     5
+    ],
+    [
+     "Shaughnessy",
+     5
+    ],
+    [
+     "South Cambie",
+     5
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "parkid": 1,
+   "name": "Arbutus Village Park",
+   "official": 1,
+   "advisories": "N",
+   "specialfeatures": "N",
+   "facilities": "Y",
+   "washrooms": "N",
+   "streetnumber": "4202",
+   "streetname": "Valley Drive",
+   "ewstreet": "King Edward Avenue",
+   "nsstreet": "Valley Drive",
+   "neighbourhoodname": "Arbutus-Ridge",
+   "neighbourhoodurl": "https://vancouver.ca/news-calendar/arbutus-ridge.aspx",
+   "hectare": 1.41,
+   "googlemapdest": {
+    "lon": -123.15525,
+    "lat": 49.249783
+   }
+  },
+  {
+   "parkid": 8,
+   "name": "Trafalgar Park",
+   "official": 1,
+   "advisories": "N",
+   "specialfeatures": "N",
+   "facilities": "Y",
+   "washrooms": "Y",
+   "streetnumber": "2610",
+   "streetname": "W 23rd Avenue",
+   "ewstreet": "W 23rd Avenue",
+   "nsstreet": "Valley Drive",
+   "neighbourhoodname": "Arbutus-Ridge",
+   "neighbourhoodurl": "https://vancouver.ca/news-calendar/arbutus-ridge.aspx",
+   "hectare": 4.85,
+   "googlemapdest": {
+    "lon": -123.161879,
+    "lat": 49.25046
+   }
+  },
+  {
+   "parkid": 14,
+   "name": "Coopers' Park",
+   "official": 1,
+   "advisories": "N",
+   "specialfeatures": "Y",
+   "facilities": "Y",
+   "washrooms": "N",
+   "streetnumber": "1020",
+   "streetname": "Marinaside Crescent",
+   "ewstreet": "Nelson Street",
+   "nsstreet": "Marinaside Crescent",
+   "neighbourhoodname": "Downtown",
+   "neighbourhoodurl": "https://vancouver.ca/news-calendar/downtown.aspx",
+   "hectare": 1.71,
+   "googlemapdest": {
+    "lon": -123.1139,
+    "lat": 49.273253
+   }
+  }
+ ]
+}

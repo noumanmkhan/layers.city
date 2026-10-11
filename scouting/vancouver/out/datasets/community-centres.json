@@ -1,0 +1,160 @@
+{
+ "id": "community-centres",
+ "title": "Community centres",
+ "modified": "2020-11-19T11:36:16+00:00",
+ "records": 27,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset contains the names and  addresses of all of the Parks Board community centres in the City.  It also includes the Carnegie Centre which is  administered by the Community Services Group rather than Parks and Recreation.</p></div> <h3>Data accuracy</h3><div><p>The location provided for the community centre are approximate. </p></div> ",
+ "fields": [
+  {
+   "name": "name",
+   "type": "text",
+   "label": "NAME"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "ADDRESS"
+  },
+  {
+   "name": "urllink",
+   "type": "text",
+   "label": "URLLINK"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Downtown",
+     4
+    ],
+    [
+     "Strathcona",
+     3
+    ],
+    [
+     "Hastings-Sunrise",
+     2
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     2
+    ],
+    [
+     "Killarney",
+     2
+    ],
+    [
+     "Mount Pleasant",
+     2
+    ],
+    [
+     "Dunbar-Southlands",
+     1
+    ],
+    [
+     "Fairview",
+     1
+    ],
+    [
+     "Grandview-Woodland",
+     1
+    ],
+    [
+     "Kerrisdale",
+     1
+    ],
+    [
+     "Kitsilano",
+     1
+    ],
+    [
+     "Marpole",
+     1
+    ],
+    [
+     "Renfrew-Collingwood",
+     1
+    ],
+    [
+     "Riley Park",
+     1
+    ],
+    [
+     "South Cambie",
+     1
+    ],
+    [
+     "Sunset",
+     1
+    ],
+    [
+     "West End",
+     1
+    ],
+    [
+     "West Point Grey",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "name": "Hastings",
+   "address": "3096 E Hastings St",
+   "urllink": "http://vancouver.ca/parks/cc/hastings/index.htm",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Hastings-Sunrise",
+   "geo_point_2d": {
+    "lon": -123.0393,
+    "lat": 49.2809
+   }
+  },
+  {
+   "name": "Thunderbird",
+   "address": "2311 Cassiar St",
+   "urllink": "http://vancouver.ca/parks/cc/thunderbird/index.htm",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Hastings-Sunrise",
+   "geo_point_2d": {
+    "lon": -123.0321,
+    "lat": 49.2636
+   }
+  },
+  {
+   "name": "Killarney",
+   "address": "6260 Killarney St",
+   "urllink": "http://vancouver.ca/parks/cc/killarney/index.htm",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Killarney",
+   "geo_point_2d": {
+    "lon": -123.0444,
+    "lat": 49.2274
+   }
+  }
+ ]
+}

@@ -1,0 +1,104 @@
+{
+ "id": "road-ahead-projects-under-construction",
+ "title": "Road Ahead projects under construction",
+ "modified": "2026-09-17T13:31:46+00:00",
+ "records": 68,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset is one of three that provides information on construction activity and projects that may affect the flow of traffic in the City. This dataset describes projects currently under construction. The others are for current road closures, and upcoming projects. All will affect the flow of traffic.</p><h3>Additional data access options</h3><p>Road Ahead data are also available as a data feed, updated hourly from 7am to 7pm Monday to Friday:</p><ul><li>Atom feed \n            <a href=\"https://vanmapp1.vancouver.ca/georss/roadahead_atom.xml\">https://vanmapp1.vancouver.ca/georss/roadahead_atom.xml</a></li><li>GeoRSS feed \n            <a href=\"https://vanmapp1.vancouver.ca/georss/roadahead_georss.xml\">https://vanmapp1.vancouver.ca/georss/roadahead_georss.xml</a></li></ul></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database. The extract on this web site is updated daily with the exception of the Atom feeds which are updated hourly from 7am to 7pm Monday to Friday.</p></div> <h3>Data accuracy</h3><div><p>Locations are tied to street segments and may not show the exact location of the work being, or to be, done.</p></div> <h3>Websites for further information</h3><div><ul><li><a href=\"http://vancouver.ca/streets-transportation/roadwork.aspx\">Road construction and improvements</a></li><li><a href=\"http://vancouver.ca/s",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "project",
+   "type": "text",
+   "label": "PROJECT"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "STREET"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "comp_date",
+   "type": "date",
+   "label": "COMP_DATE"
+  },
+  {
+   "name": "url_link",
+   "type": "text",
+   "label": "URL_LINK"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "comp_date",
+   "top": [
+    [
+     "2027",
+     8
+    ],
+    [
+     "2026",
+     60
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "project": null,
+   "street": null,
+   "location": null,
+   "comp_date": "2027-02-16",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/0a4e0683-e652-49af-b3ef-d40722ba1732",
+   "geo_point_2d": {
+    "lon": -123.07903620540942,
+    "lat": 49.248524039014
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "project": "B/S of LS of 3100 blk of W Broadway\r\nE/S of 2500 blk of Musqueamview St",
+   "street": null,
+   "location": "B/S of LS of 3100 blk of W Broadway\r\nE/S of 2500 blk of Musqueamview St",
+   "comp_date": "2026-09-26",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/10037c2e-548d-4df3-9a18-9cb67708797b",
+   "geo_point_2d": {
+    "lon": -123.17538496200605,
+    "lat": 49.26371203324501
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "project": null,
+   "street": null,
+   "location": null,
+   "comp_date": "2026-10-01",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/15675431-2744-452d-8953-b27b0d4c1fb3",
+   "geo_point_2d": {
+    "lon": -123.19002353069965,
+    "lat": 49.24712847261266
+   }
+  }
+ ]
+}

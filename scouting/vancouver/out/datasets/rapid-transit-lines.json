@@ -1,0 +1,41 @@
+{
+ "id": "rapid-transit-lines",
+ "title": "Rapid transit lines",
+ "modified": "2020-11-19T11:47:55+00:00",
+ "records": 3,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset contains the three rapid transit lines. A separate dataset contains their stations. Only those portions within the boundaries of the City of Vancouver are shown.</p></div> <h3>Data currency</h3><div><p>This data in City systems is updated as required in the normal course of business.  The extract on this website is updated weekly.  This dataset rarely if ever changes.</p></div> <h3>Data accuracy</h3><div><p>As most of the line locations are underground, their locations are approximate.</p></div> ",
+ "fields": [
+  {
+   "name": "line",
+   "type": "text",
+   "label": "LINE"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "line": "Millennium Line",
+   "geom": {
+    "geometry_type": "LineString"
+   }
+  },
+  {
+   "line": "Canada Line",
+   "geom": {
+    "geometry_type": "LineString"
+   }
+  },
+  {
+   "line": "Expo Line",
+   "geom": {
+    "geometry_type": "LineString"
+   }
+  }
+ ]
+}

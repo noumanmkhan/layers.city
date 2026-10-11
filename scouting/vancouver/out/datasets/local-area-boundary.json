@@ -1,0 +1,152 @@
+{
+ "id": "local-area-boundary",
+ "title": "Local area boundary",
+ "modified": "2023-06-24T12:22:11+00:00",
+ "records": 22,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This data set contains the boundaries for the City's 22 local areas (also known as local planning areas).</p></div> <h3>Data currency</h3><div><p>These boundaries do not change.</p></div> <h3>Data accuracy</h3><div><p>Local area boundaries generally follow street centrelines; centrelines are in the approximate centre of streets.</p></div> ",
+ "fields": [
+  {
+   "name": "name",
+   "type": "text",
+   "label": "Name"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "name",
+   "top": [
+    [
+     "Arbutus Ridge",
+     1
+    ],
+    [
+     "Downtown",
+     1
+    ],
+    [
+     "Dunbar-Southlands",
+     1
+    ],
+    [
+     "Fairview",
+     1
+    ],
+    [
+     "Grandview-Woodland",
+     1
+    ],
+    [
+     "Hastings-Sunrise",
+     1
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     1
+    ],
+    [
+     "Kerrisdale",
+     1
+    ],
+    [
+     "Killarney",
+     1
+    ],
+    [
+     "Kitsilano",
+     1
+    ],
+    [
+     "Marpole",
+     1
+    ],
+    [
+     "Mount Pleasant",
+     1
+    ],
+    [
+     "Oakridge",
+     1
+    ],
+    [
+     "Renfrew-Collingwood",
+     1
+    ],
+    [
+     "Riley Park",
+     1
+    ],
+    [
+     "Shaughnessy",
+     1
+    ],
+    [
+     "South Cambie",
+     1
+    ],
+    [
+     "Strathcona",
+     1
+    ],
+    [
+     "Sunset",
+     1
+    ],
+    [
+     "Victoria-Fraserview",
+     1
+    ],
+    [
+     "West End",
+     1
+    ],
+    [
+     "West Point Grey",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "name": "Arbutus Ridge",
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.16166923820482,
+    "lat": 49.24680490982789
+   }
+  },
+  {
+   "name": "Grandview-Woodland",
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.06672822103268,
+    "lat": 49.27643960930463
+   }
+  },
+  {
+   "name": "Killarney",
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.03764702895802,
+    "lat": 49.21702167079743
+   }
+  }
+ ]
+}

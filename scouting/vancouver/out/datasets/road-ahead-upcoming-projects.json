@@ -1,0 +1,120 @@
+{
+ "id": "road-ahead-upcoming-projects",
+ "title": "Road Ahead upcoming projects",
+ "modified": "2026-09-17T13:31:48+00:00",
+ "records": 199,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset is one of three that provides information on construction activity and projects that may affect the flow of traffic in the City. This dataset describes upcoming projects. The others are for projects currently under construction, and current road closures. All will affect the flow of traffic. </p><h3>Additional data access options</h3>\n<p>Road Ahead data are also available as a data feed, updated hourly from 7am to 7pm Monday to Friday:</p><ul><li>Atom feed <a href=\"https://vanmapp1.vancouver.ca/georss/roadahead_atom.xml\">https://vanmapp1.vancouver.ca/georss/roadahead_atom.xml</a></li><li>GeoRSS feed <a href=\"https://vanmapp1.vancouver.ca/georss/roadahead_georss.xml\">https://vanmapp1.vancouver.ca/georss/roadahead_georss.xml</a></li></ul></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database. The extract on this web site is updated daily with the exception of the Atom feeds which are updated hourly from 7am to 7pm Monday to Friday.</p></div> <h3>Data accuracy</h3><div><p>Locations are tied to street segments and may not show the exact location of the work being, or to be, done.</p></div> <h3>Websites for further information</h3><div><ul><li><a href=\"http://vancouver.ca/streets-transportation/roadwork.aspx\">Road construction and improvements</a></li><li><a href=\"http://vancouver.ca/streets-transportation/tr",
+ "fields": [
+  {
+   "name": "project",
+   "type": "text",
+   "label": "PROJECT"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "STREET"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "comp_date",
+   "type": "date",
+   "label": "COMP_DATE"
+  },
+  {
+   "name": "url_link",
+   "type": "text",
+   "label": "URL_LINK"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "comp_date",
+   "top": [
+    [
+     "2024",
+     11
+    ],
+    [
+     "2025",
+     40
+    ],
+    [
+     "2026",
+     135
+    ],
+    [
+     "2027",
+     11
+    ],
+    [
+     "2028",
+     1
+    ],
+    [
+     "2029",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "project": "W 49th Avenue between Columbia St. and Cambie St.",
+   "street": null,
+   "location": "W 49th Avenue between Columbia St. and Cambie St.",
+   "comp_date": "2027-03-01",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/6bcedcfb-9212-4166-9be9-7ccbb55404b4",
+   "geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.11362149453684,
+    "lat": 49.22600917529448
+   }
+  },
+  {
+   "project": null,
+   "street": null,
+   "location": null,
+   "comp_date": "2025-05-09",
+   "url_link": "http://vanmapp1.vancouver.ca/roadahead/events/details/6d243e08-0ace-46df-8b83-aaecd0fb1fa8",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.12753193205182,
+    "lat": 49.28565548021814
+   }
+  },
+  {
+   "project": "500 Woodland Drive between Francis Street and East Pender",
+   "street": null,
+   "location": "500 Woodland Drive between Francis Street and East Pender",
+   "comp_date": "2025-10-02",
+   "url_link": "https://review.vancouver.ca/streets-transportation/street-tree-canopy-expansion.aspx",
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "geo_point_2d": {
+    "lon": -123.0727136486896,
+    "lat": 49.27986949277789
+   }
+  }
+ ]
+}

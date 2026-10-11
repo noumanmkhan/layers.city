@@ -1,0 +1,181 @@
+{
+ "id": "street-lighting-junction-boxes",
+ "title": "Street lighting junction boxes",
+ "modified": "2026-10-05T13:35:22+00:00",
+ "records": 7965,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The City's Street Lighting network includes: </p><ul><li>street lighting poles (nodes)</li><li>conduits (ducts)</li><li>abandoned conduits</li><li>junction boxes</li><li>service panels</li></ul></div> <h3>Data currency</h3><div><p>This data is updated frequently in the normal  course of business, however priorities and resources determine how fast a change in reality is reflected in the database. The extract of this website is updated weekly.</p></div> <h3>Data accuracy</h3><div><p>Street lighting features are generally created with survey accuracy.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "material",
+   "type": "text",
+   "label": "MATERIAL"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "material",
+   "top": [
+    [
+     "Concrete",
+     641
+    ],
+    [
+     "Fibreglass",
+     509
+    ],
+    [
+     "Cast Iron",
+     355
+    ],
+    [
+     "plastic",
+     63
+    ]
+   ]
+  },
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Downtown",
+     1426
+    ],
+    [
+     "Mount Pleasant",
+     570
+    ],
+    [
+     "Kitsilano",
+     546
+    ],
+    [
+     "Fairview",
+     525
+    ],
+    [
+     "Renfrew-Collingwood",
+     380
+    ],
+    [
+     "Marpole",
+     376
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     372
+    ],
+    [
+     "Sunset",
+     363
+    ],
+    [
+     "Strathcona",
+     358
+    ],
+    [
+     "West End",
+     352
+    ],
+    [
+     "Riley Park",
+     334
+    ],
+    [
+     "Grandview-Woodland",
+     299
+    ],
+    [
+     "Dunbar-Southlands",
+     269
+    ],
+    [
+     "Killarney",
+     268
+    ],
+    [
+     "Victoria-Fraserview",
+     240
+    ],
+    [
+     "Hastings-Sunrise",
+     235
+    ],
+    [
+     "West Point Grey",
+     202
+    ],
+    [
+     "Arbutus Ridge",
+     183
+    ],
+    [
+     "Oakridge",
+     168
+    ],
+    [
+     "Kerrisdale",
+     160
+    ],
+    [
+     "South Cambie",
+     151
+    ],
+    [
+     "Shaughnessy",
+     144
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "material": "Cast Iron",
+   "geo_local_area": "Downtown",
+   "geo_point_2d": {
+    "lon": -123.12401391314512,
+    "lat": 49.27347919693952
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "material": "Cast Iron",
+   "geo_local_area": "Downtown",
+   "geo_point_2d": {
+    "lon": -123.11394886067939,
+    "lat": 49.27768013122197
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "material": "Cast Iron",
+   "geo_local_area": "Downtown",
+   "geo_point_2d": {
+    "lon": -123.11750255691082,
+    "lat": 49.27994423067814
+   }
+  }
+ ]
+}

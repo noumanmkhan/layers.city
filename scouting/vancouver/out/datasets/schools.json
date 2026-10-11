@@ -1,0 +1,193 @@
+{
+ "id": "schools",
+ "title": "Schools",
+ "modified": "2023-07-01T12:23:22+00:00",
+ "records": 194,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset includes the name, address, location and category of schools in Vancouver.</p></div> <h3>Data currency</h3><div><p>The source data is updated by the BC Ministry of  Education on an ongoing basis as changes occur.   The school data available through the City's site was extracted from the  Ministry site in July, 2009.<br></p></div> <h3>Data accuracy</h3><div><p>This data is maintained by the Ministry of  Education; their site includes a form for submitting updates and corrections on  information about the schools.</p></div> ",
+ "fields": [
+  {
+   "name": "address",
+   "type": "text",
+   "label": "ADDRESS"
+  },
+  {
+   "name": "school_category",
+   "type": "text",
+   "label": "SCHOOL_CATEGORY"
+  },
+  {
+   "name": "school_name",
+   "type": "text",
+   "label": "SCHOOL_NAME"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Renfrew-Collingwood",
+     21
+    ],
+    [
+     "Hastings-Sunrise",
+     17
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     17
+    ],
+    [
+     "Kitsilano",
+     11
+    ],
+    [
+     "Grandview-Woodland",
+     10
+    ],
+    [
+     "Shaughnessy",
+     10
+    ],
+    [
+     "Victoria-Fraserview",
+     10
+    ],
+    [
+     "Marpole",
+     9
+    ],
+    [
+     "Sunset",
+     9
+    ],
+    [
+     "Dunbar-Southlands",
+     8
+    ],
+    [
+     "Killarney",
+     8
+    ],
+    [
+     "Mount Pleasant",
+     8
+    ],
+    [
+     "South Cambie",
+     8
+    ],
+    [
+     "Downtown",
+     7
+    ],
+    [
+     "Fairview",
+     7
+    ],
+    [
+     "Oakridge",
+     7
+    ],
+    [
+     "West Point Grey",
+     7
+    ],
+    [
+     "Kerrisdale",
+     5
+    ],
+    [
+     "Arbutus Ridge",
+     4
+    ],
+    [
+     "Riley Park",
+     4
+    ],
+    [
+     "Strathcona",
+     4
+    ],
+    [
+     "West End",
+     3
+    ]
+   ]
+  },
+  {
+   "name": "school_category",
+   "top": [
+    [
+     "Public School",
+     121
+    ],
+    [
+     "Independent School",
+     54
+    ],
+    [
+     "StrongStart BC",
+     19
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "address": "7835 Champlain Crescent",
+   "school_category": "Public School",
+   "school_name": "Champlain Heights Annex",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Killarney",
+   "geo_point_2d": {
+    "lon": -123.03054968939806,
+    "lat": 49.2140784317513
+   }
+  },
+  {
+   "address": "3877 Glen Drive",
+   "school_category": "Public School",
+   "school_name": "Charles Dickens Annex",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Kensington-Cedar Cottage",
+   "geo_point_2d": {
+    "lon": -123.08271031,
+    "lat": 49.2502130610676
+   }
+  },
+  {
+   "address": "3200 W 41st Av",
+   "school_category": "Independent School",
+   "school_name": "Crofton House",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Kerrisdale",
+   "geo_point_2d": {
+    "lon": -123.17721815907593,
+    "lat": 49.233677833584544
+   }
+  }
+ ]
+}

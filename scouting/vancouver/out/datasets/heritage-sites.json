@@ -1,0 +1,482 @@
+{
+ "id": "heritage-sites",
+ "title": "Heritage sites",
+ "modified": "2023-03-24T12:23:33+00:00",
+ "records": 2495,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p> The Heritage Sites dataset is a listing of buildings and structures, streetscapes, landscape resources (parks and landscapes, trees, monuments, public works) which have been deemed to have heritage value.</p><p>This dataset contains data on sites listed on the Vancouver Heritage Register by the following categories:</p>\n<p>\n</p><div class=\"ExternalClass103EB789077D4275BA24781204830A8C\">\n<ul>\n<li>HERITAGE BUILDINGS</li>\n<li>HERITAGE STREETSCAPES</li>\n<li>HERITAGE LANDSCAPE RESOURCES Monuments (attribute table with no map coordinates)</li>\n<li>HERITAGE LANDSCAPE RESOURCES Trees (attribute table with no map coordinates)</li>\n<li>HERITAGE LANDSCAPE RESOURCES Parks &amp; Landscapes (attribute table with no map coordinates)</li>\n</ul></div>\n<p>\nPlease consult the <a href=\"https://vancouver.ca/home-property-development/find-a-registered-heritage-building-site-or-tree.aspx\" target=\"_blank\">Vancouver Heritage Register </a>to view building evaluation categories, heritage designations and a full list of heritage sites</p><p></p></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database. The extract on this web site is updated annually.</p></div> <h3>Data accuracy</h3><div><p>The map will not show any heritage property or site that does not contain corresponding coordinates data. </p></div> <h3>Websites for further information</h3>",
+ "fields": [
+  {
+   "name": "id",
+   "type": "text",
+   "label": "ID"
+  },
+  {
+   "name": "streetnumber",
+   "type": "text",
+   "label": "StreetNumber"
+  },
+  {
+   "name": "streetname",
+   "type": "text",
+   "label": "StreetName"
+  },
+  {
+   "name": "additionallocationinformation",
+   "type": "text",
+   "label": "AdditionalLocationInformation"
+  },
+  {
+   "name": "category",
+   "type": "text",
+   "label": "Category"
+  },
+  {
+   "name": "buildingnamespecifics",
+   "type": "text",
+   "label": "BuildingNameSpecifics"
+  },
+  {
+   "name": "evaluationgroup",
+   "type": "text",
+   "label": "EvaluationGroup"
+  },
+  {
+   "name": "municipaldesignationm",
+   "type": "text",
+   "label": "MunicipalDesignationM"
+  },
+  {
+   "name": "provincialdesignationp",
+   "type": "text",
+   "label": "ProvincialDesignationP"
+  },
+  {
+   "name": "heritagerevitalizationagreementh",
+   "type": "text",
+   "label": "HeritageRevitalizationAgreementH"
+  },
+  {
+   "name": "interiordesignationi",
+   "type": "text",
+   "label": "InteriorDesignationI"
+  },
+  {
+   "name": "landscapedesignationl",
+   "type": "text",
+   "label": "LandscapeDesignationL"
+  },
+  {
+   "name": "heritageconservationareaca",
+   "type": "text",
+   "label": "HeritageConservationAreaCA"
+  },
+  {
+   "name": "heritageconservationcovenanthc",
+   "type": "text",
+   "label": "HeritageConservationCovenantHC"
+  },
+  {
+   "name": "federaldesignationf",
+   "type": "text",
+   "label": "FederalDesignationF"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "Status"
+  },
+  {
+   "name": "dateoflastupdate",
+   "type": "datetime",
+   "label": "DateofLastUpdate"
+  },
+  {
+   "name": "localarea",
+   "type": "text",
+   "label": "LocalArea"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "localarea",
+   "top": [
+    [
+     "Kitsilano",
+     487
+    ],
+    [
+     "Downtown",
+     409
+    ],
+    [
+     "Strathcona",
+     261
+    ],
+    [
+     "Mount Pleasant",
+     206
+    ],
+    [
+     "Grandview-Woodland",
+     136
+    ],
+    [
+     "West End",
+     135
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     112
+    ],
+    [
+     "Shaughnessy",
+     111
+    ],
+    [
+     "Fairview",
+     82
+    ],
+    [
+     "Riley Park",
+     76
+    ],
+    [
+     "Hastings-Sunrise",
+     62
+    ],
+    [
+     "Kerrisdale",
+     60
+    ],
+    [
+     "West Point Grey",
+     52
+    ],
+    [
+     "South Cambie",
+     35
+    ],
+    [
+     "Dunbar-Southlands",
+     34
+    ],
+    [
+     "Sunset",
+     23
+    ],
+    [
+     "Renfrew-Collingwood",
+     21
+    ],
+    [
+     "Marpole",
+     19
+    ],
+    [
+     "Arbutus-Ridge",
+     15
+    ],
+    [
+     "Victoria-Fraserview",
+     7
+    ],
+    [
+     "Oakridge",
+     6
+    ],
+    [
+     "Killarney",
+     4
+    ]
+   ]
+  },
+  {
+   "name": "evaluationgroup",
+   "top": [
+    [
+     "B",
+     1173
+    ],
+    [
+     "C",
+     818
+    ],
+    [
+     "A",
+     272
+    ],
+    [
+     "N/A",
+     232
+    ]
+   ]
+  },
+  {
+   "name": "municipaldesignationm",
+   "top": [
+    [
+     "No",
+     1808
+    ],
+    [
+     "Yes",
+     684
+    ],
+    [
+     "Y",
+     2
+    ],
+    [
+     "N",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "provincialdesignationp",
+   "top": [
+    [
+     "No",
+     2492
+    ],
+    [
+     "N",
+     2
+    ],
+    [
+     "Yes",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "heritagerevitalizationagreementh",
+   "top": [
+    [
+     "No",
+     2276
+    ],
+    [
+     "Yes",
+     217
+    ],
+    [
+     "N",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "interiordesignationi",
+   "top": [
+    [
+     "No",
+     2465
+    ],
+    [
+     "Yes",
+     28
+    ],
+    [
+     "N",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "landscapedesignationl",
+   "top": [
+    [
+     "No",
+     2477
+    ],
+    [
+     "Yes",
+     16
+    ],
+    [
+     "N",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "heritageconservationareaca",
+   "top": [
+    [
+     "No",
+     2408
+    ],
+    [
+     "Yes",
+     85
+    ],
+    [
+     "N",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "heritageconservationcovenanthc",
+   "top": [
+    [
+     "No",
+     2477
+    ],
+    [
+     "Yes",
+     16
+    ],
+    [
+     "N",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "federaldesignationf",
+   "top": [
+    [
+     "No",
+     2479
+    ],
+    [
+     "Yes",
+     14
+    ],
+    [
+     "N",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "category",
+   "top": [
+    [
+     "HERITAGE BUILDINGS",
+     2359
+    ],
+    [
+     "LANDSCAPE RESOURCES Monuments",
+     39
+    ],
+    [
+     "LANDSCAPE RESOURCES Trees",
+     35
+    ],
+    [
+     "LANDSCAPE RESOURCES Parks & Landscapes",
+     26
+    ],
+    [
+     "ARCHAEOLOGICAL SITES",
+     17
+    ],
+    [
+     "HERITAGE STREETSCAPES",
+     16
+    ],
+    [
+     "LANDSCAPE RESOURCES Public Works",
+     3
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "id": "540",
+   "streetnumber": "212",
+   "streetname": "E 38TH AV",
+   "additionallocationinformation": "None",
+   "category": "HERITAGE BUILDINGS",
+   "buildingnamespecifics": "Lawson-Logie House",
+   "evaluationgroup": "C",
+   "municipaldesignationm": "Yes",
+   "provincialdesignationp": "No",
+   "heritagerevitalizationagreementh": "Yes",
+   "interiordesignationi": "No",
+   "landscapedesignationl": "No",
+   "heritageconservationareaca": "No",
+   "heritageconservationcovenanthc": "No",
+   "federaldesignationf": "No",
+   "status": "Active",
+   "dateoflastupdate": "2020-09-18T17:18:45+00:00",
+   "localarea": "Riley Park",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.10108312373846,
+    "lat": 49.236191013848334
+   }
+  },
+  {
+   "id": "542",
+   "streetnumber": "728",
+   "streetname": "E 39TH AV",
+   "additionallocationinformation": "None",
+   "category": "HERITAGE BUILDINGS",
+   "buildingnamespecifics": "N/A",
+   "evaluationgroup": "C",
+   "municipaldesignationm": "No",
+   "provincialdesignationp": "No",
+   "heritagerevitalizationagreementh": "No",
+   "interiordesignationi": "No",
+   "landscapedesignationl": "No",
+   "heritageconservationareaca": "No",
+   "heritageconservationcovenanthc": "No",
+   "federaldesignationf": "No",
+   "status": "Active",
+   "dateoflastupdate": "2020-09-18T17:18:45+00:00",
+   "localarea": "Kensington-Cedar Cottage",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.08966751689462,
+    "lat": 49.23454205176911
+   }
+  },
+  {
+   "id": "545",
+   "streetnumber": "1937",
+   "streetname": "E 3RD AV",
+   "additionallocationinformation": "None",
+   "category": "HERITAGE BUILDINGS",
+   "buildingnamespecifics": "St. Pierre House",
+   "evaluationgroup": "C",
+   "municipaldesignationm": "No",
+   "provincialdesignationp": "No",
+   "heritagerevitalizationagreementh": "No",
+   "interiordesignationi": "No",
+   "landscapedesignationl": "No",
+   "heritageconservationareaca": "No",
+   "heritageconservationcovenanthc": "No",
+   "federaldesignationf": "No",
+   "status": "Active",
+   "dateoflastupdate": "2020-09-18T17:18:45+00:00",
+   "localarea": "Grandview-Woodland",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.06488631964011,
+    "lat": 49.26801090366661
+   }
+  }
+ ]
+}

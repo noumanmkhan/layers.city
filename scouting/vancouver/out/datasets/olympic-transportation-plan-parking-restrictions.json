@@ -1,0 +1,66 @@
+{
+ "id": "olympic-transportation-plan-parking-restrictions",
+ "title": "Olympic transportation plan parking restrictions",
+ "modified": "2016-06-26T09:30:08+00:00",
+ "records": 25,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset contains the parking restriction areas as part of the 2010 Olympic Transportation Plan.</p><p>​The Olympic Transportation Plan areas are only in effect for the Olympic period—specific dates vary from area to area.</p></div> <h3>Data accuracy</h3><div><p>​Transportation Plan components follow streets or other areas so they are approximate.</p></div> ",
+ "fields": [
+  {
+   "name": "bi_id",
+   "type": "int",
+   "label": "BI_ID"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "in_effect",
+   "type": "text",
+   "label": "IN_EFFECT"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "bi_id": 2,
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "in_effect": "Feb 4 to Mar 1, 2010",
+   "geo_point_2d": {
+    "lon": -123.117915758,
+    "lat": 49.2746188619
+   }
+  },
+  {
+   "bi_id": 6,
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "in_effect": "Feb 4 to Mar 1, 2010",
+   "geo_point_2d": {
+    "lon": -123.103397534,
+    "lat": 49.2405392495
+   }
+  },
+  {
+   "bi_id": 7,
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "in_effect": "Feb 4 to Mar 1, 2010",
+   "geo_point_2d": {
+    "lon": -123.111858123,
+    "lat": 49.2449831349
+   }
+  }
+ ]
+}

@@ -1,0 +1,294 @@
+{
+ "id": "property-tax-report-2006-2010",
+ "title": "Property tax report 2006-2010",
+ "modified": "2021-05-08T10:05:26+00:00",
+ "records": 892028,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset contains information on properties from BC Assessment (BCA) and City sources from 2006 to 2010.</p><p>To limit the size of individual datasets, we segmented the property tax data into multiple datasets.  See ​<a href=\"https://opendata.vancouver.ca/explore/?q=property+tax\" style=\"text-decoration-line:underline;\">other property tax datasets</a>​ for data since 2006​<br></p><p><a href=\"https://opendata.vancouver.ca/explore/?q=property+tax\"><span style=\"text-decoration:underline;\"><font color=\"#0066cc\"></font></span></a> </p></div> <h3>Note</h3><div>\n<ul><li>Tax coordinates and particularly the legal description information should not be viewed as definitive or legal.</li><li>For zoning data information please consult the City's zoning pages. </li><li>Zoning data is not available in historical property tax data sets.</li><li>Values for the \"previous improvement value\" and \"previous land value\" columns are not available for the 2006-2013 reports. </li></ul></div> <h3>Data currency</h3><div><p>​The data for past years is static. </p></div> <h3>Data accuracy</h3><div><p>​Accuracy is dependent on the matching of records between multiple agencies including non-City sources.</p></div> <h3>Websites for further information</h3><div><ul><li>\n<a href=\"http://vancouver.ca/home-property-development/property-tax.aspx\">Property Tax</a></li><li>\n<a href=\"http://www.bcassessment.ca/Pages/default.aspx\">BC Assessment</a></li><li>\n<a href=\"http://vancouver.ca/home-property-deve",
+ "fields": [
+  {
+   "name": "pid",
+   "type": "text",
+   "label": "PID"
+  },
+  {
+   "name": "legal_type",
+   "type": "text",
+   "label": "LEGAL_TYPE"
+  },
+  {
+   "name": "folio",
+   "type": "text",
+   "label": "FOLIO"
+  },
+  {
+   "name": "land_coordinate",
+   "type": "text",
+   "label": "LAND_COORDINATE"
+  },
+  {
+   "name": "zoning_district",
+   "type": "text",
+   "label": "ZONING_DISTRICT"
+  },
+  {
+   "name": "zoning_classification",
+   "type": "text",
+   "label": "ZONING_CLASSIFICATION"
+  },
+  {
+   "name": "lot",
+   "type": "text",
+   "label": "LOT"
+  },
+  {
+   "name": "plan",
+   "type": "text",
+   "label": "PLAN"
+  },
+  {
+   "name": "block",
+   "type": "text",
+   "label": "BLOCK"
+  },
+  {
+   "name": "district_lot",
+   "type": "text",
+   "label": "DISTRICT_LOT"
+  },
+  {
+   "name": "from_civic_number",
+   "type": "text",
+   "label": "FROM_CIVIC_NUMBER"
+  },
+  {
+   "name": "to_civic_number",
+   "type": "text",
+   "label": "TO_CIVIC_NUMBER"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "STREET_NAME"
+  },
+  {
+   "name": "property_postal_code",
+   "type": "text",
+   "label": "PROPERTY_POSTAL_CODE"
+  },
+  {
+   "name": "narrative_legal_line1",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE1"
+  },
+  {
+   "name": "narrative_legal_line2",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE2"
+  },
+  {
+   "name": "narrative_legal_line3",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE3"
+  },
+  {
+   "name": "current_land_value",
+   "type": "int",
+   "label": "CURRENT_LAND_VALUE"
+  },
+  {
+   "name": "current_improvement_value",
+   "type": "int",
+   "label": "CURRENT_IMPROVEMENT_VALUE"
+  },
+  {
+   "name": "tax_assessment_year",
+   "type": "text",
+   "label": "TAX_ASSESSMENT_YEAR"
+  },
+  {
+   "name": "narrative_legal_line4",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE4"
+  },
+  {
+   "name": "narrative_legal_line5",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE5"
+  },
+  {
+   "name": "previous_improvement_value",
+   "type": "text",
+   "label": "PREVIOUS_IMPROVEMENT_VALUE"
+  },
+  {
+   "name": "previous_land_value",
+   "type": "text",
+   "label": "PREVIOUS_LAND_VALUE"
+  },
+  {
+   "name": "year_built",
+   "type": "text",
+   "label": "YEAR_BUILT"
+  },
+  {
+   "name": "big_improvement_year",
+   "type": "text",
+   "label": "BIG_IMPROVEMENT_YEAR"
+  },
+  {
+   "name": "tax_levy",
+   "type": "double",
+   "label": "TAX_LEVY"
+  },
+  {
+   "name": "neighbourhood_code",
+   "type": "text",
+   "label": "NEIGHBOURHOOD_CODE"
+  },
+  {
+   "name": "report_year",
+   "type": "text",
+   "label": "REPORT_YEAR"
+  }
+ ],
+ "facets": [
+  {
+   "name": "legal_type",
+   "top": [
+    [
+     "LAND",
+     449215
+    ],
+    [
+     "STRATA",
+     437266
+    ],
+    [
+     "OTHER",
+     5547
+    ]
+   ]
+  },
+  {
+   "name": "report_year",
+   "top": [
+    [
+     "2010",
+     185793
+    ],
+    [
+     "2009",
+     182247
+    ],
+    [
+     "2008",
+     177968
+    ],
+    [
+     "2007",
+     174946
+    ],
+    [
+     "2006",
+     171074
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "pid": "025-632-710",
+   "legal_type": "STRATA",
+   "folio": "614161040032",
+   "land_coordinate": "61416104",
+   "zoning_district": "CD-1 (297)",
+   "zoning_classification": "Comprehensive Development",
+   "lot": "32",
+   "plan": "BCS327",
+   "block": null,
+   "district_lot": null,
+   "from_civic_number": "1005",
+   "to_civic_number": "1328",
+   "street_name": "MARINASIDE CRES",
+   "property_postal_code": "V6Z 3B3",
+   "narrative_legal_line1": "LOT 32  PLAN BCS327  NEW WESTMINSTE",
+   "narrative_legal_line2": "R DISTRICT LOT FALSE CREEK, UNDIV 1",
+   "narrative_legal_line3": "39/16907 SHARE IN COM PROP THEREIN.",
+   "current_land_value": 1038000,
+   "current_improvement_value": 492000,
+   "tax_assessment_year": "2008",
+   "narrative_legal_line4": null,
+   "narrative_legal_line5": null,
+   "previous_improvement_value": null,
+   "previous_land_value": null,
+   "year_built": "2003",
+   "big_improvement_year": "2003",
+   "tax_levy": 6283.16,
+   "neighbourhood_code": "030",
+   "report_year": "2008"
+  },
+  {
+   "pid": "025-632-825",
+   "legal_type": "STRATA",
+   "folio": "614161040043",
+   "land_coordinate": "61416104",
+   "zoning_district": "CD-1 (297)",
+   "zoning_classification": "Comprehensive Development",
+   "lot": "43",
+   "plan": "BCS327",
+   "block": null,
+   "district_lot": "FC",
+   "from_civic_number": "1503",
+   "to_civic_number": "1328",
+   "street_name": "MARINASIDE CRES",
+   "property_postal_code": "V6Z 3B3",
+   "narrative_legal_line1": "LOT 43  PLAN BCS327  DISTRICT LOT F",
+   "narrative_legal_line2": "C  NWD TOGETHER WITH AN INTEREST IN",
+   "narrative_legal_line3": "THE COMMON PROPERTY IN PROPORTION",
+   "current_land_value": 1928000,
+   "current_improvement_value": 787000,
+   "tax_assessment_year": "2008",
+   "narrative_legal_line4": "TO THE UNIT ENTITLEMENT OF THE STRA",
+   "narrative_legal_line5": "TA LOT AS SHOWN ON FORM 1 OR V, AS",
+   "previous_improvement_value": null,
+   "previous_land_value": null,
+   "year_built": "2003",
+   "big_improvement_year": "2003",
+   "tax_levy": 11050.1,
+   "neighbourhood_code": "030",
+   "report_year": "2008"
+  },
+  {
+   "pid": "025-633-147",
+   "legal_type": "STRATA",
+   "folio": "614161040075",
+   "land_coordinate": "61416104",
+   "zoning_district": "CD-1 (297)",
+   "zoning_classification": "Comprehensive Development",
+   "lot": "75",
+   "plan": "BCS327",
+   "block": null,
+   "district_lot": null,
+   "from_civic_number": "112",
+   "to_civic_number": "1328",
+   "street_name": "MARINASIDE CRES",
+   "property_postal_code": "V6Z 3B3",
+   "narrative_legal_line1": "LOT 75  PLAN BCS327  NEW WESTMINSTE",
+   "narrative_legal_line2": "R DISTRICT LOT FALSE CREEK, UNDIV 1",
+   "narrative_legal_line3": "47/16907 SHARE IN COM PROP THEREIN.",
+   "current_land_value": 677000,
+   "current_improvement_value": 518000,
+   "tax_assessment_year": "2008",
+   "narrative_legal_line4": null,
+   "narrative_legal_line5": null,
+   "previous_improvement_value": null,
+   "previous_land_value": null,
+   "year_built": "2003",
+   "big_improvement_year": "2003",
+   "tax_levy": 5042.92,
+   "neighbourhood_code": "030",
+   "report_year": "2008"
+  }
+ ]
+}

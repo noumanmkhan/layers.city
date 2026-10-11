@@ -1,0 +1,395 @@
+{
+ "id": "dog-off-leash-parks",
+ "title": "Dog off leash parks",
+ "modified": "2026-08-10T13:31:10+00:00",
+ "records": 54,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The dog off-leash parks dataset is one of several that describe Public places. </p></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business.  The extract on this website is updated weekly.  These data features do not change often.</p></div> <h3>Data accuracy</h3><div><p>Most locations are shown based on  addresses.  Boundaries are not to survey  accuracy.</p></div> ",
+ "fields": [
+  {
+   "name": "object_id",
+   "type": "int",
+   "label": "Object ID"
+  },
+  {
+   "name": "park_name",
+   "type": "text",
+   "label": "Park name"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "Address"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "hours",
+   "type": "text",
+   "label": "Hours"
+  },
+  {
+   "name": "fenced",
+   "type": "text",
+   "label": "Fenced"
+  },
+  {
+   "name": "surface_type",
+   "type": "text",
+   "label": "Surface type"
+  },
+  {
+   "name": "seating",
+   "type": "text",
+   "label": "Seating"
+  },
+  {
+   "name": "shade",
+   "type": "text",
+   "label": "Shade"
+  },
+  {
+   "name": "drinking_fountain_people",
+   "type": "text",
+   "label": "Drinking fountain people"
+  },
+  {
+   "name": "drinking_fountain_dogs",
+   "type": "text",
+   "label": "Drinking fountain dogs"
+  },
+  {
+   "name": "washroom_nearby",
+   "type": "text",
+   "label": "Washroom nearby"
+  },
+  {
+   "name": "beach_access",
+   "type": "text",
+   "label": "Beach access"
+  },
+  {
+   "name": "area_in_square_meters",
+   "type": "int",
+   "label": "area_(in_square_meters)"
+  },
+  {
+   "name": "year_created",
+   "type": "text",
+   "label": "Year Created"
+  },
+  {
+   "name": "comments",
+   "type": "text",
+   "label": "Comments"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Downtown",
+     7
+    ],
+    [
+     "Hastings-Sunrise",
+     5
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     5
+    ],
+    [
+     "Killarney",
+     5
+    ],
+    [
+     "Fairview",
+     4
+    ],
+    [
+     "Renfrew-Collingwood",
+     4
+    ],
+    [
+     "Dunbar-Southlands",
+     3
+    ],
+    [
+     "Kerrisdale",
+     2
+    ],
+    [
+     "Mount Pleasant",
+     2
+    ],
+    [
+     "Riley Park",
+     2
+    ],
+    [
+     "South Cambie",
+     2
+    ],
+    [
+     "Sunset",
+     2
+    ],
+    [
+     "West End",
+     2
+    ],
+    [
+     "Arbutus Ridge",
+     1
+    ],
+    [
+     "Grandview-Woodland",
+     1
+    ],
+    [
+     "Kitsilano",
+     1
+    ],
+    [
+     "Strathcona",
+     1
+    ],
+    [
+     "Victoria-Fraserview",
+     1
+    ],
+    [
+     "West Point Grey",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "surface_type",
+   "top": [
+    [
+     "Grass",
+     28
+    ],
+    [
+     "Engineered wood fibre",
+     4
+    ],
+    [
+     "Gravel",
+     4
+    ],
+    [
+     "Engineered Wood Fibre",
+     2
+    ],
+    [
+     "Gravel and wood chip trails, grass",
+     2
+    ],
+    [
+     "Pet specific synthetic turf",
+     2
+    ],
+    [
+     "Sand",
+     2
+    ],
+    [
+     "Sand and grass",
+     2
+    ],
+    [
+     "Wood chip path and grass",
+     2
+    ],
+    [
+     "Engineered wood fibre, gravel, grass",
+     1
+    ],
+    [
+     "Grass and wood chip path",
+     1
+    ],
+    [
+     "Gravel and asphalt",
+     1
+    ],
+    [
+     "Gravel and wood chip trails",
+     1
+    ],
+    [
+     "Wood chip and grass",
+     1
+    ],
+    [
+     "Wood chips, sand, grass",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "hours",
+   "top": [
+    [
+     "6 AM to 10 PM",
+     29
+    ],
+    [
+     "5 AM to 10 AM & 5 PM to 10 PM",
+     11
+    ],
+    [
+     "6 AM to 10 AM & 5 PM to 10 PM",
+     3
+    ],
+    [
+     "7 AM to 9 PM",
+     2
+    ],
+    [
+     "5 AM to 8 AM & 5 PM to 10 PM",
+     1
+    ],
+    [
+     "5AM to 10 PM",
+     1
+    ],
+    [
+     "6AM to 10 PM",
+     1
+    ],
+    [
+     "7 AM to 10 AM & 5 PM to 10 PM",
+     1
+    ],
+    [
+     "June 15–Labour Day, 5AM to 10PM; rest of year, 5AM to 10AM &",
+     1
+    ],
+    [
+     "May-Sept, 6 AM to 10 AM & 5 PM to 10 PM; Oct-April 6 AM to 1",
+     1
+    ],
+    [
+     "Oct-April, 5AM to 10 PM",
+     1
+    ],
+    [
+     "Oct-April, 6AM to 10 PM",
+     1
+    ],
+    [
+     "Temporary Closure Due to Construction",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "drinking_fountain_dogs",
+   "top": [
+    [
+     "NO",
+     33
+    ],
+    [
+     "YES",
+     17
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "object_id": 1,
+   "park_name": "Hinge Park (Southeast False Creek)",
+   "address": "215 West 1st Avenue Vancouver BC",
+   "geo_local_area": "Mount Pleasant",
+   "hours": "6 AM to 10 PM",
+   "fenced": null,
+   "surface_type": "Gravel",
+   "seating": "YES",
+   "shade": "YES",
+   "drinking_fountain_people": "YES",
+   "drinking_fountain_dogs": "YES",
+   "washroom_nearby": "NO",
+   "beach_access": null,
+   "area_in_square_meters": 200,
+   "year_created": "&lt;Null&gt;",
+   "comments": null,
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.11082175654641,
+    "lat": 49.27107708774953
+   }
+  },
+  {
+   "object_id": 3,
+   "park_name": "Fraser River Park",
+   "address": "8705 Angus Drive Vancouver BC",
+   "geo_local_area": "Kerrisdale",
+   "hours": "6AM to 10 PM",
+   "fenced": null,
+   "surface_type": "Gravel and wood chip trails, grass",
+   "seating": null,
+   "shade": null,
+   "drinking_fountain_people": null,
+   "drinking_fountain_dogs": null,
+   "washroom_nearby": null,
+   "beach_access": null,
+   "area_in_square_meters": 26414,
+   "year_created": "1998",
+   "comments": "Park signage indicates east and west areas",
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.15341793616207,
+    "lat": 49.20944881069501
+   }
+  },
+  {
+   "object_id": 9,
+   "park_name": "Musqueam Park",
+   "address": "4000 SW Marine Drive Vancouver BC",
+   "geo_local_area": "Dunbar-Southlands",
+   "hours": "6 AM to 10 PM",
+   "fenced": null,
+   "surface_type": "Grass and wood chip path",
+   "seating": "NO",
+   "shade": "YES",
+   "drinking_fountain_people": "NO",
+   "drinking_fountain_dogs": "NO",
+   "washroom_nearby": "NO",
+   "beach_access": null,
+   "area_in_square_meters": 33292,
+   "year_created": "1998",
+   "comments": null,
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.1931534414486,
+    "lat": 49.23198042295341
+   }
+  }
+ ]
+}

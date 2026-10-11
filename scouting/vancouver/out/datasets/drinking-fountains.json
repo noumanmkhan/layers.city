@@ -1,0 +1,255 @@
+{
+ "id": "drinking-fountains",
+ "title": "Drinking fountains",
+ "modified": "2022-06-27T12:04:11+00:00",
+ "records": 278,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset includes locations of permanent and temporary public drinking fountains (and bottle filling station) in the City that are managed by Parks and Recreation and Engineering Services Water Design departments.</p></div> <h3>Note</h3><div><p>Field may be blank if related information is not available</p></div> <h3>Data currency</h3><div><p>The extract for this dataset is updated weekly. There may be no change in data content from one week to the next because there is no change in source data. Priorities and resources will also determine how fast a change in reality is reflected in the database.</p></div> <h3>Data accuracy</h3><div><p>The locations shown are approximate locations of the fountains.</p><p>There is no known error.  This dataset is manually maintained by respective business departments. </p></div> <h3>Websites for further information</h3><div><ul><li><a href=\"http://vancouver.ca/home-property-development/water-fountains.aspx\">Drinking water fountains</a></li></ul></div>",
+ "fields": [
+  {
+   "name": "mapid",
+   "type": "text",
+   "label": "MAPID"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "NAME"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "maintainer",
+   "type": "text",
+   "label": "MAINTAINER"
+  },
+  {
+   "name": "in_operation",
+   "type": "text",
+   "label": "IN_OPERATION"
+  },
+  {
+   "name": "pet_friendly",
+   "type": "text",
+   "label": "PET_FRIENDLY"
+  },
+  {
+   "name": "photo_name",
+   "type": "text",
+   "label": "PHOTO_NAME"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "in_operation",
+   "top": [
+    [
+     "spring to fall",
+     146
+    ],
+    [
+     "May-October",
+     56
+    ],
+    [
+     "Year Round",
+     31
+    ],
+    [
+     "year-round",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Downtown",
+     28
+    ],
+    [
+     "West End",
+     24
+    ],
+    [
+     "Hastings-Sunrise",
+     21
+    ],
+    [
+     "Mount Pleasant",
+     19
+    ],
+    [
+     "Strathcona",
+     18
+    ],
+    [
+     "Kitsilano",
+     17
+    ],
+    [
+     "Renfrew-Collingwood",
+     14
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     13
+    ],
+    [
+     "Kerrisdale",
+     12
+    ],
+    [
+     "Marpole",
+     11
+    ],
+    [
+     "Grandview-Woodland",
+     10
+    ],
+    [
+     "Killarney",
+     10
+    ],
+    [
+     "Fairview",
+     9
+    ],
+    [
+     "Riley Park",
+     9
+    ],
+    [
+     "Sunset",
+     9
+    ],
+    [
+     "Oakridge",
+     7
+    ],
+    [
+     "South Cambie",
+     5
+    ],
+    [
+     "West Point Grey",
+     5
+    ],
+    [
+     "Arbutus-Ridge",
+     4
+    ],
+    [
+     "Victoria-Fraserview",
+     4
+    ],
+    [
+     "Dunbar-Southlands",
+     3
+    ],
+    [
+     "Shaughnessy",
+     2
+    ]
+   ]
+  },
+  {
+   "name": "pet_friendly",
+   "top": [
+    [
+     "N",
+     77
+    ],
+    [
+     "Y",
+     10
+    ]
+   ]
+  },
+  {
+   "name": "maintainer",
+   "top": [
+    [
+     "Parks",
+     191
+    ],
+    [
+     "Engineering",
+     87
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "mapid": "DFPB0004",
+   "name": "Fountain location:\nAlmond Park",
+   "location": "S-side of playground",
+   "maintainer": "Parks",
+   "in_operation": "spring to fall",
+   "pet_friendly": null,
+   "photo_name": null,
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Kitsilano",
+   "geo_point_2d": {
+    "lon": -123.18474450987034,
+    "lat": 49.26108572763105
+   }
+  },
+  {
+   "mapid": "DFPB0008",
+   "name": "Fountain location:\nArbutus Village Park",
+   "location": "S-side of playground",
+   "maintainer": "Parks",
+   "in_operation": "spring to fall",
+   "pet_friendly": null,
+   "photo_name": null,
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Arbutus-Ridge",
+   "geo_point_2d": {
+    "lon": -123.157976371445,
+    "lat": 49.248784480708856
+   }
+  },
+  {
+   "mapid": "DFPB0053",
+   "name": "Fountain location:\nGeorge Park",
+   "location": "southeast corner of park",
+   "maintainer": "Parks",
+   "in_operation": "spring to fall",
+   "pet_friendly": null,
+   "photo_name": "George Park - drinking fountain - 2005.JPG",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_local_area": "Sunset",
+   "geo_point_2d": {
+    "lon": -123.09358705827185,
+    "lat": 49.212521750458855
+   }
+  }
+ ]
+}

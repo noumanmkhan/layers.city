@@ -1,0 +1,100 @@
+{
+ "id": "public-streets",
+ "title": "Public streets",
+ "modified": "2026-07-27T13:32:20+00:00",
+ "records": 17072,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><div><p>The public streets dataset is one of several that describe streets in Vancouver. The others are:</p><ul><li>Lanes</li><li>Non-City streets</li><li>One way streets</li><li>Right-of-way widths</li><li>Street intersections</li></ul><p>Street  centerline and names are included. The street centerline network includes linear street objects that reflect the approximate center of the dedicated street right-of-way. Street names are typically displayed for each segment of the street centerline network. The linear network is broken at the intersection of two or more City streets or alleyways. </p></div></div> <h3>Data currency</h3><div><p>This data in City systems is updated frequently  in the normal course of business, however priorities and resources determine  how fast a change in reality is reflected in the database.  The extract on this website is updated  weekly.</p></div> <h3>Data accuracy</h3><div><p>Some of the City's data is created using survey accuracy however some features are not as precise.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "hblock",
+   "type": "text",
+   "label": "HBLOCK"
+  },
+  {
+   "name": "streetuse",
+   "type": "text",
+   "label": "STREETUSE"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "streetuse",
+   "top": [
+    [
+     "Residential",
+     13171
+    ],
+    [
+     "Arterial",
+     2264
+    ],
+    [
+     "Secondary Arterial",
+     1087
+    ],
+    [
+     "Collector",
+     542
+    ],
+    [
+     "Closed",
+     4
+    ],
+    [
+     "Recreational",
+     3
+    ],
+    [
+     "Leased",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "hblock": "2300 W 47TH AV",
+   "streetuse": "Residential",
+   "geo_point_2d": {
+    "lon": -123.16084018031823,
+    "lat": 49.229077229969995
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "hblock": "2200 W 47TH AV",
+   "streetuse": "Residential",
+   "geo_point_2d": {
+    "lon": -123.15907387444561,
+    "lat": 49.22904955671891
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "hblock": "6500-6600 BALSAM ST",
+   "streetuse": "Residential",
+   "geo_point_2d": {
+    "lon": -123.16130914009686,
+    "lat": 49.22615069726706
+   }
+  }
+ ]
+}

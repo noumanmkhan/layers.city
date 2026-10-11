@@ -1,0 +1,192 @@
+{
+ "id": "voting-places-2014",
+ "title": "Voting places 2014",
+ "modified": "2019-07-04T17:52:48+00:00",
+ "records": 125,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset includes all of the voting places available to voters for the 2014 general election. This was the first election using a Vote-Anywhere model. Voters can vote at any voting place within the City. </p><p>Prior to the 2014 municipal election, the city was divided into voting divisions and voters were required to vote at a designated voting place within their assigned voting division.</p><p>The City operates an at-large voting system. </p><p>\n<strong>Note:</strong></p><p>UBC Lands and UEL residents are only eligible to vote for School Trustees.</p></div> <h3>Data currency</h3><div><p>​These are the voting places used for the City's 2014 municipal elections during Advance Voting and on General Voting Day.</p></div> <h3>Data accuracy</h3><div><p>​Voting places change from election to election and are not directly comparable over time.</p></div> <h3>Websites for further information</h3><div><ul><li>​<a href=\"https://opendata.vancouver.ca/explore/dataset/municipal-election-results/\">Municipal election results</a></li></ul></div>",
+ "fields": [
+  {
+   "name": "vd",
+   "type": "text",
+   "label": "VD"
+  },
+  {
+   "name": "facility_name",
+   "type": "text",
+   "label": "Facility Name"
+  },
+  {
+   "name": "facility_address",
+   "type": "text",
+   "label": "Facility Address"
+  },
+  {
+   "name": "advance_only",
+   "type": "text",
+   "label": "Advance only"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "local_area",
+   "type": "text",
+   "label": "LOCAL_AREA"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "local_area",
+   "top": [
+    [
+     "Arbutus-Ridge",
+     3
+    ],
+    [
+     "Downtown",
+     9
+    ],
+    [
+     "Dunbar-Southlands",
+     4
+    ],
+    [
+     "Fairview",
+     6
+    ],
+    [
+     "Grandview-Woodland",
+     6
+    ],
+    [
+     "Hastings-Sunrise",
+     8
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     8
+    ],
+    [
+     "Kerrisdale",
+     5
+    ],
+    [
+     "Killarney",
+     7
+    ],
+    [
+     "Kitsilano",
+     9
+    ],
+    [
+     "Marpole",
+     4
+    ],
+    [
+     "Mount Pleasant",
+     7
+    ],
+    [
+     "Oakridge",
+     4
+    ],
+    [
+     "Renfrew-Collingwood",
+     8
+    ],
+    [
+     "Riley Park",
+     4
+    ],
+    [
+     "Shaughnessy",
+     3
+    ],
+    [
+     "South Cambie",
+     3
+    ],
+    [
+     "Strathcona",
+     2
+    ],
+    [
+     "Sunset",
+     7
+    ],
+    [
+     "Victoria-Fraserview",
+     4
+    ],
+    [
+     "West End",
+     9
+    ],
+    [
+     "West Point Grey",
+     3
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "vd": "A6",
+   "facility_name": "St Andrew's-Wesley United Church",
+   "facility_address": "1012 Nelson St",
+   "advance_only": "No",
+   "location": "Salon",
+   "local_area": "West End",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.126608,
+    "lat": 49.281436
+   }
+  },
+  {
+   "vd": "F5",
+   "facility_name": "Renfrew Elementary School",
+   "facility_address": "3315 E 22nd Ave",
+   "advance_only": "No",
+   "location": "Gymnasium",
+   "local_area": "Renfrew-Collingwood",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.032481,
+    "lat": 49.251036
+   }
+  },
+  {
+   "vd": "H4",
+   "facility_name": "David Thompson Secondary School",
+   "facility_address": "1755 E 55th Ave",
+   "advance_only": "No",
+   "location": "Cafeteria",
+   "local_area": "Victoria-Fraserview",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.070585,
+    "lat": 49.220812
+   }
+  }
+ ]
+}

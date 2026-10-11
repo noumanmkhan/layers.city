@@ -1,0 +1,420 @@
+{
+ "id": "motorcycle-parking",
+ "title": "Motorcycle parking",
+ "modified": "2026-10-05T13:31:13+00:00",
+ "records": 225,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This data shows the approximate locations of on-street parking for motorcycles.  </p></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database.  The extract on this web site is updated weekly.  </p></div> <h3>Data accuracy</h3><div><p>The locations shown are approximate; some icons may show as being in a parcel but the actual location of the motorcycle parking is on the street.</p></div> ",
+ "fields": [
+  {
+   "name": "street",
+   "type": "text",
+   "label": "Street"
+  },
+  {
+   "name": "block",
+   "type": "int",
+   "label": "Block"
+  },
+  {
+   "name": "local_area",
+   "type": "text",
+   "label": "Local Area"
+  },
+  {
+   "name": "rush_hour_regulation",
+   "type": "text",
+   "label": "Rush Hour Regulation"
+  },
+  {
+   "name": "time_limit",
+   "type": "text",
+   "label": "Time Limit"
+  },
+  {
+   "name": "service_status",
+   "type": "text",
+   "label": "Service Status"
+  },
+  {
+   "name": "meter_id",
+   "type": "text",
+   "label": "Meter ID"
+  },
+  {
+   "name": "credit_card",
+   "type": "text",
+   "label": "Credit Card"
+  },
+  {
+   "name": "mobile_payment_number",
+   "type": "int",
+   "label": "Mobile Payment Number"
+  },
+  {
+   "name": "sector",
+   "type": "int",
+   "label": "Sector"
+  },
+  {
+   "name": "direction",
+   "type": "text",
+   "label": "Direction"
+  },
+  {
+   "name": "meter_head",
+   "type": "text",
+   "label": "Meter Head"
+  },
+  {
+   "name": "rate_9am_6pm",
+   "type": "text",
+   "label": "Rate 9AM - 6PM"
+  },
+  {
+   "name": "rate_code_9am_6pm",
+   "type": "text",
+   "label": "Rate Code 9AM - 6PM"
+  },
+  {
+   "name": "rate_6pm_10pm",
+   "type": "text",
+   "label": "Rate 6PM - 10PM"
+  },
+  {
+   "name": "rate_code_6pm_10pm",
+   "type": "text",
+   "label": "Rate Code 6PM - 10PM"
+  },
+  {
+   "name": "flat_rate",
+   "type": "text",
+   "label": "Flat Rate"
+  },
+  {
+   "name": "time_limit_9am_6pm",
+   "type": "text",
+   "label": "Time Limit 9AM - 6PM"
+  },
+  {
+   "name": "time_limit_6pm_10pm",
+   "type": "text",
+   "label": "Time Limit 6PM - 10PM"
+  },
+  {
+   "name": "time_limit_weekend_9am_6pm",
+   "type": "text",
+   "label": "Time Limit Weekend 9AM - 6PM"
+  },
+  {
+   "name": "time_limit_weekend_6pm_10pm",
+   "type": "text",
+   "label": "Time Limit Weekend 6PM - 10PM"
+  },
+  {
+   "name": "time_limit_override",
+   "type": "text",
+   "label": "Time Limit Override"
+  },
+  {
+   "name": "am_rush_hours",
+   "type": "text",
+   "label": "AM Rush Hours"
+  },
+  {
+   "name": "pm_rush_hours",
+   "type": "text",
+   "label": "PM Rush Hours"
+  },
+  {
+   "name": "prohibition_1_days",
+   "type": "text",
+   "label": "Prohibition 1 Days"
+  },
+  {
+   "name": "prohibition_1_time",
+   "type": "text",
+   "label": "Prohibition 1 Time"
+  },
+  {
+   "name": "prohibition_1_zone",
+   "type": "text",
+   "label": "Prohibition 1 Zone"
+  },
+  {
+   "name": "prohibition_2_days",
+   "type": "text",
+   "label": "Prohibition 2 Days"
+  },
+  {
+   "name": "prohibition_2_time",
+   "type": "text",
+   "label": "Prohibition 2 Time"
+  },
+  {
+   "name": "prohibition_2_zone",
+   "type": "text",
+   "label": "Prohibition 2 Zone"
+  },
+  {
+   "name": "prohibition_override",
+   "type": "text",
+   "label": "Prohibition Override"
+  },
+  {
+   "name": "feature_id",
+   "type": "int",
+   "label": "Feature ID"
+  },
+  {
+   "name": "post_feature_id",
+   "type": "int",
+   "label": "Post Feature ID"
+  },
+  {
+   "name": "meter_mechanism",
+   "type": "text",
+   "label": "Meter Mechanism"
+  },
+  {
+   "name": "meter_manufacturer",
+   "type": "text",
+   "label": "Meter Manufacturer"
+  },
+  {
+   "name": "parking_zone_feature_id",
+   "type": "text",
+   "label": "Parking Zone Feature ID"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "local_area",
+   "top": [
+    [
+     "Downtown",
+     59
+    ],
+    [
+     "Mount Pleasant",
+     30
+    ],
+    [
+     "Fairview",
+     19
+    ],
+    [
+     "Kitsilano",
+     19
+    ],
+    [
+     "Grandview-Woodland",
+     17
+    ],
+    [
+     "Strathcona",
+     17
+    ],
+    [
+     "Riley Park",
+     14
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     11
+    ],
+    [
+     "Sunset",
+     9
+    ],
+    [
+     "West End",
+     9
+    ],
+    [
+     "Killarney",
+     4
+    ],
+    [
+     "Arbutus Ridge",
+     3
+    ],
+    [
+     "Dunbar-Southlands",
+     3
+    ],
+    [
+     "South Cambie",
+     3
+    ],
+    [
+     "Marpole",
+     2
+    ],
+    [
+     "Renfrew-Collingwood",
+     2
+    ],
+    [
+     "West Point Grey",
+     2
+    ],
+    [
+     "Hastings-Sunrise",
+     1
+    ],
+    [
+     "Kerrisdale",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "street": "Bidwell St",
+   "block": 800,
+   "local_area": "West End",
+   "rush_hour_regulation": "n/a",
+   "time_limit": "no",
+   "service_status": null,
+   "meter_id": null,
+   "credit_card": null,
+   "mobile_payment_number": null,
+   "sector": null,
+   "direction": null,
+   "meter_head": null,
+   "rate_9am_6pm": null,
+   "rate_code_9am_6pm": null,
+   "rate_6pm_10pm": null,
+   "rate_code_6pm_10pm": null,
+   "flat_rate": null,
+   "time_limit_9am_6pm": null,
+   "time_limit_6pm_10pm": null,
+   "time_limit_weekend_9am_6pm": null,
+   "time_limit_weekend_6pm_10pm": null,
+   "time_limit_override": null,
+   "am_rush_hours": null,
+   "pm_rush_hours": null,
+   "prohibition_1_days": null,
+   "prohibition_1_time": null,
+   "prohibition_1_zone": null,
+   "prohibition_2_days": null,
+   "prohibition_2_time": null,
+   "prohibition_2_zone": null,
+   "prohibition_override": null,
+   "feature_id": null,
+   "post_feature_id": null,
+   "meter_mechanism": null,
+   "meter_manufacturer": null,
+   "parking_zone_feature_id": null,
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.13403900054827,
+    "lat": 49.29038399891444
+   }
+  },
+  {
+   "street": "Cambie St",
+   "block": 3500,
+   "local_area": "South Cambie",
+   "rush_hour_regulation": "n/a",
+   "time_limit": "no",
+   "service_status": null,
+   "meter_id": null,
+   "credit_card": null,
+   "mobile_payment_number": null,
+   "sector": null,
+   "direction": null,
+   "meter_head": null,
+   "rate_9am_6pm": null,
+   "rate_code_9am_6pm": null,
+   "rate_6pm_10pm": null,
+   "rate_code_6pm_10pm": null,
+   "flat_rate": null,
+   "time_limit_9am_6pm": null,
+   "time_limit_6pm_10pm": null,
+   "time_limit_weekend_9am_6pm": null,
+   "time_limit_weekend_6pm_10pm": null,
+   "time_limit_override": null,
+   "am_rush_hours": null,
+   "pm_rush_hours": null,
+   "prohibition_1_days": null,
+   "prohibition_1_time": null,
+   "prohibition_1_zone": null,
+   "prohibition_2_days": null,
+   "prohibition_2_time": null,
+   "prohibition_2_zone": null,
+   "prohibition_override": null,
+   "feature_id": null,
+   "post_feature_id": null,
+   "meter_mechanism": null,
+   "meter_manufacturer": null,
+   "parking_zone_feature_id": null,
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.11530800038214,
+    "lat": 49.25392799926141
+   }
+  },
+  {
+   "street": "Cordova Diversion",
+   "block": 800,
+   "local_area": "Strathcona",
+   "rush_hour_regulation": "n/a",
+   "time_limit": "no",
+   "service_status": null,
+   "meter_id": null,
+   "credit_card": null,
+   "mobile_payment_number": null,
+   "sector": null,
+   "direction": null,
+   "meter_head": null,
+   "rate_9am_6pm": null,
+   "rate_code_9am_6pm": null,
+   "rate_6pm_10pm": null,
+   "rate_code_6pm_10pm": null,
+   "flat_rate": null,
+   "time_limit_9am_6pm": null,
+   "time_limit_6pm_10pm": null,
+   "time_limit_weekend_9am_6pm": null,
+   "time_limit_weekend_6pm_10pm": null,
+   "time_limit_override": null,
+   "am_rush_hours": null,
+   "pm_rush_hours": null,
+   "prohibition_1_days": null,
+   "prohibition_1_time": null,
+   "prohibition_1_zone": null,
+   "prohibition_2_days": null,
+   "prohibition_2_time": null,
+   "prohibition_2_zone": null,
+   "prohibition_override": null,
+   "feature_id": null,
+   "post_feature_id": null,
+   "meter_mechanism": null,
+   "meter_manufacturer": null,
+   "parking_zone_feature_id": null,
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.08691499936388,
+    "lat": 49.282135999396736
+   }
+  }
+ ]
+}

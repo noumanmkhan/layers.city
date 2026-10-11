@@ -1,0 +1,365 @@
+{
+ "id": "parking-tickets-2010-2013",
+ "title": "Parking tickets 2010-2013",
+ "modified": "2019-08-07T18:17:45+00:00",
+ "records": 1091149,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The City of Vancouver regulates parking to balance the needs of residents, commuters, and visitors. This dataset includes parking ticket records data available from Parking Operations and Enforcement branch from 2010 to 2013.</p><p>Due to platform limitation, records from other years need to split into multiple datasets. See        <a href=\"https://opendata.vancouver.ca/explore/?disjunctive.features&amp;disjunctive.theme&amp;disjunctive.keyword&amp;disjunctive.data-owner&amp;disjunctive.data-team&amp;sort=modified&amp;q=parking+tickets\"><span style=\"text-decoration:underline;\"><font color=\"#0066cc\">other parking tickets datasets</font></span></a> for data starting from 2010.<br></p><p>\n<strong>Notes:</strong> </p><ul><li>This dataset does not include parking tickets issued by Vancouver Police Department</li><li>Ticket issued location information was aggregated to 100-block unit level.​</li><li>Testing in production may result in test record</li><li>Effective April 30, 2018, data files starting from year 2011 have been updated to reflect change in new software platform.​​</li></ul><h3>Data access<br></h3><p>​Year 2010 data was extracted from a legacy software platform and its format is not compatible with our new platform. This link provides access to the file from our legacy site:<br></p><div><ul><li>​<a class=\"file-csv\" href=\"https://webtransfer.vancouver.ca/opendata/csv/2010Parking_tickets.csv\">2010 Parking tickets (CSV)</a></li></ul>​<span style='color:#262626;font",
+ "fields": [
+  {
+   "name": "block",
+   "type": "int",
+   "label": "Block"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "Street"
+  },
+  {
+   "name": "entrydate",
+   "type": "date",
+   "label": "EntryDate"
+  },
+  {
+   "name": "bylaw",
+   "type": "int",
+   "label": "Bylaw"
+  },
+  {
+   "name": "section",
+   "type": "text",
+   "label": "Section"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "Status"
+  },
+  {
+   "name": "infractiontext",
+   "type": "text",
+   "label": "InfractionText"
+  },
+  {
+   "name": "year",
+   "type": "text",
+   "label": "Year"
+  },
+  {
+   "name": "bi_id",
+   "type": "int",
+   "label": "BI_ID"
+  }
+ ],
+ "facets": [
+  {
+   "name": "entrydate",
+   "top": [
+    [
+     "2011",
+     353957
+    ],
+    [
+     "2012",
+     383544
+    ],
+    [
+     "2013",
+     353648
+    ]
+   ]
+  },
+  {
+   "name": "status",
+   "top": [
+    [
+     "IS",
+     1017194
+    ],
+    [
+     "VA",
+     45275
+    ],
+    [
+     "WR",
+     23337
+    ],
+    [
+     "CA",
+     3094
+    ],
+    [
+     "RA",
+     2249
+    ]
+   ]
+  },
+  {
+   "name": "bylaw",
+   "top": [
+    [
+     "2952",
+     593275
+    ],
+    [
+     "2849",
+     497412
+    ],
+    [
+     "9344",
+     305
+    ],
+    [
+     "9978",
+     157
+    ]
+   ]
+  },
+  {
+   "name": "section",
+   "top": [
+    [
+     "5(4)(a)(ii)",
+     564178
+    ],
+    [
+     "17.1",
+     149449
+    ],
+    [
+     "17.6(E)",
+     59824
+    ],
+    [
+     "17.6(B)",
+     56995
+    ],
+    [
+     "17.5(B)",
+     36200
+    ],
+    [
+     "A2",
+     24837
+    ],
+    [
+     "17.2(J)",
+     20358
+    ],
+    [
+     "17.2(D)",
+     19746
+    ],
+    [
+     "19.1(H)",
+     17131
+    ],
+    [
+     "21.5",
+     16932
+    ],
+    [
+     "17.3",
+     15090
+    ],
+    [
+     "17.2(A)",
+     11652
+    ],
+    [
+     "17.2(C)",
+     8721
+    ],
+    [
+     "18.1(B)",
+     8386
+    ],
+    [
+     "171",
+     8270
+    ],
+    [
+     "17.6(A)",
+     7144
+    ],
+    [
+     "18.1(C)",
+     6415
+    ],
+    [
+     "21.1",
+     6208
+    ],
+    [
+     "72A(1)",
+     4920
+    ],
+    [
+     "17.4(E)",
+     3242
+    ],
+    [
+     "17.4(B)",
+     3123
+    ],
+    [
+     "176E",
+     2968
+    ],
+    [
+     "19.1(G)",
+     2835
+    ],
+    [
+     "17.5(A)",
+     2772
+    ],
+    [
+     "5(4)(B)",
+     2609
+    ]
+   ]
+  },
+  {
+   "name": "infractiontext",
+   "top": [
+    [
+     "PARK IN A METERED SPACE IF THE PARKING METER HEAD DISPLAYS FOUR FLASHING ZEROS IN A WINDOW",
+     564178
+    ],
+    [
+     "STOP AT A PLACE WHERE A TRAFFIC SIGN PROHIBITS STOPPING",
+     157719
+    ],
+    [
+     "PARK ON A PORTION OF A STREET FOR A LONGER PERIOD OF TIME THAN INDICATED ON A TRAFFIC SIGN WHICH APPLIES",
+     62792
+    ],
+    [
+     "PARK ON A STREET WHERE A TRAFFIC SIGN RESTRICTS PARKING, EXCEPT IN ACCORDANCE WITH SUCH RESTRICTION",
+     59312
+    ],
+    [
+     "STOP WITHIN 6 METRES OF THE NEAREST EDGE OF THE CLOSEST SIDEWALK ON AN INTERSECTING STREET",
+     37767
+    ],
+    [
+     "REMAIN PARKED IN A METERED SPACE WHERE THE METER HEAD AT SAID SPACE DISPLAYS FOUR FLASHING ZEROS IN A WINDOW",
+     24837
+    ],
+    [
+     "STOP ON A PORTION OF A STREET INDICATED BY A SIGN AS RESERVED FOR ONE OR MORE PARTICULAR CLASS OF VEHICLE",
+     21443
+    ],
+    [
+     "STOP IN FRONT OF OR WITHIN 1.5 METRES OFTHE NEAREST SIDE OF A PRIVATE ROAD, BOULEVARD CROSSING OR SIDEWALK CROSSING",
+     20771
+    ],
+    [
+     "STOP ON EITHER SIDE OF A LANE WHICH ABUTS COMMERCIALLY USED PROPERTY",
+     18393
+    ],
+    [
+     "STOP IN COMMERCIAL LOADING ZONE",
+     16932
+    ],
+    [
+     "STOP ON ANY PORTION OF A STREET DESIGNATED AS A BUS STOP",
+     16360
+    ],
+    [
+     "STOP WITHIN 6 METRES OF THE APPROACH SIDE OF A STOP SIGN",
+     12272
+    ],
+    [
+     "STOP WITHIN 5 METRES OF A FIRE HYDRANT",
+     9194
+    ],
+    [
+     "STOP OR PARK OTHER THAN HEADED IN THE DIRECTION OF TRAFFIC",
+     8813
+    ],
+    [
+     "PARK AT A PLACE ON A STREET WHERE A TRAFFIC SIGN PROHIBITS PARKING",
+     7514
+    ],
+    [
+     "STOP OR PARK OTHER THAN WITH THE CURBSIDE WHEELS OF THE VEHICLE WITHIN 30 CM OF THE CURB OR EDGE OF THE ROADWAY",
+     6751
+    ],
+    [
+     "STOP IN PASSENGER ZONE",
+     6208
+    ],
+    [
+     "NO PERSON SHALL PLACE, LEAVE, ABANDON ANY DERELICT MOTOR VEHICLE ON ANY STREET",
+     5154
+    ],
+    [
+     "STOP ON BOULEVARD",
+     3242
+    ],
+    [
+     "STOP WITHIN 6 METRES OF EITHER SIDE OF A CROSSWALK",
+     3123
+    ],
+    [
+     "STOP ON A LANE WITHIN AN AREA 1.5M FROM EITHER SIDE AND 5.5M IN FRONT OF A DRIVE -WAY OR PRIVATE ROAD ADJOINING SUCH LANE",
+     2965
+    ],
+    [
+     "STOP WITHIN 1.5 METRES OF THAT PORTION OF AN INTERSECTING LANE THAT IS USEABLE FOR TRAVEL",
+     2772
+    ],
+    [
+     "PARK IN A METERED SPACE IF THE TIME RECORDED BY THE OPERATOR UNDER THE PAY BY PHONE OR PAY BY LICENCE PLATE OPTION HAS EXPIRED",
+     2609
+    ],
+    [
+     "LARGE VEHICLE - BE PARKED ON A STREET BETWEEN THE HOURS OF 10 PM AND 6 AM OF THE FOLLOWING DAY",
+     2534
+    ],
+    [
+     "PARK ON A STREET ABUTTING RESIDENTIAL OR COMMERCIAL PREMISES FOR MORE THAN 3 HRS BETWEEN 8:00A.M. AND 6:00 P.M.",
+     2154
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "block": 1600,
+   "street": "11th Ave W.",
+   "entrydate": "2013-01-29",
+   "bylaw": 2849,
+   "section": "17.6(B)",
+   "status": "IS",
+   "infractiontext": "PARK ON A STREET WHERE A TRAFFIC SIGN RESTRICTS PARKING, EXCEPT IN ACCORDANCE WITH SUCH RESTRICTION",
+   "year": "2013",
+   "bi_id": 227706
+  },
+  {
+   "block": 1600,
+   "street": "11th Ave W.",
+   "entrydate": "2013-01-29",
+   "bylaw": 2849,
+   "section": "17.6(E)",
+   "status": "IS",
+   "infractiontext": "PARK ON A PORTION OF A STREET FOR A LONGER PERIOD OF TIME THAN INDICATED ON A TRAFFIC SIGN WHICH APPLIES",
+   "year": "2013",
+   "bi_id": 227708
+  },
+  {
+   "block": 4300,
+   "street": "Main St.",
+   "entrydate": "2013-01-29",
+   "bylaw": 2849,
+   "section": "17.3",
+   "status": "IS",
+   "infractiontext": "STOP ON ANY PORTION OF A STREET DESIGNATED AS A BUS STOP",
+   "year": "2013",
+   "bi_id": 227709
+  }
+ ]
+}

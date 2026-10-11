@@ -1,0 +1,58 @@
+{
+ "id": "voting-division-boundaries-2011",
+ "title": "Voting division boundaries 2011",
+ "modified": "2011-05-19T07:00:00+00:00",
+ "records": 135,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>Voting division boundaries for the city’s 2011 municipal elections.</p><p>Prior to the 2014 municipal election, the City was divided into voting divisions and voters were required to vote at a designated voting place within their assigned voting division.</p><p> The City operates an at-large voting system.</p><p><strong> Note:</strong></p><ol><li> In 2014, voters can vote at any voting place within the city of Vancouver, eliminating the need for voting divisions.</li><li>University Endowment Lands residents are not eligible to vote for Mayor, Councillors and Park Commissioners, but are eligible to vote for School Trustees at any Advance Voting place or at either of the two UEL/UBC voting places on Election Day. </li></ol></div> <h3>Data currency</h3><div><p>​This is a static dataset.</p></div> <h3>Data accuracy</h3><div><p>​Division boundaries change from election to election and are not directly comparable over time.</p></div> <h3>Websites for further information</h3><div><ul><li>​<a href=\"https://opendata.vancouver.ca/explore/dataset/voting-places-2011/\">Voting places 2011</a></li><li><a href=\"https://opendata.vancouver.ca/explore/dataset/municipal-election-results/information/?refine.election=2011+Municipal+Election\">Election results (2011)</a></li></ul></div>",
+ "fields": [
+  {
+   "name": "division",
+   "type": "int",
+   "label": "DIVISION"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "division": 5,
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.140672476,
+    "lat": 49.2859145831
+   }
+  },
+  {
+   "division": 32,
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.06110569,
+    "lat": 49.2761888267
+   }
+  },
+  {
+   "division": 60,
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.040422186,
+    "lat": 49.2543814618
+   }
+  }
+ ]
+}

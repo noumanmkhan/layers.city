@@ -1,0 +1,468 @@
+{
+ "id": "property-tax-report",
+ "title": "Property tax report",
+ "modified": "2026-10-05T14:19:11+00:00",
+ "records": 1553478,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>​This dataset contains information on properties from BC Assessment (BCA) and City sources from 2020.</p><p>To limit the size of individual datasets, we segmented the property tax data into multiple datasets.  See ​all ​<a href=\"https://opendata.vancouver.ca/explore/?q=property+tax\" style=\"text-decoration-line:underline;\">property tax datasets</a>​ for data since 2006<br></p><p>\n<a href=\"https://opendata.vancouver.ca/explore/?q=property+tax\">\n<span style=\"text-decoration:underline;\">\n<font color=\"#0066cc\"></font></span></a> </p></div> <h3>Note</h3><div><ul><li>Tax coordinates and particularly the legal description information should not be viewed as definitive or legal.</li><li>For zoning data information please consult the City's zoning pages. </li><li>Zoning data is not available in historical property tax data sets.</li><li>Values for the \"previous improvement value\" and \"previous land value\" columns are not available for the 2006-2013 reports. </li></ul></div> <h3>Data currency</h3><div><p>This data in City systems is updated in the normal course of business, however priorities and resources determine how fast a change in reality is reflected in the database.</p><p> <span class=\"note\">Note:</span> Only property tax data for the current year is updated weekly.  All other data years contain static data. </p></div> <h3>Data accuracy</h3><div><p>Accuracy is dependent on the matching of records between multiple agencies including non-City sources.</p></div> <h3>Website",
+ "fields": [
+  {
+   "name": "pid",
+   "type": "text",
+   "label": "PID"
+  },
+  {
+   "name": "legal_type",
+   "type": "text",
+   "label": "LEGAL_TYPE"
+  },
+  {
+   "name": "folio",
+   "type": "text",
+   "label": "FOLIO"
+  },
+  {
+   "name": "land_coordinate",
+   "type": "text",
+   "label": "LAND_COORDINATE"
+  },
+  {
+   "name": "zoning_district",
+   "type": "text",
+   "label": "ZONING_DISTRICT"
+  },
+  {
+   "name": "zoning_classification",
+   "type": "text",
+   "label": "ZONING_CLASSIFICATION"
+  },
+  {
+   "name": "lot",
+   "type": "text",
+   "label": "LOT"
+  },
+  {
+   "name": "plan",
+   "type": "text",
+   "label": "PLAN"
+  },
+  {
+   "name": "block",
+   "type": "text",
+   "label": "BLOCK"
+  },
+  {
+   "name": "district_lot",
+   "type": "text",
+   "label": "DISTRICT_LOT"
+  },
+  {
+   "name": "from_civic_number",
+   "type": "text",
+   "label": "FROM_CIVIC_NUMBER"
+  },
+  {
+   "name": "to_civic_number",
+   "type": "text",
+   "label": "TO_CIVIC_NUMBER"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "STREET_NAME"
+  },
+  {
+   "name": "property_postal_code",
+   "type": "text",
+   "label": "PROPERTY_POSTAL_CODE"
+  },
+  {
+   "name": "narrative_legal_line1",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE1"
+  },
+  {
+   "name": "narrative_legal_line2",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE2"
+  },
+  {
+   "name": "narrative_legal_line3",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE3"
+  },
+  {
+   "name": "narrative_legal_line4",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE4"
+  },
+  {
+   "name": "narrative_legal_line5",
+   "type": "text",
+   "label": "NARRATIVE_LEGAL_LINE5"
+  },
+  {
+   "name": "current_land_value",
+   "type": "int",
+   "label": "CURRENT_LAND_VALUE"
+  },
+  {
+   "name": "current_improvement_value",
+   "type": "int",
+   "label": "CURRENT_IMPROVEMENT_VALUE"
+  },
+  {
+   "name": "tax_assessment_year",
+   "type": "text",
+   "label": "TAX_ASSESSMENT_YEAR"
+  },
+  {
+   "name": "previous_land_value",
+   "type": "int",
+   "label": "PREVIOUS_LAND_VALUE"
+  },
+  {
+   "name": "previous_improvement_value",
+   "type": "int",
+   "label": "PREVIOUS_IMPROVEMENT_VALUE"
+  },
+  {
+   "name": "year_built",
+   "type": "text",
+   "label": "YEAR_BUILT"
+  },
+  {
+   "name": "big_improvement_year",
+   "type": "text",
+   "label": "BIG_IMPROVEMENT_YEAR"
+  },
+  {
+   "name": "tax_levy",
+   "type": "double",
+   "label": "TAX_LEVY"
+  },
+  {
+   "name": "neighbourhood_code",
+   "type": "text",
+   "label": "NEIGHBOURHOOD_CODE"
+  },
+  {
+   "name": "report_year",
+   "type": "text",
+   "label": "REPORT_YEAR"
+  },
+  {
+   "name": "note",
+   "type": "text",
+   "label": "NOTE"
+  }
+ ],
+ "facets": [
+  {
+   "name": "legal_type",
+   "top": [
+    [
+     "STRATA",
+     924103
+    ],
+    [
+     "LAND",
+     627846
+    ],
+    [
+     "OTHER",
+     1529
+    ]
+   ]
+  },
+  {
+   "name": "zoning_classification",
+   "top": [
+    [
+     "Comprehensive Development",
+     559999
+    ],
+    [
+     "Residential Inclusive",
+     268224
+    ],
+    [
+     "One-Family Dwelling",
+     202740
+    ],
+    [
+     "Residential",
+     193432
+    ],
+    [
+     "Commercial",
+     132579
+    ],
+    [
+     "Multiple Dwelling",
+     87557
+    ],
+    [
+     "Two-Family Dwelling",
+     48300
+    ],
+    [
+     "Industrial",
+     34602
+    ],
+    [
+     "Historical Area",
+     17846
+    ],
+    [
+     "Other",
+     1286
+    ],
+    [
+     "Limited Agriculture",
+     1162
+    ],
+    [
+     "Residential Rental",
+     54
+    ]
+   ]
+  },
+  {
+   "name": "report_year",
+   "top": [
+    [
+     "2026",
+     228899
+    ],
+    [
+     "2025",
+     226360
+    ],
+    [
+     "2024",
+     224743
+    ],
+    [
+     "2023",
+     222197
+    ],
+    [
+     "2022",
+     218674
+    ],
+    [
+     "2021",
+     217802
+    ],
+    [
+     "2020",
+     214803
+    ]
+   ]
+  },
+  {
+   "name": "neighbourhood_code",
+   "top": [
+    [
+     "001",
+     30722
+    ],
+    [
+     "002",
+     107098
+    ],
+    [
+     "003",
+     34956
+    ],
+    [
+     "004",
+     28529
+    ],
+    [
+     "005",
+     30877
+    ],
+    [
+     "006",
+     15311
+    ],
+    [
+     "007",
+     94186
+    ],
+    [
+     "008",
+     17788
+    ],
+    [
+     "009",
+     43508
+    ],
+    [
+     "010",
+     22842
+    ],
+    [
+     "011",
+     24030
+    ],
+    [
+     "012",
+     48203
+    ],
+    [
+     "013",
+     131454
+    ],
+    [
+     "014",
+     74223
+    ],
+    [
+     "015",
+     40701
+    ],
+    [
+     "016",
+     48268
+    ],
+    [
+     "017",
+     45625
+    ],
+    [
+     "018",
+     37687
+    ],
+    [
+     "019",
+     36780
+    ],
+    [
+     "020",
+     40335
+    ],
+    [
+     "021",
+     29503
+    ],
+    [
+     "022",
+     32220
+    ],
+    [
+     "023",
+     91076
+    ],
+    [
+     "024",
+     36710
+    ],
+    [
+     "025",
+     33848
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "pid": "028-751-191",
+   "legal_type": "STRATA",
+   "folio": "217646040001",
+   "land_coordinate": "21764604",
+   "zoning_district": "RM-4",
+   "zoning_classification": "Multiple Dwelling",
+   "lot": "1",
+   "plan": "BCS4332",
+   "block": null,
+   "district_lot": "264A",
+   "from_civic_number": null,
+   "to_civic_number": "1002",
+   "street_name": "7TH AVE E",
+   "property_postal_code": "V5T 1P7",
+   "narrative_legal_line1": "LOT 1  PLAN BCS4332  DISTRICT LOT 2",
+   "narrative_legal_line2": "64A  NWD GROUP 1, TOGETHER WITH AN",
+   "narrative_legal_line3": "INTEREST IN THE COMMON PROPERTY IN",
+   "narrative_legal_line4": "PROPORTION TO THE UNIT ENTITLEMENT",
+   "narrative_legal_line5": "OF THE STRATA LOT AS SHOWN ON FORM",
+   "current_land_value": 1158000,
+   "current_improvement_value": 258000,
+   "tax_assessment_year": "2022",
+   "previous_land_value": 1022000,
+   "previous_improvement_value": 228000,
+   "year_built": "2012",
+   "big_improvement_year": "2012",
+   "tax_levy": 3813.18,
+   "neighbourhood_code": "013",
+   "report_year": "2022",
+   "note": null
+  },
+  {
+   "pid": "030-850-045",
+   "legal_type": "STRATA",
+   "folio": "275727700018",
+   "land_coordinate": "27572770",
+   "zoning_district": "RM-9AN",
+   "zoning_classification": "Multiple Dwelling",
+   "lot": "18",
+   "plan": "EPS6046",
+   "block": null,
+   "district_lot": "52",
+   "from_civic_number": "208",
+   "to_civic_number": "4882",
+   "street_name": "SLOCAN ST",
+   "property_postal_code": "V5R 2A3",
+   "narrative_legal_line1": "LOT 18  PLAN EPS6046  DISTRICT LOT",
+   "narrative_legal_line2": "52  NWD  BCAGROUP 1 TOGETHER WITH A",
+   "narrative_legal_line3": "N INTEREST IN THE COMMON PROPERTY I",
+   "narrative_legal_line4": "N PROPORTION TO THE UNIT ENTITLEMEN",
+   "narrative_legal_line5": "T OF THE STRATA LOT AS SHOWN ON FOR",
+   "current_land_value": 503000,
+   "current_improvement_value": 242000,
+   "tax_assessment_year": "2022",
+   "previous_land_value": 489000,
+   "previous_improvement_value": 236000,
+   "year_built": "2019",
+   "big_improvement_year": "2019",
+   "tax_levy": 2006.24,
+   "neighbourhood_code": "023",
+   "report_year": "2022",
+   "note": null
+  },
+  {
+   "pid": "003-227-197",
+   "legal_type": "STRATA",
+   "folio": "120602180062",
+   "land_coordinate": "12060218",
+   "zoning_district": "DD",
+   "zoning_classification": "Comprehensive Development",
+   "lot": "62",
+   "plan": "VAS1323",
+   "block": null,
+   "district_lot": "541",
+   "from_civic_number": "903",
+   "to_civic_number": "850",
+   "street_name": "BURRARD ST",
+   "property_postal_code": "V6Z 2J1",
+   "narrative_legal_line1": "LOT 62  PLAN VAS1323  DISTRICT LOT",
+   "narrative_legal_line2": "541  NEW WESTMINSTER UNDIV 62/4713",
+   "narrative_legal_line3": "SHARE IN COM PROP THEREIN.",
+   "narrative_legal_line4": null,
+   "narrative_legal_line5": null,
+   "current_land_value": 515000,
+   "current_improvement_value": 172000,
+   "tax_assessment_year": "2022",
+   "previous_land_value": 524000,
+   "previous_improvement_value": 175000,
+   "year_built": "1983",
+   "big_improvement_year": "1983",
+   "tax_levy": 1850.04,
+   "neighbourhood_code": "026",
+   "report_year": "2022",
+   "note": null
+  }
+ ]
+}

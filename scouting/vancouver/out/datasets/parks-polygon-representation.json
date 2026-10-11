@@ -1,0 +1,241 @@
+{
+ "id": "parks-polygon-representation",
+ "title": "Parks - polygon representation",
+ "modified": "2026-09-28T13:32:55+00:00",
+ "records": 254,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This data set provides information on the names and locations of City parks.  The data may be displayed as point features (a single point representing the location of the park; this is unlikely to be the geometric centroid of the park) or polygon features (a polygon or area coloured green to show the extent of the park boundaries).</p></div> <h3>Data currency</h3><div><p>Data taken from Park Board site in July 2009. The data on this site is updated weekly.</p></div> <h3>Data accuracy</h3><div><p>This data is as accurate as the data on the  Parks and Recreation site. Latitude and  longitude are for a point in the park.</p></div> ",
+ "fields": [
+  {
+   "name": "object_id",
+   "type": "int",
+   "label": "Object ID"
+  },
+  {
+   "name": "park_name",
+   "type": "text",
+   "label": "Park Name"
+  },
+  {
+   "name": "park_url",
+   "type": "text",
+   "label": "Park URL"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "Address"
+  },
+  {
+   "name": "local_area",
+   "type": "text",
+   "label": "Local Area"
+  },
+  {
+   "name": "classification",
+   "type": "text",
+   "label": "Classification"
+  },
+  {
+   "name": "area_hectare",
+   "type": "double",
+   "label": "area_(hectare)"
+  },
+  {
+   "name": "area",
+   "type": "double",
+   "label": "Area"
+  },
+  {
+   "name": "length",
+   "type": "double",
+   "label": "Length"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "local_area",
+   "top": [
+    [
+     "Downtown",
+     26
+    ],
+    [
+     "Hastings-Sunrise",
+     22
+    ],
+    [
+     "Mount Pleasant",
+     18
+    ],
+    [
+     "Grandview-Woodland",
+     17
+    ],
+    [
+     "Killarney",
+     16
+    ],
+    [
+     "Kitsilano",
+     16
+    ],
+    [
+     "Renfrew-Collingwood",
+     15
+    ],
+    [
+     "West End",
+     15
+    ],
+    [
+     "Fairview",
+     12
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     12
+    ],
+    [
+     "Marpole",
+     11
+    ],
+    [
+     "Arbutus Ridge",
+     9
+    ],
+    [
+     "Riley Park",
+     9
+    ],
+    [
+     "Dunbar-Southlands",
+     8
+    ],
+    [
+     "Kerrisdale",
+     8
+    ],
+    [
+     "West Point Grey",
+     8
+    ],
+    [
+     "Strathcona",
+     6
+    ],
+    [
+     "Sunset",
+     6
+    ],
+    [
+     "Victoria-Fraserview",
+     6
+    ],
+    [
+     "Oakridge",
+     5
+    ],
+    [
+     "Shaughnessy",
+     5
+    ],
+    [
+     "South Cambie",
+     4
+    ]
+   ]
+  },
+  {
+   "name": "classification",
+   "top": [
+    [
+     "Neighbourhood",
+     108
+    ],
+    [
+     "Local",
+     76
+    ],
+    [
+     "Community",
+     52
+    ],
+    [
+     "Urban Plaza",
+     13
+    ],
+    [
+     "Destination",
+     5
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "object_id": 1,
+   "park_name": "Oak Meadows Park",
+   "park_url": "https://app.vancouver.ca/ParkFinder/parks/228",
+   "address": "899 W 37th Av",
+   "local_area": "South Cambie",
+   "classification": "Community",
+   "area_hectare": 4.73593047747582,
+   "area": 47359.3046875,
+   "length": 899.865221609493,
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.12580913081992,
+    "lat": 49.238432085612416
+   }
+  },
+  {
+   "object_id": 3,
+   "park_name": "Elm Park",
+   "park_url": "https://app.vancouver.ca/ParkFinder/parks/91",
+   "address": "5800 Elm St",
+   "local_area": "Kerrisdale",
+   "classification": "Neighbourhood",
+   "area_hectare": 1.49434753324888,
+   "area": 14943.4753417969,
+   "length": 527.319286734844,
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.16348594568841,
+    "lat": 49.233745669904906
+   }
+  },
+  {
+   "object_id": 5,
+   "park_name": "Art Phillips Park",
+   "park_url": "https://app.vancouver.ca/ParkFinder/parks/19",
+   "address": "625 Burrard St",
+   "local_area": "Downtown",
+   "classification": "Urban Plaza",
+   "area_hectare": 0.102943408756443,
+   "area": 1029.43408203125,
+   "length": 158.394797230683,
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.12054593933203,
+    "lat": 49.28579504670465
+   }
+  }
+ ]
+}

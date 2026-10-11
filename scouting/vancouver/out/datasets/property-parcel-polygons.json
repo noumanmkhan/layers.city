@@ -1,0 +1,188 @@
+{
+ "id": "property-parcel-polygons",
+ "title": "Property parcel polygons",
+ "modified": "2026-10-05T13:34:53+00:00",
+ "records": 99700,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The property parcel polygons are assessment based land polygons. Other related datasets can be found by \n      <a href=\"https://opendata.vancouver.ca/explore/?refine.keyword=Property\">filtering on the \n               <em>Property </em>keyword</a>. </p></div> <h3>Data currency</h3><div><p>This data in City systems is updated frequently  in the normal course of business, however priorities and resources determine  how fast a change in reality is reflected in the database.  The extract on this website is updated  weekly.</p></div> <h3>Data accuracy</h3><div><p>Much of the City's land base is created using survey  accuracy however some features are not as precise.</p></div> ",
+ "fields": [
+  {
+   "name": "civic_number",
+   "type": "text",
+   "label": "CIVIC_NUMBER"
+  },
+  {
+   "name": "streetname",
+   "type": "text",
+   "label": "STREETNAME"
+  },
+  {
+   "name": "tax_coord",
+   "type": "text",
+   "label": "TAX_COORD"
+  },
+  {
+   "name": "site_id",
+   "type": "text",
+   "label": "SITE_ID"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "streetname",
+   "top": [
+    [
+     "ABBOTT ST",
+     21
+    ],
+    [
+     "ABERDEEN ST",
+     60
+    ],
+    [
+     "ADANAC ST",
+     420
+    ],
+    [
+     "ADERA ST",
+     153
+    ],
+    [
+     "AISNE ST",
+     2
+    ],
+    [
+     "ALAMEIN AV",
+     36
+    ],
+    [
+     "ALBERNI ST",
+     37
+    ],
+    [
+     "ALBERTA ST",
+     96
+    ],
+    [
+     "ALDER BAY WALK",
+     1
+    ],
+    [
+     "ALDER CROSSING",
+     2
+    ],
+    [
+     "ALDER ST",
+     16
+    ],
+    [
+     "ALEXANDER ST",
+     117
+    ],
+    [
+     "ALEXANDRA ST",
+     13
+    ],
+    [
+     "ALGONQUIN MEWS",
+     2
+    ],
+    [
+     "ALICE ST",
+     24
+    ],
+    [
+     "ALMA ST",
+     126
+    ],
+    [
+     "ALVIN NAROD MEWS",
+     2
+    ],
+    [
+     "AMBERLY PLACE",
+     1
+    ],
+    [
+     "ANCASTER CRESCENT",
+     15
+    ],
+    [
+     "ANDERSON ST",
+     16
+    ],
+    [
+     "ANGLER'S PLACE",
+     1
+    ],
+    [
+     "ANGUS DRIVE",
+     397
+    ],
+    [
+     "ANN ST",
+     26
+    ],
+    [
+     "ANTWERP LANE",
+     1
+    ],
+    [
+     "ANZIO DRIVE",
+     59
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "civic_number": null,
+   "streetname": null,
+   "tax_coord": "70103092",
+   "site_id": "013859226",
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.19441525843676,
+    "lat": 49.25249373234241
+   }
+  },
+  {
+   "civic_number": "1233",
+   "streetname": "W 75TH AV",
+   "tax_coord": "84214483",
+   "site_id": "028509803",
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.13286450081753,
+    "lat": 49.20239185283789
+   }
+  },
+  {
+   "civic_number": "1225",
+   "streetname": "W 77TH AV",
+   "tax_coord": "84414471",
+   "site_id": "005357098",
+   "geom": {
+    "geometry_type": "Polygon"
+   },
+   "geo_point_2d": {
+    "lon": -123.13283837008383,
+    "lat": 49.20112060911661
+   }
+  }
+ ]
+}

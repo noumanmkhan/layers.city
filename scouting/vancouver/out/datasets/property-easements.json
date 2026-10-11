@@ -1,0 +1,58 @@
+{
+ "id": "property-easements",
+ "title": "Property easements",
+ "modified": "2026-10-05T13:31:12+00:00",
+ "records": 13159,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>The property easements dataset is one dataset among many that provide information about property. Other related datasets can be found by \n      <a href=\"https://opendata.vancouver.ca/explore/?search=property&amp;searchIn=description%2ctitle%2cidentifier\" title=\"          filtering on the                 Property keyword\">\n         filtering on the \n               <em>Property </em>keyword</a>. </p></div> <h3>Data currency</h3><div><p>This data in City systems is updated frequently  in the normal course of business, however priorities and resources determine  how fast a change in reality is reflected in the database.  The extract on this website is updated  weekly.</p></div> <h3>Data accuracy</h3><div><p>Much of the City's land base is created using survey  accuracy however some features are not as precise.</p></div> ",
+ "fields": [
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "label",
+   "type": "text",
+   "label": "Label"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [],
+ "samples": [
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "label": null,
+   "geo_point_2d": {
+    "lon": -123.05880969459406,
+    "lat": 49.24968571222795
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "label": null,
+   "geo_point_2d": {
+    "lon": -123.05837287835047,
+    "lat": 49.25079246179451
+   }
+  },
+  {
+   "geom": {
+    "geometry_type": "LineString"
+   },
+   "label": "R.O.W.",
+   "geo_point_2d": {
+    "lon": -123.15607652285814,
+    "lat": 49.26147365833639
+   }
+  }
+ ]
+}

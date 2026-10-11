@@ -1,0 +1,238 @@
+{
+ "id": "voting-places-2022",
+ "title": "Voting places 2022",
+ "modified": "2022-10-20T21:14:38+00:00",
+ "records": 104,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><p>This dataset includes all of the voting places available to voters for the 2022 general election. The City of Vancouver uses a Vote-Anywhere model.​​ Since 2014, voters can vote at any voting place within the City.​​<br></p><p>​The City operates an at-large ​​voting system.​​<br></p><p>​​​​Advance voting days: Octobe​​r 1, 5, 8, 11, 13​​​</p><p>​​Election day: October 15​​</p><p>​​​​​​​Voting hours for all locations are 8am to 8pm.<br></p><p>\n<strong>Note:</strong></p><p>​UBC ​and UEL residents are only eligible to vote for School trustees.</p></div> <h3>Data currency</h3><div><p>​​These are the voting places used for the ​City's 2022 municipal general election during advance voting and on general voting day.​​<br></p></div> <h3>Websites for further information</h3><div><ul><li>\n<a href=\"https://vancouver.ca/your-government/civic-elections.aspx\">Municipal elections​</a>​<br></li></ul></div>",
+ "fields": [
+  {
+   "name": "voting_place_id",
+   "type": "int",
+   "label": "Voting Place ID"
+  },
+  {
+   "name": "facility_name",
+   "type": "text",
+   "label": "Facility Name"
+  },
+  {
+   "name": "facility_address",
+   "type": "text",
+   "label": "Facility Address"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "Location"
+  },
+  {
+   "name": "advance_only",
+   "type": "text",
+   "label": "Advance Only"
+  },
+  {
+   "name": "supercentre",
+   "type": "text",
+   "label": "Supercentre"
+  },
+  {
+   "name": "accessbility",
+   "type": "text",
+   "label": "Accessbility"
+  },
+  {
+   "name": "local_area",
+   "type": "text",
+   "label": "Local Area"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "local_area",
+   "top": [
+    [
+     "Mount Pleasant",
+     9
+    ],
+    [
+     "Downtown",
+     8
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     8
+    ],
+    [
+     "Hastings-Sunrise",
+     6
+    ],
+    [
+     "Kitsilano",
+     6
+    ],
+    [
+     "Renfrew-Collingwood",
+     6
+    ],
+    [
+     "West End",
+     6
+    ],
+    [
+     "Dunbar-Southlands",
+     5
+    ],
+    [
+     "Fairview",
+     5
+    ],
+    [
+     "Grandview-Woodland",
+     5
+    ],
+    [
+     "Killarney",
+     5
+    ],
+    [
+     "Marpole",
+     4
+    ],
+    [
+     "Riley Park",
+     4
+    ],
+    [
+     "Sunset",
+     4
+    ],
+    [
+     "West Point Grey",
+     4
+    ],
+    [
+     "Kerrisdale",
+     3
+    ],
+    [
+     "Oakridge",
+     3
+    ],
+    [
+     "Strathcona",
+     3
+    ],
+    [
+     "Victoria-Fraserview",
+     3
+    ],
+    [
+     "Arbutus-Ridge",
+     2
+    ],
+    [
+     "South Cambie",
+     2
+    ],
+    [
+     "UBC Lands & UEL",
+     2
+    ],
+    [
+     "Shaughnessy",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "advance_only",
+   "top": [
+    [
+     "No",
+     82
+    ],
+    [
+     "Yes",
+     22
+    ]
+   ]
+  },
+  {
+   "name": "supercentre",
+   "top": [
+    [
+     "Yes",
+     68
+    ],
+    [
+     "No",
+     36
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "voting_place_id": 2,
+   "facility_name": "Carnarvon Community Elementary School",
+   "facility_address": "3400 Balaclava Street",
+   "location": "Gymnasium, main floor",
+   "advance_only": "No",
+   "supercentre": "Yes",
+   "accessbility": "accessible from main entrance",
+   "local_area": "Arbutus-Ridge",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.173673957,
+    "lat": 49.2560711799
+   }
+  },
+  {
+   "voting_place_id": 3,
+   "facility_name": "Gathering Place Community Centre",
+   "facility_address": "609 Helmcken Street",
+   "location": "Theatre, main floor",
+   "advance_only": "No",
+   "supercentre": "Yes",
+   "accessbility": "accessible through Seymour St entrance",
+   "local_area": "Downtown",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.123551775,
+    "lat": 49.2779680578
+   }
+  },
+  {
+   "voting_place_id": 4,
+   "facility_name": "Carnegie Community Centre",
+   "facility_address": "401 Main Street",
+   "location": "Theatre, main floor",
+   "advance_only": "No",
+   "supercentre": "Yes",
+   "accessbility": "accessible by ramp",
+   "local_area": "Downtown",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.100127207,
+    "lat": 49.2810519882
+   }
+  }
+ ]
+}

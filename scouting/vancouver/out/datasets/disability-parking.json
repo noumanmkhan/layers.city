@@ -1,0 +1,269 @@
+{
+ "id": "disability-parking",
+ "title": "Accessible parking",
+ "modified": "2026-08-24T13:30:39+00:00",
+ "records": 163,
+ "license": "Open Government Licence - Vancouver",
+ "description": "<div><div>\n</div><div><p>Designated accessibility parking zones and accessibility meter spaces are located in commercial districts and high-density residential areas throughout Vancouver, with new spaces being added every year. In deciding where to install accessibility zones, we look for spaces or metered spaces that are easier for people with accessibility issues to access. Any vehicle displaying a permit for people with accessibility issues (a SPARC placard or recognized equivalent) may use them. Accessibility zones are identified with signs displaying the universal disability symbol and disability meters are identified with blue meter heads as well as signs.</p></div></div> <h3>Data currency</h3><div><div>\n<p>The extract for this dataset is updated weekly.  There may be no change in data content from one week to the next because there is no change in source data.  Priorities and resources will also determine how fast a change in reality is reflected in the database.</p></div></div> <h3>Data accuracy</h3><div><div><p>This data has not been created with survey accuracy.</p></div></div> <h3>Websites for further information</h3><div><ul><li><a href=\"http://vancouver.ca/streets-transportation/accessible-parking-rules.aspx\">Accessible parking</a></li></ul></div>",
+ "fields": [
+  {
+   "name": "object_id",
+   "type": "int",
+   "label": "Object ID"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "Location"
+  },
+  {
+   "name": "geo_local_area",
+   "type": "text",
+   "label": "Geo Local Area"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "Street Name"
+  },
+  {
+   "name": "block",
+   "type": "int",
+   "label": "Block"
+  },
+  {
+   "name": "type",
+   "type": "text",
+   "label": "Type"
+  },
+  {
+   "name": "description",
+   "type": "text",
+   "label": "Description"
+  },
+  {
+   "name": "spaces",
+   "type": "int",
+   "label": "Spaces"
+  },
+  {
+   "name": "side",
+   "type": "text",
+   "label": "Side"
+  },
+  {
+   "name": "geom",
+   "type": "geo_shape",
+   "label": "Geom"
+  },
+  {
+   "name": "geo_point_2d",
+   "type": "geo_point_2d",
+   "label": "geo_point_2d"
+  }
+ ],
+ "facets": [
+  {
+   "name": "description",
+   "top": [
+    [
+     "Metered Accessible Parking Space",
+     92
+    ],
+    [
+     "2HR Accessible Parking Space",
+     23
+    ],
+    [
+     "Accessible Parking Space",
+     23
+    ],
+    [
+     "3HR Accessible Parking Space",
+     15
+    ],
+    [
+     "3HR Accessible Parking Space - Under Granville St. Bridge",
+     2
+    ],
+    [
+     "Accessible Parking Space - 8am-5pm Mon-Fri",
+     2
+    ],
+    [
+     "1HR Accessible Parking Space",
+     1
+    ],
+    [
+     "3HR Accessible Parking Space - 9am-6pm",
+     1
+    ],
+    [
+     "Accessible Parking Space - 8am-Noon Sundays",
+     1
+    ],
+    [
+     "Accessible Parking Spaces",
+     1
+    ],
+    [
+     "Accessible Parking Spaces - 8am-5pm School Days",
+     1
+    ],
+    [
+     "Accessible Parking Spaces - 9am-3pm",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "geo_local_area",
+   "top": [
+    [
+     "Downtown",
+     25
+    ],
+    [
+     "Fairview",
+     23
+    ],
+    [
+     "Kitsilano",
+     14
+    ],
+    [
+     "Mount Pleasant",
+     13
+    ],
+    [
+     "West End",
+     12
+    ],
+    [
+     "Grandview-Woodland",
+     9
+    ],
+    [
+     "Riley Park",
+     8
+    ],
+    [
+     "Strathcona",
+     8
+    ],
+    [
+     "Hastings-Sunrise",
+     7
+    ],
+    [
+     "Renfrew-Collingwood",
+     7
+    ],
+    [
+     "Arbutus Ridge",
+     6
+    ],
+    [
+     "Dunbar-Southlands",
+     5
+    ],
+    [
+     "Kensington-Cedar Cottage",
+     5
+    ],
+    [
+     "Sunset",
+     4
+    ],
+    [
+     "West Point Grey",
+     4
+    ],
+    [
+     "Marpole",
+     3
+    ],
+    [
+     "Victoria-Fraserview",
+     3
+    ],
+    [
+     "Kerrisdale",
+     2
+    ],
+    [
+     "Killarney",
+     2
+    ],
+    [
+     "Oakridge",
+     1
+    ],
+    [
+     "Shaughnessy",
+     1
+    ],
+    [
+     "South Cambie",
+     1
+    ]
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "object_id": 1,
+   "location": "North Side 1000 Alberni St",
+   "geo_local_area": "West End",
+   "street_name": "Alberni St",
+   "block": 1000,
+   "type": "Metered Accessible Parking Space",
+   "description": "Metered Accessible Parking Space",
+   "spaces": 1,
+   "side": "North Side",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.12192699980345,
+    "lat": 49.284200998945536
+   }
+  },
+  {
+   "object_id": 2,
+   "location": "West Side  5400 Balsam St",
+   "geo_local_area": "Arbutus Ridge",
+   "street_name": "Balsam St",
+   "block": 5400,
+   "type": "Accessible Parking Space",
+   "description": "Accessible Parking Space",
+   "spaces": 1,
+   "side": "West Side",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.16131700046863,
+    "lat": 49.23677999911697
+   }
+  },
+  {
+   "object_id": 3,
+   "location": "East Side  5800 Balsam St",
+   "geo_local_area": "Kerrisdale",
+   "street_name": "Balsam St",
+   "block": 5800,
+   "type": "Accessible Parking Space",
+   "description": "Accessible Parking Space",
+   "spaces": 1,
+   "side": "East Side",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "geo_point_2d": {
+    "lon": -123.16135100054922,
+    "lat": 49.233617998634955
+   }
+  }
+ ]
+}
