@@ -80,6 +80,20 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,
 .go{margin-top:auto;display:flex;align-items:center;gap:8px;font-weight:500;font-size:16px;color:var(--accent)}
 .go.dark{color:var(--ink)}
 
+/* "Kept current" panel under INTERACTIVE */
+.live{background:var(--card);border:1.5px solid var(--rule);border-left:4px solid var(--accent);border-radius:14px;padding:28px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:28px 40px;align-items:start}
+.live h2{margin:0 0 10px;font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.live h2 .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px var(--accent-soft);flex:none}
+.live p{margin:0;font-size:17px;line-height:1.6;color:var(--ink-2)}
+.live p + p{margin-top:12px;font-size:15px;color:var(--ink-3)}
+.live p a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.live dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:14px 18px}
+.live dt{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.1em;color:var(--accent);padding-top:4px;white-space:nowrap}
+.live dd{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2);border-bottom:1px solid var(--rule);padding-bottom:14px}
+.live dd:last-of-type{border-bottom:0;padding-bottom:0}
+.live dd b{font-weight:500;color:var(--ink)}
+@media (max-width:760px){.live{grid-template-columns:1fr;padding:24px}.live dl{grid-template-columns:1fr;gap:4px}.live dt{padding-top:10px}}
+
 /* Print-map card: a thumbnail on top, then the same text layout */
 .card.print{padding:0;overflow:hidden;gap:0}
 .card.print .thumb{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--bg);border-bottom:1.5px solid var(--rule)}
@@ -135,6 +149,23 @@ footer a:hover{color:var(--ink)}
 
     <section class="group" aria-labelledby="interactive">
       <div class="label" id="interactive">INTERACTIVE</div>
+      <div class="live">
+        <div>
+          <h2><span class="dot" aria-hidden="true"></span>Not a snapshot</h2>
+          <p>Most maps are frozen the day they’re published. These rebuild themselves from the cities’ own open data on a schedule: new bus schedules, building permits, road closures and election results show up on the map without anyone redrawing it.</p>
+          <p>Every refresh is a public commit, so you can see exactly what changed and when <a href="https://github.com/noumanmkhan/city-layers/commits/main">on GitHub</a>.</p>
+        </div>
+        <dl aria-label="What refreshes, and how often">
+          <dt>DAILY</dt>
+          <dd><b>Road closures</b> for transit construction (the Ontario Line, Eglinton West, GO Expansion, Chicago’s Red Line Extension), from city permits, just after midnight.</dd>
+          <dt>WEEKLY</dt>
+          <dd><b>Bus and streetcar routes</b>, stops and how often they run, from TTC, GO and CTA schedules (Mondays). <b>Who represents you</b>: councillors, alderpersons, legislators and MPs (Mondays). <b>What’s changing</b>: new buildings, demolitions and development applications (Tuesdays).</dd>
+          <dt>MONTHLY</dt>
+          <dd><b>Skyscrapers</b>, including towers still going up; <b>transit lines under construction</b>; <b>heritage buildings</b>; and Toronto’s libraries, community centres and parks.</dd>
+          <dt>ELECTION NIGHT</dt>
+          <dd><b>Results every hour</b> as polls report: Toronto’s school trustees and Chicago’s first elected Board of Education, then daily until the winners are official.</dd>
+        </dl>
+      </div>
       <div class="cards">
         <a class="card" href="/toronto/">
           <div class="card-top">
