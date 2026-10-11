@@ -320,8 +320,8 @@ Computed from the October 8, 2026 data. Use it as a first test case.
   609 m away) · Heritage district: Cabbagetown (Metcalfe) (designated 2002) · BIA: None ·
   City ward: Ward 13 · Toronto Centre · Provincial: Toronto Centre · Federal: Toronto Centre ·
   School wards: TDSB 7 · TCDSB 9 · Viamonde 3 · MonAvenir 3.
-- **Living here** (profile `"71"`): Housing: Middle housing cost, median home $950K · rent
-  $1,330/mo · To Union: 30–45 min, about 32 min by transit · Getting to work: Mostly transit,
+- **Living here** (profile `"71"`): Housing: Middle housing cost, median home $950K · renters
+  pay $1,330/mo · To Union: 30–45 min, about 32 min by transit · Getting to work: Mostly transit,
   walk or bike, 31% drive · 27% transit · 38% walk or bike · Households: A mix, 55% rent ·
   Home types: Detached 3% · Semi & row 18% · Low-rise 28% · Towers 52% · Built: 1960 or before
   41% · 1961–80 27% · 1981–2000 23% · 2001–21 9% · Language at home: English 84%, no other
@@ -367,7 +367,7 @@ Keyed by unit code as a string (`"71"`). Fields:
 |---|---|
 | `name` | Unit name. |
 | `value` | Median home value, dollars. Shown as `$800K`, `$1.2M`. |
-| `rent` | Median rent, dollars per month. |
+| `rent` | Median monthly rent paid by renting households, utilities included (Canada: shelter cost of rented dwellings; Chicago: ACS gross rent). Counts every renter, long-time and subsidized included, so it runs below new-lease rents. |
 | `renterPct`, `carPct`, `transitPct`, `walkBikePct` | Whole-number percentages. |
 | `cost`, `commute`, `tenure` | Tier ids; labels come from `lens.lenses` (match `key`). |
 | `union`, `unionBand` | Toronto only: transit minutes to Union, weekday 8–9 am, and its tier. |
@@ -385,7 +385,9 @@ Keyed by unit code as a string (`"71"`). Fields:
 
 Rows, in order (labels from `card.living`):
 
-1. **Housing**: cost tier label · "Median home $800K · rent $1,320/mo" · `caveat`.
+1. **Housing**: cost tier label · "Median home $800K · renters pay $1,320/mo" · `caveat`. The caveat explains what the rent
+   figure counts (what renting households pay, utilities included, long-time tenants and subsidized
+   homes too); keep it beside the figure.
 2. **`hub`** (when the city's transit-time field is present): its tier label · `hubText` with
    `{minutes}`. The field is the lens in `lens.lenses` that has `minutes` (`union` in Toronto,
    `loop` in Chicago); its `key` names the tier field.

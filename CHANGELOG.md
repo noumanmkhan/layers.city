@@ -29,6 +29,11 @@
   leaves `unlisted` cities out of the other cities' switchers. Toronto and Chicago look the same.
 
 ### Both cities
+- **Rent relabelled** (October 11, all three cities): the Housing row reads "renters pay $X/mo" instead of
+  "rent $X/mo", and each city's caveat says what the figure counts: what renting households pay, utilities
+  included, long-time tenants and subsidized homes too (basement suites in Toronto and Vancouver), so it sits
+  below what a new lease costs. Same field and data. For the iOS app: wording only; contract section 4 and 5
+  examples updated.
 - **Narrow it down: Most common home** (October 11): pick detached, semi & row, low-rise or towers (Chicago:
   detached, attached, 2–19 or 20+ units) and only places where that is the commonest home type stay. A filter
   with `"top": true` on a pick lens; it takes its chips from the lens. Largest share rather than a 50% cut,

@@ -1147,7 +1147,7 @@ function livingHere(unit){
   const tier = (key, v) => { const [label, col] = TIER_LABEL[key + ':' + v]; return '<span class="tier"><i style="background:var(' + col + ')"></i>' + esc(label) + '</span>'; };
   const hub = CITY.lens.lenses.find(L_ => L_.minutes);
   return '<div class="live"><dl>' +
-    '<dt>Housing</dt><dd>' + tier('cost', d.cost) + '<span>Median home ' + money(d.value) + ' · rent $' + d.rent.toLocaleString(CITY.locale) + '/mo</span><span class="caveat">' + esc(T.caveat) + '</span></dd>' +
+    '<dt>Housing</dt><dd>' + tier('cost', d.cost) + '<span>Median home ' + money(d.value) + ' · renters pay $' + d.rent.toLocaleString(CITY.locale) + '/mo</span><span class="caveat">' + esc(T.caveat) + '</span></dd>' +
     (hub && d[hub.minutes] != null ? '<dt>' + esc(T.hub) + '</dt><dd>' + tier(hub.key, d[hub.key]) + '<span>' + esc(fill(T.hubText, {minutes: d[hub.minutes]})) + '</span></dd>' : '') +
     '<dt>Getting to work</dt><dd>' + tier('commute', d.commute) + '<span>' + d.carPct + '% drive · ' + d.transitPct + '% transit · ' + d.walkBikePct + '% walk or bike</span></dd>' +
     '<dt>Households</dt><dd>' + tier('tenure', d.tenure) + '<span>' + d.renterPct + '% rent</span></dd>' +
