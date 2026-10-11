@@ -4,8 +4,8 @@ A city is divided up in a dozen ways at once: official neighbourhoods, council w
 
 The maps share one engine, with a folder of data and settings per city:
 
-- **Toronto Layers:** https://maps.noumankhan.ca/toronto/
-- **Chicago Layers**: https://maps.noumankhan.ca/chicago/
+- **Toronto Layers:** https://layers.city/toronto/
+- **Chicago Layers**: https://layers.city/chicago/
 
 ## Toronto Layers
 
@@ -134,7 +134,7 @@ The boundary lookup runs in the browser with point-in-polygon tests against ever
 
 ## Chicago Layers
 
-**Live site:** https://maps.noumankhan.ca/chicago/
+**Live site:** https://layers.city/chicago/
 
 The second city runs on the same engine with its own data and config (`cities/chicago/`). Chicago's layers line up with Toronto's:
 
@@ -164,7 +164,7 @@ The community area lens uses the American Community Survey (2020–2024 five-yea
 
 ## Vancouver Layers (in progress)
 
-**Address:** https://maps.noumankhan.ca/vancouver/ (live but not linked from the maps hub yet)
+**Address:** https://layers.city/vancouver/ (live but not linked from the maps hub yet)
 
 The third city, on the same engine (`cities/vancouver/`). The first build has the base: Downtown and the East and West Sides (Ontario Street splits east from west), the City's 22 local areas plus Stanley Park, 21 known-as names (Gastown, Yaletown, Commercial Drive, Punjabi Market…), landmarks, main streets, BC highways across Metro Vancouver, SkyTrain and SeaBus, and the West Coast Express. The local area lens and Living here rows use the 2021 Census: the City hasn't published 2021 profiles for its local areas, so Statistics Canada's dissemination areas are summed into them. Vancouver elects its council, park board and school board at large, so there are no wards; representatives (mayor, council, MLA, MP) come after the October 2026 civic and provincial elections. Sources and quirks are in `cities/vancouver/SOURCES.md`.
 

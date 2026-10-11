@@ -2,7 +2,7 @@
 Writes cities/chicago/raw/discovery/. Run in GitHub Actions (the sandbox can't reach these hosts)."""
 import json, os, urllib.request, urllib.parse
 OUT = os.path.join(os.path.dirname(__file__), 'raw', 'discovery'); os.makedirs(OUT, exist_ok=True)
-UA = {'User-Agent': 'city-layers/1.0 (https://maps.noumankhan.ca)'}
+UA = {'User-Agent': 'city-layers/1.0 (https://layers.city)'}
 def get(url, n=None):
     try:
         with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=90) as r:

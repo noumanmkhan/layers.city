@@ -25,7 +25,7 @@ from datetime import datetime, timedelta, timezone
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 OUT = os.path.join(ROOT, 'scouting', 'closures', 'out')
 os.makedirs(OUT, exist_ok=True)
-UA = 'city-layers-scout/1.0 (+https://maps.noumankhan.ca; one-off road-closure data check)'
+UA = 'city-layers-scout/1.0 (+https://layers.city; one-off road-closure data check)'
 NOW = datetime.now(timezone.utc)
 TODAY = NOW.date()
 NEAR_M = 40          # a permit counts as "on a drawn arterial" if within this distance of one (streets are simplified)

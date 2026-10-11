@@ -9,7 +9,7 @@ import io, json, os, subprocess, tempfile, time, urllib.request, zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, 'raw')
-UA = {'User-Agent': 'city-layers/1.0 (https://maps.noumankhan.ca)'}
+UA = {'User-Agent': 'city-layers/1.0 (https://layers.city)'}
 SHAPES = ['https://data.cityofchicago.org/download/t8pq-wu86/application%2Fzip',
           'https://data.cityofchicago.org/api/views/t8pq-wu86/files/LandmarkDistricts_nov2012.zip']
 LIST = 'https://data.cityofchicago.org/resource/zidz-sdfj.json?$limit=500'

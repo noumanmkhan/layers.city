@@ -15,7 +15,7 @@ from collections import defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, 'raw')
-UA = {'User-Agent': 'city-layers/1.0 (https://maps.noumankhan.ca)'}
+UA = {'User-Agent': 'city-layers/1.0 (https://layers.city)'}
 API = 'https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/'
 SECTIONS = ['Total - Age groups of the population', 'Total - Private households by tenure',
             'Total - Occupied private dwellings by structural type of dwelling', 'Total - Occupied private dwellings by period of construction',

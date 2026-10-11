@@ -17,7 +17,7 @@ city = sys.argv[1]
 cfg = json.load(open(os.path.join(ROOT, 'cities', city, 'skyscrapers.json')))
 OUT = os.path.join(ROOT, 'cities', city, 'raw', 'skyscrapers'); os.makedirs(OUT, exist_ok=True)
 API = 'https://en.wikipedia.org/w/api.php'
-UA = {'User-Agent': 'city-layers/1.0 (+https://maps.noumankhan.ca; github.com/noumanmkhan/city-layers)'}
+UA = {'User-Agent': 'city-layers/1.0 (+https://layers.city; github.com/noumanmkhan/city-layers)'}
 
 
 def api(**q):

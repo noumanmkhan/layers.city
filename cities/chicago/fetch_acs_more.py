@@ -16,7 +16,7 @@ import json, os, time, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, 'raw')
-UA = {'User-Agent': 'city-layers/1.0 (https://maps.noumankhan.ca)'}
+UA = {'User-Agent': 'city-layers/1.0 (https://layers.city)'}
 GROUPS = ['B25036', 'B25032', 'C16001', 'B01001', 'B05005']
 SF = 'https://www2.census.gov/programs-surveys/acs/summary_file/{y}/table-based-SF/'
 

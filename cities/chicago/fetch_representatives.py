@@ -11,7 +11,7 @@ import os, time, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'raw', 'representatives')
 os.makedirs(OUT, exist_ok=True)
-UA = {'User-Agent': 'city-layers/1.0 (https://maps.noumankhan.ca)'}
+UA = {'User-Agent': 'city-layers/1.0 (https://layers.city)'}
 SOURCES = [
     ('ward_offices.json', 'https://data.cityofchicago.org/resource/htai-wnw4.json?$limit=100'),
     ('il.csv', 'https://data.openstates.org/people/current/il.csv'),

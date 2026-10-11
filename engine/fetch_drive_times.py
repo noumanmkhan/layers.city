@@ -16,7 +16,7 @@ cfg = json.load(open(os.path.join(CITY, 'city.json')))['drive']
 hub_lat, hub_lon = cfg['hub']
 pts = json.load(open(os.path.join(CITY, 'raw', 'drive_points.json')))['points']
 OSRM = 'https://router.project-osrm.org/table/v1/driving/'
-UA = {'User-Agent': 'city-layers/1.0 (https://maps.noumankhan.ca)'}
+UA = {'User-Agent': 'city-layers/1.0 (https://layers.city)'}
 CHUNK, MAX_SNAP_M = 100, 1000
 
 

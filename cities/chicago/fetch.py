@@ -13,7 +13,7 @@ from collections import Counter, defaultdict
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, 'raw')
 os.makedirs(RAW, exist_ok=True)
-UA = {'User-Agent': 'city-layers/1.0 (https://maps.noumankhan.ca)'}
+UA = {'User-Agent': 'city-layers/1.0 (https://layers.city)'}
 REGION = (-88.75, 41.15, -86.85, 42.55)   # the six Illinois collar counties, Cook, and NW Indiana
 CITY = (-87.95, 41.64, -87.52, 42.03)
 

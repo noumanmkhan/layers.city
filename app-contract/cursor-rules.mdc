@@ -6,13 +6,13 @@ alwaysApply: true
 # City Layers iOS app
 
 This repo is the iOS app (SwiftUI app + WidgetKit extension) for City Layers, the map at
-https://maps.noumankhan.ca/. The website lives in a separate repo that this project must never
+https://layers.city/. The website lives in a separate repo that this project must never
 change, clone or fetch from.
 
 ## Where the data comes from
 - Read `DATA_CONTRACT.md` in this repo before writing any code that loads or shows map data.
   It is the source of truth for file names, fields and how the "What's here" card is built.
-- Load data only over HTTPS from `https://maps.noumankhan.ca/<city>/data/<file>`.
+- Load data only over HTTPS from `https://layers.city/<city>/data/<file>`.
   Never from github.com, raw.githubusercontent.com or a local copy of the website repo.
 - Start from each city's `city.json`. Read layer ids, files, card rows and labels from it;
   don't hard-code them. Check `"schema"`: if it isn't a version the app knows, keep the last

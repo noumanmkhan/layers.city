@@ -7,7 +7,7 @@ a read-only consumer. Last updated October 10, 2026 (Skyscrapers: the `towers` l
 ## 1. Ground rules
 
 - **Read only from the published site**, never from GitHub:
-  `https://maps.noumankhan.ca/<city>/data/<file>`, where `<city>` is `toronto` or `chicago`.
+  `https://layers.city/<city>/data/<file>`, where `<city>` is `toronto` or `chicago`.
 - **Start with `city.json`** for each city. It says which files exist, which layers the card tests,
   what the card rows say and how lens tiers are labelled. Don't hard-code layer ids, file names or
   labels in the app; read them from `city.json` so a new city works without an app update.
@@ -342,7 +342,7 @@ Computed from the October 8, 2026 data. Use it as a first test case.
 Note the unit's map name (`Cabbagetown-South St.James Town`) and its profile `name`
 (`Cabbagetown-South St. James Town`) differ slightly; the Neighbourhood row uses the map's, the
 Living here footer the profile's. The live page,
-`https://maps.noumankhan.ca/toronto/#pin=43.66810,-79.36690`, shows the same card; if they ever
+`https://layers.city/toronto/#pin=43.66810,-79.36690`, shows the same card; if they ever
 disagree, the live page is right.
 
 **Tour** (`tour` in `city.json`, optional): `invite`, `start`, `stepText` (`{n}`, `{of}`), `next`, `back`, `done`, `closeText`, `dismissText`, and `steps`: `[{title, text, layers, hi, scope, view, pin}]`. `layers` is the exact set of layer ids on for the step, `hi` the ones to point out, `scope` `inner` (default) or `outer`, `view` `"city"`, `"region"` or bounds `[[south, west], [north, east]]`, `pin` (present: open the card at the city's `example`, or `{at, name}`). The website restores the map as it was when the tour ends. Apps may ignore it.
@@ -571,5 +571,5 @@ a real phone:
 
 Toronto, 43.66810, -79.36690 (the worked example in section 5) sits inside the Downtown fill
 (`--a-downtown`), in Ward 13, inside the Cabbagetown (Metcalfe) heritage district, and outside
-any BIA. `https://maps.noumankhan.ca/toronto/#pin=43.66810,-79.36690` shows the same; turn the
+any BIA. `https://layers.city/toronto/#pin=43.66810,-79.36690` shows the same; turn the
 layers on there to compare.

@@ -20,7 +20,7 @@ from datetime import datetime, timezone
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out')
 os.makedirs(OUT, exist_ok=True)
-UA = 'city-layers-scout/1.0 (+https://maps.noumankhan.ca; one-off skyscraper data check)'
+UA = 'city-layers-scout/1.0 (+https://layers.city; one-off skyscraper data check)'
 
 # west, south, east, north
 CITIES = {

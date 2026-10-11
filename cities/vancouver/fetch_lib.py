@@ -5,7 +5,7 @@ import json, os, subprocess, tempfile, time, urllib.parse, urllib.request, zipfi
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, 'raw')
 os.makedirs(RAW, exist_ok=True)
-UA = {'User-Agent': 'city-layers/1.0 (https://maps.noumankhan.ca)'}
+UA = {'User-Agent': 'city-layers/1.0 (https://layers.city)'}
 FRAME = (-125.0, 48.2, -121.0, 50.2)        # land shown around the region: Vancouver Island to the Fraser Valley
 REGION = (-123.45, 49.0, -122.2, 49.6)      # Metro Vancouver
 CITY = (-123.235, 49.195, -123.02, 49.32)   # the City of Vancouver, Stanley Park included

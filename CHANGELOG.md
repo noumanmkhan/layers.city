@@ -2,6 +2,12 @@
 
 ## Since 1.1
 
+### New address (October 12)
+- The site moved to **https://layers.city/** (GitHub Pages custom domain). maps.noumankhan.ca now 301-redirects
+  there at Cloudflare, keeping the path and query string (and the browser keeps the `#` part), so old links and
+  bookmarks still work. For the iOS app: change the data base URL to `https://layers.city/<city>/data/<file>`
+  (contract section 1). The old URL keeps working through the redirect, at the cost of one extra hop.
+
 ### Vancouver (in progress, unlisted)
 - **First build** (October 11): maps.noumankhan.ca/vancouver/, kept out of the other cities' switchers and the
   maps hub (`"unlisted": true` in its `city.json`) until it's announced. Downtown / West Side / East Side, the

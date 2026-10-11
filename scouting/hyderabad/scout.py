@@ -19,7 +19,7 @@ from datetime import datetime, timezone
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out')
 os.makedirs(os.path.join(OUT, 'osm'), exist_ok=True)
-UA = 'city-layers-scout/1.0 (+https://maps.noumankhan.ca; one-off data availability check)'
+UA = 'city-layers-scout/1.0 (+https://layers.city; one-off data availability check)'
 REPORT = {'run_at': datetime.now(timezone.utc).isoformat(timespec='seconds')}
 
 # Region: out to roughly the Regional Ring Road. Core: roughly the ORR.

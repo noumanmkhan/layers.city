@@ -4,7 +4,7 @@ User-Agent, HEAD and ranged GETs, and the alternatives, then prints what answere
 import json, os, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-UAS = {'map': 'city-layers/1.0 (https://maps.noumankhan.ca)',
+UAS = {'map': 'city-layers/1.0 (https://layers.city)',
        'browser': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36',
        'curl': 'curl/8.5.0'}
 URLS = [

@@ -1,7 +1,7 @@
 # City Layers: notes for Claude sessions
 
-This repo is the **map** (live at https://maps.noumankhan.ca/toronto/) and the small
-maps hub page at https://maps.noumankhan.ca/. The landing page for
+This repo is the **map** (live at https://layers.city/toronto/) and the small
+maps hub page at https://layers.city/. The landing page for
 noumankhan.ca is a separate repo and a separate project. If you were opened to work on
 the landing page, stop and say so; don't change this repo.
 
@@ -14,7 +14,7 @@ the landing page, stop and say so; don't change this repo.
   earlier copy.
 
 ## How the site is built
-- `docs/` is what GitHub Pages serves (it holds the `CNAME` for maps.noumankhan.ca).
+- `docs/` is what GitHub Pages serves (it holds the `CNAME` for layers.city).
   - `docs/index.html`, `docs/fonts/` and the icons are the **maps hub**, hand-written and
     styled to match the noumankhan.ca landing page. Edit them directly. Print maps get
     added there as cards (a template is commented out in the HTML), with images in `docs/prints/`.
