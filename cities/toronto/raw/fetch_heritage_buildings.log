@@ -1,0 +1,46 @@
+resource: Heritage Register Data https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/e41da515-5ad1-4bc3-85ea-18ec9e55cd33/resource/108b1080-d048-439f-a9e8-e8d6cd81bddb/download/heritage_register_address_points_wgs84.zip
+files: ['HRAPQ32026_OpenData.cpg', 'HRAPQ32026_OpenData.dbf', 'HRAPQ32026_OpenData.prj', 'HRAPQ32026_OpenData.sbn', 'HRAPQ32026_OpenData.sbx', 'HRAPQ32026_OpenData.shp', 'HRAPQ32026_OpenData.shp.xml', 'HRAPQ32026_OpenData.shx']
+fields: ['OBJECTID', 'Folder_Row', 'CEN', 'YR', 'SEQUENCE', 'SEC', 'REV', 'STATUS', 'IN_DATE', 'LISTED', 'DESIGNATED', 'EASEMENT_A', 'BUILDING_T', 'DESCRIPTIO', 'BYLAW_NO', 'HTG_CONSER', 'OMB_DATE', 'REASON', 'List_', 'CONSTRUCTI', 'ARCHITECT_', 'YEAR_DEMOL', 'Property_R', 'HOUSE', 'PREFIX', 'STREET', 'STREET_TYP', 'DIRECTION', 'UNIT_TYPE', 'UNIT', 'POSTAL_COD', 'ADDRESS_TY', 'ROLL', 'X_COORDINA', 'Y_COORDINA', 'PLANNING_D', 'FORMER_MUN', 'WARD', 'PRE_DEC_1_', 'HEA_DATE', 'ADDRESS']
+rows: 12332 · with a point: 12332
+  OBJECTID 12332 values, e.g. ['1', '2', '3', '4', '5']
+  Folder_Row 12332 values, e.g. ['2431731', '2431732', '2431733', '2431737', '2431738']
+  CEN {'20': 12332}
+  YR {'9': 8193, '20': 1020, '25': 804, '21': 490, '16': 428, '17': 310, '10': 306, '23': 170, '19': 167, '15': 129, '18': 100, '24': 54, '22': 45, '12': 34, '26': 28, '13': 26, '14': 19, '11': 9}
+  SEQUENCE 12315 values, e.g. ['135535', '135537', '135541', '135543', '194592']
+  SEC {'STE': 11256, 'WET': 472, 'NNY': 429, 'ESC': 161, '000': 13, 'SET': 1}
+  REV 45 values, e.g. ['27', '28', '20', '13', '4']
+  STATUS {'Part V': 7280, 'Listed': 3484, 'Part IV': 1568}
+  IN_DATE 324 values, e.g. ['2009-05-01', '2020-12-20', '2025-05-30', '2016-12-16', '2025-02-19']
+  LISTED 407 values, e.g. ['None', '2020-12-16', '1973-06-20', '2006-09-27', '1975-12-10']
+  DESIGNATED 443 values, e.g. ['None', '2003-02-07', '2004-09-30', '2004-04-16', '2024-12-05']
+  EASEMENT_A 302 values, e.g. ['', 'OHT', 'AT4909679', 'AT5238691', 'AT4909680']
+  BUILDING_T {'Residential': 4353, 'Unknown': 4051, 'Commercial': 1824, 'Miscellaneous': 1440, 'Public': 171, 'Religious': 169, 'Educational': 136, 'Industrial': 87, 'Financial': 78, 'Demolished': 21, '': 2}
+  DESCRIPTIO 4073 values, e.g. ['Part of the South Rosedale Heritage Conservation District, enacted by City Council on Feb. 7, 2003', 'Part of the North Rosedale Heritage Conservation District, enacted by City Council on Sept. 30, 2004', 'Part of the Cabbagetown Southwest Heritage Conservation District, enacted by Ontario Land Tribunal decision OLT-24-000563 on December 5, 2024. By-Law 1443-2024.', 'Part of the Cabbagetown North Heritage Conservation District, enacted by City Council on April 16, 2004', 'Part of the Cabbagetown South Heritage Conservation District, enacted by City Council on October 28, 2005']
+  BYLAW_NO 1189 values, e.g. ['', '115-2003', '749-2004', '259-2004', '1443-2024']
+  HTG_CONSER {'': 4746, 'South Rosedale': 1044, 'North Rosedale': 650, 'Cabbagetown North': 620, 'Cabbagetown Southwest': 591, 'King-Spadina HCD': 556, 'Cabbagetown South': 447, 'East Annex': 355, 'Cabbagetown Northwest': 335, 'Cabbagetown-Metcalfe': 297, 'Queen Street West': 260, 'Yorkville Hazelton': 232, 'St-Lawrence Neighbourhood': 230, 'Riverdale': 223, 'Garden District': 223, 'Teiaiagon-Baby Point': 220, 'Harbord Village Phase 2': 216, 'Historic Yonge St.': 177, 'West Annex Phase 1': 161, 'Parkdale Main Street': 145, 'Weston': 119, 'Harbord Village': 107, 'Blythwood': 89, 'Kingswood Road South': 66, 'Lyall Avenue': 64, 'Wychwood Park': 61, 'Union Station': 52, 'Draper Street': 29, 'Fort York': 8, 'Baby Point': 4, 'Yorkville-Hazelton HCD': 4, 'New  District': 1}
+  OMB_DATE {'': 10548, 'Dec 17, 2003': 1031, 'Sep 04, 2002': 296, 'Feb 12, 2004': 220, 'Aug 20, 2007': 119, 'Jan 19, 2005': 89, 'Aug 24, 1999': 29}
+  REASON {'': 8068, 'Architectural Contextual': 2907, 'Architectural': 667, 'Architectural Contextual Historical': 265, 'Contextual': 205, 'Architectural Historical': 137, 'Architectural Contextual  Historical': 37, 'Historical': 33, 'Architectural Historical Contextual': 11, 'Historical Contextual': 2}
+  List_ 187 values, e.g. ['', '99', '01', '08', '04']
+  CONSTRUCTI 563 values, e.g. ['', '1889', '1890', '1888', '1929']
+  ARCHITECT_ 558 values, e.g. ['', 'Smith, Eden', 'Darling and Pearson', 'Lennox, E.J.', 'Herbert, Frederick Henry']
+  YEAR_DEMOL {'': 12332}
+  Property_R 12062 values, e.g. ['178000', '222368', '206963', '228330', '578991']
+  HOUSE 1703 values, e.g. ['0', '2', '10', '9', '15']
+  PREFIX {'': 12332}
+  STREET 741 values, e.g. ['QUEEN', 'DANFORTH', 'YONGE', 'KING', 'WELLESLEY']
+  STREET_TYP {'ST': 6332, 'AVE': 3295, 'RD': 1427, 'DR': 463, 'CRES': 228, 'PK': 127, 'PL': 117, 'BLVD': 103, 'GDNS': 67, '': 57, 'SQ': 29, 'TER': 24, 'LANE': 16, 'CRT': 15, 'PKWY': 6, 'CRCL': 6, 'CS': 5, 'GT': 3, 'WAY': 3, 'PATH': 2, 'WOOD': 2, 'LINE': 2, 'TRL': 2, 'GRV': 1}
+  DIRECTION {'': 9892, 'W': 1356, 'E': 1063, 'N': 19, 'S': 2}
+  UNIT_TYPE {'': 12330, 'Floor': 2}
+  UNIT {'': 12320, 'REAR': 4, '1': 2, 'LKR': 1, '305': 1, '03': 1, '02': 1, 'GRNDF': 1, '7': 1}
+  POSTAL_COD 2643 values, e.g. ['', 'M5S 2K3', 'M6G 2V5', 'M5A 2T5', 'M6J 3J1']
+  ADDRESS_TY {'Primary': 12092, 'Structure': 207, 'Entrance': 18, 'Condo Unit': 14, 'IBMS Primary': 1}
+  ROLL 2950 values, e.g. ['1904.0', '1908.0', '1.90406701001e+18', '1919.0', '1.90404104e+18']
+  X_COORDINA 11938 values, e.g. ['312003.6', '313465.52', '314515.61', '313482.49', '314295.45']
+  Y_COORDINA 11919 values, e.g. ['4832774.63', '4835346.46', '4833926.32', '4836058.01', '4837487.36']
+  PLANNING_D {'South': 11265, 'North': 511, 'West': 395, 'East': 161}
+  FORMER_MUN {'Toronto': 11292, 'York': 368, 'Etobicoke': 247, 'Scarborough': 161, 'North York': 154, 'East York': 110}
+  WARD {'13': 3811, '11': 3690, '10': 1424, '4': 723, '14': 690, '19': 393, '15': 339, '12': 329, '3': 204, '9': 203, '5': 142, '8': 86, '25': 54, '16': 37, '20': 33, '2': 29, '21': 26, '6': 21, '24': 19, '18': 18, '23': 16, '1': 14, '22': 13, '17': 10, '7': 6, '28': 2}
+  PRE_DEC_1_ 45 values, e.g. ['28', '27', '20', '30', '19']
+  HEA_DATE 261 values, e.g. ['', 'Jul 16, 2018', 'Dec 21, 1987', 'Oct 28, 2016', 'Jul 2, 2015']
+  ADDRESS 12034 values, e.g. ['2  STRACHAN AVE', '150  COLLEGE ST', '181  BAY ST', "73  QUEEN'S PARK CRES E", '171  ROXBOROUGH ST E']
+wrote /home/runner/work/city-layers/city-layers/cities/toronto/raw/heritage_buildings.json 10992 KB
