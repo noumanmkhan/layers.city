@@ -152,8 +152,11 @@ write('knownas', known)
 segs = defaultdict(list)
 for w in load('osm_streets.json')['elements']:
     t = w['tags']
-    if t['highway'] == 'tertiary' or len(w.get('geometry', [])) < 2: continue
+    if len(w.get('geometry', [])) < 2: continue
     key = street_key(t['name'])
+    # OpenStreetMap files a few of the city's arterials (25th, 33rd, 57th, Mackenzie, Renfrew) as tertiary:
+    # a tertiary road is a main street only when it's on the hand-kept list; the rest wait for a collectors layer.
+    if t['highway'] == 'tertiary' and key not in MAJOR_STREETS: continue
     g = way_line(w).intersection(CITY.buffer(0.0003))
     if g.is_empty: continue
     segs[(key, 'major' if key in MAJOR_STREETS else 'minor')].append(g)
@@ -215,6 +218,22 @@ write('region_shields', shields)
 
 # ---------- SkyTrain and SeaBus (metro), West Coast Express (rail), from TransLink's GTFS ----------
 tl = load('translink_rail.json')
+
+def reach_stations(m):
+    """Extend a line whose end stops within 350 m of a station point that it doesn't touch (the Canada Line ends at
+    its own Waterfront platform, west of the station point TransLink gives for Waterfront), so it meets the dot."""
+    pts = [(s['lon'], s['lat']) for s in tl['stations']]
+    parts = []
+    for p in getattr(m, 'geoms', [m]):
+        c = list(p.coords)
+        for i in (0, -1):
+            near = min(pts, key=lambda q: dist_km(q, c[i]))
+            if 0.02 < dist_km(near, c[i]) < 0.35 and not any(dist_km(near, x) < 0.02 for x in c):
+                c = [near] + c if i == 0 else c + [near]
+        parts.append(LineString(c))
+    return MultiLineString(parts) if len(parts) > 1 else parts[0]
+
+
 LINE_ID = lambda r: 'seabus' if r['type'] == '4' else 'wce' if r['type'] == '2' else re.sub(r'\W', '', r['long'].lower().replace(' line', '').replace('skytrain', '').strip())
 metro, metro_names = [], {}
 for rid, r in tl['routes'].items():
@@ -223,6 +242,7 @@ for rid, r in tl['routes'].items():
     top = max(r['counts'].values())
     shp = [LineString(r['shapes'][s]) for s, c in r['counts'].items() if c >= top * 0.15 and len(r['shapes'][s]) > 1]
     m = merged(shp, 0.1)
+    m = reach_stations(m)
     name = 'SeaBus' if lid == 'seabus' else r['long'] if 'Line' in r['long'] else r['long'] + ' Line'
     metro_names[rid] = {'seabus': 'SeaBus'}.get(lid, name.replace(' Line', ''))
     metro.append(feat(m, {'line': lid, 'name': name}))
@@ -261,7 +281,9 @@ for rid, r in tl['routes'].items():
         if rid in st['routes']:   # platforms filed as "X Station @ West Coast Express" merge into X
             nm = re.sub(r'\s+Station$', '', st['name'].split(' @ ')[0]).strip()
             seen_wce.setdefault(nm, []).append((st['lon'], st['lat']))
+    metro_at = {st['name']: (sum(p[0] for p in st['pts']) / len(st['pts']), sum(p[1] for p in st['pts']) / len(st['pts'])) for st in seen.values()}
     for nm, pts in seen_wce.items():
+        if nm in metro_at: pts = [metro_at[nm]]   # Waterfront: one dot shared with SkyTrain and SeaBus
         wce_stn.append({'type': 'Feature', 'properties': {'name': nm, 'lines': ['West Coast Express'], **({'hub': True} if nm == 'Waterfront' else {})},
                         'geometry': {'type': 'Point', 'coordinates': [round(sum(p[0] for p in pts) / len(pts), 5), round(sum(p[1] for p in pts) / len(pts), 5)]}})
 dump('wce_lines', wce_lines); dump('wce_lines_inner', wce_in); write('wce_stations', wce_stn)

@@ -118,8 +118,8 @@ def street_key(s):
 MAJOR_STREETS = {
     # east-west, north to south
     'Hastings St', 'Georgia St', 'Robson St', 'Davie St', 'Pacific St', 'Pender St', 'Powell St', 'Venables St', 'Prior St',
-    '1st Ave', '4th Ave', 'Broadway', '12th Ave', '16th Ave', 'King Edward Ave', '25th Ave', '33rd Ave', '41st Ave',
-    '49th Ave', '57th Ave', 'Marine Dr', 'SW Marine Dr', 'SE Marine Dr', 'Kingsway', 'Grandview Hwy', 'Terminal Ave',
+    '1st Ave', '4th Ave', 'Broadway', '12th Ave', '16th Ave', 'King Edward Ave', '33rd Ave', '41st Ave',
+    '49th Ave', '57th Ave', 'SW Marine Dr', 'SE Marine Dr', 'Kingsway', 'Grandview Hwy', 'Terminal Ave',
     # north-south, west to east
     'Blanca St', 'Dunbar St', 'Mackenzie St', 'Arbutus St', 'Macdonald St', 'Granville St', 'Oak St', 'Cambie St',
     'Main St', 'Fraser St', 'Knight St', 'Victoria Dr', 'Commercial Dr', 'Nanaimo St', 'Renfrew St', 'Rupert St',
