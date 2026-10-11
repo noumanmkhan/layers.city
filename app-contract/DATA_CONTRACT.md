@@ -1,4 +1,4 @@
-# City Layers data contract (schema 1)
+# Layers.City data contract (schema 1)
 
 This is everything an app needs to rebuild the map's "What's here" card from the published
 data, without reading the website's code. The website (this repo) is the only producer; an app is
@@ -101,7 +101,7 @@ How the website's search does it, for an app that wants to match:
 
 ## 4. city.json: the parts an app uses
 
-- `id`, `schema`, `title`, `locale` (`en-CA` or `en-US`, for number and date formatting).
+- `id`, `schema`, `title` (the full name, e.g. "Toronto · Layers.City"; it was "Toronto Layers" before October 12, 2026), `heading` (optional: the short name for headings and city pickers, e.g. "Toronto"; fall back to `title`), `locale` (`en-CA` or `en-US`, for number and date formatting).
 - `unlisted` (optional, `true`): the city is published but not announced yet (Vancouver, October 2026): the other cities' switchers and the maps hub leave it out. An app can skip it.
 - `distance` (optional): the unit for distances shown on the card, `"km"` (the default when absent; Toronto) or `"mi"` (Chicago). Config values such as `card.nearby.radius` stay in metres either way.
 - `units.singular` / `units.plural`: what the city calls its units ("Neighbourhood",

@@ -7,6 +7,10 @@
   there at Cloudflare, keeping the path and query string (and the browser keeps the `#` part), so old links and
   bookmarks still work. For the iOS app: change the data base URL to `https://layers.city/<city>/data/<file>`
   (contract section 1). The old URL keeps working through the redirect, at the cost of one extra hop.
+- **One name: Layers.City** (October 12). The maps are no longer "Toronto Layers" and "Chicago Layers": `title` in
+  city.json is now "Toronto · Layers.City" (browser tab, shared links, image names), and a new optional `heading`
+  ("Toronto") is what the panel heading and city switcher show, under the Layers.City logo. Additive for apps
+  (contract section 4): show `heading` where a city name fits, or keep showing `title`.
 
 ### Vancouver (in progress, unlisted)
 - **First build** (October 11): maps.noumankhan.ca/vancouver/, kept out of the other cities' switchers and the

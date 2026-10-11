@@ -27,13 +27,13 @@ t = re.sub(r'\{\{([\w.]+)\}\}', lambda m: lookup(m.group(1)), t)
 # The title doubles as a switcher between every city in cities/, plus the maps hub. With one city
 # it stays a plain heading.
 cities = sorted((json.loads(read(ROOT, 'cities', c, 'city.json')) for c in os.listdir(os.path.join(ROOT, 'cities'))
-                 if os.path.isfile(os.path.join(ROOT, 'cities', c, 'city.json'))), key=lambda c: c['title'])
+                 if os.path.isfile(os.path.join(ROOT, 'cities', c, 'city.json'))), key=lambda c: c.get('heading', c['title']))
 # A city marked "unlisted" (live but not announced yet) stays out of the other cities' switchers.
 cities = [c for c in cities if not c.get('unlisted') or c['id'] == cfg['id']]
-title = html.escape(cfg['title'])
+title = html.escape(cfg.get('heading', cfg['title']))   # the panel heading; the page <title> keeps the full title
 if len(cities) > 1:
     chev = '<svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-    opts = ''.join('<option value="../%s/"%s>%s</option>' % (c['id'], ' selected' if c['id'] == cfg['id'] else '', html.escape(c['title'])) for c in cities)
+    opts = ''.join('<option value="../%s/"%s>%s</option>' % (c['id'], ' selected' if c['id'] == cfg['id'] else '', html.escape(c.get('heading', c['title']))) for c in cities)
     switch = ('<div class="switch"><h1>%s%s</h1><select id="citySwitch" aria-label="Switch map">%s'
               '<option value="../">All maps</option></select></div>') % (title, chev, opts)
 else:

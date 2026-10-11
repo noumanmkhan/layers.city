@@ -1,17 +1,17 @@
-# City Layers
+# Layers.City
 
-A city is divided up in a dozen ways at once: official neighbourhoods, council wards, state or provincial and federal electoral districts, business districts, the informal names locals actually use, and the transit lines that tie it together. Each of those lives in a different dataset on a different website. City Layers puts them on one interactive map you can switch on and off, then tap any spot (or search an address or place) to see every boundary it falls inside, what it's like to live there and who represents it. It's built for two kinds of people: a resident learning things they probably didn't know about their own city, and a newcomer getting their bearings.
+A city is divided up in a dozen ways at once: official neighbourhoods, council wards, state or provincial and federal electoral districts, business districts, the informal names locals actually use, and the transit lines that tie it together. Each of those lives in a different dataset on a different website. Layers.City puts them on one interactive map you can switch on and off, then tap any spot (or search an address or place) to see every boundary it falls inside, what it's like to live there and who represents it. It's built for two kinds of people: a resident learning things they probably didn't know about their own city, and a newcomer getting their bearings.
 
 The maps share one engine, with a folder of data and settings per city:
 
-- **Toronto Layers:** https://layers.city/toronto/
-- **Chicago Layers**: https://layers.city/chicago/
+- **Toronto:** https://layers.city/toronto/
+- **Chicago:** https://layers.city/chicago/
 
-## Toronto Layers
+## Toronto
 
 An interactive map of the City of Toronto where you turn civic and cultural boundaries on and off, then tap any spot to see every boundary it falls inside.
 
-![Toronto Layers: the whole city with former cities, highways and rapid transit](assets/screenshot.png)
+![Layers.City Toronto: the whole city with former cities, highways and rapid transit](assets/screenshot.png)
 
 ### Why
 
@@ -132,7 +132,7 @@ The boundary lookup runs in the browser with point-in-polygon tests against ever
 
 ![Downtown with areas, neighbourhoods and known-as names switched on](assets/screenshot-downtown.png)
 
-## Chicago Layers
+## Chicago
 
 **Live site:** https://layers.city/chicago/
 
@@ -162,7 +162,7 @@ The community area lens uses the American Community Survey (2020–2024 five-yea
 
 *To the Loop* is Chicago's version of Toronto's time to Union: the typical transit trip on a weekday morning, from about 3,700 points 400 m apart across the 77 community areas, routed with r5py on the CTA, Metra and South Shore Line schedules. Because the Loop is a district rather than one station, each point counts its quickest arrival at any of five spots: Union Station or Ogilvie, LaSalle/Van Buren, Clark/Lake, State & Madison, or Millennium Station. It's banded like Toronto's (under 30 minutes, 30–45, 45–60, over an hour) and works with *Narrow it down*.
 
-## Vancouver Layers (in progress)
+## Vancouver (in progress)
 
 **Address:** https://layers.city/vancouver/ (live but not linked from the maps hub yet)
 

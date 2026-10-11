@@ -1,4 +1,4 @@
-/* City Layers map engine. Everything city-specific comes from CITY (cities/<city>/city.json),
+/* Layers.City map engine. Everything city-specific comes from CITY (cities/<city>/city.json),
    inlined above this script by engine/assemble.py, and from the city's data/ folder. */
 (() => {
 const DATA = 'data/';
