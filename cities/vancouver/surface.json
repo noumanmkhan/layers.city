@@ -1,0 +1,6 @@
+{
+  "_about": "Buses (engine/fetch_surface.py, engine/surface.py), from TransLink's GTFS. SkyTrain, SeaBus and the West Coast Express are drawn by their own layers, and aren't buses, so they're never fetched here. 'expressRoutes' marks RapidBus (R1–R6) and the 99 B-Line as express by number, since their names don't say so.",
+  "gtfs": {"url": "https://gtfs-static.translink.ca/gtfs/google_transit.zip"},
+  "expressRoutes": "R\\d+|0*99",
+  "skip": []
+}

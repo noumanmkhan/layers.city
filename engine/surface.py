@@ -9,7 +9,7 @@ Writes into docs/<city>/data/:
 
 Families, all described from the schedule, never ranked (thresholds in cities/<city>/surface.json):
   - freq: a weekday trip every 10 minutes or better from 7 am to 7 pm, in each direction;
-  - exp: routes the agency names as express;
+  - exp: routes the agency names as express (or numbers as express: surface.json "expressRoutes", a pattern for the route number);
   - night: at least one trip each way in every hour from 2 to 4 am on a weekday night;
   - reg: every other route with daytime service (neither frequent nor express), e.g. community and branch routes.
 
@@ -34,6 +34,8 @@ S = json.load(open(os.path.join(RAW, 'stops.json')))
 FREQ = CFG.get('frequent', {'perHour': 6, 'from': 7, 'to': 19})
 NIGHT = CFG.get('overnight', {'from': 2, 'to': 4})
 EXPRESS = re.compile(CFG.get('express', r'\bExpress\b'), re.I)
+# Routes an agency brands as express by number rather than name (Vancouver's RapidBus R1-R6 and the 99 B-Line).
+EXPRESS_NO = re.compile(CFG['expressRoutes']) if CFG.get('expressRoutes') else None
 
 
 def dirs(counts):
@@ -92,7 +94,7 @@ def geometry(r):
 
 routes, feats, cars = [], [], []
 for r in R['routes']:
-    fam = [k for k, ok in (('freq', frequent(r)), ('exp', bool(EXPRESS.search(r['long']))), ('night', overnight(r))) if ok]
+    fam = [k for k, ok in (('freq', frequent(r)), ('exp', bool(EXPRESS.search(r['long']) or (EXPRESS_NO and EXPRESS_NO.fullmatch(r['short'])))), ('night', overnight(r))) if ok]
     day = daytime(r)
     if day and 'freq' not in fam and 'exp' not in fam: fam.append('reg')
     g = geometry(r)
