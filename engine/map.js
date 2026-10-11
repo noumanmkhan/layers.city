@@ -1608,6 +1608,14 @@ here.addEventListener('scroll', () => {
 if (window.ResizeObserver) new ResizeObserver(() => {
   document.documentElement.style.setProperty('--panel-h', (matchMedia('(max-width:760px)').matches && !panel.hidden ? panel.offsetHeight : 0) + 'px');
 }).observe(panel);
+// Desktop: the panel, the card column and the zoom buttons stop just above the
+// attribution strip, which wraps to more lines on narrower windows.
+if (window.ResizeObserver){
+  const attr = map.attributionControl.getContainer();
+  new ResizeObserver(() => {
+    document.documentElement.style.setProperty('--attr-h', (attr.offsetHeight || 18) + 'px');
+  }).observe(attr);
+}
 function closeHere(){
   here.hidden = true; if (meRing){ map.removeLayer(meRing); meRing = null; }
   if (cmp){ cmp = null; document.getElementById('side').classList.remove('cmp'); }

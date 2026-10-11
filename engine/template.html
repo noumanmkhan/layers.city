@@ -61,7 +61,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .leaflet-container{background:var(--water);font-family:var(--font)}
 .leaflet-container :focus-visible{outline:2px solid var(--focus)}
 .leaflet-control-zoom{box-shadow:var(--shadow)!important;border:1px solid var(--rule)!important}
-.leaflet-bottom.leaflet-left .leaflet-control-zoom{margin:0 0 26px 332px}
+.leaflet-bottom.leaflet-left .leaflet-control-zoom{margin:0 0 calc(var(--attr-h,18px) + 8px) 332px}
 @media (max-width:760px){.leaflet-control-zoom{display:none}}
 .leaflet-control-zoom a{background:var(--panel)!important;color:var(--ink)!important;border-color:var(--rule)!important}
 .leaflet-bar{box-shadow:var(--shadow)!important;border:none!important}
@@ -69,7 +69,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .leaflet-control-attribution a{color:var(--ink-2)!important}
 
 /* ---------- panel ---------- */
-#panel{position:absolute;z-index:1000;top:16px;left:16px;bottom:16px;width:300px;display:flex;flex-direction:column;
+#panel{position:absolute;z-index:1000;top:16px;left:16px;bottom:calc(var(--attr-h,18px) + 8px);width:300px;display:flex;flex-direction:column;
   background:var(--panel);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;overflow:clip}
 .ph{padding:18px 18px 12px;border-bottom:1px solid var(--rule)}
 .ph h1{margin:0;font-size:21px;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
@@ -450,7 +450,7 @@ circle.cl{stroke-width:3;fill:var(--city)}
 
 /* ---------- readout ---------- */
 /* #side runs to the bottom of the screen so the card can scroll inside it; the gap below the card stays tappable. */
-#side{position:absolute;z-index:1000;top:16px;right:16px;bottom:16px;width:320px;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+#side{position:absolute;z-index:1000;top:16px;right:16px;bottom:calc(var(--attr-h,18px) + 8px);width:320px;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 #side>*{pointer-events:auto;flex:none}
 #here{background:var(--panel);border-radius:14px;box-shadow:var(--shadow);flex:0 1 auto;min-height:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;
   scrollbar-width:thin;scrollbar-color:transparent transparent;transition:scrollbar-color .2s}
