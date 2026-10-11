@@ -88,11 +88,13 @@ step('local areas', lambda: save('local_areas.geojson', json.loads(get(ODS + 'lo
 GEO = 'https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/'
 
 
-def arcgis(layer, where, fields, offset_deg, out):
+def arcgis(layer, where, offset_deg, out, bbox=None):
     feats, start = [], 0
     while True:
-        q = urllib.parse.urlencode({'where': where, 'outFields': fields, 'outSR': 4326, 'f': 'geojson', 'returnGeometry': 'true',
-                                    'maxAllowableOffset': offset_deg, 'geometryPrecision': 6, 'resultOffset': start, 'resultRecordCount': 500})
+        p = {'where': where, 'outFields': '*', 'outSR': 4326, 'f': 'geojson', 'returnGeometry': 'true', 'orderByFields': 'OBJECTID',
+             'maxAllowableOffset': offset_deg, 'resultOffset': start, 'resultRecordCount': 500}
+        if bbox: p.update({'geometry': '%s,%s,%s,%s' % bbox, 'geometryType': 'esriGeometryEnvelope', 'inSR': 4326, 'spatialRel': 'esriSpatialRelIntersects'})
+        q = urllib.parse.urlencode(p)
         d = json.loads(get(GEO + str(layer) + '/query?' + q))
         if 'error' in d: raise RuntimeError(d['error'])
         feats += d.get('features', [])
@@ -104,10 +106,12 @@ def arcgis(layer, where, fields, offset_deg, out):
 
 # Metro Vancouver's municipalities and reserves in detail; the census divisions around it (Fraser Valley,
 # Squamish-Lillooet, Sunshine Coast, qathet, the east side of Vancouver Island) coarser, as land beyond the region.
-step('census subdivisions', lambda: arcgis(9, "CDUID = '5915'", 'CSDUID,CSDNAME,CSDTYPE,CDUID', 0.00005, 'csds.geojson'))
-step('land around the region', lambda: arcgis(9, "CDUID IN ('5909','5931','5929','5927','5917','5919','5921','5923','5926')",
-                                               'CSDUID,CSDNAME,CSDTYPE,CDUID', 0.0005, 'csds_around.geojson'))
-step('dissemination areas', lambda: arcgis(12, "CSDUID = '5915022'", 'DAUID,DGUID,CSDUID', 0.00002, 'das.geojson'))
+# The layers carry no census-division field, so divisions are picked by the start of the subdivision's code.
+step('census subdivisions', lambda: arcgis(9, "CSDUID LIKE '5915%'", 0.00005, 'csds.geojson'))
+step('land around the region', lambda: arcgis(9, ' OR '.join("CSDUID LIKE '%s%%'" % cd for cd in ('5909', '5931', '5929', '5927', '5917', '5919', '5921', '5923', '5926')),
+                                               0.0005, 'csds_around.geojson'))
+# DAs carry no subdivision either: Metro Vancouver's (5915) inside the City's box; build.py keeps the ones in the City.
+step('dissemination areas', lambda: arcgis(12, "DAUID LIKE '5915%'", 0.00002, 'das.geojson', CITY))
 
 # ---------- Washington State (U.S. Census cartographic boundary, 1:500k) ----------
 def washington():
