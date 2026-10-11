@@ -63,10 +63,10 @@
       {"id": "colleges", "kind": "places", "under": "landmarks", "file": "institutions", "cat": "college", "name": "Colleges", "place": "College", "note": "Public college campuses; no private career colleges or partnership campuses"},
       {"id": "hospitals", "kind": "places", "under": "landmarks", "file": "institutions", "cat": "hospital", "name": "Hospitals", "place": "Hospital", "edText": "Emergency department", "note": "Public and OHIP-funded hospitals; a heavier ring marks an emergency department"},
       {"id": "towers", "kind": "towers", "under": "landmarks", "file": "skyscrapers", "name": "Skyscrapers", "place": "Skyscraper", "note": "Buildings 150 m and taller, open or under construction", "key": {"res": "Residential", "com": "Commercial (office or hotel)", "mix": "Mixed use", "uc": "Under construction · hollow", "sup": "Supertall, 300 m or more · gold ring"}, "purpose": {"Residential": "Residential tower", "Office": "Office tower", "Hotel": "Hotel tower", "Mixed-use": "Mixed-use tower"}, "supText": "Supertall", "ucText": "Under construction", "builtText": "Completed", "expectedText": "Expected", "akaText": "Also known as {aka}", "moreText": "More on Wikipedia", "sourceText": "Source: Wikipedia"},
-      {"id": "heritage", "kind": "districts", "file": "heritage", "name": "Heritage districts", "note": "29 Heritage Conservation Districts in force", "label": "{name}", "hover": "{name} Heritage Conservation District"}
+      {"id": "heritage", "kind": "districts", "file": "heritage", "name": "Heritage districts", "note": "29 Heritage Conservation Districts in force", "label": "{name}", "hover": "{name} Heritage Conservation District"},
+      {"id": "hbld", "kind": "heritage", "file": "heritage_buildings", "name": "Heritage buildings", "note": "1,515 properties designated one by one (Part IV); from zoom 15", "place": "Designated heritage property", "builtText": "built {y}", "byText": "{ar}", "designatedText": "designated {d}", "bylawText": "By-law", "hcdText": "Also in (district)"}
     ]],
     ["Representation", [
-      {"id": "hbld", "kind": "heritage", "file": "heritage_buildings", "name": "Heritage buildings", "note": "1,515 properties designated one by one (Part IV); from zoom 12", "place": "Designated heritage property", "builtText": "built {y}", "byText": "{ar}", "designatedText": "designated {d}", "bylawText": "By-law", "hcdText": "Also in (district)"},
       {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "25 wards, one councillor each", "label": "Ward {num}", "hover": "Ward {num} · {name}"},
       {"id": "prov", "kind": "outline", "level": "state", "file": "wards", "name": "Provincial ridings", "note": "25 MPPs · same lines as the wards", "label": "{prov}", "hover": "Provincial: {prov}"},
       {"id": "fed", "kind": "outline", "level": "national", "file": "federal", "name": "Federal ridings", "note": "24 MPs · 2023 boundaries", "label": "{name}", "hover": "Federal: {name}"},
@@ -86,7 +86,7 @@
       {"id": "go", "kind": "rail", "files": ["go_lines", "go_stations", "go_lines_416"], "name": "GO Transit trains", "note": "7 GO lines and UP Express to Pearson", "on": true,
        "hover": "{name} line · Union – {to}", "lineHover": {"UP": "{name} (Union – Pearson)"}},
       {"id": "gobus", "kind": "regional", "mode": "go", "under": "go", "file": "transit_routes", "lazy": true, "stopZoom": 12, "name": "GO buses",
-       "note": "Regional routes across the GTA and beyond; in the city view, the ones that stop in Toronto. Stops from zoom 12"},
+       "note": "Regional routes across the GTA and beyond; in the city view, the ones that stop in Toronto. Stops from zoom 15"},
       {"id": "subway", "kind": "metro", "files": ["subway_lines", "subway_stations"], "name": "Subway & LRT", "note": "Lines 1, 2, 4, 5 and 6", "on": true,
        "stationHover": "{name} · Line {lines}", "sub": {"id": "stnNames", "label": "Show station names", "on": true}},
       {"id": "tram", "kind": "streetcars", "file": "streetcars", "name": "Streetcars", "note": "11 routes, numbered along the line; stops from zoom 15"},

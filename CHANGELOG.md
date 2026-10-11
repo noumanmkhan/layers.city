@@ -6,7 +6,7 @@
 - **Heritage buildings** (October 11): a layer of buildings protected one by one, after Heritage districts.
   Toronto: 1,515 properties designated under Part IV (City Heritage Register; listed and district-only
   properties left out; names taken from the register's descriptions where they start with one, 767 of
-  them). Chicago: 412 Chicago Landmarks (Individual Landmarks dataset). Small diamonds from zoom 12, names
+  them). Chicago: 412 Chicago Landmarks (Individual Landmarks dataset). Small diamonds from zoom 15 (only those in view, so it stays smooth on phones), names
   from 16; popup with year, architect, designation, and Toronto's by-law and district; a Heritage building
   row on the card (within 40 m); named ones in search. Fetched monthly by
   `engine/fetch_heritage_buildings.py` (fetch-heritage-buildings.yml), built by

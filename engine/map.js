@@ -492,18 +492,31 @@ const KINDS = {
     }
     return g;
   },
-  // Heritage buildings: a small diamond per individually protected property, from zoom 12; names (when the
-  // record has one) from zoom 16. Tap for its name, year, architect and designation.
+  // Heritage buildings: a small diamond per individually protected property, only from zoom it.minZoom (15)
+  // and only those in view (redrawn after each move), so a phone never holds more than a street's worth;
+  // names (when the record has one) from zoom 16. Tap for its name, year, architect and designation.
   heritage: (it, fc) => {
-    const g = L.layerGroup();
-    fc.features.forEach(f => {
+    const g = L.layerGroup(), shown = new Map(), minZ = it.minZoom || 15;
+    const make = f => {
       const p = f.properties;
       const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true,
         icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="hb"><i></i>' + (p.n ? '<b>' + esc(p.n) + '</b>' : '') + '</span>'})});
       hoverTip(m, esc(p.n || p.a) + (p.y ? ' · ' + esc(p.y) : ''));
       m.on('click', e => { L.DomEvent.stop(e); hbPopup(it, p, e.latlng); });
-      g.addLayer(m);
-    });
+      return m;
+    };
+    const draw = () => {
+      if (!map.hasLayer(g)) return;
+      const on = map.getZoom() >= minZ - .01, b = map.getBounds().pad(.25);
+      fc.features.forEach(f => {
+        const c = f.geometry.coordinates, want = on && b.contains([c[1], c[0]]), m = shown.get(f);
+        if (want && !m){ const mk = make(f); shown.set(f, mk); g.addLayer(mk); }
+        else if (!want && m){ g.removeLayer(m); shown.delete(f); }
+      });
+    };
+    map.on('moveend', draw);
+    g.on('add', () => setTimeout(draw));
+    g.on('remove', () => { shown.forEach(m => g.removeLayer(m)); shown.clear(); });
     return g;
   },
   // What's changing: a dot per site, coloured by stage; demolitions dashed. Loads on first use (it.lazy).
