@@ -1203,7 +1203,13 @@ dl.facts dd{margin:0;font-weight:500;min-width:0}
 .hint{padding:12px 16px 14px;color:var(--ink-2);font-size:12.5px;border-top:1px solid var(--rule)}
 
 @media (max-width:760px){
-  #panel{top:auto;left:0;right:0;bottom:0;width:auto;max-height:46%;border-radius:16px 16px 0 0;padding-bottom:env(safe-area-inset-bottom,0px)}
+  #panel{top:auto;left:0;right:0;bottom:0;width:auto;max-height:46%;border-radius:16px 16px 0 0;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+  /* Phones: Views, the extent switch and the layer list scroll as one, between a pinned heading and footer,
+     so the list never gets squeezed to a sliver under the Views chips. */
+  #panel>*{flex-shrink:0}
+  #layers{flex:none;overflow:visible;min-height:auto}
+  .ph{position:sticky;top:0;z-index:3;background:var(--panel)}
+  .pf{position:sticky;bottom:0;z-index:3;background:var(--panel);padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
   #panel.collapsed #layers,#panel.collapsed .pf,#panel.collapsed .presets{display:none}
   #panel.collapsed .focus-list,#panel.collapsed .focus-res{display:none}
   #panel.collapsed .pf-inv{display:none}
