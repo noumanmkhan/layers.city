@@ -39,6 +39,9 @@
   leaves `unlisted` cities out of the other cities' switchers. Toronto and Chicago look the same.
 
 ### Both cities
+- **No zoom when tapping search on iPhone** (October 12, all cities): on touch screens the search box and the
+  Focus picker use 16px text, so iPhone Safari no longer zooms the page in when they're tapped. Pinch-zoom
+  still works. Desktop sizes unchanged.
 - **Buses in each agency's own colours** (October 12): Toronto follows the TTC: streetcar numbers red with
   white text, bus numbers white with a red outline (frequent and regular alike), express green, Blue Night
   white with a blue outline; bus lines charcoal as on TTC route maps, express green (dashed when shown with

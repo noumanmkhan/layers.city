@@ -1143,6 +1143,8 @@ circle.cl{stroke-width:3;fill:var(--city)}
 #search form{display:flex;align-items:center;gap:8px;padding:6px 6px 6px 14px}
 #search svg{flex:none;width:16px;height:16px;color:var(--ink-3)}
 #q{flex:1;min-width:0;font:500 14px/1.2 var(--font);color:var(--ink);background:none;border:none;outline:none;padding:8px 0}
+/* iPhone Safari zooms the page into any text field set under 16px, and doesn't zoom back out: touch screens get 16px. */
+@media (pointer:coarse){#q,.focus select{font-size:16px}}
 #q::placeholder{color:var(--ink-3)}
 #search:focus-within{box-shadow:var(--shadow),0 0 0 2px var(--focus)}
 #locate{flex:none;display:grid;place-items:center;width:34px;height:32px;border:1px solid var(--rule);border-radius:9px;background:none;color:var(--accent);cursor:pointer;padding:0}
