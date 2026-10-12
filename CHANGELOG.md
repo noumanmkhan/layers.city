@@ -125,6 +125,11 @@
   same view from the rows it already has (contract section 5).
 
 ### Toronto
+- **Starting layers** (October 12): first load and Reset now also show Landmarks, Universities, Colleges,
+  Hospitals, Skyscrapers and Streetcars, beside Former cities, Old Toronto areas, Neighbourhoods, Known-as
+  names, Main streets, Highways, GO trains and Subway & LRT. Shared links that list their layers are
+  unchanged; a link without `layers=` now opens with these. For the iOS app: only the `on` flags in
+  `city.json` changed.
 - **GO buses** (October 11): a new toggle under GO Transit trains draws GO's regional bus routes, in a
   dark GO green, numbered "GO 41" so they never mix with TTC route 41. The regional view shows the whole
   network (Hamilton, Niagara, Guelph, Peterborough…); the city view shows only the routes that stop in
