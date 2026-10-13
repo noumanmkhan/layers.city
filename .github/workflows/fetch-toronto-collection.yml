@@ -1,0 +1,36 @@
+name: Fetch Toronto collection days
+# Downloads Toronto's curbside collection areas (City GIS) and the newest year's pickup calendar
+# (Toronto Open Data) into cities/toronto/raw/collection/, builds docs/toronto/data/collection.geojson
+# with cities/toronto/collection.py and commits both. Monthly (so a new year's calendar is picked up
+# soon after the City publishes it, usually by March), when the scripts change, or by hand.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 9 2 * *'
+  push:
+    branches: [main]
+    paths: ['cities/toronto/fetch_collection.py', 'cities/toronto/collection.py', '.github/workflows/fetch-toronto-collection.yml']
+permissions:
+  contents: write
+concurrency: fetch-toronto-collection
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install shapely
+      - run: |
+          mkdir -p cities/toronto/raw/collection
+          ( python3 -u cities/toronto/fetch_collection.py && python3 -u cities/toronto/collection.py ) 2>&1 | tee cities/toronto/raw/collection/fetch.log
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/collection
+          [ -f docs/toronto/data/collection.geojson ] && git add docs/toronto/data/collection.geojson
+          git commit -m "Fetch Toronto collection areas and calendar" || echo "no changes"
+          git pull --rebase
+          git push
