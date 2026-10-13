@@ -2,6 +2,7 @@
   COTGEO_VOTING_SUBDIVISION: 1356
   COTGEO_VOTING_LOCATION: 1000
   COTGEO_VOTING_LOCATION: 1356
+edited: {'subdivisions': '2026-10-13T06:46:30Z', 'places': '2026-10-13T06:48:11Z'}
 list: https://www.toronto.ca/wp-content/uploads/2026/10/96cc-All-Wards-List-as-of-Sept-301.xlsx
 subdivisions 1356 Counter({'VSD': 1356})
 places 1356 Counter({'Primary': 1356}) Counter({'VOTING_LOCATION': 1356})
@@ -25,3 +26,8 @@ addresses serving 2+ codes: 4
   sub {'AREA_LONG_CODE': '11017', 'AREA_NAME': '11017', 'AREA_DESC': '11017', 'PARENT_AREA_ID': None, 'VOTER_COUNT': 453}
   sub {'AREA_LONG_CODE': '09008', 'AREA_NAME': '09008', 'AREA_DESC': '09008', 'PARENT_AREA_ID': None, 'VOTER_COUNT': 2076}
   sub {'AREA_LONG_CODE': '13002', 'AREA_NAME': '13002', 'AREA_DESC': '13002', 'PARENT_AREA_ID': None, 'VOTER_COUNT': 281}
+subdivisions 1356, names/entrances from the list 1353, no building name 6
+  moved since the list was published: ('14005', '175 Plains Road', '520 Cosburn Ave')
+  moved since the list was published: ('10009', '50 Lynn Williams St', '100 Western Battery Rd')
+  moved since the list was published: ('14021', '740 Pape Avenue', '730 Pape Ave')
+wrote /home/runner/work/city-layers/city-layers/cities/toronto/../../docs/toronto/data/voting.geojson 1213 KB
