@@ -1,0 +1,620 @@
+{
+ "schedule2026": {
+  "rows": 418,
+  "calendars": {
+   "Tuesday1": 52,
+   "Tuesday2": 52,
+   "Wednesday1": 52,
+   "Wednesday2": 52,
+   "Thursday1": 53,
+   "Thursday2": 53,
+   "Friday1": 52,
+   "Friday2": 52
+  },
+  "first": [
+   "01/02/26",
+   "01/03/26"
+  ],
+  "last": [
+   "12/30/26",
+   "12/31/26"
+  ],
+  "sample": [
+   {
+    "_id": "1",
+    "Calendar": "Tuesday1",
+    "WeekStarting": "01/06/26",
+    "GreenBin": "T",
+    "Garbage": "0",
+    "Recycling": "T",
+    "YardWaste": "0",
+    "ChristmasTree": "0"
+   },
+   {
+    "_id": "2",
+    "Calendar": "Tuesday1",
+    "WeekStarting": "01/13/26",
+    "GreenBin": "T",
+    "Garbage": "T",
+    "Recycling": "0",
+    "YardWaste": "0",
+    "ChristmasTree": "T"
+   },
+   {
+    "_id": "3",
+    "Calendar": "Tuesday1",
+    "WeekStarting": "01/20/26",
+    "GreenBin": "T",
+    "Garbage": "0",
+    "Recycling": "T",
+    "YardWaste": "0",
+    "ChristmasTree": "0"
+   },
+   {
+    "_id": "4",
+    "Calendar": "Tuesday1",
+    "WeekStarting": "01/27/26",
+    "GreenBin": "T",
+    "Garbage": "T",
+    "Recycling": "0",
+    "YardWaste": "0",
+    "ChristmasTree": "T"
+   },
+   {
+    "_id": "5",
+    "Calendar": "Tuesday1",
+    "WeekStarting": "02/03/26",
+    "GreenBin": "T",
+    "Garbage": "0",
+    "Recycling": "T",
+    "YardWaste": "0",
+    "ChristmasTree": "0"
+   },
+   {
+    "_id": "6",
+    "Calendar": "Tuesday1",
+    "WeekStarting": "02/10/26",
+    "GreenBin": "T",
+    "Garbage": "T",
+    "Recycling": "0",
+    "YardWaste": "0",
+    "ChristmasTree": "0"
+   }
+  ]
+ },
+ "areas": {
+  "files": [
+   "solid waste daytime curbside collection areas readme.txt",
+   "citygcs_res_wastecollect_schedule_metadata_wgs84.pdf",
+   "citygcs_res_wastecollect_schedule_wgs84_b.dbf",
+   "citygcs_res_wastecollect_schedule_wgs84_b.prj",
+   "citygcs_res_wastecollect_schedule_wgs84_b.sbn",
+   "citygcs_res_wastecollect_schedule_wgs84_b.sbx",
+   "citygcs_res_wastecollect_schedule_wgs84_b.shp",
+   "citygcs_res_wastecollect_schedule_wgs84_b.shp.xml",
+   "citygcs_res_wastecollect_schedule_wgs84_b.shx"
+  ],
+  "citygcs_res_wastecollect_schedule_wgs84_b.dbf": {
+   "fields": [
+    "AREA_ID",
+    "AREA_LONG_",
+    "AREA_NAME",
+    "Area"
+   ],
+   "rows": 34,
+   "sample": [
+    {
+     "AREA_ID": "25855481",
+     "AREA_LONG_": "D4TH1",
+     "AREA_NAME": "Thursday 1",
+     "Area": "District 4"
+    },
+    {
+     "AREA_ID": "25855482",
+     "AREA_LONG_": "D3TU2",
+     "AREA_NAME": "Tuesday 2",
+     "Area": "District 3"
+    },
+    {
+     "AREA_ID": "25855483",
+     "AREA_LONG_": "D3FR2",
+     "AREA_NAME": "Friday 2",
+     "Area": "District 3"
+    },
+    {
+     "AREA_ID": "25855484",
+     "AREA_LONG_": "D2TU1",
+     "AREA_NAME": "Tuesday 1",
+     "Area": "District 2"
+    },
+    {
+     "AREA_ID": "25855485",
+     "AREA_LONG_": "D2WE1",
+     "AREA_NAME": "Wednesday 1",
+     "Area": "District 2"
+    }
+   ],
+   "distinct": {
+    "AREA_ID": [
+     [
+      "25855481",
+      1
+     ],
+     [
+      "25855482",
+      1
+     ],
+     [
+      "25855483",
+      1
+     ],
+     [
+      "25855484",
+      1
+     ],
+     [
+      "25855485",
+      1
+     ],
+     [
+      "25855488",
+      1
+     ],
+     [
+      "25855491",
+      1
+     ],
+     [
+      "25855492",
+      1
+     ],
+     [
+      "25855494",
+      1
+     ],
+     [
+      "25855495",
+      1
+     ],
+     [
+      "25855496",
+      1
+     ],
+     [
+      "25855489",
+      1
+     ],
+     [
+      "25855498",
+      1
+     ],
+     [
+      "25855461",
+      1
+     ],
+     [
+      "25855463",
+      1
+     ],
+     [
+      "25855464",
+      1
+     ],
+     [
+      "25855465",
+      1
+     ],
+     [
+      "25855466",
+      1
+     ],
+     [
+      "25855468",
+      1
+     ],
+     [
+      "25855469",
+      1
+     ],
+     [
+      "25855471",
+      1
+     ],
+     [
+      "25855472",
+      1
+     ],
+     [
+      "25855473",
+      1
+     ],
+     [
+      "25855475",
+      1
+     ],
+     [
+      "25855476",
+      1
+     ],
+     [
+      "25855470",
+      1
+     ],
+     [
+      "25855477",
+      1
+     ],
+     [
+      "25855478",
+      1
+     ],
+     [
+      "25855479",
+      1
+     ],
+     [
+      "25855480",
+      1
+     ],
+     [
+      "25855486",
+      1
+     ],
+     [
+      "25855490",
+      1
+     ],
+     [
+      "25855493",
+      1
+     ],
+     [
+      "25855497",
+      1
+     ]
+    ],
+    "AREA_LONG_": [
+     [
+      "D4TH1",
+      1
+     ],
+     [
+      "D3TU2",
+      1
+     ],
+     [
+      "D3FR2",
+      1
+     ],
+     [
+      "D2TU1",
+      1
+     ],
+     [
+      "D2WE1",
+      1
+     ],
+     [
+      "D1TH1",
+      1
+     ],
+     [
+      "D1TU1",
+      1
+     ],
+     [
+      "D1WE1",
+      1
+     ],
+     [
+      "D1WE2",
+      1
+     ],
+     [
+      "D3TU1",
+      1
+     ],
+     [
+      "D3TH1",
+      1
+     ],
+     [
+      "D1FR2",
+      1
+     ],
+     [
+      "D2NIT",
+      1
+     ],
+     [
+      "D3WE2",
+      1
+     ],
+     [
+      "D3TH2",
+      1
+     ],
+     [
+      "D3WE1",
+      1
+     ],
+     [
+      "D3FR1",
+      1
+     ],
+     [
+      "D2FR2",
+      1
+     ],
+     [
+      "D2TH2",
+      1
+     ],
+     [
+      "D2FR1",
+      1
+     ],
+     [
+      "D2TU2",
+      1
+     ],
+     [
+      "D2WE2",
+      1
+     ],
+     [
+      "D4TU2",
+      1
+     ],
+     [
+      "D4WE1",
+      1
+     ],
+     [
+      "D4WE2",
+      1
+     ],
+     [
+      "D2TH1",
+      1
+     ],
+     [
+      "D4TU1",
+      1
+     ],
+     [
+      "D4FR1",
+      1
+     ],
+     [
+      "D4TH2",
+      1
+     ],
+     [
+      "D4FR2",
+      1
+     ],
+     [
+      "D1TH2",
+      1
+     ],
+     [
+      "D1FR1",
+      1
+     ],
+     [
+      "D1TU2",
+      1
+     ],
+     [
+      "D3NIT",
+      1
+     ]
+    ],
+    "AREA_NAME": [
+     [
+      "Thursday 1",
+      4
+     ],
+     [
+      "Tuesday 2",
+      4
+     ],
+     [
+      "Friday 2",
+      4
+     ],
+     [
+      "Tuesday 1",
+      4
+     ],
+     [
+      "Wednesday 1",
+      4
+     ],
+     [
+      "Wednesday 2",
+      4
+     ],
+     [
+      "Thursday 2",
+      4
+     ],
+     [
+      "Friday 1",
+      4
+     ],
+     [
+      "No Collection",
+      2
+     ]
+    ],
+    "Area": [
+     [
+      "District 3",
+      9
+     ],
+     [
+      "District 2",
+      9
+     ],
+     [
+      "District 4",
+      8
+     ],
+     [
+      "District 1",
+      8
+     ]
+    ]
+   }
+  },
+  "citygcs_res_wastecollect_schedule_wgs84_b.prj": "GEOGCS[\"WGS 84\",DATUM[\"World Geodetic System 1984 [EPSG ID 6326]\",SPHEROID[\"WGS 84 [EPSG ID 7030]\",6378137.0,298.257223563]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.01745329251994328]]"
+ },
+ "districts": {
+  "files": [
+   "swms districts readme file.txt",
+   "citygcs_swms_districts_metadata_wgs84.pdf",
+   "citygcs_swms_districts_wgs84.dbf",
+   "citygcs_swms_districts_wgs84.prj",
+   "citygcs_swms_districts_wgs84.sbn",
+   "citygcs_swms_districts_wgs84.sbx",
+   "citygcs_swms_districts_wgs84.shp",
+   "citygcs_swms_districts_wgs84.shp.xml",
+   "citygcs_swms_districts_wgs84.shx"
+  ],
+  "citygcs_swms_districts_wgs84.dbf": {
+   "fields": [
+    "AREA_ID",
+    "AREA_SHORT",
+    "AREA_LONG_",
+    "AREA_NAME",
+    "AREA_DESC"
+   ],
+   "rows": 4,
+   "sample": [
+    {
+     "AREA_ID": "25855487",
+     "AREA_SHORT": "D1",
+     "AREA_LONG_": "D1",
+     "AREA_NAME": "District 1",
+     "AREA_DESC": "District 1"
+    },
+    {
+     "AREA_ID": "25855462",
+     "AREA_SHORT": "D3",
+     "AREA_LONG_": "D3",
+     "AREA_NAME": "District 3",
+     "AREA_DESC": "District 3"
+    },
+    {
+     "AREA_ID": "25855467",
+     "AREA_SHORT": "D2",
+     "AREA_LONG_": "D2",
+     "AREA_NAME": "District 2",
+     "AREA_DESC": "District 2"
+    },
+    {
+     "AREA_ID": "25855474",
+     "AREA_SHORT": "D4",
+     "AREA_LONG_": "D4",
+     "AREA_NAME": "District 4",
+     "AREA_DESC": "District 4"
+    }
+   ],
+   "distinct": {
+    "AREA_ID": [
+     [
+      "25855487",
+      1
+     ],
+     [
+      "25855462",
+      1
+     ],
+     [
+      "25855467",
+      1
+     ],
+     [
+      "25855474",
+      1
+     ]
+    ],
+    "AREA_SHORT": [
+     [
+      "D1",
+      1
+     ],
+     [
+      "D3",
+      1
+     ],
+     [
+      "D2",
+      1
+     ],
+     [
+      "D4",
+      1
+     ]
+    ],
+    "AREA_LONG_": [
+     [
+      "D1",
+      1
+     ],
+     [
+      "D3",
+      1
+     ],
+     [
+      "D2",
+      1
+     ],
+     [
+      "D4",
+      1
+     ]
+    ],
+    "AREA_NAME": [
+     [
+      "District 1",
+      1
+     ],
+     [
+      "District 3",
+      1
+     ],
+     [
+      "District 2",
+      1
+     ],
+     [
+      "District 4",
+      1
+     ]
+    ],
+    "AREA_DESC": [
+     [
+      "District 1",
+      1
+     ],
+     [
+      "District 3",
+      1
+     ],
+     [
+      "District 2",
+      1
+     ],
+     [
+      "District 4",
+      1
+     ]
+    ]
+   }
+  },
+  "citygcs_swms_districts_wgs84.prj": "GEOGCS[\"WGS 84\",DATUM[\"World Geodetic System 1984 [EPSG ID 6326]\",SPHEROID[\"WGS 84 [EPSG ID 7030]\",6378137.0,298.257223563]],PRIMEM[\"Greenwich\",0.0],UNIT[\"Degree\",0.01745329251994328]]"
+ }
+}

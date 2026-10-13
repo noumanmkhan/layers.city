@@ -1,0 +1,957 @@
+{
+ "toronto_garbage": {
+  "calendars": {
+   "Tuesday1": 52,
+   "Tuesday2": 52,
+   "Wednesday1": 52,
+   "Wednesday2": 52,
+   "Thursday1": 53,
+   "Thursday2": 53,
+   "Friday1": 52,
+   "Friday2": 52
+  },
+  "areas_fields": [
+   [
+    "AREA_ID",
+    "AREA_LONG_",
+    "AREA_NAME",
+    "Area"
+   ]
+  ],
+  "areas_distinct": [
+   {
+    "AREA_ID": [
+     [
+      "25855481",
+      1
+     ],
+     [
+      "25855482",
+      1
+     ],
+     [
+      "25855483",
+      1
+     ],
+     [
+      "25855484",
+      1
+     ],
+     [
+      "25855485",
+      1
+     ],
+     [
+      "25855488",
+      1
+     ],
+     [
+      "25855491",
+      1
+     ],
+     [
+      "25855492",
+      1
+     ],
+     [
+      "25855494",
+      1
+     ],
+     [
+      "25855495",
+      1
+     ],
+     [
+      "25855496",
+      1
+     ],
+     [
+      "25855489",
+      1
+     ],
+     [
+      "25855498",
+      1
+     ],
+     [
+      "25855461",
+      1
+     ],
+     [
+      "25855463",
+      1
+     ],
+     [
+      "25855464",
+      1
+     ],
+     [
+      "25855465",
+      1
+     ],
+     [
+      "25855466",
+      1
+     ],
+     [
+      "25855468",
+      1
+     ],
+     [
+      "25855469",
+      1
+     ],
+     [
+      "25855471",
+      1
+     ],
+     [
+      "25855472",
+      1
+     ],
+     [
+      "25855473",
+      1
+     ],
+     [
+      "25855475",
+      1
+     ],
+     [
+      "25855476",
+      1
+     ],
+     [
+      "25855470",
+      1
+     ],
+     [
+      "25855477",
+      1
+     ],
+     [
+      "25855478",
+      1
+     ],
+     [
+      "25855479",
+      1
+     ],
+     [
+      "25855480",
+      1
+     ],
+     [
+      "25855486",
+      1
+     ],
+     [
+      "25855490",
+      1
+     ],
+     [
+      "25855493",
+      1
+     ],
+     [
+      "25855497",
+      1
+     ]
+    ],
+    "AREA_LONG_": [
+     [
+      "D4TH1",
+      1
+     ],
+     [
+      "D3TU2",
+      1
+     ],
+     [
+      "D3FR2",
+      1
+     ],
+     [
+      "D2TU1",
+      1
+     ],
+     [
+      "D2WE1",
+      1
+     ],
+     [
+      "D1TH1",
+      1
+     ],
+     [
+      "D1TU1",
+      1
+     ],
+     [
+      "D1WE1",
+      1
+     ],
+     [
+      "D1WE2",
+      1
+     ],
+     [
+      "D3TU1",
+      1
+     ],
+     [
+      "D3TH1",
+      1
+     ],
+     [
+      "D1FR2",
+      1
+     ],
+     [
+      "D2NIT",
+      1
+     ],
+     [
+      "D3WE2",
+      1
+     ],
+     [
+      "D3TH2",
+      1
+     ],
+     [
+      "D3WE1",
+      1
+     ],
+     [
+      "D3FR1",
+      1
+     ],
+     [
+      "D2FR2",
+      1
+     ],
+     [
+      "D2TH2",
+      1
+     ],
+     [
+      "D2FR1",
+      1
+     ],
+     [
+      "D2TU2",
+      1
+     ],
+     [
+      "D2WE2",
+      1
+     ],
+     [
+      "D4TU2",
+      1
+     ],
+     [
+      "D4WE1",
+      1
+     ],
+     [
+      "D4WE2",
+      1
+     ],
+     [
+      "D2TH1",
+      1
+     ],
+     [
+      "D4TU1",
+      1
+     ],
+     [
+      "D4FR1",
+      1
+     ],
+     [
+      "D4TH2",
+      1
+     ],
+     [
+      "D4FR2",
+      1
+     ],
+     [
+      "D1TH2",
+      1
+     ],
+     [
+      "D1FR1",
+      1
+     ],
+     [
+      "D1TU2",
+      1
+     ],
+     [
+      "D3NIT",
+      1
+     ]
+    ],
+    "AREA_NAME": [
+     [
+      "Thursday 1",
+      4
+     ],
+     [
+      "Tuesday 2",
+      4
+     ],
+     [
+      "Friday 2",
+      4
+     ],
+     [
+      "Tuesday 1",
+      4
+     ],
+     [
+      "Wednesday 1",
+      4
+     ],
+     [
+      "Wednesday 2",
+      4
+     ],
+     [
+      "Thursday 2",
+      4
+     ],
+     [
+      "Friday 1",
+      4
+     ],
+     [
+      "No Collection",
+      2
+     ]
+    ],
+    "Area": [
+     [
+      "District 3",
+      9
+     ],
+     [
+      "District 2",
+      9
+     ],
+     [
+      "District 4",
+      8
+     ],
+     [
+      "District 1",
+      8
+     ]
+    ]
+   }
+  ]
+ },
+ "toronto_dropins": {
+  "rows": 34091,
+  "dates": [
+   [
+    "2026-10-08"
+   ],
+   [
+    "2026-11-19"
+   ]
+  ],
+  "next7days": 6670,
+  "next7days_kids": 1043,
+  "locations_fields": [
+   "_id",
+   "Location ID",
+   "Parent Location ID",
+   "Location Name",
+   "Location Type",
+   "Accessibility",
+   "Intersection",
+   "TTC Information",
+   "District",
+   "Street No",
+   "Street No Suffix",
+   "Street Name",
+   "Street Type",
+   "Street Direction",
+   "Postal Code",
+   "Description"
+  ],
+  "locations_with_dropins": 177
+ },
+ "toronto_beaches": {
+  "season_rows": 2000,
+  "beaches": 10,
+  "page_links": [
+   "https://www.google.com/recaptcha/api.js?render=6LeN_XIUAAAAAEd8X21vFtkJ3_c7uA0xpUGcrGpe",
+   "https://www.toronto.ca/community-people/health-wellness-care/health-inspections-monitoring/swimsafe/beach-water-quality/",
+   "https://www.toronto.ca/wp-json/",
+   "https://www.toronto.ca/wp-json/wp/v2/pages/500280"
+  ]
+ },
+ "chicago_activities": {
+  "count": [
+   {
+    "count": "9801"
+   }
+  ],
+  "span": [
+   {
+    "min_start_date": "2025-09-02T15:30:00.000",
+    "max_start_date": "2027-04-05T14:30:00.000"
+   }
+  ],
+  "next14": 1025,
+  "with_coords": 1025,
+  "updated": "2026-10-13T10:23:10",
+  "license": "See Terms of Use"
+ },
+ "chicago_beaches": {
+  "2ivx-z93u": {
+   "name": "Beach Lab Data",
+   "updated": "2026-10-08T21:44:49",
+   "latest": {
+    "beach": "North Avenue",
+    "culture_test_id": "88778",
+    "culture_sample_1_timestamp": "2010-07-02T00:00:00.000",
+    "culture_sample_1_reading": "8.5",
+    "culture_sample_2_reading": "2",
+    "culture_reading_mean": "4.12310562561766054982",
+    "latitude": "41.9148",
+    "longitude": "-87.6273",
+    "location": {
+     "latitude": "41.9148",
+     "longitude": "-87.6273",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   }
+  },
+  "xvsz-3xcj": {
+   "name": "Beach E. coli Predictions",
+   "updated": "2025-09-02T04:55:07",
+   "latest": {
+    "beach_name": "Rogers",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "59.6",
+    "recordid": "Rogers20250901",
+    "latitude": "42.0213",
+    "longitude": "-87.6666",
+    "location": {
+     "latitude": "42.0213",
+     "longitude": "-87.6666"
+    }
+   }
+  },
+  "t62e-8nvc": {
+   "name": "Beach Swim Advisories",
+   "updated": "2026-10-13T15:01:13",
+   "latest": {
+    "beach_name": "OakStreet",
+    "date": "2016-09-22T00:00:00.000",
+    "predicted_level": "31.1",
+    "probability": "0.046",
+    "swim_advisory": "N",
+    "recordid": "OakStreet20160922"
+   }
+  }
+ },
+ "chicago_sweep_snow": {
+  "catalog": {
+   "street sweeping 2026": [
+    [
+     "Street Sweeping Zones - 2026 - Map",
+     "nk6s-cie5",
+     "2026-06-08T19:30:51.000Z"
+    ],
+    [
+     "Street Sweeping Schedule - 2026",
+     "u5ai-3efk",
+     "2026-06-08T20:52:01.000Z"
+    ],
+    [
+     "Delayed Street Sweeping Zones Dataset - 3/31/2026 - Resolved",
+     "fuz6-n5nj",
+     "2026-04-08T19:10:43.359Z"
+    ],
+    [
+     "Street Sweeping Zones - 2026",
+     "2r7q-emq3",
+     "2026-06-08T19:30:51.000Z"
+    ]
+   ],
+   "sweeping zones": [
+    [
+     "Street Sweeping Zones - 2025 - Map",
+     "52z7-wvp2",
+     "2025-10-06T19:36:54.000Z"
+    ],
+    [
+     "Street Sweeping Zones - 2023 - Map",
+     "spr7-3ctg",
+     "2023-03-31T16:43:56.000Z"
+    ],
+    [
+     "Street Sweeping Zones - 2026 - Map",
+     "nk6s-cie5",
+     "2026-06-08T19:30:51.000Z"
+    ],
+    [
+     "Street Sweeping Zones - 2021 - Map",
+     "8phr-68jk",
+     "2021-03-12T23:44:29.000Z"
+    ],
+    [
+     "Street Sweeping Zones - 2024 - Map",
+     "ytfi-mzdz",
+     "2024-03-29T21:39:55.000Z"
+    ],
+    [
+     "Street Sweeping Zones - 2020 - Map",
+     "m245-s86v",
+     "2020-03-09T17:51:26.000Z"
+    ],
+    [
+     "Street Sweeping Zones - 2022 - Map",
+     "uivm-t727",
+     "2022-03-30T21:21:17.000Z"
+    ],
+    [
+     "Street Sweeping Zones - 2023",
+     "6c59-kupn",
+     "2023-03-31T16:43:56.000Z"
+    ]
+   ],
+   "snow route": [
+    [
+     "Snow Route Parking Restrictions - Map",
+     "nnn9-yqby",
+     "2021-12-06T23:19:08.000Z"
+    ],
+    [
+     "Snow Route Parking Restrictions",
+     "i6k4-giaj",
+     "2021-12-06T23:19:08.000Z"
+    ],
+    [
+     "Snow Route Parking Restrictions (Deprecated December 2021)",
+     "i9q6-fx2v",
+     "2011-12-01T22:25:04.000Z"
+    ],
+    [
+     "Snow Route Parking Restrictions - KML",
+     "yk2f-7cnr",
+     "2011-11-23T21:43:53.000Z"
+    ],
+    [
+     "Performance Metrics - Transportation - Snow - Uncleared Sidewalk",
+     "jdjg-pkke",
+     "2019-04-05T10:11:57.000Z"
+    ]
+   ],
+   "winter overnight parking": [
+    [
+     "Winter Overnight Parking Restrictions - Map",
+     "u3qw-sa5u",
+     "2021-12-06T21:56:50.000Z"
+    ],
+    [
+     "Winter Overnight Parking Restrictions",
+     "mcad-r2g5",
+     "2021-12-06T21:56:50.000Z"
+    ],
+    [
+     "Winter Overnight Parking Restrictions - KML",
+     "fr3e-nxk2",
+     "2011-11-23T21:56:39.000Z"
+    ],
+    [
+     "Winter Overnight Parking Restrictions (Deprecated December 2021)",
+     "kpim-yiyf",
+     "2011-11-23T21:30:52.000Z"
+    ]
+   ],
+   "garbage": [
+    [
+     "311 Service Requests - Garbage Carts - Historical",
+     "9ksk-na4q",
+     "2019-03-06T09:48:55.000Z"
+    ],
+    [
+     "Performance Metrics - Streets & Sanitation - Garbage Cart Requests",
+     "6htv-6453",
+     "2012-07-12T20:52:46.000Z"
+    ],
+    [
+     "311 Service Requests - Garbage Carts - No Duplicates",
+     "cry7-g5xt",
+     "2019-03-06T09:48:55.000Z"
+    ],
+    [
+     "311 Service Requests - Sanitation Code Complaints - Historical",
+     "me59-5fac",
+     "2019-03-06T09:17:36.000Z"
+    ],
+    [
+     "Performance Metrics - Streets & Sanitation - Sanitation Code Complaints",
+     "64yp-nqnb",
+     "2012-07-26T20:51:45.000Z"
+    ],
+    [
+     "311 Service Requests - Sanitation Code Complaints - No Duplicates",
+     "rccf-5427",
+     "2019-03-06T09:17:36.000Z"
+    ],
+    [
+     "Performance Metrics - Chicago Park District - Natural Resources Recycling",
+     "kes6-wskt",
+     "2012-07-19T14:14:59.000Z"
+    ],
+    [
+     "311 Service Requests - Rodent Baiting - Historical",
+     "97t6-zrhs",
+     "2019-03-06T09:25:27.000Z"
+    ]
+   ],
+   "sanitation": [
+    [
+     "Performance Metrics - Streets & Sanitation - Graffiti Removal",
+     "qcfn-tiw7",
+     "2012-07-16T14:58:31.000Z"
+    ],
+    [
+     "311 Service Requests - Sanitation Code Complaints - Historical",
+     "me59-5fac",
+     "2019-03-06T09:17:36.000Z"
+    ],
+    [
+     "Performance Metrics - Streets & Sanitation - Sanitation Code Complaints",
+     "64yp-nqnb",
+     "2012-07-26T20:51:45.000Z"
+    ],
+    [
+     "FOIA Request Log - Streets & Sanitation",
+     "zpd8-zq4w",
+     "2017-11-28T22:25:58.000Z"
+    ],
+    [
+     "Performance Metrics - Streets & Sanitation - Graffiti Removal",
+     "9m5u-3f29",
+     "2012-07-16T14:58:31.000Z"
+    ],
+    [
+     "311 Service Requests - Sanitation Code Complaints - No Duplicates",
+     "rccf-5427",
+     "2019-03-06T09:17:36.000Z"
+    ],
+    [
+     "Performance Metrics - Streets & Sanitation - Rodent Baiting",
+     "ga2y-gwbs",
+     "2012-07-13T21:20:59.000Z"
+    ],
+    [
+     "Performance Metrics - Streets & Sanitation - Tree Debris",
+     "hwpp-nx6b",
+     "2012-07-26T20:50:26.000Z"
+    ]
+   ],
+   "recycling": [
+    [
+     "Recycling Dropoff Sites",
+     "27cy-fdic",
+     "2016-07-01T04:13:53.000Z"
+    ],
+    [
+     "Recycling Service Areas",
+     "edks-4g3b",
+     "2013-03-21T22:00:22.000Z"
+    ],
+    [
+     "Christmas Tree Recycling Locations 2013",
+     "spxm-tnai",
+     "2013-01-08T01:59:07.000Z"
+    ],
+    [
+     "Map of Christmas Tree Recycling Locations",
+     "495s-83kj",
+     "2013-01-08T01:59:07.000Z"
+    ],
+    [
+     "Christmas Tree Recycling Locations 2014",
+     "28nh-39r3",
+     "2014-01-03T21:27:10.000Z"
+    ],
+    [
+     "Christmas Tree Recycling Locations 2014 - Map",
+     "2xzi-ym2q",
+     "2014-01-03T21:27:10.000Z"
+    ],
+    [
+     "Christmas Tree Recycling Locations (2016 - current)",
+     "drnp-neza",
+     "2016-01-08T16:38:10.000Z"
+    ],
+    [
+     "Christmas Tree Recycling Locations 2018 - Map",
+     "59m5-kbzg",
+     "2016-01-08T16:38:10.000Z"
+    ]
+   ],
+   "blue cart": [
+    [
+     "Recycling Service Areas",
+     "edks-4g3b",
+     "2013-03-21T22:00:22.000Z"
+    ],
+    [
+     "Boundaries - Recycling Service Areas - Shapefile (Deprecated March 2013)",
+     "f2im-mrqs",
+     "2012-04-12T21:56:58.000Z"
+    ],
+    [
+     "Boundaries - Recycling Service Areas - KML (Deprecated March 2013)",
+     "fhty-4yev",
+     "2012-10-04T20:12:33.000Z"
+    ],
+    [
+     "RecyclingServiceAreas",
+     "ruca-brrd",
+     "2013-03-21T22:00:22.000Z"
+    ]
+   ]
+  },
+  "sweep2026_columns": [
+   [
+    "ward_section_concatenated",
+    "WARD SECTION (CONCATENATED)"
+   ],
+   [
+    "ward",
+    "WARD"
+   ],
+   [
+    "section",
+    "SECTION"
+   ],
+   [
+    "month_name",
+    "MONTH NAME"
+   ],
+   [
+    "month_number",
+    "MONTH NUMBER"
+   ],
+   [
+    "dates",
+    "DATES"
+   ]
+  ],
+  "sweep2026_sample": [
+   {
+    "ward_section_concatenated": "0101",
+    "ward": "01",
+    "section": "01",
+    "month_name": "APRIL",
+    "month_number": "4",
+    "dates": "1,2"
+   },
+   {
+    "ward_section_concatenated": "0101",
+    "ward": "01",
+    "section": "01",
+    "month_name": "MAY",
+    "month_number": "5",
+    "dates": "13,14"
+   },
+   {
+    "ward_section_concatenated": "0101",
+    "ward": "01",
+    "section": "01",
+    "month_name": "JUNE",
+    "month_number": "6",
+    "dates": "26,29"
+   }
+  ]
+ },
+ "toronto_gis": {
+  "services": 85,
+  "hits": [
+   [
+    "Yard Building",
+    "cot_geospatial13/FeatureServer",
+    19,
+    25
+   ],
+   [
+    "Yard Building",
+    "cot_geospatial13/MapServer",
+    19,
+    25
+   ],
+   [
+    "Residential Waste Collection Schedule",
+    "cot_geospatial21/FeatureServer",
+    3,
+    null
+   ],
+   [
+    "Residential Waste Collection Schedule Label",
+    "cot_geospatial21/FeatureServer",
+    4,
+    null
+   ],
+   [
+    "Solid Waste Litter Area",
+    "cot_geospatial21/FeatureServer",
+    5,
+    null
+   ],
+   [
+    "Solid Waste Litter Area Label",
+    "cot_geospatial21/FeatureServer",
+    6,
+    null
+   ],
+   [
+    "Solid Waste Management District",
+    "cot_geospatial21/FeatureServer",
+    7,
+    null
+   ],
+   [
+    "Solid Waste Management District Label",
+    "cot_geospatial21/FeatureServer",
+    8,
+    null
+   ],
+   [
+    "Solid Waste Transfer Station",
+    "cot_geospatial21/FeatureServer",
+    9,
+    null
+   ],
+   [
+    "Solid Waste White Goods",
+    "cot_geospatial21/FeatureServer",
+    10,
+    null
+   ],
+   [
+    "Solid Waste White Goods Label",
+    "cot_geospatial21/FeatureServer",
+    11,
+    null
+   ],
+   [
+    "Solid Waste Front End Collection Address",
+    "cot_geospatial21/FeatureServer",
+    12,
+    null
+   ],
+   [
+    "Solid Waste Front End Collection Point",
+    "cot_geospatial21/FeatureServer",
+    13,
+    null
+   ],
+   [
+    "Residential Waste Collection Schedule",
+    "cot_geospatial21/MapServer",
+    3,
+    51
+   ],
+   [
+    "Residential Waste Collection Schedule Label",
+    "cot_geospatial21/MapServer",
+    4,
+    51
+   ],
+   [
+    "Solid Waste Litter Area",
+    "cot_geospatial21/MapServer",
+    5,
+    6
+   ],
+   [
+    "Solid Waste Litter Area Label",
+    "cot_geospatial21/MapServer",
+    6,
+    6
+   ],
+   [
+    "Solid Waste Management District",
+    "cot_geospatial21/MapServer",
+    7,
+    4
+   ],
+   [
+    "Solid Waste Management District Label",
+    "cot_geospatial21/MapServer",
+    8,
+    4
+   ],
+   [
+    "Solid Waste Transfer Station",
+    "cot_geospatial21/MapServer",
+    9,
+    7
+   ],
+   [
+    "Solid Waste White Goods",
+    "cot_geospatial21/MapServer",
+    10,
+    4
+   ],
+   [
+    "Solid Waste White Goods Label",
+    "cot_geospatial21/MapServer",
+    11,
+    4
+   ],
+   [
+    "Solid Waste Front End Collection Address",
+    "cot_geospatial21/MapServer",
+    12,
+    3222
+   ],
+   [
+    "Solid Waste Front End Collection Point",
+    "cot_geospatial21/MapServer",
+    13,
+    3295
+   ],
+   [
+    "Dropin",
+    "cot_geospatial26/FeatureServer",
+    47,
+    51
+   ],
+   [
+    "Dropin",
+    "cot_geospatial26/MapServer",
+    47,
+    51
+   ],
+   [
+    "Collector",
+    "cot_geospatial/FeatureServer",
+    8,
+    6374
+   ],
+   [
+    "Collector",
+    "cot_geospatial/MapServer",
+    8,
+    6374
+   ]
+  ]
+ }
+}

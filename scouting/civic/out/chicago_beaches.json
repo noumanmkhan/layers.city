@@ -1,0 +1,1590 @@
+{
+ "2ivx-z93u": {
+  "meta": {
+   "name": "Beach Lab Data",
+   "rowsUpdatedAt": "2026-10-08T21:44:49",
+   "columns": [
+    [
+     "dna_test_id",
+     "DNA Test ID"
+    ],
+    [
+     "dna_sample_timestamp",
+     "DNA Sample Timestamp"
+    ],
+    [
+     "beach",
+     "Beach"
+    ],
+    [
+     "dna_sample_1_reading",
+     "DNA Sample 1 Reading"
+    ],
+    [
+     "dna_sample_2_reading",
+     "DNA Sample 2 Reading"
+    ],
+    [
+     "dna_reading_mean",
+     "DNA Reading Mean"
+    ],
+    [
+     "culture_test_id",
+     "Culture Test ID"
+    ],
+    [
+     "culture_sample_1_timestamp",
+     "Culture Sample 1 Timestamp"
+    ],
+    [
+     "culture_sample_1_reading",
+     "Culture Sample 1 Reading"
+    ],
+    [
+     "culture_sample_2_reading",
+     "Culture Sample 2 Reading"
+    ],
+    [
+     "culture_reading_mean",
+     "Culture Reading Mean"
+    ],
+    [
+     "culture_note",
+     "Culture Note"
+    ],
+    [
+     "culture_sample_interval",
+     "Culture Sample Interval"
+    ],
+    [
+     "culture_sample_2_timestamp",
+     "Culture Sample 2 Timestamp"
+    ],
+    [
+     "latitude",
+     "Latitude"
+    ],
+    [
+     "longitude",
+     "Longitude"
+    ],
+    [
+     "location",
+     "Location"
+    ],
+    [
+     ":@computed_region_vrxf_vc4k",
+     "Community Areas"
+    ],
+    [
+     ":@computed_region_6mkv_f3dw",
+     "Zip Codes"
+    ],
+    [
+     ":@computed_region_rpca_8um6",
+     "Boundaries - ZIP Codes"
+    ],
+    [
+     ":@computed_region_bdys_3d7i",
+     "Census Tracts"
+    ],
+    [
+     ":@computed_region_43wa_7qmu",
+     "Wards"
+    ]
+   ],
+   "license": null,
+   "attribution": "Chicago Park District"
+  },
+  "latest": [
+   {
+    "beach": "North Avenue",
+    "culture_test_id": "88778",
+    "culture_sample_1_timestamp": "2010-07-02T00:00:00.000",
+    "culture_sample_1_reading": "8.5",
+    "culture_sample_2_reading": "2",
+    "culture_reading_mean": "4.12310562561766054982",
+    "latitude": "41.9148",
+    "longitude": "-87.6273",
+    "location": {
+     "latitude": "41.9148",
+     "longitude": "-87.6273",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Montrose",
+    "culture_test_id": "90453",
+    "culture_sample_1_timestamp": "2011-07-06T00:00:00.000",
+    "culture_sample_1_reading": "8.6",
+    "culture_sample_2_reading": "17.3",
+    "culture_reading_mean": "12.19754073573849557734",
+    "latitude": "41.9655",
+    "longitude": "-87.6385",
+    "location": {
+     "latitude": "41.9655",
+     "longitude": "-87.6385",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Lane",
+    "culture_test_id": "103349",
+    "culture_sample_1_timestamp": "2006-08-25T00:00:00.000",
+    "culture_sample_1_reading": "43.5",
+    "culture_sample_2_reading": "54.8",
+    "culture_reading_mean": "48.82417434017701850194",
+    "latitude": "41.9877",
+    "longitude": "-87.6545",
+    "location": {
+     "latitude": "41.9877",
+     "longitude": "-87.6545",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Rogers",
+    "culture_test_id": "102674",
+    "culture_sample_1_timestamp": "2006-05-23T00:00:00.000",
+    "culture_sample_1_reading": "26.9",
+    "culture_sample_2_reading": "21.3",
+    "culture_reading_mean": "23.93679176497970038687",
+    "latitude": "42.0213",
+    "longitude": "-87.6666",
+    "location": {
+     "latitude": "42.0213",
+     "longitude": "-87.6666",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Howard",
+    "culture_test_id": "102132",
+    "culture_sample_1_timestamp": "2008-08-18T00:00:00.000",
+    "culture_sample_1_reading": "23.1",
+    "culture_sample_2_reading": "24.9",
+    "culture_reading_mean": "23.98311906320777118282",
+    "latitude": "42.0188",
+    "longitude": "-87.6663",
+    "location": {
+     "latitude": "42.0188",
+     "longitude": "-87.6663",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Rogers",
+    "culture_test_id": "101076",
+    "culture_sample_1_timestamp": "2008-06-20T00:00:00.000",
+    "culture_sample_1_reading": "10.8",
+    "culture_sample_2_reading": "8.5",
+    "culture_reading_mean": "9.58123165360278719944",
+    "latitude": "42.0213",
+    "longitude": "-87.6666",
+    "location": {
+     "latitude": "42.0213",
+     "longitude": "-87.6666",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "NA",
+    "culture_test_id": "103815",
+    "culture_sample_1_timestamp": "2006-06-22T00:00:00.000",
+    "culture_sample_1_reading": "77.6",
+    "culture_sample_2_reading": "77.1",
+    "culture_reading_mean": "77.34959599118795655974"
+   },
+   {
+    "beach": "Calumet",
+    "culture_test_id": "89650",
+    "culture_sample_1_timestamp": "2010-08-13T00:00:00.000",
+    "culture_sample_1_reading": "30.1",
+    "culture_sample_2_reading": "14.8",
+    "culture_reading_mean": "21.10639713451824539036",
+    "latitude": "41.7142",
+    "longitude": "-87.5299",
+    "location": {
+     "latitude": "41.7142",
+     "longitude": "-87.5299",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "South Shore",
+    "culture_test_id": "105381",
+    "culture_sample_1_timestamp": "2014-07-15T00:00:00.000",
+    "culture_sample_1_reading": "2420",
+    "culture_sample_2_reading": "1300",
+    "culture_reading_mean": "1773.69670462568092352065",
+    "latitude": "41.7689",
+    "longitude": "-87.5636",
+    "location": {
+     "latitude": "41.7689",
+     "longitude": "-87.5636",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Calumet",
+    "culture_test_id": "98069",
+    "culture_sample_1_timestamp": "2006-08-15T00:00:00.000",
+    "culture_sample_1_reading": "648.8",
+    "culture_sample_2_reading": "567.5",
+    "culture_reading_mean": "606.78991422072928189053",
+    "latitude": "41.7142",
+    "longitude": "-87.5299",
+    "location": {
+     "latitude": "41.7142",
+     "longitude": "-87.5299",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Foster",
+    "culture_test_id": "88634",
+    "culture_sample_1_timestamp": "2010-08-03T00:00:00.000",
+    "culture_sample_1_reading": "33.6",
+    "culture_sample_2_reading": "24.1",
+    "culture_reading_mean": "28.45628225893185787508",
+    "latitude": "41.9785",
+    "longitude": "-87.6515",
+    "location": {
+     "latitude": "41.9785",
+     "longitude": "-87.6515",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Howard",
+    "culture_test_id": "92102",
+    "culture_sample_1_timestamp": "2009-08-26T00:00:00.000",
+    "culture_sample_1_reading": "5.1",
+    "culture_sample_2_reading": "3.1",
+    "culture_reading_mean": "3.97617907041420859597",
+    "latitude": "42.0188",
+    "longitude": "-87.6663",
+    "location": {
+     "latitude": "42.0188",
+     "longitude": "-87.6663",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Margaret T Burroughs",
+    "culture_test_id": "110343",
+    "culture_sample_1_timestamp": "2012-05-22T00:00:00.000",
+    "culture_sample_1_reading": "127.4",
+    "culture_sample_2_reading": "172.3",
+    "culture_reading_mean": "148.15876619356682534239"
+   },
+   {
+    "beach": "12th Street",
+    "culture_test_id": "97740",
+    "culture_sample_1_timestamp": "2011-08-01T00:00:00.000",
+    "culture_sample_1_reading": "8.6",
+    "culture_sample_2_reading": "12",
+    "culture_reading_mean": "10.15874007936023530979",
+    "latitude": "41.8638",
+    "longitude": "-87.6083",
+    "location": {
+     "latitude": "41.8638",
+     "longitude": "-87.6083",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Margaret T Burroughs",
+    "culture_test_id": "104447",
+    "culture_sample_1_timestamp": "2007-05-31T00:00:00.000",
+    "culture_sample_1_reading": "24.3",
+    "culture_sample_2_reading": "2",
+    "culture_reading_mean": "6.97137002317335039332"
+   },
+   {
+    "beach": "South Shore",
+    "culture_test_id": "114022",
+    "culture_sample_1_timestamp": "2016-08-29T09:40:00.000",
+    "culture_sample_1_reading": "32",
+    "culture_sample_2_reading": "13",
+    "culture_reading_mean": "20.39607805437113932011",
+    "culture_sample_interval": "2",
+    "culture_sample_2_timestamp": "2016-08-29T09:42:00.000",
+    "latitude": "41.7689",
+    "longitude": "-87.5636",
+    "location": {
+     "latitude": "41.7689",
+     "longitude": "-87.5636",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "North Avenue",
+    "culture_test_id": "94611",
+    "culture_sample_1_timestamp": "2015-05-19T00:00:00.000",
+    "culture_sample_1_reading": "17",
+    "culture_sample_2_reading": "6",
+    "culture_reading_mean": "10.09950493836207795336",
+    "latitude": "41.9148",
+    "longitude": "-87.6273",
+    "location": {
+     "latitude": "41.9148",
+     "longitude": "-87.6273",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "North Shore",
+    "culture_test_id": "92213",
+    "culture_sample_1_timestamp": "2009-08-31T00:00:00.000",
+    "culture_sample_1_reading": "48.8",
+    "culture_sample_2_reading": "68.2",
+    "culture_reading_mean": "57.6902071412471182505",
+    "latitude": "42.0027",
+    "longitude": "-87.6564",
+    "location": {
+     "latitude": "42.0027",
+     "longitude": "-87.6564",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "South Shore",
+    "culture_test_id": "90493",
+    "culture_sample_1_timestamp": "2011-06-02T00:00:00.000",
+    "culture_sample_1_reading": "214.3",
+    "culture_sample_2_reading": "93.3",
+    "culture_reading_mean": "141.40081329327635801496",
+    "latitude": "41.7689",
+    "longitude": "-87.5636",
+    "location": {
+     "latitude": "41.7689",
+     "longitude": "-87.5636",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Oakwood",
+    "culture_test_id": "90496",
+    "culture_sample_1_timestamp": "2011-06-02T00:00:00.000",
+    "culture_sample_1_reading": "121.1",
+    "culture_sample_2_reading": "344.8",
+    "culture_reading_mean": "204.34108740045404779421",
+    "latitude": "41.8211",
+    "longitude": "-87.5976",
+    "location": {
+     "latitude": "41.8211",
+     "longitude": "-87.5976",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Hartigan",
+    "culture_test_id": "95379",
+    "culture_sample_1_timestamp": "2015-08-24T00:00:00.000",
+    "culture_sample_1_reading": "84",
+    "culture_sample_2_reading": "59",
+    "culture_reading_mean": "70.39886362719216506828"
+   },
+   {
+    "beach": "Leone",
+    "culture_test_id": "89625",
+    "culture_sample_1_timestamp": "2010-08-11T00:00:00.000",
+    "culture_sample_1_reading": "90.9",
+    "culture_sample_2_reading": "78.8",
+    "culture_reading_mean": "84.63403570668245050942",
+    "latitude": "42.0131",
+    "longitude": "-87.6635",
+    "location": {
+     "latitude": "42.0131",
+     "longitude": "-87.6635",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Ohio Street",
+    "culture_test_id": "109881",
+    "culture_sample_1_timestamp": "2014-08-01T00:00:00.000",
+    "culture_sample_1_reading": "4",
+    "culture_sample_2_reading": "63",
+    "culture_reading_mean": "15.87450786638754354301",
+    "latitude": "41.8935",
+    "longitude": "-87.6152",
+    "location": {
+     "latitude": "41.8935",
+     "longitude": "-87.6152",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "North Shore",
+    "culture_test_id": "97941",
+    "culture_sample_1_timestamp": "2006-07-10T00:00:00.000",
+    "culture_sample_1_reading": "344.8",
+    "culture_sample_2_reading": "261.3",
+    "culture_reading_mean": "300.16035714264467139418",
+    "latitude": "42.0027",
+    "longitude": "-87.6564",
+    "location": {
+     "latitude": "42.0027",
+     "longitude": "-87.6564",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "North Shore",
+    "culture_test_id": "104056",
+    "culture_sample_1_timestamp": "2006-06-07T00:00:00.000",
+    "culture_sample_1_reading": "3",
+    "culture_sample_2_reading": "6.3",
+    "culture_reading_mean": "4.34741302385683157212",
+    "latitude": "42.0027",
+    "longitude": "-87.6564",
+    "location": {
+     "latitude": "42.0027",
+     "longitude": "-87.6564",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Montrose",
+    "culture_test_id": "109707",
+    "culture_sample_1_timestamp": "2014-07-02T00:00:00.000",
+    "culture_sample_1_reading": "192",
+    "culture_sample_2_reading": "115",
+    "culture_reading_mean": "148.59340496805367976789",
+    "latitude": "41.9655",
+    "longitude": "-87.6385",
+    "location": {
+     "latitude": "41.9655",
+     "longitude": "-87.6385",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Loyola",
+    "culture_test_id": "98831",
+    "culture_sample_1_timestamp": "2007-07-25T00:00:00.000",
+    "culture_sample_1_reading": "9.8",
+    "culture_sample_2_reading": "14.6",
+    "culture_reading_mean": "11.96160524344454363502",
+    "latitude": "42.0131",
+    "longitude": "-87.6635",
+    "location": {
+     "latitude": "42.0131",
+     "longitude": "-87.6635",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Howard",
+    "culture_test_id": "107261",
+    "culture_sample_1_timestamp": "2012-06-28T00:00:00.000",
+    "culture_sample_1_reading": "2",
+    "culture_sample_2_reading": "3.1",
+    "culture_reading_mean": "2.48997991959774647497",
+    "latitude": "42.0188",
+    "longitude": "-87.6663",
+    "location": {
+     "latitude": "42.0188",
+     "longitude": "-87.6663",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Howard",
+    "culture_test_id": "103939",
+    "culture_sample_1_timestamp": "2007-07-03T00:00:00.000",
+    "culture_sample_1_reading": "7.4",
+    "culture_sample_2_reading": "7.5",
+    "culture_reading_mean": "7.44983221287566985967",
+    "latitude": "42.0188",
+    "longitude": "-87.6663",
+    "location": {
+     "latitude": "42.0188",
+     "longitude": "-87.6663",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "57th Street",
+    "culture_test_id": "109983",
+    "culture_sample_1_timestamp": "2012-07-09T00:00:00.000",
+    "culture_sample_1_reading": "193.5",
+    "culture_sample_2_reading": "119.8",
+    "culture_reading_mean": "152.25406398516921032656",
+    "latitude": "41.7911",
+    "longitude": "-87.5797",
+    "location": {
+     "latitude": "41.7911",
+     "longitude": "-87.5797",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "12th Street",
+    "culture_test_id": "93286",
+    "culture_sample_1_timestamp": "2015-07-09T00:00:00.000",
+    "culture_sample_1_reading": "91",
+    "culture_sample_2_reading": "99",
+    "culture_reading_mean": "94.91575211733824742932",
+    "latitude": "41.8638",
+    "longitude": "-87.6083",
+    "location": {
+     "latitude": "41.8638",
+     "longitude": "-87.6083",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Howard",
+    "culture_test_id": "92526",
+    "culture_sample_1_timestamp": "2009-05-26T00:00:00.000",
+    "culture_sample_1_reading": "22.3",
+    "culture_sample_2_reading": "15.8",
+    "culture_reading_mean": "18.77072188276199461734",
+    "latitude": "42.0188",
+    "longitude": "-87.6663",
+    "location": {
+     "latitude": "42.0188",
+     "longitude": "-87.6663",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "South Shore",
+    "culture_test_id": "113402",
+    "culture_sample_1_timestamp": "2016-07-19T09:15:00.000",
+    "culture_sample_1_reading": "23",
+    "culture_sample_2_reading": "42",
+    "culture_reading_mean": "31.08054053584010626706",
+    "culture_sample_interval": "5",
+    "culture_sample_2_timestamp": "2016-07-19T09:20:00.000",
+    "latitude": "41.7689",
+    "longitude": "-87.5636",
+    "location": {
+     "latitude": "41.7689",
+     "longitude": "-87.5636",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Hartigan",
+    "culture_test_id": "91059",
+    "culture_sample_1_timestamp": "2009-07-17T00:00:00.000",
+    "culture_sample_1_reading": "10.7",
+    "culture_sample_2_reading": "8.4",
+    "culture_reading_mean": "9.48050631559306541239"
+   },
+   {
+    "beach": "Hartigan",
+    "culture_test_id": "92699",
+    "culture_sample_1_timestamp": "2014-08-07T00:00:00.000",
+    "culture_sample_1_reading": "74",
+    "culture_sample_2_reading": "113",
+    "culture_reading_mean": "91.44397191723465376783"
+   },
+   {
+    "beach": "North Shore",
+    "culture_test_id": "103079",
+    "culture_sample_1_timestamp": "2007-06-27T00:00:00.000",
+    "culture_sample_1_reading": "13.1",
+    "culture_sample_2_reading": "15.8",
+    "culture_reading_mean": "14.38679950510189045083",
+    "latitude": "42.0027",
+    "longitude": "-87.6564",
+    "location": {
+     "latitude": "42.0027",
+     "longitude": "-87.6564",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "Margaret T Burroughs",
+    "culture_test_id": "97072",
+    "culture_sample_1_timestamp": "2012-07-25T00:00:00.000",
+    "culture_sample_1_reading": "20.1",
+    "culture_sample_2_reading": "23.3",
+    "culture_reading_mean": "21.64093343643013934586"
+   },
+   {
+    "beach": "12th Street",
+    "culture_test_id": "93555",
+    "culture_sample_1_timestamp": "2015-07-16T00:00:00.000",
+    "culture_sample_1_reading": "35",
+    "culture_sample_2_reading": "25",
+    "culture_reading_mean": "29.58039891549808021284",
+    "latitude": "41.8638",
+    "longitude": "-87.6083",
+    "location": {
+     "latitude": "41.8638",
+     "longitude": "-87.6083",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   },
+   {
+    "beach": "NA",
+    "culture_test_id": "103705",
+    "culture_sample_1_timestamp": "2006-06-07T00:00:00.000",
+    "culture_sample_1_reading": "435.2",
+    "culture_sample_2_reading": "387.3",
+    "culture_reading_mean": "410.55201862857768684124"
+   },
+   {
+    "beach": "Juneway",
+    "culture_test_id": "99278",
+    "culture_sample_1_timestamp": "2007-07-10T00:00:00.000",
+    "culture_sample_1_reading": "178.5",
+    "culture_sample_2_reading": "131.4",
+    "culture_reading_mean": "153.14992654258767224477",
+    "latitude": "42.0224",
+    "longitude": "-87.6674",
+    "location": {
+     "latitude": "42.0224",
+     "longitude": "-87.6674",
+     "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+    }
+   }
+  ]
+ },
+ "xvsz-3xcj": {
+  "meta": {
+   "name": "Beach E. coli Predictions",
+   "rowsUpdatedAt": "2025-09-02T04:55:07",
+   "columns": [
+    [
+     "beach_name",
+     "Beach Name"
+    ],
+    [
+     "date",
+     "Date"
+    ],
+    [
+     "prediction_source",
+     "Prediction Source"
+    ],
+    [
+     "predicted_level",
+     "Predicted Level"
+    ],
+    [
+     "recordid",
+     "RecordID"
+    ],
+    [
+     "latitude",
+     "Latitude"
+    ],
+    [
+     "longitude",
+     "Longitude"
+    ],
+    [
+     "location",
+     "Location"
+    ],
+    [
+     ":@computed_region_vrxf_vc4k",
+     "Community Areas"
+    ],
+    [
+     ":@computed_region_6mkv_f3dw",
+     "Zip Codes"
+    ],
+    [
+     ":@computed_region_rpca_8um6",
+     "Boundaries - ZIP Codes"
+    ],
+    [
+     ":@computed_region_bdys_3d7i",
+     "Census Tracts"
+    ],
+    [
+     ":@computed_region_43wa_7qmu",
+     "Wards"
+    ]
+   ],
+   "license": null,
+   "attribution": "City of Chicago"
+  },
+  "latest": [
+   {
+    "beach_name": "Rogers",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "59.6",
+    "recordid": "Rogers20250901",
+    "latitude": "42.0213",
+    "longitude": "-87.6666",
+    "location": {
+     "latitude": "42.0213",
+     "longitude": "-87.6666"
+    }
+   },
+   {
+    "beach_name": "Osterman",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "77.1",
+    "recordid": "Osterman20250901",
+    "latitude": "41.9877",
+    "longitude": "-87.6545",
+    "location": {
+     "latitude": "41.9877",
+     "longitude": "-87.6545"
+    }
+   },
+   {
+    "beach_name": "Ohio Street",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "62.8",
+    "recordid": "OhioStreet20250901",
+    "latitude": "41.8935",
+    "longitude": "-87.6152",
+    "location": {
+     "latitude": "41.8935",
+     "longitude": "-87.6152"
+    }
+   },
+   {
+    "beach_name": "Oak Street",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "39.4",
+    "recordid": "OakStreet20250901",
+    "latitude": "41.9032",
+    "longitude": "-87.6235",
+    "location": {
+     "latitude": "41.9032",
+     "longitude": "-87.6235"
+    }
+   },
+   {
+    "beach_name": "North Avenue",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "49.4",
+    "recordid": "NorthAvenue20250901",
+    "latitude": "41.9148",
+    "longitude": "-87.6273",
+    "location": {
+     "latitude": "41.9148",
+     "longitude": "-87.6273"
+    }
+   },
+   {
+    "beach_name": "Leone",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "42.7",
+    "recordid": "Leone20250901",
+    "latitude": "42.0131",
+    "longitude": "-87.6635",
+    "location": {
+     "latitude": "42.0131",
+     "longitude": "-87.6635"
+    }
+   },
+   {
+    "beach_name": "Juneway",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "72.9",
+    "recordid": "Juneway20250901",
+    "latitude": "42.0224",
+    "longitude": "-87.6674",
+    "location": {
+     "latitude": "42.0224",
+     "longitude": "-87.6674"
+    }
+   },
+   {
+    "beach_name": "Marion Mahony Griffin (Jarvis)",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "39.1",
+    "recordid": "MarionMahonyGriffinJarvis20250901",
+    "latitude": "42.0161",
+    "longitude": "-87.6647",
+    "location": {
+     "latitude": "42.0161",
+     "longitude": "-87.6647"
+    }
+   },
+   {
+    "beach_name": "Howard",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "76.3",
+    "recordid": "Howard20250901",
+    "latitude": "42.0188",
+    "longitude": "-87.6663",
+    "location": {
+     "latitude": "42.0188",
+     "longitude": "-87.6663"
+    }
+   },
+   {
+    "beach_name": "Foster",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "209",
+    "recordid": "Foster20250901",
+    "latitude": "41.9785",
+    "longitude": "-87.6515",
+    "location": {
+     "latitude": "41.9785",
+     "longitude": "-87.6515"
+    }
+   },
+   {
+    "beach_name": "Hartigan (Albion)",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "51.6",
+    "recordid": "HartiganAlbion20250901",
+    "latitude": "42.0027",
+    "longitude": "-87.6564",
+    "location": {
+     "latitude": "42.0027",
+     "longitude": "-87.6564"
+    }
+   },
+   {
+    "beach_name": "57th Street",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "52.1",
+    "recordid": "57thStreet20250901",
+    "latitude": "41.7911",
+    "longitude": "-87.5797",
+    "location": {
+     "latitude": "41.7911",
+     "longitude": "-87.5797"
+    }
+   },
+   {
+    "beach_name": "Oakwood",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "88.4",
+    "recordid": "Oakwood20250901",
+    "latitude": "41.8211",
+    "longitude": "-87.5976",
+    "location": {
+     "latitude": "41.8211",
+     "longitude": "-87.5976"
+    }
+   },
+   {
+    "beach_name": "Margaret T Burroughs (31st)",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "94.7",
+    "recordid": "MargaretTBurroughs31st20250901",
+    "latitude": "41.8393",
+    "longitude": "-87.6072",
+    "location": {
+     "latitude": "41.8393",
+     "longitude": "-87.6072"
+    }
+   },
+   {
+    "beach_name": "12th Street",
+    "date": "2025-09-01T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "75.2",
+    "recordid": "12thStreet20250901",
+    "latitude": "41.8638",
+    "longitude": "-87.6082",
+    "location": {
+     "latitude": "41.8638",
+     "longitude": "-87.6082"
+    }
+   },
+   {
+    "beach_name": "Rogers",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "100.2",
+    "recordid": "Rogers20250829",
+    "latitude": "42.0213",
+    "longitude": "-87.6666",
+    "location": {
+     "latitude": "42.0213",
+     "longitude": "-87.6666"
+    }
+   },
+   {
+    "beach_name": "Osterman",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "92",
+    "recordid": "Osterman20250829",
+    "latitude": "41.9877",
+    "longitude": "-87.6545",
+    "location": {
+     "latitude": "41.9877",
+     "longitude": "-87.6545"
+    }
+   },
+   {
+    "beach_name": "Ohio Street",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "105.4",
+    "recordid": "OhioStreet20250829",
+    "latitude": "41.8935",
+    "longitude": "-87.6152",
+    "location": {
+     "latitude": "41.8935",
+     "longitude": "-87.6152"
+    }
+   },
+   {
+    "beach_name": "Oak Street",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "54.2",
+    "recordid": "OakStreet20250829",
+    "latitude": "41.9032",
+    "longitude": "-87.6235",
+    "location": {
+     "latitude": "41.9032",
+     "longitude": "-87.6235"
+    }
+   },
+   {
+    "beach_name": "North Avenue",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "90.8",
+    "recordid": "NorthAvenue20250829",
+    "latitude": "41.9148",
+    "longitude": "-87.6273",
+    "location": {
+     "latitude": "41.9148",
+     "longitude": "-87.6273"
+    }
+   },
+   {
+    "beach_name": "Leone",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "60.8",
+    "recordid": "Leone20250829",
+    "latitude": "42.0131",
+    "longitude": "-87.6635",
+    "location": {
+     "latitude": "42.0131",
+     "longitude": "-87.6635"
+    }
+   },
+   {
+    "beach_name": "Howard",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "92",
+    "recordid": "Howard20250829",
+    "latitude": "42.0188",
+    "longitude": "-87.6663",
+    "location": {
+     "latitude": "42.0188",
+     "longitude": "-87.6663"
+    }
+   },
+   {
+    "beach_name": "Foster",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "107.3",
+    "recordid": "Foster20250829",
+    "latitude": "41.9785",
+    "longitude": "-87.6515",
+    "location": {
+     "latitude": "41.9785",
+     "longitude": "-87.6515"
+    }
+   },
+   {
+    "beach_name": "Hartigan (Albion)",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "77.4",
+    "recordid": "HartiganAlbion20250829",
+    "latitude": "42.0027",
+    "longitude": "-87.6564",
+    "location": {
+     "latitude": "42.0027",
+     "longitude": "-87.6564"
+    }
+   },
+   {
+    "beach_name": "57th Street",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "62.1",
+    "recordid": "57thStreet20250829",
+    "latitude": "41.7911",
+    "longitude": "-87.5797",
+    "location": {
+     "latitude": "41.7911",
+     "longitude": "-87.5797"
+    }
+   },
+   {
+    "beach_name": "Oakwood",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "113.8",
+    "recordid": "Oakwood20250829",
+    "latitude": "41.8211",
+    "longitude": "-87.5976",
+    "location": {
+     "latitude": "41.8211",
+     "longitude": "-87.5976"
+    }
+   },
+   {
+    "beach_name": "Margaret T Burroughs (31st)",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "144.2",
+    "recordid": "MargaretTBurroughs31st20250829",
+    "latitude": "41.8393",
+    "longitude": "-87.6072",
+    "location": {
+     "latitude": "41.8393",
+     "longitude": "-87.6072"
+    }
+   },
+   {
+    "beach_name": "12th Street",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "122.8",
+    "recordid": "12thStreet20250829",
+    "latitude": "41.8638",
+    "longitude": "-87.6082",
+    "location": {
+     "latitude": "41.8638",
+     "longitude": "-87.6082"
+    }
+   },
+   {
+    "beach_name": "Juneway",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "100.7",
+    "recordid": "Juneway20250829",
+    "latitude": "42.0224",
+    "longitude": "-87.6674",
+    "location": {
+     "latitude": "42.0224",
+     "longitude": "-87.6674"
+    }
+   },
+   {
+    "beach_name": "Marion Mahony Griffin (Jarvis)",
+    "date": "2025-08-29T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "61.6",
+    "recordid": "MarionMahonyGriffinJarvis20250829",
+    "latitude": "42.0161",
+    "longitude": "-87.6647",
+    "location": {
+     "latitude": "42.0161",
+     "longitude": "-87.6647"
+    }
+   },
+   {
+    "beach_name": "12th Street",
+    "date": "2025-08-28T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "156.7",
+    "recordid": "12thStreet20250828",
+    "latitude": "41.8638",
+    "longitude": "-87.6082",
+    "location": {
+     "latitude": "41.8638",
+     "longitude": "-87.6082"
+    }
+   },
+   {
+    "beach_name": "Margaret T Burroughs (31st)",
+    "date": "2025-08-28T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "289.3",
+    "recordid": "MargaretTBurroughs31st20250828",
+    "latitude": "41.8393",
+    "longitude": "-87.6072",
+    "location": {
+     "latitude": "41.8393",
+     "longitude": "-87.6072"
+    }
+   },
+   {
+    "beach_name": "Osterman",
+    "date": "2025-08-28T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "122",
+    "recordid": "Osterman20250828",
+    "latitude": "41.9877",
+    "longitude": "-87.6545",
+    "location": {
+     "latitude": "41.9877",
+     "longitude": "-87.6545"
+    }
+   },
+   {
+    "beach_name": "Rogers",
+    "date": "2025-08-28T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "55.6",
+    "recordid": "Rogers20250828",
+    "latitude": "42.0213",
+    "longitude": "-87.6666",
+    "location": {
+     "latitude": "42.0213",
+     "longitude": "-87.6666"
+    }
+   },
+   {
+    "beach_name": "Oakwood",
+    "date": "2025-08-28T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "70.6",
+    "recordid": "Oakwood20250828",
+    "latitude": "41.8211",
+    "longitude": "-87.5976",
+    "location": {
+     "latitude": "41.8211",
+     "longitude": "-87.5976"
+    }
+   },
+   {
+    "beach_name": "57th Street",
+    "date": "2025-08-28T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "93.7",
+    "recordid": "57thStreet20250828",
+    "latitude": "41.7911",
+    "longitude": "-87.5797",
+    "location": {
+     "latitude": "41.7911",
+     "longitude": "-87.5797"
+    }
+   },
+   {
+    "beach_name": "Hartigan (Albion)",
+    "date": "2025-08-28T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "54.5",
+    "recordid": "HartiganAlbion20250828",
+    "latitude": "42.0027",
+    "longitude": "-87.6564",
+    "location": {
+     "latitude": "42.0027",
+     "longitude": "-87.6564"
+    }
+   },
+   {
+    "beach_name": "Foster",
+    "date": "2025-08-28T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "145.7",
+    "recordid": "Foster20250828",
+    "latitude": "41.9785",
+    "longitude": "-87.6515",
+    "location": {
+     "latitude": "41.9785",
+     "longitude": "-87.6515"
+    }
+   },
+   {
+    "beach_name": "Howard",
+    "date": "2025-08-28T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "94",
+    "recordid": "Howard20250828",
+    "latitude": "42.0188",
+    "longitude": "-87.6663",
+    "location": {
+     "latitude": "42.0188",
+     "longitude": "-87.6663"
+    }
+   },
+   {
+    "beach_name": "Marion Mahony Griffin (Jarvis)",
+    "date": "2025-08-28T00:00:00.000",
+    "prediction_source": "DNA Model",
+    "predicted_level": "49.8",
+    "recordid": "MarionMahonyGriffinJarvis20250828",
+    "latitude": "42.0161",
+    "longitude": "-87.6647",
+    "location": {
+     "latitude": "42.0161",
+     "longitude": "-87.6647"
+    }
+   }
+  ]
+ },
+ "t62e-8nvc": {
+  "meta": {
+   "name": "Beach Swim Advisories",
+   "rowsUpdatedAt": "2026-10-13T15:01:13",
+   "columns": [
+    [
+     "beach_name",
+     "Beach Name"
+    ],
+    [
+     "date",
+     "Date"
+    ],
+    [
+     "predicted_level",
+     "Predicted Level"
+    ],
+    [
+     "probability",
+     "Probability"
+    ],
+    [
+     "swim_advisory",
+     "Swim Advisory"
+    ],
+    [
+     "recordid",
+     "RecordID"
+    ]
+   ],
+   "license": null,
+   "attribution": "Chicago Park District"
+  },
+  "latest": [
+   {
+    "beach_name": "OakStreet",
+    "date": "2016-09-22T00:00:00.000",
+    "predicted_level": "31.1",
+    "probability": "0.046",
+    "swim_advisory": "N",
+    "recordid": "OakStreet20160922"
+   },
+   {
+    "beach_name": "Montrose",
+    "date": "2016-09-22T00:00:00.000",
+    "predicted_level": "198.6",
+    "probability": "0.453",
+    "swim_advisory": "N",
+    "recordid": "Montrose20160922"
+   },
+   {
+    "beach_name": "Leone",
+    "date": "2016-09-22T00:00:00.000",
+    "predicted_level": "106.2",
+    "probability": "0.267",
+    "swim_advisory": "N",
+    "recordid": "Leone20160922"
+   },
+   {
+    "beach_name": "Foster",
+    "date": "2016-09-22T00:00:00.000",
+    "predicted_level": "160.9",
+    "probability": "0.39",
+    "swim_advisory": "N",
+    "recordid": "Foster20160922"
+   },
+   {
+    "beach_name": "Calumet",
+    "date": "2016-09-22T00:00:00.000",
+    "predicted_level": "38.1",
+    "probability": "0.121",
+    "swim_advisory": "N",
+    "recordid": "Calumet20160922"
+   },
+   {
+    "beach_name": "63rdStreet",
+    "date": "2016-09-22T00:00:00.000",
+    "predicted_level": "80.8",
+    "probability": "0.247",
+    "swim_advisory": "N",
+    "recordid": "63rdStreet20160922"
+   },
+   {
+    "beach_name": "Rainbow",
+    "date": "2016-09-22T00:00:00.000",
+    "predicted_level": "106.2",
+    "probability": "0.284",
+    "swim_advisory": "N",
+    "recordid": "Rainbow20160922"
+   },
+   {
+    "beach_name": "Osterman",
+    "date": "2016-09-22T00:00:00.000",
+    "predicted_level": "251.6",
+    "probability": "0.521",
+    "swim_advisory": "Y",
+    "recordid": "Osterman20160922"
+   },
+   {
+    "beach_name": "Ohio",
+    "date": "2016-09-22T00:00:00.000",
+    "predicted_level": "10.6",
+    "probability": "0.01",
+    "swim_advisory": "N",
+    "recordid": "Ohio20160922"
+   },
+   {
+    "beach_name": "63rdStreet",
+    "date": "2016-09-21T00:00:00.000",
+    "predicted_level": "101.2",
+    "probability": "0.295",
+    "swim_advisory": "N",
+    "recordid": "63rdStreet20160921"
+   },
+   {
+    "beach_name": "Calumet",
+    "date": "2016-09-21T00:00:00.000",
+    "predicted_level": "19.4",
+    "probability": "0.055",
+    "swim_advisory": "N",
+    "recordid": "Calumet20160921"
+   },
+   {
+    "beach_name": "Foster",
+    "date": "2016-09-21T00:00:00.000",
+    "predicted_level": "79.6",
+    "probability": "0.212",
+    "swim_advisory": "N",
+    "recordid": "Foster20160921"
+   },
+   {
+    "beach_name": "Leone",
+    "date": "2016-09-21T00:00:00.000",
+    "predicted_level": "35.9",
+    "probability": "0.071",
+    "swim_advisory": "N",
+    "recordid": "Leone20160921"
+   },
+   {
+    "beach_name": "Montrose",
+    "date": "2016-09-21T00:00:00.000",
+    "predicted_level": "124.1",
+    "probability": "0.326",
+    "swim_advisory": "N",
+    "recordid": "Montrose20160921"
+   },
+   {
+    "beach_name": "OakStreet",
+    "date": "2016-09-21T00:00:00.000",
+    "predicted_level": "21",
+    "probability": "0.022",
+    "swim_advisory": "N",
+    "recordid": "OakStreet20160921"
+   },
+   {
+    "beach_name": "Ohio",
+    "date": "2016-09-21T00:00:00.000",
+    "predicted_level": "9.5",
+    "probability": "0.008",
+    "swim_advisory": "N",
+    "recordid": "Ohio20160921"
+   },
+   {
+    "beach_name": "Osterman",
+    "date": "2016-09-21T00:00:00.000",
+    "predicted_level": "94.3",
+    "probability": "0.241",
+    "swim_advisory": "N",
+    "recordid": "Osterman20160921"
+   },
+   {
+    "beach_name": "Rainbow",
+    "date": "2016-09-21T00:00:00.000",
+    "predicted_level": "116.1",
+    "probability": "0.306",
+    "swim_advisory": "N",
+    "recordid": "Rainbow20160921"
+   },
+   {
+    "beach_name": "63rdStreet",
+    "date": "2016-09-20T00:00:00.000",
+    "predicted_level": "109.3",
+    "probability": "0.312",
+    "swim_advisory": "N",
+    "recordid": "63rdStreet20160920"
+   },
+   {
+    "beach_name": "Calumet",
+    "date": "2016-09-20T00:00:00.000",
+    "predicted_level": "155.7",
+    "probability": "0.396",
+    "swim_advisory": "N",
+    "recordid": "Calumet20160920"
+   },
+   {
+    "beach_name": "Foster",
+    "date": "2016-09-20T00:00:00.000",
+    "predicted_level": "110.4",
+    "probability": "0.289",
+    "swim_advisory": "N",
+    "recordid": "Foster20160920"
+   },
+   {
+    "beach_name": "Leone",
+    "date": "2016-09-20T00:00:00.000",
+    "predicted_level": "75.8",
+    "probability": "0.188",
+    "swim_advisory": "N",
+    "recordid": "Leone20160920"
+   },
+   {
+    "beach_name": "Montrose",
+    "date": "2016-09-20T00:00:00.000",
+    "predicted_level": "95.5",
+    "probability": "0.262",
+    "swim_advisory": "N",
+    "recordid": "Montrose20160920"
+   },
+   {
+    "beach_name": "OakStreet",
+    "date": "2016-09-20T00:00:00.000",
+    "predicted_level": "24.5",
+    "probability": "0.03",
+    "swim_advisory": "N",
+    "recordid": "OakStreet20160920"
+   },
+   {
+    "beach_name": "Ohio",
+    "date": "2016-09-20T00:00:00.000",
+    "predicted_level": "12.3",
+    "probability": "0.013",
+    "swim_advisory": "N",
+    "recordid": "Ohio20160920"
+   },
+   {
+    "beach_name": "Osterman",
+    "date": "2016-09-20T00:00:00.000",
+    "predicted_level": "199.5",
+    "probability": "0.45",
+    "swim_advisory": "N",
+    "recordid": "Osterman20160920"
+   },
+   {
+    "beach_name": "Rainbow",
+    "date": "2016-09-20T00:00:00.000",
+    "predicted_level": "289.6",
+    "probability": "0.56",
+    "swim_advisory": "Y",
+    "recordid": "Rainbow20160920"
+   },
+   {
+    "beach_name": "63rdStreet",
+    "date": "2016-09-19T00:00:00.000",
+    "predicted_level": "83.6",
+    "probability": "0.254",
+    "swim_advisory": "N",
+    "recordid": "63rdStreet20160919"
+   },
+   {
+    "beach_name": "Calumet",
+    "date": "2016-09-19T00:00:00.000",
+    "predicted_level": "38",
+    "probability": "0.121",
+    "swim_advisory": "N",
+    "recordid": "Calumet20160919"
+   },
+   {
+    "beach_name": "Foster",
+    "date": "2016-09-19T00:00:00.000",
+    "predicted_level": "78.7",
+    "probability": "0.21",
+    "swim_advisory": "N",
+    "recordid": "Foster20160919"
+   },
+   {
+    "beach_name": "Leone",
+    "date": "2016-09-19T00:00:00.000",
+    "predicted_level": "36",
+    "probability": "0.071",
+    "swim_advisory": "N",
+    "recordid": "Leone20160919"
+   },
+   {
+    "beach_name": "Montrose",
+    "date": "2016-09-19T00:00:00.000",
+    "predicted_level": "91.1",
+    "probability": "0.252",
+    "swim_advisory": "N",
+    "recordid": "Montrose20160919"
+   },
+   {
+    "beach_name": "OakStreet",
+    "date": "2016-09-19T00:00:00.000",
+    "predicted_level": "20.6",
+    "probability": "0.021",
+    "swim_advisory": "N",
+    "recordid": "OakStreet20160919"
+   },
+   {
+    "beach_name": "Ohio",
+    "date": "2016-09-19T00:00:00.000",
+    "predicted_level": "9.1",
+    "probability": "0.007",
+    "swim_advisory": "N",
+    "recordid": "Ohio20160919"
+   },
+   {
+    "beach_name": "Osterman",
+    "date": "2016-09-19T00:00:00.000",
+    "predicted_level": "58.2",
+    "probability": "0.141",
+    "swim_advisory": "N",
+    "recordid": "Osterman20160919"
+   },
+   {
+    "beach_name": "Rainbow",
+    "date": "2016-09-19T00:00:00.000",
+    "predicted_level": "110.6",
+    "probability": "0.294",
+    "swim_advisory": "N",
+    "recordid": "Rainbow20160919"
+   },
+   {
+    "beach_name": "63rdStreet",
+    "date": "2016-09-18T00:00:00.000",
+    "predicted_level": "94.2",
+    "probability": "0.279",
+    "swim_advisory": "N",
+    "recordid": "63rdStreet20160918"
+   },
+   {
+    "beach_name": "Calumet",
+    "date": "2016-09-18T00:00:00.000",
+    "predicted_level": "70.8",
+    "probability": "0.22",
+    "swim_advisory": "N",
+    "recordid": "Calumet20160918"
+   },
+   {
+    "beach_name": "Foster",
+    "date": "2016-09-18T00:00:00.000",
+    "predicted_level": "118.2",
+    "probability": "0.306",
+    "swim_advisory": "N",
+    "recordid": "Foster20160918"
+   },
+   {
+    "beach_name": "Leone",
+    "date": "2016-09-18T00:00:00.000",
+    "predicted_level": "80.3",
+    "probability": "0.2",
+    "swim_advisory": "N",
+    "recordid": "Leone20160918"
+   }
+  ]
+ }
+}

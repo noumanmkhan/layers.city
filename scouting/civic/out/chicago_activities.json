@@ -1,0 +1,612 @@
+{
+ "meta": {
+  "name": "Chicago Park District Activities",
+  "rowsUpdatedAt": "2026-10-13T10:23:10",
+  "columns": [
+   [
+    "activity_id",
+    "Activity ID"
+   ],
+   [
+    "type",
+    "Type"
+   ],
+   [
+    "title",
+    "Title"
+   ],
+   [
+    "description",
+    "Description"
+   ],
+   [
+    "start_date",
+    "Start Date"
+   ],
+   [
+    "end_date",
+    "End Date"
+   ],
+   [
+    "date_notes",
+    "Date Notes"
+   ],
+   [
+    "season",
+    "Season"
+   ],
+   [
+    "zone",
+    "Zone"
+   ],
+   [
+    "location_facility",
+    "Location Facility"
+   ],
+   [
+    "location_notes",
+    "Location Notes"
+   ],
+   [
+    "age_range",
+    "Age Range"
+   ],
+   [
+    "activity_type",
+    "Activity Type"
+   ],
+   [
+    "category",
+    "Category"
+   ],
+   [
+    "fee",
+    "Fee"
+   ],
+   [
+    "image_link",
+    "Image Link"
+   ],
+   [
+    "movie_rating",
+    "Movie Rating"
+   ],
+   [
+    "movie_title",
+    "Movie Title"
+   ],
+   [
+    "restrictions",
+    "Restrictions"
+   ],
+   [
+    "information_link",
+    "Information Link"
+   ],
+   [
+    "registration_link",
+    "Registration Link"
+   ],
+   [
+    "registration_date",
+    "Registration Date"
+   ],
+   [
+    "event_cancelled",
+    "Event Cancelled"
+   ],
+   [
+    "address",
+    "Address"
+   ],
+   [
+    "zip",
+    "ZIP"
+   ],
+   [
+    "latitude",
+    "Latitude"
+   ],
+   [
+    "longitude",
+    "Longitude"
+   ],
+   [
+    "location",
+    "Location"
+   ],
+   [
+    ":@computed_region_rpca_8um6",
+    "Boundaries - ZIP Codes"
+   ],
+   [
+    ":@computed_region_vrxf_vc4k",
+    "Community Areas"
+   ],
+   [
+    ":@computed_region_6mkv_f3dw",
+    "Zip Codes"
+   ],
+   [
+    ":@computed_region_bdys_3d7i",
+    "Census Tracts"
+   ],
+   [
+    ":@computed_region_8hcu_yrd4",
+    "Wards 2023-"
+   ]
+  ],
+  "license": "See Terms of Use",
+  "attribution": "Chicago Park District"
+ },
+ "count": [
+  {
+   "count": "9801"
+  }
+ ],
+ "span": [
+  {
+   "min_start_date": "2025-09-02T15:30:00.000",
+   "max_start_date": "2027-04-05T14:30:00.000"
+  }
+ ],
+ "next14": 1025,
+ "categories": [
+  [
+   "Sports - Skating",
+   265
+  ],
+  [
+   "Recreational",
+   122
+  ],
+  [
+   "Sports - Tennis",
+   108
+  ],
+  [
+   "Sports - Hockey",
+   68
+  ],
+  [
+   "Sports - Soccer",
+   54
+  ],
+  [
+   "Sports - Basketball",
+   43
+  ],
+  [
+   "Tumbling",
+   38
+  ],
+  [
+   "Dance",
+   35
+  ],
+  [
+   "Sports - Pickleball",
+   32
+  ],
+  [
+   "Sports - Track &amp; Field",
+   23
+  ],
+  [
+   "Nature",
+   21
+  ],
+  [
+   "Holidays, Night Out in the Parks, Halloween",
+   19
+  ],
+  [
+   "Fitness",
+   16
+  ],
+  [
+   "Recreation",
+   15
+  ],
+  [
+   "Sports - Volleyball",
+   15
+  ],
+  [
+   "Holidays, Night Out in the Parks",
+   13
+  ],
+  [
+   "Sports - Baseball",
+   9
+  ],
+  [
+   "Wellness",
+   8
+  ],
+  [
+   "Sports - Football",
+   8
+  ],
+  [
+   "Sports",
+   7
+  ],
+  [
+   "Decorative Arts",
+   7
+  ],
+  [
+   "Self-Defense",
+   6
+  ],
+  [
+   "Yoga",
+   5
+  ],
+  [
+   "Competitive",
+   5
+  ],
+  [
+   "Sports - Floor Hockey",
+   5
+  ],
+  [
+   "Fun &amp; Games",
+   4
+  ],
+  [
+   "Educational/Self-Help",
+   4
+  ],
+  [
+   "Community Meetings",
+   4
+  ],
+  [
+   "General Event - Games, Night Out in the Parks",
+   3
+  ],
+  [
+   "Music, Night Out in the Parks, Arts &amp; Culture",
+   3
+  ],
+  [
+   "Dance, Night Out in the Parks",
+   3
+  ],
+  [
+   "Sports - Seasonal Sports",
+   3
+  ],
+  [
+   "Clubs",
+   3
+  ],
+  [
+   "Sports - Boxing",
+   3
+  ],
+  [
+   "Theater, Night Out in the Parks",
+   3
+  ],
+  [
+   "Sports - Archery",
+   3
+  ],
+  [
+   "Aerobics",
+   2
+  ],
+  [
+   "Holidays, Night Out in the Parks, Hispanic Heritage Month",
+   2
+  ],
+  [
+   "Wellness, Go Run",
+   2
+  ],
+  [
+   "Movies, Night Out in the Parks",
+   2
+  ]
+ ],
+ "ages": [
+  [
+   "Youth",
+   320
+  ],
+  [
+   "Adult",
+   215
+  ],
+  [
+   "Early Childhood",
+   214
+  ],
+  [
+   "All Ages",
+   134
+  ],
+  [
+   null,
+   60
+  ],
+  [
+   "Teen",
+   20
+  ],
+  [
+   "18 and up",
+   14
+  ],
+  [
+   "Senior",
+   8
+  ],
+  [
+   "10 and up",
+   6
+  ],
+  [
+   "At least 10 but less than 14",
+   3
+  ],
+  [
+   "3 and up",
+   3
+  ],
+  [
+   "60 and up",
+   3
+  ],
+  [
+   "6 and up",
+   3
+  ],
+  [
+   "At least 13 but less than 19",
+   3
+  ],
+  [
+   "5 and up",
+   3
+  ],
+  [
+   "At least 3 but less than 6",
+   2
+  ],
+  [
+   "21 and up",
+   1
+  ],
+  [
+   "9 and up",
+   1
+  ],
+  [
+   "At least 4 but less than 13",
+   1
+  ],
+  [
+   "At least 11 but less than 17",
+   1
+  ],
+  [
+   "16 and up",
+   1
+  ],
+  [
+   "At least 1 but less than 16",
+   1
+  ],
+  [
+   "8 and up",
+   1
+  ],
+  [
+   "At least 1 but less than 12",
+   1
+  ],
+  [
+   "At least 2 but less than 13",
+   1
+  ],
+  [
+   "At least 1 years 6 months but less than 3",
+   1
+  ],
+  [
+   "At least 1 but less than 3",
+   1
+  ],
+  [
+   "55 and up",
+   1
+  ],
+  [
+   "6 and under",
+   1
+  ],
+  [
+   "At least 6 but less than 12",
+   1
+  ]
+ ],
+ "types": [
+  [
+   "Instruction",
+   647
+  ],
+  [
+   "Open",
+   242
+  ],
+  [
+   null,
+   114
+  ],
+  [
+   "Partnership Group",
+   14
+  ],
+  [
+   "League (Team)",
+   4
+  ],
+  [
+   "League (Individual)",
+   4
+  ]
+ ],
+ "with_coords": 1025,
+ "sample": [
+  {
+   "activity_id": "626996",
+   "type": "Program",
+   "title": "Boot Camp at La Follette",
+   "description": "October 13, 2026 to December 10, 2026",
+   "start_date": "2026-10-13T01:30:00.000",
+   "end_date": "2026-12-10T03:00:00.000",
+   "date_notes": "From October 13, 2026 to December 10, 2026 Each Tuesday,Thursday from 1:30am to 3am Except the following dates: Thursday, Nov 26, 2026",
+   "location_facility": "La Follette (Robert) Park",
+   "age_range": "Adult",
+   "activity_type": "Instruction",
+   "category": "Fitness",
+   "fee": "5",
+   "information_link": {
+    "url": "http://apm.activecommunities.com/chicagoparkdistrict/Activity_Search/626996"
+   },
+   "registration_date": "2026-08-03T14:00:00.000",
+   "address": "1333 N. Laramie Ave.",
+   "zip": "60651",
+   "latitude": "41.9053144",
+   "longitude": "-87.7552631",
+   "location": {
+    "type": "Point",
+    "coordinates": [
+     -87.7552631,
+     41.9053144
+    ]
+   }
+  },
+  {
+   "activity_id": "594006",
+   "type": "Program",
+   "title": "Ice Skating - Freestyle Ice (Studio Rink) at McFetridge",
+   "description": "October 13, 2026 to October 13, 2026",
+   "start_date": "2026-10-13T06:00:00.000",
+   "end_date": "2026-10-13T07:00:00.000",
+   "date_notes": "From October 13, 2026 to October 13, 2026 Each Tuesday from 6am to 7am",
+   "location_facility": "McFetridge Sports Center",
+   "age_range": "All Ages",
+   "activity_type": "Open",
+   "category": "Sports - Skating",
+   "fee": "8",
+   "information_link": {
+    "url": "http://apm.activecommunities.com/chicagoparkdistrict/Activity_Search/594006"
+   },
+   "registration_date": "2026-07-29T14:00:00.000",
+   "address": "3843 N. California Ave.",
+   "zip": "60618",
+   "latitude": "41.9517076",
+   "longitude": "-87.6970874",
+   "location": {
+    "type": "Point",
+    "coordinates": [
+     -87.6970874,
+     41.9517076
+    ]
+   }
+  },
+  {
+   "activity_id": "592268",
+   "type": "Program",
+   "title": "Stick & Puck at Morgan Park SC",
+   "description": "October 13, 2026 to October 13, 2026",
+   "start_date": "2026-10-13T06:00:00.000",
+   "end_date": "2026-10-13T08:00:00.000",
+   "date_notes": "From October 13, 2026 to October 13, 2026 Each Tuesday from 6am to 8am",
+   "location_facility": "Morgan Park Sports Center Ice Rink (Indoor)",
+   "age_range": "All Ages",
+   "activity_type": "Open",
+   "category": "Sports - Hockey",
+   "fee": "6",
+   "information_link": {
+    "url": "http://apm.activecommunities.com/chicagoparkdistrict/Activity_Search/592268"
+   },
+   "registration_date": "2026-07-29T14:00:00.000",
+   "address": "11505 S.Western Ave",
+   "zip": "60643",
+   "latitude": "41.6837650799",
+   "longitude": "-87.6805057749",
+   "location": {
+    "type": "Point",
+    "coordinates": [
+     -87.680505774915,
+     41.683765079914
+    ]
+   }
+  },
+  {
+   "activity_id": "594014",
+   "type": "Program",
+   "title": "Ice Skating - Freestyle Ice (Studio Rink) at McFetridge",
+   "description": "October 13, 2026 to October 13, 2026",
+   "start_date": "2026-10-13T07:00:00.000",
+   "end_date": "2026-10-13T08:00:00.000",
+   "date_notes": "From October 13, 2026 to October 13, 2026 Each Tuesday from 7am to 8am",
+   "location_facility": "McFetridge Sports Center",
+   "age_range": "All Ages",
+   "activity_type": "Open",
+   "category": "Sports - Skating",
+   "fee": "8",
+   "information_link": {
+    "url": "http://apm.activecommunities.com/chicagoparkdistrict/Activity_Search/594014"
+   },
+   "registration_date": "2026-07-29T14:00:00.000",
+   "address": "3843 N. California Ave.",
+   "zip": "60618",
+   "latitude": "41.9517076",
+   "longitude": "-87.6970874",
+   "location": {
+    "type": "Point",
+    "coordinates": [
+     -87.6970874,
+     41.9517076
+    ]
+   }
+  },
+  {
+   "activity_id": "591709",
+   "type": "Program",
+   "title": "Turf Field - Open at Addams",
+   "description": "October 13, 2026 to October 13, 2026",
+   "start_date": "2026-10-13T07:00:00.000",
+   "end_date": "2026-10-13T15:00:00.000",
+   "date_notes": "From October 13, 2026 to October 13, 2026 Each Tuesday from 7am to 3pm",
+   "location_facility": "Addams (Jane) Park",
+   "age_range": "Adult",
+   "activity_type": "Open",
+   "category": "Sports - Soccer",
+   "fee": "6",
+   "information_link": {
+    "url": "http://apm.activecommunities.com/chicagoparkdistrict/Activity_Search/591709"
+   },
+   "registration_date": "2026-07-29T14:00:00.000",
+   "address": "1434 S. Loomis",
+   "zip": "60608",
+   "latitude": "41.8623915",
+   "longitude": "-87.6615673",
+   "location": {
+    "type": "Point",
+    "coordinates": [
+     -87.6615673,
+     41.8623915
+    ]
+   }
+  }
+ ]
+}

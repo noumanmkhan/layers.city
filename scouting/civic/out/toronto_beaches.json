@@ -1,0 +1,183 @@
+{
+ "season_rows": 2000,
+ "beaches": {
+  "Sunnyside Beach": {
+   "id": 2,
+   "days": 39,
+   "first": "2026-08-02",
+   "last": "2026-09-16",
+   "sites": 5,
+   "with_value": 185
+  },
+  "Woodbine Beaches": {
+   "id": 8,
+   "days": 38,
+   "first": "2026-08-03",
+   "last": "2026-09-16",
+   "sites": 5,
+   "with_value": 180
+  },
+  "Gibraltar Point Beach": {
+   "id": 4,
+   "days": 39,
+   "first": "2026-08-02",
+   "last": "2026-09-16",
+   "sites": 6,
+   "with_value": 221
+  },
+  "Ward's Island Beach": {
+   "id": 6,
+   "days": 38,
+   "first": "2026-08-03",
+   "last": "2026-09-16",
+   "sites": 5,
+   "with_value": 179
+  },
+  "Hanlan's Point Beach": {
+   "id": 3,
+   "days": 39,
+   "first": "2026-08-02",
+   "last": "2026-09-16",
+   "sites": 5,
+   "with_value": 184
+  },
+  "Marie Curtis Park East Beach": {
+   "id": 1,
+   "days": 39,
+   "first": "2026-08-02",
+   "last": "2026-09-16",
+   "sites": 5,
+   "with_value": 175
+  },
+  "Cherry Beach": {
+   "id": 7,
+   "days": 38,
+   "first": "2026-08-03",
+   "last": "2026-09-16",
+   "sites": 5,
+   "with_value": 180
+  },
+  "Kew Balmy Beach": {
+   "id": 9,
+   "days": 38,
+   "first": "2026-08-03",
+   "last": "2026-09-16",
+   "sites": 6,
+   "with_value": 216
+  },
+  "Centre Island Beach": {
+   "id": 5,
+   "days": 39,
+   "first": "2026-08-02",
+   "last": "2026-09-16",
+   "sites": 5,
+   "with_value": 183
+  },
+  "Bluffer's Beach Park": {
+   "id": 10,
+   "days": 38,
+   "first": "2026-08-03",
+   "last": "2026-09-16",
+   "sites": 5,
+   "with_value": 180
+  }
+ },
+ "observations_fields": [
+  "_id",
+  "dataCollectionDate",
+  "beachName",
+  "windSpeed",
+  "windDirection",
+  "airTemp",
+  "rain",
+  "rainAmount",
+  "waterTemp",
+  "waterFowl",
+  "waveAction",
+  "waterClarity",
+  "turbidity"
+ ],
+ "observations_sample": [
+  {
+   "_id": 20270,
+   "dataCollectionDate": "2026-08-14",
+   "beachName": "Ward's Island Beach",
+   "windSpeed": 9,
+   "windDirection": "NW",
+   "airTemp": 18,
+   "rain": "No",
+   "rainAmount": null,
+   "waterTemp": 22,
+   "waterFowl": null,
+   "waveAction": "NONE",
+   "waterClarity": "Cloudy",
+   "turbidity": null
+  },
+  {
+   "_id": 20269,
+   "dataCollectionDate": "2026-08-14",
+   "beachName": "Sunnyside Beach",
+   "windSpeed": 9,
+   "windDirection": "NW",
+   "airTemp": 18,
+   "rain": "No",
+   "rainAmount": null,
+   "waterTemp": 18,
+   "waterFowl": 6,
+   "waveAction": "NONE",
+   "waterClarity": "Murky",
+   "turbidity": 1.15
+  },
+  {
+   "_id": 20268,
+   "dataCollectionDate": "2026-08-14",
+   "beachName": "Marie Curtis Park East Beach",
+   "windSpeed": 9,
+   "windDirection": "NW",
+   "airTemp": 18,
+   "rain": "No",
+   "rainAmount": null,
+   "waterTemp": 19,
+   "waterFowl": null,
+   "waveAction": "LOW",
+   "waterClarity": "Cloudy",
+   "turbidity": 1.86
+  },
+  {
+   "_id": 20267,
+   "dataCollectionDate": "2026-08-14",
+   "beachName": "Hanlan's Point Beach",
+   "windSpeed": 9,
+   "windDirection": "NW",
+   "airTemp": 18,
+   "rain": "No",
+   "rainAmount": null,
+   "waterTemp": 20,
+   "waterFowl": null,
+   "waveAction": "NONE",
+   "waterClarity": "Cloudy",
+   "turbidity": null
+  },
+  {
+   "_id": 20266,
+   "dataCollectionDate": "2026-08-14",
+   "beachName": "Gibraltar Point Beach",
+   "windSpeed": 9,
+   "windDirection": "NW",
+   "airTemp": 18,
+   "rain": "No",
+   "rainAmount": null,
+   "waterTemp": 20,
+   "waterFowl": null,
+   "waveAction": "NONE",
+   "waterClarity": "Cloudy",
+   "turbidity": null
+  }
+ ],
+ "page_links": [
+  "https://www.google.com/recaptcha/api.js?render=6LeN_XIUAAAAAEd8X21vFtkJ3_c7uA0xpUGcrGpe",
+  "https://www.toronto.ca/community-people/health-wellness-care/health-inspections-monitoring/swimsafe/beach-water-quality/",
+  "https://www.toronto.ca/wp-json/",
+  "https://www.toronto.ca/wp-json/wp/v2/pages/500280"
+ ]
+}

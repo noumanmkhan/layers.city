@@ -1,0 +1,117 @@
+
+== toronto_garbage
+  schedule 2026: 418 rows; calendars {'Tuesday1': 52, 'Tuesday2': 52, 'Wednesday1': 52, 'Wednesday2': 52, 'Thursday1': 53, 'Thursday2': 53, 'Friday1': 52, 'Friday2': 52}
+  areas citygcs_res_wastecollect_schedule_wgs84_b.dbf 34 rows; fields ['AREA_ID', 'AREA_LONG_', 'AREA_NAME', 'Area']
+  districts citygcs_swms_districts_wgs84.dbf 4 rows; fields ['AREA_ID', 'AREA_SHORT', 'AREA_LONG_', 'AREA_NAME', 'AREA_DESC']
+
+== toronto_dropins
+  drop-in rows 34091 locations 1884
+
+== toronto_beaches
+
+== chicago_activities
+/home/runner/work/city-layers/city-layers/scouting/civic/scout.py:182: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+  return {'name': m.get('name'), 'rowsUpdatedAt': datetime.utcfromtimestamp(m['rowsUpdatedAt']).isoformat() if m.get('rowsUpdatedAt') else None,
+
+== chicago_beaches
+  2ivx-z93u Beach Lab Data 2026-10-08T21:44:49 latest None
+  xvsz-3xcj Beach E. coli Predictions 2025-09-02T04:55:07 latest 2025-09-01T00:00:00.000
+  t62e-8nvc Beach Swim Advisories 2026-10-13T15:01:13 latest 2016-09-22T00:00:00.000
+
+== chicago_sweep_snow
+  street sweeping 2026 | ('Street Sweeping Zones - 2026 - Map', 'nk6s-cie5', '2026-06-08T19:30:51.000Z')
+  street sweeping 2026 | ('Street Sweeping Schedule - 2026', 'u5ai-3efk', '2026-06-08T20:52:01.000Z')
+  street sweeping 2026 | ('Delayed Street Sweeping Zones Dataset - 3/31/2026 - Resolved', 'fuz6-n5nj', '2026-04-08T19:10:43.359Z')
+  street sweeping 2026 | ('Street Sweeping Zones - 2026', '2r7q-emq3', '2026-06-08T19:30:51.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2025 - Map', '52z7-wvp2', '2025-10-06T19:36:54.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2023 - Map', 'spr7-3ctg', '2023-03-31T16:43:56.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2026 - Map', 'nk6s-cie5', '2026-06-08T19:30:51.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2021 - Map', '8phr-68jk', '2021-03-12T23:44:29.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2024 - Map', 'ytfi-mzdz', '2024-03-29T21:39:55.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2020 - Map', 'm245-s86v', '2020-03-09T17:51:26.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2022 - Map', 'uivm-t727', '2022-03-30T21:21:17.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2023', '6c59-kupn', '2023-03-31T16:43:56.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2025', 'utb4-q645', '2025-10-06T19:36:54.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2022', 'f2hb-mxv5', '2022-03-30T21:21:17.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2024', '5gh9-putx', '2024-03-29T21:39:55.000Z')
+  sweeping zones | ('Street Sweeping Zones - 2021', 'u7w7-t89t', '2021-03-12T23:44:29.000Z')
+  snow route | ('Snow Route Parking Restrictions - Map', 'nnn9-yqby', '2021-12-06T23:19:08.000Z')
+  snow route | ('Snow Route Parking Restrictions', 'i6k4-giaj', '2021-12-06T23:19:08.000Z')
+  snow route | ('Snow Route Parking Restrictions (Deprecated December 2021)', 'i9q6-fx2v', '2011-12-01T22:25:04.000Z')
+  snow route | ('Snow Route Parking Restrictions - KML', 'yk2f-7cnr', '2011-11-23T21:43:53.000Z')
+  snow route | ('Performance Metrics - Transportation - Snow - Uncleared Sidewalk', 'jdjg-pkke', '2019-04-05T10:11:57.000Z')
+  winter overnight parking | ('Winter Overnight Parking Restrictions - Map', 'u3qw-sa5u', '2021-12-06T21:56:50.000Z')
+  winter overnight parking | ('Winter Overnight Parking Restrictions', 'mcad-r2g5', '2021-12-06T21:56:50.000Z')
+  winter overnight parking | ('Winter Overnight Parking Restrictions - KML', 'fr3e-nxk2', '2011-11-23T21:56:39.000Z')
+  winter overnight parking | ('Winter Overnight Parking Restrictions (Deprecated December 2021)', 'kpim-yiyf', '2011-11-23T21:30:52.000Z')
+  garbage | ('311 Service Requests - Garbage Carts - Historical', '9ksk-na4q', '2019-03-06T09:48:55.000Z')
+  garbage | ('Performance Metrics - Streets & Sanitation - Garbage Cart Requests', '6htv-6453', '2012-07-12T20:52:46.000Z')
+  garbage | ('311 Service Requests - Garbage Carts - No Duplicates', 'cry7-g5xt', '2019-03-06T09:48:55.000Z')
+  garbage | ('311 Service Requests - Sanitation Code Complaints - Historical', 'me59-5fac', '2019-03-06T09:17:36.000Z')
+  garbage | ('Performance Metrics - Streets & Sanitation - Sanitation Code Complaints', '64yp-nqnb', '2012-07-26T20:51:45.000Z')
+  garbage | ('311 Service Requests - Sanitation Code Complaints - No Duplicates', 'rccf-5427', '2019-03-06T09:17:36.000Z')
+  garbage | ('Performance Metrics - Chicago Park District - Natural Resources Recycling', 'kes6-wskt', '2012-07-19T14:14:59.000Z')
+  garbage | ('311 Service Requests - Rodent Baiting - Historical', '97t6-zrhs', '2019-03-06T09:25:27.000Z')
+  garbage | ('311 Service Requests - Rodent Baiting - No Duplicates', 'uqhs-j723', '2019-03-06T09:25:27.000Z')
+  garbage | ('East Garfield Park Requests Made After 6/4/2017 - Based on 311 Service Requests - Sanitation Code Complaints', 'mnup-z695', '2019-03-06T09:17:36.000Z')
+  garbage | ('Budget Survey 2021', 'h6r6-h5c9', '2020-10-01T22:24:49.000Z')
+  sanitation | ('Performance Metrics - Streets & Sanitation - Graffiti Removal', 'qcfn-tiw7', '2012-07-16T14:58:31.000Z')
+  sanitation | ('311 Service Requests - Sanitation Code Complaints - Historical', 'me59-5fac', '2019-03-06T09:17:36.000Z')
+  sanitation | ('Performance Metrics - Streets & Sanitation - Sanitation Code Complaints', '64yp-nqnb', '2012-07-26T20:51:45.000Z')
+  sanitation | ('FOIA Request Log - Streets & Sanitation', 'zpd8-zq4w', '2017-11-28T22:25:58.000Z')
+  sanitation | ('Performance Metrics - Streets & Sanitation - Graffiti Removal', '9m5u-3f29', '2012-07-16T14:58:31.000Z')
+  sanitation | ('311 Service Requests - Sanitation Code Complaints - No Duplicates', 'rccf-5427', '2019-03-06T09:17:36.000Z')
+  sanitation | ('Performance Metrics - Streets & Sanitation - Rodent Baiting', 'ga2y-gwbs', '2012-07-13T21:20:59.000Z')
+  sanitation | ('Performance Metrics - Streets & Sanitation - Tree Debris', 'hwpp-nx6b', '2012-07-26T20:50:26.000Z')
+  sanitation | ('Performance Metrics - Streets & Sanitation - Garbage Cart Requests', '6htv-6453', '2012-07-12T20:52:46.000Z')
+  sanitation | ('Bureau of Sanitation - Unscheduled Absences by Day of Week for Refuse Collectors', 'zfrs-dbnr', '2011-09-27T21:52:00.000Z')
+  sanitation | ('Bureau of Sanitation - Unscheduled Absences by Day of Week for Refuse Truck Drivers', 'tcj9-8qd8', '2011-09-27T21:51:21.000Z')
+  sanitation | ('FOIA Request Log - Streets And Sanitation UPDATE THIS VERSION(1)', 'sf3d-hpu4', '2018-01-05T15:41:26.000Z')
+  recycling | ('Recycling Dropoff Sites', '27cy-fdic', '2016-07-01T04:13:53.000Z')
+  recycling | ('Recycling Service Areas', 'edks-4g3b', '2013-03-21T22:00:22.000Z')
+  recycling | ('Christmas Tree Recycling Locations 2013', 'spxm-tnai', '2013-01-08T01:59:07.000Z')
+  recycling | ('Map of Christmas Tree Recycling Locations', '495s-83kj', '2013-01-08T01:59:07.000Z')
+  recycling | ('Christmas Tree Recycling Locations 2014', '28nh-39r3', '2014-01-03T21:27:10.000Z')
+  recycling | ('Christmas Tree Recycling Locations 2014 - Map', '2xzi-ym2q', '2014-01-03T21:27:10.000Z')
+  recycling | ('Christmas Tree Recycling Locations (2016 - current)', 'drnp-neza', '2016-01-08T16:38:10.000Z')
+  recycling | ('Christmas Tree Recycling Locations 2018 - Map', '59m5-kbzg', '2016-01-08T16:38:10.000Z')
+  recycling | ('Boundaries - Recycling Service Areas - Shapefile (Deprecated March 2013)', 'f2im-mrqs', '2012-04-12T21:56:58.000Z')
+  recycling | ('Boundaries - Recycling Service Areas - KML (Deprecated March 2013)', 'fhty-4yev', '2012-10-04T20:12:33.000Z')
+  recycling | ('Performance Metrics - Chicago Park District - Natural Resources Recycling', 'kes6-wskt', '2012-07-19T14:14:59.000Z')
+  recycling | ('RecyclingServiceAreas', 'ruca-brrd', '2013-03-21T22:00:22.000Z')
+  blue cart | ('Recycling Service Areas', 'edks-4g3b', '2013-03-21T22:00:22.000Z')
+  blue cart | ('Boundaries - Recycling Service Areas - Shapefile (Deprecated March 2013)', 'f2im-mrqs', '2012-04-12T21:56:58.000Z')
+  blue cart | ('Boundaries - Recycling Service Areas - KML (Deprecated March 2013)', 'fhty-4yev', '2012-10-04T20:12:33.000Z')
+  blue cart | ('RecyclingServiceAreas', 'ruca-brrd', '2013-03-21T22:00:22.000Z')
+
+== toronto_gis
+  HIT Yard Building https://gis.toronto.ca/arcgis/rest/services/cot_geospatial13/FeatureServer 19 25 ['OBJECTID', 'ASSET_TYPE', 'ASSET_NAME', 'PUBLIC_NAME', 'ROLLUP_TO', 'AQUATIC_CENTRE_IND', 'ARENA_CURLING_IND', 'ARENA_HOCKEY_IND', 'ARTIFICIAL_ICE_RINK_BLD_IND', 'BARN_IND', 'BOAT_HOUSE_IND', 'CHANGEROOM_BUILDING_IND']
+  HIT Yard Building https://gis.toronto.ca/arcgis/rest/services/cot_geospatial13/MapServer 19 25 ['OBJECTID', 'ASSET_TYPE', 'ASSET_NAME', 'PUBLIC_NAME', 'ROLLUP_TO', 'AQUATIC_CENTRE_IND', 'ARENA_CURLING_IND', 'ARENA_HOCKEY_IND', 'ARTIFICIAL_ICE_RINK_BLD_IND', 'BARN_IND', 'BOAT_HOUSE_IND', 'CHANGEROOM_BUILDING_IND']
+  HIT Residential Waste Collection Schedule https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 3 None ['AREA_ID', 'AREA_ATTR_ID', 'PARENT_AREA_ID', 'AREA_SHORT_CODE', 'AREA_LONG_CODE', 'AREA_NAME', 'AREA_DESC', 'X', 'Y', 'LONGITUDE', 'LATITUDE', 'OBJECTID']
+  HIT Residential Waste Collection Schedule Label https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 4 None ['OBJECTID']
+  HIT Solid Waste Litter Area https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 5 None ['AREA_ID', 'AREA_ATTR_ID', 'PARENT_AREA_ID', 'AREA_SHORT_CODE', 'AREA_LONG_CODE', 'AREA_NAME', 'AREA_DESC', 'X', 'Y', 'LONGITUDE', 'LATITUDE', 'OBJECTID']
+  HIT Solid Waste Litter Area Label https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 6 None ['OBJECTID']
+  HIT Solid Waste Management District https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 7 None ['AREA_ID', 'AREA_ATTR_ID', 'PARENT_AREA_ID', 'AREA_SHORT_CODE', 'AREA_LONG_CODE', 'AREA_NAME', 'AREA_DESC', 'X', 'Y', 'LONGITUDE', 'LATITUDE', 'OBJECTID']
+  HIT Solid Waste Management District Label https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 8 None ['OBJECTID']
+  HIT Solid Waste Transfer Station https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 9 None ['ADDRESS_POINT_ID', 'ADDRESS_NUMBER', 'LINEAR_NAME_FULL', 'ADDRESS_FULL', 'POSTAL_CODE', 'MUNICIPALITY', 'CITY', 'PLACE_NAME', 'GENERAL_USE_CODE', 'CENTRELINE_ID', 'LO_NUM', 'LO_NUM_SUF']
+  HIT Solid Waste White Goods https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 10 None ['AREA_ID', 'AREA_ATTR_ID', 'PARENT_AREA_ID', 'AREA_SHORT_CODE', 'AREA_LONG_CODE', 'AREA_NAME', 'AREA_DESC', 'X', 'Y', 'LONGITUDE', 'LATITUDE', 'OBJECTID']
+  HIT Solid Waste White Goods Label https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 11 None ['OBJECTID']
+  HIT Solid Waste Front End Collection Address https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 12 None ['OBJECTID', 'BILLING_ADDRESS', 'ALTERNATEADDR', 'LIFT_GEO_ID', 'CUSTOMER_TYPE', 'SUB_CUSTOMER_TYPE', 'STATUS', 'COLLECTION_AREA', 'COLLECTION_DAY', 'LOCATION_NOTES', 'SHARED_COLPOINT', 'SHAREDWITH']
+  HIT Solid Waste Front End Collection Point https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/FeatureServer 13 None ['OBJECTID', 'CP_ID', 'COLLECTION_POINT_NUM', 'BILLING_ADDRESS', 'LIFT_GEO_ID', 'STATUS', 'COLLECTION_AREA', 'TBU', 'SHARED_COLPOINT', 'SHAREDWITH', 'LOCATION_NOTES', 'LONGITUDE']
+  HIT Residential Waste Collection Schedule https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 3 51 ['AREA_ID', 'AREA_ATTR_ID', 'PARENT_AREA_ID', 'AREA_SHORT_CODE', 'AREA_LONG_CODE', 'AREA_NAME', 'AREA_DESC', 'SHAPE', 'X', 'Y', 'LONGITUDE', 'LATITUDE']
+  HIT Residential Waste Collection Schedule Label https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 4 51 ['OBJECTID']
+  HIT Solid Waste Litter Area https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 5 6 ['AREA_ID', 'AREA_ATTR_ID', 'PARENT_AREA_ID', 'AREA_SHORT_CODE', 'AREA_LONG_CODE', 'AREA_NAME', 'AREA_DESC', 'SHAPE', 'X', 'Y', 'LONGITUDE', 'LATITUDE']
+  HIT Solid Waste Litter Area Label https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 6 6 ['OBJECTID']
+  HIT Solid Waste Management District https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 7 4 ['AREA_ID', 'AREA_ATTR_ID', 'PARENT_AREA_ID', 'AREA_SHORT_CODE', 'AREA_LONG_CODE', 'AREA_NAME', 'AREA_DESC', 'SHAPE', 'X', 'Y', 'LONGITUDE', 'LATITUDE']
+  HIT Solid Waste Management District Label https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 8 4 ['OBJECTID']
+  HIT Solid Waste Transfer Station https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 9 7 ['ADDRESS_POINT_ID', 'ADDRESS_NUMBER', 'LINEAR_NAME_FULL', 'ADDRESS_FULL', 'POSTAL_CODE', 'MUNICIPALITY', 'CITY', 'PLACE_NAME', 'GENERAL_USE_CODE', 'CENTRELINE_ID', 'LO_NUM', 'LO_NUM_SUF']
+  HIT Solid Waste White Goods https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 10 4 ['AREA_ID', 'AREA_ATTR_ID', 'PARENT_AREA_ID', 'AREA_SHORT_CODE', 'AREA_LONG_CODE', 'AREA_NAME', 'AREA_DESC', 'SHAPE', 'X', 'Y', 'LONGITUDE', 'LATITUDE']
+  HIT Solid Waste White Goods Label https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 11 4 ['OBJECTID']
+  HIT Solid Waste Front End Collection Address https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 12 3222 ['OBJECTID', 'BILLING_ADDRESS', 'ALTERNATEADDR', 'LIFT_GEO_ID', 'CUSTOMER_TYPE', 'SUB_CUSTOMER_TYPE', 'STATUS', 'COLLECTION_AREA', 'COLLECTION_DAY', 'LOCATION_NOTES', 'SHARED_COLPOINT', 'SHAREDWITH']
+  HIT Solid Waste Front End Collection Point https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer 13 3295 ['OBJECTID', 'CP_ID', 'COLLECTION_POINT_NUM', 'BILLING_ADDRESS', 'LIFT_GEO_ID', 'STATUS', 'COLLECTION_AREA', 'TBU', 'SHARED_COLPOINT', 'SHAREDWITH', 'LOCATION_NOTES', 'LONGITUDE']
+  HIT Dropin https://gis.toronto.ca/arcgis/rest/services/cot_geospatial26/FeatureServer 47 51 ['ADDRESS_POINT_ID', 'ADDRESS_NUMBER', 'LINEAR_NAME_FULL', 'ADDRESS_FULL', 'POSTAL_CODE', 'MUNICIPALITY', 'CITY', 'PLACE_NAME', 'GENERAL_USE_CODE', 'CENTRELINE_ID', 'LO_NUM', 'LO_NUM_SUF']
+  HIT Dropin https://gis.toronto.ca/arcgis/rest/services/cot_geospatial26/MapServer 47 51 ['ADDRESS_POINT_ID', 'ADDRESS_NUMBER', 'LINEAR_NAME_FULL', 'ADDRESS_FULL', 'POSTAL_CODE', 'MUNICIPALITY', 'CITY', 'PLACE_NAME', 'GENERAL_USE_CODE', 'CENTRELINE_ID', 'LO_NUM', 'LO_NUM_SUF']
+  HIT Collector https://gis.toronto.ca/arcgis/rest/services/cot_geospatial/FeatureServer 8 6374 ['CENTRELINE_ID', 'LINEAR_NAME_ID', 'FROM_INTERSECTION_ID', 'TO_INTERSECTION_ID', 'LO_NUM_L', 'HI_NUM_L', 'LO_NUM_R', 'HI_NUM_R', 'PARITY_R', 'PARITY_L', 'ADDRESS_R', 'ADDRESS_L']
+  HIT Collector https://gis.toronto.ca/arcgis/rest/services/cot_geospatial/MapServer 8 6374 ['CENTRELINE_ID', 'LINEAR_NAME_ID', 'FROM_INTERSECTION_ID', 'TO_INTERSECTION_ID', 'LO_NUM_L', 'HI_NUM_L', 'LO_NUM_R', 'HI_NUM_R', 'PARITY_R', 'PARITY_L', 'ADDRESS_R', 'ADDRESS_L']
+
+done
