@@ -1,4 +1,5 @@
-areas: 51 ['Friday1', 'Friday2', 'No Collection', 'Thursday1', 'Thursday2', 'Tuesday1', 'Tuesday2', 'Wednesday1', 'Wednesday2']
-calendar 2026 47416395-fb31-4252-9737-2367f5a56953 418 rows
-areas with no calendar (left out): ['Friday1', 'Friday2', 'NoCollection']
-collection: 37 areas, 6 calendars, 314 pickup days, 118 KB
+  retry 1 https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer/3/query?where=1%3D1&outFields=AREA_NAME%2CAREA_LONG_CODE%2CAREA_ID&re HTTP Error 503: Service Unavailable
+  retry 2 https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer/3/query?where=1%3D1&outFields=AREA_NAME%2CAREA_LONG_CODE%2CAREA_ID&re HTTP Error 503: Service Unavailable
+  retry 3 https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer/3/query?where=1%3D1&outFields=AREA_NAME%2CAREA_LONG_CODE%2CAREA_ID&re HTTP Error 503: Service Unavailable
+  retry 4 https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer/3/query?where=1%3D1&outFields=AREA_NAME%2CAREA_LONG_CODE%2CAREA_ID&re HTTP Error 503: Service Unavailable
+could not fetch https://gis.toronto.ca/arcgis/rest/services/cot_geospatial21/MapServer/3/query?where=1%3D1&outFields=AREA_NAME%2CAREA_LONG_CODE%2CAREA_ID&returnGeometry=true&outSR=4326&f=geojson
