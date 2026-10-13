@@ -16,7 +16,7 @@
 
    Leave ID empty to switch counting off everywhere. */
 (function(){
-  var ID = '';
+  var ID = '26a83d6c-2032-4c93-94e5-4bba3bac7e70';
   var SRC = 'https://cloud.umami.is/script.js';
   var HOSTS = ['layers.city'];
 
