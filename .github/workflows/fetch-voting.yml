@@ -1,0 +1,44 @@
+name: Fetch voting places
+# Toronto's voting subdivisions and voting places (cities/toronto/fetch_voting.py) into
+# cities/toronto/raw/voting/, then docs/toronto/data/voting.geojson with cities/toronto/voting.py
+# when it exists. The City says the data can change up to election day, so this runs daily in
+# October (and early on election morning), on change, or by hand.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 9 * 10 *'      # daily in October, 09:23 UTC (5:23 am Toronto)
+    - cron: '41 11 26 10 *'    # election morning, 7:41 am Toronto, before polls open at 10
+  push:
+    branches: [main]
+    paths: ['cities/toronto/fetch_voting.py', 'cities/toronto/voting.py', '.github/workflows/fetch-voting.yml']
+permissions:
+  contents: write
+concurrency: fetch-voting
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: pip install -q shapely openpyxl
+      - run: |
+          mkdir -p cities/toronto/raw/voting
+          python3 -u cities/toronto/fetch_voting.py 2>&1 | tee cities/toronto/raw/voting/fetch.log
+          if [ -f cities/toronto/voting.py ]; then
+            npm install --silent
+            python3 -u cities/toronto/voting.py 2>&1 | tee -a cities/toronto/raw/voting/fetch.log
+          fi
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/voting
+          [ -f docs/toronto/data/voting.geojson ] && git add docs/toronto/data/voting.geojson
+          git commit -m "Update Toronto voting places" || echo "no changes"
+          git pull --rebase
+          git push
