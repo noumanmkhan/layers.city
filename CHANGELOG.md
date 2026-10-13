@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Brand colours on the maps (October 14)
+- The map's accent changed from purple to the Layers.City red (#C8102E; #E5364F in dark mode): the pin, the
+  layer toggles, buttons, the vote box and the card's highlights. Canadian cities are red and white. US cities
+  are red, white and blue: Chicago's `city.css` sets a new `--accent-2` to blue for the panel's toggles,
+  checkboxes and tour, while pins and buttons stay red. Compare's second pin (B) moved from orange to teal so it
+  stays easy to tell from the red A. For the iOS app: `palette["--accent"]` has the new
+  values; read `--accent-2` for toggles and fall back to `--accent` (contract section 4). Additive.
+
 ### New address (October 12)
 - The site moved to **https://layers.city/** (GitHub Pages custom domain). maps.noumankhan.ca now 301-redirects
   there at Cloudflare, keeping the path and query string (and the browser keeps the `#` part), so old links and

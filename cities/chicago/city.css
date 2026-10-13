@@ -6,16 +6,18 @@
   --l-red:#C60C30; --l-blue:#00A1DE; --l-brown:#62361B; --l-green:#009B3A; --l-orange:#F9461C;
   --l-pink:#E27EA6; --l-purple:#522398; --l-yellow:#F9E300;
   --m-a:#005DAA; --m-b:#008000; --m-c:#E02400; --m-d:#EB5C00;
+  /* US cities: red, white and blue. Panel toggles take the flag's blue; pins and buttons stay red. */
+  --accent-2:#1C4A94;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --s-farnorth:#4C7FB5; --s-northwest:#5E9A48; --s-north:#3B98A3; --s-central:#C2484E; --s-west:#C7703F;
   --s-south:#7D68B8; --s-southwest:#B8962E; --s-farsouthwest:#C26E96; --s-farsoutheast:#4FA88E;
-  --l-brown:#9A6A4A; --l-purple:#8A63C9;
+  --l-brown:#9A6A4A; --l-purple:#8A63C9; --accent-2:#4F84E8;
 }}
 :root[data-theme="dark"]{
   --s-farnorth:#4C7FB5; --s-northwest:#5E9A48; --s-north:#3B98A3; --s-central:#C2484E; --s-west:#C7703F;
   --s-south:#7D68B8; --s-southwest:#B8962E; --s-farsouthwest:#C26E96; --s-farsoutheast:#4FA88E;
-  --l-brown:#9A6A4A; --l-purple:#8A63C9;
+  --l-brown:#9A6A4A; --l-purple:#8A63C9; --accent-2:#4F84E8;
 }
 .sw.sides{background:conic-gradient(var(--s-farnorth) 0 11%,var(--s-northwest) 0 22%,var(--s-north) 0 33%,var(--s-central) 0 44%,var(--s-west) 0 55%,var(--s-south) 0 66%,var(--s-southwest) 0 77%,var(--s-farsouthwest) 0 88%,var(--s-farsoutheast) 0)}
 .sw.cta{background:linear-gradient(var(--l-red) 0 25%,var(--l-blue) 0 50%,var(--l-green) 0 75%,var(--l-brown) 0)}

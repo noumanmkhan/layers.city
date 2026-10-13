@@ -186,6 +186,9 @@ How the website's search does it, for an app that wants to match:
   `city.json` (a fill layer's `colors`, a pill's `color`, a lens tier) is a key here. Only the
   published copy has it; the website builds it from its stylesheets. Use it rather than copying
   hex values into the app, so a colour change on the website reaches the app with the data.
+  `--accent` is the brand red (pins, buttons, the card's tinted boxes). `--accent-2`, when present, is
+  the colour for controls such as layer toggles (Chicago: blue, for red, white and blue); when it's
+  absent, use `--accent` (Canadian cities are red and white).
 - `drive`: `hub` (`[lat, lon]`) and `hubName` ("Union Station", "State & Madison").
 - `outside`: `beyond` (message when the point is outside the whole region), `regionPill`
   (template for the region name), `note` (shown on outside cards).
