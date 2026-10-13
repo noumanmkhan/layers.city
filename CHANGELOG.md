@@ -2,6 +2,18 @@
 
 ## Since 1.1
 
+### Collection day and street sweeping on the card (October 14)
+- **Toronto: Collection day.** A Boundaries row gives the spot's collection day and the next two pickups with
+  what goes out ("Thu, Oct 15: Green bin, recycling"), from the City's live collection areas (51, matched by
+  calendar name) and the yearly pickup calendar. Outside the curbside areas (apartments and buildings with 9 or
+  more units, parts of downtown) it says so. Fetched monthly; a new year's calendar arrives on its own once the
+  City publishes it (usually by March), and until then the row says the calendar has run out.
+- **Chicago: Street sweeping.** A Boundaries row gives the ward section and its next sweeping dates, April to
+  November, from the City's 2026 sweeping zones and schedule; nothing shows out of season or where there's no
+  zone (the Loop).
+- Engine: one generic "pickup" row (`card.pickup`) and file kind, so other cities can add any service that
+  comes on set dates to set areas. For the iOS app: contract sections 3 and 5. Additive.
+
 ### All / Basic / Live, and road closures on the card (October 14)
 - **Panel tabs.** The layer list now has three tabs: All, Basic (data that rarely changes: census, boundaries,
   landmarks, routes) and Live (refreshed from city feeds every day or week). They only filter the list; layers

@@ -1427,6 +1427,7 @@ function cardOf(latlng, title, muniName){
   });
   const facts = CITY.card.facts.filter(r => !r.onlyInside || hits[r.layer]).map(r => {
     if (r.address) return addressRow(x, y);
+    if (r.pickup) return pickupRow(x, y);
     if (r.heritageBuilding) return heritageRow(r, x, y, title);
     if (r.knownas) return [r.label, near.length ? near.map(a => a[0].properties.name).join(', ') : '—'];
     if (r.boards){ const it = LAYERS.find(l => l.id === r.boards), bh = hits[r.boards] || {};
@@ -1454,6 +1455,43 @@ function cardOf(latlng, title, muniName){
                ['cls', (CLC && CLC.title) || 'Road closures', closuresHere(x, y)],
                ['chg', (CC && CC.title) || 'Changing nearby', changesHere(x, y)],
                ['reps', 'Representatives', representatives(hits)]]};
+}
+/* The card's pickup row (card.pickup in city.json; a Boundaries row placed by {"label", "pickup": true} in
+   card.facts): a city service that comes on set dates to set areas, such as curbside collection or street
+   sweeping. The file (kind "pickup") has one feature per area with key `k`, and `sched` {k: [[date, [item…]]]}.
+   Shows the area's usual weekday ({day}) or its own fields in `head`, then the next `show` dates from today
+   in the city's time zone with what goes out (labels from `items`). `group` joins dates a few days apart into
+   one visit ("Oct 27 and 28"). Outside every area: `outside` (or no row); past the last date: `after` (or no
+   row). [label, html, true], or null. */
+const PU = CITY.card.pickup || null;
+function pickupRow(x, y){
+  const D = data.pickup; if (!PU || !D) return null;
+  const f = D.features.find(f => contains(f.geometry, x, y));
+  if (!f) return PU.outside ? [PU.label, '<span class="ag-sub">' + esc(PU.outside) + '</span>', true] : null;
+  const all = (D.sched[f.properties.k] || []);
+  const today = cityToday(PU.tz), dt = s => new Date(s + 'T12:00:00');
+  const left = all.filter(e => e[0] >= today);
+  if (!left.length) return PU.after ? [PU.label, '<span class="ag-sub">' + esc(fill(PU.after, {year: D.year})) + '</span>', true] : null;
+  // Visits: single dates, or with `group` dates within 4 days of each other joined.
+  const visits = [];
+  left.forEach(e => { const v = visits[visits.length - 1];
+    if (PU.group && v && (dt(e[0]) - dt(v.dates[v.dates.length - 1])) / 864e5 <= 4){ v.dates.push(e[0]); e[1].forEach(i => v.items.includes(i) || v.items.push(i)); }
+    else visits.push({dates: [e[0]], items: e[1].slice()}); });
+  const wd = d => dt(d).toLocaleDateString(CITY.locale, {weekday: 'long'});
+  const days = {}; all.forEach(e => { const w = wd(e[0]); days[w] = (days[w] || 0) + 1; });
+  const day = Object.entries(days).sort((a, b) => b[1] - a[1])[0][0];
+  const tomorrow = new Date(dt(today).getTime() + 864e5).toISOString().slice(0, 10);
+  const when = v => {
+    const one = d => d === today ? (PU.todayText || 'Today') : d === tomorrow ? (PU.tomorrowText || 'Tomorrow') : dt(d).toLocaleDateString(CITY.locale, {weekday: 'short', month: 'short', day: 'numeric'});
+    if (v.dates.length === 1) return one(v.dates[0]);
+    const m = dt(v.dates[0]).getMonth() === dt(v.dates[v.dates.length - 1]).getMonth();
+    return dt(v.dates[0]).toLocaleDateString(CITY.locale, {month: 'short', day: 'numeric'}) + ' and ' +
+      (m ? dt(v.dates[v.dates.length - 1]).getDate() : dt(v.dates[v.dates.length - 1]).toLocaleDateString(CITY.locale, {month: 'short', day: 'numeric'}));
+  };
+  const items = v => cap(v.items.map(i => (PU.items || {})[i] || i).join(', '));
+  const lines = visits.slice(0, PU.show || 2).map(v => '<span class="ag-sub">' + esc(fill(PU.next || '{when}: {items}', {when: when(v), items: items(v)})) + '</span>').join('');
+  const head = fill(PU.head || '{day}', Object.assign({day}, f.properties));
+  return [PU.label, esc(head) + lines + (PU.note ? '<span class="ag-sub pu-note">' + esc(fill(PU.note, {year: D.year})) + '</span>' : ''), true];
 }
 /* The card's address row (card.address in city.json; data from the addresses layer's file). A grid city:
    the spot's address numbers, read off the mile lines ("About 2400 N · 1200 W"). A divided city: which
@@ -2800,6 +2838,8 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
     data.schools = d;
     redrawCard();
   }).catch(() => { data.schools = null; });
+  // Pickup row (collection or sweeping days): fetched after the map is up, then the open card is redrawn.
+  if (PU) get(PU.file).then(d => { data.pickup = d; redrawCard(); }).catch(() => { data.pickup = null; });
   // Where to vote: only fetched while the polls haven't closed.
   if (voteLive()) get(VOTE.file).then(d => {
     data.voting = d;

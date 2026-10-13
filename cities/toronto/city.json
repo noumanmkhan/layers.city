@@ -21,7 +21,7 @@
     {"name": "Lake Ontario", "at": [43.585, -79.40], "cls": "lake-near"},
     {"name": "Lake Ontario", "at": [43.45, -78.75], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Voting places: City of Toronto Elections · Heritage buildings: City of Toronto Heritage Register · Changes: City of Toronto development applications and building permits",
+  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Voting places: City of Toronto Elections · Heritage buildings: City of Toronto Heritage Register · Changes: City of Toronto development applications and building permits · Collection days: City of Toronto Solid Waste Management Services",
   "example": {"at": [43.67194, -79.38667], "name": "Toronto Reference Library (example)"},
 
   "search": {
@@ -188,6 +188,7 @@
       {"label": "Neighbourhood", "layer": "nbhd", "text": "{name} (#{code})"},
       {"label": "Known as", "knownas": true},
       {"label": "Address", "address": true},
+      {"label": "Collection day", "pickup": true},
       {"label": "Heritage district", "layer": "heritage", "text": "{name}[ (designated {since})]", "onlyInside": true},
       {"label": "Heritage building", "heritageBuilding": true},
       {"label": "BIA", "layer": "bia", "text": "{name}[ (since {since})]", "empty": "None"},
@@ -209,6 +210,7 @@
       "recent": {"label": "Recent immigrants", "text": "{pct}% arrived in Canada 2016–21", "caveat": "Share of residents who immigrated in the five years before the 2021 Census."}
     },
     "vote": {"file": "voting", "date": "2026-10-26", "tz": "America/Toronto", "closes": "2026-10-26T20:00:00-04:00", "title": "Election day · {date}", "today": "Election day is today", "hours": "10 a.m. to 8 p.m.", "lead": "People living here vote at", "entrance": "Entrance: {e}", "access": "Accessible entrance: {ae}", "vat": "A Voter Assist Terminal is set up here.", "show": "Show on map", "link": ["Check MyVote", "https://www.toronto.ca/city-government/elections/voter-information/myvote/"], "note": "Ward {ward}, voting subdivision {sub} · City of Toronto voting places as of {asof}. They can change up to election day: MyVote has the final word."},
+    "pickup": {"file": "collection", "label": "Collection day", "tz": "America/Toronto", "show": 2, "head": "{day}", "next": "{when}: {items}", "items": {"green": "green bin", "garbage": "garbage", "recycling": "recycling", "yard": "yard waste", "tree": "Christmas tree"}, "outside": "Not on the City’s weekly curbside routes: apartments and buildings with 9 or more units, and parts of downtown, have their own collection.", "after": "The City’s {year} calendar has run out; next year’s is usually published by March.", "note": "For houses and buildings under 9 units. City of Toronto collection calendar, {year}."},
     "closures": {"title": "Road closures", "radius": 500, "max": 4, "more": "And {n} more nearby: turn on Road closures to see them.", "note": "Transit and GO construction within 500 m only; other roadwork isn’t shown. Dates are permit dates, not a forecast of when the road reopens. City of Toronto road restrictions, as of {date}."},
     "changes": {"title": "Changing nearby", "radius": 500, "max": 6, "none": "Nothing big proposed, approved, under way or finished within 500 m in the last two years.", "more": "And {n} more nearby: turn on What's changing to see them.", "note": "Development applications are proposals, not decisions. Big changes within 500 m: no houses or small jobs. City of Toronto development applications and building permits, as of {date}."},
     "transit": {
