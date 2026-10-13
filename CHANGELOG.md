@@ -128,6 +128,15 @@
   same view from the rows it already has (contract section 5).
 
 ### Toronto
+- **Where to vote** (October 14): until polls close on October 26 at 8 pm, the What's here card opens with
+  a tinted box and a ballot-box icon: "Election day · Mon, Oct 26 · 10 a.m. to 8 p.m. People living here vote
+  at …", the building, its address and distance, the entrance and accessible entrance where the City lists
+  them, a Show on map button and a link to the City's MyVote. A ballot-box mark sits on the voting place.
+  From the City's 2026 voting subdivisions and voting places (its ArcGIS Online layers, one place per
+  subdivision), fetched daily in October by `fetch-voting.yml` because the City says places can change up to
+  election day; building names and entrances from its All Wards list where the addresses agree. The box and
+  the file go away on their own once the polls close. For the iOS app: `voting.geojson` and `card.vote`
+  (contract sections 3 and 5), optional and time-limited. Additive, schema stays 1.
 - **Starting layers** (October 12): first load and Reset now also show Landmarks, Universities, Colleges,
   Hospitals, Skyscrapers and Streetcars, beside Former cities, Old Toronto areas, Neighbourhoods, Known-as
   names, Main streets, Highways, GO trains and Subway & LRT. Shared links that list their layers are

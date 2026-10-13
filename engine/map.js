@@ -1489,13 +1489,14 @@ function inspect(latlng, title, muniName){
       '<div class="pills">' + c.pills + '</div>' + c.drive +
       (regionFeature(m.region) && focusKey !== m.region ? '<button type="button" class="focus-go">' + esc(fill(CITY.focus.show, {name: regionName(m.region)})) + '</button>' : '') +
       cmpRow + '<p class="outside-note">' + esc(CITY.outside.note) + '</p>';
-    wireCard();
+    wireCard(); clearVoteMark();
     const fg = here.querySelector('.focus-go'); if (fg) fg.onclick = () => setFocus(m.region, true);
     return;
   }
-  here.innerHTML = cardHead('What’s here', c.heading) + '<div class="pills">' + c.pills + '</div>' + c.focus + c.tower + c.standout + cmpRow +
+  here.innerHTML = cardHead('What’s here', c.heading) + '<div class="pills">' + c.pills + '</div>' + voteBox(c.x, c.y) + c.focus + c.tower + c.standout + cmpRow +
     c.sections.map(([id, t, body]) => section(id, t, body)).join('');
   wireCard();
+  drawVoteMark(c.x, c.y);
 }
 /* ---------- Compare two places ----------
    "Compare with another place" on the card, then tap the map or search: the card widens into one table,
@@ -1536,6 +1537,7 @@ function rowsOf(body){
   return {rows, notes};
 }
 function renderCompare(){
+  clearVoteMark();
   const A = cardOf(...cmp.a), B = cardOf(...cmp.b);
   if (!A || !B){ endCompare(A ? 1 : 0); return; }
   placePin(cmp.a[0], cmp.a[1]); pinLabel('A');
@@ -1580,6 +1582,48 @@ function standout(unit, heading){
   return '<p class="standout"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m8 1.5 1.9 4 4.4.5-3.3 3 .9 4.3L8 11.1l-3.9 2.2.9-4.3-3.3-3 4.4-.5z"/></svg><span>' +
     text + ' <small>' + esc(f.value) + '</small></span></p>';
 }
+/* ---------- Where to vote ----------
+   Until the polls close (card.vote.closes), a box near the top of the card names the voting place for the
+   spot's voting subdivision, with a ballot-box mark at that place on the map. The file (card.vote.file:
+   subdivisions, each with its place's c code, w ward, n name, a address, e entrance, ae accessible entrance,
+   vat, x/y) loads after the map, and only while the polls haven't closed. Nothing shows after closing or
+   where no subdivision covers the spot. Not part of Compare. */
+const VOTE = CITY.card.vote || null;
+let voteMark = null;
+const voteLive = () => !!(VOTE && Date.now() < Date.parse(VOTE.closes));
+function voteAt(x, y){
+  if (!voteLive() || !data.voting) return null;
+  const f = hit(data.voting, x, y);
+  return f ? f.properties : null;
+}
+function voteBox(x, y){
+  const v = voteAt(x, y); if (!v) return '';
+  const today = cityToday(VOTE.tz) === VOTE.date;
+  const when = today ? VOTE.today : fill(VOTE.title, {date: isoDate(VOTE.date).toLocaleDateString(CITY.locale, {weekday:'short', month:'short', day:'numeric'})});
+  const d = metres([x, y], [v.x, v.y]);
+  const place = v.n ? '<b>' + esc(v.n) + '</b><span>' + esc(v.a) + ' · ' + dist(d) + ' away</span>' : '<b>' + esc(v.a) + '</b><span>' + dist(d) + ' away</span>';
+  const more = [v.e && fill(VOTE.entrance, v), v.ae && fill(VOTE.access, v), v.vat && VOTE.vat].filter(Boolean);
+  const ctx = {sub: String(+v.c.slice(2)), ward: v.w, asof: niceDate(data.voting.asof)};
+  return '<div class="vote" role="note"><i class="vote-ic" aria-hidden="true">' + BALLOT_ICON + '</i><div class="vote-tx">' +
+    '<small>' + esc(when) + ' · ' + esc(VOTE.hours) + '</small>' +
+    '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl">' + place + '</p>' +
+    (more.length ? '<p class="vote-ex">' + more.map(esc).join('<br>') + '</p>' : '') +
+    '<p class="vote-acts"><button type="button" class="vote-go">' + esc(VOTE.show) + '</button>' +
+    '<a href="' + esc(VOTE.link[1]) + '" target="_blank" rel="noopener">' + esc(VOTE.link[0]) + ' ↗</a></p>' +
+    '<p class="vote-note">' + esc(fill(VOTE.note, ctx)) + '</p></div></div>';
+}
+const BALLOT_ICON = '<svg viewBox="0 0 24 24"><path d="M9.5 3.5h5l1 6h-7z" fill="currentColor" opacity=".55"/><path d="M4 10.5h16v9.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" fill="currentColor"/><rect x="8.5" y="12.6" width="7" height="1.6" rx=".8" fill="var(--vote-slot,#fff)"/><path d="M10.6 6.6l1.2 1.2 2.3-2.4" fill="none" stroke="var(--vote-slot,#fff)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+// The ballot-box mark at the voting place of the spot on the card (removed with the card).
+function drawVoteMark(x, y){
+  const v = voteAt(x, y);
+  if (!v){ if (voteMark){ map.removeLayer(voteMark); voteMark = null; } return; }
+  const ll = L.latLng(v.y, v.x);
+  if (voteMark) voteMark.setLatLng(ll);
+  else voteMark = L.marker(ll, {pane:'pin', interactive:false, keyboard:false, zIndexOffset:-500, icon: L.divIcon({className:'', iconSize:[28, 36], iconAnchor:[14, 36], html:'<span class="vote-mk">' + BALLOT_ICON + '</span>'})}).addTo(map);
+  const go = here.querySelector('.vote-go');
+  if (go) go.onclick = () => frame(L.latLngBounds([L.latLng(y, x), ll]).pad(0.2), {maxZoom: 17});
+}
+function clearVoteMark(){ if (voteMark){ map.removeLayer(voteMark); voteMark = null; } }
 // Free-flow drive time from the nearest grid point (about 1.5 km apart), and the municipality's typical time.
 function driveHere(x, y, m){
   const g = data.driveGrid; if (!g || !CITY.drive) return '';
@@ -1617,7 +1661,7 @@ if (window.ResizeObserver){
   }).observe(attr);
 }
 function closeHere(){
-  here.hidden = true; if (meRing){ map.removeLayer(meRing); meRing = null; }
+  here.hidden = true; clearVoteMark(); if (meRing){ map.removeLayer(meRing); meRing = null; }
   if (cmp){ cmp = null; document.getElementById('side').classList.remove('cmp'); }
   if (pinB){ map.removeLayer(pinB); pinB = null; }
   if (pin){ map.removeLayer(pin); pin = null; pinIsMe = false; queueHash(); }
@@ -2008,10 +2052,10 @@ results.addEventListener('keydown', e => {
 
 /* ---------- Scope: the wider region ("outer") or the city alone ("inner") ---------- */
 let mask = null, scope = 'outer';
-function frame(bounds){
+function frame(bounds, extra){
   // The tour's box sits at the bottom of the map: keep what it's showing above it.
   const tb = tourBox && !tourBox.hidden ? tourBox.offsetHeight + 24 : 0;
-  const opts = wide() ? {paddingTopLeft:[330,20], paddingBottomRight:[350,Math.max(20, tb)]} : {paddingTopLeft:[0,150], paddingBottomRight:[0,Math.max(90, tb)]};
+  const opts = Object.assign(wide() ? {paddingTopLeft:[330,20], paddingBottomRight:[350,Math.max(20, tb)]} : {paddingTopLeft:[0,150], paddingBottomRight:[0,Math.max(90, tb)]}, extra || {});
   const size = map.getSize(), calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (calm || !size.x || !size.y) map.fitBounds(bounds, Object.assign({animate:false}, opts));
   else map.flyToBounds(bounds, Object.assign({duration:.8}, opts));
@@ -2678,5 +2722,10 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
     data.schools = d;
     redrawCard();
   }).catch(() => { data.schools = null; });
+  // Where to vote: only fetched while the polls haven't closed.
+  if (voteLive()) get(VOTE.file).then(d => {
+    data.voting = d;
+    redrawCard();
+  }).catch(() => { data.voting = null; });
 }).catch(err => { renderEmpty('The map data didn’t load (' + err.message + '). Reload the page to try again.'); });
 })();

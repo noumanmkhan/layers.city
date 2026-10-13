@@ -450,6 +450,27 @@ circle.cl{stroke-width:3;fill:var(--city)}
 .standout b{font-weight:700}
 .standout small{font-size:11.5px;font-weight:400;color:var(--ink-3);white-space:nowrap}
 .outside-note{padding:0 16px 12px;color:var(--ink-2);font-size:12.5px}
+/* Where to vote: a tinted box near the top of the card until the polls close, and its mark on the map */
+.vote{display:flex;gap:11px;margin:0 16px 12px;padding:11px 12px 10px;border-radius:12px;background:color-mix(in srgb,var(--accent) 9%,var(--panel));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 30%,transparent)}
+.vote-ic{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;--vote-slot:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+.vote-ic svg{width:20px;height:20px}
+.vote-tx{min-width:0;flex:1}
+.vote-tx p{margin:0}
+.vote small{display:block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:1px 0 3px}
+.vote-lead{font-size:11.5px;color:var(--ink-2)}
+.vote-pl b{display:block;font-size:14px;font-weight:700;color:var(--ink);line-height:1.3}
+.vote-pl span{display:block;font-size:12px;color:var(--ink-2);margin-top:1px}
+.vote-ex{font-size:11.5px;color:var(--ink-2);margin-top:5px!important;line-height:1.4}
+.vote-acts{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:8px!important}
+.vote-acts button{font:inherit;font-size:12px;font-weight:700;color:#fff;background:var(--accent);border:none;border-radius:8px;padding:6px 10px;cursor:pointer}
+.vote-acts a{font-size:12px;font-weight:700;color:var(--accent);text-decoration:none}
+.vote-acts a:hover{text-decoration:underline}
+.vote-note{font-size:10.5px;color:var(--ink-3);margin-top:7px!important;line-height:1.35}
+.vote-mk{position:relative;display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;--vote-slot:var(--accent);border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.4);box-sizing:border-box}
+.vote-mk::after{content:"";position:absolute;left:50%;bottom:-8px;width:10px;height:10px;background:var(--accent);border:2px solid #fff;border-top:none;border-left:none;transform:translateX(-50%) rotate(45deg);transform-origin:center;margin-bottom:2px}
+.vote-mk svg{width:17px;height:17px}
+:root[data-theme="dark"] .vote-ic,:root[data-theme="dark"] .vote-mk,:root[data-theme="dark"] .vote-acts button{color:#15171B}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .vote-ic,:root:not([data-theme="light"]) .vote-mk,:root:not([data-theme="light"]) .vote-acts button{color:#15171B}}
 .hover-tip{background:var(--panel)!important;color:var(--ink)!important;border:1px solid var(--rule)!important;box-shadow:var(--shadow)!important;font:600 12px/1.3 var(--font)!important;border-radius:7px!important;padding:4px 8px!important}
 .hover-tip::before{display:none}
 /* zoom-gated labels */

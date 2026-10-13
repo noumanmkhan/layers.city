@@ -53,6 +53,16 @@ def main():
     for name, fc in (('subdivisions', subs), ('places', places)):
         with open(os.path.join(OUT, name + '.geojson'), 'w') as f:
             json.dump(fc, f, separators=(',', ':'))
+    # When the City last edited each layer (the card's "as of" date; not the fetch date, so a day with
+    # no edits commits nothing).
+    meta = {}
+    for name, service in (('subdivisions', 'COTGEO_VOTING_SUBDIVISION'), ('places', 'COTGEO_VOTING_LOCATION')):
+        info = json.loads(get(BASE.format(service).rsplit('/', 1)[0] + '?f=json'))
+        ms = (info.get('editingInfo') or {}).get('dataLastEditDate') or (info.get('editingInfo') or {}).get('lastEditDate')
+        meta[name] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(ms / 1000)) if ms else None
+    with open(os.path.join(OUT, 'meta.json'), 'w') as f:
+        json.dump(meta, f, indent=1)
+    print('edited:', meta)
 
     # The spreadsheet: its file name changes with each update ("…All-Wards-List-as-of-Sept-30…").
     try:
