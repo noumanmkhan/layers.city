@@ -2,7 +2,7 @@
 raw/collection/ (fetch_collection.py).
 
 Output, the engine's "pickup" file (app contract section 3): one feature per collection area with
-`k` (the calendar, e.g. "Wednesday1"); top-level `sched` {k: [[date, [item, ...]], ...]} with every
+`k` (the calendar, e.g. "Wednesday1"; the "No Collection" areas are left out); top-level `sched` {k: [[date, [item, ...]], ...]} with every
 pickup date of the year and what goes out that day (`green`, `garbage`, `recycling`, `yard`,
 `tree`), `year`, `asof` (the fetch). Geometry simplified to about 3 m.
 """
@@ -21,7 +21,8 @@ FLAGS = [('GreenBin', 'green'), ('Garbage', 'garbage'), ('Recycling', 'recycling
 sched = {}
 for r in csv.DictReader(open(os.path.join(RAW, 'schedule.csv'))):
     d = datetime.strptime(r['WeekStarting'].strip(), '%m/%d/%y').date().isoformat()
-    items = [k for col, k in FLAGS if (r.get(col) or '').strip().upper() not in ('', '0', 'F')]
+    # A flag is the pickup day's letter (T, W, R, F) or 0; any letter means it goes out that day.
+    items = [k for col, k in FLAGS if (r.get(col) or '').strip() not in ('', '0')]
     if items: sched.setdefault(r['Calendar'].strip(), []).append([d, items])
 for v in sched.values(): v.sort()
 
@@ -36,7 +37,7 @@ for f in json.load(open(os.path.join(RAW, 'areas.geojson')))['features']:
     if g.is_empty: continue
     m = mapping(g)
     feats.append({'type': 'Feature', 'properties': {'k': k}, 'geometry': {'type': m['type'], 'coordinates': rnd(m['coordinates'])}})
-if missing: print('areas with no calendar (left out):', sorted(missing))
+if missing - {'NoCollection'}: print('areas with no calendar (left out):', sorted(missing))
 json.dump({'type': 'FeatureCollection', 'kind': 'pickup', 'year': meta['year'], 'asof': meta['fetched'][:10],
            'sched': sched, 'features': feats}, open(OUT, 'w'), separators=(',', ':'))
 print('collection:', len(feats), 'areas,', len(sched), 'calendars,', sum(len(v) for v in sched.values()), 'pickup days,',
