@@ -1,24 +1,140 @@
 {
-"fetched": "2026-10-10T10:03",
+"fetched": "2026-10-13T16:29",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
 {
-"id": "Tor-RDAR2024-3900-1",
-"street": "Ln S Queen W Spadina",
-"extent": "Ln S Queen W Spadina 19m West of Spadina Ave",
+"id": "Tor-RD042026-1320-2",
+"street": "Birchmount Rd",
+"extent": "Birchmount Rd 6 m North of Raleigh Ave to 8 m North of Highview Ave",
 "kind": "narrowed",
 "both": false,
-"start": "2026-01-01T09:00",
-"end": "2026-10-31T16:00",
+"start": "2026-10-12T09:00",
+"end": "2026-10-30T16:00",
 "hours": "09:00\u201316:00",
 "days": "daily",
-"who": "Ontario Transit Group",
-"desc": "Extension/reissue of previously submitted RoDARS (using old method) with new permit for the EB curb lane closure during working, non-peak hours adjacent to OTG's Queen-Spadina Station South Shaft location. Closure utilized Monday - Friday, sometimes Sat. for piling activities/station works.",
-"roadClass": "Major Arterial Road",
+"who": "ONxpress Civils Contractor GP",
+"desc": "To complete removing the Hydro Poles activities. Note: Please be advised that the proposed work will be undertaken under a single application package; however, the activities will be phased and completed sequentially. The work will begin with the removal of the poles on the east side, followed by the removal of the poles on the west side upon completion of the east-side work. The total anticipated duration for the pole removal activities is approximately one day, with approximately half a day required for each side. Only one closure at a time is proposed, and both sides will not be closed simultaneously.",
+"roadClass": "Minor Arterial Road",
 "coords": [
 [
--79.39661,
-43.64828
+-79.26606,
+43.70201
+],
+[
+-79.26604,
+43.70195
+],
+[
+-79.26604,
+43.70195
+],
+[
+-79.26588,
+43.70159
+],
+[
+-79.26588,
+43.70159
+],
+[
+-79.26563,
+43.70099
+],
+[
+-79.26563,
+43.70099
+],
+[
+-79.26522,
+43.69999
+]
+]
+},
+{
+"id": "Tor-RD042026-1320-1",
+"street": "Birchmount Rd",
+"extent": "Birchmount Rd 20 m North of C N R to 4 m North of Raleigh Ave",
+"kind": "narrowed",
+"both": false,
+"start": "2026-10-12T09:00",
+"end": "2026-10-30T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "ONxpress Civils Contractor GP",
+"desc": "To complete removing the Hydro Poles activities. Note: Please be advised that the proposed work will be undertaken under a single application package; however, the activities will be phased and completed sequentially. The work will begin with the removal of the poles on the east side, followed by the removal of the poles on the west side upon completion of the east-side work. The total anticipated duration for the pole removal activities is approximately one day, with approximately half a day required for each side. Only one closure at a time is proposed, and both sides will not be closed simultaneously.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.2657,
+43.70117
+],
+[
+-79.26588,
+43.70159
+],
+[
+-79.26588,
+43.70159
+],
+[
+-79.26604,
+43.70195
+],
+[
+-79.26604,
+43.70195
+],
+[
+-79.26605,
+43.70199
+]
+]
+},
+{
+"id": "Tor-RD042026-1192-1",
+"street": "Birchmount Rd",
+"extent": "Birchmount Rd 7 m North of Highview Ave to 95 m North of Raleigh Ave",
+"kind": "narrowed",
+"both": false,
+"start": "2026-09-14T09:00",
+"end": "2026-10-16T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "ONxpress Civils Contractor GP",
+"desc": "Completion of SUE Quality Level A and B investigations at the following locations: 1. Birchmount Road, including 390, 370, 357, 380, 381 Birchmount Rd 2. Birchmount Road at Highview Avenue 3. Mack Avenue at Birchmount Road",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.26522,
+43.69999
+],
+[
+-79.26563,
+43.70099
+],
+[
+-79.26563,
+43.70099
+],
+[
+-79.26588,
+43.70159
+],
+[
+-79.26588,
+43.70159
+],
+[
+-79.26604,
+43.70195
+],
+[
+-79.26604,
+43.70195
+],
+[
+-79.26638,
+43.70277
 ]
 ]
 },
@@ -139,38 +255,46 @@
 ]
 },
 {
-"id": "Tor-RD042026-1147",
-"street": "Sheppard Ave W",
-"extent": "Sheppard Ave W 55 m East of Bakersfield St to 6 m West of Downsview Park Trl",
+"id": "Tor-RDAR2024-3900-1",
+"street": "Ln S Queen W Spadina",
+"extent": "Ln S Queen W Spadina 19m West of Spadina Ave",
 "kind": "narrowed",
-"both": true,
-"start": "2026-08-20T09:00",
-"end": "2026-11-30T16:00",
+"both": false,
+"start": "2026-01-01T09:00",
+"end": "2026-10-31T16:00",
 "hours": "09:00\u201316:00",
 "days": "daily",
-"who": "Grascan Construction Ltd.",
-"desc": "Metrolinx Contract RFP-2017-CBA-064: Construction of new railway bridge over Sheppard Ave West. NOTE: Only 1 sidewalk will be closed at a time (north OR south, never both). NOTE: Only 1 eastbound lane and / or 1 westbound lane will be closed at a time. 1 lane in each direction will always be maintained.",
+"who": "Ontario Transit Group",
+"desc": "Extension/reissue of previously submitted RoDARS (using old method) with new permit for the EB curb lane closure during working, non-peak hours adjacent to OTG's Queen-Spadina Station South Shaft location. Closure utilized Monday - Friday, sometimes Sat. for piling activities/station works.",
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.47963,
-43.75446
+-79.39661,
+43.64828
+]
+]
+},
+{
+"id": "Tor-RDAR2024-3900-2",
+"street": "Queen St W",
+"extent": "Queen St W from Cameron St to Spadina Ave",
+"kind": "narrowed",
+"both": false,
+"start": "2026-01-01T09:00",
+"end": "2026-10-31T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "Ontario Transit Group",
+"desc": "Extension/reissue of previously submitted RoDARS (using old method) with new permit for the EB curb lane closure during working, non-peak hours adjacent to OTG's Queen-Spadina Station South Shaft location. Closure utilized Monday - Friday, sometimes Sat. for piling activities/station works.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.39741,
+43.64854
 ],
 [
--79.4795,
-43.75449
-],
-[
--79.47858,
-43.7547
-],
-[
--79.47858,
-43.7547
-],
-[
--79.47595,
-43.75529
+-79.39638,
+43.64877
 ]
 ]
 },
@@ -223,74 +347,278 @@
 ]
 },
 {
-"id": "Tor-RD042026-1192-1",
-"street": "Birchmount Rd",
-"extent": "Birchmount Rd 7 m North of Highview Ave to 95 m North of Raleigh Ave",
+"id": "Tor-RD042026-1147",
+"street": "Sheppard Ave W",
+"extent": "Sheppard Ave W 55 m East of Bakersfield St to 6 m West of Downsview Park Trl",
 "kind": "narrowed",
-"both": false,
-"start": "2026-09-14T09:00",
-"end": "2026-10-16T16:00",
+"both": true,
+"start": "2026-08-20T09:00",
+"end": "2026-11-30T16:00",
 "hours": "09:00\u201316:00",
 "days": "daily",
-"who": "ONxpress Civils Contractor GP",
-"desc": "Completion of SUE Quality Level A and B investigations at the following locations: 1. Birchmount Road, including 390, 370, 357, 380, 381 Birchmount Rd 2. Birchmount Road at Highview Avenue 3. Mack Avenue at Birchmount Road",
-"roadClass": "Minor Arterial Road",
+"who": "Grascan Construction Ltd.",
+"desc": "Metrolinx Contract RFP-2017-CBA-064: Construction of new railway bridge over Sheppard Ave West. NOTE: Only 1 sidewalk will be closed at a time (north OR south, never both). NOTE: Only 1 eastbound lane and / or 1 westbound lane will be closed at a time. 1 lane in each direction will always be maintained.",
+"roadClass": "Major Arterial Road",
 "coords": [
 [
--79.26522,
-43.69999
+-79.47963,
+43.75446
 ],
 [
--79.26563,
-43.70099
+-79.4795,
+43.75449
 ],
 [
--79.26563,
-43.70099
+-79.47858,
+43.7547
 ],
 [
--79.26588,
-43.70159
+-79.47858,
+43.7547
 ],
 [
--79.26588,
-43.70159
-],
-[
--79.26604,
-43.70195
-],
-[
--79.26604,
-43.70195
-],
-[
--79.26638,
-43.70277
+-79.47595,
+43.75529
 ]
 ]
 },
 {
-"id": "Tor-RDAR2024-3900-2",
-"street": "Queen St W",
-"extent": "Queen St W from Cameron St to Spadina Ave",
+"id": "Tor-RD042026-1356-3",
+"street": "Jarvis St",
+"extent": "Jarvis St 14 m North of Queen St E to 3 m North of Queen St E",
 "kind": "narrowed",
 "both": false,
-"start": "2026-01-01T09:00",
-"end": "2026-10-31T16:00",
-"hours": "09:00\u201316:00",
+"start": "2026-10-13T10:00",
+"end": "2026-10-23T15:00",
+"hours": "10:00\u201315:00",
 "days": "daily",
 "who": "Ontario Transit Group",
-"desc": "Extension/reissue of previously submitted RoDARS (using old method) with new permit for the EB curb lane closure during working, non-peak hours adjacent to OTG's Queen-Spadina Station South Shaft location. Closure utilized Monday - Friday, sometimes Sat. for piling activities/station works.",
+"desc": "Installation of GIMP instrumentation along Mutual St., Queen St. E., and Jarvis St. Work to be performed during daytime hours and primarily in curb lanes, with minimal impact to traffic. Flaggers and paid duty officer to assist with closures and traffic control during installations.",
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.39741,
-43.64854
+-79.37327,
+43.65384
 ],
 [
--79.39638,
-43.64877
+-79.37323,
+43.65374
+]
+]
+},
+{
+"id": "Tor-RD042026-1356-2",
+"street": "Queen St E",
+"extent": "Queen St E 2 m East of Mutual St to 7 m West of Jarvis St",
+"kind": "narrowed",
+"both": true,
+"start": "2026-10-13T10:00",
+"end": "2026-10-23T15:00",
+"hours": "10:00\u201315:00",
+"days": "daily",
+"who": "Ontario Transit Group",
+"desc": "Installation of GIMP instrumentation along Mutual St., Queen St. E., and Jarvis St. Work to be performed during daytime hours and primarily in curb lanes, with minimal impact to traffic. Flaggers and paid duty officer to assist with closures and traffic control during installations.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.37426,
+43.65349
+],
+[
+-79.3733,
+43.6537
+]
+]
+},
+{
+"id": "Tor-RD042026-1358-4",
+"street": "Pape Ave",
+"extent": "Pape Ave 4 m South of Riverdale Ave to 38 m North of Riverdale Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-16T07:00",
+"end": "2026-10-19T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Clearway Construction Inc",
+"desc": "Road and Sidewalk Restorations",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.3417,
+43.67123
+],
+[
+-79.34172,
+43.67127
+],
+[
+-79.34172,
+43.67127
+],
+[
+-79.34185,
+43.6716
+]
+]
+},
+{
+"id": "Tor-RD042026-1358-3",
+"street": "Riverdale Ave",
+"extent": "Riverdale Ave 75 m East of Carlaw Ave to 3 m Southwest of Pape Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-16T07:00",
+"end": "2026-10-19T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Clearway Construction Inc",
+"desc": "Road and Sidewalk Restorations",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.34313,
+43.67091
+],
+[
+-79.34184,
+43.67118
+],
+[
+-79.34174,
+43.67125
+]
+]
+},
+{
+"id": "Tor-RD042026-1358-2",
+"street": "Langley Ave",
+"extent": "Langley Ave at Ln W Pape S Langley to 9 m West of Pape Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-09T07:00",
+"end": "2026-10-19T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Clearway Construction Inc",
+"desc": "Road and Sidewalk Restorations",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.34185,
+43.67013
+],
+[
+-79.34141,
+43.67023
+]
+]
+},
+{
+"id": "Tor-RD042026-1358-1",
+"street": "Pape Ave",
+"extent": "Pape Ave 16 m South of Riverdale Ave to Langley Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-09T07:00",
+"end": "2026-10-19T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Clearway Construction Inc",
+"desc": "Road and Sidewalk Restorations",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.34166,
+43.67113
+],
+[
+-79.34131,
+43.67025
+]
+]
+},
+{
+"id": "Tor-RD042026-1364",
+"street": "Finch Ave W",
+"extent": "Finch Ave W 330 m East of Kipling Ave to 377 m West of Islington Ave",
+"kind": "narrowed",
+"both": false,
+"start": "2026-10-13T07:00",
+"end": "2026-10-23T17:00",
+"hours": "07:00\u201317:00",
+"days": "daily",
+"who": "Mosaic Transit Group",
+"desc": "Civil work occupying the curb lane between Kipling and Islington",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.57812,
+43.74395
+],
+[
+-79.57347,
+43.74507
+],
+[
+-79.57305,
+43.74517
+]
+]
+},
+{
+"id": "Tor-RD042026-1363",
+"street": "Finch Ave W",
+"extent": "Finch Ave W 32 m West of C P R to 71 m East of C P R",
+"kind": "narrowed",
+"both": false,
+"start": "2026-10-13T07:00",
+"end": "2026-10-14T17:30",
+"hours": "07:00\u201317:30",
+"days": "daily",
+"who": "Mosaic Transit Group",
+"desc": "Civil work occupying the through lane between weston and arrow road.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.54036,
+43.75243
+],
+[
+-79.53997,
+43.75249
+],
+[
+-79.53997,
+43.75249
+],
+[
+-79.53913,
+43.75267
+]
+]
+},
+{
+"id": "Tor-RD042026-1150-2",
+"street": "Finch Ave W",
+"extent": "Finch Ave W 77 m East of C P R to 27 m West of Hepc",
+"kind": "narrowed",
+"both": false,
+"start": "2026-08-24T07:00",
+"end": "2026-10-30T17:00",
+"hours": "07:00\u201317:00",
+"days": "daily",
+"who": "Entera Utility Contractors",
+"desc": "Extension of retaining wall at 2250 Finch Ave W",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.53905,
+43.75269
+],
+[
+-79.53802,
+43.75291
 ]
 ]
 },
@@ -319,26 +647,74 @@
 ]
 },
 {
-"id": "Tor-RD042026-1150-2",
-"street": "Finch Ave W",
-"extent": "Finch Ave W 77 m East of C P R to 27 m West of Hepc",
+"id": "Tor-RD042026-1356-1",
+"street": "Mutual St",
+"extent": "Mutual St 14 m North of Queen St E to 3 m North of Queen St E",
 "kind": "narrowed",
 "both": false,
-"start": "2026-08-24T07:00",
-"end": "2026-10-30T17:00",
+"start": "2026-10-13T07:00",
+"end": "2026-10-23T17:00",
 "hours": "07:00\u201317:00",
 "days": "daily",
-"who": "Entera Utility Contractors",
-"desc": "Extension of retaining wall at 2250 Finch Ave W",
-"roadClass": "Major Arterial Road",
+"who": "Ontario Transit Group",
+"desc": "Installation of GIMP instrumentation along Mutual St., Queen St. E., and Jarvis St. Work to be performed during daytime hours and primarily in curb lanes, with minimal impact to traffic. Flaggers and paid duty officer to assist with closures and traffic control during installations.",
+"roadClass": "Local Road",
 "coords": [
 [
--79.53905,
-43.75269
+-79.37433,
+43.6536
 ],
 [
--79.53802,
-43.75291
+-79.37429,
+43.65351
+]
+]
+},
+{
+"id": "Tor-RD042026-1023",
+"street": "Sudbury St",
+"extent": "Sudbury St 22 m East of Lisgar St to Lisgar St",
+"kind": "narrowed",
+"both": false,
+"start": "2026-07-24T06:00",
+"end": "2026-10-16T18:00",
+"hours": "06:00\u201318:00",
+"days": "daily",
+"who": "Peter Kiewit Sons ULC",
+"desc": "As part of BarrieGO Line Downtown Civil Works, our construction activities which drilling of the Overhead Catenary System (OCS) foundation, excavation for the Rail Corridor Raceway (RCR), civil, and concrete works.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.42257,
+43.6413
+],
+[
+-79.42283,
+43.64125
+]
+]
+},
+{
+"id": "Tor-RD042026-1286-2",
+"street": "Mack Ave",
+"extent": "Mack Ave 11 m West of Birchmount Rd to 58 m East of Milne Ave",
+"kind": "narrowed",
+"both": false,
+"start": "2026-09-28T21:00",
+"end": "2026-11-02T06:00",
+"hours": "21:00\u201306:00",
+"days": "daily",
+"who": "ONxpress Civils Contractor GP",
+"desc": "This request is related to previous RoDRAS #Tor-RD042026-799 and Tor-RD042026-1134 to complete the remaining works as follows: Hydrogeology Work: Week 40 (September 28 to October 2) Locates for Decommissioning: Week 43 (October 19 to October 23) Decommissioning: Week 45 (November 2 to November 6) Contingency: Week 46 (November 9 to November 13), if required.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.26602,
+43.70156
+],
+[
+-79.268,
+43.70114
 ]
 ]
 },
@@ -399,54 +775,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1023",
-"street": "Sudbury St",
-"extent": "Sudbury St 22 m East of Lisgar St to Lisgar St",
-"kind": "narrowed",
-"both": false,
-"start": "2026-07-24T06:00",
-"end": "2026-10-16T18:00",
-"hours": "06:00\u201318:00",
-"days": "daily",
-"who": "Peter Kiewit Sons ULC",
-"desc": "As part of BarrieGO Line Downtown Civil Works, our construction activities which drilling of the Overhead Catenary System (OCS) foundation, excavation for the Rail Corridor Raceway (RCR), civil, and concrete works.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.42257,
-43.6413
-],
-[
--79.42283,
-43.64125
-]
-]
-},
-{
-"id": "Tor-RD042026-1286-2",
-"street": "Mack Ave",
-"extent": "Mack Ave 11 m West of Birchmount Rd to 58 m East of Milne Ave",
-"kind": "narrowed",
-"both": false,
-"start": "2026-09-28T21:00",
-"end": "2026-11-02T06:00",
-"hours": "21:00\u201306:00",
-"days": "daily",
-"who": "ONxpress Civils Contractor GP",
-"desc": "This request is related to previous RoDRAS #Tor-RD042026-799 and Tor-RD042026-1134 to complete the remaining works as follows: Hydrogeology Work: Week 40 (September 28 to October 2) Locates for Decommissioning: Week 43 (October 19 to October 23) Decommissioning: Week 45 (November 2 to November 6) Contingency: Week 46 (November 9 to November 13), if required.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.26602,
-43.70156
-],
-[
--79.268,
-43.70114
-]
-]
-},
-{
 "id": "Tor-RD042026-1286-3",
 "street": "Birchmount Rd",
 "extent": "Birchmount Rd 1 m North of Raleigh Ave to 3 m South of Highview Ave",
@@ -503,6 +831,30 @@
 ]
 },
 {
+"id": "Tor-RD042026-1257-4",
+"street": "Westlake Rd",
+"extent": "Westlake Rd at Galloway Rd to 71 m West of Galloway Rd",
+"kind": "narrowed",
+"both": false,
+"start": "2026-10-01T21:00",
+"end": "2026-11-18T05:00",
+"hours": "21:00\u201305:00",
+"days": "daily",
+"who": "ONxpress Civils Contractor GP",
+"desc": "The proposed work involves borehole drilling to support Phase II of the Environmental Site Assessment (ESA). Please note that only one traffic control setup and location will be occupied at any given time, with drilling limited to one borehole per location. We can confirm that work will be completed in multiple stages as shown in the attached TCPs. Also, I have attached the proposed boreholes drilling schedule for your easy reference.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.19177,
+43.7552
+],
+[
+-79.19261,
+43.755
+]
+]
+},
+{
 "id": "Tor-RD042026-1257-5",
 "street": "Chantrey Crt",
 "extent": "Chantrey Crt at Galloway Rd to 7 m Northeast of end of road",
@@ -543,66 +895,26 @@
 ]
 },
 {
-"id": "Tor-RD042026-1157",
-"street": "Jane St",
-"extent": "Jane St 8 m North of Eglinton Ave West Trl to 14 m North of Eglinton Ave West Trl",
-"kind": "closed",
-"both": true,
-"start": "2026-08-24T21:00",
-"end": "2026-11-30T05:00",
-"hours": "21:00\u201305:00",
+"id": "Tor-RD042026-1337-2",
+"street": "McCowan Rd",
+"extent": "McCowan Rd 1 m South of Triton Rd to 12 m South of Triton Rd",
+"kind": "narrowed",
+"both": false,
+"start": "2026-10-12T20:00",
+"end": "2026-10-16T05:00",
+"hours": "20:00\u201305:00",
 "days": "daily",
-"who": "Aecon Infrastructure Management Inc",
-"desc": "This work is for the installation of falsework spanning across Jane Street, north of Eglinton Avenue - at the intersection of Jane and Eglinton. At the centreline of Jane Street a shoring tower will be installed. The traffic mitigation will be covered with a PDO and will sequentially close the northbound and southbound lanes separately.",
+"who": "Scarborough Transit Connect",
+"desc": "Cleaning procedures for slope washouts",
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.49879,
-43.68438
+-79.25258,
+43.77543
 ],
 [
--79.49882,
-43.68448
-],
-[
--79.49882,
-43.68448
-],
-[
--79.49888,
-43.68466
-],
-[
--79.49888,
-43.68466
-],
-[
--79.49892,
-43.68478
-]
-]
-},
-{
-"id": "Tor-RD042026-1257-4",
-"street": "Westlake Rd",
-"extent": "Westlake Rd at Galloway Rd to 71 m West of Galloway Rd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-01T21:00",
-"end": "2026-11-18T05:00",
-"hours": "21:00\u201305:00",
-"days": "daily",
-"who": "ONxpress Civils Contractor GP",
-"desc": "The proposed work involves borehole drilling to support Phase II of the Environmental Site Assessment (ESA). Please note that only one traffic control setup and location will be occupied at any given time, with drilling limited to one borehole per location. We can confirm that work will be completed in multiple stages as shown in the attached TCPs. Also, I have attached the proposed boreholes drilling schedule for your easy reference.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.19177,
-43.7552
-],
-[
--79.19261,
-43.755
+-79.25255,
+43.77534
 ]
 ]
 },
@@ -659,6 +971,46 @@
 [
 -79.19292,
 43.75787
+]
+]
+},
+{
+"id": "Tor-RD042026-1157",
+"street": "Jane St",
+"extent": "Jane St 8 m North of Eglinton Ave West Trl to 14 m North of Eglinton Ave West Trl",
+"kind": "closed",
+"both": true,
+"start": "2026-08-24T21:00",
+"end": "2026-11-30T05:00",
+"hours": "21:00\u201305:00",
+"days": "daily",
+"who": "Aecon Infrastructure Management Inc",
+"desc": "This work is for the installation of falsework spanning across Jane Street, north of Eglinton Avenue - at the intersection of Jane and Eglinton. At the centreline of Jane Street a shoring tower will be installed. The traffic mitigation will be covered with a PDO and will sequentially close the northbound and southbound lanes separately.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.49879,
+43.68438
+],
+[
+-79.49882,
+43.68448
+],
+[
+-79.49882,
+43.68448
+],
+[
+-79.49888,
+43.68466
+],
+[
+-79.49888,
+43.68466
+],
+[
+-79.49892,
+43.68478
 ]
 ]
 },
@@ -727,38 +1079,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-885-1",
-"street": "Danforth Ave",
-"extent": "Danforth Ave 34 m East of Ln E Pape S Danforth to Pape Ave",
-"kind": "narrowed",
-"both": true,
-"start": "2026-07-01T00:00",
-"end": "2026-12-31T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
-"desc": "This is a very short duration closure for taking reading of instruments at the road.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.34396,
-43.67913
-],
-[
--79.34437,
-43.67905
-],
-[
--79.34437,
-43.67905
-],
-[
--79.34484,
-43.67895
-]
-]
-},
-{
 "id": "Tor-RD042026-885-2",
 "street": "Pape Ave",
 "extent": "Pape Ave from Danforth Ave to Gertrude Pl",
@@ -803,9 +1123,9 @@
 ]
 },
 {
-"id": "Tor-RD042026-885-3",
-"street": "Gertrude Pl",
-"extent": "Gertrude Pl at Pape Ave to 25 m West of Muriel Ave",
+"id": "Tor-RD042026-885-1",
+"street": "Danforth Ave",
+"extent": "Danforth Ave 34 m East of Ln E Pape S Danforth to Pape Ave",
 "kind": "narrowed",
 "both": true,
 "start": "2026-07-01T00:00",
@@ -814,15 +1134,23 @@
 "days": "daily",
 "who": "GREEN INFRASTRUCTURE PARTNERS INC.",
 "desc": "This is a very short duration closure for taking reading of instruments at the road.",
-"roadClass": "Local Road",
+"roadClass": "Major Arterial Road",
 "coords": [
 [
--79.34543,
-43.68044
+-79.34396,
+43.67913
 ],
 [
--79.3449,
-43.68054
+-79.34437,
+43.67905
+],
+[
+-79.34437,
+43.67905
+],
+[
+-79.34484,
+43.67895
 ]
 ]
 },
@@ -851,6 +1179,30 @@
 ]
 },
 {
+"id": "Tor-RD042026-885-3",
+"street": "Gertrude Pl",
+"extent": "Gertrude Pl at Pape Ave to 25 m West of Muriel Ave",
+"kind": "narrowed",
+"both": true,
+"start": "2026-07-01T00:00",
+"end": "2026-12-31T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
+"desc": "This is a very short duration closure for taking reading of instruments at the road.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.34543,
+43.68044
+],
+[
+-79.3449,
+43.68054
+]
+]
+},
+{
 "id": "Tor-RD042026-1360",
 "street": "Augusta Ave",
 "extent": "Augusta Ave 13 m North of Rush Lane to 7 m South of Queen St W",
@@ -871,194 +1223,6 @@
 [
 -79.39964,
 43.64802
-]
-]
-},
-{
-"id": "Tor-RD042026-1363",
-"street": "Finch Ave W",
-"extent": "Finch Ave W 32 m West of C P R to 71 m East of C P R",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-13T07:00",
-"end": "2026-10-14T17:30",
-"hours": "07:00\u201317:30",
-"days": "daily",
-"who": "Mosaic Transit Group",
-"desc": "Civil work occupying the through lane between weston and arrow road.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.54036,
-43.75243
-],
-[
--79.53997,
-43.75249
-],
-[
--79.53997,
-43.75249
-],
-[
--79.53913,
-43.75267
-]
-]
-},
-{
-"id": "Tor-RD042026-1356-2",
-"street": "Queen St E",
-"extent": "Queen St E 2 m East of Mutual St to 7 m West of Jarvis St",
-"kind": "narrowed",
-"both": true,
-"start": "2026-10-13T10:00",
-"end": "2026-10-23T15:00",
-"hours": "10:00\u201315:00",
-"days": "daily",
-"who": "Ontario Transit Group",
-"desc": "Installation of GIMP instrumentation along Mutual St., Queen St. E., and Jarvis St. Work to be performed during daytime hours and primarily in curb lanes, with minimal impact to traffic. Flaggers and paid duty officer to assist with closures and traffic control during installations.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.37426,
-43.65349
-],
-[
--79.3733,
-43.6537
-]
-]
-},
-{
-"id": "Tor-RD042026-1356-3",
-"street": "Jarvis St",
-"extent": "Jarvis St 14 m North of Queen St E to 3 m North of Queen St E",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-13T10:00",
-"end": "2026-10-23T15:00",
-"hours": "10:00\u201315:00",
-"days": "daily",
-"who": "Ontario Transit Group",
-"desc": "Installation of GIMP instrumentation along Mutual St., Queen St. E., and Jarvis St. Work to be performed during daytime hours and primarily in curb lanes, with minimal impact to traffic. Flaggers and paid duty officer to assist with closures and traffic control during installations.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.37327,
-43.65384
-],
-[
--79.37323,
-43.65374
-]
-]
-},
-{
-"id": "Tor-RD042026-1356-1",
-"street": "Mutual St",
-"extent": "Mutual St 14 m North of Queen St E to 3 m North of Queen St E",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-13T07:00",
-"end": "2026-10-23T17:00",
-"hours": "07:00\u201317:00",
-"days": "daily",
-"who": "Ontario Transit Group",
-"desc": "Installation of GIMP instrumentation along Mutual St., Queen St. E., and Jarvis St. Work to be performed during daytime hours and primarily in curb lanes, with minimal impact to traffic. Flaggers and paid duty officer to assist with closures and traffic control during installations.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.37433,
-43.6536
-],
-[
--79.37429,
-43.65351
-]
-]
-},
-{
-"id": "Tor-RD042026-1364",
-"street": "Finch Ave W",
-"extent": "Finch Ave W 330 m East of Kipling Ave to 377 m West of Islington Ave",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-13T07:00",
-"end": "2026-10-23T17:00",
-"hours": "07:00\u201317:00",
-"days": "daily",
-"who": "Mosaic Transit Group",
-"desc": "Civil work occupying the curb lane between Kipling and Islington",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.57812,
-43.74395
-],
-[
--79.57347,
-43.74507
-],
-[
--79.57305,
-43.74517
-]
-]
-},
-{
-"id": "Tor-RD042026-1361-2",
-"street": "Carlaw Ave",
-"extent": "Carlaw Ave 5 m South of Gerrard St E to 7 m South of C N R",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-13T07:00",
-"end": "2026-10-13T09:00",
-"hours": "07:00\u201309:00",
-"days": "daily",
-"who": "Trillium Guideway Partners",
-"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.34274,
-43.66758
-],
-[
--79.34265,
-43.66734
-],
-[
--79.34265,
-43.66734
-],
-[
--79.34262,
-43.66728
-]
-]
-},
-{
-"id": "Tor-RD042026-1361-1",
-"street": "Carlaw Ave",
-"extent": "Carlaw Ave 7 m North of Gerrard St E to 46 m North of Gerrard St E",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-13T07:00",
-"end": "2026-10-13T09:00",
-"hours": "07:00\u201309:00",
-"days": "daily",
-"who": "Trillium Guideway Partners",
-"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.34279,
-43.66769
-],
-[
--79.34292,
-43.66802
 ]
 ]
 },
@@ -1111,30 +1275,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1353-4",
-"street": "Don Mills Rd",
-"extent": "Don Mills Rd 29 m North of Gateway Blvd to 7 m North of Gateway Blvd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-15T09:00",
-"end": "2026-10-15T15:00",
-"hours": "09:00\u201315:00",
-"days": "daily",
-"who": "Trillium Guideway Partners",
-"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.33646,
-43.71465
-],
-[
--79.33638,
-43.71446
-]
-]
-},
-{
 "id": "Tor-RD042026-1353-5",
 "street": "Don Mills Rd",
 "extent": "Don Mills Rd 3 m South of Gateway Blvd to 30 m South of Gateway Blvd",
@@ -1155,6 +1295,30 @@
 [
 -79.33624,
 43.71415
+]
+]
+},
+{
+"id": "Tor-RD042026-1353-4",
+"street": "Don Mills Rd",
+"extent": "Don Mills Rd 29 m North of Gateway Blvd to 7 m North of Gateway Blvd",
+"kind": "narrowed",
+"both": false,
+"start": "2026-10-15T09:00",
+"end": "2026-10-15T15:00",
+"hours": "09:00\u201315:00",
+"days": "daily",
+"who": "Trillium Guideway Partners",
+"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.33646,
+43.71465
+],
+[
+-79.33638,
+43.71446
 ]
 ]
 },
@@ -1207,38 +1371,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1353-1",
-"street": "Don Mills Rd",
-"extent": "Don Mills Rd 23 m North of Gateway Blvd to 26 m South of Gateway Blvd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-13T09:00",
-"end": "2026-10-13T15:00",
-"hours": "09:00\u201315:00",
-"days": "daily",
-"who": "Trillium Guideway Partners",
-"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.33644,
-43.7146
-],
-[
--79.33635,
-43.7144
-],
-[
--79.33635,
-43.7144
-],
-[
--79.33625,
-43.71418
-]
-]
-},
-{
 "id": "Tor-RD042026-1348",
 "street": "Don Mills Rd",
 "extent": "Don Mills Rd 141 m North of Rochefort Dr to 71 m North of Rochefort Dr",
@@ -1259,30 +1391,6 @@
 [
 -79.33821,
 43.71862
-]
-]
-},
-{
-"id": "Tor-RD042026-1239-4",
-"street": "Richview Rd",
-"extent": "Richview Rd 47 m West of Scarlett Rd to 4 m West of Scarlett Rd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-08T09:00",
-"end": "2026-10-13T16:00",
-"hours": "24h",
-"days": "daily",
-"who": "Aecon Infrastructure Management Inc",
-"desc": "The NB through lane will be closed and traffic NB will be delineated. The SB through lane and occasionally the right turn lane will be closed with SB traffic delineatd. This is to facilitate the traffic signal installation (electrical and civil work) at Richview and Scarlett.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.513,
-43.6854
-],
-[
--79.5125,
-43.68551
 ]
 ]
 },
@@ -1391,38 +1499,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1270-1",
-"street": "Eglinton Ave W",
-"extent": "Eglinton Ave W 35 m East of Islington Ave to 39 m West of Islington Ave",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-05T09:00",
-"end": "2026-10-30T16:00",
-"hours": "24h",
-"days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.53859,
-43.67992
-],
-[
--79.53901,
-43.67984
-],
-[
--79.53901,
-43.67984
-],
-[
--79.53947,
-43.67974
-]
-]
-},
-{
 "id": "Tor-RD042026-1270-2",
 "street": "Islington Ave",
 "extent": "Islington Ave 36 m North of Eglinton Ave W to 7 m North of Eglinton Ave W",
@@ -1483,90 +1559,106 @@
 ]
 },
 {
-"id": "Tor-RD042026-1320-1",
-"street": "Birchmount Rd",
-"extent": "Birchmount Rd 20 m North of C N R to 4 m North of Raleigh Ave",
+"id": "Tor-RD042026-1270-1",
+"street": "Eglinton Ave W",
+"extent": "Eglinton Ave W 35 m East of Islington Ave to 39 m West of Islington Ave",
 "kind": "narrowed",
 "both": false,
-"start": "2026-10-12T09:00",
+"start": "2026-10-05T09:00",
 "end": "2026-10-30T16:00",
-"hours": "09:00\u201316:00",
+"hours": "24h",
 "days": "daily",
-"who": "ONxpress Civils Contractor GP",
-"desc": "To complete removing the Hydro Poles activities. Note: Please be advised that the proposed work will be undertaken under a single application package; however, the activities will be phased and completed sequentially. The work will begin with the removal of the poles on the east side, followed by the removal of the poles on the west side upon completion of the east-side work. The total anticipated duration for the pole removal activities is approximately one day, with approximately half a day required for each side. Only one closure at a time is proposed, and both sides will not be closed simultaneously.",
-"roadClass": "Minor Arterial Road",
+"who": "West End Connectors",
+"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"roadClass": "Major Arterial Road",
 "coords": [
 [
--79.2657,
-43.70117
+-79.53859,
+43.67992
 ],
 [
--79.26588,
-43.70159
+-79.53901,
+43.67984
 ],
 [
--79.26588,
-43.70159
+-79.53901,
+43.67984
 ],
 [
--79.26604,
-43.70195
-],
-[
--79.26604,
-43.70195
-],
-[
--79.26605,
-43.70199
+-79.53947,
+43.67974
 ]
 ]
 },
 {
-"id": "Tor-RD042026-1320-2",
-"street": "Birchmount Rd",
-"extent": "Birchmount Rd 6 m North of Raleigh Ave to 8 m North of Highview Ave",
+"id": "Tor-RD042026-1213-4",
+"street": "Mack Ave",
+"extent": "Mack Ave at Birchmount Rd to 3 m West of Birchmount Rd",
 "kind": "narrowed",
 "both": false,
-"start": "2026-10-12T09:00",
-"end": "2026-10-30T16:00",
-"hours": "09:00\u201316:00",
+"start": "2026-09-14T00:01",
+"end": "2027-03-02T23:59",
+"hours": "24h",
 "days": "daily",
 "who": "ONxpress Civils Contractor GP",
-"desc": "To complete removing the Hydro Poles activities. Note: Please be advised that the proposed work will be undertaken under a single application package; however, the activities will be phased and completed sequentially. The work will begin with the removal of the poles on the east side, followed by the removal of the poles on the west side upon completion of the east-side work. The total anticipated duration for the pole removal activities is approximately one day, with approximately half a day required for each side. Only one closure at a time is proposed, and both sides will not be closed simultaneously.",
+"desc": "The Long-term closure is to cover Stage 1 (east side of Birchmount Bridge) advanced works, Support of Excavation (SOE) works, and associated activities, including, but not limited to, site preparation, demolition, excavation support, and shoring works. In spite of the PXO is part of this work but is also submitted as additional SOP permit as per discussion with the city and we attached the permit and supporting documents for your easy reference.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.26588,
+43.70159
+],
+[
+-79.26591,
+43.70158
+]
+]
+},
+{
+"id": "Tor-RD042026-1213-2",
+"street": "Highview Ave",
+"extent": "Highview Ave at Birchmount Rd to 5 m East of Birchmount Rd",
+"kind": "closed",
+"both": true,
+"start": "2026-09-14T00:01",
+"end": "2027-03-02T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "ONxpress Civils Contractor GP",
+"desc": "The Long-term closure is to cover Stage 1 (east side of Birchmount Bridge) advanced works, Support of Excavation (SOE) works, and associated activities, including, but not limited to, site preparation, demolition, excavation support, and shoring works. In spite of the PXO is part of this work but is also submitted as additional SOP permit as per discussion with the city and we attached the permit and supporting documents for your easy reference.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.26519,
+43.69993
+],
+[
+-79.26514,
+43.69994
+]
+]
+},
+{
+"id": "Tor-RD042026-1213-3",
+"street": "Birchmount Rd",
+"extent": "Birchmount Rd at Mack Ave to 2 m South of Mack Ave",
+"kind": "narrowed",
+"both": false,
+"start": "2026-09-14T00:01",
+"end": "2027-03-02T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "ONxpress Civils Contractor GP",
+"desc": "The Long-term closure is to cover Stage 1 (east side of Birchmount Bridge) advanced works, Support of Excavation (SOE) works, and associated activities, including, but not limited to, site preparation, demolition, excavation support, and shoring works. In spite of the PXO is part of this work but is also submitted as additional SOP permit as per discussion with the city and we attached the permit and supporting documents for your easy reference.",
 "roadClass": "Minor Arterial Road",
 "coords": [
 [
--79.26606,
-43.70201
-],
-[
--79.26604,
-43.70195
-],
-[
--79.26604,
-43.70195
-],
-[
 -79.26588,
 43.70159
 ],
 [
--79.26588,
-43.70159
-],
-[
--79.26563,
-43.70099
-],
-[
--79.26563,
-43.70099
-],
-[
--79.26522,
-43.69999
+-79.26587,
+43.70157
 ]
 ]
 },
@@ -1607,78 +1699,6 @@
 [
 -79.26604,
 43.70195
-]
-]
-},
-{
-"id": "Tor-RD042026-1213-3",
-"street": "Birchmount Rd",
-"extent": "Birchmount Rd at Mack Ave to 2 m South of Mack Ave",
-"kind": "narrowed",
-"both": false,
-"start": "2026-09-14T00:01",
-"end": "2027-03-02T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "ONxpress Civils Contractor GP",
-"desc": "The Long-term closure is to cover Stage 1 (east side of Birchmount Bridge) advanced works, Support of Excavation (SOE) works, and associated activities, including, but not limited to, site preparation, demolition, excavation support, and shoring works. In spite of the PXO is part of this work but is also submitted as additional SOP permit as per discussion with the city and we attached the permit and supporting documents for your easy reference.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.26588,
-43.70159
-],
-[
--79.26587,
-43.70157
-]
-]
-},
-{
-"id": "Tor-RD042026-1213-2",
-"street": "Highview Ave",
-"extent": "Highview Ave at Birchmount Rd to 5 m East of Birchmount Rd",
-"kind": "closed",
-"both": true,
-"start": "2026-09-14T00:01",
-"end": "2027-03-02T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "ONxpress Civils Contractor GP",
-"desc": "The Long-term closure is to cover Stage 1 (east side of Birchmount Bridge) advanced works, Support of Excavation (SOE) works, and associated activities, including, but not limited to, site preparation, demolition, excavation support, and shoring works. In spite of the PXO is part of this work but is also submitted as additional SOP permit as per discussion with the city and we attached the permit and supporting documents for your easy reference.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.26519,
-43.69993
-],
-[
--79.26514,
-43.69994
-]
-]
-},
-{
-"id": "Tor-RD042026-1213-4",
-"street": "Mack Ave",
-"extent": "Mack Ave at Birchmount Rd to 3 m West of Birchmount Rd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-09-14T00:01",
-"end": "2027-03-02T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "ONxpress Civils Contractor GP",
-"desc": "The Long-term closure is to cover Stage 1 (east side of Birchmount Bridge) advanced works, Support of Excavation (SOE) works, and associated activities, including, but not limited to, site preparation, demolition, excavation support, and shoring works. In spite of the PXO is part of this work but is also submitted as additional SOP permit as per discussion with the city and we attached the permit and supporting documents for your easy reference.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.26588,
-43.70159
-],
-[
--79.26591,
-43.70158
 ]
 ]
 },
@@ -1727,30 +1747,6 @@
 [
 -79.33967,
 43.72026
-]
-]
-},
-{
-"id": "Tor-RD042026-1337-2",
-"street": "McCowan Rd",
-"extent": "McCowan Rd 1 m South of Triton Rd to 12 m South of Triton Rd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-12T20:00",
-"end": "2026-10-16T05:00",
-"hours": "20:00\u201305:00",
-"days": "daily",
-"who": "Scarborough Transit Connect",
-"desc": "Cleaning procedures for slope washouts",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.25258,
-43.77543
-],
-[
--79.25255,
-43.77534
 ]
 ]
 },
@@ -1907,30 +1903,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1256-1",
-"street": "Martin Grove Rd",
-"extent": "Martin Grove Rd 8 m North of Eglinton Ave W to 68 m North of Eglinton Ave W",
-"kind": "narrowed",
-"both": true,
-"start": "2026-09-21T09:00",
-"end": "2026-10-20T16:00",
-"hours": "24h",
-"days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.56321,
-43.67454
-],
-[
--79.56343,
-43.67506
-]
-]
-},
-{
 "id": "Tor-RD042026-1256-2",
 "street": "Martin Grove Rd",
 "extent": "Martin Grove Rd 47 m South of Eglinton Ave West Trl to 5 m North of Eglinton Ave West Trl",
@@ -1959,6 +1931,30 @@
 [
 -79.56311,
 43.67434
+]
+]
+},
+{
+"id": "Tor-RD042026-1256-1",
+"street": "Martin Grove Rd",
+"extent": "Martin Grove Rd 8 m North of Eglinton Ave W to 68 m North of Eglinton Ave W",
+"kind": "narrowed",
+"both": true,
+"start": "2026-09-21T09:00",
+"end": "2026-10-20T16:00",
+"hours": "24h",
+"days": "daily",
+"who": "West End Connectors",
+"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.56321,
+43.67454
+],
+[
+-79.56343,
+43.67506
 ]
 ]
 },
@@ -2207,30 +2203,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-311-2",
-"street": "Eglinton Ave E",
-"extent": "Eglinton Ave E 4 m West of Holly St to 10 m East of Cowbell Lane",
-"kind": "narrowed",
-"both": true,
-"start": "2026-08-28T07:00",
-"end": "2026-12-04T16:00",
-"hours": "24h",
-"days": "daily",
-"who": "Powerline Plus LTD.",
-"desc": "Civil / Underground Electrical",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.39685,
-43.70705
-],
-[
--79.39736,
-43.70695
-]
-]
-},
-{
 "id": "Tor-RD042026-311-1",
 "street": "Eglinton Ave E",
 "extent": "Eglinton Ave E 19 m East of Holly St to 55 m East of Holly St",
@@ -2251,6 +2223,30 @@
 [
 -79.39614,
 43.70719
+]
+]
+},
+{
+"id": "Tor-RD042026-311-2",
+"street": "Eglinton Ave E",
+"extent": "Eglinton Ave E 4 m West of Holly St to 10 m East of Cowbell Lane",
+"kind": "narrowed",
+"both": true,
+"start": "2026-08-28T07:00",
+"end": "2026-12-04T16:00",
+"hours": "24h",
+"days": "daily",
+"who": "Powerline Plus LTD.",
+"desc": "Civil / Underground Electrical",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.39685,
+43.70705
+],
+[
+-79.39736,
+43.70695
 ]
 ]
 },
@@ -2363,6 +2359,30 @@
 ]
 },
 {
+"id": "Tor-RD042026-758-1",
+"street": "Scarlett Rd",
+"extent": "Scarlett Rd at Eglinton Ave W to 44 m Northwest of Eglinton Ave W",
+"kind": "closed",
+"both": true,
+"start": "2026-06-03T05:00",
+"end": "2026-12-31T18:00",
+"hours": "24h",
+"days": "daily",
+"who": "Aecon Infrastructure Management Inc",
+"desc": "Traffic staging for the Northwest corner of Scarlett and Eglinton - stage 2.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.51146,
+43.68396
+],
+[
+-79.51172,
+43.68431
+]
+]
+},
+{
 "id": "Tor-RD042026-758-2",
 "street": "Eglinton Ave W",
 "extent": "Eglinton Ave W at Scarlett Rd to 68 m West of Scarlett Rd",
@@ -2407,30 +2427,6 @@
 [
 -79.51146,
 43.68396
-]
-]
-},
-{
-"id": "Tor-RD042026-758-1",
-"street": "Scarlett Rd",
-"extent": "Scarlett Rd at Eglinton Ave W to 44 m Northwest of Eglinton Ave W",
-"kind": "closed",
-"both": true,
-"start": "2026-06-03T05:00",
-"end": "2026-12-31T18:00",
-"hours": "24h",
-"days": "daily",
-"who": "Aecon Infrastructure Management Inc",
-"desc": "Traffic staging for the Northwest corner of Scarlett and Eglinton - stage 2.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.51146,
-43.68396
-],
-[
--79.51172,
-43.68431
 ]
 ]
 },
