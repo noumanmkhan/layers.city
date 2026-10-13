@@ -1600,23 +1600,32 @@ function voteBox(x, y){
   const v = voteAt(x, y); if (!v) return '';
   const today = cityToday(VOTE.tz) === VOTE.date;
   const when = today ? VOTE.today : fill(VOTE.title, {date: isoDate(VOTE.date).toLocaleDateString(CITY.locale, {weekday:'short', month:'short', day:'numeric'})});
-  const d = metres([x, y], [v.x, v.y]);
-  const place = v.n ? '<b>' + esc(v.n) + '</b><span>' + esc(v.a) + ' · ' + dist(d) + ' away</span>' : '<b>' + esc(v.a) + '</b><span>' + dist(d) + ' away</span>';
-  const more = [v.e && fill(VOTE.entrance, v), v.ae && fill(VOTE.access, v), v.vat && VOTE.vat].filter(Boolean);
-  const ctx = {sub: String(+v.c.slice(2)), ward: v.w, asof: niceDate(data.voting.asof)};
+  const ctx = {sub: String(+v.c.slice(2)), ward: v.w, precinct: v.p, asof: niceDate(data.voting.asof)};
+  const link = '<a href="' + esc(VOTE.link[1]) + '" target="_blank" rel="noopener">' + esc(VOTE.link[0]) + ' ↗</a>';
+  let body;
+  if (v.x != null){
+    // A voting place for the spot: name, address and distance, entrances, Show on map.
+    const d = metres([x, y], [v.x, v.y]);
+    const place = v.n ? '<b>' + esc(v.n) + '</b><span>' + esc(v.a) + ' · ' + dist(d) + ' away</span>' : '<b>' + esc(v.a) + '</b><span>' + dist(d) + ' away</span>';
+    const more = [v.e && fill(VOTE.entrance, v), v.ae && fill(VOTE.access, v), v.vat && VOTE.vat].filter(Boolean);
+    body = '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl">' + place + '</p>' +
+      (more.length ? '<p class="vote-ex">' + more.map(esc).join('<br>') + '</p>' : '') +
+      '<p class="vote-acts"><button type="button" class="vote-go">' + esc(VOTE.show) + '</button>' + link + '</p>';
+  } else {
+    // Only the precinct is known (no published polling place list): name it and link to the official lookup.
+    body = '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl"><b>' + esc(fill(VOTE.precinct, ctx)) + '</b>' +
+      (VOTE.precinctSub ? '<span>' + esc(fill(VOTE.precinctSub, ctx)) + '</span>' : '') + '</p>' +
+      '<p class="vote-acts vote-acts-solo">' + link + '</p>';
+  }
   return '<div class="vote" role="note"><i class="vote-ic" aria-hidden="true">' + BALLOT_ICON + '</i><div class="vote-tx">' +
-    '<small>' + esc(when) + ' · ' + esc(VOTE.hours) + '</small>' +
-    '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl">' + place + '</p>' +
-    (more.length ? '<p class="vote-ex">' + more.map(esc).join('<br>') + '</p>' : '') +
-    '<p class="vote-acts"><button type="button" class="vote-go">' + esc(VOTE.show) + '</button>' +
-    '<a href="' + esc(VOTE.link[1]) + '" target="_blank" rel="noopener">' + esc(VOTE.link[0]) + ' ↗</a></p>' +
+    '<small>' + esc(when) + ' · ' + esc(VOTE.hours) + '</small>' + body +
     '<p class="vote-note">' + esc(fill(VOTE.note, ctx)) + '</p></div></div>';
 }
 const BALLOT_ICON = '<svg viewBox="0 0 24 24"><path d="M9.5 3.5h5l1 6h-7z" fill="currentColor" opacity=".55"/><path d="M4 10.5h16v9.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" fill="currentColor"/><rect x="8.5" y="12.6" width="7" height="1.6" rx=".8" fill="var(--vote-slot,#fff)"/><path d="M10.6 6.6l1.2 1.2 2.3-2.4" fill="none" stroke="var(--vote-slot,#fff)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 // The ballot-box mark at the voting place of the spot on the card (removed with the card).
 function drawVoteMark(x, y){
   const v = voteAt(x, y);
-  if (!v){ if (voteMark){ map.removeLayer(voteMark); voteMark = null; } return; }
+  if (!v || v.x == null){ if (voteMark){ map.removeLayer(voteMark); voteMark = null; } return; }
   const ll = L.latLng(v.y, v.x);
   if (voteMark) voteMark.setLatLng(ll);
   else voteMark = L.marker(ll, {pane:'pin', interactive:false, keyboard:false, zIndexOffset:-500, icon: L.divIcon({className:'', iconSize:[28, 36], iconAnchor:[14, 36], html:'<span class="vote-mk">' + BALLOT_ICON + '</span>'})}).addTo(map);

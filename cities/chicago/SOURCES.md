@@ -54,3 +54,6 @@ Hand-kept lists, in code: the nine sides, the known-as additions and the major s
 
 ## Heritage buildings
 `raw/heritage_buildings.json`: City of Chicago Data Portal "Individual Landmarks" (uct4-hrvh, GeoJSON), one point per landmark inside its shape. Fetched monthly by `engine/fetch_heritage_buildings.py` (*Fetch heritage buildings* Action). The older point dataset (tdab-kixi) has only 317 of the 412.
+
+## Election precincts
+`raw/precincts.geojson`: City Data Portal "Boundaries - Ward Precincts (2025-)" (i8fv-xe4b; attribution: Chicago Board of Election Commissioners), 1,291 precincts approved December 9, 2025 and first used March 17, 2026. Fetched by `fetch_precincts.py` (*Fetch Chicago data* Action); `voting.py` builds `docs/chicago/data/voting.geojson` for the card's election box. The Board publishes no precinct-to-polling-place list: its "Your Voter Information" lookup asks for a voter's name and address, and the State Board's polling place lookup disallows automated access, so the card links to the Board's lookup instead of naming a building.

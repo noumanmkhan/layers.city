@@ -238,6 +238,13 @@
   Additive, schema stays 1.
 
 ### Chicago
+- **Election box** (October 14): until polls close on November 3 at 7 pm, the What's here card opens with the
+  same tinted ballot-box box as Toronto's, naming the spot's ward and precinct ("Ward 43, Precinct 20"), the
+  hours (6 a.m. to 7 p.m.) and a Find your polling place button to the Board of Elections' lookup. The Board
+  publishes no polling places by precinct (its lookup needs a voter's name), so no building is named and no
+  mark is drawn. Precincts from the City Data Portal (i8fv-xe4b, approved December 9, 2025), fetched by
+  `fetch_precincts.py`, built by `cities/chicago/voting.py`. For the iOS app: `voting.geojson` features
+  without `x`/`y` carry `p` (precinct); `card.vote.precinct` / `precinctSub` (contract sections 3, 5).
 - **Schools** section on the card: the CPS elementary, middle (where one has its own area) and high
   school whose attendance area holds the spot, with grades, straight-line distance and a link to
   the CPS profile. CPS 2025–26 boundaries from the City's Data Portal. Names and grades only.
