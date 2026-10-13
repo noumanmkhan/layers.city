@@ -120,7 +120,12 @@ main.doc{padding-top:56px;gap:40px}
 .policy code{font-family:var(--mono);font-size:15px}
 .dated{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--ink-3)}
 @media (max-width:520px){.policy,.summary{padding:24px}main.doc{padding-top:32px}}
+.optout{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.optout button{min-height:44px;padding:0 18px;border-radius:999px;font:inherit;font-weight:500;font-size:16px;cursor:pointer;background:var(--card);color:var(--ink);border:1.5px solid var(--ink)}
+.optout button:hover{background:var(--ink);color:#fff}
+.optout button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 </style>
+<script src="/stats.js" defer></script>
 </head>
 <body>
 <div class="page">
@@ -140,9 +145,10 @@ main.doc{padding-top:56px;gap:40px}
 
   <main class="wrap doc">
     <section class="hero">
-      <div class="coords">LAST UPDATED · OCTOBER 9, 2026</div>
+      <div class="coords">LAST UPDATED · OCTOBER 14, 2026</div>
       <h1>Privacy</h1>
-      <p class="lede">How the City Layers app and the maps on this site handle your information. The short version: no accounts, no analytics, no ads, and nothing about you is sold.</p>
+      <p class="lede">How the City Layers app and the maps on this site handle your information. The short version: no accounts, no ads, no tracking cookies, and nothing about you is sold. The website counts visits and which features get used, without identifying anyone.</p>
+      <p class="lede"><strong>What changed on October 14, 2026:</strong> the website now uses Umami, a privacy-focused analytics service, to count visits and feature use. It never receives your location, pins, searches or place names. <a href="#counting">Details and opt-out</a>.</p>
       <nav class="toc" aria-label="On this page">
         <a href="#app">City Layers app (iOS)</a>
         <a href="#website">This website</a>
@@ -153,8 +159,9 @@ main.doc{padding-top:56px;gap:40px}
     <section class="summary" aria-labelledby="short">
       <h2 id="short">In short</h2>
       <ul>
-        <li>There are no accounts, no sign-ups and no tracking. The app and the website don’t use analytics tools, advertising, or tracking cookies.</li>
-        <li>Your location is optional, is only used when you ask for it, and stays on your device.</li>
+        <li>There are no accounts, no sign-ups, no advertising and no tracking cookies. The app uses no analytics.</li>
+        <li>The website counts visits and which features get used (for example “someone picked the Getting around view”), with Umami. It doesn’t identify you, and you can <a href="#counting">opt out</a>.</li>
+        <li>Your location is optional, is only used when you ask for it, and stays on your device. Pins, searches and place names are never counted.</li>
         <li>Searching for an address sends what you type to a search service (Apple in the app, OpenStreetMap on the website) so it can find the place.</li>
         <li>Your settings are saved on your own device, not on a server run by me.</li>
         <li>I don’t sell, rent or share personal information, because I don’t collect it.</li>
@@ -192,11 +199,23 @@ main.doc{padding-top:56px;gap:40px}
 
     <section class="policy" id="website" aria-labelledby="web-h">
       <h2 id="web-h">This website</h2>
-      <p class="dated">LAST UPDATED · OCTOBER 9, 2026</p>
-      <p>This covers <code>layers.city</code>, including Toronto Layers and Chicago Layers.</p>
+      <p class="dated">LAST UPDATED · OCTOBER 14, 2026</p>
+      <p>This covers <code>layers.city</code>: the maps page and every city’s map.</p>
 
-      <h3>No accounts, analytics or ads</h3>
-      <p>The maps don’t use analytics tools, advertising or tracking cookies, and you don’t need an account.</p>
+      <h3>No accounts, ads or tracking cookies</h3>
+      <p>You don’t need an account, there is no advertising, and the site sets no tracking cookies.</p>
+
+      <h3 id="counting">Counting visits and feature use</h3>
+      <p>To learn which cities and features people find useful, the site uses <a href="https://umami.is">Umami Cloud</a>, a privacy-focused analytics service that sets no cookies (<a href="https://umami.is/privacy">Umami’s privacy policy</a>). It receives:</p>
+      <ul>
+        <li>the page you’re on, as its plain address (for example <code>layers.city/toronto/</code>), and the website that linked you here;</li>
+        <li>your browser, device type, screen size and language, and your country, region and city as Umami estimates them from your connection;</li>
+        <li>the names of features you use, such as which View you picked, which layer you turned on, that you started the tour or saved an image in the portrait shape.</li>
+      </ul>
+      <p>It never receives your location, the pins you drop, what you search for, the names of places you look at, or anything after the <code>?</code> or <code>#</code> in the address (where pins and place names live in shared links). The site checks every message before it goes out and drops anything that isn’t a plain feature name. Umami doesn’t identify you, and the counts are only ever seen as totals.</p>
+      <p>Nothing is counted if your browser sends Do Not Track or Global Privacy Control, or if you opt out here:</p>
+      <p class="optout"><button type="button" id="optout">Stop counting my visits</button> <span id="optoutState" role="status"></span></p>
+      <p>The opt-out is saved in this browser only; clearing your site data undoes it.</p>
 
       <h3>Hosting and the services the page loads</h3>
       <p>The site is hosted on GitHub Pages. Like any website, loading it means your browser connects to some outside services, which receive your IP address and basic browser details as part of that connection:</p>
@@ -204,20 +223,21 @@ main.doc{padding-top:56px;gap:40px}
         <li><strong>GitHub</strong>, which hosts the pages and map data (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub’s privacy statement</a>).</li>
         <li><strong>Google Fonts</strong>, for the map’s typeface (<a href="https://policies.google.com/privacy">Google’s privacy policy</a>).</li>
         <li><strong>cdnjs</strong> (Cloudflare) and <strong>jsDelivr</strong>, which serve the open-source map libraries.</li>
+        <li><strong>Umami</strong>, for the visit counts described above.</li>
       </ul>
-      <p>I don’t receive or keep these logs.</p>
+      <p>I don’t receive or keep these services’ logs. From Umami I see only totals, such as visits by city or how often a feature is used.</p>
 
       <h3>Address search</h3>
       <p>When you search for an address, what you type is sent to OpenStreetMap’s Nominatim service to find it (<a href="https://osmfoundation.org/wiki/Privacy_Policy">OpenStreetMap Foundation privacy policy</a>). Suggestions for landmarks and place names come from the map’s own data, in your browser, and aren’t sent anywhere.</p>
 
       <h3>Your location and pins</h3>
-      <p>The website doesn’t ask for your location. When you drop a pin, working out what it falls in happens in your browser. Shareable links keep the map position and pin in the part of the link after the <code>#</code>, which browsers don’t send to the server; it only goes to whoever you share the link with.</p>
+      <p>On phones, the map has a “Use my location” button. The website only asks for your location when you tap it, and it never leaves your device: working out what’s there happens in your browser, it isn’t counted, and it isn’t added to links you share. When you drop a pin, working out what it falls in also happens in your browser. Shareable links keep the map position and pin in the part of the link after the <code>#</code>, which browsers don’t send to the server; it only goes to whoever you share the link with.</p>
 
       <h3>Saving images</h3>
       <p>The “Image” button creates the picture in your browser. The first time you use it, a small open-source library is loaded from jsDelivr.</p>
 
       <h3>What’s stored in your browser</h3>
-      <p>The site saves a few display settings in your browser’s local storage: light or dark theme, whether the side panel is folded, and which card sections are open. These are not cookies, aren’t sent anywhere, and you can clear them by clearing your browser’s site data.</p>
+      <p>The site saves a few display settings in your browser’s local storage: light or dark theme, whether the side panel is folded, which card sections are open, whether you’ve seen the tour, and your visit-counting opt-out if you choose one. These are not cookies, aren’t sent anywhere, and you can clear them by clearing your browser’s site data.</p>
     </section>
 
     <section class="policy" id="contact" aria-labelledby="contact-h">
@@ -233,5 +253,15 @@ main.doc{padding-top:56px;gap:40px}
     <a href="/">All maps</a>
   </footer>
 </div>
+<script>
+(function(){
+  var b = document.getElementById('optout'), s = document.getElementById('optoutState');
+  if (!b) return;
+  var get = function(){ try { return !!localStorage.getItem('umami.disabled'); } catch (e) { return false; } };
+  var draw = function(){ var off = get(); b.textContent = off ? 'Count my visits again' : 'Stop counting my visits'; s.textContent = off ? 'Your visits aren’t counted in this browser.' : ''; };
+  b.addEventListener('click', function(){ try { if (get()) localStorage.removeItem('umami.disabled'); else localStorage.setItem('umami.disabled', '1'); } catch (e) { s.textContent = 'Your browser blocked saving this setting.'; return; } draw(); });
+  draw();
+})();
+</script>
 </body>
 </html>
