@@ -5,6 +5,7 @@
 <meta charset="utf-8">
 <title>Vancouver · Layers.City</title>
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<script src="/stats.js" defer></script>
 <meta name="description" content="A map of the City of Vancouver with toggleable layers: Downtown and the East and West Sides, 22 local areas, known-as names, main streets, highways, SkyTrain, SeaBus, the West Coast Express and every bus route.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -1453,6 +1454,10 @@ const DATA = 'data/';
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+/* Feature counts (docs/stats.js, which also enforces this): an event name and short config ids, true/false
+   or a tour step number only. Never place names, search text, pins or coordinates. Logged where a person acts, not
+   where the tour, a View or a shared link replays the same functions. */
+const logEvent = (name, data) => { try { if (window.lcTrack) window.lcTrack(name, data); } catch (e) {} };
 
 /* Text templates from the config: "{name}" fills from a feature's properties, "{f.num}" walks into
    nested objects, a list becomes "a, b". A part in [square brackets] is dropped when a field inside it
@@ -2406,7 +2411,7 @@ CITY.groups.forEach(([title, items]) => {
     row.innerHTML = '<span class="sw ' + it.id + ' k-' + (it.kind === 'outline' ? it.level : it.kind) + (it.kind === 'places' ? ' in-' + it.cat : '') + '">' + swatchOf(it) + '</span><span class="tx"><b>' + it.name + '</b><span>' + it.note + '</span></span>' +
       '<input type="checkbox" id="lyr-' + it.id + '"' + (it.on ? ' checked' : '') + '><span class="tg" aria-hidden="true"></span>';
     grp.appendChild(row);
-    row.querySelector('input').addEventListener('change', e => setLayer(it.id, e.target.checked));
+    row.querySelector('input').addEventListener('change', e => { setLayer(it.id, e.target.checked); if (e.target.checked) logEvent('layer_on', {id: it.id}); });
     if (it.kind === 'lens'){
       const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'lensbox'; box.hidden = !it.on;
       box.innerHTML = '<div class="seg" role="radiogroup" aria-label="' + esc(CITY.lens.label) + '">' +
@@ -2417,7 +2422,7 @@ CITY.groups.forEach(([title, items]) => {
             f.options.map(([v, t]) => '<button type="button" aria-pressed="false" data-f="' + f.lens + '" data-v="' + v + '">' + t + '</button>').join('') + '</div></div>').join('') +
         '<div class="fres" id="fres" hidden><span id="fcount"></span><button type="button" id="fclear">Clear</button></div><div class="flist" id="flist"></div></div>';
       grp.appendChild(box);
-      box.querySelectorAll('[data-lens]').forEach(b => b.addEventListener('click', () => setLens(b.dataset.lens)));
+      box.querySelectorAll('[data-lens]').forEach(b => b.addEventListener('click', () => { setLens(b.dataset.lens); logEvent('lens', {id: b.dataset.lens}); }));
       box.querySelectorAll('[data-f]').forEach(b => b.addEventListener('click', () => {
         const k = b.dataset.f, v = b.dataset.v;
         if (typeof filt[k] === 'number') filt[k] = filt[k] === +v ? 0 : +v;
@@ -2492,7 +2497,7 @@ if (LAYERS.some(it => it.live)){
   const box = document.getElementById('ptabs'); box.hidden = false;
   box.querySelector('.seg').innerHTML = ['all', 'basic', 'live'].map(t =>
     '<button type="button" role="radio" data-ptab="' + t + '" aria-checked="' + (t === 'all') + '">' + (t === 'live' ? '<i class="live-dot" aria-hidden="true"></i>' : '') + esc(PT[t]) + '</button>').join('');
-  box.querySelectorAll('[data-ptab]').forEach(b => b.addEventListener('click', () => setPanelTab(b.dataset.ptab)));
+  box.querySelectorAll('[data-ptab]').forEach(b => b.addEventListener('click', () => { setPanelTab(b.dataset.ptab); logEvent('panel_tab', {id: b.dataset.ptab}); }));
 }
 // A live layer's row says how fresh its data is ("as of Oct 14"); older than it.staleDays (default 3) shows in the accent colour.
 function stampLive(it, asof){
@@ -2955,9 +2960,9 @@ function wireCard(){
   document.getElementById('hereX').onclick = closeHere;
   const sh = here.querySelector('.share'); if (sh) sh.onclick = share;
   here.querySelectorAll('[data-route]').forEach(b => b.addEventListener('click', () => pickRoute(b.dataset.route, !picked.has(b.dataset.route))));
-  here.querySelectorAll('[data-pf]').forEach(b => b.addEventListener('click', () => { const [id, ...n] = b.dataset.pf.split(':'); setPlaceFocus(id, n.join(':'), true); }));
+  here.querySelectorAll('[data-pf]').forEach(b => b.addEventListener('click', () => { const [id, ...n] = b.dataset.pf.split(':'); setPlaceFocus(id, n.join(':'), true); if (placeF) logEvent('focus', {layer: id, via: 'card'}); }));
   here.querySelectorAll('details.sec').forEach(d => d.addEventListener('toggle', () => { secOpen[d.dataset.sec] = d.open; try { localStorage.setItem('cardSections', JSON.stringify(secOpen)); } catch (e) {} }));
-  const cg = here.querySelector('.cmp-go'); if (cg) cg.onclick = startCompare;
+  const cg = here.querySelector('.cmp-go'); if (cg) cg.onclick = () => { startCompare(); logEvent('compare'); };
   const cc = here.querySelector('.cmp-cancel'); if (cc) cc.onclick = () => endCompare(0);
   here.querySelectorAll('[data-drop]').forEach(b => b.addEventListener('click', () => endCompare(+b.dataset.drop)));
 }
@@ -3189,6 +3194,7 @@ const TOUR_KEY = 'tourSeen-' + CITY.id;
 function tourSeen(){ try { localStorage.setItem(TOUR_KEY, '1'); } catch (e) {} tourInv.hidden = true; }
 function startTour(){
   if (!TOUR) return;
+  logEvent('tour_start');
   tourSeen();
   tourSnap = linkState();
   if (placeF) setPlaceFocus(null, null, false);
@@ -3225,6 +3231,7 @@ function showStep(i){
 }
 function endTour(){
   if (tourI < 0) return;
+  if (tourSnap != null) logEvent('tour_end', {step: tourI + 1, done: tourI === TOUR.steps.length - 1});
   tourI = -1; tourBox.hidden = true;
   document.querySelectorAll('#layers .row.tour-hi').forEach(r => r.classList.remove('tour-hi'));
   if (tourSnap != null){ applyHash('#' + tourSnap); queueHash(); }
@@ -3328,7 +3335,7 @@ function drawPresets(){
   }
   presetBox.innerHTML = h;
   presetBox.hidden = false;
-  presetBox.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => applyPreset(b.dataset.preset)));
+  presetBox.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => { applyPreset(b.dataset.preset); logEvent('view', {id: b.dataset.preset}); }));
   presetBox.querySelectorAll('[data-pb]').forEach(b => b.addEventListener('click', () => presetBoundary(b.dataset.pb)));
   presetHint();
 }
@@ -3379,6 +3386,7 @@ function placeSub(r){
 function choose(r){ goTo(L.latLng(+r.lat, +r.lon), placeLabel(r), true); }
 function goTo(latlng, name, fromSearch, minZoom, muniName){
   showResults('');
+  if (fromSearch) logEvent('card', {via: 'search'});
   if (fromSearch) q.value = name;
   // A spot beyond the city limits isn't visible in city-only mode: switch to the region view.
   if (scope === 'inner' && data.footprint && !hit(data.footprint, latlng.lng, latlng.lat)) setScope('outer', false);
@@ -3608,7 +3616,7 @@ function buildFocusUI(){
     keys.map(k => '<option value="' + esc(k) + '">' + esc(regionName(k)) + '</option>').join('') + '</select>' +
     '<div class="focus-res" id="focusRes" hidden><span id="focusCount"></span><button type="button" id="focusClear">Show all</button></div><div class="flist focus-list" id="focusList" hidden></div>';
   document.querySelector('.scope').after(box);
-  box.querySelector('select').addEventListener('change', e => setFocus(e.target.value || null, true));
+  box.querySelector('select').addEventListener('change', e => { setFocus(e.target.value || null, true); if (e.target.value) logEvent('region_focus'); });
   box.querySelector('#focusClear').addEventListener('click', () => setFocus(null, true));
 }
 function setFocus(key, move){
@@ -3659,7 +3667,7 @@ function setFocus(key, move){
   }
   queueDeclutter(); queueHash();
 }
-document.querySelectorAll('[data-scope]').forEach(b => b.addEventListener('click', () => { if (b.dataset.scope !== scope) setScope(b.dataset.scope, true); }));
+document.querySelectorAll('[data-scope]').forEach(b => b.addEventListener('click', () => { if (b.dataset.scope !== scope){ setScope(b.dataset.scope, true); logEvent('scope', {id: b.dataset.scope}); } }));
 
 /* ---------- Focus on one place (city view) ----------
    Tap a neighbourhood's or area's name on the map, or "Focus on" on the card, and everything outside the
@@ -3688,6 +3696,7 @@ function tapToFocus(lb, id, f){
       L.DomEvent.stop(ev);
       if (map.dragging && map.dragging.moved()) return;
       setPlaceFocus(id, f.properties.name, true);
+      if (placeF) logEvent('focus', {layer: id, via: 'map'});
     });
   });
 }
@@ -3697,7 +3706,10 @@ function tapMap(e){
     if (!swallowTap){ swallowTap = true; setPlaceFocus(null, null, false); setTimeout(() => { swallowTap = false; }); }
     return;
   }
+  // A tap on a shape reaches here twice (the shape, then the map): count the card once.
+  const prev = lastInspect && lastInspect[0];
   inspect(e.latlng);
+  if (lastInspect && lastInspect[0].equals(e.latlng) && !(prev && prev.equals(e.latlng))) logEvent('card', {via: 'tap'});
 }
 function inPlace(x, y){
   const b = placeF.bb;
@@ -3967,6 +3979,7 @@ function applyHash(h){
 }
 // Share: the phone's share sheet where there is one, otherwise copy the link.
 async function share(e){
+  logEvent('share', {from: e && e.currentTarget && e.currentTarget.id === 'shareView' ? 'panel' : 'card'});
   writeHash();
   const url = location.href;
   const title = document.title + (pin && pinName ? ' · ' + pinName : '');
@@ -4011,6 +4024,7 @@ function locateMe(){
   const done = () => b.classList.remove('busy');
   const got = (lat, lng, acc) => {
     done();
+    if (!FAKE_AT) logEvent('locate', {result: 'found'});   // never anything derived from the position
     const at = L.latLng(lat, lng);
     const inCity = data.footprint && hit(data.footprint, lng, lat), inRegion = inCity || (data.outer && hit(data.outer, lng, lat));
     if (!inRegion){ flash(CITY.locateOutside || 'You’re outside this map’s area. Search an address instead.'); return; }
@@ -4025,6 +4039,7 @@ function locateMe(){
   if (FAKE_AT){ setTimeout(() => got(FAKE_AT[0], FAKE_AT[1], 15), 300); return; }
   navigator.geolocation.getCurrentPosition(p => got(p.coords.latitude, p.coords.longitude, p.coords.accuracy || 0), err => {
     done();
+    logEvent('locate', {result: err.code === 1 ? 'denied' : 'failed'});
     flash(err.code === 1 ? 'Location is off for this site. Allow it in your browser settings to use this.' : 'Couldn’t find your location. Try again, or search an address.');
   }, {enableHighAccuracy: true, timeout: 15000, maximumAge: 30000});
 }
@@ -4080,6 +4095,7 @@ const frames = n => new Promise(r => { const step = k => k ? requestAnimationFra
 let saving = false;
 async function saveImage(labels){
   if (saving) return; saving = true;
+  logEvent('image', {shape: imgShape, labels: !!labels});
   imgMenuOpen(false);
   const [W, H, suffix] = SHAPES[imgShape], el = map.getContainer(), busy = document.getElementById('busy');
   const center = map.getCenter(), zoom = map.getZoom(), before = el.getAttribute('style') || '';
