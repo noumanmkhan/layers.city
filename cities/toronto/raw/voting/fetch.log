@@ -1,0 +1,27 @@
+  COTGEO_VOTING_SUBDIVISION: 1000
+  COTGEO_VOTING_SUBDIVISION: 1356
+  COTGEO_VOTING_LOCATION: 1000
+  COTGEO_VOTING_LOCATION: 1356
+list: https://www.toronto.ca/wp-content/uploads/2026/10/96cc-All-Wards-List-as-of-Sept-301.xlsx
+subdivisions 1356 Counter({'VSD': 1356})
+places 1356 Counter({'Primary': 1356}) Counter({'VOTING_LOCATION': 1356})
+subdivision codes repeated: 0 place codes repeated: 0
+subdivisions without a place of the same code: 0 []
+places without a subdivision of the same code: 0 []
+places with no name: 319
+addresses serving 2+ codes: 4
+  sample {'POINT_LONG_CODE': '19043', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': 'St. John Catholic School', 'ADDRESS_FULL': '780 Kingston Rd', 'VOTER_COUNT': 2242}
+  sample {'POINT_LONG_CODE': '11012', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': 'Religious Society Of Friends', 'ADDRESS_FULL': '60 Lowther Ave', 'VOTER_COUNT': 2531}
+  sample {'POINT_LONG_CODE': '11014', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': 'Leisure World Nursing Home', 'ADDRESS_FULL': '225 St George St', 'VOTER_COUNT': 68}
+  sample {'POINT_LONG_CODE': '11015', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': None, 'ADDRESS_FULL': '250 Davenport Rd', 'VOTER_COUNT': 483}
+  sample {'POINT_LONG_CODE': '10042', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': None, 'ADDRESS_FULL': '111 Bathurst St', 'VOTER_COUNT': 288}
+  sample {'POINT_LONG_CODE': '10082', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': None, 'ADDRESS_FULL': '33 Harbour Sq', 'VOTER_COUNT': 769}
+  sample {'POINT_LONG_CODE': '10003', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': 'Maynard Nursing Home', 'ADDRESS_FULL': '28 Halton St', 'VOTER_COUNT': 26}
+  sample {'POINT_LONG_CODE': '05051', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': None, 'ADDRESS_FULL': '75 Emmett Ave', 'VOTER_COUNT': 778}
+  sample {'POINT_LONG_CODE': '11046', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': None, 'ADDRESS_FULL': '35 Balmuto St', 'VOTER_COUNT': 368}
+  sample {'POINT_LONG_CODE': '13024', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': None, 'ADDRESS_FULL': '77 Howard St', 'VOTER_COUNT': 443}
+  sample {'POINT_LONG_CODE': '08034', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': None, 'ADDRESS_FULL': '3270 Bathurst St', 'VOTER_COUNT': 204}
+  sample {'POINT_LONG_CODE': '22042', 'FEATURE_CODE_DESC': 'Primary', 'POINT_NAME': 'Msgr.  Fraser College Midland Campus', 'ADDRESS_FULL': '2900 Midland Ave', 'VOTER_COUNT': 1373}
+  sub {'AREA_LONG_CODE': '11017', 'AREA_NAME': '11017', 'AREA_DESC': '11017', 'PARENT_AREA_ID': None, 'VOTER_COUNT': 453}
+  sub {'AREA_LONG_CODE': '09008', 'AREA_NAME': '09008', 'AREA_DESC': '09008', 'PARENT_AREA_ID': None, 'VOTER_COUNT': 2076}
+  sub {'AREA_LONG_CODE': '13002', 'AREA_NAME': '13002', 'AREA_DESC': '13002', 'PARENT_AREA_ID': None, 'VOTER_COUNT': 281}
