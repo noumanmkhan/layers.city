@@ -22,7 +22,7 @@
     {"name": "Lake Michigan", "at": [41.97, -87.57], "cls": "lake-near"},
     {"name": "Lake Michigan", "at": [42.40, -87.55], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Election precincts: Chicago Board of Election Commissioners via the Data Portal · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Heritage buildings: City of Chicago Individual Landmarks · Changes: City of Chicago building permits",
+  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Election precincts: Chicago Board of Election Commissioners via the Data Portal · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Heritage buildings: City of Chicago Individual Landmarks · Changes: City of Chicago building permits · Street sweeping: City of Chicago Streets and Sanitation",
   "example": {"at": [41.8763, -87.6282], "name": "Harold Washington Library (example)"},
 
   "search": {
@@ -173,6 +173,7 @@
       {"label": "Community area", "layer": "ca", "text": "{name} (#{code})"},
       {"label": "Known as", "knownas": true},
       {"label": "Address grid", "address": true},
+      {"label": "Street sweeping", "pickup": true},
       {"label": "Landmark district", "layer": "heritage", "text": "{name}[ (designated {since})]", "onlyInside": true},
       {"label": "Heritage building", "heritageBuilding": true},
       {"label": "SSA", "layer": "ssa", "text": "{name}[ (#{num})]", "empty": "None"},
@@ -201,6 +202,7 @@
       "note": "The Chicago Public Schools whose attendance area this spot is in, from CPS’s {year} boundaries. Distances are straight-line to the school building. Boundaries change; CPS’s school locator has the final word."
     },
     "vote": {"file": "voting", "date": "2026-11-03", "tz": "America/Chicago", "closes": "2026-11-03T19:00:00-06:00", "title": "Election day · {date}", "today": "Election day is today", "hours": "6 a.m. to 7 p.m.", "lead": "People living here vote in", "precinct": "Ward {ward}, Precinct {precinct}", "precinctSub": "Each precinct has its own polling place.", "link": ["Find your polling place", "https://chicagoelections.gov/voting/your-voter-information"], "note": "Precinct lines approved by the Chicago Board of Election Commissioners, {asof}. The Board doesn’t publish polling places by precinct; its lookup asks for your name and address."},
+    "pickup": {"file": "sweeping", "label": "Street sweeping", "tz": "America/Chicago", "show": 1, "group": true, "head": "Ward {w}, section {s}", "next": "Next: {when}", "note": "Watch for temporary no-parking signs on your block before each sweep. City of Chicago {year} schedule, April to November."},
     "closures": {"title": "Street closures", "radius": 805, "max": 4, "more": "And {n} more nearby: turn on Street closures to see them.", "note": "Red Line construction within ½ mile only; other street work isn’t shown. Dates are permit dates, not a forecast of when the street reopens. CDOT permits, as of {date}."},
     "changes": {"title": "Changing nearby", "radius": 805, "max": 6, "none": "Nothing big proposed, approved, under way or finished within ½ mile in the last two years.", "more": "And {n} more nearby: turn on What's changing to see them.", "note": "Big changes within ½ mile: no houses or small jobs. City of Chicago building permits, as of {date}."},
     "transit": {
