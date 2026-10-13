@@ -2,6 +2,22 @@
 
 ## Since 1.1
 
+### All / Basic / Live, and road closures on the card (October 14)
+- **Panel tabs.** The layer list now has three tabs: All, Basic (data that rarely changes: census, boundaries,
+  landmarks, routes) and Live (refreshed from city feeds every day or week). They only filter the list; layers
+  that are on stay on. Toronto and Chicago mark What's changing, Transit under construction and Road/Street
+  closures as live (new optional layer key `live`). Live rows show how fresh their data is ("As of Oct 14"), in
+  red once older than `staleDays`. Vancouver has no live layers yet, so no tabs. Picking a View or starting the
+  tour switches back to All. Contract section 4. Additive.
+- **Road closures on the What's here card** (both cities): a new section (`card.closures`, id `cls`) lists
+  transit-construction closures and lane restrictions within 500 m (Chicago ½ mile) with permit dates, hours,
+  project and distance, whether or not the layer is on; left out when there are none. Contract section 5.
+  Additive.
+- **Skyscrapers:** the hover tip on a tower under construction adds its expected year (the card already shows it).
+- **Daily closures job fixed:** GitHub had been starting the scheduled runs about seven hours late, so the
+  midnight-hour check skipped every run and closures stopped at October 10. A scheduled run now fetches unless
+  today's file is already built.
+
 ### Brand colours on the maps (October 14)
 - The map's accent changed from purple to the Layers.City red (#C8102E; #E5364F in dark mode): the pin, the
   layer toggles, buttons, the vote box and the card's highlights. Canadian cities are red and white. US cities

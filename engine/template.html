@@ -412,6 +412,19 @@ circle.cl{stroke-width:3;fill:var(--city)}
 .drv.d1{fill:var(--drv-1)} .drv.d2{fill:var(--drv-2)} .drv.d3{fill:var(--drv-3)} .drv.d4{fill:var(--drv-4)}
 .legend i.rest{background:var(--land-out);border:1px solid var(--land-out-line)}
 .row[hidden],.lensbox[hidden]{display:none}
+/* Panel tabs: All / Basic (data that rarely changes) / Live (refreshed daily or weekly). They only
+   filter the list; layers that are on stay on whichever tab is showing. */
+.ptabs{margin:10px 16px 0}
+.ptabs .seg{display:grid;grid-template-columns:repeat(3,1fr);width:100%;box-sizing:border-box}
+.ptabs .seg button{font:inherit;font-size:12.5px;border:none;border-radius:6px;padding:5px 8px;background:none;color:var(--ink-2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.ptabs .seg button[aria-checked="true"]{background:var(--pill-bg);color:var(--ink);font-weight:600}
+.ptabs .seg button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.ptabs .live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.ptabs p{margin:6px 2px 0;font-size:11.5px;line-height:1.4;color:var(--ink-3)}
+.grp[hidden],.it[hidden]{display:none}
+.row .asof{display:block;margin-top:2px;color:var(--ink-2);font-weight:600}
+.row .asof.old{color:var(--accent)}
+
 .sw.k-suburbs{background:linear-gradient(90deg,var(--drv-1) 0 25%,var(--drv-2) 0 50%,var(--drv-3) 0 75%,var(--drv-4) 0)}
 .sw.k-lens{background:linear-gradient(90deg,var(--cost-1) 0 33%,var(--cost-2) 0 66%,var(--cost-3) 0)}
 .lensbox{margin:-2px 8px 8px 48px;display:grid;gap:8px}
@@ -608,6 +621,9 @@ dl.facts dd{margin:0;font-weight:500;min-width:0}
 .live.chg dd span.chg-sub{display:block;color:var(--ink-3);font-size:11px}
 .live.chg dd span.chg-d{display:block;color:var(--ink-2);font-size:11.5px;margin-top:2px;line-height:1.4}
 .live.chg a.chg-l{font-size:11.5px;font-weight:600;color:var(--accent)}
+.live.cls dt{white-space:nowrap}
+.cl-key{display:inline-block;width:14px;height:0;border-top:3px solid var(--cl-closed);margin-right:6px;vertical-align:middle;border-radius:2px}
+.cl-key.narrowed{border-top:3px dotted var(--cl-narrow)}
 .live p.chg-none{margin:0;font-size:12.5px;color:var(--ink-2)}
 .chg-pop .chg-a{font-weight:600;margin-bottom:2px}
 .chg-pop .chg-also{font-size:11.5px;color:var(--ink-2);margin-top:6px} .chg-pop .chg-also ul{margin:2px 0 0;padding-left:16px}
@@ -702,6 +718,7 @@ dl.facts dd span.ag-sub{display:block;font-weight:400;color:var(--ink-2);font-si
       <button type="button" role="radio" data-scope="outer" aria-checked="false"><b>{{scope.outer.name}}</b><span>{{scope.outer.sub}}</span></button>
       <button type="button" role="radio" data-scope="inner" aria-checked="true"><b>{{scope.inner.name}}</b><span>{{scope.inner.sub}}</span></button>
     </div>
+    <div class="ptabs" id="ptabs" hidden><div class="seg" role="radiogroup" aria-label="Which layers to list"></div><p id="ptabNote" hidden></p></div>
     <div id="layers"></div>
     <div class="pf">
       <div class="pfb"><button type="button" id="reset" title="Back to the starting view">Reset</button><button type="button" id="allOff">Hide all</button><button type="button" id="shareView" title="Copy a link to this view">Share</button><button type="button" id="saveImg" aria-haspopup="true" aria-expanded="false" title="Save the map as a 4K image">Image</button><button type="button" id="tourBtn" hidden title="A one-minute tour of the city">Tour</button></div>

@@ -294,7 +294,7 @@ const KINDS = {
       const p = f.properties;
       const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true, zIndexOffset: p.super ? 200 : 0,
         icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="lm tw u-' + p.use + (p.uc ? ' uc' : '') + (p.super ? ' sup' : '') + '"><i>' + svg(GLYPH['tw-' + p.use]) + '</i><b>' + esc(p.name) + '</b></span>'})});
-      hoverTip(m, esc(p.name) + ' · ' + towerHeight(p, true) + (p.uc ? ' · ' + esc(it.ucText || 'Under construction') : ''));
+      hoverTip(m, esc(p.name) + ' · ' + towerHeight(p, true) + (p.uc ? ' · ' + esc(it.ucText || 'Under construction') + (p.year ? ' · ' + esc((it.expectedText || 'Expected').toLowerCase()) + ' ' + p.year : '') : ''));
       m.on('click', () => goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), p.name, false));
       g.addLayer(m);
     });
@@ -610,8 +610,7 @@ const KINDS = {
     });
     map.on('zoomend', () => lyrs.forEach(l => l.setStyle({weight: w()})));
     // The panel row says how fresh the data is.
-    const row = document.getElementById('lyr-' + it.id), note = row && row.closest('label').querySelector('.tx span');
-    if (note && fc.asof) note.textContent = it.note + ' · ' + fill(it.asofText || 'as of {date}', {date: niceDate(fc.asof)});
+    stampLive(it, fc.asof);
     return g;
   },
 };
@@ -658,7 +657,7 @@ const chgStages = new Set(CHG ? Object.keys(CHG.stages) : []);
 let chgP = null;
 function ensureChanges(){
   if (!CHG) return Promise.resolve(null);
-  return chgP || (chgP = get(CHG.file).then(d => { data.changes = d; return d; }).catch(() => { chgP = null; return null; }));
+  return chgP || (chgP = get(CHG.file).then(d => { data.changes = d; if (CHG.live) stampLive(CHG, d.asof); return d; }).catch(() => { chgP = null; return null; }));
 }
 const chgR = () => { const z = map.getZoom(); return z < 12 ? 2.8 : z < 14 ? 4 : 5.5; };
 const chgWhen = p => fill(CHG.dates[p.dl] || '{date}', {date: niceDate(p.date, true)});
@@ -689,6 +688,29 @@ function changesHere(x, y){
       (p.d ? '<span class="chg-d">' + esc(p.d.length > 110 ? p.d.slice(0, 110).replace(/\s+\S*$/, '') + '…' : p.d) + '</span>' : '') + (p.u ? '<a class="chg-l" href="' + esc(p.u) + '" target="_blank" rel="noopener">' + esc(CHG.linkText) + '</a>' : '') + '</dd>'; }).join('');
   const more = near.length > (CC.max || 6) ? '<p>' + esc(fill(CC.more, {n: near.length - (CC.max || 6)})) + '</p>' : '';
   return '<div class="live chg"><dl>' + rows + '</dl>' + more + '<p>' + esc(fill(CC.note, {date: niceDate(D.asof, true)})) + '</p></div>';
+}
+/* The card's Road closures section (card.closures in city.json): closures and lane restrictions from the
+   closures layer's file within the radius, nearest first, closed roads ahead of narrowed lanes at the same
+   distance. Shown only when there's one nearby, whether or not the layer is on. Permit dates, not forecasts. */
+const CLS = byKind('closures'), CLC = CITY.card.closures;
+function closuresHere(x, y){
+  const D = CLS && CLC && loaded[CLS.file]; if (!D || !D.features.length) return '';
+  const today = cityToday(CLS.tz);
+  const near = D.features.filter(f => (f.properties.end || '9999').slice(0, 10) >= today).map(f => {
+    const c = f.geometry.type === 'Point' ? [f.geometry.coordinates] : f.geometry.coordinates;
+    return [f, Math.min(...c.map(pt => metres([x, y], pt)))];
+  }).filter(a => a[1] <= CLC.radius).sort((a, b) => (a[1] - b[1]) || (a[0].properties.kind === 'closed' ? -1 : 1));
+  if (!near.length) return '';
+  const max = CLC.max || 4;
+  const rows = near.slice(0, max).map(([f, d]) => { const p = f.properties, soon = (p.start || '').slice(0, 10) > today;
+    const long = p.end && p.end.slice(0, 4) - new Date().getFullYear() >= 2;
+    const when = (soon ? fill(CLS.startsText, {date: niceDate(p.start)}) + ' · ' : '') + fill(CLS.untilText, {date: niceDate(p.end, long)}) + (long ? ' · ' + CLS.longText : '');
+    const hrs = p.hours === '24h' ? CLS.allDayText : p.hours ? p.hours + (p.days ? ' ' + p.days : '') : '';
+    return '<dt><i class="cl-key ' + p.kind + '"></i>' + esc(p.kind === 'closed' ? CLS.closedText : CLS.narrowedText) + '</dt><dd>' + esc(p.street) +
+      ' <span class="chg-sub">' + esc([when, hrs, p.name, dist(d) + ' away'].filter(Boolean).join(' · ')) + '</span>' +
+      (p.extent && p.extent !== p.street ? '<span class="chg-d">' + esc(p.extent) + '</span>' : '') + '</dd>'; }).join('');
+  const more = near.length > max ? '<p>' + esc(fill(CLC.more, {n: near.length - max})) + '</p>' : '';
+  return '<div class="live chg cls"><dl>' + rows + '</dl>' + more + '<p>' + esc(fill(CLC.note, {date: niceDate(D.asof)})) + '</p></div>';
 }
 function clPopup(it, p, latlng, soon, asof){
   const long = p.end && p.end.slice(0, 4) - new Date().getFullYear() >= 2;
@@ -926,9 +948,12 @@ const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 const state = {};
 const host = document.getElementById('layers');
 CITY.groups.forEach(([title, items]) => {
-  const grp = document.createElement('div'); grp.className = 'grp';
-  grp.innerHTML = '<h2>' + title + '</h2>';
+  const grpOuter = document.createElement('div'); grpOuter.className = 'grp';
+  grpOuter.innerHTML = '<h2>' + title + '</h2>';
   items.forEach(it => {
+    // Each layer's row and its boxes sit in one wrapper, so a panel tab can hide them together.
+    const grp = document.createElement('div'); grp.className = 'it'; grp.dataset.live = it.live ? '1' : '';
+    grpOuter.appendChild(grp);
     const row = document.createElement('label'); row.className = 'row' + (it.under ? ' child' : ''); row.htmlFor = 'lyr-' + it.id;
     row.innerHTML = '<span class="sw ' + it.id + ' k-' + (it.kind === 'outline' ? it.level : it.kind) + (it.kind === 'places' ? ' in-' + it.cat : '') + '">' + swatchOf(it) + '</span><span class="tx"><b>' + it.name + '</b><span>' + it.note + '</span></span>' +
       '<input type="checkbox" id="lyr-' + it.id + '"' + (it.on ? ' checked' : '') + '><span class="tg" aria-hidden="true"></span>';
@@ -1000,8 +1025,34 @@ CITY.groups.forEach(([title, items]) => {
     }
     state[it.id] = !!it.on;
   });
-  host.appendChild(grp);
+  host.appendChild(grpOuter);
 });
+/* Panel tabs: All, Basic (data that rarely changes: census, boundaries, landmarks, routes) and Live
+   (layers marked "live" in city.json, refreshed daily or weekly from city feeds). A tab only filters
+   the list: layers that are on stay on. Shown only when the city has live layers. */
+const PT = Object.assign({all: 'All', basic: 'Basic', live: 'Live',
+  liveNote: 'Refreshed from city feeds every day or week. Dates show when each was last updated.'}, CITY.panelTabs || {});
+let ptab = 'all';
+function setPanelTab(t){
+  ptab = t;
+  document.querySelectorAll('[data-ptab]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.ptab === t)));
+  host.querySelectorAll('.it').forEach(el => { el.hidden = t === 'basic' ? !!el.dataset.live : t === 'live' ? !el.dataset.live : false; });
+  host.querySelectorAll('.grp').forEach(g => { g.hidden = ![...g.querySelectorAll('.it')].some(el => !el.hidden); });
+  const n = document.getElementById('ptabNote'); n.hidden = t !== 'live'; n.textContent = PT.liveNote;
+}
+if (LAYERS.some(it => it.live)){
+  const box = document.getElementById('ptabs'); box.hidden = false;
+  box.querySelector('.seg').innerHTML = ['all', 'basic', 'live'].map(t =>
+    '<button type="button" role="radio" data-ptab="' + t + '" aria-checked="' + (t === 'all') + '">' + (t === 'live' ? '<i class="live-dot" aria-hidden="true"></i>' : '') + esc(PT[t]) + '</button>').join('');
+  box.querySelectorAll('[data-ptab]').forEach(b => b.addEventListener('click', () => setPanelTab(b.dataset.ptab)));
+}
+// A live layer's row says how fresh its data is ("as of Oct 14"); older than it.staleDays (default 3) shows in the accent colour.
+function stampLive(it, asof){
+  const row = document.getElementById('lyr-' + it.id), note = row && row.closest('label').querySelector('.tx span');
+  if (!note || !asof) return;
+  const days = (Date.now() - new Date(asof.slice(0, 10) + 'T12:00:00')) / 864e5;
+  note.innerHTML = it.note + '<span class="asof' + (days > (it.staleDays || 3) ? ' old' : '') + '">' + esc(cap(fill(it.asofText || 'as of {date}', {date: niceDate(asof)}))) + '</span>';
+}
 function syncStnNames(){
   const L_ = METRO && layers[METRO.id]; if (!L_) return;
   const want = state[METRO.id] && document.getElementById(METRO.sub.id).checked;
@@ -1196,7 +1247,7 @@ function langRow(cfg, d){
     (cfg.note ? '<span class="caveat">' + esc(fill(cfg.note, {multi: d.langMulti})) + '</span>' : '') + '</dd>';
 }
 // Collapsible card sections. Open/closed is remembered in this browser; phones start with all closed.
-const SEC_DEFAULT = matchMedia('(max-width:760px)').matches ? {bounds:false, live:false, schools:false, transit:false, near:false, chg:false, reps:false} : {bounds:true, live:true, schools:true, transit:true, near:true, chg:true, reps:false};
+const SEC_DEFAULT = matchMedia('(max-width:760px)').matches ? {bounds:false, live:false, schools:false, transit:false, near:false, cls:false, chg:false, reps:false} : {bounds:true, live:true, schools:true, transit:true, near:true, cls:true, chg:true, reps:false};
 let secOpen = Object.assign({}, SEC_DEFAULT);
 try { Object.assign(secOpen, JSON.parse(localStorage.getItem('cardSections') || '{}')); } catch (e) {}
 function section(id, title, body){
@@ -1396,6 +1447,7 @@ function cardOf(latlng, title, muniName){
                ['schools', (CITY.card.schools && CITY.card.schools.title) || 'Schools', schools(x, y)],
                ['transit', (TR && TR.title) || 'Transit', transitHere(x, y)],
                ['near', 'Nearby', nearby(x, y)],
+               ['cls', (CLC && CLC.title) || 'Road closures', closuresHere(x, y)],
                ['chg', (CC && CC.title) || 'Changing nearby', changesHere(x, y)],
                ['reps', 'Representatives', representatives(hits)]]};
 }
@@ -1697,6 +1749,7 @@ function startTour(){
   showStep(0);
 }
 function showStep(i){
+  if (ptab !== 'all') setPanelTab('all');   // the step outlines rows that a tab could be hiding
   const st = TOUR.steps[i], last = i === TOUR.steps.length - 1;
   tourI = i;
   const want = new Set(st.layers || []);
@@ -1777,6 +1830,7 @@ function presetFrame(p){
   frame(p.view === 'region' ? REGION_VIEW : Array.isArray(p.view) ? L.latLngBounds(p.view) : CITY_BOUNDS);
 }
 function applyPreset(id){
+  if (ptab !== 'all') setPanelTab('all');
   const p = presetById(id); if (!p) return;
   if (tourI >= 0){ tourSnap = null; endTour(); }
   const lyr = (p.layers || []).slice();

@@ -173,6 +173,13 @@ How the website's search does it, for an app that wants to match:
 - `under` (optional, any layer): the id of the layer it sits under in the panel (the institution
   toggles and Skyscrapers are `under: "landmarks"`). Indented in the panel; each still has its own
   toggle and default, all off.
+- `live` (optional, any layer; October 14, 2026): `true` for layers refreshed from city feeds every day or
+  week (Toronto and Chicago: `chg`, `build`, `closures`). The website's panel has three tabs, All, Basic
+  (layers without `live`) and Live, which only filter the list; layers that are on stay on. `staleDays`
+  (optional, default 3): a layer whose data `asof` is older than that many days shows its date in `--accent`.
+  The freshness line ("As of Oct 14") comes from the layer file's `asof` (`closures.geojson`,
+  `changes.geojson`) filled into `asofText` (default "as of {date}"). Optional top-level `panelTabs`
+  (`all`, `basic`, `live`, `liveNote`) overrides the tab text. Apps may ignore all of it.
 - `card`: `pills`, `facts`, `living`, `reps` (section 6).
 - `lens.file` (the profiles file) and `lens.lenses`: each has `key` (the profile field holding a
   tier id) and `tiers: [[tierId, label, colourVariable], …]`. Use the label; the colour variable
@@ -366,6 +373,8 @@ disagree, the live page is right.
 **Views** (`presets` in `city.json`, optional): one-tap named views shown as a chip row at the top of the website's panel. `label`, `customText` and `customNote` (`{name}`: shown once someone changes the map after picking a view), `boundaryLabel`, `electionText` (`{label}`), `window` (days, default 180), `items` and `elections`. Each item: `{id, name, note, layers, lens, bus, scope, view, boundaries, lead, hint}`. A view replaces the whole state: exactly `layers` on (sub-toggles such as `stnNames` included), `lens` (else the first lens), `bus` families (else the layer's default), `scope` `inner` (default) or `outer`, no filters, picks, focus or card, then `view` (`"city"`, `"region"` or bounds). `boundaries` (Who represents me) is a list of boundary layer ids shown one at a time with chips to switch; the first one on is the `lead` of the earliest `elections` entry `{date, lead, label}` dated today or later and within `window` days, else the item's `lead`. `hint` is text for under the search box while no spot is pinned. Ids are the same in every city (`explore`, `local`, `civic`, `newcomer`, `transit`); links carry `preset=<id>`. Apps may ignore it.
 
 **Heritage building row** (`{"label": "Heritage building", "heritageBuilding": true}` in `card.facts`, after the heritage district row): the property within 40 m of the spot (150 m when the pin's name matches the property's), nearest first, shown as its name (or address) with "(built 1901, designated 1976)"; no row when there is none.
+
+**Road closures** (`card.closures`, section `cls`, before Changing nearby; Toronto and Chicago; October 14, 2026): from the `closures` layer's file whatever the layer's toggle, only when at least one is within `radius` m (Toronto 500, Chicago 805) of the spot; otherwise the section is left out. Hide permits whose `end` is before today in the layer's `tz`. Distance to the nearest point of the line. Nearest first (a `closed` before a `narrowed` at the same distance), at most `max` (4): the layer's `closedText` or `narrowedText` with a red line or amber dots key · `street` · a line of `startsText` (permits starting later), `untilText` (with the year and `longText` when two or more years out), hours (`allDayText` for "24h"), the project `name` and the distance · `extent` when it differs from `street`. More than `max`: `more` with `{n}`. Footer `note` with `{date}` = the file's `asof`. Permit dates, never a reopening forecast.
 
 **Changing nearby** (`card.changes`, section `chg`, after Nearby): sites within `radius` m (Toronto 500, Chicago 805), nearest first, at most `max` (6): kind with a stage dot (ring for demolitions) · address · stage, date (`dates[dl]`) and distance · the description cut to about 110 characters · the link. More than `max`: `more` with `{n}`. None: `none`. Footer `note` with `{date}` = `asof`.
 
