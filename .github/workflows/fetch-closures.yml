@@ -4,9 +4,9 @@ name: Fetch transit closures
 # (cities/<city>/fetch_closures.py -> raw/closures/permits.json), builds
 # docs/<city>/data/closures.geojson with engine/closures.py, and commits both to main. Pages
 # redeploys on the push, so the map shows that day's permits.
-# Actions schedules are in UTC: midnight in New York is 04:00 UTC in summer and 05:00 UTC in winter,
-# so both run and the one that isn't the midnight hour in New York exits straight away.
-# Scheduled runs can start late; the page hides permits that have ended, so a late run is harmless.
+# Actions schedules are in UTC: midnight in New York is 04:00 UTC in summer and 05:00 UTC in winter.
+# Both schedules fire; the first to start fetches and the second exits if today's file is built.
+# Scheduled runs often start hours late; the page hides permits that have ended, so that's harmless.
 on:
   workflow_dispatch:
   schedule:
@@ -23,14 +23,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - name: Only at midnight in New York (scheduled runs)
+      - uses: actions/checkout@v4
+      # GitHub starts scheduled runs late (in October 2026, seven hours late), so an hour check
+      # skipped every run. Instead: a scheduled run fetches unless today's file (New York date) is
+      # already built, so whichever of the two runs starts first does the day's fetch.
+      - name: Only once a day (scheduled runs)
         id: when
         run: |
-          if [ "${{ github.event_name }}" = "schedule" ] && [ "$(TZ=America/New_York date +%H)" != "00" ]; then
-            echo "Not the midnight hour in New York; the other schedule covers today."; echo "skip=1" >> "$GITHUB_OUTPUT"
+          today=$(TZ=America/New_York date +%F)
+          have=$(python3 -c "import json;print(json.load(open('docs/toronto/data/closures.geojson')).get('today',''))" 2>/dev/null || true)
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$have" = "$today" ]; then
+            echo "Today's closures ($today) are already built."; echo "skip=1" >> "$GITHUB_OUTPUT"
           fi
-      - if: steps.when.outputs.skip != '1'
-        uses: actions/checkout@v4
       - if: steps.when.outputs.skip != '1'
         uses: actions/setup-python@v5
         with:
