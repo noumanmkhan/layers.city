@@ -1,0 +1,274 @@
+Toronto: road restrictions feed
+  records 2855
+  active 2632 bike words 26
+Toronto: cycling network
+  cycling network attempt 1 failed: HTTP Error 502: Bad Gateway
+  cycling network attempt 2 failed: HTTP Error 502: Bad Gateway
+  features 1581 infra keys ['INFRA_LOWORDER', 'INFRA_HIGHORDER'] name key STREET_NAME
+/home/runner/work/city-layers/city-layers/scouting/bike-closures/scout.py:132: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  bike_geoms.append(transform(P, shape(f['geometry'])))
+/home/runner/work/city-layers/city-layers/scouting/bike-closures/scout.py:144: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  return transform(P, LineString(pts)), 'line'
+/home/runner/work/city-layers/city-layers/scouting/bike-closures/scout.py:146: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  return transform(P, Point(float(r['longitude']), float(r['latitude']))), 'point'
+  matched 587 same street 436
+Chicago: CDOT permits
+  active [{'n': '53645'}] bike words 367
+  closing rows 6267
+Chicago: bike routes
+/home/runner/work/city-layers/city-layers/scouting/bike-closures/scout.py:244: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  geoms = [transform(P, shape(f['geometry'])) for f in feats]
+  bike route features 1008
+/home/runner/work/city-layers/city-layers/scouting/bike-closures/scout.py:255: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.
+  pt = transform(P, Point(float(r['longitude']), float(r['latitude'])))
+  matched 930
+{
+ "toronto": {
+  "no_geometry": 0,
+  "touching_bike_facility": 587,
+  "same_street_as_facility": 436,
+  "same_street_by_type": {
+   "CONSTRUCTION/None": 372,
+   "ROAD_CLOSED/ROAD_CLOSED_CONSTRUCTION": 64
+  },
+  "same_street_by_impact": {
+   "Low": 236,
+   "High": 189,
+   "Medium": 11
+  },
+  "same_street_by_infra": {
+   "Cycle Track": 135,
+   "Bike Lane": 115,
+   "Sharrows": 37,
+   "Bike Lane - Contraflow": 26,
+   "Signed Route (No Pavement Markings)": 24,
+   "Sharrows - Wayfinding": 21,
+   "Multi-Use Trail": 20,
+   "Sharrows - Arterial": 19,
+   "Bi-Directional Cycle Track": 15,
+   "Multi-Use Trail - Boulevard": 13,
+   "Sharrows - Arterial - Connector": 4,
+   "Bike Lane - Buffered": 4,
+   "Cycle Track - Contraflow": 3
+  },
+  "same_street_by_source": {
+   "Unknown": 116,
+   "Toronto Hydro": 84,
+   "{\"tabledata\":[{\"Option\":\"Toronto Water\"": 82,
+   "{\"tabledata\":[{\"Option\":\"Transportation Services\"": 38,
+   "Utility": 20,
+   "Other": 17,
+   "Metrolinx": 17,
+   "Gas Service": 12,
+   "Storage of trailer": 10,
+   "Long term construction staging": 9,
+   "{\"tabledata\":[{\"Option\":\"Other\"": 8,
+   "{\"tabledata\":[{\"Option\":\"Parks": 5,
+   "TTC": 5,
+   "Toronto Transit Commission": 5,
+   "Telecommunications": 3,
+   "Streetscape work": 2,
+   "Gasmain": 1,
+   "Road Resurfacing, Sidewalk Construction, Bridge Rehabilitation": 1,
+   "Walk-through/staging scaffold": 1
+  },
+  "same_street_by_workEventType": {
+   "Unknown": 116,
+   "Toronto Hydro": 84,
+   "{\"tabledata\":[{\"Option\":\"Toronto Water\"": 82,
+   "{\"tabledata\":[{\"Option\":\"Transportation Services\"": 38,
+   "Utility": 20,
+   "Other": 17,
+   "Metrolinx": 17,
+   "Gas Service": 12,
+   "Storage of trailer": 10,
+   "Long term construction staging": 9,
+   "{\"tabledata\":[{\"Option\":\"Other\"": 8,
+   "{\"tabledata\":[{\"Option\":\"Parks": 5,
+   "TTC": 5,
+   "Toronto Transit Commission": 5,
+   "Telecommunications": 3,
+   "Streetscape work": 2,
+   "Gasmain": 1,
+   "Road Resurfacing, Sidewalk Construction, Bridge Rehabilitation": 1,
+   "Walk-through/staging scaffold": 1
+  },
+  "same_street_mentions_bike": 7,
+  "same_street_mentions_curb": 25,
+  "same_street_roads": {
+   "Bay St": 46,
+   "Bloor St W": 36,
+   "Bayview Ave": 24,
+   "Yonge St": 14,
+   "Fort York Blvd": 13,
+   "Davenport Rd": 12,
+   "Faywood Blvd": 12,
+   "Danforth Ave": 12,
+   "Adelaide St W": 10,
+   "College St": 9,
+   "Eglinton Ave E": 8,
+   "Tecumseth St": 8,
+   "Richmond St W": 8,
+   "Harbour St": 8,
+   "Strachan Ave": 7,
+   "Bellevue Ave": 7,
+   "Bloor St E": 7,
+   "Gerrard St E": 6,
+   "Moore Ave": 6,
+   "Rimrock Rd": 6,
+   "Shaw St": 5,
+   "Wellesley St E": 5,
+   "Queen St E": 5,
+   "Beverley St": 5,
+   "Steeprock Dr": 5,
+   "Wellington St W": 4,
+   "Dundas St W": 4,
+   "Sherbourne St": 4,
+   "Sloley Rd": 4,
+   "Cosburn Ave": 4,
+   "Richmond St E": 4,
+   "Palmerston Ave": 3,
+   "Dawes Rd": 3,
+   "River St": 3,
+   "Royal York Rd": 3,
+   "Carlaw Ave": 3,
+   "Whitehorse Rd": 3,
+   "Chesswood Dr": 3,
+   "Wilmington Ave": 3,
+   "Bathurst St": 3,
+   "St Dennis Dr": 2,
+   "Gateway Blvd": 2,
+   "Douro St": 2,
+   "Finch Ave W": 2,
+   "Sumach St": 2,
+   "Welland Ave": 2,
+   "Emerson Ave": 2,
+   "Glen Cedar Rd": 2,
+   "Niagara St": 2,
+   "Gladstone Ave": 2,
+   "Edenbridge Dr": 2,
+   "Brock Ave": 2,
+   "Sheppard Ave E": 2,
+   "Simcoe St": 2,
+   "Galloway Rd": 2,
+   "Adelaide St E": 2,
+   "Eastern Ave": 2,
+   "Temperance St": 2,
+   "Dupont St": 2,
+   "Sunfield Rd": 2
+  },
+  "cross_street_only": 151
+ },
+ "chicago": {
+  "closing_rows": 6267,
+  "no_point": 4,
+  "on_bike_route_same_street": 930,
+  "by_closure": {
+   "Curblane": 762,
+   "Partial": 88,
+   "Full": 80
+  },
+  "by_route_type": {
+   "Bike Lane": 302,
+   "Neighborhood Greenway": 234,
+   "Buffered Bike Lane": 206,
+   "Protected Bike Lane": 104,
+   "Marked Shared Lane": 84
+  },
+  "closure_x_route": {
+   "Curblane / Bike Lane": 253,
+   "Curblane / Neighborhood Greenway": 200,
+   "Curblane / Buffered Bike Lane": 159,
+   "Curblane / Protected Bike Lane": 80,
+   "Curblane / Marked Shared Lane": 70,
+   "Partial / Buffered Bike Lane": 28,
+   "Partial / Bike Lane": 27,
+   "Full / Bike Lane": 22,
+   "Full / Neighborhood Greenway": 22,
+   "Full / Buffered Bike Lane": 19,
+   "Partial / Protected Bike Lane": 15,
+   "Partial / Neighborhood Greenway": 12,
+   "Full / Protected Bike Lane": 9,
+   "Full / Marked Shared Lane": 8,
+   "Partial / Marked Shared Lane": 6
+  },
+  "by_worktype": {
+   "Opening in the Public Way": 737,
+   "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment": 105,
+   "Work in Advance": 38,
+   "Restoration": 27,
+   "Soil Boring / Well Monitoring": 11,
+   "Festival": 5,
+   "Street Closure": 4,
+   "Athletic": 2,
+   "Block Party": 1
+  },
+  "by_placement": {
+   "null": 930
+  },
+  "mentions_bike": 38,
+  "streets": {
+   "N MILWAUKEE AVE": 36,
+   "N DAMEN AVE": 31,
+   "N CLARK ST": 29,
+   "W 63RD ST": 28,
+   "N LINCOLN AVE": 18,
+   "N KEDZIE AVE": 17,
+   "S STATE ST": 17,
+   "N CALIFORNIA AVE": 16,
+   "W LAWRENCE AVE": 15,
+   "W ROSCOE ST": 15,
+   "N LEAVITT ST": 14,
+   "W WASHINGTON BLVD": 14,
+   "N MENARD AVE": 13,
+   "N ELSTON AVE": 13,
+   "N WOOD ST": 12,
+   "S HALSTED ST": 11,
+   "N KENMORE AVE": 11,
+   "N GLENWOOD AVE": 11,
+   "W ARMITAGE AVE": 11,
+   "N WINTHROP AVE": 11,
+   "N HALSTED ST": 10,
+   "N CLYBOURN AVE": 10,
+   "W DIVERSEY AVE": 9,
+   "W ALDINE AVE": 9,
+   "W BELMONT AVE": 9,
+   "W WRIGHTWOOD AVE": 9,
+   "W LELAND AVE": 9,
+   "W LAKE ST": 8,
+   "N SOUTHPORT AVE": 8,
+   "W 18TH ST": 8,
+   "W CHICAGO AVE": 8,
+   "S INDIANA AVE": 8,
+   "W GRAND AVE": 8,
+   "W DIVISION ST": 7,
+   "N ROCKWELL ST": 7,
+   "N LARAMIE AVE": 7,
+   "S CENTRAL PARK AVE": 7,
+   "W ARGYLE ST": 7,
+   "W BERWYN AVE": 7,
+   "S SOUTH CHICAGO AVE": 7,
+   "S DR MARTIN LUTHER KING JR DR": 7,
+   "W HARRISON ST": 7,
+   "W POLK ST": 7,
+   "N WELLS ST": 7,
+   "W NORTH AVE": 6,
+   "N CENTRAL PARK AVE": 6,
+   "N HAMLIN AVE": 6,
+   "W FULLERTON AVE": 6,
+   "N AVERS AVE": 6,
+   "E 83RD ST": 6,
+   "W BRYN MAWR AVE": 6,
+   "N AUSTIN AVE": 6,
+   "W 81ST ST": 6,
+   "E 93RD ST": 6,
+   "S KEELER AVE": 6,
+   "W 59TH ST": 6,
+   "W TAYLOR ST": 6,
+   "W HUBBARD ST": 6,
+   "W BERTEAU AVE": 5,
+   "W SCHOOL ST": 5
+  },
+  "with_address_range": 657
+ }
+}
