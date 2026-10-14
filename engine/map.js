@@ -49,7 +49,9 @@ CITY.lens.lenses.forEach(L_ => { LENSES[L_.id] = L_; });
 const FILTERS = CITY.lens.filters;
 /* A "pick a type" lens (e.g. housing type) shades units by the share of one category the viewer picks:
    d[L_.field] is a list of shares, L_.pick names the categories in the same order, L_.cuts splits a
-   share into the lens's tiers. Every other lens reads a precomputed tier, d[L_.key]. */
+   share into the lens's tiers. Every other lens reads a precomputed tier, d[L_.key].
+   A pick may carry its own {cuts, labels} as a fourth entry, for categories measured on different
+   scales (home language): the tier ids and colours stay the lens's, the cuts and tier labels are the pick's. */
 const pick = {};
 CITY.lens.lenses.forEach(L_ => { if (L_.pick) pick[L_.id] = L_.pick[0][0]; });
 function keyOf(L_, d){
@@ -57,7 +59,7 @@ function keyOf(L_, d){
   if (!L_.pick) return d[L_.key];
   const i = L_.pick.findIndex(p => p[0] === pick[L_.id]), v = d[L_.field] && d[L_.field][i];
   if (v == null) return null;
-  const t = L_.cuts.findIndex(c => v < c);
+  const t = pickCuts(L_).findIndex(c => v < c);
   return L_.tiers[t < 0 ? L_.tiers.length - 1 : t][0];
 }
 const FIRST_LENS = CITY.lens.lenses[0].id;
@@ -85,9 +87,13 @@ let lens = FIRST_LENS;
 const TIER_LABEL = {};
 Object.values(LENSES).forEach(L_ => L_.tiers.forEach(([k, label, v]) => { TIER_LABEL[L_.key + ':' + k] = [label, v]; }));
 const tierOf = d => { const L_ = LENSES[lens], k = keyOf(L_, d); if (!k) return '';
-  return L_.pick ? pickLabel(L_) + ': ' + TIER_LABEL[L_.key + ':' + k][0] : TIER_LABEL[L_.key + ':' + k][0]; };
+  return L_.pick ? pickLabel(L_) + ': ' + tierLabel(L_, k) : tierLabel(L_, k); };
 const pickOf = L_ => L_.pick.find(p => p[0] === pick[L_.id]) || L_.pick[0];
 const pickLabel = L_ => pickOf(L_)[1], pickLong = L_ => pickOf(L_)[2] || pickOf(L_)[1].toLowerCase();
+function pickCuts(L_){ const o = pickOf(L_)[3]; return (o && o.cuts) || L_.cuts; }
+// A tier's label, with a pick's own labels winning over the lens's.
+function tierLabel(L_, k){ const o = L_.pick && pickOf(L_)[3], i = L_.tiers.findIndex(t => t[0] === k);
+  return o && o.labels && i >= 0 ? o.labels[i] : TIER_LABEL[L_.key + ':' + k][0]; }
 
 const map = L.map('map', {zoomSnap:.25, zoomDelta:.5, minZoom:8.5, maxZoom:17, attributionControl:true, zoomControl:false, preferCanvas:false});
 // Bottom-left, just beside the layer panel: the panel covers the top-left corner and the What's here card the right side. Phones pinch to zoom, so the buttons are hidden there.
@@ -1090,7 +1096,7 @@ function drawLegend(){
   const L_ = LENSES[lens];
   const picker = L_.pick ? '<div class="chips pick" role="radiogroup" aria-label="' + esc(L_.short) + '">' + L_.pick.map(([v, t]) =>
     '<button type="button" role="radio" data-pick="' + v + '" aria-checked="' + (pick[L_.id] === v) + '">' + esc(t) + '</button>').join('') + '</div>' : '';
-  el.innerHTML = picker + L_.tiers.map(([k, label, v]) => '<div><i style="background:var(' + v + ')"></i>' + label + '</div>').join('') +
+  el.innerHTML = picker + L_.tiers.map(([k, , v]) => '<div><i style="background:var(' + v + ')"></i>' + esc(tierLabel(L_, k)) + '</div>').join('') +
     '<small>' + (L_.pick ? fill(L_.note, {type: pickLong(L_)}) : L_.note) + ' Source: ' + (L_.source || CITY.lens.source) + '</small>';
   el.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => setPick(L_.id, b.dataset.pick)));
 }

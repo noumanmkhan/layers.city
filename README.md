@@ -33,7 +33,7 @@ Toronto's geography is described in several overlapping ways at once. A single a
 | Business Improvement Areas | 85 | |
 | School board wards | 29 across 4 boards | Trustee wards for TDSB (12), TCDSB (12),<br>Viamonde (3) and MonAvenir (2), one board at a time |
 | Heritage districts | 29 | Heritage Conservation Districts in force;<br>ones under study or appeal are left out |
-| Neighbourhood lens | 158 | Housing cost, time to Union,<br>getting to work, renters and owners,<br>housing type |
+| Neighbourhood lens | 158 | Housing cost, time to Union,<br>getting to work, renters and owners,<br>housing type, home language |
 | Main streets | 321 streets | Major and minor arterials<br>(King, Queen, Eglinton…), named along the line |
 | Collector streets | 989 streets | The tier below (Dovercourt, Greenwood…),<br>from zoom 13; most non-arterial bus streets |
 | Yonge: East and West | 43 streets | Yonge and the streets it splits<br>into East and West |
@@ -81,6 +81,7 @@ Toronto's geography is described in several overlapping ways at once. A single a
 - *Renters and owners:* mostly owners, a mix, or mostly renters.
 - *To Union:* the typical transit trip to Union Station on a weekday morning: under 30 minutes, 30–45, 45–60, or over an hour. Computed ahead of time from the TTC, GO and UP Express schedules with [r5py](https://r5py.readthedocs.io/), from points about 400 m apart across each neighbourhood (about 4,000 in all), leaving any time between 8 and 9 am. Walking to the stop and waiting count. Each neighbourhood shows the median of its points.
 - *Housing type:* pick a type (detached, semi and row, low-rise apartments or towers of five storeys and up) and the neighbourhoods are shaded by its share of their homes: under 10%, 10–30%, 30–60%, or 60% and more.
+- *Home language:* two views of one question. *Other than English* shades by the share of residents who speak another language most often at home (French included, and people who speak English and another language equally): under 15%, 15–25%, 25–35%, 35–45%, or 45% and more (citywide 34%). *Neither English nor French* shades by the share who can't hold a conversation in either: under 2%, 2–4%, 4–6%, 6–10%, or 10% and more (citywide 4.5%). No language is named, and the lens feeds no filter, fact or ranking.
 
 **Suburban lens:** in the Greater Toronto Area view, each municipality is shaded by its typical drive to Union Station with no traffic: under 30 minutes, 30–60, 60–90, or 90 and over. A grid of points about 1.5 km apart covers the suburbs (about 2,900 in the GTA); each is timed with [OSRM](https://project-osrm.org/) on OpenStreetMap roads at posted speeds, and each municipality shows the median of its points. Tapping a spot outside the city adds the time from there, so someone in a big municipality like Caledon sees their own area, not an average. The times are best case on purpose: they compare places, and anyone can add their own rush hour.
 
