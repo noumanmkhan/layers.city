@@ -1582,15 +1582,59 @@ function inspect(latlng, title, muniName){
     here.innerHTML = cardHead('What’s here', c.heading) +
       '<div class="pills">' + c.pills + '</div>' + c.drive +
       (regionFeature(m.region) && focusKey !== m.region ? '<button type="button" class="focus-go">' + esc(fill(CITY.focus.show, {name: regionName(m.region)})) + '</button>' : '') +
-      cmpRow + '<p class="outside-note">' + esc(CITY.outside.note) + '</p>';
-    wireCard(); clearVoteMark();
+      cmpRow + '<p class="outside-note">' + esc(CITY.outside.note) + '</p>' + reportBox(c.heading);
+    wireCard(); wireReport(latlng, c.heading); clearVoteMark();
     const fg = here.querySelector('.focus-go'); if (fg) fg.onclick = () => setFocus(m.region, true);
     return;
   }
   here.innerHTML = cardHead('What’s here', c.heading) + '<div class="pills">' + c.pills + '</div>' + voteBox(c.x, c.y) + c.focus + c.tower + c.standout + cmpRow +
-    c.sections.map(([id, t, body]) => section(id, t, body)).join('');
-  wireCard();
+    c.sections.map(([id, t, body]) => section(id, t, body)).join('') + reportBox(c.heading);
+  wireCard(); wireReport(latlng, c.heading);
   drawVoteMark(c.x, c.y);
+}
+/* ---------- Report a problem ----------
+   A link at the foot of the card opens a small box: pick what's wrong, optionally include this place, then
+   "Write the email" opens the person's own email app with a message to CITY.card.report.to ready to edit.
+   Nothing leaves the page unless they press Send there; the place (its name and a map link) goes in only
+   if they tick the box, which starts unticked. Counted as a bare 'report' event, with no details. */
+const RPT = CITY.card && CITY.card.report && CITY.card.report.to ? Object.assign({
+  link: 'Report a problem', kindLabel: 'What’s wrong?',
+  kinds: ['A boundary or area is wrong', 'A representative or election detail is wrong', 'A road closure is wrong', 'A name, landmark or place is wrong', 'Something else'],
+  include: 'Include this place ({name}) so I can find it', send: 'Write the email', copy: 'Copy the address',
+  note: 'Opens your email app with a message to {to} ready to edit. Nothing is sent until you press Send, and your email address shows when you do.',
+  subject: 'Layers.City · {city}: {kind}', body: 'What’s wrong:\n\n\n', placeText: 'The place: {name}\n{link}\n', footer: '—\nFrom the {city} map on Layers.City',
+  copied: 'Address copied'}, CITY.card.report) : null;
+function reportBox(name){
+  if (!RPT) return '';
+  return '<div class="rpt"><button type="button" class="rpt-go" aria-expanded="false">' + esc(RPT.link) + '</button>' +
+    '<div class="rpt-box" hidden><label class="rpt-l">' + esc(RPT.kindLabel) + '<select class="rpt-kind">' +
+    RPT.kinds.map((k, i) => '<option value="' + i + '">' + esc(k) + '</option>').join('') + '</select></label>' +
+    (name ? '<label class="rpt-inc"><input type="checkbox" class="rpt-place"> <span>' + esc(fill(RPT.include, {name})) + '</span></label>' : '') +
+    '<a class="rpt-send" href="mailto:' + esc(RPT.to) + '">' + esc(RPT.send) + '</a>' +
+    '<p class="rpt-note">' + esc(fill(RPT.note, {to: RPT.to})) + ' <button type="button" class="rpt-copy">' + esc(RPT.copy) + '</button></p></div></div>';
+}
+function wireReport(latlng, name){
+  const box = here.querySelector('.rpt'); if (!box) return;
+  const go = box.querySelector('.rpt-go'), panelEl = box.querySelector('.rpt-box');
+  go.onclick = () => { const open = panelEl.hidden; panelEl.hidden = !open; go.setAttribute('aria-expanded', String(open)); if (open) box.querySelector('.rpt-kind').focus(); };
+  // A real mailto: link (rewritten as the choices change) works in more browsers and in-app views than a script redirect.
+  const send = box.querySelector('.rpt-send'), kindSel = box.querySelector('.rpt-kind'), inc = box.querySelector('.rpt-place');
+  const refresh = () => {
+    const city = CITY.heading || CITY.title, kind = RPT.kinds[+kindSel.value] || '';
+    let body = RPT.body;
+    if (inc && inc.checked && latlng){
+      const y = latlng.lat.toFixed(5), x = latlng.lng.toFixed(5);
+      const link = location.origin + location.pathname + '#map=17/' + y + '/' + x + '&pin=' + y + ',' + x + '&name=' + encodeURIComponent(name);
+      body += fill(RPT.placeText, {name, link}) + '\n';
+    }
+    body += fill(RPT.footer, {city});
+    send.href = 'mailto:' + RPT.to + '?subject=' + encodeURIComponent(fill(RPT.subject, {city, kind})) + '&body=' + encodeURIComponent(body);
+  };
+  kindSel.onchange = refresh; if (inc) inc.onchange = refresh; refresh();
+  send.onclick = () => logEvent('report');
+  box.querySelector('.rpt-copy').onclick = async () => {
+    try { await navigator.clipboard.writeText(RPT.to); flash(RPT.copied); } catch (e){ window.prompt('Copy this address:', RPT.to); }
+  };
 }
 /* ---------- Compare two places ----------
    "Compare with another place" on the card, then tap the map or search: the card widens into one table,

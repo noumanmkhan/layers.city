@@ -390,6 +390,8 @@ footer notes show once per section. Spots outside the city contribute Municipali
 (Boundaries) and the drive-time row (Living here). Nothing is ranked or highlighted. Links:
 `pin`/`name` for A, `pin2`/`name2` for B.
 
+**Report a problem** (`card.report`, all cities, October 14, 2026; optional, apps may ignore it): a link at the foot of the card opening a small box: a pick of `kinds` (what's wrong), an "include this place" checkbox (unticked by default) and a `mailto:` link to `to` (go@layers.city) with `subject` (`{city}`, `{kind}`) and a body of `body`, then, only when the box is ticked, `placeText` with `{name}` and `{link}` (a map link with the pin), then `footer`. Every text key has an engine default; a city's config sets `to` and may override any of them (Chicago's `kinds` say "street closure"). The report goes from the person's own email app; nothing is sent by the page.
+
 ## 6. Drive time (outside the city only)
 
 `drive_grid.json`: `{hub, date, spacing_km, points: [[lon, lat, minutes], …]}`. Take the nearest
