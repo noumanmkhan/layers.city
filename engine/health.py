@@ -9,14 +9,15 @@ Output: a Markdown report on stdout and, with --json, the list of problems. chec
 GitHub issue (opened when something is stale, updated when the list changes, closed when all is clear), so the
 repo owner gets GitHub's notification emails.
 
-Usage: python3 engine/health.py [--today YYYY-MM-DD] [--no-runs] [--json out.json]
+Usage: python3 engine/health.py [--today YYYY-MM-DD] [--no-runs] [--json out.json] [--test]
+--test adds a pretend problem, to check that the alert email arrives (the next normal run closes it).
 The workflow check needs the gh CLI with GH_TOKEN (Actions provides it); --no-runs skips it for local tests."""
 import argparse, datetime as dt, glob, json, os, subprocess, sys
 from zoneinfo import ZoneInfo
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 ap = argparse.ArgumentParser()
-ap.add_argument('--today'); ap.add_argument('--no-runs', action='store_true'); ap.add_argument('--json')
+ap.add_argument('--today'); ap.add_argument('--no-runs', action='store_true'); ap.add_argument('--json'); ap.add_argument('--test', action='store_true')
 args = ap.parse_args()
 # Dates in the files are local to the cities; New York's date is close enough for all of them.
 TODAY = dt.date.fromisoformat(args.today) if args.today else dt.datetime.now(ZoneInfo('America/New_York')).date()
@@ -84,6 +85,8 @@ if not args.no_runs:
         if r['conclusion'] in ('failure', 'cancelled', 'timed_out', 'startup_failure'):
             problems.append((f'run-{wf["id"]}', f'**{wf["name"]}**: last run {r["conclusion"].replace("_", " ")} on {r["created_at"][:10]} ([log]({r["html_url"]})).'))
         else: ok.append(f'{wf["name"]}: last run {r["conclusion"]} {r["created_at"][:10]}')
+
+if args.test: problems.append(('test', '**Test alert**: started by hand to check that this email arrives. The next daily check closes this issue.'))
 
 out = [f'Checked {TODAY} by `engine/health.py`.', '']
 if problems:

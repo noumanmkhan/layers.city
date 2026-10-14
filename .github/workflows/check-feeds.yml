@@ -4,9 +4,15 @@ name: Check data freshness
 # opens one issue labelled "stale-data" that @mentions the repo owner, so GitHub emails them; when the list
 # grows it comments with what's new (another email); when everything is fine again it comments and closes the
 # issue. Unchanged problems update the issue quietly, so a stuck feed doesn't email every day.
+# To check the email route: Actions > Check data freshness > Run workflow, with "Send a test alert" ticked.
 # Runs at 14:47 UTC (10:47 am Toronto): after the daily closures job, which GitHub often starts hours late.
 on:
   workflow_dispatch:
+    inputs:
+      test:
+        description: 'Send a test alert (opens the issue; the next daily run closes it)'
+        type: boolean
+        default: false
   schedule:
     - cron: '47 14 * * *'
   push:
@@ -26,7 +32,7 @@ jobs:
       - name: Check files and jobs
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 engine/health.py --json problems.json > report.md
+        run: python3 engine/health.py --json problems.json ${{ inputs.test && '--test' || '' }} > report.md
       - name: Open, update or close the issue
         env:
           GH_TOKEN: ${{ github.token }}
