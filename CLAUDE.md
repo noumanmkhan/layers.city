@@ -36,7 +36,9 @@ the landing page, stop and say so; don't change this repo.
     Edit them directly, except the logo files and `docs/thumbs/`, which `assets/brand/build.py` and
     `assets/brand/outlines.py` draw: change those scripts and re-run. Print maps get
     added there as cards (a template is commented out in the HTML), with images in `docs/prints/`.
-  - `docs/privacy/`, `docs/attributions/` and `docs/terms/` are hand-written pages; edit them directly.
+  - `docs/about/` (the "How it's built" write-up for readers such as employers), `docs/privacy/`,
+    `docs/attributions/` and `docs/terms/` are hand-written pages; edit them directly. Keep about/ in step
+    with the README when the architecture or principles change. The repo is private: link nothing to GitHub.
   - `docs/<city>/` is each city's map (Toronto's is `docs/toronto/`). Don't hand-edit
     `docs/<city>/index.html` or `docs/<city>/data/*`; they are build output.
     The place pages (`docs/<city>/<place>/`, the index page, `docs/sitemap.xml`, `docs/robots.txt`)

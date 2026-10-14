@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Layers.City is built · Layers.City</title>
+<meta name="description" content="The idea, principles and architecture behind Layers.City: open city data turned into one map that keeps itself current, built by Nouman Khan with AI as an engineering partner.">
+<link rel="canonical" href="https://layers.city/about/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://layers.city/about/">
+<meta property="og:site_name" content="Layers.City">
+<meta property="og:title" content="How Layers.City is built">
+<meta property="og:description" content="The idea, principles and architecture behind Layers.City: open city data turned into one map that keeps itself current, built by Nouman Khan with AI as an engineering partner.">
+<meta property="og:image" content="https://layers.city/og-layers.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Layers.City logo: a red map pin holding stacked map layers">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#F7F4F3">
+
+<link rel="preload" href="/fonts/archivo-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2')}
+
+:root{
+  --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --ink-2:#463D3C; --ink-3:#5C5251; --rule:#D8CFCD;
+  --accent:#C8102E; --accent-soft:rgba(200,16,46,.10); --grid:rgba(26,20,20,.05);
+  --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px}
+a{color:inherit;text-decoration:none}
+.page{min-height:100vh;display:flex;flex-direction:column}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding-left:24px;padding-right:24px}
+
+header{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.08em}
+.mark .brand{display:flex;align-items:center;gap:9px;font-size:24px;letter-spacing:-.01em}
+.mark .brand b{font-weight:500;color:var(--accent)}
+.mark .sub{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.08em;color:var(--ink-3)}
+.mark .sub:hover{color:var(--ink)}
+.mark .sep{width:1.5px;height:16px;background:var(--rule)}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--rule)}
+.pill .short{display:none}
+.pill.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+
+main{flex-grow:1;padding-top:72px;padding-bottom:64px;display:flex;flex-direction:column;gap:56px}
+.hero{display:flex;flex-direction:column;gap:20px;max-width:760px}
+.coords{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--accent)}
+h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,84px);line-height:.98;letter-spacing:-.02em}
+.lede{margin:0;font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--ink-2)}
+
+.line{display:flex;align-items:center}
+.line span{width:14px;height:14px;border-radius:50%;border:3px solid var(--accent);background:var(--bg)}
+.line s{flex-grow:1;height:4px;background:var(--accent)}
+
+.group{display:flex;flex-direction:column;gap:20px}
+.label{display:flex;align-items:center;gap:12px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.12em;color:var(--ink-3)}
+.label::after{content:"";flex-grow:1;height:1px;background:var(--rule)}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:24px}
+.cards.one{grid-template-columns:minmax(0,560px)}
+.card{display:flex;flex-direction:column;gap:20px;background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:32px}
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.icon{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;background:var(--accent);flex:none}
+.icon.dark{background:var(--ink)}
+.host{font-family:var(--mono);font-size:13px;color:var(--ink-3);overflow-wrap:break-word;text-align:right}
+.card h2{margin:0 0 10px;font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
+.card p{margin:0;font-size:17px;line-height:1.6;color:var(--ink-2)}
+.go{margin-top:auto;display:flex;align-items:center;gap:8px;font-weight:500;font-size:16px;color:var(--accent)}
+.go.dark{color:var(--ink)}
+
+/* "Kept current" panel under INTERACTIVE */
+.live{background:var(--card);border:1.5px solid var(--rule);border-left:4px solid var(--accent);border-radius:14px;padding:28px 32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:28px 40px;align-items:start}
+.live h2{margin:0 0 10px;font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.live h2 .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px var(--accent-soft);flex:none}
+.live p{margin:0;font-size:17px;line-height:1.6;color:var(--ink-2)}
+.live p + p{margin-top:12px;font-size:15px;color:var(--ink-3)}
+.live p a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.live dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:14px 18px}
+.live dt{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.1em;color:var(--accent);padding-top:4px;white-space:nowrap}
+.live dd{margin:0;font-size:15px;line-height:1.55;color:var(--ink-2);border-bottom:1px solid var(--rule);padding-bottom:14px}
+.live dd:last-of-type{border-bottom:0;padding-bottom:0}
+.live dd b{font-weight:500;color:var(--ink)}
+@media (max-width:760px){.live{grid-template-columns:1fr;padding:24px}.live dl{grid-template-columns:1fr;gap:4px}.live dt{padding-top:10px}}
+
+/* Print-map card: a thumbnail on top, then the same text layout */
+.card.print{padding:0;overflow:hidden;gap:0}
+.card.print .thumb{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--bg);border-bottom:1.5px solid var(--rule)}
+.card.print .body{display:flex;flex-direction:column;gap:16px;padding:28px 32px 32px;flex-grow:1}
+.card.print h2{font-size:24px}
+
+/* City map card: the city's outline on a grid, then Layers.City with the city as a subheading */
+.card.map{padding:0;overflow:hidden;gap:0}
+.card.map .thumb{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--bg);border-bottom:1.5px solid var(--rule)}
+.card.map .body{display:flex;flex-direction:column;gap:20px;padding:24px 32px 32px;flex-grow:1}
+.card.map .host{text-align:left;margin-bottom:12px}
+.card.map h2{margin:0}
+.card.map h2 b{font-weight:700;color:var(--accent)}
+.card.map h3{margin:2px 0 12px;font-family:var(--display);font-weight:700;font-size:20px;color:var(--ink-3)}
+
+/* Placeholder shown until the first print map is published */
+.soon{display:flex;flex-direction:column;gap:14px;border:1.5px dashed var(--rule);border-radius:14px;padding:32px;background:rgba(255,255,255,.5)}
+.card .tag{display:inline-block;margin-bottom:12px}
+.soon .tag,.card .tag{align-self:flex-start;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:5px 12px}
+.soon h2{margin:0;font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:-.01em}
+.soon p{margin:0;font-size:17px;line-height:1.6;color:var(--ink-2)}
+
+.pill,.card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.pill:hover,.card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(26,20,20,.10);border-color:var(--ink)}
+.pill:focus-visible,.card:focus-visible,.mark a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.pill,.card{transition:none}.pill:hover,.card:hover{transform:none}}
+
+footer{padding-top:24px;padding-bottom:24px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-family:var(--mono);font-size:13px;color:var(--ink-3)}
+footer a:hover{color:var(--ink)}
+.made{display:flex;align-items:center;gap:8px}
+@media (max-width:520px){.pill .full{display:none}.pill .short{display:inline}main{padding-top:40px;gap:40px}.card,.soon{padding:24px}.card.print .body,.card.map .body{padding:22px 24px 24px}}
+.guides{margin:0;font-size:16px;color:var(--ink-2)}
+.guides a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+
+/* About page */
+main.doc{padding-top:56px;gap:32px}
+.doc .hero{gap:16px}
+.byline{margin:0;font-size:16px;color:var(--ink-3)}
+.byline a,.block a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.toc{display:flex;flex-wrap:wrap;gap:10px}
+.toc a{display:flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--rule)}
+.toc a:hover{border-color:var(--ink)}
+.block{background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:32px;max-width:860px;scroll-margin-top:24px}
+.block h2{margin:0 0 14px;font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
+.block h3{margin:28px 0 8px;font-family:var(--display);font-weight:700;font-size:19px}
+.block p,.block li{font-size:17px;line-height:1.6;color:var(--ink-2)}
+.block p{margin:0 0 12px}
+.block ul{margin:0 0 12px;padding-left:22px}
+.block li{margin-bottom:8px}
+.block b{font-weight:500;color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:20px}
+.stats div{border:1.5px solid var(--rule);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:4px}
+.stats b{font-family:var(--display);font-weight:800;font-size:32px;color:var(--accent);line-height:1}
+.stats span{font-size:14px;line-height:1.4;color:var(--ink-3)}
+.rules{margin:16px 0 0;display:grid;grid-template-columns:minmax(0,200px) minmax(0,1fr);gap:0 24px}
+.rules dt{font-family:var(--display);font-weight:700;font-size:17px;color:var(--ink);padding:14px 0;border-top:1px solid var(--rule)}
+.rules dd{margin:0;font-size:16px;line-height:1.6;color:var(--ink-2);padding:14px 0;border-top:1px solid var(--rule)}
+.flow{list-style:none;margin:20px 0 8px;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:none}
+.flow li{position:relative;margin:0;border:1.5px solid var(--rule);border-top:4px solid var(--accent);border-radius:12px;padding:14px;font-size:14px;line-height:1.5;color:var(--ink-3);display:flex;flex-direction:column;gap:4px}
+.flow li b{font-family:var(--display);font-weight:700;font-size:16px;color:var(--ink)}
+.flow .step{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.1em;color:var(--accent)}
+.flow li:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:50%;transform:translate(50%,-50%);font-size:16px;color:var(--accent);background:var(--card);line-height:1}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:860px){.flow{grid-template-columns:1fr}.flow li:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-12px;transform:translate(-50%,50%)}}
+@media (max-width:600px){.rules{grid-template-columns:1fr}.rules dd{border-top:0;padding-top:0}}
+@media (max-width:520px){.block{padding:24px}main.doc{padding-top:32px}}
+</style>
+<script src="/stats.js" defer></script>
+</head>
+<body>
+<div class="page">
+  <header class="wrap">
+    <div class="mark">
+      <a class="brand" href="/"><svg width="22" height="28" viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#fff"/><path transform="translate(51,24.5) scale(0.9)" d="M10 0 L11.6 3.2 L13.2 2.4 L12.6 6.6 L15.2 4.2 L15.8 5.8 L18.4 5.2 L17.4 8.2 L19.2 9.2 L14.6 12.8 L15.2 14.6 L10.6 14 L10.8 18.6 L9.2 18.6 L9.4 14 L4.8 14.6 L5.4 12.8 L0.8 9.2 L2.6 8.2 L1.6 5.2 L4.2 5.8 L4.8 4.2 L7.4 6.6 L6.8 2.4 L8.4 3.2 Z" fill="#C8102E"/></svg><span>Layers<b>.City</b></span></a>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="sub" href="https://noumankhan.ca">BY NOUMAN KHAN</a>
+    </div>
+    <nav class="links" aria-label="Elsewhere">
+      <a class="pill" href="https://noumankhan.ca">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+        <span class="full">noumankhan.ca</span><span class="short">Home</span>
+      </a>
+      <a class="pill dark" href="https://www.linkedin.com/in/noumanmkhan" rel="me">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>
+        LinkedIn
+      </a>
+    </nav>
+  </header>
+
+  <main class="wrap doc">
+    <section class="hero">
+      <div class="coords">HOW IT’S BUILT</div>
+      <h1>Behind the map</h1>
+      <p class="lede">Every question a resident has about their city already has an answer somewhere: on a city web page, in a PDF, or in an app that wants a postal code first. Almost none of them show the whole picture. Layers.City pulls the cities’ own open data into one map that keeps itself current.</p>
+      <p class="byline">A project by Nouman Khan, built with AI as an engineering partner. Live for <a href="/toronto/">Toronto</a> and <a href="/chicago/">Chicago</a>.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#problem">The problem</a>
+        <a href="#principles">Principles</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#live">Keeping it current</a>
+        <a href="#role">How I built it</a>
+      </nav>
+    </section>
+
+    <section class="block" id="problem" aria-labelledby="problem-h">
+      <h2 id="problem-h">The problem</h2>
+      <p>A city is divided up a dozen ways at once: official neighbourhoods, council wards, provincial or state and federal districts, school board wards, business areas, the names locals actually use, and the transit lines that tie them together. Each lives in a different dataset, published by a different office, in a different format. Answering “who represents this address, what’s it like to live here, and how do I get downtown?” means opening five websites.</p>
+      <p>Layers.City puts them on one map you can switch on and off. Tap any spot, or search an address, and a single card answers it: every boundary the spot falls in, who represents it, what housing and commuting look like there, the transit, schools, libraries and parks nearby, road closures, what’s being built, and on election day, where to vote.</p>
+      <div class="stats" aria-label="By the numbers">
+        <div><b>2</b><span>cities live, on one engine</span></div>
+        <div><b>~30</b><span>layers per city</span></div>
+        <div><b>235</b><span>neighbourhood guides</span></div>
+        <div><b>25</b><span>automated data jobs</span></div>
+      </div>
+    </section>
+
+    <section class="block" id="principles" aria-labelledby="principles-h">
+      <h2 id="principles-h">Principles</h2>
+      <p>Most of the work was deciding what the map should <em>not</em> do. These rules came first and shaped every feature after.</p>
+      <dl class="rules">
+        <dt>Built for two people</dt>
+        <dd>A resident learning things they didn’t know about their own city, and a newcomer getting their bearings. Every feature had to serve one of them.</dd>
+        <dt>Describe, don’t rank</dt>
+        <dd>The card describes a place someone picked. Demographic data never feeds rankings, filters or “best neighbourhood” lists, and there are no crime or school-score layers. Bus frequency is a description; a safety score would be a judgement.</dd>
+        <dt>Current or not at all</dt>
+        <dd>If the data isn’t current and accurate, the feature waits. A Hyderabad map was scoped and then shelved because its new ward boundaries aren’t published yet; Toronto school attendance areas were dropped because the board’s terms don’t allow reuse.</dd>
+        <dt>Honest about uncertainty</dt>
+        <dd>Road closures show permit dates, labelled as not a reopening forecast. Census figures carry their year. Informal neighbourhood names are marked approximate. Every source is credited.</dd>
+        <dt>Private by design</dt>
+        <dd>No accounts, ads or tracking cookies. “Use my location” and every lookup run in the browser; visit counts never include places, pins or searches.</dd>
+      </dl>
+    </section>
+
+    <section class="block" id="architecture" aria-labelledby="architecture-h">
+      <h2 id="architecture-h">Architecture</h2>
+      <p>There is no server and no database. Scheduled jobs turn the cities’ open data into static files, and a CDN serves them. That keeps it fast, free to run and hard to break.</p>
+      <ol class="flow" aria-label="How data reaches the map">
+        <li><span class="step">1 · SOURCES</span><b>Open data</b>City portals, transit schedules (GTFS), election offices, the census, OpenStreetMap, Wikipedia.</li>
+        <li><span class="step">2 · FETCH</span><b>Scheduled jobs</b>GitHub Actions pull each source on its own rhythm: daily, weekly, monthly or hourly on election night.</li>
+        <li><span class="step">3 · BUILD</span><b>Geometry pipeline</b>Python (Shapely) and mapshaper clean, join, clip and simplify everything into small GeoJSON files.</li>
+        <li><span class="step">4 · PUBLISH</span><b>Static site</b>Changed files deploy to Cloudflare Pages automatically, about a minute after the data changes.</li>
+        <li><span class="step">5 · USE</span><b>Web and iPhone</b>The map runs in the browser with Leaflet; a native iOS app reads the same files.</li>
+      </ol>
+      <h3>One engine, a folder per city</h3>
+      <p>The map is a single engine that knows how to draw <em>kinds</em> of layer: filled areas, boundaries, streets, transit lines, points of interest. Everything specific to a city (its layers, labels, colours, the rows on its card, its tour) lives in that city’s configuration file. Chicago went live without changing the engine; adding a city means adding its data and settings, not rewriting code.</p>
+      <h3>A contract for the app</h3>
+      <p>The iPhone app reads the website’s published files, so the files are treated as an API. A written data contract describes every file and field, changes are additive by default, and anything that would break the app bumps a schema version first.</p>
+      <h3>Small on purpose</h3>
+      <p>Each city’s data is a few megabytes, loaded in stages: what the first screen needs, then the rest after the map appears. The page has no framework and no build step beyond assembling one HTML file per city, and it follows the phone’s light or dark setting.</p>
+    </section>
+
+    <section class="block" id="live" aria-labelledby="live-h">
+      <h2 id="live-h">Keeping it current</h2>
+      <p>A map that rebuilds itself needs to notice when a rebuild quietly stops. When one did (a scheduled job kept skipping because the scheduler started hours late), it became a feature:</p>
+      <ul>
+        <li><b>A daily freshness check</b> reads the date inside every live file and the last run of every scheduled job, and opens an alert, emailed to me, when anything is stale or failing. It closes the alert itself once things recover.</li>
+        <li><b>Freshness on the map.</b> Live layers show “as of” dates, turning red when they’re older than they should be.</li>
+        <li><b>Report a problem.</b> Every card ends with a link that writes an email for the visitor, with nothing sent unless they press Send.</li>
+      </ul>
+    </section>
+
+    <section class="block" id="role" aria-labelledby="role-h">
+      <h2 id="role-h">How I built it</h2>
+      <p>I built Layers.City with Claude, Anthropic’s AI model, as the engineering partner. Claude wrote most of the code and pipelines. My job was the one I do at work as an operations and business analyst: turning a fuzzy need into requirements, making the calls, and testing the result against reality.</p>
+      <ul>
+        <li><b>Product ownership.</b> I set the problem, the two audiences and the principles above, and prioritised a backlog from questions I had in my own years in Toronto and from friends and family in Chicago.</li>
+        <li><b>Scouting before building.</b> Every data-heavy feature started with a written scouting report: what’s published, how current it is, its licence, its gaps. Several features were shelved at this stage, which is the cheapest place to stop.</li>
+        <li><b>Decisions on record.</b> Trade-offs were written down with their reasons: half a mile instead of a mile for Chicago’s walking radius, why driving times are left out for city neighbourhoods, which hospitals and colleges count.</li>
+        <li><b>Acceptance testing.</b> I checked the output against what I know of Toronto, tested on my own phone, and sent features back when they read oddly to a resident.</li>
+        <li><b>Licences and privacy.</b> I reviewed each source’s terms before use, and set the rule that visit counts never record places, pins or searches.</li>
+      </ul>
+      <p>Working this way, one person shipped a scope that would usually take more than one: two cities, a pipeline of two dozen automated data jobs, the data behind a native iPhone app, and a deployment that watches itself. The judgement about what to build, and what to leave out, stayed human.</p>
+    </section>
+
+    <section class="cta" aria-label="Next">
+      <a class="pill dark" href="/toronto/">Open Toronto’s map</a>
+      <a class="pill" href="/chicago/">Open Chicago’s map</a>
+      <a class="pill" href="https://www.linkedin.com/in/noumanmkhan" rel="me">Contact me on LinkedIn</a>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <a href="https://noumankhan.ca">© 2026 Nouman Khan</a>
+    <a href="/">All maps</a>
+    <a href="/privacy/">Privacy</a>
+    <a href="/attributions/">Attributions</a>
+    <a href="/terms/">Terms</a>
+  </footer>
+</div>
+</body>
+</html>

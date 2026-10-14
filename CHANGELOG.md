@@ -2,6 +2,13 @@
 
 ## Since 1.1
 
+### "How it's built" page replaces the source-code card (October 14)
+- The hub's third card linked to the GitHub repo, which is going private. It now opens `docs/about/`, a
+  write-up for readers such as employers: the problem, the principles (describe don't rank, current or not at
+  all, private by design), the architecture (sources, scheduled jobs, geometry pipeline, static site, web and
+  iPhone), keeping it current, and how it was built with AI. The "Not a snapshot" panel no longer points to
+  public commits. Added to the sitemap. No change to the maps or the app's data.
+
 ### Hosting moved to Cloudflare Pages (October 14)
 - layers.city is now served by Cloudflare Pages instead of GitHub Pages. `.github/workflows/deploy.yml` uploads `docs/`
   with Wrangler (direct upload) on pushes to main and after the fetch jobs that update published data; a newer
