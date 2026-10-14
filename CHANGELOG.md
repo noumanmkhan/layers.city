@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Licence and terms of use (October 14)
+- The code is no longer MIT-licensed: `LICENSE` is now © 2026 Nouman Khan, all rights reserved, covering the code,
+  page designs and written content. Versions published before October 14, 2026 keep their MIT licence. Open data
+  keeps its own licences (OpenStreetMap-derived data stays ODbL, Wikipedia-derived text CC BY-SA), and
+  "Layers.City" and the pin logo are named as trademarks.
+- New hand-written page `docs/terms/` (Terms of use): what visitors are welcome to do (use the maps, share links,
+  screenshots and saved images with their credit line) and what they aren't (copy or re-host the site, reuse its
+  code or content, bulk-download files to power another service, use the name or logo). Linked from the hub,
+  Privacy and Attributions footers and the place pages, and added to the sitemap. No change to the published data
+  or the app contract.
+
 ### Directions in your maps app (October 14)
 - The card gives straight-line distances; now a directions button hands a place to the visitor's own maps app
   for real routes and travel times. It sits in the card header (the pinned spot, searched address or landmark),

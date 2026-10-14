@@ -1,24 +1,41 @@
-MIT License
+Layers.City
+Copyright (c) 2026 Nouman Khan. All rights reserved.
 
-Copyright (c) 2026 Nouman Khan
+This repository and the website it builds (https://layers.city) are the work of
+Nouman Khan. That includes the source code, build and fetch scripts, GitHub
+workflows, page designs, and the written and curated content: tour text,
+descriptions of places, "known as" names, landmark and street lists, the rules
+behind the "what stands out" facts, and the place pages.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+No licence is granted to copy, modify, distribute, host, sublicense or make
+derivative works of any of it, in whole or in part, without written permission
+from Nouman Khan. Visiting and using the website, and sharing links to it, is
+welcome; the Terms of use at https://layers.city/terms/ say what that covers.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Earlier versions
+Versions of this repository published before October 14, 2026 were released
+under the MIT License. That licence still applies to copies of those versions.
+It does not apply to anything added or changed from October 14, 2026 onward.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Third-party data
+The maps are built from open data published by others: the Cities of Toronto,
+Chicago and Vancouver, Statistics Canada, the U.S. Census Bureau, transit
+agencies, OpenStreetMap, Wikipedia and others. That data stays under its
+original licences, which are listed at https://layers.city/attributions/ and in
+each city's SOURCES.md. Nothing here restricts what those licences allow. In
+particular, data derived from OpenStreetMap remains available under the Open
+Database License (ODbL), and text derived from Wikipedia under CC BY-SA.
 
-Map data in docs/toronto/data/ and pipeline/raw/ is not covered by this licence; see
-the "Data sources and licences" section of README.md.
+Third-party software
+Open-source libraries and fonts used by the site (for example Leaflet,
+leaflet-polylineoffset, html-to-image, mapshaper, Archivo and IBM Plex) remain
+under their own licences.
+
+Trademarks
+"Layers.City" and the Layers.City pin logo are trademarks of Nouman Khan. They
+may not be used for another service, or for any copy or modified version of
+this work, without written permission.
+
+Permissions: go@layers.city
+
+THE WEBSITE AND ITS DATA ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.

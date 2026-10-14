@@ -260,4 +260,8 @@ Chicago:
 - Streets and expressways © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL), fetched with the Overpass API.
 - Street closures from CDOT's [Transportation Department Permits](https://data.cityofchicago.org/d/pubx-yq2d) (City of Chicago Data Portal); the Red Line Extension's line © OpenStreetMap contributors (ODbL).
 
-`cities/toronto/SOURCES.md` and `cities/chicago/SOURCES.md` list the exact queries used to fetch the raw data. The code is MIT-licensed (see `LICENSE`). The data stays under its original licences.
+`cities/toronto/SOURCES.md` and `cities/chicago/SOURCES.md` list the exact queries used to fetch the raw data. The data stays under its original licences.
+
+## Licence
+
+© 2026 Nouman Khan. All rights reserved. The code, page designs and written content (tour text, place descriptions, curated names, landmarks and streets) aren't licensed for reuse; see `LICENSE` and the [Terms of use](https://layers.city/terms/). Versions published before October 14, 2026 were MIT-licensed, and copies of those keep that licence. The underlying open data keeps its own licences, listed above and on the [Attributions](https://layers.city/attributions/) page: OpenStreetMap-derived data stays under the ODbL and Wikipedia-derived text under CC BY-SA. "Layers.City" and the pin logo are trademarks of Nouman Khan. To ask about permission: go@layers.city.

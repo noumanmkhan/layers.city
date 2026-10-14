@@ -20,6 +20,7 @@ the landing page, stop and say so; don't change this repo.
     Edit them directly, except the logo files and `docs/thumbs/`, which `assets/brand/build.py` and
     `assets/brand/outlines.py` draw: change those scripts and re-run. Print maps get
     added there as cards (a template is commented out in the HTML), with images in `docs/prints/`.
+  - `docs/privacy/`, `docs/attributions/` and `docs/terms/` are hand-written pages; edit them directly.
   - `docs/<city>/` is each city's map (Toronto's is `docs/toronto/`). Don't hand-edit
     `docs/<city>/index.html` or `docs/<city>/data/*`; they are build output.
     The place pages (`docs/<city>/<place>/`, the index page, `docs/sitemap.xml`, `docs/robots.txt`)
@@ -48,6 +49,11 @@ the landing page, stop and say so; don't change this repo.
   commit. Adding things is fine. Renaming, removing or changing the meaning or units of a field or
   file is a breaking change: bump `"schema"` in every `cities/*/city.json` and add a migration
   note at the top of the contract.
+
+## Licence
+- The repo is all rights reserved (see `LICENSE`, and `docs/terms/` for visitors); it was MIT before
+  October 14, 2026. Don't add licence headers or files that grant reuse rights. Third-party data keeps its own
+  licences, so keep the Attributions page and map credit lines complete.
 
 ## Conventions
 - One change per commit, with a plain-English message saying what changed and why.
