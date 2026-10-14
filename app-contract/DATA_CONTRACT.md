@@ -2,7 +2,7 @@
 
 This is everything an app needs to rebuild the map's "What's here" card from the published
 data, without reading the website's code. The website (this repo) is the only producer; an app is
-a read-only consumer. Last updated October 14, 2026 (Home language lens: `homeLang` in Toronto's profiles, and a lens `pick` can carry its own cuts and tier labels; French schools: `french_schools.geojson` and two more `places` layers in Toronto; Faith & Community: `faith.geojson`, nine more `places` layers in Toronto, Nearby rows that show only while a named layer is on; Skyscrapers: the `towers` layer kind, `skyscrapers.geojson` and a tower block on the card; campuses off the Landmarks file, their nicknames now on the Universities layer as `aliases`; `under` on layers nested under Landmarks; `distance` unit, Chicago in miles with a half-mile Nearby radius; Chicago's Schools section and `attendance.geojson`; Nearby section and `nearby.json`; institution points: the `places` layer kind and `institutions.geojson`; school boards in both cities: the `boards` layer kind, a School wards / School board row and trustee rows, with Chicago's leader and citywide president; earlier: map layers and `palette`, section 11; card title names the neighbourhood; profile facts; Chicago's To the Loop fields).
+a read-only consumer. Last updated October 14, 2026 (French schools: `french_schools.geojson` and two more `places` layers in Toronto; Faith & Community: `faith.geojson`, nine more `places` layers in Toronto, Nearby rows that show only while a named layer is on; Skyscrapers: the `towers` layer kind, `skyscrapers.geojson` and a tower block on the card; campuses off the Landmarks file, their nicknames now on the Universities layer as `aliases`; `under` on layers nested under Landmarks; `distance` unit, Chicago in miles with a half-mile Nearby radius; Chicago's Schools section and `attendance.geojson`; Nearby section and `nearby.json`; institution points: the `places` layer kind and `institutions.geojson`; school boards in both cities: the `boards` layer kind, a School wards / School board row and trustee rows, with Chicago's leader and citywide president; earlier: map layers and `palette`, section 11; card title names the neighbourhood; profile facts; Chicago's To the Loop fields).
 
 ## 1. Ground rules
 
@@ -190,10 +190,6 @@ How the website's search does it, for an app that wants to match:
 - `lens.file` (the profiles file) and `lens.lenses`: each has `key` (the profile field holding a
   tier id) and `tiers: [[tierId, label, colourVariable], …]`. Use the label; the colour variable
   resolves through `palette`.
-- A lens with `pick` (`homes`, `homelang`) shades by one share the viewer picks: `field` is a list of
-  shares in `pick` order, each pick is `[id, short, long]`, and `cuts` split the share into `tiers`. A pick
-  may add a fourth entry `{cuts, labels}` (home language's "Neither English nor French"): use its cuts and
-  tier labels instead of the lens's; tier ids and colours stay the lens's. `note` takes `{type}` = the pick's `long`.
 - `lens.filters` (the website's "Narrow it down" rows): `{lens, label, options}` picks tiers of that lens;
   `max: true` is a minutes ceiling; `top: true` (Most common home, on the `homes` lens) has no `options`
   of its own: its choices are the lens's `pick` ids, and a unit matches when its largest share in the
@@ -427,7 +423,6 @@ Keyed by unit code as a string (`"71"`). Fields:
 | `built` | 4 shares (%) by period built, in the order of `card.living.built.bands`. |
 | `lang` | Up to 5 `[language, pct]`, largest first. Demographic: card only. |
 | `langMulti` | Toronto only: % naming two or more languages equally. |
-| `homeLang` | Toronto only: 2 shares (%) for the `homelang` lens, in the order of its `pick`: residents who don't speak English alone most often at home (French, another language, or English and another language equally), and residents who can speak neither English nor French. Both of everyone in private households, 2021 Census. Shading only: never a filter, fact or ranking. |
 | `canopy`, `canopyBand` | Tree canopy: % of the unit's land under tree cover (water left out), from ESA WorldCover 2021 (10 m), and its band `c1`–`c4` (cuts in `cities/<city>/canopy.json`; tier labels in the `canopy` lens). Missing when not fetched. |
 | `ages` | 5 shares (%) of residents by age, in the order of `card.living.ages.bands` (under 15, 15–24, 25–44, 45–64, 65+). Card only. |
 | `recent` | Recent immigrants, % of residents: Toronto, immigrated to Canada 2016–2021 (2021 Census, of everyone in private households); Chicago, born abroad and entered the US in the ACS's latest period (of everyone). Demographic: card only, never a lens, filter or fact. |
