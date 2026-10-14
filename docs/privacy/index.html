@@ -148,7 +148,7 @@ main.doc{padding-top:56px;gap:40px}
       <div class="coords">LAST UPDATED · OCTOBER 14, 2026</div>
       <h1>Privacy</h1>
       <p class="lede">How the City Layers app and the maps on this site handle your information. The short version: no accounts, no ads, no tracking cookies, and nothing about you is sold. The website counts visits and which features get used, without identifying anyone.</p>
-      <p class="lede"><strong>What changed on October 14, 2026:</strong> the website now uses Umami, a privacy-focused analytics service, to count visits and feature use. It never receives your location, pins, searches or place names. <a href="#counting">Details and opt-out</a>.</p>
+      <p class="lede"><strong>What changed on October 14, 2026:</strong> the website now uses Umami, a privacy-focused analytics service, to count visits and feature use. It never receives your location, pins, searches or place names. <a href="#counting">Details and opt-out</a>. The site also moved from GitHub Pages to Cloudflare Pages for hosting (<a href="#website">details</a>).</p>
       <nav class="toc" aria-label="On this page">
         <a href="#app">City Layers app (iOS)</a>
         <a href="#website">This website</a>
@@ -218,14 +218,14 @@ main.doc{padding-top:56px;gap:40px}
       <p>The opt-out is saved in this browser only; clearing your site data undoes it.</p>
 
       <h3>Hosting and the services the page loads</h3>
-      <p>The site is hosted on GitHub Pages. Like any website, loading it means your browser connects to some outside services, which receive your IP address and basic browser details as part of that connection:</p>
+      <p>The site is hosted on Cloudflare Pages. Like any website, loading it means your browser connects to some outside services, which receive your IP address and basic browser details as part of that connection:</p>
       <ul>
-        <li><strong>GitHub</strong>, which hosts the pages and map data (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub’s privacy statement</a>).</li>
+        <li><strong>Cloudflare</strong>, which hosts the pages and map data (<a href="https://www.cloudflare.com/privacypolicy/">Cloudflare’s privacy policy</a>).</li>
         <li><strong>Google Fonts</strong>, for the map’s typeface (<a href="https://policies.google.com/privacy">Google’s privacy policy</a>).</li>
         <li><strong>cdnjs</strong> (Cloudflare) and <strong>jsDelivr</strong>, which serve the open-source map libraries.</li>
         <li><strong>Umami</strong>, for the visit counts described above.</li>
       </ul>
-      <p>I don’t receive or keep these services’ logs. From Umami I see only totals, such as visits by city or how often a feature is used.</p>
+      <p>I don’t receive or keep these services’ logs. From Cloudflare I see only traffic totals, such as the number of requests a day, and from Umami only totals such as visits by city or how often a feature is used.</p>
 
       <h3>Address search</h3>
       <p>When you search for an address, what you type is sent to OpenStreetMap’s Nominatim service to find it (<a href="https://osmfoundation.org/wiki/Privacy_Policy">OpenStreetMap Foundation privacy policy</a>). Suggestions for landmarks and place names come from the map’s own data, in your browser, and aren’t sent anywhere.</p>

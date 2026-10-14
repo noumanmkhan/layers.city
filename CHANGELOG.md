@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Hosting moved to Cloudflare Pages (October 14)
+- layers.city is now served by Cloudflare Pages instead of GitHub Pages. `.github/workflows/deploy.yml` uploads `docs/`
+  with Wrangler (direct upload) on pushes to main and after the fetch jobs that update published data; a newer
+  deploy cancels one still running. www.layers.city redirects to layers.city with a Cloudflare redirect rule, and
+  maps.noumankhan.ca keeps its 301. `docs/CNAME` and `docs/.nojekyll` are gone. URLs and data files are unchanged,
+  so the iOS app needs nothing new; files are now revalidated on each request instead of cached for about ten
+  minutes. Privacy page updated (hosting section).
+
 ### Licence and terms of use (October 14)
 - The code is no longer MIT-licensed: `LICENSE` is now © 2026 Nouman Khan, all rights reserved, covering the code,
   page designs and written content. Versions published before October 14, 2026 keep their MIT licence. Open data

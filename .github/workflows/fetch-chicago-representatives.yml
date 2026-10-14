@@ -2,8 +2,8 @@ name: Refresh Chicago representatives
 # Weekly: fetches Chicago's current alderpersons (City Data Portal), Illinois legislators (Open States)
 # and members of Congress (Clerk of the House), plus Board of Education results from the Chicago Board
 # of Elections around the November 3, 2026 election, and rebuilds docs/chicago/data/representatives.json. Commits to main only when a
-# name, party or link changed (a by-election, a new council after an election); GitHub Pages
-# then republishes the site. Can also be run by hand from the Actions tab.
+# name, party or link changed (a by-election, a new council after an election); the deploy
+# workflow then republishes the site. Can also be run by hand from the Actions tab.
 on:
   schedule:
     - cron: '37 9 * * 1'   # Mondays 09:37 UTC

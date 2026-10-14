@@ -16,7 +16,7 @@ a read-only consumer. Last updated October 10, 2026 (Skyscrapers: the `towers` l
   - Adding a field, a file, a layer or a card row is **not** a breaking change. Ignore unknown keys.
   - Renaming or removing a field or file, or changing a field's meaning or units, **is**, and bumps
     the number.
-- **Caching.** GitHub Pages serves with about a 10-minute cache. The data changes rarely
+- **Caching.** Cloudflare Pages serves the files and browsers revalidate them on each request (no long-lived cache). The data changes rarely
   (representatives weekly at most, everything else on rebuilds), so caching for a day and
   refreshing in the background is fine. Bundle a copy in the app for offline use.
 - **Sizes.** Each city is about 2 MB of JSON in all (largest: Chicago's `base.geojson`, 0.8 MB).

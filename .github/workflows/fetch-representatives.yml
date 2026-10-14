@@ -1,8 +1,8 @@
 name: Refresh representatives
 # Weekly: fetches the current councillors, MPPs and MPs from toronto.ca, ola.org and
 # ourcommons.ca, and the City's election results file (school trustee candidates and results), and rebuilds docs/toronto/data/representatives.json. Commits to main only when a
-# name, party or link changed (a by-election, a new council after an election); GitHub Pages
-# then republishes the site. Can also be run by hand from the Actions tab.
+# name, party or link changed (a by-election, a new council after an election); the deploy
+# workflow then republishes the site. Can also be run by hand from the Actions tab.
 on:
   schedule:
     - cron: '17 9 * * 1'   # Mondays 09:17 UTC

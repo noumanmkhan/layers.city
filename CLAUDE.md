@@ -14,7 +14,10 @@ the landing page, stop and say so; don't change this repo.
   earlier copy.
 
 ## How the site is built
-- `docs/` is what GitHub Pages serves (it holds the `CNAME` for layers.city).
+- `docs/` is the published site, served by Cloudflare Pages (project `layers-city`, custom domain layers.city;
+  www.layers.city and maps.noumankhan.ca redirect to it). `.github/workflows/deploy.yml` uploads it with Wrangler on
+  pushes to main that touch docs/, and after each fetch job that commits to docs/ (listed in its `workflow_run`):
+  a new fetch job that writes to docs/ must be added to that list, or its data won't go live until the next push.
   - `docs/index.html`, `docs/fonts/` and the icons are the **maps hub**, hand-written and
     laid out like the noumankhan.ca landing page, in the Layers.City brand (red #C8102E, pin logo).
     Edit them directly, except the logo files and `docs/thumbs/`, which `assets/brand/build.py` and
