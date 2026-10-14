@@ -1,0 +1,37 @@
+name: Fetch bike lanes
+# Each city's bike network (engine/fetch_bikes.py, cities/<city>/bikes.json) into cities/<city>/raw/bikes.geojson,
+# then docs/<city>/data/bikes.geojson with engine/bikes.py when it exists. Monthly (the 9th), on change, or by hand.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '29 7 9 * *'
+  push:
+    branches: [main]
+    paths: ['engine/fetch_bikes.py', 'engine/bikes.py', 'cities/*/bikes.json', '.github/workflows/fetch-bikes.yml']
+permissions:
+  contents: write
+concurrency: fetch-bikes
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q shapely
+      - run: |
+          for c in toronto chicago; do
+            mkdir -p cities/$c/raw
+            python3 -u engine/fetch_bikes.py $c 2>&1 | tee cities/$c/raw/fetch_bikes.log || true
+            if [ -f engine/bikes.py ]; then python3 -u engine/bikes.py $c 2>&1 | tee -a cities/$c/raw/fetch_bikes.log || true; fi
+          done
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw cities/chicago/raw
+          for c in toronto chicago; do [ -f docs/$c/data/bikes.geojson ] && git add docs/$c/data/bikes.geojson; done
+          git commit -m "Update bike lanes" || echo "no changes"
+          git pull --rebase
+          git push

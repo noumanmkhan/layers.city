@@ -1,0 +1,26 @@
+{
+  "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): the City's Bike Routes (CDOT). Each segment's route type (displayrou) puts it in one of the layer's classes; types not listed here are left out and printed by the build. Off-street trails (the Lakefront Trail, the 606) aren't in this file.",
+  "source": {
+    "type": "socrata_geojson",
+    "url": "https://data.cityofchicago.org/resource/hvv9-38ut.geojson?$limit=50000",
+    "meta": "https://data.cityofchicago.org/api/views/hvv9-38ut.json"
+  },
+  "fields": ["street", "st_name", "f_street", "t_street", "displayrou", "contraflow", "br_oneway", "oneway_dir"],
+  "typeField": "displayrou",
+  "name": "street",
+  "from": "f_street",
+  "to": "t_street",
+  "titleCase": true,
+  "classes": {
+    "prot": ["PROTECTED BIKE LANE", "Protected Bike Lane"],
+    "paint": ["BIKE LANE", "Bike Lane", "BUFFERED BIKE LANE", "Buffered Bike Lane"],
+    "shared": ["NEIGHBORHOOD GREENWAY", "Neighborhood Greenway", "MARKED SHARED LANE", "Marked Shared Lane"]
+  },
+  "labels": {
+    "PROTECTED BIKE LANE": "Protected bike lane", "Protected Bike Lane": "Protected bike lane",
+    "BIKE LANE": "Painted bike lane", "Bike Lane": "Painted bike lane",
+    "BUFFERED BIKE LANE": "Buffered bike lane", "Buffered Bike Lane": "Buffered bike lane",
+    "NEIGHBORHOOD GREENWAY": "Neighborhood greenway", "Neighborhood Greenway": "Neighborhood greenway",
+    "MARKED SHARED LANE": "Marked shared lane", "Marked Shared Lane": "Marked shared lane"
+  }
+}

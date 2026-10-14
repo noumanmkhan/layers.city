@@ -1,0 +1,39 @@
+{
+  "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): the City's Cycling Network. Each segment's higher-order facility (INFRA_HIGHORDER) puts it in one of the layer's classes; types not listed here are left out and printed by the build.",
+  "source": {
+    "type": "ckan_geojson",
+    "ckan": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=cycling-network",
+    "match": "4326"
+  },
+  "fields": ["SEGMENT_ID", "STREET_NAME", "FROM_STREET", "TO_STREET", "INFRA_HIGHORDER", "INFRA_LOWORDER", "INSTALLED", "UPGRADED", "ROADCLASS", "OWNER"],
+  "typeField": "INFRA_HIGHORDER",
+  "name": "STREET_NAME",
+  "from": "FROM_STREET",
+  "to": "TO_STREET",
+  "year": "INSTALLED",
+  "classes": {
+    "prot": ["Cycle Track", "Bi-Directional Cycle Track", "Cycle Track - Contraflow"],
+    "paint": ["Bike Lane", "Bike Lane - Buffered", "Bike Lane - Contraflow"],
+    "shared": ["Sharrows", "Sharrows - Wayfinding", "Sharrows - Arterial", "Sharrows - Arterial - Connector", "Signed Route (No Pavement Markings)", "Park Road"],
+    "trail": ["Multi-Use Trail", "Multi-Use Trail - Boulevard", "Multi-Use Trail - Entrance", "Multi-Use Trail - Connector", "Multi-Use Trail - Existing Connector"]
+  },
+  "labels": {
+    "Cycle Track": "Cycle track",
+    "Bi-Directional Cycle Track": "Two-way cycle track",
+    "Cycle Track - Contraflow": "Contraflow cycle track",
+    "Bike Lane": "Painted bike lane",
+    "Bike Lane - Buffered": "Buffered bike lane",
+    "Bike Lane - Contraflow": "Contraflow bike lane",
+    "Sharrows": "Sharrows",
+    "Sharrows - Wayfinding": "Sharrows",
+    "Sharrows - Arterial": "Sharrows",
+    "Sharrows - Arterial - Connector": "Sharrows",
+    "Signed Route (No Pavement Markings)": "Signed route, no markings",
+    "Park Road": "Park road",
+    "Multi-Use Trail": "Multi-use trail",
+    "Multi-Use Trail - Boulevard": "Multi-use path beside the road",
+    "Multi-Use Trail - Entrance": "Multi-use trail",
+    "Multi-Use Trail - Connector": "Multi-use trail",
+    "Multi-Use Trail - Existing Connector": "Multi-use trail"
+  }
+}
