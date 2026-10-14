@@ -5,9 +5,22 @@ maps hub page at https://layers.city/. The landing page for
 noumankhan.ca is a separate repo and a separate project. If you were opened to work on
 the landing page, stop and say so; don't change this repo.
 
+## Branches: work on `dev`, release to `main`
+- `main` is the live site: every push to it that touches docs/ deploys to layers.city. Work on `dev`
+  instead, and merge dev into main only when the user says to release (or asks for a fix to go live now).
+  Pushes to dev run no workflows and deploy nothing.
+- The fetch jobs keep committing data to main every day, so before working on dev, and again before a
+  release, merge main into dev (`git fetch origin main dev && git checkout dev && git merge origin/main`).
+  If a built file (docs/<city>/data/*) conflicts, take main's copy and rebuild that city rather than
+  hand-merging it.
+- To release: on dev, merge origin/main, rebuild and test as usual, then `git checkout main &&
+  git merge --ff-only dev` (or a normal merge if main has moved) and push main. That push deploys once.
+- To let the user try dev on a phone before a release: run the "Deploy to Cloudflare Pages" workflow by
+  hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev.
+
 ## Before changing anything
-- Other sessions may have pushed since you last looked. Run `git fetch origin main` and
-  pull/rebase onto `origin/main` first, and fetch again right before pushing.
+- Other sessions may have pushed since you last looked. Run `git fetch origin main dev` and
+  rebase or merge onto the latest first, and fetch again right before pushing.
 - If a push is rejected, rebase onto the new commits and keep both sets of changes.
   Never force-push.
 - Before editing a file, read its current version from the repo, not from memory or an
