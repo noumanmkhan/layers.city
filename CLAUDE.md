@@ -22,6 +22,8 @@ the landing page, stop and say so; don't change this repo.
     added there as cards (a template is commented out in the HTML), with images in `docs/prints/`.
   - `docs/<city>/` is each city's map (Toronto's is `docs/toronto/`). Don't hand-edit
     `docs/<city>/index.html` or `docs/<city>/data/*`; they are build output.
+    The place pages (`docs/<city>/<place>/`, the index page, `docs/sitemap.xml`, `docs/robots.txt`)
+    are build output too, from `engine/places.py`.
 - The map is one engine with a folder per city:
   - `engine/template.html` (page and styles) and `engine/map.js` (behaviour) are shared by every
     city. Keep them free of city names, places and data sources.

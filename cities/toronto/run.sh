@@ -43,4 +43,5 @@ python3 ../../engine/regions.py toronto   # outlines for Focus on a county / reg
 [ -f raw/collection/areas.geojson ] && python3 collection.py   # curbside collection areas and calendar for the card (fetch-toronto-collection.yml, monthly)
 python3 ../../engine/addresses.py toronto   # after streets and collectors: how addresses work (cities/toronto/addresses.json)
 python3 ../../engine/assemble.py toronto
+python3 ../../engine/places.py toronto   # a static page per place for search and link previews, plus the site's sitemap.xml
 echo "Done. Preview: cd docs && python3 -m http.server 8000"

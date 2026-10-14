@@ -38,4 +38,5 @@ python3 ../../engine/addresses.py chicago   # after streets and collectors: how 
 [ -f raw/precincts.geojson ] && python3 voting.py   # election precincts for the card's election box (fetch_precincts.py)
 [ -f raw/sweeping/zones.geojson ] && python3 sweeping.py   # street sweeping zones and dates for the card (fetch_sweeping.py)
 python3 ../../engine/assemble.py chicago
+python3 ../../engine/places.py chicago   # a static page per place for search and link previews, plus the site's sitemap.xml
 echo "Done. Preview: cd docs && python3 -m http.server 8000"
