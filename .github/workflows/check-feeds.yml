@@ -1,0 +1,66 @@
+name: Check data freshness
+# Daily: engine/health.py checks every live file's date (closures, What's changing, schedule feeds, collection
+# calendars) and the latest run of every scheduled fetch workflow. When something is stale or a job failed, it
+# opens one issue labelled "stale-data" that @mentions the repo owner, so GitHub emails them; when the list
+# grows it comments with what's new (another email); when everything is fine again it comments and closes the
+# issue. Unchanged problems update the issue quietly, so a stuck feed doesn't email every day.
+# Runs at 14:47 UTC (10:47 am Toronto): after the daily closures job, which GitHub often starts hours late.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 14 * * *'
+  push:
+    branches: [main]
+    paths: ['engine/health.py', '.github/workflows/check-feeds.yml']
+permissions:
+  contents: read
+  actions: read
+  issues: write
+concurrency: check-feeds
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check files and jobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 engine/health.py --json problems.json > report.md
+      - name: Open, update or close the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, subprocess
+          def gh(*a, inp=None):
+              return subprocess.run(['gh', *a], check=True, capture_output=True, text=True, input=inp).stdout
+          problems = json.load(open('problems.json'))
+          report = open('report.md').read()
+          keys = sorted(p['key'] for p in problems)
+          gh('label', 'create', 'stale-data', '--color', 'C8102E', '--description', 'Opened by the daily data freshness check', '--force')
+          found = json.loads(gh('issue', 'list', '--label', 'stale-data', '--state', 'open', '--json', 'number,body', '--limit', '1'))
+          issue = found[0] if found else None
+          body = f'@{os.environ["OWNER"]} some of the site\'s data has stopped updating.\n\n{report}\n\n<!-- keys: {",".join(keys)} -->\n'
+          if problems and not issue:
+              gh('issue', 'create', '--title', 'Stale data on layers.city', '--label', 'stale-data', '--body-file', '-', inp=body)
+              print('opened an issue:', keys)
+          elif problems:
+              old = set(filter(None, (re.search(r'<!-- keys: (.*?) -->', issue['body'] or '') or [None, ''])[1].split(',')))
+              gh('issue', 'edit', str(issue['number']), '--body-file', '-', inp=body)
+              new = [p for p in problems if p['key'] not in old]
+              if new:
+                  gh('issue', 'comment', str(issue['number']), '--body-file', '-',
+                     inp=f'@{os.environ["OWNER"]} also stale now:\n\n' + '\n'.join('- ' + p['text'] for p in new))
+              print('updated issue', issue['number'], '· new:', [p['key'] for p in new])
+          elif issue:
+              gh('issue', 'comment', str(issue['number']), '--body', 'All clear: everything checked is up to date again.')
+              gh('issue', 'close', str(issue['number']))
+              print('closed issue', issue['number'])
+          else:
+              print('all clear, no issue open')
+          PY
+      - name: Report in the run summary
+        if: always()
+        run: cat report.md >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
