@@ -16,7 +16,9 @@ the landing page, stop and say so; don't change this repo.
 - To release: on dev, merge origin/main, rebuild and test as usual, then `git checkout main &&
   git merge --ff-only dev` (or a normal merge if main has moved) and push main. That push deploys once.
 - To let the user try dev on a phone before a release: run the "Deploy to Cloudflare Pages" workflow by
-  hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev.
+  hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev. The branch is the
+  workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.
+  Without `-f branch=dev` it publishes main to the live site.
 
 ## Before changing anything
 - Other sessions may have pushed since you last looked. Run `git fetch origin main dev` and
