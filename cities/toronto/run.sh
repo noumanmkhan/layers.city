@@ -41,6 +41,7 @@ python3 ../../engine/regions.py toronto   # outlines for Focus on a county / reg
 [ -f raw/surface/routes.json ] && python3 ../../engine/surface.py toronto       # streetcars and buses from the agency GTFS (fetch-surface.yml)
 [ -d raw/changes ] && python3 ../../engine/changes.py toronto   # what's changing: applications and permits (fetch-changes.yml, weekly)
 [ -f raw/heritage_buildings.json ] && python3 ../../engine/heritage_buildings.py toronto   # protected buildings (fetch-heritage-buildings.yml, monthly)
+[ -f raw/bikes.geojson ] && python3 ../../engine/bikes.py toronto   # bike lanes (fetch-bikes.yml, monthly)
 [ -f raw/voting/places.geojson ] && python3 voting.py   # where to vote: subdivisions and voting places (fetch-voting.yml, daily in October)
 [ -f raw/collection/areas.geojson ] && python3 collection.py   # curbside collection areas and calendar for the card (fetch-toronto-collection.yml, monthly)
 python3 ../../engine/addresses.py toronto   # after streets and collectors: how addresses work (cities/toronto/addresses.json)

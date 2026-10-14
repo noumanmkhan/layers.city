@@ -567,6 +567,33 @@ const KINDS = {
     g.on('add', () => ensureChanges().then(() => g._draw()));
     return g;
   },
+  // Bike lanes: the City's bike network, one line per segment, styled by class (it.classes: separated, painted,
+  // shared, trails). Class chips (several at once) pick what's drawn. Loads on first use (it.lazy).
+  // Drawn in the highway pane, above the area outlines, so a tap on a lane reaches it rather than the neighbourhood.
+  // Tap a stretch for its type, street, ends and year installed.
+  bikes: it => {
+    const g = L.layerGroup(); let cur = null;
+    g._draw = () => {
+      if (cur){ g.removeLayer(cur); cur = null; }
+      if (!data.bikes) return;
+      const fs = data.bikes.features.filter(f => bkClasses.has(f.properties.t));
+      const fc = {type: 'FeatureCollection', features: fs};
+      cur = L.layerGroup();
+      // A light casing under the lanes on the street, so they read over a main street's grey.
+      cur.addLayer(L.geoJSON({type: 'FeatureCollection', features: fs.filter(f => f.properties.t === 'prot' || f.properties.t === 'paint')},
+        {pane: 'hwy', interactive: false, style: f => ({className: 'bk-case t-' + f.properties.t, weight: bkW(f.properties.t) + 2.4})}));
+      cur.addLayer(L.geoJSON(fc, {pane: 'hwy', style: f => ({className: 'bk t-' + f.properties.t, weight: bkW(f.properties.t)}),
+        onEachFeature: (f, lyr) => {
+          const p = f.properties;
+          hoverTip(lyr, esc(p.d) + (p.n ? ' · ' + esc(p.n) : ''));
+          lyr.on('click', e => { L.DomEvent.stop(e); bkPopup(p, e.latlng); });
+        }}));
+      g.addLayer(cur);
+    };
+    map.on('zoomend', () => cur && cur.eachLayer(l => l.eachLayer(s => s.setStyle({weight: bkW(s.feature.properties.t) + (s.options.interactive === false ? 2.4 : 0)}))));
+    g.on('add', () => ensureBikes().then(() => g._draw()));
+    return g;
+  },
   // Another agency's buses (it.mode, e.g. GO): every route in the regional view; in the city view only the
   // routes with a stop in the city, numbered where they run inside it. Lines sit in the rail pane, under the
   // mask, so a route's stretch outside the city fades with the rest of the region. Shapes load on first use.
@@ -696,6 +723,43 @@ function setChgStage(s){
   if (chgStages.has(s) && chgStages.size > 1) chgStages.delete(s); else chgStages.add(s);
   document.querySelectorAll('[data-chg]').forEach(b => b.setAttribute('aria-pressed', String(chgStages.has(b.dataset.chg))));
   if (layers[CHG.id] && layers[CHG.id]._draw) layers[CHG.id]._draw();
+  queueHash();
+}
+
+/* ---------- bike lanes ----------
+   Segments from engine/bikes.py: t class (prot, paint, shared, trail), d the City's type in plain words,
+   n street or trail, fr / to its ends, y year installed. it.classes {id: [short, long]}, it.default the classes
+   drawn at first (else all). */
+const BIKE = byKind('bikes');
+const BIKE_DEFAULT = BIKE ? (BIKE.default || Object.keys(BIKE.classes)) : [];
+const bkClasses = new Set(BIKE_DEFAULT);
+let bkP = null;
+function ensureBikes(){
+  if (!BIKE) return Promise.resolve(null);
+  return bkP || (bkP = get(BIKE.file).then(d => {
+    data.bikes = d;
+    const n = document.getElementById('bknote'); if (n && d.asof) n.textContent = fill(BIKE.asofText || '{date}', {date: niceDate(d.asof, true)});
+    return d;
+  }).catch(() => { bkP = null; return null; }));
+}
+const bkW = t => { const z = map.getZoom(), k = z < 12 ? .7 : z < 13 ? .85 : z < 15 ? 1 : 1.3; return ({prot: 3.4, paint: 2.4, shared: 2, trail: 2.2}[t] || 2) * k; };
+function bkPopup(p, latlng){
+  const rows = [(p.fr || p.to) && [BIKE.betweenText || 'Between', [p.fr, p.to].filter(Boolean).join(' – ')], p.y && [BIKE.yearText || 'Installed', String(p.y)]].filter(Boolean);
+  L.popup({className: 'info-pop bk-pop', maxWidth: 280, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.n || p.d) + '</b><small><i class="bk-key t-' + p.t + '"></i>' + esc(p.d) + (p.d.toLowerCase().includes(BIKE.classes[p.t][0].toLowerCase()) ? '' : ' · ' + esc(BIKE.classes[p.t][0])) + '</small>' +
+    rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
+    (BIKE.fine ? '<p class="bk-fine">' + esc(BIKE.fine) + '</p>' : '')).openOn(map);
+}
+function setBikeClasses(want){
+  bkClasses.clear(); want.filter(k => k in BIKE.classes).forEach(k => bkClasses.add(k));
+  if (!bkClasses.size) BIKE_DEFAULT.forEach(k => bkClasses.add(k));
+  document.querySelectorAll('[data-bk]').forEach(b => b.setAttribute('aria-pressed', String(bkClasses.has(b.dataset.bk))));
+  if (layers[BIKE.id] && layers[BIKE.id]._draw) layers[BIKE.id]._draw();
+}
+function tapBikeClass(k){
+  const want = new Set(bkClasses);
+  if (want.has(k) && want.size > 1) want.delete(k); else want.add(k);
+  setBikeClasses([...want]);
   queueHash();
 }
 /* The card's Changing nearby section: sites within the radius, nearest first, each with what it is, its
@@ -962,7 +1026,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -1060,6 +1124,14 @@ CITY.groups.forEach(([title, items]) => {
         '</div><div class="legend"><small>' + esc(it.legend) + '</small></div>';
       grp.appendChild(box);
       box.querySelectorAll('[data-chg]').forEach(b => b.addEventListener('click', () => setChgStage(b.dataset.chg)));
+    }
+    if (it.kind === 'bikes'){   // classes, any mix, each chip with a key to its line
+      const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'bkbox'; box.hidden = !it.on;
+      box.innerHTML = '<div class="chips pick" role="group" aria-label="' + esc(it.name) + '">' + Object.entries(it.classes).map(([k, [short, long]]) =>
+        '<button type="button" data-bk="' + k + '" aria-pressed="' + bkClasses.has(k) + '" title="' + esc(long) + '"><i class="bk-key t-' + k + '"></i>' + esc(short) + '</button>').join('') +
+        '</div><div class="legend"><small>' + esc(it.legend || '') + ' <span id="bknote"></span></small></div>';
+      grp.appendChild(box);
+      box.querySelectorAll('[data-bk]').forEach(b => b.addEventListener('click', () => tapBikeClass(b.dataset.bk)));
     }
     if (it.kind === 'towers'){   // key to the badges, shown while the layer is on
       const box = document.createElement('div'); box.className = 'lensbox child'; box.id = 'twkey-' + it.id; box.hidden = !it.on;
@@ -1206,6 +1278,7 @@ function setLayer(id, on){
   if (kindOf(id) === 'towers'){ const box = document.getElementById('twkey-' + id); if (box) box.hidden = !on; }
   if (kindOf(id) === 'buses'){ document.getElementById('busbox').hidden = !on; drawBusBox(); }
   if (kindOf(id) === 'changes'){ const b = document.getElementById('chgbox'); if (b) b.hidden = !on; }
+  if (kindOf(id) === 'bikes'){ const b = document.getElementById('bkbox'); if (b) b.hidden = !on; }
   { const b = document.getElementById('pg-' + id); if (b){ b.hidden = !on; drawPlacePick(id); } }
   if (kindOf(id) === 'buses' || kindOf(id) === 'streetcars' || kindOf(id) === 'regional') drawStops();
   if (kindOf(id) === 'boards'){ const box = document.getElementById('brd-' + id); if (box) box.hidden = !on; if (on) setBoard(id, boardPick[id]); }
@@ -1236,6 +1309,7 @@ document.getElementById('reset').addEventListener('click', () => {
   BOARDS.forEach(it => setBoard(it.id, it.boards[0][0]));
   if (CHG){ Object.keys(CHG.stages).forEach(k => chgStages.add(k)); document.querySelectorAll('[data-chg]').forEach(b => b.setAttribute('aria-pressed', 'true')); if (layers[CHG.id] && layers[CHG.id]._draw) layers[CHG.id]._draw(); }
   if (BUSES) setBusFams(BUS_DEFAULT);
+  if (BIKE) setBikeClasses(BIKE_DEFAULT);
   if (picked.size){ picked.clear(); drawPicks(); }
   if (placeF) setPlaceFocus(null, null, false);
   setLens(FIRST_LENS);
@@ -2048,6 +2122,7 @@ function applyPreset(id){
   setLens(FIRST_LENS);
   if (p.lens) parts.push('lens=' + p.lens);
   if (p.bus) parts.push('bus=' + p.bus.join('+'));
+  if (p.bike) parts.push('bike=' + p.bike.join('+'));
   applyHash('#' + parts.join('&'));
   presetFrame(p);
   presetOn = p.id; presetSig = presetState(); presetCustom = false;
@@ -2638,6 +2713,7 @@ function linkState(){
   const parts = [['map', (Math.round(z * 4) / 4) + '/' + c.lat.toFixed(5) + '/' + c.lng.toFixed(5)]];
   if (pin && !pinIsMe){ const p = pin.getLatLng(); parts.push(['pin', p.lat.toFixed(5) + ',' + p.lng.toFixed(5)]); if (pinName) parts.push(['name', pinName]); }
   if (CHG && chgStages.size < Object.keys(CHG.stages).length) parts.push(['chg', [...chgStages].join('+')]);
+  if (BIKE && [...bkClasses].sort().join() !== BIKE_DEFAULT.slice().sort().join()) parts.push(['bike', Object.keys(BIKE.classes).filter(k => bkClasses.has(k)).join('+')]);
   if (cmp && cmp.b){ const p = cmp.b[0]; parts.push(['pin2', p.lat.toFixed(5) + ',' + p.lng.toFixed(5)]); if (cmp.b[1]) parts.push(['name2', cmp.b[1]]); }
   if (scope === 'outer') parts.push(['view', 'region']);
   if (focusKey) parts.push(['focus', focusKey]);
@@ -2700,6 +2776,7 @@ function applyHash(h){
     if (!chgStages.size) Object.keys(CHG.stages).forEach(k => chgStages.add(k));
     document.querySelectorAll('[data-chg]').forEach(b => b.setAttribute('aria-pressed', String(chgStages.has(b.dataset.chg))));
     if (layers[CHG.id] && layers[CHG.id]._draw) layers[CHG.id]._draw(); }
+  if (BIKE) setBikeClasses(o.bike ? o.bike.split('+') : BIKE_DEFAULT);
   picked.clear(); (o.routes || '').split(',').filter(Boolean).forEach(r => picked.add(r));
   if (TR && (picked.size || pickLayer.getLayers().length)) ensureRoutes().then(drawPicks);
   const [lk, lp] = (o.lens || '').split(':');

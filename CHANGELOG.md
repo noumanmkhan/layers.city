@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Bike lanes (Toronto and Chicago, October 15)
+- New toggle "Bike lanes" under Getting around, after Bus routes, off by default: each city's bike network, one line
+  per segment, in teal (`--bike`, `--bike-2`; trails in `--bike-trail`). Chips, any mix: Protected, Painted, Shared,
+  and Trails (Toronto). Protected and Painted are on at first; links write `bike=` when that changes.
+- Tap a stretch: street, type ("Two-way cycle track"), the streets it runs between, the year installed (Toronto).
+- Data: Toronto's Cycling Network (CKAN, 1,581 segments) and Chicago's Bike Routes (hvv9-38ut, 1,008 segments, no
+  off-street trails), fetched monthly by `engine/fetch_bikes.py` (*Fetch bike lanes*), built by `engine/bikes.py`
+  into `docs/<city>/data/bikes.geojson` (Toronto ~580 KB, ~120 KB gzipped; loaded when the layer is first turned on).
+- Engine: layer kind `bikes`; drawn in the highway pane so a tap reaches the lane rather than the neighbourhood
+  under it. Contract sections 3 and 4 (additive, schema 1).
+
 ### Panel groups fold, in a new order (all cities, October 14)
 - Groups run Places, Getting around, Representation, then Faith & Community (Toronto). Drawing order on the
   map is unchanged.

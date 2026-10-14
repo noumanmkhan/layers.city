@@ -34,6 +34,7 @@ python3 ../../engine/regions.py chicago   # outlines for Focus on a county / reg
 [ -f raw/surface/routes.json ] && python3 ../../engine/surface.py chicago       # streetcars and buses from the agency GTFS (fetch-surface.yml)
 [ -d raw/changes ] && python3 ../../engine/changes.py chicago   # what's changing: applications and permits (fetch-changes.yml, weekly)
 [ -f raw/heritage_buildings.json ] && python3 ../../engine/heritage_buildings.py chicago   # protected buildings (fetch-heritage-buildings.yml, monthly)
+[ -f raw/bikes.geojson ] && python3 ../../engine/bikes.py chicago   # bike lanes (fetch-bikes.yml, monthly)
 python3 ../../engine/addresses.py chicago   # after streets and collectors: how addresses work (cities/chicago/addresses.json)
 [ -f raw/precincts.geojson ] && python3 voting.py   # election precincts for the card's election box (fetch_precincts.py)
 [ -f raw/sweeping/zones.geojson ] && python3 sweeping.py   # street sweeping zones and dates for the card (fetch_sweeping.py)

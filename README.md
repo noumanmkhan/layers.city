@@ -41,6 +41,7 @@ Toronto's geography is described in several overlapping ways at once. A single a
 | Subway & LRT | 5 lines | Lines 1, 2, 4, 5, 6 with station names |
 | Streetcars | 11 routes | Numbered along the line;<br>stops when zoomed in |
 | Bus routes | 230 routes,<br>by family | All, frequent, express, regular<br>or overnight; any route on demand |
+| Bike lanes | 1,581 segments | Protected, painted, shared, trails<br>(any mix); City's Cycling Network |
 | GO Transit trains | 7 lines<br>+ UP Express | ~70 stations, Metrolinx<br>line colours |
 | GO buses | 37 routes | Whole network in the GTA view;<br>in Toronto, the 21 that stop there |
 | Transit under construction | 4 lines | Ontario Line, Line 2 East and<br>Eglinton West extensions,<br>Hazel McCallion Line (GTA view) |
@@ -89,6 +90,8 @@ Toronto's geography is described in several overlapping ways at once. A single a
 **Images for sharing:** the Image button saves the map as a picture in four shapes: wide 4K, or square, portrait and story sizes for Instagram. Focused on a neighbourhood, the picture frames it and carries its name as a title, which makes a ready-made post.
 
 **Heritage buildings:** a toggle beside Heritage districts marks every building protected on its own: Toronto's 1,515 properties designated under Part IV of the Ontario Heritage Act (from the City's Heritage Register; listed properties are left out) and Chicago's 412 individually designated Chicago Landmarks. Each is a small diamond, shown once you zoom in to street level (and named closer still); tap one for the year it was built, its architect and when it was designated, and the What's here card adds a *Heritage building* row when you're standing on one. Named ones (Robie House, the King Edward Hotel) are in search.
+
+**Bike lanes:** a toggle under Getting around draws each city's bike network from its own open data, Toronto's Cycling Network and Chicago's Bike Routes, in teal so it never reads as a subway line. Chips sort the lanes by how separated they are from traffic, in any mix: *Protected* (cycle tracks and protected lanes), *Painted* (painted, buffered and contraflow lanes), *Shared* (sharrows, signed routes, greenways) and, in Toronto, *Trails*. Protected and Painted show when the layer first opens. Tap a stretch for its type, the streets it runs between and the year it went in. The layer shows lanes as built; it can't say whether construction has one closed today, because neither city's permit data says which lane a permit closes. A GitHub Action refreshes both networks monthly.
 
 **All, Basic and Live:** the layer panel has three tabs. Basic is the city as it stands, data that changes slowly (census figures, boundaries, landmarks, routes). Live is the city as it's changing this week, refreshed by GitHub Actions from city feeds: road closures daily, What's changing weekly, with each row saying when its data was last updated (in red if a refresh has been missed). The tabs only filter the list; what's on stays on.
 
@@ -170,6 +173,7 @@ The second city runs on the same engine with its own data and config (`cities/ch
 | Metra | 11 lines | From four downtown terminals |
 | The 'L' | 8 lines, 144 stations | CTA rapid transit |
 | Bus routes | 124 routes,<br>by family | All, frequent, express, regular<br>or overnight; any route on demand |
+| Bike lanes | 1,008 segments | Protected, painted, shared<br>(any mix); CDOT's Bike Routes |
 | Transit under construction | 1 line | Red Line Extension, 95th to 130th Street |
 | Street closures | Daily | From the Red Line Extension and<br>the Red/Purple rebuild |
 
@@ -248,6 +252,7 @@ The work was data sourcing as much as it was code. Some examples of the judgment
 - Voting subdivisions and voting places for the 2026 municipal election from the City of Toronto's [Voting Places & Ward Maps](https://www.toronto.ca/city-government/elections/city-elections/voting-places/) page (its ArcGIS Online layers and the All Wards list). No licence is stated on these files; re-check before any commercial use.
 - Heritage buildings: City of Toronto Heritage Register (Part IV designations) and City of Chicago [Individual Landmarks](https://data.cityofchicago.org/Historic-Preservation/Individual-Landmarks/uct4-hrvh).
 - Development applications, building permits and address points: City of Toronto Open Data (Open Government Licence – Toronto); building permits: [City of Chicago Data Portal](https://data.cityofchicago.org/Buildings/Building-Permits/ydr8-5enu).
+- Bike lanes: City of Toronto Open Data [Cycling Network](https://open.toronto.ca/dataset/cycling-network/) and City of Chicago [Bike Routes](https://data.cityofchicago.org/d/hvv9-38ut) (CDOT). Neither dataset states its own licence; they fall under each portal's terms, so re-check before any commercial use.
 - Tree cover from [ESA WorldCover 2021](https://esa-worldcover.org) (10 m, CC BY 4.0), both cities.
 - GO bus routes and stops from Metrolinx's GO GTFS ([Metrolinx Open Data](https://www.metrolinx.com/en/about-us/open-data), Open Government Licence – Ontario – Metrolinx).
 - Travel times to Union computed from the TTC schedules and from Metrolinx's GO and UP Express GTFS ([Metrolinx Open Data](https://www.metrolinx.com/en/about-us/open-data)), with walking routes from OpenStreetMap.
