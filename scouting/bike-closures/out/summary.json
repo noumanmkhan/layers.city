@@ -1,0 +1,2218 @@
+{
+ "run_utc": "2026-10-14T17:47:09+00:00",
+ "toronto": {
+  "records_in_feed": 2855,
+  "active_or_within_7_days": 2632,
+  "feed_keys": {
+   "URL": {
+    "nonempty": 2855,
+    "distinct_short": 0,
+    "top": {}
+   },
+   "atRoad": {
+    "nonempty": 6,
+    "distinct_short": 6,
+    "top": {
+     "Parkside Dr": 1,
+     "Spadina Ave": 1,
+     "McNicoll Ave": 1,
+     "Front St W": 1,
+     "Yonge St": 1,
+     "Queen St W": 1
+    }
+   },
+   "contractor": {
+    "nonempty": 2846,
+    "distinct_short": 201,
+    "top": {
+     "Canada Running Series Inc.": 466,
+     "Valard Construction LP": 199,
+     "Tristar Electrical Inc": 137,
+     "PTR Paving Inc.": 117,
+     "IPAC Paving Limited": 114,
+     "Bevcon Construction & Paving Ltd.": 106,
+     "Insituform Technologies Ltd.": 97,
+     "CG Construction Services Ltd.": 90,
+     "OJCR Construction LTD": 73,
+     "Aqua Tech Solutions Inc.": 71,
+     "Ferpac Paving Inc": 70,
+     "Aqua Tech Solutions Inc": 68,
+     "Stratton Prime Drilling Inc": 66,
+     "Entera Utility Contractors": 66,
+     "Tristar Electric Inc.": 66
+    }
+   },
+   "createdTime": {
+    "nonempty": 2855,
+    "distinct_short": 1317,
+    "top": "many"
+   },
+   "currImpact": {
+    "nonempty": 2855,
+    "distinct_short": 3,
+    "top": {
+     "Low": 1607,
+     "High": 702,
+     "None": 546
+    }
+   },
+   "description": {
+    "nonempty": 2855,
+    "distinct_short": 144,
+    "top": {
+     "Toronto-TMC: Utility cut restoration on behalf of Enbridge.": 73,
+     "Toronto-TMC: PM7 2027 Capital Works Program": 58,
+     "Toronto-TMC: Overhead line work": 52,
+     "Toronto-TMC: UG electrical / Metering": 39,
+     "Toronto-TMC: Replacing Poles & OH Conductors (Ravena)": 37,
+     "Toronto-TMC: Overhead Electrical Project": 32,
+     "Toronto-TMC: Water and Sewer Connection": 26,
+     "Toronto-TMC: Overhead Electrical": 26,
+     "Toronto-TMC: Permanent Restoration": 22,
+     "Toronto-TMC: Restoration on behalf of the City of Toronto.": 22,
+     "Toronto-TMC: Electrical overhead conversion": 21,
+     "Toronto-TMC: Underground electrical work": 19,
+     "Toronto-TMC: CIPP Watermain Rehabilitation of Woodward Ave.": 19,
+     "Toronto-TMC: Sewer Rehabilitation": 13,
+     "Toronto-TMC: Road patches": 13
+    }
+   },
+   "directionsAffected": {
+    "nonempty": 2855,
+    "distinct_short": 2,
+    "top": {
+     "ONE_DIRECTION": 2109,
+     "BOTH_DIRECTIONS": 746
+    }
+   },
+   "district": {
+    "nonempty": 2852,
+    "distinct_short": 13,
+    "top": {
+     "TORONTO": 1436,
+     "ETOBICOKE": 450,
+     "NORTH YORK": 374,
+     "SCARBOROUGH": 364,
+     "EAST YORK": 104,
+     "YORK": 101,
+     "YORK and NORTH YORK": 7,
+     "EAST YORK and TORONTO": 4,
+     "NORTH YORK and SCARBOROUGH": 4,
+     "YORK and TORONTO": 3,
+     "EAST YORK and SCARBOROUGH": 3,
+     "YORK and ETOBICOKE": 1,
+     "NORTH YORK and EAST YORK": 1
+    }
+   },
+   "endTime": {
+    "nonempty": 2852,
+    "distinct_short": 278,
+    "top": {
+     "1793390400000": 116,
+     "1792351800000": 106,
+     "1792357200000": 91,
+     "1792335600000": 89,
+     "1792180800000": 85,
+     "1795208400000": 82,
+     "1792346400000": 78,
+     "1792191600000": 77,
+     "1792796400000": 73,
+     "1792785600000": 72,
+     "1792267200000": 70,
+     "1797458400000": 70,
+     "1793577600000": 61,
+     "1792186200000": 60,
+     "1793476800000": 56
+    }
+   },
+   "expired": {
+    "nonempty": 2855,
+    "distinct_short": 1,
+    "top": {
+     "0": 2855
+    }
+   },
+   "fromRoad": {
+    "nonempty": 2849,
+    "distinct_short": 1326,
+    "top": "many"
+   },
+   "geoPolyline": {
+    "nonempty": 2855,
+    "distinct_short": 1696,
+    "top": "many"
+   },
+   "id": {
+    "nonempty": 2855,
+    "distinct_short": 2855,
+    "top": "many"
+   },
+   "lastUpdated": {
+    "nonempty": 2855,
+    "distinct_short": 1317,
+    "top": "many"
+   },
+   "latitude": {
+    "nonempty": 2855,
+    "distinct_short": 2424,
+    "top": "many"
+   },
+   "longitude": {
+    "nonempty": 2855,
+    "distinct_short": 2539,
+    "top": "many"
+   },
+   "maxImpact": {
+    "nonempty": 2855,
+    "distinct_short": 3,
+    "top": {
+     "Low": 2037,
+     "High": 775,
+     "Medium": 43
+    }
+   },
+   "name": {
+    "nonempty": 2855,
+    "distinct_short": 632,
+    "top": "many"
+   },
+   "notification": {
+    "nonempty": 0,
+    "distinct_short": 0,
+    "top": {}
+   },
+   "permitType": {
+    "nonempty": 2849,
+    "distinct_short": 31,
+    "top": {
+     "Toronto Hydro": 709,
+     "{\"tabledata\":[{\"Option\":\"Toronto Water\"": 671,
+     "Unknown": 471,
+     "{\"tabledata\":[{\"Option\":\"Transportation Services\"": 353,
+     "Other": 185,
+     "Metrolinx": 101,
+     "Utility": 75,
+     "Gas Service": 36,
+     "Telecommunications": 34,
+     "{\"tabledata\":[{\"Option\":\"Other\"": 33,
+     "Long term construction staging": 33,
+     "Toronto Hydro Street Lighting": 28,
+     "Storage of trailer": 19,
+     "false": 15,
+     "Gasmain": 13
+    }
+   },
+   "planned": {
+    "nonempty": 2855,
+    "distinct_short": 1,
+    "top": {
+     "1": 2855
+    }
+   },
+   "road": {
+    "nonempty": 2855,
+    "distinct_short": 1001,
+    "top": "many"
+   },
+   "roadClass": {
+    "nonempty": 2855,
+    "distinct_short": 7,
+    "top": {
+     "Local Road": 1597,
+     "Major Arterial Road": 782,
+     "Minor Arterial Road": 320,
+     "Unknown": 120,
+     "Expressway": 21,
+     "Expressway Ramp": 11,
+     "Major Arterial Ramp": 4
+    }
+   },
+   "scheduleEveryday": {
+    "nonempty": 1504,
+    "distinct_short": 37,
+    "top": {
+     "00:00-23:59": 843,
+     "08:00-16:00": 165,
+     "07:00-19:00": 159,
+     "07:00-17:00": 63,
+     "09:00-16:00": 62,
+     "09:00-15:00": 52,
+     "07:00-07:00": 25,
+     "09:00-15:30": 16,
+     "07:00-16:00": 15,
+     "21:00-05:00": 15,
+     "19:00-07:00": 14,
+     "07:00-17:30": 12,
+     "07:00-15:00": 7,
+     "19:00-19:00": 6,
+     "08:00-15:30": 5
+    }
+   },
+   "scheduleFriday": {
+    "nonempty": 1335,
+    "distinct_short": 36,
+    "top": {
+     "09:00-16:00": 386,
+     "07:00-17:00": 312,
+     "07:00-19:00": 232,
+     "07:00-17:30": 101,
+     "09:00-15:00": 75,
+     "08:00-16:00": 34,
+     "09:00-17:00": 33,
+     "08:00-15:00": 31,
+     "07:00-16:00": 26,
+     "07:00-16:30": 13,
+     "09:00-14:30": 11,
+     "10:00-15:00": 8,
+     "23:00-05:00": 7,
+     "07:00-15:00": 7,
+     "19:00-05:00": 6
+    }
+   },
+   "scheduleMonday": {
+    "nonempty": 1335,
+    "distinct_short": 36,
+    "top": {
+     "09:00-16:00": 386,
+     "07:00-17:00": 312,
+     "07:00-19:00": 232,
+     "07:00-17:30": 101,
+     "09:00-15:00": 75,
+     "08:00-16:00": 34,
+     "09:00-17:00": 33,
+     "08:00-15:00": 31,
+     "07:00-16:00": 26,
+     "07:00-16:30": 13,
+     "09:00-14:30": 11,
+     "10:00-15:00": 8,
+     "23:00-05:00": 7,
+     "07:00-15:00": 7,
+     "19:00-05:00": 6
+    }
+   },
+   "scheduleSaturday": {
+    "nonempty": 48,
+    "distinct_short": 6,
+    "top": {
+     "09:00-16:00": 33,
+     "07:00-07:00": 5,
+     "07:00-15:00": 4,
+     "09:00-17:00": 3,
+     "07:00-19:00": 2,
+     "07:00-17:00": 1
+    }
+   },
+   "scheduleSunday": {
+    "nonempty": 14,
+    "distinct_short": 4,
+    "top": {
+     "07:00-07:00": 5,
+     "09:00-16:00": 4,
+     "07:00-15:00": 4,
+     "07:00-19:00": 1
+    }
+   },
+   "scheduleThursday": {
+    "nonempty": 1335,
+    "distinct_short": 36,
+    "top": {
+     "09:00-16:00": 386,
+     "07:00-17:00": 312,
+     "07:00-19:00": 232,
+     "07:00-17:30": 101,
+     "09:00-15:00": 75,
+     "08:00-16:00": 34,
+     "09:00-17:00": 33,
+     "08:00-15:00": 31,
+     "07:00-16:00": 26,
+     "07:00-16:30": 13,
+     "09:00-14:30": 11,
+     "10:00-15:00": 8,
+     "23:00-05:00": 7,
+     "07:00-15:00": 7,
+     "19:00-05:00": 6
+    }
+   },
+   "scheduleTuesday": {
+    "nonempty": 1335,
+    "distinct_short": 36,
+    "top": {
+     "09:00-16:00": 386,
+     "07:00-17:00": 312,
+     "07:00-19:00": 232,
+     "07:00-17:30": 101,
+     "09:00-15:00": 75,
+     "08:00-16:00": 34,
+     "09:00-17:00": 33,
+     "08:00-15:00": 31,
+     "07:00-16:00": 26,
+     "07:00-16:30": 13,
+     "09:00-14:30": 11,
+     "10:00-15:00": 8,
+     "23:00-05:00": 7,
+     "07:00-15:00": 7,
+     "19:00-05:00": 6
+    }
+   },
+   "scheduleWednesday": {
+    "nonempty": 1335,
+    "distinct_short": 36,
+    "top": {
+     "09:00-16:00": 386,
+     "07:00-17:00": 312,
+     "07:00-19:00": 232,
+     "07:00-17:30": 101,
+     "09:00-15:00": 75,
+     "08:00-16:00": 34,
+     "09:00-17:00": 33,
+     "08:00-15:00": 31,
+     "07:00-16:00": 26,
+     "07:00-16:30": 13,
+     "09:00-14:30": 11,
+     "10:00-15:00": 8,
+     "23:00-05:00": 7,
+     "07:00-15:00": 7,
+     "19:00-05:00": 6
+    }
+   },
+   "severityOverride": {
+    "nonempty": 2855,
+    "distinct_short": 1,
+    "top": {
+     "0": 2855
+    }
+   },
+   "signing": {
+    "nonempty": 0,
+    "distinct_short": 0,
+    "top": {}
+   },
+   "source": {
+    "nonempty": 2849,
+    "distinct_short": 33,
+    "top": {
+     "Toronto Hydro": 709,
+     "{\"tabledata\":[{\"Option\":\"Toronto Water\"": 671,
+     "Unknown": 468,
+     "{\"tabledata\":[{\"Option\":\"Transportation Services\"": 353,
+     "Other": 185,
+     "Metrolinx": 101,
+     "Utility": 75,
+     "Gas Service": 36,
+     "Telecommunications": 34,
+     "{\"tabledata\":[{\"Option\":\"Other\"": 33,
+     "Long term construction staging": 33,
+     "Toronto Hydro Street Lighting": 28,
+     "Storage of trailer": 19,
+     "false": 15,
+     "Gasmain": 13
+    }
+   },
+   "specialEvent": {
+    "nonempty": 2855,
+    "distinct_short": 2,
+    "top": {
+     "No": 2443,
+     "Yes": 412
+    }
+   },
+   "startTime": {
+    "nonempty": 2855,
+    "distinct_short": 323,
+    "top": {
+     "1792321200000": 117,
+     "1792324800000": 106,
+     "1791198000000": 105,
+     "1792314000000": 89,
+     "1791896400000": 88,
+     "1791370800000": 84,
+     "1791889200000": 77,
+     "1791975600000": 74,
+     "1791205200000": 72,
+     "1792220400000": 72,
+     "1792414800000": 68,
+     "1790769600000": 61,
+     "1790596800000": 58,
+     "1791982800000": 54,
+     "1791457200000": 54
+    }
+   },
+   "subType": {
+    "nonempty": 661,
+    "distinct_short": 1,
+    "top": {
+     "ROAD_CLOSED_CONSTRUCTION": 661
+    }
+   },
+   "toRoad": {
+    "nonempty": 2849,
+    "distinct_short": 1324,
+    "top": "many"
+   },
+   "type": {
+    "nonempty": 2855,
+    "distinct_short": 3,
+    "top": {
+     "CONSTRUCTION": 2191,
+     "ROAD_CLOSED": 661,
+     "HAZARD": 3
+    }
+   },
+   "workEventType": {
+    "nonempty": 2849,
+    "distinct_short": 31,
+    "top": {
+     "Toronto Hydro": 709,
+     "{\"tabledata\":[{\"Option\":\"Toronto Water\"": 671,
+     "Unknown": 471,
+     "{\"tabledata\":[{\"Option\":\"Transportation Services\"": 353,
+     "Other": 185,
+     "Metrolinx": 101,
+     "Utility": 75,
+     "Gas Service": 36,
+     "Telecommunications": 34,
+     "{\"tabledata\":[{\"Option\":\"Other\"": 33,
+     "Long term construction staging": 33,
+     "Toronto Hydro Street Lighting": 28,
+     "Storage of trailer": 19,
+     "false": 15,
+     "Gasmain": 13
+    }
+   },
+   "workPeriod": {
+    "nonempty": 2855,
+    "distinct_short": 6,
+    "top": {
+     "Weekdays": 1301,
+     "Continuous": 836,
+     "Daily": 668,
+     "Monday To Saturday": 34,
+     "Weekends": 14,
+     "Activity Schedule": 2
+    }
+   }
+  },
+  "bike_words_in_active": {
+   "count": 26,
+   "by_field": {
+    "description": 24,
+    "name": 2,
+    "toRoad": 1,
+    "fromRoad": 1
+   },
+   "examples": [
+    {
+     "road": "Bloor St W",
+     "fromRoad": "Acorn Ave",
+     "toRoad": "Aukland Rd",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: The work includes the construction of 4km long and 3m wide multiuse asphalt trail within the hydro corridor. Each section of the trail will be asphalt paved and will be accessible from the end/start sidewalk."
+    },
+    {
+     "road": "Douro St",
+     "fromRoad": "Shaw St",
+     "toRoad": "King-Liberty Pedestrian Cycle Bridge",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "{\"tabledata\":[{\"Option\":\"Transportation Services\"",
+     "description": "Toronto-TMC: SIDEWALK REPAIR AT 1029 KING ST W. SIDEWALK REPAIR ON SHAW ST (FLANK OF 1029 KING ST W) AND WILL HAVE PAID DUTY ON SITE AND TCP. SIDEWALK REPAIR AT DOURO ST. PEDESTRIAN PROTECTIVE PATH WILL BE IN PLACE AND AODA COMPLIANT. CITY OF TORONTO CONTRACT 26TR-OM-111-TEY-GENERAL MAINTENANCE. 1 WEEK WINDOW HAS BEEN REQUESTED TO ALLOW SUFFICIENT TIME FOR THE WORK TO BE COMPLETED WITHIN APPROVED HOURS, WHILE ACCOUNTING FOR WEATHER CONDITIONS, SITE CONSTRAINTS OR OTHER UNFORSEEN DELAYS. THE ACTUAL DURATION OF THE WORK IS EXPECTED TO BE SHORTER, AND THE PERMIT END DATE WILL BE ADJUSTED ACCORDINGLY ONCE CONSTRUCTION OPERATIONS COMMENCE AND THE SCHEDULE IS CONFIRMED."
+    },
+    {
+     "road": "Goswell Rd",
+     "fromRoad": "Lochway Crt",
+     "toRoad": "Burnhamhall Crt",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: The work includes the construction of 4km long and 3m wide multiuse asphalt trail within the hydro corridor. Each section of the trail will be asphalt paved and will be accessible from the end/start sidewalk."
+    },
+    {
+     "road": "Mervyn Ave",
+     "fromRoad": "Hepc",
+     "toRoad": "Hepc",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: The work includes the construction of 4km long and 3m wide multiuse asphalt trail within the hydro corridor. Each section of the trail will be asphalt paved and will be accessible from the end/start sidewalk."
+    },
+    {
+     "road": "Beaverbrook Ave",
+     "fromRoad": "Hepc",
+     "toRoad": "Hepc",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: The work includes the construction of 4km long and 3m wide multiuse asphalt trail within the hydro corridor. Each section of the trail will be asphalt paved and will be accessible from the end/start sidewalk."
+    },
+    {
+     "road": "Rathburn Rd",
+     "fromRoad": "Hepc",
+     "toRoad": "Hepc",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: The work includes the construction of 4km long and 3m wide multiuse asphalt trail within the hydro corridor. Each section of the trail will be asphalt paved and will be accessible from the end/start sidewalk."
+    },
+    {
+     "road": "Rivercove Dr",
+     "fromRoad": "Hepc",
+     "toRoad": "Hepc",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: The work includes the construction of 4km long and 3m wide multiuse asphalt trail within the hydro corridor. Each section of the trail will be asphalt paved and will be accessible from the end/start sidewalk."
+    },
+    {
+     "road": "Mattice Ave",
+     "fromRoad": "Hepc",
+     "toRoad": "Hepc",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: The work includes the construction of 4km long and 3m wide multiuse asphalt trail within the hydro corridor. Each section of the trail will be asphalt paved and will be accessible from the end/start sidewalk."
+    },
+    {
+     "road": "North Heights Rd",
+     "fromRoad": "Hepc",
+     "toRoad": "Hepc",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: The work includes the construction of 4km long and 3m wide multiuse asphalt trail within the hydro corridor. Each section of the trail will be asphalt paved and will be accessible from the end/start sidewalk."
+    },
+    {
+     "road": "Princess Margaret Blvd",
+     "fromRoad": "Hepc",
+     "toRoad": "Hepc",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: The work includes the construction of 4km long and 3m wide multiuse asphalt trail within the hydro corridor. Each section of the trail will be asphalt paved and will be accessible from the end/start sidewalk."
+    },
+    {
+     "road": "Firwood Cres",
+     "fromRoad": "Glen Agar Dr",
+     "toRoad": "Hepc",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: The work includes the construction of 4km long and 3m wide multiuse asphalt trail within the hydro corridor. Each section of the trail will be asphalt paved and will be accessible from the end/start sidewalk."
+    },
+    {
+     "road": "Harbour St",
+     "fromRoad": "Lower Simcoe St",
+     "toRoad": "Lake Shore Blvd W",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Long term construction staging",
+     "description": "Toronto-TMC: https://qtower.ca/ The development site is approximately 0.5 hectares in size located on the east side of Lower Simcoe Street, the south side of Harbour Street, and is bounded to the east and south by the Waterclub Condominiums (8 York Street, 208, and 218 Queens Quay West). In completion, the building will be a 59-storey mixed-use building with a total of 984 units. The building is served by a 4-storey underground parking garage that accommodates both residential and commercial parking. Parking, drop-off and loading is internal to the site and accessed from Harbour Street. Additionally, the development includes the dedication of an on-site public park and public realm improvements with more generous sidewalks, landscaping and dedicated cyclists infrastructure. The development is subject to site-specific By-law 1012-2022 and received NOAC on March 11, 2025. Through the Site Plan process, a Construction Management Plan dated February 20, 2024, prepared by Rockwell Tor"
+    },
+    {
+     "road": "Harbour St",
+     "fromRoad": "Lake Shore Blvd W",
+     "toRoad": "Lake Shore Blvd W",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Long term construction staging",
+     "description": "Toronto-TMC: https://qtower.ca/ The development site is approximately 0.5 hectares in size located on the east side of Lower Simcoe Street, the south side of Harbour Street, and is bounded to the east and south by the Waterclub Condominiums (8 York Street, 208, and 218 Queens Quay West). In completion, the building will be a 59-storey mixed-use building with a total of 984 units. The building is served by a 4-storey underground parking garage that accommodates both residential and commercial parking. Parking, drop-off and loading is internal to the site and accessed from Harbour Street. Additionally, the development includes the dedication of an on-site public park and public realm improvements with more generous sidewalks, landscaping and dedicated cyclists infrastructure. The development is subject to site-specific By-law 1012-2022 and received NOAC on March 11, 2025. Through the Site Plan process, a Construction Management Plan dated February 20, 2024, prepared by Rockwell Tor"
+    },
+    {
+     "road": "Irwin Ave",
+     "fromRoad": "St Nicholas St",
+     "toRoad": "St Nicholas St",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "{\"tabledata\":[{\"Option\":\"Transportation Services\"",
+     "description": "Toronto-TMC: This task is for widening of existing tree pits in the boulevards of St Nicholas St. and Irwin Ave. It includes removal of existing paving and installation of permeable unit pavers, soil, mulch, some trees and steel fencing (fence on Irwin Ave. only). It also includes reinstallation of bike rings and street signs."
+    },
+    {
+     "road": "Morningside Ave",
+     "fromRoad": "Tams Rd",
+     "toRoad": "Morningside Ave N 401 C E Ramp",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "{\"tabledata\":[{\"Option\":\"Transportation Services\"",
+     "description": "Toronto-TMC: Road Rehabilitation, Cycle Track & Sidewalk installation."
+    },
+    {
+     "road": "Pan Am Dr",
+     "fromRoad": "Morningside Ave",
+     "toRoad": "Morningside Ave",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "{\"tabledata\":[{\"Option\":\"Transportation Services\"",
+     "description": "Toronto-TMC: Road Rehabilitation, Cycle Track & Sidewalk installation."
+    },
+    {
+     "road": "Richmond St W",
+     "fromRoad": "Peter St",
+     "toRoad": "Peter St",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Long term construction staging",
+     "description": "Toronto-TMC: The project at 128 Peter Street is a proposed residential development located at the southwest corner of Peter Street and Richmond Street West in Toronto. The development consists of approximately 370 residential units within a high-rise building. Construction will require occupation of portions of the public right-of-way on both Peter Street and Richmond Street West, including lane reductions and sidewalk management to accommodate staging, excavation, and building construction activities. Pedestrian and cycling connections will be maintained during construction."
+    },
+    {
+     "road": "Peter St",
+     "fromRoad": "Richmond St W",
+     "toRoad": "Richmond St W",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Long term construction staging",
+     "description": "Toronto-TMC: The project at 128 Peter Street is a proposed residential development located at the southwest corner of Peter Street and Richmond Street West in Toronto. The development consists of approximately 370 residential units within a high-rise building. Construction will require occupation of portions of the public right-of-way on both Peter Street and Richmond Street West, including lane reductions and sidewalk management to accommodate staging, excavation, and building construction activities. Pedestrian and cycling connections will be maintained during construction."
+    },
+    {
+     "road": "Spadina Ave",
+     "fromRoad": "Ln 2 S King E Spadina",
+     "toRoad": "Ln 1 S King E Spadina",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: We will be working at asphalt on the road and our service vehicles will be parked close to our worksite. Cyclist will be temporary merged with the road and traffic sign will be placed ahead to manage on coming traffic control."
+    },
+    {
+     "road": "Tams Rd",
+     "fromRoad": "Morningside Ave",
+     "toRoad": "Bonspiel Dr",
+     "type": "ROAD_CLOSED",
+     "subType": "ROAD_CLOSED_CONSTRUCTION",
+     "source": "{\"tabledata\":[{\"Option\":\"Transportation Services\"",
+     "description": "Toronto-TMC: Road Rehabilitation, Cycle Track & Sidewalk installation."
+    },
+    {
+     "road": "Morningside Ave",
+     "fromRoad": "401 C E Morningside Ave S Ramp",
+     "toRoad": "Tams Rd",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "{\"tabledata\":[{\"Option\":\"Transportation Services\"",
+     "description": "Toronto-TMC: Road Rehabilitation, Cycle Track & Sidewalk installation."
+    },
+    {
+     "road": "Morningside Ave",
+     "fromRoad": "Tams Rd",
+     "toRoad": "Tams Rd",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "{\"tabledata\":[{\"Option\":\"Transportation Services\"",
+     "description": "Toronto-TMC: Road Rehabilitation, Cycle Track & Sidewalk installation."
+    },
+    {
+     "road": "Douro St",
+     "fromRoad": "King-Liberty Pedestrian Cycle Bridge",
+     "toRoad": "King St W",
+     "type": "ROAD_CLOSED",
+     "subType": "ROAD_CLOSED_CONSTRUCTION",
+     "source": "Long term construction staging",
+     "description": "Toronto-TMC: Construction of 17-storey mixed-use building with 298 purpose-built rental units (6 affordable) and at-grade commercial space."
+    },
+    {
+     "road": "Bedford Rd",
+     "fromRoad": "Davenport Rd",
+     "toRoad": "Davenport Rd",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Long term construction staging",
+     "description": "Toronto-TMC: A construction staging area will be established within the City street allowance to facilitate the development of a new residential property. To ensure ongoing pedestrian access, a covered walkway will be constructed within a portion of the northbound curb lane and sidewalk adjacent to the site. The following existing traffic operations will remain: one lane in each direction, the designated left-turn lane, on-street parking, and bicycle lanes."
+    },
+    {
+     "road": "Simcoe St",
+     "fromRoad": "Ln S Queen W Simcoe",
+     "toRoad": "Queen St W",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Metrolinx",
+     "description": "Toronto-TMC: Full closure of Simcoe St. for bollard removal, curb cutting, and line painting. Pedestrian sidewalk to remain open on eastern side of Simcoe. Northbound bicycle lane open."
+    },
+    {
+     "road": "Temple Ave",
+     "fromRoad": "Tyndall Ave",
+     "toRoad": "Dufferin St",
+     "type": "CONSTRUCTION",
+     "subType": null,
+     "source": "Other",
+     "description": "Toronto-TMC: In its completed state, the proposed redevelopment will include a 16-storey residential building with a total of 269 units, together with amenity space and a 2 level underground parking garage with approximately 89 vehicle parking spaces and 284 bicycle parking spaces."
+    }
+   ]
+  },
+  "cycling_network": {
+   "features": 1581,
+   "keys": [
+    "_id",
+    "SEGMENT_ID",
+    "INSTALLED",
+    "UPGRADED",
+    "PRE_AMALGAMATION",
+    "STREET_NAME",
+    "FROM_STREET",
+    "TO_STREET",
+    "ROADCLASS",
+    "CNPCLASS",
+    "SURFACE",
+    "OWNER",
+    "DIR_LOWORDER",
+    "INFRA_LOWORDER",
+    "INFRA_HIGHORDER",
+    "CONVERTED"
+   ],
+   "infra_key_used": "INFRA_HIGHORDER",
+   "by_infra": {
+    "Multi-Use Trail": 370,
+    "Signed Route (No Pavement Markings)": 196,
+    "Bike Lane": 178,
+    "Multi-Use Trail - Entrance": 177,
+    "Sharrows": 141,
+    "Cycle Track": 137,
+    "Sharrows - Wayfinding": 102,
+    "Bike Lane - Contraflow": 84,
+    "Multi-Use Trail - Boulevard": 48,
+    "Bi-Directional Cycle Track": 36,
+    "Park Road": 35,
+    "Multi-Use Trail - Existing Connector": 18,
+    "Bike Lane - Buffered": 17,
+    "Cycle Track - Contraflow": 14,
+    "Sharrows - Arterial - Connector": 13,
+    "Multi-Use Trail - Connector": 10,
+    "Sharrows - Arterial": 5
+   }
+  },
+  "match": {
+   "no_geometry": 0,
+   "touching_bike_facility": 587,
+   "same_street_as_facility": 436,
+   "same_street_by_type": {
+    "CONSTRUCTION/None": 372,
+    "ROAD_CLOSED/ROAD_CLOSED_CONSTRUCTION": 64
+   },
+   "same_street_by_impact": {
+    "Low": 236,
+    "High": 189,
+    "Medium": 11
+   },
+   "same_street_by_infra": {
+    "Cycle Track": 135,
+    "Bike Lane": 115,
+    "Sharrows": 37,
+    "Bike Lane - Contraflow": 26,
+    "Signed Route (No Pavement Markings)": 24,
+    "Sharrows - Wayfinding": 21,
+    "Multi-Use Trail": 20,
+    "Sharrows - Arterial": 19,
+    "Bi-Directional Cycle Track": 15,
+    "Multi-Use Trail - Boulevard": 13,
+    "Sharrows - Arterial - Connector": 4,
+    "Bike Lane - Buffered": 4,
+    "Cycle Track - Contraflow": 3
+   },
+   "same_street_by_source": {
+    "Unknown": 116,
+    "Toronto Hydro": 84,
+    "{\"tabledata\":[{\"Option\":\"Toronto Water\"": 82,
+    "{\"tabledata\":[{\"Option\":\"Transportation Services\"": 38,
+    "Utility": 20,
+    "Other": 17,
+    "Metrolinx": 17,
+    "Gas Service": 12,
+    "Storage of trailer": 10,
+    "Long term construction staging": 9,
+    "{\"tabledata\":[{\"Option\":\"Other\"": 8,
+    "{\"tabledata\":[{\"Option\":\"Parks": 5,
+    "TTC": 5,
+    "Toronto Transit Commission": 5,
+    "Telecommunications": 3,
+    "Streetscape work": 2,
+    "Gasmain": 1,
+    "Road Resurfacing, Sidewalk Construction, Bridge Rehabilitation": 1,
+    "Walk-through/staging scaffold": 1
+   },
+   "same_street_by_workEventType": {
+    "Unknown": 116,
+    "Toronto Hydro": 84,
+    "{\"tabledata\":[{\"Option\":\"Toronto Water\"": 82,
+    "{\"tabledata\":[{\"Option\":\"Transportation Services\"": 38,
+    "Utility": 20,
+    "Other": 17,
+    "Metrolinx": 17,
+    "Gas Service": 12,
+    "Storage of trailer": 10,
+    "Long term construction staging": 9,
+    "{\"tabledata\":[{\"Option\":\"Other\"": 8,
+    "{\"tabledata\":[{\"Option\":\"Parks": 5,
+    "TTC": 5,
+    "Toronto Transit Commission": 5,
+    "Telecommunications": 3,
+    "Streetscape work": 2,
+    "Gasmain": 1,
+    "Road Resurfacing, Sidewalk Construction, Bridge Rehabilitation": 1,
+    "Walk-through/staging scaffold": 1
+   },
+   "same_street_mentions_bike": 7,
+   "same_street_mentions_curb": 25,
+   "same_street_roads": {
+    "Bay St": 46,
+    "Bloor St W": 36,
+    "Bayview Ave": 24,
+    "Yonge St": 14,
+    "Fort York Blvd": 13,
+    "Davenport Rd": 12,
+    "Faywood Blvd": 12,
+    "Danforth Ave": 12,
+    "Adelaide St W": 10,
+    "College St": 9,
+    "Eglinton Ave E": 8,
+    "Tecumseth St": 8,
+    "Richmond St W": 8,
+    "Harbour St": 8,
+    "Strachan Ave": 7,
+    "Bellevue Ave": 7,
+    "Bloor St E": 7,
+    "Gerrard St E": 6,
+    "Moore Ave": 6,
+    "Rimrock Rd": 6,
+    "Shaw St": 5,
+    "Wellesley St E": 5,
+    "Queen St E": 5,
+    "Beverley St": 5,
+    "Steeprock Dr": 5,
+    "Wellington St W": 4,
+    "Dundas St W": 4,
+    "Sherbourne St": 4,
+    "Sloley Rd": 4,
+    "Cosburn Ave": 4,
+    "Richmond St E": 4,
+    "Palmerston Ave": 3,
+    "Dawes Rd": 3,
+    "River St": 3,
+    "Royal York Rd": 3,
+    "Carlaw Ave": 3,
+    "Whitehorse Rd": 3,
+    "Chesswood Dr": 3,
+    "Wilmington Ave": 3,
+    "Bathurst St": 3,
+    "St Dennis Dr": 2,
+    "Gateway Blvd": 2,
+    "Douro St": 2,
+    "Finch Ave W": 2,
+    "Sumach St": 2,
+    "Welland Ave": 2,
+    "Emerson Ave": 2,
+    "Glen Cedar Rd": 2,
+    "Niagara St": 2,
+    "Gladstone Ave": 2,
+    "Edenbridge Dr": 2,
+    "Brock Ave": 2,
+    "Sheppard Ave E": 2,
+    "Simcoe St": 2,
+    "Galloway Rd": 2,
+    "Adelaide St E": 2,
+    "Eastern Ave": 2,
+    "Temperance St": 2,
+    "Dupont St": 2,
+    "Sunfield Rd": 2
+   },
+   "cross_street_only": 151
+  }
+ },
+ "chicago": {
+  "active_window": [
+   "2026-10-14",
+   "2026-10-21"
+  ],
+  "active_rows": [
+   {
+    "n": "53645"
+   }
+  ],
+  "columns": [
+   "applicationdescription",
+   "applicationenddate",
+   "applicationexpiredate",
+   "applicationfinalizeddate",
+   "applicationissueddate",
+   "applicationname",
+   "applicationnumber",
+   "applicationprocesseddate",
+   "applicationstartdate",
+   "applicationstatus",
+   "applicationtype",
+   "comments",
+   "currentmilestone",
+   "detail",
+   "direction",
+   "emergencycontactname",
+   "lastinspectiondate",
+   "lastinspectionnumber",
+   "lastinspectionresult",
+   "lastinspectiontype",
+   "lastinsptypedescr",
+   "latitude",
+   "location",
+   "longitude",
+   "parkingmeterpostingorbagging",
+   "placement",
+   "primarycontactcity",
+   "primarycontactfirst",
+   "primarycontactlast",
+   "primarycontactmiddle",
+   "primarycontactstate",
+   "primarycontactstreet",
+   "primarycontactstreet2",
+   "primarycontactzip",
+   "streetclosure",
+   "streetname",
+   "streetnumberfrom",
+   "streetnumberto",
+   "suffix",
+   "totalfees",
+   "uniquekey",
+   "waivedfees",
+   "ward",
+   "worktype",
+   "worktypedescription",
+   "xcoordinate",
+   "ycoordinate"
+  ],
+  "sample_key_survey": {
+   "applicationdescription": {
+    "nonempty": 2000,
+    "distinct_short": 9,
+    "top": {
+     "DOT Public Way Opening": 874,
+     "DOT Occupy the Pub. ROW Permit": 359,
+     "DOT Dumpster Permit": 257,
+     "DOT Periodic Process": 251,
+     "DOT Special Event Permit": 113,
+     "DOT Truck Routing Permits": 94,
+     "DOT Construction Canopy Permit": 47,
+     "DOT Miscellaneous Permits": 3,
+     "DOT Driveway Install Permit": 2
+    }
+   },
+   "applicationenddate": {
+    "nonempty": 2000,
+    "distinct_short": 4,
+    "top": {
+     "2026-10-16T23:59:59.000": 592,
+     "2026-10-15T23:59:59.000": 578,
+     "2026-10-14T23:59:59.000": 437,
+     "2026-10-17T23:59:59.000": 393
+    }
+   },
+   "applicationexpiredate": {
+    "nonempty": 1780,
+    "distinct_short": 25,
+    "top": {
+     "2026-10-16T23:59:59.000": 490,
+     "2026-10-15T23:59:59.000": 396,
+     "2026-10-14T23:59:59.000": 369,
+     "2026-10-17T23:59:59.000": 314,
+     "2026-10-15T00:00:00.000": 113,
+     "2026-10-14T00:00:00.000": 26,
+     "2026-10-16T00:00:00.000": 26,
+     "2026-10-17T00:00:00.000": 25,
+     "2026-09-16T23:59:59.000": 3,
+     "2026-09-15T23:59:59.000": 2,
+     "2026-09-01T23:59:59.000": 2,
+     "2026-10-14T11:03:19.000": 1,
+     "2026-10-14T12:07:03.000": 1,
+     "2026-10-14T12:18:10.000": 1,
+     "2026-10-15T11:24:24.000": 1
+    }
+   },
+   "applicationfinalizeddate": {
+    "nonempty": 170,
+    "distinct_short": 155,
+    "top": {
+     "2026-10-12T12:36:57.000": 7,
+     "2026-10-13T20:11:03.000": 6,
+     "2026-10-12T12:37:05.000": 3,
+     "2026-10-13T20:10:51.000": 2,
+     "2026-08-26T14:26:10.000": 2,
+     "2026-09-29T10:02:27.000": 1,
+     "2026-09-29T11:48:46.000": 1,
+     "2026-09-29T13:30:51.000": 1,
+     "2026-09-23T10:57:07.000": 1,
+     "2026-09-25T11:37:45.000": 1,
+     "2026-09-25T11:35:44.000": 1,
+     "2026-09-27T16:13:47.000": 1,
+     "2026-09-29T10:08:44.000": 1,
+     "2026-09-29T05:50:44.000": 1,
+     "2026-09-29T09:38:45.000": 1
+    }
+   },
+   "applicationissueddate": {
+    "nonempty": 1781,
+    "distinct_short": 1340,
+    "top": "many"
+   },
+   "applicationname": {
+    "nonempty": 1986,
+    "distinct_short": 1374,
+    "top": "many"
+   },
+   "applicationnumber": {
+    "nonempty": 2000,
+    "distinct_short": 1707,
+    "top": "many"
+   },
+   "applicationprocesseddate": {
+    "nonempty": 1870,
+    "distinct_short": 1438,
+    "top": "many"
+   },
+   "applicationstartdate": {
+    "nonempty": 2000,
+    "distinct_short": 222,
+    "top": {
+     "2026-09-16T00:00:00.000": 245,
+     "2026-09-17T00:00:00.000": 231,
+     "2026-09-15T00:00:00.000": 206,
+     "2026-09-18T00:00:00.000": 164,
+     "2026-09-14T00:00:00.000": 80,
+     "2026-10-17T00:00:00.000": 71,
+     "2026-10-15T00:00:00.000": 67,
+     "2026-10-14T00:00:00.000": 62,
+     "2026-09-30T00:00:00.000": 53,
+     "2026-10-02T00:00:00.000": 47,
+     "2026-10-16T00:00:00.000": 40,
+     "2026-10-12T00:00:00.000": 37,
+     "2026-10-13T00:00:00.000": 37,
+     "2026-10-01T00:00:00.000": 36,
+     "2026-08-17T00:00:00.000": 29
+    }
+   },
+   "applicationstatus": {
+    "nonempty": 2000,
+    "distinct_short": 2,
+    "top": {
+     "Open": 1753,
+     "Closed": 247
+    }
+   },
+   "applicationtype": {
+    "nonempty": 2000,
+    "distinct_short": 9,
+    "top": {
+     "DOT_PWO": 874,
+     "DOT_OCC": 359,
+     "DOT_DMPSTR": 257,
+     "DOT_PERIOD": 251,
+     "DOT_SE": 113,
+     "DOT_TRUCK": 94,
+     "DOT_CANOPY": 47,
+     "DOT_MISC": 3,
+     "DOT_DRVINS": 2
+    }
+   },
+   "comments": {
+    "nonempty": 1849,
+    "distinct_short": 548,
+    "top": "many"
+   },
+   "currentmilestone": {
+    "nonempty": 2000,
+    "distinct_short": 12,
+    "top": {
+     "Inspection": 1330,
+     "Periodic Renewal": 248,
+     "Complete": 170,
+     "Application Checks": 75,
+     "Cancelled": 68,
+     "Fee Payment": 52,
+     "Application in Review": 21,
+     "Incomplete Application": 19,
+     "Denied": 9,
+     "Permit Active": 4,
+     "Final Fee Payment": 3,
+     "Registered": 1
+    }
+   },
+   "detail": {
+    "nonempty": 710,
+    "distinct_short": 325,
+    "top": {
+     "Curblane closure when removing and replacing materials": 19,
+     "CURBLANE CLOSURE FOR CONSTRUCTION VEHICLES": 19,
+     "COC 2": 15,
+     "REPLACE POLE, OVERHEAD, POLE STORAGE": 14,
+     "PRIVATE DRAIN REPAIR": 14,
+     "COC 1": 11,
+     "REPLACE POLES, OVERHEAD": 10,
+     "CITYWIDE 8": 9,
+     "INTERSECTION": 8,
+     "Open Cut & DB": 7,
+     "SET POLE, OVERHEAD, POLE STORAGE": 7,
+     "Delivery of Materials": 7,
+     "DEFECTIVE B-BOX": 7,
+     "LEAK IN PARKWAY": 6,
+     "COC 3A": 6
+    }
+   },
+   "direction": {
+    "nonempty": 1639,
+    "distinct_short": 4,
+    "top": {
+     "W": 569,
+     "S": 490,
+     "N": 484,
+     "E": 96
+    }
+   },
+   "emergencycontactname": {
+    "nonempty": 1908,
+    "distinct_short": 643,
+    "top": "many"
+   },
+   "lastinspectiondate": {
+    "nonempty": 10,
+    "distinct_short": 9,
+    "top": {
+     "2026-10-01T08:44:58.000": 2,
+     "2026-10-09T12:54:29.000": 1,
+     "2026-10-01T08:46:46.000": 1,
+     "2026-10-01T08:48:17.000": 1,
+     "2026-10-01T08:47:47.000": 1,
+     "2026-10-01T08:47:30.000": 1,
+     "2026-10-01T08:47:11.000": 1,
+     "2025-09-10T09:38:00.000": 1,
+     "2025-10-09T09:49:00.000": 1
+    }
+   },
+   "lastinspectionnumber": {
+    "nonempty": 10,
+    "distinct_short": 9,
+    "top": {
+     "2330791": 2,
+     "2328808": 1,
+     "2330797": 1,
+     "2330799": 1,
+     "2330801": 1,
+     "2330802": 1,
+     "2330804": 1,
+     "2199636": 1,
+     "2204388": 1
+    }
+   },
+   "lastinspectionresult": {
+    "nonempty": 10,
+    "distinct_short": 2,
+    "top": {
+     "Cancelled": 8,
+     "Completed": 2
+    }
+   },
+   "lastinspectiontype": {
+    "nonempty": 10,
+    "distinct_short": 3,
+    "top": {
+     "DOT_OCC": 7,
+     "DOT_DRVINS": 2,
+     "DOT_PWO": 1
+    }
+   },
+   "lastinsptypedescr": {
+    "nonempty": 10,
+    "distinct_short": 3,
+    "top": {
+     "DOT Occupy the Pub. ROW Inspection": 7,
+     "CDOT Driveway Installation Inspection": 2,
+     "CDOT Public Way Opening Inspection": 1
+    }
+   },
+   "latitude": {
+    "nonempty": 1638,
+    "distinct_short": 1542,
+    "top": "many"
+   },
+   "location": {
+    "nonempty": 1638,
+    "distinct_short": 0,
+    "top": {}
+   },
+   "longitude": {
+    "nonempty": 1638,
+    "distinct_short": 1542,
+    "top": "many"
+   },
+   "parkingmeterpostingorbagging": {
+    "nonempty": 231,
+    "distinct_short": 1,
+    "top": {
+     "Y": 231
+    }
+   },
+   "placement": {
+    "nonempty": 304,
+    "distinct_short": 3,
+    "top": {
+     "CURBLANE": 253,
+     "SIDEPARK-P": 47,
+     "ALLEY": 4
+    }
+   },
+   "primarycontactcity": {
+    "nonempty": 1996,
+    "distinct_short": 127,
+    "top": {
+     "CHICAGO": 585,
+     "Chicago": 497,
+     "Oakbrook": 200,
+     "CICERO": 67,
+     "MARKHAM": 62,
+     "BROOKFIELD": 46,
+     "BLUE ISLAND": 34,
+     "Lombard": 30,
+     "RIVERDALE": 25,
+     "BEVERLY HILLS": 25,
+     "DOWNERS GROVE": 21,
+     "GLENVIEW": 19,
+     "MORTON GROVE": 17,
+     "COLUMBUS": 17,
+     "LOUISVILLE": 17
+    }
+   },
+   "primarycontactfirst": {
+    "nonempty": 180,
+    "distinct_short": 149,
+    "top": {
+     "MICHAEL": 5,
+     "Matthew": 5,
+     "Peytyn": 3,
+     "JUAN": 3,
+     "RICHARD": 3,
+     "TIM": 3,
+     "Anthony": 3,
+     "Tony": 3,
+     "FRANK": 2,
+     "TIMOTHY": 2,
+     "CHARLES": 2,
+     "DANIEL": 2,
+     "JAMES": 2,
+     "JOSEPH": 2,
+     "PAUL": 2
+    }
+   },
+   "primarycontactlast": {
+    "nonempty": 2000,
+    "distinct_short": 543,
+    "top": "many"
+   },
+   "primarycontactmiddle": {
+    "nonempty": 12,
+    "distinct_short": 8,
+    "top": {
+     "M": 3,
+     "A": 2,
+     "D": 2,
+     "H": 1,
+     "K": 1,
+     "G": 1,
+     "C": 1,
+     "Y": 1
+    }
+   },
+   "primarycontactstate": {
+    "nonempty": 1997,
+    "distinct_short": 22,
+    "top": {
+     "IL": 1814,
+     "Illinois": 47,
+     "CO": 30,
+     "CA": 28,
+     "OH": 23,
+     "NY": 14,
+     "VA": 5,
+     "IN": 4,
+     "NJ": 4,
+     "MD": 4,
+     "ILLINOIS": 4,
+     "OHIO": 4,
+     "SC": 3,
+     "FL": 3,
+     "MA": 2
+    }
+   },
+   "primarycontactstreet": {
+    "nonempty": 1996,
+    "distinct_short": 543,
+    "top": "many"
+   },
+   "primarycontactstreet2": {
+    "nonempty": 93,
+    "distinct_short": 64,
+    "top": {
+     "SUITE G": 8,
+     "SUITE EE": 8,
+     "Suite 201": 5,
+     "73rd Floor": 4,
+     "SUITE 111": 3,
+     "STE 500": 3,
+     "UNIT 3S": 2,
+     "P O BOX 182": 2,
+     "Cinespace Film Studios": 2,
+     "SUITE 2700": 2,
+     "7TH FLOOR": 1,
+     "ATTN:   DAN  ALEXANDER": 1,
+     "LUKE THOMAS": 1,
+     "C/O   THE  HABITAT  COMPANY": 1,
+     "SUITE #408": 1
+    }
+   },
+   "primarycontactzip": {
+    "nonempty": 1795,
+    "distinct_short": 184,
+    "top": {
+     "60611": 294,
+     "60804": 67,
+     "60623": 65,
+     "60601": 64,
+     "60609": 64,
+     "60426": 60,
+     "60608": 47,
+     "60513": 46,
+     "60656": 45,
+     "60622": 44,
+     "60639": 42,
+     "60148": 36,
+     "60406": 34,
+     "60618": 33,
+     "60827": 25
+    }
+   },
+   "streetclosure": {
+    "nonempty": 1146,
+    "distinct_short": 6,
+    "top": {
+     "NA": 429,
+     "Curblane": 293,
+     "None": 187,
+     "Full": 141,
+     "Sidewalk": 52,
+     "Partial": 44
+    }
+   },
+   "streetname": {
+    "nonempty": 1639,
+    "distinct_short": 547,
+    "top": "many"
+   },
+   "streetnumberfrom": {
+    "nonempty": 1639,
+    "distinct_short": 1214,
+    "top": "many"
+   },
+   "streetnumberto": {
+    "nonempty": 1639,
+    "distinct_short": 1298,
+    "top": "many"
+   },
+   "suffix": {
+    "nonempty": 1623,
+    "distinct_short": 11,
+    "top": {
+     "AVE": 907,
+     "ST": 560,
+     "PL": 62,
+     "BLVD": 30,
+     "RD": 27,
+     "DR": 22,
+     "PKWY": 6,
+     "TER": 4,
+     "CT": 3,
+     "PLZ": 1,
+     "HWY": 1
+    }
+   },
+   "totalfees": {
+    "nonempty": 1724,
+    "distinct_short": 341,
+    "top": {
+     "778.54": 277,
+     "122.6": 141,
+     "741.47": 109,
+     "10": 99,
+     "1557.08": 67,
+     "389.26": 57,
+     "4057.08": 39,
+     "0": 39,
+     "156.51": 32,
+     "50": 32,
+     "150": 25,
+     "72.6": 23,
+     "3707.35": 20,
+     "30": 20,
+     "250": 19
+    }
+   },
+   "uniquekey": {
+    "nonempty": 2000,
+    "distinct_short": 2000,
+    "top": "many"
+   },
+   "waivedfees": {
+    "nonempty": 840,
+    "distinct_short": 102,
+    "top": {
+     "778.54": 237,
+     "741.47": 59,
+     "1557.08": 56,
+     "389.26": 51,
+     "122.6": 42,
+     "4057.08": 36,
+     "0": 24,
+     "3707.35": 15,
+     "3114.16": 14,
+     "6557.08": 12,
+     "1482.94": 12,
+     "11557.08": 10,
+     "556.51": 10,
+     "222.6": 10,
+     "23727.04": 10
+    }
+   },
+   "ward": {
+    "nonempty": 1638,
+    "distinct_short": 50,
+    "top": {
+     "1": 64,
+     "32": 58,
+     "40": 58,
+     "27": 56,
+     "47": 49,
+     "42": 48,
+     "43": 47,
+     "29": 46,
+     "9": 41,
+     "4": 41,
+     "18": 39,
+     "44": 39,
+     "19": 37,
+     "28": 37,
+     "6": 36
+    }
+   },
+   "worktype": {
+    "nonempty": 1741,
+    "distinct_short": 25,
+    "top": {
+     "GenOpening": 763,
+     "Driveway": 218,
+     "GenOccupy": 213,
+     "OWOS": 90,
+     "ManholeAcc": 76,
+     "Restorat": 58,
+     "MovingVan": 51,
+     "BlockParty": 50,
+     "Maint": 45,
+     "Filming": 43,
+     "WorkInAdv": 34,
+     "Signs": 33,
+     "SoilNWell": 19,
+     "UtilityP": 18,
+     "Festival": 10
+    }
+   },
+   "worktypedescription": {
+    "nonempty": 1741,
+    "distinct_short": 24,
+    "top": {
+     "Opening in the Public Way": 763,
+     "Driveway Constr or Removal": 218,
+     "Overweight/Oversized Vehicle": 90,
+     "Manhole Access": 76,
+     "Restoration": 58,
+     "Moving Van Parking": 51,
+     "Block Party": 50,
+     "Maintenance": 45,
+     "Filming": 43,
+     "Work in Advance": 34,
+     "Signs": 33,
+     "Soil Boring / Well Monitoring": 19,
+     "Utility Pole Storage": 18,
+     "Festival": 10,
+     "Athletic": 6
+    }
+   },
+   "xcoordinate": {
+    "nonempty": 1638,
+    "distinct_short": 1508,
+    "top": "many"
+   },
+   "ycoordinate": {
+    "nonempty": 1638,
+    "distinct_short": 1533,
+    "top": "many"
+   }
+  },
+  "by_streetclosure": [
+   {
+    "n": "38262"
+   },
+   {
+    "streetclosure": "Curblane",
+    "n": "5014"
+   },
+   {
+    "streetclosure": "NA",
+    "n": "4857"
+   },
+   {
+    "streetclosure": "None",
+    "n": "2901"
+   },
+   {
+    "streetclosure": "Sidewalk",
+    "n": "1356"
+   },
+   {
+    "streetclosure": "Full",
+    "n": "768"
+   },
+   {
+    "streetclosure": "Partial",
+    "n": "485"
+   },
+   {
+    "streetclosure": "Intermitte",
+    "n": "2"
+   }
+  ],
+  "by_worktype": [
+   {
+    "worktypedescription": "Driveway Constr or Removal",
+    "n": "24930"
+   },
+   {
+    "worktypedescription": "Opening in the Public Way",
+    "n": "11186"
+   },
+   {
+    "worktypedescription": "Signs",
+    "n": "5786"
+   },
+   {
+    "worktypedescription": "Small Cell",
+    "n": "3077"
+   },
+   {
+    "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+    "n": "2622"
+   },
+   {
+    "n": "1453"
+   },
+   {
+    "worktypedescription": "Restoration",
+    "n": "919"
+   },
+   {
+    "worktypedescription": "Parking City Wide Annually",
+    "n": "731"
+   },
+   {
+    "worktypedescription": "Maintenance",
+    "n": "665"
+   },
+   {
+    "worktypedescription": "Manhole Access",
+    "n": "617"
+   },
+   {
+    "worktypedescription": "Work in Advance",
+    "n": "359"
+   },
+   {
+    "worktypedescription": "Overweight/Oversized Vehicle",
+    "n": "350"
+   },
+   {
+    "worktypedescription": "Utility Pole Storage",
+    "n": "215"
+   },
+   {
+    "worktypedescription": "Soil Boring / Well Monitoring",
+    "n": "144"
+   },
+   {
+    "worktypedescription": "Moving Van Parking",
+    "n": "89"
+   },
+   {
+    "worktypedescription": "Make Way for People Program",
+    "n": "75"
+   },
+   {
+    "worktypedescription": "Block Party",
+    "n": "74"
+   },
+   {
+    "worktypedescription": "Filming",
+    "n": "72"
+   },
+   {
+    "worktypedescription": "Festival",
+    "n": "51"
+   },
+   {
+    "worktypedescription": "Farmer's Market",
+    "n": "42"
+   },
+   {
+    "worktypedescription": "Media Parking",
+    "n": "41"
+   },
+   {
+    "worktypedescription": "Construction",
+    "n": "28"
+   },
+   {
+    "worktypedescription": "Overweight Axle",
+    "n": "20"
+   },
+   {
+    "worktypedescription": "Athletic",
+    "n": "15"
+   },
+   {
+    "worktypedescription": "Street Closure",
+    "n": "14"
+   },
+   {
+    "worktypedescription": "Maps & Plats Dedication",
+    "n": "13"
+   },
+   {
+    "worktypedescription": "Travel on Industrial Corridor",
+    "n": "9"
+   },
+   {
+    "worktypedescription": "Newspaper Stand",
+    "n": "9"
+   },
+   {
+    "worktypedescription": "Freight Tunnel",
+    "n": "9"
+   },
+   {
+    "worktypedescription": "Travel on LSD & Boulevards",
+    "n": "7"
+   },
+   {
+    "worktypedescription": "Display Vehicle",
+    "n": "5"
+   },
+   {
+    "worktypedescription": "Vacation",
+    "n": "5"
+   },
+   {
+    "worktypedescription": "Conduit",
+    "n": "4"
+   },
+   {
+    "worktypedescription": "Parade",
+    "n": "3"
+   },
+   {
+    "worktypedescription": "Sidewalk Sale",
+    "n": "2"
+   },
+   {
+    "worktypedescription": "Public Place Obstruction",
+    "n": "1"
+   },
+   {
+    "worktypedescription": "Assembly",
+    "n": "1"
+   },
+   {
+    "worktypedescription": "Overweight Vehicle",
+    "n": "1"
+   },
+   {
+    "worktypedescription": "Helicopter Lift",
+    "n": "1"
+   }
+  ],
+  "bike_words_in_active": {
+   "count": 367,
+   "by_closure": {
+    "null": 162,
+    "Curblane": 157,
+    "NA": 41,
+    "Sidewalk": 4,
+    "None": 2,
+    "Partial": 1
+   },
+   "by_worktype": {
+    "Manhole Access": 155,
+    "Work in Advance": 78,
+    "Opening in the Public Way": 76,
+    "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment": 38,
+    "Soil Boring / Well Monitoring": 11,
+    "Signs": 5,
+    "Restoration": 2,
+    "Maps & Plats Dedication": 1,
+    "Driveway Constr or Removal": 1
+   },
+   "examples": [
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "FULTON",
+     "comments": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "KOSTNER",
+     "comments": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "KILDARE",
+     "comments": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "AUGUSTA",
+     "comments": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "KILPATRICK",
+     "comments": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "MADISON",
+     "comments": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "MANHOLE ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "P272964",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "63RD",
+     "comments": "PRP EQUIPMENT STORAGE -BIKE LANE - 24/7",
+     "detail": null
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "AUGUSTA",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkRing1Fiber",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "KOSTNER",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF\nCURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED\n(WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 -\nPD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "FULTON",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "IOWA",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx3",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "MAYPOLE",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "KILBOURN",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkRing1Fiber",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "VAN BUREN",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF\nCURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED\n(WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 -\nPD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx3",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "LARAMIE",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkRing1Fiber",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "KOLMAR",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF\nCURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED\n(WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 -\nPD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "CHICAGO",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "MADISON",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkRing1Fiber",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "KENTON",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF\nCURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED\n(WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 -\nPD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "KILPATRICK",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx3",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "WEST END",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkRing1Fiber",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "HARRISON",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF\nCURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED\n(WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 -\nPD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkRing1Fiber",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "LEXINGTON",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF\nCURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED\n(WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 -\nPD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx3",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "THOMAS",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "KILDARE",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkRing1Fiber",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "KOLMAR",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF\nCURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED\n(WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 -\nPD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkRing1Fiber",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "ROOSEVELT",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF\nCURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED\n(WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 -\nPD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx2",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "KOSTNER",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx3",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "LARAMIE",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkR1Fiberx3",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "CICERO",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0205_ColumbusParkRing1Fiber",
+     "worktypedescription": "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment",
+     "streetclosure": "NA",
+     "streetname": "KENTON",
+     "comments": "OVHD WORK, BUCKET TRUCKS, ACCESS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF\nCURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED\n(WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 -\nPD1C224302_Columbus Park)",
+     "detail": "OVHD EQUIPMENT - BUCKET TRUCKS, EQUIPMENT, TRUCKS - VARIOUS MANHOLES - USE OF CURB/TRAFFIC/PARKWAY/SIDEWALK/ALLEYS/BIKE LANES WHERE REQUIRED (WO17166905_CP Ring 1 Fiber Design DF-TSS30-TSS30-01 - PD1C224302_Columbus Park)"
+    },
+    {
+     "applicationname": "26-0640_X4053 WO# 19064990",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "ROSLYN",
+     "comments": "Various manhole access, equipment, trucks - 26-0640_X4053 WO# 19064990",
+     "detail": "Various manhole access, equipment, trucks - 100FT OCCUPATION-TRAFFIC-BIKE-CURB-PARKWAY-SIDEWALK_ 26-0640_X4053 WO# 19064990"
+    },
+    {
+     "applicationname": "26-0640_X4053 WO# 19064990",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "ST JAMES",
+     "comments": "Various manhole access, equipment, trucks - 26-0640_X4053 WO# 19064990",
+     "detail": "Various manhole access, equipment, trucks - 100FT OCCUPATION-TRAFFIC-BIKE-CURB-PARKWAY-SIDEWALK_ 26-0640_X4053 WO# 19064990"
+    },
+    {
+     "applicationname": "26-0640_X4053 WO# 19064990",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "ARLINGTON",
+     "comments": "Various manhole access, equipment, trucks - 26-0640_X4053 WO# 19064990",
+     "detail": "Various manhole access, equipment, trucks - 100FT OCCUPATION-TRAFFIC-BIKE-CURB-PARKWAY-SIDEWALK_ 26-0640_X4053 WO# 19064990"
+    },
+    {
+     "applicationname": "26-0640_X4053 WO# 19064990",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "WRIGHTWOOD",
+     "comments": "Various manhole access, equipment, trucks - 26-0640_X4053 WO# 19064990",
+     "detail": "Various manhole access, equipment, trucks - 100FT OCCUPATION-TRAFFIC-BIKE-CURB-PARKWAY-SIDEWALK_ 26-0640_X4053 WO# 19064990"
+    },
+    {
+     "applicationname": "26-0640_X4053 WO# 19064990",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "SCHUBERT",
+     "comments": "Various manhole access, equipment, trucks - 26-0640_X4053 WO# 19064990",
+     "detail": "Various manhole access, equipment, trucks - 100FT OCCUPATION-TRAFFIC-BIKE-CURB-PARKWAY-SIDEWALK_ 26-0640_X4053 WO# 19064990"
+    },
+    {
+     "applicationname": "26-0640_X4053 WO# 19064990",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "HALSTED",
+     "comments": "Various manhole access, equipment, trucks - 26-0640_X4053 WO# 19064990",
+     "detail": "Various manhole access, equipment, trucks - 100FT OCCUPATION-TRAFFIC-BIKE-CURB-PARKWAY-SIDEWALK_ 26-0640_X4053 WO# 19064990"
+    },
+    {
+     "applicationname": "26-0640_X4053 WO# 19064990",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "CLARK",
+     "comments": "Various manhole access, equipment, trucks - 26-0640_X4053 WO# 19064990",
+     "detail": "Various manhole access, equipment, trucks - 100FT OCCUPATION-TRAFFIC-BIKE-CURB-PARKWAY-SIDEWALK_ 26-0640_X4053 WO# 19064990"
+    },
+    {
+     "applicationname": "26-0640_X4053 WO# 19064990",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "LAKEVIEW",
+     "comments": "Various manhole access, equipment, trucks - 26-0640_X4053 WO# 19064990",
+     "detail": "Various manhole access, equipment, trucks - 100FT OCCUPATION-TRAFFIC-BIKE-CURB-PARKWAY-SIDEWALK_ 26-0640_X4053 WO# 19064990"
+    },
+    {
+     "applicationname": "26-0640_X4053 WO# 19064990",
+     "worktypedescription": "Manhole Access",
+     "streetclosure": null,
+     "streetname": "PINE GROVE",
+     "comments": "Various manhole access, equipment, trucks - 26-0640_X4053 WO# 19064990",
+     "detail": "Various manhole access, equipment, trucks - 100FT OCCUPATION-TRAFFIC-BIKE-CURB-PARKWAY-SIDEWALK_ 26-0640_X4053 WO# 19064990"
+    }
+   ]
+  },
+  "bike_routes": {
+   "features": 1008,
+   "keys": [
+    "br_oneway",
+    "br_ow_dir",
+    "contraflow",
+    "displayrou",
+    "f_street",
+    "mi_ctrline",
+    "oneway_dir",
+    "st_name",
+    "street",
+    "t_street"
+   ],
+   "by_route_type": {
+    "Bike Lane": 285,
+    "Neighborhood Greenway": 258,
+    "Buffered Bike Lane": 184,
+    "Protected Bike Lane": 174,
+    "Marked Shared Lane": 107
+   }
+  },
+  "match": {
+   "closing_rows": 6267,
+   "no_point": 4,
+   "on_bike_route_same_street": 930,
+   "by_closure": {
+    "Curblane": 762,
+    "Partial": 88,
+    "Full": 80
+   },
+   "by_route_type": {
+    "Bike Lane": 302,
+    "Neighborhood Greenway": 234,
+    "Buffered Bike Lane": 206,
+    "Protected Bike Lane": 104,
+    "Marked Shared Lane": 84
+   },
+   "closure_x_route": {
+    "Curblane / Bike Lane": 253,
+    "Curblane / Neighborhood Greenway": 200,
+    "Curblane / Buffered Bike Lane": 159,
+    "Curblane / Protected Bike Lane": 80,
+    "Curblane / Marked Shared Lane": 70,
+    "Partial / Buffered Bike Lane": 28,
+    "Partial / Bike Lane": 27,
+    "Full / Bike Lane": 22,
+    "Full / Neighborhood Greenway": 22,
+    "Full / Buffered Bike Lane": 19,
+    "Partial / Protected Bike Lane": 15,
+    "Partial / Neighborhood Greenway": 12,
+    "Full / Protected Bike Lane": 9,
+    "Full / Marked Shared Lane": 8,
+    "Partial / Marked Shared Lane": 6
+   },
+   "by_worktype": {
+    "Opening in the Public Way": 737,
+    "Work Vehicles, Temporary Driveways, Barricades, Operating Equipment": 105,
+    "Work in Advance": 38,
+    "Restoration": 27,
+    "Soil Boring / Well Monitoring": 11,
+    "Festival": 5,
+    "Street Closure": 4,
+    "Athletic": 2,
+    "Block Party": 1
+   },
+   "by_placement": {
+    "null": 930
+   },
+   "mentions_bike": 38,
+   "streets": {
+    "N MILWAUKEE AVE": 36,
+    "N DAMEN AVE": 31,
+    "N CLARK ST": 29,
+    "W 63RD ST": 28,
+    "N LINCOLN AVE": 18,
+    "N KEDZIE AVE": 17,
+    "S STATE ST": 17,
+    "N CALIFORNIA AVE": 16,
+    "W LAWRENCE AVE": 15,
+    "W ROSCOE ST": 15,
+    "N LEAVITT ST": 14,
+    "W WASHINGTON BLVD": 14,
+    "N MENARD AVE": 13,
+    "N ELSTON AVE": 13,
+    "N WOOD ST": 12,
+    "S HALSTED ST": 11,
+    "N KENMORE AVE": 11,
+    "N GLENWOOD AVE": 11,
+    "W ARMITAGE AVE": 11,
+    "N WINTHROP AVE": 11,
+    "N HALSTED ST": 10,
+    "N CLYBOURN AVE": 10,
+    "W DIVERSEY AVE": 9,
+    "W ALDINE AVE": 9,
+    "W BELMONT AVE": 9,
+    "W WRIGHTWOOD AVE": 9,
+    "W LELAND AVE": 9,
+    "W LAKE ST": 8,
+    "N SOUTHPORT AVE": 8,
+    "W 18TH ST": 8,
+    "W CHICAGO AVE": 8,
+    "S INDIANA AVE": 8,
+    "W GRAND AVE": 8,
+    "W DIVISION ST": 7,
+    "N ROCKWELL ST": 7,
+    "N LARAMIE AVE": 7,
+    "S CENTRAL PARK AVE": 7,
+    "W ARGYLE ST": 7,
+    "W BERWYN AVE": 7,
+    "S SOUTH CHICAGO AVE": 7,
+    "S DR MARTIN LUTHER KING JR DR": 7,
+    "W HARRISON ST": 7,
+    "W POLK ST": 7,
+    "N WELLS ST": 7,
+    "W NORTH AVE": 6,
+    "N CENTRAL PARK AVE": 6,
+    "N HAMLIN AVE": 6,
+    "W FULLERTON AVE": 6,
+    "N AVERS AVE": 6,
+    "E 83RD ST": 6,
+    "W BRYN MAWR AVE": 6,
+    "N AUSTIN AVE": 6,
+    "W 81ST ST": 6,
+    "E 93RD ST": 6,
+    "S KEELER AVE": 6,
+    "W 59TH ST": 6,
+    "W TAYLOR ST": 6,
+    "W HUBBARD ST": 6,
+    "W BERTEAU AVE": 5,
+    "W SCHOOL ST": 5
+   },
+   "with_address_range": 657
+  }
+ }
+}
