@@ -181,6 +181,9 @@ How the website's search does it, for an app that wants to match:
   The freshness line ("As of Oct 14") comes from the layer file's `asof` (`closures.geojson`,
   `changes.geojson`) filled into `asofText` (default "as of {date}"). Optional top-level `panelTabs`
   (`all`, `basic`, `live`, `liveNote`) overrides the tab text. Apps may ignore all of it.
+- `directions` (optional; October 14, 2026): text for the website's directions buttons (`title`, `google`,
+  `apple`, `pick`). Website only: it links to Google Maps or Apple Maps directions to a place's coordinates.
+  Apps may ignore it.
 - `card`: `pills`, `facts`, `living`, `reps` (section 6).
 - `lens.file` (the profiles file) and `lens.lenses`: each has `key` (the profile field holding a
   tier id) and `tiers: [[tierId, label, colourVariable], …]`. Use the label; the colour variable

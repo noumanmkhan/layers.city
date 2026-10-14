@@ -1307,7 +1307,7 @@ function nearby(x, y){
   const N = CITY.card.nearby, G = data.nearby && data.nearby.groups; if (!N || !G) return '';
   const rows = N.nearest.map(([key, label]) => {
     const best = (G[key] || []).map(p => [p, metres([x, y], p)]).sort((a, b) => a[1] - b[1])[0];
-    return best ? '<dt>' + esc(label) + '</dt><dd>' + esc(best[0][2]) + '<span>' + dist(best[1]) + ' away</span></dd>' : '';
+    return best ? '<dt>' + esc(label) + '</dt><dd><span class="dir-row">' + esc(best[0][2]) + dirBtn(best[0][1], best[0][0], best[0][2]) + '</span><span>' + dist(best[1]) + ' away</span></dd>' : '';
   }).join('');
   const counts = N.counts.map(([key, one, many]) => {
     const n = (G[key] || []).filter(p => metres([x, y], p) <= N.radius).length;
@@ -1542,12 +1542,49 @@ function addressRow(x, y){
   }
   return [A.label, esc(side === 'e' ? A.east : A.west) + blk + (A.sub ? '<span class="ag-sub">' + esc(fill(A.sub, {street: ex})) + '</span>' : ''), true];
 }
+/* Directions: hand a place to a phone's or computer's own maps app for real routes and travel times (the card
+   only gives straight-line distances). A [data-dir="lat,lng"] button opens Google Maps' directions to it; on
+   Apple devices (iPhone, iPad, Mac) it first offers Apple Maps or Google Maps. Both are plain links: on a phone
+   they open the installed app, starting from where the visitor is. Nothing is sent anywhere until they pick. */
+const APPLE = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+const DIR_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.6 14.4 8 8 14.4 1.6 8z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6.2 10.2V8.4c0-.6.4-1 1-1h3M8.8 5.8l1.6 1.6-1.6 1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const DIR_TEXT = Object.assign({title: 'Directions', google: 'Google Maps', apple: 'Apple Maps', pick: 'Get directions in'}, CITY.directions || {});
+const dirUrl = (app, lat, lng) => app === 'apple' ? 'https://maps.apple.com/?daddr=' + lat + ',' + lng
+  : 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng;
+const dirAt = (lat, lng, name) => ' data-dir="' + (+lat).toFixed(6) + ',' + (+lng).toFixed(6) + '" data-dir-name="' + esc(name || '') + '"';
+// A small icon button (card header, Nearby rows) or a text button (cls "dir-t": the vote box).
+const dirBtn = (lat, lng, name, text) => text
+  ? '<button type="button" class="dir-t"' + dirAt(lat, lng, name) + '>' + esc(DIR_TEXT.title) + ' ↗</button>'
+  : '<button type="button" class="dir"' + dirAt(lat, lng, name) + ' aria-label="' + esc(DIR_TEXT.title + (name ? ' to ' + name : '')) + '" title="' + esc(DIR_TEXT.title) + '">' + DIR_ICON + '</button>';
+let dirPop = null;
+function closeDirPop(){ if (dirPop){ dirPop.remove(); dirPop = null; } }
+function openDirections(btn){
+  const [lat, lng] = btn.dataset.dir.split(',');
+  const go = app => { logEvent('directions', {app}); closeDirPop(); window.open(dirUrl(app, lat, lng), '_blank', 'noopener'); };
+  if (!APPLE) return go('google');
+  if (dirPop && dirPop._for === btn) return closeDirPop();
+  closeDirPop();
+  dirPop = document.createElement('div'); dirPop.className = 'dirpop'; dirPop._for = btn; dirPop.setAttribute('role', 'menu');
+  dirPop.innerHTML = '<small>' + esc(DIR_TEXT.pick) + '</small>' + ['apple', 'google'].map(a => '<button type="button" role="menuitem" data-app="' + a + '">' + esc(DIR_TEXT[a]) + '</button>').join('');
+  document.body.appendChild(dirPop);
+  const r = btn.getBoundingClientRect(), w = dirPop.offsetWidth;
+  dirPop.style.left = Math.max(8, Math.min(innerWidth - w - 8, r.right - w)) + 'px';
+  dirPop.style.top = (r.bottom + 6) + 'px';
+  dirPop.querySelectorAll('[data-app]').forEach(b => b.onclick = () => go(b.dataset.app));
+  dirPop.querySelector('button').focus();
+}
+document.addEventListener('click', e => { if (dirPop && !dirPop.contains(e.target) && e.target.closest('[data-dir]') !== dirPop._for) closeDirPop(); }, true);
+addEventListener('resize', closeDirPop);
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && dirPop){ const b = dirPop._for; closeDirPop(); b.focus(); } });
 const cardHead = (small, heading, extra) => '<div class="hh"><div><small>' + esc(small) + '</small><strong>' + esc(heading) + '</strong></div><div class="hb">' + (extra || '') +
   '<button type="button" class="share" aria-label="Share this spot" title="Share a link to this spot">' + SHARE_ICON + '</button><button type="button" aria-label="Close" id="hereX">×</button></div></div>';
 // What every card's buttons do: close, share, route chips, focus chips, compare, section open/closed.
 function wireCard(){
   document.getElementById('hereX').onclick = closeHere;
   const sh = here.querySelector('.share'); if (sh) sh.onclick = share;
+  here.querySelectorAll('[data-dir]').forEach(b => b.onclick = () => openDirections(b));
+  here.onscroll = closeDirPop;
+  closeDirPop();
   here.querySelectorAll('[data-route]').forEach(b => b.addEventListener('click', () => pickRoute(b.dataset.route, !picked.has(b.dataset.route))));
   here.querySelectorAll('[data-pf]').forEach(b => b.addEventListener('click', () => { const [id, ...n] = b.dataset.pf.split(':'); setPlaceFocus(id, n.join(':'), true); if (placeF) logEvent('focus', {layer: id, via: 'card'}); }));
   here.querySelectorAll('details.sec').forEach(d => d.addEventListener('toggle', () => { secOpen[d.dataset.sec] = d.open; try { localStorage.setItem('cardSections', JSON.stringify(secOpen)); } catch (e) {} }));
@@ -1579,7 +1616,7 @@ function inspect(latlng, title, muniName){
     : '<button type="button" class="cmp-go">' + esc(CMP.start) + '</button>';
   if (c.outside){
     const m = c.m;
-    here.innerHTML = cardHead('What’s here', c.heading) +
+    here.innerHTML = cardHead('What’s here', c.heading, dirBtn(c.y, c.x, c.heading)) +
       '<div class="pills">' + c.pills + '</div>' + c.drive +
       (regionFeature(m.region) && focusKey !== m.region ? '<button type="button" class="focus-go">' + esc(fill(CITY.focus.show, {name: regionName(m.region)})) + '</button>' : '') +
       cmpRow + '<p class="outside-note">' + esc(CITY.outside.note) + '</p>' + reportBox(c.heading);
@@ -1587,7 +1624,7 @@ function inspect(latlng, title, muniName){
     const fg = here.querySelector('.focus-go'); if (fg) fg.onclick = () => setFocus(m.region, true);
     return;
   }
-  here.innerHTML = cardHead('What’s here', c.heading) + '<div class="pills">' + c.pills + '</div>' + voteBox(c.x, c.y) + c.focus + c.tower + c.standout + cmpRow +
+  here.innerHTML = cardHead('What’s here', c.heading, dirBtn(c.y, c.x, c.heading)) + '<div class="pills">' + c.pills + '</div>' + voteBox(c.x, c.y) + c.focus + c.tower + c.standout + cmpRow +
     c.sections.map(([id, t, body]) => section(id, t, body)).join('') + reportBox(c.heading);
   wireCard(); wireReport(latlng, c.heading);
   drawVoteMark(c.x, c.y);
@@ -1748,7 +1785,7 @@ function voteBox(x, y){
     const more = [v.e && fill(VOTE.entrance, v), v.ae && fill(VOTE.access, v), v.vat && VOTE.vat].filter(Boolean);
     body = '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl">' + place + '</p>' +
       (more.length ? '<p class="vote-ex">' + more.map(esc).join('<br>') + '</p>' : '') +
-      '<p class="vote-acts"><button type="button" class="vote-go">' + esc(VOTE.show) + '</button>' + link + '</p>';
+      '<p class="vote-acts"><button type="button" class="vote-go">' + esc(VOTE.show) + '</button>' + dirBtn(v.y, v.x, v.n || v.a, true) + link + '</p>';
   } else {
     // Only the precinct is known (no published polling place list): name it and link to the official lookup.
     body = '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl"><b>' + esc(fill(VOTE.precinct, ctx)) + '</b>' +

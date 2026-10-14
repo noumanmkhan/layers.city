@@ -88,6 +88,8 @@ Toronto's geography is described in several overlapping ways at once. A single a
 
 **All, Basic and Live:** the layer panel has three tabs. Basic is the city as it stands, data that changes slowly (census figures, boundaries, landmarks, routes). Live is the city as it's changing this week, refreshed by GitHub Actions from city feeds: road closures daily, What's changing weekly, with each row saying when its data was last updated (in red if a refresh has been missed). The tabs only filter the list; what's on stays on.
 
+**Directions:** the map deals in straight-line distances, so every place the card names (the spot itself, the voting place, the nearest library, community centre and emergency department) has a directions button that opens Google Maps, or on Apple devices a choice of Apple Maps or Google Maps, for the real route and travel time from wherever you are.
+
 **Collection day and street sweeping:** the card answers the most local question there is. In Toronto it gives the spot's garbage day and what goes out on the next two pickups (green bin and recycling one week, garbage the next), from the City's collection areas and its yearly calendar; a building with its own collection gets told so. Chicago publishes no garbage schedule, so its card gives the next street sweeping dates for the ward section instead, April to November, which is the one that costs you a ticket.
 
 **Road closures on the card:** tap or search a spot and the What's here card lists any transit-construction closures or lane restrictions within about a five-minute walk, with the hours and the permit dates, whether or not the closures layer is on. "They closed my street for the subway, how long for?" gets its answer without hunting for the red line.

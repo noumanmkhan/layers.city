@@ -537,6 +537,20 @@ circle.cl{stroke-width:3;fill:var(--city)}
 .hh strong{display:block;font-size:15px;font-weight:700;margin-top:2px}
 .hb{display:flex;gap:6px;flex:none}
 .hh .share{display:grid;place-items:center;padding:0}
+.hh .dir{display:grid;place-items:center;padding:0}
+.hh .dir svg{width:16px;height:16px}
+/* Directions: an icon after a place's name on the card, a text button in the vote box, and a small menu on Apple devices. */
+.dir-row{display:inline-flex!important;align-items:center;gap:6px;margin:0!important;color:inherit!important;font-size:inherit!important}
+.dir-row .dir{flex:none;display:grid;place-items:center;width:22px;height:22px;padding:0;border:none;border-radius:6px;background:var(--pill-bg);color:var(--ink-2);cursor:pointer}
+.dir-row .dir svg{width:13px;height:13px}
+.dir:hover,.dir-row .dir:hover{color:var(--accent)}
+.dir:focus-visible,.dir-t:focus-visible,.dirpop button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.vote-acts button.dir-t{background:none;color:var(--accent);padding:0}
+.vote-acts button.dir-t:hover{text-decoration:underline}
+.dirpop{position:fixed;z-index:3000;display:grid;gap:2px;min-width:160px;padding:6px;border-radius:10px;background:var(--panel);border:1px solid var(--rule);box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.dirpop small{padding:4px 8px 2px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.dirpop button{font:inherit;font-size:13px;font-weight:600;text-align:left;padding:8px;border:none;border-radius:7px;background:none;color:var(--ink);cursor:pointer}
+.dirpop button:hover{background:var(--pill-bg)}
 .hh .share svg{width:15px;height:15px}
 .hh button{flex:none;font:inherit;font-size:18px;line-height:1;width:28px;height:28px;border-radius:7px;border:none;background:var(--pill-bg);color:var(--ink-2);cursor:pointer}
 .pills{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 12px}

@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### Directions in your maps app (October 14)
+- The card gives straight-line distances; now a directions button hands a place to the visitor's own maps app
+  for real routes and travel times. It sits in the card header (the pinned spot, searched address or landmark),
+  in the vote box (the voting place) and beside each place in Nearby (library, community centre, emergency
+  department). It opens Google Maps directions; on an iPhone, iPad or Mac it first offers Apple Maps or
+  Google Maps. Plain links, starting from wherever the visitor is; nothing is sent until they pick. Optional
+  `directions` text in city.json (`title`, `google`, `apple`, `pick`). Website only; apps may ignore it
+  (on iOS, MapKit can open Apple Maps directly).
+
 ### Collection day and street sweeping on the card (October 14)
 - **Toronto: Collection day.** A Boundaries row gives the spot's collection day and the next two pickups with
   what goes out ("Thu, Oct 15: Green bin, recycling"), from the City's live collection areas (51, matched by
