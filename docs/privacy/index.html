@@ -160,7 +160,7 @@ main.doc{padding-top:56px;gap:40px}
       <h2 id="short">In short</h2>
       <ul>
         <li>There are no accounts, no sign-ups, no advertising and no tracking cookies. The app uses no analytics.</li>
-        <li>The website counts visits and which features get used (for example “someone picked the Getting around view”), with Umami. It doesn’t identify you, and you can <a href="#counting">opt out</a>.</li>
+        <li>The website counts visits and which features get used (for example “someone picked the Getting around view”), with Umami. It doesn’t identify you, and you can <a href="#counting">opt out</a>. Cloudflare, the site’s host, also measures page loads and speed, without cookies (<a href="#cloudflare-stats">details</a>).</li>
         <li>Your location is optional, is only used when you ask for it, and stays on your device. Pins, searches and place names are never counted.</li>
         <li>Searching for an address sends what you type to a search service (Apple in the app, OpenStreetMap on the website) so it can find the place.</li>
         <li>Your settings are saved on your own device, not on a server run by me.</li>
@@ -217,6 +217,9 @@ main.doc{padding-top:56px;gap:40px}
       <p class="optout"><button type="button" id="optout">Stop counting my visits</button> <span id="optoutState" role="status"></span></p>
       <p>The opt-out is saved in this browser only; clearing your site data undoes it.</p>
 
+      <h3 id="cloudflare-stats">Page loads and speed (Cloudflare)</h3>
+      <p>Cloudflare, which hosts the site, adds a small script of its own (Cloudflare Web Analytics) that reports each page load: the page’s address (Cloudflare says it doesn’t record the part after the <code>?</code>), the website that linked you here, your browser and device type, your country as Cloudflare estimates it, and how quickly the page loaded. It sets no cookies and doesn’t identify you (<a href="https://www.cloudflare.com/web-analytics/">how Cloudflare Web Analytics works</a>). It isn’t told your location or which features you use. I see only totals, such as page views a day. The opt-out button above covers Umami only; blocking scripts from <code>cloudflareinsights.com</code> in your browser stops this one.</p>
+
       <h3>Hosting and the services the page loads</h3>
       <p>The site is hosted on Cloudflare Pages. Like any website, loading it means your browser connects to some outside services, which receive your IP address and basic browser details as part of that connection:</p>
       <ul>
@@ -224,6 +227,7 @@ main.doc{padding-top:56px;gap:40px}
         <li><strong>Google Fonts</strong>, for the map’s typeface (<a href="https://policies.google.com/privacy">Google’s privacy policy</a>).</li>
         <li><strong>cdnjs</strong> (Cloudflare) and <strong>jsDelivr</strong>, which serve the open-source map libraries.</li>
         <li><strong>Umami</strong>, for the visit counts described above.</li>
+        <li><strong>Cloudflare Web Analytics</strong>, for the page-load counts described above.</li>
       </ul>
       <p>I don’t receive or keep these services’ logs. From Cloudflare I see only traffic totals, such as the number of requests a day, and from Umami only totals such as visits by city or how often a feature is used.</p>
 
