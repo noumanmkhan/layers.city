@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### A shorter panel header (all cities, October 14)
+- Views is now a dropdown on one line instead of a chip row, so a 1080p screen shows at least six layer
+  toggles (four before). Once the map changes after a view it reads "Custom (from …)"; picking the view again
+  goes back to it. A picked view still shows its note and, for Who represents me, the boundary chips.
+- The extent switcher shows names only (Greater Toronto Area / Toronto, Chicagoland / Chicago, Metro
+  Vancouver / Vancouver); the "416 + 905"-style sublines and their `scope.*.sub` config are gone.
+- The footer buttons (Reset, Hide all, Share, Image, Tour) fit on one row.
+
 ### Faith & Community layers (Toronto, October 14)
 - New panel group with nine toggles, all off by default: mosques, gurdwaras, synagogues, Hindu temples, Buddhist
   temples, churches, other faiths, halal grocers & butchers, kosher grocers, butchers & bakeries. One file,

@@ -2003,10 +2003,14 @@ function presetBoundary(id){
 function drawPresets(){
   if (!PRESETS || !presetBox) return;
   const p = presetById(presetOn);
-  let h = '<b class="pr-h">' + esc(PRESETS.label || 'Views') + '</b><div class="chips" role="radiogroup" aria-label="' + esc(PRESETS.label || 'Views') + '">' +
-    PRESETS.items.map(it => '<button type="button" role="radio" data-preset="' + esc(it.id) + '" aria-checked="' + (it.id === presetOn && !presetCustom) + '"' +
-      (it.note ? ' title="' + esc(it.note) + '"' : '') + '>' + esc(it.name) + '</button>').join('') +
-    (p && presetCustom ? '<span class="pr-custom" title="' + esc(fill(PRESETS.customNote || 'Changed from {name}', {name: p.name})) + '">' + esc(PRESETS.customText || 'Custom') + '</span>' : '') + '</div>';
+  // A dropdown, so the views take one line of the panel. "Custom" shows as the selected (disabled)
+  // option once the map changes after a view, so picking that view again fires a change.
+  const lab = esc(PRESETS.label || 'Views');
+  let h = '<label class="pr-row"><b class="pr-h">' + lab + '</b><span class="pr-sel"><select id="presetSel" aria-label="' + lab + '"' + (p && presetCustom ? ' title="' + esc(fill(PRESETS.customNote || 'Changed from {name}', {name: p.name})) + '"' : '') + '>' +
+    (!p ? '<option value="" selected disabled>' + esc(PRESETS.placeholder || 'Pick a view') + '</option>' : '') +
+    (p && presetCustom ? '<option value="" selected disabled>' + esc(PRESETS.customText || 'Custom') + ' (' + esc(fill(PRESETS.customFrom || 'from {name}', {name: p.name})) + ')</option>' : '') +
+    PRESETS.items.map(it => '<option value="' + esc(it.id) + '"' + (it.id === presetOn && !presetCustom ? ' selected' : '') + '>' + esc(it.name) + '</option>').join('') +
+    '</select></span></label>';
   if (p && !presetCustom){
     if (p.note) h += '<p class="pr-note">' + esc(p.note) + '</p>';
     if (p.boundaries){
@@ -2021,7 +2025,8 @@ function drawPresets(){
   }
   presetBox.innerHTML = h;
   presetBox.hidden = false;
-  presetBox.querySelectorAll('[data-preset]').forEach(b => b.addEventListener('click', () => { applyPreset(b.dataset.preset); logEvent('view', {id: b.dataset.preset}); }));
+  const sel = presetBox.querySelector('#presetSel');
+  sel.addEventListener('change', () => { const id = sel.value; if (!id) return; applyPreset(id); logEvent('view', {id}); });
   presetBox.querySelectorAll('[data-pb]').forEach(b => b.addEventListener('click', () => presetBoundary(b.dataset.pb)));
   presetHint();
 }
