@@ -198,6 +198,9 @@ const GLYPH = {
   otherfaith: '<path d="M12 2 2.5 9.2v12.8h7v-6.2h5V22h7V9.2z"/>',
   halal: '<path d="M2.5 9h19v2.3h-1.2L18.6 21H5.4L3.7 11.3H2.5zM6.6 8.2 10.4 2.6l1.5 1-3.1 4.6zm10.8 0-3.8-5.6-1.5 1 3.1 4.6z"/>',
   kosher: '<path d="M2.5 9h19v2.3h-1.2L18.6 21H5.4L3.7 11.3H2.5zM6.6 8.2 10.4 2.6l1.5 1-3.1 4.6zm10.8 0-3.8-5.6-1.5 1 3.1 4.6z"/>',
+  // Schools: a mortarboard, one colour for French-language schools and one for immersion.
+  frschool: '<path d="M12 2 1.5 7.5 12 13l8.5-4.45V15h2V7.5zM5.5 12.1v4.4L12 20l6.5-3.5v-4.4L12 15.5z"/>',
+  immersion: '<path d="M12 2 1.5 7.5 12 13l8.5-4.45V15h2V7.5zM5.5 12.1v4.4L12 20l6.5-3.5v-4.4L12 15.5z"/>',
   // Skyscrapers, by use: office floors as bands, homes as a grid of windows, mixed use as both.
   'tw-com': '<path fill-rule="evenodd" d="M5 1.5h14v21H5zM7.6 4.5v2.2h8.8V4.5zm0 4v2.2h8.8V8.5zm0 4v2.2h8.8v-2.2zm0 4v2.2h8.8v-2.2z"/>',
   'tw-res': '<path fill-rule="evenodd" d="M5 1.5h14v21H5zM7.6 4.5h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 10h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 15.5h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2z"/>',

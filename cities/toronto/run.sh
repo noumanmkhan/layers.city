@@ -18,6 +18,7 @@ python3 ../../engine/skyscrapers.py toronto   # towers 150 m+ from raw/skyscrape
 python3 heritage.py
 python3 institutions.py       # universities, colleges, hospitals: points, written straight to docs
 python3 faith.py              # places of worship and halal/kosher shops: points, written straight to docs
+python3 french_schools.py     # French-language and immersion schools: points, written straight to docs
 python3 nearby.py             # after institutions: points for the card's Nearby section
 OUT=../../docs/toronto/data
 simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
