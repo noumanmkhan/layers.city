@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found · Layers.City</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#F7F4F3">
+<link rel="preload" href="/fonts/archivo-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2')}
+:root{
+  --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --ink-2:#463D3C; --ink-3:#5C5251; --rule:#D8CFCD;
+  --accent:#C8102E; --grid:rgba(26,20,20,.05);
+  --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px}
+a{color:inherit;text-decoration:none}
+.page{min-height:100vh;display:flex;flex-direction:column}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding-left:24px;padding-right:24px}
+header{padding-top:28px;padding-bottom:28px}
+.brand{display:inline-flex;align-items:center;gap:9px;font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.01em}
+.brand b{font-weight:500;color:var(--accent)}
+main{flex-grow:1;padding-top:72px;padding-bottom:64px;display:flex;flex-direction:column;gap:28px;max-width:760px}
+.coords{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.06em;color:var(--accent)}
+h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,84px);line-height:.98;letter-spacing:-.02em}
+.lede{margin:0;font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--ink-2)}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;font-weight:500;font-size:16px;background:var(--card);border:1.5px solid var(--rule)}
+.pill:hover{border-color:var(--ink)}
+.pill.main{background:var(--accent);border-color:var(--accent);color:#fff}
+.pill:focus-visible,.brand:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+footer{padding-top:24px;padding-bottom:24px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-family:var(--mono);font-size:13px;color:var(--ink-3)}
+footer a:hover{color:var(--ink)}
+@media (max-width:520px){main{padding-top:40px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="wrap">
+    <a class="brand" href="/"><svg width="22" height="28" viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#fff"/></svg><span>Layers<b>.City</b></span></a>
+  </header>
+
+  <main class="wrap">
+    <div class="coords">404 · PAGE NOT FOUND</div>
+    <h1>Off the map</h1>
+    <p class="lede">There's no page at this address. It may have moved, or the link may be mistyped. <span id="hint"></span></p>
+    <nav class="links" aria-label="Where to go">
+      <a class="pill main" id="city" href="/">All maps</a>
+      <a class="pill" href="/toronto/">Toronto</a>
+      <a class="pill" href="/chicago/">Chicago</a>
+      <a class="pill" href="/toronto/neighbourhoods/">Toronto neighbourhoods</a>
+      <a class="pill" href="/chicago/community-areas/">Chicago community areas</a>
+    </nav>
+  </main>
+
+  <footer class="wrap">
+    <a href="https://noumankhan.ca">© 2026 Nouman Khan</a>
+    <a href="/privacy/">Privacy</a>
+    <a href="/attributions/">Attributions</a>
+    <a href="/terms/">Terms</a>
+  </footer>
+</div>
+<script>
+// A mistyped place page (/toronto/anex/) usually means the visitor wanted that city.
+(function(){
+  var m = /^\/(toronto|chicago)\//.exec(location.pathname);
+  if (!m) return;
+  var name = m[1] === 'toronto' ? 'Toronto' : 'Chicago';
+  var a = document.getElementById('city');
+  a.href = '/' + m[1] + '/';
+  a.textContent = 'Open the ' + name + ' map';
+  document.getElementById('hint').textContent = 'Looking for a place? Search for it on the ' + name + ' map.';
+})();
+</script>
+</body>
+</html>
