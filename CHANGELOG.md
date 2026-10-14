@@ -17,6 +17,13 @@
   Vancouver / Vancouver); the "416 + 905"-style sublines and their `scope.*.sub` config are gone.
 - The footer buttons (Reset, Hide all, Share, Image, Tour) fit on one row.
 
+### Churches by denomination (Toronto, October 14)
+- The Churches toggle gets a row of chips: All · Catholic · Anglican · Baptist · United · Presbyterian · Orthodox ·
+  Evangelical · Other, one at a time, with a count. No new toggles. Families come from the OSM denomination, or
+  the church's name when OSM has none (260 untagged became 168); those left show under All only.
+- Engine: any `places` layer can take `groups` (chips, `grp` per feature); the pick is kept in shared links
+  (`pick=`), and the card's Nearby row follows it ("Church · Orthodox").
+
 ### Faith & Community layers (Toronto, October 14)
 - New panel group with nine toggles, all off by default: mosques, gurdwaras, synagogues, Hindu temples, Buddhist
   temples, churches, other faiths, halal grocers & butchers, kosher grocers, butchers & bakeries. One file,

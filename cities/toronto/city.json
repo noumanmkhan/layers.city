@@ -109,7 +109,10 @@
       {"id": "synagogues", "kind": "places", "file": "faith", "cat": "synagogue", "name": "Synagogues", "place": "Synagogue", "note": "Every denomination; shown where known"},
       {"id": "hindutemples", "kind": "places", "file": "faith", "cat": "hindu", "name": "Hindu temples", "place": "Hindu temple", "note": "Mandirs"},
       {"id": "buddhisttemples", "kind": "places", "file": "faith", "cat": "buddhist", "name": "Buddhist temples", "place": "Buddhist temple", "note": "Temples and meditation centres"},
-      {"id": "churches", "kind": "places", "file": "faith", "cat": "church", "name": "Churches", "place": "Church", "note": "Every denomination; there are many, so best zoomed in"},
+      {"id": "churches", "kind": "places", "file": "faith", "cat": "church", "name": "Churches", "place": "Church", "note": "Every denomination; pick one below to narrow it down",
+       "groups": [["catholic", "Catholic"], ["anglican", "Anglican"], ["baptist", "Baptist"], ["united", "United"], ["presbyterian", "Presbyterian"], ["orthodox", "Orthodox"], ["evangelical", "Evangelical"], ["other", "Other"]],
+       "allText": "All", "countText": "{n} shown.", "allNote": "Some aren\u2019t listed with a denomination, so they appear only here.",
+       "groupNote": "By the denomination listed in OpenStreetMap, or the church\u2019s name. Evangelical includes Pentecostal and Alliance churches."},
       {"id": "otherfaith", "kind": "places", "file": "faith", "cat": "otherfaith", "name": "Other faiths", "place": "Place of worship", "note": "Jain, Bahá’í, Zoroastrian, Unitarian and more"},
       {"id": "halal", "kind": "places", "file": "faith", "cat": "halal", "name": "Halal grocers & butchers", "place": "Halal shop", "note": "HMA-certified independent stores across the GTA"},
       {"id": "kosher", "kind": "places", "file": "faith", "cat": "kosher", "name": "Kosher grocers, butchers & bakeries", "place": "Kosher shop", "note": "COR-certified independent shops; no chain-store counters"}

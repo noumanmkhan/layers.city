@@ -13,7 +13,7 @@ The rules (decided October 14, 2026; see the Faith & Community spec):
   faith_shops.csv: independent grocers, butchers and bakeries selling food to take home, one point per
   shop with all its roles; chains with a halal or kosher aisle, wholesalers and restaurants are left out.
   Restaurants belong to a future commercial layer."""
-import csv, json, math, os
+import csv, json, math, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, 'raw', 'faith')
@@ -24,6 +24,40 @@ NOUN = {'mosque': 'Mosque', 'gurdwara': 'Gurdwara', 'synagogue': 'Synagogue', 'h
         'buddhist': 'Buddhist temple', 'church': 'Church'}
 FAITH = {'jain': 'Jain', 'bahai': 'Bahá’í', 'zoroastrian': 'Zoroastrian', 'unitarian_universalist': 'Unitarian',
          'taoist': 'Taoist', 'shinto': 'Shinto', 'spiritualist': 'Spiritualist', 'multifaith': 'Multifaith'}
+
+
+# Church families for the Churches layer's chips (decided October 14, 2026). From the OSM denomination first,
+# then, where OSM gives none, from words in the name ("Knox Presbyterian", "St. Mary's Roman Catholic").
+# A church with neither shows only under All. Order matters: the first match wins.
+CHURCH = [
+    ('orthodox', ('orthodox', 'armenian_apostolic', 'coptic')),
+    ('catholic', ('catholic',)),
+    ('anglican', ('anglican', 'episcopal')),
+    ('baptist', ('baptist',)),
+    ('united', ('united',)),
+    ('presbyterian', ('presbyterian',)),
+    ('evangelical', ('evangelical', 'pentecostal', 'gospel', 'apostolic', 'nazarene', 'alliance', 'assemblies_of_god',
+                     'assembly_of_god', 'foursquare', 'charismatic', 'vineyard', 'church_of_god')),
+]
+NAMED = [
+    ('orthodox', r'orthodox|coptic|armenian apostolic'),
+    ('catholic', r'catholic|\br\.? ?c\.?\b|our lady|\bparish of\b'),
+    ('anglican', r'anglican|episcopal'),
+    ('baptist', r'baptist'),
+    ('united', r'united church(?! of jesus)'),
+    ('presbyterian', r'presbyterian'),
+    ('evangelical', r'evangelical|pentecostal|full gospel|gospel (hall|church|assembly|tabernacle)|assembl(y|ies) of god|'
+                    r'alliance church|apostolic|foursquare|nazarene|tabernacle|revival|church of god|united church of jesus'),
+    ('other', r'lutheran|adventist|kingdom hall|jehovah|salvation army|mennonite|latter-day|methodist|reformed|'
+              r'christadelphian|christian science|church of christ|brethren|moravian|quaker|friends meeting'),
+]
+
+
+def church_group(den, name):
+    d = (den or '').lower()
+    if d and d not in ('protestant', 'christian', 'nondenominational', 'non-denominational', 'biblical'):
+        return next((g for g, keys in CHURCH if any(k in d for k in keys)), 'other')
+    return next((g for g, rx in NAMED if re.search(rx, name, re.I)), 'other' if d else '')
 
 
 def metres(a, b):
@@ -75,8 +109,11 @@ feats = []
 for w in kept:
     cat = CAT.get(w['rel'], 'otherfaith')
     sub = ' · '.join(x for x in ((NOUN.get(cat) or FAITH.get(w['rel']) or nice(w['rel']) or 'Place of worship'), nice(w['den'])) if x)
-    feats.append({'type': 'Feature', 'properties': {'name': w['name'], 'cat': cat, 'sub': sub},
-                  'geometry': {'type': 'Point', 'coordinates': w['at']}})
+    props = {'name': w['name'], 'cat': cat, 'sub': sub}
+    if cat == 'church':
+        props['grp'] = church_group(w['den'], w['name'])
+        if not props['grp']: del props['grp']
+    feats.append({'type': 'Feature', 'properties': props, 'geometry': {'type': 'Point', 'coordinates': w['at']}})
 
 ROLE = (('grocer', 'grocer'), ('butcher', 'butcher'), ('bakery', 'bakery'))
 for r in csv.DictReader(open(os.path.join(HERE, 'faith_shops.csv'), encoding='utf-8')):
@@ -94,4 +131,8 @@ json.dump({'type': 'FeatureCollection', 'features': feats}, open(OUT, 'w'), ensu
 count = {}
 for f in feats: count[f['properties']['cat']] = count.get(f['properties']['cat'], 0) + 1
 print('faith and community:', count, '| merged duplicates:', len(worship) - len(kept))
+ch = [f['properties'] for f in feats if f['properties']['cat'] == 'church']
+grp = {}
+for p in ch: grp[p.get('grp', '(none)')] = grp.get(p.get('grp', '(none)'), 0) + 1
+print('  churches by family:', dict(sorted(grp.items(), key=lambda kv: -kv[1])))
 if unplaced: print('  NOT PLACED (add lat/lon to the CSV, or fix the address):', '; '.join(unplaced))

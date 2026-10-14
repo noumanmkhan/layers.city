@@ -10,7 +10,8 @@ centre    City community recreation centres. The City's file also lists schools 
 er        Hospitals with an emergency department, from the institutions layer.
 mosque, gurdwara, synagogue, hindu, buddhist, church, halal, kosher
           From the Faith & Community layers (faith.geojson); the card shows the nearest of each only
-          while its layer is on, so nobody sees a faith they didn't ask about.
+          while its layer is on, so nobody sees a faith they didn't ask about. Churches are also listed by
+          family ("church:catholic", …) for the Churches layer's chips.
 park, playground, tennis, offleash
           City parks, and the parks listing a playground, tennis courts or a dog off-leash area
           (one point per park, so a park with six courts counts once). Toronto's open data has no
@@ -56,6 +57,7 @@ for f in json.load(open(os.path.join(DATA, 'institutions.geojson')))['features']
 for f in json.load(open(os.path.join(DATA, 'faith.geojson')))['features']:
     p = f['properties']
     if p['cat'] != 'otherfaith': groups.setdefault(p['cat'], []).append(f['geometry']['coordinates'] + [p['name']])
+    if p.get('grp'): groups.setdefault(p['cat'] + ':' + p['grp'], []).append(f['geometry']['coordinates'] + [p['name']])
 
 json.dump({'groups': groups}, open(os.path.join(DATA, 'nearby.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 print('nearby:', {k: len(v) for k, v in groups.items()})

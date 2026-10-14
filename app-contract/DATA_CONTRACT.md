@@ -68,7 +68,7 @@ All coordinates are WGS84. GeoJSON positions are `[longitude, latitude]`; most o
 | `collectors.geojson` | Collector streets (layer `coll`, kind `streets`, `under: "streets"`): one feature per street name (`LineString` or `MultiLineString`), `properties`: `name`, `cls` (`"coll"`), `len`. Toronto from the City's Collector road class; Chicago from OpenStreetMap `tertiary` roads. Stretches on a main street are left out. Drawn thinner than `minor` from zoom 13; `labelZoom` (15) is the zoom names start at; `yieldLabels` means its names give way to the main streets'. |
 | `institutions.geojson` | Universities, colleges and hospitals (points) for the `places` layers. `properties`: `name`, `cat` (`university`, `college`, `hospital`), `sub` (campus, network or ownership, optional), `ed` (true for a hospital with an emergency department). Curated by fixed rules (public or nonprofit only; see each city's `institutions.py`). Describe only: no ratings. |
 | `french_schools.geojson` | Toronto only. French-language and French immersion schools (points) for two `places` layers. `properties`: `name`, `cat` (`frschool`: Conseil scolaire Viamonde and Conseil scolaire catholique MonAvenir, taught in French; `immersion`: TDSB and TCDSB French immersion schools), `sub` (board, then level for `frschool` or program for `immersion`: "Early immersion", "Middle immersion", "Early and middle immersion", "Immersion from JK", "Secondary immersion"). Positions from the City's school locations; lists from the boards. |
-| `faith.geojson` | Toronto only. Places of worship and certified food shops (points) for the Faith & Community `places` layers. `properties`: `name`, `cat` (`mosque`, `gurdwara`, `synagogue`, `hindu`, `buddhist`, `church`, `otherfaith`, `halal`, `kosher`), `sub` (what it is, with denomination where known; for shops, branch, roles and certifier). Shops also carry `roles` (any of `grocer`, `butcher`, `bakery`) and `cert` (`HMA`, `COR`). Places of worship from OpenStreetMap plus hand-kept additions; shops from the certifiers' lists. Facilities only: nothing in the data describes who lives anywhere. |
+| `faith.geojson` | Toronto only. Places of worship and certified food shops (points) for the Faith & Community `places` layers. `properties`: `name`, `cat` (`mosque`, `gurdwara`, `synagogue`, `hindu`, `buddhist`, `church`, `otherfaith`, `halal`, `kosher`), `sub` (what it is, with denomination where known; for shops, branch, roles and certifier). Churches carry `grp` (`catholic`, `anglican`, `baptist`, `united`, `presbyterian`, `orthodox`, `evangelical`, `other`) where the OSM denomination or the name gives one. Shops also carry `roles` (any of `grocer`, `butcher`, `bakery`) and `cert` (`HMA`, `COR`). Places of worship from OpenStreetMap plus hand-kept additions; shops from the certifiers' lists. Facilities only: nothing in the data describes who lives anywhere. |
 
 Properties that appear on many features: `name`, `lp` (a label point, `[lon, lat]`), `code`
 (a unit number), `num` (a ward or district number).
@@ -128,6 +128,9 @@ How the website's search does it, for an app that wants to match:
   share `institutions.geojson`). `place` names the kind of place ("Hospital", "City College"),
   `edText` the extra hover words for a feature with `ed`, and `aliases` (optional, Universities)
   maps a feature `name` to the nicknames search should also match. Not part of the card.
+- A `places` layer may have `groups` (`[[id, label], …]`; Toronto's Churches): chips under its row, `allText`
+  first, pick one group at a time; only features whose `grp` equals the pick are drawn (features with no `grp`
+  show only under All). `countText` (`{n}`), `allNote` and `groupNote` make the line under the chips.
 - A `towers` layer (id `towers`, file `skyscrapers`) draws every feature of `skyscrapers.geojson`.
   Its text: `place` ("Skyscraper", search sub-line), `key` (`res`, `com`, `mix`, `uc`, `sup`: the
   legend shown under the layer while it's on), `purpose` (card wording per `purpose`, e.g.
@@ -298,7 +301,8 @@ first matching feature in file order wins.
    board president), subline `sub`, same rules.
    Names are plain text (no official page yet). Append `trustees.note` to the footer.
    **Nearby** (`card.nearby`, both cities): for each `[key, label]` in `nearest` (or `[key, label, layer]`:
-   then only while the layer with that id is on; Toronto's places of worship and food shops), the nearest point
+   then only while the layer with that id is on; Toronto's places of worship and food shops. If that layer has a
+   group picked, use `nearby.groups["key:group"]` and add " · " and the group's label to the row label), the nearest point
    of `nearby.groups[key]` by straight-line distance: row `label`, value its name, subline the
    distance ("600 m away"; to the nearest 50 m under a kilometre, then "1.8 km". With `distance`
    `"mi"`: "250 ft away" to the nearest 50 ft under 0.1 mile, then "0.4 mi", whole miles from 10). Then one row,
