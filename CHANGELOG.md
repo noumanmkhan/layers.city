@@ -4,7 +4,8 @@
 
 ### Bike lanes (Toronto and Chicago, October 15)
 - New toggle "Bike lanes" under Getting around, after Bus routes, off by default: each city's bike network, one line
-  per segment, in teal (`--bike`, `--bike-2`; trails in `--bike-trail`). Chips, any mix: Protected, Painted, Shared,
+  per segment: protected lanes lime (`--bike`), painted and shared a darker olive green (`--bike-2`), trails brown
+  (`--bike-trail`); yellow-greens so they don't read as Line 2's green or as water. Chips, any mix: Protected, Painted, Shared,
   and Trails (Toronto). Protected and Painted are on at first; links write `bike=` when that changes.
 - Tap a stretch: street, type ("Two-way cycle track"), the streets it runs between, the year installed (Toronto).
 - Data: Toronto's Cycling Network (CKAN, 1,581 segments) and Chicago's Bike Routes (hvv9-38ut, 1,008 segments, no
