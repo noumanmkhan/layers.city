@@ -1778,16 +1778,20 @@ const KINDS = {
   },
   // Institutions by category (universities, colleges, hospitals…): one file, one layer per category.
   // Icons from zoom 11, names from 14. Describe only: name and what it is, nothing ranked.
+  // A layer with "groups" (e.g. churches by family) shows one group at a time, picked with chips in the panel.
   places: (it, fc) => {
-    const g = L.layerGroup();
+    const g = L.layerGroup(), marks = [];
     fc.features.filter(f => f.properties.cat === it.cat).forEach(f => {
       const p = f.properties;
       const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true,
         icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="lm inst in-' + p.cat + (p.ed ? ' ed' : '') + '"><i>' + svg(GLYPH[p.cat] || GLYPH.culture) + '</i><b>' + esc(p.name) + '</b></span>'})});
       hoverTip(m, fill(it.hover || '{name}[ · {sub}]', p) + (p.ed && it.edText ? ' · ' + it.edText : ''));
       m.on('click', () => goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), p.name, false));
-      g.addLayer(m);
+      marks.push([m, p.grp]);
     });
+    g._draw = () => { const k = placePick[it.id] || 'all'; g.clearLayers(); marks.forEach(([m, grp]) => { if (k === 'all' || grp === k) g.addLayer(m); }); };
+    g._count = () => { const k = placePick[it.id] || 'all'; return marks.filter(([, grp]) => k === 'all' || grp === k).length; };
+    g._draw();
     return g;
   },
   // Skyscrapers: a square badge per tower, its glyph showing use (residential, commercial, mixed);
@@ -2451,6 +2455,8 @@ const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
 const state = {};
+// The group picked on each places layer that has "groups" ('all' when none is picked).
+const placePick = {};
 const host = document.getElementById('layers');
 /* Groups fold: tap a group's heading to hide its toggles (layers that are on stay on; the heading
    then says how many). Which groups are folded is remembered in this browser, per city. */
@@ -2526,6 +2532,14 @@ CITY.groups.forEach(([title, items]) => {
         '<div class="legend"><small id="busnote"></small></div><div class="buspick" id="buspick" hidden></div>';
       grp.appendChild(box);
       box.querySelectorAll('[data-fam]').forEach(b => b.addEventListener('click', () => tapBusFam(b.dataset.fam)));
+    }
+    if (it.kind === 'places' && it.groups){   // one group at a time, All first
+      const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'pg-' + it.id; box.hidden = !it.on;
+      box.innerHTML = '<div class="chips pick" role="radiogroup" aria-label="' + esc(it.name) + '">' +
+        [['all', it.allText || 'All']].concat(it.groups).map(([g, short]) => '<button type="button" role="radio" data-pg="' + g + '" aria-checked="' + (g === 'all') + '">' + esc(short) + '</button>').join('') +
+        '</div><div class="legend"><small id="pgnote-' + it.id + '"></small></div>';
+      grp.appendChild(box);
+      box.querySelectorAll('[data-pg]').forEach(b => b.addEventListener('click', () => setPlacePick(it.id, b.dataset.pg)));
     }
     if (it.kind === 'changes'){   // stages, any mix, each chip its own colour key
       const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'chgbox'; box.hidden = !it.on;
@@ -2657,6 +2671,21 @@ function setLens(k){
   queueHash();
 }
 const kindOf = id => (LAYERS.find(it => it.id === id) || {}).kind;
+// Pick a group on a places layer (chips under its row): redraw its pins, the note and an open card.
+function setPlacePick(id, g){
+  const it = LAYERS.find(x => x.id === id); if (!it || !it.groups) return;
+  placePick[id] = g === 'all' || !it.groups.some(x => x[0] === g) ? 'all' : g;
+  if (layers[id] && layers[id]._draw) layers[id]._draw();
+  drawPlacePick(id); queueHash();
+  try { if (lastInspect) redrawCard(); } catch (e){}
+}
+function drawPlacePick(id){
+  const it = LAYERS.find(x => x.id === id), box = document.getElementById('pg-' + id); if (!it || !box) return;
+  const k = placePick[id] || 'all';
+  box.querySelectorAll('[data-pg]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.pg === k)));
+  const n = layers[id] && layers[id]._count ? layers[id]._count() : null, note = document.getElementById('pgnote-' + id);
+  if (note) note.textContent = (n != null && it.countText ? fill(it.countText, {n: n.toLocaleString(CITY.locale)}) + ' ' : '') + (k === 'all' ? it.allNote || '' : it.groupNote || '');
+}
 function setLayer(id, on){
   state[id] = on; queueHash(); groupCounts();
   const lyr = layers[id]; if (!lyr) return;
@@ -2665,6 +2694,7 @@ function setLayer(id, on){
   if (kindOf(id) === 'towers'){ const box = document.getElementById('twkey-' + id); if (box) box.hidden = !on; }
   if (kindOf(id) === 'buses'){ document.getElementById('busbox').hidden = !on; drawBusBox(); }
   if (kindOf(id) === 'changes'){ const b = document.getElementById('chgbox'); if (b) b.hidden = !on; }
+  { const b = document.getElementById('pg-' + id); if (b){ b.hidden = !on; drawPlacePick(id); } }
   if (kindOf(id) === 'buses' || kindOf(id) === 'streetcars' || kindOf(id) === 'regional') drawStops();
   if (kindOf(id) === 'boards'){ const box = document.getElementById('brd-' + id); if (box) box.hidden = !on; if (on) setBoard(id, boardPick[id]); }
   if (kindOf(id) === 'suburbs'){
@@ -2840,6 +2870,9 @@ function nearby(x, y){
   // A row may name a layer as its third item: it then shows only while that layer is on.
   const rows = N.nearest.map(([key, label, layer]) => {
     if (layer && !state[layer]) return '';
+    // A picked group on that layer narrows the row to it ("Church · Catholic"), from nearby.json's key:group points.
+    const it = layer && LAYERS.find(x => x.id === layer), pg = it && it.groups && placePick[layer] && placePick[layer] !== 'all' ? it.groups.find(x => x[0] === placePick[layer]) : null;
+    if (pg){ key = key + ':' + pg[0]; label = label + ' · ' + pg[1]; }
     const best = (G[key] || []).map(p => [p, metres([x, y], p)]).sort((a, b) => a[1] - b[1])[0];
     return best ? '<dt>' + esc(label) + '</dt><dd><span class="dir-row">' + esc(best[0][2]) + dirBtn(best[0][1], best[0][0], best[0][2]) + '</span><span>' + dist(best[1]) + ' away</span></dd>' : '';
   }).join('');
@@ -4108,6 +4141,8 @@ function linkState(){
   if (brd.length) parts.push(['board', brd.join(',')]);
   if (BUSES && state[BUSES.id] && busKey() !== (BUSES.default === 'all' ? 'all' : BUS_DEFAULT.join('+'))) parts.push(['bus', busKey()]);
   if (picked.size) parts.push(['routes', [...picked].join(',')]);
+  const pgs = Object.entries(placePick).filter(([id, g]) => g !== 'all' && state[id]).map(([id, g]) => id + ':' + g);
+  if (pgs.length) parts.push(['pick', pgs.join(',')]);
   if (presetOn && !presetCustom) parts.push(['preset', presetOn]);
   return parts.map(([k, v]) => k + '=' + enc(v)).join('&');
 }
@@ -4125,7 +4160,7 @@ function readHash(h){
 // Put the map into the state a link describes. Unknown ids and malformed parts are skipped.
 function applyHash(h){
   const o = readHash(h);
-  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg', 'preset'].some(k => k in o)) return false;
+  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg', 'preset', 'pick'].some(k => k in o)) return false;
   // A bare preset= link (no layers of its own) sets up that view; otherwise the link wins and the view is noted.
   if (o.preset && presetById(o.preset) && !o.layers){ applyPreset(o.preset); if (!o.map && !o.pin) return true; }
   const num = s => s.split(/[,/]/).map(Number);
@@ -4146,6 +4181,8 @@ function applyHash(h){
   }
   (o.board || '').split(',').forEach(part => { const [id, b] = part.split(':'); if (b) setBoard(id, b); });
   if (o.bus) setBusFams(o.bus.split('+'));
+  Object.keys(placePick).forEach(id => setPlacePick(id, 'all'));
+  if (o.pick) o.pick.split(',').forEach(x => { const [id, g] = x.split(':'); if (id && g) setPlacePick(id, g); });
   if (CHG){ const want = o.chg ? o.chg.split('+').filter(k => k in CHG.stages) : Object.keys(CHG.stages);
     Object.keys(CHG.stages).forEach(k => { if (want.includes(k) !== chgStages.has(k)) { if (want.includes(k)) chgStages.add(k); else chgStages.delete(k); } });
     if (!chgStages.size) Object.keys(CHG.stages).forEach(k => chgStages.add(k));
