@@ -961,13 +961,38 @@ const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 /* ---------- panel ---------- */
 const state = {};
 const host = document.getElementById('layers');
+/* Groups fold: tap a group's heading to hide its toggles (layers that are on stay on; the heading
+   then says how many). Which groups are folded is remembered in this browser, per city. */
+const FOLD_KEY = 'groupsFolded-' + CITY.id;
+let foldedGroups = [];
+try { foldedGroups = JSON.parse(localStorage.getItem(FOLD_KEY) || '[]') || []; } catch (e) {}
+const CHEVRON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function foldGroup(g, fold, save){
+  g.classList.toggle('folded', fold);
+  g.querySelector('.gh').setAttribute('aria-expanded', String(!fold));
+  g.querySelector('.gb').hidden = fold;
+  if (!save) return;
+  foldedGroups = foldedGroups.filter(t => t !== g.dataset.group);
+  if (fold) foldedGroups.push(g.dataset.group);
+  try { if (foldedGroups.length) localStorage.setItem(FOLD_KEY, JSON.stringify(foldedGroups)); else localStorage.removeItem(FOLD_KEY); } catch (e) {}
+}
+// "3 on" beside a folded group's heading.
+function groupCounts(){
+  host.querySelectorAll('.grp').forEach(g => {
+    const n = [...g.querySelectorAll('.row input[type=checkbox]')].filter(cb => cb.checked).length;
+    const c = g.querySelector('.gon'); if (c) c.textContent = n ? fill(CITY.groupOnText || '{n} on', {n}) : '';
+  });
+}
 CITY.groups.forEach(([title, items]) => {
-  const grpOuter = document.createElement('div'); grpOuter.className = 'grp';
-  grpOuter.innerHTML = '<h2>' + title + '</h2>';
+  const grpOuter = document.createElement('div'); grpOuter.className = 'grp'; grpOuter.dataset.group = title;
+  const gid = 'grp-' + title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  grpOuter.innerHTML = '<h2><button type="button" class="gh" aria-expanded="true" aria-controls="' + gid + '"><span>' + title + '</span><small class="gon"></small>' + CHEVRON + '</button></h2><div class="gb" id="' + gid + '"></div>';
+  const body = grpOuter.querySelector('.gb');
+  grpOuter.querySelector('.gh').addEventListener('click', () => { const f = !grpOuter.classList.contains('folded'); foldGroup(grpOuter, f, true); logEvent(f ? 'group_fold' : 'group_open', {id: gid.slice(4)}); });
   items.forEach(it => {
     // Each layer's row and its boxes sit in one wrapper, so a panel tab can hide them together.
     const grp = document.createElement('div'); grp.className = 'it'; grp.dataset.live = it.live ? '1' : '';
-    grpOuter.appendChild(grp);
+    body.appendChild(grp);
     const row = document.createElement('label'); row.className = 'row' + (it.under ? ' child' : ''); row.htmlFor = 'lyr-' + it.id;
     row.innerHTML = '<span class="sw ' + it.id + ' k-' + (it.kind === 'outline' ? it.level : it.kind) + (it.kind === 'places' ? ' in-' + it.cat : '') + '">' + swatchOf(it) + '</span><span class="tx"><b>' + it.name + '</b><span>' + it.note + '</span></span>' +
       '<input type="checkbox" id="lyr-' + it.id + '"' + (it.on ? ' checked' : '') + '><span class="tg" aria-hidden="true"></span>';
@@ -1040,7 +1065,9 @@ CITY.groups.forEach(([title, items]) => {
     state[it.id] = !!it.on;
   });
   host.appendChild(grpOuter);
+  if (foldedGroups.includes(title)) foldGroup(grpOuter, true, false);
 });
+groupCounts();
 /* Panel tabs: All, Basic (data that rarely changes: census, boundaries, landmarks, routes) and Live
    (layers marked "live" in city.json, refreshed daily or weekly from city feeds). A tab only filters
    the list: layers that are on stay on. Shown only when the city has live layers. */
@@ -1140,7 +1167,7 @@ function setLens(k){
 }
 const kindOf = id => (LAYERS.find(it => it.id === id) || {}).kind;
 function setLayer(id, on){
-  state[id] = on; queueHash();
+  state[id] = on; queueHash(); groupCounts();
   const lyr = layers[id]; if (!lyr) return;
   if (on) { lyr.addTo(map); } else { map.removeLayer(lyr); }
   if (METRO && id === METRO.id) syncStnNames();
@@ -1899,7 +1926,7 @@ function showStep(i){
   // Outline the step's layers in the panel (on a phone the panel is folded away to clear the map).
   document.querySelectorAll('#layers .row.tour-hi').forEach(r => r.classList.remove('tour-hi'));
   const rows = (st.hi || []).map(id => document.querySelector('label[for="lyr-' + id + '"]')).filter(Boolean);
-  rows.forEach(r => r.classList.add('tour-hi'));
+  rows.forEach(r => { r.classList.add('tour-hi'); const g = r.closest('.grp.folded'); if (g) foldGroup(g, false, false); });
   if (wide()){ if (rows[0]) rows[0].scrollIntoView({block: 'nearest', behavior: 'smooth'}); }
   else panel.classList.add('collapsed');
   const dots = TOUR.steps.map((_, k) => '<i' + (k === i ? ' class="on"' : '') + '></i>').join('');

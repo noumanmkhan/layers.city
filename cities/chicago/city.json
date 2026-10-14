@@ -60,15 +60,6 @@
       {"id": "heritage", "kind": "districts", "file": "heritage", "name": "Landmark districts", "note": "59 Chicago Landmark Districts · boundaries as of 2012", "label": "{name}", "hover": "{name} Landmark District"},
       {"id": "hbld", "kind": "heritage", "file": "heritage_buildings", "name": "Heritage buildings", "note": "412 Chicago Landmarks designated one by one; from zoom 15", "place": "Chicago Landmark", "builtText": "built {y}", "byText": "{ar}", "designatedText": "designated {d}"}
     ]],
-    ["Representation", [
-      {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "50 wards, one alderperson each", "label": "Ward {num}", "hover": "Ward {num}"},
-      {"id": "house", "kind": "outline", "level": "state", "file": "il_house", "name": "Illinois House districts", "note": "Two House districts make one Senate district", "label": "{num}", "hover": "Illinois House {num} · Senate {senate}"},
-      {"id": "congress", "kind": "outline", "level": "national", "file": "congress", "name": "Congressional districts", "note": "Illinois seats in the U.S. House", "label": "IL-{num}", "hover": "Congressional district IL-{num}"},
-      {"id": "school", "kind": "boards", "file": "school_board", "name": "School board districts", "note": "20 Chicago Board of Education districts · on the Nov 3, 2026 ballot",
-       "boards": [["cps", "Board of Education", "Chicago Board of Education"]],
-       "label": "{num}", "hover": "Board of Education district {num}"},
-      {"id": "ssa", "kind": "patches", "file": "ssa", "name": "Special Service Areas", "note": "Business districts funded by a local property-tax levy", "label": "{name}", "hover": "SSA #{num} · {name}"}
-    ]],
     ["Getting around", [
       {"id": "streets", "kind": "streets", "file": "streets", "name": "Main streets", "note": "The mile grid and the diagonals: Ashland, Western, Milwaukee…", "on": true},
       {"id": "coll", "kind": "streets", "file": "collectors", "under": "streets", "labelZoom": 15, "yieldLabels": true, "name": "Collector streets", "note": "Collector streets between the main ones; from zoom 13"},
@@ -88,6 +79,15 @@
        "ucText": "Under construction", "linkText": "Project page"},
       {"id": "closures", "kind": "closures", "under": "build", "file": "closures", "optional": true, "live": true, "staleDays": 2, "name": "Street closures", "note": "From the Red Line Extension and Red/Purple rebuild; side streets when zoomed in",
        "tz": "America/Chicago", "closedText": "Closed", "narrowedText": "Lanes narrowed", "bothText": "both directions", "startsText": "Starts {date}", "untilText": "Permit to {date}", "longText": "long-term", "allDayText": "Around the clock", "whenLabel": "When", "hoursLabel": "Hours", "projectLabel": "For", "whoLabel": "Permit holder", "fineText": "Dates are permit dates, not a forecast of when the road reopens. Data as of {date}.", "asofText": "as of {date}"}
+    ]],
+    ["Representation", [
+      {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "50 wards, one alderperson each", "label": "Ward {num}", "hover": "Ward {num}"},
+      {"id": "house", "kind": "outline", "level": "state", "file": "il_house", "name": "Illinois House districts", "note": "Two House districts make one Senate district", "label": "{num}", "hover": "Illinois House {num} · Senate {senate}"},
+      {"id": "congress", "kind": "outline", "level": "national", "file": "congress", "name": "Congressional districts", "note": "Illinois seats in the U.S. House", "label": "IL-{num}", "hover": "Congressional district IL-{num}"},
+      {"id": "school", "kind": "boards", "file": "school_board", "name": "School board districts", "note": "20 Chicago Board of Education districts · on the Nov 3, 2026 ballot",
+       "boards": [["cps", "Board of Education", "Chicago Board of Education"]],
+       "label": "{num}", "hover": "Board of Education district {num}"},
+      {"id": "ssa", "kind": "patches", "file": "ssa", "name": "Special Service Areas", "note": "Business districts funded by a local property-tax levy", "label": "{name}", "hover": "SSA #{num} · {name}"}
     ]]
   ],
 

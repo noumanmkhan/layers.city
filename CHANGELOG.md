@@ -2,6 +2,13 @@
 
 ## Since 1.1
 
+### Panel groups fold, in a new order (all cities, October 14)
+- Groups run Places, Getting around, Representation, then Faith & Community (Toronto). Drawing order on the
+  map is unchanged.
+- Tap a group's heading to fold it away; layers that are on stay on, and the folded heading says how many
+  ("9 on"). Folded groups are remembered in the browser per city (localStorage `groupsFolded-<city>`); a tour
+  step opens any folded group whose row it points out. Counted as `group_fold` / `group_open` events.
+
 ### A shorter panel header (all cities, October 14)
 - Views is now a dropdown on one line instead of a chip row, so a 1080p screen shows at least six layer
   toggles (four before). Once the map changes after a view it reads "Custom (from …)"; picking the view again
