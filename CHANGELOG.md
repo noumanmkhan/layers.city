@@ -2,6 +2,22 @@
 
 ## Since 1.1
 
+### Faith & Community layers (Toronto, October 14)
+- New panel group with nine toggles, all off by default: mosques, gurdwaras, synagogues, Hindu temples, Buddhist
+  temples, churches, other faiths, halal grocers & butchers, kosher grocers, butchers & bakeries. One file,
+  `docs/toronto/data/faith.geojson`, built by `cities/toronto/faith.py`.
+- Places of worship: every named one in OpenStreetMap, one point per place, with denomination where tagged.
+  `faith_overrides.csv` adds, fixes or drops places OSM gets wrong; first fix: the Islamic Society of Toronto
+  (Masjid Darussalam) moved to its new building at 20 Overlea Blvd, and its duplicate pin dropped.
+- Shops: 20 HMA-certified halal stores and 19 COR-certified kosher shops, hand-curated in `faith_shops.csv`
+  (independents only; Real Canadian Superstore and Sobeys counters, an Edmonton listing and a wholesale bakery
+  left out; Kosher City Plus and Isaac's KCP Bakery share one point). Placed with Nominatim.
+- New fetch job `.github/workflows/fetch-toronto-faith.yml` (Overpass and Nominatim, monthly and when a list
+  changes, on main or dev).
+- Engine: new icons and colours for these categories; a Nearby `nearest` row can name a layer as a third item
+  and then shows only while that layer is on (the open card redraws when it changes). Other cities unaffected.
+- Attributions credit HMA and COR; app contract documents `faith.geojson` and the Nearby rule.
+
 ### "How it's built" page replaces the source-code card (October 14)
 - The hub's third card linked to the GitHub repo, which is going private. It now opens `docs/about/`, a
   write-up for readers such as employers: the problem, the principles (describe don't rank, current or not at

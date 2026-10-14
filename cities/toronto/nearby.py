@@ -8,6 +8,9 @@ library   Toronto Public Library branches with a building (PhysicalBranch = 1).
 centre    City community recreation centres. The City's file also lists schools whose gyms it
           programs as "Community Centre"; those are left out, so this is the centres themselves.
 er        Hospitals with an emergency department, from the institutions layer.
+mosque, gurdwara, synagogue, hindu, buddhist, church, halal, kosher
+          From the Faith & Community layers (faith.geojson); the card shows the nearest of each only
+          while its layer is on, so nobody sees a faith they didn't ask about.
 park, playground, tennis, offleash
           City parks, and the parks listing a playground, tennis courts or a dog off-leash area
           (one point per park, so a park with six courts counts once). Toronto's open data has no
@@ -49,6 +52,10 @@ for f in json.load(open(os.path.join(RAW, 'parks_rec.geojson')))['features']:
         if 'Dog Off-Leash Area' in am: groups['offleash'].append(c)
 for f in json.load(open(os.path.join(DATA, 'institutions.geojson')))['features']:
     if f['properties'].get('ed'): groups['er'].append(f['geometry']['coordinates'] + [f['properties']['name']])
+
+for f in json.load(open(os.path.join(DATA, 'faith.geojson')))['features']:
+    p = f['properties']
+    if p['cat'] != 'otherfaith': groups.setdefault(p['cat'], []).append(f['geometry']['coordinates'] + [p['name']])
 
 json.dump({'groups': groups}, open(os.path.join(DATA, 'nearby.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 print('nearby:', {k: len(v) for k, v in groups.items()})
