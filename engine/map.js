@@ -188,6 +188,16 @@ const GLYPH = {
   campus: '<path d="M12 3 1 9l11 6 9-4.9V16h2V9zM5 13.2V17l7 4 7-4v-3.8L12 17z"/>',
   culture: '<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/>',
   airport: '<path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z"/>',
+  // Places of worship, by the symbol each faith's own map signage uses, and the food-shop basket.
+  mosque: '<path d="M16.53 4.66A9.5 9.5 0 1 0 16.53 19.34 7.5 7.5 0 1 1 16.53 4.66z"/><path d="M18.9 8.6l.8 2.15 2.3.08-1.8 1.42.62 2.2-1.92-1.28-1.92 1.28.62-2.2-1.8-1.42 2.3-.08z"/>',
+  gurdwara: '<path fill-rule="evenodd" d="M12 7.6a5.4 5.4 0 1 1 0 10.8 5.4 5.4 0 0 1 0-10.8zm0 1.8a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2z"/><path d="M12 1.5 13.5 4.8v12.4L12 20l-1.5-2.8V4.8z"/><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M5.2 8.6c-2.6 5.4-.2 11 6 12.6M18.8 8.6c2.6 5.4.2 11-6 12.6"/>',
+  synagogue: '<path d="M12 1.5 15 6.7h6l-3 5.3 3 5.3h-6l-3 5.2-3-5.2H3l3-5.3-3-5.3h6z"/>',
+  hindu: '<path d="M12 1.5l1.3 2.4h-2.6zM10.3 5h3.4l3.4 7H6.9zM5 13h14v2.2H5zM6.4 16.2h11.2V22h-3.9v-3.4h-3.4V22H6.4z"/>',
+  buddhist: '<path fill-rule="evenodd" d="M12 2.5a9.5 9.5 0 1 1 0 19 9.5 9.5 0 0 1 0-19zm0 2.1a7.4 7.4 0 1 0 0 14.8 7.4 7.4 0 0 0 0-14.8zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/><path fill="none" stroke="currentColor" stroke-width="1.6" d="M14.6 12h4.8M13.84 13.84l3.39 3.39M12 14.6v4.8M10.16 13.84l-3.39 3.39M9.4 12H4.6M10.16 10.16 6.77 6.77M12 9.4V4.6M13.84 10.16l3.39-3.39"/>',
+  church: '<path d="M10.4 1.5h3.2v5h5v3.2h-5V22.5h-3.2V9.7h-5V6.5h5z"/>',
+  otherfaith: '<path d="M12 2 2.5 9.2v12.8h7v-6.2h5V22h7V9.2z"/>',
+  halal: '<path d="M2.5 9h19v2.3h-1.2L18.6 21H5.4L3.7 11.3H2.5zM6.6 8.2 10.4 2.6l1.5 1-3.1 4.6zm10.8 0-3.8-5.6-1.5 1 3.1 4.6z"/>',
+  kosher: '<path d="M2.5 9h19v2.3h-1.2L18.6 21H5.4L3.7 11.3H2.5zM6.6 8.2 10.4 2.6l1.5 1-3.1 4.6zm10.8 0-3.8-5.6-1.5 1 3.1 4.6z"/>',
   // Skyscrapers, by use: office floors as bands, homes as a grid of windows, mixed use as both.
   'tw-com': '<path fill-rule="evenodd" d="M5 1.5h14v21H5zM7.6 4.5v2.2h8.8V4.5zm0 4v2.2h8.8V8.5zm0 4v2.2h8.8v-2.2zm0 4v2.2h8.8v-2.2z"/>',
   'tw-res': '<path fill-rule="evenodd" d="M5 1.5h14v21H5zM7.6 4.5h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 10h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 15.5h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2z"/>',
@@ -1150,6 +1160,9 @@ function setLayer(id, on){
     if (on) LAYERS.filter(it => it.kind === 'fill').forEach(o => { const cb = document.getElementById('lyr-' + o.id); if (cb && cb.checked){ cb.checked = false; setLayer(o.id, false); } });
   }
   if (on && kindOf(id) === 'fill'){ const LN = byKind('lens'), cb = LN && document.getElementById('lyr-' + LN.id); if (cb && cb.checked){ cb.checked = false; setLayer(LN.id, false); } }
+  // A Nearby row that follows this layer appears or goes on the open card.
+  const NB = CITY.card && CITY.card.nearby;
+  if (NB && NB.nearest.some(r => r[2] === id)) try { if (lastInspect) redrawCard(); } catch (e){}   // not yet declared during start-up
 }
 // Reset: back to the starting view (city only, the default layers, the first lens with no filter).
 document.getElementById('reset').addEventListener('click', () => {
@@ -1294,7 +1307,8 @@ function towerCard(f){
     '<small class="tw-src">' + (p.aka ? esc(fill(T.akaText, p)) + ' · ' : '') + (p.wiki ? '<a href="https://en.wikipedia.org/wiki/' + encodeURIComponent(p.wiki.replace(/ /g, '_')) + '" target="_blank" rel="noopener">' + esc(T.moreText) + '</a>' : esc(T.sourceText)) + '</small></div>';
 }
 /* Nearby (card only, nothing drawn on the map): the nearest of a few kinds of public place (library,
-   community centre, emergency department) with the straight-line distance, and how many of others
+   community centre, emergency department; a place of worship or food shop while its layer is on)
+   with the straight-line distance, and how many of others
    (parks, playgrounds…) are within the radius. Describe only: counts, never a score or a ranking. */
 // Distances on the card, in the city's unit (CITY.distance: "km", the default, or "mi").
 // km: "600 m" to the nearest 50 m under a kilometre, then "1.8 km". mi: "300 ft" to the nearest 50 ft
@@ -1305,7 +1319,9 @@ const dist = CITY.distance === 'mi'
   : m => m < 950 ? (Math.round(m / 50) * 50 || 50) + ' m' : (m / 1000).toFixed(m < 9950 ? 1 : 0) + ' km';
 function nearby(x, y){
   const N = CITY.card.nearby, G = data.nearby && data.nearby.groups; if (!N || !G) return '';
-  const rows = N.nearest.map(([key, label]) => {
+  // A row may name a layer as its third item: it then shows only while that layer is on.
+  const rows = N.nearest.map(([key, label, layer]) => {
+    if (layer && !state[layer]) return '';
     const best = (G[key] || []).map(p => [p, metres([x, y], p)]).sort((a, b) => a[1] - b[1])[0];
     return best ? '<dt>' + esc(label) + '</dt><dd><span class="dir-row">' + esc(best[0][2]) + dirBtn(best[0][1], best[0][0], best[0][2]) + '</span><span>' + dist(best[1]) + ' away</span></dd>' : '';
   }).join('');
