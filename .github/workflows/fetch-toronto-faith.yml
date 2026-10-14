@@ -1,19 +1,19 @@
 name: Fetch Toronto faith and community places
 # Downloads Toronto's places of worship from OpenStreetMap (Overpass) and places the addresses in the
 # curated lists (faith_shops.csv, faith_overrides.csv) with Nominatim, into cities/toronto/raw/faith/
-# for cities/toronto/faith.py. Runs when the fetch script or a curated list changes (on main or dev, so a
-# new row is placed before release; it commits back to the branch that changed), monthly, or by hand.
+# for cities/toronto/faith.py. Runs when the fetch script or a curated list changes on main, monthly, or by
+# hand. A row added on dev is placed once it reaches main; give it lat/lon in the CSV to preview it sooner.
 on:
   workflow_dispatch:
   schedule:
     - cron: '41 7 5 * *'
   push:
-    branches: [main, dev]
+    branches: [main]
     paths: ['cities/toronto/fetch_faith.py', 'cities/toronto/faith_shops.csv', 'cities/toronto/faith_overrides.csv',
             '.github/workflows/fetch-toronto-faith.yml']
 permissions:
   contents: write
-concurrency: fetch-toronto-faith-${{ github.ref }}
+concurrency: fetch-toronto-faith
 jobs:
   fetch:
     runs-on: ubuntu-latest

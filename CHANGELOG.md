@@ -27,8 +27,8 @@
 - Shops: 20 HMA-certified halal stores and 19 COR-certified kosher shops, hand-curated in `faith_shops.csv`
   (independents only; Real Canadian Superstore and Sobeys counters, an Edmonton listing and a wholesale bakery
   left out; Kosher City Plus and Isaac's KCP Bakery share one point). Placed with Nominatim.
-- New fetch job `.github/workflows/fetch-toronto-faith.yml` (Overpass and Nominatim, monthly and when a list
-  changes, on main or dev).
+- New fetch job `.github/workflows/fetch-toronto-faith.yml` (Overpass and Nominatim, monthly and when the
+  script or a list changes on main).
 - Engine: new icons and colours for these categories; a Nearby `nearest` row can name a layer as a third item
   and then shows only while that layer is on (the open card redraws when it changes). Other cities unaffected.
 - Attributions credit HMA and COR; app contract documents `faith.geojson` and the Nearby rule.
