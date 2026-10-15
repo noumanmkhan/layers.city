@@ -4,10 +4,10 @@
  "city": "Vancouver",
  "min": 100,
  "heights": ["m", "ft"],
- "tables": {"built": "Tallest buildings", "uc": "Under construction", "timeline": "Timeline of tallest buildings"},
+ "tables": {"built": "Tallest buildings", "uc": "Tallest under construction or proposed > Under construction", "timeline": "Timeline of tallest buildings"},
  "exclude": {},
- "geocode": {"suffix": "Vancouver, British Columbia, Canada", "addresses": {}},
- "use": {},
+ "geocode": {"suffix": "Vancouver, British Columbia, Canada", "addresses": {"508 Drake Street": "508 Drake Street", "1099 Harwood": "1099 Harwood Street", "1098 Harwood": "1098 Harwood Street"}},
+ "use": {"508 Drake Street": "res", "1099 Harwood": "res", "1098 Harwood": "res"},
  "open": {"_rule": "A tower listed with this year's date is drawn hollow (under construction) unless marked true here: it must be open for occupancy, not just topped out."},
  "aka": {},
  "facts": {}

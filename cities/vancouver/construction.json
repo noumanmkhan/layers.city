@@ -1,18 +1,22 @@
 {
- "_about": "Transit under construction (engine/construction.py). Lines are drawn from OpenStreetMap ways whose name matches 'match' (fetched by engine/fetch_construction.py); a line with no OSM geometry yet is left off. Stations come from OSM where mapped. Only facts the owner has published go in 'opens' (Province of BC, via Daily Hive's September 2026 construction update). No closures feed: the Province, not the City, permits the subway's street work, and the City's Road Ahead lists its own projects only.",
+ "_about": "Transit under construction (engine/construction.py). Lines are drawn from OpenStreetMap ways whose name matches 'match', plus unnamed track under construction inside 'unnamedIn' (OSM names little of either line) (fetched by engine/fetch_construction.py); a line with no OSM geometry yet is left off. Stations come from OSM where mapped. Only facts the owner has published go in 'opens' (Province of BC, via Daily Hive's September 2026 construction update). No closures feed: the Province, not the City, permits the subway's street work, and the City's Road Ahead lists its own projects only.",
  "lat0": 49.25,
  "lines": [
   {"id": "broadway", "name": "Broadway Subway", "short": "Broadway Subway", "mode": "subway", "color": "#FFCD00",
    "owner": "Province of British Columbia", "opens": "Late 2027 (Province of BC)", "length": "5.7 km, 6 stations",
    "about": "Extends the Millennium Line west from VCC–Clark under Broadway to Arbutus Street, mostly in a tunnel.",
    "link": "https://www.broadwaysubway.ca/",
-   "match": "^(Broadway Subway|Millennium Line.*Broadway.*|Broadway Subway Project)$",
-   "stationsFromOsm": true},
+   "match": "^(Broadway Extension|Broadway Subway)$",
+   "unnamedIn": [-123.16, 49.258, -123.075, 49.27],
+   "stations": [{"name": "Great Northern Way–Emily Carr", "cross": "Great Northern Way"}, {"name": "Mount Pleasant", "cross": "Main St"},
+                {"name": "Broadway–City Hall", "cross": "Cambie St"}, {"name": "Oak–VGH", "cross": "Oak St"},
+                {"name": "South Granville", "cross": "Granville St"}, {"name": "Arbutus", "cross": "Arbutus St"}]},
   {"id": "slsky", "name": "Surrey Langley SkyTrain", "short": "Surrey Langley SkyTrain", "mode": "metro", "color": "#0033A0",
    "owner": "Province of British Columbia", "opens": "Late 2029 (Province of BC)", "length": "About 16 km, 8 stations",
    "about": "Extends the Expo Line from King George in Surrey along Fraser Highway to Langley City Centre, on an elevated guideway.",
    "link": "https://www.surreylangleyskytrain.ca/",
-   "match": "^(Surrey[- –]Langley SkyTrain|Expo Line.*Langley.*|Surrey Langley SkyTrain Extension)$",
+   "match": "^Surrey[- –]Langley SkyTrain( Extension)?$",
+   "unnamedIn": [-122.85, 49.09, -122.65, 49.2],
    "stationsFromOsm": true}
  ],
  "existing": ["skytrain_lines"]

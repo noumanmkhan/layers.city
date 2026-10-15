@@ -1,9 +1,22 @@
 {
-  "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): the City of Vancouver's Bikeways (OGL – Vancouver), active segments only. Each segment's bikeway_type puts it in one of the layer's classes; types not listed here are left out and printed by the build. The seawall and other off-street paths are 'Off-Street Path' segments in the same file.",
+  "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): the City of Vancouver's Bikeways (OGL – Vancouver), active segments only. The type and subtype together put each segment in a class. The subtype codes aren't documented; read from the routes that carry them (October 16, 2026): SL and R are curb-separated or raised lanes on streets (Hornby, Dunsmuir, Cambie Bridge), OSB is an off-street path for bikes (the Seaside bike path, the Arbutus Greenway), OSS an off-street path shared with people walking (BC Parkway, Stanley Park trails); NB a painted lane with no buffer, PBP and PBT a painted buffer on the parking or traffic side. Local Street is a traffic-calmed bikeway on a quiet street (Vancouver's main kind).",
   "source": {"type": "ods", "portal": "https://opendata.vancouver.ca", "dataset": "bikeways", "where": "status = \"Active\""},
   "fields": ["bike_route_name", "street_name", "bikeway_type", "subtype", "status", "year_of_construction"],
   "typeField": "bikeway_type",
-  "name": "street_name",
-  "classes": {},
-  "labels": {}
+  "subField": "subtype",
+  "name": "bike_route_name",
+  "year": "year_of_construction",
+  "classes": {
+    "prot": ["Protected Bike Lanes", "Protected Bike Lanes|SL", "Protected Bike Lanes|R"],
+    "paint": ["Painted Lanes", "Painted Lanes|NB", "Painted Lanes|PBP", "Painted Lanes|PBT", "Painted Lanes|PBPT"],
+    "shared": ["Shared Lanes", "Local Street"],
+    "trail": ["Protected Bike Lanes|OSB", "Protected Bike Lanes|OSS"]
+  },
+  "labels": {
+    "Protected Bike Lanes": "Protected bike lane", "Protected Bike Lanes|SL": "Protected bike lane", "Protected Bike Lanes|R": "Protected or raised bike lane",
+    "Painted Lanes": "Painted bike lane", "Painted Lanes|NB": "Painted bike lane", "Painted Lanes|PBP": "Buffered bike lane",
+    "Painted Lanes|PBT": "Buffered bike lane", "Painted Lanes|PBPT": "Buffered bike lane",
+    "Shared Lanes": "Shared lane (sharrows)", "Local Street": "Local street bikeway (traffic-calmed)",
+    "Protected Bike Lanes|OSB": "Off-street bike path", "Protected Bike Lanes|OSS": "Off-street path, shared with people walking"
+  }
 }

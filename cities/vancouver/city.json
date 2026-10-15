@@ -113,7 +113,10 @@
     "note": "Outside the City of Vancouver. The local areas and sides on this map cover Vancouver only."
   },
   "drive": {
-    "hub": [49.2856, -123.1115],
+    "hub": [
+      49.2856,
+      -123.1115
+    ],
     "hubName": "Waterfront Station"
   },
   "facts": {
@@ -128,6 +131,125 @@
   "units": {
     "singular": "Local area",
     "plural": "local areas"
+  },
+  "presets": {
+    "label": "Views",
+    "customText": "Custom",
+    "customNote": "Changed from {name}. Pick a view again to go back to it.",
+    "boundaryLabel": "Boundaries",
+    "electionText": "Next on the ballot: {label}",
+    "window": 180,
+    "items": [
+      {
+        "id": "explore",
+        "name": "Explore downtown",
+        "note": "Landmarks, towers and heritage in Downtown, Gastown and Chinatown, with SkyTrain and the SeaBus.",
+        "layers": [
+          "sides",
+          "knownas",
+          "landmarks",
+          "towers",
+          "heritage",
+          "hbld",
+          "streets",
+          "skytrain",
+          "stnNames"
+        ],
+        "view": [
+          [
+            49.268,
+            -123.14
+          ],
+          [
+            49.292,
+            -123.09
+          ]
+        ]
+      },
+      {
+        "id": "local",
+        "name": "Know your city",
+        "note": "Every local area coloured by its transit trip to Waterfront. Try the other lenses below.",
+        "layers": [
+          "la",
+          "lens",
+          "knownas",
+          "streets",
+          "skytrain",
+          "stnNames",
+          "bus"
+        ],
+        "lens": "waterfront",
+        "bus": [
+          "exp"
+        ],
+        "view": "city"
+      },
+      {
+        "id": "civic",
+        "name": "Who represents me",
+        "note": "Search your address or tap the map to see your ridings and your MP.",
+        "layers": [
+          "streets"
+        ],
+        "boundaries": [
+          "prov",
+          "fed"
+        ],
+        "lead": "fed",
+        "view": "city",
+        "hint": "Enter your address to find your ridings and representatives."
+      },
+      {
+        "id": "newcomer",
+        "name": "Where to live",
+        "note": "Housing cost by local area, with frequent transit. Tap a spot for transit nearby and what’s changing.",
+        "layers": [
+          "la",
+          "lens",
+          "knownas",
+          "streets",
+          "skytrain",
+          "stnNames",
+          "bus"
+        ],
+        "lens": "cost",
+        "bus": [
+          "freq"
+        ],
+        "view": "city"
+      },
+      {
+        "id": "transit",
+        "name": "Getting around",
+        "note": "SkyTrain, the SeaBus, frequent and express buses, the West Coast Express and the lines being built.",
+        "layers": [
+          "streets",
+          "skytrain",
+          "stnNames",
+          "bus",
+          "wce",
+          "build"
+        ],
+        "bus": [
+          "freq",
+          "exp"
+        ],
+        "view": "city"
+      }
+    ],
+    "elections": [
+      {
+        "date": "2026-10-17",
+        "lead": "fed",
+        "label": "Mayor, council, park board and school board, October 17"
+      },
+      {
+        "date": "2026-10-24",
+        "lead": "prov",
+        "label": "BC provincial election, October 24"
+      }
+    ]
   },
   "groups": [
     [
@@ -164,6 +286,12 @@
           "note": "Housing cost, getting to work, renters and owners, housing type. Narrow it to a shortlist."
         },
         {
+          "id": "drive",
+          "kind": "suburbs",
+          "name": "Suburban lens",
+          "note": "Typical drive to Waterfront Station with no traffic, town by town. Shows in the regional view."
+        },
+        {
           "id": "knownas",
           "kind": "knownas",
           "file": "knownas",
@@ -177,6 +305,143 @@
           "file": "landmarks",
           "name": "Landmarks",
           "note": "Stanley Park, stadiums, beaches, museums"
+        },
+        {
+          "id": "unis",
+          "kind": "places",
+          "under": "landmarks",
+          "file": "institutions",
+          "cat": "university",
+          "name": "Universities",
+          "place": "University",
+          "aliases": {
+            "University of British Columbia": [
+              "UBC",
+              "U of BC"
+            ],
+            "Simon Fraser University": [
+              "SFU",
+              "SFU Vancouver",
+              "Harbour Centre"
+            ],
+            "Emily Carr University of Art + Design": [
+              "Emily Carr",
+              "ECUAD"
+            ]
+          },
+          "note": "Public and nonprofit universities, one point per campus; UBC just past the city line"
+        },
+        {
+          "id": "colleges",
+          "kind": "places",
+          "under": "landmarks",
+          "file": "institutions",
+          "cat": "college",
+          "name": "Colleges",
+          "place": "College",
+          "note": "Public college campuses: Langara, VCC and BCIT downtown; no private career colleges",
+          "aliases": {
+            "Vancouver Community College": [
+              "VCC"
+            ],
+            "BCIT": [
+              "British Columbia Institute of Technology",
+              "BCIT Downtown"
+            ]
+          }
+        },
+        {
+          "id": "hospitals",
+          "kind": "places",
+          "under": "landmarks",
+          "file": "institutions",
+          "cat": "hospital",
+          "name": "Hospitals",
+          "place": "Hospital",
+          "edText": "Emergency department",
+          "note": "Acute-care hospitals; a heavier ring marks an emergency department",
+          "aliases": {
+            "Vancouver General Hospital": [
+              "VGH"
+            ],
+            "St. Paul's Hospital": [
+              "St Pauls",
+              "St. Pauls",
+              "St Paul's"
+            ],
+            "Mount Saint Joseph Hospital": [
+              "MSJ",
+              "Mount St. Joseph"
+            ]
+          }
+        },
+        {
+          "id": "towers",
+          "kind": "towers",
+          "under": "landmarks",
+          "file": "skyscrapers",
+          "name": "Skyscrapers",
+          "place": "Skyscraper",
+          "note": "Buildings 100 m and taller, open or under construction",
+          "key": {
+            "res": "Residential",
+            "com": "Commercial (office or hotel)",
+            "mix": "Mixed use",
+            "uc": "Under construction · hollow",
+            "sup": "Supertall, 300 m or more · gold ring"
+          },
+          "purpose": {
+            "Residential": "Residential tower",
+            "Office": "Office tower",
+            "Hotel": "Hotel tower",
+            "Mixed-use": "Mixed-use tower"
+          },
+          "supText": "Supertall",
+          "ucText": "Under construction",
+          "builtText": "Completed",
+          "expectedText": "Expected",
+          "akaText": "Also known as {aka}",
+          "moreText": "More on Wikipedia",
+          "sourceText": "Source: Wikipedia"
+        },
+        {
+          "id": "heritage",
+          "kind": "districts",
+          "file": "heritage",
+          "name": "Heritage districts",
+          "note": "Gastown, Chinatown and Yaletown historic areas, and First Shaughnessy",
+          "label": "{name}",
+          "hover": "{name} · {kind}"
+        },
+        {
+          "id": "hbld",
+          "kind": "heritage",
+          "file": "heritage_buildings",
+          "name": "Heritage buildings",
+          "note": "680 municipally designated properties on the Heritage Register; from zoom 15",
+          "place": "Designated heritage property",
+          "builtText": "built {y}",
+          "byText": "{ar}",
+          "designatedText": "designated {d}",
+          "typeText": "Register evaluation"
+        },
+        {
+          "id": "frschools",
+          "kind": "places",
+          "file": "french_schools",
+          "cat": "frschool",
+          "name": "French-language schools",
+          "place": "French-language school",
+          "note": "CSF schools: taught in French, for children with a right to French-language education"
+        },
+        {
+          "id": "immersion",
+          "kind": "places",
+          "file": "french_schools",
+          "cat": "immersion",
+          "name": "French immersion schools",
+          "place": "French immersion school",
+          "note": "Vancouver School Board schools teaching mostly in French to children from English-speaking homes"
         }
       ]
     ],
@@ -190,6 +455,17 @@
           "name": "Main streets",
           "note": "Arterials like Broadway, Hastings, Kingsway, Granville, Main",
           "on": true
+        },
+        {
+          "id": "coll",
+          "kind": "streets",
+          "file": "collectors",
+          "under": "streets",
+          "labelZoom": 15,
+          "yieldLabels": true,
+          "name": "Collector streets",
+          "on": true,
+          "note": "Collector roads like Nanaimo, Victoria and Dunbar; from zoom 13"
         },
         {
           "id": "addr",
@@ -288,6 +564,259 @@
           "pickText": "Drawn on the map",
           "unpickText": "Stop drawing route {r}",
           "clearText": "Clear"
+        },
+        {
+          "id": "bikes",
+          "kind": "bikes",
+          "file": "bikes",
+          "lazy": true,
+          "name": "Bike lanes",
+          "note": "The City’s bikeways: protected lanes, painted lanes, local-street bikeways and the seawall",
+          "classes": {
+            "prot": [
+              "Protected",
+              "Separated from traffic by a curb or raised: Hornby, Dunsmuir, the bridges"
+            ],
+            "paint": [
+              "Painted",
+              "Painted bike lanes, some with a buffer"
+            ],
+            "shared": [
+              "Shared",
+              "Traffic-calmed local-street bikeways and sharrows: you ride with traffic"
+            ],
+            "trail": [
+              "Paths",
+              "Off-street paths: the seawall, the Arbutus Greenway, BC Parkway, park trails"
+            ]
+          },
+          "default": [
+            "prot",
+            "paint"
+          ],
+          "legend": "From the City’s Bikeways data. Tap a stretch for its type and the year it went in.",
+          "asofText": "City data as of {date}.",
+          "betweenText": "Between",
+          "yearText": "Installed",
+          "fine": "Shown as built: construction can close a lane for a while."
+        },
+        {
+          "id": "bikeshare",
+          "kind": "docks",
+          "under": "bikes",
+          "file": "bikeshare",
+          "lazy": true,
+          "optional": true,
+          "minZoom": 12,
+          "name": "Mobi stations",
+          "note": "Mobi bike share stations; filled where e-bikes charge. From zoom 12.",
+          "countNote": "{n} {system} stations; filled where e-bikes charge. From zoom 12.",
+          "kindText": "{system} station",
+          "docksText": "{n} docks",
+          "docksLabel": "Docks",
+          "chargeLabel": "E-bikes",
+          "chargeText": "Charging station",
+          "payLabel": "Paying",
+          "noCardText": "No card reader: unlock with the app or a member key",
+          "fine": "Station list as of {date}. For bikes and free docks right now, check the Mobi app."
+        },
+        {
+          "id": "chg",
+          "kind": "changes",
+          "file": "changes",
+          "lazy": true,
+          "optional": true,
+          "live": true,
+          "staleDays": 9,
+          "name": "What's changing",
+          "note": "New buildings and demolitions with issued permits. Leaves out houses, laneway homes, duplexes and multiplexes.",
+          "stages": {
+            "proposed": [
+              "Proposed",
+              "Applied for and under review: a proposal, not a decision"
+            ],
+            "approved": [
+              "Approved",
+              "Approved, or permit issued; work not started"
+            ],
+            "building": [
+              "Under construction",
+              "Permit inspections under way"
+            ],
+            "finished": [
+              "Finished",
+              "Finished in the last two years"
+            ]
+          },
+          "kinds": {
+            "rezoning": "Rezoning application",
+            "siteplan": "Site plan application",
+            "subdivision": "Subdivision application",
+            "building": "New building",
+            "demolition": "Demolition"
+          },
+          "dates": {
+            "applied": "applied {date}",
+            "issued": "permit {date}",
+            "finished": "{date}"
+          },
+          "unitsText": "{n} homes",
+          "alsoText": "Also here",
+          "legend": "Issued building permits from the City: Vancouver publishes no development applications. Demolitions are dashed rings. Permits issued in the last two years."
+        },
+        {
+          "id": "build",
+          "kind": "construction",
+          "file": "construction",
+          "live": true,
+          "name": "Transit under construction",
+          "note": "Broadway Subway; Surrey Langley SkyTrain in the regional view",
+          "ucText": "Under construction",
+          "linkText": "Project page"
+        }
+      ]
+    ],
+    [
+      "Representation",
+      [
+        {
+          "id": "prov",
+          "kind": "outline",
+          "level": "state",
+          "file": "provincial",
+          "name": "Provincial ridings",
+          "note": "12 MLAs · the boundaries of the October 24, 2026 election",
+          "label": "{name}",
+          "hover": "Provincial: {name}"
+        },
+        {
+          "id": "fed",
+          "kind": "outline",
+          "level": "national",
+          "file": "federal",
+          "name": "Federal ridings",
+          "note": "7 MPs · 2023 boundaries, cut to the city line",
+          "label": "{name}",
+          "hover": "Federal: {name}",
+          "party": {
+            "table": "fed",
+            "key": "name"
+          }
+        },
+        {
+          "id": "bia",
+          "kind": "patches",
+          "file": "bia",
+          "name": "Business Improvement Areas",
+          "note": "22 BIAs",
+          "label": "{name}",
+          "hover": "{name} BIA"
+        }
+      ]
+    ],
+    [
+      "Faith & Community",
+      [
+        {
+          "id": "churches",
+          "kind": "places",
+          "file": "faith",
+          "cat": "church",
+          "name": "Churches",
+          "place": "Church",
+          "note": "In the city, every denomination; pick one below to narrow it down",
+          "groups": [
+            [
+              "catholic",
+              "Catholic"
+            ],
+            [
+              "anglican",
+              "Anglican"
+            ],
+            [
+              "baptist",
+              "Baptist"
+            ],
+            [
+              "united",
+              "United"
+            ],
+            [
+              "presbyterian",
+              "Presbyterian"
+            ],
+            [
+              "orthodox",
+              "Orthodox"
+            ],
+            [
+              "evangelical",
+              "Evangelical"
+            ],
+            [
+              "other",
+              "Other"
+            ]
+          ],
+          "allText": "All",
+          "countText": "{n} shown.",
+          "allNote": "Some aren’t listed with a denomination, so they appear only here.",
+          "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal and Alliance churches."
+        },
+        {
+          "id": "mosques",
+          "kind": "places",
+          "file": "faith",
+          "cat": "mosque",
+          "name": "Mosques",
+          "place": "Mosque",
+          "note": "Masjids and musallas across Metro Vancouver; denomination where known"
+        },
+        {
+          "id": "hindutemples",
+          "kind": "places",
+          "file": "faith",
+          "cat": "hindu",
+          "name": "Hindu temples",
+          "place": "Hindu temple",
+          "note": "Mandirs across Metro Vancouver"
+        },
+        {
+          "id": "synagogues",
+          "kind": "places",
+          "file": "faith",
+          "cat": "synagogue",
+          "name": "Synagogues",
+          "place": "Synagogue",
+          "note": "Across Metro Vancouver; every denomination, shown where known"
+        },
+        {
+          "id": "buddhisttemples",
+          "kind": "places",
+          "file": "faith",
+          "cat": "buddhist",
+          "name": "Buddhist temples",
+          "place": "Buddhist temple",
+          "note": "Temples and meditation centres across Metro Vancouver"
+        },
+        {
+          "id": "gurdwaras",
+          "kind": "places",
+          "file": "faith",
+          "cat": "gurdwara",
+          "name": "Gurdwaras",
+          "place": "Gurdwara",
+          "note": "Sikh gurdwaras across Metro Vancouver (most are in Surrey)"
+        },
+        {
+          "id": "otherfaith",
+          "kind": "places",
+          "file": "faith",
+          "cat": "otherfaith",
+          "name": "Other faiths",
+          "place": "Place of worship",
+          "note": "Bahá’í, Taoist, Unitarian and more, across Metro Vancouver"
         }
       ]
     ]
@@ -396,6 +925,36 @@
           ]
         ],
         "note": "Share of households that rent: under 35%, 35–60%, over 60%."
+      },
+      {
+        "id": "canopy",
+        "short": "Tree canopy",
+        "key": "canopyBand",
+        "optional": true,
+        "tiers": [
+          [
+            "c1",
+            "Under 20%",
+            "--can-1"
+          ],
+          [
+            "c2",
+            "20–28%",
+            "--can-2"
+          ],
+          [
+            "c3",
+            "28–45%",
+            "--can-3"
+          ],
+          [
+            "c4",
+            "45% or more",
+            "--can-4"
+          ]
+        ],
+        "note": "Share of the land under tree cover, water left out, from ESA WorldCover 2021, a 10 m satellite land-cover map. Citywide 38%: it counts every tree it can see, private yards included, so use it to compare local areas.",
+        "source": "ESA WorldCover 2021 (CC BY 4.0)."
       },
       {
         "id": "homes",
@@ -536,7 +1095,9 @@
     ]
   },
   "card": {
-    "report": {"to": "go@layers.city"},
+    "report": {
+      "to": "go@layers.city"
+    },
     "pills": [
       {
         "layer": "sides",
@@ -544,8 +1105,29 @@
       },
       {
         "knownas": 2
+      },
+      {
+        "layer": "bia",
+        "text": "{name} BIA",
+        "color": "--bia"
+      },
+      {
+        "layer": "fed",
+        "text": "Votes in {name}",
+        "color": "--fed"
       }
     ],
+    "address": {
+      "label": "Address",
+      "east": "East of Ontario St",
+      "west": "West of Ontario St",
+      "example": {
+        "e": "E Broadway",
+        "w": "W Broadway"
+      },
+      "blocks": "About {ns} on north–south streets, {ew} on east–west ones",
+      "sub": "Streets that cross Ontario (Carrall St downtown) take W or E ({street}), and numbers rise 100 a block away from it. North–south streets count up going south, 100 an avenue: south of False Creek, the hundreds are the avenue plus 15 (4000 Main St is at 25th Ave)."
+    },
     "facts": [
       {
         "label": "Side",
@@ -565,6 +1147,32 @@
       {
         "label": "Address",
         "address": true
+      },
+      {
+        "label": "Heritage district",
+        "layer": "heritage",
+        "text": "{name}",
+        "onlyInside": true
+      },
+      {
+        "label": "Heritage building",
+        "heritageBuilding": true
+      },
+      {
+        "label": "BIA",
+        "layer": "bia",
+        "text": "{name}",
+        "empty": "None"
+      },
+      {
+        "label": "Provincial",
+        "layer": "prov",
+        "text": "{name}"
+      },
+      {
+        "label": "Federal",
+        "layer": "fed",
+        "text": "{name}"
       }
     ],
     "living": {
@@ -621,12 +1229,43 @@
         "label": "Recent immigrants",
         "text": "{pct}% arrived in Canada 2016–21",
         "caveat": "Share of residents who immigrated in the five years before the 2021 Census."
+      },
+      "canopy": {
+        "label": "Tree canopy",
+        "text": "{pct}% of the land is under trees",
+        "caveat": "Satellite land cover, 2021 (ESA WorldCover, 10 m)."
       }
     },
-    "reps": {
-      "file": "representatives.json",
-      "offices": [],
-      "note": ""
+    "vote": {
+      "file": "voting",
+      "date": "2026-10-17",
+      "tz": "America/Vancouver",
+      "closes": "2026-10-17T20:00:00-07:00",
+      "title": "Election day · {date}",
+      "today": "Election day is today",
+      "hours": "8 a.m. to 8 p.m.",
+      "lead": "People living here vote at",
+      "show": "Show on map",
+      "centersLead": "Vote at any {county} voting place. Nearest to here:",
+      "centersMore": "{n} voting places across Vancouver on election day.",
+      "counties": {
+        "vancouver": {
+          "name": "City of Vancouver",
+          "link": [
+            "Where to vote (City of Vancouver)",
+            "https://vancouver.ca/election/2026/where-to-vote.aspx"
+          ]
+        }
+      },
+      "note": "City of Vancouver voting places as of {asof}. Places can change up to election day: the City’s own list has the final word."
+    },
+    "changes": {
+      "title": "Changing nearby",
+      "radius": 500,
+      "max": 6,
+      "none": "No big new building or demolition permitted within 500 m in the last two years.",
+      "more": "And {n} more nearby: turn on What's changing to see them.",
+      "note": "Issued permits only: Vancouver publishes no development applications. New buildings and demolitions within 500 m; no houses, laneway homes or multiplexes. City of Vancouver building permits, as of {date}."
     },
     "transit": {
       "file": "transit.json",
@@ -650,18 +1289,99 @@
       "kinds": {
         "bus": "Bus route"
       },
-      "note": "Routes with a stop within 400 m, about a 5-minute walk. Filled numbers come every 10 minutes or better on weekdays. Tap a number to draw the route. TransLink schedules, week of {week}."
+      "note": "Routes with a stop within 400 m, about a 5-minute walk. Filled numbers come every 10 minutes or better on weekdays. Tap a number to draw the route. TransLink schedules, week of {week}.",
+      "bikeshare": {
+        "label": "Mobi",
+        "radius": 500,
+        "sub": "{dist} away[ · {docks} docks]",
+        "charge": "charges e-bikes",
+        "none": "No station within 500 m"
+      }
     },
-    "address": {
-      "label": "Address",
-      "east": "East of Ontario St",
-      "west": "West of Ontario St",
-      "example": {
-        "e": "E Broadway",
-        "w": "W Broadway"
-      },
-      "blocks": "About {ns} on north–south streets, {ew} on east–west ones",
-      "sub": "Streets that cross Ontario (Carrall St downtown) take W or E ({street}), and numbers rise 100 a block away from it. North–south streets count up going south, 100 an avenue: south of False Creek, the hundreds are the avenue plus 15 (4000 Main St is at 25th Ave)."
+    "nearby": {
+      "file": "nearby.json",
+      "radius": 1000,
+      "nearest": [
+        [
+          "library",
+          "Library"
+        ],
+        [
+          "centre",
+          "Community centre"
+        ],
+        [
+          "er",
+          "Emergency dept."
+        ],
+        [
+          "mosque",
+          "Mosque",
+          "mosques"
+        ],
+        [
+          "gurdwara",
+          "Gurdwara",
+          "gurdwaras"
+        ],
+        [
+          "synagogue",
+          "Synagogue",
+          "synagogues"
+        ],
+        [
+          "hindu",
+          "Hindu temple",
+          "hindutemples"
+        ],
+        [
+          "buddhist",
+          "Buddhist temple",
+          "buddhisttemples"
+        ],
+        [
+          "church",
+          "Church",
+          "churches"
+        ]
+      ],
+      "within": "Within 1 km",
+      "counts": [
+        [
+          "park",
+          "park",
+          "parks"
+        ],
+        [
+          "playground",
+          "playground",
+          "playgrounds"
+        ],
+        [
+          "tennis",
+          "park with tennis courts",
+          "parks with tennis courts"
+        ],
+        [
+          "offleash",
+          "dog off-leash area",
+          "dog off-leash areas"
+        ]
+      ],
+      "note": "Straight-line distances; 1 km is about a 15-minute walk. Vancouver Public Library, Park Board parks, community centres and off-leash areas, and the hospitals layer. Counts parks, not courts. Places of worship (OpenStreetMap) show while their layers are on."
+    },
+    "reps": {
+      "file": "representatives.json",
+      "offices": [
+        {
+          "role": "MP",
+          "layer": "fed",
+          "table": "fed",
+          "key": "name",
+          "sub": "{r.party}"
+        }
+      ],
+      "note": "Names open each person’s official page. The mayor and councillors (elected at large on October 17) and MLAs (BC votes October 24) are added once the results are in. Checked weekly; last change {date}."
     }
   },
   "tour": {
@@ -770,6 +1490,59 @@
         "view": "city",
         "text": "Tap any spot or search an address, and the card shows the local area it's in and what living there is like. Compare puts two places side by side. Switch layers on and off in the panel to explore."
       }
+    ]
+  },
+  "party": {
+    "label": "Colour by party",
+    "note": "Each seat in the colour of its sitting member’s party, from the weekly check of the official member lists. Grey: vacant.",
+    "vacant": "Vacant",
+    "other": "Other",
+    "parties": [
+      [
+        "Liberal",
+        "red",
+        [
+          "Liberal",
+          "Ontario Liberal Party"
+        ]
+      ],
+      [
+        "PC",
+        "blue",
+        [
+          "Progressive Conservative Party of Ontario"
+        ]
+      ],
+      [
+        "Conservative",
+        "blue",
+        [
+          "Conservative"
+        ]
+      ],
+      [
+        "NDP",
+        "orange",
+        [
+          "NDP",
+          "New Democratic Party of Ontario"
+        ]
+      ],
+      [
+        "Green",
+        "green",
+        [
+          "Green Party",
+          "Green Party of Ontario"
+        ]
+      ],
+      [
+        "Independent",
+        "other",
+        [
+          "Independent"
+        ]
+      ]
     ]
   }
 }
