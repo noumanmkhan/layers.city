@@ -2,6 +2,25 @@
 
 ## Since 1.1
 
+### Chicago: Pace buses and Faith & Community (October 16, on dev)
+- *Pace buses*, a `regional` layer under Metra like Toronto's GO buses: 134 routes, the whole network in the
+  Chicagoland view and the 49 that stop in Chicago in the city view, numbered "Pace 270" (Pulse lines by name), in a
+  deep teal (`--pace`). A *Pace buses* row in Transit nearby, and Pace in the Getting around view. Pace's own GTFS is
+  offered "for non commercial use", so routes and named stops come from OpenStreetMap's route relations instead
+  (`engine/osm_routes.py`, a surface.json feed with `osm` in place of `gtfs`, refreshed by the weekly bus job). No
+  timetable in OSM: Pace routes have `day: true` and no frequency. Three routes with no ways in OSM are left out.
+- *Faith & Community*, Toronto's nine toggles: 2,311 churches inside the city with chips for Catholic, Baptist,
+  Methodist (with the AME churches), Lutheran, Episcopal, Presbyterian, Orthodox, Evangelical and Other; mosques (72),
+  synagogues (113), Hindu temples (20), Buddhist temples (28), gurdwaras (2) and other faiths (53) across Chicagoland
+  (most gurdwaras and mandirs are in the suburbs); 61 HMS-certified halal stores and 7 cRc-listed kosher grocers and
+  bakeries. Nearby rows for each while its layer is on. `cities/chicago/fetch_faith.py` keeps a geocode only when it
+  names the house number and town (Census geocoder as a fallback), and `.github/workflows/fetch-chicago-faith.yml`
+  refreshes it monthly.
+- Not built: a garbage-day row. Chicago publishes no garbage collection days; the only open recycling data is the
+  2013 service areas, and blue-cart weeks hang on each home's garbage day. Street sweeping stays the card's row.
+- Engine: `surface.py` takes a route's `day` from the feed when it has no schedule, and keeps shorter new stretches
+  for OSM routes. Other cities' transit output unchanged. Contract sections 3, 4 and 5 (additive).
+
 ### Colour by party (October 16, on dev, Toronto, Chicago and Dallas)
 - Riding layers can be shaded by the sitting member's party: Toronto's provincial and federal ridings, Chicago's
   Illinois House and congressional districts, Dallas's Texas House and Senate districts. On when the layer goes on,
