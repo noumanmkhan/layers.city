@@ -2,7 +2,8 @@
 from cities/<city>/raw/construction/osm.json (engine/fetch_construction.py) and the curated list in
 cities/<city>/construction.json.
 
-Lines: OSM ways whose name matches a project's 'match'. OSM usually maps each track separately, so a
+Lines: OSM ways whose name matches a project's 'match' (and, with 'unnamedIn' [w, s, e, n], unnamed track under
+construction inside that box). OSM usually maps each track separately, so a
 way lying within 25 m of a longer one already kept is dropped (one dashed line per route), then the
 rest are merged. Stations: OSM stations under construction near the line (stationsFromOsm), else the
 point where the line crosses the street named in 'stations' (from docs/<city>/data/streets.geojson).
@@ -31,6 +32,7 @@ back = lambda g: affinity.scale(g, xfact=1 / (111320 * K), yfact=1 / 110540, ori
 
 
 def is_station(t):
+    if t.get('construction:railway') == 'stop' and t.get('name', '').endswith('Station'): return True   # Vancouver's SkyTrain stations-to-be
     return 'station' in (t.get('construction'), t.get('construction:railway'), t.get('railway'), t.get('public_transport')) or \
         (t.get('public_transport') == 'construction' and t.get('name'))
 
@@ -42,8 +44,15 @@ def rnd(c):
 feats, report = [], []
 for L in cfg['lines']:
     rx = re.compile(L['match'])
+    box = L.get('unnamedIn')   # [w, s, e, n]: unnamed track under construction inside it also counts (most of Vancouver's is unnamed)
+    def unnamed_here(o):
+        t = o['tags']
+        if not box or t.get('name') or (t.get('construction:railway') or t.get('construction')) not in ('subway', 'light_rail', 'rail', 'monorail'): return False
+        xs, ys = [p[0] for p in o['geom']], [p[1] for p in o['geom']]
+        x, y = sum(xs) / len(xs), sum(ys) / len(ys)
+        return box[0] <= x <= box[2] and box[1] <= y <= box[3]
     ways = [fwd(LineString(o['geom'])) for o in osm if o['type'] == 'way' and len(o.get('geom', [])) > 1
-            and not is_station(o['tags']) and rx.search(o['tags'].get('name', ''))]
+            and not is_station(o['tags']) and (rx.search(o['tags'].get('name', '')) or unnamed_here(o))]
     if not ways:
         report.append(f"{L['name']}: no OSM geometry yet, left off")
         continue

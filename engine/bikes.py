@@ -6,6 +6,7 @@ One feature per segment, with:
       trail (off-street multi-use trails)
   d   the City's type, in plain words ("Two-way cycle track")
   n   street or trail name, fr / to its ends where the City gives them, y year installed (Toronto)
+bikes.json "subField" adds a second field to the type ("Protected Bike Lanes|OSS"), used where the pair is listed.
 Segments of a type not listed in bikes.json "classes" are left out and printed, so a new type shows up in the log.
 Lines are simplified to about 2 m and coordinates rounded to 5 decimals (about 1 m).
 Top level: "asof" (the City's last update of the data, else the fetch date), "counts" per class, "km" per class.
@@ -66,6 +67,9 @@ counts, km = collections.Counter(), collections.Counter()
 for f in R['features']:
     p = f['properties']
     typ = (p.get(CFG['typeField']) or '').strip()
+    if CFG.get('subField'):   # Vancouver: the type alone is too coarse ("Protected Bike Lanes" holds off-street paths too)
+        sub = (p.get(CFG['subField']) or '').strip()
+        typ = typ + '|' + sub if typ + '|' + sub in CLS else typ
     t = CLS.get(typ)
     if not t:
         skipped[typ or '(blank)'] += 1

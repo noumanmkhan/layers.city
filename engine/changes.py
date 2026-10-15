@@ -1,7 +1,7 @@
 """What's changing here: build docs/<city>/data/changes.geojson from cities/<city>/raw/changes/
 (engine/fetch_changes.py) for the "changes" layer and the card's Changing nearby section.
 
-Big changes only: new buildings that aren't single houses, demolitions of buildings that aren't houses,
+Big changes only (Vancouver: issued permits only, all "approved"): new buildings that aren't single houses, demolitions of buildings that aren't houses,
 and (Toronto) rezoning, site plan and subdivision applications. Each item gets:
   - a kind: rezoning, siteplan, subdivision (applications), building (new building), demolition;
   - a stage: proposed (an application or permit under review), approved (approved or permit issued, work
@@ -132,6 +132,39 @@ if os.path.exists(p) and city == 'chicago':
                       'a': address(r.get('street_number'), r.get('street_name'), '', r.get('street_direction')), 'd': short(sentence(clean)),
                       'n': r.get('permit_'), 'at': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)],
                       'units': int(m.group(1)) if m else None, 'cost': int(float(r['reported_cost'])) if r.get('reported_cost') else None, 'status': st.title()})
+
+# ---------- Vancouver: issued building permits ----------
+if os.path.exists(p) and city == 'vancouver':
+    # Every permit in the file is issued (the City publishes no applications): stage "approved", dated by its issue.
+    # Kept: new buildings filed as high-density housing or commercial that aren't multiplexes, and demolitions of
+    # anything but houses. Houses, laneway houses, duplexes and multiplexes are the small jobs Toronto leaves out.
+    HOUSES = {'Single Detached House', 'Single Detached House w/Sec Suite', 'Duplex', 'Duplex w/Secondary Suite', 'Laneway House',
+              'Dwelling Unit', 'Infill', 'Infill Single Detached House', 'Secondary Suite', 'Lock -off Unit', 'Not Applicable'}
+    UNITS = re.compile(r'(\d+)\s*(?:-\s*)?(?:secured\s+|market\s+|rental\s+|social\s+|residential\s+|dwelling\s+|strata\s+|housing\s+)*units?\b', re.I)
+    for r in json.load(open(p))['rows']:
+        if r.get('lat') is None: continue
+        desc = re.sub(r'\s+', ' ', r.get('projectdescription') or '').strip()
+        uses = set(r.get('specificusecategory') or [])
+        if r['typeofwork'] == 'New Building':
+            if desc.startswith('Low Density Housing') or re.search(r'multiplex|laneway', desc, re.I) or uses <= HOUSES: continue
+            kind = 'building'
+        else:
+            if not uses or uses <= HOUSES | {'Multiple Conversion Dwelling'}: continue
+            kind = 'demolition'
+        d = re.sub(r'^.*?-\s*(New Building|Demolition / Deconstruction)\s*-\s*', '', desc)
+        d = re.sub(r'\*+[^*]*\*+|Building Permit for BP-\d{4}-\d+|\bBP-\d{4}-\d+\b|\(?Revision.*$|This is a CP Process Permit.*$|Demo Declaration.*$|\bPart [59]( Design)?\b[: -]*', ' ', d, flags=re.I)
+        # Contractors' and people's names, and the permit's conditions, never go on the map.
+        d = re.split(r'\b(Demo(lition)?\s*(Contractor|Declaration|Declared|by)?\s*[:–-]|Contractor\s*:|(as per |by |per )?engineered demolition|submitted by|provided by|prepared by|Ok for field review|BRB Notes|Conditions?\s*:|Note\s*:|\s1[.)]\s)', d, maxsplit=1, flags=re.I)[0]
+        d = re.sub(r'\s+', ' ', d).strip(' .:-*;,')
+        if re.search(r'one-family|single[- ]detached|single[- ]family|two-family|duplex|infill', d, re.I): continue
+        if not d: d = 'New building' if kind == 'building' else 'Demolition'
+        m = UNITS.search(desc)
+        a = re.sub(r',\s*Vancouver.*$', '', r.get('address') or '', flags=re.I)
+        a = re.sub(r'\b(AVENUE|AV)\b', 'AVE', a.upper()); a = re.sub(r'\bSTREET\b', 'ST', a); a = re.sub(r'\bDRIVE\b', 'DR', a); a = re.sub(r'\bBOULEVARD\b', 'BLVD', a)
+        a = re.sub(r'\b(\d+)(St|Nd|Rd|Th)\b', lambda x: x.group(1) + x.group(2).lower(), title_case(a))
+        units = int(m.group(1)) if m and kind == 'building' and 1 < int(m.group(1)) < 3000 else None
+        items.append({'k': kind, 's': 'approved', 'date': (r.get('issuedate') or '')[:10], 'dl': 'issued', 'a': a, 'd': short(d),
+                      'n': r.get('permitnumber'), 'at': [round(float(r['lon']), 6), round(float(r['lat']), 6)], 'units': units})
 
 # ---------- one site per place ----------
 def metres(a, b):

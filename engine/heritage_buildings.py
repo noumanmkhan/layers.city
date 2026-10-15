@@ -66,6 +66,25 @@ if city == 'toronto':
         m = re.match(r'^([A-Z][\w\'.-]+), ([A-Z][\w. ]+?)(\s*\(.*\))?$', p['ar'])
         if m and ' and ' not in p['ar'] and '&' not in p['ar']: p['ar'] = m.group(2).strip() + ' ' + m.group(1) + (m.group(3) or '')
         feats.append({'type': 'Feature', 'properties': {k: v for k, v in p.items() if v}, 'geometry': {'type': 'Point', 'coordinates': [round(r['lon'], 6), round(r['lat'], 6)]}})
+elif city == 'vancouver':
+    # The Vancouver Heritage Register: kept when municipally designated (protected by by-law), like Toronto's Part IV.
+    # The A/B/C evaluation group goes in t; a register entry with no building name has only its address.
+    for r in R['rows']:
+        if str(r.get('municipaldesignationm')) not in ('Yes', 'Y') or r.get('lat') is None or r.get('status') != 'Active': continue
+        num, street = (r.get('streetnumber') or '').strip(), (r.get('streetname') or '').strip()
+        a = tcase(' '.join(x for x in (num, street) if x and x != 'N/A'))
+        n = re.sub(r'\s+', ' ', (r.get('buildingnamespecifics') or '').replace('\u2011', '-').strip())
+        n = re.sub(r'([“"])\s+', r'\1', n)
+        n = re.sub(r'\s*(-\s*(includes .*|\d[\d-]*)|,\s*\d[\d-]*\s+\w+|\(\d[\d-]*\s+\w+\))\s*$', '', n).rstrip(' )-,') if not re.search(r'\([^)]*\)$', n) or re.search(r'\(\d', n) else n
+        n = re.sub(r',\s*\d[\d-]*\s+[NSEW]?\s*[A-Z]\w+.*$', '', n)            # ", 315-321 W Cordova", ", 131 Water - part of…"
+        n = re.sub(r'\s*\([^)]*$', '', n).strip()                                # an unclosed "(1900" or "(33-39 E Pender and"
+        n = re.sub(r'\bBldg\b', 'Building', n).replace('Libary', 'Library')
+        n = re.sub(r'\s+', ' ', re.sub(r'\s+-\s*|\s*-\s+', ' – ', n)).replace('St. Andrew’s – Wesley', 'St. Andrew’s-Wesley')
+        if n.startswith('Facade only'): n = ''
+        if re.match(r'^former [A-Z0-9]', n) and not re.match(r'^former \d', n): n = 'F' + n[1:]
+        if n in ('None', 'N/A') or n.lower() == a.lower() or not n[:1].isupper() or re.match(r'^\d[\d-]*\s', n): n = ''
+        p = {'n': n, 'a': a, 't': ('Group ' + r['evaluationgroup']) if r.get('evaluationgroup') in ('A', 'B', 'C') else '', 'id': r.get('id')}
+        feats.append({'type': 'Feature', 'properties': {k: v for k, v in p.items() if v}, 'geometry': {'type': 'Point', 'coordinates': [round(r['lon'], 6), round(r['lat'], 6)]}})
 else:
     F = {k.lower(): k for k in R['fields']}
     g = lambda r, *names: next((r.get(F.get(n, n)) for n in names if r.get(F.get(n, n)) not in (None, '', 'None')), '')
