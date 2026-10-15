@@ -1,6 +1,6 @@
 name: Fetch streetcar and bus routes
 # Downloads each city's agency GTFS (cities/<city>/surface.json), and any other agencies it lists under
-# "feeds" (Toronto: GO buses). When the feed has changed since the
+# "feeds" (Toronto: GO buses; Chicago: Pace, read from OpenStreetMap by engine/osm_routes.py). When the feed has changed since the
 # last run, rewrites cities/<city>/raw/surface/ (routes, stops, trips-per-hour counts), rebuilds the
 # published transit files with engine/surface.py (docs/<city>/data/transit.json, transit_routes.geojson,
 # streetcars.geojson) and commits both to main, so the site picks up new schedules without a manual
@@ -13,7 +13,7 @@ on:
     - cron: '41 7 * * 1'
   push:
     branches: [main]
-    paths: ['engine/fetch_surface.py', 'engine/surface.py', 'cities/*/surface.json', '.github/workflows/fetch-surface.yml']
+    paths: ['engine/fetch_surface.py', 'engine/osm_routes.py', 'engine/surface.py', 'cities/*/surface.json', '.github/workflows/fetch-surface.yml']
 permissions:
   contents: write
 concurrency: fetch-surface
