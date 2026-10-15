@@ -1,0 +1,111 @@
+== reps
+  wrote tx.csv 117106
+  wrote house.xml 557203
+  downloaded planc2193.zip 4 MB
+wrote representatives/us_house_2021.geojson 16 features
+== city
+  Public Libraries | fields: ['OBJECTID', 'ADDRESS', 'ZIP', 'HRS_SU', 'HRS_MO', 'HRS_TU', 'HRS_WE', 'HRS_TH', 'HRS_FR', 'HRS_SA', 'LIBRARY', 'TELEPHONE']
+wrote city/libraries.geojson 11 KB
+  sample {'OBJECTID': 1, 'ADDRESS': '1302 N JUSTIN AVE', 'ZIP': 75211, 'HRS_SU': 'CLOSED', 'HRS_MO': '7:45 AM - 8 PM', 'HRS_TU': '7:45 AM - 8 PM', 'HRS_WE': '7:45 AM - 5 PM', 'HRS_TH': '7:45 AM - 5 PM', 'HRS_FR': '7:45 AM - 5 PM', 'HRS_SA': '10 AM - 5 PM', 'LIBRARY': 'ARCADIA PARK BRANCH LIBRARY', 'TELEPHONE': '214-670-6446'}
+  Recreation_Centers | fields: ['x', 'y', 'Name', 'Address', 'Zip_Code', 'Square_Footage', 'Year_Built', 'Type', 'ObjectId']
+wrote city/rec_centers.geojson 12 KB
+  sample {'x': -96.78364072, 'y': 32.948786, 'Name': 'FRETZ', 'Address': '6994 BELT LINE RD', 'Zip_Code': '75254', 'Square_Footage': 14815, 'Year_Built': '1975', 'Type': 'COMMUNITY', 'ObjectId': 1}
+  Dallas_Parks_Source_File | fields: ['OBJECTID', 'ADDRESS', 'PARK_TYPE', 'ACRES', 'GISACRES', 'PARK_NAME', 'ParkStatus', 'PARK_ID', 'Park_ID_1', 'Trust_For_Public_Land_and_NRPA_', 'Designed_acres', 'Natural_acres', 'Address_1', 'GlobalID', 'created_user', 'created_date', 'last_edited_user', 'last_edited_date', 'Owned_BY', 'Maint_Zone', 'Council_Dist', 'Shape__Area', 'Shape__Length']
+wrote city/parks.geojson 955 KB
+  sample {'OBJECTID': 1, 'ADDRESS': '18740 Marsh Lane', 'PARK_TYPE': 'Community', 'ACRES': 39.99, 'GISACRES': 27.1034609337, 'PARK_NAME': 'Rosemeade', 'ParkStatus': 'Park', 'PARK_ID': 1299, 'Park_ID_1': 1299, 'Trust_For_Public_Land_and_NRPA_': 1, 'Designed_acres': 1, 'Natural_acres': None, 'Address_1': '18740 Marsh Lane', 'GlobalID': 'cfc08ac5-b883-4115-a8ce-a9ba50ecbdc2', 'created_user': 'lawrence.burger@dallascityhall.com_DallasGIS', 'created_date': 1749068942588, 'last_edited_user': 'lawrence.burger@dallascityhall.com_DallasGIS', 'last_edited_date': 1749068942588, 'Owned_BY': 'Park', 'Maint_Zone': 6, 'Council_Dist': 12, 'Shape__Area': 156435.62890625, 'Shape__Length': 3210.09534401153}
+  None | fields: []
+  retry 1 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Community_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR HTTP Error 400: Bad Request
+  retry 2 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Community_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR HTTP Error 400: Bad Request
+  retry 3 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Community_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR HTTP Error 400: Bad Request
+  retry 4 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Community_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR HTTP Error 400: Bad Request
+  FAILED Community_Pool_2023 failed: https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Community_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4326&f=geojson&resultOffset=0&resultRecordCount=1000&geometryPrecision=6
+  None | fields: []
+  retry 1 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Spray_Ground_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4 HTTP Error 400: Bad Request
+  retry 2 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Spray_Ground_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4 HTTP Error 400: Bad Request
+  retry 3 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Spray_Ground_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4 HTTP Error 400: Bad Request
+  retry 4 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Spray_Ground_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4 HTTP Error 400: Bad Request
+  FAILED Spray_Ground_2023 failed: https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Spray_Ground_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4326&f=geojson&resultOffset=0&resultRecordCount=1000&geometryPrecision=6
+  Dog_Parks | fields: ['OBJECTID', 'Join_Count', 'TARGET_FID', 'Name', 'Location', 'Class', 'Size', 'DPClass', 'Buffer', 'Status', 'Council', 'COUNCIL_1', 'DISTRICT', 'COUNCILPER', 'COMMENTS', 'Shape_Leng']
+wrote city/dog_parks.geojson 4 KB
+  sample {'OBJECTID': 1, 'Join_Count': 1, 'TARGET_FID': 0, 'Name': 'Barry Annino Bark Park', 'Location': 'Juilus Schepps', 'Class': 'Special (Off Lease Dog Park)', 'Size': 1.2, 'DPClass': 'Small', 'Buffer': 0.5, 'Status': 'Open to Public', 'Council': 2, 'COUNCIL_1': 2, 'DISTRICT': '2', 'COUNCILPER': 'Jesse Moreno', 'COMMENTS': ' ', 'Shape_Leng': 234255.365431}
+  Dallas Area Hospitals | fields: ['OBJECTID', 'HospitalName', 'HospitalAddress', 'HospitalUrl']
+wrote city/hospitals.geojson 3 KB
+  sample {'OBJECTID': 1, 'HospitalName': 'Baylor University Medical Center', 'HospitalAddress': '3501 Junius St, Dallas, TX 75246', 'HospitalUrl': 'http://www.baylorhealth.com/'}
+  Dallas Landmark Historic Districts | fields: ['OBJECTID', 'Name', 'FolderPath', 'SymbolID', 'AltMode', 'Base', 'Clamped', 'Extruded', 'Snippet', 'PopupInfo', 'Shape__Area', 'Shape__Length']
+wrote city/historic_districts.geojson 83 KB
+  sample {'OBJECTID': 1, 'Name': 'Bishop Court Apartments', 'FolderPath': 'Dallas Landmark Districts/Dallas Landmark Districts', 'SymbolID': 0, 'AltMode': 0, 'Base': 0, 'Clamped': -1, 'Extruded': 0, 'Snippet': '', 'PopupInfo': "A small district of three 1920's apartment complexes at 901-03 and 905-07 Bishop and 835 Bishop. These three apartments are excellent examples of apartments that were a direct result of the expanding street car lines in North Oak Cliff.", 'Shape__Area': 7328.8203125, 'Shape__Length': 344.71917591124316}
+  NEW_DAY_OF_SERVICE_ | fields: ['FID', 'DISTRICT', 'Shape_Leng', 'Shape_Le_1', 'Shape_Le_2', 'Shape_Area', 'DOS', 'Shape__Area', 'Shape__Length']
+wrote city/days_of_service.geojson 315 KB
+  sample {'FID': 1, 'DISTRICT': 1, 'Shape_Leng': 342709.646725, 'Shape_Le_1': 123332.899055, 'Shape_Le_2': 123347.000803, 'Shape_Area': 735334972.466, 'DOS': 'FRIDAY', 'Shape__Area': 96718637.06640625, 'Shape__Length': 44755.10514272573}
+  SchoolDistricts_2022 | fields: ['OBJECTID', 'STATEFP', 'ELSDLEA', 'SCSDLEA', 'UNSDLEA', 'SDADMLEA', 'GEOID', 'NAME', 'LSAD', 'LOGRADE', 'HIGRADE', 'MTFCC', 'SDTYP', 'FUNCSTAT', 'ALAND', 'AWATER', 'INTPTLAT', 'INTPTLON', 'GEO_YEAR', 'SCHOOLYEAR', 'Shape__Area', 'Shape__Length']
+wrote city/school_districts.geojson 421 KB
+  sample {'OBJECTID': 1, 'STATEFP': '48', 'ELSDLEA': ' ', 'SCSDLEA': ' ', 'UNSDLEA': '35100', 'SDADMLEA': ' ', 'GEOID': '4835100', 'NAME': 'Plano Independent School District', 'LSAD': '00', 'LOGRADE': 'PK', 'HIGRADE': '12', 'MTFCC': 'G5420', 'SDTYP': ' ', 'FUNCSTAT': 'E', 'ALAND': 248424988, 'AWATER': 1207069, 'INTPTLAT': '+33.0361785', 'INTPTLON': '-096.7224334', 'GEO_YEAR': '2022', 'SCHOOLYEAR': '2021-2022', 'Shape__Area': 0.024095240343058322, 'Shape__Length': 0.8624323842677913}
+  None | fields: []
+  retry 1 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/0/query?where=1%3D1&outFields=% HTTP Error 400: Bad Request
+  retry 2 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/0/query?where=1%3D1&outFields=% HTTP Error 400: Bad Request
+  retry 3 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/0/query?where=1%3D1&outFields=% HTTP Error 400: Bad Request
+  retry 4 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/0/query?where=1%3D1&outFields=% HTTP Error 400: Bad Request
+  FAILED Dallas_Bike_Facilities_view failed: https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4326&f=geojson&resultOffset=0&resultRecordCount=1000&geometryPrecision=6
+  Dallas_Trails_Source_File | fields: ['OBJECTID', 'ID', 'NAME', 'ADDRESS', 'TRAILS', 'SURFACE', 'WIDTH', 'STATUS', 'LENGTH_mi_', 'PIC', 'GIS_ID', 'Shape__Length']
+wrote city/trails.geojson 736 KB
+  sample {'OBJECTID': 1, 'ID': 0, 'NAME': 'Netherland', 'ADDRESS': '5600 Dittmar', 'TRAILS': 'NEIGHBORHOOD', 'SURFACE': 'CONCRETE', 'WIDTH': "7'", 'STATUS': 'EXISTING', 'LENGTH_mi_': 0.242518, 'PIC': 'https://www.dallasparks.org/ImageRepository/Document?documentId=2821', 'GIS_ID': 5161, 'Shape__Length': 465.37977617506607}
+  HistoricZoningPolys | fields: ['OBJECTID', 'ZoningType', 'Shape__Area', 'Shape__Length', 'GlobalID', 'Class', 'LandUse']
+wrote city/historic_zoning.geojson 779 KB
+  sample {'OBJECTID': 1, 'ZoningType': 'R-10', 'Shape__Area': 24108149.782226562, 'Shape__Length': 27864.380910105894, 'GlobalID': '5978936d-c725-4f20-b93a-1c293494801a', 'Class': 'Single-Family Dwelling District', 'LandUse': 'Any use permitted in an R-1/2 use district. Accessory buildings, private garage, and bona fide servant’s quarters (not for rent but for employee use only). Bulletin boards and signs. Temporary buildings to be used for construction purposes only.'}
+  None | fields: []
+  retry 1 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Indoor_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=43 HTTP Error 400: Bad Request
+  retry 2 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Indoor_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=43 HTTP Error 400: Bad Request
+  retry 3 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Indoor_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=43 HTTP Error 400: Bad Request
+  retry 4 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Indoor_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=43 HTTP Error 400: Bad Request
+  FAILED Indoor_Pool_2023 failed: https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Indoor_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4326&f=geojson&resultOffset=0&resultRecordCount=1000&geometryPrecision=6
+  Cultural POI | fields: ['OBJECTID', 'NAME', 'ADDRESS', 'POPULAR_NA', 'URL', 'VICINITY']
+wrote city/crm_cultural_poi.geojson 22 KB
+  sample {'OBJECTID': 1, 'NAME': 'The Dallas Arboretum and Botanic Garden', 'ADDRESS': '8525 Garland Rd', 'POPULAR_NA': 'The Dallas Arboretum', 'URL': 'http://www.dallasarboretum.org/', 'VICINITY': 'Neighborhood'}
+  Tennis Center | fields: ['OBJECTID', 'NAME', 'ADDRESS']
+wrote city/crm_tennis_center.geojson 0 KB
+  sample {'OBJECTID': 1, 'NAME': 'FRETZ', 'ADDRESS': '14700 HILLCREST RD'}
+  Brush Routes | fields: ['OBJECTID', 'BRUSH_AR', 'DIST', 'BRUSH_RT', 'WEEK', 'ROUTE_CODE', 'Shape__Area', 'Shape__Length']
+wrote city/crm_brush_routes.geojson 452 KB
+  sample {'OBJECTID': 1, 'BRUSH_AR': 0, 'DIST': 5, 'BRUSH_RT': 0, 'WEEK': 0, 'ROUTE_CODE': 0, 'Shape__Area': 1115885427.765625, 'Shape__Length': 591802.8089673081}
+  Days Of Service | fields: ['OBJECTID', 'DISTRICT', 'DOS', 'DOW', 'Shape__Area', 'Shape__Length']
+wrote city/crm_days_of_service.geojson 168 KB
+  sample {'OBJECTID': 1, 'DISTRICT': 1, 'DOS': '5FRI', 'DOW': 'FRIDAY', 'Shape__Area': 735334455.4169922, 'Shape__Length': 123346.7382235518}
+  historical markers 183
+== disd
+  DISD_Trustee_SMD_Adopted_Dec_16_2021 | fields: ['FID', 'PLAN_5', 'Shape__Area', 'Shape__Length']
+wrote disd/trustees_2021.geojson 376 KB
+  sample {'FID': 1, 'PLAN_5': '1', 'Shape__Area': 109984761.484375, 'Shape__Length': 78582.6935006376}
+== institutions
+  retry 1 https://nces.ed.gov/ipeds/datacenter/data/HD2025.zip HTTP Error 404: Not Found
+  IPEDS 2024 403 in Texas
+  CMS hospitals 62
+  geocoded 53 of 62
+wrote institutions/osm.json 46 KB
+== osm
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+wrote osm_landmarks.json 47 KB
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 4 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
+  overpass retry 5 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  overpass retry 6 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+FAILED osm RuntimeError('overpass failed: osm_nearby.json')
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch_lib.py", line 44, in step
+    fn()
+  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch_more.py", line 103, in osm
+    overpass(f'[out:json][timeout:300];(nwr["leisure"="playground"]{b(CITY)};nwr["leisure"="pitch"]["sport"="tennis"]{b(CITY)};'
+  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch_lib.py", line 86, in overpass
+    raise RuntimeError('overpass failed: ' + name)
+RuntimeError: overpass failed: osm_nearby.json
+FAILED: ['osm']

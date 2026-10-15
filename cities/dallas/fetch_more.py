@@ -9,8 +9,9 @@ Each step logs its own failure and the rest carry on. Writes into raw/ (see SOUR
   historical markers (Dallas Open Data adn6-n59j)
 - disd/: Dallas ISD trustee single-member districts (adopted December 16, 2021)
 - institutions/: IPEDS colleges and universities in Texas, CMS hospitals in Dallas (geocoded), OSM campuses and hospitals
-- osm_landmarks.json, osm_nearby.json: OpenStreetMap features by name for the landmarks list, and playgrounds,
-  tennis courts and parks inside the city
+- osm_landmarks.json, osm_playgrounds.json, osm_tennis.json: OpenStreetMap features by name for the landmarks
+  list, and playgrounds and tennis courts inside the city
+Arguments: step names to run only those (reps city disd institutions osm); --missing skips files already fetched.
 """
 import csv, io, json, os, sys, time, urllib.parse, zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -35,6 +36,19 @@ def layer(svc, i, name, **kw):
     try:
         return arcgis(f'{AGO}{svc}/FeatureServer/{i}', os.path.join('city', name), **kw)
     except Exception as e:
+        print('  layer', i, 'failed:', e)
+    # Some services don't number their only layer 0: read the service and take each layer in turn.
+    try:
+        meta = json.loads(get(f'{AGO}{svc}/FeatureServer?f=json'))
+        ids = [l['id'] for l in meta.get('layers', [])]
+        print('  ', svc, 'layers', [(l['id'], l['name']) for l in meta.get('layers', [])])
+        for j in ids:
+            if j == i: continue
+            try:
+                return arcgis(f'{AGO}{svc}/FeatureServer/{j}', os.path.join('city', name), **kw)
+            except Exception as e:
+                print('  layer', j, 'failed:', e)
+    except Exception as e:
         print('  FAILED', svc, e)
 
 
@@ -45,7 +59,8 @@ def city():
                          ('Dallas_Landmark_Historic_Districts', 0, 'historic_districts.geojson'), ('NEW_DAY_OF_SERVICE_', 0, 'days_of_service.geojson'),
                          ('City_of_Dallas_School_Districts_2022', 0, 'school_districts.geojson'), ('Dallas_Bike_Facilities_view', 0, 'bike_facilities.geojson'),
                          ('Dallas_Trails_Source_File', 0, 'trails.geojson'), ('HistoricZoningPolys', 0, 'historic_zoning.geojson'),
-                         ('Indoor_Pool_2023', 0, 'indoor_pools.geojson')]:
+                         ('Indoor_Pool_2023', 0, 'indoor_pools.geojson'), ('Dallas_Bike_Plan_2025', 0, 'bike_plan.geojson')]:
+        if ONLY_MISSING and os.path.exists(os.path.join(RAW, 'city', name)): continue
         layer(svc, i, name)
     # The CRM hosted layers: days of service and brush routes, by layer name.
     meta = json.loads(get(AGO + 'CRMHostedLayers/FeatureServer?f=json'))
@@ -99,12 +114,17 @@ def osm():
     b = lambda bb: f'({bb[1]},{bb[0]},{bb[3]},{bb[2]})'
     names = sorted({l['osm'] for l in LANDMARKS})
     rx = '|'.join(n.replace('(', '\\\\(').replace(')', '\\\\)').replace('.', '\\\\.') for n in names)
-    overpass(f'[out:json][timeout:300];nwr["name"~"^({rx})$"]{b(REGION)};out tags center;', 'osm_landmarks.json')
-    overpass(f'[out:json][timeout:300];(nwr["leisure"="playground"]{b(CITY)};nwr["leisure"="pitch"]["sport"="tennis"]{b(CITY)};'
-             f'nwr["leisure"="park"]["name"]{b(CITY)};nwr["leisure"="dog_park"]{b(CITY)};);out tags center;', 'osm_nearby.json')
+    if not (ONLY_MISSING and os.path.exists(os.path.join(RAW, 'osm_landmarks.json'))):
+        overpass(f'[out:json][timeout:300];nwr["name"~"^({rx})$"]{b(REGION)};out tags center;', 'osm_landmarks.json')
+    # Playgrounds and tennis courts inside the city, as points (out center), one small query each.
+    for tag, name in [('nwr["leisure"="playground"]', 'osm_playgrounds.json'), ('nwr["leisure"="pitch"]["sport"="tennis"]', 'osm_tennis.json')]:
+        overpass(f'[out:json][timeout:180];{tag}{b(CITY)};out center;', name)
 
 
+ONLY_MISSING = '--missing' in sys.argv
 if __name__ == '__main__':
+    want = [a for a in sys.argv[1:] if not a.startswith('--')]
     for label, fn in [('reps', reps), ('city', city), ('disd', disd), ('institutions', institutions), ('osm', osm)]:
+        if want and label not in want: continue
         print('==', label); step(label, fn)
     print('FAILED:', FAILED or 'none')

@@ -64,6 +64,8 @@ def tidied(path):
         for n in zi.namelist():
             if not n.endswith('.txt'):
                 zo.writestr(n, zi.read(n)); continue
+            if n.startswith('fare_'):   # DART's monthly-pass transfer durations are past R5's one-day limit; fares aren't used here
+                print('  leaving out', n); continue
             rows = [[v.strip() for v in row] for row in csv.reader(io.TextIOWrapper(zi.open(n), encoding='utf-8-sig')) if any(v.strip() for v in row)]
             if bad and n in ('shapes.txt', 'trips.txt') and rows and 'shape_id' in rows[0]:
                 k = rows[0].index('shape_id')

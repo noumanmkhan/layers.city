@@ -1,0 +1,49 @@
+  got https://www.dart.org/transitdata/latest/google_transit.zip 8156 KB
+  shapes with fewer than 2 points, dropped: 0
+  leaving out empty calendar_dates.txt from dart.zip
+  retry 1 https://download.bbbike.org/osm/bbbike/Dallas/Dallas.osm.pbf <urlopen error [Errno 110] Connection timed out>
+  retry 2 https://download.bbbike.org/osm/bbbike/Dallas/Dallas.osm.pbf <urlopen error [Errno 110] Connection timed out>
+  retry 3 https://download.bbbike.org/osm/bbbike/Dallas/Dallas.osm.pbf <urlopen error [Errno 110] Connection timed out>
+  retry 4 https://download.bbbike.org/osm/bbbike/Dallas/Dallas.osm.pbf <urlopen error [Errno 110] Connection timed out>
+  got https://download.geofabrik.de/north-america/us/texas-latest.osm.pbf 707850 KB
+feed ranges [('20261019', '20261206')]
+departure 2026-10-27 08:00:00
+5477 origin points, 4 destination
+Traceback (most recent call last):
+  File "KryoNetworkSerializer.java", line 129, in com.conveyal.r5.kryo.KryoNetworkSerializer.read
+Exception: Java Exception
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 260, in _load_pickled_transport_network
+    transport_network = com.conveyal.r5.kryo.KryoNetworkSerializer.read(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+java.io.java.io.FileNotFoundException: java.io.FileNotFoundException: /home/runner/.cache/r5py/29c3341276e26ccdeba23a5d4b6fbcfb0617ebebbf60c3eddc76d743e3069631.transport_network (No such file or directory)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 97, in __init__
+    transport_network = self._load_pickled_transport_network(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 277, in _load_pickled_transport_network
+    raise FileNotFoundError from exception
+FileNotFoundError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch_transit_downtown.py", line 153, in <module>
+    net = TransportNetwork(pbf, feeds)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 144, in __init__
+    raise GtfsFileError(
+r5py.util.exceptions.GtfsFileError: Could not load GTFS file dart-clean.zip. 
+RangeError: fare_attributes line 11: Number 2678400.0 outside of acceptable range [0.0,86400.0].
+- RangeError: fare_attributes line 26: Number 2678400.0 outside of acceptable range [0.0,86400.0].
+- RangeError: fare_attributes line 23: Number 2678400.0 outside of acceptable range [0.0,86400.0].
+- RangeError: fare_attributes line 15: Number 2678400.0 outside of acceptable range [0.0,86400.0].
+- RangeError: fare_attributes line 19: Number 2678400.0 outside of acceptable range [0.0,86400.0].
+- RangeError: fare_attributes line 7: Number 2678400.0 outside of acceptable range [0.0,86400.0].
+- RangeError: fare_attributes line 4: Number 2678400.0 outside of acceptable range [0.0,86400.0].
