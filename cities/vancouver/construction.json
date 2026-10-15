@@ -1,0 +1,19 @@
+{
+ "_about": "Transit under construction (engine/construction.py). Lines are drawn from OpenStreetMap ways whose name matches 'match' (fetched by engine/fetch_construction.py); a line with no OSM geometry yet is left off. Stations come from OSM where mapped. Only facts the owner has published go in 'opens' (Province of BC, via Daily Hive's September 2026 construction update). No closures feed: the Province, not the City, permits the subway's street work, and the City's Road Ahead lists its own projects only.",
+ "lat0": 49.25,
+ "lines": [
+  {"id": "broadway", "name": "Broadway Subway", "short": "Broadway Subway", "mode": "subway", "color": "#FFCD00",
+   "owner": "Province of British Columbia", "opens": "Late 2027 (Province of BC)", "length": "5.7 km, 6 stations",
+   "about": "Extends the Millennium Line west from VCC–Clark under Broadway to Arbutus Street, mostly in a tunnel.",
+   "link": "https://www.broadwaysubway.ca/",
+   "match": "^(Broadway Subway|Millennium Line.*Broadway.*|Broadway Subway Project)$",
+   "stationsFromOsm": true},
+  {"id": "slsky", "name": "Surrey Langley SkyTrain", "short": "Surrey Langley SkyTrain", "mode": "metro", "color": "#0033A0",
+   "owner": "Province of British Columbia", "opens": "Late 2029 (Province of BC)", "length": "About 16 km, 8 stations",
+   "about": "Extends the Expo Line from King George in Surrey along Fraser Highway to Langley City Centre, on an elevated guideway.",
+   "link": "https://www.surreylangleyskytrain.ca/",
+   "match": "^(Surrey[- –]Langley SkyTrain|Expo Line.*Langley.*|Surrey Langley SkyTrain Extension)$",
+   "stationsFromOsm": true}
+ ],
+ "existing": ["skytrain_lines"]
+}

@@ -1,0 +1,13 @@
+{
+  "_about": "What's changing here (engine/fetch_changes.py in fetch-changes.yml, then engine/changes.py). Vancouver publishes no rezoning or development applications as open data; this is Issued Building Permits (OGL – Vancouver), new buildings and demolitions. Applicant and contractor names are never fetched.",
+  "sources": {
+    "permits": {
+      "type": "ods_permits",
+      "portal": "https://opendata.vancouver.ca",
+      "dataset": "issued-building-permits",
+      "years": 2,
+      "types": ["New Building", "Demolition / Deconstruction"]
+    }
+  },
+  "build": {"years": 2, "permits": {}}
+}

@@ -1,0 +1,6 @@
+{
+  "_about": "Tree canopy per local area (engine/fetch_canopy.py in fetch-canopy.yml, then engine/canopy.py in run.sh), from ESA WorldCover 2021 (10 m, CC BY 4.0): tree cells over land cells, water left out. Stanley Park (unit 23) has no census figures but gets a canopy share like any other unit. 'cuts' split the lens into four bands.",
+  "units": "local_areas",
+  "sources": [{"type": "worldcover"}],
+  "cuts": [15, 22, 30]
+}

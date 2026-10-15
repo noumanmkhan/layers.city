@@ -1,0 +1,14 @@
+{
+ "_about": "Skyscrapers layer, 100 m and taller (decided with the user October 11, 2026: Vancouver's tallest is under 200 m, so the 150 m cut every other city uses would leave a handful). engine/fetch_skyscrapers.py fetches the Wikipedia list; engine/skyscrapers.py builds docs/vancouver/data/skyscrapers.geojson.",
+ "wiki": "List of tallest buildings in Vancouver",
+ "city": "Vancouver",
+ "min": 100,
+ "heights": ["m", "ft"],
+ "tables": {"built": "Tallest buildings", "uc": "Under construction", "timeline": "Timeline of tallest buildings"},
+ "exclude": {},
+ "geocode": {"suffix": "Vancouver, British Columbia, Canada", "addresses": {}},
+ "use": {},
+ "open": {"_rule": "A tower listed with this year's date is drawn hollow (under construction) unless marked true here: it must be open for occupancy, not just topped out."},
+ "aka": {},
+ "facts": {}
+}
