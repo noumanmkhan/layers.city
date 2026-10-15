@@ -212,6 +212,23 @@ const SWATCH = {knownas: 'Aa', landmarks: svg(GLYPH.culture), badges: svg('<path
 const swatchOf = it => it.kind === 'places' ? svg(GLYPH[it.cat] || GLYPH.culture) : it.kind === 'towers' ? svg(GLYPH['tw-com']) : (SWATCH[it.kind] || '');
 // Representation layers draw in one of three styles, by level of government.
 const OUTLINE = {city:'ward', state:'prov', national:'fed'};
+/* Party colours: a representation layer with "party" in city.json ({table, key}) can be shaded by the
+   party of each seat's sitting member (representatives.json), with CITY.party.parties mapping party
+   names to a colour ([label, colour, [names]]). One layer is shaded at a time: the most recent one
+   wins, and it stands in for the area fills and the lens, which come back when the shading ends.
+   Shaded, the layer's own lines switch to a contrasting edge so borders show between seats of one colour. */
+const PTY = CITY.party || {parties: []};
+const PARTY = Object.fromEntries(LAYERS.filter(it => it.kind === 'outline' && it.party).map(it => [it.id, it]));
+const PTY_RANK = {city: 0, state: 1, national: 2};
+let shade = null, partyBusy = false, partyStack = [], partyDisplaced = [];
+const partyPref = {};
+function partyOf(it, f){   // [class, label] for one seat
+  const R = data.reps && data.reps[it.party.table], k = String(f.properties[it.party.key]);
+  if (!R || !(k in R)) return ['nd', ''];
+  const r = R[k]; if (!r) return ['vac', PTY.vacant || 'Vacant'];
+  const p = PTY.parties.find(x => x[2].includes(r.party));
+  return p ? [p[1], p[0]] : ['other', r.party || PTY.other || 'Other'];
+}
 
 /* Suburban lens: free-flow drive time to the downtown hub, by municipality, in the regional view only. */
 const DRIVE_TIERS = [['d1', 'Under 30 min', '--drv-1', 30], ['d2', '30–60 min', '--drv-2', 60], ['d3', '60–90 min', '--drv-3', 90], ['d4', '90 min or more', '--drv-4', Infinity]];
@@ -227,7 +244,13 @@ const KINDS = {
   units: (it, fc) => polyLayer(fc, {pane:'lines', cls: () => 'nbhd', label: f => f.properties.name, lcls: () => 'lbl-nbhd', hover: f => fill(it.hover || '{name}', f.properties), focusId: it.id}),
   outline: (it, fc) => {
     const c = OUTLINE[it.level];
-    return polyLayer(fc, {pane:'civic', cls: () => c, label: f => fill(it.label, f.properties), lcls: () => 'lbl-' + c, hover: f => fill(it.hover, f.properties)});
+    const g = polyLayer(fc, {pane:'civic', cls: () => c, label: f => fill(it.label, f.properties), lcls: () => 'lbl-' + c,
+      hover: f => !it.party ? fill(it.hover, f.properties) : () => { const p = shade === it.id && partyOf(it, f)[1]; return esc(fill(it.hover, f.properties)) + (p ? ' · ' + esc(p) : ''); }});
+    // Party colours sit in the fill pane, under the lines; the lines on top still take hovers and taps.
+    // A halo under the lines (lines pane, below civic) makes the contrasting edge read on any colour.
+    if (it.party) g._party = L.layerGroup([L.geoJSON(fc, {pane:'fill', interactive:false, style: f => ({className: 'pty p-' + partyOf(it, f)[0], weight: 0})}),
+      L.geoJSON(fc, {pane:'lines', interactive:false, style: () => ({className: 'pty-case'})})]);
+    return g;
   },
   // Protected districts (heritage, landmark): a dashed outline with a light wash, so the streets inside still read.
   districts: (it, fc) => polyLayer(fc, {pane:'civic', cls: () => 'hd', label: f => fill(it.label, f.properties), lcls: () => 'lbl-hd', hover: f => fill(it.hover, f.properties)}),
@@ -1251,6 +1274,13 @@ CITY.groups.forEach(([title, items]) => {
       const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'drvbox'; box.hidden = true;
       grp.appendChild(box);
     }
+    if (PARTY[it.id]){   // "Colour by party", with a key to the colours while it's on
+      const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'ptybox-' + it.id; box.hidden = !it.on;
+      box.innerHTML = '<label class="sub"><input type="checkbox" id="pty-' + it.id + '"> ' + esc(PTY.label || 'Colour by party') + '</label>' +
+        '<div class="legend" id="ptyleg-' + it.id + '" hidden><div class="ptykey" id="ptykey-' + it.id + '"></div><small>' + esc(it.party.note || PTY.note || '') + '</small></div>';
+      grp.appendChild(box);
+      box.querySelector('input').addEventListener('change', e => { partyTick(it.id, e.target.checked); logEvent('party', {id: e.target.checked ? it.id : 'none'}); });
+    }
     if (it.sub){
       const s = document.createElement('label'); s.className = 'sub';
       s.innerHTML = '<input type="checkbox" id="' + it.sub.id + '"' + (it.sub.on ? ' checked' : '') + '> ' + it.sub.label;
@@ -1399,12 +1429,78 @@ function setLayer(id, on){
     if (on) LAYERS.filter(it => it.kind === 'fill').forEach(o => { const cb = document.getElementById('lyr-' + o.id); if (cb && cb.checked){ cb.checked = false; setLayer(o.id, false); } });
   }
   if (on && kindOf(id) === 'fill'){ const LN = byKind('lens'), cb = LN && document.getElementById('lyr-' + LN.id); if (cb && cb.checked){ cb.checked = false; setLayer(LN.id, false); } }
+  if (PARTY[id]){ const b = document.getElementById('ptybox-' + id); if (b) b.hidden = !on; partyLayer(id, on); }
+  // An area fill or the lens switched on after party colours: the most recent wins, so the colours go.
+  if (on && shade && !partyBusy && (kindOf(id) === 'fill' || kindOf(id) === 'lens')){ partyPref[shade] = false; shade = null; partyDisplaced = []; partyShow(); }
   // A Nearby row that follows this layer appears or goes on the open card.
   const NB = CITY.card && CITY.card.nearby;
   if (NB && NB.nearest.some(r => r[2] === id)) try { if (lastInspect) redrawCard(); } catch (e){}   // not yet declared during start-up
 }
+function partyLayer(id, on){
+  if (on){ partyPref[id] = true; partyStack = partyStack.filter(x => x !== id).concat(id); partyClaim(id); }
+  else { partyStack = partyStack.filter(x => x !== id); if (shade === id) partySettle(); else partyShow(); }
+}
+// The "Colour by party" tick: on, this layer takes over; off, no layer is shaded until one is ticked or switched on again.
+function partyTick(id, on){
+  if (on){ partyLayer(id, true); queueHash(); return; }
+  Object.keys(PARTY).forEach(x => { if (state[x]) partyPref[x] = false; });
+  partySettle(); queueHash();
+}
+function partyClaim(id){
+  if (!layers[id] || !layers[id]._party || !partyPref[id] || !state[id]) return partyShow();
+  if (shade !== id){
+    partyBusy = true;
+    LAYERS.filter(it => it.kind === 'fill' || it.kind === 'lens').forEach(o => {
+      const cb = document.getElementById('lyr-' + o.id);
+      if (cb && cb.checked){ cb.checked = false; setLayer(o.id, false); if (!partyDisplaced.includes(o.id)) partyDisplaced.push(o.id); }
+    });
+    partyBusy = false;
+  }
+  shade = id; partyShow();
+}
+// After a shaded layer goes: the most recent other one still wanted takes over, else the fills it replaced come back.
+function partySettle(){
+  const next = partyStack.slice().reverse().find(x => state[x] && partyPref[x]);
+  if (next){ shade = null; return partyClaim(next); }
+  shade = null;
+  if (partyDisplaced.length){
+    const back = partyDisplaced; partyDisplaced = []; partyBusy = true;
+    // Fills before the lens, as in links: the lens switches fills off, so whichever came last wins.
+    back.sort((a, b) => (kindOf(a) === 'lens') - (kindOf(b) === 'lens')).forEach(x => { const cb = document.getElementById('lyr-' + x); if (cb && !cb.checked){ cb.checked = true; setLayer(x, true); } });
+    partyBusy = false;
+  }
+  partyShow();
+}
+// A link or a view switched several layers at once: national over provincial or state over city, unless the link names one.
+function partyFromLink(v){
+  partyStack = Object.keys(PARTY).filter(x => state[x]).sort((a, b) => PTY_RANK[PARTY[a].level] - PTY_RANK[PARTY[b].level]);
+  partyStack.forEach(x => { partyPref[x] = v !== 'none'; });
+  if (v && PARTY[v] && state[v]) partyStack = partyStack.filter(x => x !== v).concat(v);
+  if (shade && !(state[shade] && partyPref[shade])) shade = null;
+  partySettle();
+}
+function partyShow(){
+  const ctr = map.getContainer();
+  Object.keys(PTY_RANK).forEach(lv => ctr.classList.toggle('pty-' + lv, !!shade && PARTY[shade].level === lv));
+  Object.values(PARTY).forEach(it => {
+    const g = layers[it.id], want = shade === it.id;
+    if (g && g._party){ if (want && !g.hasLayer(g._party)) g.addLayer(g._party); if (!want && g.hasLayer(g._party)) g.removeLayer(g._party); }
+    const cb = document.getElementById('pty-' + it.id); if (cb) cb.checked = want;
+    const leg = document.getElementById('ptyleg-' + it.id); if (leg) leg.hidden = !want;
+    if (want) partyKey(it);
+  });
+}
+// Key: each party on this layer with its number of seats, most seats first, vacant seats last.
+function partyKey(it){
+  const el = document.getElementById('ptykey-' + it.id), fc = data.layers && data.layers[it.id]; if (!el || !fc) return;
+  const n = {};
+  fc.features.forEach(f => { const [c, lab] = partyOf(it, f); if (c === 'nd') return; const k = c + '|' + lab; n[k] = (n[k] || 0) + 1; });
+  el.innerHTML = Object.entries(n).sort((a, b) => (a[0].startsWith('vac|') - b[0].startsWith('vac|')) || b[1] - a[1])
+    .map(([k, c]) => { const [cl, lab] = k.split('|'); return '<span><i class="p-' + cl + '"></i>' + esc(lab) + ' ' + c + '</span>'; }).join('');
+}
 // Reset: back to the starting view (city only, the default layers, the first lens with no filter).
 document.getElementById('reset').addEventListener('click', () => {
+  shade = null; partyStack = []; partyDisplaced = []; partyShow();
   LAYERS.forEach(it => {
     const cb = document.getElementById('lyr-' + it.id), want = !!it.on;
     if (cb.checked !== want){ cb.checked = want; setLayer(it.id, want); }
@@ -2904,6 +3000,9 @@ function linkState(){
   if (picked.size) parts.push(['routes', [...picked].join(',')]);
   const pgs = Object.entries(placePick).filter(([id, g]) => g !== 'all' && state[id]).map(([id, g]) => id + ':' + g);
   if (pgs.length) parts.push(['pick', pgs.join(',')]);
+  { // party= only when the shading isn't what the layers alone would give (the highest level on, or none)
+    const onP = Object.keys(PARTY).filter(x => state[x]).sort((a, b) => PTY_RANK[PARTY[a].level] - PTY_RANK[PARTY[b].level]);
+    if (onP.length && shade !== onP[onP.length - 1]) parts.push(['party', shade || 'none']); }
   if (presetOn && !presetCustom) parts.push(['preset', presetOn]);
   return parts.map(([k, v]) => k + '=' + enc(v)).join('&');
 }
@@ -2921,7 +3020,7 @@ function readHash(h){
 // Put the map into the state a link describes. Unknown ids and malformed parts are skipped.
 function applyHash(h){
   const o = readHash(h);
-  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg', 'preset', 'pick'].some(k => k in o)) return false;
+  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg', 'preset', 'pick', 'party'].some(k => k in o)) return false;
   // A bare preset= link (no layers of its own) sets up that view; otherwise the link wins and the view is noted.
   if (o.preset && presetById(o.preset) && !o.layers){ applyPreset(o.preset); if (!o.map && !o.pin) return true; }
   const num = s => s.split(/[,/]/).map(Number);
@@ -2940,6 +3039,7 @@ function applyHash(h){
     SUBS.forEach(s => { document.getElementById(s.id).checked = want.has(s.id); });
     syncStnNames();
   }
+  if (o.layers || o.party) partyFromLink(o.party);
   (o.board || '').split(',').forEach(part => { const [id, b] = part.split(':'); if (b) setBoard(id, b); });
   if (o.bus) setBusFams(o.bus.split('+'));
   Object.keys(placePick).forEach(id => setPlacePick(id, 'all'));

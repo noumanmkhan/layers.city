@@ -39,6 +39,11 @@ would unpark it.
 
 ## Partly there
 
+- **Party colours on congressional districts.** The map draws the 2025 lines, but the members sitting now were
+  elected on the 2021 lines, so colouring the new districts by them would be wrong. Unpark in January 2027, once the
+  November 3 winners take office and `card.reps` reads `congress` from the drawn layer: add `"party": {"table":
+  "congress", "key": "num"}` to the `congress` layer.
+
 - **Frequent buses.** The bus layer's Frequent family is empty: no DART route runs six trips an hour each way
   through the whole weekday (the rule every city uses). Express routes are marked.
 - **Trails in the bike layer.** The City's bike facilities include only five trail segments; the Park Department's

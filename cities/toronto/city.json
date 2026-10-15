@@ -100,8 +100,8 @@
     ]],
     ["Representation", [
       {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "25 wards, one councillor each", "label": "Ward {num}", "hover": "Ward {num} · {name}"},
-      {"id": "prov", "kind": "outline", "level": "state", "file": "wards", "name": "Provincial ridings", "note": "25 MPPs · same lines as the wards", "label": "{prov}", "hover": "Provincial: {prov}"},
-      {"id": "fed", "kind": "outline", "level": "national", "file": "federal", "name": "Federal ridings", "note": "24 MPs · 2023 boundaries", "label": "{name}", "hover": "Federal: {name}"},
+      {"id": "prov", "kind": "outline", "level": "state", "file": "wards", "name": "Provincial ridings", "note": "25 MPPs · same lines as the wards", "label": "{prov}", "hover": "Provincial: {prov}", "party": {"table": "prov", "key": "prov"}},
+      {"id": "fed", "kind": "outline", "level": "national", "file": "federal", "name": "Federal ridings", "note": "24 MPs · 2023 boundaries", "label": "{name}", "hover": "Federal: {name}", "party": {"table": "fed", "key": "name"}},
       {"id": "school", "kind": "boards", "file": "school_wards", "name": "School board wards", "note": "Trustee wards for the 4 public school boards · 2026 lines",
        "boards": [["tdsb", "TDSB", "Toronto District School Board"], ["tcdsb", "TCDSB", "Toronto Catholic District School Board"], ["viamonde", "Viamonde", "Conseil scolaire Viamonde (French public)"], ["monavenir", "MonAvenir", "Conseil scolaire catholique MonAvenir (French Catholic)"]],
        "boardNote": "Each trustee ward is a group of whole City wards. Source: City Clerk, 2026 school board reference chart.",
@@ -195,6 +195,7 @@
       {"date": "2030-10-28", "lead": "wards", "label": "City council and school boards, October 28, 2030"}
     ]
   },
+  "party": {"label": "Colour by party", "note": "Each seat in the colour of its sitting member’s party, from the weekly check of the official member lists. Grey: vacant.", "vacant": "Vacant", "other": "Other", "parties": [["Liberal", "red", ["Liberal", "Ontario Liberal Party"]], ["PC", "blue", ["Progressive Conservative Party of Ontario"]], ["Conservative", "blue", ["Conservative"]], ["NDP", "orange", ["NDP", "New Democratic Party of Ontario"]], ["Green", "green", ["Green Party", "Green Party of Ontario"]], ["Independent", "other", ["Independent"]]]},
   "card": {
     "report": {"to": "go@layers.city"},
     "pills": [

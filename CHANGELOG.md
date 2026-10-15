@@ -2,6 +2,19 @@
 
 ## Since 1.1
 
+### Colour by party (October 16, on dev, Toronto, Chicago and Dallas)
+- Riding layers can be shaded by the sitting member's party: Toronto's provincial and federal ridings, Chicago's
+  Illinois House and congressional districts, Dallas's Texas House and Senate districts. On when the layer goes on,
+  with a *Colour by party* tick and a key with seat counts under its row. Red, blue, orange and green tints (new
+  palette keys `--pty-*`), grey for a vacant seat, clear where the table has no member.
+- One layer at a time: the most recent wins; a link or view with several picks the national level. Shading switches
+  the area fills and the lens off and brings them back when it ends; switching a fill or the lens on ends it.
+  Shaded lines use a contrasting edge on a halo. Links write `party=<id>` or `party=none` only when the shading
+  differs from that default.
+- Config: optional `party` on outline layers and a top-level `party` block (contract section 4). No data changes:
+  parties were already in `representatives.json`. Dallas's congressional districts wait for January (members sit
+  for the old lines). City wards stay uncoloured (nonpartisan).
+
 ### Dallas, Toronto's features (October 16, on dev, unlisted)
 - Landmarks (29), universities, Dallas College campuses and ERs (IPEDS and CMS, public and nonprofit only),
   skyscrapers (Wikipedia), the City's 21 landmark historic districts, 13 public improvement districts (a layer, a pill and a card row, like Chicago's SSAs), collector streets, bike lanes (the City's

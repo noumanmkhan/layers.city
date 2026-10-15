@@ -122,6 +122,12 @@ How the website's search does it, for an app that wants to match:
   `file` (one file, add `.geojson`) or `files` (several). Kinds the card tests a point against:
   `fill`, `units`, `outline`, `patches`, `districts`, and `boards` (below). The `knownas` kind is a
   point layer used by distance (step 4 below). Other kinds are map drawing only.
+- An `outline` layer may have `party` (`{table, key}`; Toronto `prov` and `fed`, Chicago `house` and `congress`,
+  Dallas `house` and `senate`): each seat can be coloured by its sitting member's party, the member being
+  `representatives.json[table][feature[key]]`. Top-level `party` (optional): `label` ("Colour by party"), `note`,
+  `vacant`, `other`, and `parties` `[[label, colour, [names]]…]` matching the member's `party` string to a colour id
+  (`red`, `blue`, `orange`, `green`; anything unmatched is `other`). A seat with no entry in the table is left clear;
+  a seat whose entry is `null` is vacant. Apps may ignore it.
 - A `boards` layer (`school` in every city: Toronto's file `school_wards`, Chicago's `school_board`, Dallas's `school`) holds several overlapping sets of
   wards in one file, one set per school board. Each feature has `board` (an id), `num` (the
   board's ward number, a string), `area` (a ward name, French boards only, e.g. "Est"), `wards`
@@ -585,7 +591,9 @@ Read these from `city.json`; the table is a snapshot, not a list to hard-code.
 ### How the website draws them
 
 Colours are `palette` keys (light / dark resolved there). Widths are in screen points. Drawing
-order, bottom to top, is the table's order.
+order, bottom to top, is the table's order. Party colours: one riding layer at a time is shaded (the one switched on
+or ticked most recently; a link or view with several picks the highest level), and while it is, the area fills and
+the lens are switched off; they come back when the shading ends. Switching a fill or the lens on ends the shading.
 
 | Kind | Fill | Stroke | Label (at `lp`) | Label shows from zoom |
 |---|---|---|---|---|
@@ -597,6 +605,7 @@ order, bottom to top, is the table's order.
 | `outline`, level `national` | none | `--fed`, 2.2 | `label` template, 11 pt bold, `--fed` | 11 |
 | `outline`, level `state` | none | `--prov`, 2, dashed 6 on / 4 off | `label` template, 11 pt bold, `--prov` | 11 |
 | `outline`, level `city` | none | `--ward`, 2.2 | `label` template, 11 pt bold, `--ward` | 11 |
+| `outline` with `party`, shaded | `--pty-<colour>` (`--pty-red`, `-blue`, `-orange`, `-green`, `-other`), opacity 0.38; vacant `--pty-vac` at 0.22; no member listed: none | `--pty-edge`, 1.8, solid, over a `--pty-case` halo 5.5 at 90% | as unshaded, in `--pty-edge` | 11 |
 | `boards` | none | `--sbw`, 2.6, dashed 9 on / 4 off | `label` template, 11 pt bold, `--sbw` | 11 |
 | `knownas` | (points: label only) | | `name`, 11.5 pt semibold italic, `--cult`; `kind: "enclave"` uses `--cult-enclave` | 12 |
 

@@ -83,8 +83,8 @@
     ]],
     ["Representation", [
       {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "50 wards, one alderperson each", "label": "Ward {num}", "hover": "Ward {num}"},
-      {"id": "house", "kind": "outline", "level": "state", "file": "il_house", "name": "Illinois House districts", "note": "Two House districts make one Senate district", "label": "{num}", "hover": "Illinois House {num} · Senate {senate}"},
-      {"id": "congress", "kind": "outline", "level": "national", "file": "congress", "name": "Congressional districts", "note": "Illinois seats in the U.S. House", "label": "IL-{num}", "hover": "Congressional district IL-{num}"},
+      {"id": "house", "kind": "outline", "level": "state", "file": "il_house", "name": "Illinois House districts", "note": "Two House districts make one Senate district", "label": "{num}", "hover": "Illinois House {num} · Senate {senate}", "party": {"table": "house", "key": "num"}},
+      {"id": "congress", "kind": "outline", "level": "national", "file": "congress", "name": "Congressional districts", "note": "Illinois seats in the U.S. House", "label": "IL-{num}", "hover": "Congressional district IL-{num}", "party": {"table": "congress", "key": "num"}},
       {"id": "school", "kind": "boards", "file": "school_board", "name": "School board districts", "note": "20 Chicago Board of Education districts · on the Nov 3, 2026 ballot",
        "boards": [["cps", "Board of Education", "Chicago Board of Education"]],
        "label": "{num}", "hover": "Board of Education district {num}"},
@@ -161,6 +161,7 @@
       {"date": "2027-02-23", "lead": "wards", "label": "Mayor and City Council, February 23, 2027"}
     ]
   },
+  "party": {"label": "Colour by party", "note": "Each district in the colour of its sitting member’s party (Illinois House: the state representative), from the weekly check of the official member lists. Grey: vacant.", "vacant": "Vacant", "other": "Other", "parties": [["Democrat", "blue", ["Democrat", "Democratic"]], ["Republican", "red", ["Republican"]], ["Independent", "other", ["Independent"]]]},
   "card": {
     "report": {"to": "go@layers.city", "kinds": ["A boundary or area is wrong", "A representative or election detail is wrong", "A street closure is wrong", "A name, landmark or place is wrong", "Something else"]},
     "pills": [
