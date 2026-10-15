@@ -31,7 +31,7 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/toronto/raw/construction cities/chicago/raw/construction
+          git add cities/toronto/raw/construction cities/chicago/raw/construction cities/vancouver/raw/construction
           git commit -m "Fetch transit lines under construction from OpenStreetMap" || echo "no changes"
           git pull --rebase
           git push

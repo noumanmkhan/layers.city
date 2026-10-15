@@ -31,7 +31,7 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/toronto/raw cities/chicago/raw
+          git add cities/toronto/raw cities/chicago/raw cities/vancouver/raw
           for c in toronto chicago vancouver; do [ -f docs/$c/data/heritage_buildings.geojson ] && git add docs/$c/data/heritage_buildings.geojson; done
           git commit -m "Update heritage buildings" || echo "no changes"
           git pull --rebase
