@@ -3223,11 +3223,18 @@ function cardOf(latlng, title, muniName){
     const muni = hit(data.outer, x, y) || (muniName && data.outer.features.find(f => f.properties.name === muniName));
     if (!muni) return null;
     const m = muni.properties, rp = fill(CITY.outside.regionPill, m);
-    return {outside: true, x, y, m, heading: title || m.name,
-      pills: nearCommunity(x, y, title) + '<span class="pill"><i style="background:var(--land-out-line)"></i>' + esc(m.name) + '</span><span class="pill"><i style="background:var(--muni-label)"></i>' + esc(rp) + '</span>',
+    // Districts drawn beyond the city (card.outsideFacts: layer ids; Dallas's state and congressional districts
+    // cover its nine counties) add their card rows and pills here too.
+    const OF = CITY.card.outsideFacts || [], oh = {};
+    OF.forEach(id => { oh[id] = hit(data.layers[id], x, y); });
+    const orows = CITY.card.facts.filter(r => r.layer && oh[r.layer]).map(r => '<dt>' + esc(r.label) + '</dt><dd>' + esc(fill(r.text, oh[r.layer].properties)) + '</dd>').join('');
+    const opills = CITY.card.pills.filter(p => p.text && oh[p.layer]).map(p => '<span class="pill"><i style="background:var(' + p.color + ')"></i>' + esc(fill(p.text, oh[p.layer].properties)) + '</span>').join('');
+    const bounds = '<dl class="facts"><dt>Municipality</dt><dd>' + esc(m.name) + '</dd><dt>' + esc((CITY.focus && CITY.focus.noun) || 'Region') + '</dt><dd>' + esc(rp) + '</dd>' + orows + '</dl>';
+    return {outside: true, x, y, m, heading: title || m.name, boundsSection: OF.length ? bounds : '',
+      pills: nearCommunity(x, y, title) + '<span class="pill"><i style="background:var(--land-out-line)"></i>' + esc(m.name) + '</span><span class="pill"><i style="background:var(--muni-label)"></i>' + esc(rp) + '</span>' + opills,
       drive: driveHere(x, y, m),
       // For Compare: the same facts as rows, so they line up with a spot inside the city.
-      sections: [['bounds', 'Boundaries', '<dl class="facts"><dt>Municipality</dt><dd>' + esc(m.name) + '</dd><dt>' + esc((CITY.focus && CITY.focus.noun) || 'Region') + '</dt><dd>' + esc(rp) + '</dd></dl>'],
+      sections: [['bounds', 'Boundaries', bounds],
                  ['live', 'Living here', driveHere(x, y, m)]]};
   }
   const hits = {};
@@ -3436,7 +3443,7 @@ function inspect(latlng, title, muniName){
     here.innerHTML = cardHead('What’s here', c.heading, dirBtn(c.y, c.x, c.heading)) +
       '<div class="pills">' + c.pills + '</div>' + voteBox(c.x, c.y) + c.drive +
       (regionFeature(m.region) && focusKey !== m.region ? '<button type="button" class="focus-go">' + esc(fill(CITY.focus.show, {name: regionName(m.region)})) + '</button>' : '') +
-      cmpRow + '<p class="outside-note">' + esc(CITY.outside.note) + '</p>' + reportBox(c.heading);
+      cmpRow + (c.boundsSection ? section('bounds', 'Boundaries', c.boundsSection) : '') + '<p class="outside-note">' + esc(CITY.outside.note) + '</p>' + reportBox(c.heading);
     wireCard(); wireReport(latlng, c.heading); drawVoteMark(c.x, c.y);
     const fg = here.querySelector('.focus-go'); if (fg) fg.onclick = () => setFocus(m.region, true);
     return;

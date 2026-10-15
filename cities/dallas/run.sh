@@ -10,7 +10,7 @@ python3 profiles.py
 OUT=../../docs/dallas/data
 simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
 npx mapshaper -i tmp/base.geojson -simplify interval=60 keep-shapes -filter-slivers min-area=40000m2 -filter "!this.isNull" -o $OUT/base.geojson precision=0.00005 format=geojson -quiet
-simplify sides 10; simplify zips 10; simplify council 10; simplify tx_house 10; simplify tx_senate 10; simplify us_house 10
+simplify sides 10; simplify zips 10; simplify council 10; simplify tx_house 20; simplify tx_senate 20; simplify us_house 20
 npx mapshaper -i tmp/counties.geojson -simplify interval=40 keep-shapes -o $OUT/counties.geojson precision=0.00005 format=geojson -quiet
 for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval=6 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 npx mapshaper -i tmp/region_highways.geojson -simplify interval=20 -o $OUT/region_highways.geojson precision=0.00001 -quiet

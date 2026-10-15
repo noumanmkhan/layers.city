@@ -126,7 +126,7 @@
  "outside": {
   "beyond": "That spot is outside the nine counties on this map.",
   "regionPill": "{region}",
-  "note": "Outside the City of Dallas. The areas, ZIP codes and districts on this map cover Dallas only."
+  "note": "Outside the City of Dallas. Texas House, Senate and congressional districts cover all nine counties; the areas, ZIP codes and council districts cover Dallas only."
  },
  "focus": {
   "label": "Focus on a county",
@@ -277,7 +277,7 @@
      "level": "state",
      "file": "tx_house",
      "name": "Texas House districts",
-     "note": "Texas House of Representatives, 2023–2026 map",
+     "note": "Texas House of Representatives, 2023–2026 map, across the nine counties",
      "label": "{num}",
      "hover": "Texas House district {num}"
     },
@@ -287,7 +287,7 @@
      "level": "state",
      "file": "tx_senate",
      "name": "Texas Senate districts",
-     "note": "Texas Senate, 2023–2026 map",
+     "note": "Texas Senate, 2023–2026 map, across the nine counties",
      "label": "SD {num}",
      "hover": "Texas Senate district {num}"
     },
@@ -297,7 +297,7 @@
      "level": "national",
      "file": "us_house",
      "name": "Congressional districts",
-     "note": "Texas seats in the U.S. House, on the 2025 map used for 2026",
+     "note": "Texas seats in the U.S. House, on the 2025 map used for 2026, across the nine counties",
      "label": "TX-{num}",
      "hover": "Congressional district TX-{num}"
     },
@@ -646,6 +646,11 @@
    },
    "note": "{county} Elections lists as of {asof}. Sites can change up to election day: the county’s own finder has the final word.",
    "precinctNote": "Precinct {precinct} · {county} Elections, as of {asof}. Sites can change up to election day: the county’s own finder has the final word."
-  }
+  },
+  "outsideFacts": [
+   "house",
+   "senate",
+   "congress"
+  ]
  }
 }

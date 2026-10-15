@@ -157,7 +157,7 @@ print('towns', len(towns))
 # ---------- Counties (the city reaches into five) ----------
 dump('counties', [feat(dry(counties[c]), {'name': c + ' County', 'lp': label_pt(dry(counties[c]))}) for c in CORE])
 
-# ---------- Representation: council districts, Texas House and Senate, U.S. House (inside the city) ----------
+# ---------- Representation: council districts (inside the city); Texas House and Senate, U.S. House (the nine counties) ----------
 council = []
 for f in load('dallas_council.geojson')['features']:
     g = inside(shape(f['geometry']).buffer(0))
@@ -167,7 +167,7 @@ dump('council', sorted(council, key=lambda f: f['properties']['num']))
 for src, out in [('tx_house', 'tx_house'), ('tx_senate', 'tx_senate'), ('us_house', 'us_house')]:
     feats = []
     for f in load(src + '.geojson')['features']:
-        g = inside(shape(f['geometry']).buffer(0))
+        g = polys(shape(f['geometry']).buffer(0).intersection(REGION))
         if g.is_empty or g.area * KM2 < 0.05: continue
         feats.append(feat(g, {'num': int(f['properties']['District']), 'lp': label_pt(g)}))
     dump(out, sorted(feats, key=lambda f: f['properties']['num']))

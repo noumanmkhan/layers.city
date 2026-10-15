@@ -20,6 +20,11 @@
   too. Sources: Dallas County's Vote Center Finder layer, Tarrant County's lists (placed by the Census geocoder,
   then Nominatim), Collin County's polling-locations API and Denton County's polling-locations and precinct layers,
   refreshed daily by *Fetch Dallas voting places*.
+- Texas House, Texas Senate and congressional districts are drawn across all nine counties (October 15), and a
+  card in the suburbs lists them under Boundaries, with the congressional pill (new optional `card.outsideFacts`).
+  Council districts, areas and ZIP codes stay Dallas only.
+- Fixed: a tap or search in a suburb listed after an empty town shape (Hebron near Dallas; Coquitlam 1 near
+  Vancouver) found nothing; the engine now skips empty shapes.
 - Engine: `card.vote.counties`, `early`, `centersLead`, `earlyLead`, `centersMore`, `earlyMore`, `precinctEarly`,
   `precinctNote` (contract section 5, additive); the vote box now also shows outside the city; Living here shows a
   figure without a tier when the city has no lens for it (Dallas has no getting-to-work lens: nearly everyone drives).

@@ -350,6 +350,10 @@ first matching feature in file order wins.
    before, list its early voting sites as above and add `precinctEarly` filled with `{n}`. Footer `note`
    with `{county}` and `{asof}`. The website also shows the box on cards outside the city (the counties
    cover the suburbs).
+   **Districts beyond the city** (`card.outsideFacts`, optional; Dallas): layer ids whose files cover the region,
+   not just the city (Dallas's `tx_house`, `tx_senate`, `us_house`: the nine counties). On a card for a spot
+   outside the city, add those layers' `card.facts` rows after Municipality and County, and their `card.pills`
+   entries that have `text`. The website shows them in a Boundaries section on the outside card.
    **Transit nearby** (`card.transit`, both cities): load `card.transit.file` (`transit.json`). Rows:
    - `station`: the nearest station of the `metro`-kind layer (its second file: `subway_stations` /
      `cta_stations`), skipped beyond 5 km; value its name, subline `stationSub` filled with `{lines}`
