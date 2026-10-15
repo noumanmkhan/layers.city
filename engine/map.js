@@ -172,9 +172,9 @@ function metres(a, b){ const k = Math.PI/180, dx = (a[0]-b[0])*k*Math.cos(a[1]*k
 function buildBase(fc, regions){
   const g = L.geoJSON(fc, {pane:'base', interactive:false, style: f => ({className: {city:'base-city', neighbour:'base-out', outside:'base-far', annex:'base-annex'}[f.properties.kind]})});
   g.addTo(map);
-  // An annex: land beyond the city limits that the city view still shows, shaded and outlined apart (Vancouver's
-  // University Endowment Lands). Not masked; its card says what it is.
-  fc.features.filter(f => f.properties.kind === 'annex').forEach(f => label(f.properties.name, 'lbl-annex', ll(f.properties.lp)).addTo(map));
+  // An annex (kind annex): land beyond the city limits that the map treats as part of the city view (Vancouver's
+  // University Endowment Lands): shaded and outlined apart, never masked, and inside the footprint, so taps there get
+  // the full card. The city's units file names it (as one of its units); city-only layers simply stop at the line.
   fc.features.filter(f => f.properties.kind === 'neighbour').forEach(f => label(f.properties.name, 'lbl-muni', ll(f.properties.lp)).addTo(map));
   regions.features.forEach(f => label(f.properties.name, 'lbl-region', ll(f.geometry.coordinates)).addTo(map));
   (CITY.water || []).forEach(w => label(w.name, 'lbl-lake ' + w.cls, w.at).addTo(map));
@@ -1771,12 +1771,8 @@ function cardOf(latlng, title, muniName){
     OF.forEach(id => { oh[id] = hit(data.layers[id], x, y); });
     const orows = CITY.card.facts.filter(r => r.layer && oh[r.layer]).map(r => '<dt>' + esc(r.label) + '</dt><dd>' + esc(fill(r.text, oh[r.layer].properties)) + '</dd>').join('');
     const opills = CITY.card.pills.filter(p => p.text && oh[p.layer]).map(p => '<span class="pill"><i style="background:var(' + p.color + ')"></i>' + esc(fill(p.text, oh[p.layer].properties)) + '</span>').join('');
-    // An annex (land the city view shows beyond the limits): its own rows from outside.annex, then the districts.
-    const AX = m.kind === 'annex' && CITY.outside.annex;
-    const arows = AX ? (AX.rows || []).map(([k, t]) => '<dt>' + esc(k) + '</dt><dd>' + esc(fill(t, m)) + '</dd>').join('') : '';
-    const bounds = AX ? '<dl class="facts">' + arows + orows + '</dl>'
-      : '<dl class="facts"><dt>Municipality</dt><dd>' + esc(m.name) + '</dd><dt>' + esc((CITY.focus && CITY.focus.noun) || 'Region') + '</dt><dd>' + esc(rp) + '</dd>' + orows + '</dl>';
-    return {outside: true, x, y, m, heading: title || m.name, boundsSection: OF.length || AX ? bounds : '',
+    const bounds = '<dl class="facts"><dt>Municipality</dt><dd>' + esc(m.name) + '</dd><dt>' + esc((CITY.focus && CITY.focus.noun) || 'Region') + '</dt><dd>' + esc(rp) + '</dd>' + orows + '</dl>';
+    return {outside: true, x, y, m, heading: title || m.name, boundsSection: OF.length ? bounds : '',
       pills: nearCommunity(x, y, title) + '<span class="pill"><i style="background:var(--land-out-line)"></i>' + esc(m.name) + '</span><span class="pill"><i style="background:var(--muni-label)"></i>' + esc(rp) + '</span>' + opills,
       drive: driveHere(x, y, m),
       // For Compare: the same facts as rows, so they line up with a spot inside the city.
@@ -1807,7 +1803,7 @@ function cardOf(latlng, title, muniName){
       const t = it.boards.filter(([b]) => bh[b]).map(([b]) => fill(r.text, boardCtx(it, bh[b]))).join(' · ');
       return [r.label, t || r.empty || '—']; }
     const h = hits[r.layer];
-    if (h) return [r.label, fill(r.text, h.properties)];
+    if (h){ const t = fill(r.text, h.properties); return t || !r.skipEmpty ? [r.label, t] : null; }   // skipEmpty: no row when the text fills to nothing
     if (r.emptyWithin && Object.entries(r.emptyWithin).some(([id, name]) => hits[id] && hits[id].properties.name === name)) return [r.label, '—'];
     return [r.label, r.empty || '—'];
   });
@@ -1974,7 +1970,7 @@ function inspect(latlng, title, muniName){
     if (!cardOf(latlng, title, muniName)){ renderEmpty(CITY.outside.beyond); here.hidden = false; return; }
     cmp.b = [latlng, title, muniName];
     // A second place beyond the city limits: show the region, so its pin isn't under the mask.
-    if (scope === 'inner' && data.footprint && !hit(data.footprint, latlng.lng, latlng.lat) && !hit(data.annex, latlng.lng, latlng.lat)) setScope('outer', false);
+    if (scope === 'inner' && data.footprint && !hit(data.footprint, latlng.lng, latlng.lat)) setScope('outer', false);
     renderCompare(); return;
   }
   // A new spot starts the card at the top; a redraw of the same spot (data arriving) keeps the scroll.
@@ -1992,7 +1988,7 @@ function inspect(latlng, title, muniName){
     here.innerHTML = cardHead('What’s here', c.heading, dirBtn(c.y, c.x, c.heading)) +
       '<div class="pills">' + c.pills + '</div>' + voteBox(c.x, c.y) + c.drive +
       (regionFeature(m.region) && focusKey !== m.region ? '<button type="button" class="focus-go">' + esc(fill(CITY.focus.show, {name: regionName(m.region)})) + '</button>' : '') +
-      cmpRow + (c.boundsSection ? section('bounds', 'Boundaries', c.boundsSection) : '') + '<p class="outside-note">' + esc(m.kind === 'annex' && CITY.outside.annex && CITY.outside.annex.note ? fill(CITY.outside.annex.note, m) : CITY.outside.note) + '</p>' + reportBox(c.heading);
+      cmpRow + (c.boundsSection ? section('bounds', 'Boundaries', c.boundsSection) : '') + '<p class="outside-note">' + esc(CITY.outside.note) + '</p>' + reportBox(c.heading);
     wireCard(); wireReport(latlng, c.heading); drawVoteMark(c.x, c.y);
     const fg = here.querySelector('.focus-go'); if (fg) fg.onclick = () => setFocus(m.region, true);
     return;
@@ -2494,7 +2490,7 @@ function goTo(latlng, name, fromSearch, minZoom, muniName){
   if (fromSearch) logEvent('card', {via: 'search'});
   if (fromSearch) q.value = name;
   // A spot beyond the city limits isn't visible in city-only mode: switch to the region view.
-  if (scope === 'inner' && data.footprint && !hit(data.footprint, latlng.lng, latlng.lat) && !hit(data.annex, latlng.lng, latlng.lat)) setScope('outer', false);
+  if (scope === 'inner' && data.footprint && !hit(data.footprint, latlng.lng, latlng.lat)) setScope('outer', false);
   inspect(latlng, name, muniName);  // fill the card first, so a map-move problem can't hide the result
   const zoom = minZoom || Math.max(map.getZoom(), 15);
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2575,14 +2571,12 @@ function indexPlaces(base){
   const add = (f, sub, outside) => {
     const key = f.properties.name + '|' + sub;
     if (!f.properties.name || seen.has(key)) return;
-    seen.add(key); PLACES.push({f, name: f.properties.name, sub, outside});
+    seen.add(key); PLACES.push({f, name: f.properties.name, sub, outside, alt: f.properties.aka});
   };
   LAYERS.filter(it => it.kind === 'fill').forEach(it => data.layers[it.id].features.forEach(f => add(f, it.place || it.name, false)));
   if (UNITS) data.units.features.forEach(f => add(f, CITY.units.singular + (f.properties.code != null ? ' #' + f.properties.code : ''), false));
   if (data.knownas) data.knownas.features.forEach(f => add(f, 'Known-as name', false));
   base.features.filter(f => f.properties.kind === 'neighbour').forEach(f => add(f, fill(CITY.outside.regionPill, f.properties) || 'Nearby', true));
-  base.features.filter(f => f.properties.kind === 'annex').forEach(f => { add(f, f.properties.sub || 'Beside the city', false);
-    const pl = PLACES[PLACES.length - 1]; if (pl && pl.f === f && f.properties.aka) pl.alt = f.properties.aka; });
   // The counties or regions themselves: choosing one focuses on it.
   // "DuPage" or "Peel" alone is as good as the full name ("Lake" matches two, so it lists both).
   if (data.regionAreas) data.regionAreas.features.forEach(f => PLACES.push({name: regionName(f.properties.region), sub: (CITY.focus && CITY.focus.noun) || 'Region', outside: true, focus: f.properties.region, rank: 3.5, f,
@@ -3330,8 +3324,10 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
   LAYERS.filter(it => AREA_KINDS.includes(it.kind) || it.kind === 'boards').forEach(it => { data.layers[it.id] = loaded[it.file]; });
   Object.assign(data, {footprint: data.layers[CITY.footprint], units: UNITS && loaded[UNITS.file],
     knownas: byKind('knownas') && loaded[byKind('knownas').file], landmarks: byKind('landmarks') && loaded[byKind('landmarks').file],
-    outer: {type:'FeatureCollection', features: base.features.filter(f => f.properties.kind === 'neighbour' || f.properties.kind === 'annex')},
-    annex: {type:'FeatureCollection', features: base.features.filter(f => f.properties.kind === 'annex')}});
+    outer: {type:'FeatureCollection', features: base.features.filter(f => f.properties.kind === 'neighbour')}});
+  // An annex counts as inside the city view (footprint), though no city layer covers it.
+  const annex = base.features.filter(f => f.properties.kind === 'annex');
+  if (annex.length && data.footprint) data.footprint = {type: 'FeatureCollection', features: data.footprint.features.concat(annex)};
   buildBase(base, loaded.regions);
   indexPlaces(base);
   buildFocusUI();

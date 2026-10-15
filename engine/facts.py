@@ -71,7 +71,10 @@ if hub:
     FIELDS.append(('hub', lambda d: d.get(hub), 'Longest transit trip to ' + F['hub'] + ' {where}', 'Among the longest transit trips to ' + F['hub'] + ' {where}',
                    'Quickest transit trip to ' + F['hub'] + ' {where}', 'Among the quickest transit trips to ' + F['hub'] + ' {where}', lambda v: f'about {v} min'))
 
-prof = json.load(open(PROF))
+ALL = json.load(open(PROF))
+# A unit marked "apart" (beside the city, not part of it: Vancouver's University Endowment Lands) has figures on the card
+# but is never ranked, and doesn't move the city's own units' rankings.
+prof = {k: v for k, v in ALL.items() if not v.get('apart')}
 units = {str(f['properties']['code']): shape(f['geometry']).buffer(0) for f in json.load(open(os.path.join(DATA, units_file + '.geojson')))['features']}
 scopes = {'city': {k: 'city' for k in prof}}
 where = {'city': lambda k: F['city']}
@@ -128,7 +131,10 @@ for k, fs in found.items():
         prof[k]['facts'] = keep; n += 1
     else:
         prof[k].pop('facts', None)
-json.dump(prof, open(PROF, 'w'), separators=(',', ':'))
+for k, v in ALL.items():
+    if v.get('apart'): v.pop('facts', None)
+ALL.update(prof)
+json.dump(ALL, open(PROF, 'w'), separators=(',', ':'))
 print('facts:', city, n, 'of', len(prof), 'units have one;', 'examples:')
 for k in list(prof)[:: max(1, len(prof) // 8)]:
     f = prof[k].get('facts')

@@ -23,6 +23,24 @@ RAW = os.path.join(ROOT, 'cities', city, 'raw', 'bikes.geojson')
 OUT = os.path.join(ROOT, 'docs', city, 'data', 'bikes.geojson')
 if not os.path.exists(RAW): sys.exit(f'{city}: no bike network fetched yet (fetch-bikes.yml)')
 R = json.load(open(RAW))
+# bikes.json "extra" (Vancouver): another raw file in the same shape and types (OpenStreetMap's bike paths in the University
+# Endowment Lands, beyond the City's data), kept only inside "extraClip" (a units file code) and added to the network.
+if CFG.get('extra') and os.path.exists(os.path.join(ROOT, 'cities', city, CFG['extra'])):
+    ex = json.load(open(os.path.join(ROOT, 'cities', city, CFG['extra'])))['features']
+    clip = CFG.get('extraClip')
+    if clip:
+        from shapely.geometry import mapping as _m
+        ug = next(shape(f['geometry']).buffer(0) for f in json.load(open(os.path.join(ROOT, 'docs', city, 'data', clip['file'] + '.geojson')))['features']
+                  if f['properties'].get('code') == clip['code'])
+        kept = []
+        for f in ex:
+            g = shape(f['geometry']).intersection(ug)
+            if g.is_empty or g.length == 0: continue
+            for part in getattr(g, 'geoms', [g]):
+                if part.geom_type == 'LineString': kept.append({'type': 'Feature', 'properties': f['properties'], 'geometry': _m(part)})
+        ex = kept
+    R['features'] = R['features'] + ex
+    print(f'{city}: +{len(ex)} segments from {CFG["extra"]}')
 CLS = {v: k for k, vs in CFG['classes'].items() for v in vs}
 LAB = CFG.get('labels', {})
 ABBR = {'ST': 'St', 'AVE': 'Ave', 'AV': 'Ave', 'RD': 'Rd', 'BLVD': 'Blvd', 'DR': 'Dr', 'PKWY': 'Pkwy', 'PL': 'Pl', 'CT': 'Ct', 'TER': 'Ter',
