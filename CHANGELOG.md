@@ -12,7 +12,7 @@
 - *Faith & Community*, Toronto's nine toggles: 2,311 churches inside the city with chips for Catholic, Baptist,
   Methodist (with the AME churches), Lutheran, Episcopal, Presbyterian, Orthodox, Evangelical and Other; mosques (72),
   synagogues (113), Hindu temples (20), Buddhist temples (28), gurdwaras (2) and other faiths (53) across Chicagoland
-  (most gurdwaras and mandirs are in the suburbs); 61 HMS-certified halal stores and 7 cRc-listed kosher grocers and
+  (most gurdwaras and mandirs are in the suburbs); 63 HMS-certified halal stores and 7 cRc-listed kosher grocers and
   bakeries. Nearby rows for each while its layer is on. `cities/chicago/fetch_faith.py` keeps a geocode only when it
   names the house number and town (Census geocoder as a fallback), and `.github/workflows/fetch-chicago-faith.yml`
   refreshes it monthly.
