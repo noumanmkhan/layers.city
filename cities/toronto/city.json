@@ -240,9 +240,10 @@
       "station": "Nearest station", "stationSub": "Line {lines} · {dist} away",
       "rows": [["tram", "Streetcars", true], ["bus", "Buses", false], ["go", "GO buses", false]],
       "night": "Overnight", "stop": "Nearest stop", "none": "No stop within 400 m",
+      "bikeshare": {"label": "Bike Share", "radius": 500, "sub": "{dist} away[ · {docks} docks]", "charge": "charges e-bikes", "none": "No station within 500 m"},
       "every": "about every {h} min on weekday middays", "nightOnly": "overnight only",
       "kinds": {"tram": "Streetcar route", "bus": "Bus route", "go": "GO bus route"},
-      "note": "Routes with a stop within 400 m, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. TTC and GO schedules, week of {week}."
+      "note": "Routes with a stop within 400 m, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. TTC and GO schedules, week of {week}; Bike Share Toronto’s station list."
     },
     "nearby": {
       "file": "nearby.json", "radius": 1000,

@@ -7,6 +7,9 @@
   (1,074 on October 15) as a small ringed dot from zoom 12, filled lime where it charges e-bikes (52). Tap a
   station for its name, number of docks, e-bike charging, and whether the kiosk takes credit cards (541 don't:
   unlock with the app or a member key). No live counts of bikes or free docks: they change by the minute.
+- The card's Transit nearby section gains a "Bike Share" row: the nearest station within 500 m, how far, its docks
+  and whether it charges e-bikes ("No station within 500 m" otherwise), whether or not the layer is on. Config
+  `card.transit.bikeshare`; the file loads after the map.
 - Data: Bike Share Toronto's GBFS feed (Toronto Parking Authority; linked from the City's open data portal, no
   licence stated), fetched weekly by `engine/fetch_bikeshare.py` in *Fetch bike lanes* (now weekly, Thursdays),
   built by `engine/bikeshare.py` into `docs/toronto/data/bikeshare.geojson` (~150 KB; loaded when the layer is

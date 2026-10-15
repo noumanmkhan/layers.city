@@ -1120,6 +1120,15 @@ function transitHere(x, y){
   const night = list.filter(r => r.f.includes('night'));
   if (night.length) rows += '<dt>' + esc(TR.night) + '</dt><dd><span class="rt-chips">' + night.map(r => chip(r, false, true)).join('') + '</span></dd>';
   rows += '<dt>' + esc(TR.stop) + '</dt><dd>' + (best ? esc(best[0][2]) + '<span>' + dist(best[1]) + ' away</span>' : '<span>' + esc(TR.none) + '</span>') + '</dd>';
+  // Bike share (TR.bikeshare): the nearest station within its radius, with its docks and e-bike charging.
+  const BS = TR.bikeshare, DK = data.docks;
+  if (BS && DK && DK.features){
+    let bs = null;
+    DK.features.forEach(f => { const c = f.geometry.coordinates; if (Math.abs(c[1] - y) > BS.radius / 111000 * 1.2) return;
+      const d = metres([x, y], c); if (d <= BS.radius && (!bs || d < bs[1])) bs = [f.properties, d]; });
+    rows += '<dt>' + esc(BS.label) + '</dt><dd>' + (bs ? esc(bs[0].n) + '<span>' + esc(fill(BS.sub, {dist: dist(bs[1]), docks: bs[0].d})) +
+      (bs[0].e && BS.charge ? ' · ' + esc(BS.charge) : '') + '</span>' : '<span>' + esc(BS.none) + '</span>') + '</dd>';
+  }
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
@@ -3174,6 +3183,8 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
     drawStops(); drawBusBox(); if (placeF) drawPlaceBox();
     redrawCard();
   }).catch(() => { data.transit = null; });
+  // Bike share stations: fetched after the map is up for the Transit nearby row (TR.bikeshare).
+  if (TR && TR.bikeshare && DOCK) ensureDocks().then(d => { if (d) redrawCard(); });
   // What's changing: fetched after the map is up for the card's Changing nearby section.
   if (CC && CHG) ensureChanges().then(() => redrawCard());
   // Attendance areas are big: fetched after the map is up, then the open card is redrawn with them.
