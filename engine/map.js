@@ -632,6 +632,35 @@ const KINDS = {
     g.on('add', () => ensureBikes().then(() => g._draw()));
     return g;
   },
+  // Bike share stations (engine/bikeshare.py), nested under Bike lanes: a small ringed dot per station, filled where it
+  // charges e-bikes, from zoom it.minZoom (12) and only those near the view (redrawn after each move). A wider clear
+  // circle over each dot takes the tap. Tap for its name, docks, e-bike charging and whether the kiosk takes cards.
+  // No live counts of bikes or free docks. Loads on first use (it.lazy).
+  docks: it => {
+    const g = L.layerGroup(), shown = new Map(), minZ = it.minZoom || 12;
+    const make = f => {
+      const p = f.properties, at = ll(f.geometry.coordinates), r = dkR();
+      const dot = L.circleMarker(at, {pane: 'pts', radius: r, interactive: false, className: 'dk' + (p.e ? ' e' : '')});
+      const hit = L.circleMarker(at, {pane: 'pts', radius: r + 6, className: 'dk-hit'});
+      hoverTip(hit, esc(p.n) + (p.d ? ' · ' + esc(fill(it.docksText || '{n} docks', {n: p.d})) : ''));
+      hit.on('click', e => { L.DomEvent.stop(e); dkPopup(p, at); });
+      return L.layerGroup([dot, hit]);
+    };
+    const draw = () => {
+      if (!map.hasLayer(g) || !data.docks) return;
+      const on = map.getZoom() >= minZ - .01, b = map.getBounds().pad(.25);
+      data.docks.features.forEach(f => {
+        const c = f.geometry.coordinates, want = on && b.contains([c[1], c[0]]), m = shown.get(f);
+        if (want && !m){ const mk = make(f); shown.set(f, mk); g.addLayer(mk); }
+        else if (!want && m){ g.removeLayer(m); shown.delete(f); }
+      });
+    };
+    map.on('moveend', draw);
+    map.on('zoomend', () => { const r = dkR(); shown.forEach(m => m.eachLayer(c => c.setRadius(c.options.className === 'dk-hit' ? r + 6 : r))); });
+    g.on('add', () => ensureDocks().then(() => setTimeout(draw)));
+    g.on('remove', () => { shown.forEach(m => g.removeLayer(m)); shown.clear(); });
+    return g;
+  },
   // Another agency's buses (it.mode, e.g. GO): every route in the regional view; in the city view only the
   // routes with a stop in the city, numbered where they run inside it. Lines sit in the rail pane, under the
   // mask, so a route's stretch outside the city fades with the rest of the region. Shapes load on first use.
@@ -793,6 +822,30 @@ function bkPopup(p, latlng){
     '<b>' + esc(p.n || p.d) + '</b><small><i class="bk-key t-' + p.t + '"></i>' + esc(p.d) + (p.d.toLowerCase().includes(BIKE.classes[p.t][0].toLowerCase()) ? '' : ' · ' + esc(BIKE.classes[p.t][0])) + '</small>' +
     rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
     (BIKE.fine ? '<p class="bk-fine">' + esc(BIKE.fine) + '</p>' : '')).openOn(map);
+}
+/* ---------- bike share stations ----------
+   Points from engine/bikeshare.py: n name, d docks, e 1 when it charges e-bikes, nc 1 when the kiosk takes no card.
+   Top level asof, system, count. The layer's note gains the count once the file is in. */
+const DOCK = byKind('docks');
+let dkP = null;
+function ensureDocks(){
+  if (!DOCK) return Promise.resolve(null);
+  return dkP || (dkP = get(DOCK.file).then(d => {
+    data.docks = d;
+    const n = document.querySelector('label[for="lyr-' + DOCK.id + '"] .tx > span');
+    if (n && d.count && DOCK.countNote) n.textContent = fill(DOCK.countNote, {n: d.count.toLocaleString(CITY.locale), system: d.system || ''});
+    return d;
+  }).catch(() => { dkP = null; return null; }));
+}
+const dkR = () => { const z = map.getZoom(); return z < 13 ? 2.2 : z < 15 ? 3.3 : 4.6; };
+function dkPopup(p, latlng){
+  const D = data.docks || {};
+  const rows = [p.d && [DOCK.docksLabel || 'Docks', String(p.d)], p.e && [DOCK.chargeLabel || 'E-bikes', DOCK.chargeText || 'Charging station'],
+    p.nc && [DOCK.payLabel || 'Paying', DOCK.noCardText || 'No card reader']].filter(Boolean);
+  L.popup({className: 'info-pop dk-pop', maxWidth: 280, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.n) + '</b><small><i class="dk-key' + (p.e ? ' e' : '') + '"></i>' + esc(fill(DOCK.kindText || '{system} station', {system: D.system || ''})) + '</small>' +
+    rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
+    (DOCK.fine ? '<p class="bk-fine">' + esc(fill(DOCK.fine, {date: D.asof ? niceDate(D.asof, true) : ''})) + '</p>' : '')).openOn(map);
 }
 function setBikeClasses(want){
   bkClasses.clear(); want.filter(k => k in BIKE.classes).forEach(k => bkClasses.add(k));
@@ -1070,7 +1123,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */

@@ -2,6 +2,18 @@
 
 ## Since 1.1
 
+### Bike Share stations (Toronto, October 15, on dev)
+- New toggle "Bike Share stations" indented under Bike lanes, off by default: every Bike Share Toronto station
+  (1,074 on October 15) as a small ringed dot from zoom 12, filled lime where it charges e-bikes (52). Tap a
+  station for its name, number of docks, e-bike charging, and whether the kiosk takes credit cards (541 don't:
+  unlock with the app or a member key). No live counts of bikes or free docks: they change by the minute.
+- Data: Bike Share Toronto's GBFS feed (Toronto Parking Authority; linked from the City's open data portal, no
+  licence stated), fetched weekly by `engine/fetch_bikeshare.py` in *Fetch bike lanes* (now weekly, Thursdays),
+  built by `engine/bikeshare.py` into `docs/toronto/data/bikeshare.geojson` (~150 KB; loaded when the layer is
+  first turned on).
+- Engine: layer kind `docks` (`minZoom`, `countNote`, popup texts in `city.json`); new colour `--dock`.
+  Contract sections 3 and 4 (additive, schema 1).
+
 ### Faith & Community order (Toronto, October 15)
 - The group now runs Churches, Mosques, Hindu temples, Synagogues, Buddhist temples, Gurdwaras, then Other faiths.
   Halal grocers & butchers sit under Mosques and Kosher grocers, butchers & bakeries under Synagogues (`under`),
