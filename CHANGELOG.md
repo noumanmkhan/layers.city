@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### Vancouver and Dallas in the city switcher (October 16, on dev)
+- Vancouver and Dallas now appear in the city switcher on every map (Toronto, Chicago, Vancouver, Dallas). They stay
+  `unlisted`: still no maps hub card and no sitemap entry. A new optional `"inSwitcher": true` in `city.json` lets an
+  unlisted city into the switchers; `engine/assemble.py` honours it, and the contract notes it (additive, no schema bump).
+
 ### Chicago: Pace buses and Faith & Community (October 16, on dev)
 - *Pace buses*, a `regional` layer under Metra like Toronto's GO buses: 134 routes, the whole network in the
   Chicagoland view and the 49 that stop in Chicago in the city view, numbered "Pace 270" (Pulse lines by name), in a

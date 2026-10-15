@@ -114,6 +114,7 @@ How the website's search does it, for an app that wants to match:
 
 - `id`, `schema`, `title` (the full name, e.g. "Toronto · Layers.City"; it was "Toronto Layers" before October 12, 2026), `heading` (optional: the short name for headings and city pickers, e.g. "Toronto"; fall back to `title`), `locale` (`en-CA` or `en-US`, for number and date formatting).
 - `unlisted` (optional, `true`): the city is published but not announced yet (Vancouver, October 2026): the other cities' switchers and the maps hub leave it out. An app can skip it.
+- `inSwitcher` (optional, `true`, only meaningful with `unlisted`): the city does appear in every map's city switcher (Vancouver and Dallas, October 16, 2026), but is still left off the maps hub and the sitemap. An app that builds its own city picker can treat it like any other city.
 - `distance` (optional): the unit for distances shown on the card, `"km"` (the default when absent; Toronto) or `"mi"` (Chicago). Config values such as `card.nearby.radius` stay in metres either way.
 - `units.singular` / `units.plural`: what the city calls its units ("Neighbourhood",
   "community areas").
