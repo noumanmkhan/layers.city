@@ -90,7 +90,8 @@ out tags;""").get('elements', []) if rels else []
             ways = [LineString([(p['lon'], p['lat']) for p in m['geometry']]) for m in r.get('members', [])
                     if m['type'] == 'way' and m.get('role', '') in ('', 'forward', 'backward') and len(m.get('geometry', [])) > 1]
             if not ways: continue
-            g = linemerge(unary_union(ways))
+            u = unary_union(ways)
+            g = linemerge(u) if u.geom_type == 'MultiLineString' else u
             for l in sorted(getattr(g, 'geoms', [g]), key=lambda l: -l.length):
                 s = l.simplify(tol)
                 pieces.append({'dir': '0', 'share': 1.0, 'trips': 0, 'coords': [[round(x, 5), round(y, 5)] for x, y in s.coords]})
@@ -102,7 +103,8 @@ out tags;""").get('elements', []) if rels else []
             ends = [tidy_name(r['tags'].get('name', ''), ref) for r in rs]
             ends = [e for e in ends if e]
             nm = max(set(ends), key=ends.count) if ends else ''
-            nm = re.sub(r'\s*(=>|->|→|>)\s*', ' – ', nm)
+            ends = re.split(r'\s*(?:=>|->|→|>)\s*', nm)
+            nm = ends[0] + ' – ' + ends[-1] if len(ends) > 1 else nm   # first and last stop of a via-list
         routes.append({'id': ref, 'short': show(ref), 'long': nm, 'mode': cfg.get('mode', 'bus'), 'color': '', 'text': '',
                        'shapes': pieces, 'day': True, 'src': 'osm'})
         # Stops: member stop positions and platforms with a position; one per name within 60 m.
