@@ -29,6 +29,11 @@ Each entry says what would unpark it.
   at its line, so there are no permits (UBC and the UEL issue their own, unpublished), heritage register entries, BIAs
   or civic voting places there; UEL residents vote for Metro Vancouver's Electoral Area A director. Unpark with UBC or
   UEL Administration open data.
+- **Transit time to Waterfront in the University Endowment Lands.** `fetch_transit_waterfront.py` now includes the UEL
+  (unit 24), but every run since October 16 (push-triggered and dispatched, up to 50 minutes) was stopped by GitHub
+  Actions before committing (exit 143), and the job logs couldn't be read from the build sandbox. The 22 local areas
+  keep their October 11 times; the UEL shows no To Waterfront figure. Unpark by running *Compute transit times to
+  Waterfront* by hand on main and reading its log (memory or time limit on the runner are the likely causes).
 
 ## Not built: doesn't fit Vancouver
 
