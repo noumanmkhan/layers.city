@@ -94,3 +94,43 @@ def street_name(n):
 def street_key(n):
     """The street without its direction prefix, so "N Hampton Rd" and "S Hampton Rd" join into one main street."""
     return re.sub(r'^(N|S|E|W) ', '', street_name(n))
+
+# Curated landmarks: the places Dallasites give directions by. 'osm' is the OpenStreetMap name to snap to.
+L_ = lambda name, cat, tier, at, aliases=(), osm=None: {'name': name, 'osm': osm or name, 'cat': cat, 'tier': tier, 'at': at, 'aliases': list(aliases)}
+LANDMARKS = [
+    # Sports
+    L_('American Airlines Center', 'sports', 2, (32.7905, -96.8103), ['AAC', 'Mavericks', 'Mavs', 'Stars']),
+    L_('Cotton Bowl', 'sports', 2, (32.7797, -96.7596), ['Cotton Bowl Stadium']),
+    L_('AT&T Stadium', 'sports', 1, (32.7473, -97.0945), ['Cowboys Stadium', 'Jerry World', 'Cowboys']),
+    L_('Globe Life Field', 'sports', 2, (32.7473, -97.0847), ['Rangers']),
+    # Parks
+    L_('Klyde Warren Park', 'park', 1, (32.7893, -96.8016), ['Deck park']),
+    L_('White Rock Lake Park', 'park', 1, (32.8260, -96.7220), ['White Rock Lake', 'White Rock']),
+    L_('Dallas Arboretum and Botanical Garden', 'park', 2, (32.8237, -96.7166), ['Arboretum', 'Dallas Arboretum']),
+    L_('Fair Park', 'park', 1, (32.7790, -96.7600), ['State Fair of Texas', 'Big Tex']),
+    L_('Trinity Overlook Park', 'park', 2, (32.7816, -96.8180), ['Trinity River', 'Trinity Skyline Trail']),
+    L_('Katy Trail', 'park', 2, (32.8070, -96.8000), ['The Katy Trail']),
+    L_('Dallas Zoo', 'park', 2, (32.7409, -96.8158), ['The Zoo']),
+    L_('Pioneer Plaza', 'park', 2, (32.7766, -96.8012), ['Cattle drive sculpture']),
+    # Culture and sights
+    L_('Dealey Plaza', 'culture', 1, (32.7786, -96.8085), ['JFK', 'Grassy Knoll']),
+    L_('The Sixth Floor Museum at Dealey Plaza', 'culture', 2, (32.7798, -96.8083), ['Sixth Floor Museum', 'Texas School Book Depository']),
+    L_('Reunion Tower', 'culture', 1, (32.7755, -96.8088), ['The Ball', 'GeO-Deck']),
+    L_('Dallas Museum of Art', 'culture', 2, (32.7877, -96.8012), ['DMA']),
+    L_('Perot Museum of Nature and Science', 'culture', 2, (32.7869, -96.8066), ['Perot Museum']),
+    L_('Nasher Sculpture Center', 'culture', 2, (32.7882, -96.8000), ['Nasher']),
+    L_('Dallas Heritage Village', 'culture', 2, (32.7708, -96.7880), ['Old City Park']),
+    L_('Margaret Hunt Hill Bridge', 'culture', 2, (32.7859, -96.8197), ['Calatrava bridge']),
+    # Music and theatre
+    L_('Morton H. Meyerson Symphony Center', 'music', 2, (32.7900, -96.7990), ['Meyerson', 'Dallas Symphony']),
+    L_('Winspear Opera House', 'music', 2, (32.7900, -96.7961), ['Dallas Opera', 'Margot and Bill Winspear Opera House']),
+    L_('Majestic Theatre', 'music', 2, (32.7835, -96.7942), ['The Majestic']),
+    # Civic and transport
+    L_('Dallas City Hall', 'civic', 2, (32.7763, -96.7969), ['City Hall', 'I. M. Pei City Hall']),
+    L_('Union Station', 'civic', 2, (32.7760, -96.8075), ['Eddie Bernice Johnson Union Station', 'Amtrak']),
+    L_('Kay Bailey Hutchison Convention Center', 'civic', 2, (32.7743, -96.8016), ['Convention Center', 'KBHCCD']),
+    L_('NorthPark Center', 'civic', 2, (32.8682, -96.7738), ['NorthPark', 'North Park Mall']),
+    # Airports
+    L_('Dallas Love Field', 'airport', 1, (32.8471, -96.8518), ['Love Field', 'DAL', 'Southwest Airlines']),
+    L_('Dallas Fort Worth International Airport', 'airport', 1, (32.8998, -97.0403), ['DFW', 'DFW Airport']),
+]
