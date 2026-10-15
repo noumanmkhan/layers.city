@@ -86,7 +86,8 @@ if stale: print('  note: override rows for OSM ids no longer in the fetch:', ', 
 def place(r):
     if r.get('lat') and r.get('lon'): return [round(float(r['lon']), 5), round(float(r['lat']), 5)]
     hit = geo.get(r['address'] + ', ' + r['locality'], {})
-    return hit.get('at')
+    # Only the street found (fetch_faith.py marks these): its middle can be miles from the shop, so leave it unplaced.
+    return hit.get('at') if hit.get('type') != 'street' else None
 
 
 worship, unplaced = [], []

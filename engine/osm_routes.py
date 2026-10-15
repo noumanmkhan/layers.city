@@ -43,7 +43,7 @@ def metres(a, b):
 def tidy_name(name, ref):
     # Route names as mappers write them: "Bus 208: Davis CTA Station => …", "Pace Bus Route 385: 87th-111th-127th
     # Streets", "Pace Bus: 250 Dempster Street". Keep what follows the number; drop school-trip and B-trip notes.
-    n = re.sub(r'^(Pace\s+)?(Bus\s*)?(Route\s*)?:?\s*', '', (name or '').strip(), flags=re.I)
+    n = re.sub(r'^(Pace\s+)?(Bus\b\s*)?(Route\b\s*)?:?\s*', '', (name or '').strip(), flags=re.I)
     n = re.sub(r'^(' + re.escape(ref) + r'|\d+[A-Z]?(-[A-Z])?)(\s*[:\-–]\s*|\s+(?=[A-Za-z]))', '', n)
     n = re.sub(r'\s*\((AM|PM)?[^)]*(school|trips?)[^)]*\)\s*$', '', n, flags=re.I)
     n = re.sub(r'\s+[AB] Trips$', '', n)
