@@ -2,6 +2,18 @@
 
 ## Since 1.1
 
+### Thirteen more neighbourhood drawings (Toronto, October 15)
+- Kensington-Chinatown (market houses with awnings, produce, a bicycle), University (the ROM's Crystal, University
+  College), Cabbagetown-South St.James Town (Victorian cottages, Riverdale Farm's barn), Fort York-Liberty Village
+  (blockhouse and earthworks, a sawtooth factory and chimney), Rosedale-Moore Park (a ravine bridge), South Riverdale
+  (Leslieville semis, the Leslie Street Spit lighthouse), Downsview (a hangar and a turboprop), York University
+  Heights (a domed rotunda, campus blocks, a subway canopy), Willowdale West (North York Centre's towers, the civic
+  centre, Mel Lastman Square's arcade), Kingsway South (the Old Mill bridge), Junction Area (main-street storefronts,
+  a freight train), Cliffcrest (the Bluffs and a sailboat) and Morningside Heights (zoo animals). 23 in all.
+- Each landmark was checked against the neighbourhood polygons first: the St. James Town towers, the Don Jail,
+  the West Toronto Diamond and Mel Lastman Square sit in neighbouring units, so those drawings use what is inside
+  instead (Mel Lastman Square's drawing went to Willowdale West, where it is). The Bluffs moved from Guildwood's
+  drawing to Cliffcrest's; Guildwood now has trees beside Guild Park's columns.
 ### Bike Share stations (Toronto, October 15, on dev)
 - New toggle "Bike Share stations" indented under Bike lanes, off by default: every Bike Share Toronto station
   (1,074 on October 15) as a small ringed dot from zoom 12, filled lime where it charges e-bikes (52). Tap a

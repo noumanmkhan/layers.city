@@ -33,7 +33,7 @@ Toronto's geography is described in several overlapping ways at once. A single a
 | Business Improvement Areas | 85 | |
 | School board wards | 29 across 4 boards | Trustee wards for TDSB (12), TCDSB (12),<br>Viamonde (3) and MonAvenir (2), one board at a time |
 | Heritage districts | 29 | Heritage Conservation Districts in force;<br>ones under study or appeal are left out |
-| Neighbourhood badges | 10 | A faint drawing of what a few places<br>are known for, square to the city grid |
+| Neighbourhood badges | 23 | A faint drawing of what a few places<br>are known for, square to the city grid |
 | Neighbourhood lens | 158 | Housing cost, time to Union,<br>getting to work, renters and owners,<br>housing type |
 | Main streets | 321 streets | Major and minor arterials<br>(King, Queen, Eglinton…), named along the line |
 | Collector streets | 989 streets | The tier below (Dovercourt, Greenwood…),<br>from zoom 13; most non-arterial bus streets |
