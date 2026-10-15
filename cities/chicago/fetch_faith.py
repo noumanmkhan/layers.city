@@ -1,6 +1,7 @@
 """Fetch the inputs for the Faith & Community layers into raw/faith/. Run from GitHub Actions (fetch-chicago.yml); the sandbox can't reach Overpass or Nominatim.
 
-  worship_osm.json  Every named place of worship in and around Chicago from OpenStreetMap (Overpass API):
+  worship_osm.json  Every named place of worship in and around Chicago, plus those of other faiths than
+                    Christianity across Chicagoland, from OpenStreetMap (Overpass API):
                     OSM id, centre, name, religion, denomination and address tags.
   geocode.json      Positions for the street addresses in faith_shops.csv and the "add" rows of
                     faith_overrides.csv that don't give their own lat/lon, from OpenStreetMap Nominatim, or the US Census
@@ -13,11 +14,16 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'raw', 'faith'); os.makedirs(OUT, exist_ok=True)
 UA = {'User-Agent': 'city-layers-pipeline (layers.city; go@layers.city)'}
 BBOX = (41.62, -87.96, 42.05, -87.50)   # the City of Chicago (O'Hare included) plus a margin
+# Other faiths across the six counties: most of Chicagoland's gurdwaras and Hindu temples (and many mosques)
+# are in the suburbs, so inside the city alone the Gurdwaras toggle would be empty. Churches stay city-only:
+# there are some 2,300 inside it already.
+WIDE = (41.10, -88.70, 42.55, -87.50)
 REGION = '-88.7,42.55,-87.5,41.1'       # Nominatim viewbox (left,top,right,bottom): the shops across Chicagoland
 ENDPOINTS = ['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter']
 QUERY = f"""
 [out:json][timeout:240];
-nwr["amenity"="place_of_worship"]["name"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
+(nwr["amenity"="place_of_worship"]["name"]({BBOX[0]},{BBOX[1]},{BBOX[2]},{BBOX[3]});
+ nwr["amenity"="place_of_worship"]["name"]["religion"]["religion"!="christian"]({WIDE[0]},{WIDE[1]},{WIDE[2]},{WIDE[3]}););
 out tags center;
 """
 KEEP = ('name', 'alt_name', 'religion', 'denomination', 'addr:housenumber', 'addr:street', 'building')
