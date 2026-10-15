@@ -1,13 +1,15 @@
 name: Fetch bike lanes
 # Each city's bike network (engine/fetch_bikes.py, cities/<city>/bikes.json) into cities/<city>/raw/bikes.geojson,
-# then docs/<city>/data/bikes.geojson with engine/bikes.py when it exists. Monthly (the 9th), on change, or by hand.
+# then docs/<city>/data/bikes.geojson with engine/bikes.py when it exists. Also each city's bike share stations, where it
+# has a cities/<city>/bikeshare.json (engine/fetch_bikeshare.py, engine/bikeshare.py → docs/<city>/data/bikeshare.geojson).
+# Weekly (Thursdays; bike share adds stations through the season), on change, or by hand.
 on:
   workflow_dispatch:
   schedule:
-    - cron: '29 7 9 * *'
+    - cron: '29 7 * * 4'
   push:
     branches: [main]
-    paths: ['engine/fetch_bikes.py', 'engine/bikes.py', 'cities/*/bikes.json', '.github/workflows/fetch-bikes.yml']
+    paths: ['engine/fetch_bikes.py', 'engine/bikes.py', 'cities/*/bikes.json', 'engine/fetch_bikeshare.py', 'engine/bikeshare.py', 'cities/*/bikeshare.json', '.github/workflows/fetch-bikes.yml']
 permissions:
   contents: write
 concurrency: fetch-bikes
@@ -26,12 +28,16 @@ jobs:
             mkdir -p cities/$c/raw
             python3 -u engine/fetch_bikes.py $c 2>&1 | tee cities/$c/raw/fetch_bikes.log || true
             if [ -f engine/bikes.py ]; then python3 -u engine/bikes.py $c 2>&1 | tee -a cities/$c/raw/fetch_bikes.log || true; fi
+            if [ -f cities/$c/bikeshare.json ]; then
+              python3 -u engine/fetch_bikeshare.py $c 2>&1 | tee cities/$c/raw/fetch_bikeshare.log || true
+              python3 -u engine/bikeshare.py $c 2>&1 | tee -a cities/$c/raw/fetch_bikeshare.log || true
+            fi
           done
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
           git add cities/toronto/raw cities/chicago/raw
-          for c in toronto chicago; do [ -f docs/$c/data/bikes.geojson ] && git add docs/$c/data/bikes.geojson; done
-          git commit -m "Update bike lanes" || echo "no changes"
+          for c in toronto chicago; do for f in bikes bikeshare; do [ -f docs/$c/data/$f.geojson ] && git add docs/$c/data/$f.geojson; done; done
+          git commit -m "Update bike lanes and bike share stations" || echo "no changes"
           git pull --rebase
           git push

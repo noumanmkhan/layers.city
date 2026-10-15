@@ -1,0 +1,7 @@
+{
+  "_about": "Bike share stations (engine/fetch_bikeshare.py, engine/bikeshare.py): Bike Share Toronto's GBFS feed, run by the Toronto Parking Authority and linked from the City's open data portal (CKAN bike-share-toronto). Only where stations are and what they offer; live bike and dock counts are left out on purpose.",
+  "system": "Bike Share Toronto",
+  "gbfs": "https://tor.publicbikesystem.net/ube/gbfs/v1/gbfs.json",
+  "lang": "en",
+  "nameDrop": ["\\s*-\\s*SMART\\s*$"]
+}
