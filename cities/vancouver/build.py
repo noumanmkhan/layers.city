@@ -112,15 +112,29 @@ dup = {p['CSDNAME'] for p, _ in METRO if sum(q['CSDNAME'] == p['CSDNAME'] for q,
 def muni_name(p):
     n, t = p['CSDNAME'], p['CSDTYPE']
     if t == 'IRI': return n + ' (reserve)'
-    if t == 'RDA': return 'Electoral Area A' if n.endswith(' A') else n   # UBC, the University Endowment Lands, Pacific Spirit
+    if t == 'RDA': return 'Electoral Area A' if n.endswith(' A') else n   # its Point Grey piece is the annex below
     if t == 'TWL': return n
     return TYPE_NAME.get(t, '{n}').format(n=n) if n in dup else n
 
 
 base, cutout = [feat(CITY, {'kind': 'city', 'name': 'City of Vancouver'})], CITY.buffer(0.0002)
+# The University Endowment Lands: the Point Grey piece of Electoral Area A (UBC's campus, Pacific Spirit Regional Park and the
+# UEL neighbourhoods). Not part of the City, but the map's city view shows it (an "annex": shaded and outlined apart, not
+# masked), since leaving it off a map of Vancouver would look like a gap. The rest of Electoral Area A stays a neighbour.
+POINT_GREY = box(-123.30, 49.20, -123.19, 49.30)
+annex = None
 for p, g in METRO:
     g = polys(g.difference(cutout))
     if g.is_empty: continue
+    if p['CSDTYPE'] == 'RDA' and p['CSDNAME'].endswith(' A'):
+        annex = polys(g.intersection(POINT_GREY))
+        g = polys(g.difference(POINT_GREY))
+        base.append(feat(annex, {'kind': 'annex', 'name': 'University Endowment Lands', 'sub': 'Beside the City of Vancouver',
+                                 'aka': ['UEL', 'UBC Endowment Lands', 'Endowment Lands', 'UBC lands'],
+                                 'includes': "UBC's Point Grey campus, Pacific Spirit Regional Park and the UEL neighbourhoods",
+                                 'gov': 'The Province of BC (UEL), UBC (its campus) and Metro Vancouver (the park)',
+                                 'votes': 'Metro Vancouver Electoral Area A, not the City',
+                                 'region': 'Metro Vancouver', 'lp': label_pt(annex)}))
     pr = {'kind': 'neighbour', 'name': muni_name(p), 'region': 'Metro Vancouver', 'lp': label_pt(g), 'type': p['CSDTYPE']}
     if p['CSDTYPE'] in ('IRI', 'RDA', 'TWL'): pr['rest'] = True   # not a town to colour in the drive lens
     base.append(feat(g, pr))

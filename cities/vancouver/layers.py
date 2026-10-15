@@ -8,7 +8,8 @@ mapshaper in run.sh), plus the election-day voting places straight to docs/vanco
   bia         The 22 business improvement areas (`business-improvement-areas-bia`; Dunbar Village's three pieces
               are one BIA).
   provincial  BC provincial electoral districts (DataBC; the boundaries used in the October 24, 2026 election),
-              cut to the City's land: a district that reaches into Burnaby shows only its Vancouver part.
+              cut to the City's land and the University Endowment Lands: a district that reaches into Burnaby shows only
+              its Vancouver part.
   federal     Federal ridings, 2023 Representation Order (Open North's Represent), cut to the City's land the same
               way, so Marpole (in Richmond Centre—Marpole) is covered.
   voting      Vancouver votes at any voting place in the city: one area (the City) and every election-day voting
@@ -24,6 +25,9 @@ TMP = os.path.join(HERE, 'tmp'); os.makedirs(TMP, exist_ok=True)
 OUT = os.path.join(HERE, '..', '..', 'docs', 'vancouver', 'data')
 load = lambda *p: json.load(open(os.path.join(R, *p)))
 CITY = next(shape(f['geometry']).buffer(0) for f in load('csds.geojson')['features'] if f['properties']['CSDUID'] == '5915022')
+# The University Endowment Lands (build.py's annex), shown in the city view: ridings reach over it too.
+ANNEX = unary_union([shape(f['geometry']).buffer(0) for f in json.load(open(os.path.join(TMP, 'base.geojson')))['features'] if f['properties']['kind'] == 'annex'])
+VIEW = CITY.union(ANNEX)
 
 
 def label_pt(g):
@@ -69,7 +73,7 @@ dump('bia', [feat(polys(unary_union(gs)), {'name': n}) for n, gs in sorted(by.it
 def cut(features, name_of, min_km2=0.05):
     out = []
     for f in features:
-        g = polys(shape(f['geometry']).buffer(0).intersection(CITY))
+        g = polys(shape(f['geometry']).buffer(0).intersection(VIEW))
         if g.is_empty or g.area * 72.6 * 111.2 < min_km2: continue
         out.append(feat(g, {'name': name_of(f['properties'])}))
     return sorted(out, key=lambda f: f['properties']['name'])
@@ -88,7 +92,7 @@ for f in load('ods', 'voting-places-2026.geojson')['features']:
 # One building can hold two voting places (Central Library has two rooms): one entry, both rooms.
 merged = {}
 for c in centers:
-    k = (c[2], c[4])
+    k = (c[2].lower(), re.sub(r'\b(west|w)\b', 'w', re.sub(r'\b(east|e)\b', 'e', re.sub(r'\b(street|st)\b', 'st', c[4].lower()))))
     if k in merged:
         if c[3] and c[3] not in merged[k][3]: merged[k][3] = (merged[k][3] + '; ' + c[3]).strip('; ')
     else: merged[k] = c

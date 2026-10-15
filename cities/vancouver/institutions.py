@@ -25,7 +25,7 @@ osm = {e['osm']: e for e in json.load(open(os.path.join(HERE, 'raw', 'institutio
 
 # (name, cat, sub, OSM id or [lon, lat], extra props)
 LIST = [
-    ('University of British Columbia', 'university', 'Point Grey campus · Public · outside the City limits', 'r1424987', {}),
+    ('University of British Columbia', 'university', 'Point Grey campus · Public · University Endowment Lands', 'r1424987', {}),
     ('Simon Fraser University', 'university', 'Vancouver campus · Harbour Centre · Public', [-123.11206, 49.28467], {}),   # 515 W Hastings; OSM has no campus object
     ('Emily Carr University of Art + Design', 'university', 'Great Northern Way · Public', 'w1388920623', {}),
     ('Langara College', 'college', '49th Avenue campus', 'w23393992', {}),
@@ -38,7 +38,7 @@ LIST = [
     ('Mount Saint Joseph Hospital', 'hospital', 'Providence Health Care', 'w292380824', {'ed': True, 'edNote': 'Emergency open 8 am to 8 pm'}),
     ("BC Children's Hospital", 'hospital', 'Provincial Health Services Authority', 'n5718035521', {'ed': True, 'edNote': 'Emergency for ages 16 and under'}),
     ("BC Women's Hospital", 'hospital', 'Provincial Health Services Authority', 'w259652372', {}),
-    ('UBC Hospital', 'hospital', 'Vancouver Coastal Health · outside the City limits', 'n8508184533', {'ed': True, 'edNote': 'Emergency open 8 am to 8 pm'}),
+    ('UBC Hospital', 'hospital', 'Vancouver Coastal Health · University Endowment Lands', 'n8508184533', {'ed': True, 'edNote': 'Emergency open 8 am to 8 pm'}),
 ]
 
 gone = [x[3] for x in LIST if isinstance(x[3], str) and x[3] not in osm]

@@ -12,7 +12,7 @@
     "city": [
       [
         49.198,
-        -123.225
+        -123.268
       ],
       [
         49.316,
@@ -110,7 +110,28 @@
   "outside": {
     "beyond": "That spot is outside Metro Vancouver.",
     "regionPill": "{region}",
-    "note": "Outside the City of Vancouver. The local areas and sides on this map cover Vancouver only."
+    "note": "Outside the City of Vancouver. The local areas and sides on this map cover Vancouver only.",
+    "annex": {
+      "rows": [
+        [
+          "Area",
+          "{name}"
+        ],
+        [
+          "Includes",
+          "{includes}"
+        ],
+        [
+          "Run by",
+          "{gov}"
+        ],
+        [
+          "Local vote",
+          "{votes}"
+        ]
+      ],
+      "note": "Beside the City of Vancouver, not part of it: unincorporated land that the map shows with the city, shaded and outlined apart. Local areas, Nearby and the city’s own layers stop at the city line."
+    }
   },
   "drive": {
     "hub": [
@@ -329,7 +350,7 @@
               "ECUAD"
             ]
           },
-          "note": "Public and nonprofit universities, one point per campus; UBC just past the city line"
+          "note": "Public and nonprofit universities, one point per campus; UBC in the University Endowment Lands"
         },
         {
           "id": "colleges",
@@ -1174,6 +1195,10 @@
         "layer": "fed",
         "text": "{name}"
       }
+    ],
+    "outsideFacts": [
+      "prov",
+      "fed"
     ],
     "living": {
       "hub": "To Waterfront",
