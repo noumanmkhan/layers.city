@@ -15,6 +15,10 @@ park, playground, tennis
           City portal was retired in 2016, hence OSM. Pools and rinks were tried and left out: OSM
           has only about 30 public pools named in the city against the Park District's 70-plus, so
           a count of "0 pools" nearby would often be wrong.
+mosque, gurdwara, synagogue, hindu, buddhist, church, halal, kosher
+          From the Faith & Community layers (faith.geojson, faith.py); the card shows the nearest of each
+          only while its layer is on, so nobody sees a faith they didn't ask about. Churches are also listed
+          by family ("church:catholic", …) for the Churches layer's chips.
 Describe only: the card names the nearest of each and counts what is within the radius in city.json; nothing is ranked."""
 import json, math, os, re
 from shapely.geometry import shape, Point
@@ -79,6 +83,12 @@ for c in courts:   # one point per group of courts
     if not any(metres(c, t) < 80 for t in groups['tennis']): groups['tennis'].append(c)
 for f in json.load(open(os.path.join(DATA, 'institutions.geojson')))['features']:
     if f['properties'].get('ed'): groups['er'].append(f['geometry']['coordinates'] + [f['properties']['name']])
+
+fp = os.path.join(DATA, 'faith.geojson')
+for f in (json.load(open(fp))['features'] if os.path.exists(fp) else []):
+    p = f['properties']
+    if p['cat'] != 'otherfaith': groups.setdefault(p['cat'], []).append(f['geometry']['coordinates'] + [p['name']])
+    if p.get('grp'): groups.setdefault(p['cat'] + ':' + p['grp'], []).append(f['geometry']['coordinates'] + [p['name']])
 
 json.dump({'groups': groups}, open(os.path.join(DATA, 'nearby.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 print('nearby:', {k: len(v) for k, v in groups.items()})

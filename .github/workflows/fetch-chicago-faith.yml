@@ -1,0 +1,33 @@
+name: Fetch Chicago faith and community places
+# Downloads Chicago's places of worship (and other faiths' across Chicagoland) from OpenStreetMap (Overpass) and places the addresses in the
+# curated lists (faith_shops.csv, faith_overrides.csv) with Nominatim, into cities/chicago/raw/faith/
+# for cities/chicago/faith.py. Runs when the fetch script or a curated list changes on main, monthly, or by
+# hand. A row added on dev is placed once it reaches main; give it lat/lon in the CSV to preview it sooner.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '53 7 6 * *'
+  push:
+    branches: [main]
+    paths: ['cities/chicago/fetch_faith.py', 'cities/chicago/faith_shops.csv', 'cities/chicago/faith_overrides.csv',
+            '.github/workflows/fetch-chicago-faith.yml']
+permissions:
+  contents: write
+concurrency: fetch-chicago-faith
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: mkdir -p cities/chicago/raw/faith && python3 -u cities/chicago/fetch_faith.py 2>&1 | tee cities/chicago/raw/faith/fetch.log
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/chicago/raw/faith
+          git commit -m "Fetch Chicago places of worship and place the faith and community lists" || echo "no changes"
+          git pull --rebase
+          git push
