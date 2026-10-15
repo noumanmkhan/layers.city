@@ -1,0 +1,74 @@
+== city
+  None | fields: []
+  retry 1 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Community_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR HTTP Error 400: Bad Request
+  retry 2 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Community_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR HTTP Error 400: Bad Request
+  retry 3 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Community_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR HTTP Error 400: Bad Request
+  retry 4 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Community_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR HTTP Error 400: Bad Request
+  layer 0 failed: failed: https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Community_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4326&f=geojson&resultOffset=0&resultRecordCount=1000&geometryPrecision=6
+   Community_Pool_2023 layers [(19, 'Community Pool')]
+  Community Pool | fields: ['OBJECTID', 'ID', 'NAME', 'ADDRESS', 'MAPSCO', 'REGION', 'FACILITY_T', 'MAINT_DIST', 'COUNCIL_DI', 'GlobalID', 'created_user', 'created_date', 'last_edited_user', 'last_edited_date']
+wrote city/pools.geojson 7 KB
+  sample {'OBJECTID': 1, 'ID': 13, 'NAME': 'HARRY STONE', 'ADDRESS': '2403 MILLMAR DR', 'MAPSCO': '38-R', 'REGION': 'EAST', 'FACILITY_T': 'COMMUNITY POOL', 'MAINT_DIST': '1', 'COUNCIL_DI': '9', 'GlobalID': 'c77edf5f-4337-408f-82e8-ebb39f16478c', 'created_user': None, 'created_date': None, 'last_edited_user': None, 'last_edited_date': None}
+  None | fields: []
+  retry 1 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Spray_Ground_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4 HTTP Error 400: Bad Request
+  retry 2 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Spray_Ground_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4 HTTP Error 400: Bad Request
+  retry 3 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Spray_Ground_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4 HTTP Error 400: Bad Request
+  retry 4 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Spray_Ground_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4 HTTP Error 400: Bad Request
+  layer 0 failed: failed: https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Spray_Ground_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4326&f=geojson&resultOffset=0&resultRecordCount=1000&geometryPrecision=6
+   Spray_Ground_2023 layers [(22, 'Spray Ground')]
+  Spray Ground | fields: ['OBJECTID', 'ID', 'NAME', 'ADDRESS', 'MAPSCO', 'REGION', 'FACILITY_T', 'MAINT_DIST', 'COUNCIL_DI', 'GlobalID', 'created_user', 'created_date', 'last_edited_user', 'last_edited_date']
+wrote city/spray.geojson 4 KB
+  sample {'OBJECTID': 1, 'ID': 6, 'NAME': 'DANIELDALE', 'ADDRESS': '300 W WHEATLAND RD', 'MAPSCO': '74-C', 'REGION': 'WEST', 'FACILITY_T': 'SPRAYGROUND', 'MAINT_DIST': '4', 'COUNCIL_DI': '8', 'GlobalID': '434c0528-2b4f-48ef-86bf-fd92e58e143e', 'created_user': None, 'created_date': None, 'last_edited_user': None, 'last_edited_date': None}
+  None | fields: []
+  retry 1 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/0/query?where=1%3D1&outFields=% HTTP Error 400: Bad Request
+  retry 2 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/0/query?where=1%3D1&outFields=% HTTP Error 400: Bad Request
+  retry 3 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/0/query?where=1%3D1&outFields=% HTTP Error 400: Bad Request
+  retry 4 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/0/query?where=1%3D1&outFields=% HTTP Error 400: Bad Request
+  layer 0 failed: failed: https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4326&f=geojson&resultOffset=0&resultRecordCount=1000&geometryPrecision=6
+   Dallas_Bike_Facilities_view layers [(6, 'BikeFacilities - Existing, Funded, Planned')]
+  BikeFacilities - Existing, Funded, Planned | fields: ['Status', 'Imp_Year', 'Location', 'Limits', 'Fac_Type', 'Bike_ID', 'OBJECTID', 'Unique_ID', 'LocationFr', 'LocationTo', 'BikePlanClassification', 'FacTypSimp', 'StatusSimp', 'Proj_Phase', 'ProjectNum', 'Rank_PM', 'Cost', 'TotScore', 'Bundle_Num', 'Imp_Month', 'FundingSrc', 'Maint_Plan', 'SeparatorType', 'ProposedUpgrade', 'ProposedRemoval', 'Maint_Completed', 'Length_Mil', 'Caps_Label', 'CouncilDistrict', 'CD1', 'CD2', 'CD3', 'CD4', 'CD5', 'CD6', 'CD7', 'CD8', 'CD9', 'CD10', 'CD11']
+wrote city/bike_facilities.geojson 1199 KB
+  sample {'Status': 'Planned', 'Imp_Year': None, 'Location': 'Hillburn Dr', 'Limits': 'Lake June Rd to Elam Rd', 'Fac_Type': None, 'Bike_ID': 251, 'OBJECTID': 1, 'Unique_ID': 1, 'LocationFr': 'Lake June Rd', 'LocationTo': 'Elam Rd', 'BikePlanClassification': 'Neighborhood Bikeway', 'FacTypSimp': 'on street', 'StatusSimp': 'Planned', 'Proj_Phase': 3, 'ProjectNum': 1026, 'Rank_PM': 218, 'Cost': 696891, 'TotScore': 7, 'Bundle_Num': None, 'Imp_Month': None, 'FundingSrc': None, 'Maint_Plan': None, 'SeparatorType': None, 'ProposedUpgrade': None, 'ProposedRemoval': None, 'Maint_Completed': None, 'Length_Mil': 0.9955580355261442, 'Caps_Label': 'HILLBURN DR', 'CouncilDistrict': '5', 'CD1': 0, 'CD2': 0, 'CD3': 0, 'CD4': 0, 'CD5': 1, 'CD6': 0, 'CD7': 0, 'CD8': 0, 'CD9': 0, 'CD10': 0, 'CD11': 0, 'CD12': 0, 'CD13': 0, 'CD14': 0, 'Information': None, 'Upgrade_Year': None, 'UpgradeSrc': None, 'Shape__Length': 5256.546427578041}
+  None | fields: []
+  retry 1 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Indoor_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=43 HTTP Error 400: Bad Request
+  retry 2 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Indoor_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=43 HTTP Error 400: Bad Request
+  retry 3 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Indoor_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=43 HTTP Error 400: Bad Request
+  retry 4 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Indoor_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=43 HTTP Error 400: Bad Request
+  layer 0 failed: failed: https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Indoor_Pool_2023/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4326&f=geojson&resultOffset=0&resultRecordCount=1000&geometryPrecision=6
+   Indoor_Pool_2023 layers [(21, 'Indoor Pool')]
+  Indoor Pool | fields: ['OBJECTID', 'ID', 'NAME', 'ADDRESS', 'MAPSCO', 'REGION', 'FACILITY_T', 'MAINT_DIST', 'COUNCIL_DI', 'GlobalID', 'created_user', 'created_date', 'last_edited_user', 'last_edited_date']
+wrote city/indoor_pools.geojson 0 KB
+  sample {'OBJECTID': 1, 'ID': 1, 'NAME': 'BACHMAN', 'ADDRESS': '2750 BACHMAN DR', 'MAPSCO': '33-C', 'REGION': 'WEST', 'FACILITY_T': 'INDOOR POOL', 'MAINT_DIST': '0', 'COUNCIL_DI': '6', 'GlobalID': '69d3a194-c8f8-480b-859e-a5f43533bb05', 'created_user': None, 'created_date': None, 'last_edited_user': None, 'last_edited_date': None}
+  None | fields: []
+  retry 1 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Plan_2025/FeatureServer/0/query?where=1%3D1&outFields=%2A&out HTTP Error 400: Bad Request
+  retry 2 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Plan_2025/FeatureServer/0/query?where=1%3D1&outFields=%2A&out HTTP Error 400: Bad Request
+  retry 3 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Plan_2025/FeatureServer/0/query?where=1%3D1&outFields=%2A&out HTTP Error 400: Bad Request
+  retry 4 https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Plan_2025/FeatureServer/0/query?where=1%3D1&outFields=%2A&out HTTP Error 400: Bad Request
+  layer 0 failed: failed: https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Plan_2025/FeatureServer/0/query?where=1%3D1&outFields=%2A&outSR=4326&f=geojson&resultOffset=0&resultRecordCount=1000&geometryPrecision=6
+   Dallas_Bike_Plan_2025 layers [(17, 'Dallas Bike Plan 2025')]
+  Dallas Bike Plan 2025 | fields: ['OBJECTID', 'Shape_Leng', 'Unique_ID', 'Proj_Phase', 'Location', 'LocationFr', 'LocationTo', 'ProposedFa', 'Length_Mil', 'Name_Conca', 'BikePlanClassification', 'StatusSimp', 'Shape__Length']
+wrote city/bike_plan.geojson 701 KB
+  sample {'OBJECTID': 1, 'Shape_Leng': 0.9955580355261442, 'Unique_ID': 1, 'Proj_Phase': 3, 'Location': 'Hillburn Dr', 'LocationFr': 'Lake June Rd', 'LocationTo': 'Elam Rd', 'ProposedFa': 'Neighborhood Bikeway', 'Length_Mil': 0.9955580355261442, 'Name_Conca': 'Hillburn Dr (Lake June Rd to Elam Rd) - Neighborhood Bikeway', 'BikePlanClassification': 'Neighborhood Bikeway', 'StatusSimp': 'Planned', 'Shape__Length': 5256.546427578041}
+  Cultural POI | fields: ['OBJECTID', 'NAME', 'ADDRESS', 'POPULAR_NA', 'URL', 'VICINITY']
+wrote city/crm_cultural_poi.geojson 22 KB
+  sample {'OBJECTID': 1, 'NAME': 'The Dallas Arboretum and Botanic Garden', 'ADDRESS': '8525 Garland Rd', 'POPULAR_NA': 'The Dallas Arboretum', 'URL': 'http://www.dallasarboretum.org/', 'VICINITY': 'Neighborhood'}
+  Tennis Center | fields: ['OBJECTID', 'NAME', 'ADDRESS']
+wrote city/crm_tennis_center.geojson 0 KB
+  sample {'OBJECTID': 1, 'NAME': 'FRETZ', 'ADDRESS': '14700 HILLCREST RD'}
+  Brush Routes | fields: ['OBJECTID', 'BRUSH_AR', 'DIST', 'BRUSH_RT', 'WEEK', 'ROUTE_CODE', 'Shape__Area', 'Shape__Length']
+wrote city/crm_brush_routes.geojson 452 KB
+  sample {'OBJECTID': 1, 'BRUSH_AR': 0, 'DIST': 5, 'BRUSH_RT': 0, 'WEEK': 0, 'ROUTE_CODE': 0, 'Shape__Area': 1115885427.765625, 'Shape__Length': 591802.8089673081}
+  Days Of Service | fields: ['OBJECTID', 'DISTRICT', 'DOS', 'DOW', 'Shape__Area', 'Shape__Length']
+wrote city/crm_days_of_service.geojson 168 KB
+  sample {'OBJECTID': 1, 'DISTRICT': 1, 'DOS': '5FRI', 'DOW': 'FRIDAY', 'Shape__Area': 735334455.4169922, 'Shape__Length': 123346.7382235518}
+  historical markers 183
+== osm
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+wrote osm_playgrounds.json 325 KB
+wrote osm_tennis.json 277 KB
+FAILED: none

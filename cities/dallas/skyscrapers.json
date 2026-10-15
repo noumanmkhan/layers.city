@@ -2,12 +2,28 @@
  "_about": "Skyscrapers layer (150 m+). engine/fetch_skyscrapers.py fetches the Wikipedia list; engine/skyscrapers.py builds docs/dallas/data/skyscrapers.geojson. Facts below are our own wording.",
  "wiki": "List of tallest buildings in Dallas",
  "city": "Dallas",
- "heights": ["ft", "m"],
- "tables": {"built": "Tallest buildings", "uc": "Tallest under construction", "timeline": "Timeline of tallest buildings"},
- "exclude": {},
- "geocode": {"suffix": "Dallas, Texas, USA", "addresses": {}},
+ "heights": [
+  "ft",
+  "m"
+ ],
+ "tables": {
+  "built": "Tallest buildings",
+  "uc": "Tallest under construction or proposed > Under construction",
+  "timeline": "Timeline of tallest buildings"
+ },
+ "exclude": {
+  "Reunion Tower": "an observation tower, not a building"
+ },
+ "geocode": {
+  "suffix": "Dallas, Texas, USA",
+  "addresses": {}
+ },
  "use": {},
- "open": {"_rule": "A tower listed with this year's date is drawn hollow (under construction) unless marked true here: it must be open for occupancy, not just topped out."},
- "aka": {"Bank of America Plaza": "BofA Plaza"},
+ "open": {
+  "_rule": "A tower listed with this year's date is drawn hollow (under construction) unless marked true here: it must be open for occupancy, not just topped out."
+ },
+ "aka": {
+  "Bank of America Plaza": "BofA Plaza"
+ },
  "facts": {}
 }

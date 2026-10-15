@@ -1,0 +1,44 @@
+{
+  "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): the City of Dallas bike facilities layer (Existing, Funded, Planned), completed ones only. Each segment's Bike Plan classification puts it in one of the layer's classes; types not listed are left out and printed by the build.",
+  "source": {
+    "type": "arcgis",
+    "url": "https://services2.arcgis.com/rwnOSbfKSwyTBcwN/ArcGIS/rest/services/Dallas_Bike_Facilities_view/FeatureServer/6",
+    "where": "StatusSimp='Completed'"
+  },
+  "fields": [
+    "Location",
+    "LocationFr",
+    "LocationTo",
+    "BikePlanClassification",
+    "SeparatorType",
+    "Imp_Year",
+    "StatusSimp"
+  ],
+  "typeField": "BikePlanClassification",
+  "name": "Location",
+  "from": "LocationFr",
+  "to": "LocationTo",
+  "titleCase": true,
+  "classes": {
+    "prot": [
+      "Physically Separated"
+    ],
+    "paint": [
+      "Visually Separated"
+    ],
+    "shared": [
+      "Bike Route",
+      "Neighborhood Bikeway"
+    ],
+    "trail": [
+      "Trail"
+    ]
+  },
+  "labels": {
+    "Physically Separated": "Protected bike lane",
+    "Visually Separated": "Painted bike lane",
+    "Bike Route": "Signed bike route (shared with traffic)",
+    "Neighborhood Bikeway": "Neighborhood bikeway",
+    "Trail": "Trail"
+  }
+}

@@ -133,6 +133,18 @@ for d in data.values():
     d['commute'] = 'car' if d['carPct'] >= 80 else 'mixed' if d['carPct'] >= 65 else 'transit'
     d['tenure'] = 'owners' if d['renterPct'] < 35 else 'mix' if d['renterPct'] <= 60 else 'renters'
 
+# Transit to downtown (fetch_transit_downtown.py): the median weekday-morning trip over each ZIP's grid points. A ZIP where
+# fewer than half the points reach downtown within the router's three-hour limit gets no minutes, only the "over an hour" band.
+TD = os.path.join(RAW, 'transit_downtown.json')
+if os.path.exists(TD):
+    td = json.load(open(TD))['areas']
+    for k, d in data.items():
+        a = td.get(k) or {}
+        m = a.get('minutes')
+        if a.get('points') and a.get('reached', 0) < a['points'] / 2: m = None; band = 'over60'
+        else: band = None if m is None else 'under30' if m < 30 else '30to45' if m < 45 else '45to60' if m <= 60 else 'over60'
+        d['downtown'], d['downtownBand'] = m, band
+
 json.dump(data, open(OUT, 'w'), separators=(',', ':'))
 print('languages ever in a top 3:', sorted({l[0] for d in data.values() for l in d.get('lang', [])[:3]}))
 print('profiles:', len(data), 'ZIPs, ACS', acs['year'], ';', dict(Counter(d['cost'] for d in data.values())),

@@ -9,7 +9,7 @@ sys.path.insert(0, HERE)
 from names import LANDMARKS
 
 OUT = os.path.join(HERE, '..', '..', 'docs', 'dallas', 'data', 'landmarks.geojson')
-CAT_LABEL = {'sports': 'Sports venue', 'park': 'Park and beach', 'music': 'Music and theatre', 'civic': 'Civic and transport',
+CAT_LABEL = {'sports': 'Sports venue', 'park': 'Park or trail', 'music': 'Music and theatre', 'civic': 'Civic and transport',
              'culture': 'Museum or sight', 'airport': 'Airport'}
 d = lambda a, b: math.hypot((a[0] - b[0]) * 93.6, (a[1] - b[1]) * 111.2)
 

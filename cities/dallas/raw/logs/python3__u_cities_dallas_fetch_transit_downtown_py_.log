@@ -1,49 +1,62 @@
   got https://www.dart.org/transitdata/latest/google_transit.zip 8156 KB
   shapes with fewer than 2 points, dropped: 0
   leaving out empty calendar_dates.txt from dart.zip
-  retry 1 https://download.bbbike.org/osm/bbbike/Dallas/Dallas.osm.pbf <urlopen error [Errno 110] Connection timed out>
-  retry 2 https://download.bbbike.org/osm/bbbike/Dallas/Dallas.osm.pbf <urlopen error [Errno 110] Connection timed out>
-  retry 3 https://download.bbbike.org/osm/bbbike/Dallas/Dallas.osm.pbf <urlopen error [Errno 110] Connection timed out>
-  retry 4 https://download.bbbike.org/osm/bbbike/Dallas/Dallas.osm.pbf <urlopen error [Errno 110] Connection timed out>
-  got https://download.geofabrik.de/north-america/us/texas-latest.osm.pbf 707850 KB
+  leaving out fare_attributes.txt
+  leaving out fare_rules.txt
+  got https://download.bbbike.org/osm/bbbike/Dallas/Dallas.osm.pbf 45915 KB
 feed ranges [('20261019', '20261206')]
 departure 2026-10-27 08:00:00
 5477 origin points, 4 destination
-Traceback (most recent call last):
-  File "KryoNetworkSerializer.java", line 129, in com.conveyal.r5.kryo.KryoNetworkSerializer.read
-Exception: Java Exception
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 260, in _load_pickled_transport_network
-    transport_network = com.conveyal.r5.kryo.KryoNetworkSerializer.read(
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-java.io.java.io.FileNotFoundException: java.io.FileNotFoundException: /home/runner/.cache/r5py/29c3341276e26ccdeba23a5d4b6fbcfb0617ebebbf60c3eddc76d743e3069631.transport_network (No such file or directory)
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 97, in __init__
-    transport_network = self._load_pickled_transport_network(
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 277, in _load_pickled_transport_network
-    raise FileNotFoundError from exception
-FileNotFoundError
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch_transit_downtown.py", line 153, in <module>
-    net = TransportNetwork(pbf, feeds)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 144, in __init__
-    raise GtfsFileError(
-r5py.util.exceptions.GtfsFileError: Could not load GTFS file dart-clean.zip. 
-RangeError: fare_attributes line 11: Number 2678400.0 outside of acceptable range [0.0,86400.0].
-- RangeError: fare_attributes line 26: Number 2678400.0 outside of acceptable range [0.0,86400.0].
-- RangeError: fare_attributes line 23: Number 2678400.0 outside of acceptable range [0.0,86400.0].
-- RangeError: fare_attributes line 15: Number 2678400.0 outside of acceptable range [0.0,86400.0].
-- RangeError: fare_attributes line 19: Number 2678400.0 outside of acceptable range [0.0,86400.0].
-- RangeError: fare_attributes line 7: Number 2678400.0 outside of acceptable range [0.0,86400.0].
-- RangeError: fare_attributes line 4: Number 2678400.0 outside of acceptable range [0.0,86400.0].
+wrote raw/transit_downtown.json: 52 ZIPs; minutes min/median/max 11 59 171
+   75019 {'minutes': 124, 'best': 103, 'points': 39, 'reached': 38}
+   75051 {'minutes': 163, 'best': 94, 'points': 50, 'reached': 25}
+   75052 {'minutes': 171, 'best': 162, 'points': 29, 'reached': 6}
+   75134 {'minutes': 144, 'best': 129, 'points': 10, 'reached': 10}
+   75201 {'minutes': 18, 'best': 4, 'points': 22, 'reached': 22}
+   75202 {'minutes': 11, 'best': 4, 'points': 13, 'reached': 13}
+   75203 {'minutes': 32, 'best': 17, 'points': 76, 'reached': 76}
+   75204 {'minutes': 26, 'best': 7, 'points': 40, 'reached': 40}
+   75205 {'minutes': 40, 'best': 36, 'points': 8, 'reached': 8}
+   75206 {'minutes': 37, 'best': 22, 'points': 74, 'reached': 74}
+   75207 {'minutes': 37, 'best': 5, 'points': 65, 'reached': 65}
+   75208 {'minutes': 35, 'best': 20, 'points': 104, 'reached': 104}
+   75209 {'minutes': 66, 'best': 38, 'points': 54, 'reached': 54}
+   75210 {'minutes': 44, 'best': 28, 'points': 38, 'reached': 38}
+   75211 {'minutes': 68, 'best': 31, 'points': 269, 'reached': 264}
+   75212 {'minutes': 47, 'best': 19, 'points': 167, 'reached': 167}
+   75214 {'minutes': 48, 'best': 29, 'points': 126, 'reached': 125}
+   75215 {'minutes': 40, 'best': 15, 'points': 128, 'reached': 128}
+   75216 {'minutes': 54, 'best': 27, 'points': 250, 'reached': 249}
+   75217 {'minutes': 83, 'best': 42, 'points': 440, 'reached': 435}
+   75218 {'minutes': 59, 'best': 44, 'points': 116, 'reached': 116}
+   75219 {'minutes': 30, 'best': 14, 'points': 36, 'reached': 36}
+   75220 {'minutes': 68, 'best': 33, 'points': 187, 'reached': 187}
+   75223 {'minutes': 40, 'best': 27, 'points': 50, 'reached': 50}
+   75224 {'minutes': 47, 'best': 30, 'points': 95, 'reached': 95}
+   75225 {'minutes': 55, 'best': 35, 'points': 50, 'reached': 50}
+   75226 {'minutes': 24, 'best': 10, 'points': 17, 'reached': 17}
+   75227 {'minutes': 65, 'best': 42, 'points': 190, 'reached': 190}
+   75228 {'minutes': 53, 'best': 34, 'points': 181, 'reached': 181}
+   75229 {'minutes': 78, 'best': 40, 'points': 199, 'reached': 199}
+   75230 {'minutes': 65, 'best': 43, 'points': 122, 'reached': 122}
+   75231 {'minutes': 47, 'best': 28, 'points': 89, 'reached': 89}
+   75232 {'minutes': 65, 'best': 48, 'points': 127, 'reached': 127}
+   75233 {'minutes': 52, 'best': 38, 'points': 56, 'reached': 56}
+   75234 {'minutes': 76, 'best': 60, 'points': 21, 'reached': 21}
+   75235 {'minutes': 43, 'best': 19, 'points': 110, 'reached': 110}
+   75236 {'minutes': 113, 'best': 60, 'points': 211, 'reached': 182}
+   75237 {'minutes': 68, 'best': 50, 'points': 105, 'reached': 105}
+   75238 {'minutes': 62, 'best': 34, 'points': 108, 'reached': 108}
+   75240 {'minutes': 63, 'best': 52, 'points': 60, 'reached': 60}
+   75241 {'minutes': 82, 'best': 42, 'points': 389, 'reached': 387}
+   75243 {'minutes': 57, 'best': 31, 'points': 144, 'reached': 144}
+   75244 {'minutes': 70, 'best': 42, 'points': 40, 'reached': 40}
+   75246 {'minutes': 25, 'best': 21, 'points': 6, 'reached': 6}
+   75247 {'minutes': 60, 'best': 42, 'points': 110, 'reached': 110}
+   75248 {'minutes': 86, 'best': 68, 'points': 116, 'reached': 31}
+   75249 {'minutes': 121, 'best': 74, 'points': 86, 'reached': 80}
+   75251 {'minutes': 55, 'best': 47, 'points': 11, 'reached': 11}
+   75252 {'minutes': None, 'best': None, 'points': 85, 'reached': 0}
+   75253 {'minutes': 165, 'best': 143, 'points': 225, 'reached': 43}
+   75254 {'minutes': 66, 'best': 56, 'points': 44, 'reached': 44}
+   75287 {'minutes': None, 'best': None, 'points': 89, 'reached': 0}

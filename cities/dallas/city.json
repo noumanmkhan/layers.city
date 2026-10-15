@@ -1,663 +1,1286 @@
 {
- "id": "dallas",
- "schema": 1,
- "unlisted": true,
- "title": "Dallas · Layers.City",
- "heading": "Dallas",
- "description": "A map of the City of Dallas with toggleable layers: eleven areas built from ZIP codes, known-as names, council districts, Texas House and Senate and congressional districts, counties, main streets, highways, DART light rail, and where to vote on November 3.",
- "mapLabel": "Map of the City of Dallas",
- "locale": "en-US",
- "distance": "mi",
- "view": {
-  "city": [
-   [
-    32.61,
-    -97.0
-   ],
-   [
-    33.03,
-    -96.55
-   ]
-  ],
-  "region": [
-   [
-    32.2,
-    -98.0
-   ],
-   [
-    33.45,
-    -95.9
-   ]
-  ],
-  "max": [
-   [
-    31.6,
-    -98.7
-   ],
-   [
-    33.85,
-    -95.3
-   ]
-  ]
- },
- "scope": {
-  "outer": {
-   "name": "Dallas–Fort Worth"
+  "id": "dallas",
+  "schema": 1,
+  "unlisted": true,
+  "title": "Dallas · Layers.City",
+  "heading": "Dallas",
+  "description": "A map of the City of Dallas with toggleable layers: eleven areas built from ZIP codes, known-as names, council districts, Texas House and Senate and congressional districts, counties, main streets, highways, DART light rail, and where to vote on November 3.",
+  "mapLabel": "Map of the City of Dallas",
+  "locale": "en-US",
+  "distance": "mi",
+  "view": {
+    "city": [
+      [
+        32.61,
+        -97.0
+      ],
+      [
+        33.03,
+        -96.55
+      ]
+    ],
+    "region": [
+      [
+        32.2,
+        -98.0
+      ],
+      [
+        33.45,
+        -95.9
+      ]
+    ],
+    "max": [
+      [
+        31.6,
+        -98.7
+      ],
+      [
+        33.85,
+        -95.3
+      ]
+    ]
   },
-  "inner": {
-   "name": "Dallas"
+  "scope": {
+    "outer": {
+      "name": "Dallas–Fort Worth"
+    },
+    "inner": {
+      "name": "Dallas"
+    }
+  },
+  "footprint": "sides",
+  "water": [
+    {
+      "name": "White Rock Lake",
+      "at": [
+        32.826,
+        -96.721
+      ],
+      "cls": "lake-near"
+    },
+    {
+      "name": "Lake Ray Hubbard",
+      "at": [
+        32.86,
+        -96.53
+      ],
+      "cls": "lake-near"
+    },
+    {
+      "name": "Joe Pool Lake",
+      "at": [
+        32.62,
+        -96.99
+      ],
+      "cls": "lake-far"
+    },
+    {
+      "name": "Lewisville Lake",
+      "at": [
+        33.12,
+        -97.0
+      ],
+      "cls": "lake-far"
+    },
+    {
+      "name": "Grapevine Lake",
+      "at": [
+        32.98,
+        -97.07
+      ],
+      "cls": "lake-far"
+    },
+    {
+      "name": "Lake Lavon",
+      "at": [
+        33.06,
+        -96.48
+      ],
+      "cls": "lake-far"
+    },
+    {
+      "name": "Eagle Mountain Lake",
+      "at": [
+        32.9,
+        -97.47
+      ],
+      "cls": "lake-far"
+    }
+  ],
+  "attribution": "City limits, counties, ZIP code areas & ACS figures: U.S. Census Bureau · Council districts: City of Dallas GIS · Texas House, Senate & congressional districts: Texas Legislative Council · Vote centers & polling places: Dallas, Tarrant, Collin and Denton County Elections · DART rail: DART GTFS · Buses: DART GTFS · Libraries, recreation centers, parks, historic districts, sanitation routes, bike lanes & school districts: City of Dallas GIS · Dallas ISD trustee districts: Dallas ISD · Colleges: IPEDS · Hospitals: CMS · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Streets, highways & address search: © OpenStreetMap contributors via Nominatim",
+  "example": {
+    "at": [
+      32.7797,
+      -96.7998
+    ],
+    "name": "J. Erik Jonsson Central Library (example)"
+  },
+  "search": {
+    "label": "Search an address or place",
+    "country": "us",
+    "viewbox": "-97.01,33.04,-96.45,32.6",
+    "regionViewbox": "-98.07,33.44,-95.84,31.8",
+    "noMatch": "No match around Dallas–Fort Worth for “{q}”. Try the full street address, like “1500 Marilla St”.",
+    "more": "Or press Find to search addresses across Dallas–Fort Worth"
+  },
+  "outside": {
+    "beyond": "That spot is outside the nine counties on this map.",
+    "regionPill": "{region}",
+    "note": "Outside the City of Dallas. Texas House, Senate and congressional districts cover all nine counties; the areas, ZIP codes and council districts cover Dallas only."
+  },
+  "focus": {
+    "label": "Focus on a county",
+    "all": "All of Dallas–Fort Worth",
+    "noun": "County",
+    "count": "{n} towns in {name}",
+    "show": "Show all of {name}"
+  },
+  "facts": {
+    "peers": "sides",
+    "in": "in {name}",
+    "city": "in Dallas",
+    "hub": "downtown"
+  },
+  "units": {
+    "singular": "ZIP code",
+    "plural": "ZIP codes"
+  },
+  "groups": [
+    [
+      "Places",
+      [
+        {
+          "id": "sides",
+          "kind": "fill",
+          "size": "major",
+          "file": "sides",
+          "name": "Areas of Dallas",
+          "place": "Area",
+          "note": "Eleven areas built from ZIP codes: a first draft of how Dallasites place a ZIP",
+          "on": true,
+          "colors": {
+            "Downtown & Uptown": "--s-downtown-uptown",
+            "East Dallas": "--s-east-dallas",
+            "Lake Highlands": "--s-lake-highlands",
+            "North Dallas": "--s-north-dallas",
+            "Far North Dallas": "--s-far-north-dallas",
+            "Northwest Dallas": "--s-northwest-dallas",
+            "West Dallas": "--s-west-dallas",
+            "Oak Cliff": "--s-oak-cliff",
+            "South Dallas": "--s-south-dallas",
+            "Southern Dallas": "--s-southern-dallas",
+            "Pleasant Grove": "--s-pleasant-grove"
+          }
+        },
+        {
+          "id": "zip",
+          "kind": "units",
+          "file": "zips",
+          "name": "ZIP codes",
+          "note": "ZIP Code Tabulation Areas, clipped to the city limits",
+          "on": true,
+          "hover": "ZIP {name}"
+        },
+        {
+          "id": "lens",
+          "kind": "lens",
+          "name": "ZIP code lens",
+          "note": "Housing cost, renters and owners, housing type. Narrow it to a shortlist."
+        },
+        {
+          "id": "knownas",
+          "kind": "knownas",
+          "file": "knownas",
+          "name": "Known-as names",
+          "note": "Deep Ellum, Bishop Arts, Uptown, Lakewood…",
+          "on": true
+        },
+        {
+          "id": "drive",
+          "kind": "suburbs",
+          "name": "Suburban lens",
+          "note": "Typical drive to downtown Dallas with no traffic, town by town. Shows in the regional view."
+        },
+        {
+          "id": "landmarks",
+          "kind": "landmarks",
+          "file": "landmarks",
+          "name": "Landmarks",
+          "note": "Arenas, parks, museums, airports; more below"
+        },
+        {
+          "id": "unis",
+          "kind": "places",
+          "under": "landmarks",
+          "file": "institutions",
+          "cat": "university",
+          "name": "Universities",
+          "place": "University",
+          "aliases": {
+            "Southern Methodist University": [
+              "SMU"
+            ],
+            "UT Southwestern Medical Center": [
+              "UTSW",
+              "UT Southwestern"
+            ],
+            "University of North Texas at Dallas": [
+              "UNT Dallas"
+            ],
+            "Dallas Baptist University": [
+              "DBU"
+            ],
+            "Dallas Theological Seminary": [
+              "DTS"
+            ]
+          },
+          "note": "Public and nonprofit universities with 1,000+ students"
+        },
+        {
+          "id": "colleges",
+          "kind": "places",
+          "under": "landmarks",
+          "file": "institutions",
+          "cat": "college",
+          "name": "Dallas College",
+          "place": "Dallas College campus",
+          "note": "The public community college's campuses in the city"
+        },
+        {
+          "id": "hospitals",
+          "kind": "places",
+          "under": "landmarks",
+          "file": "institutions",
+          "cat": "hospital",
+          "name": "ERs",
+          "place": "Hospital with an ER",
+          "edText": "Emergency department",
+          "note": "Public and nonprofit hospitals with an emergency department"
+        },
+        {
+          "id": "towers",
+          "kind": "towers",
+          "under": "landmarks",
+          "file": "skyscrapers",
+          "name": "Skyscrapers",
+          "place": "Skyscraper",
+          "note": "Buildings about 490 ft (150 m) and taller",
+          "key": {
+            "res": "Residential",
+            "com": "Commercial (office or hotel)",
+            "mix": "Mixed use",
+            "uc": "Under construction · hollow",
+            "sup": "Supertall, 984 ft (300 m) or more · gold ring"
+          },
+          "purpose": {
+            "Residential": "Residential tower",
+            "Office": "Office tower",
+            "Hotel": "Hotel tower",
+            "Mixed-use": "Mixed-use tower"
+          },
+          "supText": "Supertall",
+          "ucText": "Under construction",
+          "builtText": "Completed",
+          "expectedText": "Expected",
+          "akaText": "Also known as {aka}",
+          "moreText": "More on Wikipedia",
+          "sourceText": "Source: Wikipedia"
+        },
+        {
+          "id": "heritage",
+          "kind": "districts",
+          "file": "heritage",
+          "name": "Landmark districts",
+          "note": "21 City of Dallas historic districts: Swiss Avenue, Munger Place, Winnetka Heights…",
+          "label": "{name}",
+          "hover": "{name} historic district"
+        }
+      ]
+    ],
+    [
+      "Getting around",
+      [
+        {
+          "id": "streets",
+          "kind": "streets",
+          "file": "streets",
+          "name": "Main streets",
+          "note": "Arterials like Preston, Greenville, Northwest Highway, Jefferson",
+          "on": true
+        },
+        {
+          "id": "coll",
+          "kind": "streets",
+          "file": "collectors",
+          "under": "streets",
+          "labelZoom": 15,
+          "yieldLabels": true,
+          "name": "Collector streets",
+          "note": "Collector streets between the main ones; from zoom 13"
+        },
+        {
+          "id": "hwy",
+          "kind": "highways",
+          "files": [
+            "highways",
+            "region_highways",
+            "region_shields"
+          ],
+          "name": "Highways",
+          "note": "I-35E, I-30, LBJ, Central Expressway, the Tollway",
+          "on": true,
+          "shields": {
+            "DNT": "Tollway",
+            "PGBT": "PGBT",
+            "Spur 366": "366",
+            "Loop 12": "12"
+          },
+          "tollShield": "Toll"
+        },
+        {
+          "id": "rail",
+          "kind": "rail",
+          "files": [
+            "rail_lines",
+            "rail_stations",
+            "rail_lines_inner"
+          ],
+          "name": "Silver Line & TRE",
+          "note": "DART’s Silver Line to DFW Airport and the Trinity Railway Express to Fort Worth",
+          "on": true,
+          "hover": "{name} · {to}"
+        },
+        {
+          "id": "dart",
+          "kind": "metro",
+          "files": [
+            "dart_lines",
+            "dart_stations"
+          ],
+          "name": "DART light rail",
+          "note": "Red, Blue, Green and Orange lines",
+          "on": true,
+          "stationHover": "{name} · {lines}",
+          "sub": {
+            "id": "stnNames",
+            "label": "Show station names",
+            "on": true
+          }
+        },
+        {
+          "id": "bikes",
+          "kind": "bikes",
+          "file": "bikes",
+          "lazy": true,
+          "name": "Bike lanes",
+          "note": "The City's bike network: protected and painted lanes, signed routes and bikeways",
+          "classes": {
+            "prot": [
+              "Protected",
+              "Bike lanes separated from traffic by posts, curbs or concrete"
+            ],
+            "paint": [
+              "Painted",
+              "Painted bike lanes, some with a buffer"
+            ],
+            "shared": [
+              "Shared",
+              "Signed bike routes and neighborhood bikeways: you ride with traffic"
+            ],
+            "trail": [
+              "Trails",
+              "Off-street trails in the City's bike network"
+            ]
+          },
+          "default": [
+            "prot",
+            "paint"
+          ],
+          "legend": "From the City of Dallas bike facilities layer, completed projects only. Most of the Park Department's trails, such as the Katy Trail, aren't in it.",
+          "asofText": "City data as of {date}.",
+          "betweenText": "Between",
+          "fine": "Shown as built: construction can close a lane for a while."
+        },
+        {
+          "id": "bus",
+          "kind": "buses",
+          "file": "transit_routes",
+          "lazy": true,
+          "name": "Bus routes",
+          "note": "Every DART bus route; stops from zoom 15",
+          "allText": "All",
+          "default": "all",
+          "allNote": "Every daytime bus route.",
+          "families": [
+            [
+              "exp",
+              "Express",
+              "DART's express routes: fewer stops."
+            ],
+            [
+              "reg",
+              "Regular",
+              "Every other daytime route."
+            ]
+          ],
+          "solo": [],
+          "comboText": "Express routes are dashed.",
+          "countText": "{n} routes",
+          "hint": "Tap a route or its number to see it alone; tap elsewhere for all.",
+          "pickText": "Drawn on the map",
+          "unpickText": "Stop drawing route {r}",
+          "clearText": "Clear"
+        }
+      ]
+    ],
+    [
+      "Representation",
+      [
+        {
+          "id": "council",
+          "kind": "outline",
+          "level": "city",
+          "file": "council",
+          "name": "City council districts",
+          "note": "14 districts, one council member each; the mayor is elected citywide",
+          "label": "{num}",
+          "hover": "Council district {num}"
+        },
+        {
+          "id": "house",
+          "kind": "outline",
+          "level": "state",
+          "file": "tx_house",
+          "name": "Texas House districts",
+          "note": "Texas House of Representatives, 2023–2026 map, across the nine counties",
+          "label": "{num}",
+          "hover": "Texas House district {num}"
+        },
+        {
+          "id": "senate",
+          "kind": "outline",
+          "level": "state",
+          "file": "tx_senate",
+          "name": "Texas Senate districts",
+          "note": "Texas Senate, 2023–2026 map, across the nine counties",
+          "label": "SD {num}",
+          "hover": "Texas Senate district {num}"
+        },
+        {
+          "id": "congress",
+          "kind": "outline",
+          "level": "national",
+          "file": "us_house",
+          "name": "Congressional districts",
+          "note": "Texas seats in the U.S. House, on the 2025 map used for 2026, across the nine counties",
+          "label": "TX-{num}",
+          "hover": "Congressional district TX-{num}"
+        },
+        {
+          "id": "county",
+          "kind": "districts",
+          "file": "counties",
+          "name": "Counties",
+          "note": "Dallas reaches into five: Dallas, Collin, Denton, Kaufman and Rockwall",
+          "label": "{name}",
+          "hover": "{name}"
+        },
+        {
+          "id": "school",
+          "kind": "boards",
+          "file": "school",
+          "name": "School districts",
+          "note": "The independent school districts that share the city, and Dallas ISD’s nine trustee districts",
+          "boards": [
+            [
+              "isd",
+              "ISDs",
+              "Independent school districts"
+            ],
+            [
+              "disd",
+              "Dallas ISD trustees",
+              "Dallas ISD board of trustees districts"
+            ]
+          ],
+          "boardNote": "A Dallas address doesn't mean Dallas ISD: the school district depends on the spot. Source: City of Dallas GIS (2022 Census lines) and Dallas ISD (trustee districts adopted December 16, 2021).",
+          "label": "{name}",
+          "hover": "{long}: {name}"
+        }
+      ]
+    ]
+  ],
+  "lens": {
+    "label": "ZIP code lens",
+    "file": "zip_profiles.json",
+    "source": "American Community Survey 2020–2024 (U.S. Census Bureau), by ZIP Code Tabulation Area.",
+    "lenses": [
+      {
+        "id": "cost",
+        "short": "Housing cost",
+        "key": "cost",
+        "tiers": [
+          [
+            "lower",
+            "Lower housing cost",
+            "--cost-1"
+          ],
+          [
+            "middle",
+            "Middle",
+            "--cost-2"
+          ],
+          [
+            "higher",
+            "Higher housing cost",
+            "--cost-3"
+          ]
+        ],
+        "note": "Median home value and rent, weighted by owners and renters, ranked into thirds across Dallas's ZIP codes. Survey estimates for 2020–2024, not current prices. ZIPs mostly in another town are left out."
+      },
+      {
+        "id": "downtown",
+        "short": "To downtown",
+        "key": "downtownBand",
+        "minutes": "downtown",
+        "optional": true,
+        "tiers": [
+          [
+            "under30",
+            "Under 30 min",
+            "--uni-1"
+          ],
+          [
+            "30to45",
+            "30–45 min",
+            "--uni-2"
+          ],
+          [
+            "45to60",
+            "45–60 min",
+            "--uni-3"
+          ],
+          [
+            "over60",
+            "Over an hour",
+            "--uni-4"
+          ]
+        ],
+        "note": "Typical transit trip to downtown leaving 8–9 am on a weekday, walking to the stop included (DART light rail, buses, the Silver Line and the TRE). Each spot counts its quickest arrival at Akard, St. Paul, West End or EBJ Union Station. Median across each ZIP code; where most of a ZIP can't reach downtown within three hours it shows as over an hour.",
+        "source": "DART schedules, routed with r5py."
+      },
+      {
+        "id": "tenure",
+        "short": "Renters & owners",
+        "key": "tenure",
+        "tiers": [
+          [
+            "owners",
+            "Mostly owners",
+            "--ten-1"
+          ],
+          [
+            "mix",
+            "A mix",
+            "--ten-2"
+          ],
+          [
+            "renters",
+            "Mostly renters",
+            "--ten-3"
+          ]
+        ],
+        "note": "Share of households that rent: under 35%, 35–60%, over 60%."
+      },
+      {
+        "id": "homes",
+        "short": "Housing type",
+        "key": "homesTier",
+        "field": "homes",
+        "pick": [
+          [
+            "detached",
+            "Detached",
+            "detached houses"
+          ],
+          [
+            "attached",
+            "Attached",
+            "attached houses (rowhouses and townhouses)"
+          ],
+          [
+            "flats",
+            "2–19 units",
+            "in buildings of 2 to 19 units, from two-flats to courtyard buildings"
+          ],
+          [
+            "large",
+            "20+ units",
+            "in buildings of 20 or more units"
+          ]
+        ],
+        "cuts": [
+          10,
+          30,
+          60
+        ],
+        "tiers": [
+          [
+            "t1",
+            "Under 10%",
+            "--hty-1"
+          ],
+          [
+            "t2",
+            "10–30%",
+            "--hty-2"
+          ],
+          [
+            "t3",
+            "30–60%",
+            "--hty-3"
+          ],
+          [
+            "t4",
+            "60% or more",
+            "--hty-4"
+          ]
+        ],
+        "note": "Share of each ZIP code's occupied homes that are {type}."
+      },
+      {
+        "id": "canopy",
+        "short": "Tree canopy",
+        "key": "canopyBand",
+        "optional": true,
+        "tiers": [
+          [
+            "c1",
+            "Under 10%",
+            "--can-1"
+          ],
+          [
+            "c2",
+            "10–20%",
+            "--can-2"
+          ],
+          [
+            "c3",
+            "20–30%",
+            "--can-3"
+          ],
+          [
+            "c4",
+            "30% or more",
+            "--can-4"
+          ]
+        ],
+        "note": "Share of the land under tree cover, water left out, from ESA WorldCover 2021, a 10 m satellite land-cover map. Citywide 39%.",
+        "source": "ESA WorldCover 2021 (CC BY 4.0)."
+      }
+    ],
+    "filters": [
+      {
+        "lens": "cost",
+        "label": "Housing cost",
+        "options": [
+          [
+            "lower",
+            "Lower"
+          ],
+          [
+            "middle",
+            "Middle"
+          ],
+          [
+            "higher",
+            "Higher"
+          ]
+        ]
+      },
+      {
+        "lens": "downtown",
+        "label": "To downtown by transit",
+        "max": true,
+        "options": [
+          [
+            30,
+            "Up to 30 min"
+          ],
+          [
+            45,
+            "45 min"
+          ],
+          [
+            60,
+            "60 min"
+          ]
+        ]
+      },
+      {
+        "lens": "tenure",
+        "label": "Households",
+        "options": [
+          [
+            "owners",
+            "Mostly own"
+          ],
+          [
+            "mix",
+            "A mix"
+          ],
+          [
+            "renters",
+            "Mostly rent"
+          ]
+        ]
+      },
+      {
+        "lens": "homes",
+        "label": "Most common home",
+        "top": true
+      }
+    ]
+  },
+  "card": {
+    "report": {
+      "to": "go@layers.city",
+      "kinds": [
+        "A boundary or area is wrong",
+        "A representative or election detail is wrong",
+        "A street closure is wrong",
+        "A name, landmark or place is wrong",
+        "Something else"
+      ]
+    },
+    "pills": [
+      {
+        "layer": "sides",
+        "else": "sides"
+      },
+      {
+        "knownas": 2
+      },
+      {
+        "layer": "congress",
+        "text": "Congress: TX-{num}",
+        "color": "--fed"
+      }
+    ],
+    "facts": [
+      {
+        "label": "Area",
+        "layer": "sides",
+        "text": "{name}"
+      },
+      {
+        "label": "ZIP code",
+        "layer": "zip",
+        "text": "{name}",
+        "empty": "—"
+      },
+      {
+        "label": "Known as",
+        "knownas": true
+      },
+      {
+        "label": "Collection day",
+        "pickup": true
+      },
+      {
+        "label": "Landmark district",
+        "layer": "heritage",
+        "text": "{name}",
+        "onlyInside": true
+      },
+      {
+        "label": "School district",
+        "boards": "school",
+        "text": "{name}"
+      },
+      {
+        "label": "County",
+        "layer": "county",
+        "text": "{name}"
+      },
+      {
+        "label": "City council",
+        "layer": "council",
+        "text": "District {num}"
+      },
+      {
+        "label": "Texas House",
+        "layer": "house",
+        "text": "District {num}"
+      },
+      {
+        "label": "Texas Senate",
+        "layer": "senate",
+        "text": "District {num}"
+      },
+      {
+        "label": "U.S. House",
+        "layer": "congress",
+        "text": "TX-{num}"
+      }
+    ],
+    "living": {
+      "caveat": "Survey estimates for 2020–2024, not current prices, for the whole ZIP code (including any part outside Dallas). Rent is what renting households pay, utilities included, counting long-time tenants and subsidized homes, so it sits below what a new lease costs. Use them to compare ZIP codes, not to budget.",
+      "footer": "American Community Survey 2020–2024 and DART schedules, ZIP {name}. Tiers compare ZIP codes across Dallas.",
+      "homes": {
+        "label": "Home types",
+        "types": [
+          [
+            "detached",
+            "Detached"
+          ],
+          [
+            "attached",
+            "Attached"
+          ],
+          [
+            "flats",
+            "2–19 units"
+          ],
+          [
+            "large",
+            "20+ units"
+          ]
+        ]
+      },
+      "built": {
+        "label": "Built",
+        "bands": [
+          "1939 or earlier",
+          "1940–79",
+          "1980–99",
+          "2000 or later"
+        ]
+      },
+      "lang": {
+        "label": "Language at home",
+        "floor": 5,
+        "note": "English only, or the language besides English that each person 5 or older speaks at home. For ZIP codes the Census groups some languages: Hindi and Urdu are among “other Indo-European”."
+      },
+      "ages": {
+        "label": "Ages",
+        "bands": [
+          "Under 15",
+          "15–24",
+          "25–44",
+          "45–64",
+          "65+"
+        ]
+      },
+      "recent": {
+        "label": "Recent immigrants",
+        "text": "{pct}% born abroad, came to the US {since}",
+        "caveat": "Share of residents, from the 2020–2024 survey."
+      },
+      "canopy": {
+        "label": "Tree canopy",
+        "text": "{pct}% of the land is under trees",
+        "caveat": "Satellite land cover, 2021 (ESA WorldCover, 10 m)."
+      },
+      "hub": "To downtown",
+      "hubText": "About {minutes} min by transit, weekday morning"
+    },
+    "reps": {
+      "file": "representatives.json",
+      "offices": [
+        {
+          "role": "Council member",
+          "layer": "council",
+          "table": "council",
+          "key": "num",
+          "sub": "District {f.num}"
+        },
+        {
+          "role": "State representative",
+          "layer": "house",
+          "table": "house",
+          "key": "num",
+          "sub": "{r.party} · District {f.num}"
+        },
+        {
+          "role": "State senator",
+          "layer": "senate",
+          "table": "senate",
+          "key": "num",
+          "sub": "{r.party} · District {f.num}"
+        },
+        {
+          "role": "U.S. representative",
+          "file": "us_house_2021",
+          "table": "congress",
+          "key": "num",
+          "sub": "{r.party} · TX-{f.num}"
+        }
+      ],
+      "note": "Names open each person's official page. Dallas's council elections are nonpartisan. Each U.S. representative is shown for the district they were elected on; the congressional lines on the map are the new ones used on November 3, and the winners take office in January. Last change {date}."
+    },
+    "vote": {
+      "file": "voting",
+      "date": "2026-11-03",
+      "tz": "America/Chicago",
+      "closes": "2026-11-03T19:00:00-06:00",
+      "title": "Election day · {date}",
+      "today": "Election day is today",
+      "hours": "7 a.m. to 7 p.m.",
+      "early": {
+        "from": "2026-10-19",
+        "to": "2026-10-30",
+        "title": "Early voting · {from} to {to}",
+        "soon": "Early voting starts {from}",
+        "hours": "hours vary by day"
+      },
+      "lead": "People living here vote at",
+      "show": "Show on map",
+      "centersLead": "Vote at any {county} vote center. Nearest to here:",
+      "earlyLead": "Vote early at any {county} early voting site. Nearest to here:",
+      "centersMore": "{n} vote centers across {county} on election day.",
+      "earlyMore": "{n} early voting sites across {county}; on election day, {ed} vote centers.",
+      "precinctEarly": "On election day, people living here vote at {n}.",
+      "counties": {
+        "dallas": {
+          "name": "Dallas County",
+          "link": [
+            "Dallas County Vote Center Finder",
+            "https://www.dallascountyvotes.org/"
+          ]
+        },
+        "tarrant": {
+          "name": "Tarrant County",
+          "link": [
+            "Tarrant County voting locations",
+            "https://www.tarrantcountytx.gov/en/elections.html"
+          ]
+        },
+        "collin": {
+          "name": "Collin County",
+          "link": [
+            "Collin County polling locations",
+            "https://www.collincountytx.gov/elections/polling-locations"
+          ]
+        },
+        "denton": {
+          "name": "Denton County",
+          "link": [
+            "Denton County polling locations",
+            "https://www.votedenton.gov/"
+          ],
+          "precinct": true
+        }
+      },
+      "note": "{county} Elections lists as of {asof}. Sites can change up to election day: the county’s own finder has the final word.",
+      "precinctNote": "Precinct {precinct} · {county} Elections, as of {asof}. Sites can change up to election day: the county’s own finder has the final word."
+    },
+    "outsideFacts": [
+      "house",
+      "senate",
+      "congress"
+    ],
+    "pickup": {
+      "file": "collection",
+      "label": "Collection day",
+      "tz": "America/Chicago",
+      "show": 1,
+      "head": "{day}[ · brush and bulky trash in week {bw} of each month]",
+      "next": "Next: {when}",
+      "items": {
+        "garbage": "garbage",
+        "recycling": "recycling"
+      },
+      "outside": "Not on the City's curbside routes: apartments and businesses hire their own collection.",
+      "note": "Garbage and recycling weekly, for houses on City routes; holidays can move a day. City of Dallas Sanitation routes."
+    },
+    "nearby": {
+      "file": "nearby.json",
+      "radius": 805,
+      "nearest": [
+        [
+          "library",
+          "Library"
+        ],
+        [
+          "centre",
+          "Recreation center"
+        ],
+        [
+          "er",
+          "Emergency dept."
+        ],
+        [
+          "pool",
+          "Public pool"
+        ],
+        [
+          "dogpark",
+          "Dog park"
+        ]
+      ],
+      "within": "Within ½ mile",
+      "counts": [
+        [
+          "park",
+          "park",
+          "parks"
+        ],
+        [
+          "spray",
+          "spray ground",
+          "spray grounds"
+        ],
+        [
+          "playground",
+          "playground",
+          "playgrounds"
+        ],
+        [
+          "tennis",
+          "tennis court location",
+          "tennis court locations"
+        ]
+      ],
+      "note": "Straight-line distances; half a mile is about a 10-minute walk. Dallas Public Library, Dallas Park and Recreation (recreation centers, pools, spray grounds, parks, dog parks), the ERs layer, and OpenStreetMap (playgrounds, courts)."
+    },
+    "transit": {
+      "file": "transit.json",
+      "routes": "transit_routes",
+      "title": "Transit nearby",
+      "radius": 402,
+      "station": "Nearest DART rail station",
+      "stationSub": "{lines} · {dist} away",
+      "rows": [
+        [
+          "bus",
+          "Buses",
+          false
+        ]
+      ],
+      "night": "Overnight",
+      "stop": "Nearest stop",
+      "none": "No stop within ¼ mile",
+      "every": "about every {h} min on weekday middays",
+      "nightOnly": "overnight only",
+      "routeClasses": [],
+      "kinds": {
+        "bus": "Bus route"
+      },
+      "note": "Routes with a stop within ¼ mile, about a 5-minute walk. Tap a number to draw the route. DART schedules, week of {week}."
+    }
+  },
+  "drive": {
+    "hub": [
+      32.7801,
+      -96.7989
+    ],
+    "hubName": "downtown Dallas (Main & Akard)"
+  },
+  "presets": {
+    "label": "Views",
+    "customText": "Custom",
+    "customNote": "Changed from {name}. Pick a view again to go back to it.",
+    "boundaryLabel": "Boundaries",
+    "electionText": "Next on the ballot: {label}",
+    "window": 180,
+    "items": [
+      {
+        "id": "explore",
+        "name": "Explore downtown",
+        "note": "Landmarks, towers and historic districts in downtown, Deep Ellum and Uptown, with DART rail.",
+        "layers": [
+          "sides",
+          "knownas",
+          "landmarks",
+          "towers",
+          "heritage",
+          "streets",
+          "dart",
+          "stnNames"
+        ],
+        "view": [
+          [
+            32.768,
+            -96.825
+          ],
+          [
+            32.81,
+            -96.77
+          ]
+        ]
+      },
+      {
+        "id": "local",
+        "name": "Know your city",
+        "note": "Every ZIP code coloured by its transit trip to downtown. Try the other lenses below.",
+        "layers": [
+          "zip",
+          "lens",
+          "knownas",
+          "streets",
+          "dart",
+          "stnNames"
+        ],
+        "lens": "downtown",
+        "view": "city"
+      },
+      {
+        "id": "civic",
+        "name": "Who represents me",
+        "note": "Search your address or tap the map to see your districts and every representative.",
+        "layers": [
+          "streets"
+        ],
+        "boundaries": [
+          "council",
+          "house",
+          "senate",
+          "congress"
+        ],
+        "lead": "council",
+        "view": "city",
+        "hint": "Enter your address to find your council district, school district and representatives."
+      },
+      {
+        "id": "newcomer",
+        "name": "Where to live",
+        "note": "Housing cost by ZIP code, with DART rail. Tap a spot for school district, transit nearby and what's close.",
+        "layers": [
+          "zip",
+          "lens",
+          "knownas",
+          "streets",
+          "dart",
+          "stnNames",
+          "school"
+        ],
+        "lens": "cost",
+        "view": "city"
+      },
+      {
+        "id": "transit",
+        "name": "Getting around",
+        "note": "DART light rail, the Silver Line and TRE, and every bus route.",
+        "layers": [
+          "streets",
+          "dart",
+          "stnNames",
+          "rail",
+          "bus",
+          "hwy"
+        ],
+        "view": "city"
+      }
+    ],
+    "elections": [
+      {
+        "date": "2026-11-03",
+        "lead": "congress",
+        "label": "Texas Legislature and Congress, November 3"
+      },
+      {
+        "date": "2027-05-01",
+        "lead": "council",
+        "label": "Mayor and City Council, May 1, 2027"
+      }
+    ]
+  },
+  "tour": {
+    "invite": "New to Dallas? Take a one-minute tour.",
+    "start": "Take the tour",
+    "stepText": "Tour · {n} of {of}",
+    "next": "Next",
+    "back": "Back",
+    "done": "Done",
+    "closeText": "Close the tour",
+    "dismissText": "No thanks",
+    "steps": [
+      {
+        "title": "Eleven areas",
+        "layers": [
+          "sides",
+          "hwy"
+        ],
+        "hi": [
+          "sides"
+        ],
+        "view": "city",
+        "text": "Dallasites place a neighbourhood by its part of town: North Dallas, Oak Cliff, East Dallas, Pleasant Grove and more, with downtown at the centre. The freeways, I-30, I-35E, US 75 and the LBJ, are how most people find their way."
+      },
+      {
+        "title": "ZIP codes and known-as names",
+        "layers": [
+          "zip",
+          "knownas",
+          "streets"
+        ],
+        "hi": [
+          "zip",
+          "knownas"
+        ],
+        "view": [
+          [
+            32.74,
+            -96.86
+          ],
+          [
+            32.88,
+            -96.72
+          ]
+        ],
+        "text": "Dallas has no official neighbourhood map, so the map compares ZIP codes, the units the Census counts. The names in italics are the neighbourhoods people actually say, like Bishop Arts, Lakewood or Uptown."
+      },
+      {
+        "title": "School districts",
+        "layers": [
+          "school",
+          "streets"
+        ],
+        "hi": [
+          "school"
+        ],
+        "view": "city",
+        "text": "A Dallas address doesn't mean Dallas ISD. The city spreads over more than a dozen independent school districts, Richardson, Plano and Garland among them. Tap any spot and the card names the one it's in."
+      },
+      {
+        "title": "Getting around",
+        "layers": [
+          "dart",
+          "rail",
+          "hwy"
+        ],
+        "hi": [
+          "dart",
+          "rail"
+        ],
+        "scope": "outer",
+        "view": [
+          [
+            32.55,
+            -97.2
+          ],
+          [
+            33.15,
+            -96.45
+          ]
+        ],
+        "text": "DART's light rail meets downtown and runs out to the suburbs; the Silver Line and the TRE commuter train cross the region, to DFW Airport and Fort Worth. Most of the region still drives."
+      },
+      {
+        "title": "Tap anywhere",
+        "layers": [
+          "sides",
+          "zip",
+          "knownas",
+          "streets",
+          "hwy",
+          "dart"
+        ],
+        "pin": {},
+        "view": "city",
+        "text": "Tap any spot or search an address, and the card shows the boundaries it falls in, collection day, what living there is like, transit nearby, where to vote and who represents it. Compare puts two places side by side."
+      }
+    ]
   }
- },
- "footprint": "sides",
- "water": [
-  {
-   "name": "White Rock Lake",
-   "at": [
-    32.826,
-    -96.721
-   ],
-   "cls": "lake-near"
-  },
-  {
-   "name": "Lake Ray Hubbard",
-   "at": [
-    32.86,
-    -96.53
-   ],
-   "cls": "lake-near"
-  },
-  {
-   "name": "Joe Pool Lake",
-   "at": [
-    32.62,
-    -96.99
-   ],
-   "cls": "lake-far"
-  },
-  {
-   "name": "Lewisville Lake",
-   "at": [
-    33.12,
-    -97.0
-   ],
-   "cls": "lake-far"
-  },
-  {
-   "name": "Grapevine Lake",
-   "at": [
-    32.98,
-    -97.07
-   ],
-   "cls": "lake-far"
-  },
-  {
-   "name": "Lake Lavon",
-   "at": [
-    33.06,
-    -96.48
-   ],
-   "cls": "lake-far"
-  },
-  {
-   "name": "Eagle Mountain Lake",
-   "at": [
-    32.9,
-    -97.47
-   ],
-   "cls": "lake-far"
-  }
- ],
- "attribution": "City limits, counties, ZIP code areas & ACS figures: U.S. Census Bureau · Council districts: City of Dallas GIS · Texas House, Senate & congressional districts: Texas Legislative Council · Vote centers & polling places: Dallas, Tarrant, Collin and Denton County Elections · DART rail: DART GTFS · Streets, highways & address search: © OpenStreetMap contributors via Nominatim",
- "example": {
-  "at": [
-   32.7797,
-   -96.7998
-  ],
-  "name": "J. Erik Jonsson Central Library (example)"
- },
- "search": {
-  "label": "Search an address or place",
-  "country": "us",
-  "viewbox": "-97.01,33.04,-96.45,32.6",
-  "regionViewbox": "-98.07,33.44,-95.84,31.8",
-  "noMatch": "No match around Dallas–Fort Worth for “{q}”. Try the full street address, like “1500 Marilla St”.",
-  "more": "Or press Find to search addresses across Dallas–Fort Worth"
- },
- "outside": {
-  "beyond": "That spot is outside the nine counties on this map.",
-  "regionPill": "{region}",
-  "note": "Outside the City of Dallas. Texas House, Senate and congressional districts cover all nine counties; the areas, ZIP codes and council districts cover Dallas only."
- },
- "focus": {
-  "label": "Focus on a county",
-  "all": "All of Dallas–Fort Worth",
-  "noun": "County",
-  "count": "{n} towns in {name}",
-  "show": "Show all of {name}"
- },
- "facts": {
-  "peers": "sides",
-  "in": "in {name}",
-  "city": "in Dallas"
- },
- "units": {
-  "singular": "ZIP code",
-  "plural": "ZIP codes"
- },
- "groups": [
-  [
-   "Places",
-   [
-    {
-     "id": "sides",
-     "kind": "fill",
-     "size": "major",
-     "file": "sides",
-     "name": "Areas of Dallas",
-     "place": "Area",
-     "note": "Eleven areas built from ZIP codes: a first draft of how Dallasites place a ZIP",
-     "on": true,
-     "colors": {
-      "Downtown & Uptown": "--s-downtown-uptown",
-      "East Dallas": "--s-east-dallas",
-      "Lake Highlands": "--s-lake-highlands",
-      "North Dallas": "--s-north-dallas",
-      "Far North Dallas": "--s-far-north-dallas",
-      "Northwest Dallas": "--s-northwest-dallas",
-      "West Dallas": "--s-west-dallas",
-      "Oak Cliff": "--s-oak-cliff",
-      "South Dallas": "--s-south-dallas",
-      "Southern Dallas": "--s-southern-dallas",
-      "Pleasant Grove": "--s-pleasant-grove"
-     }
-    },
-    {
-     "id": "zip",
-     "kind": "units",
-     "file": "zips",
-     "name": "ZIP codes",
-     "note": "ZIP Code Tabulation Areas, clipped to the city limits",
-     "on": true,
-     "hover": "ZIP {name}"
-    },
-    {
-     "id": "lens",
-     "kind": "lens",
-     "name": "ZIP code lens",
-     "note": "Housing cost, renters and owners, housing type. Narrow it to a shortlist."
-    },
-    {
-     "id": "knownas",
-     "kind": "knownas",
-     "file": "knownas",
-     "name": "Known-as names",
-     "note": "Deep Ellum, Bishop Arts, Uptown, Lakewood…",
-     "on": true
-    }
-   ]
-  ],
-  [
-   "Getting around",
-   [
-    {
-     "id": "streets",
-     "kind": "streets",
-     "file": "streets",
-     "name": "Main streets",
-     "note": "Arterials like Preston, Greenville, Northwest Highway, Jefferson",
-     "on": true
-    },
-    {
-     "id": "hwy",
-     "kind": "highways",
-     "files": [
-      "highways",
-      "region_highways",
-      "region_shields"
-     ],
-     "name": "Highways",
-     "note": "I-35E, I-30, LBJ, Central Expressway, the Tollway",
-     "on": true,
-     "shields": {
-      "DNT": "Tollway",
-      "PGBT": "PGBT",
-      "Spur 366": "366",
-      "Loop 12": "12"
-     },
-     "tollShield": "Toll"
-    },
-    {
-     "id": "rail",
-     "kind": "rail",
-     "files": [
-      "rail_lines",
-      "rail_stations",
-      "rail_lines_inner"
-     ],
-     "name": "Silver Line & TRE",
-     "note": "DART’s Silver Line to DFW Airport and the Trinity Railway Express to Fort Worth",
-     "on": true,
-     "hover": "{name} · {to}"
-    },
-    {
-     "id": "dart",
-     "kind": "metro",
-     "files": [
-      "dart_lines",
-      "dart_stations"
-     ],
-     "name": "DART light rail",
-     "note": "Red, Blue, Green and Orange lines",
-     "on": true,
-     "stationHover": "{name} · {lines}",
-     "sub": {
-      "id": "stnNames",
-      "label": "Show station names",
-      "on": true
-     }
-    }
-   ]
-  ],
-  [
-   "Representation",
-   [
-    {
-     "id": "council",
-     "kind": "outline",
-     "level": "city",
-     "file": "council",
-     "name": "City council districts",
-     "note": "14 districts, one council member each; the mayor is elected citywide",
-     "label": "{num}",
-     "hover": "Council district {num}"
-    },
-    {
-     "id": "house",
-     "kind": "outline",
-     "level": "state",
-     "file": "tx_house",
-     "name": "Texas House districts",
-     "note": "Texas House of Representatives, 2023–2026 map, across the nine counties",
-     "label": "{num}",
-     "hover": "Texas House district {num}"
-    },
-    {
-     "id": "senate",
-     "kind": "outline",
-     "level": "state",
-     "file": "tx_senate",
-     "name": "Texas Senate districts",
-     "note": "Texas Senate, 2023–2026 map, across the nine counties",
-     "label": "SD {num}",
-     "hover": "Texas Senate district {num}"
-    },
-    {
-     "id": "congress",
-     "kind": "outline",
-     "level": "national",
-     "file": "us_house",
-     "name": "Congressional districts",
-     "note": "Texas seats in the U.S. House, on the 2025 map used for 2026, across the nine counties",
-     "label": "TX-{num}",
-     "hover": "Congressional district TX-{num}"
-    },
-    {
-     "id": "county",
-     "kind": "districts",
-     "file": "counties",
-     "name": "Counties",
-     "note": "Dallas reaches into five: Dallas, Collin, Denton, Kaufman and Rockwall",
-     "label": "{name}",
-     "hover": "{name}"
-    }
-   ]
-  ]
- ],
- "lens": {
-  "label": "ZIP code lens",
-  "file": "zip_profiles.json",
-  "source": "American Community Survey 2020–2024 (U.S. Census Bureau), by ZIP Code Tabulation Area.",
-  "lenses": [
-   {
-    "id": "cost",
-    "short": "Housing cost",
-    "key": "cost",
-    "tiers": [
-     [
-      "lower",
-      "Lower housing cost",
-      "--cost-1"
-     ],
-     [
-      "middle",
-      "Middle",
-      "--cost-2"
-     ],
-     [
-      "higher",
-      "Higher housing cost",
-      "--cost-3"
-     ]
-    ],
-    "note": "Median home value and rent, weighted by owners and renters, ranked into thirds across Dallas's ZIP codes. Survey estimates for 2020–2024, not current prices. ZIPs mostly in another town are left out."
-   },
-   {
-    "id": "tenure",
-    "short": "Renters & owners",
-    "key": "tenure",
-    "tiers": [
-     [
-      "owners",
-      "Mostly owners",
-      "--ten-1"
-     ],
-     [
-      "mix",
-      "A mix",
-      "--ten-2"
-     ],
-     [
-      "renters",
-      "Mostly renters",
-      "--ten-3"
-     ]
-    ],
-    "note": "Share of households that rent: under 35%, 35–60%, over 60%."
-   },
-   {
-    "id": "homes",
-    "short": "Housing type",
-    "key": "homesTier",
-    "field": "homes",
-    "pick": [
-     [
-      "detached",
-      "Detached",
-      "detached houses"
-     ],
-     [
-      "attached",
-      "Attached",
-      "attached houses (rowhouses and townhouses)"
-     ],
-     [
-      "flats",
-      "2–19 units",
-      "in buildings of 2 to 19 units, from two-flats to courtyard buildings"
-     ],
-     [
-      "large",
-      "20+ units",
-      "in buildings of 20 or more units"
-     ]
-    ],
-    "cuts": [
-     10,
-     30,
-     60
-    ],
-    "tiers": [
-     [
-      "t1",
-      "Under 10%",
-      "--hty-1"
-     ],
-     [
-      "t2",
-      "10–30%",
-      "--hty-2"
-     ],
-     [
-      "t3",
-      "30–60%",
-      "--hty-3"
-     ],
-     [
-      "t4",
-      "60% or more",
-      "--hty-4"
-     ]
-    ],
-    "note": "Share of each ZIP code's occupied homes that are {type}."
-   }
-  ],
-  "filters": [
-   {
-    "lens": "cost",
-    "label": "Housing cost",
-    "options": [
-     [
-      "lower",
-      "Lower"
-     ],
-     [
-      "middle",
-      "Middle"
-     ],
-     [
-      "higher",
-      "Higher"
-     ]
-    ]
-   },
-   {
-    "lens": "tenure",
-    "label": "Households",
-    "options": [
-     [
-      "owners",
-      "Mostly own"
-     ],
-     [
-      "mix",
-      "A mix"
-     ],
-     [
-      "renters",
-      "Mostly rent"
-     ]
-    ]
-   },
-   {
-    "lens": "homes",
-    "label": "Most common home",
-    "top": true
-   }
-  ]
- },
- "card": {
-  "report": {
-   "to": "go@layers.city",
-   "kinds": [
-    "A boundary or area is wrong",
-    "A representative or election detail is wrong",
-    "A street closure is wrong",
-    "A name, landmark or place is wrong",
-    "Something else"
-   ]
-  },
-  "pills": [
-   {
-    "layer": "sides",
-    "else": "sides"
-   },
-   {
-    "knownas": 2
-   },
-   {
-    "layer": "congress",
-    "text": "Congress: TX-{num}",
-    "color": "--fed"
-   }
-  ],
-  "facts": [
-   {
-    "label": "Area",
-    "layer": "sides",
-    "text": "{name}"
-   },
-   {
-    "label": "ZIP code",
-    "layer": "zip",
-    "text": "{name}",
-    "empty": "—"
-   },
-   {
-    "label": "Known as",
-    "knownas": true
-   },
-   {
-    "label": "County",
-    "layer": "county",
-    "text": "{name}"
-   },
-   {
-    "label": "City council",
-    "layer": "council",
-    "text": "District {num}"
-   },
-   {
-    "label": "Texas House",
-    "layer": "house",
-    "text": "District {num}"
-   },
-   {
-    "label": "Texas Senate",
-    "layer": "senate",
-    "text": "District {num}"
-   },
-   {
-    "label": "U.S. House",
-    "layer": "congress",
-    "text": "TX-{num}"
-   }
-  ],
-  "living": {
-   "caveat": "Survey estimates for 2020–2024, not current prices, for the whole ZIP code (including any part outside Dallas). Rent is what renting households pay, utilities included, counting long-time tenants and subsidized homes, so it sits below what a new lease costs. Use them to compare ZIP codes, not to budget.",
-   "footer": "American Community Survey 2020–2024, ZIP {name}. Tiers compare ZIP codes across Dallas.",
-   "homes": {
-    "label": "Home types",
-    "types": [
-     [
-      "detached",
-      "Detached"
-     ],
-     [
-      "attached",
-      "Attached"
-     ],
-     [
-      "flats",
-      "2–19 units"
-     ],
-     [
-      "large",
-      "20+ units"
-     ]
-    ]
-   },
-   "built": {
-    "label": "Built",
-    "bands": [
-     "1939 or earlier",
-     "1940–79",
-     "1980–99",
-     "2000 or later"
-    ]
-   },
-   "lang": {
-    "label": "Language at home",
-    "floor": 5,
-    "note": "English only, or the language besides English that each person 5 or older speaks at home. For ZIP codes the Census groups some languages: Hindi and Urdu are among “other Indo-European”."
-   },
-   "ages": {
-    "label": "Ages",
-    "bands": [
-     "Under 15",
-     "15–24",
-     "25–44",
-     "45–64",
-     "65+"
-    ]
-   },
-   "recent": {
-    "label": "Recent immigrants",
-    "text": "{pct}% born abroad, came to the US {since}",
-    "caveat": "Share of residents, from the 2020–2024 survey."
-   }
-  },
-  "reps": {
-   "file": "representatives.json",
-   "offices": [],
-   "note": ""
-  },
-  "vote": {
-   "file": "voting",
-   "date": "2026-11-03",
-   "tz": "America/Chicago",
-   "closes": "2026-11-03T19:00:00-06:00",
-   "title": "Election day · {date}",
-   "today": "Election day is today",
-   "hours": "7 a.m. to 7 p.m.",
-   "early": {
-    "from": "2026-10-19",
-    "to": "2026-10-30",
-    "title": "Early voting · {from} to {to}",
-    "soon": "Early voting starts {from}",
-    "hours": "hours vary by day"
-   },
-   "lead": "People living here vote at",
-   "show": "Show on map",
-   "centersLead": "Vote at any {county} vote center. Nearest to here:",
-   "earlyLead": "Vote early at any {county} early voting site. Nearest to here:",
-   "centersMore": "{n} vote centers across {county} on election day.",
-   "earlyMore": "{n} early voting sites across {county}; on election day, {ed} vote centers.",
-   "precinctEarly": "On election day, people living here vote at {n}.",
-   "counties": {
-    "dallas": {
-     "name": "Dallas County",
-     "link": [
-      "Dallas County Vote Center Finder",
-      "https://www.dallascountyvotes.org/"
-     ]
-    },
-    "tarrant": {
-     "name": "Tarrant County",
-     "link": [
-      "Tarrant County voting locations",
-      "https://www.tarrantcountytx.gov/en/elections.html"
-     ]
-    },
-    "collin": {
-     "name": "Collin County",
-     "link": [
-      "Collin County polling locations",
-      "https://www.collincountytx.gov/elections/polling-locations"
-     ]
-    },
-    "denton": {
-     "name": "Denton County",
-     "link": [
-      "Denton County polling locations",
-      "https://www.votedenton.gov/"
-     ],
-     "precinct": true
-    }
-   },
-   "note": "{county} Elections lists as of {asof}. Sites can change up to election day: the county’s own finder has the final word.",
-   "precinctNote": "Precinct {precinct} · {county} Elections, as of {asof}. Sites can change up to election day: the county’s own finder has the final word."
-  },
-  "outsideFacts": [
-   "house",
-   "senate",
-   "congress"
-  ]
- },
- "drive": {
-  "hub": [
-   32.7801,
-   -96.7989
-  ],
-  "hubName": "downtown Dallas (Main & Akard)"
- }
 }

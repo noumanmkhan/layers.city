@@ -1,6 +1,34 @@
 {
-  "_about": "Buses (engine/fetch_surface.py, engine/surface.py), from DART's GTFS. Light rail, the Silver Line and the TRE are drawn by their own layers, so only buses are kept ('types').",
-  "gtfs": {"url": "https://www.dart.org/transitdata/latest/google_transit.zip"},
-  "types": ["bus"],
-  "skip": []
+  "_about": "Buses (engine/fetch_surface.py, engine/surface.py), from DART's GTFS. Light rail, the Silver Line and the TRE are drawn by their own layers, so only buses are kept ('types'). Stop names come in capitals with direction codes; 'stopNames' tidies them.",
+  "gtfs": {
+    "url": "https://www.dart.org/transitdata/latest/google_transit.zip"
+  },
+  "types": [
+    "bus"
+  ],
+  "skip": [],
+  "stripZeros": true,
+  "stopNames": {
+    "strip": "(?i)(\\s*-\\s*[NSEW]?B?)?\\s*-\\s*(FS|NS|MB|OP|AT|SB|NB|EB|WB|[NSEW])\\d*$",
+    "title": true,
+    "at": " & ",
+    "keep": [
+      "DART",
+      "UNT",
+      "SMU",
+      "LBJ",
+      "VA",
+      "DFW",
+      "UTSW",
+      "MLK",
+      "TI",
+      "US",
+      "IH",
+      "NW",
+      "NE",
+      "SW",
+      "SE",
+      "II"
+    ]
+  }
 }

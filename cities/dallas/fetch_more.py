@@ -4,7 +4,7 @@ Each step logs its own failure and the rest carry on. Writes into raw/ (see SOUR
 - representatives/: Open States' Texas legislators (tx.csv), the Clerk of the U.S. House member list (house.xml),
   and the congressional districts members were elected on (PLANC2193, in effect until January 2027)
 - city/: City of Dallas layers (ArcGIS Online, services2.arcgis.com/rwnOSbfKSwyTBcwN): libraries, recreation
-  centers, parks, pools and spray grounds, dog parks, hospitals, landmark historic districts, historic overlay,
+  centers, parks, pools and spray grounds, public improvement districts, dog parks, hospitals, landmark historic districts, historic overlay,
   sanitation days of service and brush routes, school districts, bike facilities, trails; and the City's
   historical markers (Dallas Open Data adn6-n59j)
 - disd/: Dallas ISD trustee single-member districts (adopted December 16, 2021)
@@ -24,8 +24,11 @@ for d in ('representatives', 'city', 'disd', 'institutions'):
 
 
 def reps():
+    from fetch import councils   # the council layer names each district's member (COUNCILPER)
+    councils()
     for name, url in [('tx.csv', 'https://data.openstates.org/people/current/tx.csv'), ('house.xml', 'https://clerk.house.gov/xml/lists/MemberData.xml')]:
         b = get(url); open(os.path.join(RAW, 'representatives', name), 'wb').write(b); print('  wrote', name, len(b))
+    if os.path.exists(os.path.join(RAW, 'representatives', 'us_house_2021.geojson')): return   # a fixed plan: fetched once
     pkg = json.loads(get('https://data.capitol.texas.gov/api/3/action/package_show?id=planc2193'))['result']
     res = [r for r in pkg['resources'] if (r.get('name') or '').lower() == 'planc2193.zip']
     z = download(res[0]['url'], os.path.join(TMP, 'planc2193.zip'))
@@ -59,7 +62,8 @@ def city():
                          ('Dallas_Landmark_Historic_Districts', 0, 'historic_districts.geojson'), ('NEW_DAY_OF_SERVICE_', 0, 'days_of_service.geojson'),
                          ('City_of_Dallas_School_Districts_2022', 0, 'school_districts.geojson'), ('Dallas_Bike_Facilities_view', 0, 'bike_facilities.geojson'),
                          ('Dallas_Trails_Source_File', 0, 'trails.geojson'), ('HistoricZoningPolys', 0, 'historic_zoning.geojson'),
-                         ('Indoor_Pool_2023', 0, 'indoor_pools.geojson'), ('Dallas_Bike_Plan_2025', 0, 'bike_plan.geojson')]:
+                         ('Indoor_Pool_2023', 0, 'indoor_pools.geojson'), ('Dallas_Bike_Plan_2025', 0, 'bike_plan.geojson'),
+                         ('Public_Improvement_Districts', 0, 'pids.geojson')]:
         if ONLY_MISSING and os.path.exists(os.path.join(RAW, 'city', name)): continue
         layer(svc, i, name)
     # The CRM hosted layers: days of service and brush routes, by layer name.

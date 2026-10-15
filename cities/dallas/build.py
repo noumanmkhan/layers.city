@@ -172,6 +172,47 @@ for src, out in [('tx_house', 'tx_house'), ('tx_senate', 'tx_senate'), ('us_hous
         feats.append(feat(g, {'num': int(f['properties']['District']), 'lp': label_pt(g)}))
     dump(out, sorted(feats, key=lambda f: f['properties']['num']))
     print(out, [f['properties']['num'] for f in feats])
+# The congressional districts today's members were elected on (PLANC2193, in effect until January 3, 2027), for the
+# card's U.S. representative row only; the map draws the new lines (PLANC2333) that the November 2026 election uses.
+if os.path.exists(R + 'representatives/us_house_2021.geojson'):
+    feats = []
+    for f in load('representatives/us_house_2021.geojson')['features']:
+        g = polys(shape(f['geometry']).buffer(0).intersection(REGION))
+        if g.is_empty or g.area * KM2 < 0.05: continue
+        feats.append(feat(g, {'num': int(f['properties']['District'])}))
+    dump('us_house_2021', feats)
+
+# ---------- School districts (the ISDs inside the city) and Dallas ISD trustee districts, as one "boards" file ----------
+school = []
+if os.path.exists(R + 'city/school_districts.geojson'):
+    for f in load('city/school_districts.geojson')['features']:
+        g = inside(shape(f['geometry']).buffer(0))
+        if g.is_empty or g.area * KM2 < 0.3: continue   # slivers along the city line
+        n = f['properties']['NAME'].replace('Independent School District', 'ISD').strip()
+        school.append(feat(g, {'board': 'isd', 'num': n, 'name': n, 'lp': label_pt(g)}))
+if os.path.exists(R + 'disd/trustees_2021.geojson'):
+    for f in load('disd/trustees_2021.geojson')['features']:
+        g = inside(shape(f['geometry']).buffer(0))
+        if g.is_empty or g.area * KM2 < 0.05: continue
+        n = int(f['properties']['PLAN_5'])
+        school.append(feat(g, {'board': 'disd', 'num': n, 'name': 'Trustee district %d' % n, 'lp': label_pt(g)}))
+dump('school', school)
+print('school', len(school))
+
+# ---------- Dallas Landmark historic districts (City of Dallas) ----------
+# The City's file is a KML import: each district appears three times, and Junius Heights in zones A to F. One shape per name.
+heritage = []
+if os.path.exists(R + 'city/historic_districts.geojson'):
+    by = defaultdict(list)
+    for f in load('city/historic_districts.geojson')['features']:
+        if not f.get('geometry'): continue
+        n = re.sub(r'\s+Zone [A-Z]$', '', f['properties']['Name'].replace('\xa0', ' ').strip())
+        by[n].append(shape(f['geometry']).buffer(0))
+    for n, gs in sorted(by.items()):
+        g = polys(unary_union(gs).buffer(0))
+        if not g.is_empty: heritage.append(feat(g, {'name': n, 'lp': label_pt(g)}))
+dump('heritage', heritage)
+print('heritage districts', len(heritage))
 
 # ---------- Known-as names: curated, moved to OpenStreetMap's place point when one is close ----------
 osm_places = defaultdict(list)
@@ -295,6 +336,14 @@ dump('dart_lines', sorted(metro, key=lambda f: ORDER.index(f['properties']['line
 dump('rail_lines', rail); dump('rail_lines_inner', rail_in)
 TERMINI = {'Parker Road', 'Westmoreland', 'Downtown Rowlett', 'UNT Dallas', 'North Carrollton/Frankford', 'Buckner', 'DFW Airport Terminal A',
            'DFW Airport Terminal B', 'Shiloh Road', 'Fort Worth T&P', 'Ledbetter', '8th & Corinth'}
+STN_FIX = {'Ebj Union': 'EBJ Union Station', 'Lbj / Central': 'LBJ/Central', 'Lbj / Skillman': 'LBJ/Skillman', 'Forest / Jupiter': 'Forest/Jupiter',
+           'Forest Ln': 'Forest Lane', 'Illinois Tc/Station': 'Illinois', 'Mlk': 'MLK, Jr.', 'Unt Dallas': 'UNT Dallas', 'Smu/Mockingbird': 'SMU/Mockingbird',
+           'Va Medical Center': 'VA Medical Center', 'Dfw Airport': 'DFW Airport', 'Cityplace/Uptown': 'CityPlace/Uptown',
+           'Southwest Medical District/Parkland': 'Southwestern Medical District/Parkland', 'St Paul': 'St. Paul', 'Dfw Airport Terminal B': 'DFW Airport Terminal B'}
+def stn_case(n):
+    n = re.sub(r"\b([A-Za-z])([A-Za-z']*)", lambda m: m.group(1).upper() + m.group(2).lower(), n)
+    n = re.sub(r'\b(\d+)(st|nd|rd|th)\b', lambda m: m.group(1) + m.group(2).lower(), n, flags=re.I)
+    return STN_FIX.get(n, n)
 stations, rstations, seen = [], [], {}
 LORD = ['Red', 'Blue', 'Green', 'Orange', 'Silver', 'TRE']
 for s in dart['stations']:
@@ -302,6 +351,8 @@ for s in dart['stations']:
     if not ls: continue
     name = re.sub(r'(?i)\s+(station|rail station|lrt station|stn)$', '', s['name']).strip()
     name = re.sub(r'(?i)\s*\b(?:SB|NB|EB|WB|platform \w+)\b.*$', '', name).strip()
+    if name.isupper(): name = stn_case(name)
+    if 'pocket track' in name.lower(): continue   # a siding in DART's stop list, not a station
     key = name.lower()
     st = seen.setdefault(key, {'name': name, 'pts': [], 'lines': set()})
     st['pts'].append((s['lon'], s['lat'])); st['lines'] |= set(ls)
