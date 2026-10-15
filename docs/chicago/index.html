@@ -1715,7 +1715,7 @@ function polyLayer(fc, opts){
 /* ---------- geometry helpers for "What's here" ---------- */
 function inRing(x, y, r){ let ins = false; for (let i = 0, j = r.length - 1; i < r.length; j = i++){ const xi=r[i][0], yi=r[i][1], xj=r[j][0], yj=r[j][1]; if (((yi>y)!==(yj>y)) && (x < (xj-xi)*(y-yi)/(yj-yi)+xi)) ins = !ins; } return ins; }
 function inPoly(x, y, c){ if (!inRing(x, y, c[0])) return false; for (let k = 1; k < c.length; k++) if (inRing(x, y, c[k])) return false; return true; }
-function contains(geom, x, y){ if (geom.type === 'Polygon') return inPoly(x, y, geom.coordinates); if (geom.type === 'MultiPolygon') return geom.coordinates.some(c => inPoly(x, y, c)); return false; }
+function contains(geom, x, y){ if (!geom) return false; if (geom.type === 'Polygon') return inPoly(x, y, geom.coordinates); if (geom.type === 'MultiPolygon') return geom.coordinates.some(c => inPoly(x, y, c)); return false; }
 function hit(fc, x, y){ return fc ? fc.features.find(f => contains(f.geometry, x, y)) : null; }
 function metres(a, b){ const k = Math.PI/180, dx = (a[0]-b[0])*k*Math.cos(a[1]*k)*6371000, dy = (a[1]-b[1])*k*6371000; return Math.hypot(dx, dy); }
 
@@ -3221,7 +3221,7 @@ function cardOf(latlng, title, muniName){
       pills: nearCommunity(x, y, title) + '<span class="pill"><i style="background:var(--land-out-line)"></i>' + esc(m.name) + '</span><span class="pill"><i style="background:var(--muni-label)"></i>' + esc(rp) + '</span>',
       drive: driveHere(x, y, m),
       // For Compare: the same facts as rows, so they line up with a spot inside the city.
-      sections: [['bounds', 'Boundaries', '<dl class="facts"><dt>Municipality</dt><dd>' + esc(m.name) + '</dd><dt>' + esc(CITY.focus.noun || 'Region') + '</dt><dd>' + esc(rp) + '</dd></dl>'],
+      sections: [['bounds', 'Boundaries', '<dl class="facts"><dt>Municipality</dt><dd>' + esc(m.name) + '</dd><dt>' + esc((CITY.focus && CITY.focus.noun) || 'Region') + '</dt><dd>' + esc(rp) + '</dd></dl>'],
                  ['live', 'Living here', driveHere(x, y, m)]]};
   }
   const hits = {};
@@ -4021,7 +4021,7 @@ function indexPlaces(base){
   base.features.filter(f => f.properties.kind === 'neighbour').forEach(f => add(f, fill(CITY.outside.regionPill, f.properties) || 'Nearby', true));
   // The counties or regions themselves: choosing one focuses on it.
   // "DuPage" or "Peel" alone is as good as the full name ("Lake" matches two, so it lists both).
-  if (data.regionAreas) data.regionAreas.features.forEach(f => PLACES.push({name: regionName(f.properties.region), sub: CITY.focus.noun, outside: true, focus: f.properties.region, rank: 3.5, f,
+  if (data.regionAreas) data.regionAreas.features.forEach(f => PLACES.push({name: regionName(f.properties.region), sub: (CITY.focus && CITY.focus.noun) || 'Region', outside: true, focus: f.properties.region, rank: 3.5, f,
     alt: [f.properties.region, regionName(f.properties.region).split(/ (?:county|region)\b/i)[0]]}));
   // Named communities in the municipalities around the city (cities/<city> builds region_places.json).
   (data.regionPlaces || []).forEach(p => PLACES.push({name: p.name, alt: p.alt, sub: fill(CITY.regionPlaces.sub, p), outside: true, muni: p.muni,
