@@ -24,7 +24,7 @@ jobs:
           python-version: '3.12'
       - run: pip install -q shapely
       - run: |
-          for c in toronto chicago dallas; do
+          for c in toronto chicago dallas vancouver; do
             mkdir -p cities/$c/raw
             python3 -u engine/fetch_bikes.py $c 2>&1 | tee cities/$c/raw/fetch_bikes.log || true
             if [ -f engine/bikes.py ]; then python3 -u engine/bikes.py $c 2>&1 | tee -a cities/$c/raw/fetch_bikes.log || true; fi
@@ -37,7 +37,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
           git add cities/toronto/raw cities/chicago/raw cities/dallas/raw/bikes.geojson cities/dallas/raw/fetch_bikes.log
-          for c in toronto chicago dallas; do for f in bikes bikeshare; do [ -f docs/$c/data/$f.geojson ] && git add docs/$c/data/$f.geojson; done; done
+          for c in toronto chicago dallas vancouver; do for f in bikes bikeshare; do [ -f docs/$c/data/$f.geojson ] && git add docs/$c/data/$f.geojson; done; done
           git commit -m "Update bike lanes and bike share stations" || echo "no changes"
           git pull --rebase
           git push

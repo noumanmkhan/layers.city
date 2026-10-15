@@ -22,7 +22,7 @@ jobs:
           python-version: '3.12'
       - run: pip install -q rasterio shapely pyproj numpy
       - run: |
-          for c in toronto chicago dallas; do
+          for c in toronto chicago dallas vancouver; do
             mkdir -p cities/$c/raw/canopy
             python3 -u engine/fetch_canopy.py $c 2>&1 | tee cities/$c/raw/canopy/fetch.log || true
           done

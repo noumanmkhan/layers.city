@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: |
-          for c in toronto chicago; do
+          for c in toronto chicago vancouver; do
             mkdir -p cities/$c/raw/construction
             python3 -u engine/fetch_construction.py $c 2>&1 | tee cities/$c/raw/construction/fetch.log || true
           done

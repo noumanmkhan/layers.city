@@ -1,0 +1,38 @@
+name: Fetch Vancouver places
+# Monthly: the City of Vancouver open data behind Nearby, BIAs, heritage districts and voting places, DataBC's and
+# Represent's riding boundaries, OpenStreetMap's institutions and places of worship (cities/vancouver/fetch_layers.py,
+# fetch_faith.py), then a full rebuild of the Vancouver map (cities/vancouver/run.sh). Commits only what changed.
+on:
+  schedule:
+    - cron: '41 7 9 * *'   # the 9th of each month, 07:41 UTC
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: fetch-vancouver-places
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: pip install -q shapely pyproj
+      - run: python3 -u cities/vancouver/fetch_layers.py 2>&1 | tee cities/vancouver/raw/logs/layers.log
+      - run: python3 -u cities/vancouver/fetch_faith.py 2>&1 | tee cities/vancouver/raw/logs/faith.log
+      - run: python3 -u cities/vancouver/fetch_schools.py
+      - run: bash cities/vancouver/run.sh
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/vancouver/raw docs/vancouver
+          git commit -m "Update Vancouver places, boundaries and Nearby" || { echo "no changes"; exit 0; }
+          git pull --rebase origin main
+          git push origin HEAD:main

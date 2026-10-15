@@ -1,0 +1,32 @@
+name: Refresh Vancouver representatives
+# Weekly: the current MPs from ourcommons.ca, matched to Vancouver's federal ridings, into
+# docs/vancouver/data/representatives.json. Commits to main only when a name, party or link changed.
+# The mayor, councillors and MLAs join after the October 2026 civic and provincial elections.
+on:
+  schedule:
+    - cron: '47 9 * * 1'   # Mondays 09:47 UTC
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: refresh-vancouver-representatives
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 cities/vancouver/fetch_representatives.py
+      - run: python3 cities/vancouver/representatives.py
+      - run: |
+          if git diff --quiet -- docs/vancouver/data/representatives.json; then echo "no changes"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/vancouver/raw/representatives docs/vancouver/data/representatives.json
+          git commit -m "Refresh Vancouver MPs"
+          git pull --rebase origin main
+          git push origin HEAD:main

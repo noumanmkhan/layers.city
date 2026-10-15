@@ -27,7 +27,7 @@ jobs:
       - run: pip install lxml
       # Each city on its own, so one failing doesn't lose the other. The logs are committed too.
       - run: |
-          for c in toronto chicago dallas; do
+          for c in toronto chicago dallas vancouver; do
             mkdir -p cities/$c/raw/skyscrapers
             python3 -u engine/fetch_skyscrapers.py $c 2>&1 | tee cities/$c/raw/skyscrapers/fetch.log || true
           done

@@ -23,7 +23,7 @@ jobs:
           python-version: '3.12'
       - run: pip install -q pyshp shapely
       - run: |
-          for c in toronto chicago; do
+          for c in toronto chicago vancouver; do
             mkdir -p cities/$c/raw
             python3 -u engine/fetch_heritage_buildings.py $c 2>&1 | tee cities/$c/raw/fetch_heritage_buildings.log || true
             if [ -f engine/heritage_buildings.py ]; then python3 -u engine/heritage_buildings.py $c 2>&1 | tee -a cities/$c/raw/fetch_heritage_buildings.log || true; fi
@@ -32,7 +32,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
           git add cities/toronto/raw cities/chicago/raw
-          for c in toronto chicago; do [ -f docs/$c/data/heritage_buildings.geojson ] && git add docs/$c/data/heritage_buildings.geojson; done
+          for c in toronto chicago vancouver; do [ -f docs/$c/data/heritage_buildings.geojson ] && git add docs/$c/data/heritage_buildings.geojson; done
           git commit -m "Update heritage buildings" || echo "no changes"
           git pull --rebase
           git push
