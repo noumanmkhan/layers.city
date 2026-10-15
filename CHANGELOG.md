@@ -2,6 +2,21 @@
 
 ## Since 1.1
 
+### Neighbourhood badges (Toronto, October 15, on dev for review)
+- New toggle "Neighbourhood badges" under Places, after Neighbourhoods, off by default. Ten neighbourhoods get a
+  one-colour silhouette of what they're known for (Harbourfront-CityPlace, Thorncliffe Park, Wellington Place,
+  Yonge-Bay Corridor, Casa Loma, St Lawrence-East Bayfront-The Islands, The Beaches, High Park-Swansea, Humber Bay
+  Shores, Guildwood); the other 148 get their name set in Archivo and fitted inside the neighbourhood, with the
+  former city and area under it.
+- Each badge fills the largest box of its shape that fits inside its neighbourhood and grows as you zoom, from the
+  zoom where its name becomes readable up to a cap; it sits on a soft plate of the land colour above street lines
+  and names. Neighbourhood name labels hide while it's on.
+- Engine: layer kind `badges`, `engine/badges.py` (drawings in `cities/<city>/badges/*.svg`, optional `places.json`
+  to keep a badge on one part of a multi-part neighbourhood) → `docs/<city>/data/badges.json` (~120 KB). Contract
+  sections 3 and 4 (additive, schema 1).
+- Open questions for review: how it should combine with the area fills, the lens and the other labels, and at
+  which zoom it should start.
+
 ### Bike lanes (Toronto and Chicago, October 15)
 - New toggle "Bike lanes" under Getting around, after Bus routes, off by default: each city's bike network, one line
   per segment: protected lanes lime (`--bike`), painted and shared a darker olive green (`--bike-2`), trails brown

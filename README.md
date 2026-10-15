@@ -33,6 +33,7 @@ Toronto's geography is described in several overlapping ways at once. A single a
 | Business Improvement Areas | 85 | |
 | School board wards | 29 across 4 boards | Trustee wards for TDSB (12), TCDSB (12),<br>Viamonde (3) and MonAvenir (2), one board at a time |
 | Heritage districts | 29 | Heritage Conservation Districts in force;<br>ones under study or appeal are left out |
+| Neighbourhood badges | 158 (10 drawn) | A drawing for a few places, the name<br>fitted inside the rest; grows with the map |
 | Neighbourhood lens | 158 | Housing cost, time to Union,<br>getting to work, renters and owners,<br>housing type |
 | Main streets | 321 streets | Major and minor arterials<br>(King, Queen, Eglinton…), named along the line |
 | Collector streets | 989 streets | The tier below (Dovercourt, Greenwood…),<br>from zoom 13; most non-arterial bus streets |
@@ -90,6 +91,8 @@ Toronto's geography is described in several overlapping ways at once. A single a
 **Images for sharing:** the Image button saves the map as a picture in four shapes: wide 4K, or square, portrait and story sizes for Instagram. Focused on a neighbourhood, the picture frames it and carries its name as a title, which makes a ready-made post.
 
 **Heritage buildings:** a toggle beside Heritage districts marks every building protected on its own: Toronto's 1,515 properties designated under Part IV of the Ontario Heritage Act (from the City's Heritage Register; listed properties are left out) and Chicago's 412 individually designated Chicago Landmarks. Each is a small diamond, shown once you zoom in to street level (and named closer still); tap one for the year it was built, its architect and when it was designated, and the What's here card adds a *Heritage building* row when you're standing on one. Named ones (Robie House, the King Edward Hotel) are in search.
+
+**Neighbourhood badges (Toronto, in review):** a toggle under Places sets each neighbourhood's name inside its own boundary, and for a few places draws a one-colour silhouette of what the place is known for: the CN Tower and Rogers Centre in Harbourfront-CityPlace, the mosque and slab towers of Thorncliffe Park, the Leuty Lifeguard Station in the Beaches. Public buildings and landscape only, never logos or anyone's artwork. A build step finds the largest box of each badge's shape that fits inside the neighbourhood, so a badge never spills into its neighbours, and it grows as you zoom in from the point where its name becomes readable.
 
 **Bike lanes:** a toggle under Getting around draws each city's bike network from its own open data, Toronto's Cycling Network and Chicago's Bike Routes, protected lanes in lime and painted ones in a darker olive green, yellow-greens that don't read as Line 2 or the rivers. Chips sort the lanes by how separated they are from traffic, in any mix: *Protected* (cycle tracks and protected lanes), *Painted* (painted, buffered and contraflow lanes), *Shared* (sharrows, signed routes, greenways) and, in Toronto, *Trails*. Protected and Painted show when the layer first opens. Tap a stretch for its type, the streets it runs between and the year it went in. The layer shows lanes as built; it can't say whether construction has one closed today, because neither city's permit data says which lane a permit closes. A GitHub Action refreshes both networks monthly.
 

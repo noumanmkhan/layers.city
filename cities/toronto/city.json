@@ -56,6 +56,7 @@
       {"id": "areas", "kind": "fill", "size": "minor", "file": "areas", "name": "Old Toronto areas", "place": "Old Toronto area", "note": "Downtown, Midtown, Uptown, West End, East End", "on": true,
        "colors": {"Downtown": "--a-downtown", "Midtown": "--a-midtown", "Uptown": "--a-uptown", "West End": "--a-westend", "East End": "--a-eastend"}},
       {"id": "nbhd", "kind": "units", "file": "neighbourhoods", "name": "Neighbourhoods", "note": "The City’s 158 official neighbourhoods", "on": true, "hover": "{name} · #{code}"},
+      {"id": "badges", "kind": "badges", "file": "badges.json", "lazy": true, "name": "Neighbourhood badges", "note": "A drawing for a few places, the name fitted inside the rest; grows as you zoom in"},
       {"id": "lens", "kind": "lens", "name": "Neighbourhood lens", "note": "Housing cost, time to Union, renters and owners, housing type. Narrow it to a shortlist."},
       {"id": "drive", "kind": "suburbs", "name": "Suburban lens", "note": "Typical drive to Union Station with no traffic, town by town. Shows in the regional view."},
       {"id": "cultural", "kind": "knownas", "file": "cultural", "name": "Known-as names", "note": "King West, Little Italy, the Junction…", "on": true},

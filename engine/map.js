@@ -101,10 +101,11 @@ const wide = () => !matchMedia('(max-width:760px)').matches;
 map.fitBounds(CITY_BOUNDS, wide() ? {paddingTopLeft:[330,20], paddingBottomRight:[350,20]} : {paddingTopLeft:[0,150], paddingBottomRight:[0,90]});
 map.setMaxBounds(L.latLngBounds(CITY.view.max));  // the region plus a margin
 
-const panes = [['base',200],['fill',350],['lines',420],['streets',400],['civic',430],['hwy',450],['pfdim',455],['rail',460],['mask',465],['focus',468],['transit',470],['pfdim2',472],['pfline',473],['stlbl',475],['pts',480],['pin',620]];
+const panes = [['base',200],['fill',350],['lines',420],['streets',400],['civic',430],['hwy',450],['pfdim',455],['rail',460],['mask',465],['focus',468],['transit',470],['pfdim2',472],['pfline',473],['stlbl',475],['badges',477],['pts',480],['pin',620]];
 panes.forEach(([n,z]) => { map.createPane(n); map.getPane(n).style.zIndex = z; });
 map.getPane('base').style.pointerEvents = 'none';
 map.getPane('stlbl').style.pointerEvents = 'none';
+map.getPane('badges').style.pointerEvents = 'none';
 map.getPane('mask').style.pointerEvents = 'none';
 map.getPane('focus').style.pointerEvents = 'none';
 ['pfdim', 'pfdim2', 'pfline'].forEach(n => { map.getPane(n).style.pointerEvents = 'none'; });
@@ -207,7 +208,7 @@ const GLYPH = {
   'tw-mix': '<path fill-rule="evenodd" d="M5 1.5h14v21H5zM7.6 4.5h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 10h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 15v2.2h8.8V15zm0 3.6v2h8.8v-2z"/>',
 };
 const svg = d => '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + d + '</svg>';
-const SWATCH = {knownas: 'Aa', landmarks: svg(GLYPH.culture)};
+const SWATCH = {knownas: 'Aa', landmarks: svg(GLYPH.culture), badges: svg('<path d="M2 20h20v1.6H2zM3.5 20v-7h4v7zM9 20V6.5h4.5V20zM15 20v-9.5h2.4V8.4h1.6v2.1H20.5V20z"/>')};
 const swatchOf = it => it.kind === 'places' ? svg(GLYPH[it.cat] || GLYPH.culture) : it.kind === 'towers' ? svg(GLYPH['tw-com']) : (SWATCH[it.kind] || '');
 // Representation layers draw in one of three styles, by level of government.
 const OUTLINE = {city:'ward', state:'prov', national:'fed'};
@@ -546,6 +547,43 @@ const KINDS = {
     g.on('remove', () => { shown.forEach(m => g.removeLayer(m)); shown.clear(); });
     return g;
   },
+  // Neighbourhood badges (engine/badges.py): a drawing for a few curated places, the name fitted inside the rest.
+  // Each sits in the largest box of its shape that fits inside its unit and grows with the map, from the zoom
+  // where its name becomes readable (it.minFont px; drawings once they are it.minWidth px wide) until the name
+  // reaches it.maxFont px (drawings: it.maxWidth px wide).
+  // Loads on first use (it.lazy). Taps go through to the map, so the What's here card still opens.
+  badges: it => {
+    const g = L.layerGroup(), items = [];
+    const MIN = it.minFont || 9, MAXF = it.maxFont || 20, MINW = it.minWidth || 120, MAXW = it.maxWidth || 300;
+    const size = () => {
+      if (!map.hasLayer(g)) return;
+      const z = map.getZoom();
+      items.forEach(o => {
+        const a = map.project(o.b.getNorthWest(), z), c = map.project(o.b.getSouthEast(), z);
+        let k = (c.x - a.x) / o.u.w;    // screen px per viewBox unit when the badge fills its box
+        const show = o.u.art ? o.u.w * k >= MINW : o.u.f * k >= MIN;   // a drawing reads by its picture, a label by its name
+        k = Math.min(k, MAXF / o.u.f, o.u.art ? MAXW / o.u.w : Infinity);
+        const el = o.m.getElement(), s = el && el.firstChild;
+        if (!s) return;
+        s.style.display = show ? '' : 'none';
+        if (show){ s.setAttribute('width', (o.u.w * k).toFixed(1)); s.setAttribute('height', (o.u.h * k).toFixed(1)); s.classList.toggle('small', o.u.f * k < (it.subFont || 13)); }
+      });
+    };
+    g.on('add', () => ensureBadges().then(d => {
+      if (!d) return;
+      if (!items.length) d.units.forEach(u => {
+        const b = L.latLngBounds(u.b);
+        const m = L.marker(b.getCenter(), {pane: 'badges', interactive: false, keyboard: false,
+          icon: L.divIcon({className: '', iconSize: [0, 0], html: '<svg class="bdg' + (u.art ? ' art' : '') + '" viewBox="0 0 ' + u.w + ' ' + u.h + '" role="img" aria-label="' + esc(u.n) + '">' + u.svg + '</svg>'})});
+        items.push({m, b, u});
+        g.addLayer(m);
+      });
+      else items.forEach(o => g.addLayer(o.m));
+      size();
+    }));
+    map.on('zoomend', size);
+    return g;
+  },
   // What's changing: a dot per site, coloured by stage; demolitions dashed. Loads on first use (it.lazy).
   // Stage chips (several at once) narrow it. Tap a dot for what it is, its stage and date, and a link.
   changes: it => {
@@ -730,6 +768,12 @@ function setChgStage(s){
    Segments from engine/bikes.py: t class (prot, paint, shared, trail), d the City's type in plain words,
    n street or trail, fr / to its ends, y year installed. it.classes {id: [short, long]}, it.default the classes
    drawn at first (else all). */
+const BADGES = byKind('badges');
+let bdgP = null;
+function ensureBadges(){
+  if (!BADGES) return Promise.resolve(null);
+  return bdgP || (bdgP = get(BADGES.file).catch(() => { bdgP = null; return null; }));
+}
 const BIKE = byKind('bikes');
 const BIKE_DEFAULT = BIKE ? (BIKE.default || Object.keys(BIKE.classes)) : [];
 const bkClasses = new Set(BIKE_DEFAULT);
@@ -1026,7 +1070,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -1279,6 +1323,7 @@ function setLayer(id, on){
   if (kindOf(id) === 'buses'){ document.getElementById('busbox').hidden = !on; drawBusBox(); }
   if (kindOf(id) === 'changes'){ const b = document.getElementById('chgbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'bikes'){ const b = document.getElementById('bkbox'); if (b) b.hidden = !on; }
+  if (kindOf(id) === 'badges') map.getContainer().classList.toggle('bdg-on', on);   // the badges carry the names
   { const b = document.getElementById('pg-' + id); if (b){ b.hidden = !on; drawPlacePick(id); } }
   if (kindOf(id) === 'buses' || kindOf(id) === 'streetcars' || kindOf(id) === 'regional') drawStops();
   if (kindOf(id) === 'boards'){ const box = document.getElementById('brd-' + id); if (box) box.hidden = !on; if (on) setBoard(id, boardPick[id]); }
