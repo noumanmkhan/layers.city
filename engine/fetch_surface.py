@@ -18,6 +18,8 @@ A city can list more agencies under "feeds" in surface.json (e.g. Toronto's GO b
 own into cities/<city>/raw/surface/<feed>/, with its own options: "types" (which of tram/bus to keep), "mode"
 (the mode written for every route, e.g. "go"), "prefix" (put before each route number, so GO 41 doesn't
 collide with TTC 41) and "simplify" (shape tolerance in degrees; long regional routes can take more).
+A feed with "osm" instead of "gtfs" takes its routes from OpenStreetMap (engine/osm_routes.py; Chicago's Pace,
+whose own GTFS is offered for non-commercial use only).
 
 Usage: python3 engine/fetch_surface.py <city> [feed]
 """
@@ -33,6 +35,10 @@ OUT = os.path.join(ROOT, 'cities', city, 'raw', 'surface', *([FEED] if FEED else
 WORK = os.path.join(ROOT, 'cities', city, 'tmp', 'surface', *([FEED] if FEED else []))
 os.makedirs(OUT, exist_ok=True); os.makedirs(WORK, exist_ok=True)
 UA = {'User-Agent': 'city-layers-pipeline (github.com/noumanmkhan/city-layers)'}
+if 'osm' in CFG:
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import osm_routes
+    osm_routes.run(CFG, OUT, city); sys.exit(0)
 SKIP = set(CFG.get('skip', []))
 TYPES = set(CFG.get('types', ['tram', 'bus']))
 PREFIX = CFG.get('prefix', '')

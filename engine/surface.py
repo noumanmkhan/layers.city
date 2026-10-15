@@ -79,6 +79,7 @@ def overnight(r):
 
 
 def daytime(r):
+    if 'day' in r: return r['day']   # routes from OpenStreetMap carry no schedule (engine/osm_routes.py)
     # Weekdays or Saturday, 9 am to 9 pm (Sundays aside: some night routes run on into Sunday morning).
     return any(sum(v[9:21]) for k in ('wk', 'sat') for v in r.get(k, {}).values())
 
@@ -97,11 +98,14 @@ def geometry(r):
     ~100 m (branches, one-way pairs, loops). Overlapping patterns are never unioned: their tiny offsets
     would split the line at every crossing into dozens of pieces. Simplified to about 8 m."""
     shapes = sorted(r['shapes'], key=lambda s: (s['dir'] != '0', -s['trips']))
+    # OSM routes come as merged pieces of their relations: keep shorter new stretches (a roundabout, a
+    # one-block jog) that GTFS shapes wouldn't break off.
+    least = 0.0002 if r.get('src') == 'osm' else 0.0012
     lines = [LineString(shapes[0]['coords'])]
     for s in shapes[1:]:
         near = unary_union(lines).buffer(0.0004)
         d = LineString(s['coords']).difference(near)
-        lines += [p for p in getattr(d, 'geoms', [d]) if p.geom_type == 'LineString' and p.length > 0.0012]
+        lines += [p for p in getattr(d, 'geoms', [d]) if p.geom_type == 'LineString' and p.length > least]
     g = linemerge(lines) if len(lines) > 1 else lines[0]
     g = g.simplify(0.00008, preserve_topology=False)
     parts = [l for l in getattr(g, 'geoms', [g]) if l.length > 0]

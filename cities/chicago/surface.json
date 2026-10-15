@@ -1,5 +1,14 @@
 {
-  "_about": "Buses (engine/fetch_surface.py, engine/surface.py). 'gtfs' says where the agency's schedule comes from: a CKAN package (ckan) or a direct zip (url). Rail routes are drawn by the 'L' layer, so only buses are kept.",
+  "_about": "Buses (engine/fetch_surface.py, engine/surface.py). 'gtfs' says where the agency's schedule comes from: a CKAN package (ckan) or a direct zip (url). Rail routes are drawn by the 'L' layer, so only buses are kept. 'feeds' adds other agencies, each into raw/surface/<feed>/. Pace comes from OpenStreetMap ('osm', engine/osm_routes.py) because Pace offers its GTFS for non-commercial use only: routes and stops, no schedules. Its routes keep their own mode ('pace') and a 'Pace ' prefix; Pulse lines go by their names.",
   "gtfs": {"url": "https://www.transitchicago.com/downloads/sch_data/google_transit.zip"},
-  "skip": []
+  "skip": [],
+  "feeds": {
+    "pace": {
+      "osm": {"box": [41.10, -88.70, 42.55, -87.50], "network": "Pace"},
+      "mode": "pace",
+      "prefix": "Pace ",
+      "names": {"Pulse Dempster Line": "Pulse Dempster", "Pulse Milwaukee Line": "Pulse Milwaukee"},
+      "simplify": 0.00012
+    }
+  }
 }
