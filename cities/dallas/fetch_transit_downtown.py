@@ -18,7 +18,6 @@ WORK = os.path.join(HERE, 'tmp', 'transit'); os.makedirs(WORK, exist_ok=True)
 UA = {'User-Agent': 'city-layers-pipeline (github.com/noumanmkhan/city-layers)'}
 LOOP = [('Akard Station', -96.7984, 32.7820), ('St. Paul Station', -96.7929, 32.7853), ('West End Station', -96.8053, 32.7814), ('EBJ Union Station', -96.8075, 32.7760)]
 DART = ['https://www.dart.org/transitdata/latest/google_transit.zip']
-OSM = 'https://download.bbbike.org/osm/bbbike/Dallas/Dallas.osm.pbf'
 PROVINCE = 'https://download.geofabrik.de/north-america/us/texas-latest.osm.pbf'
 BBOX = '-97.15,32.50,-96.40,33.12'    # west,south,east,north: the city plus a margin
 
@@ -90,12 +89,11 @@ for name, urls, needed in (('dart', DART, True),):
 
 # Walking network.
 pbf = os.path.join(WORK, 'dallas.osm.pbf')
-if not download(OSM, pbf):
-    big = download(PROVINCE, os.path.join(WORK, 'texas.osm.pbf'))
-    subprocess.run(['osmium', 'extract', '-b', BBOX, big, '-o', pbf, '--overwrite'], check=True)
-    log.append('OSM: Geofabrik Texas, cut to ' + BBOX)
-else:
-    log.append('OSM: ' + OSM)
+# bbbike's Dallas extract stops near 33.0° N, short of far North Dallas (75252, 75287 reached nothing), so cut the
+# area from Geofabrik's Texas file instead.
+big = download(PROVINCE, os.path.join(WORK, 'texas.osm.pbf'))
+subprocess.run(['osmium', 'extract', '-b', BBOX, big, '-o', pbf, '--overwrite'], check=True)
+log.append('OSM: Geofabrik Texas, cut to ' + BBOX)
 
 
 # A regular weekday that every feed covers: the second Tuesday from today, checked against calendars.
