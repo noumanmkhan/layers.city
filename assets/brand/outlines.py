@@ -1,6 +1,6 @@
 """Draws each city's outline on a grid, for the maps hub cards: docs/thumbs/<city>.svg.
 
-Reads the "city" feature of docs/<city>/data/base.geojson, so run it after a city's build if its
+Reads the "city" feature (and any "annex", such as Vancouver's University Endowment Lands) of docs/<city>/data/base.geojson, so run it after a city's build if its
 outline changes. Lake and river edges come out exactly as the map draws them.
 Run: python3 assets/brand/outlines.py
 """
@@ -16,10 +16,11 @@ for city in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
     src = os.path.join(ROOT, 'docs', city, 'data', 'base.geojson')
     if not os.path.isfile(src):
         continue
-    feats = [f for f in json.load(open(src))['features'] if f.get('geometry') and f['properties'].get('kind') == 'city']
+    feats = [f for f in json.load(open(src))['features'] if f.get('geometry') and f['properties'].get('kind') in ('city', 'annex')]
     if not feats:
         continue
-    geom = shape(feats[0]['geometry'])
+    from shapely.ops import unary_union
+    geom = unary_union([shape(f['geometry']).buffer(0) for f in feats])   # the city, and any annex the map shows with it
     minx, miny, maxx, maxy = geom.bounds
     k = math.cos(math.radians((miny + maxy) / 2))   # squash longitude so the shape isn't stretched
     gw, gh = (maxx - minx) * k, maxy - miny
