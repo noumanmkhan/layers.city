@@ -136,7 +136,7 @@ for key, uc_table in (('built', False), ('uc', True)):
         if not at and raw_name in cfg.get('coords', {}):
             at = cfg['coords'][raw_name]
         if not at:
-            g = raw.get('geocoded', {}).get(raw_name)
+            g = raw.get('geocoded', {}).get(raw_name) if raw_name in cfg.get('geocode', {}).get('addresses', {}) else None   # only addresses still listed
             if g and g.get('lat'): at = [round(g['lon'], 6), round(g['lat'], 6)]; address = address or g['address']
         if not at:
             missing.append(raw_name); continue
