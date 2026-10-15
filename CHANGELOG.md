@@ -2,6 +2,30 @@
 
 ## Since 1.1
 
+### Vancouver, Toronto's features (October 16, on dev, unlisted)
+- *Places*: universities, colleges and hospitals (curated: UBC, SFU's Harbour Centre campus, Emily Carr; Langara, VCC,
+  BCIT downtown; VGH, St. Paul's, Mount Saint Joseph, BC Children's and Women's, UBC Hospital, with their emergency
+  hours or ages), skyscrapers at 100 m and up (72 built and 1 under construction, from Wikipedia), heritage districts (Gastown, Chinatown and
+  Yaletown historic-area zoning, and First Shaughnessy), 680 municipally designated heritage buildings, CSF
+  French-language and VSB French immersion schools, the suburban drive lens (to Waterfront Station) and a tree canopy
+  lens and card row (ESA WorldCover).
+- *Getting around*: collector streets, the City's bikeways (protected, painted, local-street bikeways, off-street
+  paths), Mobi stations and a Mobi row in Transit nearby, What's changing (issued building permits: Vancouver
+  publishes no development applications, so every item is Approved), and transit under construction: the Broadway
+  Subway (six stations) and, in the regional view, the Surrey Langley SkyTrain.
+- *Representation*: BC provincial districts and federal ridings cut to the city line (federal shaded by party), and
+  the 22 BIAs, with pills and card rows. MPs on the card; the mayor, council and MLAs follow the October 17 and 24
+  elections. *Faith & Community*: places of worship (churches in the city, other faiths across Metro Vancouver).
+- *Card*: Nearby (library, community centre, emergency department, parks, playgrounds, tennis, off-leash areas),
+  Changing nearby, and an election-day box for October 17 (any voting place in the city; the nearest three).
+  *Views*: Explore downtown, Know your city, Who represents me, Where to live, Getting around.
+- Not built, with reasons: `cities/vancouver/PARKED.md` (collection day, halal and kosher shops, road closures,
+  development applications; wards and region focus don't apply).
+- Engine: `bikes.json` `subField`; Vancouver's register, permits and heritage names; `construction.json`
+  `unnamedIn` and SkyTrain stops under construction; `skyscrapers.json` `min` (and a geocode is used only while its address is listed); Opendatasoft sources in the bike,
+  heritage and permit fetchers. New jobs: *Refresh Vancouver representatives* (weekly), *Fetch Vancouver places*
+  (monthly). Other cities' output unchanged.
+
 ### Vancouver and Dallas in the city switcher (October 16, on dev)
 - Vancouver and Dallas now appear in the city switcher on every map (Toronto, Chicago, Vancouver, Dallas). They stay
   `unlisted`: still no maps hub card and no sitemap entry. A new optional `"inSwitcher": true` in `city.json` lets an

@@ -193,7 +193,9 @@ The community area lens uses the American Community Survey (2020–2024 five-yea
 
 **Address:** https://layers.city/vancouver/ (live but not linked from the maps hub yet)
 
-The third city, on the same engine (`cities/vancouver/`). The first build has the base: Downtown and the East and West Sides (Ontario Street splits east from west), the City's 22 local areas plus Stanley Park, 21 known-as names (Gastown, Yaletown, Commercial Drive, Punjabi Market…), landmarks, main streets, BC highways across Metro Vancouver, SkyTrain and SeaBus, and the West Coast Express. The local area lens and Living here rows use the 2021 Census: the City hasn't published 2021 profiles for its local areas, so Statistics Canada's dissemination areas are summed into them. Vancouver elects its council, park board and school board at large, so there are no wards; representatives (mayor, council, MLA, MP) come after the October 2026 civic and provincial elections. Sources and quirks are in `cities/vancouver/SOURCES.md`.
+The third city, on the same engine (`cities/vancouver/`). The first build has the base: Downtown and the East and West Sides (Ontario Street splits east from west), the City's 22 local areas plus Stanley Park, 21 known-as names (Gastown, Yaletown, Commercial Drive, Punjabi Market…), landmarks, main streets, BC highways across Metro Vancouver, SkyTrain and SeaBus, and the West Coast Express. The local area lens and Living here rows use the 2021 Census: the City hasn't published 2021 profiles for its local areas, so Statistics Canada's dissemination areas are summed into them. Vancouver elects its council, park board and school board at large, so there are no wards. Sources and quirks are in `cities/vancouver/SOURCES.md`.
+
+Since October 16 it has most of Toronto's features: universities, colleges and hospitals, skyscrapers (100 m and up: Vancouver's tallest is just over 200 m, so Toronto's 150 m cut would leave a handful), heritage districts (the Gastown, Chinatown and Yaletown historic areas and First Shaughnessy) and 680 designated heritage buildings, French-language and French immersion schools, collector streets, bikeways and Mobi stations, What's changing from the City's issued building permits, the Broadway Subway and Surrey Langley SkyTrain under construction, a tree canopy lens, the suburban drive lens to Waterfront Station, provincial and federal ridings (federal shaded by party), BIAs, places of worship, Nearby, MPs on the card and the October 17 voting places. The mayor, council and MLAs join after the October 17 and 24 elections. What it lacks (collection day, halal and kosher shops, road closures, development applications) is set out with reasons in `cities/vancouver/PARKED.md`.
 
 ## Dallas (in progress)
 
@@ -301,7 +303,14 @@ Dallas:
 - IPEDS (colleges and universities) and CMS Hospital General Information (hospitals with emergency departments); Wikipedia's List of tallest buildings in Dallas (CC BY-SA); ESA WorldCover 2021 (CC BY 4.0) for tree canopy; OSRM for drive times.
 - Streets, highways and place names © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL), fetched with the Overpass API; Nominatim for addresses the Census geocoder can't match.
 
-`cities/toronto/SOURCES.md`, `cities/chicago/SOURCES.md` and `cities/dallas/SOURCES.md` list the exact queries used to fetch the raw data. The data stays under its original licences.
+Vancouver:
+
+- [City of Vancouver Open Data](https://opendata.vancouver.ca/) (Open Government Licence – Vancouver): local areas, bikeways, heritage sites, issued building permits, zoning (historic areas), BIAs, libraries, community centres, parks and facilities, off-leash areas, schools and 2026 voting places.
+- Statistics Canada (Open Licence): boundaries and the 2021 Census by dissemination area. DataBC (Open Government Licence – British Columbia): provincial electoral districts. Federal ridings (2023 Representation Order) via [Open North Represent](https://represent.opennorth.ca/); MPs from the [House of Commons](https://www.ourcommons.ca/members/en).
+- [TransLink GTFS](https://www.translink.ca/about-us/doing-business-with-translink/app-developer-resources) for SkyTrain, SeaBus, the West Coast Express, buses and transit times to Waterfront. Mobi's GBFS feed for bike share stations (no licence stated: re-check before any commercial use).
+- Wikipedia's List of tallest buildings in Vancouver (CC BY-SA); ESA WorldCover 2021 (CC BY 4.0); OSRM for drive times; institutions, places of worship, streets, highways and transit under construction © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL); Nominatim for a few addresses.
+
+`cities/toronto/SOURCES.md`, `cities/chicago/SOURCES.md`, `cities/vancouver/SOURCES.md` and `cities/dallas/SOURCES.md` list the exact queries used to fetch the raw data. The data stays under its original licences.
 
 ## Licence
 

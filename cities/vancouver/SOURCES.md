@@ -47,3 +47,31 @@ attribution.
   St, Carrall St) from them, the W/E main streets from OpenStreetMap, and fits how block numbers run south of
   False Creek (raw/address_axes.json). Downtown's grid is turned 45 degrees and numbered on its own, so the card's
   block readout stops at False Creek.
+
+## Parity layers (October 16, 2026)
+
+| What | Source | Licence | Script |
+|---|---|---|---|
+| Libraries, community centres, parks (points), park facilities, off-leash areas, schools, BIAs, historic-area and First Shaughnessy zoning, Road Ahead closures (not used, see PARKED.md), 2026 voting places | City of Vancouver Open Data (Opendatasoft exports) | OGL – Vancouver | `fetch_layers.py` |
+| Provincial electoral districts | DataBC WFS, `WHSE_ADMIN_BOUNDARIES.EBC_PROV_ELECTORAL_DIST_SVW` | OGL – British Columbia | `fetch_layers.py` |
+| Federal ridings, 2023 Representation Order | Open North Represent, simple shapes (as Toronto's) | Elections Canada's terms | `fetch_layers.py` |
+| Universities, colleges, hospitals (positions for the curated list) | OpenStreetMap via Overpass | ODbL | `fetch_layers.py`, `institutions.py` |
+| Places of worship | OpenStreetMap via Overpass | ODbL | `fetch_faith.py`, `faith.py` |
+| MPs | House of Commons members XML | Open Government Licence – Canada | `fetch_representatives.py`, `representatives.py` |
+| CSF school positions | OpenStreetMap Nominatim, from the CSF's addresses | ODbL | `fetch_schools.py`, `french_schools.py` |
+| Bike lanes | City of Vancouver `bikeways`, active only | OGL – Vancouver | `engine/fetch_bikes.py` (bikes.json) |
+| Mobi stations | Mobi's GBFS (`gbfs.kappa.fifteen.eu/gbfs/2.2/mobi/en/gbfs.json`, from MobilityData's systems catalogue) | none stated | `engine/fetch_bikeshare.py` |
+| Issued building permits (new buildings and demolitions, 2 years) | City of Vancouver `issued-building-permits`; applicant and contractor fields never requested | OGL – Vancouver | `engine/fetch_changes.py` (changes.json) |
+| Heritage buildings | City of Vancouver `heritage-sites` (Vancouver Heritage Register), municipally designated only | OGL – Vancouver | `engine/fetch_heritage_buildings.py` |
+| Skyscrapers, 100 m+ | Wikipedia, List of tallest buildings in Vancouver | CC BY-SA 4.0 | `engine/fetch_skyscrapers.py` |
+| Transit under construction | OpenStreetMap (Broadway Subway, Surrey Langley SkyTrain; most track is unnamed, so `unnamedIn` boxes) | ODbL | `engine/fetch_construction.py` |
+| Tree canopy | ESA WorldCover 2021, 10 m | CC BY 4.0 | `engine/fetch_canopy.py` |
+| Suburban drive times to Waterfront Station | OSRM on OpenStreetMap | ODbL | `engine/fetch_drive_times.py` |
+
+Quirks:
+- Opendatasoft's portal refuses robots, so it can't be read with a web fetcher; the scripts use its export API from Actions.
+- The two garbage-collection-zone datasets have no records or files (PARKED.md).
+- Bikeway subtypes are undocumented codes; bikes.json says how each was read.
+- Heritage register names carry notes ("Facade only", "former …", trailing addresses); `engine/heritage_buildings.py` tidies them, and an entry with no real name shows its address.
+- Permit descriptions name demolition contractors and engineers; `engine/changes.py` cuts the text before them.
+- Voting places: the City lists each voting room, so a building with two rooms is one entry on the card.
