@@ -73,6 +73,25 @@ def nominatim(q):
     return hits[0] if hits else None
 
 
+def structured(a):
+    # Nominatim's structured search ("street" and "city" apart) finds some buildings the free-text one misses.
+    street, town = a.rsplit(', ', 1)
+    url = 'https://nominatim.openstreetmap.org/search?' + urllib.parse.urlencode(
+        {'street': street, 'city': town, 'state': 'Illinois', 'country': 'USA', 'format': 'jsonv2', 'limit': 1})
+    time.sleep(1.2)
+    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
+        hits = json.load(r)
+    return hits[0] if hits else None
+
+
+def same_side(a, matched):
+    # The Census geocoder can swap N for S (1016 S McLean Blvd came back as N McLean); keep a match only if
+    # the direction agrees when the address gives one.
+    d = re.match(r'\s*\d+\s+([NSEW])\b', a)
+    m = re.match(r'\s*\d+\s+([NSEW])\b', matched or '')
+    return not d or not m or d.group(1) == m.group(1)
+
+
 def census(q):
     # US Census geocoder (public domain), for street addresses Nominatim doesn't know.
     url = 'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?' + urllib.parse.urlencode(
@@ -99,8 +118,16 @@ for a in dict.fromkeys(want):
         except Exception as e: print('  error', q, e); h = None
         if h and exact(h, a): hit = h; break
         street = street or h
+    if not hit:
+        try:
+            h = structured(a)
+            if h and exact(h, a): hit = h
+        except Exception as e: print('  error (structured)', a, e)
     if not hit:   # the Census geocoder interpolates along the block from the address ranges
-        try: hit = census(a + ', IL')
+        try:
+            h = census(a + ', IL')
+            if h and same_side(a, h['display_name']): hit = h
+            elif h: print('  census matched the wrong side of the street:', a, '->', h['display_name'])
         except Exception as e: print('  census error', a, e)
     if not hit and street: hit = dict(street, type='street')
     cache[a] = ({'at': [round(float(hit['lon']), 5), round(float(hit['lat']), 5)], 'match': hit.get('display_name', ''),
