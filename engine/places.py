@@ -89,7 +89,8 @@ def living(d):
     rows = []
     tier = lambda key, v: TIER.get((key, v))
     cost = tier('cost', d['cost']); cost += '' if 'cost' in cost.lower() else ' housing cost'   # the card's "Middle" chip needs its noun in a sentence
-    rows.append(('Housing', f"{cost}. Median home {money(d['value'])} · renters pay ${d['rent']:,}/mo", LIV.get('caveat')))
+    hv = ' · '.join(x for x in ((f"Median home {money(d['value'])}" if d.get('value') else ''), (f"renters pay ${d['rent']:,}/mo" if d.get('rent') else '')) if x)
+    rows.append(('Housing', f"{cost}. {hv}" if hv else cost, LIV.get('caveat')))   # a ZIP with too few homes for a median has none
     if hub and d.get(hub['minutes']) is not None:
         rows.append((LIV.get('hub', hub['short']), f"{tier(hub['key'], d.get(hub['key']))}. " + fill(LIV.get('hubText', '{minutes} min'), {'minutes': d[hub['minutes']]}), None))
     rows.append(('Getting to work', f"{tier('commute', d['commute'])}. {d['carPct']}% drive · {d['transitPct']}% transit · {d['walkBikePct']}% walk or bike", None))
@@ -277,7 +278,10 @@ for s, (props, g) in sorted(made.items()):
     focus = '/' + city + '/#focus=' + UNITS['id'] + ':' + quote(name)
     in_txt = ' · '.join(f"{lab}: {esc(p['name'])}" for lab, p in ins)
     info = next((p for _, p in reversed(ins) if p.get('info')), None)   # the innermost area with a description
-    parts = [f'<h1>{esc(name)}</h1>', f"<p class=\"kind\">{esc(U['singular'])} in {esc(CITY)}" + (f" · #{code}" if UNITS.get('hover', '').count('#{code}') else '') + '</p>']
+    # A unit that isn't one of the city's own (its "park" text says what it is: Stanley Park, the University Endowment Lands).
+    other = props.get('park')
+    kind_txt = other[:1].upper() + other[1:] if other else f"{U['singular']} in {CITY}"
+    parts = [f'<h1>{esc(name)}</h1>', f"<p class=\"kind\">{esc(kind_txt)}" + (f" · #{code}" if not other and UNITS.get('hover', '').count('#{code}') else '') + '</p>']
     if in_txt: parts.append(f'<p class="in">{in_txt}</p>')
     parts.append(f'<a class="go" href="{esc(focus)}">Open {esc(name)} on the map <span aria-hidden="true">→</span></a>')
     parts.append(f'<p class="note">The map shows every boundary here, from wards and ridings to school boards, with what’s nearby. Tap any address in it for its own card.</p>')
@@ -298,7 +302,7 @@ for s, (props, g) in sorted(made.items()):
     if near:
         parts.append('<section><h2>Next door</h2><ul class="chips">' + ''.join(f'<li><a href="/{city}/{ss}/">{esc(n)}</a></li>' for n, ss in near) + '</ul></section>')
     # Description: what it is and where, then up to two plain facts (never a ranking).
-    bits = [f"{name} is a {U['singular'].lower()} in {CITY}" + (f" ({', '.join(p['name'] for _, p in ins)})" if ins else '') + '.']
+    bits = [(f"{name}: {other}" if other else f"{name} is a {U['singular'].lower()} in {CITY}") + (f" ({', '.join(p['name'] for _, p in ins)})" if ins else '') + '.']
     if known: bits.append('Includes ' + ', '.join(known[:3]) + '.')
     if d.get('value'): bits.append(f"Median home {money(d['value'])}, {d['renterPct']}% of households rent" + (f", about {d[hub['minutes']]} min by transit to {cfg['facts'].get('hub', 'downtown')}" if hub and d.get(hub['minutes']) else '') + '.')
     desc = ' '.join(bits) + ' Boundaries, representatives and more on the map.'
@@ -311,11 +315,12 @@ for s, (props, g) in sorted(made.items()):
 cols = ''.join(f'<h3>{esc(gname)}</h3><ul>' + ''.join(f'<li><a href="/{city}/{s}/">{esc(n)}</a></li>' for n, s in sorted(items)) + '</ul>'
                for gname, items in sorted(index_groups.items()))
 os.makedirs(os.path.join(out_dir, INDEX_SLUG), exist_ok=True)
-idx_title = f"{CITY}’s {len(made)} {U['plural']} · Layers.City"
-idx_desc = f"Every one of {CITY}’s {len(made)} {U['plural']}: where each sits, the names people use there, and what living there looks like, with a map of every boundary."
-og_image(f"{CITY}’s {len(made)} {U['plural']}", None, os.path.join(out_dir, INDEX_SLUG, 'og.png'), sub='A page for each, with a map')
+OWN = sum(1 for p, _ in made.values() if not p.get('park'))   # the city's own units; pages for the others are listed too
+idx_title = f"{CITY}’s {OWN} {U['plural']} · Layers.City"
+idx_desc = f"Every one of {CITY}’s {OWN} {U['plural']}" + (" and the places beside them" if OWN < len(made) else '') + ": where each sits, the names people use there, and what living there looks like, with a map of every boundary."
+og_image(f"{CITY}’s {OWN} {U['plural']}", None, os.path.join(out_dir, INDEX_SLUG, 'og.png'), sub='A page for each, with a map')
 open(os.path.join(out_dir, INDEX_SLUG, 'index.html'), 'w').write(page(idx_title, idx_desc, f'{SITE}/{city}/{INDEX_SLUG}/', f'{SITE}/{city}/{INDEX_SLUG}/og.png',
-    f"<h1>{esc(CITY)}’s {len(made)} {esc(U['plural'])}</h1><p class=\"kind\">{esc(idx_desc)}</p>"
+    f"<h1>{esc(CITY)}’s {OWN} {esc(U['plural'])}</h1><p class=\"kind\">{esc(idx_desc)}</p>"
     f"<a class=\"go\" href=\"/{city}/\">Open the {esc(CITY)} map <span aria-hidden=\"true\">→</span></a><section><div class=\"cols\">{cols}</div></section>"))
 print(f'{city}: {len(made)} place pages + /{city}/{INDEX_SLUG}/')
 

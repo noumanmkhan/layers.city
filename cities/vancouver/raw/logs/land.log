@@ -1,0 +1,17 @@
+  CD 5909 ['Fraser Valley']
+  CD 5931 ['Squamish-Lillooet']
+  retry 1 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/4/query?where=CDUID+%3D+%275929%27&outFields=CDUID HTTP Error 500: Internal Server Error
+  retry 2 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/4/query?where=CDUID+%3D+%275929%27&outFields=CDUID HTTP Error 500: Internal Server Error
+  CD 5929 ['Sunshine Coast']
+  CD 5927 ['Powell River']
+  CD 5917 ['Capital']
+  CD 5919 ['Cowichan Valley']
+  CD 5921 ['Nanaimo']
+  retry 1 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/4/query?where=CDUID+%3D+%275923%27&outFields=CDUID HTTP Error 500: Internal Server Error
+  CD 5923 ['Alberni-Clayoquot']
+  retry 1 https://geo.statcan.gc.ca/geo_wa/rest/services/2021/Cartographic_boundary_files/MapServer/4/query?where=CDUID+%3D+%275926%27&outFields=CDUID HTTP Error 500: Internal Server Error
+  CD 5926 ['Comox Valley']
+wrote cds_around.geojson 508 KB
+wrote osm_landmarks.json 100 KB
+done; failed: none
+exit 0
