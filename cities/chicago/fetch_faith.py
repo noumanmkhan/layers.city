@@ -7,7 +7,7 @@
                     geocoder where Nominatim has no match.
                     A cache: addresses already placed are kept and not looked up again, so a run only
                     asks Nominatim about new rows (one request a second, as its usage policy asks)."""
-import csv, json, os, time, urllib.parse, urllib.request
+import csv, json, os, re, time, urllib.parse, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'raw', 'faith'); os.makedirs(OUT, exist_ok=True)
@@ -77,19 +77,31 @@ def census(q):
             'type': 'census'} if m else None
 
 
+def exact(hit, a):
+    # Nominatim often settles for the street when it doesn't know the building: that can be miles off
+    # (Lee St in Des Plaines placed at O'Hare). Keep a hit only if it names the house number and the town.
+    num, town = a.split(' ')[0], a.split(', ')[-1]
+    d = hit.get('display_name', '')
+    return bool(re.search(r'(^|, )(\d+-)?' + re.escape(num) + r'(-\d+)?,', d)) and town.lower() in d.lower()
+
+
 for a in dict.fromkeys(want):
-    if a in cache and cache[a].get('at'): continue
-    hit = None
+    if a in cache and cache[a].get('at') and cache[a].get('type') != 'street': continue
+    hit, street = None, None
     for q in (a + ', Illinois, USA', a.split(', ')[0] + ', Illinois, USA'):
-        try: hit = nominatim(q)
-        except Exception as e: print('  error', q, e)
-        if hit: break
-    if not hit:
+        try: h = nominatim(q)
+        except Exception as e: print('  error', q, e); h = None
+        if h and exact(h, a): hit = h; break
+        street = street or h
+    if not hit:   # the Census geocoder interpolates along the block from the address ranges
         try: hit = census(a + ', IL')
         except Exception as e: print('  census error', a, e)
+    if not hit and street: hit = dict(street, type='street')
     cache[a] = ({'at': [round(float(hit['lon']), 5), round(float(hit['lat']), 5)], 'match': hit.get('display_name', ''),
                  'type': hit.get('type', '')} if hit else {'at': None})
     print(('  placed  ' if hit else '  MISSING ') + a + ('  ->  ' + hit['display_name'] if hit else ''))
 json.dump(dict(sorted(cache.items())), open(path, 'w'), ensure_ascii=False, indent=1)
 missing = [a for a in dict.fromkeys(want) if not cache.get(a, {}).get('at')]
+rough = [a for a in dict.fromkeys(want) if cache.get(a, {}).get('type') == 'street']
+if rough: print('  ONLY THE STREET FOUND (give lat/lon in the CSV):', '; '.join(rough))
 print(len(want), 'addresses,', len(missing), 'not found' + (': ' + '; '.join(missing) if missing else ''))
