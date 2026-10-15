@@ -158,7 +158,9 @@ main.doc{padding-top:56px;gap:40px}
       <nav class="toc" aria-label="On this page">
         <a href="#toronto">Toronto</a>
         <a href="#chicago">Chicago</a>
-        <a href="#both">Both cities</a>
+        <a href="#vancouver">Vancouver</a>
+        <a href="#dallas">Dallas</a>
+        <a href="#both">Every city</a>
         <a href="#software">Software and fonts</a>
       </nav>
     </section>
@@ -344,7 +346,54 @@ main.doc{padding-top:56px;gap:40px}
       </ul>
     </section>
 
-    <section class="policy" id="both" aria-labelledby="both-h">
+    <section class="policy" id="vancouver" aria-labelledby="vancouver-h">
+      <h2 id="vancouver-h">Vancouver Layers</h2>
+
+      <h3>Governments and elections</h3>
+      <ul class="src">
+        <li>
+          <span class="who">City of Vancouver Open Data</span>
+          <p class="use">Local areas; street blocks for how addresses work; bikeways; the Heritage Register (designated buildings); issued building permits; historic-area and First Shaughnessy zoning; business improvement areas; libraries, community centres, parks, park facilities and off-leash areas; schools; 2026 voting places.</p>
+          <span class="lic">Open Government Licence – Vancouver (<a href="https://opendata.vancouver.ca/">opendata.vancouver.ca</a>)</span>
+        </li>
+        <li>
+          <span class="who">Statistics Canada</span>
+          <p class="use">Municipal and dissemination-area boundaries (including the University Endowment Lands), and 2021 Census figures summed into the local areas and the UEL.</p>
+          <span class="lic"><a href="https://www.statcan.gc.ca/en/reference/licence">Statistics Canada Open Licence</a></span>
+        </li>
+        <li>
+          <span class="who">DataBC and Open North Represent</span>
+          <p class="use">BC provincial electoral districts; federal ridings (2023 Representation Order). Members of Parliament from the House of Commons.</p>
+          <span class="lic"><a href="https://www2.gov.bc.ca/gov/content/data/policy-standards/open-data/open-government-licence-bc">Open Government Licence – British Columbia</a>; House of Commons data</span>
+        </li>
+        <li>
+          <span class="who">Conseil scolaire francophone de la Colombie-Britannique and the Vancouver School Board</span>
+          <p class="use">French-language and French immersion schools, from their own school and program lists.</p>
+          <span class="lic">Public information</span>
+        </li>
+      </ul>
+
+      <h3>Transit and streets</h3>
+      <ul class="src">
+        <li>
+          <span class="who">TransLink</span>
+          <p class="use">SkyTrain, SeaBus, West Coast Express and bus routes and stops, and the schedules behind the transit times to Waterfront, from TransLink’s GTFS feed.</p>
+          <span class="lic">TransLink GTFS terms of use</span>
+        </li>
+        <li>
+          <span class="who">Mobi by Rogers</span>
+          <p class="use">Bike share station locations, from Mobi’s public GBFS feed.</p>
+          <span class="lic">Public feed; no licence stated</span>
+        </li>
+        <li>
+          <span class="who">OpenStreetMap contributors</span>
+          <p class="use">Main and collector streets, highways, landmark and institution positions, places of worship, the Broadway Subway and Surrey Langley SkyTrain under construction; Nominatim for a few school addresses.</p>
+          <span class="lic"><a href="https://www.openstreetmap.org/copyright">ODbL</a></span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="policy" id="dallas" aria-labelledby="dallas-h">
       <h2 id="dallas-h">Dallas Layers</h2>
 
       <h3>Governments and elections</h3>
@@ -399,62 +448,19 @@ main.doc{padding-top:56px;gap:40px}
           <span class="lic"><a href="https://www.openstreetmap.org/copyright">ODbL</a></span>
         </li>
       </ul>
+    </section>
 
-      <h2 id="vancouver-h">Vancouver Layers</h2>
-
-      <h3>Governments and elections</h3>
-      <ul class="src">
-        <li>
-          <span class="who">City of Vancouver Open Data</span>
-          <p class="use">Local areas; street blocks for how addresses work; bikeways; the Heritage Register (designated buildings); issued building permits; historic-area and First Shaughnessy zoning; business improvement areas; libraries, community centres, parks, park facilities and off-leash areas; schools; 2026 voting places.</p>
-          <span class="lic">Open Government Licence – Vancouver (<a href="https://opendata.vancouver.ca/">opendata.vancouver.ca</a>)</span>
-        </li>
-        <li>
-          <span class="who">Statistics Canada</span>
-          <p class="use">Municipal and dissemination-area boundaries and 2021 Census figures, summed into local areas.</p>
-          <span class="lic"><a href="https://www.statcan.gc.ca/en/reference/licence">Statistics Canada Open Licence</a></span>
-        </li>
-        <li>
-          <span class="who">DataBC and Open North Represent</span>
-          <p class="use">BC provincial electoral districts; federal ridings (2023 Representation Order). Members of Parliament from the House of Commons.</p>
-          <span class="lic"><a href="https://www2.gov.bc.ca/gov/content/data/policy-standards/open-data/open-government-licence-bc">Open Government Licence – British Columbia</a>; House of Commons data</span>
-        </li>
-        <li>
-          <span class="who">Conseil scolaire francophone de la Colombie-Britannique and the Vancouver School Board</span>
-          <p class="use">French-language and French immersion schools, from their own school and program lists.</p>
-          <span class="lic">Public information</span>
-        </li>
-      </ul>
-
-      <h3>Transit and streets</h3>
-      <ul class="src">
-        <li>
-          <span class="who">TransLink</span>
-          <p class="use">SkyTrain, SeaBus, West Coast Express and bus routes and stops, and the schedules behind the transit times to Waterfront, from TransLink’s GTFS feed.</p>
-          <span class="lic">TransLink GTFS terms of use</span>
-        </li>
-        <li>
-          <span class="who">Mobi by Rogers</span>
-          <p class="use">Bike share station locations, from Mobi’s public GBFS feed.</p>
-          <span class="lic">Public feed; no licence stated</span>
-        </li>
-        <li>
-          <span class="who">OpenStreetMap contributors</span>
-          <p class="use">Main and collector streets, highways, landmark and institution positions, places of worship, the Broadway Subway and Surrey Langley SkyTrain under construction; Nominatim for a few school addresses.</p>
-          <span class="lic"><a href="https://www.openstreetmap.org/copyright">ODbL</a></span>
-        </li>
-      </ul>
-
-      <h2 id="both-h">Used for both cities</h2>
+    <section class="policy" id="both" aria-labelledby="both-h">
+      <h2 id="both-h">Used for every city</h2>
       <ul class="src">
         <li>
           <span class="who">OpenStreetMap contributors</span>
-          <p class="use">Neighbouring municipalities and the lakeshore around Toronto, highways, Chicago’s streets and expressways, named places for search, universities, colleges and hospitals, places of worship (Toronto and Chicago), Pace bus routes and stops (Chicago), parks and playgrounds, transit lines under construction, and the walking network for transit times. Some come through extracts by Geofabrik, BBBike and the osm-boundaries project.</p>
+          <p class="use">Neighbouring municipalities and the lakeshore around Toronto, highways, the streets of Chicago, Vancouver and Dallas, named places for search, universities, colleges and hospitals, places of worship (Toronto, Chicago and Vancouver), Pace bus routes and stops (Chicago), parks, playgrounds and bike paths in the University Endowment Lands (Vancouver), transit lines under construction, and the walking network for transit times. Some come through extracts by Geofabrik, BBBike and the osm-boundaries project.</p>
           <span class="lic">© OpenStreetMap contributors, <a href="https://www.openstreetmap.org/copyright">Open Database Licence (ODbL)</a></span>
         </li>
         <li>
           <span class="who">Nominatim (OpenStreetMap Foundation)</span>
-          <p class="use">Address search on the website, and placing a few landmarks and towers, and the certified food shops.</p>
+          <p class="use">Address search on the website, and placing a few landmarks, towers, schools and the certified food shops.</p>
           <span class="lic"><a href="https://operations.osmfoundation.org/policies/nominatim/">Nominatim Usage Policy</a></span>
         </li>
         <li>
