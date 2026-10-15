@@ -22,7 +22,7 @@
     {"name": "Lake Michigan", "at": [41.97, -87.57], "cls": "lake-near"},
     {"name": "Lake Michigan", "at": [42.40, -87.55], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Election precincts: Chicago Board of Election Commissioners via the Data Portal · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Heritage buildings: City of Chicago Individual Landmarks · Changes: City of Chicago building permits · Street sweeping: City of Chicago Streets and Sanitation · Bike lanes: CDOT Bike Routes via the Data Portal",
+  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Election precincts: Chicago Board of Election Commissioners via the Data Portal · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Pace routes & places of worship: © OpenStreetMap contributors · Halal shops: Halal Monitoring Services · Kosher shops: cRc · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Heritage buildings: City of Chicago Individual Landmarks · Changes: City of Chicago building permits · Street sweeping: City of Chicago Streets and Sanitation · Bike lanes: CDOT Bike Routes via the Data Portal",
   "example": {"at": [41.8763, -87.6282], "name": "Harold Washington Library (example)"},
 
   "search": {
@@ -68,6 +68,8 @@
        "shields": {"LSD": "Lake Shore Dr"}, "tollShield": "Toll"},
       {"id": "metra", "kind": "rail", "files": ["metra_lines", "metra_stations", "metra_lines_inner"], "name": "Metra trains", "note": "11 commuter lines from four downtown stations", "on": true,
        "hover": "{name} · downtown – {to}"},
+      {"id": "pace", "kind": "regional", "mode": "pace", "under": "metra", "file": "transit_routes", "lazy": true, "stopZoom": 12, "name": "Pace buses",
+       "note": "Suburban routes across Chicagoland; in the city view, the ones that stop in Chicago. Routes and stops from OpenStreetMap, without timetables. Stops from zoom 12"},
       {"id": "cta", "kind": "metro", "files": ["cta_lines", "cta_stations"], "name": "The ‘L’", "note": "CTA Red, Blue, Brown, Green, Orange, Pink, Purple and Yellow lines", "on": true,
        "stationHover": "{name} · {lines}", "sub": {"id": "stnNames", "label": "Show station names", "on": true}},
       {"id": "bus", "kind": "buses", "file": "transit_routes", "lazy": true, "name": "Bus routes", "note": "Every bus route, by how often it runs, or the overnight ones; stops from zoom 15",
@@ -89,6 +91,20 @@
        "boards": [["cps", "Board of Education", "Chicago Board of Education"]],
        "label": "{num}", "hover": "Board of Education district {num}"},
       {"id": "ssa", "kind": "patches", "file": "ssa", "name": "Special Service Areas", "note": "Business districts funded by a local property-tax levy", "label": "{name}", "hover": "SSA #{num} · {name}"}
+    ]],
+    ["Faith & Community", [
+      {"id": "churches", "kind": "places", "file": "faith", "cat": "church", "name": "Churches", "place": "Church", "note": "Every denomination; pick one below to narrow it down",
+       "groups": [["catholic", "Catholic"], ["baptist", "Baptist"], ["methodist", "Methodist"], ["lutheran", "Lutheran"], ["episcopal", "Episcopal"], ["presbyterian", "Presbyterian"], ["orthodox", "Orthodox"], ["evangelical", "Evangelical"], ["other", "Other"]],
+       "allText": "All", "countText": "{n} shown.", "allNote": "Some aren\u2019t listed with a denomination, so they appear only here.",
+       "groupNote": "By the denomination listed in OpenStreetMap, or the church\u2019s name. Methodist includes the AME churches; Evangelical includes Pentecostal and Alliance churches."},
+      {"id": "mosques", "kind": "places", "file": "faith", "cat": "mosque", "name": "Mosques", "place": "Mosque", "note": "Masjids and musallas; denomination where known"},
+      {"id": "halal", "kind": "places", "under": "mosques", "file": "faith", "cat": "halal", "name": "Halal grocers & butchers", "place": "Halal shop", "note": "HMS-certified independent stores across Chicagoland"},
+      {"id": "hindutemples", "kind": "places", "file": "faith", "cat": "hindu", "name": "Hindu temples", "place": "Hindu temple", "note": "Mandirs"},
+      {"id": "synagogues", "kind": "places", "file": "faith", "cat": "synagogue", "name": "Synagogues", "place": "Synagogue", "note": "Every denomination; shown where known"},
+      {"id": "kosher", "kind": "places", "under": "synagogues", "file": "faith", "cat": "kosher", "name": "Kosher grocers & bakeries", "place": "Kosher shop", "note": "cRc-listed independent shops; no chain-store counters"},
+      {"id": "buddhisttemples", "kind": "places", "file": "faith", "cat": "buddhist", "name": "Buddhist temples", "place": "Buddhist temple", "note": "Temples and meditation centers"},
+      {"id": "gurdwaras", "kind": "places", "file": "faith", "cat": "gurdwara", "name": "Gurdwaras", "place": "Gurdwara", "note": "Sikh gurdwaras"},
+      {"id": "otherfaith", "kind": "places", "file": "faith", "cat": "otherfaith", "name": "Other faiths", "place": "Place of worship", "note": "Jain, Bahá’í, Zoroastrian, Unitarian and more"}
     ]]
   ],
 
@@ -154,7 +170,7 @@
       {"id": "local", "name": "Know your city", "note": "Every community area coloured by its transit trip to the Loop. Try the other lenses below.", "layers": ["ca", "lens", "knownas", "streets", "cta", "stnNames", "bus"], "lens": "loop", "bus": ["exp"], "view": "city"},
       {"id": "civic", "name": "Who represents me", "note": "Search your address or tap the map to see your districts and every representative.", "layers": ["streets"], "boundaries": ["wards", "house", "congress", "school"], "lead": "wards", "view": "city", "hint": "Enter your address to find your ward, districts and representatives."},
       {"id": "newcomer", "name": "Where to live", "note": "Housing cost by community area, with frequent transit. Tap a spot for transit nearby and what's changing.", "layers": ["ca", "lens", "knownas", "streets", "cta", "stnNames", "bus"], "lens": "cost", "bus": ["freq"], "view": "city"},
-      {"id": "transit", "name": "Getting around", "note": "The ‘L’, frequent and express buses, Metra, and the line being built.", "layers": ["streets", "cta", "stnNames", "bus", "metra", "build"], "bus": ["freq", "exp"], "view": "city"}
+      {"id": "transit", "name": "Getting around", "note": "The ‘L’, frequent and express buses, Metra and Pace, and the line being built.", "layers": ["streets", "cta", "stnNames", "bus", "metra", "pace", "build"], "bus": ["freq", "exp"], "view": "city"}
     ],
     "elections": [
       {"date": "2026-11-03", "lead": "school", "label": "School board, Illinois General Assembly and Congress, November 3"},
@@ -211,18 +227,21 @@
     "transit": {
       "file": "transit.json", "routes": "transit_routes", "title": "Transit nearby", "radius": 402,
       "station": "Nearest ‘L’ station", "stationSub": "{lines} · {dist} away",
-      "rows": [["bus", "Buses", false]],
+      "rows": [["bus", "Buses", false], ["pace", "Pace buses", false]],
       "night": "Overnight", "stop": "Nearest stop", "none": "No stop within ¼ mile",
       "every": "about every {h} min on weekday middays", "nightOnly": "overnight only", "routeClasses": [["^X", "xr"], ["^J", "jump"]],
-      "kinds": {"bus": "Bus route"},
-      "note": "Routes with a stop within ¼ mile, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. CTA schedules, week of {week}."
+      "kinds": {"bus": "Bus route", "pace": "Pace bus route"},
+      "note": "Routes with a stop within ¼ mile, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. CTA schedules, week of {week}; Pace routes from OpenStreetMap, without timetables."
     },
     "nearby": {
       "file": "nearby.json", "radius": 805,
-      "nearest": [["library", "Library"], ["centre", "Community center"], ["er", "Emergency dept."]],
+      "nearest": [["library", "Library"], ["centre", "Community center"], ["er", "Emergency dept."],
+                  ["mosque", "Mosque", "mosques"], ["gurdwara", "Gurdwara", "gurdwaras"], ["synagogue", "Synagogue", "synagogues"],
+                  ["hindu", "Hindu temple", "hindutemples"], ["buddhist", "Buddhist temple", "buddhisttemples"], ["church", "Church", "churches"],
+                  ["halal", "Halal grocer", "halal"], ["kosher", "Kosher shop", "kosher"]],
       "within": "Within ½ mile",
       "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["tennis", "tennis court location", "tennis court locations"]],
-      "note": "Straight-line distances; half a mile is about a 10-minute walk. Chicago Public Library, the ERs layer and the Park District and City community centers, and OpenStreetMap (parks, playgrounds, courts)."
+      "note": "Straight-line distances; half a mile is about a 10-minute walk. Chicago Public Library, the ERs layer and the Park District and City community centers, and OpenStreetMap (parks, playgrounds, courts). Places of worship (OpenStreetMap) and HMS- and cRc-certified shops show while their layers are on."
     },
     "reps": {
       "file": "representatives.json",

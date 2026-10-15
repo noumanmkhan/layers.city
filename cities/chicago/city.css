@@ -54,3 +54,12 @@
 .rt-chip:not([aria-pressed="true"]).bus.xr{background:var(--cta-badge);border-color:var(--cta-x);color:var(--cta-x);--rc:var(--cta-x)}
 .rt-chip:not([aria-pressed="true"]).bus.night{background:var(--cta-badge);border-color:var(--cta-owl);color:var(--cta-owl);--rc:var(--cta-owl)}
 .rt-chip:not([aria-pressed="true"]).freq{box-shadow:0 0 0 1.5px var(--panel),0 0 0 3px var(--rc)}
+/* Pace suburban buses (layer kind "regional", mode "pace"): a deep teal, clear of the CTA's purple and blue lines
+   and the ward purple. Thicker below zoom 12, like GO buses in Toronto. */
+:root{ --pace:#0A5C66; --pace-ink:#FFFFFF; }
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){ --pace:#2FA3A1; --pace-ink:#0E2A2A; }}
+:root[data-theme="dark"]{ --pace:#2FA3A1; --pace-ink:#0E2A2A; }
+.rt.pace{stroke:var(--pace)} .rt-b.pace{background:var(--pace);color:var(--pace-ink)} .stop.pace{stroke:var(--pace);stroke-width:2}
+.rt-chip.pace{border-color:var(--pace)}
+#map:not(.z12) .rt.pace{stroke-width:2.6px} #map:not(.z12) .rt-case.pace{stroke-width:4.6px}
+.sw.pace{background:var(--city) linear-gradient(var(--pace),var(--pace)) 0 50%/100% 3px no-repeat}
