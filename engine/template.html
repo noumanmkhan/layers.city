@@ -177,22 +177,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .sw.k-highways{background:var(--city);background-image:linear-gradient(var(--hwy-case),var(--hwy-case)),linear-gradient(var(--hwy),var(--hwy));background-size:100% 6px,100% 2px;background-position:0 50%,0 50%;background-repeat:no-repeat}
 .sw.k-badges{background:var(--city);display:grid;place-items:center;color:var(--accent)}
 .sw.k-badges svg{width:15px;height:15px}
-/* Neighbourhood badges: brand ink on a soft plate of the land colour. They sit above street lines and names
-   (main streets show faintly through the plate) and below points, stations and the pin. */
-@font-face{font-family:"Archivo";font-weight:800;font-display:swap;src:url("../fonts/archivo-latin-800-normal.woff2") format("woff2")}
-@font-face{font-family:"Archivo";font-weight:700;font-display:swap;src:url("../fonts/archivo-latin-700-normal.woff2") format("woff2")}
-.bdg{position:absolute;left:0;top:0;transform:translate(-50%,-50%);overflow:visible;display:block}
-.bdg .bd-plate{fill:var(--city);fill-opacity:.86}
-.bdg .bd-m,.bdg .bd-rule{fill:var(--accent)}
-.bdg .bd-k{fill:var(--city)}
+/* Neighbourhood badges: a faint drawing in brand ink, over the street lines but under outlines and every label. Knockouts are masked
+   out, so the map shows through them. */
+.bdg{position:absolute;left:0;top:0;transform:translate(-50%,-50%);overflow:visible;display:block;opacity:var(--bdg-op,.45)}
+.bdg .bd-m{fill:var(--accent)}
 .bdg .bd-ms{fill:none;stroke:var(--accent);stroke-linecap:round}
-.bdg .bd-ks{fill:none;stroke:var(--city)}
-.bdg text{font-family:"Archivo",var(--font)}
-.bdg .bd-n{fill:var(--ink);font-weight:800}
-.bdg .bd-n2{fill:var(--ink);font-weight:700}
-.bdg .bd-s{fill:var(--accent);font-weight:700}
-.bdg.small .bd-s{display:none}   /* the former-city line only once the name is large enough to carry it */
-#map.bdg-on .lbl-nbhd{display:none}
 .sw.k-landmarks{background:var(--panel);display:grid;place-items:center;color:var(--lm-culture)}
 .sw.k-landmarks svg{width:14px;height:14px}
 

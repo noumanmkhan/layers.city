@@ -101,7 +101,7 @@ const wide = () => !matchMedia('(max-width:760px)').matches;
 map.fitBounds(CITY_BOUNDS, wide() ? {paddingTopLeft:[330,20], paddingBottomRight:[350,20]} : {paddingTopLeft:[0,150], paddingBottomRight:[0,90]});
 map.setMaxBounds(L.latLngBounds(CITY.view.max));  // the region plus a margin
 
-const panes = [['base',200],['fill',350],['lines',420],['streets',400],['civic',430],['hwy',450],['pfdim',455],['rail',460],['mask',465],['focus',468],['transit',470],['pfdim2',472],['pfline',473],['stlbl',475],['badges',477],['pts',480],['pin',620]];
+const panes = [['base',200],['fill',350],['lines',420],['streets',400],['badges',410],['civic',430],['hwy',450],['pfdim',455],['rail',460],['mask',465],['focus',468],['transit',470],['pfdim2',472],['pfline',473],['stlbl',475],['pts',480],['pin',620]];
 panes.forEach(([n,z]) => { map.createPane(n); map.getPane(n).style.zIndex = z; });
 map.getPane('base').style.pointerEvents = 'none';
 map.getPane('stlbl').style.pointerEvents = 'none';
@@ -547,35 +547,35 @@ const KINDS = {
     g.on('remove', () => { shown.forEach(m => g.removeLayer(m)); shown.clear(); });
     return g;
   },
-  // Neighbourhood badges (engine/badges.py): a drawing for a few curated places, the name fitted inside the rest.
-  // Each sits in the largest box of its shape that fits inside its unit and grows with the map, from the zoom
-  // where its name becomes readable (it.minFont px; drawings once they are it.minWidth px wide) until the name
-  // reaches it.maxFont px (drawings: it.maxWidth px wide).
-  // Loads on first use (it.lazy). Taps go through to the map, so the What's here card still opens.
+  // Neighbourhood badges (engine/badges.py): a one-colour drawing for a few curated places, laid like a watermark
+  // just over the street lines (faint enough to show them) and under outlines and every label, turned square to the city grid (data angle) and sized to a share (it.scale) of the largest
+  // box of its shape that fits inside its unit, so it never spills into a neighbour. Shown once it is it.minWidth px
+  // wide, up to it.maxWidth px. No text: the name is the units layer's own label. Loads on first use (it.lazy).
   badges: it => {
     const g = L.layerGroup(), items = [];
-    const MIN = it.minFont || 9, MAXF = it.maxFont || 20, MINW = it.minWidth || 120, MAXW = it.maxWidth || 300;
+    const SCALE = it.scale || .7, MINW = it.minWidth || 60, MAXW = it.maxWidth || 220;
+    let angle = 0;
     const size = () => {
       if (!map.hasLayer(g)) return;
       const z = map.getZoom();
       items.forEach(o => {
-        const a = map.project(o.b.getNorthWest(), z), c = map.project(o.b.getSouthEast(), z);
-        let k = (c.x - a.x) / o.u.w;    // screen px per viewBox unit when the badge fills its box
-        const show = o.u.art ? o.u.w * k >= MINW : o.u.f * k >= MIN;   // a drawing reads by its picture, a label by its name
-        k = Math.min(k, MAXF / o.u.f, o.u.art ? MAXW / o.u.w : Infinity);
+        const mpp = 40075016.686 * Math.cos(o.u.c[0] * Math.PI / 180) / Math.pow(2, z + 8);   // metres per screen px
+        const w = Math.min(o.u.wm * SCALE / mpp, MAXW);
         const el = o.m.getElement(), s = el && el.firstChild;
         if (!s) return;
-        s.style.display = show ? '' : 'none';
-        if (show){ s.setAttribute('width', (o.u.w * k).toFixed(1)); s.setAttribute('height', (o.u.h * k).toFixed(1)); s.classList.toggle('small', o.u.f * k < (it.subFont || 13)); }
+        s.style.display = w >= MINW ? '' : 'none';
+        s.setAttribute('width', w.toFixed(1)); s.setAttribute('height', (w * o.u.h / o.u.w).toFixed(1));
+        s.style.transform = 'translate(-50%,-50%) rotate(' + (-angle) + 'deg)';
+        if (it.opacity) s.style.opacity = it.opacity;
       });
     };
     g.on('add', () => ensureBadges().then(d => {
       if (!d) return;
+      angle = d.angle || 0;
       if (!items.length) d.units.forEach(u => {
-        const b = L.latLngBounds(u.b);
-        const m = L.marker(b.getCenter(), {pane: 'badges', interactive: false, keyboard: false,
-          icon: L.divIcon({className: '', iconSize: [0, 0], html: '<svg class="bdg' + (u.art ? ' art' : '') + '" viewBox="0 0 ' + u.w + ' ' + u.h + '" role="img" aria-label="' + esc(u.n) + '">' + u.svg + '</svg>'})});
-        items.push({m, b, u});
+        const m = L.marker(u.c, {pane: 'badges', interactive: false, keyboard: false,
+          icon: L.divIcon({className: '', iconSize: [0, 0], html: '<svg class="bdg" viewBox="0 0 ' + u.w + ' ' + u.h + '" role="img" aria-label="' + esc(u.n) + '">' + u.svg + '</svg>'})});
+        items.push({m, u});
         g.addLayer(m);
       });
       else items.forEach(o => g.addLayer(o.m));
@@ -1323,7 +1323,6 @@ function setLayer(id, on){
   if (kindOf(id) === 'buses'){ document.getElementById('busbox').hidden = !on; drawBusBox(); }
   if (kindOf(id) === 'changes'){ const b = document.getElementById('chgbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'bikes'){ const b = document.getElementById('bkbox'); if (b) b.hidden = !on; }
-  if (kindOf(id) === 'badges') map.getContainer().classList.toggle('bdg-on', on);   // the badges carry the names
   { const b = document.getElementById('pg-' + id); if (b){ b.hidden = !on; drawPlacePick(id); } }
   if (kindOf(id) === 'buses' || kindOf(id) === 'streetcars' || kindOf(id) === 'regional') drawStops();
   if (kindOf(id) === 'boards'){ const box = document.getElementById('brd-' + id); if (box) box.hidden = !on; if (on) setBoard(id, boardPick[id]); }
