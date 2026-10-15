@@ -8,7 +8,8 @@ on:
       script: {description: 'Script in cities/chicago/ to run', default: 'fetch.py'}
   push:
     branches: [main, fetch-chicago]
-    paths: ['cities/chicago/fetch*.py', '.github/workflows/fetch-chicago.yml']
+    # fetch_faith.py has its own job (fetch-chicago-faith.yml, monthly), so it isn't run twice.
+    paths: ['cities/chicago/fetch*.py', '!cities/chicago/fetch_faith.py', '.github/workflows/fetch-chicago.yml']
 permissions:
   contents: write
 jobs:
