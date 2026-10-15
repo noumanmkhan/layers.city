@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### University Endowment Lands in Vancouver's city view (October 16, on dev)
+- The Point Grey lands west of the city (UBC's campus, Pacific Spirit Regional Park and the UEL neighbourhoods, the
+  Point Grey piece of Metro Vancouver's Electoral Area A) now show in the city view as *University Endowment Lands*:
+  not masked, an olive tint and dashed outline, a label, searchable as UEL or UBC Endowment Lands. Its card says
+  what it is, who runs it, where residents vote locally, and its provincial and federal ridings, which now reach over
+  it. The rest of Electoral Area A stays a neighbour. The city view's frame widens to take it in.
+- Engine: a `base.geojson` feature of kind `annex`, `city.json` `outside.annex` (card rows and note) and the
+  `--annex` colour. Other cities have none, so they look the same.
+
 ### Vancouver, Toronto's features (October 16, on dev, unlisted)
 - *Places*: universities, colleges and hospitals (curated: UBC, SFU's Harbour Centre campus, Emily Carr; Langara, VCC,
   BCIT downtown; VGH, St. Paul's, Mount Saint Joseph, BC Children's and Women's, UBC Hospital, with their emergency

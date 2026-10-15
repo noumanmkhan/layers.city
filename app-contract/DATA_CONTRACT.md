@@ -44,7 +44,7 @@ All coordinates are WGS84. GeoJSON positions are `[longitude, latitude]`; most o
 | File | What it is |
 |---|---|
 | `city.json` | The city's config (section 4). |
-| `base.geojson` | Outline shapes. `properties.kind`: `city` (the city itself), `neighbour` (each surrounding municipality, with `name`, `region`, `lp`, `drive`), `outside` (land beyond the region). |
+| `base.geojson` | Outline shapes. `properties.kind`: `city` (the city itself), `neighbour` (each surrounding municipality, with `name`, `region`, `lp`, `drive`), `outside` (land beyond the region), and optionally `annex`: land beyond the city limits that the city view still shows, shaded and outlined apart and not masked (Vancouver's University Endowment Lands), with `name`, `sub`, `aka` (other names for search), `lp`, `region` and the text fields `city.json` `outside.annex.rows` fill (`includes`, `gov`, `votes`). A tap there gets the outside card with those rows, `card.outsideFacts` districts and `outside.annex.note`. Added October 16, 2026; additive. |
 | `regions.geojson` | Label points for regions/counties. Not needed for the card. |
 | Layer files | One per map layer, named by `file`/`files` in `city.json` `groups`. Section 5 lists the ones the card uses. |
 | `nbhd_profiles.json` / `ca_profiles.json` / `la_profiles.json` | Census figures per neighbourhood / community area / local area (Vancouver, in progress). File name is `lens.file` in `city.json`. Section 7. A unit with no entry here (Vancouver's Stanley Park, code 23) has no Living here rows and takes no lens tier. |
