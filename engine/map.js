@@ -1460,7 +1460,8 @@ function livingHere(unit){
   const d = unit && data.profiles ? data.profiles[String(unit.properties.code)] : null;
   if (!d) return '';
   const T = CITY.card.living;
-  const tier = (key, v) => { const [label, col] = TIER_LABEL[key + ':' + v]; return '<span class="tier"><i style="background:var(' + col + ')"></i>' + esc(label) + '</span>'; };
+  // A city without a lens for a figure (Dallas has no getting-to-work lens) shows the figure without a tier.
+  const tier = (key, v) => { if (!TIER_LABEL[key + ':' + v]) return ''; const [label, col] = TIER_LABEL[key + ':' + v]; return '<span class="tier"><i style="background:var(' + col + ')"></i>' + esc(label) + '</span>'; };
   const hub = CITY.lens.lenses.find(L_ => L_.minutes);
   return '<div class="live"><dl>' +
     '<dt>Housing</dt><dd>' + tier('cost', d.cost) + '<span>Median home ' + money(d.value) + ' · renters pay $' + d.rent.toLocaleString(CITY.locale) + '/mo</span><span class="caveat">' + esc(T.caveat) + '</span></dd>' +
@@ -1876,10 +1877,10 @@ function inspect(latlng, title, muniName){
   if (c.outside){
     const m = c.m;
     here.innerHTML = cardHead('What’s here', c.heading, dirBtn(c.y, c.x, c.heading)) +
-      '<div class="pills">' + c.pills + '</div>' + c.drive +
+      '<div class="pills">' + c.pills + '</div>' + voteBox(c.x, c.y) + c.drive +
       (regionFeature(m.region) && focusKey !== m.region ? '<button type="button" class="focus-go">' + esc(fill(CITY.focus.show, {name: regionName(m.region)})) + '</button>' : '') +
       cmpRow + '<p class="outside-note">' + esc(CITY.outside.note) + '</p>' + reportBox(c.heading);
-    wireCard(); wireReport(latlng, c.heading); clearVoteMark();
+    wireCard(); wireReport(latlng, c.heading); drawVoteMark(c.x, c.y);
     const fg = here.querySelector('.focus-go'); if (fg) fg.onclick = () => setFocus(m.region, true);
     return;
   }
@@ -2017,32 +2018,87 @@ function standout(unit, heading){
     text + ' <small>' + esc(f.value) + '</small></span></p>';
 }
 /* ---------- Where to vote ----------
-   Until the polls close (card.vote.closes), a box near the top of the card names the voting place for the
-   spot's voting subdivision, with a ballot-box mark at that place on the map. The file (card.vote.file:
-   subdivisions, each with its place's c code, w ward, n name, a address, e entrance, ae accessible entrance,
-   vat, x/y) loads after the map, and only while the polls haven't closed. Nothing shows after closing or
-   where no subdivision covers the spot. Not part of Compare. */
+   Until the polls close (card.vote.closes), a box near the top of the card says where people living at the spot
+   vote, with a ballot-box mark on the map. The file (card.vote.file) loads after the map, and only while the polls
+   haven't closed. Nothing shows after closing or where no area covers the spot. Not part of Compare. Three kinds:
+   - A voting subdivision with its place (c code, w ward, n name, a address, e entrance, ae accessible entrance,
+     vat, x/y): the place, its distance, entrances, Show on map.
+   - A precinct only (p precinct, no x): the precinct and the official lookup.
+   - A county of vote centers (k county key, card.vote.counties): anyone registered there can vote at any center,
+     so the box lists the nearest few from the file's "centers" ([x, y, name, room, address, k, kind]; kind 1
+     election day, 2 early voting, 3 both): early voting sites until early voting ends (card.vote.early), then
+     election day centers. A county marked "precinct" (k plus c, and n/a/x/y for its polling place) shows the
+     polling place on election day and the early voting sites before. */
 const VOTE = CITY.card.vote || null;
-let voteMark = null;
+const voteMarks = L.layerGroup();
 const voteLive = () => !!(VOTE && Date.now() < Date.parse(VOTE.closes));
 function voteAt(x, y){
   if (!voteLive() || !data.voting) return null;
   const f = hit(data.voting, x, y);
   return f ? f.properties : null;
 }
+const VOTE_SHOW = 3;
+// 'soon' before early voting, 'early' during it, 'ed' after it (election day itself, and the gap before it).
+function votePhase(){
+  const E = VOTE.early; if (!E) return 'ed';
+  const t = cityToday(VOTE.tz);
+  return t < E.from ? 'soon' : t <= E.to ? 'early' : 'ed';
+}
+// The vote centers nearest a spot in county k, of a kind bit (1 election day, 2 early voting).
+function nearCenters(x, y, k, bit){
+  return (data.voting.centers || []).filter(c => c[5] === k && c[6] & bit)
+    .map(c => [c, metres([x, y], [c[0], c[1]])]).sort((a, b) => a[1] - b[1]).slice(0, VOTE_SHOW);
+}
+// The places a box points at, for the marks and Show on map: [[lng, lat], ...].
+function votePlaces(x, y){
+  const v = voteAt(x, y); if (!v) return [];
+  const C = v.k && VOTE.counties && VOTE.counties[v.k];
+  if (C){
+    const ph = votePhase();
+    if (C.precinct && ph === 'ed') return v.x != null ? [[v.x, v.y]] : [];
+    return nearCenters(x, y, v.k, ph === 'ed' ? 1 : 2).map(([c]) => [c[0], c[1]]);
+  }
+  return v.x != null ? [[v.x, v.y]] : [];
+}
+const shortDate = s => isoDate(s).toLocaleDateString(CITY.locale, {weekday:'short', month:'short', day:'numeric'});
 function voteBox(x, y){
   const v = voteAt(x, y); if (!v) return '';
   const today = cityToday(VOTE.tz) === VOTE.date;
-  const when = today ? VOTE.today : fill(VOTE.title, {date: isoDate(VOTE.date).toLocaleDateString(CITY.locale, {weekday:'short', month:'short', day:'numeric'})});
-  const ctx = {sub: String(+v.c.slice(2)), ward: v.w, precinct: v.p, asof: niceDate(data.voting.asof)};
-  const link = '<a href="' + esc(VOTE.link[1]) + '" target="_blank" rel="noopener">' + esc(VOTE.link[0]) + ' ↗</a>';
-  let body;
-  if (v.x != null){
+  let when = today ? VOTE.today : fill(VOTE.title, {date: shortDate(VOTE.date)}), hours = VOTE.hours;
+  const ctx = {sub: v.c ? String(+v.c.slice(2)) : '', ward: v.w, precinct: v.p || v.c, asof: niceDate(data.voting.asof)};
+  let link = '<a href="' + esc(VOTE.link ? VOTE.link[1] : '') + '" target="_blank" rel="noopener">' + esc(VOTE.link ? VOTE.link[0] : '') + ' ↗</a>';
+  let body, note = VOTE.note;
+  const place = (n, a, d, extra) => n ? '<b>' + esc(n) + '</b><span>' + esc([extra, a, dist(d) + ' away'].filter(Boolean).join(' · ')) + '</span>' : '<b>' + esc(a) + '</b><span>' + dist(d) + ' away</span>';
+  const C = v.k && VOTE.counties && VOTE.counties[v.k];
+  if (C){
+    // A county where people can vote at any vote center (or, early, at any early voting site).
+    const ph = votePhase(), E = VOTE.early, counts = (data.voting.counts || {})[v.k] || {};
+    let firstName = '';
+    Object.assign(ctx, {county: C.name});
+    link = '<a href="' + esc(C.link[1]) + '" target="_blank" rel="noopener">' + esc(C.link[0]) + ' ↗</a>';
+    if (ph !== 'ed'){ when = ph === 'soon' ? fill(E.soon, {from: shortDate(E.from)}) : fill(E.title, {from: shortDate(E.from), to: shortDate(E.to)}); hours = E.hours; }
+    if (C.precinct && ph === 'ed'){
+      if (v.x == null) return '';
+      body = '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl">' + place(v.n, v.a, metres([x, y], [v.x, v.y]), v.r) + '</p>';
+      note = VOTE.precinctNote || note; firstName = v.n;
+    } else {
+      const list = nearCenters(x, y, v.k, ph === 'ed' ? 1 : 2);
+      if (!list.length) return '';
+      firstName = list[0][0][2];
+      body = '<p class="vote-lead">' + esc(fill(ph === 'ed' ? VOTE.centersLead : VOTE.earlyLead, ctx)) + '</p>' +
+        list.map(([c, d]) => '<p class="vote-pl vote-li">' + place(c[2], c[4], d, '') + '</p>').join('') +
+        '<p class="vote-ex">' + esc(C.precinct && v.n ? fill(VOTE.precinctEarly, {n: v.n}) :
+          fill(ph === 'ed' ? VOTE.centersMore : VOTE.earlyMore, {n: ph === 'ed' ? counts.ed : counts.ev, ed: counts.ed, county: C.name})) + '</p>';
+      if (C.precinct) note = VOTE.precinctNote || note;
+    }
+    const first = votePlaces(x, y)[0];
+    body += '<p class="vote-acts"><button type="button" class="vote-go">' + esc(VOTE.show) + '</button>' +
+      (first ? dirBtn(first[1], first[0], firstName, true) : '') + link + '</p>';
+  } else if (v.x != null){
     // A voting place for the spot: name, address and distance, entrances, Show on map.
     const d = metres([x, y], [v.x, v.y]);
-    const place = v.n ? '<b>' + esc(v.n) + '</b><span>' + esc(v.a) + ' · ' + dist(d) + ' away</span>' : '<b>' + esc(v.a) + '</b><span>' + dist(d) + ' away</span>';
     const more = [v.e && fill(VOTE.entrance, v), v.ae && fill(VOTE.access, v), v.vat && VOTE.vat].filter(Boolean);
-    body = '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl">' + place + '</p>' +
+    body = '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl">' + place(v.n, v.a, d, '') + '</p>' +
       (more.length ? '<p class="vote-ex">' + more.map(esc).join('<br>') + '</p>' : '') +
       '<p class="vote-acts"><button type="button" class="vote-go">' + esc(VOTE.show) + '</button>' + dirBtn(v.y, v.x, v.n || v.a, true) + link + '</p>';
   } else {
@@ -2052,21 +2108,22 @@ function voteBox(x, y){
       '<p class="vote-acts vote-acts-solo">' + link + '</p>';
   }
   return '<div class="vote" role="note"><i class="vote-ic" aria-hidden="true">' + BALLOT_ICON + '</i><div class="vote-tx">' +
-    '<small>' + esc(when) + ' · ' + esc(VOTE.hours) + '</small>' + body +
-    '<p class="vote-note">' + esc(fill(VOTE.note, ctx)) + '</p></div></div>';
+    '<small>' + esc(when) + ' · ' + esc(hours) + '</small>' + body +
+    '<p class="vote-note">' + esc(fill(note, ctx)) + '</p></div></div>';
 }
 const BALLOT_ICON = '<svg viewBox="0 0 24 24"><path d="M9.5 3.5h5l1 6h-7z" fill="currentColor" opacity=".55"/><path d="M4 10.5h16v9.5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z" fill="currentColor"/><rect x="8.5" y="12.6" width="7" height="1.6" rx=".8" fill="var(--vote-slot,#fff)"/><path d="M10.6 6.6l1.2 1.2 2.3-2.4" fill="none" stroke="var(--vote-slot,#fff)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-// The ballot-box mark at the voting place of the spot on the card (removed with the card).
+// Ballot-box marks at the places the box names for the spot on the card (removed with the card).
 function drawVoteMark(x, y){
-  const v = voteAt(x, y);
-  if (!v || v.x == null){ if (voteMark){ map.removeLayer(voteMark); voteMark = null; } return; }
-  const ll = L.latLng(v.y, v.x);
-  if (voteMark) voteMark.setLatLng(ll);
-  else voteMark = L.marker(ll, {pane:'pin', interactive:false, keyboard:false, zIndexOffset:-500, icon: L.divIcon({className:'', iconSize:[28, 36], iconAnchor:[14, 36], html:'<span class="vote-mk">' + BALLOT_ICON + '</span>'})}).addTo(map);
+  voteMarks.clearLayers();
+  const pts = votePlaces(x, y);
+  if (!pts.length) return;
+  pts.forEach(([px, py], i) => voteMarks.addLayer(L.marker(L.latLng(py, px), {pane:'pin', interactive:false, keyboard:false, zIndexOffset:-500 - i,
+    icon: L.divIcon({className:'', iconSize:[28, 36], iconAnchor:[14, 36], html:'<span class="vote-mk' + (i ? ' vote-mk2' : '') + '">' + BALLOT_ICON + '</span>'})})));
+  if (!map.hasLayer(voteMarks)) voteMarks.addTo(map);
   const go = here.querySelector('.vote-go');
-  if (go) go.onclick = () => frame(L.latLngBounds([L.latLng(y, x), ll]).pad(0.2), {maxZoom: 17});
+  if (go) go.onclick = () => frame(L.latLngBounds([L.latLng(y, x)].concat(pts.map(([px, py]) => L.latLng(py, px)))).pad(0.2), {maxZoom: 17});
 }
-function clearVoteMark(){ if (voteMark){ map.removeLayer(voteMark); voteMark = null; } }
+function clearVoteMark(){ voteMarks.clearLayers(); }
 // Free-flow drive time from the nearest grid point (about 1.5 km apart), and the municipality's typical time.
 function driveHere(x, y, m){
   const g = data.driveGrid; if (!g || !CITY.drive) return '';

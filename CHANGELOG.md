@@ -2,6 +2,28 @@
 
 ## Since 1.1
 
+### Dallas, voting first (October 15, on dev, unlisted)
+- A new city, live only at /dallas/ (marked `unlisted`: no hub card, not in the other maps' switchers), in the same
+  shape as Toronto and Chicago: the City of Dallas inside a Dallas–Fort Worth regional view of nine counties
+  (Dallas, Tarrant, Collin, Denton, Rockwall, Ellis, Johnson, Kaufman, Parker), with county focus.
+- Dallas has no official neighbourhoods, so its units are the ZIP codes people use (Census ZIP Code Tabulation
+  Areas, clipped to the city) and its eleven areas group them (a first draft for local review: Downtown & Uptown,
+  East Dallas, Lake Highlands, North Dallas, Far North Dallas, Northwest Dallas, West Dallas, Oak Cliff, South
+  Dallas, Southern Dallas, Pleasant Grove). Known-as names (Deep Ellum, Bishop Arts, Uptown, Lakewood…), main
+  streets, highways, DART light rail, the Silver Line and the TRE, council districts, Texas House and Senate
+  districts, congressional districts (the 2025 map used in 2026) and counties. A ZIP lens (housing cost, renters
+  and owners, housing type) and Living here from the 2020–2024 ACS; ZIPs mostly in another town carry no figures.
+- Where to vote, in a new form: Dallas, Tarrant and Collin counties run vote centers (vote at any one in your
+  county), so the box lists the three nearest early voting sites until early voting ends (October 30), then the
+  three nearest election day vote centers, with marks on the map. Denton County assigns a polling place by
+  precinct: the box shows it on election day, and its early voting sites before. It shows on cards in the suburbs
+  too. Sources: Dallas County's Vote Center Finder layer, Tarrant County's lists (placed by the Census geocoder,
+  then Nominatim), Collin County's polling-locations API and Denton County's polling-locations and precinct layers,
+  refreshed daily by *Fetch Dallas voting places*.
+- Engine: `card.vote.counties`, `early`, `centersLead`, `earlyLead`, `centersMore`, `earlyMore`, `precinctEarly`,
+  `precinctNote` (contract section 5, additive); the vote box now also shows outside the city; Living here shows a
+  figure without a tier when the city has no lens for it (Dallas has no getting-to-work lens: nearly everyone drives).
+
 ### Thirteen more neighbourhood drawings (Toronto, October 15)
 - Kensington-Chinatown (market houses with awnings, produce, a bicycle), University (the ROM's Crystal, University
   College), Cabbagetown-South St.James Town (Victorian cottages, Riverdale Farm's barn), Fort York-Liberty Village

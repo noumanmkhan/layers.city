@@ -48,7 +48,8 @@ def plans():
     for plan, out in [('planh2316', 'tx_house.geojson'), ('plans2168', 'tx_senate.geojson'), ('planc2333', 'us_house.geojson')]:
         pkg = json.loads(get('https://data.capitol.texas.gov/api/3/action/package_show?id=' + plan))['result']
         print(' ', plan, pkg.get('title'), [(r.get('name'), r.get('format')) for r in pkg['resources']][:12])
-        res = [r for r in pkg['resources'] if r['url'].lower().endswith('.zip') and '_blk' not in r['url'].lower()]
+        res = [r for r in pkg['resources'] if (r.get('name') or '').lower() == plan + '.zip'] or \
+              [r for r in pkg['resources'] if r['url'].lower().endswith('.zip') and not re.search(r'_blk|_all_files|_kml', r['url'].lower())]
         if not res: raise RuntimeError('no shapefile for ' + plan)
         z = download(res[0]['url'], os.path.join(TMP, plan + '.zip'))
         shp_to_geojson(z, '1=1', out, spat=FRAME)
@@ -72,8 +73,12 @@ def osm():
     overpass(f'[out:json][timeout:300];way["highway"~"^(trunk|primary|secondary|tertiary)$"]["name"]{b(CITY)};out tags geom;', 'osm_streets.json')
     overpass(f'[out:json][timeout:400];way["highway"~"^(motorway|trunk)$"]{b(REGION)};out tags geom;', 'osm_highways.json')
     overpass(f'[out:json][timeout:400];(relation["route"~"^(light_rail|train|tram)$"]{b(REGION)};);out tags geom;', 'osm_rail.json')
-    overpass(f'[out:json][timeout:300];(node["railway"~"^(station|halt|tram_stop)$"]{b(REGION)};node["public_transport"="station"]{b(REGION)};);out tags;',
-             'osm_stations.json')
+    stations()
+
+
+def stations():
+    b = lambda bb: f'({bb[1]},{bb[0]},{bb[3]},{bb[2]})'
+    overpass(f'[out:json][timeout:300];node["railway"~"^(station|halt|tram_stop)$"]{b(REGION)};out tags;', 'osm_stations.json')
 
 
 def scout_voting():
@@ -111,7 +116,8 @@ def scout_voting():
             print('  pdf failed', name, e)
 
 
-os.makedirs(os.path.join(RAW, 'voting'), exist_ok=True)
-for label, fn in [('census', census), ('lakes', lakes), ('plans', plans), ('councils', councils), ('osm', osm), ('scout voting', scout_voting)]:
+if __name__ == '__main__':
+  os.makedirs(os.path.join(RAW, 'voting'), exist_ok=True)
+  for label, fn in [('census', census), ('lakes', lakes), ('plans', plans), ('councils', councils), ('osm', osm), ('scout voting', scout_voting)]:
     print('==', label); step(label, fn)
-print('FAILED:', FAILED or 'none')
+  print('FAILED:', FAILED or 'none')

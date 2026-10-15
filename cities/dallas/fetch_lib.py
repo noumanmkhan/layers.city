@@ -58,6 +58,9 @@ def shp_to_geojson(zip_path, where, out, select=None, spat=None):
     """Unzip a shapefile and write the matching features as WGS84 GeoJSON with ogr2ogr."""
     d = tempfile.mkdtemp(dir=TMP)
     zipfile.ZipFile(zip_path).extractall(d)
+    for r, _, fs in list(os.walk(d)):   # a zip inside the zip (the Legislative Council's plan packages)
+        for f in fs:
+            if f.lower().endswith('.zip'): zipfile.ZipFile(os.path.join(r, f)).extractall(os.path.join(r, f[:-4]))
     shp = next(os.path.join(r, f) for r, _, fs in os.walk(d) for f in fs if f.endswith('.shp'))
     cmd = ['ogr2ogr', '-f', 'GeoJSON', '-t_srs', 'EPSG:4326', '-lco', 'COORDINATE_PRECISION=6', '-where', where]
     if select: cmd += ['-select', select]

@@ -1,0 +1,159 @@
+== census
+  downloaded place.zip 1 MB
+wrote places.geojson 445 features
+  downloaded county.zip 11 MB
+wrote counties.geojson 51 features
+  downloaded state.zip 3 MB
+wrote states.geojson 2 features
+== lakes
+wrote lakes.geojson 3838 KB
+  largest: [('Lk Texoma', 135), ('Cedar Creek Reservoir', 95), ('Lake Fork Reservoir', 88), ('Lavon Lk', 87), ('Lk Lewisville', 84), ('Lk Palestine', 61), ('Ray Roberts Lk', 57), ('Lk Texoma', 56), ('Possum Kingdom Lk', 52), (None, 51), ('Lk Ray Hubbard', 51), ('Richland-Chambers Reservoir', 49), (None, 43), ('Lk Arrowhead', 42), (None, 40), ('Lk Tawakoni', 40), ('Cedar Creek Reservoir', 37), ("Bois D'Arc Lk", 33), ('Eagle Mountain Lk', 33), ('Ray Roberts Lk', 30), ('Lk Waco', 28), ('Lk Whitney', 27), ('Big Mineral Arm', 25), ('Brazos Riv', 24), ('Wichita Bay', 24)]
+== plans
+  planh2316 PLANH2316 [('PLANH2316_All_Files_20260911.zip', 'ZIP'), ('PLANH2316.zip', 'ZIP'), ('PLANH2316_blk.zip', 'ZIP'), ('PLANH2316_kml.zip', 'KML'), ('PLANH2316_Map_Report_Package.pdf', 'PDF'), ('PLANH2316_Map_Report_Package_87s3.pdf', 'PDF'), ('PLANH2316_Map_Report_Package_88r20230301.pdf', 'PDF'), ('PLANH2316_Map_11x17.pdf', 'PDF'), ('PLANH2316_Map_36x40.pdf', 'PDF'), ('PLANH2316_Map_Packet_8.5x14.pdf', 'PDF'), ('PLANH2316_Map_Comparison_Packet_vs_PLANH2100.pdf', 'PDF'), ('PLANH2316_Map_Comparison_Packet_vs_PLANH2101.pdf', 'PDF')]
+  downloaded planh2316.zip 259 MB
+FAILED plans StopIteration()
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch_lib.py", line 44, in step
+    fn()
+  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch.py", line 54, in plans
+    shp_to_geojson(z, '1=1', out, spat=FRAME)
+  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch_lib.py", line 61, in shp_to_geojson
+    shp = next(os.path.join(r, f) for r, _, fs in os.walk(d) for f in fs if f.endswith('.shp'))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+StopIteration
+== councils
+  Council Districts | fields: ['OBJECTID', 'COUNCIL', 'DISTRICT', 'COUNCILPER', 'Shape']
+wrote dallas_council.geojson 544 KB
+  sample {'OBJECTID': 1, 'COUNCIL': 1, 'DISTRICT': '1', 'COUNCILPER': 'Chad West'}
+  Council Districts | fields: ['OBJECTID', 'NAME', 'DISTRICT', 'DATESTAMP', 'SHAPE', 'SHAPE.STArea()']
+wrote fortworth_council.geojson 514 KB
+  sample {'OBJECTID': 14034, 'NAME': '2 - Carlos Flores', 'DISTRICT': '2', 'DATESTAMP': 1705995021000, 'SHAPE.STArea()': 897379820.1823508}
+== osm
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+wrote osm_places.json 221 KB
+wrote osm_streets.json 30475 KB
+wrote osm_highways.json 10555 KB
+wrote osm_rail.json 29 KB
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 4 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
+  overpass retry 5 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  overpass retry 6 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+FAILED osm RuntimeError('overpass failed: osm_stations.json')
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch_lib.py", line 44, in step
+    fn()
+  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch.py", line 75, in osm
+    overpass(f'[out:json][timeout:300];(node["railway"~"^(station|halt|tram_stop)$"]{b(REGION)};node["public_transport"="station"]{b(REGION)};);out tags;',
+  File "/home/runner/work/city-layers/city-layers/cities/dallas/fetch_lib.py", line 83, in overpass
+    raise RuntimeError('overpass failed: ' + name)
+RuntimeError: overpass failed: osm_stations.json
+== scout voting
+ARCGIS Dallas County vote center
+    Feature Service | Select_VCs | kevin.burns_dallascountygis | https://services3.arcgis.com/zqe2kwz79KUqUvxC/arcgis/rest/services/Select_VCs/FeatureServer | 229b9ac6d67a43d8ab1693f094f97123
+    Web Map | Paulding Political Districts Auto Update | GISAdmin_GIS |  | 304d454927614cdc9e6529a2fd08d645
+    Web Map | Staff Finder Map | kevin.burns_dallascountygis |  | 74093eb36cbb4a0b8c5a3d0aab8e7473
+    Image | Mayor Proctor | GIS_CityofDeSoto |  | 8ad11bc6ed5047acb5122e2fe26c16a0
+    Web Experience | City of Dallas Voting Precincts and 2023 Council Districts | david.denham@dallascityhall.com_DallasGIS | https://experience.arcgis.com/experience/9bf468970f674de99e208c4c1dca7418/ | 9bf468970f674de99e208c4c1dca7418
+    Web Map | Vote Center Volume Analysis | kevin.burns_dallascountygis |  | af493a1ab6364dd58de7999c9c753000
+    Dashboard | Vote Center Volume Analysis (Side-by-Side) | kevin.burns_dallascountygis |  | 3c296cd3106c4228a15a30e8daf3e44b
+    Feature Service | VC_Nov_2024 | kevin.burns_dallascountygis | https://services3.arcgis.com/zqe2kwz79KUqUvxC/arcgis/rest/services/VC_Nov_2024/FeatureServer | 316dee9c32744190bb437e81bd4bf8e1
+    Feature Service | VC_540_Web_20230303 | kevin.burns_dallascountygis | https://services3.arcgis.com/zqe2kwz79KUqUvxC/arcgis/rest/services/VC_540_Web_20230303/FeatureServer | 6957b4c0eff342988a1aaae4c89cd4d5
+    Feature Service | Gearhart_WebLayers | Chad_PMX | https://services3.arcgis.com/q5Jezm9AgzqyE7Q6/arcgis/rest/services/Gearhart_WebLayers/FeatureServer | d2faa9dabf5b48f88c9da51603d24bdf
+    Web Map | Alderman Wards - City of Washington, Illinois 61535 | ScottBradbury |  | ce291d4688e54c28ade87d2fab47c3da
+ARCGIS Dallas County Election Day vote centers
+    Web Map | Paulding Political Districts Auto Update | GISAdmin_GIS |  | 304d454927614cdc9e6529a2fd08d645
+    Image | Mayor Proctor | GIS_CityofDeSoto |  | 8ad11bc6ed5047acb5122e2fe26c16a0
+    Feature Service | VC_540_Web_20230303 | kevin.burns_dallascountygis | https://services3.arcgis.com/zqe2kwz79KUqUvxC/arcgis/rest/services/VC_540_Web_20230303/FeatureServer | 6957b4c0eff342988a1aaae4c89cd4d5
+ARCGIS Tarrant County vote center
+    Web Map | Poll Place Bus Route and Stop Map | racampos_tarrantcounty |  | 8abfe253f2f844a8b2d234f10883a175
+    Web Mapping Application | Poll Place Bus Route and Stop Map | racampos_tarrantcounty | https://tarrantcounty.maps.arcgis.com/apps/webappviewer/index.html?id=e94c10ab3fcc41318ecd13b939b4062b | e94c10ab3fcc41318ecd13b939b4062b
+ARCGIS Collin County vote center
+    Web Experience | City of Dallas Voting Precincts and 2023 Council Districts | david.denham@dallascityhall.com_DallasGIS | https://experience.arcgis.com/experience/9bf468970f674de99e208c4c1dca7418/ | 9bf468970f674de99e208c4c1dca7418
+    Feature Service | Collinsville Municipal Wards | jkleps_CollinsvilleOK | https://services7.arcgis.com/T4VS1sBitWBtDLv1/arcgis/rest/services/Collinsville_Municipal_Wards/FeatureServer | fb5303acd7c14c3ca70edafc397d0fee
+    Web Map | 091021 Christopher Farley | louis_pino |  | 09d1ead179674286874edc90a28dec8b
+    PDF | 061221 Kathleen Ensz | louis_pino |  | 7abe66f2a8c84e4ea1be2363f0523ca1
+ARCGIS Denton County polling locations
+    Feature Service | Dallas Voting Accessibility_WFL1 | ncowan2@students.towson.edu_TowsonU | https://services1.arcgis.com/ZwA0Q1mheCEc5yXS/arcgis/rest/services/Dallas_Voting_Accessibility_WFL1/FeatureServer | a02c18fcc5124e23b52b36ff4abb4572
+    Feature Service | ED_May_25 | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/ED_May_25/FeatureServer | 84a2bb7433a94bffa16edf9baf92506a
+    Feature Service | ED_May_23 | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/ED_May_23/FeatureServer | a9fbba109816462e9efd1c2b93c92452
+    Feature Service | ED_June_25 | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/ED_June_25/FeatureServer | 01e9966bd71d4a48b9ce3eaf828d02fc
+    Feature Service | EV_Nov_24 | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/EV_Nov_24/FeatureServer | 931f0894a33f4a86be917a19415734e2
+    Feature Service | EV_Mar_24 | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/EV_Mar_24/FeatureServer | b7d6639ba7e8489586aa375ee2e4cf12
+    Feature Service | EV_Mar_22 | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/EV_Mar_22/FeatureServer | dc8e291bd8a24e7c8d3f9434ca6b6228
+    Shapefile | EV_Mar_24 | Christine.Fox@dentoncounty.gov_DentonCounty |  | d92696b82eb74792ada248dfdd51f390
+    Feature Service | ED_May_28_REP | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/ED_May_28_REP/FeatureServer | cee2285a2a0c4a51b8b0dd75160c5f0c
+    Feature Service | ED_May_28_DEM | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/ED_May_28_DEM/FeatureServer | ec1a4ee13330443a9e047897b6261dfd
+    Feature Service | EV_May 27 to June 3_25 | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/EV_June_25/FeatureServer | f15b5f71dfeb4c6dab772cb3c19ad62c
+    Shapefile | EV_Apr_25 | Christine.Fox@dentoncounty.gov_DentonCounty |  | 00c6ce1e42f84814a8f84e71f00e6271
+    Shapefile | ED_Mar_24_DEM | Christine.Fox@dentoncounty.gov_DentonCounty |  | 053be5ffcc4d40e6b6f98b62b08c41ed
+    Shapefile | ED_May_25 | Christine.Fox@dentoncounty.gov_DentonCounty |  | f847b91598f14fbd8749037171e47ddc
+    Feature Service | PR24_May_EV | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/PR24_May_EV/FeatureServer | 2143b4d13954416a9e303d12f747af89
+ARCGIS Denton County voter precincts
+    Feature Service | Nov_24_VP | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/Nov_24_VP/FeatureServer | 233280dcd39545858ed0c403d7c8843f
+    Feature Service | ED_May_23_VP | Christine.Fox@dentoncounty.gov_DentonCounty | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/ED_May_23_VP/FeatureServer | c80a012913ee4df39d77c7750d723558
+    Hub Page | Elections | DentonCountyGIS |  | 0274ea58e32e471ba184eea7798a5543
+    Feature Service | 2022 Voter Precincts | DentonCountyGIS | https://gis.dentoncounty.gov/arcgis/rest/services/PoliticalBoundaries_GC/MapServer/8 | d69a8fb10fe2496bb8a4d7c3c1fe46b2
+    Feature Service | 2024 Voter Precincts | DentonCountyGIS | https://gis.dentoncounty.gov/arcgis/rest/services/PoliticalBoundaries_GC/MapServer/0 | df73bcc3b2fc468e8fd8f647b0688ff5
+    Web Map | Commissioner and Voter Precincts | DentonCountyGIS |  | a1fecf7f043c4974b0afb2229906e80a
+    Web Map | Commissioner Precinct 1 | DentonCountyGIS |  | 81f90490ab8241c39b5400647f22b342
+    Web Map | Commissioner Precinct 4 | DentonCountyGIS |  | d21c9fbeea1b48f0aaea0922f3e63e53
+    Web Map | Commissioner Precinct 3 | DentonCountyGIS |  | 43c6988c228947d0a829cb963319bfac
+    Web Map | Commissioner Precinct 2 | DentonCountyGIS |  | 78b4048285fb47b08636b8d50394fa17
+    Shapefile | Voter Precincts | DentonCountyGIS |  | 011a35b331ef438b873f828d8bcacf29
+    Feature Service | Voter Precincts | DentonCountyGIS | https://services.arcgis.com/oTsZYNubyv7xK5yP/arcgis/rest/services/Voter_Precincts/FeatureServer | 9896ffca83ab405b9daea34a7c43f545
+    Document Link | Voter Precincts Map | DentonCountyGIS | https://www.dentoncounty.gov/DocumentCenter/View/3294/Voter-Precincts | 9f178855104e413aaf6ac83f35088c33
+    Web Map | Denton County | docmerlin |  | 09140653c17244a3a300f692820318dc
+PAGE https://www.dallascountyvotes.org/ 0 links
+PAGE https://www.dallascountyvotes.org/voters/election/ 0 links
+  retry 1 https://www.dallascounty.org/government/elections/ HTTP Error 404: Not Found
+  retry 2 https://www.dallascounty.org/government/elections/ HTTP Error 404: Not Found
+  page failed https://www.dallascounty.org/government/elections/ failed: https://www.dallascounty.org/government/elections/
+PAGE https://www.tarrantcountytx.gov/en/elections.html 224 links
+    /content/dam/main/district-clerk/Criminal_Felony_Payments-web.pdf
+    /content/dam/main/elections/2026/1126/locations/1126_EV_Sched.pdf
+    /content/dam/main/elections/2026/1126/locations/1126_Vote_Center_Locations.pdf
+    /content/dam/main/engineering-services/Guideline_for_Development_in_Unincorporated_areas_of_Tarrant_County.pdf
+    /en/county/locations.html
+    /en/county/locations/sub-courthouses.html
+    /en/elections/poll-workers.html
+    /en/elections/register-to-vote.html
+    /en/elections/voters-with-special-needs.html
+    https://juror-txtarrant.ejm.tylerapp.com/?linklocation=Two%20Column%20Button%20List&amp;linkname=Juror%20Access%20Login
+    https://www.votetexas.gov/
+    mailto:votebymail@tarrantcountytx.gov
+    mailto:voterregistration@tarrantcountytx.gov
+  retry 1 https://www.tarrantcountytx.gov/en/elections/voting-locations.html HTTP Error 404: Not Found
+  retry 2 https://www.tarrantcountytx.gov/en/elections/voting-locations.html HTTP Error 404: Not Found
+  page failed https://www.tarrantcountytx.gov/en/elections/voting-locations.html failed: https://www.tarrantcountytx.gov/en/elections/voting-locations.html
+PAGE https://www.collincountytx.gov/Elections 99 links
+    /contact/locations
+    /elections/lists/elections/collin-county-elections-department-statement-on-voter-registration-records
+    /elections/polling-locations
+    /elections/voter-registration-information
+    http://www.votetexas.gov/
+    https://maps.collincountytx.gov/main/?center=-96.6279846876,33.2197918705&amp;level=16&amp;_gl=1*1k33csq*_ga*MTM2ODg1MTI2OC4xNzMyMjA4MzMy*_ga_NL6BSNJSQK*czE3NTM5NzQ1MDAkbzMwJGcxJHQxNzUzOTc2NTk3JGo2MCRsMCRoMA..
+    mailto:voterregistration@collincountytx.gov
+PAGE https://www.collincountytx.gov/Elections/Election-Information 90 links
+    /contact/locations
+    /docs/default-source/elections/documents/voterregistrationprocedures.pdf?sfvrsn=b4a356e1_0
+    /docs/default-source/elections/documents/votingprocedures.pdf?sfvrsn=9aa35c06_0
+    /elections/polling-locations
+    /elections/voter-registration-information
+    https://maps.collincountytx.gov/main/?center=-96.6279846876,33.2197918705&amp;level=16&amp;_gl=1*1k33csq*_ga*MTM2ODg1MTI2OC4xNzMyMjA4MzMy*_ga_NL6BSNJSQK*czE3NTM5NzQ1MDAkbzMwJGcxJHQxNzUzOTc2NTk3JGo2MCRsMCRoMA..
+PAGE https://www.votedenton.gov/ 0 links
+PAGE https://www.votedenton.gov/election-day-voting-locations/ 0 links
+  downloaded dallas_ed.pdf 0 MB
+  downloaded dallas_ev.pdf 0 MB
+  downloaded tarrant_ev.pdf 0 MB
+FAILED: ['plans', 'osm']

@@ -1,0 +1,27 @@
+== dallas
+  Vote_Centers_20261103 | fields: ['OBJECTID', 'L_Crnt_Sta', 'L_Poll_VC', 'L_Poll_NM', 'L_Poll_Add', 'L_VC_Ph', 'L_Poll_Typ', 'L_Poll_Vtg', 'L_Reside_C', 'L_Reside_I', 'RTE_LINK', 'C_Daily_Tot', 'C_Tot_Vts', 'C_Wait_Tim', 'GlobalID']
+wrote voting/dallas_finder_4.geojson 149 KB
+  sample {'L_Crnt_Sta': 'Active', 'L_Poll_VC': 'E0021', 'L_Poll_NM': 'Islamic Association Of North Texas', 'L_Poll_Add': '840 Abrams Rd, Richardson, Texas 75081', 'L_Poll_Typ': 'EV', 'L_Poll_Vtg': 'Brothers & Sisters Ent Foyer'}
+== tarrant
+  downloaded tarrant_ed.pdf 0 MB
+  downloaded tarrant_ev.pdf 0 MB
+  Tarrant lists: election day 223 · early voting 47
+  geocoded 0 of 28 new addresses
+  placed after Nominatim 27 of 28
+  not placed: Light of the World Church 8750 North Riverside Drive Keller
+== collin
+  Collin election 76 December 12, 2026 Uniform Runoff Election 0
+  Collin election 75 November 3, 2026 Uniform Election 91
+== denton
+  Polling Locations | fields: ['OBJECTID', 'VOTER_PRECINCT', 'POLLING_LOCATION_NAME', 'ADDRESS', 'CITY', 'ZIP', 'ELECTION3', 'ELECTION3_LOCATION_NAME', 'ELECTION3_LOCATION_TYPE', 'ELECTION3_ROOM_EV', 'ELECTION3_ROOM_ED', 'ELECTION3_VP_ED']
+wrote voting/denton_polls_3.geojson 70 KB
+  sample {'OBJECTID': 5, 'VOTER_PRECINCT': '1000', 'POLLING_LOCATION_NAME': 'BOLIVAR BAPTIST CHURCH', 'ADDRESS': '6690 FM 455 W', 'CITY': 'SANGER', 'ZIP': '76266', 'ELECTION3': '2026-11-03', 'ELECTION3_LOCATION_NAME': 'BOLIVAR BAPTIST CHURCH', 'ELECTION3_LOCATION_TYPE': 'ED', 'ELECTION3_ROOM_EV': None, 'ELECTION3_ROOM_ED': 'FOYER', 'ELECTION3_VP_ED': '1000'}
+  Voter_Precincts | fields: ['FID', 'PRECINCT_N', 'SENATE', 'SBOE', 'HOUSE', 'CONGRESS', 'COMMISH', 'JPC', 'Shape_STAr', 'Shape_STLe', 'Shape__Area', 'Shape__Length']
+wrote voting/denton_precincts.geojson 1427 KB
+  sample {'PRECINCT_N': 1000}
+dallas {'source': 'Dallas County Elections Vote Center Finder', 'ed': 444, 'ev': 84}
+tarrant {'source': 'Tarrant County Elections lists (PDF), placed by the Census Bureau geocoder', 'ed': 223, 'ev': 47, 'unplaced': 1}
+collin {'source': 'Collin County Elections polling locations', 'election': 'November 3, 2026 Uniform Election', 'ed': 90, 'ev': 42}
+denton {'source': 'Denton County Elections polling locations', 'precincts': 239, 'ed': 148, 'ev': 54}
+wrote voting/centers.json 176 KB
+FAILED: none

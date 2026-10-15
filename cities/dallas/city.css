@@ -1,0 +1,22 @@
+/* Dallas's own colours: the eleven areas, DART light rail (DART's line colours) and the rail swatch.
+   Everything else (page, civic layers, lenses, streets) comes from the engine. */
+:root{
+  --s-downtown-uptown:#EE6E73; --s-east-dallas:#95CA7E; --s-lake-highlands:#6BC4CF; --s-north-dallas:#7DAFE0; --s-far-north-dallas:#B9A5E6; --s-northwest-dallas:#F2CE5E; --s-west-dallas:#F0A06E; --s-oak-cliff:#F3A8CB; --s-south-dallas:#8FD6C0; --s-southern-dallas:#D9C49A; --s-pleasant-grove:#A9C7E8;
+  --l-red:#CE0E2D; --l-blue:#0064A8; --l-green:#009B3A; --l-orange:#F7931D;
+  --tre:#112458; --silver:#8C96A3;
+  /* US cities: red, white and blue. Panel toggles take the flag's blue; pins and buttons stay red. */
+  --accent-2:#1C4A94;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --s-downtown-uptown:#C2484E; --s-east-dallas:#5E9A48; --s-lake-highlands:#3B98A3; --s-north-dallas:#4C7FB5; --s-far-north-dallas:#7D68B8; --s-northwest-dallas:#B8962E; --s-west-dallas:#C7703F; --s-oak-cliff:#C26E96; --s-south-dallas:#4FA88E; --s-southern-dallas:#9E8A5F; --s-pleasant-grove:#6F8FB5;
+  --l-red:#E5485F; --l-blue:#4D93D9; --l-green:#3DBF6C; --l-orange:#F7931D; --tre:#6F86C9; --silver:#B6BEC8; --accent-2:#4F84E8;
+}}
+:root[data-theme="dark"]{
+  --s-downtown-uptown:#C2484E; --s-east-dallas:#5E9A48; --s-lake-highlands:#3B98A3; --s-north-dallas:#4C7FB5; --s-far-north-dallas:#7D68B8; --s-northwest-dallas:#B8962E; --s-west-dallas:#C7703F; --s-oak-cliff:#C26E96; --s-south-dallas:#4FA88E; --s-southern-dallas:#9E8A5F; --s-pleasant-grove:#6F8FB5;
+  --l-red:#E5485F; --l-blue:#4D93D9; --l-green:#3DBF6C; --l-orange:#F7931D; --tre:#6F86C9; --silver:#B6BEC8; --accent-2:#4F84E8;
+}
+.sw.sides{background:conic-gradient(var(--s-downtown-uptown) 0 9%,var(--s-east-dallas) 0 18%,var(--s-lake-highlands) 0 27%,var(--s-north-dallas) 0 36%,var(--s-far-north-dallas) 0 45%,var(--s-northwest-dallas) 0 55%,var(--s-west-dallas) 0 64%,var(--s-oak-cliff) 0 73%,var(--s-south-dallas) 0 82%,var(--s-southern-dallas) 0 91%,var(--s-pleasant-grove) 0 100%)}
+.sw.dart{background:linear-gradient(var(--l-red) 0 25%,var(--l-blue) 0 50%,var(--l-green) 0 75%,var(--l-orange) 0)}
+.sw.rail{background:linear-gradient(var(--silver) 0 50%,var(--tre) 0)}
+.fill-major.downtown-uptown{fill:var(--s-downtown-uptown)} .fill-major.east-dallas{fill:var(--s-east-dallas)} .fill-major.lake-highlands{fill:var(--s-lake-highlands)} .fill-major.north-dallas{fill:var(--s-north-dallas)} .fill-major.far-north-dallas{fill:var(--s-far-north-dallas)} .fill-major.northwest-dallas{fill:var(--s-northwest-dallas)} .fill-major.west-dallas{fill:var(--s-west-dallas)} .fill-major.oak-cliff{fill:var(--s-oak-cliff)} .fill-major.south-dallas{fill:var(--s-south-dallas)} .fill-major.southern-dallas{fill:var(--s-southern-dallas)} .fill-major.pleasant-grove{fill:var(--s-pleasant-grove)}
+.sub-line.lred{stroke:var(--l-red)} .sub-line.lblue{stroke:var(--l-blue)} .sub-line.lgreen{stroke:var(--l-green)} .sub-line.lorange{stroke:var(--l-orange)}

@@ -7,7 +7,7 @@ on:
     inputs:
       script: {description: 'Script in cities/dallas/ to run', default: 'fetch.py'}
   push:
-    branches: [main, fetch-dallas]
+    branches: [main]
     paths: ['cities/dallas/fetch*.py', '.github/workflows/fetch-dallas.yml']
 permissions:
   contents: write
