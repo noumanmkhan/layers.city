@@ -148,6 +148,10 @@ for c in CORE:
 outside = polys(LAND.difference(REGION.buffer(0.0005)))
 base.insert(0, feat(outside, {'kind': 'outside', 'name': ''}))
 dump('base', base)
+# Lakes outside the city, inside the nine counties: the city view's mask paints them water, so district lines and
+# party colours that reach past the city don't show through the gaps it leaves for water.
+lakes_out = polys(LAKES.intersection(REGION).difference(CITY_FULL))
+dump('lakes', [feat(g, {'water': True}) for g in getattr(lakes_out, 'geoms', [lakes_out]) if not g.is_empty])
 dump('region_areas', [feat(dry(counties[c]), {'region': c + ' County'}) for c in CORE])
 write('regions', [{'type': 'Feature', 'properties': {'name': n}, 'geometry': {'type': 'Point', 'coordinates': c}} for n, c in [
     ('Oklahoma', [-97.2, 33.78]), ('Grayson County', [-96.65, 33.62]), ('Hunt County', [-96.08, 33.15]), ('Wise County', [-97.65, 33.22]),
@@ -164,10 +168,11 @@ for f in load('dallas_council.geojson')['features']:
     if g.is_empty: continue
     council.append(feat(g, {'num': int(f['properties']['COUNCIL']), 'lp': label_pt(g)}))
 dump('council', sorted(council, key=lambda f: f['properties']['num']))
+# Cut to land like the base, so district shapes (and their party colours) don't spill across the lakes.
 for src, out in [('tx_house', 'tx_house'), ('tx_senate', 'tx_senate'), ('us_house', 'us_house')]:
     feats = []
     for f in load(src + '.geojson')['features']:
-        g = polys(shape(f['geometry']).buffer(0).intersection(REGION))
+        g = dry(shape(f['geometry']).buffer(0).intersection(REGION))
         if g.is_empty or g.area * KM2 < 0.05: continue
         feats.append(feat(g, {'num': int(f['properties']['District']), 'lp': label_pt(g)}))
     dump(out, sorted(feats, key=lambda f: f['properties']['num']))

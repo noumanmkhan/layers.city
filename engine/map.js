@@ -3301,14 +3301,14 @@ function stampTitle(canvas, name, sub){
 
 /* ---------- load ---------- */
 renderEmpty('Loading map data…');
-const files = ['base', 'regions'];
+const files = ['base', 'regions'].concat(CITY.maskWater ? [CITY.maskWater] : []);
 const REP_FILES = ((CITY.card.reps && CITY.card.reps.offices) || []).map(o => o.file).filter(Boolean);
 data.repAreas = {};
 // Files of layers marked "lazy" (bus route shapes) load the first time they're needed.
 LAYERS.filter(it => !it.lazy).forEach(it => [].concat(it.file || it.files || []).forEach(f => { if (!files.includes(f)) files.push(f); }));
 const loaded = {};
 // Files of layers marked "optional" (e.g. daily closures not fetched yet) load as empty instead of failing the map.
-const OPTIONAL = new Set(LAYERS.filter(it => it.optional).flatMap(it => [].concat(it.file || it.files || [])));
+const OPTIONAL = new Set(LAYERS.filter(it => it.optional).flatMap(it => [].concat(it.file || it.files || [])).concat(CITY.maskWater ? [CITY.maskWater] : []));
 Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type:'FeatureCollection', features:[]}; throw e; }).then(d => { loaded[f] = d; }))
   .concat([get(CITY.lens.file).then(d => { data.profiles = d; }), get(CITY.card.reps.file).then(d => { data.reps = d; }).catch(() => { data.reps = null; }),
     CITY.regionPlaces ? get(CITY.regionPlaces.file).then(d => { data.regionPlaces = d; }).catch(() => { data.regionPlaces = null; }) : null,
@@ -3327,7 +3327,10 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
   buildFocusUI();
   // City-only mode: cover every other municipality and the land beyond the region (water stays visible).
   mask = L.geoJSON({type:'FeatureCollection', features: base.features.filter(f => f.properties.kind !== 'city')},
-    {pane:'mask', interactive:false, style: () => ({className:'mask'})});
+    {pane:'mask', interactive:false, style: f => ({className: f.properties.water ? 'mask-water' : 'mask'})});
+  // Lakes beyond the city (optional CITY.maskWater file): painted water on the mask, so layers that reach past the
+  // city (districts across a region) don't show through the gaps the mask leaves for water.
+  if (CITY.maskWater && loaded[CITY.maskWater]) mask.addData(loaded[CITY.maskWater]);
   // A lens with no figures in this build's data (e.g. transit times not fetched yet) is hidden, with its filter row.
   CITY.lens.lenses.filter(L_ => L_.optional).forEach(L_ => {
     if (!Object.values(data.profiles).some(d => d[L_.minutes || L_.field || L_.key] != null)) document.querySelectorAll('[data-lens="' + L_.id + '"], .frow:has([data-f="' + L_.id + '"])').forEach(e => e.remove());

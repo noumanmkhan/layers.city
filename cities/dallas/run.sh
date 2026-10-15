@@ -14,6 +14,7 @@ python3 institutions.py       # universities, Dallas College, ERs: points, writt
 OUT=../../docs/dallas/data
 simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
 npx mapshaper -i tmp/base.geojson -simplify interval=60 keep-shapes -filter-slivers min-area=40000m2 -filter "!this.isNull" -o $OUT/base.geojson precision=0.00005 format=geojson -quiet
+npx mapshaper -i tmp/lakes.geojson -simplify interval=60 keep-shapes -filter-slivers min-area=40000m2 -o $OUT/lakes.geojson precision=0.00005 format=geojson -quiet
 simplify sides 10; simplify zips 10; simplify council 10; simplify tx_house 20; simplify tx_senate 20; simplify us_house 20
 [ -f tmp/us_house_2021.geojson ] && simplify us_house_2021 20
 simplify school 10; simplify heritage 3; simplify pids 5

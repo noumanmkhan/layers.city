@@ -33,6 +33,9 @@
 - Config: optional `party` on outline layers and a top-level `party` block (contract section 4). No data changes:
   parties were already in `representatives.json`. Dallas's congressional districts wait for January (members sit
   for the old lines). City wards stay uncoloured (nonpartisan).
+- Fixed (Dallas): Texas House, Senate and congressional districts are now cut to land, so their party colours no
+  longer tint the lakes. A new optional `maskWater` file (`lakes.geojson`) lets the city view's mask paint lakes
+  beyond the city as water, so district edges along their shores don't show through.
 
 ### Dallas, Toronto's features (October 16, on dev, unlisted)
 - Landmarks (29), universities, Dallas College campuses and ERs (IPEDS and CMS, public and nonprofit only),
