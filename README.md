@@ -191,11 +191,13 @@ The community area lens uses the American Community Survey (2020–2024 five-yea
 
 The third city, on the same engine (`cities/vancouver/`). The first build has the base: Downtown and the East and West Sides (Ontario Street splits east from west), the City's 22 local areas plus Stanley Park, 21 known-as names (Gastown, Yaletown, Commercial Drive, Punjabi Market…), landmarks, main streets, BC highways across Metro Vancouver, SkyTrain and SeaBus, and the West Coast Express. The local area lens and Living here rows use the 2021 Census: the City hasn't published 2021 profiles for its local areas, so Statistics Canada's dissemination areas are summed into them. Vancouver elects its council, park board and school board at large, so there are no wards; representatives (mayor, council, MLA, MP) come after the October 2026 civic and provincial elections. Sources and quirks are in `cities/vancouver/SOURCES.md`.
 
-## Dallas (in progress, voting first)
+## Dallas (in progress)
 
 **Address:** https://layers.city/dallas/ (live but not linked from the maps hub yet)
 
 The fourth city (`cities/dallas/`), built first for the November 3, 2026 election. Its shape follows Toronto's and Chicago's: the City of Dallas inside a Dallas–Fort Worth regional view of nine counties. Dallas has no official neighbourhoods, so the units are the ZIP codes people use, clipped to the city, grouped into eleven areas (a first draft for local review). Council districts, Texas House and Senate districts, congressional districts, counties, main streets, highways, DART light rail, the Silver Line and the TRE, and a ZIP lens from the American Community Survey.
+
+Since October 16 it has most of Toronto's features: landmarks, universities, Dallas College campuses and ERs, skyscrapers, landmark historic districts, public improvement districts, collector streets, bike lanes, DART buses and a Transit nearby section, a *To downtown* transit lens, tree canopy, the suburban drive lens, collection day, school districts (a Dallas address can be in any of a dozen ISDs) with Dallas ISD's trustee districts, Nearby (libraries, recreation centers, pools, parks), and representatives with their official pages. Members of Congress are matched on the lines they were elected on until January, while the map draws the new lines voters use on November 3. What it lacks (an address grid, what's changing, heritage buildings, school attendance zones, bike share, streetcars) is set out with reasons in `cities/dallas/PARKED.md`.
 
 *Where to vote* works differently in Texas: Dallas, Tarrant and Collin counties run vote centers, so anyone registered in the county can vote at any of them. The card lists the three nearest early voting sites until early voting ends, then the three nearest election day vote centers, and marks them on the map, in Dallas and its suburbs. Denton County still assigns a polling place by precinct, so a Denton card names that place, as Toronto's does. Sources and quirks are in `cities/dallas/SOURCES.md`.
 
@@ -289,7 +291,10 @@ Dallas:
 - U.S. Census Bureau (public domain): 2024 cartographic boundaries (places, counties, states), ZIP Code Tabulation Areas, TIGERweb lakes, American Community Survey 2020–2024; its batch geocoder places Tarrant County's voting sites.
 - City of Dallas GIS: council districts. Texas Legislative Council ([Capitol Data Portal](https://data.capitol.texas.gov/)): Texas House (PLANH2316), Senate (PLANS2168) and congressional (PLANC2333) districts. Texas government GIS is public information under the Texas Public Information Act; re-check before any commercial use.
 - Vote centers and polling places: Dallas County Elections (Vote Center Finder), Tarrant County Elections (published lists), Collin County Elections (polling-locations map), Denton County Elections (polling locations and voter precincts).
-- [DART GTFS](https://www.dart.org/about/about-dart/fixed-route-schedule) for light rail, the Silver Line and the TRE.
+- [DART GTFS](https://www.dart.org/about/about-dart/fixed-route-schedule) for light rail, the Silver Line, the TRE and buses, and transit times to downtown (routed with r5py on a Geofabrik OpenStreetMap extract).
+- City of Dallas GIS (ArcGIS Online): libraries, recreation centers, parks, pools, spray grounds, dog parks, landmark historic districts, sanitation days of service and brush routes, school districts, bike facilities. Dallas ISD: trustee districts.
+- Open States (Texas legislators), the Clerk of the U.S. House (members), and PLANC2193 from the Texas Legislative Council for the districts today's members were elected on.
+- IPEDS (colleges and universities) and CMS Hospital General Information (hospitals with emergency departments); Wikipedia's List of tallest buildings in Dallas (CC BY-SA); ESA WorldCover 2021 (CC BY 4.0) for tree canopy; OSRM for drive times.
 - Streets, highways and place names © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL), fetched with the Overpass API; Nominatim for addresses the Census geocoder can't match.
 
 `cities/toronto/SOURCES.md`, `cities/chicago/SOURCES.md` and `cities/dallas/SOURCES.md` list the exact queries used to fetch the raw data. The data stays under its original licences.

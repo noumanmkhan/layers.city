@@ -2,6 +2,20 @@
 
 ## Since 1.1
 
+### Dallas, Toronto's features (October 16, on dev, unlisted)
+- Landmarks (29), universities, Dallas College campuses and ERs (IPEDS and CMS, public and nonprofit only),
+  skyscrapers (Wikipedia), the City's 21 landmark historic districts, 13 public improvement districts (a layer, a pill and a card row, like Chicago's SSAs), collector streets, bike lanes (the City's
+  completed bike facilities), DART bus routes and a Transit nearby section, a *To downtown* transit lens (DART
+  schedules, r5py), tree canopy (ESA WorldCover), the suburban drive lens, Collection day (garbage and recycling
+  weekday, brush and bulky trash week), school districts and Dallas ISD trustee districts (a `boards` layer and a
+  School district row), Nearby (libraries, recreation centers, ERs, pools, dog parks; parks, spray grounds,
+  playgrounds and tennis courts within half a mile), representatives (council, Texas House and Senate, Congress)
+  refreshed weekly, views and a tour. DART station names in title case.
+- Engine: an office in `card.reps` can name a polygon `file` the card checks but the map doesn't draw (Dallas's
+  members of Congress sit for the 2021 lines until January); `surface.json` `stopNames` tidies capitalised stop
+  names; `fetch_bikes.py` reads ArcGIS layers. Other cities' output unchanged.
+- Not built, with reasons: `cities/dallas/PARKED.md`.
+
 ### Dallas, voting first (October 15, on dev, unlisted)
 - A new city, live only at /dallas/ (marked `unlisted`: no hub card, not in the other maps' switchers), in the same
   shape as Toronto and Chicago: the City of Dallas inside a Dallas–Fort Worth regional view of nine counties
