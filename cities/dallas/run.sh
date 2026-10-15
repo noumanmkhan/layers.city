@@ -16,7 +16,7 @@ simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-sha
 npx mapshaper -i tmp/base.geojson -simplify interval=60 keep-shapes -filter-slivers min-area=40000m2 -filter "!this.isNull" -o $OUT/base.geojson precision=0.00005 format=geojson -quiet
 simplify sides 10; simplify zips 10; simplify council 10; simplify tx_house 20; simplify tx_senate 20; simplify us_house 20
 [ -f tmp/us_house_2021.geojson ] && simplify us_house_2021 20
-simplify school 10; simplify heritage 3
+simplify school 10; simplify heritage 3; simplify pids 5
 npx mapshaper -i tmp/counties.geojson -simplify interval=40 keep-shapes -o $OUT/counties.geojson precision=0.00005 format=geojson -quiet
 for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval=6 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 python3 collectors.py          # after streets and base are simplified: the tier below the main streets

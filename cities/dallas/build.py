@@ -199,6 +199,18 @@ if os.path.exists(R + 'disd/trustees_2021.geojson'):
 dump('school', school)
 print('school', len(school))
 
+# ---------- Public improvement districts (City of Dallas): property owners' self-taxing business and neighbourhood
+# districts, like Chicago's SSAs. The "Premium" areas are extra-assessment zones inside SouthSide and Vickery Meadow. ----------
+pids = []
+if os.path.exists(R + 'city/pids.geojson'):
+    for f in load('city/pids.geojson')['features']:
+        n = (f['properties'].get('Name') or '').strip()
+        if not f.get('geometry') or not n or n.endswith('Premium'): continue
+        g = polys(shape(f['geometry']).buffer(0))
+        if not g.is_empty: pids.append(feat(g, {'name': n, 'lp': label_pt(g)}))
+dump('pids', pids)
+print('public improvement districts', len(pids))
+
 # ---------- Dallas Landmark historic districts (City of Dallas) ----------
 # The City's file is a KML import: each district appears three times, and Junius Heights in zones A to F. One shape per name.
 heritage = []

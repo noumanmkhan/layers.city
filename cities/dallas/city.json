@@ -107,7 +107,7 @@
       "cls": "lake-far"
     }
   ],
-  "attribution": "City limits, counties, ZIP code areas & ACS figures: U.S. Census Bureau · Council districts: City of Dallas GIS · Texas House, Senate & congressional districts: Texas Legislative Council · Vote centers & polling places: Dallas, Tarrant, Collin and Denton County Elections · DART rail: DART GTFS · Buses: DART GTFS · Libraries, recreation centers, parks, historic districts, sanitation routes, bike lanes & school districts: City of Dallas GIS · Dallas ISD trustee districts: Dallas ISD · Colleges: IPEDS · Hospitals: CMS · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Streets, highways & address search: © OpenStreetMap contributors via Nominatim",
+  "attribution": "City limits, counties, ZIP code areas & ACS figures: U.S. Census Bureau · Council districts: City of Dallas GIS · Texas House, Senate & congressional districts: Texas Legislative Council · Vote centers & polling places: Dallas, Tarrant, Collin and Denton County Elections · DART rail: DART GTFS · Buses: DART GTFS · Libraries, recreation centers, parks, historic districts, improvement districts, sanitation routes, bike lanes & school districts: City of Dallas GIS · Dallas ISD trustee districts: Dallas ISD · Colleges: IPEDS · Hospitals: CMS · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Streets, highways & address search: © OpenStreetMap contributors via Nominatim",
   "example": {
     "at": [
       32.7797,
@@ -506,6 +506,15 @@
           "boardNote": "A Dallas address doesn't mean Dallas ISD: the school district depends on the spot. Source: City of Dallas GIS (2022 Census lines) and Dallas ISD (trustee districts adopted December 16, 2021).",
           "label": "{name}",
           "hover": "{long}: {name}"
+        },
+        {
+          "id": "pid",
+          "kind": "patches",
+          "file": "pids",
+          "name": "Public improvement districts",
+          "note": "Business and neighbourhood districts funded by their own property assessment: Downtown, Deep Ellum, Uptown…",
+          "label": "{name}",
+          "hover": "{name} PID"
         }
       ]
     ]
@@ -762,6 +771,11 @@
         "knownas": 2
       },
       {
+        "layer": "pid",
+        "text": "PID: {name}",
+        "color": "--bia"
+      },
+      {
         "layer": "congress",
         "text": "Congress: TX-{num}",
         "color": "--fed"
@@ -792,6 +806,12 @@
         "layer": "heritage",
         "text": "{name}",
         "onlyInside": true
+      },
+      {
+        "label": "Improvement district",
+        "layer": "pid",
+        "text": "{name} PID",
+        "empty": "None"
       },
       {
         "label": "School district",
