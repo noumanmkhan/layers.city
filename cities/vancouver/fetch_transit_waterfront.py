@@ -184,4 +184,4 @@ json.dump({'to': 'Waterfront Station', 'destinations': [[n, x, y] for n, x, y in
           open(os.path.join(HERE, 'raw', 'transit_waterfront.json'), 'w'), separators=(',', ':'))
 mins = sorted(v['minutes'] for v in out.values() if v['minutes'] is not None)
 print('wrote raw/transit_waterfront.json:', len(out), 'local areas; minutes min/median/max', mins[0], mins[len(mins) // 2], mins[-1])
-for k, v in sorted(out.items(), key=lambda kv: int(kv[0])): print('  ', k, las[int(k) - 1]['properties']['name'], v)
+for k, v in sorted(out.items(), key=lambda kv: int(kv[0])): print('  ', k, las[int(k) - 1]['properties']['name'] if int(k) <= len(las) else 'University Endowment Lands', v)
