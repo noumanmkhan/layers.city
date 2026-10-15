@@ -78,13 +78,21 @@ SUMMED = [OWNER, RENTER, HH, OWN_T, TEN_T, COM, CAR, TRANSIT, WALK, BIKE, TYPE_T
 las = sorted((f['properties']['name'].strip(), shape(f['geometry']).buffer(0)) for f in json.load(open(os.path.join(RAW, 'local_areas.geojson')))['features'])
 code = {n: i for i, (n, _) in enumerate(las, 1)}
 sums, wv, wr, placed = defaultdict(Counter), defaultdict(lambda: [0, 0]), defaultdict(lambda: [0, 0]), Counter()
-CITY = next(shape(f['geometry']).buffer(0) for f in json.load(open(os.path.join(RAW, 'csds.geojson')))['features'] if f['properties']['CSDUID'] == '5915022')
+CSDS = json.load(open(os.path.join(RAW, 'csds.geojson')))['features']
+CITY = next(shape(f['geometry']).buffer(0) for f in CSDS if f['properties']['CSDUID'] == '5915022')
+# The University Endowment Lands (build.py's unit 24): its dissemination areas make a profile of their own, marked "apart":
+# tiers place it against the 22 local areas without moving theirs, and the facts engine never ranks it.
+from shapely.geometry import box
+UEL_NAME, UEL_CODE = 'University Endowment Lands', 24
+UEL = next(shape(f['geometry']).buffer(0) for f in CSDS if f['properties']['CSDTYPE'] == 'RDA' and f['properties']['CSDNAME'].endswith(' A')) \
+    .intersection(box(-123.30, 49.20, -123.19, 49.30)).difference(CITY)
 for f in json.load(open(os.path.join(RAW, 'das.geojson')))['features']:
     da = f['properties']['DAUID']; d = C['das'].get(da)
     if not d: continue
     g = shape(f['geometry']).buffer(0); pt = g.representative_point()
-    if not CITY.contains(pt): continue   # the fetch takes Metro Vancouver's DAs in the City's box: Burnaby's along Boundary Road too
-    la = next((n for n, lg in las if lg.contains(pt)), None) or min(las, key=lambda a: a[1].distance(pt))[0]
+    if UEL.contains(pt): la = UEL_NAME
+    elif not CITY.contains(pt): continue   # the fetch takes Metro Vancouver's DAs in the City's box: Burnaby's along Boundary Road too
+    else: la = next((n for n, lg in las if lg.contains(pt)), None) or min(las, key=lambda a: a[1].distance(pt))[0]
     placed[la] += 1
     v = lambda k: d.get(str(k)) or 0
     for k in SUMMED: sums[la][k] += v(k)
@@ -92,7 +100,8 @@ for f in json.load(open(os.path.join(RAW, 'das.geojson')))['features']:
     if d.get(str(RENT)) and v(TEN_T): wr[la][0] += d[str(RENT)] * v(TEN_T); wr[la][1] += v(TEN_T)
 
 data = {}
-for name, _ in las:
+code[UEL_NAME] = UEL_CODE
+for name in [n for n, _ in las] + [UEL_NAME]:
     s = sums[name]; v = lambda k: s[k]
     hh, com = v(OWNER) + v(RENTER), v(COM)
     d = data[str(code[name])] = {
@@ -119,16 +128,23 @@ for name, _ in las:
     d['recent'] = round(100 * v(IMM_RECENT) / tot) if tot else None
 
 
+data[str(UEL_CODE)]['apart'] = True
+CORE = {k: d for k, d in data.items() if not d.get('apart')}
+
+
 def pct_rank(key):
-    vals = sorted(d[key] for d in data.values() if d[key] is not None)
+    vals = sorted(d[key] for d in CORE.values() if d[key] is not None)   # ranked among the 22; the UEL is placed against them
     return {k: (sum(x < d[key] for x in vals) + 0.5 * sum(x == d[key] for x in vals)) / len(vals) for k, d in data.items() if d[key] is not None}
 
 
 rv, rr = pct_rank('value'), pct_rank('rent')
 score = {k: (1 - d['renterPct'] / 100) * rv.get(k, .5) + (d['renterPct'] / 100) * rr.get(k, .5) for k, d in data.items()}
-ranked = sorted(score, key=score.get)
+ranked = sorted(CORE, key=score.get)
+cut1, cut2 = score[ranked[int(len(ranked) / 3 + .999) - 1]], score[ranked[int(2 * len(ranked) / 3 + .999) - 1]]
 for i, k in enumerate(ranked):
     data[k]['cost'] = 'lower' if i < len(ranked) / 3 else 'middle' if i < 2 * len(ranked) / 3 else 'higher'
+for k, d in data.items():
+    if d.get('apart'): d['cost'] = 'lower' if score[k] <= cut1 else 'middle' if score[k] <= cut2 else 'higher'
 for d in data.values():
     d['commute'] = 'car' if d['carPct'] >= 68 else 'mixed' if d['carPct'] >= 50 else 'transit'
     d['tenure'] = 'owners' if d['renterPct'] < 35 else 'mix' if d['renterPct'] <= 60 else 'renters'
@@ -146,5 +162,6 @@ print('households summed:', sum(s[OWNER] + s[RENTER] for s in sums.values()))
 for k in ('6', '12', '17'):
     if k in data: print('example', k, data[k])
 print('languages ever in a top 3:', sorted({l[0] for d in data.values() for l in d.get('lang', [])[:3]}))
+print('UEL:', data[str(UEL_CODE)])
 print('profiles:', len(data), 'local areas from', sum(placed.values()), 'DAs;', dict(Counter(d['cost'] for d in data.values())),
       dict(Counter(d['commute'] for d in data.values())), dict(Counter(d['tenure'] for d in data.values())))

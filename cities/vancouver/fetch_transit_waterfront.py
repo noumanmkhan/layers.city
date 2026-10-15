@@ -5,7 +5,7 @@ access); writes raw/transit_waterfront.json. Vancouver's version of cities/toron
 How it works:
   1. Download TransLink's schedules (GTFS: SkyTrain, buses, SeaBus and the West Coast Express; one agency
      runs the whole region) and an OpenStreetMap extract for walking.
-  2. Scatter origin points about 400 m apart inside each of the 22 local areas (raw/local_areas.geojson,
+  2. Scatter origin points about 400 m apart inside each of the 22 local areas and the University Endowment Lands (raw/local_areas.geojson,
      numbered 1-22 in alphabetical order, as build.py numbers them), so a big area isn't judged by one spot.
   3. Route every point with r5py (Conveyal R5): walk + any transit, leaving between 8:00 and 9:00 on a regular
      weekday, median trip over that hour, to Waterfront Station, where SkyTrain's Expo and Canada Lines,
@@ -130,8 +130,13 @@ import geopandas as gpd
 from shapely.geometry import Point, shape
 pts = []
 las = sorted(json.load(open(os.path.join(HERE, 'raw', 'local_areas.geojson')))['features'], key=lambda f: f['properties']['name'].strip())
-for code, f in enumerate(las, 1):
-    g = shape(f['geometry']).buffer(0)
+# The University Endowment Lands (unit 24, shown with the city since October 16, 2026): the Point Grey piece of Electoral Area A.
+from shapely.geometry import box
+_c = json.load(open(os.path.join(HERE, 'raw', 'csds.geojson')))['features']
+_city = next(shape(f['geometry']).buffer(0) for f in _c if f['properties']['CSDUID'] == '5915022')
+_uel = next(shape(f['geometry']).buffer(0) for f in _c if f['properties']['CSDTYPE'] == 'RDA' and f['properties']['CSDNAME'].endswith(' A'))
+_uel = _uel.intersection(box(-123.30, 49.20, -123.19, 49.30)).difference(_city)
+for code, g in list(enumerate((shape(f['geometry']).buffer(0) for f in las), 1)) + [(24, _uel)]:
     x0, y0, x1, y1 = g.bounds; dx, dy = 400 / 72600, 400 / 111000
     mine = []
     y = y0 + dy / 2

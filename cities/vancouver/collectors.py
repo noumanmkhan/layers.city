@@ -9,7 +9,7 @@ from names import street_name
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, '..', '..', 'docs', 'vancouver', 'data')
-city = unary_union([shape(f['geometry']) for f in json.load(open(os.path.join(DATA, 'base.geojson')))['features'] if f['properties']['kind'] == 'city'])
+city = unary_union([shape(f['geometry']) for f in json.load(open(os.path.join(DATA, 'base.geojson')))['features'] if f['properties']['kind'] in ('city', 'annex')])   # the city and the University Endowment Lands
 mains = unary_union([shape(f['geometry']) for f in json.load(open(os.path.join(DATA, 'streets.geojson')))['features']]).buffer(0.00013)
 by = {}
 for w in json.load(open(os.path.join(HERE, 'raw', 'osm_streets.json')))['elements']:

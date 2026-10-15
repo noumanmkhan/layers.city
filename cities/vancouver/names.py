@@ -49,6 +49,9 @@ KNOWN_AS = [
     {'name': 'Champlain Heights', 'kind': 'district', 'at': (49.2165, -123.0310)},
     {'name': 'Fraserview', 'kind': 'district', 'at': (49.2160, -123.0650)},
     {'name': 'Southlands', 'kind': 'district', 'at': (49.2240, -123.1900)},
+    # University Endowment Lands (beside the city, shown with it)
+    {'name': 'University Village', 'kind': 'village', 'at': (49.2660, -123.2385)},
+    {'name': 'Wesbrook Village', 'kind': 'village', 'at': (49.2475, -123.2370)},
 ]
 
 # category, tier, (lat, lon), aliases; 'osm' when OpenStreetMap names it differently.
@@ -86,6 +89,13 @@ LANDMARKS = [
     {'name': 'Gastown Steam Clock', 'cat': 'culture', 'tier': 2, 'at': (49.2844, -123.1089), 'aliases': ['Steam Clock']},
     {'name': 'Harbour Centre', 'cat': 'culture', 'tier': 2, 'at': (49.2847, -123.1117), 'aliases': ['Vancouver Lookout', 'The Lookout']},
     {'name': 'PNE and Playland', 'cat': 'culture', 'tier': 2, 'at': (49.2820, -123.0412), 'aliases': ['PNE', 'Playland', 'Pacific National Exhibition', 'Hastings Park'], 'osm': 'Playland'},
+    # UBC and the University Endowment Lands (beside the city, shown with it)
+    {'name': 'Museum of Anthropology', 'cat': 'culture', 'tier': 2, 'at': (49.2694, -123.2592), 'aliases': ['MOA', 'UBC Museum of Anthropology'], 'osm': 'Museum of Anthropology at UBC'},
+    {'name': 'Chan Centre', 'cat': 'music', 'tier': 2, 'at': (49.2697, -123.2539), 'aliases': ['Chan Centre for the Performing Arts'], 'osm': 'Chan Centre for the Performing Arts'},
+    {'name': 'Pacific Spirit Regional Park', 'cat': 'park', 'tier': 1, 'at': (49.2490, -123.2170), 'aliases': ['Pacific Spirit Park', 'Pacific Spirit', 'Endowment Lands forest']},
+    {'name': 'Wreck Beach', 'cat': 'park', 'tier': 2, 'at': (49.2622, -123.2617), 'aliases': ['Wreck']},
+    {'name': 'UBC Botanical Garden', 'cat': 'park', 'tier': 2, 'at': (49.2531, -123.2496), 'aliases': ['Botanical Garden UBC', 'Greenheart TreeWalk']},
+    {'name': 'Nitobe Memorial Garden', 'cat': 'park', 'tier': 2, 'at': (49.2665, -123.2592), 'aliases': ['Nitobe Garden', 'Japanese Garden UBC']},
     # Airport (in Richmond, outside the city)
     {'name': 'Vancouver Airport', 'cat': 'airport', 'tier': 1, 'at': (49.1939, -123.1844), 'aliases': ['YVR', 'Vancouver International Airport'], 'osm': 'Vancouver International Airport'},
 ]

@@ -1,7 +1,7 @@
 name: Fetch Vancouver places
 # Monthly: the City of Vancouver open data behind Nearby, BIAs, heritage districts and voting places, DataBC's and
-# Represent's riding boundaries, OpenStreetMap's institutions and places of worship (cities/vancouver/fetch_layers.py,
-# fetch_faith.py), then a full rebuild of the Vancouver map (cities/vancouver/run.sh). Commits only what changed.
+# Represent's riding boundaries, OpenStreetMap's institutions, places of worship and the University Endowment Lands'
+# parks and bike paths (cities/vancouver/fetch_layers.py, fetch_faith.py, fetch_uel.py), then a full rebuild of the Vancouver map (cities/vancouver/run.sh). Commits only what changed.
 on:
   schedule:
     - cron: '41 7 9 * *'   # the 9th of each month, 07:41 UTC
@@ -28,6 +28,7 @@ jobs:
       - run: python3 -u cities/vancouver/fetch_layers.py 2>&1 | tee cities/vancouver/raw/logs/layers.log
       - run: python3 -u cities/vancouver/fetch_faith.py 2>&1 | tee cities/vancouver/raw/logs/faith.log
       - run: python3 -u cities/vancouver/fetch_schools.py
+      - run: python3 -u cities/vancouver/fetch_uel.py
       - run: bash cities/vancouver/run.sh
       - run: |
           git config user.name "github-actions[bot]"

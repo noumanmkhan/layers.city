@@ -110,28 +110,7 @@
   "outside": {
     "beyond": "That spot is outside Metro Vancouver.",
     "regionPill": "{region}",
-    "note": "Outside the City of Vancouver. The local areas and sides on this map cover Vancouver only.",
-    "annex": {
-      "rows": [
-        [
-          "Area",
-          "{name}"
-        ],
-        [
-          "Includes",
-          "{includes}"
-        ],
-        [
-          "Run by",
-          "{gov}"
-        ],
-        [
-          "Local vote",
-          "{votes}"
-        ]
-      ],
-      "note": "Beside the City of Vancouver, not part of it: unincorporated land that the map shows with the city, shaded and outlined apart. Local areas, Nearby and the city’s own layers stop at the city line."
-    }
+    "note": "Outside the City of Vancouver. The local areas and sides on this map cover Vancouver only."
   },
   "drive": {
     "hub": [
@@ -296,7 +275,7 @@
           "kind": "units",
           "file": "local_areas",
           "name": "Local areas",
-          "note": "The City’s 22 local areas, and Stanley Park",
+          "note": "The City’s 22 local areas, Stanley Park, and the University Endowment Lands beside the city",
           "on": true,
           "hover": "{name}"
         },
@@ -1162,6 +1141,18 @@
         "empty": "—"
       },
       {
+        "label": "Run by",
+        "layer": "la",
+        "text": "{gov}",
+        "skipEmpty": true
+      },
+      {
+        "label": "Local vote",
+        "layer": "la",
+        "text": "{votes}",
+        "skipEmpty": true
+      },
+      {
         "label": "Known as",
         "knownas": true
       },
@@ -1196,15 +1187,11 @@
         "text": "{name}"
       }
     ],
-    "outsideFacts": [
-      "prov",
-      "fed"
-    ],
     "living": {
       "hub": "To Waterfront",
       "hubText": "About {minutes} min by transit, weekday morning",
       "caveat": "2021 Census figures, not current prices; home values and rents are averages of small-area medians. Rent is what renting households paid, utilities included, counting long-time tenants, subsidized homes and basement suites, so it sits below what a new lease costs. Use them to compare local areas, not to budget.",
-      "footer": "2021 Census (Statistics Canada), {name}. Tiers compare Vancouver's 22 local areas.",
+      "footer": "2021 Census (Statistics Canada), {name}. Tiers compare Vancouver's 22 local areas; the University Endowment Lands are placed against them.",
       "homes": {
         "label": "Home types",
         "types": [
@@ -1288,9 +1275,9 @@
       "title": "Changing nearby",
       "radius": 500,
       "max": 6,
-      "none": "No big new building or demolition permitted within 500 m in the last two years.",
+      "none": "No big new building or demolition permitted by the City within 500 m in the last two years. UBC and the University Endowment Lands issue their own permits, which aren't in this data.",
       "more": "And {n} more nearby: turn on What's changing to see them.",
-      "note": "Issued permits only: Vancouver publishes no development applications. New buildings and demolitions within 500 m; no houses, laneway homes or multiplexes. City of Vancouver building permits, as of {date}."
+      "note": "Issued permits only: Vancouver publishes no development applications. New buildings and demolitions within 500 m; no houses, laneway homes or multiplexes. City of Vancouver building permits (not UBC’s or the UEL’s), as of {date}."
     },
     "transit": {
       "file": "transit.json",

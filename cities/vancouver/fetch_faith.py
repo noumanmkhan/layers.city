@@ -15,7 +15,7 @@ sys.path.insert(0, HERE)
 import fetch_lib as F
 
 OUT = os.path.join(HERE, 'raw', 'faith'); os.makedirs(OUT, exist_ok=True)
-CITY = (49.195, -123.235, 49.32, -123.02)        # s, w, n, e: the City, Stanley Park included
+CITY = (49.195, -123.27, 49.32, -123.02)         # s, w, n, e: the City, Stanley Park and the University Endowment Lands
 WIDE = (49.0, -123.3, 49.45, -122.45)            # Metro Vancouver's built-up area
 KEEP = ('name', 'alt_name', 'religion', 'denomination', 'addr:housenumber', 'addr:street', 'addr:city', 'building')
 Q = f"""[out:json][timeout:240];

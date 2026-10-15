@@ -9,6 +9,8 @@ playground, tennis
            Parks that list playgrounds or tennis courts among their facilities (`parks-facilities`): counts parks,
            not courts or play structures, as Toronto's card does.
 offleash   Dog off-leash areas (`dog-off-leash-parks`), one point per area.
+In the University Endowment Lands (outside the City's data), parks, playgrounds, tennis courts, off-leash areas and
+community centres come from OpenStreetMap (raw/uel_osm.json).
 mosque, gurdwara, synagogue, hindu, buddhist, church
            From the Faith & Community layers (faith.geojson); the card shows the nearest of each only while its layer
            is on. Churches are also listed by family ("church:catholic", ...) for the Churches layer's chips.
@@ -51,6 +53,21 @@ for kind, rx in (('playground', r'^playgrounds?$'), ('tennis', r'^tennis')):
     if missing: print(f'  {kind}: {len(missing)} parks not in the parks list:', missing[:10])
 for at, p in pts('dog-off-leash-parks'):
     groups['offleash'].append(at)
+# The University Endowment Lands: the City's files stop at its line, so parks, playgrounds, courts, off-leash areas and the
+# UNA's community centres there come from OpenStreetMap (fetch_uel.py), kept only inside the UEL (unit 24).
+up = os.path.join(HERE, 'raw', 'uel_osm.json')
+if os.path.exists(up):
+    from shapely.geometry import shape, Point
+    uel = next(shape(f['geometry']) for f in json.load(open(os.path.join(DATA, 'local_areas.geojson')))['features'] if f['properties']['code'] == 24)
+    added = {}
+    for e in json.load(open(up)):
+        if not uel.contains(Point(e['at'])): continue
+        k = {'park': 'park', 'playground': 'playground', 'dog_park': 'offleash', 'tennis': 'tennis', 'community_centre': 'centre'}.get(e['kind'])
+        if not k or (k == 'centre' and not re.search(r'community cent(re|er)', e['name'], re.I)): continue
+        if k == 'tennis' and any(abs(a[0] - e['at'][0]) < .001 and abs(a[1] - e['at'][1]) < .0007 for a in groups['tennis']): continue   # one point per group of courts
+        groups[k].append(e['at'] + [e['name']] if k == 'centre' else e['at'])
+        added[k] = added.get(k, 0) + 1
+    print('  UEL from OpenStreetMap:', added)
 for f in json.load(open(os.path.join(DATA, 'institutions.geojson')))['features']:
     if f['properties'].get('ed'): groups['er'].append(f['geometry']['coordinates'] + [f['properties']['name']])
 fp = os.path.join(DATA, 'faith.geojson')

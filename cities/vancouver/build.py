@@ -71,6 +71,18 @@ AROUND = [shape(f['geometry']).buffer(0) for f in load('cds_around.geojson')['fe
 WA = unary_union([shape(f['geometry']).buffer(0) for f in load('washington.geojson')['features']])
 CITY = next(g for p, g in csds if p['CSDUID'] == '5915022')
 inside = lambda g: polys(g.intersection(CITY))
+# The University Endowment Lands: the Point Grey piece of Electoral Area A (UBC's campus, Pacific Spirit Regional Park and the
+# UEL neighbourhoods). Not part of the City, but the map shows it with the city (decided with the user, October 16, 2026):
+# an "annex" in base (shaded and outlined apart, never masked), a unit of its own (24) with Living here figures, and the
+# main streets, transit and landmarks drawn there as in the city. The rest of Electoral Area A stays a neighbour.
+POINT_GREY = box(-123.30, 49.20, -123.19, 49.30)
+AREA_A = next(g for p, g in csds if p['CSDTYPE'] == 'RDA' and p['CSDNAME'].endswith(' A'))
+UEL = polys(AREA_A.intersection(POINT_GREY).difference(CITY.buffer(0.0002)))
+VIEW = unary_union([CITY, UEL])
+UEL_PROPS = {'name': 'University Endowment Lands', 'park': 'beside the City of Vancouver, not part of it',
+             'aka': ['UEL', 'UBC Endowment Lands', 'Endowment Lands', 'UBC lands'],
+             'gov': 'The Province of BC (the UEL), UBC (its campus) and Metro Vancouver (Pacific Spirit Park)',
+             'votes': 'Metro Vancouver Electoral Area A, not the City'}
 
 # ---------- Local areas (the units) and the three sides ----------
 las = sorted(((f['properties']['name'].strip(), shape(f['geometry']).buffer(0)) for f in load('local_areas.geojson')['features']))
@@ -95,7 +107,8 @@ print('land outside the local areas:', len(pieces), 'pieces; largest', round(big
 # park note), so a tap there is named for the park; it has no census figures, so it never takes a lens tier.
 assert big is not None and big.area * KM * 111.2 > 3.5 and big.contains(Point(-123.1417, 49.3017)), 'Stanley Park not found'
 units_out = [feat(g, {'name': n, 'code': i, 'lp': label_pt(g)}) for i, n, g in units] + \
-    [feat(big, {'name': 'Stanley Park', 'code': 23, 'park': 'a park, not one of the 22', 'lp': label_pt(big)})]
+    [feat(big, {'name': 'Stanley Park', 'code': 23, 'park': 'a park, not one of the 22', 'lp': label_pt(big)})] + \
+    [feat(UEL, dict(UEL_PROPS, code=24, lp=label_pt(UEL)))]
 dump('local_areas', units_out)
 sides = []
 for s, g in side_geom.items():
@@ -118,23 +131,12 @@ def muni_name(p):
 
 
 base, cutout = [feat(CITY, {'kind': 'city', 'name': 'City of Vancouver'})], CITY.buffer(0.0002)
-# The University Endowment Lands: the Point Grey piece of Electoral Area A (UBC's campus, Pacific Spirit Regional Park and the
-# UEL neighbourhoods). Not part of the City, but the map's city view shows it (an "annex": shaded and outlined apart, not
-# masked), since leaving it off a map of Vancouver would look like a gap. The rest of Electoral Area A stays a neighbour.
-POINT_GREY = box(-123.30, 49.20, -123.19, 49.30)
-annex = None
 for p, g in METRO:
     g = polys(g.difference(cutout))
     if g.is_empty: continue
     if p['CSDTYPE'] == 'RDA' and p['CSDNAME'].endswith(' A'):
-        annex = polys(g.intersection(POINT_GREY))
         g = polys(g.difference(POINT_GREY))
-        base.append(feat(annex, {'kind': 'annex', 'name': 'University Endowment Lands', 'sub': 'Beside the City of Vancouver',
-                                 'aka': ['UEL', 'UBC Endowment Lands', 'Endowment Lands', 'UBC lands'],
-                                 'includes': "UBC's Point Grey campus, Pacific Spirit Regional Park and the UEL neighbourhoods",
-                                 'gov': 'The Province of BC (UEL), UBC (its campus) and Metro Vancouver (the park)',
-                                 'votes': 'Metro Vancouver Electoral Area A, not the City',
-                                 'region': 'Metro Vancouver', 'lp': label_pt(annex)}))
+        base.append(feat(UEL, {'kind': 'annex', 'name': UEL_PROPS['name'], 'region': 'Metro Vancouver', 'lp': label_pt(UEL)}))
     pr = {'kind': 'neighbour', 'name': muni_name(p), 'region': 'Metro Vancouver', 'lp': label_pt(g), 'type': p['CSDTYPE']}
     if p['CSDTYPE'] in ('IRI', 'RDA', 'TWL'): pr['rest'] = True   # not a town to colour in the drive lens
     base.append(feat(g, pr))
@@ -171,7 +173,7 @@ for w in load('osm_streets.json')['elements']:
     # OpenStreetMap files a few of the city's arterials (25th, 33rd, 57th, Mackenzie, Renfrew) as tertiary:
     # a tertiary road is a main street only when it's on the hand-kept list; the rest wait for a collectors layer.
     if t['highway'] == 'tertiary' and key not in MAJOR_STREETS: continue
-    g = way_line(w).intersection(CITY.buffer(0.0003))
+    g = way_line(w).intersection(VIEW.buffer(0.0003))   # the University Endowment Lands' roads too
     if g.is_empty: continue
     segs[(key, 'major' if key in MAJOR_STREETS else 'minor')].append(g)
 streets = []

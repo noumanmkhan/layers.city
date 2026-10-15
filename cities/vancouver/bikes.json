@@ -1,9 +1,11 @@
 {
-  "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): the City of Vancouver's Bikeways (OGL – Vancouver), active segments only. The type and subtype together put each segment in a class. The subtype codes aren't documented; read from the routes that carry them (October 16, 2026): SL and R are curb-separated or raised lanes on streets (Hornby, Dunsmuir, Cambie Bridge), OSB is an off-street path for bikes (the Seaside bike path, the Arbutus Greenway), OSS an off-street path shared with people walking (BC Parkway, Stanley Park trails); NB a painted lane with no buffer, PBP and PBT a painted buffer on the parking or traffic side. Local Street is a traffic-calmed bikeway on a quiet street (Vancouver's main kind).",
+  "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): the City of Vancouver's Bikeways (OGL – Vancouver), active segments only. The type and subtype together put each segment in a class. The subtype codes aren't documented; read from the routes that carry them (October 16, 2026): SL and R are curb-separated or raised lanes on streets (Hornby, Dunsmuir, Cambie Bridge), OSB is an off-street path for bikes (the Seaside bike path, the Arbutus Greenway), OSS an off-street path shared with people walking (BC Parkway, Stanley Park trails); NB a painted lane with no buffer, PBP and PBT a painted buffer on the parking or traffic side. Local Street is a traffic-calmed bikeway on a quiet street (Vancouver's main kind). 'extra': OpenStreetMap's bike paths and lanes in the University Endowment Lands (cities/vancouver/fetch_uel.py), written with the same types and clipped to unit 24.",
   "source": {"type": "ods", "portal": "https://opendata.vancouver.ca", "dataset": "bikeways", "where": "status = \"Active\""},
   "fields": ["bike_route_name", "street_name", "bikeway_type", "subtype", "status", "year_of_construction"],
   "typeField": "bikeway_type",
   "subField": "subtype",
+  "extra": "raw/uel_bikes.geojson",
+  "extraClip": {"file": "local_areas", "code": 24},
   "name": "bike_route_name",
   "year": "year_of_construction",
   "classes": {
