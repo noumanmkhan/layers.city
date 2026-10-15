@@ -27,14 +27,14 @@ jobs:
       - run: pip install lxml
       # Each city on its own, so one failing doesn't lose the other. The logs are committed too.
       - run: |
-          for c in toronto chicago; do
+          for c in toronto chicago dallas; do
             mkdir -p cities/$c/raw/skyscrapers
             python3 -u engine/fetch_skyscrapers.py $c 2>&1 | tee cities/$c/raw/skyscrapers/fetch.log || true
           done
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/toronto/raw/skyscrapers cities/chicago/raw/skyscrapers
+          git add cities/toronto/raw/skyscrapers cities/chicago/raw/skyscrapers cities/dallas/raw/skyscrapers
           git commit -m "Fetch skyscraper lists from Wikipedia" || echo "no changes"
           git pull --rebase
           git push

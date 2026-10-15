@@ -22,14 +22,14 @@ jobs:
           python-version: '3.12'
       - run: pip install -q rasterio shapely pyproj numpy
       - run: |
-          for c in toronto chicago; do
+          for c in toronto chicago dallas; do
             mkdir -p cities/$c/raw/canopy
             python3 -u engine/fetch_canopy.py $c 2>&1 | tee cities/$c/raw/canopy/fetch.log || true
           done
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/toronto/raw/canopy cities/chicago/raw/canopy
+          git add cities/toronto/raw/canopy cities/chicago/raw/canopy cities/dallas/raw/canopy
           git commit -m "Tree canopy per unit from open land cover" || echo "no changes"
           git pull --rebase
           git push

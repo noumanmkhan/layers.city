@@ -35,6 +35,7 @@ on:
       - "Fetch Dallas voting places"
       - "Refresh representatives"
       - "Refresh Chicago representatives"
+      - "Refresh Dallas representatives"
     types: [completed]
   workflow_dispatch:
     inputs:
