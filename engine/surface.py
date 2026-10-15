@@ -38,6 +38,20 @@ EXPRESS = re.compile(CFG.get('express', r'\bExpress\b'), re.I)
 EXPRESS_NO = re.compile(CFG['expressRoutes']) if CFG.get('expressRoutes') else None
 # Route numbers as riders say them: TransLink pads its numbers ("002", "099"); "stripZeros" drops the padding.
 num = (lambda s: s.lstrip('0') or s) if CFG.get('stripZeros') else (lambda s: s)
+# Agencies that publish stop names in capitals with routing codes ("ABRAMS @ LA VISTA - S - FS"): surface.json
+# "stopNames": {"strip": a pattern cut from the end, "title": true, "at": " & "} tidies them for the card.
+SN = CFG.get('stopNames') or {}
+def stop_name(n):
+    while SN.get('strip'):
+        m = re.sub(SN['strip'], '', n.strip()).strip()
+        if m == n: break
+        n = m
+    if SN.get('title') and n.isupper():
+        n = re.sub(r"\b([A-Za-z])([A-Za-z']*)", lambda m: m.group(1).upper() + m.group(2).lower(), n)
+        n = re.sub(r'\b(\d+)(st|nd|rd|th)\b', lambda m: m.group(1) + m.group(2).lower(), n, flags=re.I)
+        for w in SN.get('keep', []): n = re.sub(r'\b' + re.escape(w) + r'\b', w, n, flags=re.I)
+    if SN.get('at'): n = re.sub(r'\s*@\s*', SN['at'], n)
+    return n
 
 
 def dirs(counts):
@@ -110,7 +124,7 @@ for r in R['routes']:
     if r['mode'] == 'tram' and day: cars.append(feat)
 
 idx = {e['r']: i for i, e in enumerate(routes)}
-stops = [[s[2], s[3], s[1], [idx[num(x)] for x in s[4] if num(x) in idx]] for s in S['stops']]
+stops = [[s[2], s[3], stop_name(s[1]), [idx[num(x)] for x in s[4] if num(x) in idx]] for s in S['stops']]
 stops = [s for s in stops if s[3]]
 
 # Other agencies (surface.json "feeds"): same shapes and midday waits, no families.

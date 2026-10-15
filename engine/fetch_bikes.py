@@ -5,6 +5,8 @@ cities/<city>/bikes.json "source":
   - "ckan_geojson" (Toronto): the City's Cycling Network package; the newest GeoJSON resource in WGS84
     (its name has "4326").
   - "socrata_geojson" (Chicago): the City's Bike Routes (hvv9-38ut) as GeoJSON.
+  - "arcgis" (Dallas): an ArcGIS feature layer ("url", up to /FeatureServer/<n>), paged, with an optional "where";
+    the layer's editing date is the data's last update.
 
 Keeps only the fields listed in "fields", rounds coordinates to 6 decimals, and adds "fetched" and "source" at
 the top. The log lists how many segments carry each value of the type field ("typeField").
@@ -40,6 +42,22 @@ if S['type'] == 'ckan_geojson':
     r0 = res[0]
     print('resource:', r0['name'], r0['url'], 'modified', r0.get('last_modified'))
     url, updated = r0['url'], (r0.get('last_modified') or pkg.get('last_refreshed') or '')[:10]
+elif S['type'] == 'arcgis':
+    import urllib.parse
+    url, updated, feats0, off = S['url'], None, [], 0
+    try:
+        info = json.loads(get(url + '?f=json'))
+        ms = (info.get('editingInfo') or {}).get('dataLastEditDate') or (info.get('editingInfo') or {}).get('lastEditDate')
+        if ms: updated = dt.datetime.fromtimestamp(ms / 1000, dt.timezone.utc).date().isoformat()
+    except Exception as e:
+        print('  no metadata:', e)
+    while True:
+        q = urllib.parse.urlencode({'where': S.get('where', '1=1'), 'outFields': '*', 'outSR': 4326, 'f': 'geojson',
+                                    'resultOffset': off, 'resultRecordCount': 1000})
+        page = json.loads(get(url + '/query?' + q))
+        feats0 += page.get('features', [])
+        if len(page.get('features', [])) < 1000: break
+        off += 1000
 else:
     url, updated = S['url'], None
     try:   # Socrata's view metadata carries the data's last update
@@ -47,7 +65,7 @@ else:
         updated = dt.datetime.fromtimestamp(meta.get('rowsUpdatedAt') or meta.get('viewLastModified'), dt.timezone.utc).date().isoformat()
     except Exception as e:
         print('  no metadata:', e)
-fc = json.loads(get(url))
+fc = {'features': feats0} if S['type'] == 'arcgis' else json.loads(get(url))
 keep = CFG['fields']
 feats = []
 for f in fc['features']:

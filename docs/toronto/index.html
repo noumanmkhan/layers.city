@@ -3154,7 +3154,7 @@ function representatives(hits){
   const date = new Date(...R.updated.split('-').map((v, i) => +v - (i === 1))).toLocaleDateString(CITY.locale, {month:'long', day:'numeric', year:'numeric'});
   return '<div class="live reps"><dl>' +
     cfg.offices.map(o => {
-      const h = hits[o.layer]; if (!h) return '';
+      const h = hits[o.file ? 'file:' + o.file : o.layer]; if (!h) return '';
       const r = R[o.table][String(h.properties[o.key])];
       return row(o.role, r, fill(o.sub, {f: h.properties, r: r || {}}));
     }).join('') + trustees(hits) +
@@ -3240,6 +3240,9 @@ function cardOf(latlng, title, muniName){
   const hits = {};
   LAYERS.filter(it => AREA_KINDS.includes(it.kind)).forEach(it => { hits[it.id] = hit(data.layers[it.id], x, y); });
   BOARDS.forEach(it => { hits[it.id] = boardHits(it, x, y); });
+  // Offices whose seats follow lines the map doesn't draw (e.g. the districts sitting members were elected on, before a
+  // redistricting takes effect): office.file names a polygon file loaded for the card only.
+  REP_FILES.forEach(f => { hits['file:' + f] = hit(data.repAreas[f], x, y); });
   const pillCfg = CITY.card.pills.find(p => p.knownas);
   const near = (data.knownas ? data.knownas.features : []).map(f => [f, metres([x, y], f.geometry.coordinates)]).filter(a => a[1] < 650).sort((a, b) => a[1] - b[1]).slice(0, pillCfg ? pillCfg.knownas : 2);
   const pills = [];
@@ -4756,6 +4759,8 @@ function stampTitle(canvas, name, sub){
 /* ---------- load ---------- */
 renderEmpty('Loading map data…');
 const files = ['base', 'regions'];
+const REP_FILES = ((CITY.card.reps && CITY.card.reps.offices) || []).map(o => o.file).filter(Boolean);
+data.repAreas = {};
 // Files of layers marked "lazy" (bus route shapes) load the first time they're needed.
 LAYERS.filter(it => !it.lazy).forEach(it => [].concat(it.file || it.files || []).forEach(f => { if (!files.includes(f)) files.push(f); }));
 const loaded = {};
@@ -4765,6 +4770,7 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
   .concat([get(CITY.lens.file).then(d => { data.profiles = d; }), get(CITY.card.reps.file).then(d => { data.reps = d; }).catch(() => { data.reps = null; }),
     CITY.regionPlaces ? get(CITY.regionPlaces.file).then(d => { data.regionPlaces = d; }).catch(() => { data.regionPlaces = null; }) : null,
     CITY.card.nearby ? get(CITY.card.nearby.file).then(d => { data.nearby = d; }).catch(() => { data.nearby = null; }) : null,
+    ...REP_FILES.map(f => get(f).then(d => { data.repAreas[f] = d; }).catch(() => { data.repAreas[f] = null; })),
     CITY.drive ? get('drive_grid.json').then(d => { data.driveGrid = d; }).catch(() => { data.driveGrid = null; }) : null,
     CITY.focus ? get('region_areas').then(d => { data.regionAreas = d; }).catch(() => { data.regionAreas = null; }) : null]))
 .then(() => {
