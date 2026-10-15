@@ -75,3 +75,12 @@ Quirks:
 - Heritage register names carry notes ("Facade only", "former …", trailing addresses); `engine/heritage_buildings.py` tidies them, and an entry with no real name shows its address.
 - Permit descriptions name demolition contractors and engineers; `engine/changes.py` cuts the text before them.
 - Voting places: the City lists each voting room, so a building with two rooms is one entry on the card.
+
+## University Endowment Lands (October 16, 2026)
+- Shape: the Point Grey piece of Electoral Area A (Statistics Canada CSD 5915020, cut by a box west of -123.19), so it
+  includes UBC's campus and Pacific Spirit Regional Park as well as the UEL proper. Unit 24 in local_areas.geojson and a
+  base `annex`.
+- Census: the dissemination areas inside it (already fetched with the City's) summed like a local area (profiles.py).
+- Parks, playgrounds, tennis courts, off-leash areas, community centres and bike paths/lanes: OpenStreetMap via Overpass
+  (`fetch_uel.py`, ODbL). Bike ways are written in the City's Bikeways types and added by engine/bikes.py (`extra`).
+- Streets, landmarks and known-as names: the same OSM fetches as the city's, clipped to the city plus the UEL.

@@ -24,6 +24,12 @@ Each entry says what would unpark it.
   and the Oakridge and Senákw towers, 1515 by Bosa and Two Burrard Place have no address, so they stay off until
   placed. Add `coords` (or an address Nominatim can match) in skyscrapers.json to place them.
 
+- **City data in the University Endowment Lands.** The UEL (with UBC and Pacific Spirit Park) is shown with the city and
+  gets Census figures, streets, landmarks, transit, bike paths and Nearby (OpenStreetMap). The City's own datasets stop
+  at its line, so there are no permits (UBC and the UEL issue their own, unpublished), heritage register entries, BIAs
+  or civic voting places there; UEL residents vote for Metro Vancouver's Electoral Area A director. Unpark with UBC or
+  UEL Administration open data.
+
 ## Not built: doesn't fit Vancouver
 
 - **City wards and school board wards.** Vancouver elects its council, park board and school board at large: there are
