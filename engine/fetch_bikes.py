@@ -5,6 +5,8 @@ cities/<city>/bikes.json "source":
   - "ckan_geojson" (Toronto): the City's Cycling Network package; the newest GeoJSON resource in WGS84
     (its name has "4326").
   - "socrata_geojson" (Chicago): the City's Bike Routes (hvv9-38ut) as GeoJSON.
+  - "ods" (Vancouver): an Opendatasoft portal dataset ("portal", "dataset") exported as GeoJSON, with an optional
+    "where"; the dataset's "modified" date is the data's last update.
   - "arcgis" (Dallas): an ArcGIS feature layer ("url", up to /FeatureServer/<n>), paged, with an optional "where";
     the layer's editing date is the data's last update.
 
@@ -58,6 +60,15 @@ elif S['type'] == 'arcgis':
         feats0 += page.get('features', [])
         if len(page.get('features', [])) < 1000: break
         off += 1000
+elif S['type'] == 'ods':
+    import urllib.parse
+    base = S['portal'].rstrip('/') + '/api/explore/v2.1/catalog/datasets/' + S['dataset']
+    url = base + '/exports/geojson' + ('?' + urllib.parse.urlencode({'where': S['where']}) if S.get('where') else '')
+    updated = None
+    try:
+        updated = (json.loads(get(base))['metas']['default'].get('modified') or '')[:10] or None
+    except Exception as e:
+        print('  no metadata:', e)
 else:
     url, updated = S['url'], None
     try:   # Socrata's view metadata carries the data's last update

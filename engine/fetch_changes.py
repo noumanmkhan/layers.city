@@ -12,6 +12,9 @@ Kinds of source:
     Builder names are left out.
   - "socrata_permits" (Chicago): Building Permits issued in the last `years` years whose permit_type is in
     the config's list. Owner and contractor names are left out.
+  - "ods_permits" (Vancouver): Issued Building Permits (Opendatasoft "portal", "dataset") issued in the last
+    `years` years whose typeofwork is in the config's "types". Applicant and contractor names and addresses are
+    never requested.
 
 Writes raw/changes/<source>.json: {fetched, source, rows: [...]}. Prints counts by type and status (and
 how many permits were placed) so the build's filters can be checked against the data.
@@ -173,7 +176,23 @@ def socrata_permits(spec):
     return rows
 
 
-FN = {'ckan_devapps': ckan_devapps, 'ckan_permits': ckan_permits, 'socrata_permits': socrata_permits}
+def ods_permits(spec):
+    base = spec['portal'].rstrip('/') + '/api/explore/v2.1/catalog/datasets/' + spec['dataset'] + '/exports/json'
+    cut = since(spec['years'])
+    where = f"issuedate >= date'{cut}' AND (" + ' OR '.join('typeofwork = "' + t + '"' for t in spec['types']) + ')'
+    cols = ['permitnumber', 'permitnumbercreateddate', 'issuedate', 'projectvalue', 'typeofwork', 'address', 'projectdescription',
+            'propertyuse', 'specificusecategory', 'geolocalarea', 'geo_point_2d']
+    rows = json.loads(get(base + '?' + urllib.parse.urlencode({'select': ','.join(cols), 'where': where})))
+    for r in rows:
+        p = r.pop('geo_point_2d', None) or {}
+        r['lon'], r['lat'] = p.get('lon'), p.get('lat')
+    print('  by type of work:', dict(collections.Counter(r.get('typeofwork') for r in rows).most_common()))
+    print('  by use:', dict(collections.Counter(str(r.get('specificusecategory')) for r in rows).most_common(40)))
+    print('  with coordinates:', sum(1 for r in rows if r.get('lat')))
+    return rows
+
+
+FN = {'ckan_devapps': ckan_devapps, 'ckan_permits': ckan_permits, 'socrata_permits': socrata_permits, 'ods_permits': ods_permits}
 for name, spec in CFG['sources'].items():
     print('==', name, spec['type'])
     try:

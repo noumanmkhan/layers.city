@@ -1,4 +1,5 @@
-"""Build docs/<city>/data/skyscrapers.geojson: every building 150 m or taller, from the Wikipedia list
+"""Build docs/<city>/data/skyscrapers.geojson: every building 150 m or taller (skyscrapers.json "min" sets another
+cut-off, e.g. Vancouver's 100 m), from the Wikipedia list
 fetched by engine/fetch_skyscrapers.py (cities/<city>/raw/skyscrapers/wiki.json) and the city's curated
 settings (cities/<city>/skyscrapers.json).
 
@@ -99,6 +100,7 @@ def tallest(n, what):
     return f'Tallest {what}' if n == 1 else f'{ordinal(n)}-tallest {what}'
 
 
+MIN_M = cfg.get('min', 150)
 open_cfg = {k: v for k, v in cfg.get('open', {}).items() if not k.startswith('_')}
 exclude = cfg.get('exclude', {})
 towers, missing, to_check = [], [], []
@@ -111,7 +113,7 @@ for key, uc_table in (('built', False), ('uc', True)):
         h, ft = heights(r['h']['text'])
         if h is None:
             print('  no height, skipped:', raw_name); continue
-        if h < 150:
+        if h < MIN_M:
             continue
         year_txt = r['year']['text'].strip()
         year = int(year_txt) if year_txt.isdigit() else None

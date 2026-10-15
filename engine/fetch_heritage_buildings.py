@@ -4,6 +4,8 @@ reach these servers. The source is set in cities/<city>/heritage_buildings.json:
 
   - "socrata" (Chicago): the City's Individual Landmarks (tdab-kixi): name, address, year built, architect,
     designation date and a point.
+  - "ods" (Vancouver): an Opendatasoft dataset ("portal", "dataset") exported as GeoJSON, one point per record
+    (a shape's inside point when the record is a polygon).
   - "ckan_shp" (Toronto): the City's Heritage Register (address points shapefile in a zip). Every record is
     kept with all its attributes; the build keeps only individually designated properties (Part IV of the
     Ontario Heritage Act). The log lists the fields and the values of the status-like ones.
@@ -39,6 +41,18 @@ if S['type'] == 'socrata_geo':
         r = {k: v for k, v in f['properties'].items() if not k.startswith(':@')}
         if f.get('geometry'):
             g = shape(f['geometry']); c = g.representative_point()
+            r['lon'], r['lat'] = round(c.x, 6), round(c.y, 6)
+        rows.append(r)
+    fields = sorted({k for r in rows for k in r})
+elif S['type'] == 'ods':
+    from shapely.geometry import shape
+    fc = json.loads(get(S['portal'].rstrip('/') + '/api/explore/v2.1/catalog/datasets/' + S['dataset'] + '/exports/geojson'))
+    rows = []
+    for f in fc['features']:
+        r = dict(f['properties'])
+        r['lon'], r['lat'] = None, None
+        if f.get('geometry'):
+            c = shape(f['geometry']).representative_point()
             r['lon'], r['lat'] = round(c.x, 6), round(c.y, 6)
         rows.append(r)
     fields = sorted({k for r in rows for k in r})

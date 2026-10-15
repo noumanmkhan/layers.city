@@ -26,7 +26,7 @@ DATA = os.path.join(ROOT, 'docs', city, 'data')
 SPACING_KM = 1.5
 
 base = json.load(open(os.path.join(DATA, 'base.geojson')))
-neighbours = [f for f in base['features'] if f['properties'].get('kind') == 'neighbour']
+neighbours = [f for f in base['features'] if f['properties'].get('kind') == 'neighbour' and f.get('geometry')]   # a sliver simplified away has none
 
 if cmd == 'points':
     from shapely.geometry import shape, Point
