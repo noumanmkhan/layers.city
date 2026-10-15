@@ -2,8 +2,14 @@
 
 ## Since 1.1
 
+### Toronto starting layers (October 15, on dev)
+- First load and Reset now show Neighbourhood badges and Collector streets, and no longer show Universities,
+  Colleges, Hospitals or Skyscrapers (still under Landmarks, off). The rest is as before: Former cities, Old
+  Toronto areas, Neighbourhoods, Known-as names, Landmarks, Main streets, Highways, GO trains, Subway & LRT,
+  Streetcars. Links that list their layers are unchanged. For the iOS app: only the `on` flags in `city.json`.
+
 ### Neighbourhood badges (Toronto, October 15, on dev for review)
-- New toggle "Neighbourhood badges" under Places, after Neighbourhoods, off by default. Ten neighbourhoods get a
+- New toggle "Neighbourhood badges" under Places, after Neighbourhoods, on at first load. Ten neighbourhoods get a
   one-colour drawing of what they're known for (Harbourfront-CityPlace, Thorncliffe Park, Wellington Place,
   Yonge-Bay Corridor, Casa Loma, St Lawrence-East Bayfront-The Islands, The Beaches, High Park-Swansea, Humber Bay
   Shores, Guildwood), laid like a watermark: faint, with no background or text (the neighbourhood label names the
