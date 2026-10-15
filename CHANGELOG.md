@@ -2,14 +2,28 @@
 
 ## Since 1.1
 
+### Vancouver and Dallas on the maps hub (October 16)
+- Both cities are announced: cards on the maps hub (with outline thumbnails; Vancouver's includes the University
+  Endowment Lands), `unlisted` and `inSwitcher` dropped, place pages (`/vancouver/local-areas/`, `/dallas/zip-codes/`)
+  and sitemap entries, and a guides line for all four cities. The hub's refresh notes name TransLink and DART.
+- Attributions: Vancouver and Dallas each have their own section; the shared one is now "Used for every city".
+- Place pages: a unit that isn't one of the city's own (Stanley Park, the University Endowment Lands) says what it is
+  and isn't counted in the index title; a ZIP with no median home value no longer stops the build.
+
 ### University Endowment Lands in Vancouver's city view (October 16, on dev)
 - The Point Grey lands west of the city (UBC's campus, Pacific Spirit Regional Park and the UEL neighbourhoods, the
-  Point Grey piece of Metro Vancouver's Electoral Area A) now show in the city view as *University Endowment Lands*:
-  not masked, an olive tint and dashed outline, a label, searchable as UEL or UBC Endowment Lands. Its card says
-  what it is, who runs it, where residents vote locally, and its provincial and federal ridings, which now reach over
-  it. The rest of Electoral Area A stays a neighbour. The city view's frame widens to take it in.
-- Engine: a `base.geojson` feature of kind `annex`, `city.json` `outside.annex` (card rows and note) and the
-  `--annex` colour. Other cities have none, so they look the same.
+  Point Grey piece of Metro Vancouver's Electoral Area A) are part of the city view as *University Endowment Lands*:
+  never masked, an olive tint and dashed outline, searchable as UEL or UBC Endowment Lands. They get the city's level
+  of detail where data exists: a unit of their own (24) with Living here figures from the 2021 Census (placed against
+  the 22 local areas' tiers without moving them, never ranked in the facts), transit time to Waterfront, tree canopy,
+  main and collector streets, landmarks (Museum of Anthropology, Chan Centre, Pacific Spirit Park, Wreck Beach, UBC
+  Botanical Garden, Nitobe Garden), University Village and Wesbrook Village, buses and Transit nearby, Mobi, bike paths
+  and lanes and Nearby parks, playgrounds, courts and community centres (OpenStreetMap, since the City's data stops at
+  its line), places of worship, provincial and federal ridings, and card rows saying who runs it and where it votes.
+  Not there: the City's own data (permits, heritage, BIAs, the civic election), which doesn't cover it; the card says so.
+- Engine: `base.geojson` kind `annex` (inside the footprint, unmasked, `--annex` colour); facts rows `skipEmpty`;
+  search uses a feature's `aka`; profiles marked `apart` are never ranked; `bikes.json` `extra` and `extraClip`.
+  Other cities have none of these, so they look the same.
 
 ### Vancouver, Toronto's features (October 16, on dev, unlisted)
 - *Places*: universities, colleges and hospitals (curated: UBC, SFU's Harbour Centre campus, Emily Carr; Langara, VCC,
