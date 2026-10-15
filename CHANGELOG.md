@@ -2,6 +2,12 @@
 
 ## Since 1.1
 
+### Faith & Community order (Toronto, October 15)
+- The group now runs Churches, Mosques, Hindu temples, Synagogues, Buddhist temples, Gurdwaras, then Other faiths.
+  Halal grocers & butchers sit under Mosques and Kosher grocers, butchers & bakeries under Synagogues (`under`),
+  shown indented as the Landmarks toggles are. Drawing order on the map is unchanged. For the iOS app: only the
+  order and `under` in `city.json`.
+
 ### Toronto starting layers (October 15, on dev)
 - First load and Reset now show Neighbourhood badges and Collector streets, and no longer show Universities,
   Colleges, Hospitals or Skyscrapers (still under Landmarks, off). The rest is as before: Former cities, Old
