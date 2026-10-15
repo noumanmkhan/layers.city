@@ -1,0 +1,26 @@
+fields: ['additionallocationinformation', 'buildingnamespecifics', 'category', 'dateoflastupdate', 'evaluationgroup', 'federaldesignationf', 'geo_point_2d', 'geom', 'heritageconservationareaca', 'heritageconservationcovenanthc', 'heritagerevitalizationagreementh', 'id', 'interiordesignationi', 'landscapedesignationl', 'lat', 'localarea', 'lon', 'municipaldesignationm', 'provincialdesignationp', 'status', 'streetname', 'streetnumber']
+rows: 2495 · with a point: 2359
+  additionallocationinformation 82 values, e.g. ['None', 'Stanley Park', 'N/A', 'Stanley Park, Prospect Point', '1500 Block W. 15th']
+  buildingnamespecifics 1026 values, e.g. ['N/A', 'General Activity, Shell Midden', 'East Side', 'Bank of Commerce', 'Bank of Montreal']
+  category {'HERITAGE BUILDINGS': 2359, 'LANDSCAPE RESOURCES Monuments': 39, 'LANDSCAPE RESOURCES Trees': 35, 'LANDSCAPE RESOURCES Parks & Landscapes': 26, 'ARCHAEOLOGICAL SITES': 17, 'HERITAGE STREETSCAPES': 16, 'LANDSCAPE RESOURCES Public Works': 3}
+  dateoflastupdate {'2020-09-18T17:18:45+00:00': 2317, '2020-10-14T23:43:00+00:00': 106, '2020-10-14T23:33:57+00:00': 29, '2020-10-28T17:18:45+00:00': 5, '2020-10-29T17:18:45+00:00': 3, '2021-02-24T18:18:44+00:00': 3, '2022-11-18T18:18:45+00:00': 3, '2021-03-01T18:18:44+00:00': 2, '2022-11-18T22:08:56+00:00': 1, '2022-08-10T17:18:45+00:00': 1, '2021-12-14T18:18:44+00:00': 1, '2022-03-02T18:18:44+00:00': 1, '2021-12-14T21:27:53+00:00': 1, '2022-02-02T18:18:44+00:00': 1, '2022-11-18T23:21:41+00:00': 1, '2020-10-28T17:18:44+00:00': 1, '2020-11-12T18:18:45+00:00': 1, '2021-03-04T18:18:44+00:00': 1, '2022-11-19T00:33:57+00:00': 1, '2021-12-14T23:02:24+00:00': 1, '2022-11-18T17:37:23+00:00': 1, '2022-11-18T19:22:00+00:00': 1, '2021-08-03T17:18:44+00:00': 1, '2022-07-26T17:18:44+00:00': 1, '2022-07-26T17:18:45+00:00': 1, '2020-10-20T18:07:02+00:00': 1, '2020-10-20T18:01:10+00:00': 1, '2020-09-25T22:08:25+00:00': 1, '2022-11-18T17:58:40+00:00': 1, '2022-11-18T18:51:27+00:00': 1, '2020-09-25T17:18:45+00:00': 1, '2022-05-24T17:18:44+00:00': 1, '2022-05-17T22:30:28+00:00': 1, '2020-10-20T18:03:38+00:00': 1, '2021-02-05T19:09:10+00:00': 1}
+  evaluationgroup {'B': 1173, 'C': 818, 'A': 272, 'N/A': 232}
+  federaldesignationf {'No': 2479, 'Yes': 14, 'N': 2}
+  geo_point_2d 2269 values, e.g. ['None', "{'lon': -123.13306895361815, 'lat': 49.277777025453396}", "{'lon': -123.10937865342726, 'lat': 49.28340293814581}", "{'lon': -123.09293560495827, 'lat': 49.28000939289088}", "{'lon': -123.11387114637586, 'lat': 49.28595585419356}"]
+  geom {'None': 2495}
+  heritageconservationareaca {'No': 2408, 'Yes': 85, 'N': 2}
+  heritageconservationcovenanthc {'No': 2477, 'Yes': 16, 'N': 2}
+  heritagerevitalizationagreementh {'No': 2276, 'Yes': 217, 'N': 2}
+  id 2495 values, e.g. ['540', '542', '545', '550', '554']
+  interiordesignationi {'No': 2465, 'Yes': 28, 'N': 2}
+  landscapedesignationl {'No': 2477, 'Yes': 16, 'N': 2}
+  lat 2178 values, e.g. ['None', '49.277777', '49.283403', '49.280009', '49.279869']
+  localarea {'Kitsilano': 487, 'Downtown': 409, 'Strathcona': 261, 'Mount Pleasant': 206, 'None': 142, 'Grandview-Woodland': 136, 'West End': 135, 'Kensington-Cedar Cottage': 112, 'Shaughnessy': 111, 'Fairview': 82, 'Riley Park': 76, 'Hastings-Sunrise': 62, 'Kerrisdale': 60, 'West Point Grey': 52, 'South Cambie': 35, 'Dunbar-Southlands': 34, 'Sunset': 23, 'Renfrew-Collingwood': 21, 'Marpole': 19, 'Arbutus-Ridge': 15, 'Victoria-Fraserview': 7, 'Oakridge': 6, 'Killarney': 4}
+  lon 2232 values, e.g. ['None', '-123.133069', '-123.109379', '-123.092936', '-123.113871']
+  municipaldesignationm {'No': 1808, 'Yes': 684, 'Y': 2, 'N': 1}
+  provincialdesignationp {'No': 2492, 'N': 2, 'Yes': 1}
+  status {'Active': 2495}
+  streetname 313 values, e.g. ['E PENDER ST', 'N/A', 'W 12TH AV', 'W 5TH AV', 'W HASTINGS ST']
+  streetnumber 1828 values, e.g. ['N/A', '1550', '2050', '303', '518']
+wrote /home/runner/work/city-layers/city-layers/cities/vancouver/raw/heritage_buildings.json 1552 KB
+exit 0

@@ -1,0 +1,15 @@
+vancouver 23 units, bounds -123.225 49.2 -123.023 49.314
+  got https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N48W126_Map.tif 48 MB
+  $ gdalbuildvrt -overwrite /home/runner/work/city-layers/city-layers/cities/vancouver/tmp/canopy/wc.vrt /home/runner/work/city-layers/city-layers/cities/vancouver/tmp/canopy/ESA_WorldCover_10m_2021_v200_N48W126_Map.tif
+0...10...20...30...40...50...60...70...80...90...100 - done.
+
+  $ gdalwarp -overwrite -te -123.23485000000001 49.18987 -123.0132 49.324079999999995 -r near -co COMPRESS=DEFLATE /home/runner/work/city-layers/city-layers/cities/vancouver/tmp/canopy/wc.vrt /home/runner/work/city-layers/city-layers/cities/vancouver/tmp/canopy/worldcover_clip.tif
+Copying color table from /home/runner/work/city-layers/city-layers/cities/vancouver/tmp/canopy/wc.vrt to new file.
+Creating output file that is 2660P x 1611L.
+Processing /home/runner/work/city-layers/city-layers/cities/vancouver/tmp/canopy/wc.vrt [1/1] : 0Using internal nodata values (e.g. 0) for image /home/runner/work/city-layers/city-layers/cities/vancouver/tmp/canopy/wc.vrt.
+Copying nodata values from source /home/runner/work/city-layers/city-layers/cities/vancouver/tmp/canopy/wc.vrt to destination /home/runner/work/city-layers/city-layers/cities/vancouver/tmp/canopy/worldcover_clip.tif.
+...10...20...30...40...50...60...70...80...90...100 - done.
+
+worldcover citywide canopy 37.7 % · units with a value 23
+using worldcover
+exit 0

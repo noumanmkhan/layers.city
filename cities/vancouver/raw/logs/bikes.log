@@ -1,0 +1,22 @@
+segments: 3744 of 3744
+fields in source: ['aaa_network', 'aaa_segment', 'bike_route_name', 'bikeway_direction', 'bikeway_type', 'construction_note', 'e_s_bound_type', 'geo_point_2d', 'notes', 'object_id', 'overall_direction', 'snow_removal', 'speed_limit', 'status', 'street_name', 'street_segment_type', 'subtype', 'surface_type', 'upgrade_year', 'vehicle_direction', 'w_n_bound_type', 'year_of_construction']
+types: [
+[
+"Local Street",
+2376
+],
+[
+"Protected Bike Lanes",
+818
+],
+[
+"Painted Lanes",
+431
+],
+[
+"Shared Lanes",
+119
+]
+]
+wrote /home/runner/work/city-layers/city-layers/cities/vancouver/raw/bikes.geojson 1263 KB
+exit 0
