@@ -45,6 +45,13 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 .foot{display:flex;justify-content:space-between;gap:16px;font-size:10.5px;color:var(--muted)}
 .foot span:last-child{white-space:nowrap}
 .msg{max-width:8.5in;margin:40px auto;padding:0 16px;color:var(--muted)}
+.find{max-width:8.5in;margin:-6px auto 0;padding:0 16px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.find input{font:inherit;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--card);min-height:44px;flex:1 1 260px;max-width:420px}
+.find button{font:inherit;font-weight:500;padding:8px 14px;border:1px solid var(--ink);border-radius:8px;background:var(--card);min-height:44px;cursor:pointer}
+.find .hint{color:var(--muted);font-size:13px;flex-basis:100%}
+.map svg{cursor:crosshair}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.q.here{border-color:var(--accent)}
 @media (max-width:640px){
   .sheet{padding:18px;border-radius:0}
   h1{font-size:36px}
@@ -54,7 +61,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 @page{size:letter portrait;margin:0.4in}
 @media print{
   body{background:#fff}
-  .bar{display:none}
+  .bar,.find{display:none}
   .sheet{max-width:none;margin:0;padding:0;box-shadow:none;break-inside:avoid}
   .sheet{gap:10px;font-size:12px}
   h1{font-size:38px}
@@ -72,6 +79,13 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   <select id="pick"><option value="">Loading…</option></select>
   <button type="button" id="print">Print</button>
 </div>
+<form class="find" id="find">
+  <label for="q" class="sr">Address</label>
+  <input id="q" type="search" placeholder="Search an address, like 789 Yonge Street" autocomplete="off">
+  <button type="submit" id="go">Find</button>
+  <button type="button" id="clear" hidden>Clear pin</button>
+  <span class="hint" id="hint">Or click the map to drop a pin and see walk times from that spot.</span>
+</form>
 <p class="msg" id="msg" hidden></p>
 <main class="sheet" id="sheet" hidden>
   <div class="top">
@@ -83,7 +97,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   </div>
   <div>
     <h1 id="name"></h1>
-    <div class="sub">City of Toronto neighbourhood boundary</div>
+    <div class="sub" id="sub">City of Toronto neighbourhood boundary</div>
   </div>
   <div class="rule"></div>
   <section class="hero">
@@ -92,7 +106,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   </section>
   <section class="quads" id="quads"></section>
   <div class="foot">
-    <span>Boundaries: City of Toronto Open Data · Transit: TTC · Bike Share: Toronto Parking Authority · Census figures: 2021 · Walk times are approximate</span>
+    <span id="credits"></span>
     <span id="asof"></span>
   </div>
 </main>
@@ -100,17 +114,87 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 (() => {
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
+  const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g'];
   const el = (tag, attrs = {}, text) => {
-    const n = tag.includes(':') || ['svg','path','circle','text','rect','polygon','polyline','g'].includes(tag)
-      ? document.createElementNS(NS, tag) : document.createElement(tag);
+    const n = SVG_TAGS.includes(tag) ? document.createElementNS(NS, tag) : document.createElement(tag);
     for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
     if (text != null) n.textContent = text;
     return n;
   };
   const d = pts => 'M' + pts.map(p => p.join(' ')).join('L');
+  const getJSON = async url => { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); };
+  const once = f => { let p; return () => (p ||= f()); };
 
+  // Loaded only when a pin is dropped: the city's boundaries, the walk grid and the drive grid.
+  const hoods = once(() => getJSON('../data/neighbourhoods.geojson'));
+  const walk = once(() => getJSON('data/walk_grid.json').catch(() => null));
+  const drive = once(() => getJSON('../data/drive_grid.json').catch(() => null));
+  const cityCfg = once(() => getJSON('../data/city.json'));
+
+  const BASE_CREDITS = 'Boundaries: City of Toronto Open Data · Transit: TTC · Bike Share: Toronto Parking Authority · Census figures: 2021';
+  let index = { places: [] }, slugOf = {}, profile = null, pin = null;
+
+  // ---- the map's frame: viewBox x/y <-> lon/lat (see build.py frame()) ----
+  const toXY = (g, lon, lat) => [(lon * g.kx - g.x0) * g.s, (g.y1 - lat * g.ky) * g.s];
+  const toLL = (g, x, y) => [(x / g.s + g.x0) / g.kx, (g.y1 - y / g.s) / g.ky];
+  const round3 = v => Math.round(v * 1000) / 1000;   // about 100 m: a shared link doesn't give an exact address
+
+  function inRing(ring, x, y) {
+    let inside = false;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const [xi, yi] = ring[i], [xj, yj] = ring[j];
+      if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside;
+    }
+    return inside;
+  }
+  const inPoly = (rings, x, y) => inRing(rings[0], x, y) && !rings.slice(1).some(h => inRing(h, x, y));
+  async function hoodAt(lon, lat) {
+    const f = (await hoods()).features.find(f => {
+      const g = f.geometry;
+      return g.type === 'Polygon' ? inPoly(g.coordinates, lon, lat) : g.coordinates.some(p => inPoly(p, lon, lat));
+    });
+    return f ? slugOf[f.properties.name] : null;
+  }
+
+  function walkAt(g, lon, lat) {
+    const c = Math.floor((lon - g.lon0) / g.dlon), r = Math.floor((lat - g.lat0) / g.dlat);
+    if (c < 0 || r < 0 || c >= g.cols || r >= g.rows) return null;
+    const k = r * g.cols + c, out = {};
+    for (const [key, L] of Object.entries(g.layers)) {
+      const min = L.min[k];
+      out[key] = min == null ? null : { min, name: L.names ? L.names[L.src[k]] : null };
+    }
+    return out;
+  }
+  function driveAt(g, lon, lat) {
+    let best = null, bd = Infinity;
+    for (const p of g.points) { const dd = (p[0] - lon) ** 2 + (p[1] - lat) ** 2; if (dd < bd) { bd = dd; best = p; } }
+    return best && { min: best[2], hub: g.hub.replace(' Station', '') };
+  }
+
+  async function hereSection() {
+    const [g, dg] = await Promise.all([walk(), drive()]);
+    const w = g && walkAt(g, pin.lon, pin.lat);
+    const rows = [];
+    const t = (v, named) => v ? (named && v.name ? `${v.name} · ${v.min} min walk` : `${v.min} min walk`) : `Over ${g ? g.max_min : 60} min walk`;
+    if (!w) {
+      rows.push(['Walk times', g ? 'No street close to this spot' : 'Not built yet (run walk_grid.py)']);
+    } else {
+      rows.push(['Nearest subway', t(w.subway, true)]);
+      rows.push(['Nearest TTC stop', t(w.stop)]);
+      if (w.go && w.go.min <= 30) rows.push(['Nearest GO station', t(w.go, true)]);
+      rows.push(['Nearest Bike Share dock', t(w.bikeshare)]);
+      rows.push(['Nearest park', t(w.park)]);
+      rows.push(['Nearest library', t(w.library, true)]);
+    }
+    const dv = dg && driveAt(dg, pin.lon, pin.lat);
+    if (dv) rows.push([`Drive to ${dv.hub}`, `about ${dv.min} min`]);
+    return { title: 'From this spot', rows, here: true };
+  }
+
+  // ---- drawing ----
   function drawMap(m) {
-    const svg = el('svg', { viewBox: `0 0 ${m.w} ${m.h}`, role: 'img', 'aria-label': 'Map of the neighbourhood with transit, bike lanes and parks' });
+    const svg = el('svg', { viewBox: `0 0 ${m.w} ${m.h}`, role: 'img', 'aria-label': 'Map of the neighbourhood with transit, bike lanes and parks. Click to drop a pin.' });
     svg.append(el('rect', { width: m.w, height: m.h, fill: 'var(--land)' }));
     m.outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--hood)', stroke: 'var(--accent)', 'stroke-width': 2 })));
     m.bike.forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: 'var(--bike)', 'stroke-width': 1.6 })));
@@ -124,6 +208,14 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
       svg.append(el('text', { x: left ? s.x - 8 : s.x + 8, y: s.y + 4, 'text-anchor': left ? 'end' : 'start', 'font-size': 12, 'font-weight': 500, fill: '#1A1414',
         stroke: '#fff', 'stroke-width': 3, 'paint-order': 'stroke', 'font-family': 'IBM Plex Sans, sans-serif' }, s.name));
     });
+    if (pin && m.geo) {
+      const [x, y] = toXY(m.geo, pin.lon, pin.lat);
+      const g = el('g', { transform: `translate(${x.toFixed(1)} ${y.toFixed(1)})` });
+      g.append(el('circle', { r: 24, fill: 'var(--accent)', 'fill-opacity': .12 }));
+      g.append(el('path', { d: 'M0 0C-3-6-11-11-11-19A11 11 0 0 1 11-19C11-11 3-6 0 0Z', fill: 'var(--accent)', stroke: '#fff', 'stroke-width': 2 }));
+      g.append(el('circle', { cy: -19, r: 4, fill: '#fff' }));
+      svg.append(g);
+    }
     const lg = el('g', { transform: 'translate(10 10)' });
     lg.append(el('rect', { width: 132, height: 70, rx: 6, fill: '#fff', 'fill-opacity': .92 }));
     [['line', '#FFC425', 'Subway'], ['line', 'var(--car)', 'Streetcar'], ['line', 'var(--bike)', 'Bike lane or trail'], ['dot', 'var(--park)', 'Park']]
@@ -133,49 +225,106 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
         lg.append(el('text', { x: 30, y: y + 4, 'font-size': 11, fill: '#1A1414', 'font-family': 'IBM Plex Sans, sans-serif' }, label));
       });
     svg.append(lg);
+    svg.addEventListener('click', e => {
+      if (!m.geo) return;
+      const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+      const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const [lon, lat] = toLL(m.geo, p.x, p.y);
+      setPin(lat, lon);
+    });
     $('map').replaceChildren(svg);
   }
 
-  function render(p) {
+  async function render() {
+    const p = profile;
     document.title = `${p.name} · Neighbourhood profile · Layers.City`;
     $('name').textContent = p.name;
+    $('sub').textContent = pin
+      ? `Pinned spot (rounded to about 100 m) in the City’s ${p.name} neighbourhood`
+      : 'City of Toronto neighbourhood boundary';
     drawMap(p.map);
     $('glance').replaceChildren(...p.glance.map(([v, label]) => {
       const r = el('div', { class: 'row' }); r.append(el('b', {}, v), el('span', {}, label)); return r;
     }));
-    $('quads').replaceChildren(...p.sections.map((s, i) => {
-      const q = el('div', { class: 'panel q' });
+    const sections = p.sections.slice();
+    if (pin) sections[0] = await hereSection();
+    $('quads').replaceChildren(...sections.map((s, i) => {
+      const q = el('div', { class: 'panel q' + (s.here ? ' here' : '') });
       q.append(el('div', { class: 'k' }, `0${i + 1} · ${s.title}`));
       s.rows.forEach(([k, v]) => { const r = el('div', { class: 'row' }); r.append(el('span', {}, k), el('b', {}, v)); q.append(r); });
       return q;
     }));
+    $('credits').textContent = BASE_CREDITS + (pin
+      ? ' · Walks along streets and paths at 4.8 km/h from the 150 m square around the pin: © OpenStreetMap contributors · Drive times are free-flow'
+      : ' · Walk times are approximate');
     $('asof').textContent = `Data as of ${p.asof}`;
+    $('clear').hidden = !pin;
     $('sheet').hidden = false; $('msg').hidden = true;
   }
 
   function fail(text) { $('sheet').hidden = true; $('msg').hidden = false; $('msg').textContent = text; }
 
-  async function show(slug) {
-    if (!slug) return fail('Pick a neighbourhood to see its profile.');
-    try {
-      const r = await fetch(`data/${encodeURIComponent(slug)}.json`);
-      if (!r.ok) throw new Error(r.status);
-      render(await r.json());
-    } catch { fail('No profile found for that neighbourhood.'); }
+  function syncURL() {
+    const u = new URL(location);
+    profile ? u.searchParams.set('n', profile.slug) : u.searchParams.delete('n');
+    pin ? u.searchParams.set('at', `${pin.lat},${pin.lon}`) : u.searchParams.delete('at');
+    history.replaceState(null, '', u);
+    $('pick').value = profile ? profile.slug : '';
   }
 
+  async function load(slug) {
+    if (!slug) { profile = null; return fail('Pick a neighbourhood, search an address, or open a profile link.'); }
+    try { profile = await getJSON(`data/${encodeURIComponent(slug)}.json`); }
+    catch { profile = null; return fail('No profile found for that neighbourhood.'); }
+  }
+
+  async function setPin(lat, lon) {
+    const at = { lat: round3(lat), lon: round3(lon) };
+    const slug = await hoodAt(at.lon, at.lat);
+    if (!slug) { $('hint').textContent = 'That spot is outside the City of Toronto. Try a spot inside the city.'; return; }
+    pin = at;
+    if (!profile || profile.slug !== slug) await load(slug);
+    $('hint').textContent = 'Click the map again to move the pin.';
+    syncURL();
+    if (profile) await render();
+  }
+
+  // ---- address search: one Nominatim request per search, as its usage policy asks (no autocomplete) ----
+  let lastSearch = 0, busy = false;
+  $('find').addEventListener('submit', async e => {
+    e.preventDefault();
+    const text = $('q').value.trim();
+    if (!text || busy) return;
+    busy = true; $('go').disabled = true; $('go').textContent = '…';
+    try {
+      const wait = 1100 - (Date.now() - lastSearch);
+      if (wait > 0) await new Promise(r => setTimeout(r, wait));
+      lastSearch = Date.now();
+      const cfg = (await cityCfg()).search;
+      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&bounded=1&countrycodes=' + cfg.country +
+        '&viewbox=' + cfg.viewbox + '&q=' + encodeURIComponent(text);
+      let hit = null;
+      for (const r of await getJSON(url)) if (await hoodAt(+r.lon, +r.lat)) { hit = r; break; }
+      if (hit) await setPin(+hit.lat, +hit.lon);
+      else $('hint').textContent = `No match in Toronto for “${text}”. Try the full street name, like “789 Yonge Street”.`;
+    } catch {
+      $('hint').textContent = 'Address search isn’t responding right now. Try again in a moment, or click the map instead.';
+    } finally { busy = false; $('go').disabled = false; $('go').textContent = 'Find'; }
+  });
+  $('clear').addEventListener('click', () => { pin = null; $('hint').textContent = 'Or click the map to drop a pin and see walk times from that spot.'; syncURL(); render(); });
+
   async function init() {
-    const idx = await (await fetch('data/index.json')).json();
+    index = await getJSON('data/index.json');
+    index.places.forEach(p => { slugOf[p.name] = p.slug; });
     const sel = $('pick');
-    sel.replaceChildren(el('option', { value: '' }, 'Choose a neighbourhood'), ...idx.places.map(p => el('option', { value: p.slug }, p.name)));
-    const start = new URLSearchParams(location.search).get('n') || '';
-    sel.value = start;
-    sel.addEventListener('change', () => {
-      const u = new URL(location); sel.value ? u.searchParams.set('n', sel.value) : u.searchParams.delete('n');
-      history.replaceState(null, '', u); show(sel.value);
-    });
+    sel.replaceChildren(el('option', { value: '' }, 'Choose a neighbourhood'), ...index.places.map(p => el('option', { value: p.slug }, p.name)));
+    sel.addEventListener('change', async () => { pin = null; await load(sel.value); syncURL(); if (profile) render(); });
     $('print').addEventListener('click', () => window.print());
-    show(start);
+    const qs = new URLSearchParams(location.search);
+    const at = (qs.get('at') || '').split(',').map(Number);
+    await load(qs.get('n') || '');
+    if (at.length === 2 && at.every(Number.isFinite)) await setPin(at[0], at[1]);
+    else if (profile) { syncURL(); render(); }
   }
   init().catch(() => fail('Profiles could not load.'));
 })();
