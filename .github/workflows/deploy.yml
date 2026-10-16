@@ -68,6 +68,16 @@ jobs:
         with:
           ref: ${{ inputs.branch || 'main' }}
 
+      # Neighbourhood profiles are unreleased and live only on the `profiles` branch. If they ever
+      # reach main by mistake, stop here rather than publish them. Remove this step at launch.
+      - name: Block unreleased profiles from the live site
+        if: env.BRANCH == 'main'
+        run: |
+          if ls -d docs/*/profiles >/dev/null 2>&1; then
+            echo "::error::docs/*/profiles is on main, but profiles aren't released yet. Nothing was published."
+            exit 1
+          fi
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
