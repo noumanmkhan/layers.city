@@ -4,9 +4,11 @@ Usage:  python3 engine/profiles/fetch_walk.py toronto
 Writes: cities/<city>/raw/walk_network.json   (not committed: large, and rebuilt from OSM on demand)
         {asof, nodes: [[lon, lat], ...], edges: [[a, b], ...]}   a and b index into nodes
 
-Run it on a computer with normal internet (it fails in most sandboxes). One Overpass request, usually
-one to three minutes for Toronto. Re-run it only when OSM's streets need refreshing (a few times a year);
-walk_grid.py reads the saved file.
+Run it on a computer with normal internet (it fails in most sandboxes). A whole city is too big for one
+Overpass request, so the city's box is cut into TILES_X x TILES_Y tiles, fetched one at a time with a
+pause between them, from the first server that answers. Each tile is saved under
+cities/<city>/raw/walk_tiles/ as it arrives, so if a run stops partway, running it again carries on
+from the missing tiles. Delete that folder to fetch everything fresh. Expect 5 to 15 minutes for Toronto.
 
 What counts as walkable: streets other than expressways, plus footways, paths, steps, pedestrian
 areas, cycle tracks, laneways and service roads, minus anything tagged foot=no or private.
@@ -19,10 +21,15 @@ from datetime import date
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 city = sys.argv[1] if len(sys.argv) > 1 else sys.exit('usage: fetch_walk.py <city>')
 RAW = os.path.join(ROOT, 'cities', city, 'raw')
+TILES = os.path.join(RAW, 'walk_tiles')
 OUT = os.path.join(RAW, 'walk_network.json')
 DATA = os.path.join(ROOT, 'docs', city, 'data')
-URL = 'https://overpass-api.de/api/interpreter'
+SERVERS = ['https://overpass-api.de/api/interpreter',
+           'https://overpass.private.coffee/api/interpreter',
+           'https://overpass.kumi.systems/api/interpreter']
 UA = {'User-Agent': 'city-layers/1.0 (https://layers.city; go@layers.city)'}
+TILES_X, TILES_Y = 4, 3
+PAUSE_S = 5          # between tiles, to be polite to a free shared service
 
 WALKABLE = ('footway|path|pedestrian|steps|corridor|cycleway|track|living_street|residential|service|'
             'unclassified|tertiary|tertiary_link|secondary|secondary_link|primary|primary_link')
@@ -45,28 +52,53 @@ def city_bbox():
     return min(ys) - pad, min(xs) - pad, max(ys) + pad, max(xs) + pad
 
 
-s, w, n, e = city_bbox()
-query = f"""[out:json][timeout:600][maxsize:2000000000];
-(way["highway"~"^({WALKABLE})$"]["foot"!~"^(no|private)$"]["access"!~"^(no|private)$"]({s:.4f},{w:.4f},{n:.4f},{e:.4f}););
+def fetch(bbox):
+    s, w, n, e = bbox
+    q = f"""[out:json][timeout:300];
+(way["highway"~"^({WALKABLE})$"]["foot"!~"^(no|private)$"]["access"!~"^(no|private)$"]({s:.5f},{w:.5f},{n:.5f},{e:.5f}););
 out skel qt; >; out skel qt;"""
+    body = urllib.parse.urlencode({'data': q}).encode()
+    last = None
+    for attempt in range(6):
+        url = SERVERS[attempt % len(SERVERS)]
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, data=body, headers=UA), timeout=360) as r:
+                return json.loads(r.read())['elements']
+        except Exception as err:
+            last = err
+            host = urllib.parse.urlparse(url).netloc
+            wait = 20 * (attempt + 1)
+            print(f'    {host}: {err}; trying again in {wait} s', flush=True)
+            time.sleep(wait)
+    sys.exit(f'Overpass kept failing ({last}). Run the same command again later: finished tiles are kept.')
 
-print(f'{city}: asking Overpass for walkable ways in {s:.3f},{w:.3f},{n:.3f},{e:.3f} ...', flush=True)
-body = urllib.parse.urlencode({'data': query}).encode()
-for attempt in range(3):
-    try:
-        t = time.time()
-        with urllib.request.urlopen(urllib.request.Request(URL, data=body, headers=UA), timeout=900) as r:
-            raw = r.read()
-        break
-    except Exception as err:
-        if attempt == 2:
-            sys.exit(f'Overpass failed: {err}. Try again in a few minutes (the server may be busy).')
-        print(f'  {err}; retrying in 60 s', flush=True)
-        time.sleep(60)
-print(f'  {len(raw) / 1e6:.0f} MB in {time.time() - t:.0f} s; building the network ...', flush=True)
 
-els = json.loads(raw)['elements']
-coords = {el['id']: (el['lon'], el['lat']) for el in els if el['type'] == 'node'}
+S, W, N, E = city_bbox()
+os.makedirs(TILES, exist_ok=True)
+dy, dx = (N - S) / TILES_Y, (E - W) / TILES_X
+print(f'{city}: walkable ways in {S:.3f},{W:.3f},{N:.3f},{E:.3f}, as {TILES_X * TILES_Y} tiles', flush=True)
+coords, ways = {}, []
+for r in range(TILES_Y):
+    for c in range(TILES_X):
+        name = os.path.join(TILES, f'tile_{r}_{c}.json')
+        if os.path.exists(name):
+            els = json.load(open(name))
+            print(f'  tile {r * TILES_X + c + 1}/{TILES_X * TILES_Y}: already saved', flush=True)
+        else:
+            t = time.time()
+            print(f'  tile {r * TILES_X + c + 1}/{TILES_X * TILES_Y}: fetching ...', flush=True)
+            els = fetch((S + r * dy, W + c * dx, S + (r + 1) * dy, W + (c + 1) * dx))
+            with open(name, 'w') as f:
+                json.dump(els, f, separators=(',', ':'))
+            print(f'    {len(els):,} elements in {time.time() - t:.0f} s', flush=True)
+            time.sleep(PAUSE_S)
+        for el in els:
+            if el['type'] == 'node':
+                coords[el['id']] = (el['lon'], el['lat'])
+            elif el['type'] == 'way':
+                ways.append(el.get('nodes', []))
+
+# Ways that cross a tile edge come back in both tiles, whole; links are kept once.
 index, nodes, edges = {}, [], set()
 
 
@@ -78,16 +110,13 @@ def node(osm_id):
     return index[osm_id]
 
 
-for el in els:
-    if el['type'] != 'way':
-        continue
-    refs = [r for r in el.get('nodes', []) if r in coords]
+for refs in ways:
+    refs = [r for r in refs if r in coords]
     for a, b in zip(refs, refs[1:]):
         if a != b:
             i, j = node(a), node(b)
             edges.add((min(i, j), max(i, j)))
 
-os.makedirs(RAW, exist_ok=True)
 with open(OUT, 'w') as f:
     json.dump({'asof': date.today().isoformat(), 'source': 'OpenStreetMap (Overpass)',
                'nodes': nodes, 'edges': sorted(edges)}, f, separators=(',', ':'))
