@@ -14,10 +14,11 @@
 @font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
 :root{
   --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --muted:#5E5452; --rule:#E4DCDA; --accent:#C8102E;
-  --hood:#FBE3E5; --land:#F2EEEC; --park:#4E9A57; --bike:#8DBF94; --car:#C8102E;
+  --hood:#FBE3E5; --land:#F2EEEC; --park:#4E9A57; --bike:#8DBF94; --car:#C8102E; --bus:#2F5E9E;
   --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.4}
 .bar{max-width:8.5in;margin:0 auto;padding:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .bar label{font-weight:500}
@@ -32,7 +33,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 .hero{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:14px}
 .panel{border:1px solid var(--rule);border-radius:10px;padding:12px 14px;background:var(--card)}
 .map{padding:0;overflow:hidden;background:var(--land)}
-.map svg{display:block;width:100%;height:auto;max-height:4.4in}
+.map svg{display:block;width:100%;height:100%;min-height:3in;max-height:4.4in}
 .k{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
 .glance .row{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px solid var(--rule)}
 .glance .row:last-child{border-bottom:0}
@@ -50,12 +51,22 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 .find button{font:inherit;font-weight:500;padding:8px 14px;border:1px solid var(--ink);border-radius:8px;background:var(--card);min-height:44px;cursor:pointer}
 .find .hint{color:var(--muted);font-size:13px;flex-basis:100%}
 .map svg{cursor:crosshair}
+.lens{display:inline-flex;border:1px solid var(--ink);border-radius:8px;overflow:hidden}
+.lens button{border:0;border-radius:0;min-height:44px}
+.lens button+button{border-left:1px solid var(--ink)}
+.lens button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.hero.two{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+.sys{display:flex;flex-direction:column}
+.sys svg{display:block;width:100%;height:auto;margin-top:4px}
+.sys .lines{display:grid;gap:3px;margin-top:8px;font-size:11.5px}
+.sys .lines i{display:inline-block;width:16px;height:4px;border-radius:2px;margin-right:8px;vertical-align:middle}
+.sys .note{font-size:11px;color:var(--muted);margin-top:6px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .q.here{border-color:var(--accent)}
 @media (max-width:640px){
   .sheet{padding:18px;border-radius:0}
   h1{font-size:36px}
-  .hero,.quads{grid-template-columns:minmax(0,1fr)}
+  .hero,.hero.two,.quads{grid-template-columns:minmax(0,1fr)}
   .foot{flex-direction:column}
 }
 @page{size:letter portrait;margin:0.4in}
@@ -77,6 +88,10 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 <div class="bar">
   <label for="pick">Neighbourhood</label>
   <select id="pick"><option value="">Loading…</option></select>
+  <div class="lens" role="group" aria-label="Profile type">
+    <button type="button" data-lens="overview" aria-pressed="true">Overview</button>
+    <button type="button" data-lens="transit" aria-pressed="false">Transit</button>
+  </div>
   <button type="button" id="print">Print</button>
 </div>
 <form class="find" id="find">
@@ -93,16 +108,18 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
       <svg width="16" height="20" viewBox="0 0 18 22" aria-hidden="true"><path d="M9 1C4.6 1 1.5 4.2 1.5 8.2 1.5 13 9 21 9 21S16.5 13 16.5 8.2C16.5 4.2 13.4 1 9 1Z" fill="#C8102E"/><path d="M4.8 8.4 9 6.2l4.2 2.2L9 10.6Z" fill="#fff"/><path d="M4.8 10.6 9 12.8l4.2-2.2" fill="none" stroke="#fff" stroke-width="1.2"/></svg>
       Layers.City
     </span>
-    <span>NEIGHBOURHOOD PROFILE · TORONTO</span>
+    <span id="kind">NEIGHBOURHOOD PROFILE · TORONTO</span>
   </div>
   <div>
     <h1 id="name"></h1>
     <div class="sub" id="sub">City of Toronto neighbourhood boundary</div>
   </div>
   <div class="rule"></div>
-  <section class="hero">
+  <section class="hero" id="hero">
     <div class="panel map" id="map"></div>
-    <div class="panel glance"><div class="k">At a glance</div><div id="glance"></div></div>
+    <div class="panel glance" id="glancePanel"><div class="k">At a glance</div><div id="glance"></div></div>
+    <div class="panel sys" id="sysPanel" hidden><div class="k">Where it connects</div><div id="sys"></div>
+      <div class="note">Subway and LRT lines, simplified. Stops and changes are counted along the lines.</div></div>
   </section>
   <section class="quads" id="quads"></section>
   <div class="foot">
@@ -130,9 +147,11 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   const walk = once(() => getJSON('data/walk_grid.json').catch(() => null));
   const drive = once(() => getJSON('../data/drive_grid.json').catch(() => null));
   const cityCfg = once(() => getJSON('../data/city.json'));
+  const system = once(() => getJSON('data/system.json').catch(() => null));
 
   const BASE_CREDITS = 'Boundaries: City of Toronto Open Data · Transit: TTC · Bike Share: Toronto Parking Authority · Census figures: 2021';
   let index = { places: [] }, slugOf = {}, profile = null, pin = null;
+  let lens = new URLSearchParams(location.search).get('lens') === 'transit' ? 'transit' : 'overview';
 
   // ---- the map's frame: viewBox x/y <-> lon/lat (see build.py frame()) ----
   const toXY = (g, lon, lat) => [(lon * g.kx - g.x0) * g.s, (g.y1 - lat * g.ky) * g.s];
@@ -172,6 +191,24 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     return best && { min: best[2], hub: g.hub.replace(' Station', '') };
   }
 
+  const hubText = v => {
+    if (!v) return 'Not on the subway';
+    const [n, ch] = v;
+    if (n === 0) return 'You’re there';
+    return `${n} stop${n === 1 ? '' : 's'}` + (ch ? ` · ${ch} change${ch === 1 ? '' : 's'}` : '');
+  };
+
+  // In the Transit lens with a pin, the hubs section starts from the station nearest the pin.
+  async function hubsFromPin(base) {
+    const [g, sys] = await Promise.all([walk(), system()]);
+    const w = g && walkAt(g, pin.lon, pin.lat);
+    if (!w || !w.subway || !sys) return base;
+    const from = w.subway.name, table = sys.toHubs[from] || [];
+    const rows = sys.hubs.map((h, i) => [h, hubText(table[i])]);
+    base.rows.filter(([k]) => k.startsWith('Door to door')).forEach(r => rows.push([r[0] + ' (whole neighbourhood)', r[1]]));
+    return { title: `From ${from} (${w.subway.min} min walk) to the hubs`, rows, origin: from };
+  }
+
   async function hereSection() {
     const [g, dg] = await Promise.all([walk(), drive()]);
     const w = g && walkAt(g, pin.lon, pin.lat);
@@ -193,11 +230,15 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   }
 
   // ---- drawing ----
-  function drawMap(m) {
+  function drawMap(m, transit) {
     const svg = el('svg', { viewBox: `0 0 ${m.w} ${m.h}`, role: 'img', 'aria-label': 'Map of the neighbourhood with transit, bike lanes and parks. Click to drop a pin.' });
     svg.append(el('rect', { width: m.w, height: m.h, fill: 'var(--land)' }));
     m.outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--hood)', stroke: 'var(--accent)', 'stroke-width': 2 })));
-    m.bike.forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: 'var(--bike)', 'stroke-width': 1.6 })));
+    m.bike.forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: 'var(--bike)', 'stroke-width': 1.6, 'stroke-opacity': transit ? .6 : 1 })));
+    if (transit) {
+      (m.bus || []).forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: 'var(--bus)', 'stroke-width': 1.8, 'stroke-opacity': .55 })));
+      (m.busFreq || []).forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: 'var(--bus)', 'stroke-width': 3.2 })));
+    }
     m.streetcar.forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: 'var(--car)', 'stroke-width': 2.4, 'stroke-opacity': .8 })));
     m.subway.forEach(l => l.paths.forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: l.color || '#333', 'stroke-width': 5, 'stroke-linecap': 'round' }))));
     m.parks.forEach(([x, y]) => svg.append(el('circle', { cx: x, cy: y, r: 3.2, fill: 'var(--park)' })));
@@ -217,11 +258,15 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
       svg.append(g);
     }
     const lg = el('g', { transform: 'translate(10 10)' });
-    lg.append(el('rect', { width: 132, height: 70, rx: 6, fill: '#fff', 'fill-opacity': .92 }));
-    [['line', '#FFC425', 'Subway'], ['line', 'var(--car)', 'Streetcar'], ['line', 'var(--bike)', 'Bike lane or trail'], ['dot', 'var(--park)', 'Park']]
+    const keys = transit
+      ? [['line', '#FFC425', 'Subway or LRT'], ['line', 'var(--car)', 'Streetcar'], ['line', 'var(--bus)', 'Frequent bus'], ['thin', 'var(--bus)', 'Other daytime bus'], ['line', 'var(--bike)', 'Bike lane or trail']]
+      : [['line', '#FFC425', 'Subway'], ['line', 'var(--car)', 'Streetcar'], ['line', 'var(--bike)', 'Bike lane or trail'], ['dot', 'var(--park)', 'Park']];
+    lg.append(el('rect', { width: 140, height: 10 + keys.length * 15, rx: 6, fill: '#fff', 'fill-opacity': .92 }));
+    keys
       .forEach(([kind, c, label], i) => {
         const y = 14 + i * 15;
-        lg.append(kind === 'line' ? el('rect', { x: 8, y: y - 2, width: 16, height: 4, fill: c }) : el('circle', { cx: 16, cy: y, r: 3.5, fill: c }));
+        lg.append(kind === 'dot' ? el('circle', { cx: 16, cy: y, r: 3.5, fill: c })
+          : el('rect', { x: 8, y: y - (kind === 'thin' ? 1 : 2), width: 16, height: kind === 'thin' ? 2 : 4, fill: c, 'fill-opacity': kind === 'thin' ? .6 : 1 }));
         lg.append(el('text', { x: 30, y: y + 4, 'font-size': 11, fill: '#1A1414', 'font-family': 'IBM Plex Sans, sans-serif' }, label));
       });
     svg.append(lg);
@@ -235,6 +280,31 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     $('map').replaceChildren(svg);
   }
 
+  function drawSystem(sys, outline, origin) {
+    const svg = el('svg', { viewBox: `0 0 ${sys.w} ${sys.h}`, role: 'img', 'aria-label': 'Toronto’s subway and LRT lines with this neighbourhood highlighted' });
+    sys.outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--land)', stroke: 'var(--rule)', 'stroke-width': 2 })));
+    outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--accent)', 'fill-opacity': .25, stroke: 'var(--accent)', 'stroke-width': 2.5 })));
+    sys.lines.forEach(l => svg.append(el('path', { d: d(l.path), fill: 'none', stroke: l.color || '#333', 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' })));
+    const o0 = sys.stations.find(s => s.name === origin);
+    // hubs get a dot and a name, except one crowding the neighbourhood's own station
+    const named = s => sys.hubs.includes(s.name) && s.name !== origin && !(o0 && Math.hypot(s.x - o0.x, s.y - o0.y) < 26);
+    sys.stations.filter(named).forEach(s => svg.append(el('circle', { cx: s.x, cy: s.y, r: 5, fill: '#fff', stroke: '#1A1414', 'stroke-width': 2 })));
+    const label = (s, size, weight) => {
+      const left = s.x > sys.w - 120;
+      svg.append(el('text', { x: left ? s.x - 8 : s.x + 8, y: s.y + 5, 'text-anchor': left ? 'end' : 'start', 'font-size': size, 'font-weight': weight,
+        fill: '#1A1414', stroke: '#fff', 'stroke-width': 4, 'paint-order': 'stroke', 'font-family': 'IBM Plex Sans, sans-serif' }, s.name));
+    };
+    sys.stations.filter(named).forEach(s => label(s, 17, 500));
+    const o = sys.stations.find(s => s.name === origin);
+    if (o) {
+      svg.append(el('circle', { cx: o.x, cy: o.y, r: 8, fill: '#fff', stroke: 'var(--accent)', 'stroke-width': 4 }));
+      label(o, 19, 700);
+    }
+    const key = el('div', { class: 'lines' });
+    sys.lines.forEach(l => { const r = el('div'); r.append(el('i', { style: `background:${l.color}` }), document.createTextNode(l.name)); key.append(r); });
+    $('sys').replaceChildren(svg, key);
+  }
+
   async function render() {
     const p = profile;
     document.title = `${p.name} · Neighbourhood profile · Layers.City`;
@@ -242,12 +312,20 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     $('sub').textContent = pin
       ? `Pinned spot (rounded to about 100 m) in the City’s ${p.name} neighbourhood`
       : 'City of Toronto neighbourhood boundary';
-    drawMap(p.map);
+    const transit = lens === 'transit' && p.transit;
+    drawMap(p.map, !!transit);
+    $('kind').textContent = (transit ? 'TRANSIT' : 'NEIGHBOURHOOD') + ' PROFILE · TORONTO';
+    $('hero').classList.toggle('two', !!transit);
+    $('glancePanel').hidden = !!transit; $('sysPanel').hidden = !transit;
+    document.querySelectorAll('.lens button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lens === lens)));
     $('glance').replaceChildren(...p.glance.map(([v, label]) => {
       const r = el('div', { class: 'row' }); r.append(el('b', {}, v), el('span', {}, label)); return r;
     }));
-    const sections = p.sections.slice();
+    const sections = (transit ? p.transit.sections : p.sections).slice();
+    let origin = transit ? p.transit.origin : null;
     if (pin) sections[0] = await hereSection();
+    if (pin && transit) { sections[2] = await hubsFromPin(sections[2]); origin = sections[2].origin || origin; }
+    if (transit) { const sys = await system(); if (sys) drawSystem(sys, p.transit.system, origin); }
     $('quads').replaceChildren(...sections.map((s, i) => {
       const q = el('div', { class: 'panel q' + (s.here ? ' here' : '') });
       q.append(el('div', { class: 'k' }, `0${i + 1} · ${s.title}`));
@@ -256,7 +334,8 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     }));
     $('credits').textContent = BASE_CREDITS + (pin
       ? ' · Walks along streets and paths at 4.8 km/h from the 150 m square around the pin: © OpenStreetMap contributors · Drive times are free-flow'
-      : ' · Walk times are approximate');
+      : ' · Walk times are approximate')
+      + (lens === 'transit' ? ' · Stops and changes counted along TTC lines · Door to door: typical weekday-morning trip' : '');
     $('asof').textContent = `Data as of ${p.asof}`;
     $('clear').hidden = !pin;
     $('sheet').hidden = false; $('msg').hidden = true;
@@ -268,6 +347,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     const u = new URL(location);
     profile ? u.searchParams.set('n', profile.slug) : u.searchParams.delete('n');
     pin ? u.searchParams.set('at', `${pin.lat},${pin.lon}`) : u.searchParams.delete('at');
+    lens === 'transit' ? u.searchParams.set('lens', 'transit') : u.searchParams.delete('lens');
     history.replaceState(null, '', u);
     $('pick').value = profile ? profile.slug : '';
   }
@@ -320,6 +400,9 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     sel.replaceChildren(el('option', { value: '' }, 'Choose a neighbourhood'), ...index.places.map(p => el('option', { value: p.slug }, p.name)));
     sel.addEventListener('change', async () => { pin = null; await load(sel.value); syncURL(); if (profile) render(); });
     $('print').addEventListener('click', () => window.print());
+    document.querySelectorAll('.lens button').forEach(b => b.addEventListener('click', () => {
+      lens = b.dataset.lens; syncURL(); if (profile) render();
+    }));
     const qs = new URLSearchParams(location.search);
     const at = (qs.get('at') || '').split(',').map(Number);
     await load(qs.get('n') || '');
