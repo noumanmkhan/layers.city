@@ -240,6 +240,8 @@ def frame(P, parks):
 
     return {
         'w': VIEW_W, 'h': round((y1 - y0) * s),
+        # to turn a spot on the drawing back into lon/lat (and back): lon = (x / s + x0) / kx
+        'geo': {'x0': round(x0, 5), 'y1': round(y1, 5), 's': round(s, 5), 'kx': round(KX, 5), 'ky': KY},
         'outline': [[xy(*c) for c in part.exterior.simplify(0.008).coords]
                     for part in getattr(P, 'geoms', [P]) if part.geom_type == 'Polygon'],
         'subway': [{'line': m.get('line'), 'color': m.get('color'), 'paths': p}
