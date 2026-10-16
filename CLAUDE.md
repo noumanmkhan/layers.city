@@ -35,6 +35,8 @@ the landing page, stop and say so; don't change this repo.
   a new fetch job that writes to docs/ must be added to that list, or its data won't go live until the next push.
   - `docs/index.html`, `docs/fonts/` and the icons are the **maps hub**, hand-written and
     laid out like the noumankhan.ca landing page, in the Layers.City brand (red #C8102E, pin logo).
+    The plain pin is the default everywhere; the maple-leaf version (the `-ca` logo, touch icon and
+    social image) is only for Canadian cities' pages, picked from `search.country` by assemble.py and places.py.
     Edit them directly, except the logo files and `docs/thumbs/`, which `assets/brand/build.py` and
     `assets/brand/outlines.py` draw: change those scripts and re-run. Print maps get
     added there as cards (a template is commented out in the HTML), with images in `docs/prints/`.

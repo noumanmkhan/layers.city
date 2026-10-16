@@ -202,7 +202,13 @@ footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(
 @media (max-width:520px){section{padding:18px}h1{margin-top:12px}}"""
 PIN = ('<svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/>'
        '<polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/>'
-       '<polygon points="60,20 90,34 60,48 30,34" fill="#fff"/></svg>')
+       '<polygon points="60,20 90,34 60,48 30,34" fill="#fff"/>%s</svg>')
+# Canadian cities get the logo with the maple leaf cut into the top sheet; the rest the plain pin.
+CA = cfg.get('search', {}).get('country') == 'ca'
+BRAND = '-ca' if CA else ''
+PIN %= ('<path transform="translate(51,24.5) scale(0.9)" d="M10 0 L11.6 3.2 L13.2 2.4 L12.6 6.6 L15.2 4.2 L15.8 5.8 '
+        'L18.4 5.2 L17.4 8.2 L19.2 9.2 L14.6 12.8 L15.2 14.6 L10.6 14 L10.8 18.6 L9.2 18.6 L9.4 14 L4.8 14.6 L5.4 12.8 '
+        'L0.8 9.2 L2.6 8.2 L1.6 5.2 L4.2 5.8 L4.8 4.2 L7.4 6.6 L6.8 2.4 L8.4 3.2 Z" fill="#C8102E"/>' if CA else '')
 
 def page(title, desc, canonical, og, body, extra_head=''):
     return f"""<!doctype html>
@@ -224,7 +230,7 @@ def page(title, desc, canonical, og, body, extra_head=''):
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon{BRAND}.png">
 {extra_head}<style>{CSS}</style>
 <script src="/stats.js" defer></script>
 </head>

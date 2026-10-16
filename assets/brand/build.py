@@ -1,13 +1,15 @@
 """Builds the Layers.City logo files from one set of shapes.
 
-The mark (chosen October 12, 2026, "D2"): a red map pin holding three stacked sheets (the map's
-layers), with a maple leaf cut into the top sheet. Below about 40 px the leaf and one sheet are
-dropped (favicon). Writes, under docs/:
-  logo.svg          the mark, red pin on transparent
-  favicon.svg       small-size mark, for browser tabs
-  favicon.ico       16 + 32 px from favicon.svg
-  icon-192.png, icon-512.png, apple-touch-icon.png (180)   white pin on a red square
-  og-layers.png     1200 x 630 social preview
+The mark: a red map pin holding three stacked sheets (the map's layers). Two versions
+(October 16, 2026): "D", the plain pin, is the default everywhere; "D2" adds a maple leaf cut into
+the top sheet and is used only on Canadian cities' pages (search.country "ca" in city.json;
+engine/assemble.py and engine/places.py pick the "-ca" files). Below about 40 px the leaf and one
+sheet are dropped, so the favicon is the same for both. Writes, under docs/:
+  logo.svg, logo-ca.svg             the mark, red pin on transparent
+  favicon.svg, favicon.ico          small-size mark (16/32/48), for browser tabs, shared by both
+  icon-192.png, icon-512.png        white pin on a red square (default only)
+  apple-touch-icon.png, apple-touch-icon-ca.png (180)   home-screen icon
+  og-layers.png, og-layers-ca.png   1200 x 630 social preview
 
 Needs: pip install cairosvg pillow fonttools brotli. Run from anywhere: python3 assets/brand/build.py
 """
@@ -50,10 +52,10 @@ def svg(body, vb='0 0 120 120', w=None, h=None):
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="%s"%s>%s</svg>' % (vb, size, body)
 
 
-def tile(n):
+def tile(n, leaf=False):
     """App icon: white pin on a full red square (iOS and Android round the corners themselves)."""
     body = '<rect width="120" height="120" fill="%s"/><g transform="translate(60 61) scale(0.74) translate(-60 -61)">%s</g>' % (
-        RED, mark(WHITE, RED))
+        RED, mark(WHITE, RED, leaf))
     return svg(body, w=n, h=n)
 
 
@@ -67,15 +69,17 @@ def write(name, text):
     print('wrote docs/' + name)
 
 
-write('logo.svg', svg(mark(RED, WHITE), vb='18 6 84 108'))
+write('logo.svg', svg(mark(RED, WHITE, leaf=False), vb='18 6 84 108'))
+write('logo-ca.svg', svg(mark(RED, WHITE), vb='18 6 84 108'))
 write('favicon.svg', svg(small(RED, WHITE), vb='16 6 88 108'))
 
 fav = svg(small(RED, WHITE), vb='16 6 88 108')
 ico = [png(fav, 16), png(fav, 32), png(fav, 48)]
 ico[2].save(os.path.join(DOCS, 'favicon.ico'), sizes=[(16, 16), (32, 32), (48, 48)], append_images=ico[:2])
 print('wrote docs/favicon.ico')
-for name, n in (('icon-192.png', 192), ('icon-512.png', 512), ('apple-touch-icon.png', 180)):
-    png(tile(n), n).convert('RGB').save(os.path.join(DOCS, name), optimize=True)
+for name, n, leaf in (('icon-192.png', 192, False), ('icon-512.png', 512, False),
+                      ('apple-touch-icon.png', 180, False), ('apple-touch-icon-ca.png', 180, True)):
+    png(tile(n, leaf), n).convert('RGB').save(os.path.join(DOCS, name), optimize=True)
     print('wrote docs/' + name)
 
 # Social preview: the mark, the wordmark in Archivo (the hub's font), one line of description.
@@ -85,16 +89,17 @@ def font(weight, size):
     buf = io.BytesIO(); f.save(buf); buf.seek(0)
     return ImageFont.truetype(buf, size)
 
-og = Image.new('RGB', (1200, 630), PAPER)
-pin = png(svg(mark(RED, WHITE), vb='18 6 84 108'), 280, 360)
-og.paste(pin, (110, 135), pin)
-d = ImageDraw.Draw(og)
-big, dot, sub = font(800, 124), font(700, 124), font(700, 40)
-x, y = 450, 205
-d.text((x, y), 'Layers', font=big, fill=INK)
-x += d.textlength('Layers', font=big)
-d.text((x, y), '.City', font=dot, fill=RED)
-d.text((454, 375), 'Interactive maps of every way', font=sub, fill=INK2)
-d.text((454, 425), 'a city is divided', font=sub, fill=INK2)
-og.save(os.path.join(DOCS, 'og-layers.png'), optimize=True)
-print('wrote docs/og-layers.png')
+for name, leaf in (('og-layers.png', False), ('og-layers-ca.png', True)):
+    og = Image.new('RGB', (1200, 630), PAPER)
+    pin = png(svg(mark(RED, WHITE, leaf), vb='18 6 84 108'), 280, 360)
+    og.paste(pin, (110, 135), pin)
+    d = ImageDraw.Draw(og)
+    big, dot, sub = font(800, 124), font(700, 124), font(700, 40)
+    x, y = 450, 205
+    d.text((x, y), 'Layers', font=big, fill=INK)
+    x += d.textlength('Layers', font=big)
+    d.text((x, y), '.City', font=dot, fill=RED)
+    d.text((454, 375), 'Interactive maps of every way', font=sub, fill=INK2)
+    d.text((454, 425), 'a city is divided', font=sub, fill=INK2)
+    og.save(os.path.join(DOCS, name), optimize=True)
+    print('wrote docs/' + name)

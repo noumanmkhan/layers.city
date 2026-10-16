@@ -23,6 +23,8 @@ def lookup(path):
     return html.escape(str(v), quote=True)
 
 t = read(HERE, 'template.html')
+# Canadian cities use the logo with the maple leaf (the "-ca" files from assets/brand/build.py); the rest the plain pin.
+t = t.replace('%BRAND%', '-ca' if cfg.get('search', {}).get('country') == 'ca' else '')
 t = re.sub(r'\{\{([\w.]+)\}\}', lambda m: lookup(m.group(1)), t)
 # The title doubles as a switcher between every city in cities/, plus the maps hub. With one city
 # it stays a plain heading.
