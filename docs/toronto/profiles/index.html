@@ -41,7 +41,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 .quads{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px}
 .q .row{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px solid var(--rule);font-size:12.5px}
 .q .row:last-child{border-bottom:0}
-.q .row span{color:var(--muted)}
+.q .row > span{color:var(--muted)}
 .q .row b{font-weight:500;text-align:right}
 .foot{display:flex;justify-content:space-between;gap:16px;font-size:10.5px;color:var(--muted)}
 .foot span:last-child{white-space:nowrap}
@@ -58,6 +58,21 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 .hero.two{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
 .sys{display:flex;flex-direction:column}
 .sys svg{display:block;width:100%;height:auto;margin-top:4px}
+/* Line bullets and route badges, in the map's TTC styles (cities/toronto/city.css): streetcars red with white
+   numbers, buses white with a red outline, express green, Blue Night white with a blue outline, GO green. */
+.ln{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font:800 11px/1 var(--display);color:#fff;flex:none}
+.ln.l1{background:#FFC425;color:#1A1414} .ln.l2{background:#00A64F} .ln.l4{background:#A8518A} .ln.l5{background:#F58426} .ln.l6{background:#959595}
+.lns{display:inline-flex;gap:3px;align-items:center}
+.lbl{display:inline-flex;gap:6px;align-items:center}
+.rbs{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.rb{display:inline-grid;place-items:center;box-sizing:border-box;height:18px;min-width:26px;padding:0 4px;border-radius:4px;font:700 11px/1 var(--body);
+  background:#fff;color:#D7261E;box-shadow:inset 0 0 0 1.5px #D7261E}
+.rb.tram{background:#D7261E;color:#fff;box-shadow:none}
+.rb.exp{background:#15924A;color:#fff;box-shadow:none}
+.rb.night{background:#fff;color:#1F4FA3;box-shadow:inset 0 0 0 1.5px #1F4FA3}
+.rb.go{background:#1E6B47;color:#fff;box-shadow:none}
+.rbs .more{font-size:11px;font-weight:500;color:var(--muted);align-self:center}
+.q .row b:has(.rbs),.q .row b:has(.lns){display:flex;justify-content:flex-end}
 .sys .lines{display:grid;gap:3px;margin-top:8px;font-size:11.5px}
 .sys .lines i{display:inline-block;width:16px;height:4px;border-radius:2px;margin-right:8px;vertical-align:middle}
 .sys .note{font-size:11px;color:var(--muted);margin-top:6px}
@@ -77,6 +92,11 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   .sheet{gap:10px;font-size:12px}
   h1{font-size:38px}
   .map svg{max-height:3.5in}
+  .sys .note{display:none}
+  .sys .lines{font-size:10px;gap:1px;margin-top:4px}
+  .q .row{min-height:0}
+  .rb{height:16px;min-width:22px;font-size:10px}
+  .ln{width:16px;height:16px;font-size:10px}
   .glance .row{padding:5px 0}
   .glance b{font-size:22px}
   .q .row{font-size:11.5px;padding:3px 0}
@@ -204,22 +224,22 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     const w = g && walkAt(g, pin.lon, pin.lat);
     if (!w || !w.subway || !sys) return base;
     const from = w.subway.name, table = sys.toHubs[from] || [];
-    const rows = sys.hubs.map((h, i) => [h, hubText(table[i])]);
-    base.rows.filter(([k]) => k.startsWith('Door to door')).forEach(r => rows.push([r[0] + ' (whole neighbourhood)', r[1]]));
+    const rows = sys.hubs.map((h, i) => [h, hubText(table[i]), { lines: linesOf(sys, h) }]);
+    base.rows.filter(([k]) => k.startsWith('Door to door')).forEach(r => rows.push(['Door to door to Union, area typical', r[1]]));
     return { title: `From ${from} (${w.subway.min} min walk) to the hubs`, rows, origin: from };
   }
 
   async function hereSection() {
-    const [g, dg] = await Promise.all([walk(), drive()]);
+    const [g, dg, sys] = await Promise.all([walk(), drive(), system()]);
     const w = g && walkAt(g, pin.lon, pin.lat);
     const rows = [];
     const t = (v, named) => v ? (named && v.name ? `${v.name} · ${v.min} min walk` : `${v.min} min walk`) : `Over ${g ? g.max_min : 60} min walk`;
     if (!w) {
       rows.push(['Walk times', g ? 'No street close to this spot' : 'Not built yet (run walk_grid.py)']);
     } else {
-      rows.push(['Nearest subway', t(w.subway, true)]);
+      rows.push(['Nearest subway', t(w.subway, true), { lines: w.subway ? linesOf(sys, w.subway.name) : [] }]);
       rows.push(['Nearest TTC stop', t(w.stop)]);
-      if (w.go && w.go.min <= 30) rows.push(['Nearest GO station', t(w.go, true)]);
+      if (w.go && w.go.min <= 30) rows.push(['Nearest GO station', t(w.go, true), { go: true }]);
       rows.push(['Nearest Bike Share dock', t(w.bikeshare)]);
       rows.push(['Nearest park', t(w.park)]);
       rows.push(['Nearest library', t(w.library, true)]);
@@ -305,6 +325,40 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     $('sys').replaceChildren(svg, key);
   }
 
+  // Rows are [label, value, meta]: a value is text, {lines: [...]} (line bullets) or {routes: [...]} (route badges);
+  // meta.lines puts bullets before the label, meta.go a GO badge.
+  const bullets = lines => {
+    const w = el('span', { class: 'lns' });
+    lines.forEach(l => w.append(el('span', { class: `ln l${l}`, role: 'img', 'aria-label': `Line ${l}` }, l)));
+    return w;
+  };
+  const routeBadge = r => {
+    const f = r.f || [];
+    const cls = ['rb', r.m === 'tram' ? 'tram' : r.m === 'go' ? 'go' : 'bus', f.includes('night') ? 'night' : '', f.includes('exp') && r.m !== 'tram' ? 'exp' : ''].join(' ').trim();
+    const b = el('span', { class: cls, title: `${r.r} ${r.n}`, 'aria-label': `Route ${r.r} ${r.n}` }, r.r);
+    return b;
+  };
+  function valueNode(v) {
+    if (v == null || typeof v !== 'object') return document.createTextNode(v ?? '');
+    if (v.lines) return bullets(v.lines);
+    if (v.routes) {
+      const MAX = 6, w = el('span', { class: 'rbs' });   // a row stays one line, so the page still prints on one sheet
+      v.routes.slice(0, MAX).forEach(r => w.append(routeBadge(r)));
+      if (v.routes.length > MAX) w.append(el('span', { class: 'more', title: v.routes.slice(MAX).map(r => `${r.r} ${r.n}`).join(', ') }, `+${v.routes.length - MAX}`));
+      return w;
+    }
+    return document.createTextNode('');
+  }
+  function labelNode(k, meta) {
+    if (!meta || (!meta.go && !(meta.lines && meta.lines.length))) return el('span', {}, k);
+    const w = el('span', { class: 'lbl' });
+    if (meta.go) w.append(el('span', { class: 'rb go', 'aria-hidden': 'true' }, 'GO'));
+    if (meta.lines && meta.lines.length) w.append(bullets(meta.lines));
+    w.append(document.createTextNode(k));
+    return w;
+  }
+  const linesOf = (sys, name) => ((sys && sys.stations.find(s => s.name === name)) || {}).lines || [];
+
   async function render() {
     const p = profile;
     document.title = `${p.name} · Neighbourhood profile · Layers.City`;
@@ -329,7 +383,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     $('quads').replaceChildren(...sections.map((s, i) => {
       const q = el('div', { class: 'panel q' + (s.here ? ' here' : '') });
       q.append(el('div', { class: 'k' }, `0${i + 1} · ${s.title}`));
-      s.rows.forEach(([k, v]) => { const r = el('div', { class: 'row' }); r.append(el('span', {}, k), el('b', {}, v)); q.append(r); });
+      s.rows.forEach(([k, v, meta]) => { const r = el('div', { class: 'row' }); const val = el('b'); val.append(valueNode(v)); r.append(labelNode(k, meta), val); q.append(r); });
       return q;
     }));
     $('credits').textContent = BASE_CREDITS + (pin
