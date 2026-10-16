@@ -5,7 +5,8 @@ Output: docs/toronto/data/representatives.json
   {"updated": date, "wards": {"11": {name, url}}, "prov": {"University—Rosedale": {name, party, url}},
    "fed": {"University—Rosedale": {name, party, url}},
    "trustees": {"tdsb": {"7": {candidates: [...], winner?, acclaimed?}}, "tcdsb": ..., "viamonde": ..., "monavenir": ...},
-   "council": {"19": {candidates: [...], incumbentRunning: bool, winner?, acclaimed?}}}
+   "council": {"19": {candidates: [...], incumbentRunning: bool, incumbentElsewhere?: {office, ward?}, winner?, acclaimed?}},
+   "mayor": {"city": {name, url}}, "mayorRace": {"city": {candidates: [...], incumbentRunning: bool, winner?}}}
 
 Provincial ridings in Toronto share the wards' lines, so a ward's 'prov' name is the riding.
 Councillors have no party: Toronto's municipal elections are non-partisan."""
@@ -40,6 +41,21 @@ for n, v in tor.items():
     m = re.match(r'Councillor\s+(.+?)\s+[–\-|]', html.unescape(v['title']))
     if m: out_w[n] = {'name': m.group(1).strip(), 'url': v['url']}
     else: out_w[n] = {'name': None, 'url': v['url']}; problems.append('ward %s: no name in %r' % (n, v['title']))
+
+# The mayor: "Olivia Chow, 66th Mayor of Toronto – City of Toronto" (or "Mayor Olivia Chow – ..."). The citywide
+# seat is keyed "city" so the card can look it up like any other office.
+out_m = None
+try:
+    mv = json.load(open(os.path.join(RAW, 'mayor.json')))
+except FileNotFoundError:
+    mv = None
+if mv:
+    t = html.unescape(mv['title'])
+    m = re.match(r'(.+?),\s*\d+\w*\s+Mayor', t) or re.match(r'Mayor\s+(.+?)\s+[–\-|]', t)
+    out_m = {'city': {'name': m.group(1).strip() if m else None, 'url': mv['url']}}
+    if not m: problems.append('mayor: no name in %r' % t)
+else:
+    problems.append('no mayor page fetched yet (raw/representatives/mayor.json)')
 
 # MPPs: cards with a link, a name, a party and a riding.
 page = open(os.path.join(RAW, 'ola.html'), encoding='utf-8').read()
@@ -82,7 +98,7 @@ for r in feds:
 # The card decides from the dates in city.json whether to show the race, the result or the trustee.
 BOARDS = {'Toronto District School Board': 'tdsb', 'Toronto Catholic District School Board': 'tcdsb',
           'Conseil scolaire Viamonde': 'viamonde', 'Conseil scolaire catholique MonAvenir': 'monavenir'}
-out_t = out_c = None
+out_t = out_c = out_mr = None
 try:
     res = json.load(open(os.path.join(RAW, 'results.json')))
 except FileNotFoundError:
@@ -116,6 +132,21 @@ if res:
             if inc: row['incumbentRunning'] = key(inc) in {key(n) for n in row['candidates']}
             out_c[str(w['num'])] = row
     if out_c is None: problems.append('no council races in the results file')
+    for office in res['office']:
+        if office['name'] == 'Mayor' and office['ward']:
+            out_mr = {'city': race(office['ward'][0], 'mayor')}
+            inc = ((out_m or {}).get('city') or {}).get('name')
+            if inc: out_mr['city']['incumbentRunning'] = key(inc) in {key(n) for n in out_mr['city']['candidates']}
+    # A sitting councillor not on their own ward's ballot may be running for mayor or in another ward: say where.
+    if out_c:
+        for num, row in out_c.items():
+            inc = (out_w.get(num) or {}).get('name')
+            if not inc or row.get('incumbentRunning'): continue
+            if out_mr and key(inc) in {key(n) for n in out_mr['city']['candidates']}:
+                row['incumbentElsewhere'] = {'office': 'mayor'}
+            else:
+                other = [n for n, r in out_c.items() if n != num and key(inc) in {key(c) for c in r['candidates']}]
+                if other: row['incumbentElsewhere'] = {'office': 'council', 'ward': other[0]}
     for b in BOARDS.values():
         if b not in out_t: problems.append('no trustee races for ' + b)
 
@@ -124,6 +155,8 @@ OUT = os.path.join(DOCS, 'representatives.json')
 new = {'wards': out_w, 'prov': out_p, 'fed': out_f}
 if out_t is not None: new['trustees'] = out_t
 if out_c is not None: new['council'] = out_c
+if out_m is not None: new['mayor'] = out_m
+if out_mr is not None: new['mayorRace'] = out_mr
 try:
     old = json.load(open(OUT))
 except Exception:
@@ -134,7 +167,8 @@ print('representatives:', sum(1 for v in out_w.values() if v['name']), 'councill
       sum(1 for v in out_p.values() if v), 'MPPs,', sum(1 for v in out_f.values() if v), 'MPs,',
       'trustee races:', {b: len(v) for b, v in (out_t or {}).items()},
       'decided:', sum(1 for v in (out_t or {}).values() for r in v.values() if r.get('winner')),
-      'council races:', len(out_c or {}), 'incumbents not running:', [k for k, v in (out_c or {}).items() if v.get('incumbentRunning') is False])
+      'council races:', len(out_c or {}), 'incumbents not running here:', {k: v.get('incumbentElsewhere', 'not running') for k, v in (out_c or {}).items() if v.get('incumbentRunning') is False},
+      'mayor:', ((out_m or {}).get('city') or {}).get('name'), 'mayoral candidates:', len(((out_mr or {}).get('city') or {}).get('candidates', [])))
 for p in problems: print('  !', p)
 # A partial list is still useful (a vacant seat is real), but an empty source means the page changed.
 if not ola or not com or not any(v['name'] for v in out_w.values()):

@@ -5,6 +5,8 @@ Run from GitHub Actions (weekly, and on demand); writes raw/representatives/.
   ola.html         Legislative Assembly of Ontario, current members (ola.org/en/members/current)
   toronto.json     City of Toronto: the <title> of each ward councillor's page on toronto.ca
                    (councillor-ward-1 ... councillor-ward-25), which names the current councillor
+  mayor.json       the <title> of the Mayor's "About the Mayor" page on toronto.ca
+                   ("Olivia Chow, 66th Mayor of Toronto"), the same way
   results.json     City of Toronto election results file (mediaresults.toronto.ca). Lists every
                    2026 candidate by office and ward; on election night it fills in the votes.
                    Used for the school board trustee rows. Optional: a failed fetch keeps the last copy.
@@ -18,6 +20,7 @@ OUT = os.path.join(HERE, 'raw', 'representatives'); os.makedirs(OUT, exist_ok=Tr
 UA = {'User-Agent': 'city-layers-pipeline (github.com/noumanmkhan/city-layers)', 'Accept-Language': 'en'}
 WARD = 'https://www.toronto.ca/city-government/council/members-of-council/councillor-ward-{}/'
 RESULTS = 'https://mediaresults.toronto.ca/results/unofficialresult.json'
+MAYOR = 'https://www.toronto.ca/city-government/council/office-of-the-mayor/about-mayor/'
 
 
 def get(url, tries=4):
@@ -40,6 +43,11 @@ for n in range(1, 26):
     print(n, wards[n]['title'])
     time.sleep(1.5)   # one page at a time; the City's servers dislike bursts
 json.dump(wards, open(os.path.join(OUT, 'toronto.json'), 'w'), indent=1, ensure_ascii=False)
+html = get(MAYOR).decode('utf-8', 'replace')
+m = re.search(r'<title>(.*?)</title>', html, re.S)
+mayor = {'url': MAYOR, 'title': re.sub(r'\s+', ' ', m.group(1)).strip() if m else ''}
+print('mayor', mayor['title'])
+json.dump(mayor, open(os.path.join(OUT, 'mayor.json'), 'w'), indent=1, ensure_ascii=False)
 try:
     res = json.loads(get(RESULTS, tries=3))
     json.dump(res, open(os.path.join(OUT, 'results.json'), 'w'), indent=1, ensure_ascii=False)
