@@ -104,6 +104,8 @@
          "tick": "Election view", "note": "Wards in one neutral colour, with each ward’s race when you zoom in. Tap a ward for the candidates. Other shading is off while this is on.",
          "head": "Ward {num}", "when": "Election {date}", "counting": "Votes being counted",
          "incumbent": "Incumbent: {name}", "retiring": "Incumbent: {name} (not running)", "open": "Open seat",
+         "elsewhere": {"mayor": "Incumbent: {name} (running for mayor)", "council": "Incumbent: {name} (running in Ward {ward})"},
+         "also": {"table": "mayorRace", "key": "city", "text": "Also on the ballot: Mayor, {n} candidate[{s}]. Tap anywhere in the city to see them."},
          "running": "Running: {n} candidate[{s}]", "elected": "Elected: {winner}", "acclaimed": "Acclaimed: {winner}"}},
       {"id": "prov", "kind": "outline", "level": "state", "file": "wards", "name": "Provincial ridings", "note": "25 MPPs · same lines as the wards", "label": "{prov}", "hover": "Provincial: {prov}", "party": {"table": "prov", "key": "prov"}},
       {"id": "fed", "kind": "outline", "level": "national", "file": "federal", "name": "Federal ridings", "note": "24 MPs · 2023 boundaries", "label": "{name}", "hover": "Federal: {name}", "party": {"table": "fed", "key": "name"}},
@@ -264,8 +266,11 @@
     "reps": {
       "file": "representatives.json",
       "offices": [
+        {"role": "Mayor", "citywide": "city", "table": "mayor", "sub": "Citywide",
+         "race": {"table": "mayorRace", "again": "running again", "retiring": "not running again"}},
         {"role": "City councillor", "layer": "wards", "table": "wards", "key": "num", "sub": "Ward {f.num}",
-         "race": {"table": "council", "retiring": "not running again"}},
+         "race": {"table": "council", "again": "running again", "retiring": "not running again",
+           "elsewhere": {"mayor": "running for mayor", "council": "running in Ward {ward}"}}},
         {"role": "MPP", "layer": "wards", "table": "prov", "key": "prov", "sub": "{r.party}"},
         {"role": "MP", "layer": "fed", "table": "fed", "key": "name", "sub": "{r.party}"}
       ],

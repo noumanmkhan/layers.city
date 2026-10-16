@@ -138,7 +138,11 @@ How the website's search does it, for an app that wants to match:
   (e.g. "Ward 19"), and zoomed in also: `when` with `{date}` (or `counting` from election day, or `elected` /
   `acclaimed` with `{winner}`), `incumbent` or `retiring` with `{name}` (the card office on that layer and key; `retiring`
   when `incumbentRunning` is false; `open` if there's no member), and `running` with `{n}`/`{s}` until there's a
-  winner. The race is `representatives.json[table][feature[key]]` (section 8). Apps may ignore it.
+  winner. When the member is running in another race (`incumbentElsewhere`, section 8), `elsewhere[office]` replaces
+  `retiring`, filled with `{name}` and `{ward}`. `also` (`{table, key, text}`) is one line under the view's tick for a
+  race on the same ballot that isn't drawn (the mayoral race): `text` with `{n}`/`{s}` from
+  `representatives.json[table][key].candidates`, hidden once that race has a winner. The race is
+  `representatives.json[table][feature[key]]` (section 8). Apps may ignore it.
 - A `boards` layer (`school` in every city: Toronto's file `school_wards`, Chicago's `school_board`, Dallas's `school`) holds several overlapping sets of
   wards in one file, one set per school board. Each feature has `board` (an id), `num` (the
   board's ward number, a string), `area` (a ward name, French boards only, e.g. "Est"), `wards`
@@ -329,13 +333,19 @@ first matching feature in file order wins.
    shown: one more row, label `role`, record `representatives.trustees[board][key]` (Chicago's
    board president), subline `sub`, same rules.
    Names are plain text (no official page yet). Append `trustees.note` to the footer.
-   **Races on an office** (`office.race`, Toronto's city councillor: `{table: "council", retiring}`): when
+   **Citywide offices** (`office.citywide`, Toronto's mayor: `{role: "Mayor", citywide: "city", table: "mayor", sub:
+   "Citywide"}`): no layer; the record is `representatives[table][citywide]`, shown wherever the section shows, in
+   config order (Toronto lists the mayor first). The section's skip test uses the first office that has a layer.
+   **Races on an office** (`office.race`, Toronto's mayor and city councillor: `{table, again?, retiring?, elsewhere?}`): when
    `representatives[race.table]` has a record for the seat and today is before `trustees.starts`, the row keeps the
-   sitting member (name and link as usual), adds " · " and `race.retiring` to the subline when
-   `incumbentRunning` is false, then under it, with the trustees' wording and dates: the winner and `acclaimed` or
+   sitting member (name and link as usual), adds " · " and where they stand to the subline (`again` when
+   `incumbentRunning` is true; when false, `elsewhere[incumbentElsewhere.office]` filled with its `{ward}`, else
+   `retiring`), then under it, with the trustees' wording and dates: the winner and `acclaimed` or
    `elected` once there is one, otherwise `race`/`counting` with the candidate names on expand. From `starts` on,
    the plain office row.
-   While the web map's election view is on, the card opens with only the Representatives section expanded.
+   A list of more than 8 names is laid out as a grid, one name per cell, across the card's full width when open.
+   While the web map's election view is on, the card opens with only the Representatives section expanded, and
+   moved to the top of the sections.
    **Nearby** (`card.nearby`, both cities): for each `[key, label]` in `nearest` (or `[key, label, layer]`:
    then only while the layer with that id is on; Toronto's places of worship and food shops. If that layer has a
    group picked, use `nearby.groups["key:group"]` and add " · " and the group's label to the row label), the nearest point
@@ -535,6 +545,9 @@ Around the election the file is refreshed hourly on election night and daily unt
 Toronto also has `council: {wardNum: {candidates: [name, …], incumbentRunning?, winner?, acclaimed?}}` for
 the 25 council races, from the same file and with the same rules. `incumbentRunning` says whether the sitting
 councillor (`wards[wardNum].name`) is on that ward's ballot, matched by name; absent if the seat has no member.
+When it's false and the councillor is running elsewhere, `incumbentElsewhere` says where: `{office: "mayor"}` or
+`{office: "council", ward: "14"}`. Toronto also has `mayor: {city: {name, url}}` (from the Mayor's page on
+toronto.ca) and `mayorRace: {city: {candidates, incumbentRunning, winner?}}` (the results file's Mayor office).
 There are no incumbent trustees in this data: TDSB's wards were redrawn for 2026, so the trustees
 in office until November 15 sat on different lines.
 

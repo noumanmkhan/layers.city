@@ -82,7 +82,14 @@
   and the number of candidates. After election day they say votes are being counted, then name the winner.
 - Tapping a ward opens the card on Representatives alone; the councillor row keeps the incumbent and lists the
   candidates under a caret, like the trustee rows.
-- Data: `representatives.json` gains `council` (candidates, `incumbentRunning`, winner) from the City's results
+- Mayor: a Mayor row heads Representatives on every card (Olivia Chow, linked to her page on toronto.ca, "running
+  again"), with the 53 mayoral candidates under a caret in ballot order, no one highlighted. The election view's
+  note adds "Also on the ballot: Mayor, 53 candidates". Lists longer than 8 names open as a two-column grid across
+  the card; in the election view Representatives moves to the top of the card's sections.
+- Incumbents running elsewhere are named as such, on labels and the card: Brad Bradford (Ward 19) "running for
+  mayor", Dianne Saxe (Ward 11) "running in Ward 14". Perks and Fletcher stay "not running".
+- Data: `representatives.json` gains `mayor`, `mayorRace` and `incumbentElsewhere` (the fetch job now also reads
+  the Mayor's page title), and `council` (candidates, `incumbentRunning`, winner) from the City's results
   file, which the weekly job already fetches. Config: `election` on outline layers, `race` on a card office
   (contract sections 4, 7 and 8, additive).
 

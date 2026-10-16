@@ -254,7 +254,8 @@ function electLines(it, f){
   const lines = [fill(E.when, {date: longDay(E.date)})];
   if (r && r.winner) lines[0] = fill(r.acclaimed ? E.acclaimed : E.elected, {winner: r.winner});
   else if (new Date() >= dayStart(E.date)) lines[0] = E.counting;
-  if (inc && inc.name) lines.push(fill(r && r.incumbentRunning === false ? E.retiring : E.incumbent, {name: inc.name}));
+  const ew = r && r.incumbentRunning === false && r.incumbentElsewhere, elsewhere = ew && (E.elsewhere || {})[ew.office];
+  if (inc && inc.name) lines.push(fill(elsewhere || (r && r.incumbentRunning === false ? E.retiring : E.incumbent), Object.assign({name: inc.name}, ew || {})));
   else if (E.open) lines.push(E.open);
   if (r && !r.winner){ const n = r.candidates.length; lines.push(fill(E.running, {n, s: n === 1 ? '' : 's'})); }
   return [fill(E.head, f.properties), lines];
@@ -1312,7 +1313,7 @@ CITY.groups.forEach(([title, items]) => {
       const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'ptybox-' + it.id; box.hidden = !it.on;
       const E = ELECT[it.id];   // an election layer's tick is the election view, with its note instead of a party key
       box.innerHTML = '<label class="sub"><input type="checkbox" id="pty-' + it.id + '"> ' + esc(E ? E.election.tick : PTY.label || 'Colour by party') + '</label>' +
-        '<div class="legend" id="ptyleg-' + it.id + '" hidden>' + (E ? '' : '<div class="ptykey" id="ptykey-' + it.id + '"></div>') + '<small>' + esc(E ? E.election.note : it.party.note || PTY.note || '') + '</small></div>';
+        '<div class="legend" id="ptyleg-' + it.id + '" hidden>' + (E ? '<p class="el-also" id="elalso-' + it.id + '" hidden></p>' : '<div class="ptykey" id="ptykey-' + it.id + '"></div>') + '<small>' + esc(E ? E.election.note : it.party.note || PTY.note || '') + '</small></div>';
       grp.appendChild(box);
       box.querySelector('input').addEventListener('change', e => { partyTick(it.id, e.target.checked); logEvent('party', {id: e.target.checked ? it.id : 'none'}); });
     }
@@ -1527,7 +1528,15 @@ function partyShow(){
     const cb = document.getElementById('pty-' + it.id); if (cb) cb.checked = want;
     const leg = document.getElementById('ptyleg-' + it.id); if (leg) leg.hidden = !want;
     if (want) partyKey(it);
+    if (want && ELECT[it.id]) electAlso(it);
   });
+}
+// Election view: a race on the same ballot that the map can't draw (a citywide one, election.also), as one line.
+function electAlso(it){
+  const A = it.election.also, el = document.getElementById('elalso-' + it.id); if (!A || !el) return;
+  const r = ((data.reps || {})[A.table] || {})[A.key];
+  el.hidden = !r || !!r.winner;
+  if (r) el.textContent = fill(A.text, {n: r.candidates.length, s: r.candidates.length === 1 ? '' : 's'});
 }
 // Key: each party on this layer with its number of seats, most seats first, vacant seats last.
 function partyKey(it){
@@ -1729,12 +1738,19 @@ function schools(x, y){
 }
 // Who represents this spot. Names link to their official pages.
 function representatives(hits){
-  const R = data.reps, cfg = CITY.card.reps; if (!R || !cfg || !hits[cfg.offices[0].layer]) return '';
+  // Skip the section outside the city: the first office drawn on a layer (a citywide office such as a mayor has none) has no hit.
+  const R = data.reps, cfg = CITY.card.reps, first = cfg && cfg.offices.find(o => o.layer); if (!R || !cfg || !first || !hits[first.layer]) return '';
   const link = r => r && r.name ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.name) + '</a>' : '<span class="vacant">Seat currently vacant</span>';
   const row = (role, r, sub) => '<dt>' + role + '</dt><dd>' + link(r) + (sub ? '<span>' + esc(sub) + '</span>' : '') + '</dd>';
   const date = new Date(...R.updated.split('-').map((v, i) => +v - (i === 1))).toLocaleDateString(CITY.locale, {month:'long', day:'numeric', year:'numeric'});
   return '<div class="live reps"><dl>' +
     cfg.offices.map(o => {
+      // A citywide office (o.citywide: the record's key, e.g. a mayor) is the same everywhere in the city.
+      if (o.citywide){
+        const r = (R[o.table] || {})[o.citywide]; if (!r) return '';
+        if (o.race && R[o.race.table] && cfg.trustees) return raceRow(o, r, R[o.race.table][o.citywide], o.sub || '', link);
+        return row(o.role, r, o.sub || '');
+      }
       const h = hits[o.file ? 'file:' + o.file : o.layer]; if (!h) return '';
       const r = R[o.table][String(h.properties[o.key])];
       if (o.race && R[o.race.table] && cfg.trustees) return raceRow(o, r, R[o.race.table][String(h.properties[o.key])], fill(o.sub, {f: h.properties, r: r || {}}), link);
@@ -1747,6 +1763,8 @@ function representatives(hits){
    are counted it can name who leads (r.leader); once there is a winner (or one candidate was
    acclaimed), the winner, marked as taking office on the start date; from that date, just the trustee.
    Dates and wording come from city.json. */
+// Candidate names under a caret: a short list runs on with dots; a long one (a mayoral race) is a grid, a name per cell.
+const candList = names => names.length > 8 ? '<span class="cand-grid">' + names.map(n => '<i>' + esc(n) + '</i>').join('') + '</span>' : '<span>' + names.map(esc).join(' · ') + '</span>';
 const isoDate = s => new Date(...s.split('-').map((v, i) => +v - (i === 1)));
 const longDate = s => isoDate(s).toLocaleDateString(CITY.locale, {month:'short', day:'numeric'});
 function trusteeRow(T, role, r, sub){
@@ -1759,7 +1777,7 @@ function trusteeRow(T, role, r, sub){
   else {
     const n = r.candidates.length;
     const head = fill(today >= isoDate(T.election) ? T.counting : T.race, Object.assign({n, s: n === 1 ? '' : 's'}, dates));
-    dd = '<details class="cands"><summary>' + esc(head) + '</summary><span>' + r.candidates.map(esc).join(' · ') + '</span></details><span>' + esc(sub) + '</span>';
+    dd = '<details class="cands"><summary>' + esc(head) + '</summary>' + candList(r.candidates) + '</details><span>' + esc(sub) + '</span>';
   }
   return '<dt>' + esc(role) + '</dt><dd>' + dd + '</dd>';
 }
@@ -1771,12 +1789,16 @@ function raceRow(o, r, race, sub, link){
   const T = CITY.card.reps.trustees, today = new Date();
   if (!race || today >= isoDate(T.starts)) return '<dt>' + esc(o.role) + '</dt><dd>' + link(r) + '<span>' + esc(sub) + '</span></dd>';
   const dates = {election: longDate(T.election), starts: longDate(T.starts)};
-  const s = sub + (race.incumbentRunning === false && o.race.retiring ? ' · ' + o.race.retiring : '');
+  // Where the sitting member stands: again (o.race.again), in another race (o.race.elsewhere[office], from
+  // race.incumbentElsewhere {office, ward?}), or not at all (o.race.retiring).
+  const ew = race.incumbentElsewhere, E2 = o.race.elsewhere || {};
+  const stand = race.incumbentRunning ? o.race.again : race.incumbentRunning === false ? (ew && E2[ew.office] ? fill(E2[ew.office], ew) : o.race.retiring) : '';
+  const s = [sub, stand].filter(Boolean).join(' · ');
   let more;
   if (race.winner) more = '<span class="won"><b>' + esc(race.winner) + '</b> ' + esc(fill(race.acclaimed ? T.acclaimed : T.elected, dates)) + '</span>';
   else {
     const n = race.candidates.length;
-    more = '<details class="cands"><summary>' + esc(fill(today >= isoDate(T.election) ? T.counting : T.race, Object.assign({n, s: n === 1 ? '' : 's'}, dates))) + '</summary><span>' + race.candidates.map(esc).join(' · ') + '</span></details>';
+    more = '<details class="cands"><summary>' + esc(fill(today >= isoDate(T.election) ? T.counting : T.race, Object.assign({n, s: n === 1 ? '' : 's'}, dates))) + '</summary>' + candList(race.candidates) + '</details>';
   }
   return '<dt>' + esc(o.role) + '</dt><dd>' + link(r) + '<span>' + esc(s) + '</span>' + more + '</dd>';
 }
@@ -2051,7 +2073,9 @@ function inspect(latlng, title, muniName){
     return;
   }
   here.innerHTML = cardHead('What’s here', c.heading, dirBtn(c.y, c.x, c.heading)) + '<div class="pills">' + c.pills + '</div>' + voteBox(c.x, c.y) + c.focus + c.tower + c.standout + cmpRow +
-    c.sections.map(([id, t, body]) => section(id, t, body)).join('') + reportBox(c.heading);
+    // In the election view Representatives comes first, right under the voting place.
+    (electShading() ? c.sections.filter(x => x[0] === 'reps').concat(c.sections.filter(x => x[0] !== 'reps')) : c.sections)
+      .map(([id, t, body]) => section(id, t, body)).join('') + reportBox(c.heading);
   wireCard(); wireReport(latlng, c.heading);
   drawVoteMark(c.x, c.y);
 }

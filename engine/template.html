@@ -224,6 +224,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .pty.p-elect:hover{fill-opacity:.28}
 #map.elect .ward{stroke:var(--elect-edge);stroke-width:2.4}
 .lbl-ward.el .el-x{display:none}
+.el-also{margin:0 0 4px;font-size:12.5px;font-weight:500;line-height:1.4;color:var(--ink)}
 #map.elect .leaflet-tooltip.lbl-ward.el{color:var(--elect-chip-ink)!important;text-shadow:none;display:flex;flex-direction:column;align-items:center;text-align:center}
 #map.elect .lbl-ward.el .el-n{background:var(--elect-chip);border-radius:7px;padding:3px 9px 4px;font-size:16px;font-weight:800;letter-spacing:-.01em;line-height:1.1;
   box-shadow:0 0 0 2px var(--pty-case),0 2px 6px rgba(0,0,0,.25)}
@@ -647,6 +648,11 @@ dl.facts dd{margin:0;font-weight:500;min-width:0}
 .reps dd b{font-weight:600}
 .reps details.cands summary{cursor:pointer;color:var(--ink);font-weight:600}
 .reps details.cands > span{margin:2px 0 3px;color:var(--ink-2)}
+.reps details.cands > .cand-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(10.5em,1fr));gap:2px 12px;margin:4px 0 4px}
+.cand-grid i{font-style:normal;color:var(--ink-2);line-height:1.35}
+/* Opened, a long list takes the card's full width (two columns), with the row's label on its own line above */
+.live dd:has(details.cands[open] > .cand-grid){grid-column:1 / -1;padding:2px 0 0;border-top:1px dashed var(--rule)}
+.live dt:has(+ dd details.cands[open] > .cand-grid){grid-column:1 / -1}
 .reps .vacant{color:var(--ink-2);font-weight:500;font-style:italic}
 .hint{padding:12px 16px 14px;color:var(--ink-2);font-size:12.5px;border-top:1px solid var(--rule)}
 
