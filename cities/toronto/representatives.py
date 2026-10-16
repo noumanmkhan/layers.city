@@ -4,7 +4,8 @@ federal riding files for the names to match against.
 Output: docs/toronto/data/representatives.json
   {"updated": date, "wards": {"11": {name, url}}, "prov": {"University—Rosedale": {name, party, url}},
    "fed": {"University—Rosedale": {name, party, url}},
-   "trustees": {"tdsb": {"7": {candidates: [...], winner?, acclaimed?}}, "tcdsb": ..., "viamonde": ..., "monavenir": ...}}
+   "trustees": {"tdsb": {"7": {candidates: [...], winner?, acclaimed?}}, "tcdsb": ..., "viamonde": ..., "monavenir": ...},
+   "council": {"19": {candidates: [...], incumbentRunning: bool, winner?, acclaimed?}}}
 
 Provincial ridings in Toronto share the wards' lines, so a ward's 'prov' name is the riding.
 Councillors have no party: Toronto's municipal elections are non-partisan."""
@@ -81,27 +82,40 @@ for r in feds:
 # The card decides from the dates in city.json whether to show the race, the result or the trustee.
 BOARDS = {'Toronto District School Board': 'tdsb', 'Toronto Catholic District School Board': 'tcdsb',
           'Conseil scolaire Viamonde': 'viamonde', 'Conseil scolaire catholique MonAvenir': 'monavenir'}
-out_t = None
+out_t = out_c = None
 try:
     res = json.load(open(os.path.join(RAW, 'results.json')))
 except FileNotFoundError:
     res = None
+def race(w, what):
+    cands = [(c['name'], int(c['votesReceived'] or 0)) for c in w['candidate']]
+    row = {'candidates': [n for n, _ in cands]}
+    if len(cands) == 1:
+        row.update(winner=cands[0][0], acclaimed=True)
+    elif int(w['polls'] or 0) and int(w['pollsReceived'] or 0) >= int(w['polls']):
+        top = sorted(cands, key=lambda c: -c[1])
+        if top[0][1] > top[1][1]: row['winner'] = top[0][0]
+        else: problems.append('tie: %s ward %s' % (what, w['num']))
+    return row
+
+
 if res:
     out_t = {}
     for office in res['office']:
         board = BOARDS.get(office['name'])
         if not board: continue
-        out_t[board] = {}
+        out_t[board] = {str(w['num']): race(w, board) for w in office['ward']}
+    # City council races, for the election view of the ward layer and the councillor row. Whether the sitting
+    # councillor is on the ballot is matched by name (loosely), since the results file doesn't say.
+    for office in res['office']:
+        if office['name'] != 'Councillor': continue
+        out_c = {}
         for w in office['ward']:
-            cands = [(c['name'], int(c['votesReceived'] or 0)) for c in w['candidate']]
-            row = {'candidates': [n for n, _ in cands]}
-            if len(cands) == 1:
-                row.update(winner=cands[0][0], acclaimed=True)
-            elif int(w['polls'] or 0) and int(w['pollsReceived'] or 0) >= int(w['polls']):
-                top = sorted(cands, key=lambda c: -c[1])
-                if top[0][1] > top[1][1]: row['winner'] = top[0][0]
-                else: problems.append('trustee tie: %s ward %s' % (board, w['num']))
-            out_t[board][str(w['num'])] = row
+            row = race(w, 'council')
+            inc = (out_w.get(str(w['num'])) or {}).get('name')
+            if inc: row['incumbentRunning'] = key(inc) in {key(n) for n in row['candidates']}
+            out_c[str(w['num'])] = row
+    if out_c is None: problems.append('no council races in the results file')
     for b in BOARDS.values():
         if b not in out_t: problems.append('no trustee races for ' + b)
 
@@ -109,6 +123,7 @@ if res:
 OUT = os.path.join(DOCS, 'representatives.json')
 new = {'wards': out_w, 'prov': out_p, 'fed': out_f}
 if out_t is not None: new['trustees'] = out_t
+if out_c is not None: new['council'] = out_c
 try:
     old = json.load(open(OUT))
 except Exception:
@@ -118,7 +133,8 @@ json.dump(dict(updated=updated, **new), open(OUT, 'w'), ensure_ascii=False, sepa
 print('representatives:', sum(1 for v in out_w.values() if v['name']), 'councillors,',
       sum(1 for v in out_p.values() if v), 'MPPs,', sum(1 for v in out_f.values() if v), 'MPs,',
       'trustee races:', {b: len(v) for b, v in (out_t or {}).items()},
-      'decided:', sum(1 for v in (out_t or {}).values() for r in v.values() if r.get('winner')))
+      'decided:', sum(1 for v in (out_t or {}).values() for r in v.values() if r.get('winner')),
+      'council races:', len(out_c or {}), 'incumbents not running:', [k for k, v in (out_c or {}).items() if v.get('incumbentRunning') is False])
 for p in problems: print('  !', p)
 # A partial list is still useful (a vacant seat is real), but an empty source means the page changed.
 if not ola or not com or not any(v['name'] for v in out_w.values()):
