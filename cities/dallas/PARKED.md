@@ -3,6 +3,17 @@
 What Toronto (or Chicago) has that the Dallas map doesn't, and why. Checked October 16, 2026. Each entry says what
 would unpark it.
 
+## Elections
+
+- **November 3 ballot rows outside Dallas County.** About 4% of the city (in Collin, Denton, Kaufman and Rockwall
+  counties) votes in districts the Dallas County sample ballot doesn't list: TX-3, TX-4 and TX-26, and Texas House
+  4, 33, 65, 70 and 89. The card shows no race there. Unpark by adding those counties' sample ballots to
+  `fetch_ballot.py` and `ballot.py` (the Texas Secretary of State's candidate search is a web app with no download).
+- **Election view for the City Council (May 1, 2027).** Toronto's ward election view (one neutral colour, race
+  labels, candidates under the member) fits Dallas's 14 nonpartisan districts. Unpark once the City Secretary
+  certifies the ballot (filing closes mid-February 2027): a candidate fetch plus `election` on the council layer and
+  `race` on the council office.
+
 ## Not built: no usable data
 
 - **Address grid** (Toronto's Address row, Chicago's grid). Dallas's house numbers don't count out from one zero
