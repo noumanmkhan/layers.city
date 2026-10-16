@@ -19,7 +19,7 @@ Rules carried over from the map:
 
 Needs: pip install shapely  (already needed by cities/<city>/run.sh)
 """
-import json, math, os, re, sys, unicodedata
+import heapq, json, math, os, re, sys, unicodedata
 from datetime import date
 import shapely
 from shapely.geometry import shape, Point, box
@@ -84,6 +84,7 @@ heritage = layer('heritage_buildings')
 landmarks = layer('landmarks')
 institutions = layer('institutions')
 french = layer('french_schools')
+bus_routes = [(g, m) for g, m in layer('transit_routes') if m.get('m') == 'bus' and 'night' not in m.get('f', [])]
 
 
 def group(name):
@@ -94,6 +95,170 @@ def group(name):
 G = {k: group(k) for k in nearby}
 FAITH = [k for k in G if k in ('church', 'mosque', 'synagogue', 'hindu', 'gurdwara', 'buddhist')
          or k.startswith('church:')]
+
+
+# ---- transit: routes and stops (transit.json), the station graph, the walk grid -----------------
+transit = opt('transit.json', {'routes': [], 'stops': []})
+ROUTES = transit['routes']
+STOPS = [(km(Point(s[0], s[1])), s[3] if len(s) > 3 else []) for s in transit['stops']]
+WALK_GRID = os.path.join(OUT, 'walk_grid.json')
+wgrid = json.load(open(WALK_GRID)) if os.path.exists(WALK_GRID) else None
+HUBS = ['Union', 'Bloor-Yonge', 'St George', 'Eglinton', 'Sheppard-Yonge']
+LONG_WALK_MIN = 30   # past this, a walk time stops being useful: give the distance instead
+TRANSFER = 3         # a change of line "costs" this many stops when choosing the best way to a hub
+
+
+def station_graph():
+    """Stations in order along each line: {station index: [(neighbour index, line)]}."""
+    adj = {k: [] for k in range(len(stations))}
+    for g, m in subway_lines:
+        line = m.get('line')
+        on = sorted((g.project(sg), k) for k, (sg, sm) in enumerate(stations) if line in sm.get('lines', []))
+        for (_, a), (_, b) in zip(on, on[1:]):
+            adj[a].append((b, line)); adj[b].append((a, line))
+    return adj
+
+
+SADJ = station_graph()
+SNAME = [m['name'] for _, m in stations]
+
+
+def to_hubs(k):
+    """[[stops, changes] or None per hub] from station k, fewest stops with changes weighed in."""
+    best = {}
+    heap = [(0, 0, 0, k, l) for l in stations[k][1].get('lines', [])]
+    seen = set()
+    while heap:
+        cost, n, ch, i, line = heapq.heappop(heap)
+        if (i, line) in seen:
+            continue
+        seen.add((i, line))
+        if SNAME[i] not in best:
+            best[SNAME[i]] = [n, ch]
+        for j, l in SADJ[i]:
+            extra = 0 if l == line else TRANSFER
+            heapq.heappush(heap, (cost + 1 + extra, n + 1, ch + (l != line), j, l))
+    return [best.get(h) for h in HUBS]
+
+
+HUB_TABLE = {SNAME[k]: to_hubs(k) for k in range(len(stations))} if stations else {}
+
+
+def hub_text(v):
+    if v is None:
+        return 'Not on the subway'
+    n, ch = v
+    if n == 0:
+        return 'You’re there'
+    return f"{n} stop{'s' if n != 1 else ''}" + (f" · {ch} change{'s' if ch != 1 else ''}" if ch else '')
+
+
+def grid_cell(lon, lat):
+    if not wgrid:
+        return None
+    c = int((lon - wgrid['lon0']) / wgrid['dlon']); r = int((lat - wgrid['lat0']) / wgrid['dlat'])
+    if 0 <= c < wgrid['cols'] and 0 <= r < wgrid['rows']:
+        return r * wgrid['cols'] + c
+    return None
+
+
+def grid_share(poly_ll, layer, minutes):
+    """Share of the walk grid's squares inside the (lon/lat) polygon within `minutes` of `layer`."""
+    if not wgrid or layer not in wgrid['layers']:
+        return None
+    L = wgrid['layers'][layer]['min']
+    w, s, e, n = poly_ll.bounds
+    c0, c1 = int((w - wgrid['lon0']) / wgrid['dlon']), int((e - wgrid['lon0']) / wgrid['dlon'])
+    r0, r1 = int((s - wgrid['lat0']) / wgrid['dlat']), int((n - wgrid['lat0']) / wgrid['dlat'])
+    from shapely.prepared import prep
+    pp = prep(poly_ll)
+    have = near = 0
+    for r in range(max(0, r0), min(wgrid['rows'], r1 + 1)):
+        for c in range(max(0, c0), min(wgrid['cols'], c1 + 1)):
+            lon = wgrid['lon0'] + (c + 0.5) * wgrid['dlon']; lat = wgrid['lat0'] + (r + 0.5) * wgrid['dlat']
+            if pp.contains(Point(lon, lat)):
+                v = L[r * wgrid['cols'] + c]
+                have += 1
+                near += v is not None and v <= minutes
+    return round(100 * near / have) if have else None
+
+
+def listing(items, keep=3):
+    items = list(items)
+    if not items:
+        return 'None'
+    return ', '.join(items[:keep]) + (f' +{len(items) - keep} more' if len(items) > keep else '')
+
+
+def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km):
+    lines_at = {m['name']: m.get('lines', []) for _, m in stations}
+    # 01 subway and LRT
+    spot = {m['name']: g for g, m in stations}
+    ranked = sorted(st_names, key=lambda n: (-len(lines_at[n]), lp.distance(spot[n])))   # interchanges first, then nearest
+    sub = [[n, 'Line' + ('s ' if len(lines_at[n]) > 1 else ' ') + ', '.join(lines_at[n])] for n in ranked]
+    origin, origin_walk = None, None
+    if st_names:
+        origin = ranked[0]
+    else:
+        k = grid_cell(ll.x, ll.y)
+        L = wgrid['layers'].get('subway') if wgrid else None
+        if L and k is not None and L['min'][k] is not None and L['min'][k] <= LONG_WALK_MIN:
+            origin, origin_walk = L['names'][L['src'][k]], f"about {L['min'][k]} min walk"
+        elif stations:
+            d, _, m = nearest(lp, stations)
+            origin = m['name']
+            origin_walk = f'about {walk_min(d)} min walk' if walk_min(d) <= LONG_WALK_MIN else f'{fmt_km(d)} away'
+    rows1 = sub[:4] + ([['More stations', f'+{len(sub) - 4}']] if len(sub) > 4 else [])
+    if not sub and origin:
+        rows1.append(['Nearest station', f'{origin} · {origin_walk}'])
+    share = grid_share(poly_ll, 'subway', 10)
+    if share is not None:
+        rows1.append(['Area within a 10-min walk of a station', f'{share}%'])
+
+    # 02 buses and streetcars: every route stopping inside the boundary
+    served = sorted({i for g, rs in STOPS if P.contains(g) for i in rs}, key=lambda i: route_key(ROUTES[i]['r']))
+    label = lambda r: f"{r['r']} {r['n']}"
+    rs = [ROUTES[i] for i in served if ROUTES[i].get('m') != 'go']
+    cars = [label(r) for r in rs if r.get('m') == 'tram' and 'night' not in r.get('f', [])]
+    freq = [label(r) for r in rs if r.get('m') == 'bus' and 'freq' in r.get('f', [])]
+    exp = [label(r) for r in rs if r.get('m') == 'bus' and 'exp' in r.get('f', []) and 'freq' not in r.get('f', [])]
+    night = [label(r) for r in rs if 'night' in r.get('f', [])]
+    other = [r for r in rs if r.get('m') == 'bus' and not set(r.get('f', [])) & {'freq', 'exp', 'night'}]
+    rows2 = [['Streetcars', listing(cars)], ['Frequent buses (10 min or better)', listing(freq)]]
+    if exp:
+        rows2.append(['Express buses', listing(exp)])
+    rows2 += [['Other daytime bus routes', str(len(other))], ['Overnight (Blue Night)', listing(night, 2)]]
+    share = grid_share(poly_ll, 'stop', 5)
+    if share is not None:
+        rows2.append(['Area within a 5-min walk of a stop', f'{share}%'])
+
+    # 03 to the hubs, from the neighbourhood's best-connected station (or the nearest one)
+    rows3 = [[h, hub_text(v)] for h, v in zip(HUBS, HUB_TABLE.get(origin, [None] * len(HUBS)))] if origin else []
+    if c.get('union') is not None:
+        rows3.append(['Door to door to Union, typical', f"about {c['union']} min"])
+    title3 = f'From {origin} to the hubs' + (f' ({origin_walk})' if origin_walk else '') if origin else 'To the hubs'
+
+    # 04 GO, cycling and driving
+    rows4 = []
+    k = grid_cell(ll.x, ll.y)
+    G_ = wgrid['layers'].get('go') if wgrid else None
+    if G_ and k is not None and G_['min'][k] is not None and G_['min'][k] <= LONG_WALK_MIN:
+        rows4.append(['Nearest GO station', f"{G_['names'][G_['src'][k]]} · about {G_['min'][k]} min walk"])
+    elif go:
+        d, _, m = nearest(lp, go)
+        rows4.append(['Nearest GO station', f"{m['name']} · {fmt_km(d)}"])
+    rows4.append(['Bike Share stations', f'{len(shares)} · {docks} docks' if shares else 'None'])
+    rows4.append(['Bike lanes and trails', f'{bike_km:.1f} km'])
+    if grid:
+        g = min(grid['points'], key=lambda p: (p[0] - ll.x) ** 2 + (p[1] - ll.y) ** 2)
+        rows4.append([f"Drive to {grid['hub'].replace(' Station', '')}", f'about {g[2]} min'])
+
+    return {'origin': origin, 'sections': [
+        {'title': 'Subway and LRT', 'rows': rows1},
+        {'title': 'Buses and streetcars', 'rows': rows2},
+        {'title': title3, 'rows': rows3},
+        {'title': 'GO, cycling and driving', 'rows': rows4},
+    ]}
 
 
 def walk_min(d_km):
@@ -193,6 +358,8 @@ def build(feat):
     if c.get('walkBikePct') is not None:
         daily.append(['Commute on foot or by bike (2021)', f"{c['walkBikePct']}%"])
 
+    tr = transit_sections(P, make_valid(shape(feat['geometry'])), ll, lp, c, st_names, shares, docks, bike_km)
+
     glance = [
         [f'{P.area:.1f} km²', 'area'],
         [str(len(st_names)), 'subway station' if len(st_names) == 1 else 'subway stations'],
@@ -213,6 +380,8 @@ def build(feat):
             {'title': 'Learning and community', 'rows': learning},
             {'title': 'Daily life', 'rows': daily},
         ],
+        'transit': {'origin': tr['origin'], 'sections': tr['sections'],
+                    'system': system_outline(P)},
     }
 
 
@@ -248,11 +417,44 @@ def frame(P, parks):
                    for g, m in subway_lines if (p := paths(g))],
         'streetcar': [p for g, _ in streetcars for p in paths(g)],
         'bike': [p for g, _ in bikes for p in paths(g)],
+        # daytime buses, for the Transit lens: frequent ones (every 10 min or better) drawn bolder
+        'busFreq': [p for g, m in bus_routes if 'freq' in m.get('f', []) for p in paths(g)],
+        'bus': [p for g, m in bus_routes if 'freq' not in m.get('f', []) for p in paths(g)],
         'stations': [{'x': xy(g.x, g.y)[0], 'y': xy(g.x, g.y)[1], 'name': m['name']}
                      for g, m in stations if view.contains(g)],
         'parks': [xy(g.x, g.y) for g in parks],
         'bikeshare': [xy(g.x, g.y) for g, _ in bikeshare if P.contains(g)],
     }
+
+
+# ---- the system map: every line in the city, drawn once; each profile adds its own outline -------
+SYS = None
+if hood_feats:
+    from shapely.ops import unary_union
+    CITY = km(make_valid(unary_union([make_valid(shape(f['geometry'])) for f in hood_feats])))
+    cx0, cy0, cx1, cy1 = CITY.bounds
+    pad = (cx1 - cx0) * 0.03
+    cx0, cy0, cx1, cy1 = cx0 - pad, cy0 - pad, cx1 + pad, cy1 + pad
+    cs = VIEW_W / (cx1 - cx0)
+    sxy = lambda x, y: [round((x - cx0) * cs, 1), round((cy1 - y) * cs, 1)]
+    TERMINI = {m['name'] for _, m in stations if m.get('terminus')}
+    SYS = {
+        'w': VIEW_W, 'h': round((cy1 - cy0) * cs), 'hubs': HUBS,
+        'outline': [[sxy(*c) for c in part.exterior.simplify(0.15).coords]
+                    for part in getattr(CITY, 'geoms', [CITY]) if part.geom_type == 'Polygon' and part.area > 1],
+        'lines': [{'line': m.get('line'), 'name': m.get('name'), 'color': m.get('color'),
+                   'path': [sxy(*c) for c in g.simplify(0.05).coords]} for g, m in subway_lines if g.geom_type == 'LineString'],
+        'stations': [{'x': sxy(g.x, g.y)[0], 'y': sxy(g.x, g.y)[1], 'name': m['name'],
+                      'label': m['name'] in HUBS or m['name'] in TERMINI} for g, m in stations],
+        'toHubs': HUB_TABLE,
+    }
+
+
+def system_outline(P):
+    if not SYS:
+        return []
+    return [[sxy(*c) for c in part.exterior.simplify(0.05).coords]
+            for part in getattr(P, 'geoms', [P]) if part.geom_type == 'Polygon']
 
 
 # ---- write --------------------------------------------------------------------------------------
@@ -263,6 +465,9 @@ for feat in hood_feats:
     index.append({'slug': prof['slug'], 'name': prof['name']})
     with open(os.path.join(OUT, prof['slug'] + '.json'), 'w') as f:
         json.dump(prof, f, ensure_ascii=False, separators=(',', ':'))
+if SYS:
+    with open(os.path.join(OUT, 'system.json'), 'w') as f:
+        json.dump(SYS, f, ensure_ascii=False, separators=(',', ':'))
 index.sort(key=lambda r: r['name'])
 with open(os.path.join(OUT, 'index.json'), 'w') as f:
     json.dump({'asof': date.today().isoformat(), 'places': index}, f, ensure_ascii=False, separators=(',', ':'))
