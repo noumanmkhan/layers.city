@@ -343,6 +343,18 @@ first matching feature in file order wins.
    `retiring`), then under it, with the trustees' wording and dates: the winner and `acclaimed` or
    `elected` once there is one, otherwise `race`/`counting` with the candidate names on expand. From `starts` on,
    the plain office row.
+   **Partisan ballots** (`card.reps.ballot`, Chicago and Dallas for November 3, 2026): `{election, through, race, one,
+   again, retiring, notUp, elsewhere {congress, house, senate, statewide}, races {key: label}, party {name: short},
+   note}`, overriding the trustees' wording for `race` rows. Rows show the race until the end of `through` (election
+   day; there is no results feed), then go back to the plain office row. An office's `race` may name `kind`
+   (congress, house, senate), `layer` and `key` (the race keyed by another layer than the member: Dallas's members
+   sit for the 2021 congressional lines, the race is on the new lines the map draws) and `text` (wording overrides;
+   `{district}` is the race's key). Where the member stands comes from the member's `runs` (section 8): `again` when it
+   is this race, `elsewhere[runs.office]` filled with `{district}` or `{race}` (`races[runs.race]`) when another,
+   `retiring` when `null`. A race `{notUp: true}` adds " · " and `notUp` to the subline and no caret. Candidates show as
+   "Name (short party)" in ballot order; a race with one candidate is a line, `one` with `{name}`. An office with
+   `ballot: {table, key}` (U.S. Senate, Governor) is a race with no member, shown after the trustee rows while the race
+   is, with subline `sub`. `ballot.note` is added to the footer until then.
    A list of more than 8 names is laid out as a grid, one name per cell, across the card's full width when open.
    While the web map's election view is on, the card opens with only the Representatives section expanded, and
    moved to the top of the sections.
@@ -550,6 +562,14 @@ When it's false and the councillor is running elsewhere, `incumbentElsewhere` sa
 toronto.ca) and `mayorRace: {city: {candidates, incumbentRunning, winner?}}` (the results file's Mayor office).
 There are no incumbent trustees in this data: TDSB's wards were redrawn for 2026, so the trustees
 in office until November 15 sat on different lines.
+
+Chicago and Dallas also have the November 3, 2026 ballot (engine/ballot.py, from each city's
+`raw/ballot/candidates.json`): `race_congress`, `race_house`, `race_senate` `{district: {candidates: [names],
+parties: [party as printed]}}` (a Senate district the ballot covers with no race: `{notUp: true}`), and
+`race_statewide` `{ussenate, governor}`. Each `house`, `senate` and `congress` member gains `runs`:
+`{office: "congress"|"house"|"senate", district}`, `{office: "statewide", race}`, or `null` (on no ballot), matched
+by name. Dallas's races come from Dallas County's sample ballot, so districts that touch the city only in Collin,
+Denton, Kaufman or Rockwall counties (TX-3, 4, 26; House 4, 33, 65, 70, 89) have no race entry.
 
 Chicago has `trustees: {cps: {"1a": …, "10b": …, "president": {candidates, leader?, winner?}}}` for the
 Chicago Board of Education election on November 3, 2026 (20 subdistricts and a citywide president;

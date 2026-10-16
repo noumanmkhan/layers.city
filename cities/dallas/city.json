@@ -929,23 +929,36 @@
           "layer": "house",
           "table": "house",
           "key": "num",
-          "sub": "{r.party} · District {f.num}"
+          "sub": "{r.party} · District {f.num}",
+          "race": {"table": "race_house", "kind": "house"}
         },
         {
           "role": "State senator",
           "layer": "senate",
           "table": "senate",
           "key": "num",
-          "sub": "{r.party} · District {f.num}"
+          "sub": "{r.party} · District {f.num}",
+          "race": {"table": "race_senate", "kind": "senate"}
         },
         {
           "role": "U.S. representative",
           "file": "us_house_2021",
           "table": "congress",
           "key": "num",
-          "sub": "{r.party} · TX-{f.num}"
-        }
+          "sub": "{r.party} · TX-{f.num}",
+          "race": {"table": "race_congress", "kind": "congress", "layer": "congress", "key": "num",
+            "text": {"race": "{n} candidate[{s}] for the new TX-{district} · {election}", "one": "Unopposed for the new TX-{district}: {name}"}}
+        },
+        {"role": "U.S. Senate", "ballot": {"table": "race_statewide", "key": "ussenate"}, "sub": "Statewide"},
+        {"role": "Governor", "ballot": {"table": "race_statewide", "key": "governor"}, "sub": "Statewide"}
       ],
+      "ballot": {"election": "2026-11-03", "through": "2026-11-03",
+        "race": "{n} candidate[{s}] on the ballot · {election}", "one": "Unopposed on the ballot: {name}",
+        "again": "running again", "retiring": "not running again", "notUp": "seat not on the ballot this year",
+        "elsewhere": {"congress": "running for Congress, TX-{district}", "house": "running for State House, District {district}", "senate": "running for State Senate, District {district}", "statewide": "running for {race}"},
+        "races": {"ussenate": "U.S. Senate", "governor": "Governor"},
+        "party": {"Republican": "R", "Democratic": "D", "Libertarian": "L", "Green": "G", "Rep": "R", "Dem": "D", "Lib": "L", "Grn": "G"},
+        "note": "Candidates on the November 3 ballot, in ballot order, from Dallas County’s official sample ballot (where the city reaches into Collin, Denton, Kaufman or Rockwall counties, districts that don’t reach Dallas County show no race); shown until election day."},
       "note": "Names open each person's official page. Dallas's council elections are nonpartisan. Each U.S. representative is shown for the district they were elected on; the congressional lines on the map are the new ones used on November 3, and the winners take office in January. Last change {date}."
     },
     "vote": {

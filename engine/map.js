@@ -1743,20 +1743,32 @@ function representatives(hits){
   const link = r => r && r.name ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.name) + '</a>' : '<span class="vacant">Seat currently vacant</span>';
   const row = (role, r, sub) => '<dt>' + role + '</dt><dd>' + link(r) + (sub ? '<span>' + esc(sub) + '</span>' : '') + '</dd>';
   const date = new Date(...R.updated.split('-').map((v, i) => +v - (i === 1))).toLocaleDateString(CITY.locale, {month:'long', day:'numeric', year:'numeric'});
-  return '<div class="live reps"><dl>' +
-    cfg.offices.map(o => {
+  const raceOn = o => o.race && R[o.race.table] && (cfg.trustees || cfg.ballot);
+  // Ballot-only rows (statewide races) come last, after the trustees.
+  const offices = cfg.offices.filter(o => !o.ballot), after = cfg.offices.filter(o => o.ballot);
+  const one = o => {
+      // A ballot-only row (o.ballot {table, key}: a statewide race such as U.S. Senate): no member, just the race,
+      // shown only while the race is (see raceRow).
+      if (o.ballot){ const race = (R[o.ballot.table] || {})[o.ballot.key]; return race ? raceRow(Object.assign({race: o.ballot}, o), null, race, o.sub || '', link, o.ballot.key) : ''; }
       // A citywide office (o.citywide: the record's key, e.g. a mayor) is the same everywhere in the city.
       if (o.citywide){
         const r = (R[o.table] || {})[o.citywide]; if (!r) return '';
-        if (o.race && R[o.race.table] && cfg.trustees) return raceRow(o, r, R[o.race.table][o.citywide], o.sub || '', link);
+        if (raceOn(o)) return raceRow(o, r, R[o.race.table][o.citywide], o.sub || '', link, o.citywide);
         return row(o.role, r, o.sub || '');
       }
       const h = hits[o.file ? 'file:' + o.file : o.layer]; if (!h) return '';
-      const r = R[o.table][String(h.properties[o.key])];
-      if (o.race && R[o.race.table] && cfg.trustees) return raceRow(o, r, R[o.race.table][String(h.properties[o.key])], fill(o.sub, {f: h.properties, r: r || {}}), link);
-      return row(o.role, r, fill(o.sub, {f: h.properties, r: r || {}}));
-    }).join('') + trustees(hits) +
-    '</dl><p>' + esc(fill(cfg.note, {date})) + (cfg.trustees && R[cfg.trustees.table] ? ' ' + esc(cfg.trustees.note) : '') + '</p></div>';
+      const r = R[o.table][String(h.properties[o.key])], sub = fill(o.sub, {f: h.properties, r: r || {}});
+      if (raceOn(o)){
+        // The race can be keyed by another layer than the member (o.race.layer: Dallas's members sit for the old
+        // congressional lines, but November's race is on the new ones the map draws).
+        const rh = o.race.layer ? hits[o.race.layer] : h, k = rh && String(rh.properties[o.race.key || o.key]);
+        return raceRow(o, r, rh ? R[o.race.table][k] : null, sub, link, k);
+      }
+      return row(o.role, r, sub);
+  };
+  return '<div class="live reps"><dl>' + offices.map(one).join('') + trustees(hits) + after.map(one).join('') +
+    '</dl><p>' + esc(fill(cfg.note, {date})) + (cfg.trustees && R[cfg.trustees.table] ? ' ' + esc(cfg.trustees.note) : '') +
+    (cfg.ballot && cfg.ballot.note && new Date() < ballotEnd(cfg.ballot) ? ' ' + esc(cfg.ballot.note) : '') + '</p></div>';
 }
 /* School board trustees: one row per board that covers the spot, plus an optional citywide seat
    (T.citywide, e.g. a board president). Before the election the row lists the candidates; while votes
@@ -1781,26 +1793,42 @@ function trusteeRow(T, role, r, sub){
   }
   return '<dt>' + esc(role) + '</dt><dd>' + dd + '</dd>';
 }
-/* An office with a race on (o.race, e.g. city council): the sitting member as usual, marked if not running again,
-   with the candidates under an expandable caret, as for trustees. Once there's a winner, the winner shows under the
-   member with the trustees' wording ("elected Oct 26 · takes office Nov 15"); from the start date the weekly member
-   check has the new name and the race drops away. Dates and wording are the trustees' (card.reps.trustees). */
-function raceRow(o, r, race, sub, link){
-  const T = CITY.card.reps.trustees, today = new Date();
-  if (!race || today >= isoDate(T.starts)) return '<dt>' + esc(o.role) + '</dt><dd>' + link(r) + '<span>' + esc(sub) + '</span></dd>';
-  const dates = {election: longDate(T.election), starts: longDate(T.starts)};
-  // Where the sitting member stands: again (o.race.again), in another race (o.race.elsewhere[office], from
-  // race.incumbentElsewhere {office, ward?}), or not at all (o.race.retiring).
-  const ew = race.incumbentElsewhere, E2 = o.race.elsewhere || {};
-  const stand = race.incumbentRunning ? o.race.again : race.incumbentRunning === false ? (ew && E2[ew.office] ? fill(E2[ew.office], ew) : o.race.retiring) : '';
+/* An office with a race on (o.race, e.g. city council): the sitting member as usual, then where they stand, then the
+   candidates under an expandable caret, as for trustees. Wording and dates: card.reps.ballot if the city has one
+   (a partisan election with no results feed), else the trustees'. With "through" (ballot), the race shows until the
+   end of that day and the row then goes back to just the member; otherwise until the start date, with the winner
+   once there is one.
+   Where the member stands comes from the member's own record (r.runs {office, district | race}, a partisan ballot:
+   engine/ballot.py) or from the race's (race.incumbentRunning / incumbentElsewhere, Toronto's council). */
+const ballotEnd = B => new Date(isoDate(B.through).getTime() + 864e5);
+function raceRow(o, r, race, sub, link, key){
+  const B = CITY.card.reps.ballot, T = Object.assign({}, CITY.card.reps.trustees || {}, B || {}, o.race.text || {}), today = new Date();
+  const ended = T.through ? today >= ballotEnd(T) : today >= isoDate(T.starts);
+  const who = o.ballot ? '' : link(r);
+  if (!race || ended) return o.ballot ? '' : '<dt>' + esc(o.role) + '</dt><dd>' + who + '<span>' + esc(sub) + '</span></dd>';
+  if (race.notUp) return '<dt>' + esc(o.role) + '</dt><dd>' + who + '<span>' + esc([sub, T.notUp].filter(Boolean).join(' · ')) + '</span></dd>';
+  const dates = {election: longDate(T.election), starts: T.starts ? longDate(T.starts) : '', district: key};
+  const E2 = Object.assign({}, T.elsewhere || {}, o.race.elsewhere || {}), txt = k => o.race[k] || T[k];
+  let stand = '';
+  if (r && r.name && r.runs !== undefined){
+    const ru = r.runs;
+    stand = !ru ? txt('retiring') : ru.office === o.race.kind && ru.district === key ? txt('again')
+      : E2[ru.office] ? fill(E2[ru.office], Object.assign({race: (T.races || {})[ru.race] || ru.race}, ru)) : '';
+  } else if (r && !o.ballot){
+    const ew = race.incumbentElsewhere;
+    stand = race.incumbentRunning ? txt('again') : race.incumbentRunning === false ? (ew && E2[ew.office] ? fill(E2[ew.office], ew) : txt('retiring')) : '';
+  }
   const s = [sub, stand].filter(Boolean).join(' · ');
+  // A partisan ballot names each candidate's party, shortened (T.party: {"Democratic": "D"}), in ballot order.
+  const names = race.parties ? race.candidates.map((n, i) => n + ' (' + ((T.party || {})[race.parties[i]] || race.parties[i]) + ')') : race.candidates;
   let more;
   if (race.winner) more = '<span class="won"><b>' + esc(race.winner) + '</b> ' + esc(fill(race.acclaimed ? T.acclaimed : T.elected, dates)) + '</span>';
+  else if (names.length === 1 && T.one) more = '<span class="one">' + esc(fill(T.one, Object.assign({name: names[0]}, dates))) + '</span>';
   else {
-    const n = race.candidates.length;
-    more = '<details class="cands"><summary>' + esc(fill(today >= isoDate(T.election) ? T.counting : T.race, Object.assign({n, s: n === 1 ? '' : 's'}, dates))) + '</summary>' + candList(race.candidates) + '</details>';
+    const n = names.length;
+    more = '<details class="cands"><summary>' + esc(fill(!T.through && today >= isoDate(T.election) ? T.counting : T.race, Object.assign({n, s: n === 1 ? '' : 's'}, dates))) + '</summary>' + candList(names) + '</details>';
   }
-  return '<dt>' + esc(o.role) + '</dt><dd>' + link(r) + '<span>' + esc(s) + '</span>' + more + '</dd>';
+  return '<dt>' + esc(o.role) + '</dt><dd>' + who + (s ? '<span>' + esc(s) + '</span>' : '') + more + '</dd>';
 }
 function trustees(hits){
   const T = CITY.card.reps.trustees, R = data.reps; if (!T || !R || !R[T.table]) return '';

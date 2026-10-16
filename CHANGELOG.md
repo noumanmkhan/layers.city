@@ -73,6 +73,21 @@
 - Engine: `surface.py` takes a route's `day` from the feed when it has no schedule, and keeps shorter new stretches
   for OSM routes. Other cities' transit output unchanged. Contract sections 3, 4 and 5 (additive).
 
+### November 3 ballot on the card (October 16, on dev, Chicago and Dallas)
+- Under each state representative, state senator and U.S. representative, the card lists that district's candidates
+  on the November 3 ballot with their party (R, D, L, G), in ballot order, under a caret; one candidate shows as
+  "Unopposed on the ballot". The sitting member is marked "running again", "not running again", or where they are
+  running instead (Chicago's Rep. La Shawn Ford, House 8: "running for Congress, IL-7"). Staggered state senate seats
+  that aren't up say "seat not on the ballot this year". U.S. Senate and Governor rows follow, statewide.
+- Dallas's congressional row keeps the member for the district they were elected on and names the new district the
+  spot votes in ("2 candidates for the new TX-33").
+- Rows disappear after election day: there is no results feed for these races yet.
+- Sources: Chicago, the Board of Elections' candidate list already fetched for the school board (status Sept. 11);
+  Dallas, Dallas County's countywide sample ballot (new `fetch_ballot.py`), read by OCR in `ballot.py` and checked by
+  eye against the PDF. Districts reaching the city only outside Dallas County (about 4% of the city) show no race.
+- Engine: `engine/ballot.py` (race tables, name matching for `runs`), `card.reps.ballot`, `race.layer/key/text/kind`,
+  `ballot` offices (contract sections 7 and 8, additive). Toronto unchanged.
+
 ### Election view for city wards (October 16, on dev, Toronto)
 - Until the new council takes office (November 15), switching on City wards turns on an *Election view*: every ward
   in one neutral violet (no party's colour), standing in for the area fills, the lens and party colours as party

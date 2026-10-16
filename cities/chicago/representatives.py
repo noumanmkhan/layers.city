@@ -1,7 +1,8 @@
 """Match the current officeholders in raw/representatives/ (fetched by fetch_representatives.py) to the
 map's wards and districts. Output: docs/chicago/data/representatives.json
 
-{"updated": date of the last change, "wards": {"1": {"name", "url"}}, "house": {...}, "senate": {...}, "congress": {...}}
+{"updated": date of the last change, "wards": {"1": {"name", "url"}}, "house": {...}, "senate": {...}, "congress": {...},
+ "race_congress"/"race_house"/"race_senate"/"race_statewide": the November 3, 2026 races (engine/ballot.py); members carry "runs"}
 House, Senate and Congress entries also carry "party". A seat with no current holder is left out, and
 the page shows it as vacant. "updated" only moves when a name, party or link actually changes.
 
@@ -77,6 +78,14 @@ if os.path.exists(os.path.join(SB, 'candidates.json')):
             cps[key]['leader'] = votes[0][1]
             if res.get('official'): cps[key]['winner'] = votes[0][1]
     out['trustees'] = {'cps': cps}
+
+# The November 3, 2026 ballot (raw/ballot/candidates.json, from ballot.py): each district's race and, on each sitting
+# member, where they're running (engine/ballot.py). The card shows the races until election day.
+BAL = os.path.join(HERE, 'raw', 'ballot', 'candidates.json')
+if os.path.exists(BAL):
+    import sys; sys.path.insert(0, os.path.join(HERE, '..', '..', 'engine'))
+    from ballot import ballot_tables
+    out.update(ballot_tables(json.load(open(BAL)), {k: out[k] for k in ('congress', 'house', 'senate')}))
 
 old = json.load(open(OUT)) if os.path.exists(OUT) else {}
 same = {k: v for k, v in old.items() if k != 'updated'} == out
