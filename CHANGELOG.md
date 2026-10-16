@@ -73,6 +73,19 @@
 - Engine: `surface.py` takes a route's `day` from the feed when it has no schedule, and keeps shorter new stretches
   for OSM routes. Other cities' transit output unchanged. Contract sections 3, 4 and 5 (additive).
 
+### Election view for city wards (October 16, on dev, Toronto)
+- Until the new council takes office (November 15), switching on City wards turns on an *Election view*: every ward
+  in one neutral violet (no party's colour), standing in for the area fills, the lens and party colours as party
+  shading does, and taking precedence when a view turns on several riding layers. Its tick is under the layer's row.
+- Ward labels become a bold violet chip (just the number at the whole-city zoom, so all 25 fit); from zoom 13 the
+  chip carries the election date, the incumbent ("not running" for the four who aren't: Wards 4, 11, 14 and 19)
+  and the number of candidates. After election day they say votes are being counted, then name the winner.
+- Tapping a ward opens the card on Representatives alone; the councillor row keeps the incumbent and lists the
+  candidates under a caret, like the trustee rows.
+- Data: `representatives.json` gains `council` (candidates, `incumbentRunning`, winner) from the City's results
+  file, which the weekly job already fetches. Config: `election` on outline layers, `race` on a card office
+  (contract sections 4, 7 and 8, additive).
+
 ### Colour by party (October 16, on dev, Toronto, Chicago and Dallas)
 - Riding layers can be shaded by the sitting member's party: Toronto's provincial and federal ridings, Chicago's
   Illinois House and congressional districts, Dallas's Texas House and Senate districts. On when the layer goes on,

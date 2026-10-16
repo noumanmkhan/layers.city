@@ -121,7 +121,7 @@ map.on('zoomend', zoomClasses); zoomClasses();
 
 /* Label declutter: after each move, place labels in priority order and hide any that would overlap
    a label already placed. Icons stay; hovering an icon still shows its name. */
-const LABEL_PRIORITY = ['.lbl-focus', '.rt-b.pick', '.lm.t1 b', '.lm.t2 b', '.lm.tw.sup b', '.lm.inst b', '.lm.tw b', '.lbl-stn.end', '.lbl-go.end', '.shield', '.lbl-stn', '.lbl-go', '.rt-b', '.lbl-cult', '.lbl-area', '.lbl-nbhd', '.lbl-ward, .lbl-prov, .lbl-fed, .lbl-sbw', '.lbl-bia', '.lbl-hd'];
+const LABEL_PRIORITY = ['.lbl-focus', '#map.elect .lbl-ward.el', '.rt-b.pick', '.lm.t1 b', '.lm.t2 b', '.lm.tw.sup b', '.lm.inst b', '.lm.tw b', '.lbl-stn.end', '.lbl-go.end', '.shield', '.lbl-stn', '.lbl-go', '.rt-b', '.lbl-cult', '.lbl-area', '.lbl-nbhd', '.lbl-ward, .lbl-prov, .lbl-fed, .lbl-sbw', '.lbl-bia', '.lbl-hd'];
 let declutterQueued = false;
 function declutter(){
   declutterQueued = false;
@@ -220,12 +220,24 @@ const OUTLINE = {city:'ward', state:'prov', national:'fed'};
    names to a colour ([label, colour, [names]]). One layer is shaded at a time: the most recent one
    wins, and it stands in for the area fills and the lens, which come back when the shading ends.
    Shaded, the layer's own lines switch to a contrasting edge so borders show between seats of one colour. */
+/* Election view: a representation layer with "election" in city.json ({table, key, date, until, wording}) shows,
+   from now until its "until" date (when the new members take office), each seat's race from representatives.json.
+   It is shaded like party colours, but every seat in one neutral colour (no party's), so it shares that machinery:
+   one layer shaded at a time, standing in for the area fills and the lens. While it's on, each seat's label grows
+   (bigger, bolder) and, zoomed in, lists the election date, the sitting member and how many are running; the card
+   opens on its Representatives section with the candidates under the member. */
+const dayStart = s => new Date(...s.split('-').map((v, i) => +v - (i === 1)));
+const ELECT = Object.fromEntries(LAYERS.filter(it => it.kind === 'outline' && it.election && new Date() < dayStart(it.election.until)).map(it => [it.id, it]));
 const PTY = CITY.party || {parties: []};
-const PARTY = Object.fromEntries(LAYERS.filter(it => it.kind === 'outline' && it.party).map(it => [it.id, it]));
+const PARTY = Object.fromEntries(LAYERS.filter(it => it.kind === 'outline' && (it.party || ELECT[it.id])).map(it => [it.id, it]));
 const PTY_RANK = {city: 0, state: 1, national: 2};
+// When several shaded layers come on at once: an election under way first, then national over state over city.
+const prank = id => ELECT[id] ? 9 : PTY_RANK[PARTY[id].level];
+const electShading = () => !!(shade && ELECT[shade]);
 let shade = null, partyBusy = false, partyStack = [], partyDisplaced = [];
 const partyPref = {};
 function partyOf(it, f){   // [class, label] for one seat
+  if (ELECT[it.id]) return ['elect', ''];
   const R = data.reps && data.reps[it.party.table], k = String(f.properties[it.party.key]);
   if (!R || !(k in R)) return ['nd', ''];
   const r = R[k]; if (!r) return ['vac', PTY.vacant || 'Vacant'];
@@ -233,6 +245,21 @@ function partyOf(it, f){   // [class, label] for one seat
   return p ? [p[1], p[0]] : ['other', r.party || PTY.other || 'Other'];
 }
 
+// One seat's race for its election label: [heading, detail lines].
+function electLines(it, f){
+  const E = it.election, k = String(f.properties[E.key]), R = data.reps || {};
+  // The sitting member: the card's office for this layer and key (e.g. the councillor, not the MPP on the same lines).
+  const O = ((CITY.card.reps || {}).offices || []).find(o => o.layer === it.id && o.key === E.key);
+  const r = (R[E.table] || {})[k], inc = O && (R[O.table] || {})[k];
+  const lines = [fill(E.when, {date: longDay(E.date)})];
+  if (r && r.winner) lines[0] = fill(r.acclaimed ? E.acclaimed : E.elected, {winner: r.winner});
+  else if (new Date() >= dayStart(E.date)) lines[0] = E.counting;
+  if (inc && inc.name) lines.push(fill(r && r.incumbentRunning === false ? E.retiring : E.incumbent, {name: inc.name}));
+  else if (E.open) lines.push(E.open);
+  if (r && !r.winner){ const n = r.candidates.length; lines.push(fill(E.running, {n, s: n === 1 ? '' : 's'})); }
+  return [fill(E.head, f.properties), lines];
+}
+const longDay = s => dayStart(s).toLocaleDateString(CITY.locale, {month:'short', day:'numeric'});
 /* Suburban lens: free-flow drive time to the downtown hub, by municipality, in the regional view only. */
 const DRIVE_TIERS = [['d1', 'Under 30 min', '--drv-1', 30], ['d2', '30–60 min', '--drv-2', 60], ['d3', '60–90 min', '--drv-3', 90], ['d4', '90 min or more', '--drv-4', Infinity]];
 const driveTier = m => m == null ? null : DRIVE_TIERS.find(t => m < t[3]);
@@ -247,11 +274,15 @@ const KINDS = {
   units: (it, fc) => polyLayer(fc, {pane:'lines', cls: () => 'nbhd', label: f => f.properties.name, lcls: () => 'lbl-nbhd', hover: f => fill(it.hover || '{name}', f.properties), focusId: it.id}),
   outline: (it, fc) => {
     const c = OUTLINE[it.level];
-    const g = polyLayer(fc, {pane:'civic', cls: () => c, label: f => fill(it.label, f.properties), lcls: () => 'lbl-' + c,
+    // Election view: the label carries the race too, shown (and the number enlarged) only while the view is on.
+    const lab = !ELECT[it.id] ? f => fill(it.label, f.properties) : f => { const [h, ls] = electLines(it, f);
+      // The chip reads "Ward 19"; zoomed out to the whole city it shrinks to the number (el-s) so all 25 fit.
+      return '<span class="el-n"><span class="el-h">' + esc(h) + '</span><span class="el-s">' + esc(String(f.properties[it.election.key])) + '</span></span><span class="el-x">' + ls.map(esc).join('<br>') + '</span>'; };
+    const g = polyLayer(fc, {pane:'civic', cls: () => c, label: lab, lcls: () => 'lbl-' + c + (ELECT[it.id] ? ' el' : ''),
       hover: f => !it.party ? fill(it.hover, f.properties) : () => { const p = shade === it.id && partyOf(it, f)[1]; return esc(fill(it.hover, f.properties)) + (p ? ' · ' + esc(p) : ''); }});
     // Party colours sit in the fill pane, under the lines; the lines on top still take hovers and taps.
     // A halo under the lines (lines pane, below civic) makes the contrasting edge read on any colour.
-    if (it.party) g._party = L.layerGroup([L.geoJSON(fc, {pane:'fill', interactive:false, style: f => ({className: 'pty p-' + partyOf(it, f)[0], weight: 0})}),
+    if (PARTY[it.id]) g._party = L.layerGroup([L.geoJSON(fc, {pane:'fill', interactive:false, style: f => ({className: 'pty p-' + partyOf(it, f)[0], weight: 0})}),
       L.geoJSON(fc, {pane:'lines', interactive:false, style: () => ({className: 'pty-case'})})]);
     return g;
   },
@@ -1279,8 +1310,9 @@ CITY.groups.forEach(([title, items]) => {
     }
     if (PARTY[it.id]){   // "Colour by party", with a key to the colours while it's on
       const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'ptybox-' + it.id; box.hidden = !it.on;
-      box.innerHTML = '<label class="sub"><input type="checkbox" id="pty-' + it.id + '"> ' + esc(PTY.label || 'Colour by party') + '</label>' +
-        '<div class="legend" id="ptyleg-' + it.id + '" hidden><div class="ptykey" id="ptykey-' + it.id + '"></div><small>' + esc(it.party.note || PTY.note || '') + '</small></div>';
+      const E = ELECT[it.id];   // an election layer's tick is the election view, with its note instead of a party key
+      box.innerHTML = '<label class="sub"><input type="checkbox" id="pty-' + it.id + '"> ' + esc(E ? E.election.tick : PTY.label || 'Colour by party') + '</label>' +
+        '<div class="legend" id="ptyleg-' + it.id + '" hidden>' + (E ? '' : '<div class="ptykey" id="ptykey-' + it.id + '"></div>') + '<small>' + esc(E ? E.election.note : it.party.note || PTY.note || '') + '</small></div>';
       grp.appendChild(box);
       box.querySelector('input').addEventListener('change', e => { partyTick(it.id, e.target.checked); logEvent('party', {id: e.target.checked ? it.id : 'none'}); });
     }
@@ -1476,7 +1508,7 @@ function partySettle(){
 }
 // A link or a view switched several layers at once: national over provincial or state over city, unless the link names one.
 function partyFromLink(v){
-  partyStack = Object.keys(PARTY).filter(x => state[x]).sort((a, b) => PTY_RANK[PARTY[a].level] - PTY_RANK[PARTY[b].level]);
+  partyStack = Object.keys(PARTY).filter(x => state[x]).sort((a, b) => prank(a) - prank(b));
   partyStack.forEach(x => { partyPref[x] = v !== 'none'; });
   if (v && PARTY[v] && state[v]) partyStack = partyStack.filter(x => x !== v).concat(v);
   if (shade && !(state[shade] && partyPref[shade])) shade = null;
@@ -1485,6 +1517,10 @@ function partyFromLink(v){
 function partyShow(){
   const ctr = map.getContainer();
   Object.keys(PTY_RANK).forEach(lv => ctr.classList.toggle('pty-' + lv, !!shade && PARTY[shade].level === lv));
+  const wasElect = ctr.classList.contains('elect');
+  ctr.classList.toggle('elect', electShading());
+  // The card opens on Representatives while the election view is on, so redraw an open card when that changes.
+  if (wasElect !== electShading()){ queueDeclutter(); try { if (lastInspect && !here.hidden) redrawCard(); } catch (e){} }
   Object.values(PARTY).forEach(it => {
     const g = layers[it.id], want = shade === it.id;
     if (g && g._party){ if (want && !g.hasLayer(g._party)) g.addLayer(g._party); if (!want && g.hasLayer(g._party)) g.removeLayer(g._party); }
@@ -1495,7 +1531,7 @@ function partyShow(){
 }
 // Key: each party on this layer with its number of seats, most seats first, vacant seats last.
 function partyKey(it){
-  const el = document.getElementById('ptykey-' + it.id), fc = data.layers && data.layers[it.id]; if (!el || !fc) return;
+  const el = document.getElementById('ptykey-' + it.id), fc = data.layers && data.layers[it.id]; if (!el || !fc || ELECT[it.id]) return;
   const n = {};
   fc.features.forEach(f => { const [c, lab] = partyOf(it, f); if (c === 'nd') return; const k = c + '|' + lab; n[k] = (n[k] || 0) + 1; });
   el.innerHTML = Object.entries(n).sort((a, b) => (a[0].startsWith('vac|') - b[0].startsWith('vac|')) || b[1] - a[1])
@@ -1607,9 +1643,12 @@ function langRow(cfg, d){
 const SEC_DEFAULT = matchMedia('(max-width:760px)').matches ? {bounds:false, live:false, schools:false, transit:false, near:false, cls:false, chg:false, reps:false} : {bounds:true, live:true, schools:true, transit:true, near:true, cls:true, chg:true, reps:false};
 let secOpen = Object.assign({}, SEC_DEFAULT);
 try { Object.assign(secOpen, JSON.parse(localStorage.getItem('cardSections') || '{}')); } catch (e) {}
+// While the election view is on, the card opens on Representatives alone; choices made then last only for this visit.
+const secElect = {reps: true};
+const secState = () => electShading() ? secElect : secOpen;
 function section(id, title, body){
   if (!body) return '';
-  return '<details class="sec" data-sec="' + id + '"' + (secOpen[id] ? ' open' : '') + '><summary>' + title + '</summary>' + body + '</details>';
+  return '<details class="sec" data-sec="' + id + '"' + (secState()[id] ? ' open' : '') + '><summary>' + title + '</summary>' + body + '</details>';
 }
 /* Skyscrapers on the card: a tower picked on the map, from search or a shared link (the pin carries its
    name) gets its own block: use, height, floors, year and up to three facts, built ahead of time by
@@ -1698,6 +1737,7 @@ function representatives(hits){
     cfg.offices.map(o => {
       const h = hits[o.file ? 'file:' + o.file : o.layer]; if (!h) return '';
       const r = R[o.table][String(h.properties[o.key])];
+      if (o.race && R[o.race.table] && cfg.trustees) return raceRow(o, r, R[o.race.table][String(h.properties[o.key])], fill(o.sub, {f: h.properties, r: r || {}}), link);
       return row(o.role, r, fill(o.sub, {f: h.properties, r: r || {}}));
     }).join('') + trustees(hits) +
     '</dl><p>' + esc(fill(cfg.note, {date})) + (cfg.trustees && R[cfg.trustees.table] ? ' ' + esc(cfg.trustees.note) : '') + '</p></div>';
@@ -1722,6 +1762,23 @@ function trusteeRow(T, role, r, sub){
     dd = '<details class="cands"><summary>' + esc(head) + '</summary><span>' + r.candidates.map(esc).join(' · ') + '</span></details><span>' + esc(sub) + '</span>';
   }
   return '<dt>' + esc(role) + '</dt><dd>' + dd + '</dd>';
+}
+/* An office with a race on (o.race, e.g. city council): the sitting member as usual, marked if not running again,
+   with the candidates under an expandable caret, as for trustees. Once there's a winner, the winner shows under the
+   member with the trustees' wording ("elected Oct 26 · takes office Nov 15"); from the start date the weekly member
+   check has the new name and the race drops away. Dates and wording are the trustees' (card.reps.trustees). */
+function raceRow(o, r, race, sub, link){
+  const T = CITY.card.reps.trustees, today = new Date();
+  if (!race || today >= isoDate(T.starts)) return '<dt>' + esc(o.role) + '</dt><dd>' + link(r) + '<span>' + esc(sub) + '</span></dd>';
+  const dates = {election: longDate(T.election), starts: longDate(T.starts)};
+  const s = sub + (race.incumbentRunning === false && o.race.retiring ? ' · ' + o.race.retiring : '');
+  let more;
+  if (race.winner) more = '<span class="won"><b>' + esc(race.winner) + '</b> ' + esc(fill(race.acclaimed ? T.acclaimed : T.elected, dates)) + '</span>';
+  else {
+    const n = race.candidates.length;
+    more = '<details class="cands"><summary>' + esc(fill(today >= isoDate(T.election) ? T.counting : T.race, Object.assign({n, s: n === 1 ? '' : 's'}, dates))) + '</summary><span>' + race.candidates.map(esc).join(' · ') + '</span></details>';
+  }
+  return '<dt>' + esc(o.role) + '</dt><dd>' + link(r) + '<span>' + esc(s) + '</span>' + more + '</dd>';
 }
 function trustees(hits){
   const T = CITY.card.reps.trustees, R = data.reps; if (!T || !R || !R[T.table]) return '';
@@ -1956,7 +2013,7 @@ function wireCard(){
   closeDirPop();
   here.querySelectorAll('[data-route]').forEach(b => b.addEventListener('click', () => pickRoute(b.dataset.route, !picked.has(b.dataset.route))));
   here.querySelectorAll('[data-pf]').forEach(b => b.addEventListener('click', () => { const [id, ...n] = b.dataset.pf.split(':'); setPlaceFocus(id, n.join(':'), true); if (placeF) logEvent('focus', {layer: id, via: 'card'}); }));
-  here.querySelectorAll('details.sec').forEach(d => d.addEventListener('toggle', () => { secOpen[d.dataset.sec] = d.open; try { localStorage.setItem('cardSections', JSON.stringify(secOpen)); } catch (e) {} }));
+  here.querySelectorAll('details.sec').forEach(d => d.addEventListener('toggle', () => { const st = secState(); st[d.dataset.sec] = d.open; if (st === secOpen) try { localStorage.setItem('cardSections', JSON.stringify(secOpen)); } catch (e) {} }));
   const cg = here.querySelector('.cmp-go'); if (cg) cg.onclick = () => { startCompare(); logEvent('compare'); };
   const cc = here.querySelector('.cmp-cancel'); if (cc) cc.onclick = () => endCompare(0);
   here.querySelectorAll('[data-drop]').forEach(b => b.addEventListener('click', () => endCompare(+b.dataset.drop)));
@@ -3004,7 +3061,7 @@ function linkState(){
   const pgs = Object.entries(placePick).filter(([id, g]) => g !== 'all' && state[id]).map(([id, g]) => id + ':' + g);
   if (pgs.length) parts.push(['pick', pgs.join(',')]);
   { // party= only when the shading isn't what the layers alone would give (the highest level on, or none)
-    const onP = Object.keys(PARTY).filter(x => state[x]).sort((a, b) => PTY_RANK[PARTY[a].level] - PTY_RANK[PARTY[b].level]);
+    const onP = Object.keys(PARTY).filter(x => state[x]).sort((a, b) => prank(a) - prank(b));
     if (onP.length && shade !== onP[onP.length - 1]) parts.push(['party', shade || 'none']); }
   if (presetOn && !presetCustom) parts.push(['preset', presetOn]);
   return parts.map(([k, v]) => k + '=' + enc(v)).join('&');

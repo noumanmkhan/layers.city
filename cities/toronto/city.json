@@ -99,7 +99,12 @@
        "tz": "America/Toronto", "closedText": "Closed", "narrowedText": "Lanes narrowed", "bothText": "both directions", "startsText": "Starts {date}", "untilText": "Permit to {date}", "longText": "long-term", "allDayText": "Around the clock", "whenLabel": "When", "hoursLabel": "Hours", "projectLabel": "For", "whoLabel": "Permit holder", "fineText": "Dates are permit dates, not a forecast of when the road reopens. Data as of {date}.", "asofText": "as of {date}"}
     ]],
     ["Representation", [
-      {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "25 wards, one councillor each", "label": "Ward {num}", "hover": "Ward {num} · {name}"},
+      {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "25 wards, one councillor each", "label": "Ward {num}", "hover": "Ward {num} · {name}",
+       "election": {"table": "council", "key": "num", "date": "2026-10-26", "until": "2026-11-15",
+         "tick": "Election view", "note": "Wards in one neutral colour, with each ward’s race when you zoom in. Tap a ward for the candidates. Other shading is off while this is on.",
+         "head": "Ward {num}", "when": "Election {date}", "counting": "Votes being counted",
+         "incumbent": "Incumbent: {name}", "retiring": "Incumbent: {name} (not running)", "open": "Open seat",
+         "running": "Running: {n} candidate[{s}]", "elected": "Elected: {winner}", "acclaimed": "Acclaimed: {winner}"}},
       {"id": "prov", "kind": "outline", "level": "state", "file": "wards", "name": "Provincial ridings", "note": "25 MPPs · same lines as the wards", "label": "{prov}", "hover": "Provincial: {prov}", "party": {"table": "prov", "key": "prov"}},
       {"id": "fed", "kind": "outline", "level": "national", "file": "federal", "name": "Federal ridings", "note": "24 MPs · 2023 boundaries", "label": "{name}", "hover": "Federal: {name}", "party": {"table": "fed", "key": "name"}},
       {"id": "school", "kind": "boards", "file": "school_wards", "name": "School board wards", "note": "Trustee wards for the 4 public school boards · 2026 lines",
@@ -259,7 +264,8 @@
     "reps": {
       "file": "representatives.json",
       "offices": [
-        {"role": "City councillor", "layer": "wards", "table": "wards", "key": "num", "sub": "Ward {f.num}"},
+        {"role": "City councillor", "layer": "wards", "table": "wards", "key": "num", "sub": "Ward {f.num}",
+         "race": {"table": "council", "retiring": "not running again"}},
         {"role": "MPP", "layer": "wards", "table": "prov", "key": "prov", "sub": "{r.party}"},
         {"role": "MP", "layer": "fed", "table": "fed", "key": "name", "sub": "{r.party}"}
       ],
@@ -267,7 +273,7 @@
         "election": "2026-10-26", "starts": "2026-11-15",
         "race": "{n} candidate[{s}] · election {election}", "counting": "{n} candidate[{s}] · results to come",
         "elected": "elected {election} · takes office {starts}", "acclaimed": "acclaimed · takes office {starts}",
-        "note": "Trustee candidates and results come from the City’s election results file and are unofficial until the City Clerk certifies them."},
+        "note": "Council and trustee candidates and results come from the City’s election results file and are unofficial until the City Clerk certifies them."},
       "note": "Names open each person’s official page. Toronto councillors run without party labels. Checked weekly against those sites; last change {date}."
     }
   }
