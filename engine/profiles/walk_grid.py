@@ -2,6 +2,8 @@
 
 Usage:  python3 engine/profiles/walk_grid.py toronto
 Reads:  cities/<city>/raw/walk_network.json    (from fetch_walk.py)
+        cities/<city>/raw/walk_extras.json     (from fetch_walk.py: subway entrances and park outlines;
+                                                without it, stations and parks are single points)
         docs/<city>/data/*                      (stations, stops, docks, parks, libraries: the map's own)
 Writes: docs/<city>/profiles/data/walk_grid.json
 
@@ -117,14 +119,46 @@ def gj(name):
 
 nearby = (load('nearby.json') or {'groups': {}})['groups']
 stations = gj('subway_stations')
+EXTRAS = os.path.join(ROOT, 'cities', city, 'raw', 'walk_extras.json')
+extras = json.load(open(EXTRAS)) if os.path.exists(EXTRAS) else {'entrances': [], 'parks': []}
+ENTRANCE_M = 300     # an entrance belongs to the nearest station within this distance
+
+
+def station_sources():
+    """Walks end at a station's nearest mapped entrance (from OSM) or its point, whichever is closer.
+    The point stays because OSM often maps only some of a station's entrances."""
+    pts = [m(*f['geometry']['coordinates']) for f in stations]
+    out, served = [], set()
+    for lon, lat in extras['entrances']:
+        x, y = m(lon, lat)
+        k = min(range(len(pts)), key=lambda i: (pts[i][0] - x) ** 2 + (pts[i][1] - y) ** 2) if pts else None
+        if k is not None and math.hypot(pts[k][0] - x, pts[k][1] - y) <= ENTRANCE_M:
+            out.append((lon, lat, k)); served.add(k)
+    n_ent = len(out)
+    out += [(*f['geometry']['coordinates'], k) for k, f in enumerate(stations)]
+    print(f'  subway: {n_ent:,} mapped entrances at {len(served)} of {len(stations)} stations', flush=True)
+    return out
+
+
+def park_sources(step=50):
+    """Points every `step` metres around each park's outline (from OSM), plus the City's park points."""
+    out = [(p[0], p[1], 0) for p in nearby.get('park', [])]
+    for ring in extras['parks']:
+        for (ax, ay), (bx, by) in zip(ring, ring[1:]):
+            (mx0, my0), (mx1, my1) = m(ax, ay), m(bx, by)
+            n = max(1, int(math.hypot(mx1 - mx0, my1 - my0) // step))
+            out += [(ax + (bx - ax) * i / n, ay + (by - ay) * i / n, 0) for i in range(n)]
+    print(f'  park: {len(extras["parks"]):,} park outlines from OSM', flush=True)
+    return out
+
+
 layers = {
-    'subway': ([f['properties']['name'] for f in stations],
-               [(*f['geometry']['coordinates'], k) for k, f in enumerate(stations)]),
+    'subway': ([f['properties']['name'] for f in stations], station_sources()),
     'go': ([f['properties']['name'] for f in gj('go_stations')],
            [(*f['geometry']['coordinates'], k) for k, f in enumerate(gj('go_stations'))]),
     'stop': (None, [(s[0], s[1], 0) for s in (load('transit.json') or {}).get('stops', [])]),
     'bikeshare': (None, [(*f['geometry']['coordinates'], 0) for f in gj('bikeshare')]),
-    'park': (None, [(p[0], p[1], 0) for p in nearby.get('park', [])]),
+    'park': (None, park_sources()),
     'library': ([p[2].replace(' branch', '') if len(p) > 2 else 'Library' for p in nearby.get('library', [])],
                 [(p[0], p[1], k) for k, p in enumerate(nearby.get('library', []))]),
 }

@@ -3,6 +3,10 @@
 Usage:  python3 engine/profiles/fetch_walk.py toronto
 Writes: cities/<city>/raw/walk_network.json   (not committed: large, and rebuilt from OSM on demand)
         {asof, nodes: [[lon, lat], ...], edges: [[a, b], ...]}   a and b index into nodes
+        cities/<city>/raw/walk_extras.json    (not committed)
+        {asof, entrances: [[lon, lat], ...], parks: [[[lon, lat], ...], ...]}
+        Subway entrances, so walks end at the nearest door rather than the middle of the platforms,
+        and park outlines, so "nearest park" means its nearest edge rather than its centre.
 
 Run it on a computer with normal internet (it fails in most sandboxes). A whole city is too big for one
 Overpass request, so the city's box is cut into TILES_X x TILES_Y tiles, fetched one at a time with a
@@ -52,11 +56,20 @@ def city_bbox():
     return min(ys) - pad, min(xs) - pad, max(ys) + pad, max(xs) + pad
 
 
-def fetch(bbox):
-    s, w, n, e = bbox
-    q = f"""[out:json][timeout:300];
+def network_query(s, w, n, e):
+    return f"""[out:json][timeout:300];
 (way["highway"~"^({WALKABLE})$"]["foot"!~"^(no|private)$"]["access"!~"^(no|private)$"]({s:.5f},{w:.5f},{n:.5f},{e:.5f}););
 out skel qt; >; out skel qt;"""
+
+
+def extras_query(s, w, n, e):
+    b = f'{s:.5f},{w:.5f},{n:.5f},{e:.5f}'
+    return f"""[out:json][timeout:300];
+(node["railway"="subway_entrance"]({b}); way["leisure"="park"]({b}); relation["leisure"="park"]({b}););
+out geom qt;"""
+
+
+def fetch(q):
     body = urllib.parse.urlencode({'data': q}).encode()
     last = None
     for attempt in range(6):
@@ -77,26 +90,33 @@ S, W, N, E = city_bbox()
 os.makedirs(TILES, exist_ok=True)
 dy, dx = (N - S) / TILES_Y, (E - W) / TILES_X
 print(f'{city}: walkable ways in {S:.3f},{W:.3f},{N:.3f},{E:.3f}, as {TILES_X * TILES_Y} tiles', flush=True)
+def tiles(prefix, query, label):
+    """Every tile's elements, fetching only the tiles not saved yet."""
+    for r in range(TILES_Y):
+        for c in range(TILES_X):
+            name = os.path.join(TILES, f'{prefix}_{r}_{c}.json')
+            tag = f'  {label} tile {r * TILES_X + c + 1}/{TILES_X * TILES_Y}'
+            if os.path.exists(name):
+                els = json.load(open(name))
+                print(f'{tag}: already saved', flush=True)
+            else:
+                t = time.time()
+                print(f'{tag}: fetching ...', flush=True)
+                els = fetch(query(S + r * dy, W + c * dx, S + (r + 1) * dy, W + (c + 1) * dx))
+                with open(name, 'w') as f:
+                    json.dump(els, f, separators=(',', ':'))
+                print(f'    {len(els):,} elements in {time.time() - t:.0f} s', flush=True)
+                time.sleep(PAUSE_S)
+            yield els
+
+
 coords, ways = {}, []
-for r in range(TILES_Y):
-    for c in range(TILES_X):
-        name = os.path.join(TILES, f'tile_{r}_{c}.json')
-        if os.path.exists(name):
-            els = json.load(open(name))
-            print(f'  tile {r * TILES_X + c + 1}/{TILES_X * TILES_Y}: already saved', flush=True)
-        else:
-            t = time.time()
-            print(f'  tile {r * TILES_X + c + 1}/{TILES_X * TILES_Y}: fetching ...', flush=True)
-            els = fetch((S + r * dy, W + c * dx, S + (r + 1) * dy, W + (c + 1) * dx))
-            with open(name, 'w') as f:
-                json.dump(els, f, separators=(',', ':'))
-            print(f'    {len(els):,} elements in {time.time() - t:.0f} s', flush=True)
-            time.sleep(PAUSE_S)
-        for el in els:
-            if el['type'] == 'node':
-                coords[el['id']] = (el['lon'], el['lat'])
-            elif el['type'] == 'way':
-                ways.append(el.get('nodes', []))
+for els in tiles('tile', network_query, 'streets'):
+    for el in els:
+        if el['type'] == 'node':
+            coords[el['id']] = (el['lon'], el['lat'])
+        elif el['type'] == 'way':
+            ways.append(el.get('nodes', []))
 
 # Ways that cross a tile edge come back in both tiles, whole; links are kept once.
 index, nodes, edges = {}, [], set()
@@ -121,4 +141,24 @@ with open(OUT, 'w') as f:
     json.dump({'asof': date.today().isoformat(), 'source': 'OpenStreetMap (Overpass)',
                'nodes': nodes, 'edges': sorted(edges)}, f, separators=(',', ':'))
 print(f'{city}: {len(nodes):,} nodes, {len(edges):,} links -> {os.path.relpath(OUT, ROOT)} '
-      f'({os.path.getsize(OUT) / 1e6:.0f} MB)')
+      f'({os.path.getsize(OUT) / 1e6:.0f} MB)', flush=True)
+
+# ---- subway entrances and park outlines -----------------------------------------------------------
+entrances, parks = {}, {}
+for els in tiles('extras', extras_query, 'entrances and parks'):
+    for el in els:
+        if el['type'] == 'node':
+            entrances[el['id']] = [round(el['lon'], 6), round(el['lat'], 6)]
+        elif el['type'] == 'way' and el.get('geometry'):
+            parks[('w', el['id'])] = [[[round(p['lon'], 6), round(p['lat'], 6)] for p in el['geometry']]]
+        elif el['type'] == 'relation':
+            rings = [[[round(p['lon'], 6), round(p['lat'], 6)] for p in m['geometry']]
+                     for m in el.get('members', []) if m.get('role') == 'outer' and m.get('geometry')]
+            if rings:
+                parks[('r', el['id'])] = rings
+EXTRAS = os.path.join(RAW, 'walk_extras.json')
+with open(EXTRAS, 'w') as f:
+    json.dump({'asof': date.today().isoformat(), 'source': 'OpenStreetMap (Overpass)',
+               'entrances': list(entrances.values()),
+               'parks': [ring for rings in parks.values() for ring in rings]}, f, separators=(',', ':'))
+print(f'{city}: {len(entrances):,} subway entrances, {len(parks):,} parks -> {os.path.relpath(EXTRAS, ROOT)}')
