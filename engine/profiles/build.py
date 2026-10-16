@@ -195,7 +195,7 @@ def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km):
     # 01 subway and LRT
     spot = {m['name']: g for g, m in stations}
     ranked = sorted(st_names, key=lambda n: (-len(lines_at[n]), lp.distance(spot[n])))   # interchanges first, then nearest
-    sub = [[n, 'Line' + ('s ' if len(lines_at[n]) > 1 else ' ') + ', '.join(lines_at[n])] for n in ranked]
+    sub = [[n, {'lines': lines_at[n]}] for n in ranked]   # the page draws each line's coloured bullet
     origin, origin_walk = None, None
     if st_names:
         origin = ranked[0]
@@ -210,30 +210,36 @@ def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km):
             origin_walk = f'about {walk_min(d)} min walk' if walk_min(d) <= LONG_WALK_MIN else f'{fmt_km(d)} away'
     rows1 = sub[:4] + ([['More stations', f'+{len(sub) - 4}']] if len(sub) > 4 else [])
     if not sub and origin:
-        rows1.append(['Nearest station', f'{origin} · {origin_walk}'])
+        rows1.append(['Nearest station', f'{origin} · {origin_walk}', {'lines': lines_at.get(origin, [])}])
     share = grid_share(poly_ll, 'subway', 10)
     if share is not None:
         rows1.append(['Area within a 10-min walk of a station', f'{share}%'])
 
     # 02 buses and streetcars: every route stopping inside the boundary
     served = sorted({i for g, rs in STOPS if P.contains(g) for i in rs}, key=lambda i: route_key(ROUTES[i]['r']))
-    label = lambda r: f"{r['r']} {r['n']}"
+    # route badges, styled on the page like the map's (TTC conventions): {r: number, n: name, m: mode, f: families}
+    badge = lambda r: {'r': r['r'], 'n': r['n'], 'm': r.get('m'), 'f': r.get('f', [])}
+    badges = lambda rs_: {'routes': [badge(r) for r in rs_]} if rs_ else 'None'
     rs = [ROUTES[i] for i in served if ROUTES[i].get('m') != 'go']
-    cars = [label(r) for r in rs if r.get('m') == 'tram' and 'night' not in r.get('f', [])]
-    freq = [label(r) for r in rs if r.get('m') == 'bus' and 'freq' in r.get('f', [])]
-    exp = [label(r) for r in rs if r.get('m') == 'bus' and 'exp' in r.get('f', []) and 'freq' not in r.get('f', [])]
-    night = [label(r) for r in rs if 'night' in r.get('f', [])]
+    cars = [r for r in rs if r.get('m') == 'tram' and 'night' not in r.get('f', [])]
+    freq = [r for r in rs if r.get('m') == 'bus' and 'freq' in r.get('f', [])]
+    exp = [r for r in rs if r.get('m') == 'bus' and 'exp' in r.get('f', []) and 'freq' not in r.get('f', [])]
+    night = [r for r in rs if 'night' in r.get('f', [])]
     other = [r for r in rs if r.get('m') == 'bus' and not set(r.get('f', [])) & {'freq', 'exp', 'night'}]
-    rows2 = [['Streetcars', listing(cars)], ['Frequent buses (10 min or better)', listing(freq)]]
+    gobus = [r for r in (ROUTES[i] for i in served) if r.get('m') == 'go']
+    rows2 = [['Streetcars', badges(cars)], ['Frequent buses (10 min or better)', badges(freq)]]
     if exp:
-        rows2.append(['Express buses', listing(exp)])
-    rows2 += [['Other daytime bus routes', str(len(other))], ['Overnight (Blue Night)', listing(night, 2)]]
+        rows2.append(['Express buses', badges(exp)])
+    rows2 += [['Other daytime buses', badges(other)], ['Overnight (Blue Night)', badges(night)]]
+    if gobus:
+        rows2.append(['GO buses and trains stopping here', badges(gobus)])
     share = grid_share(poly_ll, 'stop', 5)
     if share is not None:
         rows2.append(['Area within a 5-min walk of a stop', f'{share}%'])
 
     # 03 to the hubs, from the neighbourhood's best-connected station (or the nearest one)
-    rows3 = [[h, hub_text(v)] for h, v in zip(HUBS, HUB_TABLE.get(origin, [None] * len(HUBS)))] if origin else []
+    rows3 = [[h, hub_text(v), {'lines': lines_at.get(h, [])}]
+             for h, v in zip(HUBS, HUB_TABLE.get(origin, [None] * len(HUBS)))] if origin else []
     if c.get('union') is not None:
         rows3.append(['Door to door to Union, typical', f"about {c['union']} min"])
     title3 = f'From {origin} to the hubs' + (f' ({origin_walk})' if origin_walk else '') if origin else 'To the hubs'
@@ -243,10 +249,10 @@ def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km):
     k = grid_cell(ll.x, ll.y)
     G_ = wgrid['layers'].get('go') if wgrid else None
     if G_ and k is not None and G_['min'][k] is not None and G_['min'][k] <= LONG_WALK_MIN:
-        rows4.append(['Nearest GO station', f"{G_['names'][G_['src'][k]]} · about {G_['min'][k]} min walk"])
+        rows4.append(['Nearest GO station', f"{G_['names'][G_['src'][k]]} · about {G_['min'][k]} min walk", {'go': True}])
     elif go:
         d, _, m = nearest(lp, go)
-        rows4.append(['Nearest GO station', f"{m['name']} · {fmt_km(d)}"])
+        rows4.append(['Nearest GO station', f"{m['name']} · {fmt_km(d)}", {'go': True}])
     rows4.append(['Bike Share stations', f'{len(shares)} · {docks} docks' if shares else 'None'])
     rows4.append(['Bike lanes and trails', f'{bike_km:.1f} km'])
     if grid:
@@ -444,7 +450,7 @@ if hood_feats:
                     for part in getattr(CITY, 'geoms', [CITY]) if part.geom_type == 'Polygon' and part.area > 1],
         'lines': [{'line': m.get('line'), 'name': m.get('name'), 'color': m.get('color'),
                    'path': [sxy(*c) for c in g.simplify(0.05).coords]} for g, m in subway_lines if g.geom_type == 'LineString'],
-        'stations': [{'x': sxy(g.x, g.y)[0], 'y': sxy(g.x, g.y)[1], 'name': m['name'],
+        'stations': [{'x': sxy(g.x, g.y)[0], 'y': sxy(g.x, g.y)[1], 'name': m['name'], 'lines': m.get('lines', []),
                       'label': m['name'] in HUBS or m['name'] in TERMINI} for g, m in stations],
         'toHubs': HUB_TABLE,
     }
