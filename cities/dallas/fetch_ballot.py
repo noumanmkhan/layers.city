@@ -12,7 +12,9 @@ import os, time, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'raw', 'ballot'); os.makedirs(OUT, exist_ok=True)
-UA = {'User-Agent': 'city-layers/1.0 (https://layers.city)'}
+# The county's site turns away non-browser clients, so ask like a browser would.
+UA = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36',
+      'Accept': 'application/pdf,*/*', 'Referer': 'https://www.dallascountyvotes.org/voters/election/november-3-2026-general-and-joint-election/'}
 SOURCES = [
     ('dallas_county_2026-11-03.pdf',
      'https://www.dallascountyvotes.org/wp-content/uploads/2026/09/Full-Sample-Ballot-Watermark-8.5x14-Legal_110326.pdf'),
@@ -23,7 +25,9 @@ for name, url in SOURCES:
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120) as r:
                 body = r.read()
-            if not body.startswith(b'%PDF'): raise ValueError('not a PDF')
+            if not body.startswith(b'%PDF'):
+                open(os.path.join(OUT, name + '.got.html'), 'wb').write(body[:20000])   # what came back instead
+                raise ValueError('not a PDF (%d bytes, starts %r)' % (len(body), body[:80]))
             open(os.path.join(OUT, name), 'wb').write(body)
             print('wrote', name, len(body)); break
         except Exception as e:
