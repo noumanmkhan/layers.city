@@ -2,7 +2,7 @@
 
 ## Since 1.1
 
-### Schools in Toronto (October 18, on dev)
+### Schools in Toronto (October 18)
 - *Schools* in Education: all 817 TDSB, TCDSB, Viamonde and MonAvenir schools, from the Ontario Ministry of
   Education's school list (2024–25). Chips for Elementary and Secondary; a *French programs* row for
   French-language or French immersion (174 immersion schools from the boards' lists, all matched). It replaces
@@ -13,7 +13,7 @@
   `schools.geojson`. Engine: a `places` layer may have `popup` (details on tap); `replaces` values starting with
   `@` pick a group. Credited on the map and the Attributions page.
 
-### Libraries & community centres; Community & Faith (October 18, on dev)
+### Libraries & community centres; Community & Faith (October 18)
 - A new toggle in every city, *Libraries & community centres*, with a chip for each: the public libraries and
   community centres the card's Nearby section already lists, now on the map. Icons from zoom 12, so the city view
   stays clear (about 280 points in Toronto, 310 in Chicago). Search finds them by name.
@@ -22,7 +22,7 @@
 - Engine: `engine/community.py` writes `community.geojson` from the Nearby points (called by each city's
   `nearby.py`); a `places` layer may set `minZoom` (12–14) to hold its icons back; library and centre glyphs.
 
-### Fewer toggles: merged place layers (October 18, on dev)
+### Fewer toggles: merged place layers (October 18)
 - Eleven toggles become three, each with chips to show any mix: *Places of worship* (churches, mosques, Hindu
   temples, synagogues, Buddhist temples, gurdwaras, other faiths; the church families appear as a second chip row
   while churches show), *Halal & kosher food* (halal, kosher) and *Colleges & universities* (universities,
@@ -32,7 +32,7 @@
   `groupsFor`, `groupLabel` and `replaces`. Data contract schema 2: the old layer ids are gone; migration note at
   the top of the contract. Data files unchanged.
 
-### Layer panel reorganised (October 18, on dev)
+### Layer panel reorganised (October 18)
 - Groups now run in the order people need them, the same in every city: Places, Outdoors, Getting around, What's
   changing, Education, Parking & Charging, Representation, Faith & Community, Lenses. The All, Basic and Live tabs
   keep that order; Live is now the What's changing group on its own.
