@@ -292,9 +292,8 @@ for s, (props, g) in sorted(made.items()):
     parts.append(f'<a class="go" href="{esc(focus)}">Open {esc(name)} on the map <span aria-hidden="true">→</span></a>')
     parts.append(f'<p class="note">The map shows every boundary here, from wards and ridings to school boards, with what’s nearby. Tap any address in it for its own card.</p>')
     if os.path.exists(os.path.join(out_dir, 'profiles', 'data', s + '.json')):
-        # Fact sheets aren't launched: deploy.yml strips this marked block from the live site.
-        parts.append(f'<!-- fact-sheets --><p class="note"><a href="/{city}/profiles/?n={s}">Fact sheet for {esc(name)}</a>: '
-                     f'transit, driving, parking and more on one page, ready to print.</p><!-- /fact-sheets -->')
+        parts.append(f'<p class="note"><a href="/{city}/profiles/?n={s}">Fact sheet for {esc(name)}</a>: '
+                     f'transit, driving, parking and more on one page, ready to print.</p>')
     if info: parts.append(f'<section><h2>About {esc(info["name"])}</h2><p style="margin:0">{esc(info["info"])}</p></section>')
     if known or lms:
         sec = '<section><h2>Names you’ll hear here</h2>'
@@ -345,6 +344,7 @@ for c in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
     base = os.path.join(DOCS, c)
     for n in sorted(os.listdir(base)):
         if os.path.exists(os.path.join(base, n, 'og.png')) and os.path.exists(os.path.join(base, n, 'index.html')): urls.append(f'{SITE}/{c}/{n}/')
+    if os.path.exists(os.path.join(base, 'profiles', 'index.html')): urls.append(f'{SITE}/{c}/profiles/')
 urls += [f'{SITE}/about/', f'{SITE}/privacy/', f'{SITE}/attributions/', f'{SITE}/terms/']
 open(os.path.join(DOCS, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     ''.join(f'  <url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n')

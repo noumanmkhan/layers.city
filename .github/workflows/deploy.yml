@@ -39,6 +39,7 @@ on:
       - "Refresh Vancouver representatives"
       - "Fetch Vancouver places"
       - "Fetch Toronto parking"
+      - "Refresh fact sheets"
     types: [completed]
   workflow_dispatch:
     inputs:
@@ -68,20 +69,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.branch || 'main' }}
-
-      # Fact sheets (docs/<city>/profiles/) are on dev but not launched. When dev is released to main,
-      # everything else still goes live: the fact sheets folder is left out of the live upload, and so is
-      # every link to it (marked <!-- fact-sheets --> ... <!-- /fact-sheets --> in the hub and Guide pages).
-      # Previews of other branches keep both. Remove this step at launch.
-      - name: Leave unlaunched fact sheets off the live site
-        if: env.BRANCH == 'main'
-        run: |
-          rm -rf docs/*/profiles
-          grep -rlZ --include='*.html' '<!-- fact-sheets' docs | xargs -0 -r perl -0pi -e 's/[ \t]*<!-- fact-sheets.*?<!-- \/fact-sheets -->\n?//gs'
-          if grep -rq --include='*.html' -e '/profiles/' -e 'fact-sheets' docs; then
-            echo "::error::A fact sheet link survived the strip; not publishing."; exit 1
-          fi
-          echo "::notice::Fact sheets aren't launched yet: left out of the live site."
 
       - uses: actions/setup-node@v4
         with:
