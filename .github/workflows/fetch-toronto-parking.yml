@@ -1,0 +1,38 @@
+name: Fetch Toronto parking
+# Green P car parks, permit parking areas and EV chargers (cities/toronto/fetch_parking.py) into
+# cities/toronto/raw/parking/, then the map files with cities/toronto/parking.py: docs/toronto/data/parking.geojson,
+# permit_areas.geojson and the permit-parking share in nbhd_profiles.json. Monthly (EV chargers change; the
+# Green P file and permit areas rarely do), on change, or by hand. Uses the NLR_API_KEY secret if set.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 6 3 * *'
+  push:
+    branches: [main]
+    paths: ['cities/toronto/fetch_parking.py', 'cities/toronto/parking.py', '.github/workflows/fetch-toronto-parking.yml']
+permissions:
+  contents: write
+concurrency: fetch-toronto-parking
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q shapely
+      - env:
+          NLR_API_KEY: ${{ secrets.NLR_API_KEY }}
+        run: |
+          mkdir -p cities/toronto/raw/parking
+          python3 -u cities/toronto/fetch_parking.py 2>&1 | tee cities/toronto/raw/parking/fetch.log
+          python3 -u cities/toronto/parking.py 2>&1 | tee -a cities/toronto/raw/parking/fetch.log
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/parking docs/toronto/data/parking.geojson docs/toronto/data/permit_areas.geojson docs/toronto/data/nbhd_profiles.json
+          git commit -m "Update Toronto parking: Green P, permit areas, EV chargers" || echo "no changes"
+          git pull --rebase
+          git push
