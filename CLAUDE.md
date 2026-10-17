@@ -15,13 +15,16 @@ the landing page, stop and say so; don't change this repo.
   hand-merging it.
 - To release: on dev, merge origin/main, rebuild and test as usual, then `git checkout main &&
   git merge --ff-only dev` (or a normal merge if main has moved) and push main. That push deploys once.
-- Neighbourhood profiles (`engine/profiles/`, `docs/<city>/profiles/`, at /toronto/profiles/) are on dev
-  (merged from the `profiles` branch October 17) but not launched: deploy.yml leaves `docs/*/profiles` out of
-  the live upload, so releasing dev to main is safe. At launch (only when the user says so): remove that
-  deploy step, drop the page's `noindex`, link it from the map or hub, and add the OpenStreetMap (walk times,
-  ramps) and OSRM (drive times) credits to the Attributions page. Rebuild with
-  `python3 engine/profiles/build.py <city>` after the map's data changes; walk_grid.py and fetch_drive.py
-  need the network and run on the user's Mac (see engine/profiles/*.py).
+- **Fact sheets** (printable neighbourhood profiles: `engine/profiles/`, `docs/<city>/profiles/`, at
+  /toronto/profiles/) are on dev but not launched. The hub card and each Guide page link to them inside
+  `<!-- fact-sheets -->` … `<!-- /fact-sheets -->` markers (places.py writes the Guide ones); when deploying
+  main, deploy.yml deletes `docs/*/profiles` and strips every marked block, and fails if a link survives, so
+  releasing dev to main is safe. Previews of dev keep both. At launch (only when the user says so): remove that
+  deploy step, drop the page's `noindex`, add "Refresh fact sheets" to deploy.yml's `workflow_run` list, and add
+  the OpenStreetMap (walk times, ramps) and OSRM (drive times) credits to the Attributions page.
+  `.github/workflows/refresh-fact-sheets.yml` rebuilds them after the routes, parking and bike-lane fetch jobs,
+  and monthly re-fetches the walk network, walk times, ramps and drive times (it runs only from main). By hand:
+  `python3 engine/profiles/build.py <city>` after the map's data changes.
 - To let the user try dev on a phone before a release: run the "Deploy to Cloudflare Pages" workflow by
   hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev. The branch is the
   workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.
