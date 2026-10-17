@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Special events: closures matched to the police notice (October 17)
+- The City's feed filed Saturday's 5K closures as one block from Saturday 3 a.m. to Sunday 5 p.m. and left some
+  race-day streets out. `events.json` can now carry *corrections* for an organizer, applied by `engine/events.py` on
+  every daily run until they expire: rules that retime or drop the feed's closures, and stretches to add, traced
+  along the street centrelines. Changed and added closures say in their popup that the times come from the police.
+- Waterfront Marathon, per the Toronto Police release of October 16: setup area from Friday 10 a.m.; Saturday is
+  Bay from 4 a.m. and Lake Shore and lower Bay 8 a.m. to 1 p.m. (Front, King, Temperance and the rest dropped);
+  Sunday's Bay and Wellington from 4 a.m., Dundas from 6 a.m.; added Fort York Blvd, Dundas from University to Bay,
+  Yonge from Dundas to Queen and from Gerrard to College, Bay from Queen to Richmond, and the University-to-York
+  ends of Queen, Richmond and Adelaide. A stray laneway off Huron St is dropped. 398 closures.
+
 ### Parking in Toronto (October 17, on dev)
 - A *Parking* group with three layers. *Green P parking*: the City's 252 car parks from its 2019 open-data list (the
   latest it publishes), squares filled for garages and outlined for surface lots, sized by spaces; spaces, clearance and

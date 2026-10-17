@@ -56,8 +56,104 @@ def clean(d):
     return re.sub(r'\s+', ' ', URL_RE.sub('', d)).strip(' :')
 
 
+def trace(street, a_re, b_re):
+    """Coordinates along `street` (a centreline name) between where it meets a street matching a_re and
+    one matching b_re, the shortest way along the street. None if either corner can't be found."""
+    import heapq
+    if not cfg.get('streets'):
+        return None
+    if not hasattr(trace, 'segs'):
+        sj = json.load(open(os.path.join(CDIR, cfg['streets'])))
+        trace.segs = [f for fc in (sj.values() if 'features' not in sj else [sj]) for f in fc['features']
+                      if f['geometry']['type'] == 'LineString']
+    key = lambda c: (round(c[0], 5), round(c[1], 5))
+    own, graph = set(), {}
+    for f in trace.segs:
+        if f['properties'].get('LINEAR_NAME_FULL') != street:
+            continue
+        cs = [key(c) for c in f['geometry']['coordinates']]
+        own.update(cs)
+        for u, v in zip(cs, cs[1:]):
+            d = ((u[0] - v[0]) * 0.72) ** 2 + (u[1] - v[1]) ** 2   # 0.72: cos(latitude) near 43.7
+            graph.setdefault(u, []).append((v, d ** .5)); graph.setdefault(v, []).append((u, d ** .5))
+
+    def corners(rx):
+        r = re.compile(rx)
+        pts = {key(c) for f in trace.segs if r.search(f['properties'].get('LINEAR_NAME_FULL') or '')
+               for c in f['geometry']['coordinates']}
+        hit = own & pts
+        if hit or not pts:
+            return hit
+        # No shared node: the street's nearest node to the cross street, if within about 40 m.
+        best = min(((((n[0] - q[0]) * 0.72) ** 2 + (n[1] - q[1]) ** 2, n) for n in own for q in pts), default=None)
+        return {best[1]} if best and best[0] ** .5 < 0.00036 else set()
+
+    A, B = corners(a_re), corners(b_re)
+    if not A or not B:
+        return None
+    best = None
+    for s in A:
+        dist, prev, pq = {s: 0}, {}, [(0, s)]
+        while pq:
+            d, u = heapq.heappop(pq)
+            if d > dist.get(u, 9e9):
+                continue
+            if u in B:
+                if best is None or d < best[0]:
+                    path = [u]
+                    while path[-1] in prev:
+                        path.append(prev[path[-1]])
+                    best = (d, path[::-1])
+                break
+            for v, w in graph.get(u, []):
+                if d + w < dist.get(v, 9e9):
+                    dist[v], prev[v] = d + w, u
+                    heapq.heappush(pq, (d + w, v))
+    return [list(c) for c in best[1]] if best and len(best[1]) > 1 else None
+
+
+def corrected(permits):
+    """Apply events.json "corrections": per organizer, rules that retime or drop the feed's closures
+    (matched by the closure's start, optionally its street and how far north it lies; first match wins),
+    then stretches the feed leaves out, traced along the street centrelines. Each changed or added
+    closure says so in its text. A correction stops applying at its "until" time."""
+    out = list(permits)
+    for fx in cfg.get('corrections', []):
+        if fx.get('until') and fx['until'] <= NOW:
+            continue
+        res, changed, dropped = [], 0, 0
+        for p in out:
+            if p.get('who') != fx['who']:
+                res.append(p); continue
+            rule = next((r for r in fx.get('rules', [])
+                         if (not r.get('start') or r['start'] == p.get('start'))
+                         and (not r.get('street') or re.search(r['street'], p.get('street') or ''))
+                         and (r.get('minLat') is None or min(c[1] for c in p['coords']) >= r['minLat'])), None)
+            if not rule:
+                res.append(p); continue
+            if rule.get('drop'):
+                dropped += 1; continue
+            q = dict(p, **rule.get('set', {}))
+            if fx.get('note'):
+                q['desc'] = ((p.get('desc') or '').rstrip() + ' ' + fx['note']).strip()
+            res.append(q); changed += 1
+        added, missed = 0, []
+        for a in fx.get('add', []):
+            cs = trace(a['street'], a['from'], a['to'])
+            if not cs:
+                missed.append(a['extent']); continue
+            res.append({'who': fx['who'], 'street': a['street'], 'extent': a['extent'], 'kind': a.get('kind', 'closed'),
+                        'both': a.get('both', True), 'start': a['start'], 'end': a['end'], 'coords': cs,
+                        'desc': fx.get('addedNote', '')})
+            added += 1
+        print(city + ': corrections for %s: %d retimed, %d dropped, %d added%s' % (
+            fx['who'], changed, dropped, added, ('; not found: ' + '; '.join(missed)) if missed else ''))
+        out = res
+    return out
+
+
 keep, dup = [], set()
-for p in src['permits']:
+for p in corrected(src['permits']):
     s, e = p.get('start') or '', p.get('end') or '9999'
     if e < NOW or s > HORIZON or not p.get('coords'):
         continue

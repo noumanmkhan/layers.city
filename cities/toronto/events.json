@@ -1,10 +1,11 @@
 {
-  "_about": "Special-event road closures (engine/events.py). The City's feed files an event's closures with its organizer as contractor; 'organizers' names the big ones and says which get the map's banner. Events not listed here still show on the layer, named from their closure text, without a banner unless they have at least 'bannerMin' closures. 'lead' is how many days before an event its banner starts showing.",
+  "_about": "Special-event road closures (engine/events.py). The City's feed files an event's closures with its organizer as contractor; 'organizers' names the big ones and says which get the map's banner. Events not listed here still show on the layer, named from their closure text, without a banner unless they have at least 'bannerMin' closures. 'lead' is how many days before an event its banner starts showing. 'corrections' fix an organizer's closures where the feed disagrees with a more trusted notice (see engine/events.py); 'streets' is the centreline file added stretches are traced along.",
   "tz": "America/Toronto",
   "lat0": 43.7,
   "lead": 3,
   "ahead": 14,
   "bannerMin": 60,
+  "streets": "raw/streets.json",
   "organizers": {
     "Canada Running Series Inc.": {
       "name": "TCS Toronto Waterfront Marathon",
@@ -12,5 +13,38 @@
       "link": "https://www.torontowaterfrontmarathon.com/",
       "banner": true
     }
-  }
+  },
+  "corrections": [
+    {
+      "who": "Canada Running Series Inc.",
+      "source": "Toronto Police news release 67138, October 16, 2026: https://www.tps.ca/media-centre/news-releases/67138/",
+      "until": "2026-10-19T00:00",
+      "note": "Times from the Toronto Police closure notice.",
+      "addedNote": "Added from the Toronto Police closure notice; the City's feed doesn't list this stretch.",
+      "_rules": "First match wins. The City's feed files Saturday's 5K closures as one block from Saturday 3 a.m. to Sunday 5 p.m.; the police give Bay Street from 4 a.m. and Lake Shore and lower Bay from 8 a.m. to 1 p.m. The streets police don't list (Front, King, Temperance, Wellington West, Saturday's Richmond, Adelaide and Queen) are dropped. Bay Street north of Front (latitude 43.64598) is the 4 a.m. part.",
+      "rules": [
+        {"start": "2026-10-16T08:00", "street": "^Ln S Cecil E Huron$", "drop": true},
+        {"start": "2026-10-16T08:00", "street": "^Queen St W$", "set": {"start": "2026-10-18T04:00", "end": "2026-10-18T16:30"}},
+        {"start": "2026-10-16T08:00", "set": {"start": "2026-10-16T10:00"}},
+        {"start": "2026-10-17T03:00", "street": "^Bay St$", "minLat": 43.64598, "set": {"start": "2026-10-17T04:00", "end": "2026-10-17T13:00"}},
+        {"start": "2026-10-17T03:00", "street": "^Bay St$", "set": {"start": "2026-10-17T08:00", "end": "2026-10-17T13:00"}},
+        {"start": "2026-10-17T03:00", "street": "Lake Shore|Lakeshore|Gardiner", "set": {"start": "2026-10-17T08:00", "end": "2026-10-17T13:00"}},
+        {"start": "2026-10-17T03:00", "drop": true},
+        {"start": "2026-10-18T05:00", "street": "^Bay St$", "set": {"start": "2026-10-18T04:00"}},
+        {"start": "2026-10-18T06:00", "street": "^Wellington St [EW]$", "set": {"start": "2026-10-18T04:00"}},
+        {"start": "2026-10-18T07:00", "street": "^Dundas St [EW]$", "set": {"start": "2026-10-18T06:00"}}
+      ],
+      "_add": "Stretches the police list that the feed leaves out. Where the police give no reopening time, each takes the end of the feed's closures on the same street or corner.",
+      "add": [
+        {"street": "Bay St", "from": "^Queen St W$", "to": "^Richmond St W$", "extent": "Bay St from Queen St W to Richmond St W", "start": "2026-10-18T04:00", "end": "2026-10-18T17:00"},
+        {"street": "Queen St W", "from": "^University Ave$", "to": "^York St$", "extent": "Queen St W from University Ave to York St (full road until 11 a.m.)", "start": "2026-10-18T06:00", "end": "2026-10-18T16:30"},
+        {"street": "Richmond St W", "from": "^University Ave$", "to": "^York St$", "extent": "Richmond St W from University Ave to York St (local access only)", "start": "2026-10-18T06:00", "end": "2026-10-18T17:00"},
+        {"street": "Adelaide St W", "from": "^University Ave$", "to": "^York St$", "extent": "Adelaide St W from University Ave to York St (local access only)", "start": "2026-10-18T06:00", "end": "2026-10-18T17:00"},
+        {"street": "Dundas St W", "from": "^University Ave$", "to": "^Bay St$", "extent": "Dundas St W from University Ave to Bay St", "start": "2026-10-18T06:00", "end": "2026-10-18T11:00"},
+        {"street": "Yonge St", "from": "^Dundas St [EW]$", "to": "^Queen St [EW]$", "extent": "Yonge St from Dundas St to Queen St", "start": "2026-10-18T06:00", "end": "2026-10-18T11:00"},
+        {"street": "Yonge St", "from": "^Gerrard St [EW]$", "to": "^(College|Carlton) St$", "extent": "Yonge St from Gerrard St to College St", "start": "2026-10-18T07:00", "end": "2026-10-18T11:00"},
+        {"street": "Fort York Blvd", "from": "^Bathurst St$", "to": "^Lake Shore Blvd W$", "extent": "Fort York Blvd from Bathurst St to Lake Shore Blvd W", "start": "2026-10-18T07:00", "end": "2026-10-18T11:00"}
+      ]
+    }
+  ]
 }
