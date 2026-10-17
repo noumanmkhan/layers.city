@@ -15,7 +15,7 @@ OUT = os.path.join(HERE, 'raw', 'schools')
 API = 'https://data.ontario.ca/api/3/action/package_show?id=school-information-and-student-demographics'
 BOX = (-79.66, 43.57, -79.10, 43.87)   # west, south, east, north
 KEEP = re.compile(r'^(board (number|name|type)|school (number|name|type|level|language|special condition.*)|grade range|'
-                  r'building suite|p\.?o\.? box|street|municipality|city|province|postal code|website|latitude|longitude)$', re.I)
+                  r'building suite|p\.?o\.? box|street|municipality|city|province|postal code|school website|latitude|longitude)$', re.I)
 
 
 def get(url):
