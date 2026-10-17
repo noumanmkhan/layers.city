@@ -2,6 +2,16 @@
 
 ## Since 1.1
 
+### Fewer toggles: merged place layers (October 18, on dev)
+- Eleven toggles become three, each with chips to show any mix: *Places of worship* (churches, mosques, Hindu
+  temples, synagogues, Buddhist temples, gurdwaras, other faiths; the church families appear as a second chip row
+  while churches show), *Halal & kosher food* (halal, kosher) and *Colleges & universities* (universities,
+  colleges). The card's Nearby rows follow the chips, search still names each place's kind, and old links that
+  name the former layers (`layers=mosques`, `pick=churches:catholic`) open the merged layer with that category.
+- Engine: a `places` layer may have `cats` (several categories, a chip each, in the link as `cats=`), `icon`,
+  `groupsFor`, `groupLabel` and `replaces`. Data contract schema 2: the old layer ids are gone; migration note at
+  the top of the contract. Data files unchanged.
+
 ### Layer panel reorganised (October 18, on dev)
 - Groups now run in the order people need them, the same in every city: Places, Outdoors, Getting around, What's
   changing, Education, Parking & Charging, Representation, Faith & Community, Lenses. The All, Basic and Live tabs

@@ -1,6 +1,6 @@
 {
   "id": "chicago",
-  "schema": 1,
+  "schema": 2,
   "title": "Chicago · Layers.City",
   "heading": "Chicago",
   "description": "A map of the City of Chicago with toggleable layers: the nine sides, 77 community areas, known-as names, wards, state and congressional districts, Special Service Areas, main streets, expressways, the ‘L’ and Metra.",
@@ -83,8 +83,7 @@
        "tz": "America/Chicago", "closedText": "Closed", "narrowedText": "Lanes narrowed", "bothText": "both directions", "startsText": "Starts {date}", "untilText": "Permit to {date}", "longText": "long-term", "allDayText": "Around the clock", "whenLabel": "When", "hoursLabel": "Hours", "projectLabel": "For", "whoLabel": "Permit holder", "fineText": "Dates are permit dates, not a forecast of when the road reopens. Data as of {date}.", "asofText": "as of {date}"}
     ]],
     ["Education", [
-      {"id": "unis", "kind": "places", "file": "institutions", "cat": "university", "name": "Universities", "place": "University", "aliases": {"University of Chicago": ["UChicago", "U of C"], "University of Illinois Chicago": ["UIC"], "Loyola University Chicago": ["Loyola"], "DePaul University": ["DePaul"], "Northwestern University": ["Northwestern"], "Illinois Institute of Technology": ["IIT", "Illinois Tech"]}, "note": "Public and nonprofit universities with 1,000+ students, one point per campus"},
-      {"id": "colleges", "kind": "places", "file": "institutions", "cat": "college", "name": "City Colleges", "place": "City College", "note": "The 7 City Colleges of Chicago"}
+      {"id": "campus", "kind": "places", "file": "institutions", "icon": "university", "cats": [["university", "Universities", "University"], ["college", "City Colleges", "City College"]], "name": "Colleges & universities", "place": "Campus", "note": "Public and nonprofit universities with 1,000+ students and the 7 City Colleges, one point per campus", "aliases": {"University of Chicago": ["UChicago", "U of C"], "University of Illinois Chicago": ["UIC"], "Loyola University Chicago": ["Loyola"], "DePaul University": ["DePaul"], "Northwestern University": ["Northwestern"], "Illinois Institute of Technology": ["IIT", "Illinois Tech"]}, "replaces": {"unis": "university", "colleges": "college"}}
     ]],
     ["Representation", [
       {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "50 wards, one alderperson each", "label": "Ward {num}", "hover": "Ward {num}"},
@@ -95,18 +94,8 @@
        "label": "{num}", "hover": "Board of Education district {num}"}
     ]],
     ["Faith & Community", [
-      {"id": "churches", "kind": "places", "file": "faith", "cat": "church", "name": "Churches", "place": "Church", "note": "Every denomination; pick one below to narrow it down",
-       "groups": [["catholic", "Catholic"], ["baptist", "Baptist"], ["methodist", "Methodist"], ["lutheran", "Lutheran"], ["episcopal", "Episcopal"], ["presbyterian", "Presbyterian"], ["orthodox", "Orthodox"], ["evangelical", "Evangelical"], ["other", "Other"]],
-       "allText": "All", "countText": "{n} shown.", "allNote": "Some aren\u2019t listed with a denomination, so they appear only here.",
-       "groupNote": "By the denomination listed in OpenStreetMap, or the church\u2019s name. Methodist includes the AME churches; Evangelical includes Pentecostal and Alliance churches."},
-      {"id": "mosques", "kind": "places", "file": "faith", "cat": "mosque", "name": "Mosques", "place": "Mosque", "note": "Masjids and musallas; denomination where known"},
-      {"id": "halal", "kind": "places", "under": "mosques", "file": "faith", "cat": "halal", "name": "Halal grocers & butchers", "place": "Halal shop", "note": "HMS-certified independent stores across Chicagoland"},
-      {"id": "hindutemples", "kind": "places", "file": "faith", "cat": "hindu", "name": "Hindu temples", "place": "Hindu temple", "note": "Mandirs"},
-      {"id": "synagogues", "kind": "places", "file": "faith", "cat": "synagogue", "name": "Synagogues", "place": "Synagogue", "note": "Every denomination; shown where known"},
-      {"id": "kosher", "kind": "places", "under": "synagogues", "file": "faith", "cat": "kosher", "name": "Kosher grocers & bakeries", "place": "Kosher shop", "note": "cRc-listed independent shops; no chain-store counters"},
-      {"id": "buddhisttemples", "kind": "places", "file": "faith", "cat": "buddhist", "name": "Buddhist temples", "place": "Buddhist temple", "note": "Temples and meditation centers"},
-      {"id": "gurdwaras", "kind": "places", "file": "faith", "cat": "gurdwara", "name": "Gurdwaras", "place": "Gurdwara", "note": "Sikh gurdwaras"},
-      {"id": "otherfaith", "kind": "places", "file": "faith", "cat": "otherfaith", "name": "Other faiths", "place": "Place of worship", "note": "Jain, Bahá’í, Zoroastrian, Unitarian and more"}
+      {"id": "worship", "kind": "places", "file": "faith", "icon": "otherfaith", "cats": [["church", "Churches", "Church"], ["mosque", "Mosques", "Mosque"], ["hindu", "Hindu temples", "Hindu temple"], ["synagogue", "Synagogues", "Synagogue"], ["buddhist", "Buddhist temples", "Buddhist temple"], ["gurdwara", "Gurdwaras", "Gurdwara"], ["otherfaith", "Other faiths", "Place of worship"]], "name": "Places of worship", "place": "Place of worship", "note": "Churches, mosques, temples, synagogues and gurdwaras; pick any mix below", "catNote": "Tap a faith to hide or show it. Other faiths: Jain, Bahá’í, Zoroastrian, Unitarian and more.", "groups": [["catholic", "Catholic"], ["baptist", "Baptist"], ["methodist", "Methodist"], ["lutheran", "Lutheran"], ["episcopal", "Episcopal"], ["presbyterian", "Presbyterian"], ["orthodox", "Orthodox"], ["evangelical", "Evangelical"], ["other", "Other"]], "groupsFor": "church", "groupLabel": "Churches by denomination", "allText": "All", "countText": "{n} churches shown.", "allNote": "Some aren’t listed with a denomination, so they appear only here.", "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Methodist includes the AME churches; Evangelical includes Pentecostal and Alliance churches.", "replaces": {"churches": "church", "mosques": "mosque", "hindutemples": "hindu", "synagogues": "synagogue", "buddhisttemples": "buddhist", "gurdwaras": "gurdwara", "otherfaith": "otherfaith"}},
+      {"id": "food", "kind": "places", "file": "faith", "icon": "halal", "cats": [["halal", "Halal", "Halal shop"], ["kosher", "Kosher", "Kosher shop"]], "name": "Halal & kosher food", "place": "Certified food shop", "note": "Certified independent grocers, butchers and bakeries (HMS for halal, the cRc for kosher); no chain-store counters", "replaces": {"halal": "halal", "kosher": "kosher"}}
     ]],
     ["Lenses", [
       {"id": "lens", "kind": "lens", "name": "Community area lens", "note": "Housing cost, getting to work, renters and owners, housing type. Narrow it to a shortlist."},
@@ -242,9 +231,9 @@
     "nearby": {
       "file": "nearby.json", "radius": 805,
       "nearest": [["library", "Library"], ["centre", "Community center"], ["er", "Emergency dept."],
-                  ["mosque", "Mosque", "mosques"], ["gurdwara", "Gurdwara", "gurdwaras"], ["synagogue", "Synagogue", "synagogues"],
-                  ["hindu", "Hindu temple", "hindutemples"], ["buddhist", "Buddhist temple", "buddhisttemples"], ["church", "Church", "churches"],
-                  ["halal", "Halal grocer", "halal"], ["kosher", "Kosher shop", "kosher"]],
+                  ["mosque", "Mosque", "worship:mosque"], ["gurdwara", "Gurdwara", "worship:gurdwara"], ["synagogue", "Synagogue", "worship:synagogue"],
+                  ["hindu", "Hindu temple", "worship:hindu"], ["buddhist", "Buddhist temple", "worship:buddhist"], ["church", "Church", "worship:church"],
+                  ["halal", "Halal grocer", "food:halal"], ["kosher", "Kosher shop", "food:kosher"]],
       "within": "Within ½ mile",
       "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["tennis", "tennis court location", "tennis court locations"]],
       "note": "Straight-line distances; half a mile is about a 10-minute walk. Chicago Public Library, the ERs layer and the Park District and City community centers, and OpenStreetMap (parks, playgrounds, courts). Places of worship (OpenStreetMap) and HMS- and cRc-certified shops show while their layers are on."

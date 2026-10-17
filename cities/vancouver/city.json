@@ -1,6 +1,6 @@
 {
   "id": "vancouver",
-  "schema": 1,
+  "schema": 2,
   "title": "Vancouver · Layers.City",
   "heading": "Vancouver",
   "description": "A map of the City of Vancouver with toggleable layers: Downtown and the East and West Sides, 22 local areas, known-as names, landmarks, towers and heritage, ridings and BIAs, bikeways, SkyTrain, SeaBus, every bus route and what's being built.",
@@ -617,12 +617,25 @@
       "Education",
       [
         {
-          "id": "unis",
+          "id": "campus",
           "kind": "places",
           "file": "institutions",
-          "cat": "university",
-          "name": "Universities",
-          "place": "University",
+          "icon": "university",
+          "cats": [
+            [
+              "university",
+              "Universities",
+              "University"
+            ],
+            [
+              "college",
+              "Colleges",
+              "College"
+            ]
+          ],
+          "name": "Colleges & universities",
+          "place": "Campus",
+          "note": "Public and nonprofit universities and public colleges, one point per campus; UBC in the University Endowment Lands",
           "aliases": {
             "University of British Columbia": [
               "UBC",
@@ -636,19 +649,7 @@
             "Emily Carr University of Art + Design": [
               "Emily Carr",
               "ECUAD"
-            ]
-          },
-          "note": "Public and nonprofit universities, one point per campus; UBC in the University Endowment Lands"
-        },
-        {
-          "id": "colleges",
-          "kind": "places",
-          "file": "institutions",
-          "cat": "college",
-          "name": "Colleges",
-          "place": "College",
-          "note": "Public college campuses: Langara, VCC and BCIT downtown; no private career colleges",
-          "aliases": {
+            ],
             "Vancouver Community College": [
               "VCC"
             ],
@@ -656,6 +657,10 @@
               "British Columbia Institute of Technology",
               "BCIT Downtown"
             ]
+          },
+          "replaces": {
+            "unis": "university",
+            "colleges": "college"
           }
         },
         {
@@ -711,13 +716,51 @@
       "Faith & Community",
       [
         {
-          "id": "churches",
+          "id": "worship",
           "kind": "places",
           "file": "faith",
-          "cat": "church",
-          "name": "Churches",
-          "place": "Church",
-          "note": "In the city, every denomination; pick one below to narrow it down",
+          "icon": "otherfaith",
+          "cats": [
+            [
+              "church",
+              "Churches",
+              "Church"
+            ],
+            [
+              "mosque",
+              "Mosques",
+              "Mosque"
+            ],
+            [
+              "hindu",
+              "Hindu temples",
+              "Hindu temple"
+            ],
+            [
+              "synagogue",
+              "Synagogues",
+              "Synagogue"
+            ],
+            [
+              "buddhist",
+              "Buddhist temples",
+              "Buddhist temple"
+            ],
+            [
+              "gurdwara",
+              "Gurdwaras",
+              "Gurdwara"
+            ],
+            [
+              "otherfaith",
+              "Other faiths",
+              "Place of worship"
+            ]
+          ],
+          "name": "Places of worship",
+          "place": "Place of worship",
+          "note": "Churches, mosques, temples, synagogues and gurdwaras across Metro Vancouver (churches in the city); pick any mix below",
+          "catNote": "Tap a faith to hide or show it. Other faiths: Bahá’í, Taoist, Unitarian and more.",
           "groups": [
             [
               "catholic",
@@ -752,64 +795,21 @@
               "Other"
             ]
           ],
+          "groupsFor": "church",
+          "groupLabel": "Churches by denomination",
           "allText": "All",
-          "countText": "{n} shown.",
+          "countText": "{n} churches shown.",
           "allNote": "Some aren’t listed with a denomination, so they appear only here.",
-          "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal and Alliance churches."
-        },
-        {
-          "id": "mosques",
-          "kind": "places",
-          "file": "faith",
-          "cat": "mosque",
-          "name": "Mosques",
-          "place": "Mosque",
-          "note": "Masjids and musallas across Metro Vancouver; denomination where known"
-        },
-        {
-          "id": "hindutemples",
-          "kind": "places",
-          "file": "faith",
-          "cat": "hindu",
-          "name": "Hindu temples",
-          "place": "Hindu temple",
-          "note": "Mandirs across Metro Vancouver"
-        },
-        {
-          "id": "synagogues",
-          "kind": "places",
-          "file": "faith",
-          "cat": "synagogue",
-          "name": "Synagogues",
-          "place": "Synagogue",
-          "note": "Across Metro Vancouver; every denomination, shown where known"
-        },
-        {
-          "id": "buddhisttemples",
-          "kind": "places",
-          "file": "faith",
-          "cat": "buddhist",
-          "name": "Buddhist temples",
-          "place": "Buddhist temple",
-          "note": "Temples and meditation centres across Metro Vancouver"
-        },
-        {
-          "id": "gurdwaras",
-          "kind": "places",
-          "file": "faith",
-          "cat": "gurdwara",
-          "name": "Gurdwaras",
-          "place": "Gurdwara",
-          "note": "Sikh gurdwaras across Metro Vancouver (most are in Surrey)"
-        },
-        {
-          "id": "otherfaith",
-          "kind": "places",
-          "file": "faith",
-          "cat": "otherfaith",
-          "name": "Other faiths",
-          "place": "Place of worship",
-          "note": "Bahá’í, Taoist, Unitarian and more, across Metro Vancouver"
+          "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal and Alliance churches.",
+          "replaces": {
+            "churches": "church",
+            "mosques": "mosque",
+            "hindutemples": "hindu",
+            "synagogues": "synagogue",
+            "buddhisttemples": "buddhist",
+            "gurdwaras": "gurdwara",
+            "otherfaith": "otherfaith"
+          }
         }
       ]
     ],
@@ -1339,32 +1339,32 @@
         [
           "mosque",
           "Mosque",
-          "mosques"
+          "worship:mosque"
         ],
         [
           "gurdwara",
           "Gurdwara",
-          "gurdwaras"
+          "worship:gurdwara"
         ],
         [
           "synagogue",
           "Synagogue",
-          "synagogues"
+          "worship:synagogue"
         ],
         [
           "hindu",
           "Hindu temple",
-          "hindutemples"
+          "worship:hindu"
         ],
         [
           "buddhist",
           "Buddhist temple",
-          "buddhisttemples"
+          "worship:buddhist"
         ],
         [
           "church",
           "Church",
-          "churches"
+          "worship:church"
         ]
       ],
       "within": "Within 1 km",

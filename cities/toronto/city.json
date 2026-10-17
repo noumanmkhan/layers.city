@@ -1,6 +1,6 @@
 {
   "id": "toronto",
-  "schema": 1,
+  "schema": 2,
   "title": "Toronto · Layers.City",
   "heading": "Toronto",
   "description": "A map of the City of Toronto with toggleable layers: former cities, Old Toronto areas, 158 neighbourhoods, known-as names, wards, ridings, BIAs, main streets, highways and rapid transit.",
@@ -113,8 +113,7 @@
        "weekendText": "this weekend", "todayText": "today", "rangeText": "{from} to {to}"}
     ]],
     ["Education", [
-      {"id": "unis", "kind": "places", "file": "institutions", "cat": "university", "name": "Universities", "place": "University", "aliases": {"University of Toronto": ["U of T", "UofT", "UT St. George", "St. George campus"], "Toronto Metropolitan University": ["TMU", "Ryerson", "Ryerson University", "TMet"], "York University": ["York U", "YorkU"], "University of Toronto Scarborough": ["UTSC", "U of T Scarborough"]}, "note": "Public and nonprofit universities, one point per campus"},
-      {"id": "colleges", "kind": "places", "file": "institutions", "cat": "college", "name": "Colleges", "place": "College", "note": "Public college campuses; no private career colleges or partnership campuses"},
+      {"id": "campus", "kind": "places", "file": "institutions", "icon": "university", "cats": [["university", "Universities", "University"], ["college", "Colleges", "College"]], "name": "Colleges & universities", "place": "Campus", "note": "Public and nonprofit universities and public colleges, one point per campus; no private career colleges or partnership campuses", "aliases": {"University of Toronto": ["U of T", "UofT", "UT St. George", "St. George campus"], "Toronto Metropolitan University": ["TMU", "Ryerson", "Ryerson University", "TMet"], "York University": ["York U", "YorkU"], "University of Toronto Scarborough": ["UTSC", "U of T Scarborough"]}, "replaces": {"unis": "university", "colleges": "college"}},
       {"id": "frschools", "kind": "places", "file": "french_schools", "cat": "frschool", "name": "French-language schools", "place": "French-language school", "note": "Viamonde and MonAvenir: taught in French, for children with a francophone parent or by admission"},
       {"id": "immersion", "kind": "places", "file": "french_schools", "cat": "immersion", "name": "French immersion schools", "place": "French immersion school", "note": "TDSB and TCDSB schools teaching mostly in French to children from English-speaking homes"}
     ]],
@@ -157,18 +156,8 @@
        "label": "{short} {num}", "hover": "{short} Ward {num}[ {area}] · City wards {wards}"}
     ]],
     ["Faith & Community", [
-      {"id": "churches", "kind": "places", "file": "faith", "cat": "church", "name": "Churches", "place": "Church", "note": "Every denomination; pick one below to narrow it down",
-       "groups": [["catholic", "Catholic"], ["anglican", "Anglican"], ["baptist", "Baptist"], ["united", "United"], ["presbyterian", "Presbyterian"], ["orthodox", "Orthodox"], ["evangelical", "Evangelical"], ["other", "Other"]],
-       "allText": "All", "countText": "{n} shown.", "allNote": "Some aren\u2019t listed with a denomination, so they appear only here.",
-       "groupNote": "By the denomination listed in OpenStreetMap, or the church\u2019s name. Evangelical includes Pentecostal and Alliance churches."},
-      {"id": "mosques", "kind": "places", "file": "faith", "cat": "mosque", "name": "Mosques", "place": "Mosque", "note": "Masjids and musallas; denomination where known"},
-      {"id": "halal", "kind": "places", "under": "mosques", "file": "faith", "cat": "halal", "name": "Halal grocers & butchers", "place": "Halal shop", "note": "HMA-certified independent stores across the GTA"},
-      {"id": "hindutemples", "kind": "places", "file": "faith", "cat": "hindu", "name": "Hindu temples", "place": "Hindu temple", "note": "Mandirs"},
-      {"id": "synagogues", "kind": "places", "file": "faith", "cat": "synagogue", "name": "Synagogues", "place": "Synagogue", "note": "Every denomination; shown where known"},
-      {"id": "kosher", "kind": "places", "under": "synagogues", "file": "faith", "cat": "kosher", "name": "Kosher grocers, butchers & bakeries", "place": "Kosher shop", "note": "COR-certified independent shops; no chain-store counters"},
-      {"id": "buddhisttemples", "kind": "places", "file": "faith", "cat": "buddhist", "name": "Buddhist temples", "place": "Buddhist temple", "note": "Temples and meditation centres"},
-      {"id": "gurdwaras", "kind": "places", "file": "faith", "cat": "gurdwara", "name": "Gurdwaras", "place": "Gurdwara", "note": "Sikh gurdwaras"},
-      {"id": "otherfaith", "kind": "places", "file": "faith", "cat": "otherfaith", "name": "Other faiths", "place": "Place of worship", "note": "Jain, Bahá’í, Zoroastrian, Unitarian and more"}
+      {"id": "worship", "kind": "places", "file": "faith", "icon": "otherfaith", "cats": [["church", "Churches", "Church"], ["mosque", "Mosques", "Mosque"], ["hindu", "Hindu temples", "Hindu temple"], ["synagogue", "Synagogues", "Synagogue"], ["buddhist", "Buddhist temples", "Buddhist temple"], ["gurdwara", "Gurdwaras", "Gurdwara"], ["otherfaith", "Other faiths", "Place of worship"]], "name": "Places of worship", "place": "Place of worship", "note": "Churches, mosques, temples, synagogues and gurdwaras; pick any mix below", "catNote": "Tap a faith to hide or show it. Other faiths: Jain, Bahá’í, Zoroastrian, Unitarian and more.", "groups": [["catholic", "Catholic"], ["anglican", "Anglican"], ["baptist", "Baptist"], ["united", "United"], ["presbyterian", "Presbyterian"], ["orthodox", "Orthodox"], ["evangelical", "Evangelical"], ["other", "Other"]], "groupsFor": "church", "groupLabel": "Churches by denomination", "allText": "All", "countText": "{n} churches shown.", "allNote": "Some aren’t listed with a denomination, so they appear only here.", "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal and Alliance churches.", "replaces": {"churches": "church", "mosques": "mosque", "hindutemples": "hindu", "synagogues": "synagogue", "buddhisttemples": "buddhist", "gurdwaras": "gurdwara", "otherfaith": "otherfaith"}},
+      {"id": "food", "kind": "places", "file": "faith", "icon": "halal", "cats": [["halal", "Halal", "Halal shop"], ["kosher", "Kosher", "Kosher shop"]], "name": "Halal & kosher food", "place": "Certified food shop", "note": "Certified independent grocers, butchers and bakeries (HMA for halal, COR for kosher); no chain-store counters", "replaces": {"halal": "halal", "kosher": "kosher"}}
     ]],
     ["Lenses", [
       {"id": "lens", "kind": "lens", "name": "Neighbourhood lens", "note": "Housing cost, time to Union, renters and owners, housing type. Narrow it to a shortlist."},
@@ -306,9 +295,9 @@
     "nearby": {
       "file": "nearby.json", "radius": 1000,
       "nearest": [["library", "Library"], ["centre", "Community centre"], ["er", "Emergency dept."],
-                  ["mosque", "Mosque", "mosques"], ["gurdwara", "Gurdwara", "gurdwaras"], ["synagogue", "Synagogue", "synagogues"],
-                  ["hindu", "Hindu temple", "hindutemples"], ["buddhist", "Buddhist temple", "buddhisttemples"], ["church", "Church", "churches"],
-                  ["halal", "Halal grocer", "halal"], ["kosher", "Kosher shop", "kosher"]],
+                  ["mosque", "Mosque", "worship:mosque"], ["gurdwara", "Gurdwara", "worship:gurdwara"], ["synagogue", "Synagogue", "worship:synagogue"],
+                  ["hindu", "Hindu temple", "worship:hindu"], ["buddhist", "Buddhist temple", "worship:buddhist"], ["church", "Church", "worship:church"],
+                  ["halal", "Halal grocer", "food:halal"], ["kosher", "Kosher shop", "food:kosher"]],
       "within": "Within 1 km",
       "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["tennis", "park with tennis courts", "parks with tennis courts"], ["offleash", "dog off-leash area", "dog off-leash areas"]],
       "note": "Straight-line distances; 1 km is about a 15-minute walk. City of Toronto parks and recreation, Toronto Public Library and the hospitals layer. Counts parks, not courts. Places of worship (OpenStreetMap) and HMA- and COR-certified shops show while their layers are on."

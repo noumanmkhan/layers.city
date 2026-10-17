@@ -1,6 +1,6 @@
 {
   "id": "dallas",
-  "schema": 1,
+  "schema": 2,
   "title": "Dallas · Layers.City",
   "heading": "Dallas",
   "description": "A map of the City of Dallas with toggleable layers: eleven areas built from ZIP codes, known-as names, council districts, Texas House and Senate and congressional districts, counties, main streets, highways, DART light rail, and where to vote on November 3.",
@@ -396,12 +396,25 @@
       "Education",
       [
         {
-          "id": "unis",
+          "id": "campus",
           "kind": "places",
           "file": "institutions",
-          "cat": "university",
-          "name": "Universities",
-          "place": "University",
+          "icon": "university",
+          "cats": [
+            [
+              "university",
+              "Universities",
+              "University"
+            ],
+            [
+              "college",
+              "Dallas College",
+              "Dallas College campus"
+            ]
+          ],
+          "name": "Colleges & universities",
+          "place": "Campus",
+          "note": "Public and nonprofit universities with 1,000+ students and Dallas College’s campuses in the city",
           "aliases": {
             "Southern Methodist University": [
               "SMU"
@@ -420,16 +433,10 @@
               "DTS"
             ]
           },
-          "note": "Public and nonprofit universities with 1,000+ students"
-        },
-        {
-          "id": "colleges",
-          "kind": "places",
-          "file": "institutions",
-          "cat": "college",
-          "name": "Dallas College",
-          "place": "Dallas College campus",
-          "note": "The public community college's campuses in the city"
+          "replaces": {
+            "unis": "university",
+            "colleges": "college"
+          }
         }
       ]
     ],

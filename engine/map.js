@@ -212,7 +212,14 @@ const GLYPH = {
 };
 const svg = d => '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + d + '</svg>';
 const SWATCH = {knownas: 'Aa', landmarks: svg(GLYPH.culture), badges: svg('<path d="M2 20h20v1.6H2zM3.5 20v-7h4v7zM9 20V6.5h4.5V20zM15 20v-9.5h2.4V8.4h1.6v2.1H20.5V20z"/>')};
-const swatchOf = it => it.kind === 'spots' ? '<i class="sp ' + it.mark + ' c-' + Object.keys(it.classes || {x: 1})[0] + ' z-2"></i>' : it.kind === 'places' ? svg(GLYPH[it.cat] || GLYPH.culture) : it.kind === 'towers' ? svg(GLYPH['tw-com']) : (SWATCH[it.kind] || '');
+/* Places layers: one category ("cat"), or several in one toggle ("cats": [[cat, chip label, singular noun]…]),
+   each a chip in the panel that hides or shows it (any mix; at least one stays on). "icon" picks the row's glyph. */
+const placeCats = it => it.cats ? it.cats.map(c => c[0]) : [it.cat];
+const placeNoun = (it, cat) => ((it.cats || []).find(c => c[0] === cat) || [])[2] || it.place || it.name;
+const placeIcon = it => it.icon || placeCats(it)[0];
+const catPick = {};   // layer id -> Set of categories shown (null: all)
+const catOn = (id, cat) => !catPick[id] || catPick[id].has(cat);
+const swatchOf = it => it.kind === 'spots' ? '<i class="sp ' + it.mark + ' c-' + Object.keys(it.classes || {x: 1})[0] + ' z-2"></i>' : it.kind === 'places' ? svg(GLYPH[placeIcon(it)] || GLYPH.culture) : it.kind === 'towers' ? svg(GLYPH['tw-com']) : (SWATCH[it.kind] || '');
 // Representation layers draw in one of three styles, by level of government.
 const OUTLINE = {city:'ward', state:'prov', national:'fed'};
 /* Party colours: a representation layer with "party" in city.json ({table, key}) can be shaded by the
@@ -349,19 +356,22 @@ const KINDS = {
   },
   // Institutions by category (universities, colleges, hospitals…): one file, one layer per category.
   // Icons from zoom 11, names from 14. Describe only: name and what it is, nothing ranked.
-  // A layer with "groups" (e.g. churches by family) shows one group at a time, picked with chips in the panel.
+  // A layer with "groups" (e.g. churches by family) shows one group at a time, picked with chips in the panel;
+  // with "groupsFor", the groups narrow only that category (churches among all places of worship).
   places: (it, fc) => {
-    const g = L.layerGroup(), marks = [];
-    fc.features.filter(f => f.properties.cat === it.cat).forEach(f => {
+    const g = L.layerGroup(), marks = [], cats = placeCats(it);
+    fc.features.filter(f => cats.includes(f.properties.cat)).forEach(f => {
       const p = f.properties;
       const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true,
         icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="lm inst in-' + p.cat + (p.ed ? ' ed' : '') + '"><i>' + svg(GLYPH[p.cat] || GLYPH.culture) + '</i><b>' + esc(p.name) + '</b></span>'})});
       hoverTip(m, fill(it.hover || '{name}[ · {sub}]', p) + (p.ed && it.edText ? ' · ' + it.edText : ''));
       m.on('click', () => goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), p.name, false));
-      marks.push([m, p.grp]);
+      marks.push([m, p.grp, p.cat]);
     });
-    g._draw = () => { const k = placePick[it.id] || 'all'; g.clearLayers(); marks.forEach(([m, grp]) => { if (k === 'all' || grp === k) g.addLayer(m); }); };
-    g._count = () => { const k = placePick[it.id] || 'all'; return marks.filter(([, grp]) => k === 'all' || grp === k).length; };
+    const grouped = cat => it.groups && (!it.groupsFor || cat === it.groupsFor);
+    const shown = ([, grp, cat]) => { const k = placePick[it.id] || 'all'; return catOn(it.id, cat) && (!grouped(cat) || k === 'all' || grp === k); };
+    g._draw = () => { g.clearLayers(); marks.forEach(x => { if (shown(x)) g.addLayer(x[0]); }); };
+    g._count = () => marks.filter(x => grouped(x[2]) && shown(x)).length;
     g._draw();
     return g;
   },
@@ -1471,7 +1481,7 @@ CITY.groups.forEach(([title, items]) => {
     const grp = document.createElement('div'); grp.className = 'it'; grp.dataset.live = it.live ? '1' : '';
     body.appendChild(grp);
     const row = document.createElement('label'); row.className = 'row' + (it.under ? ' child' : ''); row.htmlFor = 'lyr-' + it.id;
-    row.innerHTML = '<span class="sw ' + it.id + ' k-' + (it.kind === 'outline' ? it.level : it.kind) + (it.kind === 'places' ? ' in-' + it.cat : '') + '">' + swatchOf(it) + '</span><span class="tx"><b>' + it.name + '</b><span>' + it.note + '</span></span>' +
+    row.innerHTML = '<span class="sw ' + it.id + ' k-' + (it.kind === 'outline' ? it.level : it.kind) + (it.kind === 'places' ? ' in-' + placeIcon(it) : '') + '">' + swatchOf(it) + '</span><span class="tx"><b>' + it.name + '</b><span>' + it.note + '</span></span>' +
       '<input type="checkbox" id="lyr-' + it.id + '"' + (it.on ? ' checked' : '') + '><span class="tg" aria-hidden="true"></span>';
     grp.appendChild(row);
     row.querySelector('input').addEventListener('change', e => { setLayer(it.id, e.target.checked); if (e.target.checked) logEvent('layer_on', {id: it.id}); });
@@ -1513,9 +1523,17 @@ CITY.groups.forEach(([title, items]) => {
       grp.appendChild(box);
       box.querySelectorAll('[data-fam]').forEach(b => b.addEventListener('click', () => tapBusFam(b.dataset.fam)));
     }
+    if (it.kind === 'places' && it.cats){   // categories, any mix; each chip with a dot in its pins' colour
+      const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'pc-' + it.id; box.hidden = !it.on;
+      box.innerHTML = '<div class="chips pick" role="group" aria-label="' + esc(it.name) + '">' + it.cats.map(([c, short]) =>
+        '<button type="button" data-pc="' + it.id + '" data-c="' + c + '" aria-pressed="true"><i class="pl-dot" style="background:var(--in-' + c + ')"></i>' + esc(short) + '</button>').join('') +
+        '</div>' + (it.catNote ? '<div class="legend"><small>' + esc(it.catNote) + '</small></div>' : '');
+      grp.appendChild(box);
+      box.querySelectorAll('[data-pc]').forEach(b => b.addEventListener('click', () => { tapPlaceCat(it.id, b.dataset.c); logEvent('place_cat', {id: it.id + ':' + b.dataset.c}); }));
+    }
     if (it.kind === 'places' && it.groups){   // one group at a time, All first
       const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'pg-' + it.id; box.hidden = !it.on;
-      box.innerHTML = '<div class="chips pick" role="radiogroup" aria-label="' + esc(it.name) + '">' +
+      box.innerHTML = (it.groupLabel ? '<small class="pc-lab">' + esc(it.groupLabel) + '</small>' : '') + '<div class="chips pick" role="radiogroup" aria-label="' + esc(it.groupLabel || it.name) + '">' +
         [['all', it.allText || 'All']].concat(it.groups).map(([g, short]) => '<button type="button" role="radio" data-pg="' + g + '" aria-checked="' + (g === 'all') + '">' + esc(short) + '</button>').join('') +
         '</div><div class="legend"><small id="pgnote-' + it.id + '"></small></div>';
       grp.appendChild(box);
@@ -1691,8 +1709,24 @@ function setPlacePick(id, g){
   drawPlacePick(id); queueHash();
   try { if (lastInspect) redrawCard(); } catch (e){}
 }
+// Categories on a multi-category places layer (chips under its row): any mix, all when none or every one is picked.
+function setPlaceCats(id, want){
+  const it = LAYERS.find(l => l.id === id); if (!it || !it.cats) return;
+  const all = placeCats(it), w = all.filter(c => want.includes(c));
+  catPick[id] = !w.length || w.length === all.length ? null : new Set(w);
+  document.querySelectorAll('[data-pc="' + id + '"]').forEach(b => b.setAttribute('aria-pressed', String(catOn(id, b.dataset.c))));
+  if (layers[id] && layers[id]._draw) layers[id]._draw();
+  drawPlacePick(id); queueHash();
+  try { if (lastInspect) redrawCard(); } catch (e){}
+}
+function tapPlaceCat(id, c){
+  const it = LAYERS.find(l => l.id === id), want = new Set(catPick[id] || placeCats(it));
+  if (want.has(c) && want.size > 1) want.delete(c); else want.add(c);
+  setPlaceCats(id, [...want]);
+}
 function drawPlacePick(id){
   const it = LAYERS.find(x => x.id === id), box = document.getElementById('pg-' + id); if (!it || !box) return;
+  if (it.groupsFor) box.hidden = !state[id] || !catOn(id, it.groupsFor);   // church families only while churches show
   const k = placePick[id] || 'all';
   box.querySelectorAll('[data-pg]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.pg === k)));
   const n = layers[id] && layers[id]._count ? layers[id]._count() : null, note = document.getElementById('pgnote-' + id);
@@ -1709,6 +1743,7 @@ function setLayer(id, on){
   if (kindOf(id) === 'bikes'){ const b = document.getElementById('bkbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'parks'){ const b = document.getElementById('pkbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'spots'){ const b = document.getElementById('spbox-' + id); if (b) b.hidden = !on; }
+  { const b = document.getElementById('pc-' + id); if (b) b.hidden = !on; }
   { const b = document.getElementById('pg-' + id); if (b){ b.hidden = !on; drawPlacePick(id); } }
   if (kindOf(id) === 'buses' || kindOf(id) === 'streetcars' || kindOf(id) === 'regional') drawStops();
   if (kindOf(id) === 'boards'){ const box = document.getElementById('brd-' + id); if (box) box.hidden = !on; if (on) setBoard(id, boardPick[id]); }
@@ -1818,6 +1853,7 @@ document.getElementById('reset').addEventListener('click', () => {
   if (CHG){ Object.keys(CHG.stages).forEach(k => chgStages.add(k)); document.querySelectorAll('[data-chg]').forEach(b => b.setAttribute('aria-pressed', 'true')); if (layers[CHG.id] && layers[CHG.id]._draw) layers[CHG.id]._draw(); }
   if (BUSES) setBusFams(BUS_DEFAULT);
   if (BIKE) setBikeClasses(BIKE_DEFAULT);
+  LAYERS.filter(it => it.cats).forEach(it => setPlaceCats(it.id, []));
   if (picked.size){ picked.clear(); drawPicks(); }
   if (placeF) setPlaceFocus(null, null, false);
   setLens(FIRST_LENS);
@@ -1965,11 +2001,13 @@ const dist = CITY.distance === 'mi'
   : m => m < 950 ? (Math.round(m / 50) * 50 || 50) + ' m' : (m / 1000).toFixed(m < 9950 ? 1 : 0) + ' km';
 function nearby(x, y){
   const N = CITY.card.nearby, G = data.nearby && data.nearby.groups; if (!N || !G) return '';
-  // A row may name a layer as its third item: it then shows only while that layer is on.
-  const rows = N.nearest.map(([key, label, layer]) => {
-    if (layer && !state[layer]) return '';
+  // A row may name a layer as its third item ("layer", or "layer:category" on a multi-category layer):
+  // it then shows only while that layer, and that category's chip, is on.
+  const rows = N.nearest.map(([key, label, ref]) => {
+    const [layer, cat] = (ref || '').split(':');
+    if (layer && (!state[layer] || (cat && !catOn(layer, cat)))) return '';
     // A picked group on that layer narrows the row to it ("Church · Catholic"), from nearby.json's key:group points.
-    const it = layer && LAYERS.find(x => x.id === layer), pg = it && it.groups && placePick[layer] && placePick[layer] !== 'all' ? it.groups.find(x => x[0] === placePick[layer]) : null;
+    const it = layer && LAYERS.find(x => x.id === layer), pg = it && it.groups && (!it.groupsFor || it.groupsFor === cat) && placePick[layer] && placePick[layer] !== 'all' ? it.groups.find(x => x[0] === placePick[layer]) : null;
     if (pg){ key = key + ':' + pg[0]; label = label + ' · ' + pg[1]; }
     const best = (G[key] || []).map(p => [p, metres([x, y], p)]).sort((a, b) => a[1] - b[1])[0];
     return best ? '<dt>' + esc(label) + '</dt><dd><span class="dir-row">' + esc(best[0][2]) + dirBtn(best[0][1], best[0][0], best[0][2]) + '</span><span>' + dist(best[1]) + ' away</span></dd>' : '';
@@ -3035,7 +3073,7 @@ function suggestions(text){
   INSTITUTIONS().forEach(([it, f]) => {
     // Nicknames (U of T, UIC…) come from the layer's "aliases" in city.json.
     const p = f.properties, b = score([p.name + (p.sub && /campus|centre|site/i.test(p.sub) ? ' ' + p.sub : ''), p.name].concat((it.aliases || {})[p.name] || []));
-    if (b) out.push({s: b.s, rank: 2.5, name: p.name, sub: [it.place || it.name, p.sub].filter(Boolean).join(' · ') + (b.alias && b.alias !== p.name ? ' · also called ' + b.alias : ''), go: () => goLandmark(f)});
+    if (b) out.push({s: b.s, rank: 2.5, name: p.name, sub: [placeNoun(it, p.cat), p.sub].filter(Boolean).join(' · ') + (b.alias && b.alias !== p.name ? ' · also called ' + b.alias : ''), go: () => goLandmark(f)});
   });
   // Heritage buildings with a name, unless a landmark already stands on it (Robie House, Casa Loma).
   const lmAt = out.filter(o => o.at);
@@ -3067,7 +3105,7 @@ function showSuggestions(list, more){
   results.querySelectorAll('[data-sg]').forEach(b => b.addEventListener('click', () => window.__sg[+b.dataset.sg].go()));
 }
 // Institutions for search: every feature of every places-kind layer's own category.
-const INSTITUTIONS = () => LAYERS.filter(it => it.kind === 'places' && loaded[it.file]).flatMap(it => loaded[it.file].features.filter(f => f.properties.cat === it.cat).map(f => [it, f]));
+const INSTITUTIONS = () => LAYERS.filter(it => it.kind === 'places' && loaded[it.file]).flatMap(it => loaded[it.file].features.filter(f => placeCats(it).includes(f.properties.cat)).map(f => [it, f]));
 function goLandmark(f){ goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), f.properties.name, true); }
 // A named area: frame the whole of it and pin its label point. Outside the city, switch to the region view first.
 function goPlace(p){
@@ -3369,7 +3407,8 @@ function drawPlaceBox(){
   const ptsIn = fc => fc ? fc.features.filter(f => f.geometry.type === 'Point' && inPlace(f.geometry.coordinates[0], f.geometry.coordinates[1])) : [];
   const btn = f => '<button type="button" data-pt="' + f.geometry.coordinates.join(',') + '" data-name="' + esc(f.properties.name) + '">' + esc(f.properties.name) + (f.properties.sub ? ' <small>' + esc(f.properties.sub) + '</small>' : '') + '</button>';
   LAYERS.filter(it => it.kind === 'landmarks').forEach(it => { const p = ptsIn(loaded[it.file]); if (p.length) rows.push([it.name, '<span class="flist">' + p.map(btn).join('') + '</span>']); });
-  LAYERS.filter(it => it.kind === 'places').forEach(it => { const p = ptsIn(loaded[it.file]).filter(f => !it.cat || f.properties.cat === it.cat); if (p.length) rows.push([it.name, '<span class="flist">' + p.map(btn).join('') + '</span>']); });
+  LAYERS.filter(it => it.kind === 'places').forEach(it => (it.cats || [[it.cat, it.name]]).forEach(([c, label]) => {   // a row per category
+    const p = ptsIn(loaded[it.file]).filter(f => !c || f.properties.cat === c); if (p.length) rows.push([label, '<span class="flist">' + p.map(btn).join('') + '</span>']); }));
   LAYERS.filter(it => it.kind === 'towers').forEach(it => {
     const p = ptsIn(loaded[it.file]).sort((a, b) => b.properties.h - a.properties.h);
     if (p.length) rows.push([it.name, p.length + (p.length > 1 ? ' · tallest ' : ' · ') + btn(p[0]).replace('<button', '<button class="inline"')]);
@@ -3432,6 +3471,8 @@ function linkState(){
   if (picked.size) parts.push(['routes', [...picked].join(',')]);
   const pgs = Object.entries(placePick).filter(([id, g]) => g !== 'all' && state[id]).map(([id, g]) => id + ':' + g);
   if (pgs.length) parts.push(['pick', pgs.join(',')]);
+  const pcs = LAYERS.filter(it => it.cats && catPick[it.id] && state[it.id]).map(it => it.id + ':' + placeCats(it).filter(c => catPick[it.id].has(c)).join('+'));
+  if (pcs.length) parts.push(['cats', pcs.join(',')]);
   { // party= only when the shading isn't what the layers alone would give (the highest level on, or none)
     const onP = Object.keys(PARTY).filter(x => state[x]).sort((a, b) => prank(a) - prank(b));
     if (onP.length && shade !== onP[onP.length - 1]) parts.push(['party', shade || 'none']); }
@@ -3452,7 +3493,12 @@ function readHash(h){
 // Put the map into the state a link describes. Unknown ids and malformed parts are skipped.
 function applyHash(h){
   const o = readHash(h);
-  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg', 'preset', 'pick', 'party'].some(k => k in o)) return false;
+  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg', 'preset', 'pick', 'party', 'cats'].some(k => k in o)) return false;
+  // Links made before layers were merged name the old one-category layers ("mosques"): each turns on the
+  // merged layer with that category picked (its "replaces" map).
+  const merged = {}, oldIds = {};
+  LAYERS.forEach(it => Object.entries(it.replaces || {}).forEach(([old, c]) => { oldIds[old] = [it.id, c]; }));
+  const newId = id => (oldIds[id] || [id])[0];
   // A bare preset= link (no layers of its own) sets up that view; otherwise the link wins and the view is noted.
   if (o.preset && presetById(o.preset) && !o.layers){ applyPreset(o.preset); if (!o.map && !o.pin) return true; }
   const num = s => s.split(/[,/]/).map(Number);
@@ -3463,6 +3509,7 @@ function applyHash(h){
   setPlaceFocus(pfo ? pfo[0] : null, pfo ? pfo[1] : null, false);
   if (o.layers){
     const want = new Set(o.layers === 'none' ? [] : o.layers.split(','));
+    [...want].forEach(id => { if (oldIds[id]){ const [nid, c] = oldIds[id]; want.add(nid); (merged[nid] = merged[nid] || []).push(c); } });
     // Area fills first, then the lens: switching the lens on turns fills off, so it must come last to win.
     LAYERS.slice().sort((a, b) => (a.kind === 'lens') - (b.kind === 'lens')).forEach(it => {
       const cb = document.getElementById('lyr-' + it.id), w = want.has(it.id);
@@ -3475,7 +3522,10 @@ function applyHash(h){
   (o.board || '').split(',').forEach(part => { const [id, b] = part.split(':'); if (b) setBoard(id, b); });
   if (o.bus) setBusFams(o.bus.split('+'));
   Object.keys(placePick).forEach(id => setPlacePick(id, 'all'));
-  if (o.pick) o.pick.split(',').forEach(x => { const [id, g] = x.split(':'); if (id && g) setPlacePick(id, g); });
+  if (o.pick) o.pick.split(',').forEach(x => { const [id, g] = x.split(':'); if (id && g) setPlacePick(newId(id), g); });
+  LAYERS.filter(it => it.cats).forEach(it => setPlaceCats(it.id, []));
+  if (o.cats) o.cats.split(',').forEach(x => { const [id, cs] = x.split(':'); if (id && cs) merged[id] = cs.split('+'); });
+  Object.entries(merged).forEach(([id, cs]) => setPlaceCats(id, cs));
   if (CHG){ const want = o.chg ? o.chg.split('+').filter(k => k in CHG.stages) : Object.keys(CHG.stages);
     Object.keys(CHG.stages).forEach(k => { if (want.includes(k) !== chgStages.has(k)) { if (want.includes(k)) chgStages.add(k); else chgStages.delete(k); } });
     if (!chgStages.size) Object.keys(CHG.stages).forEach(k => chgStages.add(k));

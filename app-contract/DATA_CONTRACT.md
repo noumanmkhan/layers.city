@@ -1,4 +1,11 @@
-# Layers.City data contract (schema 1)
+# Layers.City data contract (schema 2)
+
+> **Migration to schema 2 (October 18, 2026, on dev):** single-category `places` layers were merged into
+> multi-category ones. Removed layer ids: `unis` and `colleges` (now one layer, `campus`), `churches`, `mosques`,
+> `hindutemples`, `synagogues`, `buddhisttemples`, `gurdwaras` and `otherfaith` (now `worship`), `halal` and
+> `kosher` (now `food`). A merged layer has `cats` instead of `cat` (see `places` in section 4); its `replaces`
+> maps each old id to its category. Nearby rows (`card.nearby.nearest`) now name `"layer:category"`
+> (`"worship:mosque"`) instead of the old layer id. The data files and feature `cat` values are unchanged.
 
 This is everything an app needs to rebuild the map's "What's here" card from the published
 data, without reading the website's code. The website (this repo) is the only producer; an app is
@@ -157,11 +164,18 @@ How the website's search does it, for an app that wants to match:
   feature's fields.
 - A `places` layer draws the points of `file` whose `cat` equals the layer's `cat` (several layers
   share `institutions.geojson`). `place` names the kind of place ("Hospital", "City College"),
-  `edText` the extra hover words for a feature with `ed`, and `aliases` (optional, Universities)
+  `edText` the extra hover words for a feature with `ed`, and `aliases` (optional, Colleges & universities)
   maps a feature `name` to the nicknames search should also match. Not part of the card.
-- A `places` layer may have `groups` (`[[id, label], …]`; Toronto's Churches): chips under its row, `allText`
+- Schema 2: a `places` layer may instead have `cats` (`[[cat, chip label, singular noun], …]`; `campus`,
+  `worship`, `food`): it draws every feature whose `cat` is one of them, and the web map shows a chip per
+  category to hide or show it (any mix, at least one on; in the link as `cats=layer:cat+cat`). The singular noun
+  replaces `place` for that category's features. `icon` names the glyph for the layer's row; `catNote` is a line
+  under the chips; `replaces` (`{old layer id: cat}`) lets links made before the merge still work.
+- A `places` layer may have `groups` (`[[id, label], …]`; the churches on `worship`): chips under its row, `allText`
   first, pick one group at a time; only features whose `grp` equals the pick are drawn (features with no `grp`
-  show only under All). `countText` (`{n}`), `allNote` and `groupNote` make the line under the chips.
+  show only under All). `countText` (`{n}`), `allNote` and `groupNote` make the line under the chips. With
+  `groupsFor` (a category, `church`), the groups narrow only that category's features, and the chips show only
+  while that category is; `groupLabel` heads them ("Churches by denomination").
 - A `towers` layer (id `towers`, file `skyscrapers`) draws every feature of `skyscrapers.geojson`.
   Its text: `place` ("Skyscraper", search sub-line), `key` (`res`, `com`, `mix`, `uc`, `sup`: the
   legend shown under the layer while it's on), `purpose` (card wording per `purpose`, e.g.
@@ -366,8 +380,9 @@ first matching feature in file order wins.
    While the web map's election view is on, the card opens with only the Representatives section expanded, and
    moved to the top of the sections.
    **Nearby** (`card.nearby`, both cities): for each `[key, label]` in `nearest` (or `[key, label, layer]`:
-   then only while the layer with that id is on; Toronto's places of worship and food shops. If that layer has a
-   group picked, use `nearby.groups["key:group"]` and add " · " and the group's label to the row label), the nearest point
+   then only while the layer with that id is on; `layer` may be `"layer:cat"` (schema 2: `"worship:mosque"`), then
+   only while that layer is on with that category shown. If that layer has a
+   group picked (and, with `groupsFor`, the row is that category), use `nearby.groups["key:group"]` and add " · " and the group's label to the row label), the nearest point
    of `nearby.groups[key]` by straight-line distance: row `label`, value its name, subline the
    distance ("600 m away"; to the nearest 50 m under a kilometre, then "1.8 km". With `distance`
    `"mi"`: "250 ft away" to the nearest 50 ft under 0.1 mile, then "0.4 mi", whole miles from 10). Then one row,
