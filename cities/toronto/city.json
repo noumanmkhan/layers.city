@@ -96,7 +96,14 @@
       {"id": "build", "kind": "construction", "file": "construction", "live": true, "name": "Transit under construction", "note": "Ontario Line, Line 2 and Line 5 extensions, Hazel McCallion Line",
        "ucText": "Under construction", "linkText": "Project page"},
       {"id": "closures", "kind": "closures", "under": "build", "file": "closures", "optional": true, "live": true, "staleDays": 2, "name": "Road closures", "note": "From transit and GO construction; side streets when zoomed in",
-       "tz": "America/Toronto", "closedText": "Closed", "narrowedText": "Lanes narrowed", "bothText": "both directions", "startsText": "Starts {date}", "untilText": "Permit to {date}", "longText": "long-term", "allDayText": "Around the clock", "whenLabel": "When", "hoursLabel": "Hours", "projectLabel": "For", "whoLabel": "Permit holder", "fineText": "Dates are permit dates, not a forecast of when the road reopens. Data as of {date}.", "asofText": "as of {date}"}
+       "tz": "America/Toronto", "closedText": "Closed", "narrowedText": "Lanes narrowed", "bothText": "both directions", "startsText": "Starts {date}", "untilText": "Permit to {date}", "longText": "long-term", "allDayText": "Around the clock", "whenLabel": "When", "hoursLabel": "Hours", "projectLabel": "For", "whoLabel": "Permit holder", "fineText": "Dates are permit dates, not a forecast of when the road reopens. Data as of {date}.", "asofText": "as of {date}"},
+      {"id": "events", "kind": "events", "file": "events", "optional": true, "live": true, "staleDays": 2, "name": "Special events", "note": "Road closures for races, parades and street parties",
+       "tz": "America/Toronto", "closedText": "Road closed", "narrowedText": "Curb lane closed", "nowText": "Closed now, until {until}", "whenText": "{from} to {to}",
+       "whenLabel": "When", "eventLabel": "For", "noticeText": "Organizer’s closure notice",
+       "fineText": "Times are the City’s permit times; roads often reopen sooner, behind the last runners. City of Toronto road restrictions, as of {date}.",
+       "viewLayers": ["streets", "coll", "hwy", "events"], "viewName": "{short}", "viewNote": "Road closures for the {name}, with main and collector streets. Tap a closure for its times.",
+       "bannerText": "{name} is on {when}.", "bannerGo": "Route and road closures", "bannerClose": "Not now",
+       "weekendText": "this weekend", "todayText": "today", "rangeText": "{from} to {to}"}
     ]],
     ["Parking", [
       {"id": "greenp", "kind": "spots", "mark": "lot", "file": "parking", "cat": "gp", "countKey": "greenp", "lazy": true, "optional": true, "minZoom": 11,

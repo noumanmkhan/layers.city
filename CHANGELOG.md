@@ -12,9 +12,23 @@
 - The card's Boundaries gain *Permit parking*: the spot's area, then how much of its neighbourhood is inside permit
   areas. A *Permit parking* lens shades neighbourhoods by that share (none, under 25%, 25–75%, 75% or more).
 - Engine: layer kind `spots` (points from a shared file picked by `cat`, `mark` `lot` or `charger`, drawn near the
-  view from `minZoom`, class chips); `patches` take `cls`/`lcls`; facts rows take `cover`. Other cities unchanged.
+  view from `minZoom`, class chips); `patches` take `cls`/`lcls`; facts rows take `cover`. Colours `--gp`, `--evc`
+  (EV charging; `--ev` is special events), `--permit`, `--prk-0`…`3`. Other cities unchanged.
 - Data: `fetch_parking.py` and `parking.py`, monthly in `fetch-toronto-parking.yml` (in the deploy trigger list).
   Contract: `parking.geojson`, `permit_areas.geojson`, `permit`/`permitBand` (additive).
+
+### Special events: the Waterfront Marathon (October 17, on dev)
+- **Special events** layer (Toronto, under Getting around, in the All and Live tabs): road closures the City's
+  Road Restrictions feed flags as special events, grouped into events by organizer, refreshed daily with the
+  transit closures (`fetch_closures.py` now also writes `raw/closures/events.json`; new `engine/events.py`;
+  `cities/toronto/events.json` names the organizers). Drawn in violet (`--ev`): solid while closed, lighter if
+  closing later today, hidden once reopened, rechecked every five minutes. Popups give the times, the event and
+  the organizer's closure notice. Curb-lane-only closures are dotted.
+- **Event view and banner:** while a big event is on (from three days before until its last closure ends), it is
+  the first entry under Views (main and collector streets, highways and the event, framed on its closures), and a
+  banner on the first visit offers it. Taking the view or closing the banner is remembered per event.
+- First event: the TCS Toronto Waterfront Marathon, October 16–18, 403 closures (Canada Running Series).
+- Data contract: new optional file `events.geojson` and layer kind `events` (additive).
 
 ### Vancouver and Dallas on the maps hub (October 16)
 - Both cities are announced: cards on the maps hub (with outline thumbnails; Vancouver's includes the University

@@ -820,7 +820,63 @@ const KINDS = {
     stampLive(it, fc.asof);
     return g;
   },
+  // Road closures for special events (races, parades, street parties), refreshed daily: engine/events.py.
+  // Drawn in the event colour so a race course reads as one line. Each closure has its own times (race
+  // closures open in waves): ones in force now are solid, later ones faint, ended ones go. Checked again
+  // every few minutes while the page is open, so the map keeps up through race day.
+  events: (it, fc) => {
+    const g = L.layerGroup(), names = {};
+    (fc.events || []).forEach(e => { names[e.id] = e; });
+    const w = () => { const z = map.getZoom(); return z < 13 ? 5 : z < 15 ? 7 : 9; };
+    const items = fc.features.map(f => {
+      const p = f.properties, line = f.geometry.type !== 'Point';
+      const lyr = line ? L.polyline(f.geometry.coordinates.map(ll), {pane:'transit', className: 'ev ' + p.kind, weight: w()})
+        : L.circleMarker(ll(f.geometry.coordinates), {pane:'transit', radius: 6, className: 'ev ' + p.kind});
+      lyr.on('click', e => evPopup(it, p, names[p.ev], e.latlng, fc.asof));
+      return [lyr, p, line];
+    });
+    function refresh(){
+      const now = cityNow(it.tz);
+      items.forEach(([lyr, p]) => {
+        const over = (p.end || '9999') <= now, soon = (p.start || '') > now;
+        if (over){ if (g.hasLayer(lyr)) g.removeLayer(lyr); return; }
+        if (!g.hasLayer(lyr)) g.addLayer(lyr);
+        lyr.unbindTooltip(); hoverTip(lyr, esc(p.street) + ' · ' + esc(evWhen(it, p, now)));
+        const el = lyr.getElement && lyr.getElement(); if (el) el.classList.toggle('soon', soon);
+        lyr.options.className = 'ev ' + p.kind + (soon ? ' soon' : '');
+      });
+    }
+    refresh();
+    g.on('add', refresh);
+    setInterval(() => { if (map.hasLayer(g)) refresh(); }, 5 * 60e3);
+    map.on('zoomend', () => items.forEach(([l, , line]) => { if (line) l.setStyle({weight: w()}); }));
+    stampLive(it, fc.asof);
+    return g;
+  },
 };
+// The time where the city is, as YYYY-MM-DDTHH:MM, to compare with closure times (which are in city time).
+function cityNow(tz){ try { return new Date().toLocaleString('sv-SE', {timeZone: tz}).replace(' ', 'T').slice(0, 16); } catch (e) { return new Date().toISOString().slice(0, 16); } }
+// "Sun 8:00 a.m." from a city-time "YYYY-MM-DDTHH:MM" (the weekday only when asked for).
+function evClock(s, day){
+  const d = new Date(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10), +s.slice(11, 13), +s.slice(14, 16));
+  return (day ? d.toLocaleDateString(CITY.locale, {weekday:'short'}) + ' ' : '') + d.toLocaleTimeString(CITY.locale, {hour:'numeric', minute:'2-digit'});
+}
+// When a closure is in force: "Closed now · until 3:30 p.m." or "Sun 8:00 a.m. to 3:30 p.m.".
+function evWhen(it, p, now){
+  const same = (p.start || '').slice(0, 10) === (p.end || '').slice(0, 10), endDay = (p.end || '').slice(0, 10) !== now.slice(0, 10);
+  if ((p.start || '') <= now) return fill(it.nowText, {until: evClock(p.end, endDay)});
+  return fill(it.whenText, {from: evClock(p.start, true), to: evClock(p.end, !same)});
+}
+function evPopup(it, p, ev, latlng, asof){
+  const now = cityNow(it.tz), rows = [[it.whenLabel, evWhen(it, p, now)], ev && [it.eventLabel, ev.name]].filter(Boolean);
+  L.popup({className:'info-pop', maxWidth: 290, autoPanPadding:[24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.street) + '</b><small class="ev-k ' + p.kind + '">' + esc(p.kind === 'closed' ? it.closedText : it.narrowedText) + '</small>' +
+    (p.extent && p.extent !== p.street ? '<p>' + esc(p.extent) + '</p>' : '') +
+    rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
+    (p.desc ? '<p class="desc">' + esc(p.desc) + '</p>' : '') +
+    (ev && ev.notice ? '<a href="' + esc(ev.notice) + '" target="_blank" rel="noopener">' + esc(it.noticeText) + '</a>' : '') +
+    '<p class="fine">' + esc(fill(it.fineText, {date: niceDate(asof)})) + '</p>').openOn(map);
+}
 // Today's date (YYYY-MM-DD) where the city is, so a permit ending today still shows until midnight there.
 function cityToday(tz){ try { return new Date().toLocaleDateString('en-CA', {timeZone: tz}); } catch (e) { return new Date().toISOString().slice(0, 10); } }
 function niceDate(s, year){
@@ -1290,7 +1346,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -2683,6 +2739,58 @@ function checkPreset(){
 function clearPreset(){ presetOn = null; presetCustom = false; drawPresets(); }
 if (qHint) qHint.addEventListener('click', () => document.getElementById('q').focus());
 
+/* ---------- Special events: a view and a banner while a big one is on ----------
+   An event marked "banner" in events.geojson (engine/events.py) becomes a view at the top of the Views
+   list from a few days before it ("bannerFrom") until its last closure ends: only the layers in the
+   events layer's "viewLayers" (streets and the event's closures), framed on its closures. The first time
+   someone opens the map in that window, a banner offers the view; tapping it or closing it is remembered
+   in this browser, per event, so it doesn't come back on every visit. */
+const EVL = byKind('events'), evBanner = document.getElementById('evBanner');
+function eventsNow(){
+  if (!EVL || !loaded[EVL.file]) return [];
+  const today = cityToday(EVL.tz), now = cityNow(EVL.tz);
+  return (loaded[EVL.file].events || []).filter(e => e.banner && e.bannerFrom <= today && e.end > now);
+}
+// "today", "this weekend" or "Oct 24 to Oct 25".
+function evPhrase(e){
+  const today = cityToday(EVL.tz), s = e.start.slice(0, 10), en = e.end.slice(0, 10);
+  if (en === today) return EVL.todayText;
+  const t = new Date(today + 'T12:00:00'), sun = new Date(t.getTime() + ((7 - t.getDay()) % 7) * 864e5);
+  const sunISO = sun.getFullYear() + '-' + String(sun.getMonth() + 1).padStart(2, '0') + '-' + String(sun.getDate()).padStart(2, '0');
+  if (en <= sunISO && [0, 6].includes(new Date(en + 'T12:00:00').getDay())) return EVL.weekendText;
+  return s === en ? niceDate(s) : fill(EVL.rangeText, {from: niceDate(s), to: niceDate(en)});
+}
+function eventPresets(){
+  if (!PRESETS) return;
+  eventsNow().slice().reverse().forEach(e => {
+    if (!presetById('ev-' + e.id)) PRESETS.items.unshift({id: 'ev-' + e.id, name: fill(EVL.viewName, {short: e.short}),
+      note: fill(EVL.viewNote, {name: e.name}), layers: EVL.viewLayers, view: e.bounds});
+  });
+}
+function showEvent(e){
+  if (presetById('ev-' + e.id)) return applyPreset('ev-' + e.id);
+  applyHash('#layers=' + EVL.viewLayers.join(','));
+  frame(L.latLngBounds(e.bounds));
+  if (!wide()) panel.classList.add('collapsed');
+  queueHash();
+}
+function eventBanner(){
+  const e = eventsNow()[0];
+  if (!e || !evBanner || state[EVL.id]) return;
+  const key = 'eventSeen-' + CITY.id + '-' + e.id;
+  let seen = false; try { seen = !!localStorage.getItem(key); } catch (x) {}
+  if (seen) return;
+  const done = () => { try { localStorage.setItem(key, '1'); } catch (x) {} evBanner.hidden = true; };
+  evBanner.innerHTML = '<i class="ev-dot" aria-hidden="true"></i><span>' + esc(fill(EVL.bannerText, {name: e.name, when: evPhrase(e)})) + '</span>' +
+    '<button type="button" class="tr-go">' + esc(EVL.bannerGo) + '</button>' +
+    '<button type="button" class="tr-x" aria-label="' + esc(EVL.bannerClose) + '">×</button>';
+  tourInv.hidden = true;   // one invitation at a time; the tour's comes back on a later visit
+  evBanner.hidden = false;
+  evBanner.querySelector('.tr-go').onclick = () => { done(); showEvent(e); logEvent('event_view', {id: e.id}); };
+  evBanner.querySelector('.tr-x').onclick = () => { done(); logEvent('event_dismiss', {id: e.id}); };
+  logEvent('event_banner', {id: e.id});
+}
+
 /* ---------- Theme: Auto (device setting), Light or Dark; remembered in this browser ---------- */
 function applyTheme(choice){
   if (choice === 'light' || choice === 'dark') document.documentElement.dataset.theme = choice;
@@ -3580,8 +3688,10 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
   }
   lastHash = location.hash;
   if (location.hash) linkReady = true; else armLink();
+  eventPresets();
   drawPresets();
   tourInvite();
+  eventBanner();
   window.cityMapReady = true;
   // Stops and the route list: fetched after the map is up, then stops are drawn and the open card redrawn.
   if (TR) get(TR.file).then(d => {

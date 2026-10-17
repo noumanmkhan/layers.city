@@ -7,9 +7,18 @@ Kept: every permit whose source / work event type / permit type is "Metrolinx", 
 the transit consortiums in construction.json "closures.contractors" (a few Ontario Line permits
 are filed as "Other"). Which project a permit belongs to is decided later, by where it is.
 
+Also kept, separately: every record flagged specialEvent = "Yes" (races, parades, festivals, block
+parties), written to raw/closures/events.json for engine/events.py and the Special events layer.
+Event closures are filed with the event's organizer as contractor (the Waterfront Marathon's are all
+"Canada Running Series Inc."), which is how events.py tells one event from another.
+
 The feed isn't strict JSON (stray backslashes in free text), so lone backslashes are escaped first.
+
+Usage: python3 cities/toronto/fetch_closures.py
+       python3 cities/toronto/fetch_closures.py --records FILE   (rebuild events.json only, from a saved
+       list of feed records, e.g. raw/scouting/events.json; for testing where the feed can't be reached)
 """
-import json, os, re, urllib.request
+import json, os, re, sys, urllib.request
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
@@ -21,11 +30,16 @@ CONTRACTORS = [c.lower() for c in cfg['closures'].get('contractors', [])]
 OUT = os.path.join(HERE, 'raw', 'closures')
 os.makedirs(OUT, exist_ok=True)
 
-req = urllib.request.Request(URL, headers={'User-Agent': 'city-layers-pipeline (github.com/noumanmkhan/city-layers)'})
-raw = urllib.request.urlopen(req, timeout=180).read().decode('utf-8', 'replace')
-raw = re.sub(r'\\(["\\/bfnrtu]?)', lambda m: m.group(0) if m.group(1) else '\\\\', raw)
-data = json.loads(raw, strict=False)
-recs = [r for v in data.values() if isinstance(v, list) for r in v]
+LOCAL = sys.argv[2] if len(sys.argv) > 2 and sys.argv[1] == '--records' else None
+if LOCAL:
+    data = json.load(open(LOCAL))
+    recs = data['records'] if isinstance(data, dict) else data
+else:
+    req = urllib.request.Request(URL, headers={'User-Agent': 'city-layers-pipeline (github.com/noumanmkhan/city-layers)'})
+    raw = urllib.request.urlopen(req, timeout=180).read().decode('utf-8', 'replace')
+    raw = re.sub(r'\\(["\\/bfnrtu]?)', lambda m: m.group(0) if m.group(1) else '\\\\', raw)
+    data = json.loads(raw, strict=False)
+    recs = [r for v in data.values() if isinstance(v, list) for r in v]
 
 
 def is_transit(r):
@@ -59,17 +73,13 @@ def hours(r):
     return h, d
 
 
-out = []
-for r in recs:
-    if not is_transit(r):
-        continue
+def permit(r, kind):
     try:
         pts = json.loads('[' + r['geoPolyline'] + ']') if r.get('geoPolyline') else [[float(r['longitude']), float(r['latitude'])]]
     except Exception:
-        continue
+        return None
     h, d = hours(r)
-    kind = 'closed' if r.get('type') == 'ROAD_CLOSED' else 'narrowed'
-    out.append({
+    return {
         'id': r['id'],
         'street': r.get('road'),
         'extent': (r.get('name') or '').strip(),
@@ -81,8 +91,24 @@ for r in recs:
         'desc': re.sub(r'\s+', ' ', (r.get('description') or '').replace('Toronto-TMC:', '')).strip(),
         'roadClass': r.get('roadClass'),
         'coords': [[round(x, 6), round(y, 6)] for x, y in pts],
-    })
+    }
 
-json.dump({'fetched': datetime.now(TZ).strftime('%Y-%m-%dT%H:%M'), 'source': URL, 'permits': out},
+
+def event_kind(r):
+    """Event closures are mostly filed as CONSTRUCTION with "All lanes are blocked" boilerplate in the
+    description, even when the record's own name says only the curb lane is taken. The name is the more
+    specific of the two: "curb lane" there means one lane; anything else is the road closed."""
+    return 'narrowed' if 'curb lane' in (r.get('name') or '').lower() else 'closed'
+
+
+now = datetime.now(TZ).strftime('%Y-%m-%dT%H:%M')
+events = [p for p in (permit(r, event_kind(r)) for r in recs if str(r.get('specialEvent')).strip().lower() == 'yes') if p]
+json.dump({'fetched': now, 'source': URL, 'permits': events}, open(os.path.join(OUT, 'events.json'), 'w'), indent=0)
+print('Toronto:', len(events), 'special-event closures')
+if LOCAL:
+    sys.exit(0)
+
+out = [p for p in (permit(r, 'closed' if r.get('type') == 'ROAD_CLOSED' else 'narrowed') for r in recs if is_transit(r)) if p]
+json.dump({'fetched': now, 'source': URL, 'permits': out},
           open(os.path.join(OUT, 'permits.json'), 'w'), indent=0)
 print('Toronto:', len(recs), 'restrictions in feed;', len(out), 'from transit construction')
