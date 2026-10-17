@@ -14,7 +14,9 @@ Rules carried over from the map:
 - Counts are of what's on the map, inside the neighbourhood's boundary (the City's official one,
   which can be bigger than the name's everyday use). Stations, libraries and campuses also count
   when they sit just outside it (within NEAR_KM): one across the street still serves the area.
-- Times are the map's own: transit to Union from nbhd_profiles.json, driving from drive_grid.json.
+- Times are the map's own: transit to Union from nbhd_profiles.json. Drive times come from
+  cities/<city>/raw/drive_profiles.json (fetch_drive.py: free-flow, from each neighbourhood); without it,
+  drive rows are left out rather than guessed.
   Walks to the nearest station are straight-line distance x 1.3 at 4.8 km/h, shown as "about".
 
 Needs: pip install shapely  (already needed by cities/<city>/run.sh)
@@ -72,7 +74,6 @@ def layer(name):
 
 census = opt('nbhd_profiles.json', {})
 nearby = opt('nearby.json', {'groups': {}})['groups']
-grid = opt('drive_grid.json', None)
 
 stations = layer('subway_stations')
 subway_lines = layer('subway_lines')
@@ -190,7 +191,7 @@ def listing(items, keep=3):
     return ', '.join(items[:keep]) + (f' +{len(items) - keep} more' if len(items) > keep else '')
 
 
-def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km):
+def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km, name):
     lines_at = {m['name']: m.get('lines', []) for _, m in stations}
     # 01 subway and LRT
     spot = {m['name']: g for g, m in stations}
@@ -255,9 +256,8 @@ def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km):
         rows4.append(['Nearest GO station', f"{m['name']} · {fmt_km(d)}", {'go': True}])
     rows4.append(['Bike Share stations', f'{len(shares)} · {docks} docks' if shares else 'None'])
     rows4.append(['Bike lanes and trails', f'{bike_km:.1f} km'])
-    if grid:
-        g = min(grid['points'], key=lambda p: (p[0] - ll.x) ** 2 + (p[1] - ll.y) ** 2)
-        rows4.append([f"Drive to {grid['hub'].replace(' Station', '')}", f'about {g[2]} min'])
+    if drive_to(name, 0) is not None:
+        rows4.append([f'Drive to {DRIVE_DEST[0]}', f'about {drive_to(name, 0)} min'])
 
     return {'origin': origin, 'sections': [
         {'title': 'Subway and LRT', 'rows': rows1},
@@ -265,6 +265,140 @@ def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km):
         {'title': title3, 'rows': rows3},
         {'title': 'GO, cycling and driving', 'rows': rows4},
     ]}
+
+
+# ---- driving: highways, arterials, on-ramps (raw/ramps.json) and drive times (raw/drive_profiles.json)
+RAW = os.path.join(ROOT, 'cities', city, 'raw')
+
+
+def raw(name):
+    p = os.path.join(RAW, name)
+    return json.load(open(p)) if os.path.exists(p) else None
+
+
+highways = layer('highways') + [(g, m) for g, m in layer('gta_highways')]   # the city's own, then the region's
+drive_prof = raw('drive_profiles.json')
+DRIVE_DEST = [d['name'].replace(' Station', '') for d in drive_prof['destinations']] if drive_prof else []
+
+
+def drive_to(name, k):
+    if not drive_prof:
+        return None
+    row = drive_prof['hoods'].get(name)
+    return row[k] if row and k < len(row) else None
+
+
+ARTERIAL = {'Major Arterial': 'major', 'Minor Arterial': 'minor', 'Collector': 'collector'}
+streets_raw = raw('streets.json') or {}
+arterials = [(km(make_valid(shape(f['geometry']))), ARTERIAL[cls], (f['properties'].get('LINEAR_NAME_FULL') or '').strip())
+             for cls, fc in streets_raw.items() if cls in ARTERIAL for f in fc.get('features', []) if f.get('geometry')]
+
+
+# The map frames draw arterials as a few long merged lines rather than thousands of block-length pieces.
+from shapely.ops import linemerge, unary_union as _union
+ART_DRAW = linemerge(_union([g for g, cls, _ in arterials if cls != 'collector'])) if arterials else None
+
+
+def hwy_near(pt, limit):
+    """(route, km) of the closest highway within limit km of pt, else None."""
+    best = None
+    for g, m in highways:
+        d = g.distance(pt)
+        if d <= limit and (best is None or d < best[1]):
+            best = (m.get('route'), d)
+    return best
+
+
+def street_near(pt, limit=0.25):
+    best = None
+    for g, cls, nm in arterials:
+        if not nm or cls == 'collector':
+            continue
+        d = g.distance(pt)
+        if d <= limit and (best is None or d < best[1]):
+            best = (nm, d)
+    return best[0] if best else None
+
+
+def find_onramps():
+    """On-ramps: a slip road that starts away from any highway (on a street) and ends on one.
+    Grouped by highway and street into one access point each: [(point in km, route, street)]."""
+    data = raw('ramps.json')
+    if not data:
+        return []
+    groups = {}
+    for link in data['links']:
+        cs = link['coords'][::-1] if link.get('oneway') == '-1' else link['coords']
+        if len(cs) < 2 or link.get('oneway') == 'no':
+            continue
+        a, b = km(Point(*cs[0])), km(Point(*cs[-1]))
+        at_hwy = hwy_near(b, 0.06)
+        if not at_hwy or hwy_near(a, 0.06):
+            continue                       # an off-ramp, a highway-to-highway link, or not one of ours
+        street = street_near(a) or link.get('dest') or link.get('name') or 'the ramp'
+        groups.setdefault((at_hwy[0], street), []).append(a)
+    out = []
+    for (route, street), pts in groups.items():
+        x = sum(p.x for p in pts) / len(pts); y = sum(p.y for p in pts) / len(pts)
+        out.append((Point(x, y), route, street))
+    return out
+
+
+ONRAMPS = find_onramps()
+HWY_NAME = {m.get('route'): m.get('name') for g, m in highways}
+
+
+def hwy_kind(m):
+    """Shield style, as on the map: provincial (yellow), city expressway (green) or toll (blue)."""
+    return 'toll' if 'toll' in (m.get('name') or '').lower() else 'city' if m.get('kind') == 'city' else 'prov'
+
+
+HWY_KIND = {m.get('route'): hwy_kind(m) for g, m in highways}
+RAMP_KM = 8          # list a highway only if one of its on-ramps is this close
+
+
+def driving_sections(P, lp, name):
+    # 01 highway access: the nearest on-ramp to each highway, closest first
+    best = {}
+    for pt, route, street in ONRAMPS:
+        d = lp.distance(pt)
+        if d <= RAMP_KM and (route not in best or d < best[route][0]):
+            best[route] = (d, street)
+    rows1 = [[f'at {street}', fmt_km(d), {'hwy': route}] for route, (d, street) in sorted(best.items(), key=lambda kv: kv[1][0])[:5]]
+    if not rows1:
+        rows1 = [['Highway on-ramps', 'Not built yet (run fetch_drive.py)' if not ONRAMPS else f'None within {RAMP_KM} km']]
+    through = sorted({m.get('route') for g, m in highways if g.intersection(P).length > 0.2})
+    if through:
+        rows1.append(['Highways through the neighbourhood', {'hwys': through}])
+
+    # 02 drive times to the destinations
+    rows2 = [[d, f'about {drive_to(name, k)} min'] for k, d in enumerate(DRIVE_DEST) if drive_to(name, k) is not None]
+    if not rows2:
+        rows2 = [['Drive times', 'Not built yet (run fetch_drive.py)']]
+
+    # 03 parking and charging: the map's layers, once they're published (dev branch work in progress)
+    rows3 = [['Green P lots and garages', 'Coming soon'], ['Permit parking', 'Coming soon'], ['EV charging', 'Coming soon']]
+
+    # 04 roads: arterial and collector length inside the boundary, and the longest arterials
+    length = {'major': 0.0, 'minor': 0.0, 'collector': 0.0}
+    by_name = {}
+    for g, cls, nm in arterials:
+        if not g.intersects(P):
+            continue
+        l = g.intersection(P).length
+        length[cls] += l
+        if nm and cls != 'collector':
+            by_name[nm] = by_name.get(nm, 0) + l
+    main = [nm for nm, l in sorted(by_name.items(), key=lambda kv: -kv[1]) if l > 0.3][:3]
+    rows4 = [['Main roads', ', '.join(main) if main else 'None'],
+             ['Major arterials', f"{length['major']:.1f} km"], ['Minor arterials', f"{length['minor']:.1f} km"],
+             ['Collector streets', f"{length['collector']:.1f} km"]]
+    return [
+        {'title': 'Highway access', 'rows': rows1},
+        {'title': 'Drive times, empty roads', 'rows': rows2},
+        {'title': 'Parking and charging', 'rows': rows3},
+        {'title': 'Roads', 'rows': rows4},
+    ]
 
 
 def walk_min(d_km):
@@ -321,9 +455,8 @@ def build(feat):
     around.append(['Bike lanes and trails', f'{bike_km:.1f} km'])
     if c.get('union') is not None:
         around.append(['Transit to Union', f"about {c['union']} min"])
-    if grid:
-        g = min(grid['points'], key=lambda p: (p[0] - ll.x) ** 2 + (p[1] - ll.y) ** 2)
-        around.append([f"Drive to {grid['hub'].replace(' Station', '')}", f'about {g[2]} min'])
+    if drive_to(name, 0) is not None:
+        around.append([f'Drive to {DRIVE_DEST[0]}', f'about {drive_to(name, 0)} min'])
 
     # Parks and nature
     parks = [g for g, _ in G.get('park', []) if P.contains(g)]
@@ -364,7 +497,8 @@ def build(feat):
     if c.get('walkBikePct') is not None:
         daily.append(['Commute on foot or by bike (2021)', f"{c['walkBikePct']}%"])
 
-    tr = transit_sections(P, make_valid(shape(feat['geometry'])), ll, lp, c, st_names, shares, docks, bike_km)
+    tr = transit_sections(P, make_valid(shape(feat['geometry'])), ll, lp, c, st_names, shares, docks, bike_km, name)
+    dr = driving_sections(P, lp, name)
 
     glance = [
         [f'{P.area:.1f} km²', 'area'],
@@ -388,6 +522,7 @@ def build(feat):
         ],
         'transit': {'origin': tr['origin'], 'sections': tr['sections'],
                     'system': system_outline(P)},
+        'driving': {'sections': dr, 'region': region_outline(P)},
     }
 
 
@@ -423,6 +558,10 @@ def frame(P, parks):
                    for g, m in subway_lines if (p := paths(g))],
         'streetcar': [p for g, _ in streetcars for p in paths(g)],
         'bike': [p for g, _ in bikes for p in paths(g)],
+        # for the Driving lens: highways (with their route), arterials, on-ramps
+        'hwy': [{'route': m.get('route'), 'kind': hwy_kind(m), 'paths': p} for g, m in highways if (p := paths(g))],
+        'arterial': paths(ART_DRAW) if ART_DRAW is not None else [],
+        'ramps': [xy(pt.x, pt.y) + [route] for pt, route, _ in ONRAMPS if view.contains(pt)],
         # daytime buses, for the Transit lens: frequent ones (every 10 min or better) drawn bolder
         'busFreq': [p for g, m in bus_routes if 'freq' in m.get('f', []) for p in paths(g)],
         'bus': [p for g, m in bus_routes if 'freq' not in m.get('f', []) for p in paths(g)],
@@ -463,6 +602,46 @@ def system_outline(P):
             for part in getattr(P, 'geoms', [P]) if part.geom_type == 'Polygon']
 
 
+# ---- the regional map for the Driving lens: the GTA's highways, the city, the drive destinations ---
+REGION = None
+if highways:
+    rx0, ry0, rx1, ry1 = CITY.bounds
+    padx, pady = (rx1 - rx0) * 0.35, (ry1 - ry0) * 0.45
+    rx0, ry0, rx1, ry1 = rx0 - padx, ry0 - pady, rx1 + padx, ry1 + pady
+    rs_ = VIEW_W / (rx1 - rx0)
+    rxy = lambda x, y: [round((x - rx0) * rs_, 1), round((ry1 - y) * rs_, 1)]
+
+    def rpaths(g):
+        g = clip_by_rect(g, rx0, ry0, rx1, ry1)
+        return [[rxy(*c) for c in part.simplify(0.1).coords] for part in getattr(g, 'geoms', [g])
+                if not part.is_empty and part.geom_type == 'LineString']
+    REGION = {
+        'w': VIEW_W, 'h': round((ry1 - ry0) * rs_),
+        'city': [[rxy(*c) for c in part.exterior.simplify(0.2).coords]
+                 for part in getattr(CITY, 'geoms', [CITY]) if part.geom_type == 'Polygon' and part.area > 1],
+        'hwy': [{'route': m.get('route'), 'kind': hwy_kind(m), 'paths': p} for g, m in highways if (p := rpaths(g))],
+        'dest': [dict(zip(('x', 'y'), rxy(*km(Point(*d['at'])).coords[0])), name=d['name'].replace(' Station', ''))
+                 for d in (drive_prof or {}).get('destinations', [])],
+    }
+
+
+def region_outline(P):
+    if not REGION:
+        return []
+    return [[rxy(*c) for c in part.exterior.simplify(0.1).coords] for part in getattr(P, 'geoms', [P]) if part.geom_type == 'Polygon']
+
+
+# ---- drive.json: what a pin needs (on-ramps and the 1 km drive-time grid) -------------------------
+DRIVE_JSON = {
+    'destinations': DRIVE_DEST,
+    'asof': (drive_prof or {}).get('asof'),
+    'ramps': [[round(pt.x / KX, 5), round(pt.y / KY, 5), route, street] for pt, route, street in ONRAMPS],
+    'grid': (drive_prof or {}).get('grid'),
+    'names': HWY_NAME,
+    'kinds': HWY_KIND,
+}
+
+
 # ---- write --------------------------------------------------------------------------------------
 os.makedirs(OUT, exist_ok=True)
 index = []
@@ -472,8 +651,11 @@ for feat in hood_feats:
     with open(os.path.join(OUT, prof['slug'] + '.json'), 'w') as f:
         json.dump(prof, f, ensure_ascii=False, separators=(',', ':'))
 if SYS:
+    SYS['region'] = REGION
     with open(os.path.join(OUT, 'system.json'), 'w') as f:
         json.dump(SYS, f, ensure_ascii=False, separators=(',', ':'))
+with open(os.path.join(OUT, 'drive.json'), 'w') as f:
+    json.dump(DRIVE_JSON, f, ensure_ascii=False, separators=(',', ':'))
 index.sort(key=lambda r: r['name'])
 with open(os.path.join(OUT, 'index.json'), 'w') as f:
     json.dump({'asof': date.today().isoformat(), 'places': index}, f, ensure_ascii=False, separators=(',', ':'))
