@@ -15,10 +15,13 @@ the landing page, stop and say so; don't change this repo.
   hand-merging it.
 - To release: on dev, merge origin/main, rebuild and test as usual, then `git checkout main &&
   git merge --ff-only dev` (or a normal merge if main has moved) and push main. That push deploys once.
-- Branch `profiles` holds the unreleased neighbourhood profiles (`engine/profiles/`, `docs/<city>/profiles/`).
-  Never merge it into dev or main until the user says to launch them; merge dev into it to keep it current.
-  deploy.yml refuses to publish main if `docs/*/profiles` exists; remove that step at launch. Preview it with
-  `gh workflow run deploy.yml --ref dev -f branch=profiles` (https://profiles.layers-city.pages.dev).
+- Neighbourhood profiles (`engine/profiles/`, `docs/<city>/profiles/`, at /toronto/profiles/) are on dev
+  (merged from the `profiles` branch October 17) but not launched: deploy.yml leaves `docs/*/profiles` out of
+  the live upload, so releasing dev to main is safe. At launch (only when the user says so): remove that
+  deploy step, drop the page's `noindex`, link it from the map or hub, and add the OpenStreetMap (walk times,
+  ramps) and OSRM (drive times) credits to the Attributions page. Rebuild with
+  `python3 engine/profiles/build.py <city>` after the map's data changes; walk_grid.py and fetch_drive.py
+  need the network and run on the user's Mac (see engine/profiles/*.py).
 - To let the user try dev on a phone before a release: run the "Deploy to Cloudflare Pages" workflow by
   hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev. The branch is the
   workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.
