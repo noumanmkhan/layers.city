@@ -22,7 +22,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font
 .bar{max-width:8.5in;margin:0 auto;padding:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .bar label{font-weight:500}
 .bar select{font:inherit;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--card);min-height:44px;flex:1 1 240px;max-width:360px}
-.bar button{font:inherit;font-weight:500;padding:8px 14px;border:1px solid var(--ink);border-radius:8px;background:var(--card);min-height:44px;cursor:pointer}
+.bar button{font:inherit;font-weight:500;color:var(--ink);-webkit-appearance:none;appearance:none;padding:8px 14px;border:1px solid var(--ink);border-radius:8px;background:var(--card);min-height:44px;cursor:pointer}
 .sheet{max-width:8.5in;margin:0 auto 32px;background:var(--card);padding:0.45in;display:flex;flex-direction:column;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .top{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.12em;font-weight:500;color:var(--muted)}
 .brand{display:flex;gap:8px;align-items:center;font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:0;color:var(--ink)}
@@ -47,7 +47,8 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 .msg{max-width:8.5in;margin:40px auto;padding:0 16px;color:var(--muted)}
 .find{max-width:8.5in;margin:-6px auto 0;padding:0 16px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .find input{font:inherit;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--card);min-height:44px;flex:1 1 260px;max-width:420px}
-.find button{font:inherit;font-weight:500;padding:8px 14px;border:1px solid var(--ink);border-radius:8px;background:var(--card);min-height:44px;cursor:pointer}
+.find button{font:inherit;font-weight:500;color:var(--ink);-webkit-appearance:none;appearance:none;padding:8px 14px;border:1px solid var(--ink);border-radius:8px;background:var(--card);min-height:44px;cursor:pointer}
+.find button:disabled{opacity:.6;cursor:default}
 .find .hint{color:var(--muted);font-size:13px;flex-basis:100%}
 .map svg{cursor:crosshair}
 .lens{display:inline-flex;border:1px solid var(--ink);border-radius:8px;overflow:hidden}
@@ -163,7 +164,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 <form class="find" id="find">
   <label for="q" class="sr">Address</label>
   <input id="q" type="search" placeholder="Search an address, like 789 Yonge Street" autocomplete="off">
-  <button type="submit" id="go">Find</button>
+  <button type="submit" id="go">Go</button>
   <button type="button" id="clear" hidden>Clear pin</button>
   <span class="hint" id="hint">Or click the map to drop a pin and see walk times from that spot.</span>
 </form>
@@ -620,7 +621,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
       else $('hint').textContent = `No match in Toronto for “${text}”. Try the full street name, like “789 Yonge Street”.`;
     } catch {
       $('hint').textContent = 'Address search isn’t responding right now. Try again in a moment, or click the map instead.';
-    } finally { busy = false; $('go').disabled = false; $('go').textContent = 'Find'; }
+    } finally { busy = false; $('go').disabled = false; $('go').textContent = 'Go'; }
   });
   $('clear').addEventListener('click', () => { pin = null; $('hint').textContent = 'Or click the map to drop a pin and see walk times from that spot.'; syncURL(); render(); });
 
