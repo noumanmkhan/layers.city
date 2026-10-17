@@ -20,6 +20,7 @@ python3 heritage.py
 python3 institutions.py       # universities, colleges, hospitals: points, written straight to docs
 python3 faith.py              # places of worship and halal/kosher shops: points, written straight to docs
 python3 french_schools.py     # French-language and immersion schools: points, written straight to docs
+[ -f raw/schools/ontario_schools.csv ] && python3 schools.py   # every public school, by level, with French programs (fetch-toronto-schools.yml)
 python3 nearby.py             # after institutions: points for the card's Nearby section
 [ -f raw/nearby/green_spaces.geojson ] && python3 parks.py   # park outlines with their amenities, written straight to docs (fetch-toronto-nearby.yml)
 OUT=../../docs/toronto/data

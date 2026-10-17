@@ -199,6 +199,8 @@ const GLYPH = {
   hindu: '<path d="M12 1.5l1.3 2.4h-2.6zM10.3 5h3.4l3.4 7H6.9zM5 13h14v2.2H5zM6.4 16.2h11.2V22h-3.9v-3.4h-3.4V22H6.4z"/>',
   buddhist: '<path fill-rule="evenodd" d="M12 2.5a9.5 9.5 0 1 1 0 19 9.5 9.5 0 0 1 0-19zm0 2.1a7.4 7.4 0 1 0 0 14.8 7.4 7.4 0 0 0 0-14.8zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/><path fill="none" stroke="currentColor" stroke-width="1.6" d="M14.6 12h4.8M13.84 13.84l3.39 3.39M12 14.6v4.8M10.16 13.84l-3.39 3.39M9.4 12H4.6M10.16 10.16 6.77 6.77M12 9.4V4.6M13.84 10.16l3.39-3.39"/>',
   church: '<path d="M10.4 1.5h3.2v5h5v3.2h-5V22.5h-3.2V9.7h-5V6.5h5z"/>',
+  elementary: '<path d="M12 2 3 7.2V9h18V7.2zM4.5 10.5h15V21h-5v-5h-5v5h-5zm2 1.5v2.5h2.5V12zm8.5 0v2.5h2.5V12z"/>',
+  secondary: '<path d="M2 7h20v2.5H2zM3 10.5h18V21h-6.5v-4.5h-5V21H3zm2 1.5v2.5h2.5V12zm4.25 0v2.5h2.5V12zm4.25 0v2.5H16V12zm3.75 0v2.5H19V12zM12 2l5 4H7z"/>',
   library: '<path d="M3 4.5c3.2-.6 6.2-.2 8 1.4V20c-1.8-1.4-4.8-1.8-8-1.2zm18 0c-3.2-.6-6.2-.2-8 1.4V20c1.8-1.4 4.8-1.8 8-1.2z"/>',
   centre: '<path d="M12 2 1.5 10.2h2.6V22h15.8V10.2h2.6zM9.5 12a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0zm-2 8c0-2.6 2-4.2 4.5-4.2s4.5 1.6 4.5 4.2z"/>',
   otherfaith: '<path d="M12 2 2.5 9.2v12.8h7v-6.2h5V22h7V9.2z"/>',
@@ -360,7 +362,8 @@ const KINDS = {
   // Icons from zoom 11, names from 14. Describe only: name and what it is, nothing ranked.
   // A layer with "groups" (e.g. churches by family) shows one group at a time, picked with chips in the panel;
   // with "groupsFor", the groups narrow only that category (churches among all places of worship).
-  // "minZoom" (12-14) holds a busy layer's icons back until that zoom.
+  // "minZoom" (12-14) holds a busy layer's icons back until that zoom. With "popup", a tap opens the place's details
+  // (placePopup) instead of the What's here card.
   places: (it, fc) => {
     const g = L.layerGroup(), marks = [], cats = placeCats(it);
     fc.features.filter(f => cats.includes(f.properties.cat)).forEach(f => {
@@ -368,7 +371,7 @@ const KINDS = {
       const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true,
         icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="lm inst in-' + p.cat + (p.ed ? ' ed' : '') + (it.minZoom ? ' mz' + it.minZoom : '') + '"><i>' + svg(GLYPH[p.cat] || GLYPH.culture) + '</i><b>' + esc(p.name) + '</b></span>'})});
       hoverTip(m, fill(it.hover || '{name}[ · {sub}]', p) + (p.ed && it.edText ? ' · ' + it.edText : ''));
-      m.on('click', () => goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), p.name, false));
+      m.on('click', e => { if (it.popup){ L.DomEvent.stop(e); placePopup(it, p, fc, m.getLatLng()); } else goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), p.name, false); });
       marks.push([m, p.grp, p.cat]);
     });
     const grouped = cat => it.groups && (!it.groupsFor || cat === it.groupsFor);
@@ -1083,6 +1086,15 @@ function ensureDocks(){
   }).catch(() => { dkP = null; return null; }));
 }
 const dkR = () => { const z = map.getZoom(); return z < 13 ? 2.2 : z < 15 ? 3.3 : 4.6; };
+// A places layer's details on tap (it.popup: rows [[property, label]…], linkText for the feature's u, fine with {asof}).
+function placePopup(it, p, fc, latlng){
+  const P = it.popup, rows = (P.rows || []).filter(([k]) => p[k]).map(([k, label]) => [label, p[k]]);
+  L.popup({className: 'info-pop', maxWidth: 280, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.name) + '</b><small><i class="pl-dot" style="background:var(--in-' + p.cat + ')"></i>' + esc(placeNoun(it, p.cat)) + '</small>' +
+    rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
+    (p.u && /^https?:\/\//.test(p.u) && P.linkText ? '<p class="pp-link"><a href="' + esc(p.u) + '" target="_blank" rel="noopener">' + esc(P.linkText) + ' ↗</a></p>' : '') +
+    (P.fine ? '<p class="bk-fine">' + esc(fill(P.fine, {asof: (fc && fc.asof) || ''})) + '</p>' : '')).openOn(map);
+}
 function dkPopup(p, latlng){
   const D = data.docks || {};
   const rows = [p.d && [DOCK.docksLabel || 'Docks', String(p.d)], p.e && [DOCK.chargeLabel || 'E-bikes', DOCK.chargeText || 'Charging station'],
@@ -3499,7 +3511,7 @@ function applyHash(h){
   if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg', 'preset', 'pick', 'party', 'cats'].some(k => k in o)) return false;
   // Links made before layers were merged name the old one-category layers ("mosques"): each turns on the
   // merged layer with that category picked (its "replaces" map).
-  const merged = {}, oldIds = {};
+  const merged = {}, oldIds = {}, oldPicks = [];   // a replaces value "@group" picks that group instead
   LAYERS.forEach(it => Object.entries(it.replaces || {}).forEach(([old, c]) => { oldIds[old] = [it.id, c]; }));
   const newId = id => (oldIds[id] || [id])[0];
   // A bare preset= link (no layers of its own) sets up that view; otherwise the link wins and the view is noted.
@@ -3512,7 +3524,7 @@ function applyHash(h){
   setPlaceFocus(pfo ? pfo[0] : null, pfo ? pfo[1] : null, false);
   if (o.layers){
     const want = new Set(o.layers === 'none' ? [] : o.layers.split(','));
-    [...want].forEach(id => { if (oldIds[id]){ const [nid, c] = oldIds[id]; want.add(nid); (merged[nid] = merged[nid] || []).push(c); } });
+    [...want].forEach(id => { if (oldIds[id]){ const [nid, c] = oldIds[id]; want.add(nid); if (c[0] === '@') oldPicks.push([nid, c.slice(1)]); else (merged[nid] = merged[nid] || []).push(c); } });
     // Area fills first, then the lens: switching the lens on turns fills off, so it must come last to win.
     LAYERS.slice().sort((a, b) => (a.kind === 'lens') - (b.kind === 'lens')).forEach(it => {
       const cb = document.getElementById('lyr-' + it.id), w = want.has(it.id);
@@ -3525,6 +3537,7 @@ function applyHash(h){
   (o.board || '').split(',').forEach(part => { const [id, b] = part.split(':'); if (b) setBoard(id, b); });
   if (o.bus) setBusFams(o.bus.split('+'));
   Object.keys(placePick).forEach(id => setPlacePick(id, 'all'));
+  oldPicks.forEach(([id, g]) => setPlacePick(id, g));
   if (o.pick) o.pick.split(',').forEach(x => { const [id, g] = x.split(':'); if (id && g) setPlacePick(newId(id), g); });
   LAYERS.filter(it => it.cats).forEach(it => setPlaceCats(it.id, []));
   if (o.cats) o.cats.split(',').forEach(x => { const [id, cs] = x.split(':'); if (id && cs) merged[id] = cs.split('+'); });

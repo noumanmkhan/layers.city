@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Schools in Toronto (October 18, on dev)
+- *Schools* in Education: all 817 TDSB, TCDSB, Viamonde and MonAvenir schools, from the Ontario Ministry of
+  Education's school list (2024–25). Chips for Elementary and Secondary; a *French programs* row for
+  French-language or French immersion (174 immersion schools from the boards' lists, all matched). It replaces
+  the two French school toggles; old links that name them open Schools with that program picked.
+- Icons from zoom 13; a tap opens the school's grades, board, address and website. Nearby counts elementary and
+  secondary schools within 1 km, never a "nearest school" (zoning is set by the board, not distance).
+- Data: `fetch_schools.py` (Actions, twice a year) keeps only descriptive columns; `schools.py` builds
+  `schools.geojson`. Engine: a `places` layer may have `popup` (details on tap); `replaces` values starting with
+  `@` pick a group. Credited on the map and the Attributions page.
+
 ### Libraries & community centres; Community & Faith (October 18, on dev)
 - A new toggle in every city, *Libraries & community centres*, with a chip for each: the public libraries and
   community centres the card's Nearby section already lists, now on the map. Icons from zoom 12, so the city view

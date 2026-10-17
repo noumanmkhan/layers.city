@@ -59,6 +59,12 @@ for f in json.load(open(os.path.join(DATA, 'faith.geojson')))['features']:
     if p['cat'] != 'otherfaith': groups.setdefault(p['cat'], []).append(f['geometry']['coordinates'] + [p['name']])
     if p.get('grp'): groups.setdefault(p['cat'] + ':' + p['grp'], []).append(f['geometry']['coordinates'] + [p['name']])
 
+# Schools (schools.py): counted within the radius by level, never named as "nearest", since the nearest school
+# is often not the one a home is zoned for.
+sp = os.path.join(DATA, 'schools.geojson')
+for f in (json.load(open(sp))['features'] if os.path.exists(sp) else []):
+    groups.setdefault('school_e' if f['properties']['cat'] == 'elementary' else 'school_s', []).append(f['geometry']['coordinates'])
+
 json.dump({'groups': groups}, open(os.path.join(DATA, 'nearby.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
 import sys; sys.path.insert(0, os.path.join(HERE, '..', '..', 'engine'))
 import community; community.write(DATA, groups)   # the same libraries and centres as map points
