@@ -1,0 +1,33 @@
+name: Fetch Toronto schools
+# Downloads Ontario's list of publicly funded schools (Ministry of Education, Ontario Data Catalogue) and keeps
+# Toronto's, descriptive columns only, into cities/toronto/raw/schools/ for cities/toronto/schools.py. The sandbox
+# can't reach data.ontario.ca. Runs when the fetch script changes on dev or main (committing back to that branch),
+# twice a year as new school years are published, or by hand.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 6 1 3,9 *'
+  push:
+    branches: [dev, main]
+    paths: ['cities/toronto/fetch_schools.py', '.github/workflows/fetch-toronto-schools.yml']
+permissions:
+  contents: write
+concurrency: fetch-toronto-schools
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install openpyxl
+      - run: mkdir -p cities/toronto/raw/schools && python3 -u cities/toronto/fetch_schools.py 2>&1 | tee cities/toronto/raw/schools/fetch.log
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/schools
+          git commit -m "Fetch Toronto's publicly funded schools from the Ontario Data Catalogue" || echo "no changes"
+          git pull --rebase
+          git push
