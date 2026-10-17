@@ -356,8 +356,14 @@ def hwy_kind(m):
 HWY_KIND = {m.get('route'): hwy_kind(m) for g, m in highways}
 RAMP_KM = 8          # list a highway only if one of its on-ramps is this close
 
+# Parking and charging: the map's own layers (cities/<city>/parking.py)
+parking = layer('parking')
+greenp = [(g, m) for g, m in parking if m.get('c') == 'gp']
+chargers = [(g, m) for g, m in parking if m.get('c') == 'ev' and not m.get('off')]   # leave out "temporarily unavailable"
+permit_areas = layer('permit_areas')
 
-def driving_sections(P, lp, name):
+
+def driving_sections(P, lp, name, c):
     # 01 highway access: the nearest on-ramp to each highway, closest first
     best = {}
     for pt, route, street in ONRAMPS:
@@ -376,8 +382,41 @@ def driving_sections(P, lp, name):
     if not rows2:
         rows2 = [['Drive times', 'Not built yet (run fetch_drive.py)']]
 
-    # 03 parking and charging: the map's layers, once they're published (dev branch work in progress)
-    rows3 = [['Green P lots and garages', 'Coming soon'], ['Permit parking', 'Coming soon'], ['EV charging', 'Coming soon']]
+    # 03 parking and charging, from the map's parking layers
+    rows3 = []
+    if greenp:
+        lots = [m for g, m in greenp if P.contains(g)]
+        if lots:
+            garages = sum(m.get('t') == 'g' for m in lots)
+            rows3.append(['Green P lots and garages', f"{len(lots)} · {sum(m.get('cap') or 0 for m in lots):,} spaces",
+                          {'gp': True}])
+            if garages:
+                rows3.append(['Of those, garages', str(garages)])
+            ttc = [m for m in lots if m.get('ttc')]
+            if ttc:
+                rows3.append(['TTC commuter lots', str(len(ttc))])
+        else:
+            d, _, m = nearest(lp, greenp)
+            rows3.append(['Nearest Green P', f"{m['n']} · {fmt_km(d)}", {'gp': True}])
+    if c.get('permit') is not None:
+        codes = sorted({m.get('name') for g, m in permit_areas if g.intersection(P).area > 0.01 * P.area})
+        share = c['permit']
+        rows3.append(['Permit parking', 'None of the area' if not share else
+                      f"{share}% of the area" + (f" · {listing(codes, 3)}" if codes else '')])
+    if chargers:
+        here = [m for g, m in chargers if P.contains(g)]
+        l2 = sum(m.get('l2') or 0 for m in here)
+        fast = [m for m in here if m.get('dc')]
+        rows3.append(['EV charging sites', f'{len(here)} · {l2} Level 2 ports' if here else 'None', {'ev': True}])
+        if fast:
+            rows3.append(['DC fast charging', f"{len(fast)} site{'s' if len(fast) != 1 else ''} · {sum(m['dc'] for m in fast)} ports"])
+        else:
+            fc = [(g, m) for g, m in chargers if m.get('dc')]
+            if fc:
+                d, _, m = nearest(lp, fc)
+                rows3.append(['Nearest DC fast charger', f"{m.get('a') or m.get('n')} · {fmt_km(d)}"])
+    if not rows3:
+        rows3 = [['Parking and charging', 'Not in the map data yet']]
 
     # 04 roads: arterial and collector length inside the boundary, and the longest arterials
     length = {'major': 0.0, 'minor': 0.0, 'collector': 0.0}
@@ -498,7 +537,7 @@ def build(feat):
         daily.append(['Commute on foot or by bike (2021)', f"{c['walkBikePct']}%"])
 
     tr = transit_sections(P, make_valid(shape(feat['geometry'])), ll, lp, c, st_names, shares, docks, bike_km, name)
-    dr = driving_sections(P, lp, name)
+    dr = driving_sections(P, lp, name, c)
 
     glance = [
         [f'{P.area:.1f} km²', 'area'],
@@ -562,6 +601,8 @@ def frame(P, parks):
         'hwy': [{'route': m.get('route'), 'kind': hwy_kind(m), 'paths': p} for g, m in highways if (p := paths(g))],
         'arterial': paths(ART_DRAW) if ART_DRAW is not None else [],
         'ramps': [xy(pt.x, pt.y) + [route] for pt, route, _ in ONRAMPS if view.contains(pt)],
+        'greenp': [xy(g.x, g.y) + [m.get('t')] for g, m in greenp if view.contains(g)],     # t: g garage, s surface
+        'ev': [xy(g.x, g.y) + [1 if m.get('dc') else 0] for g, m in chargers if view.contains(g)],   # 1: DC fast
         # daytime buses, for the Transit lens: frequent ones (every 10 min or better) drawn bolder
         'busFreq': [p for g, m in bus_routes if 'freq' in m.get('f', []) for p in paths(g)],
         'bus': [p for g, m in bus_routes if 'freq' not in m.get('f', []) for p in paths(g)],
