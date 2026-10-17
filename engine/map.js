@@ -101,7 +101,7 @@ const wide = () => !matchMedia('(max-width:760px)').matches;
 map.fitBounds(CITY_BOUNDS, wide() ? {paddingTopLeft:[330,20], paddingBottomRight:[350,20]} : {paddingTopLeft:[0,150], paddingBottomRight:[0,90]});
 map.setMaxBounds(L.latLngBounds(CITY.view.max));  // the region plus a margin
 
-const panes = [['base',200],['fill',350],['lines',420],['streets',400],['badges',410],['civic',430],['hwy',450],['pfdim',455],['rail',460],['mask',465],['focus',468],['transit',470],['pfdim2',472],['pfline',473],['stlbl',475],['pts',480],['pin',620]];
+const panes = [['base',200],['fill',350],['lines',420],['streets',400],['badges',410],['civic',430],['hwy',450],['pfdim',455],['rail',460],['mask',465],['focus',468],['transit',470],['evcourse',471],['pfdim2',472],['pfline',473],['stlbl',475],['pts',480],['pin',620]];
 panes.forEach(([n,z]) => { map.createPane(n); map.getPane(n).style.zIndex = z; });
 map.getPane('base').style.pointerEvents = 'none';
 map.getPane('stlbl').style.pointerEvents = 'none';
@@ -846,9 +846,30 @@ const KINDS = {
         lyr.options.className = 'ev ' + p.kind + (soon ? ' soon' : '');
       });
     }
-    refresh();
-    g.on('add', refresh);
-    setInterval(() => { if (map.hasLayer(g)) refresh(); }, 5 * 60e3);
+    // A race course the organizer publishes (engine/events.py): a thin line over the closures, a mark at
+    // every kilometre (every fifth until zoomed in, by CSS), and start and finish flags. Shown until the
+    // event ends.
+    const courses = [];
+    (fc.events || []).forEach(e => (e.courses || []).forEach(c => {
+      const cg = L.layerGroup(), tip = esc(fill(it.courseText || '{name}', {name: c.name, km: c.km, event: e.short}));
+      const line = L.polyline(c.line.map(ll), {pane:'evcourse', className:'ev-course', weight: 2.5});
+      hoverTip(line, tip); cg.addLayer(line);
+      c.marks.forEach((m, i) => cg.addLayer(L.marker(ll(m), {pane:'pts', keyboard:false, interactive:false,
+        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="ev-km' + ((i + 1) % 5 ? '' : ' k5') + '">' + (i + 1) + '</span>'})})));
+      [['start', c.start, it.startText || 'Start'], ['finish', c.finish, it.finishText || 'Finish']].forEach(([k, at, t]) => {
+        const fl = L.marker(ll(at), {pane:'pts', keyboard:false,
+          icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="ev-flag ' + k + '"><i></i><b>' + esc(t) + '</b></span>'})});
+        hoverTip(fl, tip); cg.addLayer(fl);
+      });
+      courses.push([cg, e.end]);
+    }));
+    function refreshCourses(){
+      const now = cityNow(it.tz);
+      courses.forEach(([cg, end]) => { const on = end > now; if (on && !g.hasLayer(cg)) g.addLayer(cg); if (!on && g.hasLayer(cg)) g.removeLayer(cg); });
+    }
+    refresh(); refreshCourses();
+    g.on('add', () => { refresh(); refreshCourses(); });
+    setInterval(() => { if (map.hasLayer(g)) { refresh(); refreshCourses(); } }, 5 * 60e3);
     map.on('zoomend', () => items.forEach(([l, , line]) => { if (line) l.setStyle({weight: w()}); }));
     stampLive(it, fc.asof);
     return g;

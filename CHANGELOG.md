@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Special events: the marathon course (October 17)
+- The Special events layer draws a race course where the organizer publishes one: a thin line over the closures,
+  kilometre marks (every fifth below zoom 14), and start and finish flags, shown until the event ends. First course:
+  the Waterfront Marathon, from Canada Running Series' official Garmin course (42.33 km by GPS, marks scaled to
+  42.195 km). Credited on the map and the Attributions page.
+- Engine: `events.json` organizers take `courses` (GPX, official distance, the dates it applies to); events.py
+  adds them to the event as `courses` (additive; contract updated). New pane `evcourse`. Other cities unchanged.
+
 ### Special events: closures matched to the police notice (October 17)
 - The City's feed filed Saturday's 5K closures as one block from Saturday 3 a.m. to Sunday 5 p.m. and left some
   race-day streets out. `events.json` can now carry *corrections* for an organizer, applied by `engine/events.py` on

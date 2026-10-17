@@ -1,5 +1,5 @@
 {
-  "_about": "Special-event road closures (engine/events.py). The City's feed files an event's closures with its organizer as contractor; 'organizers' names the big ones and says which get the map's banner. Events not listed here still show on the layer, named from their closure text, without a banner unless they have at least 'bannerMin' closures. 'lead' is how many days before an event its banner starts showing. 'corrections' fix an organizer's closures where the feed disagrees with a more trusted notice (see engine/events.py); 'streets' is the centreline file added stretches are traced along.",
+  "_about": "Special-event road closures (engine/events.py). The City's feed files an event's closures with its organizer as contractor; 'organizers' names the big ones and says which get the map's banner. Events not listed here still show on the layer, named from their closure text, without a banner unless they have at least 'bannerMin' closures. 'lead' is how many days before an event its banner starts showing. 'corrections' fix an organizer's closures where the feed disagrees with a more trusted notice (see engine/events.py); 'streets' is the centreline file added stretches are traced along. An organizer's 'courses' are race routes from its own GPX (one per distance), drawn with kilometre marks, start and finish while the event is on; 'from' and 'until' keep a course to one year's race.",
   "tz": "America/Toronto",
   "lat0": 43.7,
   "lead": 3,
@@ -11,7 +11,11 @@
       "name": "TCS Toronto Waterfront Marathon",
       "short": "Waterfront Marathon",
       "link": "https://www.torontowaterfrontmarathon.com/",
-      "banner": true
+      "banner": true,
+      "courses": [
+        {"name": "Marathon", "gpx": "raw/events/twm-marathon-course.gpx", "distance": 42.195, "from": "2026-10-01", "until": "2026-10-19T00:00",
+         "source": "Canada Running Series (official Garmin course 401712199, linked from the race's Event Info page)"}
+      ]
     }
   },
   "corrections": [

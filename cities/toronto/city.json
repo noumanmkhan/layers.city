@@ -21,7 +21,7 @@
     {"name": "Lake Ontario", "at": [43.585, -79.40], "cls": "lake-near"},
     {"name": "Lake Ontario", "at": [43.45, -78.75], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Voting places: City of Toronto Elections · Heritage buildings: City of Toronto Heritage Register · Changes: City of Toronto development applications and building permits · Collection days: City of Toronto Solid Waste Management Services · Bike lanes: City of Toronto Cycling Network · Bike Share stations: Bike Share Toronto (Toronto Parking Authority) · Parking: City of Toronto (Green P, permit areas, City EV chargers) · EV chargers: AFDC / Natural Resources Canada",
+  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Voting places: City of Toronto Elections · Heritage buildings: City of Toronto Heritage Register · Changes: City of Toronto development applications and building permits · Collection days: City of Toronto Solid Waste Management Services · Bike lanes: City of Toronto Cycling Network · Bike Share stations: Bike Share Toronto (Toronto Parking Authority) · Parking: City of Toronto (Green P, permit areas, City EV chargers) · EV chargers: AFDC / Natural Resources Canada · Waterfront Marathon course: Canada Running Series",
   "example": {"at": [43.67194, -79.38667], "name": "Toronto Reference Library (example)"},
 
   "search": {
@@ -99,9 +99,9 @@
        "tz": "America/Toronto", "closedText": "Closed", "narrowedText": "Lanes narrowed", "bothText": "both directions", "startsText": "Starts {date}", "untilText": "Permit to {date}", "longText": "long-term", "allDayText": "Around the clock", "whenLabel": "When", "hoursLabel": "Hours", "projectLabel": "For", "whoLabel": "Permit holder", "fineText": "Dates are permit dates, not a forecast of when the road reopens. Data as of {date}.", "asofText": "as of {date}"},
       {"id": "events", "kind": "events", "file": "events", "optional": true, "live": true, "staleDays": 2, "name": "Special events", "note": "Road closures for races, parades and street parties",
        "tz": "America/Toronto", "closedText": "Road closed", "narrowedText": "Curb lane closed", "nowText": "Closed now, until {until}", "whenText": "{from} to {to}",
-       "whenLabel": "When", "eventLabel": "For", "noticeText": "Organizer’s closure notice",
+       "whenLabel": "When", "eventLabel": "For", "noticeText": "Organizer’s closure notice", "courseText": "{event} {name} course · {km} km", "startText": "Start", "finishText": "Finish",
        "fineText": "Times are the City’s permit times; roads often reopen sooner, behind the last runners. City of Toronto road restrictions, as of {date}.",
-       "viewLayers": ["streets", "coll", "hwy", "events"], "viewName": "{short}", "viewNote": "Road closures for the {name}, with main and collector streets. Tap a closure for its times.",
+       "viewLayers": ["streets", "coll", "hwy", "events"], "viewName": "{short}", "viewNote": "Road closures for the {name}, with main and collector streets, and the course where the organizer publishes one. Tap a closure for its times.",
        "bannerText": "{name} is on {when}.", "bannerGo": "Road closures", "bannerClose": "Not now",
        "weekendText": "this weekend", "todayText": "today", "rangeText": "{from} to {to}"}
     ]],

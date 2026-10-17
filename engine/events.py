@@ -11,6 +11,8 @@ What it does, in order:
      Wyndham Street Block Party"), and works out its dates, the box that frames its closures, a link
      to the organizer's closure notice if the text has one, and whether it gets the map's banner.
   4. Drops duplicates (the same stretch, kind and times filed twice, once per direction).
+  5. Applies events.json "corrections" (see corrected()) and attaches any race course the organizer
+     publishes as GPX (see course()) to its event, with kilometre marks, start and finish.
 
 Each closure keeps its own start and end time: race closures open and close in waves through the day.
 Skips quietly (writes nothing) when the city has no events.json or no fetched events.
@@ -152,6 +154,44 @@ def corrected(permits):
     return out
 
 
+def course(c):
+    """A race course from the organizer's GPX (events.json organizers.<org>.courses): the line, a mark
+    every kilometre, and the start and finish. A GPS course runs a little long next to the certified
+    distance (measured on the shortest legal line), so distances along it are scaled to "distance" (km)
+    and the last kilometre mark lands where it should relative to the finish."""
+    import math
+    f = os.path.join(CDIR, c['gpx'])
+    if not os.path.isfile(f):
+        print(city + ': course file missing: ' + c['gpx'])
+        return None
+    pts = [(float(lo), float(la)) for la, lo in re.findall(r'<trkpt\s+lat="([-\d.]+)"\s+lon="([-\d.]+)"', open(f).read())]
+    if len(pts) < 2:
+        return None
+
+    def m(a, b):
+        p1, p2 = math.radians(a[1]), math.radians(b[1])
+        h = math.sin((p2 - p1) / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(math.radians(b[0] - a[0]) / 2) ** 2
+        return 2 * 6371008.8 * math.asin(math.sqrt(h))
+    cum = [0.0]
+    for a, b in zip(pts, pts[1:]):
+        cum.append(cum[-1] + m(a, b))
+    want = c.get('distance', cum[-1] / 1000) * 1000
+    k = want / cum[-1]
+    marks, i = [], 0
+    for km in range(1, int(want // 1000) + 1):
+        d = km * 1000 / k
+        while cum[i + 1] < d:
+            i += 1
+        t = (d - cum[i]) / ((cum[i + 1] - cum[i]) or 1)
+        marks.append([round(pts[i][0] + t * (pts[i + 1][0] - pts[i][0]), 6), round(pts[i][1] + t * (pts[i + 1][1] - pts[i][1]), 6)])
+    line = [[round(x, 6), round(y, 6)] for x, y in pts]
+    print(city + ': course %s: %d points, %.2f km by GPS, scaled to %.3f km, %d kilometre marks'
+          % (c['name'], len(pts), cum[-1] / 1000, want / 1000, len(marks)))
+    out = {'name': c['name'], 'km': round(want / 1000, 3), 'line': line, 'marks': marks, 'start': line[0], 'finish': line[-1]}
+    if c.get('source'): out['source'] = c['source']
+    return out
+
+
 keep, dup = [], set()
 for p in corrected(src['permits']):
     s, e = p.get('start') or '', p.get('end') or '9999'
@@ -193,6 +233,9 @@ for org, ps in groups:
           'bounds': [[round(min(ys), 5), round(min(xs), 5)], [round(max(ys), 5), round(max(xs), 5)]],
           'banner': bool(o.get('banner', len(ps) >= cfg.get('bannerMin', 60))),
           'bannerFrom': (datetime.fromisoformat(start) - timedelta(days=cfg.get('lead', 3))).strftime('%Y-%m-%d')}
+    crs = [c for c in (course(c) for c in o.get('courses', []) if (c.get('until') or '9999') > NOW
+                                                               and (c.get('from') or '') <= start[:10]) if c]
+    if crs: ev['courses'] = crs
     if o.get('link'): ev['link'] = o['link']
     if notice: ev['notice'] = notice
     events.append(ev)
