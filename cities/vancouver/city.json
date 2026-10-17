@@ -254,6 +254,23 @@
       "Places",
       [
         {
+          "id": "la",
+          "kind": "units",
+          "file": "local_areas",
+          "name": "Local areas",
+          "note": "The City’s 22 local areas, Stanley Park, and the University Endowment Lands beside the city",
+          "on": true,
+          "hover": "{name}"
+        },
+        {
+          "id": "knownas",
+          "kind": "knownas",
+          "file": "knownas",
+          "name": "Known-as names",
+          "note": "Gastown, Yaletown, Commercial Drive, Punjabi Market…",
+          "on": true
+        },
+        {
           "id": "sides",
           "kind": "fill",
           "size": "major",
@@ -269,84 +286,11 @@
           }
         },
         {
-          "id": "la",
-          "kind": "units",
-          "file": "local_areas",
-          "name": "Local areas",
-          "note": "The City’s 22 local areas, Stanley Park, and the University Endowment Lands beside the city",
-          "on": true,
-          "hover": "{name}"
-        },
-        {
-          "id": "lens",
-          "kind": "lens",
-          "name": "Local area lens",
-          "note": "Housing cost, getting to work, renters and owners, housing type. Narrow it to a shortlist."
-        },
-        {
-          "id": "drive",
-          "kind": "suburbs",
-          "name": "Suburban lens",
-          "note": "Typical drive to Waterfront Station with no traffic, town by town. Shows in the regional view."
-        },
-        {
-          "id": "knownas",
-          "kind": "knownas",
-          "file": "knownas",
-          "name": "Known-as names",
-          "note": "Gastown, Yaletown, Commercial Drive, Punjabi Market…",
-          "on": true
-        },
-        {
           "id": "landmarks",
           "kind": "landmarks",
           "file": "landmarks",
           "name": "Landmarks",
           "note": "Stanley Park, stadiums, beaches, museums"
-        },
-        {
-          "id": "unis",
-          "kind": "places",
-          "under": "landmarks",
-          "file": "institutions",
-          "cat": "university",
-          "name": "Universities",
-          "place": "University",
-          "aliases": {
-            "University of British Columbia": [
-              "UBC",
-              "U of BC"
-            ],
-            "Simon Fraser University": [
-              "SFU",
-              "SFU Vancouver",
-              "Harbour Centre"
-            ],
-            "Emily Carr University of Art + Design": [
-              "Emily Carr",
-              "ECUAD"
-            ]
-          },
-          "note": "Public and nonprofit universities, one point per campus; UBC in the University Endowment Lands"
-        },
-        {
-          "id": "colleges",
-          "kind": "places",
-          "under": "landmarks",
-          "file": "institutions",
-          "cat": "college",
-          "name": "Colleges",
-          "place": "College",
-          "note": "Public college campuses: Langara, VCC and BCIT downtown; no private career colleges",
-          "aliases": {
-            "Vancouver Community College": [
-              "VCC"
-            ],
-            "BCIT": [
-              "British Columbia Institute of Technology",
-              "BCIT Downtown"
-            ]
-          }
         },
         {
           "id": "hospitals",
@@ -424,22 +368,13 @@
           "typeText": "Register evaluation"
         },
         {
-          "id": "frschools",
-          "kind": "places",
-          "file": "french_schools",
-          "cat": "frschool",
-          "name": "French-language schools",
-          "place": "French-language school",
-          "note": "CSF schools: taught in French, for children with a right to French-language education"
-        },
-        {
-          "id": "immersion",
-          "kind": "places",
-          "file": "french_schools",
-          "cat": "immersion",
-          "name": "French immersion schools",
-          "place": "French immersion school",
-          "note": "Vancouver School Board schools teaching mostly in French to children from English-speaking homes"
+          "id": "bia",
+          "kind": "patches",
+          "file": "bia",
+          "name": "Business Improvement Areas",
+          "note": "22 BIAs",
+          "label": "{name}",
+          "hover": "{name} BIA"
         }
       ]
     ],
@@ -447,33 +382,34 @@
       "Getting around",
       [
         {
-          "id": "streets",
-          "kind": "streets",
-          "file": "streets",
-          "name": "Main streets",
-          "note": "Arterials like Broadway, Hastings, Kingsway, Granville, Main",
-          "on": true
-        },
-        {
-          "id": "coll",
-          "kind": "streets",
-          "file": "collectors",
-          "under": "streets",
-          "labelZoom": 15,
-          "yieldLabels": true,
-          "name": "Collector streets",
+          "id": "skytrain",
+          "kind": "metro",
+          "files": [
+            "skytrain_lines",
+            "skytrain_stations"
+          ],
+          "name": "SkyTrain & SeaBus",
+          "note": "Expo, Millennium and Canada Lines, and the SeaBus to Lonsdale Quay",
           "on": true,
-          "note": "Collector roads like Nanaimo, Victoria and Dunbar; from zoom 13"
+          "stationHover": "{name} · {lines}",
+          "sub": {
+            "id": "stnNames",
+            "label": "Show station names",
+            "on": true
+          }
         },
         {
-          "id": "addr",
-          "kind": "addresses",
-          "under": "streets",
-          "file": "addresses",
-          "name": "Ontario St: East and West",
-          "note": "Ontario Street (Carrall downtown) splits streets into W and E; numbers rise 100 a block away from it",
-          "eastText": "East",
-          "westText": "West"
+          "id": "wce",
+          "kind": "rail",
+          "files": [
+            "wce_lines",
+            "wce_stations",
+            "wce_lines_inner"
+          ],
+          "name": "West Coast Express",
+          "note": "Commuter trains from Waterfront to Mission, weekday rush hours",
+          "on": true,
+          "hover": "{name} · Waterfront – {to}"
         },
         {
           "id": "hwy",
@@ -492,34 +428,23 @@
           "tollShield": "Toll"
         },
         {
-          "id": "wce",
-          "kind": "rail",
-          "files": [
-            "wce_lines",
-            "wce_stations",
-            "wce_lines_inner"
-          ],
-          "name": "West Coast Express",
-          "note": "Commuter trains from Waterfront to Mission, weekday rush hours",
-          "on": true,
-          "hover": "{name} · Waterfront – {to}"
+          "id": "streets",
+          "kind": "streets",
+          "file": "streets",
+          "name": "Main streets",
+          "note": "Arterials like Broadway, Hastings, Kingsway, Granville, Main",
+          "on": true
         },
         {
-          "id": "skytrain",
-          "kind": "metro",
-          "files": [
-            "skytrain_lines",
-            "skytrain_stations"
-          ],
-          "name": "SkyTrain & SeaBus",
-          "note": "Expo, Millennium and Canada Lines, and the SeaBus to Lonsdale Quay",
+          "id": "coll",
+          "kind": "streets",
+          "file": "collectors",
+          "under": "streets",
+          "labelZoom": 15,
+          "yieldLabels": true,
+          "name": "Collector streets",
           "on": true,
-          "stationHover": "{name} · {lines}",
-          "sub": {
-            "id": "stnNames",
-            "label": "Show station names",
-            "on": true
-          }
+          "note": "Collector roads like Nanaimo, Victoria and Dunbar; from zoom 13"
         },
         {
           "id": "bus",
@@ -619,6 +544,20 @@
           "fine": "Station list as of {date}. For bikes and free docks right now, check the Mobi app."
         },
         {
+          "id": "addr",
+          "kind": "addresses",
+          "file": "addresses",
+          "name": "Ontario St: East and West",
+          "note": "Ontario Street (Carrall downtown) splits streets into W and E; numbers rise 100 a block away from it",
+          "eastText": "East",
+          "westText": "West"
+        }
+      ]
+    ],
+    [
+      "What's changing",
+      [
+        {
           "id": "chg",
           "kind": "changes",
           "file": "changes",
@@ -626,7 +565,7 @@
           "optional": true,
           "live": true,
           "staleDays": 9,
-          "name": "What's changing",
+          "name": "New development",
           "note": "New buildings and demolitions with issued permits. Leaves out houses, laneway homes, duplexes and multiplexes.",
           "stages": {
             "proposed": [
@@ -675,6 +614,71 @@
       ]
     ],
     [
+      "Education",
+      [
+        {
+          "id": "unis",
+          "kind": "places",
+          "file": "institutions",
+          "cat": "university",
+          "name": "Universities",
+          "place": "University",
+          "aliases": {
+            "University of British Columbia": [
+              "UBC",
+              "U of BC"
+            ],
+            "Simon Fraser University": [
+              "SFU",
+              "SFU Vancouver",
+              "Harbour Centre"
+            ],
+            "Emily Carr University of Art + Design": [
+              "Emily Carr",
+              "ECUAD"
+            ]
+          },
+          "note": "Public and nonprofit universities, one point per campus; UBC in the University Endowment Lands"
+        },
+        {
+          "id": "colleges",
+          "kind": "places",
+          "file": "institutions",
+          "cat": "college",
+          "name": "Colleges",
+          "place": "College",
+          "note": "Public college campuses: Langara, VCC and BCIT downtown; no private career colleges",
+          "aliases": {
+            "Vancouver Community College": [
+              "VCC"
+            ],
+            "BCIT": [
+              "British Columbia Institute of Technology",
+              "BCIT Downtown"
+            ]
+          }
+        },
+        {
+          "id": "frschools",
+          "kind": "places",
+          "file": "french_schools",
+          "cat": "frschool",
+          "name": "French-language schools",
+          "place": "French-language school",
+          "note": "CSF schools: taught in French, for children with a right to French-language education"
+        },
+        {
+          "id": "immersion",
+          "kind": "places",
+          "file": "french_schools",
+          "cat": "immersion",
+          "name": "French immersion schools",
+          "place": "French immersion school",
+          "note": "Vancouver School Board schools teaching mostly in French to children from English-speaking homes"
+        }
+      ]
+    ],
+    [
       "Representation",
       [
         {
@@ -700,15 +704,6 @@
             "table": "fed",
             "key": "name"
           }
-        },
-        {
-          "id": "bia",
-          "kind": "patches",
-          "file": "bia",
-          "name": "Business Improvement Areas",
-          "note": "22 BIAs",
-          "label": "{name}",
-          "hover": "{name} BIA"
         }
       ]
     ],
@@ -815,6 +810,23 @@
           "name": "Other faiths",
           "place": "Place of worship",
           "note": "Bahá’í, Taoist, Unitarian and more, across Metro Vancouver"
+        }
+      ]
+    ],
+    [
+      "Lenses",
+      [
+        {
+          "id": "lens",
+          "kind": "lens",
+          "name": "Local area lens",
+          "note": "Housing cost, getting to work, renters and owners, housing type. Narrow it to a shortlist."
+        },
+        {
+          "id": "drive",
+          "kind": "suburbs",
+          "name": "Suburban lens",
+          "note": "Typical drive to Waterfront Station with no traffic, town by town. Shows in the regional view."
         }
       ]
     ]
@@ -1274,7 +1286,7 @@
       "radius": 500,
       "max": 6,
       "none": "No big new building or demolition permitted by the City within 500 m in the last two years. UBC and the University Endowment Lands issue their own permits, which aren't in this data.",
-      "more": "And {n} more nearby: turn on What's changing to see them.",
+      "more": "And {n} more nearby: turn on New development to see them.",
       "note": "Issued permits only: Vancouver publishes no development applications. New buildings and demolitions within 500 m; no houses, laneway homes or multiplexes. City of Vancouver building permits (not UBC’s or the UEL’s), as of {date}."
     },
     "transit": {

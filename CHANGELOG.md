@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Layer panel reorganised (October 18, on dev)
+- Groups now run in the order people need them, the same in every city: Places, Outdoors, Getting around, What's
+  changing, Education, Parking & Charging, Representation, Faith & Community, Lenses. The All, Basic and Live tabs
+  keep that order; Live is now the What's changing group on its own.
+- Moves: universities and colleges out from under Landmarks into a new Education group with the French schools;
+  BIAs (and Chicago's SSAs, Dallas's PIDs) into Places; the live layers into What's changing, with Road closures as
+  its own row and Special events under it; the neighbourhood and suburban lenses into Lenses; badges under
+  Neighbourhoods; the East/West address layer as its own row. The *What's changing* layer is now *New development*.
+- Toronto opens quieter: former cities, Old Toronto areas, known-as names and streetcars start off, so the first view
+  is neighbourhoods, landmarks, streets, highways, GO and the subway, and the rest are each one click away.
+
 ### Parks in Toronto (October 18, on dev)
 - An *Outdoors* group with a *Parks* layer, off by default: the City's 1,629 park outlines (Green Spaces, parks
   only), shaded green, with the name on hover. Chips narrow it to parks with a playground, water play (splash pad or

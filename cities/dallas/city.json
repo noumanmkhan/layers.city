@@ -150,6 +150,23 @@
       "Places",
       [
         {
+          "id": "zip",
+          "kind": "units",
+          "file": "zips",
+          "name": "ZIP codes",
+          "note": "ZIP Code Tabulation Areas, clipped to the city limits",
+          "on": true,
+          "hover": "ZIP {name}"
+        },
+        {
+          "id": "knownas",
+          "kind": "knownas",
+          "file": "knownas",
+          "name": "Known-as names",
+          "note": "Deep Ellum, Bishop Arts, Uptown, Lakewood…",
+          "on": true
+        },
+        {
           "id": "sides",
           "kind": "fill",
           "size": "major",
@@ -173,78 +190,11 @@
           }
         },
         {
-          "id": "zip",
-          "kind": "units",
-          "file": "zips",
-          "name": "ZIP codes",
-          "note": "ZIP Code Tabulation Areas, clipped to the city limits",
-          "on": true,
-          "hover": "ZIP {name}"
-        },
-        {
-          "id": "lens",
-          "kind": "lens",
-          "name": "ZIP code lens",
-          "note": "Housing cost, renters and owners, housing type. Narrow it to a shortlist."
-        },
-        {
-          "id": "knownas",
-          "kind": "knownas",
-          "file": "knownas",
-          "name": "Known-as names",
-          "note": "Deep Ellum, Bishop Arts, Uptown, Lakewood…",
-          "on": true
-        },
-        {
-          "id": "drive",
-          "kind": "suburbs",
-          "name": "Suburban lens",
-          "note": "Typical drive to downtown Dallas with no traffic, town by town. Shows in the regional view."
-        },
-        {
           "id": "landmarks",
           "kind": "landmarks",
           "file": "landmarks",
           "name": "Landmarks",
           "note": "Arenas, parks, museums, airports; more below"
-        },
-        {
-          "id": "unis",
-          "kind": "places",
-          "under": "landmarks",
-          "file": "institutions",
-          "cat": "university",
-          "name": "Universities",
-          "place": "University",
-          "aliases": {
-            "Southern Methodist University": [
-              "SMU"
-            ],
-            "UT Southwestern Medical Center": [
-              "UTSW",
-              "UT Southwestern"
-            ],
-            "University of North Texas at Dallas": [
-              "UNT Dallas"
-            ],
-            "Dallas Baptist University": [
-              "DBU"
-            ],
-            "Dallas Theological Seminary": [
-              "DTS"
-            ]
-          },
-          "note": "Public and nonprofit universities with 1,000+ students"
-        },
-        {
-          "id": "colleges",
-          "kind": "places",
-          "under": "landmarks",
-          "file": "institutions",
-          "cat": "college",
-          "name": "Dallas College",
-          "place": "Dallas College campus",
-          "note": "The public community college's campuses in the city"
         },
         {
           "id": "hospitals",
@@ -294,6 +244,15 @@
           "note": "21 City of Dallas historic districts: Swiss Avenue, Munger Place, Winnetka Heights…",
           "label": "{name}",
           "hover": "{name} historic district"
+        },
+        {
+          "id": "pid",
+          "kind": "patches",
+          "file": "pids",
+          "name": "Public improvement districts",
+          "note": "Business and neighbourhood districts funded by their own property assessment: Downtown, Deep Ellum, Uptown…",
+          "label": "{name}",
+          "hover": "{name} PID"
         }
       ]
     ],
@@ -301,22 +260,34 @@
       "Getting around",
       [
         {
-          "id": "streets",
-          "kind": "streets",
-          "file": "streets",
-          "name": "Main streets",
-          "note": "Arterials like Preston, Greenville, Northwest Highway, Jefferson",
-          "on": true
+          "id": "dart",
+          "kind": "metro",
+          "files": [
+            "dart_lines",
+            "dart_stations"
+          ],
+          "name": "DART light rail",
+          "note": "Red, Blue, Green and Orange lines",
+          "on": true,
+          "stationHover": "{name} · {lines}",
+          "sub": {
+            "id": "stnNames",
+            "label": "Show station names",
+            "on": true
+          }
         },
         {
-          "id": "coll",
-          "kind": "streets",
-          "file": "collectors",
-          "under": "streets",
-          "labelZoom": 15,
-          "yieldLabels": true,
-          "name": "Collector streets",
-          "note": "Collector streets between the main ones; from zoom 13"
+          "id": "rail",
+          "kind": "rail",
+          "files": [
+            "rail_lines",
+            "rail_stations",
+            "rail_lines_inner"
+          ],
+          "name": "Silver Line & TRE",
+          "note": "DART’s Silver Line to DFW Airport and the Trinity Railway Express to Fort Worth",
+          "on": true,
+          "hover": "{name} · {to}"
         },
         {
           "id": "hwy",
@@ -338,34 +309,52 @@
           "tollShield": "Toll"
         },
         {
-          "id": "rail",
-          "kind": "rail",
-          "files": [
-            "rail_lines",
-            "rail_stations",
-            "rail_lines_inner"
-          ],
-          "name": "Silver Line & TRE",
-          "note": "DART’s Silver Line to DFW Airport and the Trinity Railway Express to Fort Worth",
-          "on": true,
-          "hover": "{name} · {to}"
+          "id": "streets",
+          "kind": "streets",
+          "file": "streets",
+          "name": "Main streets",
+          "note": "Arterials like Preston, Greenville, Northwest Highway, Jefferson",
+          "on": true
         },
         {
-          "id": "dart",
-          "kind": "metro",
-          "files": [
-            "dart_lines",
-            "dart_stations"
+          "id": "coll",
+          "kind": "streets",
+          "file": "collectors",
+          "under": "streets",
+          "labelZoom": 15,
+          "yieldLabels": true,
+          "name": "Collector streets",
+          "note": "Collector streets between the main ones; from zoom 13"
+        },
+        {
+          "id": "bus",
+          "kind": "buses",
+          "file": "transit_routes",
+          "lazy": true,
+          "name": "Bus routes",
+          "note": "Every DART bus route; stops from zoom 15",
+          "allText": "All",
+          "default": "all",
+          "allNote": "Every daytime bus route.",
+          "families": [
+            [
+              "exp",
+              "Express",
+              "DART's express routes: fewer stops."
+            ],
+            [
+              "reg",
+              "Regular",
+              "Every other daytime route."
+            ]
           ],
-          "name": "DART light rail",
-          "note": "Red, Blue, Green and Orange lines",
-          "on": true,
-          "stationHover": "{name} · {lines}",
-          "sub": {
-            "id": "stnNames",
-            "label": "Show station names",
-            "on": true
-          }
+          "solo": [],
+          "comboText": "Express routes are dashed.",
+          "countText": "{n} routes",
+          "hint": "Tap a route or its number to see it alone; tap elsewhere for all.",
+          "pickText": "Drawn on the map",
+          "unpickText": "Stop drawing route {r}",
+          "clearText": "Clear"
         },
         {
           "id": "bikes",
@@ -400,36 +389,47 @@
           "asofText": "City data as of {date}.",
           "betweenText": "Between",
           "fine": "Shown as built: construction can close a lane for a while."
+        }
+      ]
+    ],
+    [
+      "Education",
+      [
+        {
+          "id": "unis",
+          "kind": "places",
+          "file": "institutions",
+          "cat": "university",
+          "name": "Universities",
+          "place": "University",
+          "aliases": {
+            "Southern Methodist University": [
+              "SMU"
+            ],
+            "UT Southwestern Medical Center": [
+              "UTSW",
+              "UT Southwestern"
+            ],
+            "University of North Texas at Dallas": [
+              "UNT Dallas"
+            ],
+            "Dallas Baptist University": [
+              "DBU"
+            ],
+            "Dallas Theological Seminary": [
+              "DTS"
+            ]
+          },
+          "note": "Public and nonprofit universities with 1,000+ students"
         },
         {
-          "id": "bus",
-          "kind": "buses",
-          "file": "transit_routes",
-          "lazy": true,
-          "name": "Bus routes",
-          "note": "Every DART bus route; stops from zoom 15",
-          "allText": "All",
-          "default": "all",
-          "allNote": "Every daytime bus route.",
-          "families": [
-            [
-              "exp",
-              "Express",
-              "DART's express routes: fewer stops."
-            ],
-            [
-              "reg",
-              "Regular",
-              "Every other daytime route."
-            ]
-          ],
-          "solo": [],
-          "comboText": "Express routes are dashed.",
-          "countText": "{n} routes",
-          "hint": "Tap a route or its number to see it alone; tap elsewhere for all.",
-          "pickText": "Drawn on the map",
-          "unpickText": "Stop drawing route {r}",
-          "clearText": "Clear"
+          "id": "colleges",
+          "kind": "places",
+          "file": "institutions",
+          "cat": "college",
+          "name": "Dallas College",
+          "place": "Dallas College campus",
+          "note": "The public community college's campuses in the city"
         }
       ]
     ],
@@ -514,15 +514,23 @@
           "boardNote": "A Dallas address doesn't mean Dallas ISD: the school district depends on the spot. Source: City of Dallas GIS (2022 Census lines) and Dallas ISD (trustee districts adopted December 16, 2021).",
           "label": "{name}",
           "hover": "{long}: {name}"
+        }
+      ]
+    ],
+    [
+      "Lenses",
+      [
+        {
+          "id": "lens",
+          "kind": "lens",
+          "name": "ZIP code lens",
+          "note": "Housing cost, renters and owners, housing type. Narrow it to a shortlist."
         },
         {
-          "id": "pid",
-          "kind": "patches",
-          "file": "pids",
-          "name": "Public improvement districts",
-          "note": "Business and neighbourhood districts funded by their own property assessment: Downtown, Deep Ellum, Uptown…",
-          "label": "{name}",
-          "hover": "{name} PID"
+          "id": "drive",
+          "kind": "suburbs",
+          "name": "Suburban lens",
+          "note": "Typical drive to downtown Dallas with no traffic, town by town. Shows in the regional view."
         }
       ]
     ]

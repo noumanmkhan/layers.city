@@ -45,43 +45,46 @@
 
   "groups": [
     ["Places", [
+      {"id": "ca", "kind": "units", "file": "community_areas", "name": "Community areas", "note": "The City’s 77 official community areas", "on": true, "hover": "{name} · #{code}"},
+      {"id": "knownas", "kind": "knownas", "file": "knownas", "name": "Known-as names", "note": "Wicker Park, Gold Coast, Pilsen, Wrigleyville…", "on": true},
       {"id": "sides", "kind": "fill", "size": "major", "file": "sides", "name": "The sides", "place": "Side of the city", "note": "Far North Side to Far Southeast Side: how Chicagoans place a neighbourhood", "on": true,
        "colors": {"Far North Side": "--s-farnorth", "Northwest Side": "--s-northwest", "North Side": "--s-north", "Central": "--s-central", "West Side": "--s-west",
                   "South Side": "--s-south", "Southwest Side": "--s-southwest", "Far Southwest Side": "--s-farsouthwest", "Far Southeast Side": "--s-farsoutheast"}},
-      {"id": "ca", "kind": "units", "file": "community_areas", "name": "Community areas", "note": "The City’s 77 official community areas", "on": true, "hover": "{name} · #{code}"},
-      {"id": "lens", "kind": "lens", "name": "Community area lens", "note": "Housing cost, getting to work, renters and owners, housing type. Narrow it to a shortlist."},
-      {"id": "drive", "kind": "suburbs", "name": "Suburban lens", "note": "Typical drive to State & Madison with no traffic, town by town. Shows in the regional view."},
-      {"id": "knownas", "kind": "knownas", "file": "knownas", "name": "Known-as names", "note": "Wicker Park, Gold Coast, Pilsen, Wrigleyville…", "on": true},
       {"id": "landmarks", "kind": "landmarks", "file": "landmarks", "name": "Landmarks", "note": "Ballparks, lakefront parks, museums; more below"},
-      {"id": "unis", "kind": "places", "under": "landmarks", "file": "institutions", "cat": "university", "name": "Universities", "place": "University", "aliases": {"University of Chicago": ["UChicago", "U of C"], "University of Illinois Chicago": ["UIC"], "Loyola University Chicago": ["Loyola"], "DePaul University": ["DePaul"], "Northwestern University": ["Northwestern"], "Illinois Institute of Technology": ["IIT", "Illinois Tech"]}, "note": "Public and nonprofit universities with 1,000+ students, one point per campus"},
-      {"id": "colleges", "kind": "places", "under": "landmarks", "file": "institutions", "cat": "college", "name": "City Colleges", "place": "City College", "note": "The 7 City Colleges of Chicago"},
       {"id": "hospitals", "kind": "places", "under": "landmarks", "file": "institutions", "cat": "hospital", "name": "ERs", "place": "Hospital with an ER", "edText": "Emergency department", "note": "Public and nonprofit hospitals with an emergency department"},
       {"id": "towers", "kind": "towers", "under": "landmarks", "file": "skyscrapers", "name": "Skyscrapers", "place": "Skyscraper", "note": "Buildings about 490 ft (150 m) and taller, open or under construction", "key": {"res": "Residential", "com": "Commercial (office or hotel)", "mix": "Mixed use", "uc": "Under construction · hollow", "sup": "Supertall, 984 ft (300 m) or more · gold ring"}, "purpose": {"Residential": "Residential tower", "Office": "Office tower", "Hotel": "Hotel tower", "Mixed-use": "Mixed-use tower"}, "supText": "Supertall", "ucText": "Under construction", "builtText": "Completed", "expectedText": "Expected", "akaText": "Also known as {aka}", "moreText": "More on Wikipedia", "sourceText": "Source: Wikipedia"},
       {"id": "heritage", "kind": "districts", "file": "heritage", "name": "Landmark districts", "note": "59 Chicago Landmark Districts · boundaries as of 2012", "label": "{name}", "hover": "{name} Landmark District"},
-      {"id": "hbld", "kind": "heritage", "file": "heritage_buildings", "name": "Heritage buildings", "note": "412 Chicago Landmarks designated one by one; from zoom 15", "place": "Chicago Landmark", "builtText": "built {y}", "byText": "{ar}", "designatedText": "designated {d}"}
+      {"id": "hbld", "kind": "heritage", "file": "heritage_buildings", "name": "Heritage buildings", "note": "412 Chicago Landmarks designated one by one; from zoom 15", "place": "Chicago Landmark", "builtText": "built {y}", "byText": "{ar}", "designatedText": "designated {d}"},
+      {"id": "ssa", "kind": "patches", "file": "ssa", "name": "Special Service Areas", "note": "Business districts funded by a local property-tax levy", "label": "{name}", "hover": "SSA #{num} · {name}"}
     ]],
     ["Getting around", [
-      {"id": "streets", "kind": "streets", "file": "streets", "name": "Main streets", "note": "The mile grid and the diagonals: Ashland, Western, Milwaukee…", "on": true},
-      {"id": "coll", "kind": "streets", "file": "collectors", "under": "streets", "labelZoom": 15, "yieldLabels": true, "name": "Collector streets", "note": "Collector streets between the main ones; from zoom 13"},
-      {"id": "addr", "kind": "addresses", "under": "streets", "file": "addresses", "name": "Address grid", "note": "State and Madison are 0; every mile line is labelled, 800 numbers apart"},
-      {"id": "hwy", "kind": "highways", "files": ["highways", "region_highways", "region_shields"], "name": "Expressways", "note": "Kennedy, Dan Ryan, Eisenhower, Stevenson, Lake Shore Drive", "on": true,
-       "shields": {"LSD": "Lake Shore Dr"}, "tollShield": "Toll"},
+      {"id": "cta", "kind": "metro", "files": ["cta_lines", "cta_stations"], "name": "The ‘L’", "note": "CTA Red, Blue, Brown, Green, Orange, Pink, Purple and Yellow lines", "on": true,
+       "stationHover": "{name} · {lines}", "sub": {"id": "stnNames", "label": "Show station names", "on": true}},
       {"id": "metra", "kind": "rail", "files": ["metra_lines", "metra_stations", "metra_lines_inner"], "name": "Metra trains", "note": "11 commuter lines from four downtown stations", "on": true,
        "hover": "{name} · downtown – {to}"},
       {"id": "pace", "kind": "regional", "mode": "pace", "under": "metra", "file": "transit_routes", "lazy": true, "stopZoom": 12, "name": "Pace buses",
        "note": "Suburban routes across Chicagoland; in the city view, the ones that stop in Chicago. Routes and stops from OpenStreetMap, without timetables. Stops from zoom 12"},
-      {"id": "cta", "kind": "metro", "files": ["cta_lines", "cta_stations"], "name": "The ‘L’", "note": "CTA Red, Blue, Brown, Green, Orange, Pink, Purple and Yellow lines", "on": true,
-       "stationHover": "{name} · {lines}", "sub": {"id": "stnNames", "label": "Show station names", "on": true}},
+      {"id": "hwy", "kind": "highways", "files": ["highways", "region_highways", "region_shields"], "name": "Expressways", "note": "Kennedy, Dan Ryan, Eisenhower, Stevenson, Lake Shore Drive", "on": true,
+       "shields": {"LSD": "Lake Shore Dr"}, "tollShield": "Toll"},
+      {"id": "streets", "kind": "streets", "file": "streets", "name": "Main streets", "note": "The mile grid and the diagonals: Ashland, Western, Milwaukee…", "on": true},
+      {"id": "coll", "kind": "streets", "file": "collectors", "under": "streets", "labelZoom": 15, "yieldLabels": true, "name": "Collector streets", "note": "Collector streets between the main ones; from zoom 13"},
       {"id": "bus", "kind": "buses", "file": "transit_routes", "lazy": true, "name": "Bus routes", "note": "Every bus route, by how often it runs, or the overnight ones; stops from zoom 15",
        "allText": "All", "default": "all", "allNote": "Every daytime bus route.",
        "families": [["freq", "Frequent", "Every 10 minutes or better each way, weekdays 7 am to 7 pm."], ["exp", "Express", "Named express by the CTA: fewer stops."], ["reg", "Regular", "Every other daytime route."], ["night", "Overnight", "At least hourly each way from 2 to 4 am on weeknights: the CTA's Owl routes."]],
        "solo": ["night"], "comboText": "Express routes are dashed.", "countText": "{n} routes", "hint": "Tap a route or its number to see it alone; tap elsewhere for all. Frequent routes are drawn heavier.", "pickText": "Drawn on the map", "unpickText": "Stop drawing route {r}", "clearText": "Clear"},
       {"id": "bikes", "kind": "bikes", "file": "bikes", "lazy": true, "name": "Bike lanes", "note": "CDOT’s bike network: protected, buffered and painted lanes, greenways", "classes": {"prot": ["Protected", "Protected bike lanes, separated from traffic by posts, curbs or parked cars"], "paint": ["Painted", "Painted bike lanes, some with a buffer"], "shared": ["Shared", "Neighborhood greenways (calmed side streets) and marked shared lanes: you ride with traffic"]}, "default": ["prot", "paint"], "legend": "From CDOT’s Bike Routes. Off-street trails such as the Lakefront Trail and the 606 aren’t in it.", "asofText": "City data as of {date}.", "betweenText": "Between", "fine": "Shown as built: construction can close a lane for a while."},
-      {"id": "chg", "kind": "changes", "file": "changes", "lazy": true, "optional": true, "live": true, "staleDays": 9, "name": "What's changing", "note": "New buildings and demolitions with permits. Leaves out single houses, garages and small jobs.", "stages": {"approved": ["Approved", "Approved, or permit issued; work not started"], "building": ["Under construction", "Permit inspections under way"], "finished": ["Finished", "Finished in the last two years"]}, "kinds": {"rezoning": "Rezoning application", "siteplan": "Site plan application", "subdivision": "Subdivision application", "building": "New building", "demolition": "Demolition"}, "dates": {"applied": "applied {date}", "issued": "permit {date}", "finished": "{date}"}, "unitsText": "{n} homes", "alsoText": "Also here", "linkText": "Permit details", "legend": "Approved and finished work from the City’s building permits. Chicago publishes no proposals. Demolitions are dashed rings. Applications still open, and anything approved, started or finished in the last two years."},
+      {"id": "addr", "kind": "addresses", "file": "addresses", "name": "Address grid", "note": "State and Madison are 0; every mile line is labelled, 800 numbers apart"}
+    ]],
+    ["What's changing", [
+      {"id": "chg", "kind": "changes", "file": "changes", "lazy": true, "optional": true, "live": true, "staleDays": 9, "name": "New development", "note": "New buildings and demolitions with permits. Leaves out single houses, garages and small jobs.", "stages": {"approved": ["Approved", "Approved, or permit issued; work not started"], "building": ["Under construction", "Permit inspections under way"], "finished": ["Finished", "Finished in the last two years"]}, "kinds": {"rezoning": "Rezoning application", "siteplan": "Site plan application", "subdivision": "Subdivision application", "building": "New building", "demolition": "Demolition"}, "dates": {"applied": "applied {date}", "issued": "permit {date}", "finished": "{date}"}, "unitsText": "{n} homes", "alsoText": "Also here", "linkText": "Permit details", "legend": "Approved and finished work from the City’s building permits. Chicago publishes no proposals. Demolitions are dashed rings. Applications still open, and anything approved, started or finished in the last two years."},
       {"id": "build", "kind": "construction", "file": "construction", "live": true, "name": "Transit under construction", "note": "Red Line Extension, 95th to 130th Street",
        "ucText": "Under construction", "linkText": "Project page"},
-      {"id": "closures", "kind": "closures", "under": "build", "file": "closures", "optional": true, "live": true, "staleDays": 2, "name": "Street closures", "note": "From the Red Line Extension and Red/Purple rebuild; side streets when zoomed in",
+      {"id": "closures", "kind": "closures", "file": "closures", "optional": true, "live": true, "staleDays": 2, "name": "Street closures", "note": "From the Red Line Extension and Red/Purple rebuild; side streets when zoomed in",
        "tz": "America/Chicago", "closedText": "Closed", "narrowedText": "Lanes narrowed", "bothText": "both directions", "startsText": "Starts {date}", "untilText": "Permit to {date}", "longText": "long-term", "allDayText": "Around the clock", "whenLabel": "When", "hoursLabel": "Hours", "projectLabel": "For", "whoLabel": "Permit holder", "fineText": "Dates are permit dates, not a forecast of when the road reopens. Data as of {date}.", "asofText": "as of {date}"}
+    ]],
+    ["Education", [
+      {"id": "unis", "kind": "places", "file": "institutions", "cat": "university", "name": "Universities", "place": "University", "aliases": {"University of Chicago": ["UChicago", "U of C"], "University of Illinois Chicago": ["UIC"], "Loyola University Chicago": ["Loyola"], "DePaul University": ["DePaul"], "Northwestern University": ["Northwestern"], "Illinois Institute of Technology": ["IIT", "Illinois Tech"]}, "note": "Public and nonprofit universities with 1,000+ students, one point per campus"},
+      {"id": "colleges", "kind": "places", "file": "institutions", "cat": "college", "name": "City Colleges", "place": "City College", "note": "The 7 City Colleges of Chicago"}
     ]],
     ["Representation", [
       {"id": "wards", "kind": "outline", "level": "city", "file": "wards", "name": "City wards", "note": "50 wards, one alderperson each", "label": "Ward {num}", "hover": "Ward {num}"},
@@ -89,8 +92,7 @@
       {"id": "congress", "kind": "outline", "level": "national", "file": "congress", "name": "Congressional districts", "note": "Illinois seats in the U.S. House", "label": "IL-{num}", "hover": "Congressional district IL-{num}", "party": {"table": "congress", "key": "num"}},
       {"id": "school", "kind": "boards", "file": "school_board", "name": "School board districts", "note": "20 Chicago Board of Education districts · on the Nov 3, 2026 ballot",
        "boards": [["cps", "Board of Education", "Chicago Board of Education"]],
-       "label": "{num}", "hover": "Board of Education district {num}"},
-      {"id": "ssa", "kind": "patches", "file": "ssa", "name": "Special Service Areas", "note": "Business districts funded by a local property-tax levy", "label": "{name}", "hover": "SSA #{num} · {name}"}
+       "label": "{num}", "hover": "Board of Education district {num}"}
     ]],
     ["Faith & Community", [
       {"id": "churches", "kind": "places", "file": "faith", "cat": "church", "name": "Churches", "place": "Church", "note": "Every denomination; pick one below to narrow it down",
@@ -105,6 +107,10 @@
       {"id": "buddhisttemples", "kind": "places", "file": "faith", "cat": "buddhist", "name": "Buddhist temples", "place": "Buddhist temple", "note": "Temples and meditation centers"},
       {"id": "gurdwaras", "kind": "places", "file": "faith", "cat": "gurdwara", "name": "Gurdwaras", "place": "Gurdwara", "note": "Sikh gurdwaras"},
       {"id": "otherfaith", "kind": "places", "file": "faith", "cat": "otherfaith", "name": "Other faiths", "place": "Place of worship", "note": "Jain, Bahá’í, Zoroastrian, Unitarian and more"}
+    ]],
+    ["Lenses", [
+      {"id": "lens", "kind": "lens", "name": "Community area lens", "note": "Housing cost, getting to work, renters and owners, housing type. Narrow it to a shortlist."},
+      {"id": "drive", "kind": "suburbs", "name": "Suburban lens", "note": "Typical drive to State & Madison with no traffic, town by town. Shows in the regional view."}
     ]]
   ],
 
@@ -223,7 +229,7 @@
     "vote": {"file": "voting", "date": "2026-11-03", "tz": "America/Chicago", "closes": "2026-11-03T19:00:00-06:00", "title": "Election day · {date}", "today": "Election day is today", "hours": "6 a.m. to 7 p.m.", "lead": "People living here vote in", "precinct": "Ward {ward}, Precinct {precinct}", "precinctSub": "Each precinct has its own polling place.", "link": ["Find your polling place", "https://chicagoelections.gov/voting/your-voter-information"], "note": "Precinct lines approved by the Chicago Board of Election Commissioners, {asof}. The Board doesn’t publish polling places by precinct; its lookup asks for your name and address."},
     "pickup": {"file": "sweeping", "label": "Street sweeping", "tz": "America/Chicago", "show": 1, "group": true, "head": "Ward {w}, section {s}", "next": "Next: {when}", "note": "Watch for temporary no-parking signs on your block before each sweep. City of Chicago {year} schedule, April to November."},
     "closures": {"title": "Street closures", "radius": 805, "max": 4, "more": "And {n} more nearby: turn on Street closures to see them.", "note": "Red Line construction within ½ mile only; other street work isn’t shown. Dates are permit dates, not a forecast of when the street reopens. CDOT permits, as of {date}."},
-    "changes": {"title": "Changing nearby", "radius": 805, "max": 6, "none": "Nothing big proposed, approved, under way or finished within ½ mile in the last two years.", "more": "And {n} more nearby: turn on What's changing to see them.", "note": "Big changes within ½ mile: no houses or small jobs. City of Chicago building permits, as of {date}."},
+    "changes": {"title": "Changing nearby", "radius": 805, "max": 6, "none": "Nothing big proposed, approved, under way or finished within ½ mile in the last two years.", "more": "And {n} more nearby: turn on New development to see them.", "note": "Big changes within ½ mile: no houses or small jobs. City of Chicago building permits, as of {date}."},
     "transit": {
       "file": "transit.json", "routes": "transit_routes", "title": "Transit nearby", "radius": 402,
       "station": "Nearest ‘L’ station", "stationSub": "{lines} · {dist} away",
