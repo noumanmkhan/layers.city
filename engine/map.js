@@ -199,6 +199,8 @@ const GLYPH = {
   hindu: '<path d="M12 1.5l1.3 2.4h-2.6zM10.3 5h3.4l3.4 7H6.9zM5 13h14v2.2H5zM6.4 16.2h11.2V22h-3.9v-3.4h-3.4V22H6.4z"/>',
   buddhist: '<path fill-rule="evenodd" d="M12 2.5a9.5 9.5 0 1 1 0 19 9.5 9.5 0 0 1 0-19zm0 2.1a7.4 7.4 0 1 0 0 14.8 7.4 7.4 0 0 0 0-14.8zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/><path fill="none" stroke="currentColor" stroke-width="1.6" d="M14.6 12h4.8M13.84 13.84l3.39 3.39M12 14.6v4.8M10.16 13.84l-3.39 3.39M9.4 12H4.6M10.16 10.16 6.77 6.77M12 9.4V4.6M13.84 10.16l3.39-3.39"/>',
   church: '<path d="M10.4 1.5h3.2v5h5v3.2h-5V22.5h-3.2V9.7h-5V6.5h5z"/>',
+  library: '<path d="M3 4.5c3.2-.6 6.2-.2 8 1.4V20c-1.8-1.4-4.8-1.8-8-1.2zm18 0c-3.2-.6-6.2-.2-8 1.4V20c1.8-1.4 4.8-1.8 8-1.2z"/>',
+  centre: '<path d="M12 2 1.5 10.2h2.6V22h15.8V10.2h2.6zM9.5 12a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0zm-2 8c0-2.6 2-4.2 4.5-4.2s4.5 1.6 4.5 4.2z"/>',
   otherfaith: '<path d="M12 2 2.5 9.2v12.8h7v-6.2h5V22h7V9.2z"/>',
   halal: '<path d="M2.5 9h19v2.3h-1.2L18.6 21H5.4L3.7 11.3H2.5zM6.6 8.2 10.4 2.6l1.5 1-3.1 4.6zm10.8 0-3.8-5.6-1.5 1 3.1 4.6z"/>',
   kosher: '<path d="M2.5 9h19v2.3h-1.2L18.6 21H5.4L3.7 11.3H2.5zM6.6 8.2 10.4 2.6l1.5 1-3.1 4.6zm10.8 0-3.8-5.6-1.5 1 3.1 4.6z"/>',
@@ -358,12 +360,13 @@ const KINDS = {
   // Icons from zoom 11, names from 14. Describe only: name and what it is, nothing ranked.
   // A layer with "groups" (e.g. churches by family) shows one group at a time, picked with chips in the panel;
   // with "groupsFor", the groups narrow only that category (churches among all places of worship).
+  // "minZoom" (12-14) holds a busy layer's icons back until that zoom.
   places: (it, fc) => {
     const g = L.layerGroup(), marks = [], cats = placeCats(it);
     fc.features.filter(f => cats.includes(f.properties.cat)).forEach(f => {
       const p = f.properties;
       const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true,
-        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="lm inst in-' + p.cat + (p.ed ? ' ed' : '') + '"><i>' + svg(GLYPH[p.cat] || GLYPH.culture) + '</i><b>' + esc(p.name) + '</b></span>'})});
+        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="lm inst in-' + p.cat + (p.ed ? ' ed' : '') + (it.minZoom ? ' mz' + it.minZoom : '') + '"><i>' + svg(GLYPH[p.cat] || GLYPH.culture) + '</i><b>' + esc(p.name) + '</b></span>'})});
       hoverTip(m, fill(it.hover || '{name}[ · {sub}]', p) + (p.ed && it.edText ? ' · ' + it.edText : ''));
       m.on('click', () => goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), p.name, false));
       marks.push([m, p.grp, p.cat]);

@@ -713,8 +713,30 @@
       ]
     ],
     [
-      "Faith & Community",
+      "Community & Faith",
       [
+        {
+          "id": "community",
+          "kind": "places",
+          "file": "community",
+          "icon": "library",
+          "minZoom": 12,
+          "cats": [
+            [
+              "library",
+              "Libraries",
+              "Library"
+            ],
+            [
+              "centre",
+              "Community centres",
+              "Community centre"
+            ]
+          ],
+          "name": "Libraries & community centres",
+          "place": "Public place",
+          "note": "Vancouver Public Library branches and the Park Board’s community centres; from zoom 12"
+        },
         {
           "id": "worship",
           "kind": "places",

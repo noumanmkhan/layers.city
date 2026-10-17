@@ -91,4 +91,6 @@ for f in (json.load(open(fp))['features'] if os.path.exists(fp) else []):
     if p.get('grp'): groups.setdefault(p['cat'] + ':' + p['grp'], []).append(f['geometry']['coordinates'] + [p['name']])
 
 json.dump({'groups': groups}, open(os.path.join(DATA, 'nearby.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
+import sys; sys.path.insert(0, os.path.join(HERE, '..', '..', 'engine'))
+import community; community.write(DATA, groups)   # the same libraries and centres as map points
 print('nearby:', {k: len(v) for k, v in groups.items()})

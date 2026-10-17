@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### Libraries & community centres; Community & Faith (October 18, on dev)
+- A new toggle in every city, *Libraries & community centres*, with a chip for each: the public libraries and
+  community centres the card's Nearby section already lists, now on the map. Icons from zoom 12, so the city view
+  stays clear (about 280 points in Toronto, 310 in Chicago). Search finds them by name.
+- The group is renamed *Community & Faith* and the new toggle leads it; Dallas, with no faith data yet, has a
+  *Community* group with just this toggle.
+- Engine: `engine/community.py` writes `community.geojson` from the Nearby points (called by each city's
+  `nearby.py`); a `places` layer may set `minZoom` (12–14) to hold its icons back; library and centre glyphs.
+
 ### Fewer toggles: merged place layers (October 18, on dev)
 - Eleven toggles become three, each with chips to show any mix: *Places of worship* (churches, mosques, Hindu
   temples, synagogues, Buddhist temples, gurdwaras, other faiths; the church families appear as a second chip row

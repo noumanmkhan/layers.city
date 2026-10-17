@@ -72,4 +72,6 @@ for f in json.load(open(os.path.join(DATA, 'institutions.geojson')))['features']
     if f['properties'].get('ed'): groups['er'].append(f['geometry']['coordinates'] + [f['properties']['name']])
 groups = {k: v for k, v in groups.items() if v}
 json.dump({'groups': groups}, open(os.path.join(DATA, 'nearby.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
+import sys; sys.path.insert(0, os.path.join(HERE, '..', '..', 'engine'))
+import community; community.write(DATA, groups)   # the same libraries and centres as map points
 print('nearby:', {k: len(v) for k, v in groups.items()})
