@@ -321,25 +321,72 @@ def street_near(pt, limit=0.25):
 
 
 def find_onramps():
-    """On-ramps: a slip road that starts away from any highway (on a street) and ends on one.
-    Grouped by highway and street into one access point each: [(point in km, route, street)]."""
+    """On-ramps, from OSM's slip roads (raw/ramps.json).
+
+    OSM draws one ramp as several connected pieces, and the map's highway lines are simplified
+    centrelines (the 401's collector lanes run 100-150 m off them), so "which end is on the highway"
+    can't be judged by distance. What can: a ramp chain starts or ends exactly on a street. So pieces
+    are joined into chains by shared ends; a chain end within STREET_M of an arterial or collector is
+    its street end; the piece touching it says the direction (it leaves the street: on-ramp; it
+    arrives: off-ramp); the highway is the one nearest the chain's other ends. One access point per
+    highway and street: [(point in km, route, street)]."""
     data = raw('ramps.json')
     if not data:
         return []
-    groups = {}
+    STREET_KM, HWY_KM = 0.03, 0.4
+    key = lambda c: (round(c[0], 6), round(c[1], 6))
+    ways = []
     for link in data['links']:
         cs = link['coords'][::-1] if link.get('oneway') == '-1' else link['coords']
-        if len(cs) < 2 or link.get('oneway') == 'no':
+        if len(cs) >= 2:
+            ways.append((cs, link.get('oneway') != 'no'))
+    # chains: union-find over pieces that share an end
+    parent = list(range(len(ways)))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]; i = parent[i]
+        return i
+    at = {}
+    for i, (cs, _) in enumerate(ways):
+        for c in (cs[0], cs[-1]):
+            at.setdefault(key(c), []).append(i)
+    for idx in at.values():
+        for j in idx[1:]:
+            parent[find(j)] = find(idx[0])
+    chains = {}
+    for i in range(len(ways)):
+        chains.setdefault(find(i), []).append(i)
+    groups = {}
+    for members in chains.values():
+        ends = {}
+        for i in members:
+            cs, _ = ways[i]
+            for c, first in ((cs[0], True), (cs[-1], False)):
+                ends.setdefault(key(c), []).append((i, first))
+        loose = [(k, v) for k, v in ends.items() if len(v) == 1]            # the chain's own ends
+        pts = {k: km(Point(*k)) for k, _ in loose}
+        street_ends = [(k, v[0]) for k, v in loose if street_near(pts[k], STREET_KM)]
+        other = [pts[k] for k, _ in loose if k not in dict(street_ends)]
+        if street_ends and not other and len(loose) > 1:
+            # every end is near a street (the Gardiner over Lake Shore, a highway beside an arterial):
+            # the end closest to a highway is the highway end
+            dist = {k: (hwy_near(pts[k], HWY_KM) or (None, 9))[1] for k, _ in loose}
+            h = min(dist, key=dist.get)
+            street_ends = [(k, v) for k, v in street_ends if k != h]
+            other = [pts[h]]
+        if not street_ends or not other:
             continue
-        a, b = km(Point(*cs[0])), km(Point(*cs[-1]))
-        at_hwy = hwy_near(b, 0.06)
-        if not at_hwy or hwy_near(a, 0.06):
-            continue                       # an off-ramp, a highway-to-highway link, or not one of ours
-        street = street_near(a) or link.get('dest') or link.get('name') or 'the ramp'
-        groups.setdefault((at_hwy[0], street), []).append(a)
+        hwy = min((h for h in (hwy_near(q, HWY_KM) for q in other) if h), key=lambda h: h[1], default=None)
+        if not hwy:
+            continue
+        for k, (i, first) in street_ends:
+            if ways[i][1] and first:                                        # the piece leaves the street
+                street = street_near(pts[k], STREET_KM)
+                groups.setdefault((hwy[0], street), []).append(pts[k])
     out = []
-    for (route, street), pts in groups.items():
-        x = sum(p.x for p in pts) / len(pts); y = sum(p.y for p in pts) / len(pts)
+    for (route, street), ps in groups.items():
+        x = sum(p.x for p in ps) / len(ps); y = sum(p.y for p in ps) / len(ps)
         out.append((Point(x, y), route, street))
     return out
 
