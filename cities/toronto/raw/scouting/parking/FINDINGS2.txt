@@ -1,0 +1,267 @@
+## AFDC station API
+  fail 1 https://developer.nrel.gov/api/alt-fuel-stations/v1.json?api_key=DEMO_KEY&fuel_type=ELEC&country=CA&state=ON&status=all&access=all&limit=all <urlopen error [Errno -5] No address associated with hostname>
+  fail 2 https://developer.nrel.gov/api/alt-fuel-stations/v1.json?api_key=DEMO_KEY&fuel_type=ELEC&country=CA&state=ON&status=all&access=all&limit=all <urlopen error [Errno -5] No address associated with hostname>
+  host developer.nlr.gov Ontario 4612 -> Toronto box 1148
+  first: {"access_code": "public", "access_days_time": null, "access_detail_code": null, "cards_accepted": null, "date_last_confirmed": "2017-05-11", "expected_date": "2018-02-27", "fuel_type_code": "ELEC", "groups_with_access_code": "TEMPORARILY UNAVAILABLE (Public)", "id": 83156, "maximum_vehicle_class": null, "open_date": "2017-02-01", "owner_type_code": "P", "related_stations": [], "restricted_access": false, "status_code": "T", "funding_sources": null, "facility_type": "RESTAURANT", "station_name": "La Primavera Hospitality & Convention Centre", "station_phone": "905-265-8100", "updated_at": "2024-06-17T16:15:23Z", "geocode_status": "200-9", "latitude": 43.774905, "longitude": -79.60358, "city": "Vaughan", "country": "CA", "intersection_directions": null, "plus4": null, "state": "ON", "street_address": "77 Woodstream Blvd", "zip": "L4L 7Y6", "bd_blends": null, "cng_dispenser_num": null, "cng_fill_type_code": null, "cng_has_rng": null, "cng_psi": null, "cng_renewable_source": null, "cng_total_compression": null, "cng_total_storage": null, "cng_vehicle_class": null, "e85_blender_pump": null, "e85_other_ethanol_blends": null, "ev_connector_types": ["J1772"], "ev_dc_fast_num": null, "ev_level1_evse_num": null, "ev_level2_evse_num": 1, "ev_network": "Non-Networked", "ev_network_web": null, "ev_other_evse": null, "ev_pricing": null, "ev_renewable_source": null, "ev_workplace_charging": false, "hy_is_retail": null, "hy_pressures": null, "hy_standards": null, "hy_status_link": null, "lng_has_rng": null, "lng_renewable_source": null, "lng_vehicle_class": null, "lpg_nozzle_types": null, "lpg_primary": null, "ng_fill_type_code": null, "ng_psi": null, "ng_vehicle_class": null, "rd_blended_with_biodiesel": null, "rd_blends": null, "rd_blends_fr": null, "rd_max_biodiesel_level": null, "nps_unit_name": null, "access_days_time_fr": null, "intersection_directions_fr": null, "bd_blends_fr": null, "groups_with_access_code_fr": "TEMPORAIREMENT SUSPENDU (Public)", "ev_pricing_fr": null, "ev_charging_units": [{"network": "Non-Networked", "connectors": {"J1772": {"power_kw": null, "port_count": 1}, "J3271": {"power_kw": null, "port_count": 0}, "TESLA": {"power_kw": null, "port_count": 0}, "CHADEMO": {"power_kw": null, "port_count": 0}, "NEMA515": {"power_kw": null, "port_count": 0}, "NEMA520": {"power_kw": null, "port_count": 0}, "NEMA1450": {"power_kw": null, "port_count": 0}, "J1772COMBO": {"power_kw": null, "port_count": 0}}, "port_count": 1, "charging_level": "2", "funding_sourc
+    access_code: 1148 set; 2 distinct; top [('public', 1090), ('private', 58)]
+    access_days_time: 1148 set; 31 distinct; top [('24 hours daily', 940), ('None', 99), ('24 hours daily. Open to Teslas only.', 44), ('24 hours daily; for employee use only', 12), ('Mon: 12:00am-6:00am, 5:00pm-11:59pm; Tue: 12:00am-6:00am, 5:', 8), ('24 hours daily. NACS partner enabled.', 7)]
+    access_detail_code: 1148 set; 4 distinct; top [('None', 1102), ('CREDIT_CARD_ALWAYS', 41), ('KEY_ALWAYS', 4), ('CALL', 1)]
+    cards_accepted: 1148 set; 10 distinct; top [('None', 1029), ('A D Debit M V', 109), ('CREDIT', 2), ('A ACCOUNT_BALANCE ANDROID_PAY APPLE_PAY CREDIT D M V', 2), ('Wright_Exp', 1), ('A D M V', 1)]
+    date_last_confirmed: 1148 set; 46 distinct; top [('2026-10-17', 848), ('2026-08-27', 36), ('2025-11-13', 36), ('2024-06-13', 23), ('2023-06-12', 20), ('2025-10-13', 17)]
+    expected_date: 1148 set; 21 distinct; top [('None', 1124), ('2021-03-26', 3), ('2023-04-06', 3), ('2018-02-27', 1), ('2024-08-26', 1), ('2026-08-14', 1)]
+    fuel_type_code: 1148 set; 1 distinct; top [('ELEC', 1148)]
+    groups_with_access_code: 1148 set; 10 distinct; top [('Public', 1032), ('Private', 49), ('Public - Credit card at all times', 33), ('TEMPORARILY UNAVAILABLE (Public)', 20), ('Private - Credit card at all times', 5), ('Private - Card key at all times', 3)]
+    id: 1148 set; 1148 distinct; top [('83156', 1), ('83322', 1), ('83327', 1), ('83432', 1), ('83566', 1), ('83797', 1)]
+    maximum_vehicle_class: 1148 set; 4 distinct; top [('None', 966), ('LD', 179), ('MD', 2), ('HD', 1)]
+    open_date: 1148 set; 473 distinct; top [('2022-10-05', 40), ('2026-03-18', 34), ('2024-03-21', 28), ('2023-10-26', 24), ('2024-10-17', 23), ('2019-07-17', 22)]
+    owner_type_code: 1148 set; 5 distinct; top [('None', 848), ('P', 264), ('SG', 19), ('LG', 10), ('T', 7)]
+    related_stations: 1148 set; 17 distinct; top [('[]', 1132), ('[{"id": 84228, "access_code": "private", "fuel_type_code": "', 1), ('[{"id": 84227, "access_code": "public", "fuel_type_code": "E', 1), ('[{"id": 328341, "access_code": "public", "fuel_type_code": "', 1), ('[{"id": 328342, "access_code": "private", "fuel_type_code": ', 1), ('[{"id": 328343, "access_code": "public", "fuel_type_code": "', 1)]
+    restricted_access: 1148 set; 3 distinct; top [('False', 1063), ('None', 58), ('True', 27)]
+    status_code: 1148 set; 2 distinct; top [('E', 1124), ('T', 24)]
+    funding_sources: 1148 set; 2 distinct; top [('None', 1026), ('[]', 122)]
+    facility_type: 1148 set; 34 distinct; top [('None', 910), ('SHOPPING_CENTER', 45), ('OFFICE_BLDG', 38), ('PARKING_LOT', 31), ('MULTI_UNIT_DWELLING', 22), ('PAY_GARAGE', 17)]
+    station_name: 1148 set; 1000 distinct; top [('SWTCH Energy', 42), ('Swtch Energy', 41), ('SWTCH Energy Inc.', 35), ('First Capital Asset Management LP', 15), ('ImPark', 8), ('City of Toronto', 3)]
+    station_phone: 1148 set; 48 distinct; top [('888-758-4389', 473), ('888-356-8911', 275), ('None', 105), ('844-798-2438', 88), ('800-636-0986', 74), ('877-798-3752', 60)]
+    updated_at: 1148 set; 614 distinct; top [('2026-04-02T20:03:43Z', 68), ('2024-04-25T20:00:24Z', 52), ('2025-04-24T19:54:50Z', 50), ('2026-08-27T18:11:53Z', 36), ('2026-06-18T14:46:21Z', 15), ('2023-06-13T15:27:16Z', 12)]
+    geocode_status: 1148 set; 5 distinct; top [('GPS', 1047), ('200-9', 78), ('200-8', 21), ('200-6', 1), ('None', 1)]
+    latitude: 1148 set; 1094 distinct; top [('43.644005', 3), ('43.676891', 3), ('43.68809891', 3), ('43.724529', 3), ('43.620842', 3), ('43.777594', 2)]
+    longitude: 1148 set; 1104 distinct; top [('-79.5653', 3), ('-79.319549', 3), ('-79.52944', 3), ('-79.35528', 2), ('-79.414013', 2), ('-79.3946', 2)]
+    city: 1148 set; 28 distinct; top [('Toronto', 752), ('Mississauga', 94), ('Vaughan', 79), ('Markham', 54), ('North York', 43), ('Etobicoke', 40)]
+    country: 1148 set; 1 distinct; top [('CA', 1148)]
+    intersection_directions: 1148 set; 126 distinct; top [('None', 914), ('The station is in the parking garage.', 20), ('Parking Garage', 15), ('Parking Lot', 10), ('Parking Level 1', 8), ('P1', 7)]
+    plus4: 1148 set; 1 distinct; top [('None', 1148)]
+    state: 1148 set; 1 distinct; top [('ON', 1148)]
+    street_address: 1148 set; 730 distinct; top [('530 Front St W', 16), ('The Well', 12), ("24 King's College Cir Landmark Garage", 12), ('486 Front Street West', 11), ('825 Coxwell Ave', 10), ('185 Millway Ave', 10)]
+    zip: 1148 set; 696 distinct; top [('M5V 1B8', 14), ('M5S 3K1', 13), ('M4Y 1T1', 11), ('M5V 0V2', 11), ('M4C 3E7', 10), ('M3N 1S4', 10)]
+    bd_blends: 1148 set; 1 distinct; top [('None', 1148)]
+    cng_dispenser_num: 1148 set; 1 distinct; top [('None', 1148)]
+    cng_fill_type_code: 1148 set; 1 distinct; top [('None', 1148)]
+    cng_has_rng: 1148 set; 1 distinct; top [('None', 1148)]
+    cng_psi: 1148 set; 1 distinct; top [('None', 1148)]
+    cng_renewable_source: 1148 set; 1 distinct; top [('None', 1148)]
+    cng_total_compression: 1148 set; 1 distinct; top [('None', 1148)]
+    cng_total_storage: 1148 set; 1 distinct; top [('None', 1148)]
+    cng_vehicle_class: 1148 set; 1 distinct; top [('None', 1148)]
+    e85_blender_pump: 1148 set; 1 distinct; top [('None', 1148)]
+    e85_other_ethanol_blends: 1148 set; 1 distinct; top [('None', 1148)]
+    ev_connector_types: 1148 set; 10 distinct; top [('["J1772"]', 988), ('["TESLA"]', 56), ('["CHADEMO", "J1772COMBO"]', 38), ('["J1772COMBO"]', 32), ('["CHADEMO", "J1772", "J1772COMBO"]', 13), ('["J1772", "TESLA"]', 11)]
+    ev_dc_fast_num: 1148 set; 12 distinct; top [('None', 1040), ('1', 53), ('2', 26), ('4', 9), ('20', 6), ('16', 4)]
+    ev_level1_evse_num: 1148 set; 2 distinct; top [('None', 1147), ('1', 1)]
+    ev_level2_evse_num: 1148 set; 28 distinct; top [('2', 626), ('1', 123), ('4', 110), ('None', 90), ('6', 43), ('3', 30)]
+    ev_network: 1148 set; 22 distinct; top [('ChargePoint Network', 473), ('FLO', 275), ('SWTCH', 132), ('Non-Networked', 92), ('CHARGELAB', 50), ('Tesla Destination', 45)]
+    ev_network_web: 1148 set; 22 distinct; top [('https://www.chargepoint.com', 473), ('https://www.flo.com', 275), ('https://swtchenergy.com', 132), ('None', 92), ('https://chargelab.co', 50), ('https://www.tesla.com/destination-charging', 45)]
+    ev_other_evse: 1148 set; 1 distinct; top [('None', 1148)]
+    ev_pricing: 1148 set; 43 distinct; top [('None', 960), ('Free', 117), ('$1.50 per hour', 11), ('$1 per hour', 8), ('$12 per hour', 4), ('$2 per hour', 3)]
+    ev_renewable_source: 1148 set; 1 distinct; top [('None', 1148)]
+    ev_workplace_charging: 1148 set; 2 distinct; top [('False', 1107), ('True', 41)]
+    hy_is_retail: 1148 set; 1 distinct; top [('None', 1148)]
+    hy_pressures: 1148 set; 1 distinct; top [('None', 1148)]
+    hy_standards: 1148 set; 1 distinct; top [('None', 1148)]
+    hy_status_link: 1148 set; 1 distinct; top [('None', 1148)]
+    lng_has_rng: 1148 set; 1 distinct; top [('None', 1148)]
+    lng_renewable_source: 1148 set; 1 distinct; top [('None', 1148)]
+    lng_vehicle_class: 1148 set; 1 distinct; top [('None', 1148)]
+    lpg_nozzle_types: 1148 set; 1 distinct; top [('None', 1148)]
+    lpg_primary: 1148 set; 1 distinct; top [('None', 1148)]
+    ng_fill_type_code: 1148 set; 1 distinct; top [('None', 1148)]
+    ng_psi: 1148 set; 1 distinct; top [('None', 1148)]
+    ng_vehicle_class: 1148 set; 1 distinct; top [('None', 1148)]
+    rd_blended_with_biodiesel: 1148 set; 1 distinct; top [('None', 1148)]
+    rd_blends: 1148 set; 1 distinct; top [('None', 1148)]
+    rd_blends_fr: 1148 set; 1 distinct; top [('None', 1148)]
+    rd_max_biodiesel_level: 1148 set; 1 distinct; top [('None', 1148)]
+    nps_unit_name: 1148 set; 1 distinct; top [('None', 1148)]
+    access_days_time_fr: 1148 set; 27 distinct; top [('Accessible 24 heures par jour', 756), ('24 heures par jour', 184), ('None', 122), ('Accessible 24 heures par jour. Réservé aux Teslas.', 44), ("24 heures par jour; à l'usage des employées seulement", 10), ('Accessible 24 heures par jour. Activé pour les partenaires N', 7)]
+    intersection_directions_fr: 1148 set; 6 distinct; top [('None', 1143), ("Une unité à l'extérieur; cinq unités à l'interieur", 1), ('Situee dans le garage nord', 1), ('5 dans le garage est et 5 dans le garage ouest', 1), ('CotÃ© est de York, au nord de Adelaide St', 1), ('CotÃ© ouest de Sheppard St, entre Richmond et Adelaide', 1)]
+    bd_blends_fr: 1148 set; 1 distinct; top [('None', 1148)]
+    groups_with_access_code_fr: 1148 set; 10 distinct; top [('Public', 1032), ('Privé', 49), ('Public - Carte de crédit en tout temps', 33), ('TEMPORAIREMENT SUSPENDU (Public)', 20), ('Privé - Carte de crédit en tout temps', 5), ('Privé - Carte-clé en tout temps', 3)]
+    ev_pricing_fr: 1148 set; 53 distinct; top [('None', 960), ('Gratuit', 112), ('Gratuite', 7), ('1,50$ par heure', 5), ('$1,50 par heure', 4), ('$1 par heure', 4)]
+    ev_charging_units: 1148 set; 36 distinct; top [('[{"network": "ChargePoint Network", "connectors": {"J1772": ', 473), ('[{"network": "FLO", "connectors": {"J1772": {"power_kw": 6.2', 128), ('[{"network": "Non-Networked", "connectors": {"J1772": {"powe', 92), ('[{"network": "SWTCH", "connectors": {"J1772": {"power_kw": n', 71), ('[{"network": "FLO", "connectors": {"J1772": {"power_kw": 7.2', 70), ('[{"network": "SWTCH", "connectors": {"J1772": {"power_kw": 6', 54)]
+    ev_network_ids: 848 set; 848 distinct; top [('{"station": ["84cbe314-af04-4211-899a-a9ba74b77194"], "posts', 1), ('{"station": ["62183278-72f0-4743-9f48-f9be2aebf2d9"], "posts', 1), ('{"station": ["c608ea6a-3501-4049-b69e-841b999d5654"], "posts', 1), ('{"station": ["ffd73062-3976-44e6-81e5-a4e0309a6ebc"], "posts', 1), ('{"station": ["c49bb466-f1bf-4ea4-8cb0-9557f19221ad"], "posts', 1), ('{"station": ["ef5fbb27-1967-4fc8-ac6e-05e51d0db3cf"], "posts', 1)]
+
+## NRCan map services
+  services matching charg/EV/fuel: ['NRCan/canadas_evolving_names_en', 'NRCan/canadas_evolving_names_fr', 'NRCan/CanEcumeneV3_en', 'NRCan/CanEcumeneV3_fr', 'NRCan/Charging_CorridorV2_en', 'NRCan/Charging_CorridorV2_fr', 'NRCan/electric_charging_alternative_fuelling_stations', 'NRCan/historical_flood_event_en', 'NRCan/historical_flood_event_fr', 'NRCan/land_surface_evapotranspiration_en', 'NRCan/land_surface_evapotranspiration_fr', 'NRCan/lidar_point_cloud_canelevation_en', 'NRCan/lidar_point_cloud_canelevation_fr', 'NRCan/stations_recharge_electrique_carburants_remplacement', 'NRCan/territorial_evolution_en', 'NRCan/territorial_evolution_fr', 'NRCan/ZEVIP_EVAFIDI_CIB_Apr2026_en', 'NRCan/ZEVIP_EVAFIDI_CIB_Apr2026_fr']
+  NRCan/Charging_CorridorV2_en: [(0, 'Corridor Public Charging Planning Map'), (1, 'Corridor coverage zone (within 1.6 km)')]
+    layer 0 Corridor Public Charging Planning Map: fields ['OBJECTID', 'Corridor_Score', 'Est_Average_Demand_kW_km', 'Est_Required_Capacity_kW', 'Existing_Planned_Infrastructure_kW'] maxRecordCount 10000
+    -> 485 in the Toronto box; exceeded=None
+    OBJECTID: 485 set; 485 distinct; top [('91', 1), ('92', 1), ('205', 1), ('354', 1), ('355', 1), ('356', 1)]
+    Corridor_Score: 485 set; 3 distinct; top [('1', 476), ('2', 7), ('5', 2)]
+    Est_Average_Demand_kW_km: 485 set; 59 distinct; top [('33.43', 38), ('33.21', 33), ('29.79', 32), ('10.07', 29), ('36.25', 23), ('43.61', 20)]
+    Est_Required_Capacity_kW: 485 set; 143 distinct; top [('4784', 38), ('7923', 25), ('16322', 21), ('31778', 18), ('3190', 18), ('2260', 18)]
+    Existing_Planned_Infrastructure_kW: 485 set; 173 distinct; top [('23359', 38), ('21528', 18), ('9752', 18), ('6589', 18), ('2452', 15), ('14650', 14)]
+  NRCan/Charging_CorridorV2_fr: [(0, 'Carte de planification de la recharge publique des corridors routiers '), (1, 'Zone de couverture des corridors (à l’intérieur de 1.6 km) ')]
+    layer 0 Carte de planification de la recharge publique des corridors routiers : fields ['OBJECTID', 'Corridor_Score', 'Est_Average_Demand_kW_km', 'Est_Required_Capacity_kW', 'Existing_Planned_Infrastructure_kW'] maxRecordCount 10000
+    -> 485 in the Toronto box; exceeded=None
+    OBJECTID: 485 set; 485 distinct; top [('91', 1), ('92', 1), ('205', 1), ('354', 1), ('355', 1), ('356', 1)]
+    Corridor_Score: 485 set; 3 distinct; top [('1', 476), ('2', 7), ('5', 2)]
+    Est_Average_Demand_kW_km: 485 set; 59 distinct; top [('33.43', 38), ('33.21', 33), ('29.79', 32), ('10.07', 29), ('36.25', 23), ('43.61', 20)]
+    Est_Required_Capacity_kW: 485 set; 143 distinct; top [('4784', 38), ('7923', 25), ('16322', 21), ('31778', 18), ('3190', 18), ('2260', 18)]
+    Existing_Planned_Infrastructure_kW: 485 set; 173 distinct; top [('23359', 38), ('21528', 18), ('9752', 18), ('6589', 18), ('2452', 15), ('14650', 14)]
+  NRCan/electric_charging_alternative_fuelling_stations: [(0, 'Electric charging and alternative fuelling stations')]
+    layer 0 Electric charging and alternative fuelling stations: fields ['Shape', 'fuel_type_code', 'station_name', 'street_address', 'city', 'state_province', 'postal_code_zip', 'country', 'station_phone', 'status', 'open_date', 'date_last_confirmed', 'updated_at', 'access_days_time', 'cards_accepted', 'ng_fill_type', 'ng_psi', 'ng_vehicle_class', 'ev_level1_evse_num', 'ev_level2_evse_num', 'ev_dc_fast_count', 'ev_connector_types', 'ev_other_info', 'ev_network', 'ev_network_web', 'hydrogen_is_retail', 'lpg_primary', 'owner_type', 'geocode_description', 'longitude', 'latitude', 'OBJECTID'] maxRecordCount 50000
+    -> 537 in the Toronto box; exceeded=None
+    fuel_type_code: 537 set; 3 distinct; top [('ELEC', 525), ('LPG', 11), ('CNG', 1)]
+    station_name: 537 set; 496 distinct; top [('Swtch Energy', 17), ('ImPark', 11), ('Scotiabank', 7), ('IKEA', 3), ('Alta Nissan', 2), ('Town of Richmond Hill', 2)]
+    street_address: 537 set; 384 distinct; top [('130 Queens Quay E', 14), ('351 King St E', 10), ('199 Humber College Blvd', 8), ('6135 Airport Rd', 7), ('4841 Yonge St', 6), ('1475 The Queensway', 5)]
+    city: 537 set; 19 distinct; top [('Toronto', 258), ('Mississauga', 127), ('Markham', 34), ('Vaughan', 26), ('Scarborough', 16), ('Richmond Hill', 16)]
+    state_province: 537 set; 2 distinct; top [('Ontario', 534), ('Quebec', 3)]
+    postal_code_zip: 537 set; 360 distinct; top [('M5A 3Y5', 15), ('L5P', 11), ('M5A 2W4', 10), ('M9W 6V3', 8), ('L4W 2P7', 8), ('M2N 5X2', 7)]
+    country: 537 set; 1 distinct; top [('Canada', 537)]
+    station_phone: 537 set; 120 distinct; top [('888-758-4389', 249), ('888-356-8911', 77), ('844-798-2438', 35), ('800-636-0986', 19), ('877-798-3752  877-798-3752', 15), ('416-369-1801', 9)]
+    status: 537 set; 1 distinct; top [('Open', 537)]
+    open_date: 537 set; 153 distinct; top [('2021-01-27', 116), ('2020-06-12', 43), ('2019-07-17', 36), ('2017-05-15', 24), ('2021-11-23', 19), ('2018-11-01', 15)]
+    date_last_confirmed: 537 set; 23 distinct; top [('2022-05-12', 327), ('2020-11-03', 52), ('2022-03-04', 39), ('2021-12-13', 32), ('2022-04-13', 23), ('2022-01-11', 14)]
+    updated_at: 537 set; 12 distinct; top [('2022-05-12', 327), ('2022-04-26', 115), ('2021-06-07', 68), ('2021-11-04', 8), ('2022-04-28', 7), ('2022-04-08', 4)]
+    access_days_time: 537 set; 40 distinct; top [('24 hours daily', 420), ('24 hours daily; for customer use only; see front desk for ac', 21), ('24 hours daily; pay lot', 14), ('24 hours daily; for customer use only; see valet for access', 9), ('Mon 6:30am - 10:00pm; Tue 6:30am - 10:00pm; Wed 6:30am - 10:', 9), ('24 hours daily; for Tesla use only', 8)]
+    cards_accepted: 537 set; 13 distinct; top [('N/A', 464), ('A D Debit M V', 54), ('A Debit M V', 4), ('Cash Debit M V', 3), ('A Cash Debit M V', 3), ('A Cash D Debit M PHH V', 2)]
+    ng_fill_type: 537 set; 2 distinct; top [('N/A', 536), ('Quick fill', 1)]
+    ng_psi: 537 set; 2 distinct; top [('N/A', 536), ('3600', 1)]
+    ng_vehicle_class: 537 set; 2 distinct; top [('N/A', 536), ('Light-duty, medium-duty and heavy-duty (1-8)', 1)]
+    ev_level1_evse_num: 537 set; 1 distinct; top [('0', 537)]
+    ev_level2_evse_num: 537 set; 24 distinct; top [('2', 295), ('1', 79), ('0', 58), ('4', 25), ('3', 20), ('10', 9)]
+    ev_dc_fast_count: 537 set; 7 distinct; top [('0', 463), ('1', 52), ('2', 13), ('20', 6), ('16', 1), ('4', 1)]
+    ev_connector_types: 537 set; 9 distinct; top [('J1772', 399), ('J1772, TESLA', 35), ('CHADEMO, J1772COMBO', 32), ('TESLA', 25), ('CHADEMO, J1772, J1772COMBO', 23), ('N/A', 12)]
+    ev_other_info: 537 set; 1 distinct; top [('N/A', 537)]
+    ev_network: 537 set; 12 distinct; top [('ChargePoint Network', 249), ('FLO', 77), ('Non-Networked', 75), ('Tesla Destination', 52), ('SWTCH', 35), ('CHARGELAB', 19)]
+    ev_network_web: 537 set; 11 distinct; top [('http://www.chargepoint.com/', 249), ('N/A', 87), ('https://flo.ca/', 77), ('https://www.tesla.com/destination-charging', 52), ('https://swtchenergy.com/', 35), ('http://www.chargelab.co/', 19)]
+    hydrogen_is_retail: 537 set; 1 distinct; top [('N/A', 537)]
+    lpg_primary: 537 set; 2 distinct; top [('N/A', 526), ('Yes', 11)]
+    owner_type: 537 set; 4 distinct; top [('N/A', 327), ('Privately owned', 176), ('State government owned', 29), ('Local government owned', 5)]
+    geocode_description: 537 set; 4 distinct; top [('The location is from a real GPS readout at the station.', 364), ('Premise (building name, property name, shopping center, etc.', 154), ('Address level accuracy.', 18), ('Street level accuracy.', 1)]
+    longitude: 537 set; 512 distinct; top [('-79.60411834716797', 3), ('-79.3687973022461', 3), ('-79.36468505859375', 3), ('-79.3830337524414', 2), ('-79.60546112060547', 2), ('-79.38538360595703', 2)]
+    latitude: 537 set; 517 distinct; top [('43.644554138183594', 3), ('43.64463424682617', 3), ('43.658447265625', 2), ('43.727569580078125', 2), ('43.68699264526367', 2), ('43.65507125854492', 2)]
+    OBJECTID: 537 set; 537 distinct; top [('5604', 1), ('5781', 1), ('5785', 1), ('5843', 1), ('5844', 1), ('5878', 1)]
+  NRCan/stations_recharge_electrique_carburants_remplacement: [(0, 'Stations de recharge électrique et de ravitaillement en carburants de remplacement')]
+    layer 0 Stations de recharge électrique et de ravitaillement en carburants de remplacement: fields ['Shape', 'code_type_carb', 'nom_station', 'adresse', 'ville', 'etat_province', 'code_postal_zip', 'pays', 'telephone_station', 'etat_station', 'date_ouvert', 'date_dern_confirm', 'mise_a_jour', 'jour_acces', 'cartes_acceptees', 'type_rempli_gaz_naturel', 'gaz_naturel_psi', 'classe_vehicle_ng', 've_niveau1_brve_nb', 've_niveau2_brve_nb', 've_cc_rapide_nb', 'type_conn_ve', 'autres_info_ve', 'reseau_ve', 'site_web_ve', 'hydrogene_detail', 'lpg_primaire', 'type_proprio', 'description_geocode', 'longitude', 'latitude', 'OBJECTID'] maxRecordCount 50000
+    -> 537 in the Toronto box; exceeded=None
+    code_type_carb: 537 set; 3 distinct; top [('ELEC', 525), ('LPG', 11), ('CNG', 1)]
+    nom_station: 537 set; 496 distinct; top [('Swtch Energy', 17), ('ImPark', 11), ('Scotiabank', 7), ('IKEA', 3), ('Alta Nissan', 2), ('Town of Richmond Hill', 2)]
+    adresse: 537 set; 384 distinct; top [('130 Queens Quay E', 14), ('351 King St E', 10), ('199 Humber College Blvd', 8), ('6135 Airport Rd', 7), ('4841 Yonge St', 6), ('1475 The Queensway', 5)]
+    ville: 537 set; 19 distinct; top [('Toronto', 258), ('Mississauga', 127), ('Markham', 34), ('Vaughan', 26), ('Scarborough', 16), ('Richmond Hill', 16)]
+    etat_province: 537 set; 2 distinct; top [('Ontario', 534), ('Québec', 3)]
+    code_postal_zip: 537 set; 360 distinct; top [('M5A 3Y5', 15), ('L5P', 11), ('M5A 2W4', 10), ('M9W 6V3', 8), ('L4W 2P7', 8), ('M2N 5X2', 7)]
+    pays: 537 set; 1 distinct; top [('Canada', 537)]
+    telephone_station: 537 set; 120 distinct; top [('888-758-4389', 249), ('888-356-8911', 77), ('844-798-2438', 35), ('800-636-0986', 19), ('877-798-3752  877-798-3752', 15), ('416-369-1801', 9)]
+    etat_station: 537 set; 1 distinct; top [('Ouvert', 537)]
+    date_ouvert: 537 set; 153 distinct; top [('2021-01-27', 116), ('2020-06-12', 43), ('2019-07-17', 36), ('2017-05-15', 24), ('2021-11-23', 19), ('2018-11-01', 15)]
+    date_dern_confirm: 537 set; 23 distinct; top [('2022-05-12', 327), ('2020-11-03', 52), ('2022-03-04', 39), ('2021-12-13', 32), ('2022-04-13', 23), ('2022-01-11', 14)]
+    mise_a_jour: 537 set; 12 distinct; top [('2022-05-12', 327), ('2022-04-26', 115), ('2021-06-07', 68), ('2021-11-04', 8), ('2022-04-28', 7), ('2022-04-08', 4)]
+    jour_acces: 537 set; 45 distinct; top [('N/D', 250), ('Accessible 24 heures par jour', 98), ('24 heures par jour', 87), ('Accessible 24 heures par jour; réservé aux clients; rendez-v', 21), ('Accessible 24 heures par jour; payer beaucoup', 14), ('Accessible 24 heures par jour; réservé aux clients; pour avo', 9)]
+    cartes_acceptees: 537 set; 13 distinct; top [('N/D', 464), ('A D Debit M V', 54), ('A Debit M V', 4), ('Cash Debit M V', 3), ('A Cash Debit M V', 3), ('A Cash D Debit M PHH V', 2)]
+    type_rempli_gaz_naturel: 537 set; 2 distinct; top [('N/A', 536), ('Remplissage rapide', 1)]
+    gaz_naturel_psi: 537 set; 2 distinct; top [('N/A', 536), ('3600', 1)]
+    classe_vehicle_ng: 537 set; 2 distinct; top [('N/A', 536), ('Léger, moyen et lourd (1-8)', 1)]
+    ve_niveau1_brve_nb: 537 set; 1 distinct; top [('0', 537)]
+    ve_niveau2_brve_nb: 537 set; 24 distinct; top [('2', 295), ('1', 79), ('0', 58), ('4', 25), ('3', 20), ('10', 9)]
+    ve_cc_rapide_nb: 537 set; 7 distinct; top [('0', 463), ('1', 52), ('2', 13), ('20', 6), ('16', 1), ('4', 1)]
+    type_conn_ve: 537 set; 9 distinct; top [('J1772', 399), ('J1772, TESLA', 35), ('CHADEMO, J1772COMBO', 32), ('TESLA', 25), ('CHADEMO, J1772, J1772COMBO', 23), ('N/A', 12)]
+    autres_info_ve: 537 set; 1 distinct; top [('N/A', 537)]
+    reseau_ve: 537 set; 12 distinct; top [('Réseau ChargePoint', 249), ('FLO', 77), ('Borne indépendante', 75), ('Tesla Destination', 52), ('SWTCH', 35), ('CHARGELAB', 19)]
+    site_web_ve: 537 set; 11 distinct; top [('http://www.chargepoint.com/', 249), ('N/A', 87), ('https://flo.ca/', 77), ('https://www.tesla.com/destination-charging', 52), ('https://swtchenergy.com/', 35), ('http://www.chargelab.co/', 19)]
+    hydrogene_detail: 537 set; 1 distinct; top [('N/A', 537)]
+    lpg_primaire: 537 set; 2 distinct; top [('N/A', 526), ('Oui', 11)]
+    type_proprio: 537 set; 4 distinct; top [('N/D', 327), ('Privé', 176), ('Gouvernement provincial', 29), ('Gouvernement local', 5)]
+    description_geocode: 537 set; 4 distinct; top [("L'emplacement provient d'une lecture GPS réelle à la station", 364), ('Précision du niveau des locaux (nom du bâtiment, nom de la p', 154), ("Précision du niveau d'adresse.", 18), ('Précision au niveau de la rue.', 1)]
+    longitude: 537 set; 512 distinct; top [('-79.60411834716797', 3), ('-79.3687973022461', 3), ('-79.36468505859375', 3), ('-79.3830337524414', 2), ('-79.60546112060547', 2), ('-79.38538360595703', 2)]
+    latitude: 537 set; 517 distinct; top [('43.644554138183594', 3), ('43.64463424682617', 3), ('43.658447265625', 2), ('43.727569580078125', 2), ('43.68699264526367', 2), ('43.65507125854492', 2)]
+    OBJECTID: 537 set; 537 distinct; top [('5604', 1), ('5781', 1), ('5785', 1), ('5843', 1), ('5844', 1), ('5878', 1)]
+  NRCan/ZEVIP_EVAFIDI_CIB_Apr2026_en: [(0, 'Technology funding current to 1 April 2026'), (1, 'Charging and Hydrogen Refuelling Infrastructure Initiative (CHRI)'), (2, 'Electric Vehicle and Alternative Fuel Infrastructure Deployment Initiative'), (3, 'Zero Emission Vehicle Infrastructure Program')]
+    layer 1 Charging and Hydrogen Refuelling Infrastructure Initiative (CHRI): fields ['OBJECTID', 'Organization', 'Initiative', 'Primary_Use', 'Project_Number', 'Proponent_Name', 'Quantity', 'Quantity_Available_for_Use', 'Technology', 'Civic_Address', 'City', 'Province', 'Postal_Code', 'Latitude', 'Longitude', 'Indigenous__Land', 'Status_EN', 'Open_Date', 'Repayability_status', 'NRCan_Contribution_Towards_Entire_Project'] maxRecordCount 10000
+    -> 25 in the Toronto box; exceeded=None
+    OBJECTID: 25 set; 25 distinct; top [('9556', 1), ('9557', 1), ('9563', 1), ('9564', 1), ('9565', 1), ('9566', 1)]
+    Organization: 25 set; 1 distinct; top [('CIB', 25)]
+    Initiative: 25 set; 1 distinct; top [('CHRI', 25)]
+    Primary_Use: 25 set; 1 distinct; top [('Public Places', 25)]
+    Project_Number: 25 set; 3 distinct; top [('Jolt', 9), ('FLO', 8), ('Parkland', 8)]
+    Proponent_Name: 25 set; 3 distinct; top [('Jolt', 9), ('FLO', 8), ('Parkland', 8)]
+    Quantity: 25 set; 6 distinct; top [('1', 9), ('4', 5), ('6', 5), ('2', 3), ('8', 2), ('10', 1)]
+    Quantity_Available_for_Use: 25 set; 4 distinct; top [('None', 20), ('1', 2), ('2', 2), ('4', 1)]
+    Technology: 25 set; 3 distinct; top [('Level 3 Chargers (50-99 kW)', 9), ('Level 3 Chargers (100-199 kW)', 8), ('Level 3 Chargers (200 kW+)', 8)]
+    Civic_Address: 25 set; 25 distinct; top [('123 Rexdale Blvd', 1), ('7400 Woodbrine Ave', 1), ('165 Dundas St W.', 1), ('1201 Britannia Rd W', 1), ('3466 Mavis Road', 1), ('3100 Dixie Rd.', 1)]
+    City: 25 set; 12 distinct; top [('Toronto', 7), ('Mississauga', 5), ('MISSISSAUGA', 3), ('VAUGHAN', 2), ('Langley', 1), ('Pickering', 1)]
+    Province: 25 set; 2 distinct; top [('Ontario', 24), ('British Columbia', 1)]
+    Postal_Code: 25 set; 25 distinct; top [('M9W OB1', 1), ('L3R 1A5', 1), ('L5B 2N6', 1), ('L5V 1N2', 1), ('L5C 1T8', 1), ('L4Y 2A6', 1)]
+    Latitude: 25 set; 25 distinct; top [('43.71168', 1), ('43.823', 1), ('43.57759', 1), ('43.60357', 1), ('43.574468', 1), ('43.61012', 1)]
+    Longitude: 25 set; 25 distinct; top [('-79.566', 1), ('-79.351', 1), ('-79.62042', 1), ('-79.70697', 1), ('-79.6461', 1), ('-79.588544', 1)]
+    Indigenous__Land: 25 set; 1 distinct; top [('0', 25)]
+    Status_EN: 25 set; 2 distinct; top [('Planned', 20), ('Open', 5)]
+    Open_Date: 25 set; 6 distinct; top [('None', 20), ('3/15/2026', 1), ('1/30/2026', 1), ('7/19/2024', 1), ('6/27/2025', 1), ('12/17/2025', 1)]
+    Repayability_status: 25 set; 1 distinct; top [('Repayable Contribution Agreement', 25)]
+    NRCan_Contribution_Towards_Entire_Project: 25 set; 1 distinct; top [('None', 25)]
+  NRCan/ZEVIP_EVAFIDI_CIB_Apr2026_fr: [(0, 'Technologie Dernière mise à jour le 30 Juin 2025'), (1, "L'initiative d'infrastructures de recharge et de ravitaillement en hydrogène (IRRH)"), (2, 'Initiative pour le déploiement d’infrastructures pour les véhicules électriques et les carburants de remplacement '), (3, 'Programmes d’infrastructure pour les véhicules à émission zéro (ZEVIP)')]
+    layer 1 L'initiative d'infrastructures de recharge et de ravitaillement en hydrogène (IRRH): fields ['OBJECTID', 'Organisation', 'Initiative', 'Utlisation_Principale', 'Numero_de_projet', 'Nom_de_Promoteur', 'Quantite', 'Quantité_disponible_pour_utilisation', 'Technologie', 'Addresse_municipale1', 'Ville', 'Province', 'Code_Postal', 'Latitude', 'Longitude', 'Territoires_autochtones', 'Statut_FR', 'Date_douverture', 'Statut_de_repayabilite', 'Contribution'] maxRecordCount 10000
+    -> 25 in the Toronto box; exceeded=None
+    OBJECTID: 25 set; 25 distinct; top [('9556', 1), ('9557', 1), ('9563', 1), ('9564', 1), ('9565', 1), ('9566', 1)]
+    Organisation: 25 set; 1 distinct; top [('CIB', 25)]
+    Initiative: 25 set; 1 distinct; top [('CHRI', 25)]
+    Utlisation_Principale: 25 set; 1 distinct; top [('Public Places', 25)]
+    Numero_de_projet: 25 set; 3 distinct; top [('Jolt', 9), ('FLO', 8), ('Parkland', 8)]
+    Nom_de_Promoteur: 25 set; 3 distinct; top [('Jolt', 9), ('FLO', 8), ('Parkland', 8)]
+    Quantite: 25 set; 6 distinct; top [('1', 9), ('4', 5), ('6', 5), ('2', 3), ('8', 2), ('10', 1)]
+    Quantité_disponible_pour_utilisation: 25 set; 4 distinct; top [('None', 20), ('1', 2), ('2', 2), ('4', 1)]
+    Technologie: 25 set; 3 distinct; top [('Level 3 Chargers (50-99 kW)', 9), ('Level 3 Chargers (100-199 kW)', 8), ('Level 3 Chargers (200 kW+)', 8)]
+    Addresse_municipale1: 25 set; 25 distinct; top [('123 Rexdale boulevard', 1), ('7400 Woodbrine avenue', 1), ('165 Dundas rue Ouest', 1), ('1201 Britannia route Ouest', 1), ('3466 chemin Mavis', 1), ('3100 Dixie route', 1)]
+    Ville: 25 set; 12 distinct; top [('Toronto', 7), ('Mississauga', 5), ('MISSISSAUGA', 3), ('VAUGHAN', 2), ('Langley', 1), ('Pickering', 1)]
+    Province: 25 set; 2 distinct; top [('Ontario', 24), ('British Columbia', 1)]
+    Code_Postal: 25 set; 25 distinct; top [('M9W OB1', 1), ('L3R 1A5', 1), ('L5B 2N6', 1), ('L5V 1N2', 1), ('L5C 1T8', 1), ('L4Y 2A6', 1)]
+    Latitude: 25 set; 25 distinct; top [('43.71168', 1), ('43.823', 1), ('43.57759', 1), ('43.60357', 1), ('43.574468', 1), ('43.61012', 1)]
+    Longitude: 25 set; 25 distinct; top [('-79.566', 1), ('-79.351', 1), ('-79.62042', 1), ('-79.70697', 1), ('-79.6461', 1), ('-79.588544', 1)]
+    Territoires_autochtones: 25 set; 1 distinct; top [('0', 25)]
+    Statut_FR: 25 set; 2 distinct; top [('Planned', 20), ('Open', 5)]
+    Date_douverture: 25 set; 6 distinct; top [('None', 20), ('3/15/2026', 1), ('1/30/2026', 1), ('7/19/2024', 1), ('6/27/2025', 1), ('12/17/2025', 1)]
+    Statut_de_repayabilite: 25 set; 1 distinct; top [('Repayable Contribution Agreement', 25)]
+    Contribution: 25 set; 1 distinct; top [('None', 25)]
+
+## City-operated EV chargers
+  features 82
+    _id: 82 set; 82 distinct; top [('1', 1), ('2', 1), ('3', 1), ('4', 1), ('5', 1), ('6', 1)]
+    Location: 82 set; 80 distinct; top [('Toronto City Hall, 100 Queen St W.', 2), ('19 Glendora Ave', 2), ('51 Dockside Dr.', 1), ('10 Soho St.', 1), ('2 Church St.', 1), ('365 Lippincott St.', 1)]
+    Address: 82 set; 81 distinct; top [('19 Glendora Ave', 2), ('100 Queen St W.', 1), ('51 Dockside Dr.', 1), ('10 Soho St.', 1), ('2 Church St.', 1), ('365 Lippincott St.', 1)]
+    Type: 82 set; 2 distinct; top [('On-Street', 52), ('Green P', 30)]
+    Level2_Charging_Ports: 82 set; 12 distinct; top [('2', 44), ('1', 9), ('4', 8), ('8', 6), ('6', 5), ('12', 3)]
+    Level3_Charging_Ports: 82 set; 5 distinct; top [('0', 72), ('1', 6), ('4', 2), ('3', 1), ('6', 1)]
+
+## Green P site
+  https://parking.greenp.com/: 151791 bytes
+    link https://api.w.org/
+    link https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css
+    link https://fonts.googleapis.com
+    link https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap
+    link https://maps.google.com/maps/api/js?key=AIzaSyCI0FLeFGU9Q88g5vp1K9OXUzaHV7whhJI&#038;components=country:CA&#038;region=CA&#038;ver=7.1.3
+    link https://parking.greenp.com/news/carpark-404-95-beecroft-road-construction/
+    link https://parking.greenp.com/wp-admin/admin-ajax.php
+    link https://parking.greenp.com/wp-json/
+    link https://parking.greenp.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fparking.greenp.com%2F
+    link https://parking.greenp.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fparking.greenp.com%2F&#038;format=xml
+    link https://parking.greenp.com/wp-json/wp/v2/pages/15
+    route wp-json/oembed/1
+    route wp-json/wp/v2/pages/15
+  fail 1 https://parking.greenp.com/wp-json/ HTTP Error 401: Unauthorized
+  fail 2 https://parking.greenp.com/wp-json/ HTTP Error 401: Unauthorized
+  fail 1 https://parking.greenp.com/wp-json/wp/v2/types HTTP Error 401: Unauthorized
+  fail 2 https://parking.greenp.com/wp-json/wp/v2/types HTTP Error 401: Unauthorized
+  https://parking.greenp.com/find-parking/: 125408 bytes
+    link https://api.w.org/
+    link https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css
+    link https://fonts.googleapis.com
+    link https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap
+    link https://maps.google.com/maps/api/js?key=AIzaSyCI0FLeFGU9Q88g5vp1K9OXUzaHV7whhJI&#038;components=country:CA&#038;region=CA&#038;ver=7.1.3
+    link https://parking.greenp.com/wp-admin/admin-ajax.php
+    link https://parking.greenp.com/wp-json/
+    link https://parking.greenp.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fparking.greenp.com%2Ffind-parking%2F
+    link https://parking.greenp.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fparking.greenp.com%2Ffind-parking%2F&#038;format=xml
+    link https://parking.greenp.com/wp-json/wp/v2/pages/51
+    route wp-json/oembed/1
+    route wp-json/wp/v2/pages/51
+  fail 1 https://parking.greenp.com/terms-of-use/ HTTP Error 404: Not Found
+  fail 2 https://parking.greenp.com/terms-of-use/ HTTP Error 404: Not Found
+  https://parking.greenp.com/robots.txt: 90 bytes
+    User-agent: * Disallow: /wp-admin/ Sitemap: https://parking.greenp.com/sitemap_index.xml
+  fail 1 https://parking.greenp.com/wp-json/ HTTP Error 401: Unauthorized
+  fail 2 https://parking.greenp.com/wp-json/ HTTP Error 401: Unauthorized
+
+## OSM Green P car parks
+  fail 1 https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  fail 2 https://overpass-api.de/api/interpreter HTTP Error 406: Not Acceptable
+  fail 1 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
+  fail 2 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error

@@ -212,7 +212,7 @@ const GLYPH = {
 };
 const svg = d => '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + d + '</svg>';
 const SWATCH = {knownas: 'Aa', landmarks: svg(GLYPH.culture), badges: svg('<path d="M2 20h20v1.6H2zM3.5 20v-7h4v7zM9 20V6.5h4.5V20zM15 20v-9.5h2.4V8.4h1.6v2.1H20.5V20z"/>')};
-const swatchOf = it => it.kind === 'places' ? svg(GLYPH[it.cat] || GLYPH.culture) : it.kind === 'towers' ? svg(GLYPH['tw-com']) : (SWATCH[it.kind] || '');
+const swatchOf = it => it.kind === 'spots' ? '<i class="sp ' + it.mark + ' c-' + Object.keys(it.classes || {x: 1})[0] + ' z-2"></i>' : it.kind === 'places' ? svg(GLYPH[it.cat] || GLYPH.culture) : it.kind === 'towers' ? svg(GLYPH['tw-com']) : (SWATCH[it.kind] || '');
 // Representation layers draw in one of three styles, by level of government.
 const OUTLINE = {city:'ward', state:'prov', national:'fed'};
 /* Party colours: a representation layer with "party" in city.json ({table, key}) can be shaded by the
@@ -298,7 +298,7 @@ const KINDS = {
     g._pick = b => { Object.values(per).forEach(l => g.removeLayer(l)); g.addLayer(per[b]); };
     return g;
   },
-  patches: (it, fc) => polyLayer(fc, {pane:'civic', cls: () => 'bia', label: f => fill(it.label, f.properties), lcls: () => 'lbl-bia', hover: f => fill(it.hover, f.properties)}),
+  patches: (it, fc) => polyLayer(fc, {pane:'civic', cls: () => it.cls || 'bia', label: f => fill(it.label, f.properties), lcls: () => it.lcls || 'lbl-bia', hover: f => fill(it.hover, f.properties)}),
   lens: (it, [fc, prof]) => {
     const g = L.geoJSON(fc, {pane:'fill', style: f => {
       return {className: lensClass(prof[String(f.properties.code)])};
@@ -719,6 +719,40 @@ const KINDS = {
     g.on('remove', () => { shown.forEach(m => g.removeLayer(m)); shown.clear(); });
     return g;
   },
+  // Parking spots (car parks and EV chargers) from one shared points file (it.file, e.g. parking.geojson), the layer's own
+  // ones picked by p.c === it.cat. it.mark is "lot" (a square: filled for a garage, outlined for a surface lot, sized
+  // by spaces) or "charger" (a dot: filled with a heavier ring where DC fast charging is, ringed where Level 2 only;
+  // grey and dashed when listed as temporarily unavailable). Drawn from it.minZoom and only near the view, like docks;
+  // a wider clear target takes the tap. Chips (it.classes) narrow it by class. Loads on first use (it.lazy).
+  spots: it => {
+    const g = L.layerGroup(), shown = new Map(), minZ = it.minZoom || 12;
+    const make = f => {
+      const p = f.properties, at = ll(f.geometry.coordinates), c = spotClass(it, p);
+      const m = L.marker(at, {pane: 'pts', keyboard: false, riseOnHover: true, zIndexOffset: c === 'dc' || c === 'g' ? 100 : 0,
+        icon: L.divIcon({className: '', iconSize: [0, 0], html: '<span class="sp ' + it.mark + ' c-' + c + ' z-' + spotSize(it, p) + (p.off ? ' off' : '') + (p.tes ? ' tes' : '') + '">' + (it.mark === 'charger' ? BOLT : '') + '</span>'})});
+      hoverTip(m, esc(spotTip(it, p)));
+      m.on('click', e => { L.DomEvent.stop(e); spotPopup(it, p, at); });
+      return m;
+    };
+    const draw = () => {
+      const D = loaded[it.file];
+      if (!map.hasLayer(g) || !D) return;
+      const pick = spotPick[it.id], on = map.getZoom() >= minZ - .01, b = map.getBounds().pad(.25);
+      D.features.forEach(f => {
+        if (f.properties.c !== it.cat) return;
+        const c = f.geometry.coordinates, want = on && b.contains([c[1], c[0]]) && (!pick || pick.has(spotClass(it, f.properties))), m = shown.get(f);
+        if (want && !m){ const mk = make(f); shown.set(f, mk); g.addLayer(mk); }
+        else if (!want && m){ g.removeLayer(m); shown.delete(f); }
+      });
+      const n = document.getElementById('spnote-' + it.id);
+      if (n) n.textContent = map.getZoom() < minZ - .01 ? fill(it.zoomText || 'Zoom in to see them.', {z: minZ}) : '';
+    };
+    g._draw = draw;
+    map.on('moveend', draw);
+    g.on('add', () => ensureSpots(it).then(() => setTimeout(draw)));
+    g.on('remove', () => { shown.forEach(m => g.removeLayer(m)); shown.clear(); });
+    return g;
+  },
   // Another agency's buses (it.mode, e.g. GO): every route in the regional view; in the city view only the
   // routes with a stop in the city, numbered where they run inside it. Lines sit in the rail pane, under the
   // mask, so a route's stretch outside the city fades with the rest of the region. Shapes load on first use.
@@ -786,7 +820,63 @@ const KINDS = {
     stampLive(it, fc.asof);
     return g;
   },
+  // Road closures for special events (races, parades, street parties), refreshed daily: engine/events.py.
+  // Drawn in the event colour so a race course reads as one line. Each closure has its own times (race
+  // closures open in waves): ones in force now are solid, later ones faint, ended ones go. Checked again
+  // every few minutes while the page is open, so the map keeps up through race day.
+  events: (it, fc) => {
+    const g = L.layerGroup(), names = {};
+    (fc.events || []).forEach(e => { names[e.id] = e; });
+    const w = () => { const z = map.getZoom(); return z < 13 ? 5 : z < 15 ? 7 : 9; };
+    const items = fc.features.map(f => {
+      const p = f.properties, line = f.geometry.type !== 'Point';
+      const lyr = line ? L.polyline(f.geometry.coordinates.map(ll), {pane:'transit', className: 'ev ' + p.kind, weight: w()})
+        : L.circleMarker(ll(f.geometry.coordinates), {pane:'transit', radius: 6, className: 'ev ' + p.kind});
+      lyr.on('click', e => evPopup(it, p, names[p.ev], e.latlng, fc.asof));
+      return [lyr, p, line];
+    });
+    function refresh(){
+      const now = cityNow(it.tz);
+      items.forEach(([lyr, p]) => {
+        const over = (p.end || '9999') <= now, soon = (p.start || '') > now;
+        if (over){ if (g.hasLayer(lyr)) g.removeLayer(lyr); return; }
+        if (!g.hasLayer(lyr)) g.addLayer(lyr);
+        lyr.unbindTooltip(); hoverTip(lyr, esc(p.street) + ' · ' + esc(evWhen(it, p, now)));
+        const el = lyr.getElement && lyr.getElement(); if (el) el.classList.toggle('soon', soon);
+        lyr.options.className = 'ev ' + p.kind + (soon ? ' soon' : '');
+      });
+    }
+    refresh();
+    g.on('add', refresh);
+    setInterval(() => { if (map.hasLayer(g)) refresh(); }, 5 * 60e3);
+    map.on('zoomend', () => items.forEach(([l, , line]) => { if (line) l.setStyle({weight: w()}); }));
+    stampLive(it, fc.asof);
+    return g;
+  },
 };
+// The time where the city is, as YYYY-MM-DDTHH:MM, to compare with closure times (which are in city time).
+function cityNow(tz){ try { return new Date().toLocaleString('sv-SE', {timeZone: tz}).replace(' ', 'T').slice(0, 16); } catch (e) { return new Date().toISOString().slice(0, 16); } }
+// "Sun 8:00 a.m." from a city-time "YYYY-MM-DDTHH:MM" (the weekday only when asked for).
+function evClock(s, day){
+  const d = new Date(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10), +s.slice(11, 13), +s.slice(14, 16));
+  return (day ? d.toLocaleDateString(CITY.locale, {weekday:'short'}) + ' ' : '') + d.toLocaleTimeString(CITY.locale, {hour:'numeric', minute:'2-digit'});
+}
+// When a closure is in force: "Closed now · until 3:30 p.m." or "Sun 8:00 a.m. to 3:30 p.m.".
+function evWhen(it, p, now){
+  const same = (p.start || '').slice(0, 10) === (p.end || '').slice(0, 10), endDay = (p.end || '').slice(0, 10) !== now.slice(0, 10);
+  if ((p.start || '') <= now) return fill(it.nowText, {until: evClock(p.end, endDay)});
+  return fill(it.whenText, {from: evClock(p.start, true), to: evClock(p.end, !same)});
+}
+function evPopup(it, p, ev, latlng, asof){
+  const now = cityNow(it.tz), rows = [[it.whenLabel, evWhen(it, p, now)], ev && [it.eventLabel, ev.name]].filter(Boolean);
+  L.popup({className:'info-pop', maxWidth: 290, autoPanPadding:[24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.street) + '</b><small class="ev-k ' + p.kind + '">' + esc(p.kind === 'closed' ? it.closedText : it.narrowedText) + '</small>' +
+    (p.extent && p.extent !== p.street ? '<p>' + esc(p.extent) + '</p>' : '') +
+    rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
+    (p.desc ? '<p class="desc">' + esc(p.desc) + '</p>' : '') +
+    (ev && ev.notice ? '<a href="' + esc(ev.notice) + '" target="_blank" rel="noopener">' + esc(it.noticeText) + '</a>' : '') +
+    '<p class="fine">' + esc(fill(it.fineText, {date: niceDate(asof)})) + '</p>').openOn(map);
+}
 // Today's date (YYYY-MM-DD) where the city is, so a permit ending today still shows until midnight there.
 function cityToday(tz){ try { return new Date().toLocaleDateString('en-CA', {timeZone: tz}); } catch (e) { return new Date().toISOString().slice(0, 10); } }
 function niceDate(s, year){
@@ -904,6 +994,72 @@ function dkPopup(p, latlng){
     '<b>' + esc(p.n) + '</b><small><i class="dk-key' + (p.e ? ' e' : '') + '"></i>' + esc(fill(DOCK.kindText || '{system} station', {system: D.system || ''})) + '</small>' +
     rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
     (DOCK.fine ? '<p class="bk-fine">' + esc(fill(DOCK.fine, {date: D.asof ? niceDate(D.asof, true) : ''})) + '</p>' : '')).openOn(map);
+}
+/* ---------- parking spots (kind "spots") ----------
+   One points file shared by its layers (e.g. parking.geojson: Green P car parks and EV chargers), each layer's own
+   picked by p.c === it.cat. Top level asof {cat: date} and count. Lots: n name or address, t "g" garage or "s"
+   surface, cap spaces, h clearance (m), ttc 1 for a transit commuter lot. Chargers: n name, a address, l1, l2, dc
+   ports, kw fastest DC power, net network, h24 1 for 24 hours (else hrs as listed), fee, tes 1 Tesla only, off 1
+   temporarily unavailable, conf the listing's last confirmed date. asof is keyed by cat. Text lives on the layer (city.json). */
+const SPOTS = LAYERS.filter(it => it.kind === 'spots');
+const BOLT = '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M7 1 2.5 7H6l-1 4 4.5-6H6z"/></svg>';
+const spotPick = {};   // layer id -> Set of classes shown (none: all)
+const spotFiles = {};
+function ensureSpots(it){
+  if (loaded[it.file]) return Promise.resolve(loaded[it.file]);
+  return spotFiles[it.file] || (spotFiles[it.file] = get(it.file).then(d => {
+    loaded[it.file] = d;
+    SPOTS.filter(s => s.file === it.file && s.countNote).forEach(s => {
+      const n = document.querySelector('label[for="lyr-' + s.id + '"] .tx > span'), c = (d.count || {});
+      const ctx = {n: (c[s.countKey || s.cat] || 0).toLocaleString(CITY.locale)};
+      Object.entries(c).forEach(([k, v]) => { ctx[k] = Number(v).toLocaleString(CITY.locale); });
+      if (n) n.textContent = fill(s.countNote, ctx);
+    });
+    return d;
+  }).catch(() => { spotFiles[it.file] = null; return null; }));
+}
+const spotClass = (it, p) => it.mark === 'lot' ? (p.t === 'g' ? 'g' : 's') : (p.dc ? 'dc' : 'l2');
+const spotPorts = p => (p.l1 || 0) + (p.l2 || 0) + (p.dc || 0);
+const spotSize = (it, p) => it.mark === 'lot' ? (!p.cap || p.cap < 100 ? 1 : p.cap < 400 ? 2 : 3) : (spotPorts(p) <= 2 ? 1 : spotPorts(p) <= 8 ? 2 : 3);
+const plural = (n, [one, many]) => fill(n === 1 ? one : many, {n: n.toLocaleString(CITY.locale)});
+function spotTip(it, p){
+  if (it.mark === 'lot') return p.n + (p.cap ? ' · ' + plural(p.cap, it.spacesText) : '');
+  return p.n + ' · ' + [p.dc && it.dcLabel + ' ' + p.dc, p.l2 && it.l2Label + ' ' + p.l2].filter(Boolean).join(', ') + (p.off ? ' · ' + it.offText : '');
+}
+function spotPopup(it, p, latlng){
+  const D = loaded[it.file] || {}, c = spotClass(it, p), rows = [];
+  let kind;
+  if (it.mark === 'lot'){
+    kind = it.typeText[c];
+    if (p.cap) rows.push([it.spacesLabel, plural(p.cap, it.spacesText)]);
+    if (p.h) rows.push([it.heightLabel, fill(it.heightText, {h: p.h.toFixed(2)})]);
+    if (p.ttc) rows.push([it.ttcLabel, it.ttcText]);
+  } else {
+    kind = p.dc && p.l2 ? it.bothText : it.typeText[c];
+    if (p.dc) rows.push([it.dcLabel, plural(p.dc, it.portText) + (p.kw ? ' · ' + fill(it.kwText, {kw: p.kw}) : '')]);
+    if (p.l2) rows.push([it.l2Label, plural(p.l2, it.portText)]);
+    if (p.l1) rows.push([it.l1Label, plural(p.l1, it.portText)]);
+    if (p.a && !p.n.includes(p.a.split(' ')[0])) rows.push([it.addressLabel, p.a]);   // not when the name already holds it
+    if (p.op) rows.push([it.operatorLabel, p.op]);
+    if (p.net) rows.push([it.networkLabel, p.net]);
+    if (p.h24 || p.hrs) rows.push([it.hoursLabel, p.h24 ? it.h24Text : p.hrs]);
+    if (p.fee) rows.push([it.priceLabel, p.fee]);
+    if (p.tes) rows.push([it.accessLabel, it.teslaText]);
+    if (p.off) rows.push([it.statusLabel, it.offText]);
+  }
+  const fine = fill(it.fine || '', {date: D.asof && D.asof[it.cat] ? niceDate(D.asof[it.cat], true) : '', conf: p.conf ? niceDate(p.conf, true) : ''});
+  L.popup({className: 'info-pop sp-pop', maxWidth: 300, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.n) + '</b><small><i class="sp ' + it.mark + ' c-' + c + ' z-1' + (p.off ? ' off' : '') + '"></i>' + esc(kind) + '</small>' +
+    rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
+    (fine ? '<p class="bk-fine">' + esc(fine) + '</p>' : '')).openOn(map);
+}
+function tapSpotClass(id, k){
+  const it = LAYERS.find(l => l.id === id), all = Object.keys(it.classes);
+  const want = new Set(spotPick[id] || all);
+  if (want.has(k) && want.size > 1) want.delete(k); else want.add(k);
+  spotPick[id] = want.size === all.length ? null : want;
+  document.querySelectorAll('[data-sp="' + id + '"]').forEach(b => b.setAttribute('aria-pressed', String(!spotPick[id] || spotPick[id].has(b.dataset.k))));
+  if (layers[id] && layers[id]._draw) layers[id]._draw();
 }
 function setBikeClasses(want){
   bkClasses.clear(); want.filter(k => k in BIKE.classes).forEach(k => bkClasses.add(k));
@@ -1190,7 +1346,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -1296,6 +1452,14 @@ CITY.groups.forEach(([title, items]) => {
         '</div><div class="legend"><small>' + esc(it.legend || '') + ' <span id="bknote"></span></small></div>';
       grp.appendChild(box);
       box.querySelectorAll('[data-bk]').forEach(b => b.addEventListener('click', () => tapBikeClass(b.dataset.bk)));
+    }
+    if (it.kind === 'spots' && it.classes){   // classes, any mix; the chips double as the key to the markers
+      const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'spbox-' + it.id; box.hidden = !it.on;
+      box.innerHTML = '<div class="chips pick" role="group" aria-label="' + esc(it.name) + '">' + Object.entries(it.classes).map(([k, [short, long]]) =>
+        '<button type="button" data-sp="' + it.id + '" data-k="' + k + '" aria-pressed="true" title="' + esc(long) + '"><i class="sp ' + it.mark + ' c-' + k + ' z-1"></i>' + esc(short) + '</button>').join('') +
+        '</div><div class="legend"><small>' + esc(it.legend || '') + ' <span id="spnote-' + it.id + '"></span></small></div>';
+      grp.appendChild(box);
+      box.querySelectorAll('[data-sp]').forEach(b => b.addEventListener('click', () => tapSpotClass(it.id, b.dataset.k)));
     }
     if (it.kind === 'towers'){   // key to the badges, shown while the layer is on
       const box = document.createElement('div'); box.className = 'lensbox child'; box.id = 'twkey-' + it.id; box.hidden = !it.on;
@@ -1451,6 +1615,7 @@ function setLayer(id, on){
   if (kindOf(id) === 'buses'){ document.getElementById('busbox').hidden = !on; drawBusBox(); }
   if (kindOf(id) === 'changes'){ const b = document.getElementById('chgbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'bikes'){ const b = document.getElementById('bkbox'); if (b) b.hidden = !on; }
+  if (kindOf(id) === 'spots'){ const b = document.getElementById('spbox-' + id); if (b) b.hidden = !on; }
   { const b = document.getElementById('pg-' + id); if (b){ b.hidden = !on; drawPlacePick(id); } }
   if (kindOf(id) === 'buses' || kindOf(id) === 'streetcars' || kindOf(id) === 'regional') drawStops();
   if (kindOf(id) === 'boards'){ const box = document.getElementById('brd-' + id); if (box) box.hidden = !on; if (on) setBoard(id, boardPick[id]); }
@@ -1910,9 +2075,13 @@ function cardOf(latlng, title, muniName){
       const t = it.boards.filter(([b]) => bh[b]).map(([b]) => fill(r.text, boardCtx(it, bh[b]))).join(' · ');
       return [r.label, t || r.empty || '—']; }
     const h = hits[r.layer];
-    if (h){ const t = fill(r.text, h.properties); return t || !r.skipEmpty ? [r.label, t] : null; }   // skipEmpty: no row when the text fills to nothing
+    // cover: a second line with how much of the spot's unit (neighbourhood) the layer covers, from the profile
+    // field r.cover.field (a percentage), e.g. "62% of Roncesvalles is inside permit areas".
+    const cov = r.cover && coverLine(r.cover, hits);
+    const withCov = t => cov ? [r.label, esc(t) + '<span class="ag-sub">' + esc(cov) + '</span>', true] : [r.label, t];
+    if (h){ const t = fill(r.text, h.properties); return t || !r.skipEmpty ? withCov(t) : null; }   // skipEmpty: no row when the text fills to nothing
     if (r.emptyWithin && Object.entries(r.emptyWithin).some(([id, name]) => hits[id] && hits[id].properties.name === name)) return [r.label, '—'];
-    return [r.label, r.empty || '—'];
+    return withCov(r.empty || '—');
   });
   // Title: a searched place keeps its own name; a dropped pin is named by its neighbourhood (or, failing
   // that, the big area it's in). Coordinates are a last resort, for a spot no layer covers.
@@ -1931,6 +2100,11 @@ function cardOf(latlng, title, muniName){
                ['cls', (CLC && CLC.title) || 'Road closures', closuresHere(x, y)],
                ['chg', (CC && CC.title) || 'Changing nearby', changesHere(x, y)],
                ['reps', 'Representatives', representatives(hits)]]};
+}
+function coverLine(C, hits){
+  const u = UNITS && hits[UNITS.id], d = u && data.profiles ? data.profiles[String(u.properties.code)] : null;
+  if (!d || d[C.field] == null) return '';
+  return fill(d[C.field] ? C.text : (C.none || C.text), {pct: d[C.field], name: u.properties.name});
 }
 /* The card's pickup row (card.pickup in city.json; a Boundaries row placed by {"label", "pickup": true} in
    card.facts): a city service that comes on set dates to set areas, such as curbside collection or street
@@ -2564,6 +2738,58 @@ function checkPreset(){
 }
 function clearPreset(){ presetOn = null; presetCustom = false; drawPresets(); }
 if (qHint) qHint.addEventListener('click', () => document.getElementById('q').focus());
+
+/* ---------- Special events: a view and a banner while a big one is on ----------
+   An event marked "banner" in events.geojson (engine/events.py) becomes a view at the top of the Views
+   list from a few days before it ("bannerFrom") until its last closure ends: only the layers in the
+   events layer's "viewLayers" (streets and the event's closures), framed on its closures. The first time
+   someone opens the map in that window, a banner offers the view; tapping it or closing it is remembered
+   in this browser, per event, so it doesn't come back on every visit. */
+const EVL = byKind('events'), evBanner = document.getElementById('evBanner');
+function eventsNow(){
+  if (!EVL || !loaded[EVL.file]) return [];
+  const today = cityToday(EVL.tz), now = cityNow(EVL.tz);
+  return (loaded[EVL.file].events || []).filter(e => e.banner && e.bannerFrom <= today && e.end > now);
+}
+// "today", "this weekend" or "Oct 24 to Oct 25".
+function evPhrase(e){
+  const today = cityToday(EVL.tz), s = e.start.slice(0, 10), en = e.end.slice(0, 10);
+  if (en === today) return EVL.todayText;
+  const t = new Date(today + 'T12:00:00'), sun = new Date(t.getTime() + ((7 - t.getDay()) % 7) * 864e5);
+  const sunISO = sun.getFullYear() + '-' + String(sun.getMonth() + 1).padStart(2, '0') + '-' + String(sun.getDate()).padStart(2, '0');
+  if (en <= sunISO && [0, 6].includes(new Date(en + 'T12:00:00').getDay())) return EVL.weekendText;
+  return s === en ? niceDate(s) : fill(EVL.rangeText, {from: niceDate(s), to: niceDate(en)});
+}
+function eventPresets(){
+  if (!PRESETS) return;
+  eventsNow().slice().reverse().forEach(e => {
+    if (!presetById('ev-' + e.id)) PRESETS.items.unshift({id: 'ev-' + e.id, name: fill(EVL.viewName, {short: e.short}),
+      note: fill(EVL.viewNote, {name: e.name}), layers: EVL.viewLayers, view: e.bounds});
+  });
+}
+function showEvent(e){
+  if (presetById('ev-' + e.id)) return applyPreset('ev-' + e.id);
+  applyHash('#layers=' + EVL.viewLayers.join(','));
+  frame(L.latLngBounds(e.bounds));
+  if (!wide()) panel.classList.add('collapsed');
+  queueHash();
+}
+function eventBanner(){
+  const e = eventsNow()[0];
+  if (!e || !evBanner || state[EVL.id]) return;
+  const key = 'eventSeen-' + CITY.id + '-' + e.id;
+  let seen = false; try { seen = !!localStorage.getItem(key); } catch (x) {}
+  if (seen) return;
+  const done = () => { try { localStorage.setItem(key, '1'); } catch (x) {} evBanner.hidden = true; };
+  evBanner.innerHTML = '<i class="ev-dot" aria-hidden="true"></i><span>' + esc(fill(EVL.bannerText, {name: e.name, when: evPhrase(e)})) + '</span>' +
+    '<button type="button" class="tr-go">' + esc(EVL.bannerGo) + '</button>' +
+    '<button type="button" class="tr-x" aria-label="' + esc(EVL.bannerClose) + '">×</button>';
+  tourInv.hidden = true;   // one invitation at a time; the tour's comes back on a later visit
+  evBanner.hidden = false;
+  evBanner.querySelector('.tr-go').onclick = () => { done(); showEvent(e); logEvent('event_view', {id: e.id}); };
+  evBanner.querySelector('.tr-x').onclick = () => { done(); logEvent('event_dismiss', {id: e.id}); };
+  logEvent('event_banner', {id: e.id});
+}
 
 /* ---------- Theme: Auto (device setting), Light or Dark; remembered in this browser ---------- */
 function applyTheme(choice){
@@ -3462,8 +3688,10 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
   }
   lastHash = location.hash;
   if (location.hash) linkReady = true; else armLink();
+  eventPresets();
   drawPresets();
   tourInvite();
+  eventBanner();
   window.cityMapReady = true;
   // Stops and the route list: fetched after the map is up, then stops are drawn and the open card redrawn.
   if (TR) get(TR.file).then(d => {

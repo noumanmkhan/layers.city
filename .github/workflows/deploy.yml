@@ -38,6 +38,7 @@ on:
       - "Refresh Dallas representatives"
       - "Refresh Vancouver representatives"
       - "Fetch Vancouver places"
+      - "Fetch Toronto parking"
     types: [completed]
   workflow_dispatch:
     inputs:

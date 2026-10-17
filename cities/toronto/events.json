@@ -1,0 +1,16 @@
+{
+  "_about": "Special-event road closures (engine/events.py). The City's feed files an event's closures with its organizer as contractor; 'organizers' names the big ones and says which get the map's banner. Events not listed here still show on the layer, named from their closure text, without a banner unless they have at least 'bannerMin' closures. 'lead' is how many days before an event its banner starts showing.",
+  "tz": "America/Toronto",
+  "lat0": 43.7,
+  "lead": 3,
+  "ahead": 14,
+  "bannerMin": 60,
+  "organizers": {
+    "Canada Running Series Inc.": {
+      "name": "TCS Toronto Waterfront Marathon",
+      "short": "Waterfront Marathon",
+      "link": "https://www.torontowaterfrontmarathon.com/",
+      "banner": true
+    }
+  }
+}

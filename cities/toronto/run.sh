@@ -13,6 +13,7 @@ python3 landmarks.py
 python3 go.py
 python3 profiles.py
 [ -f raw/canopy/canopy.json ] && python3 ../../engine/canopy.py toronto   # after profiles: tree canopy per unit (fetch-canopy.yml)
+python3 parking.py            # after profiles: Green P, EV chargers, permit areas and each neighbourhood's permit share (fetch-toronto-parking.yml)
 python3 ../../engine/facts.py toronto   # after profiles: what makes each unit stand out
 python3 ../../engine/skyscrapers.py toronto   # towers 150 m+ from raw/skyscrapers/wiki.json (fetch-skyscrapers.yml)
 python3 heritage.py
@@ -38,6 +39,7 @@ python3 gta_places.py        # likewise: names each community's municipality fro
 python3 ../../engine/regions.py toronto   # outlines for Focus on a county / region
 [ -f raw/construction/osm.json ] && python3 ../../engine/construction.py toronto   # after streets: lines being built (fetch-construction.yml)
 [ -f raw/closures/permits.json ] && python3 ../../engine/closures.py toronto       # after construction: closures from that work (fetch-closures.yml, daily)
+[ -f raw/closures/events.json ] && python3 ../../engine/events.py toronto         # special-event closures (races, parades), also daily
 [ -f raw/surface/routes.json ] && python3 ../../engine/surface.py toronto       # streetcars and buses from the agency GTFS (fetch-surface.yml)
 [ -d raw/changes ] && python3 ../../engine/changes.py toronto   # what's changing: applications and permits (fetch-changes.yml, weekly)
 [ -f raw/heritage_buildings.json ] && python3 ../../engine/heritage_buildings.py toronto   # protected buildings (fetch-heritage-buildings.yml, monthly)
