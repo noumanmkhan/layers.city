@@ -134,7 +134,7 @@ footer a:hover{color:var(--ink)}
 @media (max-width:520px){.links{flex-wrap:nowrap;gap:8px}.pill{gap:6px;min-height:40px;padding:0 13px;font-size:14px}.pill svg{width:16px;height:16px}.pill .full{display:none}.pill .short{display:inline}main{padding-top:40px;gap:40px}.card,.soon{padding:24px}.card.print .body,.card.map .body{padding:22px 24px 24px}.guide{padding:14px 24px}}
 .card-link{display:flex;flex-direction:column;flex-grow:1;border-radius:14px 14px 0 0}
 .guide{display:flex;align-items:center;gap:12px;padding:16px 32px;border-top:1.5px solid var(--rule);font-size:15px;color:var(--ink-2)}
-.guide .tag{margin:0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-3)}
+.guide .tag{margin:0;white-space:nowrap;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-3)}
 .guide .t{flex-grow:1;text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px}
 .guide svg{flex:none;color:var(--accent);transition:transform .18s ease}
 .guide:hover .t{color:var(--ink);text-decoration-color:var(--accent)}.guide:hover svg{transform:translateX(3px)}
@@ -190,6 +190,9 @@ footer a:hover{color:var(--ink)}
             </div>
           </a>
           <a class="guide" href="/toronto/neighbourhoods/" aria-label="Guide to Toronto’s 158 neighbourhoods"><span class="tag">GUIDE</span><span class="t">158 neighbourhoods</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+          <!-- fact-sheets: unlaunched; deploy.yml strips this block from the live site -->
+          <a class="guide" href="/toronto/profiles/" aria-label="Printable fact sheets for Toronto’s 158 neighbourhoods"><span class="tag">FACT SHEETS</span><span class="t">Ready to print</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+          <!-- /fact-sheets -->
         </div>
 
         <div class="card map">
