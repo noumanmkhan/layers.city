@@ -21,6 +21,7 @@ python3 institutions.py       # universities, colleges, hospitals: points, writt
 python3 faith.py              # places of worship and halal/kosher shops: points, written straight to docs
 python3 french_schools.py     # French-language and immersion schools: points, written straight to docs
 python3 nearby.py             # after institutions: points for the card's Nearby section
+[ -f raw/nearby/green_spaces.geojson ] && python3 parks.py   # park outlines with their amenities, written straight to docs (fetch-toronto-nearby.yml)
 OUT=../../docs/toronto/data
 simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
 simplify areas 10; simplify base 40; simplify bia 5; simplify boroughs 10; simplify heritage 3
