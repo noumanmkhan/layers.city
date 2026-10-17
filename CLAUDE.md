@@ -89,3 +89,19 @@ the landing page, stop and say so; don't change this repo.
 - Address search uses OpenStreetMap Nominatim, whose usage policy forbids
   autocomplete-as-you-type. Live suggestions come only from the local landmark list.
 - Keep `README.md` current when features change. It doubles as the portfolio write-up.
+
+## Project log in Notion
+The user keeps a history and roadmap of this project in a Notion database, "Layers.City Project"
+(https://app.notion.com/p/3fc17fd4917e80f088c4f4368c2868f8, data source
+`collection://3fc17fd4-917e-80d6-a41a-000b73bcf9bb`). Keep it current as part of finishing work:
+- Add a row when something reaches dev or main, is reverted, or is parked, and when the user parks or
+  floats an idea in conversation. One row per change the user would recognise (the level of a CHANGELOG
+  heading), not per commit; data refreshes by the fetch jobs never get a row.
+- When a row moves on (On dev → Shipped, Idea → On dev), update its Status rather than adding a duplicate.
+- Fields: **Name** (what changed, in plain words), **Step** (one more than the current highest), **Date**
+  (the day it landed; leave empty for ideas), **Thread** (an existing option where one fits; Notion
+  select options can't contain commas), **Type** (New feature, Iteration, Fix, Reversal, Scouting,
+  Milestone, Infrastructure or Idea), **Cities**, **Status** (Shipped, On dev, Parked, Reverted or
+  Idea), **Evolved from step** (the Step this iterates on, if any) and **Notes** (why, in a sentence).
+- Read the database first for the highest Step and the Thread options. If the session has no Notion
+  connector, say so at the end of the work and list the rows that should be added.
