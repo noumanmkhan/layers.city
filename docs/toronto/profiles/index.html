@@ -75,6 +75,10 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 .sh{display:inline-grid;place-items:center;box-sizing:border-box;height:18px;min-width:26px;padding:0 4px;border-radius:5px;font:700 10.5px/1 var(--body);
   background:#F7C548;color:#1E2126;box-shadow:inset 0 0 0 1.5px #3B3F45;white-space:nowrap}
 .sh.city{background:#2E6B3A;color:#fff;box-shadow:none} .sh.toll{background:#1F5FA8;color:#fff;box-shadow:none}
+/* Parking icons, in the map's colours: Green P green, EV charging blue */
+.pk{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:4px;font:800 11px/1 var(--display);color:#fff;background:#0B8A44;flex:none}
+.pk.ev{background:#0A86B0;border-radius:50%}
+.pk.ev svg{width:11px;height:11px}
 .rbs .more{font-size:11px;font-weight:500;color:var(--muted);align-self:center}
 .q .row b:has(.rbs),.q .row b:has(.lns){display:flex;justify-content:flex-end}
 .sys .lines{display:grid;gap:3px;margin-top:8px;font-size:11.5px}
@@ -100,6 +104,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   .sys .lines{font-size:10px;gap:1px;margin-top:4px}
   .q .row{min-height:0}
   .rb,.sh{height:16px;min-width:22px;font-size:10px}
+  .pk{width:16px;height:16px}
   .ln{width:16px;height:16px;font-size:10px}
   .glance .row{padding:5px 0}
   .glance b{font-size:22px}
@@ -237,6 +242,33 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
       .map(([route, [k, street]]) => [`at ${street}`, fmtKm(k), { hwy: route }]);
     return { title: 'Highway access from this spot', rows: rows.length ? rows : [['Highway on-ramps', 'None within 8 km']], here: true };
   }
+  const parkingData = once(() => getJSON('../data/parking.geojson').catch(() => null));
+  const permitData = once(() => getJSON('../data/permit_areas.geojson').catch(() => null));
+  async function parkingFromPin(base) {
+    const [pk, pa] = await Promise.all([parkingData(), permitData()]);
+    if (!pk) return base;
+    const near = filter => {
+      let best = null;
+      for (const f of pk.features) {
+        if (!filter(f.properties)) continue;
+        const [lon, lat] = f.geometry.coordinates, k = kmBetween(pin.lon, pin.lat, lon, lat);
+        if (!best || k < best[0]) best = [k, f.properties];
+      }
+      return best;
+    };
+    const rows = [];
+    const gp = near(p => p.c === 'gp');
+    if (gp) rows.push(['Nearest Green P', `${gp[1].n} · ${fmtKm(gp[0])}`, { gp: true }]);
+    const any = near(p => p.c === 'ev' && !p.off), fast = near(p => p.c === 'ev' && !p.off && p.dc);
+    if (any) rows.push(['Nearest EV charging', `${any[1].a || any[1].n} · ${fmtKm(any[0])}`, { ev: true }]);
+    if (fast && (!any || fast[1] !== any[1])) rows.push(['Nearest DC fast charger', `${fast[1].a || fast[1].n} · ${fmtKm(fast[0])}`]);
+    if (pa) {
+      const f = pa.features.find(f => { const g = f.geometry; return g.type === 'Polygon' ? inPoly(g.coordinates, pin.lon, pin.lat) : g.coordinates.some(q => inPoly(q, pin.lon, pin.lat)); });
+      rows.push(['Permit parking area', f ? `Area ${f.properties.name}` : 'Not in a permit area']);
+    }
+    return { title: 'Parking and charging near this spot', rows };
+  }
+
   async function timesFromPin(base) {
     const dd = await drive();
     const m = driveAt(dd, pin.lon, pin.lat);
@@ -305,6 +337,9 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     } else {
       drawHighways(svg, m.hwy || [], 8, 4.5);
       (m.ramps || []).forEach(([x, y]) => svg.append(el('circle', { cx: x, cy: y, r: 5, fill: '#fff', stroke: '#3B3F45', 'stroke-width': 2.2 })));
+      (m.ev || []).forEach(([x, y, fast]) => svg.append(el('circle', { cx: x, cy: y, r: fast ? 4.5 : 3, fill: '#0A86B0', stroke: '#fff', 'stroke-width': 1.2 })));
+      (m.greenp || []).forEach(([x, y, t]) => svg.append(el('rect', { x: x - 5, y: y - 5, width: 10, height: 10, rx: 2,
+        fill: t === 'g' ? '#0B8A44' : '#fff', stroke: '#0B8A44', 'stroke-width': 2 })));
       hwyShields(svg, m.hwy || [], 1);
     }
     (driving ? [] : m.stations).forEach(s => {
@@ -325,7 +360,8 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     const keys = transit
       ? [['line', '#FFC425', 'Subway or LRT'], ['line', 'var(--car)', 'Streetcar'], ['line', 'var(--bus)', 'Frequent bus'], ['thin', 'var(--bus)', 'Other daytime bus'], ['line', 'var(--bike)', 'Bike lane or trail']]
       : driving
-      ? [['hwy', '#F7C548', 'Highway'], ['hwy', '#B6B9BF', 'City expressway'], ['road', '#FFFFFF', 'Main road'], ['ramp', '#fff', 'On-ramp']]
+      ? [['hwy', '#F7C548', 'Highway'], ['hwy', '#B6B9BF', 'City expressway'], ['road', '#FFFFFF', 'Main road'], ['ramp', '#fff', 'On-ramp'],
+         ['gp', '#0B8A44', 'Green P garage'], ['gps', '#fff', 'Green P lot'], ['dot', '#0A86B0', 'EV charging']]
       : [['line', '#FFC425', 'Subway'], ['line', 'var(--car)', 'Streetcar'], ['line', 'var(--bike)', 'Bike lane or trail'], ['dot', 'var(--park)', 'Park']];
     lg.append(el('rect', { width: 140, height: 10 + keys.length * 15, rx: 6, fill: '#fff', 'fill-opacity': .92 }));
     keys
@@ -333,6 +369,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
         const y = 14 + i * 15;
         lg.append(kind === 'dot' ? el('circle', { cx: 16, cy: y, r: 3.5, fill: c })
           : kind === 'ramp' ? el('circle', { cx: 16, cy: y, r: 4, fill: '#fff', stroke: '#3B3F45', 'stroke-width': 2 })
+          : kind === 'gp' || kind === 'gps' ? el('rect', { x: 12, y: y - 4, width: 8, height: 8, rx: 1.5, fill: c, stroke: '#0B8A44', 'stroke-width': 1.8 })
           : kind === 'hwy' ? el('rect', { x: 8, y: y - 3, width: 16, height: 6, fill: c, stroke: '#3B3F45', 'stroke-width': 1.5 })
           : kind === 'road' ? el('rect', { x: 8, y: y - 2.5, width: 16, height: 5, fill: c, stroke: '#C9C1BE', 'stroke-width': 1.2 })
           : el('rect', { x: 8, y: y - (kind === 'thin' ? 1 : 2), width: 16, height: kind === 'thin' ? 2 : 4, fill: c, 'fill-opacity': kind === 'thin' ? .6 : 1 }));
@@ -442,14 +479,17 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     return document.createTextNode('');
   }
   function labelNode(k, meta) {
-    if (!meta || (!meta.go && !meta.hwy && !(meta.lines && meta.lines.length))) return el('span', {}, k);
+    if (!meta || (!meta.go && !meta.hwy && !meta.gp && !meta.ev && !(meta.lines && meta.lines.length))) return el('span', {}, k);
     const w = el('span', { class: 'lbl' });
     if (meta.hwy) w.append(shield(meta.hwy));
+    if (meta.gp) w.append(el('span', { class: 'pk', 'aria-hidden': 'true' }, 'P'));
+    if (meta.ev) { const b = el('span', { class: 'pk ev', 'aria-hidden': 'true' }); b.append(bolt()); w.append(b); }
     if (meta.go) w.append(el('span', { class: 'rb go', 'aria-hidden': 'true' }, 'GO'));
     if (meta.lines && meta.lines.length) w.append(bullets(meta.lines));
     w.append(document.createTextNode(k));
     return w;
   }
+  const bolt = () => { const v = el('svg', { viewBox: '0 0 12 12', 'aria-hidden': 'true' }); v.append(el('path', { d: 'M7 0 2 7h3l-1 5 5-7H6z', fill: '#fff' })); return v; };
   const shield = route => el('span', { class: `sh ${KINDS[route] || 'prov'}`, role: 'img', 'aria-label': `Highway ${route}` }, route);
   const linesOf = (sys, name) => ((sys && sys.stations.find(s => s.name === name)) || {}).lines || [];
 
@@ -475,7 +515,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     }));
     const sections = (transit ? p.transit.sections : driving ? p.driving.sections : p.sections).slice();
     let origin = transit ? p.transit.origin : null;
-    if (pin && driving) { sections[0] = await rampsFromPin(sections[0]); sections[1] = await timesFromPin(sections[1]); }
+    if (pin && driving) { sections[0] = await rampsFromPin(sections[0]); sections[1] = await timesFromPin(sections[1]); sections[2] = await parkingFromPin(sections[2]); }
     else if (pin) sections[0] = await hereSection();
     if (pin && transit) { sections[2] = await hubsFromPin(sections[2]); origin = sections[2].origin || origin; }
     if (transit) { const sys = await system(); if (sys) drawSystem(sys, p.transit.system, origin); }
@@ -490,7 +530,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
       ? ' · Walks along streets and paths at 4.8 km/h from the 150 m square around the pin: © OpenStreetMap contributors · Drive times are free-flow'
       : ' · Walk times are approximate')
       + (lens === 'transit' ? ' · Stops and changes counted along TTC lines · Door to door: typical weekday-morning trip' : '')
-      + (lens === 'driving' ? ' · Highways, ramps and roads: City of Toronto, © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads); ramp distances straight-line' : '');
+      + (lens === 'driving' ? ' · Highways, ramps and roads: City of Toronto, © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads); distances straight-line · Green P: City of Toronto (2019 list) · Permit areas: City of Toronto · EV charging: U.S. DOE Alternative Fuels Data Center, City of Toronto' : '');
     $('asof').textContent = `Data as of ${p.asof}`;
     $('clear').hidden = !pin;
     $('sheet').hidden = false; $('msg').hidden = true;
