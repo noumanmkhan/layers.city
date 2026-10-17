@@ -86,7 +86,8 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 .sys .note{font-size:11px;color:var(--muted);margin-top:6px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .q.here{border-color:var(--accent)}
-@media (max-width:640px){
+/* Phone layout: screen only, so a phone still prints the Letter layout. */
+@media screen and (max-width:640px){
   .sheet{padding:18px;border-radius:0}
   h1{font-size:36px}
   .hero,.hero.two,.quads{grid-template-columns:minmax(0,1fr)}
@@ -94,9 +95,12 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 }
 @page{size:letter portrait;margin:0.4in}
 @media print{
+  /* Lay the sheet out at Letter's printable width (8.5in less 0.4in margins) whatever the screen, so phones
+     print the same page as desktops instead of the narrow screen layout. */
+  html,body{width:7.7in;min-width:7.7in;margin:0}
   body{background:#fff}
   .bar,.find{display:none}
-  .sheet{max-width:none;margin:0;padding:0;box-shadow:none;break-inside:avoid}
+  .sheet{width:7.7in;max-width:none;margin:0;padding:0;box-shadow:none;break-inside:avoid}
   .sheet{gap:10px;font-size:12px}
   h1{font-size:38px}
   .map svg{max-height:3.5in}
