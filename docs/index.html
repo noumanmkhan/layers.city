@@ -58,7 +58,6 @@ header{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;gap:12px
 .pill{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--rule)}
 .pill .short{display:none}
 .pill.dark{background:var(--ink);border-color:var(--ink);color:#fff}
-.pill.linkedin{background:#0A66C2;border-color:#0A66C2;color:#fff}
 .pill.instagram{background:linear-gradient(45deg,#F58529 0%,#DD2A7B 45%,#8134AF 75%,#515BD4 100%);border-color:transparent;color:#fff}
 
 main{flex-grow:1;padding-top:72px;padding-bottom:64px;display:flex;flex-direction:column;gap:56px}
@@ -125,7 +124,7 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,
 
 .pill,.card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
 .pill:hover,.card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(26,20,20,.10);border-color:var(--ink)}
-.pill.linkedin:hover{border-color:#0A66C2}.pill.instagram:hover{border-color:transparent}
+.pill.instagram:hover{border-color:transparent}
 .pill:focus-visible,.card:focus-visible,.mark a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.pill,.card{transition:none}.pill:hover,.card:hover{transform:none}}
 
@@ -154,10 +153,6 @@ footer a:hover{color:var(--ink)}
       <a class="pill instagram" href="https://www.instagram.com/layers.city" rel="me" aria-label="layers.city on Instagram">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
         layers.city
-      </a>
-      <a class="pill linkedin" href="https://www.linkedin.com/in/noumanmkhan" rel="me" aria-label="Nouman Khan on LinkedIn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
-        LinkedIn
       </a>
     </nav>
   </header>
