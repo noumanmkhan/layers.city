@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Unreleased (profiles branch). Keep noindex until launch. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Neighbourhood profiles · Toronto · Layers.City</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+:root{
+  --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --muted:#5E5452; --rule:#E4DCDA; --accent:#C8102E;
+  --hood:#FBE3E5; --land:#F2EEEC; --park:#4E9A57; --bike:#8DBF94; --car:#C8102E; --bus:#2F5E9E;
+  --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.4}
+.bar{max-width:8.5in;margin:0 auto;padding:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.bar label{font-weight:500}
+.bar select{font:inherit;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--card);min-height:44px;flex:1 1 240px;max-width:360px}
+.bar button{font:inherit;font-weight:500;padding:8px 14px;border:1px solid var(--ink);border-radius:8px;background:var(--card);min-height:44px;cursor:pointer}
+.sheet{max-width:8.5in;margin:0 auto 32px;background:var(--card);padding:0.45in;display:flex;flex-direction:column;gap:14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.top{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:.12em;font-weight:500;color:var(--muted)}
+.brand{display:flex;gap:8px;align-items:center;font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:0;color:var(--ink)}
+h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line-height:1;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:13px}
+.rule{height:3px;width:64px;background:var(--accent)}
+.hero{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);gap:14px}
+.panel{border:1px solid var(--rule);border-radius:10px;padding:12px 14px;background:var(--card)}
+.map{padding:0;overflow:hidden;background:var(--land)}
+.map svg{display:block;width:100%;height:100%;min-height:3in;max-height:4.4in}
+.k{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
+.glance .row{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px solid var(--rule)}
+.glance .row:last-child{border-bottom:0}
+.glance b{font-family:var(--display);font-weight:800;font-size:26px;line-height:1;color:var(--accent);min-width:84px}
+.quads{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 14px}
+.q .row{display:flex;justify-content:space-between;gap:12px;padding:4px 0;border-bottom:1px solid var(--rule);font-size:12.5px}
+.q .row:last-child{border-bottom:0}
+.q .row > span{color:var(--muted)}
+.q .row b{font-weight:500;text-align:right}
+.foot{display:flex;justify-content:space-between;gap:16px;font-size:10.5px;color:var(--muted)}
+.foot span:last-child{white-space:nowrap}
+.msg{max-width:8.5in;margin:40px auto;padding:0 16px;color:var(--muted)}
+.find{max-width:8.5in;margin:-6px auto 0;padding:0 16px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.find input{font:inherit;padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--card);min-height:44px;flex:1 1 260px;max-width:420px}
+.find button{font:inherit;font-weight:500;padding:8px 14px;border:1px solid var(--ink);border-radius:8px;background:var(--card);min-height:44px;cursor:pointer}
+.find .hint{color:var(--muted);font-size:13px;flex-basis:100%}
+.map svg{cursor:crosshair}
+.lens{display:inline-flex;border:1px solid var(--ink);border-radius:8px;overflow:hidden}
+.lens button{border:0;border-radius:0;min-height:44px}
+.lens button+button{border-left:1px solid var(--ink)}
+.lens button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.hero.two{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+.sys{display:flex;flex-direction:column}
+.sys svg{display:block;width:100%;height:auto;margin-top:4px}
+/* Line bullets and route badges, in the map's TTC styles (cities/toronto/city.css): streetcars red with white
+   numbers, buses white with a red outline, express green, Blue Night white with a blue outline, GO green. */
+.ln{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font:800 11px/1 var(--display);color:#fff;flex:none}
+.ln.l1{background:#FFC425;color:#1A1414} .ln.l2{background:#00A64F} .ln.l4{background:#A8518A} .ln.l5{background:#F58426} .ln.l6{background:#959595}
+.lns{display:inline-flex;gap:3px;align-items:center}
+.lbl{display:inline-flex;gap:6px;align-items:center}
+.rbs{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+.rb{display:inline-grid;place-items:center;box-sizing:border-box;height:18px;min-width:26px;padding:0 4px;border-radius:4px;font:700 11px/1 var(--body);
+  background:#fff;color:#D7261E;box-shadow:inset 0 0 0 1.5px #D7261E}
+.rb.tram{background:#D7261E;color:#fff;box-shadow:none}
+.rb.exp{background:#15924A;color:#fff;box-shadow:none}
+.rb.night{background:#fff;color:#1F4FA3;box-shadow:inset 0 0 0 1.5px #1F4FA3}
+.rb.go{background:#1E6B47;color:#fff;box-shadow:none}
+/* Highway shields, as on the map: provincial yellow with a dark edge, city expressways green, toll blue */
+.sh{display:inline-grid;place-items:center;box-sizing:border-box;height:18px;min-width:26px;padding:0 4px;border-radius:5px;font:700 10.5px/1 var(--body);
+  background:#F7C548;color:#1E2126;box-shadow:inset 0 0 0 1.5px #3B3F45;white-space:nowrap}
+.sh.city{background:#2E6B3A;color:#fff;box-shadow:none} .sh.toll{background:#1F5FA8;color:#fff;box-shadow:none}
+/* Parking icons, in the map's colours: Green P green, EV charging blue */
+.pk{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:4px;font:800 11px/1 var(--display);color:#fff;background:#0B8A44;flex:none}
+.pk.ev{background:#0A86B0;border-radius:50%}
+.pk.ev svg{width:11px;height:11px}
+.rbs .more{font-size:11px;font-weight:500;color:var(--muted);align-self:center}
+.q .row b:has(.rbs),.q .row b:has(.lns){display:flex;justify-content:flex-end}
+.sys .lines{display:grid;gap:3px;margin-top:8px;font-size:11.5px}
+.sys .lines i{display:inline-block;width:16px;height:4px;border-radius:2px;margin-right:8px;vertical-align:middle}
+.sys .note{font-size:11px;color:var(--muted);margin-top:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.q.here{border-color:var(--accent)}
+@media (max-width:640px){
+  .sheet{padding:18px;border-radius:0}
+  h1{font-size:36px}
+  .hero,.hero.two,.quads{grid-template-columns:minmax(0,1fr)}
+  .foot{flex-direction:column}
+}
+@page{size:letter portrait;margin:0.4in}
+@media print{
+  body{background:#fff}
+  .bar,.find{display:none}
+  .sheet{max-width:none;margin:0;padding:0;box-shadow:none;break-inside:avoid}
+  .sheet{gap:10px;font-size:12px}
+  h1{font-size:38px}
+  .map svg{max-height:3.5in}
+  .sys .note{display:none}
+  .sys .lines{font-size:10px;gap:1px;margin-top:4px}
+  .q .row{min-height:0}
+  .rb,.sh{height:16px;min-width:22px;font-size:10px}
+  .pk{width:16px;height:16px}
+  .ln{width:16px;height:16px;font-size:10px}
+  .glance .row{padding:5px 0}
+  .glance b{font-size:22px}
+  .q .row{font-size:11.5px;padding:3px 0}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <label for="pick">Neighbourhood</label>
+  <select id="pick"><option value="">Loading…</option></select>
+  <div class="lens" role="group" aria-label="Profile type">
+    <button type="button" data-lens="overview" aria-pressed="true">Overview</button>
+    <button type="button" data-lens="transit" aria-pressed="false">Transit</button>
+    <button type="button" data-lens="driving" aria-pressed="false">Driving</button>
+  </div>
+  <button type="button" id="print">Print</button>
+</div>
+<form class="find" id="find">
+  <label for="q" class="sr">Address</label>
+  <input id="q" type="search" placeholder="Search an address, like 789 Yonge Street" autocomplete="off">
+  <button type="submit" id="go">Find</button>
+  <button type="button" id="clear" hidden>Clear pin</button>
+  <span class="hint" id="hint">Or click the map to drop a pin and see walk times from that spot.</span>
+</form>
+<p class="msg" id="msg" hidden></p>
+<main class="sheet" id="sheet" hidden>
+  <div class="top">
+    <span class="brand">
+      <svg width="16" height="20" viewBox="0 0 18 22" aria-hidden="true"><path d="M9 1C4.6 1 1.5 4.2 1.5 8.2 1.5 13 9 21 9 21S16.5 13 16.5 8.2C16.5 4.2 13.4 1 9 1Z" fill="#C8102E"/><path d="M4.8 8.4 9 6.2l4.2 2.2L9 10.6Z" fill="#fff"/><path d="M4.8 10.6 9 12.8l4.2-2.2" fill="none" stroke="#fff" stroke-width="1.2"/></svg>
+      Layers.City
+    </span>
+    <span id="kind">NEIGHBOURHOOD PROFILE · TORONTO</span>
+  </div>
+  <div>
+    <h1 id="name"></h1>
+    <div class="sub" id="sub">City of Toronto neighbourhood boundary</div>
+  </div>
+  <div class="rule"></div>
+  <section class="hero" id="hero">
+    <div class="panel map" id="map"></div>
+    <div class="panel glance" id="glancePanel"><div class="k">At a glance</div><div id="glance"></div></div>
+    <div class="panel sys" id="sysPanel" hidden><div class="k" id="sysTitle">Where it connects</div><div id="sys"></div>
+      <div class="note" id="sysNote">Subway and LRT lines, simplified. Stops and changes are counted along the lines.</div></div>
+  </section>
+  <section class="quads" id="quads"></section>
+  <div class="foot">
+    <span id="credits"></span>
+    <span id="asof"></span>
+  </div>
+</main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const NS = 'http://www.w3.org/2000/svg';
+  const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g'];
+  const el = (tag, attrs = {}, text) => {
+    const n = SVG_TAGS.includes(tag) ? document.createElementNS(NS, tag) : document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+    if (text != null) n.textContent = text;
+    return n;
+  };
+  const d = pts => 'M' + pts.map(p => p.join(' ')).join('L');
+  const getJSON = async url => { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); };
+  const once = f => { let p; return () => (p ||= f()); };
+
+  // Loaded only when a pin is dropped: the city's boundaries, the walk grid and the drive grid.
+  const hoods = once(() => getJSON('../data/neighbourhoods.geojson'));
+  const walk = once(() => getJSON('data/walk_grid.json').catch(() => null));
+  const drive = once(() => getJSON('data/drive.json').catch(() => null));
+  const cityCfg = once(() => getJSON('../data/city.json'));
+  const system = once(() => getJSON('data/system.json').catch(() => null));
+
+  const BASE_CREDITS = 'Boundaries: City of Toronto Open Data · Transit: TTC · Bike Share: Toronto Parking Authority · Census figures: 2021';
+  let index = { places: [] }, slugOf = {}, profile = null, pin = null;
+  const LENSES = ['overview', 'transit', 'driving'];
+  let lens = LENSES.includes(new URLSearchParams(location.search).get('lens')) ? new URLSearchParams(location.search).get('lens') : 'overview';
+  let KINDS = {};   // highway route -> shield style (prov, city, toll), from drive.json
+
+  // ---- the map's frame: viewBox x/y <-> lon/lat (see build.py frame()) ----
+  const toXY = (g, lon, lat) => [(lon * g.kx - g.x0) * g.s, (g.y1 - lat * g.ky) * g.s];
+  const toLL = (g, x, y) => [(x / g.s + g.x0) / g.kx, (g.y1 - y / g.s) / g.ky];
+  const round3 = v => Math.round(v * 1000) / 1000;   // about 100 m: a shared link doesn't give an exact address
+
+  function inRing(ring, x, y) {
+    let inside = false;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const [xi, yi] = ring[i], [xj, yj] = ring[j];
+      if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside;
+    }
+    return inside;
+  }
+  const inPoly = (rings, x, y) => inRing(rings[0], x, y) && !rings.slice(1).some(h => inRing(h, x, y));
+  async function hoodAt(lon, lat) {
+    const f = (await hoods()).features.find(f => {
+      const g = f.geometry;
+      return g.type === 'Polygon' ? inPoly(g.coordinates, lon, lat) : g.coordinates.some(p => inPoly(p, lon, lat));
+    });
+    return f ? slugOf[f.properties.name] : null;
+  }
+
+  function walkAt(g, lon, lat) {
+    const c = Math.floor((lon - g.lon0) / g.dlon), r = Math.floor((lat - g.lat0) / g.dlat);
+    if (c < 0 || r < 0 || c >= g.cols || r >= g.rows) return null;
+    const k = r * g.cols + c, out = {};
+    for (const [key, L] of Object.entries(g.layers)) {
+      const min = L.min[k];
+      out[key] = min == null ? null : { min, name: L.names ? L.names[L.src[k]] : null };
+    }
+    return out;
+  }
+  // Free-flow drive minutes from the 1 km square under a pin, to each destination (drive.json, from fetch_drive.py).
+  function driveAt(dd, lon, lat) {
+    const g = dd && dd.grid;
+    if (!g) return null;
+    if (!g.index) g.index = new Map(g.cells.map(([c, r, m]) => [r * g.cols + c, m]));
+    const c = Math.floor((lon - g.lon0) / g.dlon), r = Math.floor((lat - g.lat0) / g.dlat);
+    return g.index.get(r * g.cols + c) || null;
+  }
+  const kmBetween = (lon1, lat1, lon2, lat2) =>
+    Math.hypot((lon1 - lon2) * 111.32 * Math.cos(lat1 * Math.PI / 180), (lat1 - lat2) * 110.574);
+  const fmtKm = d => d < 1 ? `${Math.round(d * 1000)} m` : `${d.toFixed(1)} km`;
+
+  // Driving lens with a pin: the nearest on-ramp to each highway, and drive times, from the pin.
+  async function rampsFromPin(base) {
+    const dd = await drive();
+    if (!dd || !dd.ramps.length) return base;
+    const best = {};
+    for (const [lon, lat, route, street] of dd.ramps) {
+      const k = kmBetween(pin.lon, pin.lat, lon, lat);
+      if (k <= 8 && (!best[route] || k < best[route][0])) best[route] = [k, street];
+    }
+    const rows = Object.entries(best).sort((a, b) => a[1][0] - b[1][0]).slice(0, 5)
+      .map(([route, [k, street]]) => [`at ${street}`, fmtKm(k), { hwy: route }]);
+    return { title: 'Highway access from this spot', rows: rows.length ? rows : [['Highway on-ramps', 'None within 8 km']], here: true };
+  }
+  const parkingData = once(() => getJSON('../data/parking.geojson').catch(() => null));
+  const permitData = once(() => getJSON('../data/permit_areas.geojson').catch(() => null));
+  async function parkingFromPin(base) {
+    const [pk, pa] = await Promise.all([parkingData(), permitData()]);
+    if (!pk) return base;
+    const near = filter => {
+      let best = null;
+      for (const f of pk.features) {
+        if (!filter(f.properties)) continue;
+        const [lon, lat] = f.geometry.coordinates, k = kmBetween(pin.lon, pin.lat, lon, lat);
+        if (!best || k < best[0]) best = [k, f.properties];
+      }
+      return best;
+    };
+    const rows = [];
+    const gp = near(p => p.c === 'gp');
+    if (gp) rows.push(['Nearest Green P', `${gp[1].n} · ${fmtKm(gp[0])}`, { gp: true }]);
+    const any = near(p => p.c === 'ev' && !p.off), fast = near(p => p.c === 'ev' && !p.off && p.dc);
+    if (any) rows.push(['Nearest EV charging', `${any[1].a || any[1].n} · ${fmtKm(any[0])}`, { ev: true }]);
+    if (fast && (!any || fast[1] !== any[1])) rows.push(['Nearest DC fast charger', `${fast[1].a || fast[1].n} · ${fmtKm(fast[0])}`]);
+    if (pa) {
+      const f = pa.features.find(f => { const g = f.geometry; return g.type === 'Polygon' ? inPoly(g.coordinates, pin.lon, pin.lat) : g.coordinates.some(q => inPoly(q, pin.lon, pin.lat)); });
+      rows.push(['Permit parking area', f ? `Area ${f.properties.name}` : 'Not in a permit area']);
+    }
+    return { title: 'Parking and charging near this spot', rows };
+  }
+
+  async function timesFromPin(base) {
+    const dd = await drive();
+    const m = driveAt(dd, pin.lon, pin.lat);
+    if (!m) return base;
+    return { title: 'Drive times from this spot, empty roads', rows: dd.destinations.map((n, i) => [n, m[i] == null ? 'No route' : `about ${m[i]} min`]) };
+  }
+
+  const hubText = v => {
+    if (!v) return 'Not on the subway';
+    const [n, ch] = v;
+    if (n === 0) return 'You’re there';
+    return `${n} stop${n === 1 ? '' : 's'}` + (ch ? ` · ${ch} change${ch === 1 ? '' : 's'}` : '');
+  };
+
+  // In the Transit lens with a pin, the hubs section starts from the station nearest the pin.
+  async function hubsFromPin(base) {
+    const [g, sys] = await Promise.all([walk(), system()]);
+    const w = g && walkAt(g, pin.lon, pin.lat);
+    if (!w || !w.subway || !sys) return base;
+    const from = w.subway.name, table = sys.toHubs[from] || [];
+    const rows = sys.hubs.map((h, i) => [h, hubText(table[i]), { lines: linesOf(sys, h) }]);
+    base.rows.filter(([k]) => k.startsWith('Door to door')).forEach(r => rows.push(['Door to door to Union, area typical', r[1]]));
+    return { title: `From ${from} (${w.subway.min} min walk) to the hubs`, rows, origin: from };
+  }
+
+  async function hereSection() {
+    const [g, dg, sys] = await Promise.all([walk(), drive(), system()]);
+    const w = g && walkAt(g, pin.lon, pin.lat);
+    const rows = [];
+    const t = (v, named) => v ? (named && v.name ? `${v.name} · ${v.min} min walk` : `${v.min} min walk`) : `Over ${g ? g.max_min : 60} min walk`;
+    if (!w) {
+      rows.push(['Walk times', g ? 'No street close to this spot' : 'Not built yet (run walk_grid.py)']);
+    } else {
+      rows.push(['Nearest subway', t(w.subway, true), { lines: w.subway ? linesOf(sys, w.subway.name) : [] }]);
+      rows.push(['Nearest TTC stop', t(w.stop)]);
+      if (w.go && w.go.min <= 30) rows.push(['Nearest GO station', t(w.go, true), { go: true }]);
+      rows.push(['Nearest Bike Share dock', t(w.bikeshare)]);
+      rows.push(['Nearest park', t(w.park)]);
+      rows.push(['Nearest library', t(w.library, true)]);
+    }
+    const dv = driveAt(dg, pin.lon, pin.lat);
+    if (dv && dv[0] != null) rows.push([`Drive to ${dg.destinations[0]}`, `about ${dv[0]} min`]);
+    return { title: 'From this spot', rows, here: true };
+  }
+
+  // ---- drawing ----
+  function drawMap(m, mode) {
+    const transit = mode === 'transit', driving = mode === 'driving';
+    const svg = el('svg', { viewBox: `0 0 ${m.w} ${m.h}`, role: 'img', 'aria-label': 'Map of the neighbourhood with transit, bike lanes and parks. Click to drop a pin.' });
+    svg.append(el('rect', { width: m.w, height: m.h, fill: 'var(--land)' }));
+    m.outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--hood)', stroke: 'var(--accent)', 'stroke-width': 2 })));
+    if (driving) {
+      (m.arterial || []).forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: '#C9C1BE', 'stroke-width': 4.5, 'stroke-linecap': 'round' })));
+      (m.arterial || []).forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: '#FFFFFF', 'stroke-width': 2.6, 'stroke-linecap': 'round' })));
+    }
+    if (!driving) m.bike.forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: 'var(--bike)', 'stroke-width': 1.6, 'stroke-opacity': transit ? .6 : 1 })));
+    if (transit) {
+      (m.bus || []).forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: 'var(--bus)', 'stroke-width': 1.8, 'stroke-opacity': .55 })));
+      (m.busFreq || []).forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: 'var(--bus)', 'stroke-width': 3.2 })));
+    }
+    if (!driving) {
+      m.streetcar.forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: 'var(--car)', 'stroke-width': 2.4, 'stroke-opacity': .8 })));
+      m.subway.forEach(l => l.paths.forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: l.color || '#333', 'stroke-width': 5, 'stroke-linecap': 'round' }))));
+      m.parks.forEach(([x, y]) => svg.append(el('circle', { cx: x, cy: y, r: 3.2, fill: 'var(--park)' })));
+      m.bikeshare.forEach(([x, y]) => svg.append(el('rect', { x: x - 2, y: y - 2, width: 4, height: 4, fill: '#1A1414', 'fill-opacity': .55 })));
+    } else {
+      drawHighways(svg, m.hwy || [], 8, 4.5);
+      (m.ramps || []).forEach(([x, y]) => svg.append(el('circle', { cx: x, cy: y, r: 5, fill: '#fff', stroke: '#3B3F45', 'stroke-width': 2.2 })));
+      (m.ev || []).forEach(([x, y, fast]) => svg.append(el('circle', { cx: x, cy: y, r: fast ? 4.5 : 3, fill: '#0A86B0', stroke: '#fff', 'stroke-width': 1.2 })));
+      (m.greenp || []).forEach(([x, y, t]) => svg.append(el('rect', { x: x - 5, y: y - 5, width: 10, height: 10, rx: 2,
+        fill: t === 'g' ? '#0B8A44' : '#fff', stroke: '#0B8A44', 'stroke-width': 2 })));
+      hwyShields(svg, m.hwy || [], 1);
+    }
+    (driving ? [] : m.stations).forEach(s => {
+      svg.append(el('circle', { cx: s.x, cy: s.y, r: 5.5, fill: '#fff', stroke: '#1A1414', 'stroke-width': 2 }));
+      const left = s.x > m.w - 110;   // label on the left near the right edge, so it isn't cut off
+      svg.append(el('text', { x: left ? s.x - 8 : s.x + 8, y: s.y + 4, 'text-anchor': left ? 'end' : 'start', 'font-size': 12, 'font-weight': 500, fill: '#1A1414',
+        stroke: '#fff', 'stroke-width': 3, 'paint-order': 'stroke', 'font-family': 'IBM Plex Sans, sans-serif' }, s.name));
+    });
+    if (pin && m.geo) {
+      const [x, y] = toXY(m.geo, pin.lon, pin.lat);
+      const g = el('g', { transform: `translate(${x.toFixed(1)} ${y.toFixed(1)})` });
+      g.append(el('circle', { r: 24, fill: 'var(--accent)', 'fill-opacity': .12 }));
+      g.append(el('path', { d: 'M0 0C-3-6-11-11-11-19A11 11 0 0 1 11-19C11-11 3-6 0 0Z', fill: 'var(--accent)', stroke: '#fff', 'stroke-width': 2 }));
+      g.append(el('circle', { cy: -19, r: 4, fill: '#fff' }));
+      svg.append(g);
+    }
+    const lg = el('g', { transform: 'translate(10 10)' });
+    const keys = transit
+      ? [['line', '#FFC425', 'Subway or LRT'], ['line', 'var(--car)', 'Streetcar'], ['line', 'var(--bus)', 'Frequent bus'], ['thin', 'var(--bus)', 'Other daytime bus'], ['line', 'var(--bike)', 'Bike lane or trail']]
+      : driving
+      ? [['hwy', '#F7C548', 'Highway'], ['hwy', '#B6B9BF', 'City expressway'], ['road', '#FFFFFF', 'Main road'], ['ramp', '#fff', 'On-ramp'],
+         ['gp', '#0B8A44', 'Green P garage'], ['gps', '#fff', 'Green P lot'], ['dot', '#0A86B0', 'EV charging']]
+      : [['line', '#FFC425', 'Subway'], ['line', 'var(--car)', 'Streetcar'], ['line', 'var(--bike)', 'Bike lane or trail'], ['dot', 'var(--park)', 'Park']];
+    lg.append(el('rect', { width: 140, height: 10 + keys.length * 15, rx: 6, fill: '#fff', 'fill-opacity': .92 }));
+    keys
+      .forEach(([kind, c, label], i) => {
+        const y = 14 + i * 15;
+        lg.append(kind === 'dot' ? el('circle', { cx: 16, cy: y, r: 3.5, fill: c })
+          : kind === 'ramp' ? el('circle', { cx: 16, cy: y, r: 4, fill: '#fff', stroke: '#3B3F45', 'stroke-width': 2 })
+          : kind === 'gp' || kind === 'gps' ? el('rect', { x: 12, y: y - 4, width: 8, height: 8, rx: 1.5, fill: c, stroke: '#0B8A44', 'stroke-width': 1.8 })
+          : kind === 'hwy' ? el('rect', { x: 8, y: y - 3, width: 16, height: 6, fill: c, stroke: '#3B3F45', 'stroke-width': 1.5 })
+          : kind === 'road' ? el('rect', { x: 8, y: y - 2.5, width: 16, height: 5, fill: c, stroke: '#C9C1BE', 'stroke-width': 1.2 })
+          : el('rect', { x: 8, y: y - (kind === 'thin' ? 1 : 2), width: 16, height: kind === 'thin' ? 2 : 4, fill: c, 'fill-opacity': kind === 'thin' ? .6 : 1 }));
+        lg.append(el('text', { x: 30, y: y + 4, 'font-size': 11, fill: '#1A1414', 'font-family': 'IBM Plex Sans, sans-serif' }, label));
+      });
+    svg.append(lg);
+    svg.addEventListener('click', e => {
+      if (!m.geo) return;
+      const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+      const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+      const [lon, lat] = toLL(m.geo, p.x, p.y);
+      setPin(lat, lon);
+    });
+    $('map').replaceChildren(svg);
+  }
+
+  function drawHighways(svg, hwys, caseW, coreW) {
+    hwys.forEach(h => h.paths.forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: '#3B3F45', 'stroke-width': caseW, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }))));
+    hwys.forEach(h => h.paths.forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: h.kind === 'city' ? '#B6B9BF' : '#F7C548', 'stroke-width': coreW, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }))));
+  }
+  // One shield per highway, at the middle of its longest drawn piece, skipped where it would cover a label
+  // or another shield (`taken`: boxes already in use, as [x0, y0, x1, y1]).
+  function hwyShields(svg, hwys, scale, taken = []) {
+    const seen = new Set();
+    const clash = b => taken.some(t => b[0] < t[2] && b[2] > t[0] && b[1] < t[3] && b[3] > t[1]);
+    hwys.forEach(h => {
+      if (seen.has(h.route) || !h.paths.length) return;
+      seen.add(h.route);
+      const len = p => p.reduce((s, q, i) => i ? s + Math.hypot(q[0] - p[i - 1][0], q[1] - p[i - 1][1]) : 0, 0);
+      const p = h.paths.reduce((a, b) => len(b) > len(a) ? b : a);
+      const [x, y] = p[Math.floor(p.length / 2)];
+      const kind = h.kind || 'prov', w = (10 + h.route.length * 7) * scale, ht = 17 * scale;
+      const box = [x - w / 2 - 2, y - ht / 2 - 2, x + w / 2 + 2, y + ht / 2 + 2];
+      if (clash(box)) return;
+      taken.push(box);
+      svg.append(el('rect', { x: x - w / 2, y: y - ht / 2, width: w, height: ht, rx: 4 * scale,
+        fill: kind === 'city' ? '#2E6B3A' : kind === 'toll' ? '#1F5FA8' : '#F7C548', stroke: kind === 'prov' ? '#3B3F45' : '#fff', 'stroke-width': 1.5 * scale }));
+      svg.append(el('text', { x, y: y + 4 * scale, 'text-anchor': 'middle', 'font-size': 11 * scale, 'font-weight': 700,
+        fill: kind === 'prov' ? '#1E2126' : '#fff', 'font-family': 'IBM Plex Sans, sans-serif' }, h.route));
+    });
+  }
+  function drawRegion(R, outline) {
+    const svg = el('svg', { viewBox: `0 0 ${R.w} ${R.h}`, role: 'img', 'aria-label': 'Highways across the region, with this neighbourhood highlighted' });
+    R.city.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--land)', stroke: 'var(--rule)', 'stroke-width': 2 })));
+    drawHighways(svg, R.hwy, 6, 3.4);
+    outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--accent)', 'fill-opacity': .3, stroke: 'var(--accent)', 'stroke-width': 2.5 })));
+    const taken = [];
+    R.dest.forEach(p => {
+      svg.append(el('circle', { cx: p.x, cy: p.y, r: 6, fill: '#1A1414', stroke: '#fff', 'stroke-width': 2 }));
+      const left = p.x > R.w - 150, tw = p.name.length * 8.6;
+      taken.push(left ? [p.x - 12 - tw, p.y - 12, p.x + 8, p.y + 10] : [p.x - 8, p.y - 12, p.x + 12 + tw, p.y + 10]);
+      svg.append(el('text', { x: left ? p.x - 10 : p.x + 10, y: p.y + 5, 'text-anchor': left ? 'end' : 'start', 'font-size': 16, 'font-weight': 600,
+        fill: '#1A1414', stroke: '#fff', 'stroke-width': 4, 'paint-order': 'stroke', 'font-family': 'IBM Plex Sans, sans-serif' }, p.name));
+    });
+    hwyShields(svg, R.hwy, 1.5, taken);
+    $('sys').replaceChildren(svg);
+  }
+
+  function drawSystem(sys, outline, origin) {
+    const svg = el('svg', { viewBox: `0 0 ${sys.w} ${sys.h}`, role: 'img', 'aria-label': 'Toronto’s subway and LRT lines with this neighbourhood highlighted' });
+    sys.outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--land)', stroke: 'var(--rule)', 'stroke-width': 2 })));
+    outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--accent)', 'fill-opacity': .25, stroke: 'var(--accent)', 'stroke-width': 2.5 })));
+    sys.lines.forEach(l => svg.append(el('path', { d: d(l.path), fill: 'none', stroke: l.color || '#333', 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' })));
+    const o0 = sys.stations.find(s => s.name === origin);
+    // hubs get a dot and a name, except one crowding the neighbourhood's own station
+    const named = s => sys.hubs.includes(s.name) && s.name !== origin && !(o0 && Math.hypot(s.x - o0.x, s.y - o0.y) < 26);
+    sys.stations.filter(named).forEach(s => svg.append(el('circle', { cx: s.x, cy: s.y, r: 5, fill: '#fff', stroke: '#1A1414', 'stroke-width': 2 })));
+    const label = (s, size, weight) => {
+      const left = s.x > sys.w - 120;
+      svg.append(el('text', { x: left ? s.x - 8 : s.x + 8, y: s.y + 5, 'text-anchor': left ? 'end' : 'start', 'font-size': size, 'font-weight': weight,
+        fill: '#1A1414', stroke: '#fff', 'stroke-width': 4, 'paint-order': 'stroke', 'font-family': 'IBM Plex Sans, sans-serif' }, s.name));
+    };
+    sys.stations.filter(named).forEach(s => label(s, 17, 500));
+    const o = sys.stations.find(s => s.name === origin);
+    if (o) {
+      svg.append(el('circle', { cx: o.x, cy: o.y, r: 8, fill: '#fff', stroke: 'var(--accent)', 'stroke-width': 4 }));
+      label(o, 19, 700);
+    }
+    const key = el('div', { class: 'lines' });
+    sys.lines.forEach(l => { const r = el('div'); r.append(el('i', { style: `background:${l.color}` }), document.createTextNode(l.name)); key.append(r); });
+    $('sys').replaceChildren(svg, key);
+  }
+
+  // Rows are [label, value, meta]: a value is text, {lines: [...]} (line bullets) or {routes: [...]} (route badges);
+  // meta.lines puts bullets before the label, meta.go a GO badge.
+  const bullets = lines => {
+    const w = el('span', { class: 'lns' });
+    lines.forEach(l => w.append(el('span', { class: `ln l${l}`, role: 'img', 'aria-label': `Line ${l}` }, l)));
+    return w;
+  };
+  const routeBadge = r => {
+    const f = r.f || [];
+    const cls = ['rb', r.m === 'tram' ? 'tram' : r.m === 'go' ? 'go' : 'bus', f.includes('night') ? 'night' : '', f.includes('exp') && r.m !== 'tram' ? 'exp' : ''].join(' ').trim();
+    const b = el('span', { class: cls, title: `${r.r} ${r.n}`, 'aria-label': `Route ${r.r} ${r.n}` }, r.r);
+    return b;
+  };
+  function valueNode(v) {
+    if (v == null || typeof v !== 'object') return document.createTextNode(v ?? '');
+    if (v.lines) return bullets(v.lines);
+    if (v.hwys) { const w = el('span', { class: 'rbs' }); v.hwys.forEach(h => w.append(shield(h))); return w; }
+    if (v.routes) {
+      const MAX = 6, w = el('span', { class: 'rbs' });   // a row stays one line, so the page still prints on one sheet
+      v.routes.slice(0, MAX).forEach(r => w.append(routeBadge(r)));
+      if (v.routes.length > MAX) w.append(el('span', { class: 'more', title: v.routes.slice(MAX).map(r => `${r.r} ${r.n}`).join(', ') }, `+${v.routes.length - MAX}`));
+      return w;
+    }
+    return document.createTextNode('');
+  }
+  function labelNode(k, meta) {
+    if (!meta || (!meta.go && !meta.hwy && !meta.gp && !meta.ev && !(meta.lines && meta.lines.length))) return el('span', {}, k);
+    const w = el('span', { class: 'lbl' });
+    if (meta.hwy) w.append(shield(meta.hwy));
+    if (meta.gp) w.append(el('span', { class: 'pk', 'aria-hidden': 'true' }, 'P'));
+    if (meta.ev) { const b = el('span', { class: 'pk ev', 'aria-hidden': 'true' }); b.append(bolt()); w.append(b); }
+    if (meta.go) w.append(el('span', { class: 'rb go', 'aria-hidden': 'true' }, 'GO'));
+    if (meta.lines && meta.lines.length) w.append(bullets(meta.lines));
+    w.append(document.createTextNode(k));
+    return w;
+  }
+  const bolt = () => { const v = el('svg', { viewBox: '0 0 12 12', 'aria-hidden': 'true' }); v.append(el('path', { d: 'M7 0 2 7h3l-1 5 5-7H6z', fill: '#fff' })); return v; };
+  const shield = route => el('span', { class: `sh ${KINDS[route] || 'prov'}`, role: 'img', 'aria-label': `Highway ${route}` }, route);
+  const linesOf = (sys, name) => ((sys && sys.stations.find(s => s.name === name)) || {}).lines || [];
+
+  async function render() {
+    const p = profile;
+    document.title = `${p.name} · Neighbourhood profile · Layers.City`;
+    $('name').textContent = p.name;
+    $('sub').textContent = pin
+      ? `Pinned spot (rounded to about 100 m) in the City’s ${p.name} neighbourhood`
+      : 'City of Toronto neighbourhood boundary';
+    const transit = lens === 'transit' && p.transit, driving = lens === 'driving' && p.driving;
+    if (driving) { const dd = await drive(); KINDS = (dd && dd.kinds) || {}; }
+    drawMap(p.map, transit ? 'transit' : driving ? 'driving' : 'overview');
+    $('kind').textContent = (transit ? 'TRANSIT' : driving ? 'DRIVING' : 'NEIGHBOURHOOD') + ' PROFILE · TORONTO';
+    $('hero').classList.toggle('two', !!(transit || driving));
+    $('glancePanel').hidden = !!(transit || driving); $('sysPanel').hidden = !(transit || driving);
+    $('sysTitle').textContent = driving ? 'Where the highways go' : 'Where it connects';
+    $('sysNote').textContent = driving ? 'Highways across the region. Dots are the drive-time destinations.'
+      : 'Subway and LRT lines, simplified. Stops and changes are counted along the lines.';
+    document.querySelectorAll('.lens button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lens === lens)));
+    $('glance').replaceChildren(...p.glance.map(([v, label]) => {
+      const r = el('div', { class: 'row' }); r.append(el('b', {}, v), el('span', {}, label)); return r;
+    }));
+    const sections = (transit ? p.transit.sections : driving ? p.driving.sections : p.sections).slice();
+    let origin = transit ? p.transit.origin : null;
+    if (pin && driving) { sections[0] = await rampsFromPin(sections[0]); sections[1] = await timesFromPin(sections[1]); sections[2] = await parkingFromPin(sections[2]); }
+    else if (pin) sections[0] = await hereSection();
+    if (pin && transit) { sections[2] = await hubsFromPin(sections[2]); origin = sections[2].origin || origin; }
+    if (transit) { const sys = await system(); if (sys) drawSystem(sys, p.transit.system, origin); }
+    if (driving) { const sys = await system(); if (sys && sys.region) drawRegion(sys.region, p.driving.region); }
+    $('quads').replaceChildren(...sections.map((s, i) => {
+      const q = el('div', { class: 'panel q' + (s.here ? ' here' : '') });
+      q.append(el('div', { class: 'k' }, `0${i + 1} · ${s.title}`));
+      s.rows.forEach(([k, v, meta]) => { const r = el('div', { class: 'row' }); const val = el('b'); val.append(valueNode(v)); r.append(labelNode(k, meta), val); q.append(r); });
+      return q;
+    }));
+    $('credits').textContent = BASE_CREDITS + (pin
+      ? ' · Walks along streets and paths at 4.8 km/h from the 150 m square around the pin: © OpenStreetMap contributors · Drive times are free-flow'
+      : ' · Walk times are approximate')
+      + (lens === 'transit' ? ' · Stops and changes counted along TTC lines · Door to door: typical weekday-morning trip' : '')
+      + (lens === 'driving' ? ' · Highways, ramps and roads: City of Toronto, © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads); distances straight-line · Green P: City of Toronto (2019 list) · Permit areas: City of Toronto · EV charging: U.S. DOE Alternative Fuels Data Center, City of Toronto' : '');
+    $('asof').textContent = `Data as of ${p.asof}`;
+    $('clear').hidden = !pin;
+    $('sheet').hidden = false; $('msg').hidden = true;
+  }
+
+  function fail(text) { $('sheet').hidden = true; $('msg').hidden = false; $('msg').textContent = text; }
+
+  function syncURL() {
+    const u = new URL(location);
+    profile ? u.searchParams.set('n', profile.slug) : u.searchParams.delete('n');
+    pin ? u.searchParams.set('at', `${pin.lat},${pin.lon}`) : u.searchParams.delete('at');
+    lens !== 'overview' ? u.searchParams.set('lens', lens) : u.searchParams.delete('lens');
+    history.replaceState(null, '', u);
+    $('pick').value = profile ? profile.slug : '';
+  }
+
+  async function load(slug) {
+    if (!slug) { profile = null; return fail('Pick a neighbourhood, search an address, or open a profile link.'); }
+    try { profile = await getJSON(`data/${encodeURIComponent(slug)}.json`); }
+    catch { profile = null; return fail('No profile found for that neighbourhood.'); }
+  }
+
+  async function setPin(lat, lon) {
+    const at = { lat: round3(lat), lon: round3(lon) };
+    const slug = await hoodAt(at.lon, at.lat);
+    if (!slug) { $('hint').textContent = 'That spot is outside the City of Toronto. Try a spot inside the city.'; return; }
+    pin = at;
+    if (!profile || profile.slug !== slug) await load(slug);
+    $('hint').textContent = 'Click the map again to move the pin.';
+    syncURL();
+    if (profile) await render();
+  }
+
+  // ---- address search: one Nominatim request per search, as its usage policy asks (no autocomplete) ----
+  let lastSearch = 0, busy = false;
+  $('find').addEventListener('submit', async e => {
+    e.preventDefault();
+    const text = $('q').value.trim();
+    if (!text || busy) return;
+    busy = true; $('go').disabled = true; $('go').textContent = '…';
+    try {
+      const wait = 1100 - (Date.now() - lastSearch);
+      if (wait > 0) await new Promise(r => setTimeout(r, wait));
+      lastSearch = Date.now();
+      const cfg = (await cityCfg()).search;
+      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&bounded=1&countrycodes=' + cfg.country +
+        '&viewbox=' + cfg.viewbox + '&q=' + encodeURIComponent(text);
+      let hit = null;
+      for (const r of await getJSON(url)) if (await hoodAt(+r.lon, +r.lat)) { hit = r; break; }
+      if (hit) await setPin(+hit.lat, +hit.lon);
+      else $('hint').textContent = `No match in Toronto for “${text}”. Try the full street name, like “789 Yonge Street”.`;
+    } catch {
+      $('hint').textContent = 'Address search isn’t responding right now. Try again in a moment, or click the map instead.';
+    } finally { busy = false; $('go').disabled = false; $('go').textContent = 'Find'; }
+  });
+  $('clear').addEventListener('click', () => { pin = null; $('hint').textContent = 'Or click the map to drop a pin and see walk times from that spot.'; syncURL(); render(); });
+
+  async function init() {
+    index = await getJSON('data/index.json');
+    index.places.forEach(p => { slugOf[p.name] = p.slug; });
+    const sel = $('pick');
+    sel.replaceChildren(el('option', { value: '' }, 'Choose a neighbourhood'), ...index.places.map(p => el('option', { value: p.slug }, p.name)));
+    sel.addEventListener('change', async () => { pin = null; await load(sel.value); syncURL(); if (profile) render(); });
+    $('print').addEventListener('click', () => window.print());
+    document.querySelectorAll('.lens button').forEach(b => b.addEventListener('click', () => {
+      lens = b.dataset.lens; syncURL(); if (profile) render();
+    }));
+    const qs = new URLSearchParams(location.search);
+    const at = (qs.get('at') || '').split(',').map(Number);
+    await load(qs.get('n') || '');
+    if (at.length === 2 && at.every(Number.isFinite)) await setPin(at[0], at[1]);
+    else if (profile) { syncURL(); render(); }
+  }
+  init().catch(() => fail('Profiles could not load.'));
+})();
+</script>
+</body>
+</html>
