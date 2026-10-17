@@ -4,8 +4,8 @@ back whole, so a failed source keeps its last copy.
 
 - greenp.json: Green P car parks from the City's open data (CKAN green-p-parking, the 2019 file: the
   newest the City publishes; it is marked "Will not be refreshed"). Only the fields the map uses.
-- greenp_osm.json: car parks in OpenStreetMap run by Green P / the Toronto Parking Authority, to check
-  the 2019 list against today (parking.py keeps a lot only if OpenStreetMap still has a car park there).
+- greenp_osm.json: car parks in OpenStreetMap run by Green P / the Toronto Parking Authority, a rough check on
+  how stale the 2019 list is (parking.py logs how many lots it matches; OpenStreetMap lacks too many to prune by it).
 - permit_areas.geojson: on-street permit parking areas (CKAN on-street-permit-parking-area-maps), WGS84.
 - ev_city.geojson: City-operated EV chargers, on-street and in Green P lots (CKAN
   city-operated-electric-vehicle-charging-station-map), with Level 2 and Level 3 port counts.
@@ -103,10 +103,18 @@ qs = urllib.parse.urlencode({'api_key': key, 'fuel_type': 'ELEC', 'country': 'CA
 KEEP = ('id', 'station_name', 'street_address', 'city', 'latitude', 'longitude', 'access_code', 'restricted_access', 'status_code',
         'access_days_time', 'ev_level1_evse_num', 'ev_level2_evse_num', 'ev_dc_fast_num', 'ev_connector_types', 'ev_network',
         'ev_pricing', 'ev_charging_units', 'facility_type', 'date_last_confirmed', 'open_date', 'updated_at', 'groups_with_access_code')
+def slim(s):
+    """Charging units keep only the connectors that have ports (the API lists every type, mostly empty)."""
+    s['ev_charging_units'] = [{'charging_level': u.get('charging_level'), 'port_count': u.get('port_count'),
+                               'connectors': {k: c for k, c in (u.get('connectors') or {}).items() if c.get('port_count')}}
+                              for u in (s.get('ev_charging_units') or [])]
+    return s
+
+
 for host in ('developer.nlr.gov', 'developer.nrel.gov'):
     ev = get(f'https://{host}/api/alt-fuel-stations/v1.json?{qs}', timeout=300, tries=2)
     if ev and isinstance(ev.get('fuel_stations'), list) and ev['fuel_stations']:
-        st = [{k: s.get(k) for k in KEEP} for s in ev['fuel_stations']
+        st = [slim({k: s.get(k) for k in KEEP}) for s in ev['fuel_stations']
               if s.get('longitude') and BOX[0] <= s['latitude'] <= BOX[2] and BOX[1] <= s['longitude'] <= BOX[3]]
         save('ev_afdc.json', {'source': f'Alternative Fuels Data Center station API ({host})', 'fetched': time.strftime('%Y-%m-%d'),
                               'ontario': ev.get('total_results'), 'fuel_stations': st})
