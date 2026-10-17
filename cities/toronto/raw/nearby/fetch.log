@@ -2,3 +2,8 @@ parks and recreation: 1802 locations, refreshed 2026-10-01 20:30:37.239
   amenities: [('Playground', 844), ('None', 667), ('Ball Diamond', 231), ('Washroom', 219), ('Sports Field', 174), ('Tennis Court', 169), ('Wi-Fi', 136), ('Basketball Court', 121), ('Pickleball Court', 105), ('Outdoor Fitness Equipment', 101), ('Outdoor Ping Pong/Table Tennis', 91), ('Picnic Site', 86), ('Dog Off-Leash Area', 85), ('Outdoor Dry Pad', 55), ('Firepit', 32), ('Skateboarding', 24), ('Cricket Pitch Field', 23), ('Beach', 15), ('Outdoor Track', 12), ('Disc Golf', 8)]
   types: ['Civic Centre', 'Community Centre', 'Park']
 library branches: 112 refreshed 2026-09-22 19:02:11.818064
+green spaces: 3381 areas, refreshed 2026-10-13 21:59:59.172364
+  classes: [('Park', 1629), ('OTHER_CITY', 690), ('OTHER_HYDRO', 251), ('Building Grounds', 165), ('OTHER_ROAD', 138), ('OTHER_TRCA', 114), ('Traffic Island', 112), ('OTHER_PROVINCIAL_FEDERAL', 106), ('OTHER_CEMETERY', 64), ('Cul de Sac', 26), ('Open Green Space', 24), ('OTHER_GOLFCOURSE', 20), ('Boulevard', 18), ('Cemetery', 7), ('Civic Centre Square', 6), ('Golf Course', 5), ('Orphaned Space', 4), ('Hydro Field/Utility Corridor', 1), ('OTHER_UNKNOWN', 1)]
+  overpass retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 500: Internal Server Error
+water play: 92 splash pads, 57 wading pools
