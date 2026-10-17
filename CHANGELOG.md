@@ -2,6 +2,16 @@
 
 ## Since 1.1
 
+### Parks in Toronto (October 18, on dev)
+- An *Outdoors* group with a *Parks* layer, off by default: the City's 1,629 park outlines (Green Spaces, parks
+  only), shaded green, with the name on hover. Chips narrow it to parks with a playground, water play (splash pad or
+  wading pool), a washroom or a dog off-leash area; several at once means all of them, and the rest fade so the
+  green space still reads. Tap a park for what it has and its page on toronto.ca. In the link as `park=`.
+- Amenities come from the City's parks list, each entry matched to its outline at build time (`parks.py`: same name
+  nearby, else the outline it sits in, else the nearest within 40 m). The City's list names no splash pads or wading
+  pools, so those are from OpenStreetMap. Fetched monthly with the Nearby data, which now also rebuilds and deploys
+  `parks.geojson`. Engine: the `parks` layer kind; other cities unchanged.
+
 ### Special events: the marathon course (October 17)
 - The Special events layer draws a race course where the organizer publishes one: a thin line over the closures,
   kilometre marks (every fifth below zoom 14), and start and finish flags, shown until the event ends. First course:

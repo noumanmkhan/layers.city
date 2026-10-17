@@ -70,6 +70,16 @@
       {"id": "frschools", "kind": "places", "file": "french_schools", "cat": "frschool", "name": "French-language schools", "place": "French-language school", "note": "Viamonde and MonAvenir: taught in French, for children with a francophone parent or by admission"},
       {"id": "immersion", "kind": "places", "file": "french_schools", "cat": "immersion", "name": "French immersion schools", "place": "French immersion school", "note": "TDSB and TCDSB schools teaching mostly in French to children from English-speaking homes"}
     ]],
+    ["Outdoors", [
+      {"id": "parks", "kind": "parks", "file": "parks", "lazy": true, "optional": true, "name": "Parks", "place": "City park",
+       "note": "City parks shaded green; pick a playground, water play and more", "countNote": "{n} City parks shaded green; pick a playground, water play and more",
+       "amenities": {"play": ["Playground", "Parks with a playground"], "water": ["Water play", "A splash pad or wading pool: summer only"], "wc": ["Washroom", "Parks with a public washroom"], "dog": ["Off-leash", "Parks with a dog off-leash area"]},
+       "legend": "Pick one or more: parks with all of them stay green, the rest fade.", "matchText": "{n} of {total} parks.",
+       "waterText": {"splash": "Splash pad", "wading": "Wading pool", "both": "Splash pad and wading pool"},
+       "hasLabel": "Has", "seasonText": "Splash pads and wading pools run in summer only.",
+       "linkUrl": "https://www.toronto.ca/explore-enjoy/parks-recreation/places-spaces/parks-and-recreation-facilities/location/?id={u}", "linkText": "Park page on toronto.ca",
+       "fine": "Outlines from the City’s Green Spaces. Amenities from the City’s parks list as of {parks}; splash pads and wading pools from OpenStreetMap, which may miss a few."}
+    ]],
     ["Getting around", [
       {"id": "streets", "kind": "streets", "file": "streets", "name": "Main streets", "note": "Arterials like King, Queen, Eglinton, Don Mills", "on": true},
       {"id": "coll", "kind": "streets", "file": "collectors", "under": "streets", "labelZoom": 15, "yieldLabels": true, "name": "Collector streets", "on": true, "note": "Collector roads like Dovercourt, Greenwood, Davisville; from zoom 13"},

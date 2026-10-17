@@ -690,6 +690,30 @@ const KINDS = {
     g.on('add', () => ensureBikes().then(() => g._draw()));
     return g;
   },
+  // Parks: outlines shaded green, one path per park. Amenity chips (it.amenities, any mix) narrow it: a park that lacks
+  // one of the picked amenities fades to a faint wash, so the green space still reads. Drawn in the civic pane, above the
+  // neighbourhood fills, so a tap reaches the park; the wash is light enough for the streets to show through.
+  // Tap for its name, what it has and its City page. Loads on first use (it.lazy).
+  parks: it => {
+    const g = L.layerGroup(); let cur = null;
+    g._draw = () => {
+      if (!data.parks) return;
+      if (!cur){
+        cur = L.geoJSON(data.parks, {pane: 'civic', style: () => ({className: 'pk'}), onEachFeature: (f, lyr) => {
+          hoverTip(lyr, esc(pkTip(f.properties)));
+          lyr.on('click', e => { L.DomEvent.stop(e); pkPopup(f.properties, e.latlng); });
+        }});
+        g.addLayer(cur);
+      }
+      let n = 0;
+      cur.eachLayer(l => { const ok = pkMatch(l.feature.properties), el = l.getElement && l.getElement();
+        if (ok) n++; if (el) el.classList.toggle('dim', !ok); l.options.className = 'pk' + (ok ? '' : ' dim'); });
+      const note = document.getElementById('pknote');
+      if (note) note.textContent = pkWant.size ? fill(it.matchText || '{n} of {total} parks', {n: n.toLocaleString(CITY.locale), total: data.parks.features.length.toLocaleString(CITY.locale)}) : '';
+    };
+    g.on('add', () => ensureParks().then(() => g._draw()));
+    return g;
+  },
   // Bike share stations (engine/bikeshare.py), nested under Bike lanes: a small ringed dot per station, filled where it
   // charges e-bikes, from zoom it.minZoom (12) and only those near the view (redrawn after each move). A wider clear
   // circle over each dot takes the tap. Tap for its name, docks, e-bike charging and whether the kiosk takes cards.
@@ -991,6 +1015,45 @@ function bkPopup(p, latlng){
     '<b>' + esc(p.n || p.d) + '</b><small><i class="bk-key t-' + p.t + '"></i>' + esc(p.d) + (p.d.toLowerCase().includes(BIKE.classes[p.t][0].toLowerCase()) ? '' : ' · ' + esc(BIKE.classes[p.t][0])) + '</small>' +
     rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
     (BIKE.fine ? '<p class="bk-fine">' + esc(BIKE.fine) + '</p>' : '')).openOn(map);
+}
+/* ---------- parks ----------
+   Outlines from cities/<city>/parks.py: n name, a the amenities it has (keys of it.amenities), u its page id on the
+   City's site (it.linkUrl with {u}), w "splash", "wading" or "both" for the kind of water play. Top level asof
+   {parks, outlines, water} and count. Picked chips (pkWant) narrow it: a park must have all of them. */
+const PARK = byKind('parks');
+const pkWant = new Set();
+let pkP = null;
+function ensureParks(){
+  if (!PARK) return Promise.resolve(null);
+  return pkP || (pkP = get(PARK.file).then(d => {
+    data.parks = d;
+    const n = document.querySelector('label[for="lyr-' + PARK.id + '"] .tx > span');
+    if (n && PARK.countNote) n.textContent = fill(PARK.countNote, {n: (d.count || d.features.length).toLocaleString(CITY.locale)});
+    return d;
+  }).catch(() => { pkP = null; return null; }));
+}
+const pkMatch = p => { for (const k of pkWant) if (!(p.a || []).includes(k)) return false; return true; };
+const pkHas = p => (p.a || []).map(k => k === 'water' && p.w && PARK.waterText ? PARK.waterText[p.w] : PARK.amenities[k][0]);
+const pkTip = p => p.n + (p.a && p.a.length ? ' · ' + pkHas(p).join(', ') : '');
+function pkPopup(p, latlng){
+  const D = data.parks || {}, A = D.asof || {}, has = pkHas(p);
+  const fine = fill(PARK.fine || '', {parks: A.parks ? niceDate(A.parks, true) : '', water: A.water ? niceDate(A.water, true) : ''});
+  L.popup({className: 'info-pop pk-pop', maxWidth: 280, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.n) + '</b><small><i class="pk-key"></i>' + esc(PARK.place || 'Park') + '</small>' +
+    (has.length ? '<div class="kv"><span>' + esc(PARK.hasLabel || 'Has') + '</span><span>' + has.map(esc).join(', ') + '</span></div>' : '') +
+    (p.w && PARK.seasonText ? '<p class="bk-fine">' + esc(PARK.seasonText) + '</p>' : '') +
+    (p.u && PARK.linkUrl ? '<p><a href="' + esc(fill(PARK.linkUrl, {u: p.u})) + '" target="_blank" rel="noopener">' + esc(PARK.linkText || 'Park page') + '</a></p>' : '') +
+    (fine ? '<p class="bk-fine">' + esc(fine) + '</p>' : '')).openOn(map);
+}
+function setParkWant(want){
+  pkWant.clear(); (want || []).filter(k => PARK && k in PARK.amenities).forEach(k => pkWant.add(k));
+  document.querySelectorAll('[data-pk]').forEach(b => b.setAttribute('aria-pressed', String(pkWant.has(b.dataset.pk))));
+  if (PARK && layers[PARK.id] && layers[PARK.id]._draw) layers[PARK.id]._draw();
+}
+function tapParkAmenity(k){
+  pkWant.has(k) ? pkWant.delete(k) : pkWant.add(k);
+  setParkWant([...pkWant]);
+  queueHash();
 }
 /* ---------- bike share stations ----------
    Points from engine/bikeshare.py: n name, d docks, e 1 when it charges e-bikes, nc 1 when the kiosk takes no card.
@@ -1367,7 +1430,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, parks: 2.8, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -1473,6 +1536,14 @@ CITY.groups.forEach(([title, items]) => {
         '</div><div class="legend"><small>' + esc(it.legend || '') + ' <span id="bknote"></span></small></div>';
       grp.appendChild(box);
       box.querySelectorAll('[data-bk]').forEach(b => b.addEventListener('click', () => tapBikeClass(b.dataset.bk)));
+    }
+    if (it.kind === 'parks'){   // amenities, any mix; none picked shows every park
+      const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'pkbox'; box.hidden = !it.on;
+      box.innerHTML = '<div class="chips pick" role="group" aria-label="' + esc(it.name) + '">' + Object.entries(it.amenities).map(([k, [short, long]]) =>
+        '<button type="button" data-pk="' + k + '" aria-pressed="' + pkWant.has(k) + '" title="' + esc(long) + '">' + esc(short) + '</button>').join('') +
+        '</div><div class="legend"><small>' + esc(it.legend || '') + ' <span id="pknote"></span></small></div>';
+      grp.appendChild(box);
+      box.querySelectorAll('[data-pk]').forEach(b => b.addEventListener('click', () => tapParkAmenity(b.dataset.pk)));
     }
     if (it.kind === 'spots' && it.classes){   // classes, any mix; the chips double as the key to the markers
       const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'spbox-' + it.id; box.hidden = !it.on;
@@ -1636,6 +1707,7 @@ function setLayer(id, on){
   if (kindOf(id) === 'buses'){ document.getElementById('busbox').hidden = !on; drawBusBox(); }
   if (kindOf(id) === 'changes'){ const b = document.getElementById('chgbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'bikes'){ const b = document.getElementById('bkbox'); if (b) b.hidden = !on; }
+  if (kindOf(id) === 'parks'){ const b = document.getElementById('pkbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'spots'){ const b = document.getElementById('spbox-' + id); if (b) b.hidden = !on; }
   { const b = document.getElementById('pg-' + id); if (b){ b.hidden = !on; drawPlacePick(id); } }
   if (kindOf(id) === 'buses' || kindOf(id) === 'streetcars' || kindOf(id) === 'regional') drawStops();
@@ -3341,6 +3413,7 @@ function linkState(){
   const parts = [['map', (Math.round(z * 4) / 4) + '/' + c.lat.toFixed(5) + '/' + c.lng.toFixed(5)]];
   if (pin && !pinIsMe){ const p = pin.getLatLng(); parts.push(['pin', p.lat.toFixed(5) + ',' + p.lng.toFixed(5)]); if (pinName) parts.push(['name', pinName]); }
   if (CHG && chgStages.size < Object.keys(CHG.stages).length) parts.push(['chg', [...chgStages].join('+')]);
+  if (PARK && state[PARK.id] && pkWant.size) parts.push(['park', Object.keys(PARK.amenities).filter(k => pkWant.has(k)).join('+')]);
   if (BIKE && [...bkClasses].sort().join() !== BIKE_DEFAULT.slice().sort().join()) parts.push(['bike', Object.keys(BIKE.classes).filter(k => bkClasses.has(k)).join('+')]);
   if (cmp && cmp.b){ const p = cmp.b[0]; parts.push(['pin2', p.lat.toFixed(5) + ',' + p.lng.toFixed(5)]); if (cmp.b[1]) parts.push(['name2', cmp.b[1]]); }
   if (scope === 'outer') parts.push(['view', 'region']);
@@ -3409,6 +3482,7 @@ function applyHash(h){
     document.querySelectorAll('[data-chg]').forEach(b => b.setAttribute('aria-pressed', String(chgStages.has(b.dataset.chg))));
     if (layers[CHG.id] && layers[CHG.id]._draw) layers[CHG.id]._draw(); }
   if (BIKE) setBikeClasses(o.bike ? o.bike.split('+') : BIKE_DEFAULT);
+  if (PARK) setParkWant(o.park ? o.park.split('+') : []);
   picked.clear(); (o.routes || '').split(',').filter(Boolean).forEach(r => picked.add(r));
   if (TR && (picked.size || pickLayer.getLayers().length)) ensureRoutes().then(drawPicks);
   const [lk, lp] = (o.lens || '').split(':');
