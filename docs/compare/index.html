@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare cities · Layers.City</title>
+<meta name="description" content="Two cities side by side: housing, commuting, home types, languages at home and more, from the same census figures the maps use.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://layers.city/compare/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://layers.city/compare/">
+<meta property="og:site_name" content="Layers.City">
+<meta property="og:title" content="Compare cities">
+<meta property="og:description" content="Two cities side by side: housing, commuting, home types, languages at home and more.">
+<meta property="og:image" content="https://layers.city/og-layers.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Layers.City logo: a red map pin holding stacked map layers">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#F7F4F3">
+
+<link rel="preload" href="/fonts/archivo-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2')}
+
+:root{
+  --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --ink-2:#463D3C; --ink-3:#5C5251; --rule:#D8CFCD;
+  --accent:#C8102E; --accent-soft:rgba(200,16,46,.10); --grid:rgba(26,20,20,.05);
+  --a:#C8102E; --a-soft:rgba(200,16,46,.12); --b:#1A1414; --b-soft:rgba(26,20,20,.10);
+  --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px}
+a{color:inherit;text-decoration:none}
+.page{min-height:100vh;display:flex;flex-direction:column}
+.wrap{width:100%;max-width:1120px;margin:0 auto;padding-left:24px;padding-right:24px}
+
+header{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.08em}
+.mark .brand{display:flex;align-items:center;gap:9px;font-size:24px;letter-spacing:-.01em}
+.mark .brand b{font-weight:500;color:var(--accent)}
+.mark .sub{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.08em;color:var(--ink-3)}
+.mark .sub:hover{color:var(--ink)}
+.mark .sep{width:1.5px;height:16px;background:var(--rule)}
+.links{display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--rule)}
+.pill .short{display:none}
+.pill.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.pill,.card{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.pill:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(26,20,20,.10);border-color:var(--ink)}
+.pill:focus-visible,.mark a:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.pill,.card{transition:none}.pill:hover{transform:none}}
+
+main{flex-grow:1;padding-top:56px;padding-bottom:64px;display:flex;flex-direction:column;gap:32px}
+.hero{display:flex;flex-direction:column;gap:16px;max-width:760px}
+.coords{font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--accent)}
+h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,84px);line-height:.98;letter-spacing:-.02em}
+.lede{margin:0;font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--ink-2)}
+.tag{align-self:flex-start;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:5px 12px}
+
+/* Pickers: one per column, same grid as the rows below so the columns line up */
+.pick{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;max-width:860px}
+.pick label{display:flex;flex-direction:column;gap:8px}
+.pick .who{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.12em;display:flex;align-items:center;gap:8px}
+.pick .who::before{content:"";width:12px;height:12px;border-radius:3px;background:var(--a)}
+.pick label:last-child .who{color:var(--ink-2)}
+.pick label:last-child .who::before{background:var(--b)}
+.pick label:first-child .who{color:var(--a)}
+select{appearance:none;-webkit-appearance:none;width:100%;min-height:56px;padding:0 48px 0 18px;border-radius:14px;border:1.5px solid var(--rule);background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%231A1414' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 16px center;
+  font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em;color:var(--ink);cursor:pointer}
+select:hover{border-color:var(--ink)}
+.swap{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--rule);background:var(--card);color:var(--ink);cursor:pointer;display:grid;place-items:center;align-self:end;margin-bottom:6px}
+.swap:hover{border-color:var(--ink)}
+
+/* Rows */
+.rows{display:flex;flex-direction:column;gap:16px;max-width:860px}
+.row{background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:22px 28px 24px}
+.row .label{display:flex;align-items:baseline;gap:12px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.12em;color:var(--ink-3);margin-bottom:16px}
+.row .label::after{content:"";flex-grow:1;height:1px;background:var(--rule);align-self:center}
+.row .label small{font-family:var(--body);font-size:13px;letter-spacing:0;color:var(--ink-3);text-transform:none;font-weight:400}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.cell{display:flex;flex-direction:column;gap:6px;min-width:0}
+.cell .big{font-family:var(--display);font-weight:800;font-size:clamp(28px,4.4vw,40px);line-height:1;letter-spacing:-.02em;color:var(--ink)}
+.cell .big small{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.04em;color:var(--ink-3);margin-left:6px}
+.cell .sub{font-size:14px;line-height:1.45;color:var(--ink-3)}
+.cell .sub b{font-weight:500;color:var(--ink)}
+.cell.a .big{color:var(--a)}
+.cell .na{font-family:var(--mono);font-size:13px;color:var(--ink-3);padding:6px 0}
+.note{margin:14px 0 0;font-size:13px;line-height:1.5;color:var(--ink-3)}
+
+/* A word verdict with a stacked bar under it (commuting), and plain horizontal bars (home types etc.) */
+.stack{display:flex;height:12px;border-radius:999px;overflow:hidden;background:var(--rule);margin-top:10px}
+.stack i{display:block;height:100%}
+.cell.a .stack i:nth-child(1){background:var(--a)}
+.cell.a .stack i:nth-child(2){background:rgba(200,16,46,.55)}
+.cell.a .stack i:nth-child(3){background:rgba(200,16,46,.25)}
+.cell.b .stack i:nth-child(1){background:var(--b)}
+.cell.b .stack i:nth-child(2){background:rgba(26,20,20,.5)}
+.cell.b .stack i:nth-child(3){background:rgba(26,20,20,.22)}
+.key{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--ink-3);margin-top:6px}
+.key b{font-weight:500;color:var(--ink)}
+.bars{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 10px;align-items:center;font-size:14px;color:var(--ink-2)}
+.bars .n{font-family:var(--mono);font-size:13px;color:var(--ink-3);text-align:right;min-width:3ch}
+.bars .bar{height:10px;border-radius:999px;background:var(--rule);overflow:hidden}
+.bars .bar i{display:block;height:100%;background:var(--b)}
+.cell.a .bars .bar i{background:var(--a)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{font-size:13px;line-height:1.3;padding:5px 10px;border-radius:999px;border:1.5px solid var(--rule);color:var(--ink-2)}
+.chip b{font-weight:500;color:var(--ink)}
+
+.foot{max-width:860px;font-size:14px;line-height:1.6;color:var(--ink-3)}
+.foot a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.cta{display:flex;flex-wrap:wrap;gap:10px}
+
+footer{padding-top:24px;padding-bottom:24px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-family:var(--mono);font-size:13px;color:var(--ink-3)}
+footer a:hover{color:var(--ink)}
+
+@media (max-width:600px){
+  .pick{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px}
+  select{font-size:16px;min-height:50px;padding:0 30px 0 12px;background-position:right 8px center;border-radius:12px}
+  .swap{width:36px;height:36px}
+  .row{padding:18px 18px 20px}
+  .cols{gap:14px}
+  .cell .big{font-size:26px}
+  .cell .sub,.key,.chip,.bars{font-size:12px}
+  .bars{gap:5px 8px}
+}
+@media (max-width:520px){.pill .full{display:none}.pill .short{display:inline}main{padding-top:32px;gap:24px}}
+</style>
+<script src="/stats.js" defer></script>
+</head>
+<body>
+<div class="page">
+  <header class="wrap">
+    <div class="mark">
+      <a class="brand" href="/"><svg width="22" height="28" viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#fff"/></svg><span>Layers<b>.City</b></span></a>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="sub" href="https://noumankhan.ca">BY NOUMAN KHAN</a>
+    </div>
+    <nav class="links" aria-label="Elsewhere">
+      <a class="pill" href="mailto:go@layers.city" aria-label="Email go@layers.city">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        <span class="full">go@layers.city</span><span class="short">Email</span>
+      </a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="coords">COMPARE</div>
+      <span class="tag">PREVIEW</span>
+      <h1>Two cities, side by side</h1>
+      <p class="lede">Pick two cities and see how housing, commuting, home types and languages at home line up, from the same census figures behind each map’s “Living here” card.</p>
+    </section>
+
+    <section class="pick" aria-label="Choose cities">
+      <label><span class="who">CITY A</span><select id="a" aria-label="City A"></select></label>
+      <button class="swap" id="swap" type="button" aria-label="Swap the two cities" title="Swap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16V4m0 0L3 8m4-4 4 4"/><path d="M17 8v12m0 0 4-4m-4 4-4-4"/></svg>
+      </button>
+      <label><span class="who">CITY B</span><select id="b" aria-label="City B"></select></label>
+    </section>
+
+    <section class="rows" id="rows" aria-live="polite"></section>
+
+    <p class="foot" id="foot"></p>
+
+    <section class="cta" aria-label="Next">
+      <a class="pill dark" href="/">All maps</a>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <a href="https://noumankhan.ca">© 2026 Nouman Khan</a>
+    <a href="/">All maps</a>
+    <a href="/privacy/">Privacy</a>
+    <a href="/attributions/">Attributions</a>
+    <a href="/terms/">Terms</a>
+  </footer>
+</div>
+
+<script>
+(async function(){
+  const data = await (await fetch('/compare/data.json', {cache:'no-cache'})).json();
+  const cities = data.cities;
+  const byId = Object.fromEntries(cities.map(c => [c.id, c]));
+  const selA = document.getElementById('a'), selB = document.getElementById('b');
+  for (const s of [selA, selB]) for (const c of cities) s.add(new Option(c.name, c.id));
+
+  const q = new URLSearchParams(location.search);
+  selA.value = byId[q.get('a')] ? q.get('a') : 'toronto';
+  selB.value = byId[q.get('b')] && q.get('b') !== selA.value ? q.get('b') : (selA.value === 'nyc' ? 'toronto' : 'nyc');
+
+  const fmt = new Intl.NumberFormat('en-CA');
+  const money = (n, cur) => n == null ? null :
+    (n >= 1000000 ? '$' + (n/1000000).toFixed(n % 1000000 ? 2 : 0).replace(/0$/, '') + 'M' : n >= 10000 ? '$' + Math.round(n/1000) + 'k' : '$' + fmt.format(n)) + ' ' + cur;
+  const esc = s => String(s).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+  const na = 'Not available yet';
+
+  // Each row: a label, an optional note, and a function that renders one city's cell.
+  const rows = [
+    {label:'AT A GLANCE', cell: c => `
+      <div class="big">${c.units.n}<small>${esc(c.units.plural.toUpperCase())}</small></div>
+      <div class="sub">${esc(c.source)}</div>`},
+
+    {label:'HOME VALUE', small:'typical neighbourhood', cell: c => c.value.median == null ? `<div class="na">${na}</div>` : `
+      <div class="big">${money(c.value.median, c.currency)}</div>
+      <div class="sub">Middle half of ${esc(c.units.plural)}: <b>${money(c.value.range[0], c.currency)}</b> to <b>${money(c.value.range[1], c.currency)}</b></div>`,
+      note:'Median owner-estimated home value of the typical neighbourhood, in each city’s own currency; not a conversion and not current prices.'},
+
+    {label:'RENT', small:'typical neighbourhood', cell: c => c.rent.median == null ? `<div class="na">${na}</div>` : `
+      <div class="big">${money(c.rent.median, c.currency)}<small>/MO</small></div>
+      <div class="sub">Middle half: <b>${money(c.rent.range[0], c.currency)}</b> to <b>${money(c.rent.range[1], c.currency)}</b> · <b>${c.renterPct}%</b> of households rent</div>`,
+      note:'What renting households pay, utilities included, counting long-time tenants and subsidized homes, so it sits below what a new lease costs.'},
+
+    {label:'GETTING TO WORK', cell: c => {
+      const m = c.modes, k = c.commute, n = c.units.n;
+      const word = k.transit > k.car && k.transit >= k.mixed ? 'Mostly transit' : k.car > k.transit && k.car >= k.mixed ? 'Car-dependent' : 'Mixed';
+      return `
+      <div class="big">${word}</div>
+      <div class="stack" aria-hidden="true"><i style="width:${m.transit}%"></i><i style="width:${m.walkBike}%"></i><i style="width:${m.car}%"></i></div>
+      <div class="key"><span><b>${m.transit}%</b> transit</span><span><b>${m.walkBike}%</b> walk or bike</span><span><b>${m.car}%</b> drive</span></div>
+      <div class="sub">${k.transit} of ${n} ${esc(c.units.plural)} lean transit, ${k.mixed} are mixed, ${k.car} lean car</div>`},
+      note:'How commuters usually get to work, averaged across the city’s neighbourhoods. Each neighbourhood is called transit, mixed or car by the same rule the map’s card uses.'},
+
+    {label:'TO DOWNTOWN', small:'by transit, weekday morning', cell: c => c.hub.median == null ? `<div class="na">${na}</div>` : `
+      <div class="big">${c.hub.median}<small>MIN</small></div>
+      <div class="sub"><b>${esc(c.hub.label)}</b> from the typical neighbourhood · middle half <b>${c.hub.range[0]}</b> to <b>${c.hub.range[1]}</b> min</div>`,
+      note:'Scheduled transit time to each city’s main downtown hub. The hubs differ, so this compares what a commute feels like, not the two networks.'},
+
+    {label:'HOME TYPES', cell: c => bars(c.homes),
+      note:'Share of homes by building type, averaged across neighbourhoods. Canadian and US censuses group buildings differently, so the bands are each city’s own.'},
+
+    {label:'WHEN HOMES WERE BUILT', cell: c => bars(c.built),
+      note:'Canada’s census and the US survey cut the decades differently; read each column on its own terms.'},
+
+    {label:'LANGUAGE AT HOME', cell: c => `
+      <div class="big">${c.lang.english}%<small>ENGLISH</small></div>
+      <div class="sub">Also among the five most-spoken home languages in:</div>
+      <div class="chips">${c.lang.leading.map(([l, n]) => `<span class="chip"><b>${esc(l)}</b> · ${n} of ${c.units.n}</span>`).join('')}</div>`,
+      note:'The language each person speaks most often at home. Canada names languages; the US survey groups them, which is why Chicago, New York and Dallas show categories.'},
+
+    {label:'RECENT IMMIGRANTS', cell: c => `
+      <div class="big">${c.recent.mean}%</div>
+      <div class="sub">of residents ${esc(c.recent.definition)}, in the typical neighbourhood</div>`,
+      note:'Definitions differ: Canada counts arrivals in the five years before the 2021 census; the US survey counts everyone born abroad who arrived from 2010 on.'},
+
+    {label:'AGES', cell: c => bars(c.ages)},
+
+    {label:'TREE CANOPY', cell: c => c.canopy == null ? `<div class="na">${na}</div>` : `
+      <div class="big">${c.canopy}%</div>
+      <div class="sub">of the typical neighbourhood’s land is under trees</div>`,
+      note:'Satellite land cover, 2021 (ESA WorldCover, 10 m).'},
+  ];
+
+  function bars(d){
+    const max = Math.max(...d.shares.filter(x => x != null), 1);
+    return '<div class="bars">' + d.labels.map((l, i) => {
+      const v = d.shares[i];
+      return `<span>${esc(l)}</span><span class="bar"><i style="width:${v == null ? 0 : Math.round(v / max * 100)}%"></i></span><span class="n">${v == null ? '–' : v + '%'}</span>`;
+    }).join('') + '</div>';
+  }
+
+  function render(){
+    const a = byId[selA.value], b = byId[selB.value];
+    document.getElementById('rows').innerHTML = rows.map(r => `
+      <section class="row" aria-label="${esc(r.label)}">
+        <div class="label">${r.label}${r.small ? ` <small>${esc(r.small)}</small>` : ''}</div>
+        <div class="cols">
+          <div class="cell a"><div class="sub"><b>${esc(a.name)}</b></div>${r.cell(a)}</div>
+          <div class="cell b"><div class="sub"><b>${esc(b.name)}</b></div>${r.cell(b)}</div>
+        </div>
+        ${r.note ? `<p class="note">${r.note}</p>` : ''}
+      </section>`).join('');
+    document.getElementById('foot').innerHTML =
+      `Every figure summarises ${esc(a.name)}’s ${a.units.n} ${esc(a.units.plural)} and ${esc(b.name)}’s ${b.units.n} ${esc(b.units.plural)} as the map draws them: the median for money and minutes, the average for shares. They describe a typical neighbourhood, not the whole population, and the neighbourhoods are different sizes in each city. Sources and years are listed under “At a glance”; see <a href="/attributions/">Attributions</a>.`;
+    const u = new URL(location); u.searchParams.set('a', a.id); u.searchParams.set('b', b.id); history.replaceState(null, '', u);
+    document.title = `${a.name} vs ${b.name} · Compare · Layers.City`;
+  }
+
+  function guard(changed, other){
+    if (changed.value === other.value) other.value = cities.find(c => c.id !== changed.value).id;
+  }
+  selA.addEventListener('change', () => { guard(selA, selB); render(); });
+  selB.addEventListener('change', () => { guard(selB, selA); render(); });
+  document.getElementById('swap').addEventListener('click', () => { const t = selA.value; selA.value = selB.value; selB.value = t; render(); });
+  render();
+})();
+</script>
+</body>
+</html>
