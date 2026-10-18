@@ -58,7 +58,8 @@ jobs:
         continue-on-error: true
         run: |
           for CITY in $CITIES; do
-            python3 -u engine/profiles/fetch_walk.py "$CITY" && python3 -u engine/profiles/walk_grid.py "$CITY" || echo "::warning::$CITY walk times not refreshed"
+            # the log is committed, so a failed run can be read without the Actions page
+            ( set -o pipefail; { python3 -u engine/profiles/fetch_walk.py "$CITY" && python3 -u engine/profiles/walk_grid.py "$CITY"; } 2>&1 | tail -c 20000 > "cities/$CITY/raw/factsheet_walk.log" ) || echo "::warning::$CITY walk times not refreshed"
           done
       - name: Highway ramps and drive times (full runs)
         if: steps.have.outputs.ok && env.FULL == 'true'
@@ -77,7 +78,7 @@ jobs:
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
           for CITY in $CITIES; do
             git add "docs/$CITY/profiles"
-            for f in ramps.json drive_profiles.json; do [ -f "cities/$CITY/raw/$f" ] && git add "cities/$CITY/raw/$f"; done
+            for f in ramps.json drive_profiles.json factsheet_walk.log; do [ -f "cities/$CITY/raw/$f" ] && git add "cities/$CITY/raw/$f"; done
           done
           git commit -m "Refresh fact sheets ($CITIES)$([ "$FULL" = true ] && echo ', walk and drive times re-fetched')" || { echo "no changes"; exit 0; }
           git pull --rebase
