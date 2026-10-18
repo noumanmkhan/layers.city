@@ -11,36 +11,135 @@
     "oneFare": "GO Transit riders transfer to the TTC free under One Fare, so a GO trip to Union plus the subway or streetcar to the venue costs the GO fare alone."
   },
   "origins": [
-    {"name": "Downtown Toronto", "via": "Union Station", "mode": "ttc"},
-    {"name": "North York", "via": "Finch", "mode": "ttc", "at": [-79.4144, 43.7805]},
-    {"name": "Scarborough", "via": "Kennedy", "mode": "ttc", "at": [-79.2636, 43.7325]},
-    {"name": "Etobicoke", "via": "Kipling", "mode": "ttc", "at": [-79.5364, 43.6373]},
-    {"name": "Vaughan", "via": "Vaughan Metropolitan Centre", "mode": "ttc", "at": [-79.5273, 43.7943]},
-    {"name": "Mississauga", "via": "Cooksville GO", "mode": "go"},
-    {"name": "Brampton", "via": "Brampton Innovation District GO", "mode": "go"},
-    {"name": "Oakville", "via": "Oakville GO", "mode": "go"},
-    {"name": "Burlington", "via": "Burlington GO", "mode": "go"},
-    {"name": "Milton", "via": "Milton GO", "mode": "go"},
-    {"name": "Markham", "via": "Unionville GO", "mode": "go"},
-    {"name": "Richmond Hill", "via": "Richmond Hill GO", "mode": "go"},
-    {"name": "Newmarket", "via": "Newmarket GO", "mode": "go"},
-    {"name": "Pickering", "via": "Pickering GO", "mode": "go"},
-    {"name": "Ajax", "via": "Ajax GO", "mode": "go"},
-    {"name": "Whitby", "via": "Whitby GO", "mode": "go"},
-    {"name": "Oshawa", "via": "Durham College Oshawa GO", "mode": "go"},
-    {"name": "Hamilton", "via": "West Harbour GO", "mode": "go"},
-    {"name": "Barrie", "via": "Allandale Waterfront GO", "mode": "go"}
+    {
+      "name": "Downtown Toronto",
+      "via": "Union Station",
+      "mode": "ttc"
+    },
+    {
+      "name": "North York",
+      "via": "Finch",
+      "mode": "ttc",
+      "at": [
+        -79.4144,
+        43.7805
+      ]
+    },
+    {
+      "name": "Scarborough",
+      "via": "Kennedy",
+      "mode": "ttc",
+      "at": [
+        -79.2636,
+        43.7325
+      ]
+    },
+    {
+      "name": "Etobicoke",
+      "via": "Kipling",
+      "mode": "ttc",
+      "at": [
+        -79.5364,
+        43.6373
+      ]
+    },
+    {
+      "name": "Vaughan",
+      "via": "Vaughan Metropolitan Centre",
+      "mode": "ttc",
+      "at": [
+        -79.5273,
+        43.7943
+      ]
+    },
+    {
+      "name": "Mississauga",
+      "via": "Cooksville GO",
+      "mode": "go"
+    },
+    {
+      "name": "Brampton",
+      "via": "Brampton Innovation District GO",
+      "mode": "go"
+    },
+    {
+      "name": "Oakville",
+      "via": "Oakville GO",
+      "mode": "go"
+    },
+    {
+      "name": "Burlington",
+      "via": "Burlington GO",
+      "mode": "go"
+    },
+    {
+      "name": "Milton",
+      "via": "Milton GO",
+      "mode": "go"
+    },
+    {
+      "name": "Markham",
+      "via": "Unionville GO",
+      "mode": "go"
+    },
+    {
+      "name": "Richmond Hill",
+      "via": "Richmond Hill GO",
+      "mode": "go"
+    },
+    {
+      "name": "Newmarket",
+      "via": "Newmarket GO",
+      "mode": "go"
+    },
+    {
+      "name": "Pickering",
+      "via": "Pickering GO",
+      "mode": "go"
+    },
+    {
+      "name": "Ajax",
+      "via": "Ajax GO",
+      "mode": "go"
+    },
+    {
+      "name": "Whitby",
+      "via": "Whitby GO",
+      "mode": "go"
+    },
+    {
+      "name": "Oshawa",
+      "via": "Durham College Oshawa GO",
+      "mode": "go"
+    },
+    {
+      "name": "Hamilton",
+      "via": "West Harbour GO",
+      "mode": "go"
+    },
+    {
+      "name": "Barrie",
+      "via": "Allandale Waterfront GO",
+      "mode": "go"
+    }
   ],
   "venues": [
     {
       "slug": "rogers-stadium",
       "name": "Rogers Stadium",
-      "kinds": ["concerts"],
+      "kinds": [
+        "concerts"
+      ],
       "capacity": 50000,
       "address": "105 Carl Hall Road (Downsview)",
-      "at": [-79.46556, 43.74278],
+      "at": [
+        -79.46556,
+        43.74278
+      ],
       "site": "https://rogers-stadium.com/know-before-you-go",
-      "tm": ["Rogers Stadium"],
+      "tm": [
+        "Rogers Stadium"
+      ],
       "notes": [
         "Open-air, built on the former Downsview Airport lands and opened in June 2025. The pedestrian entrance is at 105 Carl Hall Road; the venue names its gates by number (Gate 1 and Gate 3 are the main ones) and any ticket works at any gate.",
         "There is next to no parking at the site and the venue says so. Plan on the subway: Sheppard West and Downsview Park on Line 1 are the stations the venue points to, and Downsview Park is also a GO station on the Barrie line.",
@@ -50,13 +149,24 @@
     {
       "slug": "rogers-centre",
       "name": "Rogers Centre",
-      "kinds": ["sports", "concerts"],
+      "kinds": [
+        "sports",
+        "concerts"
+      ],
       "capacity": 41500,
-      "homeOf": ["Toronto Blue Jays"],
+      "homeOf": [
+        "Toronto Blue Jays"
+      ],
       "address": "1 Blue Jays Way",
-      "at": [-79.3894, 43.6414],
+      "at": [
+        -79.3894,
+        43.6414
+      ],
       "site": "https://www.mlb.com/bluejays/ballpark/transportation",
-      "tm": ["Rogers Centre", "Rogers Centre Toronto"],
+      "tm": [
+        "Rogers Centre",
+        "Rogers Centre Toronto"
+      ],
       "notes": [
         "Beside the CN Tower. From Union Station the covered SkyWalk runs west from the station's west end to the stadium, about a ten-minute walk, so most people arrive on foot from Union rather than driving in.",
         "Gates are numbered around the building; the Bremner Boulevard side faces the CN Tower and Union, the Blue Jays Way side faces the hotel. Your ticket names the gate nearest your section.",
@@ -66,13 +176,24 @@
     {
       "slug": "bmo-field",
       "name": "BMO Field",
-      "kinds": ["sports", "concerts"],
+      "kinds": [
+        "sports",
+        "concerts"
+      ],
       "capacity": 30000,
-      "homeOf": ["Toronto FC", "Toronto Argonauts"],
+      "homeOf": [
+        "Toronto FC",
+        "Toronto Argonauts"
+      ],
       "address": "170 Princes' Boulevard, Exhibition Place",
-      "at": [-79.4186, 43.6332],
+      "at": [
+        -79.4186,
+        43.6332
+      ],
       "site": "https://www.bmofield.com/",
-      "tm": ["BMO Field"],
+      "tm": [
+        "BMO Field"
+      ],
       "notes": [
         "Inside Exhibition Place, on the west side of the grounds. Exhibition GO (Lakeshore West) and the 509 Harbourfront and 511 Bathurst streetcars at Exhibition Loop are the transit way in; the walk from the loop crosses the grounds.",
         "Exhibition Place runs its own paid lots across the grounds; they are not Green P. On big match days the lots fill and Lake Shore Boulevard slows well before kickoff."
@@ -81,13 +202,25 @@
     {
       "slug": "scotiabank-arena",
       "name": "Scotiabank Arena",
-      "kinds": ["sports", "concerts", "comedy"],
+      "kinds": [
+        "sports",
+        "concerts",
+        "comedy"
+      ],
       "capacity": 19800,
-      "homeOf": ["Toronto Maple Leafs", "Toronto Raptors"],
+      "homeOf": [
+        "Toronto Maple Leafs",
+        "Toronto Raptors"
+      ],
       "address": "40 Bay Street",
-      "at": [-79.3791, 43.6435],
+      "at": [
+        -79.3791,
+        43.6435
+      ],
       "site": "https://www.scotiabankarena.com/plan-your-visit/getting-here",
-      "tm": ["Scotiabank Arena"],
+      "tm": [
+        "Scotiabank Arena"
+      ],
       "notes": [
         "Attached to Union Station: the Galleria connects the arena's Bay Street side to the station under cover, so GO, UP Express and Line 1 all land at the door. Entrances face Bay Street, Maple Leaf Square to the north and Lake Shore Boulevard to the south.",
         "The arena's own garage is for suite holders and tenants (a flat $50 for the public when open, 2 m height limit). The public garage under Maple Leaf Square (15 York Street, entrances on York and Bremner) and the Green P garages listed below are the usual choices."
@@ -96,12 +229,19 @@
     {
       "slug": "budweiser-stage",
       "name": "Budweiser Stage",
-      "kinds": ["concerts"],
+      "kinds": [
+        "concerts"
+      ],
       "capacity": 16000,
       "address": "909 Lake Shore Boulevard West, Ontario Place",
-      "at": [-79.4155, 43.6293],
+      "at": [
+        -79.4155,
+        43.6293
+      ],
       "site": "https://www.budweiserstage.com/",
-      "tm": ["Budweiser Stage"],
+      "tm": [
+        "Budweiser Stage"
+      ],
       "notes": [
         "Open-air amphitheatre at Ontario Place, across Lake Shore Boulevard from Exhibition Place. Exhibition GO and the Exhibition streetcar loop are the transit way in; from the loop it is a walk south across Lake Shore on the pedestrian bridge.",
         "Parking is the Ontario Place and Exhibition Place lots, which sell out for big shows; the Lake Shore and Gardiner approaches jam before doors."
@@ -110,53 +250,96 @@
     {
       "slug": "coca-cola-coliseum",
       "name": "Coca-Cola Coliseum",
-      "kinds": ["sports", "concerts"],
+      "kinds": [
+        "sports",
+        "concerts"
+      ],
       "capacity": 8100,
-      "homeOf": ["Toronto Marlies", "Toronto Sceptres"],
+      "homeOf": [
+        "Toronto Marlies",
+        "Toronto Sceptres"
+      ],
       "address": "45 Manitoba Drive, Exhibition Place",
-      "at": [-79.4148, 43.6356],
+      "at": [
+        -79.4148,
+        43.6356
+      ],
       "site": "https://www.coca-colacoliseum.com/",
-      "tm": ["Coca-Cola Coliseum"],
+      "tm": [
+        "Coca-Cola Coliseum"
+      ],
       "notes": [
         "Part of the Enercare Centre complex at Exhibition Place, a short walk from Exhibition GO and the streetcar loop. Exhibition Place lots serve it; on nights when BMO Field or Budweiser Stage are also busy, the grounds fill."
       ]
     },
     {
-      "slug": "paramount-fine-foods-centre",
-      "name": "Paramount Fine Foods Centre",
-      "kinds": ["sports", "concerts"],
+      "slug": "mississauga-sports-and-entertainment-centre",
+      "name": "Mississauga Sports and Entertainment Centre",
+      "kinds": [
+        "sports",
+        "concerts"
+      ],
       "capacity": 5400,
-      "homeOf": ["Raptors 905"],
+      "homeOf": [
+        "Raptors 905"
+      ],
       "address": "5500 Rose Cherry Place, Mississauga",
-      "at": [-79.6411, 43.5859],
+      "at": [
+        -79.6411,
+        43.5859
+      ],
       "site": "https://paramountfinefoodscentre.com/",
-      "tm": ["Paramount Fine Foods Centre"],
+      "tm": [
+        "Mississauga Sports and Entertainment Centre",
+        "Paramount Fine Foods Centre",
+        "Hershey Centre"
+      ],
       "notes": [
-        "Mississauga's arena, just south of Square One off Hurontario. Cooksville GO (Milton line) and MiWay buses on Hurontario serve it; the Hazel McCallion LRT on Hurontario is the long-term link. It has its own lots, which is part of why GTA-west fans choose it."
+        "Mississauga's arena (Paramount Fine Foods Centre until 2026, the Hershey Centre before that), just south of Square One off Hurontario. Cooksville GO (Milton line) and MiWay buses on Hurontario serve it; the Hazel McCallion LRT on Hurontario is the long-term link. It has its own lots, which is part of why GTA-west fans choose it."
       ]
     },
     {
       "slug": "great-canadian-casino-resort-toronto",
-      "name": "The Theatre at Great Canadian Casino Resort",
-      "kinds": ["concerts", "comedy"],
+      "name": "Woodbine Casino Theatre",
+      "kinds": [
+        "concerts",
+        "comedy"
+      ],
       "capacity": 5000,
       "address": "555 Rexdale Boulevard",
-      "at": [-79.6020, 43.7149],
+      "at": [
+        -79.602,
+        43.7149
+      ],
       "site": "https://gcgaming.com/toronto/",
-      "tm": ["Great Canadian Casino Resort Toronto", "The Theatre at Great Canadian Casino Resort Toronto"],
+      "tm": [
+        "Great Canadian Casino Resort Toronto",
+        "The Theatre at Great Canadian Casino Resort Toronto",
+        "Woodbine Casino Theatre",
+        "The Theatre at Great Canadian Toronto"
+      ],
       "notes": [
-        "On the Woodbine grounds at Highway 27 and Rexdale Boulevard, built for drivers: free on-site parking and the 427 and 409 at the door. By transit it is the 37 Islington or 191 Highway 27 Rocket buses from Kipling, or Etobicoke North GO and a bus."
+        "The theatre at the Great Canadian casino resort on the Woodbine grounds, at Highway 27 and Rexdale Boulevard, built for drivers: free on-site parking and the 427 and 409 at the door. By transit it is the 37 Islington or 191 Highway 27 Rocket buses from Kipling, or Etobicoke North GO and a bus."
       ]
     },
     {
       "slug": "meridian-hall",
       "name": "Meridian Hall",
-      "kinds": ["concerts", "comedy", "theatre"],
+      "kinds": [
+        "concerts",
+        "comedy",
+        "theatre"
+      ],
       "capacity": 3191,
       "address": "1 Front Street East",
-      "at": [-79.376, 43.6467],
+      "at": [
+        -79.376,
+        43.6467
+      ],
       "site": "https://www.tolive.com/",
-      "tm": ["Meridian Hall"],
+      "tm": [
+        "Meridian Hall"
+      ],
       "notes": [
         "At Front and Yonge, a five-minute walk east from Union Station or down from King station. Green P's garages on The Esplanade and at St Lawrence Market are the parking people use."
       ]
@@ -164,12 +347,20 @@
     {
       "slug": "massey-hall",
       "name": "Massey Hall",
-      "kinds": ["concerts", "comedy"],
+      "kinds": [
+        "concerts",
+        "comedy"
+      ],
       "capacity": 2765,
       "address": "178 Victoria Street",
-      "at": [-79.379, 43.6542],
+      "at": [
+        -79.379,
+        43.6542
+      ],
       "site": "https://masseyhall.mhrth.com/",
-      "tm": ["Massey Hall"],
+      "tm": [
+        "Massey Hall"
+      ],
       "notes": [
         "A block east of Yonge at Shuter, between Queen and Dundas stations; the Eaton Centre's garages and the Green P on Victoria are the nearest parking. Most people walk in from Line 1."
       ]
@@ -177,12 +368,19 @@
     {
       "slug": "roy-thomson-hall",
       "name": "Roy Thomson Hall",
-      "kinds": ["concerts"],
+      "kinds": [
+        "concerts"
+      ],
       "capacity": 2630,
       "address": "60 Simcoe Street",
-      "at": [-79.3863, 43.6467],
+      "at": [
+        -79.3863,
+        43.6467
+      ],
       "site": "https://roythomsonhall.mhrth.com/",
-      "tm": ["Roy Thomson Hall"],
+      "tm": [
+        "Roy Thomson Hall"
+      ],
       "notes": [
         "At King and Simcoe, a short walk from St Andrew station or west from Union along Front. The hall has its own underground garage, entered from Simcoe, and Metro Hall's garage is across the street."
       ]
@@ -190,12 +388,21 @@
     {
       "slug": "history",
       "name": "History",
-      "kinds": ["concerts", "comedy"],
+      "kinds": [
+        "concerts",
+        "comedy"
+      ],
       "capacity": 2500,
       "address": "1663 Queen Street East",
-      "at": [-79.3133, 43.6667],
+      "at": [
+        -79.3133,
+        43.6667
+      ],
       "site": "https://www.historytoronto.com/",
-      "tm": ["History", "HISTORY"],
+      "tm": [
+        "History",
+        "HISTORY"
+      ],
       "notes": [
         "On Queen East at Coxwell in the Beaches, on the 501 Queen streetcar; the 22 Coxwell bus runs up to Coxwell station on Line 2. Street parking is permit-heavy; the venue points drivers to nearby lots."
       ]
@@ -203,12 +410,21 @@
     {
       "slug": "danforth-music-hall",
       "name": "Danforth Music Hall",
-      "kinds": ["concerts", "comedy"],
+      "kinds": [
+        "concerts",
+        "comedy"
+      ],
       "capacity": 1500,
       "address": "147 Danforth Avenue",
-      "at": [-79.3571, 43.6763],
+      "at": [
+        -79.3571,
+        43.6763
+      ],
       "site": "https://thedanforth.com/",
-      "tm": ["The Danforth Music Hall", "Danforth Music Hall"],
+      "tm": [
+        "The Danforth Music Hall",
+        "Danforth Music Hall"
+      ],
       "notes": [
         "Steps from Broadview station on Line 2, at Danforth and Broadview. Transit is the way in; the Danforth's Green P lots are small and fill on show nights."
       ]
@@ -216,12 +432,21 @@
     {
       "slug": "queen-elizabeth-theatre",
       "name": "Queen Elizabeth Theatre",
-      "kinds": ["concerts", "comedy", "theatre"],
+      "kinds": [
+        "concerts",
+        "comedy",
+        "theatre"
+      ],
       "capacity": 1250,
       "address": "190 Princes' Boulevard, Exhibition Place",
-      "at": [-79.4153, 43.6334],
+      "at": [
+        -79.4153,
+        43.6334
+      ],
       "site": "https://www.queenelizabeththeatre.ca/",
-      "tm": ["Queen Elizabeth Theatre"],
+      "tm": [
+        "Queen Elizabeth Theatre"
+      ],
       "notes": [
         "Beside BMO Field at Exhibition Place, served by Exhibition GO and the streetcar loop, with the grounds' paid lots around it."
       ]
