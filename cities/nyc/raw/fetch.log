@@ -1,0 +1,47 @@
+== socrata
+wrote boroughs.geojson 3167 KB
+  boroughs 5 features · ['borocode', 'boroname', 'shape_area', 'shape_leng']
+wrote community_districts.geojson 3793 KB
+  community_districts 71 features · ['boro_cd', 'shape_area', 'shape_leng']
+wrote ntas.geojson 4589 KB
+  ntas 262 features · ['borocode', 'boroname', 'cdta2020', 'cdtaname', 'countyfips', 'nta2020', 'ntaabbrev', 'ntaname', 'ntatype', 'shape_area', 'shape_leng']
+wrote council.geojson 3824 KB
+  council 51 features · ['coundist', 'shape_area', 'shape_leng']
+wrote assembly.geojson 3996 KB
+  assembly 65 features · ['assembly_district', 'shape_area', 'shape_leng']
+wrote senate.geojson 1 KB
+  senate 28 features · []
+wrote congress.geojson 3437 KB
+  congress 13 features · ['cong_dist', 'shape_area', 'shape_leng']
+wrote school_districts.geojson 3698 KB
+  school_districts 33 features · ['schooldist', 'shape_area', 'shape_leng']
+wrote historic_districts.geojson 847 KB
+  historic_districts 141 features · ['area_name', 'borough', 'boundary_n', 'caldate', 'current_', 'desdate', 'extension', 'last_actio', 'lp_number', 'other_hear', 'public_hea', 'shape_area', 'shape_leng', 'status_of_']
+wrote bids.geojson 3 KB
+  bids 76 features · []
+== census
+  downloaded state.zip 3 MB
+wrote states.geojson 7 features
+  downloaded county.zip 11 MB
+wrote counties.geojson 65 features
+  downloaded cousub36.zip 0 MB
+wrote cousub_36.geojson 121 features
+  downloaded cousub34.zip 0 MB
+wrote cousub_34.geojson 401 features
+  downloaded cousub09.zip 0 MB
+wrote cousub_09.geojson 96 features
+wrote cousubs.geojson 1133 KB
+  county subdivisions 618 [('43', 212), ('21', 191), ('44', 170), ('25', 40), ('47', 3), ('86', 1), ('00', 1)]
+== mta
+  subway 29 routes · 496 stations · 257 shapes
+  lirr 13 routes · 126 stations · 136 shapes
+  mnr 6 routes · 114 stations · 14 shapes
+wrote mta_rail.json 6970 KB
+== osm
+wrote osm_places.json 96 KB
+wrote osm_streets.json 19124 KB
+wrote osm_highways.json 30275 KB
+wrote osm_rail.json 26 KB
+wrote osm_stations.json 419 KB
+wrote osm_landmarks.json 212 KB
+FAILED: none
