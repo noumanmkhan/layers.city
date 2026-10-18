@@ -183,6 +183,15 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
 .where small{font-size:12px;line-height:1.35;color:var(--ink-3)}
 .lede b{font-weight:500;color:var(--ink)}
 .view[hidden]{display:none}
+/* Similar places: suggestions under places B and C */
+.similar{display:flex;flex-direction:column;gap:6px;margin-top:2px}
+.similar small{font-size:12px;line-height:1.35;color:var(--ink-3)}
+.similar small b{font-weight:500;color:var(--ink-2)}
+.sims{display:flex;flex-wrap:wrap;gap:6px}
+.sim{appearance:none;font:inherit;font-size:13px;line-height:1.25;text-align:left;padding:6px 11px;border-radius:999px;border:1.5px solid var(--rule);background:var(--card);color:var(--ink-2);cursor:pointer}
+.sim:hover{border-color:var(--ink)}
+.sim[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:#fff}
+.sim i{font-style:normal;font-family:var(--mono);font-size:11px;opacity:.75;margin-left:4px}
 @media (max-width:759px){.add,.col.k2{display:none}}
 @media (max-width:600px){.cols{gap:14px}select.unit{font-size:15px;min-height:46px}.seg button{padding:0 12px;font-size:13px}.seg.big button{padding:0 14px;font-size:14px}}
 </style>
@@ -286,6 +295,46 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
     const xs = P.keys.map(k => P.rows[k][key]).filter(v => v != null);
     return Math.round(100 * (xs.filter(v => v < value).length + 0.5 * (xs.filter(v => v === value).length - 1)) / Math.max(xs.length - 1, 1));
   }
+
+  // ---- Similar places
+  // Housing, getting around and built form only; never ages, languages or who lives there.
+  // Money is compared by rank (where a place sits in its own city, 0-100), because $900k means different things
+  // in Toronto and Chicago. Everything physical is compared as the figure itself, because 20% walking or biking
+  // to work is the same street life anywhere: shares in percentage points, minutes to downtown doubled so that
+  // 10 minutes counts like 20 points. Building age is ranked too, since Canada and the US band the decades
+  // differently. Two places are alike when the weighted average gap over the traits both have is small.
+  const TRAITS = [   // [name, getter, how, weight]
+    ['value', r => r.value, 'rank', 3], ['rent', r => r.rent, 'rank', 2],
+    ['renterPct', r => r.renterPct, 'raw', 1], ['transitPct', r => r.transitPct, 'raw', 1], ['walkBikePct', r => r.walkBikePct, 'raw', 2],
+    ['hub', (r, c) => r[c.hubKey], 'min', 1.5], ['canopy', r => r.canopy, 'raw', 1],
+    ['detached', r => r.homes && r.homes[0], 'raw', 1], ['big', r => r.homes && r.homes[3], 'raw', 1],
+    ['old', r => r.built && r.built[0], 'rank', 1], ['new', r => r.built && r.built[3], 'rank', 1],
+  ];
+  const WEIGHT = Object.fromEntries(TRAITS.map(([t, , , w]) => [t, w]));
+  const traitCache = {};
+  async function traits(cid){
+    if (traitCache[cid]) return traitCache[cid];
+    const P = await profiles(cid), c = byId[cid], out = {};
+    for (const [t, get, how] of TRAITS) {
+      const vals = P.keys.map(k => [k, get(P.rows[k], c)]).filter(([, v]) => v != null);
+      const xs = vals.map(([, v]) => v);
+      for (const [k, v] of vals) (out[k] = out[k] || {})[t] =
+        how === 'rank' ? 100 * (xs.filter(x => x < v).length + 0.5 * (xs.filter(x => x === v).length - 1)) / Math.max(xs.length - 1, 1)
+        : how === 'min' ? Math.min(v * 2, 100) : v;
+    }
+    return traitCache[cid] = out;
+  }
+  async function similar(fromCity, fromKey, toCity, n = 3){
+    const A = (await traits(fromCity))[fromKey], B = await traits(toCity);
+    if (!A) return [];
+    return Object.entries(B).filter(([k]) => !(toCity === fromCity && k === fromKey)).map(([k, t]) => {
+      const shared = Object.keys(A).filter(x => t[x] != null);
+      const w = shared.reduce((s, x) => s + WEIGHT[x], 0);
+      return [k, shared.reduce((s, x) => s + WEIGHT[x] * Math.abs(A[x] - t[x]), 0) / Math.max(w, 1)];
+    }).sort((x, y) => x[1] - y[1]).slice(0, n);
+  }
+  // Average gap under 12 points is a close match, under 18 fair, more than that loose.
+  const closeness = d => d < 12 ? 'close' : d < 18 ? 'fair' : 'loose';
 
   // ---- One model per column, the same shape in both modes
   function cityModel(c){
@@ -396,8 +445,19 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
       if (mode === 'nbhd') {
         const P = await profiles(col.city);
         if (!P.rows[col.unit]) col.unit = pickDefault(col.city, P);
+        if (!P.rows[col.unit] || col.match) {
+          // A new city in column B or C opens on the place most like place A.
+          const best = i > 0 && col.match ? (await similar(vis[0].city, vis[0].unit, col.city, 1))[0] : null;
+          col.unit = best ? best[0] : P.rows[col.unit] ? col.unit : pickDefault(col.city, P);
+          col.match = false;
+        }
         unitSel = `<select class="unit" data-i="${i}" data-role="unit" aria-label="${LETTER[i]}: ${esc(byId[col.city].units.singular)}">` +
           P.keys.map(k => `<option value="${k}"${k === col.unit ? ' selected' : ''}>${esc(P.rows[k].name)}</option>`).join('') + '</select>';
+        if (i > 0) {
+          const A = (await profiles(vis[0].city)).rows[vis[0].unit], sims = await similar(vis[0].city, vis[0].unit, col.city);
+          if (A && sims.length) unitSel += `<div class="similar"><small>Most like <b>${esc(A.name)}</b>${vis[0].city === col.city ? '' : ' in ' + esc(byId[col.city].name)}:</small>
+            <div class="sims">${sims.map(([k, d]) => `<button type="button" class="sim" data-i="${i}" data-unit="${k}" aria-pressed="${k === col.unit}">${esc(P.rows[k].name)}<i>${closeness(d)}</i></button>`).join('')}</div></div>`;
+        }
       }
       parts.push(`<div class="col k${i}">
         <div class="who"><span>${mode === 'nbhd' ? 'PLACE' : 'CITY'} ${LETTER[i]}</span>${i === 2 ? `<button class="x" type="button" data-remove="2">Remove</button>` : ''}</div>
@@ -412,7 +472,7 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
   document.getElementById('picks').addEventListener('change', async e => {
     const i = +e.target.dataset.i, col = cols[i];
     if (e.target.dataset.role === 'city') {
-      col.city = e.target.value; col.unit = null;
+      col.city = e.target.value; col.unit = null; col.match = mode === 'nbhd' && i > 0;
       if (mode === 'city') {   // in Cities mode each column is a different city
         const used = new Set(cols.filter((_, j) => j !== i).map(c => c.city));
         cols.forEach((c, j) => { if (j !== i && c.city === col.city) c.city = cities.find(x => !used.has(x.id) && x.id !== col.city).id; });
@@ -423,9 +483,10 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
   document.getElementById('picks').addEventListener('click', async e => {
     if (e.target.id === 'add') {
       const used = new Set(cols.map(c => c.city));
-      cols.push({city: (cities.find(c => !used.has(c.id)) || cities[0]).id});
+      cols.push({city: (cities.find(c => !used.has(c.id)) || cities[0]).id, match: mode === 'nbhd'});
       await render();
     } else if (e.target.dataset.remove) { cols.splice(+e.target.dataset.remove, 1); await render(); }
+    else if (e.target.closest('.sim')) { const b = e.target.closest('.sim'); cols[+b.dataset.i].unit = b.dataset.unit; await render(); }
   });
 
   // ---- Render
@@ -455,10 +516,10 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
       : 'Each neighbourhood counts once, whatever its size. This is what the typical neighbourhood looks like, which flattens a city of big districts more than one of small ones.';
     document.getElementById('lede').innerHTML = mode === 'city'
       ? 'Pick two cities and see how housing, commuting, home types and languages at home line up, from the same census figures behind each map’s “Living here” card.'
-      : 'Pick a neighbourhood in each city. The track under a figure shows where that place sits <b>among its own city’s</b>, which is the fairest way to compare places from cities with different prices.';
+      : 'Pick a place in one city, then another city: it opens on the place <b>most like the first</b>, with two runners-up to try. The track under a figure shows where each place sits among its own city’s.';
     document.getElementById('foot').innerHTML = mode === 'city'
       ? `Every figure is built from each city’s neighbourhoods as the map draws them. Whole city weights each by its residents or households; typical neighbourhood counts each once. Sources and years are under “At a glance”; see <a href="/attributions/">Attributions</a>.`
-      : `Each city is divided its own way (Toronto’s 158 neighbourhoods, Chicago’s 77 community areas, New York’s 59 community districts, Dallas’s ZIP codes), so a place here can be much bigger in one city than another. Tracks cover housing, commuting and canopy only; the site never ranks places by who lives there. See <a href="/attributions/">Attributions</a>.`;
+      : `Each city is divided its own way (Toronto’s 158 neighbourhoods, Chicago’s 77 community areas, New York’s 59 community districts, Dallas’s ZIP codes), so a place here can be much bigger in one city than another. Tracks and “most like” suggestions use housing, commuting, building age and type, time to downtown and tree canopy, each as a place’s position in its own city; never ages, languages or who lives there. A match means alike in prices for its city, how people get around and what the streets are built of, not identical. See <a href="/attributions/">Attributions</a>.`;
     document.title = models.map(m => m.title).join(' vs ') + ' · Compare · Layers.City';
 
     const u = new URL(location); u.search = '';
