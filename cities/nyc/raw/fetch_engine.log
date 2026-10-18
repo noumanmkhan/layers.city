@@ -1,0 +1,84 @@
+== fetch_surface.py
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_m.zip 8322100 bytes
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_bx.zip 8428753 bytes
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_b.zip 17046285 bytes
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_q.zip 5983145 bytes
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_si.zip 6406562 bytes
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_busco.zip 8446523 bytes
+  merged 6 feeds into one: ['agency.txt', 'calendar.txt', 'calendar_dates.txt', 'feed_info.txt', 'routes.txt', 'shapes.txt', 'stop_times.txt', 'stops.txt', 'trips.txt']
+routes kept: 399
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/engine/fetch_surface.py", line 140, in rows
+    head = [h.strip() for h in next(r)]   # some agencies pad headers and fields with spaces
+                               ^^^^^^^
+StopIteration
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/engine/fetch_surface.py", line 164, in <module>
+    for r in rows('calendar.txt'):
+             ^^^^^^^^^^^^^^^^^^^^
+RuntimeError: generator raised StopIteration
+== fetch_bikes.py
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/engine/fetch_bikes.py", line 85, in <module>
+    'geometry': {'type': f['geometry']['type'], 'coordinates': rnd(f['geometry']['coordinates'])}})
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/city-layers/city-layers/engine/fetch_bikes.py", line 36, in rnd
+    return [rnd(x) for x in c] if isinstance(c[0], list) else [round(c[0], 6), round(c[1], 6)]
+                                             ~^^^
+IndexError: list index out of range
+== fetch_bikeshare.py
+feeds: ['free_bike_status', 'gbfs', 'gbfs_versions', 'station_information', 'station_status', 'system_alerts', 'system_calendar', 'system_hours', 'system_information', 'system_pricing_plans', 'system_regions', 'vehicle_types']
+stations: 2519 · not installed: 53
+configurations: {None: 2519}
+charging: 0
+rental methods: {'': 2519}
+wrote /home/runner/work/city-layers/city-layers/cities/nyc/raw/bikeshare.json 360 KB
+== fetch_canopy.py
+nyc 71 units, bounds -74.256 40.496 -73.7 40.916
+  got https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N39W075_Map.tif 54 MB
+  $ gdalbuildvrt -overwrite /home/runner/work/city-layers/city-layers/cities/nyc/tmp/canopy/wc.vrt /home/runner/work/city-layers/city-layers/cities/nyc/tmp/canopy/ESA_WorldCover_10m_2021_v200_N39W075_Map.tif
+0...10...20...30...40...50...60...70...80...90...100 - done.
+
+  $ gdalwarp -overwrite -te -74.26559 40.48613 -73.69001999999999 40.925529999999995 -r near -co COMPRESS=DEFLATE /home/runner/work/city-layers/city-layers/cities/nyc/tmp/canopy/wc.vrt /home/runner/work/city-layers/city-layers/cities/nyc/tmp/canopy/worldcover_clip.tif
+Copying color table from /home/runner/work/city-layers/city-layers/cities/nyc/tmp/canopy/wc.vrt to new file.
+Creating output file that is 6907P x 5273L.
+Processing /home/runner/work/city-layers/city-layers/cities/nyc/tmp/canopy/wc.vrt [1/1] : 0Using internal nodata values (e.g. 0) for image /home/runner/work/city-layers/city-layers/cities/nyc/tmp/canopy/wc.vrt.
+Copying nodata values from source /home/runner/work/city-layers/city-layers/cities/nyc/tmp/canopy/wc.vrt to destination /home/runner/work/city-layers/city-layers/cities/nyc/tmp/canopy/worldcover_clip.tif.
+...10...20...30...40...50...60...70...80...90...100 - done.
+
+worldcover citywide canopy 21.7 % · units with a value 71
+using worldcover
+== fetch_heritage_buildings.py
+fields: ['address', 'bbl', 'bct2020', 'block', 'borough', 'cd', 'council', 'desdate', 'landmarkty', 'lat', 'latitude', 'lon', 'longitude', 'lot', 'lpc_altern', 'lpc_lpnumb', 'lpc_name', 'lpc_sitede', 'lpc_sitest', 'nta2020', 'objectid', 'shape_area', 'shape_leng', 'url_report']
+rows: 1532 · with a point: 1532
+  address 1487 values, e.g. ['Entrance ramp to Harlem River Drive at Adam Clayton Powell, Jr. Boulevard', '914-1000 Richmond Terrace', 'Park Drive (east of 7th Avenue opposite 88th Street)', 'Hall of Fame Terrace at Sedgwick Avenue', 'Battery Park']
+  bbl 1321 values, e.g. ['0', '1000740001', '5044410001', '5000760200', '1000010010']
+  bct2020 487 values, e.g. ['None', '1020800', '1001502', '5027900', '3004300']
+  block 867 values, e.g. ['0', '1727', '176', '74', '722']
+  borough {'MN': 989, 'BK': 212, 'SI': 139, 'BX': 101, 'QN': 86, 'None': 5}
+  cd 65 values, e.g. ['105', '101', '108', '102', '107']
+  council 52 values, e.g. ['4', '1', '2', '3', '6']
+  desdate 453 values, e.g. ['6/17/1997', '8/11/1981', '11/20/1973', '4/19/1966', '10/29/1968']
+  landmarkty {'Individual Landmark': 1529, 'Individual': 3}
+  lat 1530 values, e.g. ['213504.661623', '217132.499512', '200059.848454', '189336.535419', '212557.130546']
+  latitude 1356 values, e.g. ['None', '40.7063586', '40.5711106', '40.6440512', '40.6887742']
+  lon 1531 values, e.g. ['995746.275659', '988384.141605', '989863.27674', '985422.95589', '985877.939804']
+  longitude 1357 values, e.g. ['None', '-74.0038196', '-74.1454376', '-74.1017572', '-74.0187035']
+  lot 159 values, e.g. ['1', '0', '10', '7501', '15']
+  lpc_altern 371 values, e.g. ['None', 'part of Astor Row', 'designated as the Houses on Hunterfly Road, now the Weeksville Heritage Center', 'now Bronx Community College', 'now the Snug Harbor Cultural Center']
+  lpc_lpnumb 1462 values, e.g. ['LP-01961', 'LP-02689', 'LP-01176', 'LP-01173', 'LP-02168']
+  lpc_name 1504 values, e.g. ["Kreischerville Workers' Houses", 'Friends Meeting House', 'Villard Houses', '29th Street Towers', 'Sidewalk Clock, 161-11 Jamaica Avenue']
+  lpc_sitede 1369 values, e.g. ['Consisting of the property on which the descibed lamppost is situated.', 'Too long', 'Too Long', 'Borough of Richmond Tax Map Block 2278, Lot 1 in part, consisting of the land on which the described building is situated.', 'Borough of Manhattan Tax Map Block 74, Lot 15 in part, consisting of the land on which the described building is situated.']
+  lpc_sitest {'Designated': 1514, 'Amended': 8, 'Proposed': 6, 'Moved': 3, 'Heard': 1}
+  nta2020 160 values, e.g. ['MN0502', 'MN0101', 'MN0802', 'MN0102', 'MN0501']
+  objectid 1532 values, e.g. ['1545', '1544', '1543', '1542', '1541']
+  shape_area 1532 values, e.g. ['14664.757287076749', '4003.7930299170216', '2641.0908466053743', '24309.040662063428', '6051.234746574122']
+  shape_leng 1532 values, e.g. ['536.004670993048', '257.191045780416', '264.6011138989543', '645.1437752238298', '327.0132860764993']
+  url_report {'None': 1532}
+wrote /home/runner/work/city-layers/city-layers/cities/nyc/raw/heritage_buildings.json 909 KB
+== fetch_construction.py
+nyc 65 elements; 22 distinct labels
+FAILED: ['fetch_surface.py', 'fetch_bikes.py']
