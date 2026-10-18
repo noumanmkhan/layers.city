@@ -8,6 +8,8 @@ Runs in GitHub Actions (fetch-nyc.yml). Dataset ids checked by scouting/nyc/scou
 - facdb.json: the City Planning Facilities Database (ji82-xba5), only the groups the map uses: libraries, hospitals and
   clinics, higher education, schools, community and senior centres, recreation centres
 - school_zones_es/ms/hs.geojson: DOE School Zones 2024-2025 (cmjf-yawu, t26j-jbq7, ruu9-egea)
+- evacuation_zones.geojson, evacuation_centers.geojson: NYC Emergency Management's hurricane evacuation zones
+  (epne-qv9x) and evacuation centers (p5md-weyf)
 - worship_osm.json: OpenStreetMap places of worship in the five boroughs (ODbL)"""
 import json, os, sys, time, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -18,7 +20,8 @@ P = 'places'
 os.makedirs(os.path.join(RAW, P), exist_ok=True)
 GEO = [('dsny_frequencies', 'rv63-53db'), ('parks', 'enfh-gkve'), ('athletic', 'qnem-b8re'), ('pools', 'y5rm-wagw'),
        ('dog_runs', 'hxx3-bwgv'), ('spray', 'ckaz-6gaa'), ('skateparks', '8knb-zsb6'), ('playgrounds', 'j55h-3upk'),
-       ('school_zones_es', 'cmjf-yawu'), ('school_zones_ms', 't26j-jbq7'), ('school_zones_hs', 'ruu9-egea')]
+       ('school_zones_es', 'cmjf-yawu'), ('school_zones_ms', 't26j-jbq7'), ('school_zones_hs', 'ruu9-egea'),
+       ('evacuation_zones', 'epne-qv9x'), ('evacuation_centers', 'p5md-weyf')]
 FACDB_GROUPS = ['LIBRARIES', 'HEALTH CARE', 'HIGHER EDUCATION', 'SCHOOLS (K-12)', 'YOUTH SERVICES', 'HUMAN SERVICES', 'PARKS AND PLAZAS',
                 'CULTURAL INSTITUTIONS', 'ADULT SERVICES', 'CAMPS']
 
