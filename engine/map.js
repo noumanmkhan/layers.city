@@ -209,6 +209,16 @@ const GLYPH = {
   // Schools: a mortarboard, one colour for French-language schools and one for immersion.
   frschool: '<path d="M12 2 1.5 7.5 12 13l8.5-4.45V15h2V7.5zM5.5 12.1v4.4L12 20l6.5-3.5v-4.4L12 15.5z"/>',
   immersion: '<path d="M12 2 1.5 7.5 12 13l8.5-4.45V15h2V7.5zM5.5 12.1v4.4L12 20l6.5-3.5v-4.4L12 15.5z"/>',
+  // Sports & recreation, one glyph per sport.
+  pool: '<path d="M2 15.5c2.5 0 2.5-1.6 5-1.6s2.5 1.6 5 1.6 2.5-1.6 5-1.6 2.5 1.6 5 1.6v2.2c-2.5 0-2.5-1.6-5-1.6s-2.5 1.6-5 1.6-2.5-1.6-5-1.6-2.5 1.6-5 1.6zm0 4.3c2.5 0 2.5-1.6 5-1.6s2.5 1.6 5 1.6 2.5-1.6 5-1.6 2.5 1.6 5 1.6V22c-2.5 0-2.5-1.6-5-1.6S14.5 22 12 22s-2.5-1.6-5-1.6S4.5 22 2 22zM13.6 3.2l2.2-.8 3.4 9.2-2.2.8-.9-2.5-6.8 2.6-1.3-1.9 7.3-2.8zM5.5 8.5a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0z"/>',
+  rink: '<path d="M6 3h4v7.5l8.4 2.2c1.6.4 2.6 1.8 2.6 3.4V17H6zM3 19h17.5a1.5 1.5 0 0 0 1.5-1.5h1.5a3 3 0 0 1-3 3H3z"/>',
+  diamond: '<path fill-rule="evenodd" d="M12 2.5 21.5 12 12 21.5 2.5 12zm0 3.4L5.9 12l6.1 6.1 6.1-6.1z"/><circle cx="12" cy="12" r="2"/>',
+  field: '<path fill-rule="evenodd" d="M2 5h20v14H2zm2 2v10h7V14.9a3 3 0 0 1 0-5.8V7zm9 0v2.1a3 3 0 0 1 0 5.8V17h7V7z"/>',
+  tennis: '<path fill-rule="evenodd" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zM4.3 9.5A7.9 7.9 0 0 0 4.1 13a7 7 0 0 1 5.6 6.8 7.9 7.9 0 0 0 3.4.1A9 9 0 0 0 4.3 9.5zm15.4 5a7.9 7.9 0 0 0 .2-3.5 7 7 0 0 1-5.6-6.8 7.9 7.9 0 0 0-3.4-.1 9 9 0 0 0 8.8 10.4z"/>',
+  pickleball: '<path d="M10.2 2.5a6.5 6.5 0 0 1 7.3 7.3l-.5 3.2-5.8 1.6-1.6 1.6-3.3-3.3L8 11.3l1.6-5.8zM7.2 15.3l1.5 1.5-4 4.2-1.7-1.7zM19 15.5a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2z"/>',
+  basketball: '<path fill-rule="evenodd" d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm-1 2.1a7.9 7.9 0 0 0-4.4 1.8A9 9 0 0 1 8.9 11H11zm2 0V11h2.1a9 9 0 0 1 2.3-5.1A7.9 7.9 0 0 0 13 4.1zm5.8 3.2A7 7 0 0 0 17.1 11h2.8a7.9 7.9 0 0 0-1.1-3.7zm-13.6 0A7.9 7.9 0 0 0 4.1 11h2.8a7 7 0 0 0-1.7-3.7zM4.1 13a7.9 7.9 0 0 0 1.1 3.7A7 7 0 0 0 6.9 13zm4.8 0a9 9 0 0 1-2.3 5.1 7.9 7.9 0 0 0 4.4 1.8V13zm4.1 0v6.9a7.9 7.9 0 0 0 4.4-1.8 9 9 0 0 1-2.3-5.1zm4.1 0a7 7 0 0 0 1.7 3.7 7.9 7.9 0 0 0 1.1-3.7z"/>',
+  skatepark: '<path d="M2 10.5h20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zM6.5 14a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4zm11 0a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4z"/>',
+  cricket: '<path d="M16.9 2.3 19.7 5.1l-2.3 2.3-.9-.9-8.9 8.9-3.5.7.7-3.5 8.9-8.9-.9-.9zM18 15.5a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM3.2 18.4l2.4 2.4-1.4 1.4-2.4-2.4z"/>',
   // Skyscrapers, by use: office floors as bands, homes as a grid of windows, mixed use as both.
   'tw-com': '<path fill-rule="evenodd" d="M5 1.5h14v21H5zM7.6 4.5v2.2h8.8V4.5zm0 4v2.2h8.8V8.5zm0 4v2.2h8.8v-2.2zm0 4v2.2h8.8v-2.2z"/>',
   'tw-res': '<path fill-rule="evenodd" d="M5 1.5h14v21H5zM7.6 4.5h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 10h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 15.5h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2z"/>',
@@ -219,6 +229,7 @@ const SWATCH = {knownas: 'Aa', landmarks: svg(GLYPH.culture), badges: svg('<path
 /* Places layers: one category ("cat"), or several in one toggle ("cats": [[cat, chip label, singular noun]…]),
    each a chip in the panel that hides or shows it (any mix; at least one stays on). "icon" picks the row's glyph. */
 const placeCats = it => it.cats ? it.cats.map(c => c[0]) : [it.cat];
+const featCats = p => p.cats || [p.cat];   // a feature's categories: p.cats when it has several
 const placeNoun = (it, cat) => ((it.cats || []).find(c => c[0] === cat) || [])[2] || it.place || it.name;
 const placeIcon = it => it.icon || placeCats(it)[0];
 const catPick = {};   // layer id -> Set of categories shown (null: all)
@@ -364,19 +375,22 @@ const KINDS = {
   // with "groupsFor", the groups narrow only that category (churches among all places of worship).
   // "minZoom" (12-14) holds a busy layer's icons back until that zoom. With "popup", a tap opens the place's details
   // (placePopup) instead of the What's here card.
+  // A place may be in several categories (p.cats, e.g. a park with tennis courts and a pool): it shows while any of
+  // them is picked, its pin taking the first picked one's glyph and colour.
   places: (it, fc) => {
     const g = L.layerGroup(), marks = [], cats = placeCats(it);
-    fc.features.filter(f => cats.includes(f.properties.cat)).forEach(f => {
+    const icon = (p, c) => L.divIcon({className:'', iconSize:[0, 0], html:'<span class="lm inst in-' + c + (p.ed ? ' ed' : '') + (it.minZoom ? ' mz' + it.minZoom : '') + '"><i>' + svg(GLYPH[c] || GLYPH.culture) + '</i><b>' + esc(p.name) + '</b></span>'});
+    fc.features.filter(f => featCats(f.properties).some(c => cats.includes(c))).forEach(f => {
       const p = f.properties;
-      const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true,
-        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="lm inst in-' + p.cat + (p.ed ? ' ed' : '') + (it.minZoom ? ' mz' + it.minZoom : '') + '"><i>' + svg(GLYPH[p.cat] || GLYPH.culture) + '</i><b>' + esc(p.name) + '</b></span>'})});
+      const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true, icon: icon(p, p.cat)});
       hoverTip(m, fill(it.hover || '{name}[ · {sub}]', p) + (p.ed && it.edText ? ' · ' + it.edText : ''));
       m.on('click', e => { if (it.popup){ L.DomEvent.stop(e); placePopup(it, p, fc, m.getLatLng()); } else goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), p.name, false); });
-      marks.push([m, p.grp, p.cat]);
+      marks.push([m, p.grp, p.cat, p, p.cat]);
     });
     const grouped = cat => it.groups && (!it.groupsFor || cat === it.groupsFor);
-    const shown = ([, grp, cat]) => { const k = placePick[it.id] || 'all'; return catOn(it.id, cat) && (!grouped(cat) || k === 'all' || grp === k); };
-    g._draw = () => { g.clearLayers(); marks.forEach(x => { if (shown(x)) g.addLayer(x[0]); }); };
+    const shown = ([, grp, cat, p]) => { const k = placePick[it.id] || 'all'; return featCats(p).some(c => catOn(it.id, c)) && (!grouped(cat) || k === 'all' || grp === k); };
+    const repin = x => { if (!x[3].cats) return; const c = x[3].cats.find(c => catOn(it.id, c)) || x[3].cat; if (c !== x[4]){ x[4] = c; x[0].setIcon(icon(x[3], c)); } };
+    g._draw = () => { g.clearLayers(); marks.forEach(x => { if (shown(x)){ repin(x); g.addLayer(x[0]); } }); };
     g._count = () => marks.filter(x => grouped(x[2]) && shown(x)).length;
     g._draw();
     return g;
@@ -1090,7 +1104,7 @@ const dkR = () => { const z = map.getZoom(); return z < 13 ? 2.2 : z < 15 ? 3.3 
 function placePopup(it, p, fc, latlng){
   const P = it.popup, rows = (P.rows || []).filter(([k]) => p[k]).map(([k, label]) => [label, p[k]]);
   L.popup({className: 'info-pop', maxWidth: 280, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
-    '<b>' + esc(p.name) + '</b><small><i class="pl-dot" style="background:var(--in-' + p.cat + ')"></i>' + esc(placeNoun(it, p.cat)) + '</small>' +
+    '<b>' + esc(p.name) + '</b><small><i class="pl-dot" style="background:var(--in-' + p.cat + ')"></i>' + esc(p.cats && p.sub ? p.sub : placeNoun(it, p.cat)) + '</small>' +
     rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
     (p.u && /^https?:\/\//.test(p.u) && P.linkText ? '<p class="pp-link"><a href="' + esc(p.u) + '" target="_blank" rel="noopener">' + esc(P.linkText) + ' ↗</a></p>' : '') +
     (P.fine ? '<p class="bk-fine">' + esc(fill(P.fine, {asof: (fc && fc.asof) || ''})) + '</p>' : '')).openOn(map);
@@ -1541,7 +1555,7 @@ CITY.groups.forEach(([title, items]) => {
     if (it.kind === 'places' && it.cats){   // categories, any mix; each chip with a dot in its pins' colour
       const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'pc-' + it.id; box.hidden = !it.on;
       box.innerHTML = '<div class="chips pick" role="group" aria-label="' + esc(it.name) + '">' + it.cats.map(([c, short]) =>
-        '<button type="button" data-pc="' + it.id + '" data-c="' + c + '" aria-pressed="true"><i class="pl-dot" style="background:var(--in-' + c + ')"></i>' + esc(short) + '</button>').join('') +
+        '<button type="button" data-pc="' + it.id + '" data-c="' + c + '" aria-pressed="' + !it.narrow + '"><i class="pl-dot" style="background:var(--in-' + c + ')"></i>' + esc(short) + '</button>').join('') +
         '</div>' + (it.catNote ? '<div class="legend"><small>' + esc(it.catNote) + '</small></div>' : '');
       grp.appendChild(box);
       box.querySelectorAll('[data-pc]').forEach(b => b.addEventListener('click', () => { tapPlaceCat(it.id, b.dataset.c); logEvent('place_cat', {id: it.id + ':' + b.dataset.c}); }));
@@ -1729,14 +1743,14 @@ function setPlaceCats(id, want){
   const it = LAYERS.find(l => l.id === id); if (!it || !it.cats) return;
   const all = placeCats(it), w = all.filter(c => want.includes(c));
   catPick[id] = !w.length || w.length === all.length ? null : new Set(w);
-  document.querySelectorAll('[data-pc="' + id + '"]').forEach(b => b.setAttribute('aria-pressed', String(catOn(id, b.dataset.c))));
+  document.querySelectorAll('[data-pc="' + id + '"]').forEach(b => b.setAttribute('aria-pressed', String(it.narrow ? !!(catPick[id] && catPick[id].has(b.dataset.c)) : catOn(id, b.dataset.c))));
   if (layers[id] && layers[id]._draw) layers[id]._draw();
   drawPlacePick(id); queueHash();
   try { if (lastInspect) redrawCard(); } catch (e){}
 }
 function tapPlaceCat(id, c){
-  const it = LAYERS.find(l => l.id === id), want = new Set(catPick[id] || placeCats(it));
-  if (want.has(c) && want.size > 1) want.delete(c); else want.add(c);
+  const it = LAYERS.find(l => l.id === id), want = new Set(catPick[id] || (it.narrow ? [] : placeCats(it)));
+  if (want.has(c) && (want.size > 1 || it.narrow)) want.delete(c); else want.add(c);
   setPlaceCats(id, [...want]);
 }
 function drawPlacePick(id){
@@ -3120,7 +3134,7 @@ function showSuggestions(list, more){
   results.querySelectorAll('[data-sg]').forEach(b => b.addEventListener('click', () => window.__sg[+b.dataset.sg].go()));
 }
 // Institutions for search: every feature of every places-kind layer's own category.
-const INSTITUTIONS = () => LAYERS.filter(it => it.kind === 'places' && loaded[it.file]).flatMap(it => loaded[it.file].features.filter(f => placeCats(it).includes(f.properties.cat)).map(f => [it, f]));
+const INSTITUTIONS = () => LAYERS.filter(it => it.kind === 'places' && it.search !== false && loaded[it.file]).flatMap(it => loaded[it.file].features.filter(f => placeCats(it).includes(f.properties.cat)).map(f => [it, f]));
 function goLandmark(f){ goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), f.properties.name, true); }
 // A named area: frame the whole of it and pin its label point. Outside the city, switch to the region view first.
 function goPlace(p){
@@ -3423,7 +3437,7 @@ function drawPlaceBox(){
   const btn = f => '<button type="button" data-pt="' + f.geometry.coordinates.join(',') + '" data-name="' + esc(f.properties.name) + '">' + esc(f.properties.name) + (f.properties.sub ? ' <small>' + esc(f.properties.sub) + '</small>' : '') + '</button>';
   LAYERS.filter(it => it.kind === 'landmarks').forEach(it => { const p = ptsIn(loaded[it.file]); if (p.length) rows.push([it.name, '<span class="flist">' + p.map(btn).join('') + '</span>']); });
   LAYERS.filter(it => it.kind === 'places').forEach(it => (it.cats || [[it.cat, it.name]]).forEach(([c, label]) => {   // a row per category
-    const p = ptsIn(loaded[it.file]).filter(f => !c || f.properties.cat === c); if (p.length) rows.push([label, '<span class="flist">' + p.map(btn).join('') + '</span>']); }));
+    const p = ptsIn(loaded[it.file]).filter(f => !c || featCats(f.properties).includes(c)); if (p.length) rows.push([label, '<span class="flist">' + p.map(btn).join('') + '</span>']); }));
   LAYERS.filter(it => it.kind === 'towers').forEach(it => {
     const p = ptsIn(loaded[it.file]).sort((a, b) => b.properties.h - a.properties.h);
     if (p.length) rows.push([it.name, p.length + (p.length > 1 ? ' · tallest ' : ' · ') + btn(p[0]).replace('<button', '<button class="inline"')]);
