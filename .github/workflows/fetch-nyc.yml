@@ -14,7 +14,7 @@ permissions:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,7 +22,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin && pip install -q shapely pypdf pyshp rasterio pyproj numpy
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin osmium-tool && pip install -q shapely pypdf pyshp rasterio pyproj numpy
+      # Transit times (fetch_transit_penn.py) need Java 21 and r5py.
+      - if: inputs.script == 'fetch_transit_penn.py'
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - if: inputs.script == 'fetch_transit_penn.py'
+        run: pip install -q r5py geopandas
       # A manual run names its script; a push runs whichever fetch script its last commit changed (none: nothing to do).
       - run: |
           S="${{ inputs.script }}"
@@ -30,8 +38,9 @@ jobs:
           if [ -z "$S" ]; then echo "No fetch script changed in the last commit; nothing to fetch."; exit 0; fi
           echo "SCRIPT=$S" >> "$GITHUB_ENV"
           mkdir -p cities/nyc/raw
-          python3 -u "cities/nyc/$S" 2>&1 | tee "cities/nyc/raw/${S%.py}.log"
-      - run: |
+          set -o pipefail; python3 -u "cities/nyc/$S" 2>&1 | tee "cities/nyc/raw/${S%.py}.log"
+      - if: always()
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
           [ -n "$SCRIPT" ] || exit 0

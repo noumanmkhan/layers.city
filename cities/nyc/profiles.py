@@ -164,9 +164,10 @@ TL = os.path.join(RAW, 'transit_penn.json')
 if os.path.exists(TL):
     tl = json.load(open(TL))['areas']
     for k, d in data.items():
-        m = (tl.get(k) or {}).get('minutes')
-        d['penn'] = m
-        d['pennBand'] = None if m is None else 'under30' if m < 30 else '30to45' if m < 45 else '45to60' if m <= 60 else 'over60'
+        for hub in ('penn', 'gct'):   # Penn Station is the map's hub; Grand Central is kept for a hub choice later
+            m = (tl.get(k) or {}).get(hub)
+            d[hub] = m
+            d[hub + 'Band'] = None if m is None else 'under30' if m < 30 else '30to45' if m < 45 else '45to60' if m <= 60 else 'over60'
 
 json.dump(data, open(OUT, 'w'), separators=(',', ':'))
 for k in ('101', '303', '414'):
