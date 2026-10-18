@@ -117,7 +117,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · Places of worship & lines being built: © OpenStreetMap contributors",
+ "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · Hurricane evacuation zones and centers: NYC Emergency Management · Places of worship & lines being built: © OpenStreetMap contributors",
  "example": {
   "at": [
    40.7532,
@@ -281,6 +281,18 @@
      "note": "BIDs: Times Square, Downtown Brooklyn, 34th Street, Jamaica Center…",
      "label": "{name}",
      "hover": "{name} BID"
+    },
+    {
+     "id": "evac",
+     "kind": "patches",
+     "cls": "evac",
+     "clsBy": "zone",
+     "lcls": "lbl-evac",
+     "file": "evacuation",
+     "name": "Hurricane evacuation zones",
+     "note": "Zones 1 to 6: where the City tells people to leave from, zone 1 first, as a storm gets stronger",
+     "label": "",
+     "hover": "Evacuation zone {zone}"
     }
    ]
   ],
@@ -1292,6 +1304,12 @@
     "empty": "None"
    },
    {
+    "label": "Evacuation zone",
+    "layer": "evac",
+    "text": "Zone {zone}",
+    "empty": "Not in a zone"
+   },
+   {
     "label": "School district",
     "boards": "school",
     "text": "District {num}"
@@ -1603,6 +1621,10 @@
      "Older adult center"
     ],
     [
+     "evaccenter",
+     "Evacuation center"
+    ],
+    [
      "synagogue",
      "Synagogue",
      "worship:synagogue"
@@ -1671,7 +1693,7 @@
      "middle or high schools"
     ]
    ],
-   "note": "Straight-line distances; half a mile is about a 10-minute walk. NYC Parks, the three public library systems and the City’s Facilities Database. Counts parks, not courts. Schools are NYC Public Schools; zoning depends on the address, not distance. Places of worship (OpenStreetMap) show while their layer is on."
+   "note": "Straight-line distances; half a mile is about a 10-minute walk. NYC Parks, the three public library systems and the City’s Facilities Database. Counts parks, not courts. Evacuation centers from NYC Emergency Management: they open only when the City orders an evacuation. Schools are NYC Public Schools; zoning depends on the address, not distance. Places of worship (OpenStreetMap) show while their layer is on."
   },
   "schools": {
    "file": "attendance.geojson",

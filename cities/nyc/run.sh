@@ -33,6 +33,7 @@ python3 ../../engine/regions.py nyc
 python3 ../../engine/addresses.py nyc   # after streets: Fifth Avenue, East and West (Manhattan)
 [ -f raw/places/worship_osm.json ] && python3 faith.py   # places of worship (OpenStreetMap)
 [ -f raw/places/facdb.json ] && python3 places.py   # after faith: hospitals, colleges, libraries, schools, parks, sports, the card's Nearby
+[ -f raw/places/evacuation_zones.geojson ] && python3 evacuation.py && npx mapshaper -i tmp/evacuation.geojson -simplify interval=20 keep-shapes -o $OUT/evacuation.geojson precision=0.0001 -quiet   # after places.py: hurricane evacuation zones and centers
 [ -f raw/places/school_zones_es.geojson ] && python3 zones.py   # the card's Schools section: DOE school zones
 [ -f raw/places/dsny_frequencies.geojson ] && python3 collection.py   # trash, recycling and compost days for the card
 [ -d raw/representatives ] && python3 representatives.py   # after the districts above: it matches them

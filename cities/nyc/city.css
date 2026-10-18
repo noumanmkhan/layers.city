@@ -23,3 +23,11 @@
 .sub-line.lace{stroke:var(--l-ace)} .sub-line.lbdfm{stroke:var(--l-bdfm)} .sub-line.lg{stroke:var(--l-g)} .sub-line.ljz{stroke:var(--l-jz)}
 .sub-line.ll{stroke:var(--l-l)} .sub-line.lnqrw{stroke:var(--l-nqrw)} .sub-line.l123{stroke:var(--l-123)} .sub-line.l456{stroke:var(--l-456)}
 .sub-line.l7{stroke:var(--l-7)} .sub-line.ls{stroke:var(--l-s)} .sub-line.lsir{stroke:var(--l-sir)}
+/* Hurricane evacuation zones: zone 1 (leaves first, most at risk) darkest, zone 6 palest. */
+:root{--ev-1:#B3261E; --ev-2:#D9542B; --ev-3:#EE8A3C; --ev-4:#F2B04F; --ev-5:#F4CF7E; --ev-6:#F7E4B0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--ev-1:#FF6B5E; --ev-2:#F58A4E; --ev-3:#E9A24E; --ev-4:#C99A48; --ev-5:#9C8150; --ev-6:#6E6450}}
+:root[data-theme="dark"]{--ev-1:#FF6B5E; --ev-2:#F58A4E; --ev-3:#E9A24E; --ev-4:#C99A48; --ev-5:#9C8150; --ev-6:#6E6450}
+.evac{fill-opacity:.5;stroke-width:.8;stroke-opacity:.8}.evac:hover{fill-opacity:.7}
+.evac-1{fill:var(--ev-1);stroke:var(--ev-1)}.evac-2{fill:var(--ev-2);stroke:var(--ev-2)}.evac-3{fill:var(--ev-3);stroke:var(--ev-3)}
+.evac-4{fill:var(--ev-4);stroke:var(--ev-4)}.evac-5{fill:var(--ev-5);stroke:var(--ev-5)}.evac-6{fill:var(--ev-6);stroke:var(--ev-6)}
+.sw.evac{background:linear-gradient(90deg,var(--ev-1) 0 17%,var(--ev-2) 0 34%,var(--ev-3) 0 50%,var(--ev-4) 0 67%,var(--ev-5) 0 84%,var(--ev-6) 0)}
