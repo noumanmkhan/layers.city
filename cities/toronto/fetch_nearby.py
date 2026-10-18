@@ -97,3 +97,35 @@ else:
     json.dump({'source': 'OpenStreetMap contributors (ODbL) via Overpass API', 'fetched': time.strftime('%Y-%m-%d'), 'elements': els},
               open(os.path.join(OUT, 'water_play_osm.json'), 'w'), ensure_ascii=False, indent=0)
     print('water play:', sum(e['kind'] == 'splash' for e in els), 'splash pads,', sum(e['kind'] == 'wading' for e in els), 'wading pools')
+
+# Sports & recreation (the Sports & rec layer, sports.py). The parks list above says only *that* a location has,
+# say, a tennis court; "Registered Programs and Drop In Courses Offering" (Parks, Forestry & Recreation, refreshed
+# weekly) has a Facilities tab with one row per facility (each pool tank, ice pad, field and court, with its type)
+# and a Locations tab whose Location ID is the parks list's LOCATIONID. Its Locations have no positions, so
+# sports.py places them through the parks list (or their parent location). "Indoor Ice Rinks" adds the arenas'
+# pad sizes. Trimmed to what the layer reads.
+def resource_json(package, name):
+    url, refreshed = resource(package, lambda r: r['name'] == name)
+    return json.loads(get(url)), refreshed
+
+fac, refreshed = resource_json('registered-programs-and-drop-in-courses-offering', 'Facilities.json')
+locs, _ = resource_json('registered-programs-and-drop-in-courses-offering', 'Locations.json')
+pick = lambda row, *ks: {k: row.get(k) for k in ks}
+json.dump({'refreshed': refreshed,
+           'facilities': [pick(r, 'Facility ID', 'Location ID', 'Facility Type (Display Name)', 'FacilityType', 'Asset Name') for r in fac],
+           'locations': [pick(r, 'Location ID', 'Parent Location ID', 'Location Name', 'Location Type', 'Street No', 'Street No Suffix',
+                              'Street Name', 'Street Type', 'Street Direction', 'District') for r in locs]},
+          open(os.path.join(OUT, 'rec_facilities.json'), 'w'), ensure_ascii=False, indent=0)
+ft = {}
+for r in fac: ft[r.get('FacilityType')] = ft.get(r.get('FacilityType'), 0) + 1
+print('recreation facilities:', len(fac), 'facilities at', len(locs), 'locations, refreshed', refreshed)
+print('  types:', sorted(ft.items(), key=lambda kv: -kv[1]))
+
+try:
+    url, refreshed = resource('indoor-ice-rinks', lambda r: r['name'].lower().endswith('4326.geojson'))
+    open(os.path.join(OUT, 'indoor_rinks.geojson'), 'wb').write(get(url))
+    rk = json.load(open(os.path.join(OUT, 'indoor_rinks.geojson')))
+    print('indoor ice rinks:', len(rk['features']), 'pads, refreshed', refreshed)
+    print('  fields:', sorted(rk['features'][0]['properties']) if rk['features'] else [])
+except SystemExit as e:
+    print('indoor ice rinks: not fetched,', e)
