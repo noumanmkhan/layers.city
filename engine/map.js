@@ -2228,7 +2228,7 @@ function cardOf(latlng, title, muniName){
     if (h) pills.push(['var(' + p.color + ')', fill(p.text, h.properties)]);
   });
   const facts = CITY.card.facts.filter(r => !r.onlyInside || hits[r.layer]).map(r => {
-    if (r.address) return addressRow(x, y);
+    if (r.address) return addressRow(x, y, hits);
     if (r.pickup) return pickupRow(x, y);
     if (r.heritageBuilding) return heritageRow(r, x, y, title);
     if (r.knownas) return [r.label, near.length ? near.map(a => a[0].properties.name).join(', ') : '—'];
@@ -2309,9 +2309,16 @@ function pickupRow(x, y){
    side of the dividing street the spot is on, with a nearby street that carries that side's E or W.
    [label, html, true] (html), or null when there's nothing to say. */
 const ADDR = byKind('addresses');
-function addressRow(x, y){
+function addressRow(x, y, hits){
   const A = CITY.card.address, D = ADDR && loaded[ADDR.file];
   if (!A || !D) return null;
+  // A dividing street that only holds in part of the city (card.address.within: New York's Fifth Avenue, Manhattan
+  // only): elsewhere the row gives that area's own text (within.elsewhere[name]) or nothing.
+  const W = A.within;
+  if (W){
+    const h = hits && hits[W.layer], nm = h ? h.properties.name : null;
+    if (nm !== W.name){ const t = nm && (W.elsewhere || {})[nm]; return t ? [A.label, esc(t), true] : null; }
+  }
   if (D.kind === 'grid'){
     // Piecewise-linear between the mile lines; past the last one, the last stretch's pace carries on.
     const at = (pts, v) => {
