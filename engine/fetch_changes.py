@@ -199,7 +199,7 @@ def socrata_dobnow(spec):
     cols = ['job_filing_number', 'filing_status', 'house_no', 'street_name', 'borough', 'job_type', 'building_type', 'existing_dwelling_units',
             'proposed_dwelling_units', 'proposed_no_of_stories', 'existing_stories', 'filing_date', 'approved_date', 'first_permit_date',
             'signoff_date', 'current_status_date', 'latitude', 'longitude', 'job_description', 'bbl']
-    where = 'job_type in(' + ','.join("'" + t + "'" for t in spec['types']) + ")' AND building_type not in('1 Family','2 Family')"   # houses: left out
+    where = 'job_type in(' + ','.join("'" + t + "'" for t in spec['types']) + ") AND building_type not in('1 Family','2 Family')"   # houses: left out
     rows, off = [], 0
     while True:
         q = urllib.parse.urlencode({'$select': ','.join(cols), '$where': where, '$order': 'job_filing_number', '$limit': 50000, '$offset': off})
