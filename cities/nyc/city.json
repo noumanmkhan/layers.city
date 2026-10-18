@@ -4,7 +4,7 @@
  "title": "New York City · Layers.City",
  "heading": "New York City",
  "unlisted": true,
- "description": "A map of New York City with toggleable layers: the five boroughs, 59 community districts and 2020 neighborhood tabulation areas, known-as names, City Council, State Assembly and Senate and congressional districts, landmarks, historic districts, main streets, highways, the subway, and the commuter trains of the tri-state region.",
+ "description": "A map of New York City with toggleable layers: the five boroughs, 59 community districts and 2020 neighborhood tabulation areas, known-as names, City Council, State Assembly and Senate and congressional districts, landmarks, historic districts, main streets, highways, the subway, and the commuter trains of the tri-state region, who represents each spot and where to vote on November 3.",
  "mapLabel": "Map of New York City",
  "locale": "en-US",
  "distance": "mi",
@@ -115,7 +115,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim",
+ "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council",
  "example": {
   "at": [
    40.7532,
@@ -343,7 +343,11 @@
      "name": "State Assembly districts",
      "note": "New York State Assembly, inside the city",
      "label": "AD {num}",
-     "hover": "Assembly district {num}"
+     "hover": "Assembly district {num}",
+     "party": {
+      "table": "assembly",
+      "key": "num"
+     }
     },
     {
      "id": "senate",
@@ -353,7 +357,11 @@
      "name": "State Senate districts",
      "note": "New York State Senate, inside the city",
      "label": "SD {num}",
-     "hover": "State Senate district {num}"
+     "hover": "State Senate district {num}",
+     "party": {
+      "table": "senate",
+      "key": "num"
+     }
     },
     {
      "id": "congress",
@@ -363,7 +371,11 @@
      "name": "Congressional districts",
      "note": "New York seats in the U.S. House that reach the city (2024 lines)",
      "label": "NY-{num}",
-     "hover": "Congressional district NY-{num}"
+     "hover": "Congressional district NY-{num}",
+     "party": {
+      "table": "congress",
+      "key": "num"
+     }
     },
     {
      "id": "school",
@@ -763,9 +775,77 @@
   },
   "reps": {
    "file": "representatives.json",
-   "offices": []
+   "offices": [
+    {
+     "role": "Mayor",
+     "citywide": "city",
+     "table": "mayor",
+     "sub": "Citywide"
+    },
+    {
+     "role": "Borough president",
+     "layer": "boroughs",
+     "table": "borough",
+     "key": "name",
+     "sub": "{r.party} · {f.name}"
+    },
+    {
+     "role": "Council member",
+     "layer": "council",
+     "table": "council",
+     "key": "num",
+     "sub": "District {f.num}"
+    },
+    {
+     "role": "Assembly member",
+     "layer": "assembly",
+     "table": "assembly",
+     "key": "num",
+     "sub": "{r.party} · District {f.num}"
+    },
+    {
+     "role": "State senator",
+     "layer": "senate",
+     "table": "senate",
+     "key": "num",
+     "sub": "{r.party} · District {f.num}"
+    },
+    {
+     "role": "U.S. representative",
+     "layer": "congress",
+     "table": "congress",
+     "key": "num",
+     "sub": "{r.party} · NY-{f.num}"
+    }
+   ],
+   "note": "Names open each person’s official page. Council members’ parties aren’t shown: the City Council’s pages don’t list them. Senate District 12 has been vacant since August 2026; it’s on the November 3 ballot. Checked against the official lists; last change {date}."
   },
-  "outsideFacts": []
+  "outsideFacts": [],
+  "vote": {
+   "file": "voting",
+   "date": "2026-11-03",
+   "tz": "America/New_York",
+   "closes": "2026-11-03T21:00:00-05:00",
+   "title": "Election day · {date}",
+   "today": "Election day is today",
+   "hours": "6 a.m. to 9 p.m.",
+   "lead": "People living here vote at",
+   "show": "Show on map",
+   "early": {
+    "from": "2026-10-24",
+    "to": "2026-11-01",
+    "title": "Early voting · {from} to {to}",
+    "soon": "Early voting starts {from}",
+    "hours": "hours vary by day"
+   },
+   "earlyLead": "People living here vote early at",
+   "assignedDay": "On election day ({date}), they vote at {n}, {a}.",
+   "link": [
+    "Find your poll site",
+    "https://findmypollsite.vote.nyc/"
+   ],
+   "note": "Election district {precinct} · NYC Board of Elections poll site lists, as of {asof}. Each district has its own early voting and election day site, and sites can change: the Board’s poll site finder has the final word."
+  }
  },
  "drive": {
   "hub": [

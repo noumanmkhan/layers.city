@@ -21,6 +21,8 @@ npx mapshaper -i tmp/subway_lines.geojson -simplify interval=4 -o $OUT/subway_li
 cp tmp/region_areas.geojson tmp/region_areas.raw.geojson
 npx mapshaper -i tmp/region_areas.raw.geojson -simplify interval=60 keep-shapes -o tmp/region_areas.geojson precision=0.00005 format=geojson -quiet
 python3 ../../engine/regions.py nyc
+[ -d raw/representatives ] && python3 representatives.py   # after the districts above: it matches them
+[ -f raw/voting/election_districts.geojson ] && python3 voting.py   # where to vote, until the polls close
 [ -f ../../docs/nyc/data/cd_profiles.json ] && python3 ../../engine/facts.py nyc   # after profiles and the simplified units
 python3 ../../engine/assemble.py nyc
 echo "Done. Preview: cd docs && python3 -m http.server 8000"
