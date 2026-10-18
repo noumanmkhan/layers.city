@@ -80,6 +80,11 @@ greenp = [(f['geometry']['coordinates'], f['properties']) for f in gj('parking')
 permit = [(shape(f['geometry']), f['properties']) for f in gj('permit_areas')]
 bikeshare = [(f['geometry']['coordinates'], f['properties']) for f in gj('bikeshare')]
 hood_shapes = [(make_valid(shape(f['geometry'])), f['properties']) for f in hoods]
+# For the What's here preview: the same boundaries the map's card reads, by point-in-polygon at build time.
+def shapes(name):
+    return [(make_valid(shape(f['geometry'])), f['properties']) for f in gj(name)]
+boroughs, areas, wards, fed, bias = shapes('boroughs'), shapes('areas'), shapes('wards'), shapes('federal'), shapes('bia')
+REPS = opt_json(os.path.join(D, 'representatives.json'), {})
 transit = opt_json(os.path.join(D, 'transit.json'), {'routes': [], 'stops': []})
 ROUTES, STOPS = transit['routes'], transit['stops']
 LINE_COLOR = {f['properties'].get('line'): f['properties'].get('color') for f in subway_lines}
@@ -110,6 +115,33 @@ def walk_at(lon, lat):
 def hood_of(pt):
     p = Point(*pt)
     return next((props for g, props in hood_shapes if g.contains(p)), None)
+
+
+def first_in(items, pt):
+    p = Point(*pt)
+    return next((props for g, props in items if g.contains(p)), None)
+
+
+def whats_here(pt):
+    """[(label, text, url or None)]: what the map's card would say at this spot."""
+    rows = []
+    b, a, h = first_in(boroughs, pt), first_in(areas, pt), first_in(hood_shapes, pt)
+    if b: rows.append(('Former city', b['name'], None))
+    if b and b['name'] == 'Old Toronto': rows.append(('Area', a['name'] if a else 'Outside the named areas', None))
+    if h: rows.append(('Neighbourhood', f"{h['name']} (#{h['code']})", f"/{city}/{slugify(h['name'])}/"))
+    bia = first_in(bias, pt)
+    rows.append(('BIA', bia['name'] if bia else 'None', None))
+    w = first_in(wards, pt)
+    if w:
+        c = (REPS.get('wards') or {}).get(str(w['num']), {})
+        rows.append(('City ward', f"Ward {w['num']} · {w['name']}" + (f" · {c['name']}" if c.get('name') else ''), c.get('url')))
+        pv = (REPS.get('prov') or {}).get(w.get('prov'), {})
+        rows.append(('Provincial', w.get('prov', '') + (f" · {pv['name']}" if pv.get('name') else ''), pv.get('url')))
+    f = first_in(fed, pt)
+    if f:
+        fd = (REPS.get('fed') or {}).get(f['name'], {})
+        rows.append(('Federal', f['name'] + (f" · {fd['name']}" if fd.get('name') else ''), fd.get('url')))
+    return rows
 
 
 def route_badges(rs):
@@ -380,7 +412,16 @@ ul.events .where{color:var(--ink-3);font-size:15px}
 .vmap{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--rule)}
 .legend{font-size:13px;color:var(--ink-3);margin:8px 0 0}
 .card{background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:20px 22px;margin:14px 0}
-.card h2{margin:0}.card h2 a{color:var(--ink);text-decoration:none}.card h2 a:hover{color:var(--accent)}
+.card h2{margin:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.card h2 a{color:var(--ink);text-decoration:none}.card h2 a:hover{color:var(--accent)}
+.pinbtn{display:inline-flex;align-items:center;gap:6px;font:500 14px/1 var(--body);color:var(--accent);background:var(--soft);border:0;border-radius:999px;padding:7px 12px 7px 9px;cursor:pointer}
+.pinbtn svg{width:14px;height:17px}.pinbtn[aria-expanded="true"]{background:var(--accent);color:#fff}
+.here{position:relative}
+.pop{margin:12px 0 4px;padding:14px 16px 12px;border:1.5px solid var(--accent);border-radius:12px;background:var(--card);box-shadow:0 10px 30px rgba(26,20,20,.10)}
+.pop .k{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin:0 0 6px}
+.pop dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0;font-size:15px}.pop dt{font-weight:500;margin:0;color:var(--ink-2)}.pop dd{margin:0}
+.pop .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.pop .go{margin:0;min-height:40px;padding:0 16px;font-size:15px}.pop .alt{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--rule);color:var(--ink);text-decoration:none;font-size:15px}
+@media (max-width:560px){.pop dl{grid-template-columns:1fr;gap:2px 0}.pop dt{margin-top:6px}}
 .meta{color:var(--ink-3);font-size:15px;margin:4px 0 10px}
 .card .from{margin:10px 0 0;padding-top:10px;border-top:1px dashed var(--rule);font-size:15px;color:var(--ink-2)}
 .controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:18px 0 6px;font-size:15px}
@@ -541,6 +582,10 @@ for v in venues:
                      (f' · <a href="/{city}/profiles/?n={hs}&amp;at={v["at"][1]:.3f},{v["at"][0]:.3f}">Fact sheet from this spot</a>' if os.path.exists(os.path.join(DOCS, city, 'profiles', 'data', hs + '.json')) else '') + '</p>')
     parts.append(f'<a class="go" href="{esc(map_link)}">Open {esc(v["name"])} on the map <span aria-hidden="true">→</span></a>')
     parts.append(venue_map(v, venues))
+    here = whats_here(v['at'])
+    if here:
+        parts.append('<section><h2>What’s here</h2><dl>' + ''.join(f'<dt>{esc(l)}</dt><dd>' + (f'<a href="{esc(u)}">{esc(t)}</a>' if u else esc(t)) + '</dd>' for l, t, u in here) +
+                     '</dl><p class="note" style="margin:12px 0 0">The same rows the map’s What’s here card gives for this address; the map adds collection day, heritage and school wards.</p></section>')
     parts.append('<p class="legend">Subway lines in their colours, streetcars red, GO lines dashed green, Green P in green squares, other venues in grey.</p>')
     # events
     sec = '<section><h2>This week</h2>'
@@ -606,8 +651,16 @@ for v in venues:
     from_json = {r['name']: [r['drive'], r['km'], r['taxi'], r['transit'], r['fare']] for r in rows}
     ev_html = (f'<ul class="events">{"".join(event_li(e) for e in soon7)}</ul>' if soon7 else '') + \
               (f'<p class="empty"{"" if not soon7 else " hidden"}>{esc(v.get("tickets") or v.get("season") or "Nothing listed here in the next seven days.")}</p>' if EV else '')
-    cards.append((v.get('tier', 'main'), f'<article class="card" data-cap="{v["capacity"]}" data-kinds="{esc(" ".join(v["kinds"]))}" data-soon="{soonest}" data-has="{1 if soon7 else 0}" data-from="{esc(json.dumps(from_json, separators=(",", ":")))}">'
-                 f'<h2><a href="/{city}/venues/{v["slug"]}/">{esc(v["name"])}</a></h2>'
+    here = whats_here(v['at'])
+    here_rows = ''.join(f'<dt>{esc(l)}</dt><dd>' + (f'<a href="{esc(u)}">{esc(t)}</a>' if u else esc(t)) + '</dd>' for l, t, u in here)
+    pop = (f'<div class="pop" id="pop-{v["slug"]}" hidden><p class="k">What’s here</p><dl>{here_rows}'
+           + (f'<dt>Nearest subway</dt><dd>{esc(f["subway"][0][0])} · about {f["subway"][0][2]} min on foot</dd>' if f['subway'] else '')
+           + (f'<dt>Green P nearby</dt><dd>{len(f["greenp"])} within a 10-min walk · {sum(c or 0 for _, c, _, _ in f["greenp"]):,} spaces</dd>' if f['greenp'] else '')
+           + f'</dl><div class="acts"><a class="go" href="{esc(map_link)}">Open on the map <span aria-hidden="true">→</span></a>'
+             f'<a class="alt" href="/{city}/venues/{v["slug"]}/">Venue page</a></div></div>')
+    pin_svg = '<svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="currentColor"/><circle cx="60" cy="48" r="14" fill="var(--card)"/></svg>'
+    cards.append((v.get('tier', 'main'), f'<article class="card here" data-cap="{v["capacity"]}" data-kinds="{esc(" ".join(v["kinds"]))}" data-soon="{soonest}" data-has="{1 if soon7 else 0}" data-from="{esc(json.dumps(from_json, separators=(",", ":")))}">'
+                 f'<h2><a href="/{city}/venues/{v["slug"]}/">{esc(v["name"])}</a> <button type="button" class="pinbtn" aria-expanded="false" aria-controls="pop-{v["slug"]}">{pin_svg}Where is it?</button></h2>{pop}'
                  f'<p class="meta">about {v["capacity"]:,} seats · {esc(v["address"])}{esc(home)}<br>{esc(arrive)}</p>'
                  f'{ev_html}<p class="from" hidden></p></article>'))
 
@@ -644,7 +697,11 @@ const key=sortEl.value;const val=c=>key==='cap'?-(+c.dataset.cap):key==='soon'?c
 [...cards].sort((a,b)=>val(a)<val(b)?-1:val(a)>val(b)?1:0).forEach(c=>lists[c.dataset.tier].appendChild(c));
 const sec=document.getElementById('other');if(sec)sec.hidden=!cards.some(c=>c.dataset.tier==='other'&&!c.hidden);
 try{localStorage.setItem('venues.from',f)}catch(e){}}
-sortEl.addEventListener('change',apply);hideEl.addEventListener('change',apply);fromEl.addEventListener('change',()=>{if(fromEl.value&&sortEl.value==='cap')sortEl.value='near';apply()});
+sortEl.addEventListener('change',apply);hideEl.addEventListener('change',apply);
+document.querySelectorAll('.pinbtn').forEach(b=>b.addEventListener('click',()=>{const pop=document.getElementById(b.getAttribute('aria-controls')),open=pop.hidden;
+document.querySelectorAll('.pop').forEach(p=>p.hidden=true);document.querySelectorAll('.pinbtn').forEach(x=>x.setAttribute('aria-expanded','false'));
+if(open){pop.hidden=false;b.setAttribute('aria-expanded','true');}}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.pop').forEach(p=>p.hidden=true);document.querySelectorAll('.pinbtn').forEach(x=>x.setAttribute('aria-expanded','false'));}});fromEl.addEventListener('change',()=>{if(fromEl.value&&sortEl.value==='cap')sortEl.value='near';apply()});
 document.querySelectorAll('#kinds button').forEach(b=>b.addEventListener('click',()=>{kind=b.dataset.kind;document.querySelectorAll('#kinds button').forEach(x=>x.setAttribute('aria-pressed',x===b));apply()}));
 apply();})();
 </script>"""
