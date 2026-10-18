@@ -23,13 +23,15 @@ DCP = [('boroughs', 'gthc-hcne'), ('community_districts', '5crt-au7u'), ('ntas',
        ('historic_districts', 'skyk-mpzq'), ('bids', 'ejxk-d93y')]
 
 
-def socrata():
+def socrata(only=None):
     """Each dataset as GeoJSON: the resource API first, the geospatial export for map-type datasets."""
     for name, i in DCP:
+        if only and name not in only: continue
         for url in [f'{SOC}/resource/{i}.geojson?$limit=50000', f'{SOC}/api/geospatial/{i}?method=export&format=GeoJSON']:
             try:
                 d = json.loads(get(url, tries=2))
-                if d.get('features'):
+                # Map-type datasets answer the resource API with empty features: take the export instead.
+                if d.get('features') and d['features'][0].get('geometry') and d['features'][0].get('properties'):
                     save(name + '.geojson', d)
                     print(' ', name, len(d['features']), 'features ·', sorted(d['features'][0]['properties'])[:20])
                     break
@@ -101,11 +103,15 @@ def osm():
              f'way["place"~"^(neighbourhood|suburb|quarter|island)$"]{b(CITY)};);out tags center;', 'osm_places.json')
     overpass(f'[out:json][timeout:300];way["highway"~"^(trunk|primary|secondary)$"]["name"]{b(CITY)};out tags geom;', 'osm_streets.json')
     overpass(f'[out:json][timeout:600];way["highway"~"^(motorway|trunk)$"]{b(REGION)};out tags geom;', 'osm_highways.json')
-    # NJ Transit rail and light rail, PATH, and the AirTrains: route relations with their members' geometry.
-    overpass(f'[out:json][timeout:600];(relation["route"~"^(train|subway|light_rail|monorail)$"]["network"~"NJ Transit|PATH|AirTrain|NJT",i]{b(REGION)};'
-             f'relation["route"~"^(train|subway|light_rail|monorail)$"]["operator"~"NJ Transit|Port Authority|PATH",i]{b(REGION)};);out tags geom;',
-             'osm_rail.json')
+    rail()
     overpass(f'[out:json][timeout:300];node["railway"~"^(station|halt)$"]{b(REGION)};out tags;', 'osm_stations.json')
+
+
+def rail():
+    """NJ Transit rail and light rail, PATH, and the AirTrains: route relations with their members' geometry (out geom)."""
+    overpass(f'[out:json][timeout:600];(relation["route"~"^(train|subway|light_rail|monorail)$"]["network"~"NJ Transit|PATH|AirTrain|NJT|Light Rail",i]{b(REGION)};'
+             f'relation["route"~"^(train|subway|light_rail|monorail)$"]["operator"~"NJ Transit|Port Authority|PATH",i]{b(REGION)};);out geom;',
+             'osm_rail.json')
     names = sorted({l['osm'] for l in LANDMARKS})
     rx = '|'.join(n.replace('(', '\\\\(').replace(')', '\\\\)').replace('.', '\\\\.') for n in names)
     overpass(f'[out:json][timeout:300];nwr["name"~"^({rx})$"]{b(REGION)};out tags center;', 'osm_landmarks.json')
