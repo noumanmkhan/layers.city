@@ -289,7 +289,7 @@ for s, (props, g) in sorted(made.items()):
     parts = [f'<h1>{esc(name)}</h1>', f"<p class=\"kind\">{esc(kind_txt)}" + (f" · #{code}" if not other and UNITS.get('hover', '').count('#{code}') else '') + '</p>']
     if in_txt: parts.append(f'<p class="in">{in_txt}</p>')
     parts.append(f'<a class="go" href="{esc(focus)}">Open {esc(name)} on the map <span aria-hidden="true">→</span></a>')
-    parts.append(f'<p class="note">The map shows every boundary here, from wards and ridings to school boards, with what’s nearby. Tap any address in it for its own card.</p>')
+    parts.append(f'<p class="note">The map shows every boundary here, from {"wards and ridings" if CA else "council and legislative districts"} to school boards, with what’s nearby. Tap any address in it for its own card.</p>')
     if os.path.exists(os.path.join(out_dir, 'profiles', 'data', s + '.json')):
         parts.append(f'<p class="note"><a href="/{city}/profiles/?n={s}">Fact sheet for {esc(name)}</a>: '
                      f'transit, driving, parking and more on one page, ready to print.</p>')
