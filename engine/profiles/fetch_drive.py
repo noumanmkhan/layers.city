@@ -17,6 +17,8 @@ Data: © OpenStreetMap contributors, ODbL.
 """
 import json, math, os, sys, time, urllib.parse, urllib.request
 from datetime import date
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from common import settings, units_file
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 args = [a for a in sys.argv[1:] if not a.startswith('--')]
@@ -31,18 +33,10 @@ GRID_KM = 1.0
 CHUNK = 90
 
 # Where people drive to. Places a newcomer would ask "how far is it from here?" about.
-DESTINATIONS = {
-    'toronto': [
-        ('Union Station', -79.3806, 43.6453),
-        ('Pearson Airport', -79.6116, 43.6813),          # Terminal 1 departures road
-        ('Yorkdale', -79.4523, 43.7255),
-        ('Scarborough Town Centre', -79.2577, 43.7764),
-        ('Square One', -79.6421, 43.5933),
-    ],
-}
-if city not in DESTINATIONS:
-    sys.exit(f'No drive destinations set for {city}: add them to DESTINATIONS in this script.')
-DEST = DESTINATIONS[city]
+# The places to drive to: "drive": {"destinations": [[name, lon, lat], ...]} in cities/<city>/factsheet.json
+DEST = [tuple(d) for d in settings(city).get('drive', {}).get('destinations', [])]
+if not DEST:
+    sys.exit(f'No drive destinations set for {city}: add drive.destinations to cities/{city}/factsheet.json.')
 
 
 def get(url, data=None, timeout=300):
@@ -52,7 +46,7 @@ def get(url, data=None, timeout=300):
 
 
 def hoods():
-    return json.load(open(os.path.join(DATA, 'neighbourhoods.geojson')))['features']
+    return json.load(open(os.path.join(DATA, units_file(settings(city)))))['features']
 
 
 def rings(geom):

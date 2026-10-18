@@ -1,10 +1,12 @@
-"""Neighbourhood profiles (unreleased: lives only on the `profiles` branch).
+"""Fact sheets: neighbourhood profiles, printable, one page each.
 
 One small JSON file per neighbourhood with everything a one-page profile shows, so the page itself
 only reads and draws, every visitor sees the same numbers, and a printed copy matches the screen.
 
 Usage:  python3 engine/profiles/build.py toronto
-Reads:  docs/<city>/data/*  (the same published files the map uses, so the two never disagree)
+Reads:  cities/<city>/factsheet.json (the city's settings and wording) and factsheet.css (its badge colours)
+        docs/<city>/data/*  (the same published files the map uses, so the two never disagree)
+Writes: docs/<city>/profiles/index.html             the page (engine/profiles/page.html with the city's settings)
 Writes: docs/<city>/profiles/data/index.json        {asof, places: [{slug, name}]}, for the picker
         docs/<city>/profiles/data/<slug>.json       one profile each
 
@@ -14,18 +16,20 @@ Rules carried over from the map:
 - Counts are of what's on the map, inside the neighbourhood's boundary (the City's official one,
   which can be bigger than the name's everyday use). Stations, libraries and campuses also count
   when they sit just outside it (within NEAR_KM): one across the street still serves the area.
-- Times are the map's own: transit to Union from nbhd_profiles.json. Drive times come from
+- Times are the map's own: transit to the city's hub ("hub" in factsheet.json) from its profiles file. Drive times come from
   cities/<city>/raw/drive_profiles.json (fetch_drive.py: free-flow, from each neighbourhood); without it,
   drive rows are left out rather than guessed.
   Walks to the nearest station are straight-line distance x 1.3 at 4.8 km/h, shown as "about".
 
 Needs: pip install shapely  (already needed by cities/<city>/run.sh)
 """
-import heapq, json, math, os, re, sys, unicodedata
+import heapq, html, json, math, os, re, sys, unicodedata
 from datetime import date
 import shapely
 from shapely.geometry import shape, Point, box
 from shapely import clip_by_rect, make_valid
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from common import settings, units_file, station_keys, Units
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 city = sys.argv[1] if len(sys.argv) > 1 else sys.exit('usage: build.py <city>')
@@ -37,6 +41,15 @@ MIN_ROUTE_KM = 0.2    # a streetcar route counts only if this much of it runs in
 WALK_MAX_KM = 2.5     # beyond this, give the nearest station's distance rather than a walk time
 PAD = 0.14            # map frame: margin around the neighbourhood, as a share of its size
 VIEW_W = 600          # map viewBox width; height follows the neighbourhood's shape
+CFG = settings(city)
+LBL = CFG.get('labels', {})
+U = Units(CFG.get('distance', 'km'))
+HUB = CFG.get('hub', {})
+RAIL = CFG.get('rail', {})
+
+
+def lbl(key, default):
+    return LBL.get(key, default)
 
 
 def load(name):
@@ -55,9 +68,9 @@ def slug(s):
 
 
 # ---- one flat projection in km for the whole city (good to well under 1% across a city) --------
-hood_feats = opt('neighbourhoods.geojson', {'features': []})['features']
+hood_feats = opt(units_file(CFG), {'features': []})['features']
 if not hood_feats:
-    sys.exit(f'{city}: no neighbourhoods.geojson')
+    sys.exit(f'{city}: no {units_file(CFG)}')
 LAT0 = sum(shape(f['geometry']).centroid.y for f in hood_feats) / len(hood_feats)
 KX, KY = 111.32 * math.cos(math.radians(LAT0)), 110.574
 
@@ -72,20 +85,29 @@ def layer(name):
             for f in opt(name + '.geojson', {'features': []})['features']]
 
 
-census = opt('nbhd_profiles.json', {})
+census = opt(CFG.get('census', 'nbhd_profiles.json'), {})
 nearby = opt('nearby.json', {'groups': {}})['groups']
 
 stations = layer('subway_stations')
 subway_lines = layer('subway_lines')
 streetcars = layer('streetcars')
+HAS = lambda name: os.path.exists(os.path.join(D, name + '.geojson'))
 bikes = layer('bikes')
 bikeshare = layer('bikeshare')
-go = layer('go_stations')
+go = layer(RAIL['file']) if RAIL.get('file') else []
 heritage = layer('heritage_buildings')
 landmarks = layer('landmarks')
 institutions = layer('institutions')
 french = layer('french_schools')
 bus_routes = [(g, m) for g, m in layer('transit_routes') if m.get('m') == 'bus' and 'night' not in m.get('f', [])]
+
+
+RAW = os.path.join(ROOT, 'cities', city, 'raw')
+
+
+def raw(name):
+    p = os.path.join(RAW, name)
+    return json.load(open(p)) if os.path.exists(p) else None
 
 
 def group(name):
@@ -104,24 +126,55 @@ ROUTES = transit['routes']
 STOPS = [(km(Point(s[0], s[1])), s[3] if len(s) > 3 else []) for s in transit['stops']]
 WALK_GRID = os.path.join(OUT, 'walk_grid.json')
 wgrid = json.load(open(WALK_GRID)) if os.path.exists(WALK_GRID) else None
-HUBS = ['Union', 'Bloor-Yonge', 'St George', 'Eglinton', 'Sheppard-Yonge']
+HUBS = CFG.get('hubs', [])
 LONG_WALK_MIN = 30   # past this, a walk time stops being useful: give the distance instead
 TRANSFER = 3         # a change of line "costs" this many stops when choosing the best way to a hub
 
 
+SNAME = station_keys([{'properties': m} for _, m in stations])   # unique in the city (see common.station_keys)
+for (_, m), key in zip(stations, SNAME):
+    m['key'] = key
+WALK = '~walk'   # an edge between two stations of one name a short walk apart (New York's Fulton St): a change
+
+
 def station_graph():
-    """Stations in order along each line: {station index: [(neighbour index, line)]}."""
+    """Stations in order along each line: {station index: [(neighbour index, line)]}.
+
+    With cities/<city>/raw/subway_patterns.json (lists of station points in the order one service calls at
+    them, such as the A train to Far Rockaway, and pairs of points with a free transfer between them), each
+    service's stops in that order; otherwise each line's
+    stations in order along its drawn line, which suits lines without branches or express runs."""
     adj = {k: [] for k in range(len(stations))}
-    for g, m in subway_lines:
-        line = m.get('line')
-        on = sorted((g.project(sg), k) for k, (sg, sm) in enumerate(stations) if line in sm.get('lines', []))
-        for (_, a), (_, b) in zip(on, on[1:]):
-            adj[a].append((b, line)); adj[b].append((a, line))
+    pat = raw('subway_patterns.json')
+    if pat:
+        at = {(round(g.x / KX, 5), round(g.y / KY, 5)): k for k, (g, _) in enumerate(stations)}
+        for p in pat['patterns']:
+            ks = [at.get((round(x, 5), round(y, 5))) for x, y in p['stops']]
+            ks = [k for k in ks if k is not None]
+            for a, b in zip(ks, ks[1:]):
+                if a != b and (b, p['line']) not in adj[a]:
+                    adj[a].append((b, p['line'])); adj[b].append((a, p['line']))
+        for x, y in pat.get('transfers', []):   # free transfers between stations mapped apart
+            a, b = at.get(tuple(round(v, 5) for v in x)), at.get(tuple(round(v, 5) for v in y))
+            if a is not None and b is not None and (b, WALK) not in adj[a]:
+                adj[a].append((b, WALK)); adj[b].append((a, WALK))
+    else:
+        for g, m in subway_lines:
+            line = m.get('line')
+            on = sorted((g.project(sg), k) for k, (sg, sm) in enumerate(stations) if line in sm.get('lines', []))
+            for (_, a), (_, b) in zip(on, on[1:]):
+                adj[a].append((b, line)); adj[b].append((a, line))
+    # Platforms of one station complex mapped as separate stations (New York's two Fulton Sts): one name within
+    # 350 m, or any two within 200 m, are a walk apart (the patterns file can also list transfers).
+    for i in range(len(stations)):
+        for j in range(i + 1, len(stations)):
+            d = stations[i][0].distance(stations[j][0])
+            if (d < 0.2 or (d < 0.35 and stations[i][1]['name'] == stations[j][1]['name'])) and (j, WALK) not in adj[i]:
+                adj[i].append((j, WALK)); adj[j].append((i, WALK))
     return adj
 
 
 SADJ = station_graph()
-SNAME = [m['name'] for _, m in stations]
 
 
 def to_hubs(k):
@@ -137,6 +190,10 @@ def to_hubs(k):
         if SNAME[i] not in best:
             best[SNAME[i]] = [n, ch]
         for j, l in SADJ[i]:
+            if l == WALK:   # walk to the other platforms and board any of their lines: a change, no stop
+                for l2 in stations[j][1].get('lines', []):
+                    heapq.heappush(heap, (cost + TRANSFER, n, ch + 1, j, l2))
+                continue
             extra = 0 if l == line else TRANSFER
             heapq.heappush(heap, (cost + 1 + extra, n + 1, ch + (l != line), j, l))
     return [best.get(h) for h in HUBS]
@@ -191,10 +248,13 @@ def listing(items, keep=3):
     return ', '.join(items[:keep]) + (f' +{len(items) - keep} more' if len(items) > keep else '')
 
 
+HAS_TRAMS = any(r.get('m') == 'tram' for r in ROUTES)
+
+
 def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km, name):
-    lines_at = {m['name']: m.get('lines', []) for _, m in stations}
+    lines_at = {m['key']: m.get('lines', []) for _, m in stations}
     # 01 subway and LRT
-    spot = {m['name']: g for g, m in stations}
+    spot = {m['key']: g for g, m in stations}
     ranked = sorted(st_names, key=lambda n: (-len(lines_at[n]), lp.distance(spot[n])))   # interchanges first, then nearest
     sub = [[n, {'lines': lines_at[n]}] for n in ranked]   # the page draws each line's coloured bullet
     origin, origin_walk = None, None
@@ -207,7 +267,7 @@ def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km, na
             origin, origin_walk = L['names'][L['src'][k]], f"about {L['min'][k]} min walk"
         elif stations:
             d, _, m = nearest(lp, stations)
-            origin = m['name']
+            origin = m['key']
             origin_walk = f'about {walk_min(d)} min walk' if walk_min(d) <= LONG_WALK_MIN else f'{fmt_km(d)} away'
     rows1 = sub[:4] + ([['More stations', f'+{len(sub) - 4}']] if len(sub) > 4 else [])
     if not sub and origin:
@@ -215,6 +275,8 @@ def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km, na
     share = grid_share(poly_ll, 'subway', 10)
     if share is not None:
         rows1.append(['Area within a 10-min walk of a station', f'{share}%'])
+    if not rows1:
+        rows1 = [['Stations', 'None']]
 
     # 02 buses and streetcars: every route stopping inside the boundary
     served = sorted({i for g, rs in STOPS if P.contains(g) for i in rs}, key=lambda i: route_key(ROUTES[i]['r']))
@@ -228,55 +290,51 @@ def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km, na
     night = [r for r in rs if 'night' in r.get('f', [])]
     other = [r for r in rs if r.get('m') == 'bus' and not set(r.get('f', [])) & {'freq', 'exp', 'night'}]
     gobus = [r for r in (ROUTES[i] for i in served) if r.get('m') == 'go']
-    rows2 = [['Streetcars', badges(cars)], ['Frequent buses (10 min or better)', badges(freq)]]
+    rows2 = [['Streetcars', badges(cars)]] if HAS_TRAMS else []
+    rows2.append(['Frequent buses (10 min or better)', badges(freq)])
     if exp:
         rows2.append(['Express buses', badges(exp)])
-    rows2 += [['Other daytime buses', badges(other)], ['Overnight (Blue Night)', badges(night)]]
+    rows2 += [['Other daytime buses', badges(other)], [lbl('overnight', 'Overnight'), badges(night)]]
     if gobus:
-        rows2.append(['GO buses and trains stopping here', badges(gobus)])
+        rows2.append([lbl('railRoutes', 'Regional buses and trains stopping here'), badges(gobus)])
     share = grid_share(poly_ll, 'stop', 5)
     if share is not None:
         rows2.append(['Area within a 5-min walk of a stop', f'{share}%'])
 
     # 03 to the hubs, from the neighbourhood's best-connected station (or the nearest one)
-    rows3 = [[h, hub_text(v), {'lines': lines_at.get(h, [])}]
+    rows3 = [[h, hub_text(v), *([{'lines': lines_at.get(h, [])}] if CFG.get('hubBullets', True) else [])]
              for h, v in zip(HUBS, HUB_TABLE.get(origin, [None] * len(HUBS)))] if origin else []
-    if c.get('union') is not None:
-        rows3.append(['Door to door to Union, typical', f"about {c['union']} min"])
+    if HUB.get('field') and c.get(HUB['field']) is not None:
+        rows3.append([f"Door to door to {HUB['name']}, typical", f"about {c[HUB['field']]} min"])
     title3 = f'From {origin} to the hubs' + (f' ({origin_walk})' if origin_walk else '') if origin else 'To the hubs'
 
     # 04 GO, cycling and driving
     rows4 = []
     k = grid_cell(ll.x, ll.y)
     G_ = wgrid['layers'].get('go') if wgrid else None
+    rail_meta = [{'go': True}] if RAIL.get('badge') else []
     if G_ and k is not None and G_['min'][k] is not None and G_['min'][k] <= LONG_WALK_MIN:
-        rows4.append(['Nearest GO station', f"{G_['names'][G_['src'][k]]} · about {G_['min'][k]} min walk", {'go': True}])
+        rows4.append([RAIL['nearest'], f"{G_['names'][G_['src'][k]]} · about {G_['min'][k]} min walk", *rail_meta])
     elif go:
         d, _, m = nearest(lp, go)
-        rows4.append(['Nearest GO station', f"{m['name']} · {fmt_km(d)}", {'go': True}])
-    rows4.append(['Bike Share stations', f'{len(shares)} · {docks} docks' if shares else 'None'])
-    rows4.append(['Bike lanes and trails', f'{bike_km:.1f} km'])
+        if d <= U.radius_km(RAIL.get('within', 1e9)):   # "within": past this (city's unit), no nearest station row
+            rows4.append([RAIL['nearest'], f"{m['name']} · {fmt_km(d)}", *rail_meta])
+    if bikeshare:
+        rows4.append([lbl('bikeshare', 'Bike share stations'), f'{len(shares)} · {docks} docks' if shares else 'None'])
+    rows4.append([lbl('bikeLanes', 'Bike lanes and trails'), U.length(bike_km)])
     if drive_to(name, 0) is not None:
         rows4.append([f'Drive to {DRIVE_DEST[0]}', f'about {drive_to(name, 0)} min'])
 
     return {'origin': origin, 'sections': [
-        {'title': 'Subway and LRT', 'rows': rows1},
-        {'title': 'Buses and streetcars', 'rows': rows2},
+        {'title': lbl('subwaySection', 'Subway'), 'rows': rows1},
+        {'title': lbl('busSection', 'Buses'), 'rows': rows2},
         {'title': title3, 'rows': rows3},
-        {'title': 'GO, cycling and driving', 'rows': rows4},
+        {'title': lbl('railSection', 'Rail, cycling and driving'), 'rows': rows4},
     ]}
 
 
 # ---- driving: highways, arterials, on-ramps (raw/ramps.json) and drive times (raw/drive_profiles.json)
-RAW = os.path.join(ROOT, 'cities', city, 'raw')
-
-
-def raw(name):
-    p = os.path.join(RAW, name)
-    return json.load(open(p)) if os.path.exists(p) else None
-
-
-highways = layer('highways') + [(g, m) for g, m in layer('gta_highways')]   # the city's own, then the region's
+highways = layer('highways') + [(g, m) for g, m in layer(CFG.get('regionHighways', 'region_highways'))]   # the city's own, then the region's
 drive_prof = raw('drive_profiles.json')
 DRIVE_DEST = [d['name'].replace(' Station', '') for d in drive_prof['destinations']] if drive_prof else []
 
@@ -288,10 +346,15 @@ def drive_to(name, k):
     return row[k] if row and k < len(row) else None
 
 
-ARTERIAL = {'Major Arterial': 'major', 'Minor Arterial': 'minor', 'Collector': 'collector'}
-streets_raw = raw('streets.json') or {}
-arterials = [(km(make_valid(shape(f['geometry']))), ARTERIAL[cls], (f['properties'].get('LINEAR_NAME_FULL') or '').strip())
-             for cls, fc in streets_raw.items() if cls in ARTERIAL for f in fc.get('features', []) if f.get('geometry')]
+# Main roads: a raw file of the city's road classes ({class: FeatureCollection}, "arterials.raw"), or published
+# layers whose every street is one class ("arterials.layers": {"streets": "major", "collectors": "collector"}).
+ART = CFG.get('arterials', {})
+if ART.get('raw'):
+    streets_raw = raw(ART['raw']) or {}
+    arterials = [(km(make_valid(shape(f['geometry']))), ART['classes'][cls], (f['properties'].get(ART.get('name', 'name')) or '').strip())
+                 for cls, fc in streets_raw.items() if cls in ART['classes'] for f in fc.get('features', []) if f.get('geometry')]
+else:
+    arterials = [(g, cls, (m.get('name') or '').strip()) for lname, cls in ART.get('layers', {}).items() for g, m in layer(lname)]
 
 
 # The map frames draw arterials as a few long merged lines rather than thousands of block-length pieces.
@@ -397,11 +460,12 @@ HWY_NAME = {m.get('route'): m.get('name') for g, m in highways}
 
 def hwy_kind(m):
     """Shield style, as on the map: provincial (yellow), city expressway (green) or toll (blue)."""
-    return 'toll' if 'toll' in (m.get('name') or '').lower() else 'city' if m.get('kind') == 'city' else 'prov'
+    return 'toll' if m.get('toll') is True or 'toll' in (m.get('name') or '').lower() else 'city' if m.get('kind') == 'city' else 'prov'
 
 
 HWY_KIND = {m.get('route'): hwy_kind(m) for g, m in highways}
-RAMP_KM = 8          # list a highway only if one of its on-ramps is this close
+RAMP_R = CFG.get('drive', {}).get('rampRadius', 8)   # list a highway only if one of its on-ramps is this close (city's unit)
+RAMP_KM = U.radius_km(RAMP_R)
 
 # Parking and charging: the map's own layers (cities/<city>/parking.py)
 parking = layer('parking')
@@ -419,10 +483,10 @@ def driving_sections(P, lp, name, c):
             best[route] = (d, street)
     rows1 = [[f'at {street}', fmt_km(d), {'hwy': route}] for route, (d, street) in sorted(best.items(), key=lambda kv: kv[1][0])[:5]]
     if not rows1:
-        rows1 = [['Highway on-ramps', 'Not built yet (run fetch_drive.py)' if not ONRAMPS else f'None within {RAMP_KM} km']]
+        rows1 = [['Highway on-ramps', 'Not built yet (run fetch_drive.py)' if not ONRAMPS else f'None within {U.radius(RAMP_R)}']]
     through = sorted({m.get('route') for g, m in highways if g.intersection(P).length > 0.2})
     if through:
-        rows1.append(['Highways through the neighbourhood', {'hwys': through}])
+        rows1.append([f"Highways through the {CFG.get('page', {}).get('unit', 'neighbourhood')}", {'hwys': through}])
 
     # 02 drive times to the destinations
     rows2 = [[d, f'about {drive_to(name, k)} min'] for k, d in enumerate(DRIVE_DEST) if drive_to(name, k) is not None]
@@ -435,16 +499,16 @@ def driving_sections(P, lp, name, c):
         lots = [m for g, m in greenp if P.contains(g)]
         if lots:
             garages = sum(m.get('t') == 'g' for m in lots)
-            rows3.append(['Green P lots and garages', f"{len(lots)} · {sum(m.get('cap') or 0 for m in lots):,} spaces",
+            rows3.append([lbl('parkingLots', 'City car parks'), f"{len(lots)} · {sum(m.get('cap') or 0 for m in lots):,} spaces",
                           {'gp': True}])
             if garages:
                 rows3.append(['Of those, garages', str(garages)])
             ttc = [m for m in lots if m.get('ttc')]
             if ttc:
-                rows3.append(['TTC commuter lots', str(len(ttc))])
+                rows3.append([lbl('commuterLots', 'Commuter lots'), str(len(ttc))])
         else:
             d, _, m = nearest(lp, greenp)
-            rows3.append(['Nearest Green P', f"{m['n']} · {fmt_km(d)}", {'gp': True}])
+            rows3.append([lbl('parkingNearest', 'Nearest city car park'), f"{m['n']} · {fmt_km(d)}", {'gp': True}])
     if c.get('permit') is not None:
         codes = sorted({m.get('name') for g, m in permit_areas if g.intersection(P).area > 0.01 * P.area})
         share = c['permit']
@@ -462,8 +526,7 @@ def driving_sections(P, lp, name, c):
             if fc:
                 d, _, m = nearest(lp, fc)
                 rows3.append(['Nearest DC fast charger', f"{m.get('a') or m.get('n')} · {fmt_km(d)}"])
-    if not rows3:
-        rows3 = [['Parking and charging', 'Not in the map data yet']]
+    # (a city with no parking layers gets no parking section)
 
     # 04 roads: arterial and collector length inside the boundary, and the longest arterials
     length = {'major': 0.0, 'minor': 0.0, 'collector': 0.0}
@@ -476,23 +539,30 @@ def driving_sections(P, lp, name, c):
         if nm and cls != 'collector':
             by_name[nm] = by_name.get(nm, 0) + l
     main = [nm for nm, l in sorted(by_name.items(), key=lambda kv: -kv[1]) if l > 0.3][:3]
-    rows4 = [['Main roads', ', '.join(main) if main else 'None'],
-             ['Major arterials', f"{length['major']:.1f} km"], ['Minor arterials', f"{length['minor']:.1f} km"],
-             ['Collector streets', f"{length['collector']:.1f} km"]]
-    return [
-        {'title': 'Highway access', 'rows': rows1},
-        {'title': 'Drive times, empty roads', 'rows': rows2},
-        {'title': 'Parking and charging', 'rows': rows3},
-        {'title': 'Roads', 'rows': rows4},
-    ]
+    present = {cls for _, cls, _ in arterials}
+    rows4 = [[lbl('mainRoads', 'Main roads'), ', '.join(main) if main else 'None']]
+    rows4 += [[label, U.length(length[cls])] for cls, label in lbl('roads', [['major', 'Major arterials'], ['minor', 'Minor arterials'],
+                                                                          ['collector', 'Collector streets']]) if cls in present]
+    for z in CFG.get('drive', {}).get('zones', []):   # a toll or charge zone: how much of the place is in it
+        inside = sum(g.intersection(P).area for g, _ in layer(z['file'])) / P.area if P.area else 0
+        rows4.append([z['label'], 'All of it' if inside > 0.97 else 'None of it' if inside < 0.01 else f'{round(100 * inside)}% of the area'])
+    out = [{'title': 'Highway access', 'rows': rows1}, {'title': 'Drive times, empty roads', 'rows': rows2}]
+    if rows3:
+        out.append({'title': 'Parking and charging', 'rows': rows3})
+    out.append({'title': 'Roads', 'rows': rows4})
+    return out
 
 
-def walk_min(d_km):
+def line_color(m):
+    return m.get('color') or CFG.get('lineColors', {}).get(m.get('line'))
+
+
+def walk_min(d_km):   # 1.3 x straight line at 4.8 km/h (3 mph)
     return max(1, round(d_km * 1.3 / 4.8 * 60))
 
 
 def fmt_km(d):
-    return f'{d * 1000:.0f} m' if d < 1 else f'{d:.1f} km'
+    return U.dist(d)
 
 
 def nearest(pt, items):
@@ -517,7 +587,7 @@ def build(feat):
 
     # Getting around
     st = [m for g, m in stations if near.contains(g)]
-    st_names = sorted({m['name'] for m in st})
+    st_names = sorted({m['key'] for m in st})
     lines = sorted({l for m in st for l in m.get('lines', [])})
     cars = sorted({f"{m['r']} {m['n']}" for g, m in streetcars if g.intersection(P).length > MIN_ROUTE_KM},
                   key=route_key)
@@ -528,40 +598,39 @@ def build(feat):
 
     around = []
     if st_names:
-        around.append(['Subway stations',
+        around.append([lbl('subwayStations', 'Subway stations'),
                        f"{len(st_names)} · Line{'s' if len(lines) > 1 else ''} {', '.join(lines)}"])
     elif stations:
         d, _, m = nearest(lp, stations)
-        around.append(['Nearest subway', f"{m['name']} · about {walk_min(d)} min walk" if d <= WALK_MAX_KM
-                       else f"{m['name']} · {fmt_km(d)} away"])
+        around.append([lbl('nearestSubway', 'Nearest subway'), f"{m['key']} · about {walk_min(d)} min walk" if d <= WALK_MAX_KM
+                       else f"{m['key']} · {fmt_km(d)} away"])
     if go_in:
-        around.append(['GO stations', ', '.join(go_in)])
-    around.append(['Streetcar routes', ', '.join(cars) if cars else 'None'])
-    around.append(['Bike Share stations', f'{len(shares)} · {docks} docks' if shares else 'None'])
-    around.append(['Bike lanes and trails', f'{bike_km:.1f} km'])
-    if c.get('union') is not None:
-        around.append(['Transit to Union', f"about {c['union']} min"])
+        around.append([RAIL['in'], ', '.join(go_in)])
+    if HAS('streetcars'):
+        around.append([lbl('streetcarRoutes', 'Streetcar routes'), ', '.join(cars) if cars else 'None'])
+    if bikeshare:
+        around.append([lbl('bikeshare', 'Bike share stations'), f'{len(shares)} · {docks} docks' if shares else 'None'])
+    around.append([lbl('bikeLanes', 'Bike lanes and trails'), U.length(bike_km)])
+    if HUB.get('field') and c.get(HUB['field']) is not None:
+        around.append([f"Transit to {HUB['name']}", f"about {c[HUB['field']]} min"])
     if drive_to(name, 0) is not None:
         around.append([f'Drive to {DRIVE_DEST[0]}', f'about {drive_to(name, 0)} min'])
 
-    # Parks and nature
+    # Parks and nature: the first row counts parks (also drawn on the map and counted at a glance)
     parks = [g for g, _ in G.get('park', []) if P.contains(g)]
-    nature = [
-        ['Parks', str(len(parks))],
-        ['Playgrounds', str(count(G.get('playground', [])))],
-        ['Off-leash areas', str(count(G.get('offleash', [])))],
-        ['Tennis courts', str(count(G.get('tennis', [])))],
-    ]
+    nature = [[label, str(len(parks)) if grp == 'park' else str(count(G.get(grp, [])))]
+              for label, grp in lbl('nature', [['Parks', 'park'], ['Playgrounds', 'playground']])]
     if c.get('canopy') is not None:
         nature.append(['Tree canopy', f"{c['canopy']}%"])
 
     # Learning and community
     libs = sorted(n.replace(' branch', '') for g, n in G.get('library', []) if near.contains(g))
     learning = [
-        ['Library branches', ', '.join(libs) if libs else 'None'],
-        ['Community and rec centres', str(count(G.get('centre', [])))],
-        ['French-language and immersion schools', str(count(french))],
+        [lbl('libraries', 'Library branches'), ', '.join(libs) if libs else 'None'],
+        [lbl('centres', 'Community and rec centres'), str(count(G.get('centre', [])))],
     ]
+    if HAS('french_schools'):
+        learning.append([lbl('french', 'French-language schools'), str(count(french))])
     unis = sorted({m['name'] for g, m in institutions
                    if m.get('cat') in ('university', 'college') and near.contains(g)})
     if unis:
@@ -573,25 +642,26 @@ def build(feat):
     # Daily life
     n_heritage = count(heritage)
     daily = [
-        ['Heritage buildings', str(n_heritage)],
+        [lbl('heritage', 'Heritage buildings'), str(n_heritage)],
         ['Places of worship', str(sum(count(G[k]) for k in FAITH))],
-        ['Halal and kosher grocers', str(count(G.get('halal', [])) + count(G.get('kosher', [])))],
     ]
+    if 'halal' in G or 'kosher' in G:
+        daily.append([lbl('grocers', 'Halal and kosher grocers'), str(count(G.get('halal', [])) + count(G.get('kosher', [])))])
     lm = sorted(m['name'] for g, m in landmarks if P.contains(g))
     if lm:
         daily.append(['Landmarks', ', '.join(lm)])
     if c.get('walkBikePct') is not None:
-        daily.append(['Commute on foot or by bike (2021)', f"{c['walkBikePct']}%"])
+        daily.append([lbl('walkBike', 'Commute on foot or by bike'), f"{c['walkBikePct']}%"])
 
     tr = transit_sections(P, make_valid(shape(feat['geometry'])), ll, lp, c, st_names, shares, docks, bike_km, name)
     dr = driving_sections(P, lp, name, c)
 
     glance = [
-        [f'{P.area:.1f} km²', 'area'],
+        [U.area(P.area), 'area'],
         [str(len(st_names)), 'subway station' if len(st_names) == 1 else 'subway stations'],
         [str(len(parks)), 'park' if len(parks) == 1 else 'parks'],
-        [str(len(shares)), 'Bike Share stations'],
-        [str(n_heritage), 'heritage buildings'],
+        *([[str(len(shares)), lbl('glanceBikeshare', 'bike share stations')]] if bikeshare else []),
+        [str(n_heritage), lbl('glanceHeritage', 'heritage buildings')],
     ]
     if c.get('canopy') is not None:
         glance.append([f"{c['canopy']}%", 'tree canopy'])
@@ -623,6 +693,9 @@ def frame(P, parks):
     def xy(x, y):
         return [round((x - x0) * s, 1), round((y1 - y) * s, 1)]   # SVG's y runs down
 
+    # "stationLabels": past this many stations in the frame, the page names only those with three lines or more
+    BUSY = CFG.get('stationLabels') and sum(view.contains(g) for g, _ in stations) > CFG['stationLabels']
+
     def paths(g, tol=0.01):
         g = clip_by_rect(g, x0, y0, x1, y1)
         out = []
@@ -640,7 +713,7 @@ def frame(P, parks):
         'geo': {'x0': round(x0, 5), 'y1': round(y1, 5), 's': round(s, 5), 'kx': round(KX, 5), 'ky': KY},
         'outline': [[xy(*c) for c in part.exterior.simplify(0.008).coords]
                     for part in getattr(P, 'geoms', [P]) if part.geom_type == 'Polygon'],
-        'subway': [{'line': m.get('line'), 'color': m.get('color'), 'paths': p}
+        'subway': [{'line': m.get('line'), 'color': line_color(m), 'paths': p}
                    for g, m in subway_lines if (p := paths(g))],
         'streetcar': [p for g, _ in streetcars for p in paths(g)],
         'bike': [p for g, _ in bikes for p in paths(g)],
@@ -653,7 +726,8 @@ def frame(P, parks):
         # daytime buses, for the Transit lens: frequent ones (every 10 min or better) drawn bolder
         'busFreq': [p for g, m in bus_routes if 'freq' in m.get('f', []) for p in paths(g)],
         'bus': [p for g, m in bus_routes if 'freq' not in m.get('f', []) for p in paths(g)],
-        'stations': [{'x': xy(g.x, g.y)[0], 'y': xy(g.x, g.y)[1], 'name': m['name']}
+        'stations': [dict({'x': xy(g.x, g.y)[0], 'y': xy(g.x, g.y)[1], 'name': m['name']},
+                          **({'big': True} if BUSY and len(m.get('lines', [])) >= 3 else {}))
                      for g, m in stations if view.contains(g)],
         'parks': [xy(g.x, g.y) for g in parks],
         'bikeshare': [xy(g.x, g.y) for g, _ in bikeshare if P.contains(g)],
@@ -671,14 +745,22 @@ if hood_feats:
     cs = VIEW_W / (cx1 - cx0)
     sxy = lambda x, y: [round((x - cx0) * cs, 1), round((cy1 - y) * cs, 1)]
     TERMINI = {m['name'] for _, m in stations if m.get('terminus')}
+
+    def sys_line(g, m):
+        """A line on the system map: its longest piece as `path`, any branches as `more`."""
+        parts = sorted(getattr(g, 'geoms', [g]), key=lambda p: -p.length)
+        out = {'line': m.get('line'), 'name': m.get('name'), 'color': line_color(m),
+               'path': [sxy(*c) for c in parts[0].simplify(0.05).coords]}
+        if len(parts) > 1:
+            out['more'] = [[sxy(*c) for c in p.simplify(0.05).coords] for p in parts[1:] if p.length > 0.3]
+        return out
     SYS = {
         'w': VIEW_W, 'h': round((cy1 - cy0) * cs), 'hubs': HUBS,
         'outline': [[sxy(*c) for c in part.exterior.simplify(0.15).coords]
                     for part in getattr(CITY, 'geoms', [CITY]) if part.geom_type == 'Polygon' and part.area > 1],
-        'lines': [{'line': m.get('line'), 'name': m.get('name'), 'color': m.get('color'),
-                   'path': [sxy(*c) for c in g.simplify(0.05).coords]} for g, m in subway_lines if g.geom_type == 'LineString'],
-        'stations': [{'x': sxy(g.x, g.y)[0], 'y': sxy(g.x, g.y)[1], 'name': m['name'], 'lines': m.get('lines', []),
-                      'label': m['name'] in HUBS or m['name'] in TERMINI} for g, m in stations],
+        'lines': [sys_line(g, m) for g, m in subway_lines if g.geom_type in ('LineString', 'MultiLineString')],
+        'stations': [{'x': sxy(g.x, g.y)[0], 'y': sxy(g.x, g.y)[1], 'name': m['key'], 'lines': m.get('lines', []),
+                      'label': m['key'] in HUBS or m['name'] in TERMINI} for g, m in stations],
         'toHubs': HUB_TABLE,
     }
 
@@ -747,4 +829,19 @@ with open(os.path.join(OUT, 'drive.json'), 'w') as f:
 index.sort(key=lambda r: r['name'])
 with open(os.path.join(OUT, 'index.json'), 'w') as f:
     json.dump({'asof': date.today().isoformat(), 'places': index}, f, ensure_ascii=False, separators=(',', ':'))
-print(f'{city}: {len(index)} profiles -> {os.path.relpath(OUT, ROOT)}')
+
+# ---- the page: engine/profiles/page.html with this city's wording, settings and badge colours ------------
+PG = CFG.get('page', {})
+FS = dict(PG, unitsFile=units_file(CFG), stationLabels=CFG.get('stationLabels'), hubBullets=CFG.get('hubBullets', True),
+          lineOrder=CFG.get('lineOrder'), distance=CFG.get('distance', 'km'), rampKm=round(RAMP_KM, 3), rampText=U.radius(RAMP_R),
+          hub=HUB.get('name', ''), nearestRail=RAIL.get('nearest', 'Nearest train station'), railBadge=RAIL.get('badge'))
+FS.pop('description', None)
+page = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'page.html'), encoding='utf-8').read()
+css_path = os.path.join(ROOT, 'cities', city, 'factsheet.css')
+fill = {k: html.escape(PG.get(k, ''), quote=True) for k in ('description', 'city', 'Unit', 'placeholder', 'kind', 'boundary', 'sysNote')}
+fill['css'] = open(css_path, encoding='utf-8').read() if os.path.exists(css_path) else ''
+fill['FS'] = json.dumps(FS, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
+page = re.sub(r'\{\{(\w+)\}\}', lambda m: fill[m.group(1)], page)
+with open(os.path.join(OUT, '..', 'index.html'), 'w', encoding='utf-8') as f:
+    f.write(page)
+print(f'{city}: {len(index)} profiles -> {os.path.relpath(OUT, ROOT)}, and the page')

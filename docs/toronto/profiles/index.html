@@ -58,30 +58,25 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 .hero.two{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
 .sys{display:flex;flex-direction:column}
 .sys svg{display:block;width:100%;height:auto;margin-top:4px}
-/* Line bullets and route badges, in the map's TTC styles (cities/toronto/city.css): streetcars red with white
-   numbers, buses white with a red outline, express green, Blue Night white with a blue outline, GO green. */
-.ln{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font:800 11px/1 var(--display);color:#fff;flex:none}
-.ln.l1{background:#FFC425;color:#1A1414} .ln.l2{background:#00A64F} .ln.l4{background:#A8518A} .ln.l5{background:#F58426} .ln.l6{background:#959595}
+/* Line bullets and route badges: shapes here, colours in the city's factsheet.css (below). */
+.ln{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font:800 11px/1 var(--display);color:#fff;background:#5E5452;flex:none}
 .lns{display:inline-flex;gap:3px;align-items:center}
 .lbl{display:inline-flex;gap:6px;align-items:center}
 .rbs{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
 .rb{display:inline-grid;place-items:center;box-sizing:border-box;height:18px;min-width:26px;padding:0 4px;border-radius:4px;font:700 11px/1 var(--body);
-  background:#fff;color:#D7261E;box-shadow:inset 0 0 0 1.5px #D7261E}
-.rb.tram{background:#D7261E;color:#fff;box-shadow:none}
-.rb.exp{background:#15924A;color:#fff;box-shadow:none}
-.rb.night{background:#fff;color:#1F4FA3;box-shadow:inset 0 0 0 1.5px #1F4FA3}
-.rb.go{background:#1E6B47;color:#fff;box-shadow:none}
+  background:#fff;color:#1A1414;box-shadow:inset 0 0 0 1.5px #1A1414}
 /* Highway shields, as on the map: provincial yellow with a dark edge, city expressways green, toll blue */
 .sh{display:inline-grid;place-items:center;box-sizing:border-box;height:18px;min-width:26px;padding:0 4px;border-radius:5px;font:700 10.5px/1 var(--body);
   background:#F7C548;color:#1E2126;box-shadow:inset 0 0 0 1.5px #3B3F45;white-space:nowrap}
 .sh.city{background:#2E6B3A;color:#fff;box-shadow:none} .sh.toll{background:#1F5FA8;color:#fff;box-shadow:none}
-/* Parking icons, in the map's colours: Green P green, EV charging blue */
+/* Parking icons, in the map's colours: city car parks green, EV charging blue */
 .pk{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:4px;font:800 11px/1 var(--display);color:#fff;background:#0B8A44;flex:none}
 .pk.ev{background:#0A86B0;border-radius:50%}
 .pk.ev svg{width:11px;height:11px}
 .rbs .more{font-size:11px;font-weight:500;color:var(--muted);align-self:center}
 .q .row b:has(.rbs),.q .row b:has(.lns){display:flex;justify-content:flex-end}
 .sys .lines{display:grid;gap:3px;margin-top:8px;font-size:11.5px}
+.sys .lines.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .sys .lines i{display:inline-block;width:16px;height:4px;border-radius:2px;margin-right:8px;vertical-align:middle}
 .sys .note{font-size:11px;color:var(--muted);margin-top:6px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -135,6 +130,15 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 @media (prefers-reduced-motion:reduce){.site .pill{transition:none}.site .pill:hover{transform:none}}
 @media (max-width:520px){.site{padding:20px 16px}.site .links{flex-wrap:nowrap;gap:8px}.site .pill{gap:6px;min-height:40px;padding:0 13px;font-size:14px}.site .pill svg{width:16px;height:16px}.site .pill .full{display:none}.site .pill .short{display:inline}}
 @media print{.site{display:none}}
+/* This city: */
+/* Line bullets and route badges, in the map's TTC styles (cities/toronto/city.css): streetcars red with white
+   numbers, buses white with a red outline, express green, Blue Night white with a blue outline, GO green. */
+.ln.l1{background:#FFC425;color:#1A1414} .ln.l2{background:#00A64F} .ln.l4{background:#A8518A} .ln.l5{background:#F58426} .ln.l6{background:#959595}
+.rb{background:#fff;color:#D7261E;box-shadow:inset 0 0 0 1.5px #D7261E}
+.rb.tram{background:#D7261E;color:#fff;box-shadow:none}
+.rb.exp{background:#15924A;color:#fff;box-shadow:none}
+.rb.night{background:#fff;color:#1F4FA3;box-shadow:inset 0 0 0 1.5px #1F4FA3}
+.rb.go{background:#1E6B47;color:#fff;box-shadow:none}
 </style>
 </head>
 <body>
@@ -200,6 +204,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 </main>
 <script>
 (() => {
+  const FS = {"city":"Toronto","kind":"TORONTO","unit":"neighbourhood","Unit":"Neighbourhood","boundary":"City of Toronto neighbourhood boundary","pinned":"Pinned spot (rounded to about 100 m) in the City’s {name} neighbourhood","outside":"That spot is outside the City of Toronto. Try a spot inside the city.","noMatch":"No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.","placeholder":"Search an address, like 789 Yonge Street","credits":"Boundaries: City of Toronto Open Data · Transit: TTC · Bike Share: Toronto Parking Authority · Census figures: 2021","creditsPin":" · Walks along streets and paths at 4.8 km/h from the 150 m square around the pin: © OpenStreetMap contributors · Drive times are free-flow","creditsTransit":" · Stops and changes counted along TTC lines · Door to door: typical weekday-morning trip","creditsDriving":" · Highways, ramps and roads: City of Toronto, © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads); distances straight-line · Green P: City of Toronto (2019 list) · Permit areas: City of Toronto · EV charging: U.S. DOE Alternative Fuels Data Center, City of Toronto","sysNote":"Subway and LRT lines, simplified. Stops and changes are counted along the lines.","sysLabel":"Toronto’s subway and LRT lines with this neighbourhood highlighted","nearestStop":"Nearest TTC stop","nearestDock":"Nearest Bike Share dock","parkingNearest":"Nearest Green P","legendTransit":[["line","#FFC425","Subway or LRT"],["line","var(--car)","Streetcar"],["line","var(--bus)","Frequent bus"],["thin","var(--bus)","Other daytime bus"],["line","var(--bike)","Bike lane or trail"]],"legendDriving":[["hwy","#F7C548","Highway"],["hwy","#B6B9BF","City expressway"],["road","#FFFFFF","Main road"],["ramp","#fff","On-ramp"],["gp","#0B8A44","Green P garage"],["gps","#fff","Green P lot"],["dot","#0A86B0","EV charging"]],"legendOverview":[["line","#FFC425","Subway"],["line","var(--car)","Streetcar"],["line","var(--bike)","Bike lane or trail"],["dot","var(--park)","Park"]],"unitsFile":"neighbourhoods.geojson","stationLabels":null,"hubBullets":true,"lineOrder":null,"distance":"km","rampKm":8,"rampText":"8 km","hub":"Union","nearestRail":"Nearest GO station","railBadge":"GO"};   // this city's wording and settings (cities/<city>/factsheet.json, page)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g'];
@@ -214,13 +219,13 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   const once = f => { let p; return () => (p ||= f()); };
 
   // Loaded only when a pin is dropped: the city's boundaries, the walk grid and the drive grid.
-  const hoods = once(() => getJSON('../data/neighbourhoods.geojson'));
+  const hoods = once(() => getJSON('../data/' + FS.unitsFile));
   const walk = once(() => getJSON('data/walk_grid.json').catch(() => null));
   const drive = once(() => getJSON('data/drive.json').catch(() => null));
   const cityCfg = once(() => getJSON('../data/city.json'));
   const system = once(() => getJSON('data/system.json').catch(() => null));
 
-  const BASE_CREDITS = 'Boundaries: City of Toronto Open Data · Transit: TTC · Bike Share: Toronto Parking Authority · Census figures: 2021';
+  const BASE_CREDITS = FS.credits;
   let index = { places: [] }, slugOf = {}, profile = null, pin = null;
   const LENSES = ['overview', 'transit', 'driving'];
   let lens = LENSES.includes(new URLSearchParams(location.search).get('lens')) ? new URLSearchParams(location.search).get('lens') : 'overview';
@@ -268,7 +273,10 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   }
   const kmBetween = (lon1, lat1, lon2, lat2) =>
     Math.hypot((lon1 - lon2) * 111.32 * Math.cos(lat1 * Math.PI / 180), (lat1 - lat2) * 110.574);
-  const fmtKm = d => d < 1 ? `${Math.round(d * 1000)} m` : `${d.toFixed(1)} km`;
+  // Distances in the city's unit, as the map words them: "600 m", "1.8 km"; or "300 ft", "0.4 mi".
+  const fmtKm = FS.distance === 'mi'
+    ? d => d / 1.609344 < 0.095 ? `${Math.round(d / 1.609344 * 5280 / 50) * 50 || 50} ft` : `${(d / 1.609344).toFixed(1)} mi`
+    : d => d < 1 ? `${Math.round(d * 1000)} m` : `${d.toFixed(1)} km`;
 
   // Driving lens with a pin: the nearest on-ramp to each highway, and drive times, from the pin.
   async function rampsFromPin(base) {
@@ -277,11 +285,11 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     const best = {};
     for (const [lon, lat, route, street] of dd.ramps) {
       const k = kmBetween(pin.lon, pin.lat, lon, lat);
-      if (k <= 8 && (!best[route] || k < best[route][0])) best[route] = [k, street];
+      if (k <= FS.rampKm && (!best[route] || k < best[route][0])) best[route] = [k, street];
     }
     const rows = Object.entries(best).sort((a, b) => a[1][0] - b[1][0]).slice(0, 5)
       .map(([route, [k, street]]) => [`at ${street}`, fmtKm(k), { hwy: route }]);
-    return { title: 'Highway access from this spot', rows: rows.length ? rows : [['Highway on-ramps', 'None within 8 km']], here: true };
+    return { title: 'Highway access from this spot', rows: rows.length ? rows : [['Highway on-ramps', `None within ${FS.rampText}`]], here: true };
   }
   const parkingData = once(() => getJSON('../data/parking.geojson').catch(() => null));
   const permitData = once(() => getJSON('../data/permit_areas.geojson').catch(() => null));
@@ -299,7 +307,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     };
     const rows = [];
     const gp = near(p => p.c === 'gp');
-    if (gp) rows.push(['Nearest Green P', `${gp[1].n} · ${fmtKm(gp[0])}`, { gp: true }]);
+    if (gp) rows.push([FS.parkingNearest, `${gp[1].n} · ${fmtKm(gp[0])}`, { gp: true }]);
     const any = near(p => p.c === 'ev' && !p.off), fast = near(p => p.c === 'ev' && !p.off && p.dc);
     if (any) rows.push(['Nearest EV charging', `${any[1].a || any[1].n} · ${fmtKm(any[0])}`, { ev: true }]);
     if (fast && (!any || fast[1] !== any[1])) rows.push(['Nearest DC fast charger', `${fast[1].a || fast[1].n} · ${fmtKm(fast[0])}`]);
@@ -330,8 +338,8 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     const w = g && walkAt(g, pin.lon, pin.lat);
     if (!w || !w.subway || !sys) return base;
     const from = w.subway.name, table = sys.toHubs[from] || [];
-    const rows = sys.hubs.map((h, i) => [h, hubText(table[i]), { lines: linesOf(sys, h) }]);
-    base.rows.filter(([k]) => k.startsWith('Door to door')).forEach(r => rows.push(['Door to door to Union, area typical', r[1]]));
+    const rows = sys.hubs.map((h, i) => [h, hubText(table[i]), FS.hubBullets === false ? undefined : { lines: linesOf(sys, h) }]);
+    base.rows.filter(([k]) => k.startsWith('Door to door')).forEach(r => rows.push([`Door to door to ${FS.hub}, area typical`, r[1]]));
     return { title: `From ${from} (${w.subway.min} min walk) to the hubs`, rows, origin: from };
   }
 
@@ -344,9 +352,9 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
       rows.push(['Walk times', g ? 'No street close to this spot' : 'Not built yet (run walk_grid.py)']);
     } else {
       rows.push(['Nearest subway', t(w.subway, true), { lines: w.subway ? linesOf(sys, w.subway.name) : [] }]);
-      rows.push(['Nearest TTC stop', t(w.stop)]);
-      if (w.go && w.go.min <= 30) rows.push(['Nearest GO station', t(w.go, true), { go: true }]);
-      rows.push(['Nearest Bike Share dock', t(w.bikeshare)]);
+      rows.push([FS.nearestStop, t(w.stop)]);
+      if (w.go && w.go.min <= 30) rows.push([FS.nearestRail, t(w.go, true), FS.railBadge ? { go: true } : undefined]);
+      if (w.bikeshare !== undefined) rows.push([FS.nearestDock, t(w.bikeshare)]);
       rows.push(['Nearest park', t(w.park)]);
       rows.push(['Nearest library', t(w.library, true)]);
     }
@@ -358,7 +366,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   // ---- drawing ----
   function drawMap(m, mode) {
     const transit = mode === 'transit', driving = mode === 'driving';
-    const svg = el('svg', { viewBox: `0 0 ${m.w} ${m.h}`, role: 'img', 'aria-label': 'Map of the neighbourhood with transit, bike lanes and parks. Click to drop a pin.' });
+    const svg = el('svg', { viewBox: `0 0 ${m.w} ${m.h}`, role: 'img', 'aria-label': `Map of the ${FS.unit} with transit, bike lanes and parks. Click to drop a pin.` });
     svg.append(el('rect', { width: m.w, height: m.h, fill: 'var(--land)' }));
     m.outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--hood)', stroke: 'var(--accent)', 'stroke-width': 2 })));
     if (driving) {
@@ -383,8 +391,10 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
         fill: t === 'g' ? '#0B8A44' : '#fff', stroke: '#0B8A44', 'stroke-width': 2 })));
       hwyShields(svg, m.hwy || [], 1);
     }
+    const busy = FS.stationLabels && m.stations.length > FS.stationLabels;   // a crowded frame names only interchanges
     (driving ? [] : m.stations).forEach(s => {
       svg.append(el('circle', { cx: s.x, cy: s.y, r: 5.5, fill: '#fff', stroke: '#1A1414', 'stroke-width': 2 }));
+      if (busy && !s.big) return;
       const left = s.x > m.w - 110;   // label on the left near the right edge, so it isn't cut off
       svg.append(el('text', { x: left ? s.x - 8 : s.x + 8, y: s.y + 4, 'text-anchor': left ? 'end' : 'start', 'font-size': 12, 'font-weight': 500, fill: '#1A1414',
         stroke: '#fff', 'stroke-width': 3, 'paint-order': 'stroke', 'font-family': 'IBM Plex Sans, sans-serif' }, s.name));
@@ -398,12 +408,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
       svg.append(g);
     }
     const lg = el('g', { transform: 'translate(10 10)' });
-    const keys = transit
-      ? [['line', '#FFC425', 'Subway or LRT'], ['line', 'var(--car)', 'Streetcar'], ['line', 'var(--bus)', 'Frequent bus'], ['thin', 'var(--bus)', 'Other daytime bus'], ['line', 'var(--bike)', 'Bike lane or trail']]
-      : driving
-      ? [['hwy', '#F7C548', 'Highway'], ['hwy', '#B6B9BF', 'City expressway'], ['road', '#FFFFFF', 'Main road'], ['ramp', '#fff', 'On-ramp'],
-         ['gp', '#0B8A44', 'Green P garage'], ['gps', '#fff', 'Green P lot'], ['dot', '#0A86B0', 'EV charging']]
-      : [['line', '#FFC425', 'Subway'], ['line', 'var(--car)', 'Streetcar'], ['line', 'var(--bike)', 'Bike lane or trail'], ['dot', 'var(--park)', 'Park']];
+    const keys = transit ? FS.legendTransit : driving ? FS.legendDriving : FS.legendOverview;
     lg.append(el('rect', { width: 140, height: 10 + keys.length * 15, rx: 6, fill: '#fff', 'fill-opacity': .92 }));
     keys
       .forEach(([kind, c, label], i) => {
@@ -453,7 +458,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     });
   }
   function drawRegion(R, outline) {
-    const svg = el('svg', { viewBox: `0 0 ${R.w} ${R.h}`, role: 'img', 'aria-label': 'Highways across the region, with this neighbourhood highlighted' });
+    const svg = el('svg', { viewBox: `0 0 ${R.w} ${R.h}`, role: 'img', 'aria-label': `Highways across the region, with this ${FS.unit} highlighted` });
     R.city.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--land)', stroke: 'var(--rule)', 'stroke-width': 2 })));
     drawHighways(svg, R.hwy, 6, 3.4);
     outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--accent)', 'fill-opacity': .3, stroke: 'var(--accent)', 'stroke-width': 2.5 })));
@@ -470,27 +475,32 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   }
 
   function drawSystem(sys, outline, origin) {
-    const svg = el('svg', { viewBox: `0 0 ${sys.w} ${sys.h}`, role: 'img', 'aria-label': 'Toronto’s subway and LRT lines with this neighbourhood highlighted' });
+    const svg = el('svg', { viewBox: `0 0 ${sys.w} ${sys.h}`, role: 'img', 'aria-label': FS.sysLabel });
     sys.outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--land)', stroke: 'var(--rule)', 'stroke-width': 2 })));
     outline.forEach(r => svg.append(el('path', { d: d(r) + 'Z', fill: 'var(--accent)', 'fill-opacity': .25, stroke: 'var(--accent)', 'stroke-width': 2.5 })));
-    sys.lines.forEach(l => svg.append(el('path', { d: d(l.path), fill: 'none', stroke: l.color || '#333', 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' })));
+    sys.lines.forEach(l => [l.path, ...(l.more || [])].forEach(p => svg.append(el('path', { d: d(p), fill: 'none', stroke: l.color || '#333', 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }))));
     const o0 = sys.stations.find(s => s.name === origin);
     // hubs get a dot and a name, except one crowding the neighbourhood's own station
     const named = s => sys.hubs.includes(s.name) && s.name !== origin && !(o0 && Math.hypot(s.x - o0.x, s.y - o0.y) < 26);
     sys.stations.filter(named).forEach(s => svg.append(el('circle', { cx: s.x, cy: s.y, r: 5, fill: '#fff', stroke: '#1A1414', 'stroke-width': 2 })));
+    const placed = [];   // label boxes so far: a hub label that would overlap one is left out (its dot stays)
     const label = (s, size, weight) => {
-      const left = s.x > sys.w - 120;
+      const left = s.x > sys.w - 120, tw = s.name.length * size * 0.55;
+      const bx = left ? [s.x - 8 - tw, s.y - size * 0.6, s.x - 8, s.y + size * 0.5] : [s.x + 8, s.y - size * 0.6, s.x + 8 + tw, s.y + size * 0.5];
+      if (placed.some(b => bx[0] < b[2] && bx[2] > b[0] && bx[1] < b[3] && bx[3] > b[1])) return;
+      placed.push(bx);
       svg.append(el('text', { x: left ? s.x - 8 : s.x + 8, y: s.y + 5, 'text-anchor': left ? 'end' : 'start', 'font-size': size, 'font-weight': weight,
         fill: '#1A1414', stroke: '#fff', 'stroke-width': 4, 'paint-order': 'stroke', 'font-family': 'IBM Plex Sans, sans-serif' }, s.name));
     };
-    sys.stations.filter(named).forEach(s => label(s, 17, 500));
     const o = sys.stations.find(s => s.name === origin);
     if (o) {
       svg.append(el('circle', { cx: o.x, cy: o.y, r: 8, fill: '#fff', stroke: 'var(--accent)', 'stroke-width': 4 }));
       label(o, 19, 700);
     }
-    const key = el('div', { class: 'lines' });
-    sys.lines.forEach(l => { const r = el('div'); r.append(el('i', { style: `background:${l.color}` }), document.createTextNode(l.name)); key.append(r); });
+    sys.stations.filter(named).forEach(s => label(s, 17, 500));
+    const key = el('div', { class: 'lines' + (sys.lines.length > 6 ? ' two' : '') });
+    const order = FS.lineOrder || [];
+    sys.lines.slice().sort((a, b) => (order.indexOf(a.line) + 1 || 99) - (order.indexOf(b.line) + 1 || 99)).forEach(l => { const r = el('div'); r.append(el('i', { style: `background:${l.color}` }), document.createTextNode(l.name)); key.append(r); });
     $('sys').replaceChildren(svg, key);
   }
 
@@ -525,7 +535,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     if (meta.hwy) w.append(shield(meta.hwy));
     if (meta.gp) w.append(el('span', { class: 'pk', 'aria-hidden': 'true' }, 'P'));
     if (meta.ev) { const b = el('span', { class: 'pk ev', 'aria-hidden': 'true' }); b.append(bolt()); w.append(b); }
-    if (meta.go) w.append(el('span', { class: 'rb go', 'aria-hidden': 'true' }, 'GO'));
+    if (meta.go) w.append(el('span', { class: 'rb go', 'aria-hidden': 'true' }, FS.railBadge));
     if (meta.lines && meta.lines.length) w.append(bullets(meta.lines));
     w.append(document.createTextNode(k));
     return w;
@@ -539,17 +549,16 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     document.title = `${p.name} · Fact sheet · Layers.City`;
     $('name').textContent = p.name;
     $('sub').textContent = pin
-      ? `Pinned spot (rounded to about 100 m) in the City’s ${p.name} neighbourhood`
-      : 'City of Toronto neighbourhood boundary';
+      ? FS.pinned.replace('{name}', p.name)
+      : FS.boundary;
     const transit = lens === 'transit' && p.transit, driving = lens === 'driving' && p.driving;
     if (driving) { const dd = await drive(); KINDS = (dd && dd.kinds) || {}; }
     drawMap(p.map, transit ? 'transit' : driving ? 'driving' : 'overview');
-    $('kind').textContent = (transit ? 'TRANSIT FACT SHEET' : driving ? 'DRIVING FACT SHEET' : 'FACT SHEET') + ' · TORONTO';
+    $('kind').textContent = (transit ? 'TRANSIT FACT SHEET' : driving ? 'DRIVING FACT SHEET' : 'FACT SHEET') + ' · ' + FS.kind;
     $('hero').classList.toggle('two', !!(transit || driving));
     $('glancePanel').hidden = !!(transit || driving); $('sysPanel').hidden = !(transit || driving);
     $('sysTitle').textContent = driving ? 'Where the highways go' : 'Where it connects';
-    $('sysNote').textContent = driving ? 'Highways across the region. Dots are the drive-time destinations.'
-      : 'Subway and LRT lines, simplified. Stops and changes are counted along the lines.';
+    $('sysNote').textContent = driving ? 'Highways across the region. Dots are the drive-time destinations.' : FS.sysNote;
     document.querySelectorAll('.lens button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lens === lens)));
     $('glance').replaceChildren(...p.glance.map(([v, label]) => {
       const r = el('div', { class: 'row' }); r.append(el('b', {}, v), el('span', {}, label)); return r;
@@ -568,10 +577,10 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
       return q;
     }));
     $('credits').textContent = BASE_CREDITS + (pin
-      ? ' · Walks along streets and paths at 4.8 km/h from the 150 m square around the pin: © OpenStreetMap contributors · Drive times are free-flow'
+      ? FS.creditsPin
       : ' · Walk times are approximate')
-      + (lens === 'transit' ? ' · Stops and changes counted along TTC lines · Door to door: typical weekday-morning trip' : '')
-      + (lens === 'driving' ? ' · Highways, ramps and roads: City of Toronto, © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads); distances straight-line · Green P: City of Toronto (2019 list) · Permit areas: City of Toronto · EV charging: U.S. DOE Alternative Fuels Data Center, City of Toronto' : '');
+      + (lens === 'transit' ? FS.creditsTransit : '')
+      + (lens === 'driving' ? FS.creditsDriving : '');
     $('asof').textContent = `Data as of ${p.asof}`;
     $('clear').hidden = !pin;
     $('sheet').hidden = false; $('msg').hidden = true;
@@ -589,9 +598,9 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   }
 
   async function load(slug) {
-    if (!slug) { profile = null; return fail('Pick a neighbourhood or search an address to see its fact sheet.'); }
+    if (!slug) { profile = null; return fail(`Pick a ${FS.unit} or search an address to see its fact sheet.`); }
     try { profile = await getJSON(`data/${encodeURIComponent(slug)}.json`); }
-    catch { profile = null; return fail('No fact sheet found for that neighbourhood.'); }
+    catch { profile = null; return fail(`No fact sheet found for that ${FS.unit}.`); }
   }
 
   // Could this rounded spot have come from a point inside the named neighbourhood? (Rounding moves a point at most
@@ -610,7 +619,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
   async function setPin(lat, lon, named) {
     const at = { lat: round3(lat), lon: round3(lon) };
     const slug = named && await roundsFrom(named, at) ? named : await hoodAt(lon, lat);
-    if (!slug) { $('hint').textContent = 'That spot is outside the City of Toronto. Try a spot inside the city.'; return; }
+    if (!slug) { $('hint').textContent = FS.outside; return; }
     pin = at;
     if (!profile || profile.slug !== slug) await load(slug);
     $('hint').textContent = 'Click the map again to move the pin.';
@@ -635,7 +644,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
       let hit = null;
       for (const r of await getJSON(url)) if (await hoodAt(+r.lon, +r.lat)) { hit = r; break; }
       if (hit) await setPin(+hit.lat, +hit.lon);
-      else $('hint').textContent = `No match in Toronto for “${text}”. Try the full street name, like “789 Yonge Street”.`;
+      else $('hint').textContent = FS.noMatch.replace('{q}', text);
     } catch {
       $('hint').textContent = 'Address search isn’t responding right now. Try again in a moment, or click the map instead.';
     } finally { busy = false; $('go').disabled = false; $('go').textContent = 'Go'; }
@@ -646,7 +655,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     index = await getJSON('data/index.json');
     index.places.forEach(p => { slugOf[p.name] = p.slug; });
     const sel = $('pick');
-    sel.replaceChildren(el('option', { value: '' }, 'Choose a neighbourhood'), ...index.places.map(p => el('option', { value: p.slug }, p.name)));
+    sel.replaceChildren(el('option', { value: '' }, `Choose a ${FS.unit}`), ...index.places.map(p => el('option', { value: p.slug }, p.name)));
     sel.addEventListener('change', async () => { pin = null; await load(sel.value); syncURL(); if (profile) render(); });
     $('print').addEventListener('click', () => window.print());
     document.querySelectorAll('.lens button').forEach(b => b.addEventListener('click', () => {

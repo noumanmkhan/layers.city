@@ -292,7 +292,7 @@ for s, (props, g) in sorted(made.items()):
     parts.append(f'<p class="note">The map shows every boundary here, from {"wards and ridings" if CA else "council and legislative districts"} to school boards, with what’s nearby. Tap any address in it for its own card.</p>')
     if os.path.exists(os.path.join(out_dir, 'profiles', 'data', s + '.json')):
         parts.append(f'<p class="note"><a href="/{city}/profiles/?n={s}">Fact sheet for {esc(name)}</a>: '
-                     f'transit, driving, parking and more on one page, ready to print.</p>')
+                     f'transit, driving, {"parking" if os.path.exists(os.path.join(D, "parking.geojson")) else "parks"} and more on one page, ready to print.</p>')
     if info: parts.append(f'<section><h2>About {esc(info["name"])}</h2><p style="margin:0">{esc(info["info"])}</p></section>')
     if known or lms:
         sec = '<section><h2>Names you’ll hear here</h2>'

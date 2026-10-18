@@ -21,6 +21,8 @@ Data: © OpenStreetMap contributors, ODbL (credit it wherever the walk times app
 """
 import json, os, sys, time, urllib.parse, urllib.request
 from datetime import date
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from common import settings, units_file
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 city = sys.argv[1] if len(sys.argv) > 1 else sys.exit('usage: fetch_walk.py <city>')
@@ -32,7 +34,7 @@ SERVERS = ['https://overpass-api.de/api/interpreter',
            'https://overpass.private.coffee/api/interpreter',
            'https://overpass.kumi.systems/api/interpreter']
 UA = {'User-Agent': 'city-layers/1.0 (https://layers.city; go@layers.city)'}
-TILES_X, TILES_Y = 4, 3
+TILES_X, TILES_Y = settings(city).get('walk', {}).get('tiles', [4, 3])
 PAUSE_S = 5          # between tiles, to be polite to a free shared service
 
 WALKABLE = ('footway|path|pedestrian|steps|corridor|cycleway|track|living_street|residential|service|'
@@ -41,7 +43,7 @@ WALKABLE = ('footway|path|pedestrian|steps|corridor|cycleway|track|living_street
 
 def city_bbox():
     """South, west, north, east of the city's neighbourhoods, plus about 1 km."""
-    feats = json.load(open(os.path.join(DATA, 'neighbourhoods.geojson')))['features']
+    feats = json.load(open(os.path.join(DATA, units_file(settings(city)))))['features']
     xs, ys = [], []
 
     def walk(c):

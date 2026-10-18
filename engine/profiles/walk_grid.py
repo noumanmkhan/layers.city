@@ -25,6 +25,8 @@ from datetime import date
 from shapely.geometry import shape, Point
 from shapely.ops import unary_union
 from shapely.prepared import prep
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from common import settings, units_file, station_keys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 args = [a for a in sys.argv[1:] if not a.startswith('--')]
@@ -33,6 +35,8 @@ opts = dict(a[2:].split('=', 1) for a in sys.argv[1:] if a.startswith('--') and 
 D = os.path.join(ROOT, 'docs', city, 'data')
 NET = opts.get('network') or os.path.join(ROOT, 'cities', city, 'raw', 'walk_network.json')
 OUT = os.path.join(ROOT, 'docs', city, 'profiles', 'data', 'walk_grid.json')
+CFG = settings(city)
+RAIL_FILE = CFG.get('rail', {}).get('file')
 
 SPACING_M = 150
 SNAP_M = float(opts.get('snap', 250))   # a square farther than this from any street stays empty
@@ -50,7 +54,7 @@ def load(name, default=None):
 
 
 # ---- flat projection in metres (same idea as build.py) -----------------------------------------
-hoods = load('neighbourhoods.geojson')['features']
+hoods = load(units_file(CFG))['features']
 city_shape = unary_union([shape(f['geometry']).buffer(0) for f in hoods])
 LAT0 = city_shape.centroid.y
 KX, KY = 111320 * math.cos(math.radians(LAT0)), 110574
@@ -153,9 +157,9 @@ def park_sources(step=50):
 
 
 layers = {
-    'subway': ([f['properties']['name'] for f in stations], station_sources()),
-    'go': ([f['properties']['name'] for f in gj('go_stations')],
-           [(*f['geometry']['coordinates'], k) for k, f in enumerate(gj('go_stations'))]),
+    'subway': (station_keys(stations), station_sources()),
+    'go': ([f['properties']['name'] for f in gj(RAIL_FILE)] if RAIL_FILE else [],
+           [(*f['geometry']['coordinates'], k) for k, f in enumerate(gj(RAIL_FILE))] if RAIL_FILE else []),
     'stop': (None, [(s[0], s[1], 0) for s in (load('transit.json') or {}).get('stops', [])]),
     'bikeshare': (None, [(*f['geometry']['coordinates'], 0) for f in gj('bikeshare')]),
     'park': (None, park_sources()),
