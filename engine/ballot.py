@@ -25,11 +25,28 @@ def parts(name):
     return (w[0] if w else '', w[-1] if w else '', [n.split()[0] for n in nick])
 
 
+# Common short forms of given names, both ways ("Mike Reilly" / "Michael W. Reilly Jr.").
+NICK = {'ed': 'edward', 'eddie': 'edward', 'mike': 'michael', 'misha': 'michael', 'joe': 'joseph', 'bob': 'robert',
+        'bill': 'william', 'jim': 'james', 'tom': 'thomas', 'dan': 'daniel', 'steve': 'steven', 'chris': 'christopher',
+        'alex': 'alexander', 'sam': 'samuel', 'tony': 'anthony', 'nick': 'nicholas', 'liz': 'elizabeth', 'toby': 'toby'}
+
+
+def words(name):
+    s = unicodedata.normalize('NFKD', name).encode('ascii', 'ignore').decode().lower()
+    return [x for x in re.sub(r'[^a-z\- ]+', ' ', re.sub(r'"[^"]+"', ' ', s.split('&')[0])).split() if x not in SUFFIX]
+
+
 def same(a, b):
     fa, la, na = parts(a); fb, lb, nb = parts(b)
-    if not la or la != lb: return False
-    firsts_a, firsts_b = {fa, *na}, {fb, *nb}
-    return bool(firsts_a & firsts_b) or (len(fa) == 1 or len(fb) == 1) and fa[:1] == fb[:1]
+    wa, wb = words(a), words(b)
+    # The last name, or a two-part surname shortened to its first part ("Rodneyse Bichotte Hermelyn" / "Rodneyse Bichotte").
+    if not la or not (la == lb or len(wa) > 2 and wa[-2] == lb or len(wb) > 2 and wb[-2] == la): return False
+    norm = lambda f: NICK.get(f.split('-')[0], f.split('-')[0])   # a hyphenated given name by its first part
+    firsts_a, firsts_b = {norm(fa), *map(norm, na)}, {norm(fb), *map(norm, nb)}
+    if firsts_a & firsts_b: return True
+    if (len(fa) == 1 or len(fb) == 1) and fa[:1] == fb[:1]: return True
+    # A first initial before the name used ("J. Gustavo Rivera" / "Gustavo Rivera").
+    return len(fa) == 1 and len(wa) > 2 and wa[1] == fb or len(fb) == 1 and len(wb) > 2 and wb[1] == fa
 
 
 def ballot_tables(cand, members):
