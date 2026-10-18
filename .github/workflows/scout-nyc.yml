@@ -1,0 +1,31 @@
+name: Scout New York City data
+# One-off check of what NYC Open Data, the MTA, Citi Bike, the Board of Elections and the State publish,
+# before building the city. Writes scouting/nyc/out/ and commits it to the branch it ran on. Doesn't touch the site.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scouting/nyc/scout.py']
+permissions:
+  contents: write
+concurrency: scout-nyc
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pypdf
+      - run: |
+          mkdir -p scouting/nyc/out
+          python3 -u scouting/nyc/scout.py 2>&1 | tee scouting/nyc/out/scout.log || true
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add scouting/nyc/out
+          git commit -m "New York City scouting report" || echo "no changes"
+          git pull --rebase
+          git push
