@@ -989,6 +989,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .lbl-muni{font-size:13px;font-weight:500;font-style:italic;color:var(--muni-label)!important;text-shadow:none}
 .lbl-region{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muni-label)!important;text-shadow:none}
 .lbl-lake{font-size:24px;font-weight:600;font-style:italic;color:color-mix(in srgb,var(--water) 40%,#2F7FD8)!important;text-shadow:none;letter-spacing:.02em}
+.lbl-lake.river{font-size:15px}.lbl-lake .rot{display:inline-block;white-space:nowrap}
 /* Provincial/state and interstate shields wear the highway's own colours (yellow with its dark edge), so they
    can't be mistaken for the red streetcar route badges. City expressways stay green and toll roads blue. */
 .shield{display:grid;place-items:center;height:18px;min-width:26px;padding:0 4px;border-radius:5px;background:var(--shield);color:var(--shield-ink);
@@ -1814,7 +1815,8 @@ function buildBase(fc, regions){
   // A municipality marked minor (a small town in a dense region, such as New Jersey's boroughs) is named from zoom 12 only.
   fc.features.filter(f => f.properties.kind === 'neighbour').forEach(f => label(f.properties.name, 'lbl-muni' + (f.properties.minor ? ' minor' : ''), ll(f.properties.lp)).addTo(map));
   regions.features.forEach(f => label(f.properties.name, 'lbl-region', ll(f.geometry.coordinates)).addTo(map));
-  (CITY.water || []).forEach(w => label(w.name, 'lbl-lake ' + w.cls, w.at).addTo(map));
+  // A water label may turn to follow a river ("rotate", degrees clockwise) and be set smaller (cls "river").
+  (CITY.water || []).forEach(w => label(w.rotate ? '<span class="rot" style="transform:rotate(' + (+w.rotate) + 'deg)">' + esc(w.name) + '</span>' : w.name, 'lbl-lake ' + w.cls, w.at).addTo(map));
   map.on('click', tapMap);
 }
 
@@ -3694,7 +3696,7 @@ function schools(x, y){
     const f = D.features.find(f => f.properties.level === lv && contains(f.geometry, x, y)); if (!f) return '';
     const p = f.properties, at = p.x != null ? [p.x, p.y] : null;
     const name = p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.name) + '</a>' : esc(p.name);
-    return '<dt>' + esc(label) + '</dt><dd>' + name + '<span>' + esc(fill(at ? S.sub : S.subNoDist, {grades: p.grades, dist: at ? dist(metres([x, y], at)) : ''})) + '</span></dd>';
+    return '<dt>' + esc(label) + '</dt><dd>' + name + '<span>' + esc(fill(at ? S.sub : S.subNoDist, {grades: p.grades, dist: at ? dist(metres([x, y], at)) : ''})) + '</span>' + (p.note ? '<span>' + esc(p.note) + '</span>' : '') + '</dd>';
   }).join('');
   return rows ? '<div class="live reps"><dl>' + rows + '</dl><p>' + esc(fill(S.note, {year: D.year || ''})) + '</p></div>' : '';
 }
@@ -3864,7 +3866,7 @@ function cardOf(latlng, title, muniName){
     if (h) pills.push(['var(' + p.color + ')', fill(p.text, h.properties)]);
   });
   const facts = CITY.card.facts.filter(r => !r.onlyInside || hits[r.layer]).map(r => {
-    if (r.address) return addressRow(x, y);
+    if (r.address) return addressRow(x, y, hits);
     if (r.pickup) return pickupRow(x, y);
     if (r.heritageBuilding) return heritageRow(r, x, y, title);
     if (r.knownas) return [r.label, near.length ? near.map(a => a[0].properties.name).join(', ') : '—'];
@@ -3945,9 +3947,16 @@ function pickupRow(x, y){
    side of the dividing street the spot is on, with a nearby street that carries that side's E or W.
    [label, html, true] (html), or null when there's nothing to say. */
 const ADDR = byKind('addresses');
-function addressRow(x, y){
+function addressRow(x, y, hits){
   const A = CITY.card.address, D = ADDR && loaded[ADDR.file];
   if (!A || !D) return null;
+  // A dividing street that only holds in part of the city (card.address.within: New York's Fifth Avenue, Manhattan
+  // only): elsewhere the row gives that area's own text (within.elsewhere[name]) or nothing.
+  const W = A.within;
+  if (W){
+    const h = hits && hits[W.layer], nm = h ? h.properties.name : null;
+    if (nm !== W.name){ const t = nm && (W.elsewhere || {})[nm]; return t ? [A.label, esc(t), true] : null; }
+  }
   if (D.kind === 'grid'){
     // Piecewise-linear between the mile lines; past the last one, the last stretch's pace carries on.
     const at = (pts, v) => {
