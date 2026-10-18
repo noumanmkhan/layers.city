@@ -152,11 +152,12 @@ main.doc{padding-top:56px;gap:40px}
 
   <main class="wrap doc">
     <section class="hero">
-      <div class="coords">LAST UPDATED · OCTOBER 17, 2026</div>
+      <div class="coords">LAST UPDATED · OCTOBER 19, 2026</div>
       <h1>Attributions</h1>
       <p class="lede">Every map here is built from other people’s open data and open-source software. This page lists each source, what it’s used for, and the terms it’s used under.</p>
       <nav class="toc" aria-label="On this page">
         <a href="#toronto">Toronto</a>
+        <a href="#nyc">New York City</a>
         <a href="#chicago">Chicago</a>
         <a href="#vancouver">Vancouver</a>
         <a href="#dallas">Dallas</a>
@@ -272,6 +273,116 @@ main.doc{padding-top:56px;gap:40px}
           <span class="who">Ticketmaster</span>
           <p class="use">The Venues pages’ event listings: event name, date, time and kind for the coming two weeks at each listed venue, refreshed nightly from the Ticketmaster Discovery API. Each event links to its own page on Ticketmaster; nothing else from the feed is kept, and Layers.City sells nothing and carries no affiliate links. Event content belongs to the organizers and Ticketmaster and is removed on request.</p>
           <span class="lic">Used under the Ticketmaster API Terms of Use: <a href="https://developer.ticketmaster.com/support/terms-of-use/">developer.ticketmaster.com</a></span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="policy" id="nyc" aria-labelledby="nyc-h">
+      <h2 id="nyc-h">New York City Layers</h2>
+
+      <h3>City agencies (NYC Open Data)</h3>
+      <ul class="src">
+        <li>
+          <span class="who">NYC Department of City Planning</span>
+          <p class="use">Boroughs, community districts, neighborhood tabulation areas, City Council, State Assembly, State Senate, congressional and school districts, election districts, neighborhood names, and the Facilities Database (hospitals, colleges, libraries, schools and older adult centers).</p>
+          <span class="lic"><a href="https://opendata.cityofnewyork.us/overview/#termsofuse">NYC Open Data terms of use</a></span>
+        </li>
+        <li>
+          <span class="who">NYC Landmarks Preservation Commission</span>
+          <p class="use">Historic districts and individual landmarks.</p>
+          <span class="lic"><a href="https://opendata.cityofnewyork.us/overview/#termsofuse">NYC Open Data terms of use</a></span>
+        </li>
+        <li>
+          <span class="who">NYC Department of Parks and Recreation</span>
+          <p class="use">Park properties, playgrounds, spray showers, dog runs, athletic facilities, pools and skateparks.</p>
+          <span class="lic"><a href="https://opendata.cityofnewyork.us/overview/#termsofuse">NYC Open Data terms of use</a></span>
+        </li>
+        <li>
+          <span class="who">NYC Department of Education</span>
+          <p class="use">School zones for elementary, middle and high school (2024–25).</p>
+          <span class="lic"><a href="https://opendata.cityofnewyork.us/overview/#termsofuse">NYC Open Data terms of use</a></span>
+        </li>
+        <li>
+          <span class="who">NYC Department of Sanitation</span>
+          <p class="use">Trash, recycling and compost collection days by section.</p>
+          <span class="lic"><a href="https://opendata.cityofnewyork.us/overview/#termsofuse">NYC Open Data terms of use</a></span>
+        </li>
+        <li>
+          <span class="who">NYC Department of Transportation</span>
+          <p class="use">Bike routes, and the Staten Island Ferry schedule (GTFS).</p>
+          <span class="lic"><a href="https://opendata.cityofnewyork.us/overview/#termsofuse">NYC Open Data terms of use</a></span>
+        </li>
+        <li>
+          <span class="who">NYC Department of Buildings</span>
+          <p class="use">DOB NOW job filings for new buildings and demolitions (New development, without owner or applicant names).</p>
+          <span class="lic"><a href="https://opendata.cityofnewyork.us/overview/#termsofuse">NYC Open Data terms of use</a></span>
+        </li>
+        <li>
+          <span class="who">NYC Emergency Management</span>
+          <p class="use">Hurricane evacuation zones and evacuation centers.</p>
+          <span class="lic"><a href="https://opendata.cityofnewyork.us/overview/#termsofuse">NYC Open Data terms of use</a></span>
+        </li>
+        <li>
+          <span class="who">NYC Department of Small Business Services</span>
+          <p class="use">Business improvement districts.</p>
+          <span class="lic"><a href="https://opendata.cityofnewyork.us/overview/#termsofuse">NYC Open Data terms of use</a></span>
+        </li>
+      </ul>
+
+      <h3>Elections and representatives</h3>
+      <ul class="src">
+        <li>
+          <span class="who">Board of Elections in the City of New York</span>
+          <p class="use">Poll site lists for early voting and election day, and the November 3, 2026 contest list (candidates and Charter questions), from vote.nyc.</p>
+          <span class="lic">Public election notices</span>
+        </li>
+        <li>
+          <span class="who">New York State GIS Program Office</span>
+          <p class="use">Positions of the city’s poll sites.</p>
+          <span class="lic">Public information, <a href="https://gis.ny.gov/">gis.ny.gov</a></span>
+        </li>
+        <li>
+          <span class="who">New York City Council, Open States and the Clerk of the U.S. House</span>
+          <p class="use">Council members, state legislators and members of Congress, with links to their official pages.</p>
+          <span class="lic">Council pages, public information; Open States data <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>; House member data, public domain</span>
+        </li>
+      </ul>
+
+      <h3>Transit and streets</h3>
+      <ul class="src">
+        <li>
+          <span class="who">Metropolitan Transportation Authority (MTA)</span>
+          <p class="use">Subway, Staten Island Railway, bus, LIRR and Metro-North routes and stops, and the schedules behind the transit times to Penn Station (GTFS). Lines are drawn and coloured here; no MTA logos or route bullets are used.</p>
+          <span class="lic"><a href="https://new.mta.info/developers">MTA developer terms</a></span>
+        </li>
+        <li>
+          <span class="who">NYC Ferry</span>
+          <p class="use">Ferry routes and landings (GTFS).</p>
+          <span class="lic">Public schedule data</span>
+        </li>
+        <li>
+          <span class="who">Lyft (Citi Bike)</span>
+          <p class="use">Citi Bike stations.</p>
+          <span class="lic"><a href="https://citibikenyc.com/data-sharing-policy">Citi Bike data license</a></span>
+        </li>
+        <li>
+          <span class="who">OpenStreetMap contributors</span>
+          <p class="use">Main streets, highways, NJ Transit and PATH lines, places of worship, the Second Avenue Subway extension, and address search through Nominatim.</p>
+          <span class="lic"><a href="https://www.openstreetmap.org/copyright">ODbL</a></span>
+        </li>
+        <li>
+          <span class="who">Project OSRM</span>
+          <p class="use">Drive times to Penn Station from across the region, on OpenStreetMap roads.</p>
+          <span class="lic">OSRM demo server</span>
+        </li>
+      </ul>
+
+      <h3>Census and regional</h3>
+      <ul class="src">
+        <li>
+          <span class="who">U.S. Census Bureau</span>
+          <p class="use">Cartographic boundaries for the towns, counties and states around the city; water areas from TIGERweb; American Community Survey 2020–2024 tables by tract, summed to community districts.</p>
+          <span class="lic">Public domain (U.S. government work); <a href="https://www.census.gov/data/developers/about/terms-of-service.html">Census Bureau terms</a></span>
         </li>
       </ul>
     </section>

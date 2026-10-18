@@ -225,6 +225,14 @@ Since October 16 it has most of Toronto's features: landmarks, universities, Dal
 
 *Where to vote* works differently in Texas: Dallas, Tarrant and Collin counties run vote centers, so anyone registered in the county can vote at any of them. The card lists the three nearest early voting sites until early voting ends, then the three nearest election day vote centers, and marks them on the map, in Dallas and its suburbs. Denton County still assigns a polling place by precinct, so a Denton card names that place, as Toronto's does. Sources and quirks are in `cities/dallas/SOURCES.md`.
 
+## New York City
+
+**Live site:** https://layers.city/nyc/
+
+The fifth city (`cities/nyc/`), listed on the hub on October 19, 2026 beside Toronto. The City of New York inside a tri-state regional view (New York, New Jersey and Connecticut counties, mostly to show how far the commuter trains reach). The units are the 59 community districts, each with its community board; the City Planning department's 262 neighborhood tabulation areas are a second layer.
+
+It has Toronto's features: boroughs, known-as names, landmarks, skyscrapers from 650 ft, historic districts and individual landmarks, BIDs, the subway (by trunk line), LIRR, Metro-North, NJ Transit and PATH, ferries, highways and main streets, MTA buses with a Transit nearby section, bike lanes and Citi Bike, How addresses work (Fifth Avenue's East and West, Manhattan only), collection days, parks, sports, schools with the zoned elementary, middle and high school on the card, colleges, hospitals, libraries, older adult centers and places of worship, New development from DOB NOW, the community district lens from the American Community Survey, tree canopy, *To Penn Station* transit times (r5py on the MTA schedules) and the suburban drive lens, representatives with council members' parties, and where to vote on November 3 with the ballot. New York-only layers: hurricane evacuation zones (and the nearest evacuation center) and the Congestion Relief Zone. What's left is in `cities/nyc/PARKED.md`; sources in `cities/nyc/SOURCES.md`.
+
 ## How it's built
 
 - **One engine, one folder per city.** The map page is a shared engine (`engine/`) that knows how to draw kinds of layer: filled areas, official neighbourhoods, representation boundaries, business areas, streets, highways, regional rail and rapid transit. Everything about Toronto lives in `cities/toronto/`: `city.json` holds the layer list, labels, lenses and the rows of the "What's here" card, and `city.css` holds Toronto's colours. Adding a city means adding its data and config, not changing the engine.

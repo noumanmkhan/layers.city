@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Layers.City · Maps that explain how a city fits together</title>
-<meta name="description" content="Layers.City: interactive maps of Toronto, Chicago, Vancouver and Dallas that show every way each city is divided, plus high-resolution print maps. By Nouman Khan.">
+<meta name="description" content="Layers.City: interactive maps of Toronto, New York City, Chicago, Dallas and Vancouver that show every way each city is divided, plus high-resolution print maps. By Nouman Khan.">
 <link rel="canonical" href="https://layers.city/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://layers.city/">
 <meta property="og:site_name" content="Layers.City">
 <meta property="og:title" content="Layers.City">
-<meta property="og:description" content="Interactive maps of Toronto, Chicago, Vancouver and Dallas that show every way each city is divided, plus high-resolution print maps.">
+<meta property="og:description" content="Interactive maps of Toronto, New York City, Chicago, Dallas and Vancouver that show every way each city is divided, plus high-resolution print maps.">
 <meta property="og:image" content="https://layers.city/og-layers.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -76,6 +76,11 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,
 
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:24px}
 .cards.one{grid-template-columns:minmax(0,560px)}
+/* The maps: two lead cities side by side, the rest three to a row below */
+.cards.lead{grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr))}
+.cards.more{grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));margin-top:24px}
+.cards.lead .card.map h2{font-size:32px}.cards.lead .card.map h3{font-size:24px}
+.cards.more .card.map .body{padding:22px 24px 26px}.cards.more .card.map p{font-size:16px}
 .card{display:flex;flex-direction:column;gap:20px;background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:32px}
 .card-top{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .icon{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;background:var(--accent);flex:none}
@@ -173,7 +178,7 @@ footer a:hover{color:var(--ink)}
 
     <section class="group" aria-labelledby="interactive">
       <div class="label" id="interactive">INTERACTIVE</div>
-      <div class="cards">
+      <div class="cards lead">
         <div class="card map">
           <a class="card-link" href="/toronto/">
             <img class="thumb" src="/thumbs/toronto.svg" alt="Outline of the City of Toronto on a grid" width="800" height="600">
@@ -195,6 +200,24 @@ footer a:hover{color:var(--ink)}
         </div>
 
         <div class="card map">
+          <a class="card-link" href="/nyc/">
+            <img class="thumb" src="/thumbs/nyc.svg" alt="Outline of New York City’s five boroughs on a grid" width="800" height="600">
+            <div class="body">
+              <div>
+                <div class="host">layers.city/<wbr>nyc</div>
+                <h2>Layers<b>.City</b></h2>
+                <h3>New York City</h3>
+                <p>The five boroughs, 59 community districts, neighborhoods, council and state districts, the subway, commuter rail and ferries, hurricane evacuation zones and the congestion toll zone, and the names New Yorkers actually use, like DUMBO. Type in any address to see every boundary it falls in, who represents it and where to vote.</p>
+              </div>
+              <div class="go">Open the map
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="cards more">
+        <div class="card map">
           <a class="card-link" href="/chicago/">
             <img class="thumb" src="/thumbs/chicago.svg" alt="Outline of the City of Chicago on a grid" width="800" height="600">
             <div class="body">
@@ -210,24 +233,6 @@ footer a:hover{color:var(--ink)}
             </div>
           </a>
           <a class="guide" href="/chicago/community-areas/" aria-label="Guide to Chicago’s 77 community areas"><span class="tag">GUIDE</span><span class="t">77 community areas</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
-        </div>
-
-        <div class="card map">
-          <a class="card-link" href="/vancouver/">
-            <img class="thumb" src="/thumbs/vancouver.svg" alt="Outline of the City of Vancouver and the University Endowment Lands on a grid" width="800" height="600">
-            <div class="body">
-              <div>
-                <div class="host">layers.city/<wbr>vancouver</div>
-                <h2>Layers<b>.City</b></h2>
-                <h3>Vancouver</h3>
-                <p>Downtown and the East and West Sides, 22 local areas and the University Endowment Lands out at UBC, SkyTrain and every bus route, bikeways, heritage, BIAs and ridings, and the names locals use, like Gastown and Commercial Drive. Type in any address to see every boundary it falls in.</p>
-              </div>
-              <div class="go">Open the map
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-              </div>
-            </div>
-          </a>
-          <a class="guide" href="/vancouver/local-areas/" aria-label="Guide to Vancouver’s 22 local areas"><span class="tag">GUIDE</span><span class="t">22 local areas</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
         </div>
 
         <div class="card map">
@@ -247,6 +252,24 @@ footer a:hover{color:var(--ink)}
           </a>
           <a class="guide" href="/dallas/zip-codes/" aria-label="Guide to Dallas’s ZIP codes"><span class="tag">GUIDE</span><span class="t">ZIP codes</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
         </div>
+
+        <div class="card map">
+          <a class="card-link" href="/vancouver/">
+            <img class="thumb" src="/thumbs/vancouver.svg" alt="Outline of the City of Vancouver and the University Endowment Lands on a grid" width="800" height="600">
+            <div class="body">
+              <div>
+                <div class="host">layers.city/<wbr>vancouver</div>
+                <h2>Layers<b>.City</b></h2>
+                <h3>Vancouver</h3>
+                <p>Downtown and the East and West Sides, 22 local areas and the University Endowment Lands out at UBC, SkyTrain and every bus route, bikeways, heritage, BIAs and ridings, and the names locals use, like Gastown and Commercial Drive. Type in any address to see every boundary it falls in.</p>
+              </div>
+              <div class="go">Open the map
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </div>
+            </div>
+          </a>
+          <a class="guide" href="/vancouver/local-areas/" aria-label="Guide to Vancouver’s 22 local areas"><span class="tag">GUIDE</span><span class="t">22 local areas</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+        </div>
       </div>
       <div class="live">
         <div>
@@ -256,9 +279,9 @@ footer a:hover{color:var(--ink)}
         </div>
         <dl aria-label="What refreshes, and how often">
           <dt>DAILY</dt>
-          <dd><b>Road closures</b> for transit construction (the Ontario Line, Eglinton West, GO Expansion, Chicago’s Red Line Extension), from city permits, just after midnight.</dd>
+          <dd><b>Road closures</b> for transit construction (the Ontario Line, Eglinton West, GO Expansion, Chicago’s Red Line Extension), from city permits, just after midnight. <b>Where to vote</b> and what’s on the ballot in New York City and Dallas, each morning until November 3.</dd>
           <dt>WEEKLY</dt>
-          <dd><b>Bus and streetcar routes</b>, stops and how often they run, from TTC, GO, CTA, TransLink and DART schedules (Mondays). <b>Who represents you</b>: councillors, alderpersons, legislators, members of Congress and MPs (Mondays). <b>What’s changing</b>: new buildings, demolitions and development applications (Tuesdays).</dd>
+          <dd><b>Bus and streetcar routes</b>, stops and how often they run, from TTC, GO, MTA, CTA, TransLink and DART schedules (Mondays). <b>Who represents you</b>: councillors, council members, alderpersons, legislators, members of Congress and MPs (Mondays). <b>What’s changing</b>: new buildings, demolitions and development applications (Tuesdays).</dd>
           <dt>MONTHLY</dt>
           <dd><b>Skyscrapers</b>, including towers still going up; <b>transit lines under construction</b>; <b>heritage buildings</b>; and libraries, community centres, parks and places of worship.</dd>
           <dt>ELECTION NIGHT</dt>
