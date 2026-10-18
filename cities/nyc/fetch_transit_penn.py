@@ -12,7 +12,7 @@ fetch_transit_loop.py.
 """
 import csv, datetime as dt, io, json, os, statistics, subprocess, sys, time, urllib.request, zipfile
 
-sys.argv += ['--max-memory', '10G']   # r5py reads its JVM settings from the command line; 12G left too little for Python on a 16 GB runner
+sys.argv += ['--max-memory', '5G']   # r5py reads its JVM settings from the command line; a private repo's runner has 7 GB
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORK = os.path.join(HERE, 'tmp', 'transit'); os.makedirs(WORK, exist_ok=True)
 UA = {'User-Agent': 'city-layers-pipeline (github.com/noumanmkhan/city-layers)'}
@@ -57,19 +57,43 @@ def gtfs_ok(path):
 
 def tidied(path):
     """Rewrite a GTFS zip with every header and value stripped of surrounding spaces, leaving out
-    tables that have a header but no rows (R5 rejects those)."""
+    tables that have a header but no rows (R5 rejects those). Streams row by row, and keeps only trips
+    with a stop between 6:30 and 11:00 (the morning window, with room for long trips): the full bus
+    feeds don't fit in a 7 GB runner beside R5."""
     out = path.replace('.zip', '-clean.zip')
+    secs = lambda t: (lambda h, m, s: int(h) * 3600 + int(m) * 60 + int(s))(*t.split(':')) if t.count(':') == 2 else None
+    rd = lambda zi, n: csv.reader(io.TextIOWrapper(zi.open(n), encoding='utf-8-sig'))
     with zipfile.ZipFile(path) as zi, zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as zo:
+        keep = None
+        if 'stop_times.txt' in zi.namelist():
+            r = rd(zi, 'stop_times.txt'); h = [v.strip() for v in next(r)]
+            ti, di, ai = h.index('trip_id'), h.index('departure_time'), h.index('arrival_time')
+            keep = set()
+            for row in r:
+                if len(row) <= max(ti, di, ai): continue
+                t = secs(row[di].strip() or row[ai].strip())
+                if t is not None and 6.5 * 3600 <= t <= 11 * 3600: keep.add(row[ti].strip())
+            print('  ', os.path.basename(path), len(keep), 'trips in the morning window')
         for n in zi.namelist():
             if not n.endswith('.txt'):
                 zo.writestr(n, zi.read(n)); continue
-            rows = [[v.strip() for v in row] for row in csv.reader(io.TextIOWrapper(zi.open(n), encoding='utf-8-sig')) if any(v.strip() for v in row)]
-            if len(rows) < 2:
-                print('  leaving out empty', n, 'from', os.path.basename(path)); continue
-            buf = io.StringIO(); csv.writer(buf, lineterminator='\n').writerows(rows)
-            zo.writestr(n, buf.getvalue())
+            r = rd(zi, n)
+            try: h = [v.strip() for v in next(r)]
+            except StopIteration: continue
+            ti = h.index('trip_id') if keep is not None and n in ('stop_times.txt', 'trips.txt', 'frequencies.txt') and 'trip_id' in h else None
+            count = 0
+            tmp = os.path.join(WORK, 'table.tmp')
+            with open(tmp, 'w', encoding='utf-8', newline='') as w:
+                cw = csv.writer(w, lineterminator='\n'); cw.writerow(h)
+                for row in r:
+                    row = [v.strip() for v in row]
+                    if not any(row): continue
+                    if ti is not None and (len(row) <= ti or row[ti] not in keep): continue
+                    cw.writerow(row); count += 1
+            if count: zo.write(tmp, n)
+            else: print('  leaving out empty', n, 'from', os.path.basename(path))
+            os.remove(tmp)
     return out
-
 
 feeds, log = [], []
 for name, urls, needed in FEEDS:
