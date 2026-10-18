@@ -64,17 +64,28 @@ def network_query(s, w, n, e):
 out skel qt; >; out skel qt;"""
 
 
-def extras_query(s, w, n, e):
+def extras_query(s, w, n, e, relations=True):
     b = f'{s:.5f},{w:.5f},{n:.5f},{e:.5f}'
+    rel = f'relation["leisure"="park"]({b});' if relations else ''
     return f"""[out:json][timeout:300];
-(node["railway"="subway_entrance"]({b}); way["leisure"="park"]({b}); relation["leisure"="park"]({b}););
+(node["railway"="subway_entrance"]({b}); way["leisure"="park"]({b}); {rel});
 out geom qt;"""
 
 
-def fetch(q):
+def extras_light(s, w, n, e):
+    """The same without park relations: a very large one (a national recreation area drawn as one relation) can
+    make every server fail on its tile; that tile then has its parks' plain outlines only."""
+    return extras_query(s, w, n, e, relations=False)
+
+
+class Failed(Exception):
+    pass
+
+
+def fetch(q, tries=6):
     body = urllib.parse.urlencode({'data': q}).encode()
     last = None
-    for attempt in range(6):
+    for attempt in range(tries):
         url = SERVERS[attempt % len(SERVERS)]
         try:
             with urllib.request.urlopen(urllib.request.Request(url, data=body, headers=UA), timeout=360) as r:
@@ -85,14 +96,37 @@ def fetch(q):
             wait = 20 * (attempt + 1)
             print(f'    {host}: {err}; trying again in {wait} s', flush=True)
             time.sleep(wait)
-    sys.exit(f'Overpass kept failing ({last}). Run the same command again later: finished tiles are kept.')
+    raise Failed(str(last))
+
+
+def fetch_box(query, s, w, n, e, fallback=None, depth=0):
+    """One box's elements. If every server keeps failing on it, try the lighter query, then the box in quarters."""
+    try:
+        return fetch(query(s, w, n, e), tries=6 if depth == 0 else 4)
+    except Failed as err:
+        if fallback:
+            print('    trying the lighter query', flush=True)
+            try:
+                return fetch(fallback(s, w, n, e), tries=4)
+            except Failed:
+                pass
+        if depth >= 2:
+            sys.exit(f'Overpass kept failing ({err}). Run the same command again later: finished tiles are kept.')
+        print('    splitting the tile in four', flush=True)
+        my, mx = (s + n) / 2, (w + e) / 2
+        out = {}
+        for b in ((s, w, my, mx), (s, mx, my, e), (my, w, n, mx), (my, mx, n, e)):
+            for el in fetch_box(query, *b, fallback=fallback, depth=depth + 1):
+                out[(el['type'], el['id'])] = el
+            time.sleep(PAUSE_S)
+        return list(out.values())
 
 
 S, W, N, E = city_bbox()
 os.makedirs(TILES, exist_ok=True)
 dy, dx = (N - S) / TILES_Y, (E - W) / TILES_X
 print(f'{city}: walkable ways in {S:.3f},{W:.3f},{N:.3f},{E:.3f}, as {TILES_X * TILES_Y} tiles', flush=True)
-def tiles(prefix, query, label):
+def tiles(prefix, query, label, fallback=None):
     """Every tile's elements, fetching only the tiles not saved yet."""
     for r in range(TILES_Y):
         for c in range(TILES_X):
@@ -104,7 +138,7 @@ def tiles(prefix, query, label):
             else:
                 t = time.time()
                 print(f'{tag}: fetching ...', flush=True)
-                els = fetch(query(S + r * dy, W + c * dx, S + (r + 1) * dy, W + (c + 1) * dx))
+                els = fetch_box(query, S + r * dy, W + c * dx, S + (r + 1) * dy, W + (c + 1) * dx, fallback)
                 with open(name, 'w') as f:
                     json.dump(els, f, separators=(',', ':'))
                 print(f'    {len(els):,} elements in {time.time() - t:.0f} s', flush=True)
@@ -147,7 +181,7 @@ print(f'{city}: {len(nodes):,} nodes, {len(edges):,} links -> {os.path.relpath(O
 
 # ---- subway entrances and park outlines -----------------------------------------------------------
 entrances, parks = {}, {}
-for els in tiles('extras', extras_query, 'entrances and parks'):
+for els in tiles('extras', extras_query, 'entrances and parks', extras_light):
     for el in els:
         if el['type'] == 'node':
             entrances[el['id']] = [round(el['lon'], 6), round(el['lat'], 6)]

@@ -53,6 +53,15 @@ jobs:
           python-version: '3.12'
       - if: steps.have.outputs.ok
         run: pip install -q shapely
+      # Overpass tiles fetched this month are kept between runs, so a run that stopped partway carries on.
+      - if: steps.have.outputs.ok && env.FULL == 'true'
+        run: echo "MONTH=$(date -u +%Y-%m)" >> "$GITHUB_ENV"
+      - if: steps.have.outputs.ok && env.FULL == 'true'
+        uses: actions/cache@v4
+        with:
+          path: cities/*/raw/walk_tiles
+          key: walk-tiles-${{ env.MONTH }}-${{ github.run_id }}
+          restore-keys: walk-tiles-${{ env.MONTH }}-
       - name: Walking network and walk times (full runs)
         if: steps.have.outputs.ok && env.FULL == 'true'
         continue-on-error: true
