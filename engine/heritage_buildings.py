@@ -85,6 +85,16 @@ elif city == 'vancouver':
         if n in ('None', 'N/A') or n.lower() == a.lower() or not n[:1].isupper() or re.match(r'^\d[\d-]*\s', n): n = ''
         p = {'n': n, 'a': a, 't': ('Group ' + r['evaluationgroup']) if r.get('evaluationgroup') in ('A', 'B', 'C') else '', 'id': r.get('id')}
         feats.append({'type': 'Feature', 'properties': {k: v for k, v in p.items() if v}, 'geometry': {'type': 'Point', 'coordinates': [round(r['lon'], 6), round(r['lat'], 6)]}})
+elif city == 'nyc':
+    # Landmarks Preservation Commission individual landmark sites: interior and scenic landmarks are left out
+    # (a building's interior is inside an individual landmark, scenic ones are parks). The parcels come in State
+    # Plane feet, so each point is the record's own latitude and longitude.
+    for r in R['rows']:
+        if (r.get('landmarkty') or '') != 'Individual' or not r.get('latitude'): continue
+        if (r.get('lpc_sitest') or 'Designated') != 'Designated': continue
+        p = {'n': (r.get('lpc_name') or '').strip(), 'a': tcase(r.get('address') or ''), 'd': year(r.get('desdate')), 'id': r.get('lpc_lpnumb')}
+        feats.append({'type': 'Feature', 'properties': {k: v for k, v in p.items() if v},
+                      'geometry': {'type': 'Point', 'coordinates': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)]}})
 else:
     F = {k.lower(): k for k in R['fields']}
     g = lambda r, *names: next((r.get(F.get(n, n)) for n in names if r.get(F.get(n, n)) not in (None, '', 'None')), '')

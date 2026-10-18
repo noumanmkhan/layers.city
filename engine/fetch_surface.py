@@ -2,7 +2,8 @@
 GTFS into cities/<city>/raw/surface/ (routes.json, stops.json). Run from GitHub Actions (the
 *Fetch streetcar and bus routes* workflow); the sandbox can't reach the agencies' servers.
 
-Where the GTFS comes from is in cities/<city>/surface.json ("gtfs": a CKAN package or a zip URL).
+Where the GTFS comes from is in cities/<city>/surface.json ("gtfs": a CKAN package, a zip URL, or "urls": several zips
+from one agency, merged into one feed, as New York's MTA publishes its buses one borough per file).
 Nothing is decided here about what the map shows: the build (engine/surface.py) picks families
 (frequent, express, overnight) from the counts written here.
 
@@ -70,14 +71,59 @@ src = CFG['gtfs']
 if 'ckan' in src:
     pkg = json.load(urllib.request.urlopen(urllib.request.Request(src['ckan'], headers=UA), timeout=120))['result']
     urls = [r['url'] for r in pkg['resources'] if (r.get('format') or '').lower() == 'zip' or (r.get('url') or '').lower().endswith('.zip')]
+elif 'urls' in src:
+    urls = None
 else:
     urls = [src['url']]
-feed_url = next((u for u in urls if download(u, ZIP) and ok(ZIP)), None)
+
+
+def merge(parts, out):
+    """Several GTFS zips from one agency (New York's MTA buses come one borough per file) as one feed: each table's
+    columns are the union of the parts'; the small tables (routes, stops, calendars) drop repeated rows."""
+    SMALL = {'agency.txt', 'routes.txt', 'stops.txt', 'calendar.txt', 'calendar_dates.txt', 'feed_info.txt'}
+    zs = [zipfile.ZipFile(p) for p in parts]
+    names = sorted({n for z_ in zs for n in z_.namelist() if n.endswith('.txt')})
+    with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as zo:
+        for n in names:
+            heads = []
+            for z_ in zs:
+                if n in z_.namelist():
+                    with z_.open(n) as f:
+                        for h in next(csv.reader(io.TextIOWrapper(f, encoding='utf-8-sig'))):
+                            if h.strip() not in heads: heads.append(h.strip())
+            seen = set()
+            with zo.open(n, 'w') as fo:
+                w = csv.writer(io.TextIOWrapper(fo, encoding='utf-8', newline=''))
+                w.writerow(heads)
+                for z_ in zs:
+                    if n not in z_.namelist(): continue
+                    with z_.open(n) as f:
+                        r = csv.reader(io.TextIOWrapper(f, encoding='utf-8-sig'))
+                        hd = [h.strip() for h in next(r)]
+                        for row in r:
+                            d = dict(zip(hd, row)); line = tuple(d.get(h, '') for h in heads)
+                            if n in SMALL:
+                                if line in seen: continue
+                                seen.add(line)
+                            w.writerow(line)
+    print('  merged', len(parts), 'feeds into one:', names)
+
+
+if urls is None:
+    parts = []
+    for i, u in enumerate(src['urls']):
+        p = os.path.join(WORK, 'part%d.zip' % i)
+        if not (download(u, p) and ok(p)): raise SystemExit('No GTFS at ' + u)
+        parts.append(p)
+    merge(parts, ZIP)
+    feed_url = ' + '.join(src['urls'])
+else:
+    feed_url = next((u for u in urls if download(u, ZIP) and ok(ZIP)), None)
 if not feed_url: raise SystemExit('No GTFS found')
 
 # The job runs weekly; agencies publish a new feed every few weeks. Same feed as last time: nothing to do,
 # so the repo only changes when the schedule does.
-SHA = hashlib.sha256(open(ZIP, 'rb').read()).hexdigest()[:16]
+SHA = hashlib.sha256(b''.join(open(p, 'rb').read() for p in (parts if urls is None else [ZIP]))).hexdigest()[:16]   # merged feeds: the parts' bytes
 try:
     if json.load(open(os.path.join(OUT, 'routes.json'))).get('sha') == SHA:
         print('feed unchanged (sha', SHA + '); keeping the files from last time'); sys.exit(0)
