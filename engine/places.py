@@ -345,6 +345,10 @@ for c in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
     for n in sorted(os.listdir(base)):
         if os.path.exists(os.path.join(base, n, 'og.png')) and os.path.exists(os.path.join(base, n, 'index.html')): urls.append(f'{SITE}/{c}/{n}/')
     if os.path.exists(os.path.join(base, 'profiles', 'index.html')): urls.append(f'{SITE}/{c}/profiles/')
+    vd = os.path.join(base, 'venues')                   # engine/venues.py: the list, then a page per venue
+    if os.path.exists(os.path.join(vd, 'index.html')):
+        urls.append(f'{SITE}/{c}/venues/')
+        urls += [f'{SITE}/{c}/venues/{n}/' for n in sorted(os.listdir(vd)) if os.path.exists(os.path.join(vd, n, 'index.html'))]
 urls += [f'{SITE}/about/', f'{SITE}/privacy/', f'{SITE}/attributions/', f'{SITE}/terms/']
 open(os.path.join(DOCS, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     ''.join(f'  <url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n')
