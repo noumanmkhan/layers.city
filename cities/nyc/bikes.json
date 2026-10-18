@@ -1,5 +1,5 @@
 {
- "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): NYC DOT's New York City Bike Routes (mzxg-pwib), current segments. Each segment's facility type (ft_facilit, the from-to direction; tf_facilit the other way) puts it in a class; types not listed are left out and printed by the build.",
+ "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): NYC DOT's New York City Bike Routes (mzxg-pwib), current segments. Each segment's facility type (ft_facilit, the from-to direction, or tf_facilit on a segment marked only the other way) puts it in a class. Sidewalk and Wide Parking Lane are left out: not bike lanes; types not listed are left out and printed by the build.",
  "source": {
   "type": "socrata_geojson",
   "url": "https://data.cityofnewyork.us/resource/mzxg-pwib.geojson?$limit=50000&status=Current",
@@ -15,7 +15,10 @@
   "instdate",
   "boro"
  ],
- "typeField": "ft_facilit",
+ "typeField": [
+  "ft_facilit",
+  "tf_facilit"
+ ],
  "name": "street",
  "from": "fromstreet",
  "to": "tostreet",
@@ -23,42 +26,35 @@
  "year": "instdate",
  "classes": {
   "prot": [
-   "Protected Path",
-   "Protected Bike Lane"
+   "Protected",
+   "Boardwalk"
   ],
   "paint": [
-   "Standard",
-   "Buffered",
-   "Buffered Conventional",
    "Conventional",
+   "Conventional Buffered",
    "Curbside",
-   "Bike Lane",
-   "Bike-Friendly Parking"
+   "Curbside Buffered"
   ],
   "shared": [
-   "Sharrows",
-   "Sharrows/Standard",
+   "Shared",
    "Signed Route",
-   "Link",
-   "Ped Plaza",
-   "Shared Lane"
+   "Link"
   ],
   "trail": [
-   "Greenway",
-   "Dirt Trail",
-   "Boardwalk",
-   "Path"
+   "Unpaved"
   ]
  },
  "labels": {
-  "Protected Path": "Protected bike lane",
-  "Standard": "Painted bike lane",
-  "Buffered": "Buffered bike lane",
+  "Protected": "Protected bike lane or greenway",
+  "Boardwalk": "Boardwalk",
+  "Conventional": "Painted bike lane",
+  "Conventional Buffered": "Buffered bike lane",
   "Curbside": "Curbside bike lane",
-  "Sharrows": "Shared lane (sharrows)",
+  "Curbside Buffered": "Buffered curbside bike lane",
+  "Shared": "Shared lane (sharrows)",
   "Signed Route": "Signed bike route",
-  "Greenway": "Greenway",
-  "Dirt Trail": "Dirt trail",
-  "Boardwalk": "Boardwalk"
- }
+  "Link": "Connector",
+  "Unpaved": "Unpaved trail"
+ },
+ "merge": true
 }
