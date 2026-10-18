@@ -48,6 +48,7 @@ Toronto's geography is described in several overlapping ways at once. A single a
 | Permit parking areas | 97 areas | On-street permit areas; the card and a<br>lens give each neighbourhood's share |
 | EV chargers | 582 public sites | DC fast and Level 2, by ports;<br>network, hours, price where listed |
 | Parks | 1,629 parks | City park outlines shaded green; playground,<br>water play, washroom, off-leash chips |
+| Sports & rec | 592 places | Pools, rinks, ball diamonds, fields, tennis,<br>pickleball, basketball, skateparks, cricket |
 | GO Transit trains | 7 lines<br>+ UP Express | ~70 stations, Metrolinx<br>line colours |
 | GO buses | 37 routes | Whole network in the GTA view;<br>in Toronto, the 21 that stop there |
 | Transit under construction | 4 lines | Ontario Line, Line 2 East and<br>Eglinton West extensions,<br>Hazel McCallion Line (GTA view) |

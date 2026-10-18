@@ -2,8 +2,8 @@ name: Fetch Toronto nearby places
 # Downloads Toronto's parks and recreation facilities, park outlines (Green Spaces) and library branches
 # (Toronto Open Data), plus splash pads and wading pools (OpenStreetMap), into
 # cities/toronto/raw/nearby/ for the card's Nearby section and the Parks layer. Runs when the fetch script changes on
-# main, monthly (the parks file is refreshed monthly), or by hand. Then it rebuilds the Parks layer's file
-# (docs/toronto/data/parks.geojson), which deploy.yml publishes.
+# main, monthly (the parks file is refreshed monthly), or by hand. Then it rebuilds the Parks and Sports & rec layers'
+# files (docs/toronto/data/parks.geojson, sports.geojson), which deploy.yml publishes.
 on:
   workflow_dispatch:
   schedule:
@@ -24,11 +24,11 @@ jobs:
         with:
           python-version: '3.12'
       - run: mkdir -p cities/toronto/raw/nearby && python3 -u cities/toronto/fetch_nearby.py 2>&1 | tee cities/toronto/raw/nearby/fetch.log
-      - run: pip install shapely && python3 cities/toronto/parks.py
+      - run: pip install shapely && python3 cities/toronto/parks.py && python3 cities/toronto/sports.py
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/toronto/raw/nearby docs/toronto/data/parks.geojson
+          git add cities/toronto/raw/nearby docs/toronto/data/parks.geojson docs/toronto/data/sports.geojson
           git commit -m "Fetch Toronto parks, recreation and library locations" || echo "no changes"
           git pull --rebase
           git push

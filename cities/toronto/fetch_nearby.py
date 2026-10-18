@@ -102,8 +102,7 @@ else:
 # say, a tennis court; "Registered Programs and Drop In Courses Offering" (Parks, Forestry & Recreation, refreshed
 # weekly) has a Facilities tab with one row per facility (each pool tank, ice pad, field and court, with its type)
 # and a Locations tab whose Location ID is the parks list's LOCATIONID. Its Locations have no positions, so
-# sports.py places them through the parks list (or their parent location). "Indoor Ice Rinks" adds the arenas'
-# pad sizes. Trimmed to what the layer reads.
+# sports.py places them through the parks list (or their parent location). Trimmed to what the layer reads.
 def resource_json(package, name):
     url, refreshed = resource(package, lambda r: r['name'] == name)
     return json.loads(get(url)), refreshed
@@ -121,11 +120,3 @@ for r in fac: ft[r.get('FacilityType')] = ft.get(r.get('FacilityType'), 0) + 1
 print('recreation facilities:', len(fac), 'facilities at', len(locs), 'locations, refreshed', refreshed)
 print('  types:', sorted(ft.items(), key=lambda kv: -kv[1]))
 
-try:
-    url, refreshed = resource('indoor-ice-rinks', lambda r: r['name'].lower().endswith('4326.geojson'))
-    open(os.path.join(OUT, 'indoor_rinks.geojson'), 'wb').write(get(url))
-    rk = json.load(open(os.path.join(OUT, 'indoor_rinks.geojson')))
-    print('indoor ice rinks:', len(rk['features']), 'pads, refreshed', refreshed)
-    print('  fields:', sorted(rk['features'][0]['properties']) if rk['features'] else [])
-except SystemExit as e:
-    print('indoor ice rinks: not fetched,', e)

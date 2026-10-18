@@ -73,7 +73,13 @@
        "waterText": {"splash": "Splash pad", "wading": "Wading pool", "both": "Splash pad and wading pool"},
        "hasLabel": "Has", "seasonText": "Splash pads and wading pools run in summer only.",
        "linkUrl": "https://www.toronto.ca/explore-enjoy/parks-recreation/places-spaces/parks-and-recreation-facilities/location/?id={u}", "linkText": "Park page on toronto.ca",
-       "fine": "Outlines from the City’s Green Spaces. Amenities from the City’s parks list as of {parks}; splash pads and wading pools from OpenStreetMap, which may miss a few."}
+       "fine": "Outlines from the City’s Green Spaces. Amenities from the City’s parks list as of {parks}; splash pads and wading pools from OpenStreetMap, which may miss a few."},
+      {"id": "sports", "kind": "places", "file": "sports", "icon": "tennis", "minZoom": 12, "narrow": true, "search": false, "hover": "{name}",
+       "cats": [["pool", "Pools", "Pool"], ["rink", "Rinks", "Rink"], ["diamond", "Ball diamonds", "Ball diamond"], ["field", "Sports fields", "Sports field"], ["tennis", "Tennis", "Tennis courts"], ["pickleball", "Pickleball", "Pickleball courts"], ["basketball", "Basketball", "Basketball court"], ["skatepark", "Skateparks", "Skatepark"], ["cricket", "Cricket", "Cricket pitch"]],
+       "name": "Sports & rec", "place": "Sports and recreation", "note": "City pools, rinks, fields and courts; pick a sport below. From zoom 12",
+       "catNote": "Pick one or more; none picked shows them all. Outdoor pools open in summer and outdoor rinks in winter. Tap a pin for what’s there.",
+       "popup": {"rows": [["has", "Has"], ["addr", "Address"]], "linkText": "Page on toronto.ca",
+                 "fine": "From the City’s recreation facilities list as of {asof}; pickleball from its parks list. May miss a few."}}
     ]],
     ["Getting around", [
       {"id": "subway", "kind": "metro", "files": ["subway_lines", "subway_stations"], "name": "Subway & LRT", "note": "Lines 1, 2, 4, 5 and 6", "on": true,

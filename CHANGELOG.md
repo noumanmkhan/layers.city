@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Sports & rec in Toronto (October 18)
+- *Sports & rec* in Outdoors: 592 City parks and community centres with pools, rinks, ball diamonds, sports fields,
+  tennis, pickleball, basketball, skateparks or cricket, from the City's recreation facilities list (one row per
+  pool tank, ice pad, field and court). A chip per sport; none picked shows them all, picking narrows to places
+  with any of them. From zoom 12; a tap lists what's there ("3 ball diamonds, 8 tennis courts…"), the address and
+  the City's page. Pickleball comes from the parks list, which has no counts.
+- Data: `fetch_nearby.py` also downloads the Facilities and Locations tabs (monthly, with the parks list);
+  `sports.py` builds `sports.geojson`. Engine: a `places` feature may list several categories (`cats`), its pin
+  taking the first picked one; layer options `narrow` (chips start unpicked) and `search: false`. Credited on the
+  Attributions page (the map's credit line already names City of Toronto Open Data).
+
 ### Fact sheets: border addresses keep their neighbourhood (October 18)
 - The pin is rounded to about 100 m before it is shown or shared, but the neighbourhood used to be looked up from
   the rounded spot, so a building on a border street could land in the neighbourhood across the road (an address
