@@ -89,6 +89,8 @@ def nice(s):
 
 
 def main():
+    # Hand positions for sites the State's points miss: {"<county>|<the Board's address>": {"xy": [lon, lat], "a": the
+    # building's correct address, when the Board's list has it wrong}}, from the State's address geocoder.
     hand = json.load(open(os.path.join(V, 'places.json'))) if os.path.exists(os.path.join(V, 'places.json')) else {}
     ed, ev = lists('Election_Day'), lists('Early_Voting')
     P = {'ed': points('nys_ed.json'), 'ev': points('nys_ev.json')}
@@ -99,7 +101,7 @@ def main():
         boro, name, addr = row
         hit = P[kind].get((boro, key(addr))) or P['ed' if kind == 'ev' else 'ev'].get((boro, key(addr))) or (lambda h: h if h and same_site(name, h[0]) else None)(fuzzy(boro, addr))
         h = hand.get(boro + '|' + addr)
-        if h: return nice(name) if not hit else hit[0], nice(addr), h
+        if h: return nice(name) if not hit else hit[0], h.get('a') or nice(addr), h['xy']
         if not hit:
             miss[(kind, boro, name, addr)] += 1
             return nice(name), nice(addr), None
