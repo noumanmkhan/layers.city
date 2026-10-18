@@ -100,22 +100,33 @@ ev_where = ("street_closure_type in('Full Street Closure','Sidewalk and Street C
             f"AND end_date_time >= '{now_l:%Y-%m-%dT00:00:00}' AND start_date_time <= '{now_l + timedelta(days=15):%Y-%m-%dT23:59:59}'")
 evs = json.load(urllib.request.urlopen(urllib.request.Request(EV_API + '?' + urllib.parse.urlencode({'$where': ev_where, '$limit': 5000}),
                                                              headers={'User-Agent': 'city-layers-pipeline (layers.city)'}), timeout=180))
+def core(n):
+    """The bare name the centerline keeps in street_name: no direction or type ("W 51 ST" -> "51", "AVE N" -> "N")."""
+    w = n.split()
+    if len(w) > 1 and w[0] in DIRS.values(): w = w[1:]
+    if len(w) > 1 and w[-1] in DIRS.values(): w = w[:-1]
+    if len(w) > 1 and w[-1] in TYPES.values(): w = w[:-1]
+    if len(w) > 1 and w[0] == 'AVE': w = w[1:]
+    return ' '.join(w)
+
+
 want = {}
 for e in evs:
     b = BORO.get(e.get('event_borough'))
     for on, a, z in chunks(e.get('event_location')):
-        for n in (on, a, z): want.setdefault(b, set()).add(norm(n))
-lines = {}   # (boro, name) -> [LineString]
+        for n in (on, a, z): want.setdefault(b, set()).add(core(norm(n)))
+lines = {}   # (boro, normalised full name) -> [LineString]
 for b, names in want.items():
     names = sorted(n for n in names if n)
-    for i in range(0, len(names), 60):
-        q = "boroughcode='%s' AND full_street_name in(%s)" % (b, ','.join("'" + n.replace("'", "''") + "'" for n in names[i:i + 60]))
+    for i in range(0, len(names), 50):
+        q = "boroughcode='%s' AND street_name in(%s)" % (b, ','.join("'" + n.replace("'", "''") + "'" for n in names[i:i + 50]))
         got = json.load(urllib.request.urlopen(urllib.request.Request(CL_API + '?' + urllib.parse.urlencode({'$select': 'full_street_name,the_geom', '$where': q, '$limit': 50000}),
                                                                       headers={'User-Agent': 'city-layers-pipeline (layers.city)'}), timeout=300))
         for r in got:
             g = r.get('the_geom') or {}
             for part in (g.get('coordinates') or []) if g.get('type') == 'MultiLineString' else [g.get('coordinates')] if g.get('type') == 'LineString' else []:
-                if part and len(part) > 1: lines.setdefault((b, r['full_street_name']), []).append(LineString(part))
+                if part and len(part) > 1: lines.setdefault((b, norm(r.get('full_street_name'))), []).append(LineString(part))
+print('centerline:', sum(len(v) for v in lines.values()), 'segments on', len(lines), 'streets; sample names', sorted(k[1] for k in lines)[:12])
 
 
 def meet(b, s1, s2):
@@ -158,7 +169,7 @@ for e in evs:
         ev_permits.append({'id': '%s-%d' % (e.get('event_id'), len(seen)), 'street': street(on),
                            'extent': '%s to %s' % (street(a), street(z)), 'kind': kind, 'both': True,
                            'start': (e.get('start_date_time') or '')[:16], 'end': (e.get('end_date_time') or '')[:16],
-                           'who': name, 'desc': 'Closed for the %s (%s).' % (name, e.get('event_type') or 'street event'), 'coords': coords})
+                           'who': name, 'desc': 'Street closed for the %s: %s.' % (name, (e.get('event_type') or 'street event').lower()), 'coords': coords})
 json.dump({'fetched': str(today), 'source': EV_API, 'permits': ev_permits}, open(os.path.join(OUT, 'events.json'), 'w'), indent=0)
 print('nyc events:', len(evs), 'permits ->', len(ev_permits), 'closures placed;', len(misses), 'chunks not placed')
 for m in misses[:40]: print('   not placed:', m)
