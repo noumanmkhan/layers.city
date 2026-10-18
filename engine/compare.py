@@ -2,6 +2,8 @@
 
 Usage: python3 engine/compare.py            writes docs/compare/data.json for every city with a profiles file
 
+The Neighbourhoods mode reads each city's profiles file directly in the browser; this script only tells it where.
+
 Reads only published files: each city's docs/<city>/data/<units>_profiles.json (the "Living here" figures the
 card and the fact sheets use, plus each unit's population `pop` and households `hh`) and
 docs/<city>/data/city.json (labels, hub, source lines). Nothing else changes.
@@ -122,6 +124,10 @@ def city(cid, pfile, hub, currency):
                   'pop': sum(r.get('pop') or 0 for r in rows), 'hh': sum(r.get('hh') or 0 for r in rows),
                   'hubN': sum(1 for r in rows if r.get(hub) is not None)},
         'currency': currency, 'source': source,
+        # For the Neighbourhoods mode: the page loads this file when a column picks the city, reads the hub's
+        # minutes from `hubKey`, and links each unit to the map with #focus=<unitsLayer>:<name>.
+        'profiles': f'/{cid}/data/{pfile}.json', 'hubKey': hub,
+        'unitsLayer': next(it['id'] for _, items in cfg['groups'] for it in items if it['kind'] == 'units'),
         'hubLabel': living.get('hub', ''),
         'labels': {'homes': [t[1] for t in living['homes']['types']], 'built': living['built']['bands'], 'ages': living['ages']['bands']},
         'leading': leading, 'recentDefinition': recent_def,

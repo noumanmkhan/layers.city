@@ -72,7 +72,7 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,
 .lede{margin:0;font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--ink-2)}
 .tag{align-self:flex-start;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:5px 12px}
 
-/* Pickers: one per column, same grid as the rows below so the columns line up */
+/* Pickers: one per column, same grid as the rows below so the columns line up (legacy rules below are unused) */
 .pick{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;max-width:860px}
 .pick label{display:flex;flex-direction:column;gap:8px}
 .pick .who{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.12em;display:flex;align-items:center;gap:8px}
@@ -146,6 +146,45 @@ footer a:hover{color:var(--ink)}
   .bars{gap:5px 8px}
 }
 @media (max-width:520px){.pill .full{display:none}.pill .short{display:inline}main{padding-top:32px;gap:24px}}
+
+/* Modes, pickers and N columns (2, or 3 on wider screens) */
+:root{--c:#2F6F73;--c-soft:rgba(47,111,115,.14)}
+.modes{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.seg{display:inline-flex;border:1.5px solid var(--rule);border-radius:999px;background:var(--card);padding:3px}
+.seg button{appearance:none;border:0;background:transparent;color:var(--ink-3);font:inherit;font-weight:500;font-size:14px;min-height:38px;padding:0 16px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:#fff}
+.seg.big button{font-size:15px;min-height:42px;padding:0 20px}
+.picks{display:grid;gap:14px;max-width:1000px;align-items:start}
+.col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.col .who{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.12em;min-height:24px}
+.col .who span{display:flex;align-items:center;gap:8px}
+.col .who span::before{content:"";width:12px;height:12px;border-radius:3px;background:currentColor}
+.col.k0 .who{color:var(--a)} .col.k1 .who{color:var(--b)} .col.k2 .who{color:var(--c)}
+.col .x{appearance:none;border:0;background:none;color:var(--ink-3);font:inherit;font-size:12px;cursor:pointer;padding:4px;text-decoration:underline}
+select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48px}
+.add{appearance:none;min-height:56px;border:1.5px dashed var(--rule);border-radius:14px;background:transparent;color:var(--ink-3);font:inherit;font-weight:500;font-size:15px;cursor:pointer;margin-top:32px}
+.add:hover{border-color:var(--ink);color:var(--ink)}
+.rows,.view,.foot{max-width:1000px}
+.cols{display:grid;gap:24px}
+.cell .head{display:flex;flex-direction:column;gap:1px}
+.cell .head b{font-weight:500;color:var(--ink);font-size:14px;line-height:1.3}
+.cell .head span{font-size:12px;color:var(--ink-3)}
+.cell.k2 .big{color:var(--c)}
+.cell.k2 .bars .bar i{background:var(--c)}
+.cell.k2 .stack i:nth-child(1){background:var(--c)}
+.cell.k2 .stack i:nth-child(2){background:rgba(47,111,115,.55)}
+.cell.k2 .stack i:nth-child(3){background:rgba(47,111,115,.25)}
+.cell .maplink{font-size:14px;font-weight:500;color:var(--accent);text-decoration:underline;text-underline-offset:3px;margin-top:4px}
+/* Where a neighbourhood sits among its own city's: a track from the city's lowest to highest, with a dot */
+.where{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.track{position:relative;height:6px;border-radius:999px;background:var(--rule)}
+.track i{position:absolute;top:50%;width:14px;height:14px;border-radius:50%;transform:translate(-50%,-50%);background:var(--b);border:2.5px solid var(--card);box-shadow:0 0 0 1px var(--rule)}
+.cell.a .track i{background:var(--a)} .cell.k2 .track i{background:var(--c)}
+.where small{font-size:12px;line-height:1.35;color:var(--ink-3)}
+.lede b{font-weight:500;color:var(--ink)}
+.view[hidden]{display:none}
+@media (max-width:759px){.add,.col.k2{display:none}}
+@media (max-width:600px){.cols{gap:14px}select.unit{font-size:15px;min-height:46px}.seg button{padding:0 12px;font-size:13px}.seg.big button{padding:0 14px;font-size:14px}}
 </style>
 <script src="/stats.js" defer></script>
 </head>
@@ -169,19 +208,20 @@ footer a:hover{color:var(--ink)}
     <section class="hero">
       <div class="coords">COMPARE</div>
       <span class="tag">PREVIEW</span>
-      <h1>Two cities, side by side</h1>
-      <p class="lede">Pick two cities and see how housing, commuting, home types and languages at home line up, from the same census figures behind each map’s “Living here” card.</p>
+      <h1>Side by side</h1>
+      <p class="lede" id="lede"></p>
     </section>
 
-    <section class="pick" aria-label="Choose cities">
-      <label><span class="who">CITY A</span><select id="a" aria-label="City A"></select></label>
-      <button class="swap" id="swap" type="button" aria-label="Swap the two cities" title="Swap">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16V4m0 0L3 8m4-4 4 4"/><path d="M17 8v12m0 0 4-4m-4 4-4-4"/></svg>
-      </button>
-      <label><span class="who">CITY B</span><select id="b" aria-label="City B"></select></label>
+    <section class="modes" aria-label="What to compare">
+      <div class="seg big" role="group" aria-label="Compare">
+        <button type="button" id="m-city" aria-pressed="true">Cities</button>
+        <button type="button" id="m-nbhd" aria-pressed="false">Neighbourhoods</button>
+      </div>
     </section>
 
-    <section class="view" aria-label="How to count">
+    <section class="picks" id="picks" aria-label="Choose what to compare"></section>
+
+    <section class="view" id="view" aria-label="How to count">
       <div class="seg" role="group" aria-label="Count by">
         <button type="button" id="v-city" aria-pressed="true">Whole city</button>
         <button type="button" id="v-typical" aria-pressed="false">Typical neighbourhood</button>
@@ -210,83 +250,72 @@ footer a:hover{color:var(--ink)}
 <script>
 (async function(){
   const data = await (await fetch('/compare/data.json', {cache:'no-cache'})).json();
-  const cities = data.cities;
-  const byId = Object.fromEntries(cities.map(c => [c.id, c]));
-  const selA = document.getElementById('a'), selB = document.getElementById('b');
-  for (const s of [selA, selB]) for (const c of cities) s.add(new Option(c.name, c.id));
-
-  const q = new URLSearchParams(location.search);
-  selA.value = byId[q.get('a')] ? q.get('a') : 'toronto';
-  selB.value = byId[q.get('b')] && q.get('b') !== selA.value ? q.get('b') : (selA.value === 'nyc' ? 'toronto' : 'nyc');
-
-  let view = q.get('view') === 'typical' ? 'typical' : 'city';
-  const V = c => c.views[view];
-  const NOTES = {
-    city: 'Each neighbourhood counts by its people and households, so these are the city’s own figures: the share of all residents, or the neighbourhood figure of the median household.',
-    typical: 'Each neighbourhood counts once, whatever its size. This is what the typical neighbourhood looks like, which flattens a city of big districts more than one of small ones.'
-  };
+  const cities = data.cities, byId = Object.fromEntries(cities.map(c => [c.id, c]));
+  const esc = s => String(s).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
   const fmt = new Intl.NumberFormat('en-CA');
   const money = (n, cur) => n == null ? null :
     (n >= 1000000 ? '$' + (n/1000000).toFixed(n % 1000000 ? 2 : 0).replace(/0$/, '') + 'M' : n >= 10000 ? '$' + Math.round(n/1000) + 'k' : '$' + fmt.format(n)) + ' ' + cur;
-  const esc = s => String(s).replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
-  const na = 'Not available yet';
+  const NA = '<div class="na">Not available yet</div>';
+  const LETTER = ['A', 'B', 'C'];
+  const DEFAULT_UNIT = {toronto:'Rosedale-Moore Park', nyc:"Chelsea & Hell's Kitchen", chicago:'Lincoln Park', vancouver:'Kitsilano', dallas:'ZIP 75206'};
+  const wide = matchMedia('(min-width:760px)');
 
-  // Each row: a label, an optional note, and a function that renders one city's cell.
-  const rows = [
-    {label:'AT A GLANCE', cell: c => `
-      <div class="big">${c.units.n}<small>${esc(c.units.plural.toUpperCase())}</small></div>
-      <div class="sub"><b>${fmt.format(c.units.pop)}</b> people, <b>${fmt.format(c.units.hh)}</b> households · ${esc(c.source)}</div>`},
+  // ---- State, from the URL: ?mode=nbhd&a=toronto:98&b=nyc:104&c=chicago:7&view=typical
+  const q = new URLSearchParams(location.search);
+  let mode = q.get('mode') === 'nbhd' ? 'nbhd' : 'city';
+  let view = q.get('view') === 'typical' ? 'typical' : 'city';
+  let cols = ['a', 'b', 'c'].map(k => q.get(k)).filter(Boolean).map(v => { const [city, unit] = v.split(':'); return {city, unit}; })
+    .filter(c => byId[c.city]);
+  if (cols.length < 2) cols = [{city:'toronto'}, {city:'nyc'}];
 
-    {label:'HOME VALUE', cell: c => { const v = V(c).value; return v.median == null ? `<div class="na">${na}</div>` : `
-      <div class="big">${money(v.median, c.currency)}</div>
-      <div class="sub">Middle half${view === 'city' ? ' of households' : ' of ' + esc(c.units.plural)}: <b>${money(v.range[0], c.currency)}</b> to <b>${money(v.range[1], c.currency)}</b></div>`},
-      note:'Owner-estimated home value, in each city’s own currency; not a conversion and not current prices. Whole city: the neighbourhood median that the median household lives under.'},
+  // ---- Profiles, loaded per city when a column first needs them
+  const cache = {};
+  async function profiles(cid){
+    if (!cache[cid]) cache[cid] = fetch(byId[cid].profiles).then(r => r.json()).then(j => {
+      for (const k in j) if (/^\d+$/.test(j[k].name)) j[k].mapName = j[k].name, j[k].name = byId[cid].units.singular.replace(' code', '') + ' ' + j[k].name;   // Dallas: "ZIP 75206"
+      const keys = Object.keys(j).sort((x, y) => j[x].name.localeCompare(j[y].name, 'en', {numeric:true}));
+      return {rows: j, keys};
+    });
+    return cache[cid];
+  }
+  const pickDefault = (cid, P) => P.keys.find(k => P.rows[k].name === DEFAULT_UNIT[cid]) || P.keys[0];
 
-    {label:'RENT', cell: c => { const v = V(c).rent; return v.median == null ? `<div class="na">${na}</div>` : `
-      <div class="big">${money(v.median, c.currency)}<small>/MO</small></div>
-      <div class="sub">Middle half: <b>${money(v.range[0], c.currency)}</b> to <b>${money(v.range[1], c.currency)}</b> · <b>${V(c).renterPct}%</b> of households rent</div>`},
-      note:'What renting households pay, utilities included, counting long-time tenants and subsidized homes, so it sits below what a new lease costs.'},
+  // Share of the city's units below this one (ties count half): where it sits, 0 to 100.
+  function rank(P, key, value){
+    if (value == null) return null;
+    const xs = P.keys.map(k => P.rows[k][key]).filter(v => v != null);
+    return Math.round(100 * (xs.filter(v => v < value).length + 0.5 * (xs.filter(v => v === value).length - 1)) / Math.max(xs.length - 1, 1));
+  }
 
-    {label:'GETTING TO WORK', cell: c => {
-      const m = V(c).modes;
-      const word = m.car >= 68 ? 'Car-dependent' : m.car >= 50 ? 'Mixed' : 'Mostly transit';
-      return `
-      <div class="big">${word}</div>
-      <div class="stack" aria-hidden="true"><i style="width:${m.transit}%"></i><i style="width:${m.walkBike}%"></i><i style="width:${m.car}%"></i></div>
-      <div class="key"><span><b>${m.transit}%</b> transit</span><span><b>${m.walkBike}%</b> walk or bike</span><span><b>${m.car}%</b> drive</span></div>`},
-      note:'How commuters usually get to work. Car-dependent when 68% or more drive, mixed from 50%, mostly transit below that: the same cut-offs as the Toronto card.'},
+  // ---- One model per column, the same shape in both modes
+  function cityModel(c){
+    const v = c.views[view];
+    return {title: c.name, city: c, value: v.value, rent: v.rent, renterPct: v.renterPct, modes: v.modes, hub: v.hub,
+      homes: v.homes, built: v.built, ages: v.ages, english: v.english, recent: v.recent, canopy: v.canopy,
+      langs: c.leading.map(([l, n]) => [l, `${n} of ${c.units.n}`]), langNote: 'Also among the five most-spoken home languages in:'};
+  }
+  function unitModel(c, P, key){
+    const r = P.rows[key], hub = r[c.hubKey];
+    const eng = (r.lang || []).find(([l]) => l.startsWith('English'));
+    return {title: r.name, city: c, unitKey: key, row: r,
+      value: {median: r.value}, rent: {median: r.rent}, renterPct: r.renterPct,
+      modes: {car: r.carPct, transit: r.transitPct, walkBike: r.walkBikePct},
+      hub: {median: hub}, homes: r.homes, built: r.built, ages: r.ages,
+      english: eng ? eng[1] : null, recent: r.recent, canopy: r.canopy,
+      langs: (r.lang || []).filter(([l]) => !l.startsWith('English')).map(([l, p]) => [l, p + '%']), langNote: 'Other languages spoken most at home:',
+      rk: {value: rank(P, 'value', r.value), rent: rank(P, 'rent', r.rent), renterPct: rank(P, 'renterPct', r.renterPct),
+           transitPct: rank(P, 'transitPct', r.transitPct), hub: rank(P, c.hubKey, hub), canopy: rank(P, 'canopy', r.canopy)}};
+  }
 
-    {label:'TO DOWNTOWN', small:'by transit, weekday morning', cell: c => { const h = V(c).hub; return h.median == null ? `<div class="na">${na}</div>` : `
-      <div class="big">${h.median}<small>MIN</small></div>
-      <div class="sub"><b>${esc(c.hubLabel)}</b>${view === 'city' ? ' for the median resident' : ' from the typical neighbourhood'} · middle half <b>${h.range[0]}</b> to <b>${h.range[1]}</b> min</div>`},
-      note:'Scheduled transit time to each city’s main downtown hub. The hubs differ, so this compares what a commute feels like, not the two networks.'},
-
-    {label:'HOME TYPES', cell: c => bars(c.labels.homes, V(c).homes),
-      note:'Share of homes by building type. Canadian and US censuses group buildings differently, so the bands are each city’s own.'},
-
-    {label:'WHEN HOMES WERE BUILT', cell: c => bars(c.labels.built, V(c).built),
-      note:'Canada’s census and the US survey cut the decades differently; read each column on its own terms.'},
-
-    {label:'LANGUAGE AT HOME', cell: c => `
-      <div class="big">${V(c).english}%<small>ENGLISH</small></div>
-      <div class="sub">Also among the five most-spoken home languages in:</div>
-      <div class="chips">${c.leading.map(([l, n]) => `<span class="chip"><b>${esc(l)}</b> · ${n} of ${c.units.n}</span>`).join('')}</div>`,
-      note:'The language each person speaks most often at home. Canada names languages; the US survey groups them, which is why Chicago, New York and Dallas show categories.'},
-
-    {label:'RECENT IMMIGRANTS', cell: c => `
-      <div class="big">${V(c).recent}%</div>
-      <div class="sub">of residents ${esc(c.recentDefinition)}</div>`,
-      note:'Definitions differ: Canada counts arrivals in the five years before the 2021 census; the US survey counts everyone born abroad who arrived from 2010 on.'},
-
-    {label:'AGES', cell: c => bars(c.labels.ages, V(c).ages)},
-
-    {label:'TREE CANOPY', cell: c => V(c).canopy == null ? `<div class="na">${na}</div>` : `
-      <div class="big">${V(c).canopy}%</div>
-      <div class="sub">of the land is under trees${view === 'city' ? ', where the median resident lives' : ', in the typical neighbourhood'}</div>`,
-      note:'Satellite land cover, 2021 (ESA WorldCover, 10 m).'},
-  ];
+  // A neighbourhood's place among its own city's, for non-demographic figures only (the site never ranks people).
+  function where(m, key, word){
+    if (!m.rk || m.rk[key] == null) return '';
+    const pct = m.rk[key], u = m.city.units.plural;
+    return `<div class="where"><span class="track" aria-hidden="true"><i style="left:${pct}%"></i></span><small>${word} than ${pct}% of ${esc(m.city.name)}’s ${esc(u)}</small></div>`;
+  }
 
   function bars(labels, shares){
+    if (!shares) return NA;
     const max = Math.max(...shares.filter(x => x != null), 1);
     return '<div class="bars">' + labels.map((l, i) => {
       const v = shares[i];
@@ -294,32 +323,161 @@ footer a:hover{color:var(--ink)}
     }).join('') + '</div>';
   }
 
-  function render(){
-    const a = byId[selA.value], b = byId[selB.value];
-    document.getElementById('rows').innerHTML = rows.map(r => `
-      <section class="row" aria-label="${esc(r.label)}">
-        <div class="label">${r.label}${r.small ? ` <small>${esc(r.small)}</small>` : ''}</div>
-        <div class="cols">
-          <div class="cell a"><div class="sub"><b>${esc(a.name)}</b></div>${r.cell(a)}</div>
-          <div class="cell b"><div class="sub"><b>${esc(b.name)}</b></div>${r.cell(b)}</div>
-        </div>
-        ${r.note ? `<p class="note">${r.note}</p>` : ''}
-      </section>`).join('');
-    document.getElementById('view-note').textContent = NOTES[view];
-    for (const k of ['city', 'typical']) document.getElementById('v-' + k).setAttribute('aria-pressed', String(view === k));
-    document.getElementById('foot').innerHTML =
-      `Every figure is built from ${esc(a.name)}’s ${a.units.n} ${esc(a.units.plural)} and ${esc(b.name)}’s ${b.units.n} ${esc(b.units.plural)}, as the map draws them. Whole city weights each by its residents or households; typical neighbourhood counts each once. Sources and years are listed under “At a glance”; see <a href="/attributions/">Attributions</a>.`;
-    const u = new URL(location); u.searchParams.set('a', a.id); u.searchParams.set('b', b.id); u.searchParams.set('view', view); history.replaceState(null, '', u);
-    document.title = `${a.name} vs ${b.name} · Compare · Layers.City`;
+  const ROWS = [
+    {label:'AT A GLANCE', cell: m => mode === 'city' ? `
+      <div class="big">${m.city.units.n}<small>${esc(m.city.units.plural.toUpperCase())}</small></div>
+      <div class="sub"><b>${fmt.format(m.city.units.pop)}</b> people, <b>${fmt.format(m.city.units.hh)}</b> households · ${esc(m.city.source)}</div>` : `
+      <div class="big">${m.row.pop ? fmt.format(m.row.pop) : '–'}<small>PEOPLE</small></div>
+      <div class="sub">${m.row.hh ? `<b>${fmt.format(m.row.hh)}</b> households · ` : ''}${esc(m.city.units.singular)} in ${esc(m.city.name)} · ${esc(m.city.source)}</div>
+      <a class="maplink" href="/${m.city.id}/#focus=${m.city.unitsLayer}:${encodeURIComponent(m.row.mapName || m.row.name)}">Open on the map</a>`},
+
+    {label:'HOME VALUE', cell: m => m.value.median == null ? NA : `
+      <div class="big">${money(m.value.median, m.city.currency)}</div>
+      ${m.value.range ? `<div class="sub">Middle half${view === 'city' ? ' of households' : ' of ' + esc(m.city.units.plural)}: <b>${money(m.value.range[0], m.city.currency)}</b> to <b>${money(m.value.range[1], m.city.currency)}</b></div>` : ''}
+      ${where(m, 'value', 'Higher')}`,
+      note: () => 'Owner-estimated home value, in each city’s own currency: not a conversion and not current prices.'},
+
+    {label:'RENT', cell: m => m.rent.median == null ? NA : `
+      <div class="big">${money(m.rent.median, m.city.currency)}<small>/MO</small></div>
+      <div class="sub">${m.rent.range ? `Middle half: <b>${money(m.rent.range[0], m.city.currency)}</b> to <b>${money(m.rent.range[1], m.city.currency)}</b> · ` : ''}<b>${m.renterPct}%</b> of households rent</div>
+      ${where(m, 'rent', 'Higher')}`,
+      note: () => 'What renting households pay, utilities included, counting long-time tenants and subsidized homes, so it sits below what a new lease costs.'},
+
+    {label:'GETTING TO WORK', cell: m => { const d = m.modes; if (d.car == null) return NA;
+      const word = d.car >= 68 ? 'Car-dependent' : d.car >= 50 ? 'Mixed' : 'Mostly transit';
+      return `
+      <div class="big">${word}</div>
+      <div class="stack" aria-hidden="true"><i style="width:${d.transit}%"></i><i style="width:${d.walkBike}%"></i><i style="width:${d.car}%"></i></div>
+      <div class="key"><span><b>${d.transit}%</b> transit</span><span><b>${d.walkBike}%</b> walk or bike</span><span><b>${d.car}%</b> drive</span></div>
+      ${where(m, 'transitPct', 'More transit riders')}`},
+      note: () => 'How commuters usually get to work. Car-dependent when 68% or more drive, mixed from 50%, mostly transit below that, with the same cut-offs for every city.'},
+
+    {label:'TO DOWNTOWN', small:'by transit, weekday morning', cell: m => m.hub.median == null ? NA : `
+      <div class="big">${m.hub.median}<small>MIN</small></div>
+      <div class="sub"><b>${esc(m.city.hubLabel)}</b>${mode === 'nbhd' ? '' : view === 'city' ? ' for the median resident' : ' from the typical neighbourhood'}${m.hub.range ? ` · middle half <b>${m.hub.range[0]}</b> to <b>${m.hub.range[1]}</b> min` : ''}</div>
+      ${m.rk && m.rk.hub != null ? where({...m, rk:{hub: 100 - m.rk.hub}}, 'hub', 'Quicker') : ''}`,
+      note: () => 'Scheduled transit time to each city’s main downtown hub. The hubs differ, so this compares what the trip feels like, not the two networks.'},
+
+    {label:'HOME TYPES', cell: m => bars(m.city.labels.homes, m.homes),
+      note: () => 'Share of homes by building type. Canadian and US censuses group buildings differently, so the bands are each city’s own.'},
+
+    {label:'WHEN HOMES WERE BUILT', cell: m => bars(m.city.labels.built, m.built),
+      note: () => 'Canada’s census and the US survey cut the decades differently; read each column on its own terms.'},
+
+    {label:'LANGUAGE AT HOME', cell: m => m.english == null ? NA : `
+      <div class="big">${m.english}%<small>ENGLISH</small></div>
+      ${m.langs.length ? `<div class="sub">${m.langNote}</div><div class="chips">${m.langs.map(([l, n]) => `<span class="chip"><b>${esc(l)}</b> · ${n}</span>`).join('')}</div>` : ''}`,
+      note: () => 'The language each person speaks most often at home. Canada names languages; the US survey groups them, which is why Chicago, New York and Dallas show categories.'},
+
+    {label:'RECENT IMMIGRANTS', cell: m => m.recent == null ? NA : `
+      <div class="big">${m.recent}%</div>
+      <div class="sub">of residents ${esc(m.city.recentDefinition)}</div>`,
+      note: () => 'Definitions differ: Canada counts arrivals in the five years before the 2021 census; the US survey counts everyone born abroad who arrived from 2010 on.'},
+
+    {label:'AGES', cell: m => bars(m.city.labels.ages, m.ages)},
+
+    {label:'TREE CANOPY', cell: m => m.canopy == null ? NA : `
+      <div class="big">${m.canopy}%</div>
+      <div class="sub">of the land is under trees${mode === 'nbhd' ? '' : view === 'city' ? ', where the median resident lives' : ', in the typical neighbourhood'}</div>
+      ${where(m, 'canopy', 'Leafier')}`,
+      note: () => 'Satellite land cover, 2021 (ESA WorldCover, 10 m).'},
+  ];
+
+  // ---- Pickers
+  const visible = () => wide.matches ? cols : cols.slice(0, 2);
+  async function drawPicks(){
+    const el = document.getElementById('picks'), vis = visible();
+    const canAdd = wide.matches && cols.length < 3;
+    el.style.gridTemplateColumns = `repeat(${vis.length + (canAdd ? 1 : 0)}, minmax(0,1fr))`;
+    const parts = [];
+    for (let i = 0; i < vis.length; i++) {
+      const col = vis[i];
+      let unitSel = '';
+      if (mode === 'nbhd') {
+        const P = await profiles(col.city);
+        if (!P.rows[col.unit]) col.unit = pickDefault(col.city, P);
+        unitSel = `<select class="unit" data-i="${i}" data-role="unit" aria-label="${LETTER[i]}: ${esc(byId[col.city].units.singular)}">` +
+          P.keys.map(k => `<option value="${k}"${k === col.unit ? ' selected' : ''}>${esc(P.rows[k].name)}</option>`).join('') + '</select>';
+      }
+      parts.push(`<div class="col k${i}">
+        <div class="who"><span>${mode === 'nbhd' ? 'PLACE' : 'CITY'} ${LETTER[i]}</span>${i === 2 ? `<button class="x" type="button" data-remove="2">Remove</button>` : ''}</div>
+        <select data-i="${i}" data-role="city" aria-label="${LETTER[i]}: city">${cities.map(c => `<option value="${c.id}"${c.id === col.city ? ' selected' : ''}>${esc(c.name)}</option>`).join('')}</select>
+        ${unitSel}
+      </div>`);
+    }
+    if (canAdd) parts.push(`<button class="add" type="button" id="add">+ Add a third</button>`);
+    el.innerHTML = parts.join('');
   }
 
-  function guard(changed, other){
-    if (changed.value === other.value) other.value = cities.find(c => c.id !== changed.value).id;
+  document.getElementById('picks').addEventListener('change', async e => {
+    const i = +e.target.dataset.i, col = cols[i];
+    if (e.target.dataset.role === 'city') {
+      col.city = e.target.value; col.unit = null;
+      if (mode === 'city') {   // in Cities mode each column is a different city
+        const used = new Set(cols.filter((_, j) => j !== i).map(c => c.city));
+        cols.forEach((c, j) => { if (j !== i && c.city === col.city) c.city = cities.find(x => !used.has(x.id) && x.id !== col.city).id; });
+      }
+    } else col.unit = e.target.value;
+    await render();
+  });
+  document.getElementById('picks').addEventListener('click', async e => {
+    if (e.target.id === 'add') {
+      const used = new Set(cols.map(c => c.city));
+      cols.push({city: (cities.find(c => !used.has(c.id)) || cities[0]).id});
+      await render();
+    } else if (e.target.dataset.remove) { cols.splice(+e.target.dataset.remove, 1); await render(); }
+  });
+
+  // ---- Render
+  async function render(){
+    await drawPicks();
+    const vis = visible();
+    const models = [];
+    for (const col of vis) {
+      const c = byId[col.city];
+      models.push(mode === 'city' ? cityModel(c) : unitModel(c, await profiles(col.city), col.unit));
+    }
+    const grid = `grid-template-columns:repeat(${models.length},minmax(0,1fr))`;
+    document.getElementById('rows').innerHTML = ROWS.map(r => `
+      <section class="row" aria-label="${esc(r.label)}">
+        <div class="label">${r.label}${r.small ? ` <small>${esc(r.small)}</small>` : ''}</div>
+        <div class="cols" style="${grid}">
+          ${models.map((m, i) => `<div class="cell ${i === 0 ? 'a' : i === 1 ? 'b' : 'k2'}"><div class="head"><b>${esc(m.title)}</b>${mode === 'nbhd' ? `<span>${esc(m.city.name)}</span>` : ''}</div>${r.cell(m)}</div>`).join('')}
+        </div>
+        ${r.note ? `<p class="note">${r.note()}</p>` : ''}
+      </section>`).join('');
+
+    for (const k of ['city', 'nbhd']) document.getElementById('m-' + k).setAttribute('aria-pressed', String(mode === k));
+    for (const k of ['city', 'typical']) document.getElementById('v-' + k).setAttribute('aria-pressed', String(view === k));
+    document.getElementById('view').hidden = mode !== 'city';
+    document.getElementById('view-note').textContent = view === 'city'
+      ? 'Each neighbourhood counts by its people and households, so these are the city’s own figures: the share of all residents, or the neighbourhood figure of the median household.'
+      : 'Each neighbourhood counts once, whatever its size. This is what the typical neighbourhood looks like, which flattens a city of big districts more than one of small ones.';
+    document.getElementById('lede').innerHTML = mode === 'city'
+      ? 'Pick two cities and see how housing, commuting, home types and languages at home line up, from the same census figures behind each map’s “Living here” card.'
+      : 'Pick a neighbourhood in each city. The track under a figure shows where that place sits <b>among its own city’s</b>, which is the fairest way to compare places from cities with different prices.';
+    document.getElementById('foot').innerHTML = mode === 'city'
+      ? `Every figure is built from each city’s neighbourhoods as the map draws them. Whole city weights each by its residents or households; typical neighbourhood counts each once. Sources and years are under “At a glance”; see <a href="/attributions/">Attributions</a>.`
+      : `Each city is divided its own way (Toronto’s 158 neighbourhoods, Chicago’s 77 community areas, New York’s 59 community districts, Dallas’s ZIP codes), so a place here can be much bigger in one city than another. Tracks cover housing, commuting and canopy only; the site never ranks places by who lives there. See <a href="/attributions/">Attributions</a>.`;
+    document.title = models.map(m => m.title).join(' vs ') + ' · Compare · Layers.City';
+
+    const u = new URL(location); u.search = '';
+    if (mode === 'nbhd') u.searchParams.set('mode', 'nbhd');
+    cols.forEach((c, i) => u.searchParams.set('abc'[i], mode === 'nbhd' && c.unit ? `${c.city}:${c.unit}` : c.city));
+    if (mode === 'city' && view === 'typical') u.searchParams.set('view', 'typical');
+    history.replaceState(null, '', u);
   }
-  selA.addEventListener('change', () => { guard(selA, selB); render(); });
-  selB.addEventListener('change', () => { guard(selB, selA); render(); });
+
+  for (const k of ['city', 'nbhd']) document.getElementById('m-' + k).addEventListener('click', () => {
+    mode = k;
+    if (k === 'city') {   // back to distinct cities
+      const seen = new Set();
+      cols.forEach(c => { if (seen.has(c.city)) c.city = cities.find(x => !seen.has(x.id)).id; seen.add(c.city); });
+    }
+    render();
+  });
   for (const k of ['city', 'typical']) document.getElementById('v-' + k).addEventListener('click', () => { view = k; render(); });
-  document.getElementById('swap').addEventListener('click', () => { const t = selA.value; selA.value = selB.value; selB.value = t; render(); });
+  wide.addEventListener('change', render);
   render();
 })();
 </script>
