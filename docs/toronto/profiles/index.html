@@ -594,9 +594,22 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     catch { profile = null; return fail('No fact sheet found for that neighbourhood.'); }
   }
 
-  async function setPin(lat, lon) {
+  // Could this rounded spot have come from a point inside the named neighbourhood? (Rounding moves a point at most
+  // half a step, 0.0005°, on each axis, so test the corners and centre of that square.)
+  async function roundsFrom(slug, at) {
+    const f = (await hoods()).features.find(f => slugOf[f.properties.name] === slug);
+    if (!f) return false;
+    const g = f.geometry, h = 0.0005;
+    return [[0, 0], [-h, -h], [-h, h], [h, -h], [h, h]].some(([dy, dx]) =>
+      g.type === 'Polygon' ? inPoly(g.coordinates, at.lon + dx, at.lat + dy) : g.coordinates.some(p => inPoly(p, at.lon + dx, at.lat + dy)));
+  }
+
+  // The neighbourhood comes from the exact spot and only the pin is rounded, so a building on a border street
+  // (College St, Bloor St) stays in its own neighbourhood instead of the one across the road. A shared link only
+  // carries the rounded spot, so it names the neighbourhood too (n=), and that is kept when the spot fits it.
+  async function setPin(lat, lon, named) {
     const at = { lat: round3(lat), lon: round3(lon) };
-    const slug = await hoodAt(at.lon, at.lat);
+    const slug = named && await roundsFrom(named, at) ? named : await hoodAt(lon, lat);
     if (!slug) { $('hint').textContent = 'That spot is outside the City of Toronto. Try a spot inside the city.'; return; }
     pin = at;
     if (!profile || profile.slug !== slug) await load(slug);
@@ -642,7 +655,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     const qs = new URLSearchParams(location.search);
     const at = (qs.get('at') || '').split(',').map(Number);
     await load(qs.get('n') || '');
-    if (at.length === 2 && at.every(Number.isFinite)) await setPin(at[0], at[1]);
+    if (at.length === 2 && at.every(Number.isFinite)) await setPin(at[0], at[1], qs.get('n'));
     else if (profile) { syncURL(); render(); }
   }
   init().catch(() => fail('Fact sheets could not load.'));

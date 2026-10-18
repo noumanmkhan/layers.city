@@ -2,6 +2,12 @@
 
 ## Since 1.1
 
+### Fact sheets: border addresses keep their neighbourhood (October 18)
+- The pin is rounded to about 100 m before it is shown or shared, but the neighbourhood used to be looked up from
+  the rounded spot, so a building on a border street could land in the neighbourhood across the road (an address
+  on the south side of College St came up as University). The neighbourhood now comes from the exact spot; shared
+  links keep the `n=` they name as long as the rounded spot could have come from inside it.
+
 ### Schools in Toronto (October 18)
 - *Schools* in Education: all 817 TDSB, TCDSB, Viamonde and MonAvenir schools, from the Ontario Ministry of
   Education's school list (2024–25). Chips for Elementary and Secondary; a *French programs* row for
