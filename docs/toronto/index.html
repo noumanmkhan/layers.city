@@ -4287,6 +4287,7 @@ function votePlaces(x, y){
     if (C.precinct && ph === 'ed') return v.x != null ? [[v.x, v.y]] : [];
     return nearCenters(x, y, v.k, ph === 'ed' ? 1 : 2).map(([c]) => [c[0], c[1]]);
   }
+  if (v.en && VOTE.early && votePhase() !== 'ed') return v.ex != null ? [[v.ex, v.ey]] : [];
   return v.x != null ? [[v.x, v.y]] : [];
 }
 const shortDate = s => isoDate(s).toLocaleDateString(CITY.locale, {weekday:'short', month:'short', day:'numeric'});
@@ -4323,6 +4324,19 @@ function voteBox(x, y){
     const first = votePlaces(x, y)[0];
     body += '<p class="vote-acts"><button type="button" class="vote-go">' + esc(VOTE.show) + '</button>' +
       (first ? dirBtn(first[1], first[0], firstName, true) : '') + link + '</p>';
+  } else if (v.en && VOTE.early && votePhase() !== 'ed'){
+    // An assigned early voting site (New York: each election district has its own), then the election day site.
+    const ph = votePhase(), E = VOTE.early;
+    when = ph === 'soon' ? fill(E.soon, {from: shortDate(E.from)}) : fill(E.title, {from: shortDate(E.from), to: shortDate(E.to)}); hours = E.hours;
+    const ed = v.n ? fill(VOTE.assignedDay, {n: v.n, a: v.a, date: shortDate(VOTE.date)}) : '';
+    body = '<p class="vote-lead">' + esc(VOTE.earlyLead) + '</p><p class="vote-pl">' +
+      (v.ex != null ? place(v.en, v.ea, metres([x, y], [v.ex, v.ey]), '') : '<b>' + esc(v.en) + '</b><span>' + esc(v.ea) + '</span>') + '</p>' +
+      (ed ? '<p class="vote-ex">' + esc(ed) + '</p>' : '') +
+      '<p class="vote-acts">' + (v.ex != null ? '<button type="button" class="vote-go">' + esc(VOTE.show) + '</button>' + dirBtn(v.ey, v.ex, v.en, true) : '') + link + '</p>';
+  } else if (v.n && v.x == null){
+    // A named site the source couldn't place: name and address, no distance or map.
+    body = '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl"><b>' + esc(v.n) + '</b><span>' + esc(v.a || '') + '</span></p>' +
+      '<p class="vote-acts vote-acts-solo">' + link + '</p>';
   } else if (v.x != null){
     // A voting place for the spot: name, address and distance, entrances, Show on map.
     const d = metres([x, y], [v.x, v.y]);
@@ -5564,6 +5578,13 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
   if (PU) get(PU.file).then(d => { data.pickup = d; redrawCard(); }).catch(() => { data.pickup = null; });
   // Where to vote: only fetched while the polls haven't closed.
   if (voteLive()) get(VOTE.file).then(d => {
+    // A sites table (New York: one row per poll site, areas pointing at it by index): expand to the area's own
+    // n/a/x/y (election day, s) and en/ea/ex/ey (its assigned early voting site, e).
+    if (d.sites) d.features.forEach(f => {
+      const p = f.properties, S = i => d.sites[i] || [];
+      if (p.s != null){ const [n, a, x, y] = S(p.s); Object.assign(p, {n, a}, x != null ? {x, y} : {}); }
+      if (p.e != null){ const [n, a, x, y] = S(p.e); Object.assign(p, {en: n, ea: a}, x != null ? {ex: x, ey: y} : {}); }
+    });
     data.voting = d;
     redrawCard();
   }).catch(() => { data.voting = null; });
