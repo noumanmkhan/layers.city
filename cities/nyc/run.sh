@@ -40,6 +40,7 @@ python3 crz.py   # after build.py's streets_ew: the Congestion Relief Zone, Manh
 [ -f raw/places/dsny_frequencies.geojson ] && python3 collection.py   # trash, recycling and compost days for the card
 [ -d raw/representatives ] && python3 representatives.py   # after the districts above: it matches them
 [ -f raw/voting/election_districts.geojson ] && python3 voting.py   # where to vote, until the polls close
+python3 ../../engine/badges.py nyc   # a drawing for a few districts (cities/nyc/badges/)
 [ -f ../../docs/nyc/data/cd_profiles.json ] && python3 ../../engine/facts.py nyc   # after profiles and the simplified units
 python3 ../../engine/assemble.py nyc
 python3 ../../engine/places.py nyc   # a static page per place for search and link previews, plus the site's sitemap.xml
