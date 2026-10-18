@@ -164,10 +164,17 @@ for f in load('cousubs.geojson')['features']:
     g = polys(shape(f['geometry']).buffer(0).difference(cutout).intersection(counties[gid][1]))
     if g.is_empty or g.area * KM2 < 0.05: continue
     nm = p.get('NAMELSAD') or p['NAME']
-    nm = re.sub(r' (city|town|village|CDP)$', '', nm) if p['STATEFP'] == '36' else re.sub(r' town$', '', nm)
+    nm = re.sub(r' (city|town|village|CDP|borough|township)$', '', nm)
     towns.append((nm, g, gid))
+# New Jersey has hundreds of small boroughs: name only the bigger towns and a few everyone knows until zoom 12.
+ALWAYS = {'Hoboken', 'Weehawken', 'Fort Lee', 'Union City', 'Jersey City', 'Newark', 'Bayonne', 'Secaucus', 'Elizabeth', 'Paterson',
+          'Yonkers', 'New Rochelle', 'Mount Vernon', 'White Plains', 'Long Beach', 'Hempstead', 'Stamford', 'Greenwich', 'New Haven',
+          'Montclair', 'Princeton', 'Trenton', 'Morristown', 'Hackensack', 'Edgewater', 'North Bergen', 'Kearny', 'Rye', 'Scarsdale'}
+by_name = Counter(n for n, _, _ in towns)
 for n, g, gid in towns:
-    base.append(feat(g, {'kind': 'neighbour', 'name': n, 'region': county_label(gid), 'lp': label_pt(g)}))
+    p = {'kind': 'neighbour', 'name': n, 'region': county_label(gid), 'lp': label_pt(g)}
+    if g.area * KM2 < 25 and n not in ALWAYS: p['minor'] = True
+    base.append(feat(g, p))
 outside = polys(STATES.difference(REGION.buffer(0.0005)).difference(cutout))
 base.insert(0, feat(outside, {'kind': 'outside', 'name': ''}))
 dump('base', base)
@@ -300,7 +307,7 @@ for (label, route), gs in in_city.items(): by_label[(label, route)] += gs
 for (label, route), gs in by_label.items():
     m = merged(gs, 0.3)
     if m is None: continue
-    kind = 'interstate' if route in ('278', '495', '678', '95', '87', '295', '478', '78') else 'provincial' if route else 'city'
+    kind = 'interstate' if route in ('278', '495', '678', '95', '87', '295', '478', '78') else 'provincial' if route.isdigit() else 'city'
     hw.append(feat(m, {'route': route, 'name': label + (' (I-%s)' % route if kind == 'interstate' and 'I-' not in label else ''), 'kind': kind}))
 dump('highways', hw)
 REGION_BOX = REGION.buffer(0.01)
@@ -378,7 +385,7 @@ def add_rail(g, p):
 
 for key, agency in [('lirr', 'LIRR'), ('mnr', 'Metro-North')]:
     for rid, r in mta[key]['routes'].items():
-        name = (r['long'] or r['short']).replace(' Branch', '').strip()
+        name = (r['long'] or r['short']).replace(' Branch', '').replace(' Service', '').strip()
         if not r['counts'] or name in ('City Terminal Zone',): continue
         top = max(r['counts'].values())
         m = merged([LineString(r['shapes'][s]) for s, c in r['counts'].items() if c >= top * 0.1 and len(r['shapes'][s]) > 1], 0.2)
@@ -403,10 +410,11 @@ for el in load('osm_rail.json')['elements']:
     if 'PATH' in net or 'Port Authority Trans-Hudson' in net:
         agency, line, color = 'PATH', 'PATH', '#' + (t.get('colour') or '004D6F').lstrip('#')
     elif re.search(r'(?i)airtrain', net + nm):
-        agency, line, color = 'AirTrain', 'AirTrain JFK' if 'JFK' in nm else 'AirTrain Newark', '#6E6E6E'
+        agency, line, color = 'AirTrain', 'AirTrain JFK' if 'JFK' in net + nm else 'AirTrain Newark', '#6E6E6E'
     elif re.search(r'(?i)nj ?transit', net):
         agency = 'NJ Transit'
-        line = next((k for k in NJT_COLOR if k.lower().replace('&', 'and') in nm.lower().replace('&', 'and')), None)
+        norm = lambda x: x.lower().replace('&', 'and').replace('–', '-').replace('morristown', 'morris and essex')
+        line = next((k for k in NJT_COLOR if norm(k) in norm(nm)), None)
         if not line: continue
         color = NJT_COLOR[line]
     else:
