@@ -19,9 +19,8 @@ from names import LANDMARKS
 SOC = 'https://data.cityofnewyork.us'
 CB = 'https://www2.census.gov/geo/tiger/GENZ2024/shp/'
 DCP = [('boroughs', 'gthc-hcne'), ('community_districts', '5crt-au7u'), ('ntas', '9nt8-h7nd'), ('council', '872g-cjhh'),
-       ('assembly', '5yfv-9hkp'), ('senate', 'h4i2-acfi'), ('congress', 'j3u5-usz2'), ('school_districts', '8ugf-3d8u'),
-       ('historic_districts', 'skyk-mpzq'), ('bids', 'ejxk-d93y')]
-
+       ('assembly', '5yfv-9hkp'), ('senate', 'afns-vxeu'), ('congress', 'j3u5-usz2'), ('school_districts', '8ugf-3d8u'),
+       ('historic_districts', 'skyk-mpzq'), ('bids', '7jdm-inj8')]
 
 def socrata(only=None):
     """Each dataset as GeoJSON: the resource API first, the geospatial export for map-type datasets."""
@@ -41,7 +40,6 @@ def socrata(only=None):
             FAILED.append(name)
         time.sleep(2)
 
-
 def census():
     z = download(CB + 'cb_2024_us_state_500k.zip', os.path.join(TMP, 'state.zip'))
     shp_to_geojson(z, "STUSPS IN ('NY','NJ','CT','PA','MA','RI','VT','DE')", 'states.geojson', spat=FRAME)
@@ -55,7 +53,6 @@ def census():
         os.remove(os.path.join(RAW, f'cousub_{st}.geojson'))
     save('cousubs.geojson', {'type': 'FeatureCollection', 'features': feats})
     print('  county subdivisions', len(feats), Counter(f['properties'].get('LSAD') for f in feats).most_common())
-
 
 def mta():
     """Subway (and SIR), LIRR and Metro-North: each route's shapes with trip counts, and every station with its routes."""
@@ -94,9 +91,7 @@ def mta():
         print(' ', key, len(routes), 'routes ·', len(stations), 'stations ·', len(shapes), 'shapes')
     save('mta_rail.json', out)
 
-
 b = lambda bb: f'({bb[1]},{bb[0]},{bb[3]},{bb[2]})'
-
 
 def osm():
     overpass(f'[out:json][timeout:300];(node["place"~"^(neighbourhood|suburb|quarter|island)$"]{b(CITY)};'
@@ -104,18 +99,22 @@ def osm():
     overpass(f'[out:json][timeout:300];way["highway"~"^(trunk|primary|secondary)$"]["name"]{b(CITY)};out tags geom;', 'osm_streets.json')
     overpass(f'[out:json][timeout:600];way["highway"~"^(motorway|trunk)$"]{b(REGION)};out tags geom;', 'osm_highways.json')
     rail()
-    overpass(f'[out:json][timeout:300];node["railway"~"^(station|halt)$"]{b(REGION)};out tags;', 'osm_stations.json')
-
+    stations()
+    landmarks()
 
 def rail():
     """NJ Transit rail and light rail, PATH, and the AirTrains: route relations with their members' geometry (out geom)."""
     overpass(f'[out:json][timeout:600];(relation["route"~"^(train|subway|light_rail|monorail)$"]["network"~"NJ Transit|PATH|AirTrain|NJT|Light Rail",i]{b(REGION)};'
              f'relation["route"~"^(train|subway|light_rail|monorail)$"]["operator"~"NJ Transit|Port Authority|PATH",i]{b(REGION)};);out geom;',
              'osm_rail.json')
+
+def stations():
+    overpass(f'[out:json][timeout:300];node["railway"~"^(station|halt)$"]{b(REGION)};out;', 'osm_stations.json')
+
+def landmarks():
     names = sorted({l['osm'] for l in LANDMARKS})
     rx = '|'.join(n.replace('(', '\\\\(').replace(')', '\\\\)').replace('.', '\\\\.') for n in names)
     overpass(f'[out:json][timeout:300];nwr["name"~"^({rx})$"]{b(REGION)};out tags center;', 'osm_landmarks.json')
-
 
 if __name__ == '__main__':
     want = [a for a in sys.argv[1:] if not a.startswith('--')]
