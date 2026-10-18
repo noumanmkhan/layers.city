@@ -115,7 +115,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council",
+ "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · Places of worship & lines being built: © OpenStreetMap contributors",
  "example": {
   "at": [
    40.7532,
@@ -150,7 +150,7 @@
    "Bronx": "in the Bronx"
   },
   "city": "in New York City",
-  "hub": "Midtown"
+  "hub": "Penn Station"
  },
  "units": {
   "singular": "Community district",
@@ -211,6 +211,16 @@
      "note": "Arenas, parks, museums, airports; more below"
     },
     {
+     "id": "hospitals",
+     "kind": "places",
+     "under": "landmarks",
+     "file": "institutions",
+     "cat": "hospital",
+     "name": "Hospitals",
+     "place": "Hospital",
+     "note": "General hospitals, public and nonprofit, from the City’s Facilities Database; specialty hospitals left out"
+    },
+    {
      "id": "towers",
      "kind": "towers",
      "under": "landmarks",
@@ -249,6 +259,19 @@
      "hover": "{name} Historic District"
     },
     {
+     "id": "hbld",
+     "kind": "heritage",
+     "file": "heritage_buildings",
+     "name": "Heritage buildings",
+     "note": "Individual landmarks designated by the Landmarks Preservation Commission; from zoom 15",
+     "place": "Individual landmark",
+     "builtText": "built {y}",
+     "byText": "{ar}",
+     "designatedText": "designated {d}",
+     "bylawText": "LPC report",
+     "hcdText": "Also in (historic district)"
+    },
+    {
      "id": "bid",
      "kind": "patches",
      "file": "bids",
@@ -256,6 +279,109 @@
      "note": "BIDs: Times Square, Downtown Brooklyn, 34th Street, Jamaica Center…",
      "label": "{name}",
      "hover": "{name} BID"
+    }
+   ]
+  ],
+  [
+   "Outdoors",
+   [
+    {
+     "id": "parks",
+     "kind": "parks",
+     "file": "parks",
+     "lazy": true,
+     "optional": true,
+     "name": "Parks",
+     "place": "NYC Parks property",
+     "note": "NYC Parks properties shaded green; pick a playground, spray shower or dog run",
+     "countNote": "{n} NYC Parks properties shaded green; pick a playground, spray shower or dog run",
+     "amenities": {
+      "play": [
+       "Playground",
+       "Parks with a playground"
+      ],
+      "water": [
+       "Spray shower",
+       "Parks with a spray shower: summer only"
+      ],
+      "dog": [
+       "Dog run",
+       "Parks with a dog run or off-leash area"
+      ]
+     },
+     "legend": "Pick one or more: parks with all of them stay green, the rest fade.",
+     "matchText": "{n} of {total} parks.",
+     "hasLabel": "Has",
+     "seasonText": "Spray showers run in summer only.",
+     "linkUrl": "https://www.nycgovparks.org/parks/{u}",
+     "linkText": "Park page on nycgovparks.org",
+     "fine": "Outlines and amenities from NYC Parks’ property, playground, spray shower and dog run lists as of {parks}. Off-leash hours in other parks (before 9 am, after 9 pm) aren’t shown."
+    },
+    {
+     "id": "sports",
+     "kind": "places",
+     "file": "sports",
+     "icon": "tennis",
+     "minZoom": 12,
+     "narrow": true,
+     "search": false,
+     "hover": "{name}",
+     "cats": [
+      [
+       "pool",
+       "Pools",
+       "Pool"
+      ],
+      [
+       "diamond",
+       "Ball diamonds",
+       "Ball diamond"
+      ],
+      [
+       "field",
+       "Sports fields",
+       "Sports field"
+      ],
+      [
+       "tennis",
+       "Tennis",
+       "Tennis courts"
+      ],
+      [
+       "pickleball",
+       "Pickleball",
+       "Pickleball courts"
+      ],
+      [
+       "basketball",
+       "Basketball",
+       "Basketball court"
+      ],
+      [
+       "skatepark",
+       "Skateparks",
+       "Skatepark"
+      ],
+      [
+       "cricket",
+       "Cricket",
+       "Cricket pitch"
+      ]
+     ],
+     "name": "Sports & rec",
+     "place": "Sports and recreation",
+     "note": "NYC Parks pools, fields and courts; pick a sport below. From zoom 12",
+     "catNote": "Pick one or more; none picked shows them all. Outdoor pools open from late June to Labor Day. Tap a pin for what’s there.",
+     "popup": {
+      "rows": [
+       [
+        "has",
+        "Has"
+       ]
+      ],
+      "linkText": "Park page on nycgovparks.org",
+      "fine": "From NYC Parks’ athletic facilities, pools and skateparks lists as of {asof}. Tennis courts need a season permit or a single-play ticket. May miss a few."
+     }
     }
    ]
   ],
@@ -319,6 +445,218 @@
      "name": "Main streets",
      "note": "Avenues and the big crosstown streets: Broadway, 5th Ave, 42nd St, Queens Blvd, Flatbush Ave",
      "on": true
+    },
+    {
+     "id": "coll",
+     "kind": "streets",
+     "file": "collectors",
+     "under": "streets",
+     "labelZoom": 15,
+     "yieldLabels": true,
+     "name": "Collector streets",
+     "note": "Collector streets between the main ones; from zoom 13"
+    },
+    {
+     "id": "bus",
+     "kind": "buses",
+     "file": "transit_routes",
+     "lazy": true,
+     "name": "Bus routes",
+     "note": "Every bus route, by how often it runs, or the overnight ones; stops from zoom 15",
+     "allText": "All",
+     "default": "all",
+     "allNote": "Every daytime bus route.",
+     "families": [
+      [
+       "freq",
+       "Frequent",
+       "Every 10 minutes or better each way, weekdays 7 am to 7 pm."
+      ],
+      [
+       "exp",
+       "Express",
+       "The MTA's express buses (X, BM, BxM, QM, SIM): fewer stops, often a premium fare."
+      ],
+      [
+       "reg",
+       "Regular",
+       "Every other daytime route."
+      ],
+      [
+       "night",
+       "Overnight",
+       "At least hourly each way from 2 to 4 am on weeknights."
+      ]
+     ],
+     "solo": [
+      "night"
+     ],
+     "comboText": "Express routes are dashed.",
+     "countText": "{n} routes",
+     "hint": "Tap a route or its number to see it alone; tap elsewhere for all. Frequent routes are drawn heavier.",
+     "pickText": "Drawn on the map",
+     "unpickText": "Stop drawing route {r}",
+     "clearText": "Clear"
+    },
+    {
+     "id": "bikes",
+     "kind": "bikes",
+     "file": "bikes",
+     "lazy": true,
+     "name": "Bike lanes",
+     "note": "NYC DOT’s bike network: protected lanes, painted lanes, shared streets and greenways",
+     "classes": {
+      "prot": [
+       "Protected",
+       "Separated from traffic: cycle tracks, one-way, two-way or contraflow"
+      ],
+      "paint": [
+       "Painted",
+       "Painted bike lanes, some with a buffer or running against one-way traffic"
+      ],
+      "shared": [
+       "Shared",
+       "Sharrows, signed routes and park roads: you ride with traffic"
+      ],
+      "trail": [
+       "Trails",
+       "Multi-use trails shared with people walking, and paths beside the road"
+      ]
+     },
+     "default": [
+      "prot",
+      "paint"
+     ],
+     "legend": "From NYC DOT’s bike routes, current segments. Tap a stretch for its type and the year it went in.",
+     "asofText": "City data as of {date}.",
+     "betweenText": "Between",
+     "yearText": "Installed",
+     "fine": "Shown as built: construction can close a lane for a while."
+    },
+    {
+     "id": "bikeshare",
+     "kind": "docks",
+     "under": "bikes",
+     "file": "bikeshare",
+     "lazy": true,
+     "optional": true,
+     "minZoom": 12,
+     "name": "Bike Share stations",
+     "note": "Citi Bike stations. From zoom 12.",
+     "countNote": "{n} {system} stations. From zoom 12.",
+     "kindText": "{system} station",
+     "docksText": "{n} docks",
+     "docksLabel": "Docks",
+     "chargeLabel": "E-bikes",
+     "chargeText": "Charging station",
+     "payLabel": "Paying",
+     "noCardText": "No card reader: unlock with the app or a member key",
+     "fine": "Station list as of {date}. For bikes and free docks right now, check the Citi Bike app."
+    },
+    {
+     "id": "addr",
+     "kind": "addresses",
+     "file": "addresses",
+     "name": "Fifth Avenue: East and West",
+     "note": "In Manhattan, Fifth Avenue splits the numbered streets into East and West, numbered up from Fifth",
+     "eastText": "East",
+     "westText": "West"
+    }
+   ]
+  ],
+  [
+   "What's changing",
+   [
+    {
+     "id": "build",
+     "kind": "construction",
+     "file": "construction",
+     "live": true,
+     "name": "Transit under construction",
+     "note": "The Second Avenue Subway’s next stretch, to 125th Street",
+     "ucText": "Under construction",
+     "linkText": "Project page"
+    }
+   ]
+  ],
+  [
+   "Education",
+   [
+    {
+     "id": "schools",
+     "kind": "places",
+     "file": "schools",
+     "icon": "elementary",
+     "minZoom": 13,
+     "cats": [
+      [
+       "elementary",
+       "Elementary",
+       "Elementary school"
+      ],
+      [
+       "secondary",
+       "Middle & high",
+       "Middle or high school"
+      ]
+     ],
+     "name": "Schools",
+     "place": "School",
+     "note": "NYC Public Schools, by level; from zoom 13. No charter or private schools",
+     "catNote": "Elementary includes K–8 schools. Tap a school for its grades and district.",
+     "popup": {
+      "rows": [
+       [
+        "g",
+        "Grades"
+       ],
+       [
+        "b",
+        "District"
+       ],
+       [
+        "a",
+        "Address"
+       ]
+      ],
+      "fine": "From the City’s Facilities Database. Elementary and middle schools are zoned by address; high schools are by application: check MySchools."
+     }
+    },
+    {
+     "id": "campus",
+     "kind": "places",
+     "file": "institutions",
+     "icon": "university",
+     "cats": [
+      [
+       "university",
+       "Universities",
+       "University"
+      ],
+      [
+       "college",
+       "Community colleges",
+       "Community college"
+      ]
+     ],
+     "name": "Colleges & universities",
+     "place": "Campus",
+     "note": "CUNY and major nonprofit universities, one point per main campus; no for-profit or graduate-only schools",
+     "aliases": {
+      "New York University": [
+       "NYU"
+      ],
+      "Columbia University": [
+       "Columbia"
+      ],
+      "City College of New York (CUNY)": [
+       "CCNY",
+       "City College"
+      ],
+      "Borough of Manhattan Community College (CUNY)": [
+       "BMCC"
+      ]
+     }
     }
    ]
   ],
@@ -397,6 +735,80 @@
    ]
   ],
   [
+   "Community & Faith",
+   [
+    {
+     "id": "community",
+     "kind": "places",
+     "file": "community",
+     "icon": "library",
+     "minZoom": 12,
+     "cats": [
+      [
+       "library",
+       "Libraries",
+       "Library"
+      ],
+      [
+       "centre",
+       "Older adult centers",
+       "Older adult center"
+      ]
+     ],
+     "name": "Libraries & older adult centers",
+     "place": "Public place",
+     "note": "New York, Brooklyn and Queens Public Library branches and the City’s older adult centers; from zoom 12"
+    },
+    {
+     "id": "worship",
+     "kind": "places",
+     "file": "faith",
+     "icon": "otherfaith",
+     "cats": [
+      [
+       "church",
+       "Churches",
+       "Church"
+      ],
+      [
+       "synagogue",
+       "Synagogues",
+       "Synagogue"
+      ],
+      [
+       "mosque",
+       "Mosques",
+       "Mosque"
+      ],
+      [
+       "hindu",
+       "Hindu temples",
+       "Hindu temple"
+      ],
+      [
+       "buddhist",
+       "Buddhist temples",
+       "Buddhist temple"
+      ],
+      [
+       "gurdwara",
+       "Gurdwaras",
+       "Gurdwara"
+      ],
+      [
+       "otherfaith",
+       "Other faiths",
+       "Place of worship"
+      ]
+     ],
+     "name": "Places of worship",
+     "place": "Place of worship",
+     "note": "Churches, synagogues, mosques, temples and gurdwaras, from OpenStreetMap; pick any mix below",
+     "catNote": "Tap a faith to hide or show it. Other faiths: Jain, Bahá’í, Unitarian and more."
+    }
+   ]
+  ],
+  [
    "Lenses",
    [
     {
@@ -404,6 +816,12 @@
      "kind": "lens",
      "name": "Community district lens",
      "note": "Housing cost, getting to work, renters and owners, housing type. Narrow it to a shortlist."
+    },
+    {
+     "id": "drive",
+     "kind": "suburbs",
+     "name": "Suburban lens",
+     "note": "Typical drive to Penn Station with no traffic, town by town. Shows in the regional view."
     }
    ]
   ]
@@ -435,6 +853,37 @@
      ]
     ],
     "note": "Median home value and rent, weighted by owners and renters, ranked into thirds across the 59 community districts. Survey estimates for 2020–2024, not current prices."
+   },
+   {
+    "id": "penn",
+    "short": "To Penn Station",
+    "key": "pennBand",
+    "minutes": "penn",
+    "optional": true,
+    "tiers": [
+     [
+      "under30",
+      "Under 30 min",
+      "--uni-1"
+     ],
+     [
+      "30to45",
+      "30–45 min",
+      "--uni-2"
+     ],
+     [
+      "45to60",
+      "45–60 min",
+      "--uni-3"
+     ],
+     [
+      "over60",
+      "Over an hour",
+      "--uni-4"
+     ]
+    ],
+    "note": "Typical transit trip to Penn Station leaving 8–9 am on a weekday, walking to the stop included (subway, buses, LIRR and Metro-North). Median across each community district.",
+    "source": "MTA schedules, routed with r5py."
    },
    {
     "id": "commute",
@@ -537,6 +986,36 @@
      ]
     ],
     "note": "Share of each community district's occupied homes that are {type}."
+   },
+   {
+    "id": "canopy",
+    "short": "Tree canopy",
+    "key": "canopyBand",
+    "optional": true,
+    "tiers": [
+     [
+      "c1",
+      "Under 10%",
+      "--can-1"
+     ],
+     [
+      "c2",
+      "10–20%",
+      "--can-2"
+     ],
+     [
+      "c3",
+      "20–30%",
+      "--can-3"
+     ],
+     [
+      "c4",
+      "30% or more",
+      "--can-4"
+     ]
+    ],
+    "note": "Share of the land under tree cover, water left out, from ESA WorldCover 2021, a 10 m satellite land-cover map.",
+    "source": "ESA WorldCover 2021 (CC BY 4.0)."
    }
   ],
   "filters": [
@@ -555,6 +1034,25 @@
      [
       "higher",
       "Higher"
+     ]
+    ]
+   },
+   {
+    "lens": "penn",
+    "label": "To Penn Station by transit",
+    "max": true,
+    "options": [
+     [
+      30,
+      "Up to 30 min"
+     ],
+     [
+      45,
+      "45 min"
+     ],
+     [
+      60,
+      "60 min"
      ]
     ]
    },
@@ -682,10 +1180,22 @@
     "knownas": true
    },
    {
+    "label": "Address",
+    "address": true
+   },
+   {
+    "label": "Collection day",
+    "pickup": true
+   },
+   {
     "label": "Historic district",
     "layer": "heritage",
     "text": "{name}[ (designated {since})]",
     "onlyInside": true
+   },
+   {
+    "label": "Landmark",
+    "heritageBuilding": true
    },
    {
     "label": "BID",
@@ -721,7 +1231,7 @@
   ],
   "living": {
    "caveat": "Survey estimates for 2020–2024, not current prices, for the whole community district. Rent is what renting households pay, utilities included, counting rent-stabilized and subsidized homes, so it sits well below what a new lease costs. Use them to compare districts, not to budget.",
-   "footer": "American Community Survey 2020–2024, {name}. Tiers compare the 59 community districts.",
+   "footer": "American Community Survey 2020–2024 and MTA schedules, {name}. Tiers compare the 59 community districts.",
    "homes": {
     "label": "Home types",
     "types": [
@@ -771,6 +1281,13 @@
     "label": "Recent immigrants",
     "text": "{pct}% born abroad, came to the US {since}",
     "caveat": "Share of residents, from the 2020–2024 survey."
+   },
+   "hub": "To Penn Station",
+   "hubText": "About {minutes} min by transit, weekday morning",
+   "canopy": {
+    "label": "Tree canopy",
+    "text": "{pct}% of the land is under trees",
+    "caveat": "Satellite land cover, 2021 (ESA WorldCover, 10 m)."
    }
   },
   "reps": {
@@ -845,6 +1362,155 @@
     "https://findmypollsite.vote.nyc/"
    ],
    "note": "Election district {precinct} · NYC Board of Elections poll site lists, as of {asof}. Each district has its own early voting and election day site, and sites can change: the Board’s poll site finder has the final word."
+  },
+  "address": {
+   "label": "Address",
+   "east": "East of Fifth Avenue",
+   "west": "West of Fifth Avenue",
+   "example": {
+    "e": "E 42nd St",
+    "w": "W 42nd St"
+   },
+   "sub": "Numbered streets take East or West ({street}) and count up away from Fifth Avenue; avenues count up going north.",
+   "within": {
+    "layer": "boroughs",
+    "name": "Manhattan",
+    "elsewhere": {
+     "Queens": "Hyphenated numbers: in 37-18 82nd St, “37” is the nearest cross street (37th Ave) and “18” the house on that block.",
+     "Bronx": "Jerome Avenue splits the Bronx’s streets into East and West (E 167th St, W 167th St).",
+     "Brooklyn": "No borough-wide grid: each street counts up from its own start, usually nearest the East River or the harbor.",
+     "Staten Island": "No grid: each street counts up from its own start."
+    }
+   }
+  },
+  "transit": {
+   "file": "transit.json",
+   "routes": "transit_routes",
+   "title": "Transit nearby",
+   "radius": 400,
+   "station": "Nearest subway station",
+   "stationSub": "{lines} · {dist} away",
+   "rows": [
+    [
+     "bus",
+     "Buses",
+     false
+    ]
+   ],
+   "night": "Overnight",
+   "stop": "Nearest stop",
+   "none": "No stop within 400 m",
+   "bikeshare": {
+    "label": "Citi Bike",
+    "radius": 400,
+    "sub": "{dist} away[ · {docks} docks]",
+    "charge": "charges e-bikes",
+    "none": "No station within 400 m"
+   },
+   "every": "about every {h} min on weekday middays",
+   "nightOnly": "overnight only",
+   "kinds": {
+    "bus": "Bus route"
+   },
+   "note": "Routes with a stop within 400 m, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. MTA schedules, week of {week}; Citi Bike’s station list."
+  },
+  "pickup": {
+   "file": "collection",
+   "label": "Collection day",
+   "tz": "America/New_York",
+   "show": 3,
+   "head": "Trash {r} · recycling {y}[ · compost {o}]",
+   "next": "{when}: {items}",
+   "items": {
+    "trash": "trash",
+    "recycling": "recycling",
+    "compost": "compost"
+   },
+   "outside": "Not on DSNY’s curbside schedule here.",
+   "note": "DSNY collection days for this section; set your trash out after 8 pm the night before. Holidays can move a day: check DSNY’s collection schedule lookup."
+  },
+  "nearby": {
+   "file": "nearby.json",
+   "radius": 800,
+   "nearest": [
+    [
+     "library",
+     "Library"
+    ],
+    [
+     "centre",
+     "Older adult center"
+    ],
+    [
+     "synagogue",
+     "Synagogue",
+     "worship:synagogue"
+    ],
+    [
+     "mosque",
+     "Mosque",
+     "worship:mosque"
+    ],
+    [
+     "hindu",
+     "Hindu temple",
+     "worship:hindu"
+    ],
+    [
+     "gurdwara",
+     "Gurdwara",
+     "worship:gurdwara"
+    ],
+    [
+     "buddhist",
+     "Buddhist temple",
+     "worship:buddhist"
+    ],
+    [
+     "church",
+     "Church",
+     "worship:church"
+    ]
+   ],
+   "within": "Within half a mile",
+   "counts": [
+    [
+     "park",
+     "park",
+     "parks"
+    ],
+    [
+     "playground",
+     "playground",
+     "playgrounds"
+    ],
+    [
+     "spray",
+     "spray shower",
+     "spray showers"
+    ],
+    [
+     "dogrun",
+     "dog run",
+     "dog runs"
+    ],
+    [
+     "basketball",
+     "park with basketball courts",
+     "parks with basketball courts"
+    ],
+    [
+     "school_e",
+     "elementary school",
+     "elementary schools"
+    ],
+    [
+     "school_s",
+     "middle or high school",
+     "middle or high schools"
+    ]
+   ],
+   "note": "Straight-line distances; half a mile is about a 10-minute walk. NYC Parks, the three public library systems and the City’s Facilities Database. Counts parks, not courts. Schools are NYC Public Schools; zoning depends on the address, not distance. Places of worship (OpenStreetMap) show while their layer is on."
   }
  },
  "drive": {
@@ -889,16 +1555,20 @@
    {
     "id": "local",
     "name": "Know your city",
-    "note": "Every community district by housing cost. Try the other lenses below.",
+    "note": "Every community district coloured by its transit trip to Penn Station. Try the other lenses below.",
     "layers": [
      "cd",
      "lens",
      "knownas",
      "streets",
-     "subway"
+     "subway",
+     "bus"
     ],
-    "lens": "cost",
-    "view": "city"
+    "lens": "penn",
+    "view": "city",
+    "bus": [
+     "exp"
+    ]
    },
    {
     "id": "civic",
@@ -918,16 +1588,35 @@
     "hint": "Enter your address to find your council, Assembly, Senate and congressional districts."
    },
    {
+    "id": "newcomer",
+    "name": "Where to live",
+    "note": "Housing cost by community district, with the subway. Tap a spot for transit nearby and who represents it.",
+    "layers": [
+     "cd",
+     "lens",
+     "knownas",
+     "streets",
+     "subway"
+    ],
+    "lens": "cost",
+    "view": "city"
+   },
+   {
     "id": "transit",
     "name": "Getting around",
-    "note": "The subway, and the commuter trains and PATH out across the region.",
+    "note": "The subway, frequent and express buses, and the commuter trains and PATH out across the region.",
     "layers": [
      "streets",
      "subway",
+     "bus",
      "rail",
      "hwy"
     ],
-    "view": "city"
+    "view": "city",
+    "bus": [
+     "freq",
+     "exp"
+    ]
    }
   ],
   "elections": [
