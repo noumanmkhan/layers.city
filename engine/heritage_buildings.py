@@ -90,8 +90,8 @@ elif city == 'nyc':
     # (a building's interior is inside an individual landmark, scenic ones are parks). The parcels come in State
     # Plane feet, so each point is the record's own latitude and longitude.
     for r in R['rows']:
-        if (r.get('landmarkty') or '') != 'Individual' or not r.get('latitude'): continue
-        if (r.get('lpc_sitest') or 'Designated') != 'Designated': continue
+        if not (r.get('landmarkty') or '').startswith('Individual') or not r.get('latitude'): continue
+        if (r.get('lpc_sitest') or 'Designated') not in ('Designated', 'Amended'): continue
         p = {'n': (r.get('lpc_name') or '').strip(), 'a': tcase(r.get('address') or ''), 'd': year(r.get('desdate')), 'id': r.get('lpc_lpnumb')}
         feats.append({'type': 'Feature', 'properties': {k: v for k, v in p.items() if v},
                       'geometry': {'type': 'Point', 'coordinates': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)]}})
