@@ -332,7 +332,6 @@ CSS = """@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:
 @font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
 :root{--bg:#F7F4F3;--card:#FFFFFF;--ink:#1A1414;--ink-2:#463D3C;--ink-3:#5C5251;--muted:#7A6E6C;--rule:#D8CFCD;--accent:#C8102E;--soft:rgba(200,16,46,.08);
 --land:#F2EEEC;--street:#FFFFFF;--go:#1E6B47;--display:'Archivo',system-ui,sans-serif;--body:'IBM Plex Sans',system-ui,sans-serif}
-@media (prefers-color-scheme:dark){:root{--bg:#161212;--card:#201A1A;--ink:#F3ECEB;--ink-2:#CFC4C2;--ink-3:#A89D9B;--muted:#9A8E8C;--rule:#3A3130;--accent:#E5364F;--soft:rgba(229,54,79,.14);--land:#2A2222;--street:#3E3534;--go:#4FB37F}}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
 a{color:var(--accent)}
