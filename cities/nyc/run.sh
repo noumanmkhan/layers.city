@@ -42,4 +42,5 @@ python3 crz.py   # after build.py's streets_ew: the Congestion Relief Zone, Manh
 [ -f raw/voting/election_districts.geojson ] && python3 voting.py   # where to vote, until the polls close
 [ -f ../../docs/nyc/data/cd_profiles.json ] && python3 ../../engine/facts.py nyc   # after profiles and the simplified units
 python3 ../../engine/assemble.py nyc
+python3 ../../engine/places.py nyc   # a static page per place for search and link previews, plus the site's sitemap.xml
 echo "Done. Preview: cd docs && python3 -m http.server 8000"
