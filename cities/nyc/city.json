@@ -116,7 +116,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · New development: NYC Department of Buildings (DOB NOW) · Ferries: NYC Ferry and NYC DOT timetables (GTFS) · Congestion Relief Zone: drawn from the MTA’s description (60th Street and south) · Hurricane evacuation zones and centers: NYC Emergency Management · Places of worship & lines being built: © OpenStreetMap contributors",
+ "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · Street closures: NYC Department of Transportation · New development: NYC Department of Buildings (DOB NOW) · Ferries: NYC Ferry and NYC DOT timetables (GTFS) · Congestion Relief Zone: drawn from the MTA’s description (60th Street and south) · Hurricane evacuation zones and centers: NYC Emergency Management · Places of worship & lines being built: © OpenStreetMap contributors",
  "example": {
   "at": [
    40.7532,
@@ -694,6 +694,30 @@
      "note": "The Second Avenue Subway’s next stretch, to 125th Street",
      "ucText": "Under construction",
      "linkText": "Project page"
+    },
+    {
+     "id": "closures",
+     "kind": "closures",
+     "file": "closures",
+     "optional": true,
+     "live": true,
+     "staleDays": 9,
+     "name": "Street closures",
+     "note": "Streets closed for subway and rail construction; side streets when zoomed in",
+     "tz": "America/New_York",
+     "closedText": "Closed",
+     "narrowedText": "Lanes narrowed",
+     "bothText": "both directions",
+     "startsText": "Starts {date}",
+     "untilText": "Permit to {date}",
+     "longText": "long-term",
+     "allDayText": "Around the clock",
+     "whenLabel": "When",
+     "hoursLabel": "Hours",
+     "projectLabel": "For",
+     "whoLabel": "Permit holder",
+     "fineText": "Dates are permit dates, not a forecast of when the street reopens. Data as of {date}.",
+     "asofText": "as of {date}"
     }
    ]
   ],
@@ -1795,6 +1819,13 @@
    "none": "Nothing big filed, approved, under way or finished within ½ mile in the last two years.",
    "more": "And {n} more nearby: turn on New development to see them.",
    "note": "Big changes within ½ mile: new buildings and demolitions, no one- or two-family houses. NYC Department of Buildings job filings (DOB NOW), as of {date}."
+  },
+  "closures": {
+   "title": "Street closures",
+   "radius": 805,
+   "max": 4,
+   "more": "And {n} more nearby: turn on Street closures to see them.",
+   "note": "Closures for rapid transit construction within ½ mile only; other street work isn’t shown. Dates are permit dates, not a forecast of when the street reopens. NYC DOT, as of {date}."
   }
  },
  "drive": {
