@@ -236,6 +236,13 @@ def events_for(slug):
     return out
 
 
+def empty_html(v, plain):
+    """What an empty listing says: a box-office note with a link to the hall's own calendar, a seasonal note, or plain."""
+    if v.get('tickets'):
+        return esc(v['tickets']) + (f' <a href="{esc(v["calendar"])}" rel="noopener">See what’s on at {esc(v["name"])} ↗</a>' if v.get('calendar') else '')
+    return esc(v.get('season') or plain)
+
+
 def fmt_time(t):
     if not t:
         return 'Time TBA'
@@ -592,9 +599,9 @@ for v in venues:
     if not EV:
         sec += '<p class="empty">No listing yet: the events feed hasn’t run. Getting-there facts below don’t depend on it.</p>'
     else:
-        empty = v.get('tickets') or v.get('season') or 'Nothing listed here this week.'
+        empty = empty_html(v, 'Nothing listed here this week.')
         sec += (f'<ul class="events">{"".join(event_li(e) for e in this_week)}</ul>' if this_week else '') + \
-               f'<p class="empty"{"" if not this_week else " hidden"}>{esc(empty)}</p>'
+               f'<p class="empty"{"" if not this_week else " hidden"}>{empty}</p>'
         if next_week:
             sec += f'<h3>Next week</h3><ul class="events">{"".join(event_li(e) for e in next_week)}</ul><p class="empty" hidden>Nothing listed for next week.</p>'
         sec += f'<p class="stamp">Listing from Ticketmaster, as of {esc(asof_text)}. Week runs {esc(V.get("week", "Monday to Sunday"))}.</p>'
@@ -650,7 +657,7 @@ for v in venues:
     soonest = evs[0]['d'].isoformat() if evs else '9999-12-31'
     from_json = {r['name']: [r['drive'], r['km'], r['taxi'], r['transit'], r['fare']] for r in rows}
     ev_html = (f'<ul class="events">{"".join(event_li(e) for e in soon7)}</ul>' if soon7 else '') + \
-              (f'<p class="empty"{"" if not soon7 else " hidden"}>{esc(v.get("tickets") or v.get("season") or "Nothing listed here in the next seven days.")}</p>' if EV else '')
+              (f'<p class="empty"{"" if not soon7 else " hidden"}>{empty_html(v, "Nothing listed here in the next seven days.")}</p>' if EV else '')
     here = whats_here(v['at'])
     here_rows = ''.join(f'<dt>{esc(l)}</dt><dd>' + (f'<a href="{esc(u)}">{esc(t)}</a>' if u else esc(t)) + '</dd>' for l, t, u in here)
     pop = (f'<div class="pop" id="pop-{v["slug"]}" hidden><p class="k">What’s here</p><dl>{here_rows}'
