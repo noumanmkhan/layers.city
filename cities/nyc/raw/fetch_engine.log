@@ -7,28 +7,416 @@
   got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_busco.zip 8446523 bytes
   merged 6 feeds into one: ['agency.txt', 'calendar.txt', 'calendar_dates.txt', 'feed_info.txt', 'routes.txt', 'shapes.txt', 'stop_times.txt', 'stops.txt', 'trips.txt']
 routes kept: 399
-Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/engine/fetch_surface.py", line 140, in rows
-    head = [h.strip() for h in next(r)]   # some agencies pad headers and fields with spaces
-                               ^^^^^^^
-StopIteration
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/engine/fetch_surface.py", line 164, in <module>
-    for r in rows('calendar.txt'):
-             ^^^^^^^^^^^^^^^^^^^^
-RuntimeError: generator raised StopIteration
+feed 2026-10-08 - 2027-01-02 · week from 2026-10-19 · days {'wk': '2026-10-21', 'sat': '2026-10-24', 'sun': '2026-10-25'}
+trips in the week: 130119
+routes written: 345 · trams 0 · stops 13463
+  bus     B1 Bay Ridge - Manhattan Beach        shapes 2  midday/5h  37  1-5am 14
+  bus     B2 Kings Hwy Station - Kings Plaza    shapes 2  midday/5h  12  1-5am 2
+  bus     B3 Bensonhurst - Bergen Beach         shapes 2  midday/5h  33  1-5am 12
+  bus     B4 Bay Ridge - Sheepshead Bay         shapes 2  midday/5h  14  1-5am 3
+  bus     B6 Bath Beach - East New York         shapes 4  midday/5h  81  1-5am 22
+  bus     B7 Midwood - Bedford-Stuyvesant       shapes 4  midday/5h  15  1-5am 5
+  bus     B8 Dyker Heights - East Flatbush      shapes 4  midday/5h  28  1-5am 11
+  bus     B9 Bay Ridge - Kings Plaza            shapes 4  midday/5h  34  1-5am 4
+  bus     M1 Harlem - East Village              shapes 4  midday/5h  30  1-5am 4
+  bus     M2 Washington Heights - East Village  shapes 4  midday/5h  25  1-5am 9
+  bus     M3 Fort George - East Village         shapes 3  midday/5h  26  1-5am 1
+  bus     M4 The Cloisters - 32 St              shapes 4  midday/5h  38  1-5am 0
+  bus     M5 George Washington Bridge - 31 St & shapes 4  midday/5h  23  1-5am 7
+  bus     M7 Harlem - 14th Street               shapes 2  midday/5h  29  1-5am 9
+  bus     M8 West Village - East Village        shapes 2  midday/5h  12  1-5am 1
+  bus     M9 Battery Park City - Kips Bay       shapes 2  midday/5h  23  1-5am 0
+  bus     Q1 Bellerose - Jamaica                shapes 4  midday/5h  30  1-5am 11
+  bus     Q2 Queens Village - Jamaica           shapes 2  midday/5h  24  1-5am 11
+  bus     Q3 Jamaica - JFK Airport              shapes 2  midday/5h  34  1-5am 24
+  bus     Q4 Cambria Heights - Jamaica          shapes 2  midday/5h  30  1-5am 19
+  bus     Q5 Laurelton - Jamaica                shapes 4  midday/5h  29  1-5am 10
+  bus     Q6 Jamaica - Sutphin Blvd - Jfk Cargo shapes 2  midday/5h  40  1-5am 16
+  bus     Q7 Cypress Hills - Rockaway Blvd - Jf shapes 2  midday/5h  25  1-5am 16
+  bus     Q8 Gateway Mall / East Ny - Jamaica   shapes 4  midday/5h  43  1-5am 2
+  bus     Q9 Jamaica - South Ozone Park         shapes 2  midday/5h  20  1-5am 0
+  bus    B11 Sunset Park - Midwood              shapes 2  midday/5h  30  1-5am 5
+  bus    B12 Lefferts Gardens - East New York   shapes 2  midday/5h  43  1-5am 16
+  bus    B13 Spring Creek - Wyckoff Hospital    shapes 2  midday/5h  18  1-5am 4
+  bus    B14 Spring Creek - Crown Heights       shapes 2  midday/5h  21  1-5am 9
+  bus    B15 Bedford Stuyvesant - JFK AirTrain  shapes 4  midday/5h  37  1-5am 30
+  bus    B16 Bay Ridge - Lefferts Gardens       shapes 4  midday/5h  30  1-5am 1
+  bus    B17 Canarsie - Crown Heights           shapes 4  midday/5h  35  1-5am 11
+  bus    B20 Ridgewood - Spring Creek           shapes 4  midday/5h  22  1-5am 2
+  bus    B24 Williamsburg - Greenpoint          shapes 2  midday/5h  10  1-5am 0
+  bus    B25 Dwntn Bklyn & DUMBO - Broadway Jun shapes 2  midday/5h  36  1-5am 8
+  bus    B26 Downtown Brooklyn - Ridgewood      shapes 2  midday/5h  30  1-5am 11
+  bus    B31 Gerritsen Beach - Kings Hwy Statio shapes 2  midday/5h  11  1-5am 4
+  bus    B32 Williamsburg - Long Island City    shapes 2  midday/5h  10  1-5am 0
+  bus    B35 Brownsville - Sunset Park          shapes 6  midday/5h  54  1-5am 13
+  bus    B36 Sheepshead Bay - Coney Island      shapes 2  midday/5h  31  1-5am 13
+  bus    B37 Downtown Brooklyn - Bay Ridge      shapes 2  midday/5h  14  1-5am 0
+  bus    B38 Ridgewood - Downtown Brooklyn      shapes 6  midday/5h  59  1-5am 11
+  bus    B39 Williamsburg Bridge Plaza - Lower  shapes 2  midday/5h  10  1-5am 0
+  bus    B41 Kings Plaza - Downtown Brooklyn    shapes 8  midday/5h  71  1-5am 23
+  bus    B42 Canarsie Pier - Rockaway Parkway S shapes 2  midday/5h  28  1-5am 25
+  bus    B43 Greenpoint - Lefferts Gardens      shapes 2  midday/5h  21  1-5am 12
+  bus    B44 Sheepshead Bay - Williamsburg      shapes 5  midday/5h  35  1-5am 11
+  bus    B45 Downtown Brooklyn - Crown Heights  shapes 2  midday/5h  22  1-5am 1
+  bus    B46 Kings Plaza - Williamsburg         shapes 2  midday/5h  35  1-5am 19
+  bus    B47 Kings Plaza - Bedford-Stuyvesant   shapes 2  midday/5h  24  1-5am 10
+  bus    B48 Lefferts Gardens - Greenpoint      shapes 2  midday/5h  15  1-5am 12
+  bus    B49 Manhattan Beach - Bedford-Stuyvesa shapes 2  midday/5h  35  1-5am 7
+  bus    B52 Downtown Brooklyn - Ridgewood      shapes 2  midday/5h  34  1-5am 9
+  bus    B54 Downtown Brooklyn - Ridgewood      shapes 3  midday/5h  25  1-5am 12
+  bus    B57 Gowanus - Maspeth                  shapes 2  midday/5h  18  1-5am 5
+  bus    B60 Williamsburg - Canarsie            shapes 2  midday/5h  25  1-5am 9
+  bus    B61 Park Slope - Downtown Brooklyn     shapes 2  midday/5h  25  1-5am 14
+  bus    B62 Astoria - Downtown Brooklyn        shapes 2  midday/5h  18  1-5am 12
+  bus    B63 Bay Ridge - Cobble Hill            shapes 2  midday/5h  29  1-5am 10
+  bus    B64 Bay Ridge - Coney Island           shapes 2  midday/5h  20  1-5am 2
+  bus    B65 Downtown Brooklyn - Crown Heights  shapes 2  midday/5h  20  1-5am 2
+  bus    B67 Brooklyn Navy Yard - Kensington    shapes 4  midday/5h  18  1-5am 5
+  bus    B68 Coney Island - Windsor Terrace     shapes 2  midday/5h  34  1-5am 14
+  bus    B69 Downtown Brooklyn - Kensington     shapes 2  midday/5h  15  1-5am 0
+  bus    B70 Dyker Heights - Sunset Park        shapes 2  midday/5h  17  1-5am 5
+  bus    B74 Sea Gate - Stillwell Av            shapes 1  midday/5h  27  1-5am 1
+  bus    B82 Coney Island - Spring Creek Towers shapes 2  midday/5h  30  1-5am 14
+  bus    B83 Spring Creek - Broadway Junction   shapes 2  midday/5h  30  1-5am 3
+  bus    B84 Spring Creek-New Lots              shapes 2  midday/5h  10  1-5am 0
+  bus    BM1 Mill Basin - Downtown/Midtown      shapes 6  midday/5h   5  1-5am 0
+  bus    BM2 Canarsie/Spring Creek - Downtown/M shapes 6  midday/5h   4  1-5am 0
+  bus    BM3 Sheepshead Bay - Downtown/Midtown  shapes 6  midday/5h   4  1-5am 0
+  bus    BM4 Gerritsen Beach - Downtown/Midtown shapes 6  midday/5h   4  1-5am 0
+  bus    BM5 Spring Creek - Midtown             shapes 2  midday/5h   4  1-5am 0
+  bus    Bx1 Riverdale - Mott Haven             shapes 4  midday/5h  32  1-5am 5
+  bus    Bx2 Kingsbridge Heights - Mott Haven   shapes 2  midday/5h  38  1-5am 2
+  bus    Bx3 Riverdale - George Washington Brid shapes 2  midday/5h  44  1-5am 2
+  bus    Bx4 Westchester Sq - The Hub           shapes 2  midday/5h  20  1-5am 2
+  bus    Bx5 Pelham Bay - Gladstone Sq          shapes 6  midday/5h  31  1-5am 1
+  bus    Bx6 Hunts Point - Riverside Dr         shapes 2  midday/5h  29  1-5am 25
+  bus    Bx7 Riverdale - Washington Heights     shapes 3  midday/5h  32  1-5am 4
+  bus    Bx8 Williamsbridge - Locust Point      shapes 3  midday/5h  28  1-5am 0
+  bus    Bx9 Riverdale - West Farms Sq          shapes 4  midday/5h  47  1-5am 16
+  bus    M10 Harlem - Columbus Circle           shapes 2  midday/5h  20  1-5am 5
+  bus    M11 Riverbank Park & Harlem - West Vil shapes 5  midday/5h  27  1-5am 1
+  bus    M12 Midtown West - West Village        shapes 2  midday/5h  10  1-5am 0
+  bus    M15 East Harlem - South Ferry          shapes 4  midday/5h  32  1-5am 23
+  bus    M20 Lincoln Center - South Ferry       shapes 3  midday/5h  11  1-5am 0
+  bus    M21 Lower East Side - West Village     shapes 4  midday/5h  12  1-5am 0
+  bus    M22 Lower East Side - Battery Park Cit shapes 2  midday/5h  16  1-5am 2
+  bus    M31 Yorkville - Clinton                shapes 2  midday/5h  27  1-5am 2
+  bus    M35 Ward's Island - East Harlem        shapes 2  midday/5h  23  1-5am 0
+  bus    M42 United Nations - W 42 St Pier      shapes 2  midday/5h  36  1-5am 12
+  bus    M50 W 42 St Pier - East Side           shapes 2  midday/5h  15  1-5am 3
+  bus    M55 W 44 St  - South Ferry             shapes 2  midday/5h  16  1-5am 1
+  bus    M57 East Side - West Side              shapes 2  midday/5h  22  1-5am 1
+  bus    M66 East Side - Lincoln Center         shapes 2  midday/5h  32  1-5am 2
+  bus    M72 East Side - West Side              shapes 2  midday/5h  25  1-5am 0
+  bus    M96 East Side - West Side              shapes 2  midday/5h  56  1-5am 14
+  bus    M98 Washington Heights - Upper East Si shapes 2  midday/5h   1  1-5am 0
+  bus    Q10 Jfk Airtrain - Kew Gardens Via Roc shapes 2  midday/5h  30  1-5am 17
+  bus    Q11 Howard Beach - Elmhurst            shapes 8  midday/5h  29  1-5am 16
+  bus    Q12 Little Neck - Flushing             shapes 3  midday/5h  30  1-5am 10
+  bus    Q13 Fort Totten - Flushing             shapes 3  midday/5h  25  1-5am 8
+  bus    Q14 East Elmhurst - Ridgewood          shapes 2  midday/5h  22  1-5am 4
+  bus    Q15 Flushing - Beechhurst              shapes 3  midday/5h  16  1-5am 0
+  bus    Q16 Fort Totten - Flushing             shapes 2  midday/5h  15  1-5am 3
+  bus    Q17 Flushing - Jamaica                 shapes 4  midday/5h  53  1-5am 14
+  bus    Q18 Astoria - Maspeth                  shapes 2  midday/5h  17  1-5am 5
+  bus    Q19 Flushing - Astoria                 shapes 2  midday/5h  15  1-5am 0
+  bus    Q20 College Point - Jamaica            shapes 3  midday/5h  33  1-5am 10
+  bus    Q22 Rockaway Beach Bl / Beach Channel  shapes 2  midday/5h  46  1-5am 2
+  bus    Q23 East Elmhurst - Forest Hills       shapes 2  midday/5h  31  1-5am 8
+  bus    Q24 Bedford Stuyvesant - Jamaica       shapes 2  midday/5h  23  1-5am 11
+  bus    Q25 College Point - Jamaica            shapes 2  midday/5h  45  1-5am 14
+  bus    Q26 College Point - Fresh Meadows      shapes 2  midday/5h  29  1-5am 17
+  bus    Q27 Cambria Heights - Flushing         shapes 4  midday/5h  73  1-5am 17
+  bus    Q28 Flushing - Bay Terrace Rush        shapes 2  midday/5h  38  1-5am 11
+  bus    Q29 Elmhurst - Glendale                shapes 2  midday/5h  18  1-5am 4
+  bus    Q30 Little Neck - Jamaica              shapes 2  midday/5h  23  1-5am 1
+  bus    Q31 Bayside - Jamaica                  shapes 2  midday/5h  24  1-5am 0
+  bus    Q32 Jackson Heights - Penn Station (Mi shapes 2  midday/5h  26  1-5am 3
+  bus    Q33 Marine Air Terminal Lga-Jackson He shapes 2  midday/5h  30  1-5am 17
+  bus    Q35 Rockaway Park - Midwood / Brooklyn shapes 3  midday/5h  21  1-5am 16
+  bus    Q36 Little Neck - Jamaica              shapes 4  midday/5h  10  1-5am 3
+  bus    Q37 Kew Gardens - South Ozone Park     shapes 4  midday/5h  21  1-5am 4
+  bus    Q38 Rego Park - Maspeth                shapes 2  midday/5h  16  1-5am 0
+  bus    Q39 Long Island City - Glendale        shapes 2  midday/5h  20  1-5am 9
+  bus    Q40 South Ozone Park - Jamaica         shapes 2  midday/5h  21  1-5am 8
+  bus    Q41 Jamaica - Howard Beach             shapes 3  midday/5h  20  1-5am 1
+  bus    Q42 Addisleigh Park - Jamaica          shapes 2  midday/5h  10  1-5am 0
+  bus    Q43 Floral Park - Jamaica              shapes 2  midday/5h  42  1-5am 13
+  bus    Q45 Fresh Meadows - Kew Gardens        shapes 2  midday/5h  30  1-5am 8
+  bus    Q46 LIJ Hospital - Kew Gardens         shapes 2  midday/5h  32  1-5am 11
+  bus    Q47 East Elmhurst - Glendale           shapes 2  midday/5h  19  1-5am 0
+  bus    Q48 Glen Oaks - Kew Gardens            shapes 2  midday/5h  15  1-5am 0
+  bus    Q49 East Elmhurst - Jackson Heights    shapes 2  midday/5h  23  1-5am 8
+  bus    Q50 Co-Op City/Pelham Bay - Flushing L shapes 4  midday/5h  13  1-5am 17
+  bus    Q51 Linden Blvd Limited                shapes 2  midday/5h  16  1-5am 4
+  bus    Q54 Williamsburg - Jamaica             shapes 4  midday/5h  35  1-5am 17
+  bus    Q55 Ridgewood - Richmond Hill          shapes 2  midday/5h  22  1-5am 12
+  bus    Q56 Broadway Junction - Jamaica        shapes 2  midday/5h  25  1-5am 11
+  bus    Q58 Ridgewood - Flushing               shapes 2  midday/5h  45  1-5am 18
+  bus    Q59 Williamsburg - Rego Park           shapes 2  midday/5h  16  1-5am 11
+  bus    Q60 Queens Blvd. - East Midtown        shapes 4  midday/5h  33  1-5am 17
+  bus    Q61 Beechhurst - Flushing              shapes 2  midday/5h  21  1-5am 5
+  bus    Q63 Flushing - Long Island City Rush   shapes 2  midday/5h  17  1-5am 1
+  bus    Q64 Electchester - Forest Hills        shapes 4  midday/5h  31  1-5am 16
+  bus    Q65 Flushing - Jamaica                 shapes 4  midday/5h  32  1-5am 18
+  bus    Q66 Flushing - Long Island City        shapes 2  midday/5h  18  1-5am 16
+  bus    Q67 Long Island City - Maspeth         shapes 2  midday/5h  11  1-5am 8
+  bus    Q69 East Elmhurst - Long Island City   shapes 2  midday/5h  30  1-5am 1
+  bus    Q72 LaGuardia Airport - Rego Park      shapes 4  midday/5h  19  1-5am 5
+  bus    Q74 Forest Hills - Qcc Ltd             shapes 2  midday/5h  20  1-5am 0
+  bus    Q75 Jamaica - QCC                      shapes 3  midday/5h  35  1-5am 0
+  bus    Q76 College Point - Jamaica            shapes 2  midday/5h  22  1-5am 1
+  bus    Q77 Springfield Gardens - Jamaica      shapes 3  midday/5h  27  1-5am 0
+  bus    Q80 Jfk Airtrain - Kew Gardens Via Lef shapes 2  midday/5h  21  1-5am 17
+  bus    Q82 Jamaica - Belmont Park             shapes 2  midday/5h  13  1-5am 2
+  bus    Q83 Cambria Heights - Jamaica          shapes 2  midday/5h  31  1-5am 14
+  bus    Q84 Laurelton - Jamaica                shapes 2  midday/5h  20  1-5am 4
+  bus    Q85 Rosedale - Jamaica                 shapes 4  midday/5h  32  1-5am 16
+  bus    Q86 Rosedale - Jamaica                 shapes 2  midday/5h  16  1-5am 15
+  bus    Q87 Green Acres - Jamaica              shapes 2  midday/5h  15  1-5am 0
+  bus    Q88 Elmhurst - Queens Village          shapes 2  midday/5h  48  1-5am 0
+  bus    Q89 Green Acres - Jamaica              shapes 2  midday/5h  19  1-5am 0
+  bus    Q90 Flushing - LaGuardia Airport       shapes 2  midday/5h  15  1-5am 5
+  bus    Q98 Ridgewood - Flushing               shapes 2  midday/5h  21  1-5am 4
+  bus    QM1 Fresh Meadows - Midtown Express    shapes 2  midday/5h   0  1-5am 0
+  bus    QM2 Bay Terrace - Midtown Express      shapes 4  midday/5h   5  1-5am 0
+  bus    QM4 Electchester - Midtown Express     shapes 2  midday/5h   5  1-5am 0
+  bus    QM5 Glen Oaks - Midtown Express        shapes 4  midday/5h   5  1-5am 0
+  bus    QM6 Lake Success - Midtown Express     shapes 4  midday/5h   6  1-5am 0
+  bus    QM7 Fresh Meadows - Downtown Express   shapes 2  midday/5h   2  1-5am 0
+  bus    QM8 Glen Oaks - Downtown Express       shapes 4  midday/5h   0  1-5am 0
+  bus    S40 St. George - Amazon                shapes 3  midday/5h  16  1-5am 18
+  bus    S42 St. George - Clyde Place           shapes 3  midday/5h   3  1-5am 1
+  bus    S44 St. George - Staten Island Mall    shapes 4  midday/5h  23  1-5am 2
+  bus    S46 St. George - West Shore Plaza      shapes 5  midday/5h  33  1-5am 19
+  bus    S48 St. George - Mariners Harbor       shapes 2  midday/5h  27  1-5am 17
+  bus    S51 St. George - Grant City            shapes 4  midday/5h  16  1-5am 16
+  bus    S52 St. George - Staten Island Univ. H shapes 4  midday/5h  13  1-5am 3
+  bus    S53 Port Richmond - Bay Ridge          shapes 6  midday/5h  33  1-5am 17
+  bus    S54 West New Brighton - Eltingville    shapes 3  midday/5h  12  1-5am 0
+  bus    S55 Rossville - Staten Island Mall     shapes 4  midday/5h  15  1-5am 0
+  bus    S56 Huguenot - Staten Island Mall      shapes 5  midday/5h  24  1-5am 0
+  bus    S57 Port Richmond - New Dorp           shapes 2  midday/5h  12  1-5am 0
+  bus    S59 Port Richmond - Tottenville        shapes 4  midday/5h  26  1-5am 5
+  bus    S61 St. George - Staten Island Mall    shapes 3  midday/5h  20  1-5am 1
+  bus    S62 St. George - Travis                shapes 5  midday/5h  21  1-5am 16
+  bus    S66 St. George - Port Richmond         shapes 2  midday/5h  10  1-5am 2
+  bus    S74 St. George - Bricktown Mall        shapes 5  midday/5h  18  1-5am 19
+  bus    S76 St. George - Oakwood               shapes 3  midday/5h  21  1-5am 1
+  bus    S78 St. George - Bricktown Mall        shapes 4  midday/5h  35  1-5am 17
+  bus    S81 St. George - Grant City LTD        shapes 1  midday/5h   0  1-5am 0
+  bus    S84 St. George - Bricktown Mall LTD    shapes 1  midday/5h   0  1-5am 0
+  bus    S86 St. George - Oakwood LTD           shapes 1  midday/5h   0  1-5am 0
+  bus    S89 Eltingville - Bayonne LTD          shapes 2  midday/5h   0  1-5am 0
+  bus    S90 St. George - Amazon                shapes 2  midday/5h   0  1-5am 1
+  bus    S91 St. George - Staten Island Mall LT shapes 3  midday/5h   0  1-5am 0
+  bus    S92 St. George - Travis LTD            shapes 2  midday/5h   0  1-5am 0
+  bus    S93 College of Staten Island - Bay Rid shapes 3  midday/5h  25  1-5am 0
+  bus    S94 St. George - Staten Island Mall LT shapes 2  midday/5h   0  1-5am 0
+  bus    S96 St. George - West Shore Plaza LTD  shapes 4  midday/5h   0  1-5am 0
+  bus    S98 St. George - Mariners Harbor LTD   shapes 3  midday/5h   0  1-5am 0
+  bus    X27 Bay Ridge - Manhattan Express      shapes 6  midday/5h   8  1-5am 0
+  bus    X28 Sea Gate / Bensonhurst - Manhattan shapes 8  midday/5h   7  1-5am 0
+  bus    X37 Bay Ridge - Midtown Manhattan Expr shapes 2  midday/5h   0  1-5am 0
+  bus    X38 Sea Gate / Bensonhurst - Midtown M shapes 4  midday/5h   0  1-5am 0
+  bus   B100 Mill Basin - Midwood               shapes 2  midday/5h  27  1-5am 1
+  bus   B103 Canarsie - Downtown Brooklyn Ltd   shapes 4  midday/5h  46  1-5am 2
+  bus   Bx10 Riverdale - Norwood                shapes 3  midday/5h  31  1-5am 15
+  bus   Bx11 George Washington Bridge - Parkche shapes 2  midday/5h  44  1-5am 15
+  bus   Bx12 Pelham Bay - Inwood                shapes 2  midday/5h  28  1-5am 14
+  bus   Bx13 George Washington Bridge - Bronx T shapes 2  midday/5h  44  1-5am 1
+  bus   Bx15 Fordham Plaza - The Hub            shapes 4  midday/5h  54  1-5am 21
+  bus   Bx16 Pelham - Norwood                   shapes 2  midday/5h  23  1-5am 3
+  bus   Bx17 Fordham Plaza - Port Morris        shapes 2  midday/5h  29  1-5am 4
+  bus   Bx19 NY Botanical Garden - Riverbank Pa shapes 4  midday/5h  38  1-5am 18
+  bus   Bx20 Riverdale - Inwood                 shapes 2  midday/5h   1  1-5am 0
+  bus   Bx21 Westchester Sq - Mott Haven        shapes 2  midday/5h  33  1-5am 12
+  bus   Bx22 Bedford Park - Castle Hill         shapes 5  midday/5h  29  1-5am 8
+  bus   Bx23 Pelham Bay - Co-Op City            shapes 2  midday/5h  16  1-5am 1
+  bus   Bx24 Country Club - Hutchinson Metro Ce shapes 4  midday/5h  11  1-5am 9
+  bus   Bx25 Co-op City Bay Plaza - Bedford Par shapes 2  midday/5h  13  1-5am 0
+  bus   Bx26 Co-op City Section 5 - Bedford Par shapes 2  midday/5h  16  1-5am 0
+  bus   Bx27 Clasons Pt - Gladstone Sq          shapes 6  midday/5h  27  1-5am 12
+  bus   Bx28 Co-op City Section 5 - Fordham Cen shapes 5  midday/5h  29  1-5am 14
+  bus   Bx29 City Island - Pelham Bay           shapes 2  midday/5h  11  1-5am 13
+  bus   Bx30 Co-op City Section 5 - Pelham Park shapes 2  midday/5h  27  1-5am 0
+  bus   Bx31 Woodlawn - Westchester Sq          shapes 2  midday/5h  30  1-5am 2
+  bus   Bx32 Kingsbridge VA Hospital - Mott Hav shapes 2  midday/5h  23  1-5am 0
+  bus   Bx33 Port Morris - Harlem               shapes 2  midday/5h  13  1-5am 2
+  bus   Bx34 Woodlawn - Fordham Center          shapes 2  midday/5h  16  1-5am 0
+  bus   Bx35 George Washington Bridge-West Farm shapes 2  midday/5h  35  1-5am 11
+  bus   Bx36 Soundview - George Washington Brid shapes 4  midday/5h  47  1-5am 11
+  bus   Bx38 Co-op City Bay Plaza - Norwood     shapes 2  midday/5h  23  1-5am 0
+  bus   Bx39 Wakefield - Clason Pt              shapes 2  midday/5h  28  1-5am 9
+  bus   Bx40 Throgs Neck - River Park Towers    shapes 2  midday/5h  19  1-5am 13
+  bus   Bx41 Williamsbridge - The Hub           shapes 2  midday/5h  25  1-5am 10
+  bus   Bx42 Throgs Neck - River Park Towers    shapes 2  midday/5h  19  1-5am 5
+  bus   Bx46 Prospect Av - Westchester Av / Hun shapes 2  midday/5h  10  1-5am 0
+  bus   Bx4A Westchester Sq - Gladstone Sq      shapes 2  midday/5h  20  1-5am 0
+  bus   BxM1 Riverdale - East Midtown           shapes 5  midday/5h  11  1-5am 0
+  bus   BxM2 Riverdale - West Midtown           shapes 2  midday/5h  10  1-5am 0
+  bus   BxM3 Yonkers - Midtown                  shapes 2  midday/5h   6  1-5am 0
+  bus   BxM4 Woodlawn - Midtown                 shapes 2  midday/5h   5  1-5am 0
+  bus   BxM6 Parkchester - Midtown              shapes 2  midday/5h   5  1-5am 0
+  bus   BxM7 Co-Op City - Midtown               shapes 2  midday/5h  11  1-5am 3
+  bus   BxM8 Pelham Bay/City Island - Midtown   shapes 2  midday/5h  10  1-5am 1
+  bus   BxM9 Throgs Neck - Midtown Express      shapes 2  midday/5h  10  1-5am 2
+  bus   M100 Inwood - Harlem                    shapes 2  midday/5h  35  1-5am 6
+  bus   M101 East Village - Fort George         shapes 4  midday/5h  41  1-5am 19
+  bus   M102 Harlem - East Village              shapes 4  midday/5h  26  1-5am 11
+  bus   M103 East Harlem - City Hall            shapes 4  midday/5h  24  1-5am 9
+  bus   M104 West Harlem - Times Square         shapes 2  midday/5h  27  1-5am 13
+  bus   M106 East Harlem - West Side            shapes 2  midday/5h  12  1-5am 0
+  bus   M116 West Side - East Harlem            shapes 2  midday/5h  32  1-5am 3
+  bus   M125 Manhattanville - The Hub           shapes 2  midday/5h  39  1-5am 11
+  bus   Q100 Rikers Island - Long Island City L shapes 2  midday/5h  21  1-5am 8
+  bus   Q101 Steinway - Hunters Point           shapes 2  midday/5h  15  1-5am 8
+  bus   Q102 Roosevelt Island - Long Island Cit shapes 2  midday/5h  11  1-5am 1
+  bus   Q103 Astoria - Hunters Point            shapes 2  midday/5h  11  1-5am 0
+  bus   Q104 Astoria - Sunnyside                shapes 2  midday/5h  12  1-5am 0
+  bus   Q110 Jamaica Avenue East                shapes 2  midday/5h  30  1-5am 14
+  bus   Q111 Rosedale - Jamaica Rush            shapes 2  midday/5h  25  1-5am 16
+  bus   Q112 Jamaica - East Ny                  shapes 2  midday/5h  22  1-5am 2
+  bus   Q113 Far Rockaway - Jamaica Limited     shapes 2  midday/5h  13  1-5am 0
+  bus   Q114 Far Rockaway - Jamaica Rush        shapes 2  midday/5h  13  1-5am 17
+  bus   Q115 Brewer Blvd. Local                 shapes 2  midday/5h  28  1-5am 9
+  bus   QM10 Lefrak City - Midtown Express      shapes 2  midday/5h   0  1-5am 0
+  bus   QM11 Forest Hills - Downtown Express    shapes 2  midday/5h   0  1-5am 0
+  bus   QM12 Forest Hills - Midtown Express     shapes 2  midday/5h   1  1-5am 0
+  bus   QM15 Lindenwood - Midtown Express       shapes 5  midday/5h   5  1-5am 0
+  bus   QM16 Neponsit - Midtown Express         shapes 2  midday/5h   0  1-5am 0
+  bus   QM17 Far Rockaway - Midtown Express     shapes 2  midday/5h   0  1-5am 0
+  bus   QM18 South Ozone Park - Midtown Express shapes 2  midday/5h   0  1-5am 0
+  bus   QM20 Bay Terrace - Midtown Express      shapes 3  midday/5h   5  1-5am 0
+  bus   QM21 Rochdale Village - Midtown Exp.    shapes 2  midday/5h   0  1-5am 0
+  bus   QM24 Glendale - Midtown Express         shapes 2  midday/5h   0  1-5am 0
+  bus   QM25 Glendale - Downtown Express        shapes 2  midday/5h   0  1-5am 0
+  bus   QM31 Fresh Meadows - Midtown Express    shapes 2  midday/5h   0  1-5am 0
+  bus   QM32 Bay Terrace - Midtown Express      shapes 2  midday/5h   0  1-5am 0
+  bus   QM34 Glendale - Midtown Express         shapes 2  midday/5h   0  1-5am 0
+  bus   QM35 Glen Oaks - Midtown Express        shapes 2  midday/5h   0  1-5am 0
+  bus   QM36 Lake Success - Midtown Express     shapes 2  midday/5h   0  1-5am 0
+  bus   QM40 Lefrak City - Midtown Express      shapes 2  midday/5h   0  1-5am 0
+  bus   QM42 Forest Hills - Midtown Express     shapes 2  midday/5h   0  1-5am 0
+  bus   QM44 Electchester - Midtown Express     shapes 2  midday/5h   0  1-5am 0
+  bus   QM63 Rosedale - Midtown Express         shapes 2  midday/5h   0  1-5am 0
+  bus   QM64 Elmont - Midtown Express           shapes 2  midday/5h   0  1-5am 0
+  bus   QM65 Laurelton-Rochdale-Lower Manhattan shapes 2  midday/5h   0  1-5am 0
+  bus   QM68 Floral Park - Midtown Express      shapes 2  midday/5h   0  1-5am 0
+  bus   SIM1 Eltingville - Lower Manhattan Expr shapes 2  midday/5h   1  1-5am 0
+  bus   SIM2 Tottenville - Lower Manhattan Expr shapes 2  midday/5h   2  1-5am 2
+  bus   SIM3 Pt. Richmond - Midtown Manhattan E shapes 2  midday/5h   1  1-5am 0
+  bus   SIM4 Eltingville - Lower Manhattan Expr shapes 2  midday/5h   0  1-5am 0
+  bus   SIM5 Eltingville - Lower Manhattan Expr shapes 2  midday/5h   0  1-5am 1
+  bus   SIM6 Eltingville - Midtown Manhattan Ex shapes 2  midday/5h   4  1-5am 1
+  bus   SIM7 Eltingville - Greenwich Village Ex shapes 2  midday/5h   1  1-5am 0
+  bus   SIM8 Huguenot - Midtown Manhattan Expre shapes 2  midday/5h   6  1-5am 4
+  bus   SIM9 Eltingville - Greenwich Village Ex shapes 2  midday/5h   1  1-5am 0
+  bus  Bx18A Morris Heights/High Bridge Circula shapes 1  midday/5h  15  1-5am 0
+  bus  Bx18B Morris Heights/High Bridge Circula shapes 1  midday/5h  15  1-5am 0
+  bus  BxM10 Williamsbridge/Morris Park - Midto shapes 2  midday/5h  10  1-5am 0
+  bus  BxM11 Wakefield - Midtown                shapes 2  midday/5h  10  1-5am 0
+  bus  BxM18 Riverdale - Downtown               shapes 2  midday/5h   0  1-5am 0
+  bus  SIM10 Eltingville - Midtown Manhattan Ex shapes 2  midday/5h   5  1-5am 5
+  bus  SIM11 New Dorp - Midtown Manhattan Expre shapes 2  midday/5h   0  1-5am 1
+  bus  SIM15 Eltingville - Lower Manhattan Expr shapes 2  midday/5h   0  1-5am 1
+  bus  SIM1C Eltingville - Manhattan Express    shapes 2  midday/5h  21  1-5am 15
+  bus  SIM22 Eltingville - Midtown Manhattan Ex shapes 2  midday/5h   0  1-5am 0
+  bus  SIM23 Annadale - Midtown Manhattan Expre shapes 2  midday/5h   0  1-5am 0
+  bus  SIM24 Prince's Bay - Midtown Manhattan E shapes 2  midday/5h   0  1-5am 0
+  bus  SIM25 Tottenville - Midtown Manhattan Ex shapes 2  midday/5h   0  1-5am 1
+  bus  SIM26 Tottenville - Midtown Manhattan Ex shapes 2  midday/5h   3  1-5am 2
+  bus  SIM30 Sunnyside - Midtown Manhattan Expr shapes 4  midday/5h   0  1-5am 0
+  bus  SIM31 Eltingville - Midtown Manhattan Ex shapes 2  midday/5h   0  1-5am 0
+  bus  SIM32 Travis - Lower Manhattan Express   shapes 2  midday/5h   0  1-5am 0
+  bus  SIM33 Mariners Harbor - Manhattan Expres shapes 2  midday/5h   1  1-5am 0
+  bus  SIM34 Mariners Harbor - Lower Manhattan  shapes 2  midday/5h   1  1-5am 1
+  bus  SIM35 Port Richmond - Lower Manhattan Ex shapes 2  midday/5h   0  1-5am 0
+  bus  SIM3C Pt. Richmond - Manhattan Express   shapes 2  midday/5h  11  1-5am 1
+  bus  SIM4C Huguenot - Manhattan Express       shapes 3  midday/5h  14  1-5am 3
+  bus  SIM33C Mariners Harbor - Greenwich Villag shapes 2  midday/5h  10  1-5am 1
+  bus  B44-SBS Sheepshead Bay - Williamsburg      shapes 6  midday/5h  39  1-5am 0
+  bus  B46-SBS Kings Plaza - Williamsburg         shapes 2  midday/5h  41  1-5am 0
+  bus  B82-SBS Coney Island -spring Creek Towers  shapes 2  midday/5h  28  1-5am 2
+  bus  Bx6-SBS Hunts Point - Riverside Dr         shapes 3  midday/5h  27  1-5am 0
+  bus  M15-SBS East Harlem - South Ferry          shapes 4  midday/5h  43  1-5am 2
+  bus  M23-SBS Chelsea Piers - East Side          shapes 2  midday/5h  40  1-5am 14
+  bus  M34-SBS East Side - Javits Center          shapes 4  midday/5h  24  1-5am 1
+  bus  M60-SBS West Side - LaGuardia Airport      shapes 2  midday/5h  31  1-5am 25
+  bus  M79-SBS Yorkville - West Side              shapes 2  midday/5h  44  1-5am 14
+  bus  M86-SBS Yorkville - West Side              shapes 2  midday/5h  51  1-5am 21
+  bus  Q44-SBS Bronx Zoo - Jamaica                shapes 2  midday/5h  44  1-5am 28
+  bus  Q52-SBS Elmhurst - Arverne Sbs Vis Woodhav shapes 2  midday/5h  15  1-5am 0
+  bus  Q53-SBS Woodside - Rockaway Park           shapes 2  midday/5h  28  1-5am 9
+  bus  Q70-SBS LaGuardia Link                     shapes 1  midday/5h  46  1-5am 13
+  bus  S79-SBS Staten Island Mall - Bay Ridge     shapes 2  midday/5h  37  1-5am 4
+  bus  Bx12-SBS Bay Plaza - Inwood                 shapes 2  midday/5h  57  1-5am 0
+  bus  Bx41-SBS Williamsbridge - The Hub           shapes 2  midday/5h  37  1-5am 0
+  bus  M14A-SBS Lower East Side - Abingdon Sq      shapes 2  midday/5h  26  1-5am 10
+  bus  M14D-SBS Lower East Side - Chelsea Piers    shapes 2  midday/5h  47  1-5am 13
+  bus  M34A-SBS Waterside - Port Authority Termina shapes 3  midday/5h  22  1-5am 0
 == fetch_bikes.py
-Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/engine/fetch_bikes.py", line 85, in <module>
-    'geometry': {'type': f['geometry']['type'], 'coordinates': rnd(f['geometry']['coordinates'])}})
-                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/city-layers/city-layers/engine/fetch_bikes.py", line 36, in rnd
-    return [rnd(x) for x in c] if isinstance(c[0], list) else [round(c[0], 6), round(c[1], 6)]
-                                             ~^^^
-IndexError: list index out of range
+segments: 24461 of 24461
+fields in source: ['allclasses', 'bikedir', 'bikeid', 'boro', 'facilitycl', 'fromstreet', 'ft2facilit', 'ft_facilit', 'grnwy', 'gwsys2', 'gwsystem', 'gwyjuris', 'instdate', 'lanecount', 'onoffst', 'prevbikeid', 'ret_date', 'segmentid', 'spur', 'status', 'street', 'tf2facilit', 'tf_facilit', 'tostreet']
+types: [
+[
+"Protected",
+6821
+],
+[
+null,
+5856
+],
+[
+"Conventional",
+5271
+],
+[
+"Shared",
+3245
+],
+[
+"Sidewalk",
+552
+],
+[
+"Curbside",
+453
+],
+[
+"Conventional Buffered",
+431
+],
+[
+"Wide Parking Lane",
+419
+],
+[
+"Curbside Buffered",
+404
+],
+[
+"Link",
+335
+],
+[
+"Signed Route",
+317
+],
+[
+"Boardwalk",
+176
+],
+[
+"Unpaved",
+175
+],
+[
+"Ped Plaza",
+6
+]
+]
+wrote /home/runner/work/city-layers/city-layers/cities/nyc/raw/bikes.geojson 8740 KB
 == fetch_bikeshare.py
 feeds: ['free_bike_status', 'gbfs', 'gbfs_versions', 'station_information', 'station_status', 'system_alerts', 'system_calendar', 'system_hours', 'system_information', 'system_pricing_plans', 'system_regions', 'vehicle_types']
 stations: 2519 · not installed: 53
@@ -81,4 +469,4 @@ rows: 1532 · with a point: 1532
 wrote /home/runner/work/city-layers/city-layers/cities/nyc/raw/heritage_buildings.json 909 KB
 == fetch_construction.py
 nyc 65 elements; 22 distinct labels
-FAILED: ['fetch_surface.py', 'fetch_bikes.py']
+FAILED: none
