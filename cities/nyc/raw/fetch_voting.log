@@ -1,0 +1,30 @@
+== eds
+wrote voting/election_districts.geojson 9137 KB
+  EDs 4214 ['elect_dist', 'shape_area', 'shape_leng']
+== nys
+  Election Day Polling Sites NYC | fields: ['OBJECTID', 'Poll_Site_Name', 'Poll_Site_Address', 'City', 'ZipCode', 'County', 'NYS_Lat', 'NYS_Long']
+wrote voting/nys_ed.json 363 KB
+  sample {'OBJECTID': 17, 'Poll_Site_Name': '1880 Valentine Ave Community Room', 'Poll_Site_Address': '1880 Valentine Avenue', 'City': 'Bronx', 'ZipCode': '10457', 'County': 'Bronx', 'NYS_Lat': 40.849048, 'NYS_Long': -73.900533}
+  Early Voting Polling Sites NYC  | fields: ['OBJECTID', 'Poll_Site_Name', 'Poll_Site_Address', 'City', 'ZipCode', 'County', 'NYS_Lat', 'NYS_Long']
+wrote voting/nys_ev.json 48 KB
+  sample {'OBJECTID': 10, 'Poll_Site_Name': 'Bronx County Supreme Court House', 'Poll_Site_Address': '851 Grand Concourse', 'City': 'Bronx', 'ZipCode': '10451', 'County': 'Bronx', 'NYS_Lat': 40.826152, 'NYS_Long': -73.923402}
+== pdfs
+  retry 1 https://www.vote.nyc/page/poll-site-locations HTTP Error 404: Not Found
+  page failed https://www.vote.nyc/page/poll-site-locations failed: https://www.vote.nyc/page/poll-site-locations
+  retry 1 https://www.vote.nyc/page/early-voting HTTP Error 404: Not Found
+  page failed https://www.vote.nyc/page/early-voting failed: https://www.vote.nyc/page/early-voting
+  retry 1 https://www.vote.nyc/page/upcoming-elections HTTP Error 404: Not Found
+  page failed https://www.vote.nyc/page/upcoming-elections failed: https://www.vote.nyc/page/upcoming-elections
+  linked poll site lists: ['https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Early_Voting_Bronx.pdf', 'https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Early_Voting_Kings.pdf', 'https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Early_Voting_New_York.pdf', 'https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Early_Voting_Queens.pdf', 'https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Early_Voting_Richmond.pdf', 'https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Election_Day_Bronx_r1.pdf', 'https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Election_Day_Kings_r1.pdf', 'https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Election_Day_New_York_r1.pdf', 'https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Election_Day_Queens.pdf', 'https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Election_Day_Richmond.pdf']
+  pdf Poll_Site_List_Nov_General_2026_Early_Voting_Bronx.pdf 260625
+  pdf Poll_Site_List_Nov_General_2026_Early_Voting_Kings.pdf 477075
+  pdf Poll_Site_List_Nov_General_2026_Early_Voting_New_York.pdf 338742
+  pdf Poll_Site_List_Nov_General_2026_Early_Voting_Queens.pdf 412450
+  pdf Poll_Site_List_Nov_General_2026_Early_Voting_Richmond.pdf 140962
+  pdf Poll_Site_List_Nov_General_2026_Election_Day_Bronx_r1.pdf 260176
+  pdf Poll_Site_List_Nov_General_2026_Election_Day_Kings_r1.pdf 501452
+  pdf Poll_Site_List_Nov_General_2026_Election_Day_New_York_r1.pdf 346702
+  pdf Poll_Site_List_Nov_General_2026_Election_Day_Queens.pdf 427995
+  pdf Poll_Site_List_Nov_General_2026_Election_Day_Richmond.pdf 148440
+  pdfs: ['Poll_Site_List_Nov_General_2026_Early_Voting_Bronx.pdf', 'Poll_Site_List_Nov_General_2026_Early_Voting_Kings.pdf', 'Poll_Site_List_Nov_General_2026_Early_Voting_New_York.pdf', 'Poll_Site_List_Nov_General_2026_Early_Voting_Queens.pdf', 'Poll_Site_List_Nov_General_2026_Early_Voting_Richmond.pdf', 'Poll_Site_List_Nov_General_2026_Election_Day_Bronx_r1.pdf', 'Poll_Site_List_Nov_General_2026_Election_Day_Kings_r1.pdf', 'Poll_Site_List_Nov_General_2026_Election_Day_New_York_r1.pdf', 'Poll_Site_List_Nov_General_2026_Election_Day_Queens.pdf', 'Poll_Site_List_Nov_General_2026_Election_Day_Richmond.pdf']
+FAILED: none
