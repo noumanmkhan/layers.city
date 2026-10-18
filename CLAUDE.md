@@ -5,16 +5,19 @@ maps hub page at https://layers.city/. The landing page for
 noumankhan.ca is a separate repo and a separate project. If you were opened to work on
 the landing page, stop and say so; don't change this repo.
 
-## Branches: work on `dev`, release to `main`
-- `main` is the live site: every push to it that touches docs/ deploys to layers.city. Work on `dev`
-  instead, and merge dev into main only when the user says to release (or asks for a fix to go live now).
-  Pushes to dev run no workflows and deploy nothing.
-- The fetch jobs keep committing data to main every day, so before working on dev, and again before a
-  release, merge main into dev (`git fetch origin main dev && git checkout dev && git merge origin/main`).
-  If a built file (docs/<city>/data/*) conflicts, take main's copy and rebuild that city rather than
-  hand-merging it.
-- To release: on dev, merge origin/main, rebuild and test as usual, then `git checkout main &&
-  git merge --ff-only dev` (or a normal merge if main has moved) and push main. That push deploys once.
+## Branches: work on `main`; `dev` only for experiments
+- Since October 19 the user works directly on `main` (his decision): commit and push finished, tested work to
+  main. `main` is the live site: every push to it that touches docs/ deploys to layers.city, so test in a browser
+  (desktop and phone, light and dark, every city an engine change touches) before each push, as always.
+- Keep `dev` for truly experimental features only, and only when the user says a feature is experimental (or asks
+  for it on dev). Pushes to dev run no workflows and deploy nothing. To release such a feature: on dev, merge
+  origin/main, rebuild and test, then `git checkout main && git merge --ff-only dev` (or a normal merge if main
+  has moved) and push main.
+- The fetch jobs keep committing data to main every day: `git pull --rebase origin main` before starting and
+  again right before pushing. If a built file (docs/<city>/data/*) conflicts, take main's copy and rebuild that
+  city rather than hand-merging it.
+- An unlisted city (`"unlisted": true` in its city.json, such as New York) is live at its URL but kept off the hub
+  page and sitemap, so it can be built on main.
 - **Fact sheets** (printable neighbourhood profiles: `engine/profiles/`, `docs/<city>/profiles/`, at
   /toronto/profiles/) launched October 18, linked from the hub card and each Guide page (places.py writes those
   links and the sitemap entry). `.github/workflows/refresh-fact-sheets.yml` rebuilds them after the routes, parking
@@ -27,7 +30,7 @@ the landing page, stop and say so; don't change this repo.
   deploy.yml lists it. Facts only: no images, prices, copy or affiliate links (the API terms forbid deriving
   revenue from it). The venue list and the fare figures in venues.json are hand-kept; `engine/places.py` adds the
   pages to the sitemap. By hand: `python3 engine/venues.py toronto`. Notes in the project's claude/venues.md.
-- To let the user try dev on a phone before a release: run the "Deploy to Cloudflare Pages" workflow by
+- To let the user try an experiment on dev on a phone: run the "Deploy to Cloudflare Pages" workflow by
   hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev. The branch is the
   workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.
   Without `-f branch=dev` it publishes main to the live site.
