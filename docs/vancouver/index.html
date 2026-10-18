@@ -1964,7 +1964,8 @@ const KINDS = {
     g._pick = b => { Object.values(per).forEach(l => g.removeLayer(l)); g.addLayer(per[b]); };
     return g;
   },
-  patches: (it, fc) => polyLayer(fc, {pane:'civic', cls: () => it.cls || 'bia', label: f => fill(it.label, f.properties), lcls: () => it.lcls || 'lbl-bia', hover: f => fill(it.hover, f.properties)}),
+  // clsBy: one more class per feature from a property ("evac evac-3"), for patches shaded by category in city.css.
+  patches: (it, fc) => polyLayer(fc, {pane:'civic', cls: f => (it.cls || 'bia') + (it.clsBy ? ' ' + (it.cls || 'bia') + '-' + f.properties[it.clsBy] : ''), label: f => fill(it.label, f.properties), lcls: () => it.lcls || 'lbl-bia', hover: f => fill(it.hover, f.properties)}),
   lens: (it, [fc, prof]) => {
     const g = L.geoJSON(fc, {pane:'fill', style: f => {
       return {className: lensClass(prof[String(f.properties.code)])};
