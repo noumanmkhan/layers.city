@@ -16,10 +16,12 @@ the landing page, stop and say so; don't change this repo.
 - The fetch jobs keep committing data to main every day: `git pull --rebase origin main` before starting and
   again right before pushing. If a built file (docs/<city>/data/*) conflicts, take main's copy and rebuild that
   city rather than hand-merging it.
-- An unlisted city (`"unlisted": true` in its city.json, such as New York) is live at its URL but kept off the hub
+- An unlisted city (`"unlisted": true` in its city.json) is live at its URL but kept off the hub
   page and sitemap, so it can be built on main.
 - **Fact sheets** (printable neighbourhood profiles: `engine/profiles/`, `docs/<city>/profiles/`, at
-  /toronto/profiles/) launched October 18, linked from the hub card and each Guide page (places.py writes those
+  /toronto/profiles/ and /nyc/profiles/) launched October 18 (New York October 19). Each city's settings and wording
+  are in `cities/<city>/factsheet.json` (and badge colours in `factsheet.css`); keep the engine free of city names.
+  The sheets are linked from the hub card and each Guide page (places.py writes those
   links and the sitemap entry). `.github/workflows/refresh-fact-sheets.yml` rebuilds them after the routes, parking
   and bike-lane fetch jobs and monthly re-fetches the walk network, walk times, ramps and drive times; deploy.yml
   lists it, so its commits go live. By hand: `python3 engine/profiles/build.py <city>` after the map's data changes.
