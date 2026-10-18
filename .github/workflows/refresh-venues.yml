@@ -1,0 +1,51 @@
+name: Refresh venues
+# The Venues pages (docs/toronto/venues/, built by engine/venues.py): what's on this week at Toronto's big
+# venues and how to get to each. Nightly: cities/toronto/fetch_venue_events.py pulls the next two weeks from
+# Ticketmaster's Discovery API (secret TICKETMASTER_KEY; without it the step keeps the last listing and the
+# pages say how old it is), then the pages are rebuilt and committed. Monthly, or by hand with "drives", it
+# also re-fetches best-case drive times from each GTA origin to each venue (fetch_venue_drives.py, OSRM).
+# Scheduled runs only run from the copy of this file on main. deploy.yml lists this workflow, so a refresh
+# that commits goes live. Run it by hand on dev (gh workflow run refresh-venues.yml --ref dev) to fill a
+# preview; it commits to the branch it runs from.
+on:
+  workflow_dispatch:
+    inputs:
+      drives:
+        description: 'Also re-fetch drive times from GTA origins (OSRM, a minute)'
+        type: boolean
+        default: false
+  schedule:
+    - cron: '23 8 * * *'        # 04:23 Toronto in summer, 03:23 in winter: after the day's shows are over
+    - cron: '47 8 11 * *'       # monthly: drive times too (the DRIVES env below)
+permissions:
+  contents: write
+concurrency: refresh-venues
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DRIVES: ${{ inputs.drives == true || github.event.schedule == '47 8 11 * *' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q shapely pillow fonttools brotli
+      - name: Drive times from GTA origins (monthly or on request)
+        if: env.DRIVES == 'true'
+        continue-on-error: true
+        run: python3 -u cities/toronto/fetch_venue_drives.py
+      - name: This week's events
+        env:
+          TICKETMASTER_KEY: ${{ secrets.TICKETMASTER_KEY }}
+        run: python3 -u cities/toronto/fetch_venue_events.py
+      - name: Build the pages
+        run: python3 -u engine/venues.py toronto
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/venue_events.json cities/toronto/raw/venue_tm_ids.json cities/toronto/raw/venue_drives.json docs/toronto/venues
+          git commit -m "Venues: this week's events and pages ($(date -u +%Y-%m-%d))" || echo "no changes"
+          git pull --rebase
+          git push

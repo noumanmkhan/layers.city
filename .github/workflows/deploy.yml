@@ -41,6 +41,7 @@ on:
       - "Fetch Toronto parking"
       - "Fetch Toronto nearby places"
       - "Refresh fact sheets"
+      - "Refresh venues"
     types: [completed]
   workflow_dispatch:
     inputs:
