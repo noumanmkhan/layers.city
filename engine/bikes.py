@@ -84,7 +84,9 @@ feats, skipped = [], collections.Counter()
 counts, km = collections.Counter(), collections.Counter()
 for f in R['features']:
     p = f['properties']
-    typ = (p.get(CFG['typeField']) or '').strip()
+    # typeField may be a list: the first that's set (New York: a one-way segment carries its type in only one direction's field)
+    tf = CFG['typeField'] if isinstance(CFG['typeField'], list) else [CFG['typeField']]
+    typ = next(((p.get(k) or '').strip() for k in tf if (p.get(k) or '').strip()), '')
     if CFG.get('subField'):   # Vancouver: the type alone is too coarse ("Protected Bike Lanes" holds off-street paths too)
         sub = (p.get(CFG['subField']) or '').strip()
         typ = typ + '|' + sub if typ + '|' + sub in CLS else typ
@@ -107,6 +109,26 @@ for f in R['features']:
     m = mapping(g)
     feats.append({'type': 'Feature', 'properties': q, 'geometry': {'type': m['type'], 'coordinates': rnd(m['coordinates'])}})
     counts[t] += 1; km[t] += length_km(g)
+
+# "merge" (New York, whose routes come block by block): join a street's touching pieces of one type and year into
+# one feature; the block-by-block from/to ends go, the street name stays.
+if CFG.get('merge'):
+    from shapely.geometry import shape as _shape, MultiLineString
+    from shapely.ops import linemerge
+    groups = collections.defaultdict(list)
+    for f in feats:
+        q = f['properties']
+        groups[(q['t'], q['d'], q.get('n'), q.get('y'))].append(_shape(f['geometry']))
+    feats = []
+    for (t, d, n, y), gs in groups.items():
+        parts = []
+        for g in gs: parts += list(g.geoms) if g.geom_type == 'MultiLineString' else [g]
+        m = linemerge(MultiLineString(parts))
+        q = {'t': t, 'd': d}
+        if n: q['n'] = n
+        if y: q['y'] = y
+        mm = mapping(m)
+        feats.append({'type': 'Feature', 'properties': q, 'geometry': {'type': mm['type'], 'coordinates': rnd(mm['coordinates'])}})
 
 # Draw order inside the file: shared first, separated last, so the most protected stretch sits on top.
 ORDER = {'trail': 0, 'shared': 1, 'paint': 2, 'prot': 3}

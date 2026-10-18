@@ -89,7 +89,7 @@ seen = {k for f in fc['features'][:200] for k in (f.get('properties') or {})}
 print('fields in source:', sorted(seen))
 for k in keep:
     if k not in seen: print('  missing field:', k)
-print('types:', json.dumps(collections.Counter(f['properties'].get(CFG['typeField']) for f in feats).most_common(), indent=0))
+print('types:', json.dumps(collections.Counter(f['properties'].get(CFG['typeField'] if isinstance(CFG['typeField'], str) else CFG['typeField'][0]) for f in feats).most_common(), indent=0))
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 json.dump({'type': 'FeatureCollection', 'fetched': dt.date.today().isoformat(), 'updated': updated, 'source': url, 'features': feats},
           open(OUT, 'w'), separators=(',', ':'))
