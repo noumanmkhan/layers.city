@@ -2,6 +2,10 @@
 
 ## Since 1.1
 
+### About link moves to the hub footer (October 18)
+- The "How it's built" card is gone from the hub; the write-up at `/about/` is now an About link in the footer,
+  beside Privacy, Attributions and Terms. No change to the page itself, the maps or the app's data.
+
 ### Sports & rec in Toronto (October 18)
 - *Sports & rec* in Outdoors: 592 City parks and community centres with pools, rinks, ball diamonds, sports fields,
   tennis, pickleball, basketball, skateparks or cricket, from the City's recreation facilities list (one row per
