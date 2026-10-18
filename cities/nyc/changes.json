@@ -1,0 +1,19 @@
+{
+ "_about": "What's changing here (engine/fetch_changes.py in fetch-changes.yml, then engine/changes.py). New York: DOB NOW job filings for new buildings and full demolitions (the Department of Buildings moved these filings to DOB NOW by 2021; older ones in its legacy BIS system aren't included). City Planning's land-use applications (ZAP) have no coordinates in the open data: not yet included.",
+ "sources": {
+  "dobnow": {
+   "type": "socrata_dobnow",
+   "url": "https://data.cityofnewyork.us/resource/w9ak-ipjd.json",
+   "types": [
+    "New Building",
+    "Full Demolition"
+   ],
+   "years": 6
+  }
+ },
+ "build": {
+  "years": 2,
+  "open_years": 6,
+  "approved_years": 4
+ }
+}

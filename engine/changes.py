@@ -166,6 +166,47 @@ if os.path.exists(p) and city == 'vancouver':
         items.append({'k': kind, 's': 'approved', 'date': (r.get('issuedate') or '')[:10], 'dl': 'issued', 'a': a, 'd': short(d),
                       'n': r.get('permitnumber'), 'at': [round(float(r['lon']), 6), round(float(r['lat']), 6)], 'units': units})
 
+# ---------- New York: DOB NOW job filings (new buildings, full demolitions) ----------
+p = os.path.join(RAW, 'dobnow.json')
+if os.path.exists(p):
+    # One job is filed once and then amended (job_filing_number "M00123456-I1", "-S1", "-P2"...): the latest status per
+    # job. Stages from the filing status; a job held, withdrawn or denied is left out. Houses (new one- and two-family
+    # buildings, and demolitions of them) are the small jobs Toronto leaves out too.
+    S = B.get('dobnow', {})
+    STAGE = {'Approved': 'approved', 'PAA Approved': 'approved', 'Permit Entire': 'building', 'Permit Issued': 'building',
+             'LOC Issued': 'finished', 'CO Issued': 'finished', 'Full Demolition Signed-off': 'finished'}
+    REVIEW = re.compile(r'Review|Pending|Objections|Incomplete|Assignment|QA', re.I)
+    HOUSE = re.compile(r'\b(one|two|1|2)[- ]?(family|fam\.?)\b|single[- ]family|\bduplex\b|\b1 ?& ?2 family|\b[12]-?fam', re.I)
+    jobs = {}
+    for r in json.load(open(p))['rows']:
+        j = (r.get('job_filing_number') or '').split('-')[0]
+        if not j or not r.get('latitude'): continue
+        last = max(r.get(k) or '' for k in ('current_status_date', 'signoff_date', 'first_permit_date', 'approved_date', 'filing_date'))
+        if j not in jobs or last > jobs[j][0]: jobs[j] = (last, r)
+    num = lambda v: int(float(v)) if v not in (None, '') and re.match(r'^-?\d+(\.\d+)?$', str(v).strip()) else None
+    for last, r in jobs.values():
+        st = (r.get('filing_status') or '').strip()
+        stage = STAGE.get(st) or ('proposed' if REVIEW.search(st) else None)
+        if not stage: continue
+        kind = 'demolition' if r['job_type'] == 'Full Demolition' else 'building'
+        desc = re.sub(r'\s+', ' ', r.get('job_description') or '').strip()
+        new_u, old_u = num(r.get('proposed_dwelling_units')), num(r.get('existing_dwelling_units'))
+        if kind == 'building' and ((new_u is not None and 0 < new_u <= 2) or (not new_u and HOUSE.search(desc))): continue
+        if kind == 'demolition' and ((old_u is not None and 0 < old_u <= 2) or HOUSE.search(desc)): continue
+        filed, perm, done = r.get('filing_date') or '', r.get('first_permit_date') or r.get('approved_date') or '', r.get('signoff_date') or r.get('current_status_date') or ''
+        if stage == 'finished' and done < ago(WIN): continue
+        if stage == 'building' and perm < ago(OPEN_Y): continue
+        if stage == 'approved' and (r.get('approved_date') or filed) < ago(APPR_Y): continue
+        if stage == 'proposed' and filed < ago(OPEN_Y): continue
+        date, dl = (done, 'finished') if stage == 'finished' else (perm, 'issued') if stage == 'building' and perm else (filed, 'applied')
+        if not desc: desc = 'New building' if kind == 'building' else 'Demolition'
+        stories = num(r.get('proposed_no_of_stories'))
+        if kind == 'building' and stories and stories > 1 and 'stor' not in desc.lower(): desc = '%d-story building. %s' % (stories, desc)
+        items.append({'k': kind, 's': stage, 'date': date[:10], 'dl': dl, 'a': address(r.get('house_no'), r.get('street_name')),
+                      'd': short(sentence(desc) if desc.isupper() else desc), 'n': (r.get('job_filing_number') or '').split('-')[0],
+                      'at': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)],
+                      'units': new_u if kind == 'building' and new_u and new_u > 2 else None, 'status': st})
+
 # ---------- one site per place ----------
 def metres(a, b):
     return math.hypot((a[0] - b[0]) * 111320 * math.cos(math.radians(a[1])), (a[1] - b[1]) * 110570)

@@ -12,6 +12,9 @@ Kinds of source:
     Builder names are left out.
   - "socrata_permits" (Chicago): Building Permits issued in the last `years` years whose permit_type is in
     the config's list. Owner and contractor names are left out.
+  - "socrata_dobnow" (New York): DOB NOW Job Application Filings whose job_type is in the config's "types" (new
+    buildings, full demolitions). All of them are fetched (the dates are text fields, so the window is applied in
+    changes.py). Owner, applicant and filing representative names are never requested.
   - "ods_permits" (Vancouver): Issued Building Permits (Opendatasoft "portal", "dataset") issued in the last
     `years` years whose typeofwork is in the config's "types". Applicant and contractor names and addresses are
     never requested.
@@ -21,7 +24,7 @@ how many permits were placed) so the build's filters can be checked against the 
 
 Usage: python3 engine/fetch_changes.py <city>
 """
-import collections, csv, datetime as dt, io, json, os, sys, time, urllib.parse, urllib.request
+import collections, csv, datetime as dt, io, json, os, re, sys, time, urllib.parse, urllib.request
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 city = sys.argv[1]
@@ -192,7 +195,37 @@ def ods_permits(spec):
     return rows
 
 
-FN = {'ckan_devapps': ckan_devapps, 'ckan_permits': ckan_permits, 'socrata_permits': socrata_permits, 'ods_permits': ods_permits}
+def socrata_dobnow(spec):
+    cols = ['job_filing_number', 'filing_status', 'house_no', 'street_name', 'borough', 'job_type', 'building_type', 'existing_dwelling_units',
+            'proposed_dwelling_units', 'proposed_no_of_stories', 'existing_stories', 'filing_date', 'approved_date', 'first_permit_date',
+            'signoff_date', 'current_status_date', 'latitude', 'longitude', 'job_description', 'bbl']
+    where = 'job_type in(' + ','.join("'" + t + "'" for t in spec['types']) + ')'
+    rows, off = [], 0
+    while True:
+        q = urllib.parse.urlencode({'$select': ','.join(cols), '$where': where, '$order': 'job_filing_number', '$limit': 50000, '$offset': off})
+        page = json.loads(get(spec['url'] + '?' + q))
+        rows += page; off += len(page)
+        print('  rows so far', len(rows))
+        if len(page) < 50000: break
+    # The dates are text ("MM/DD/YYYY" or ISO): keep filings with any date in the window, so the file stays small.
+    def iso(v):
+        v = (v or '').strip()
+        m = re.match(r'^(\d{1,2})/(\d{1,2})/(\d{4})', v)
+        return '%s-%02d-%02d' % (m.group(3), int(m.group(1)), int(m.group(2))) if m else v[:10]
+    cut = since(spec['years'])
+    for r in rows:
+        for k in ('filing_date', 'approved_date', 'first_permit_date', 'signoff_date', 'current_status_date'):
+            if r.get(k): r[k] = iso(r[k])
+    rows = [r for r in rows if max(r.get(k) or '' for k in ('filing_date', 'approved_date', 'first_permit_date', 'signoff_date', 'current_status_date')) >= cut]
+    print('  in the window', len(rows))
+    print('  by type/status:', dict(collections.Counter((r.get('job_type'), r.get('filing_status')) for r in rows).most_common(40)))
+    print('  building types:', dict(collections.Counter(r.get('building_type') for r in rows).most_common(20)))
+    print('  with coordinates:', sum(1 for r in rows if r.get('latitude')), '· date sample:', [r.get('filing_date') for r in rows[:3]], [r.get('signoff_date') for r in rows[:3]])
+    print('  sample:', json.dumps(rows[-1])[:1200])
+    return rows
+
+
+FN = {'ckan_devapps': ckan_devapps, 'ckan_permits': ckan_permits, 'socrata_permits': socrata_permits, 'ods_permits': ods_permits, 'socrata_dobnow': socrata_dobnow}
 for name, spec in CFG['sources'].items():
     print('==', name, spec['type'])
     try:
