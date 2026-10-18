@@ -153,7 +153,17 @@ REGION = unary_union([counties[c][1] for c in CORE if c in counties])
 missing = [c for c in CORE if c not in counties]
 if missing: print('  counties not in the Census file:', missing)
 STATES = unary_union([shape(f['geometry']).buffer(0) for f in load('states.geojson')['features']]).intersection(FRAME)
-base = [feat(CITY, {'kind': 'city', 'name': 'City of New York'})]
+# Water (raw/water.geojson, fetch_water.py): the Census boundaries run to mid-river, so the Hudson, the Harlem, the
+# Hackensack and the bays and lakes beyond would be drawn as land. Cut out of everything the base draws; small ponds
+# are left as land (over 1 km² in the city and the region's counties, over 8 km² beyond).
+WATER = None
+if os.path.exists(R + 'water.geojson'):
+    parts = [g for g in (shape(f['geometry']).buffer(0) for f in load('water.geojson')['features'])
+             if g.area * KM2 > (1.0 if g.intersects(REGION) or g.intersects(CITY) else 8.0)]
+    WATER = unary_union(parts).buffer(0)
+    print('water areas cut from the base', len(parts))
+wet = lambda g: polys(g.difference(WATER)) if WATER is not None else g
+base = [feat(wet(CITY), {'kind': 'city', 'name': 'City of New York'})]
 cutout = CITY.buffer(0.0003)
 towns = []
 for f in load('cousubs.geojson')['features']:
@@ -161,7 +171,7 @@ for f in load('cousubs.geojson')['features']:
     gid = p['STATEFP'] + p['COUNTYFP']
     if gid in CITY_COUNTIES or gid not in CORE: continue
     if p.get('NAME', '').startswith('County subdivisions not defined') or p.get('COUSUBFP') == '00000': continue
-    g = polys(shape(f['geometry']).buffer(0).difference(cutout).intersection(counties[gid][1]))
+    g = wet(polys(shape(f['geometry']).buffer(0).difference(cutout).intersection(counties[gid][1])))
     if g.is_empty or g.area * KM2 < 0.05: continue
     nm = p.get('NAMELSAD') or p['NAME']
     nm = re.sub(r' (city|town|village|CDP|borough|township)$', '', nm)
@@ -175,7 +185,7 @@ for n, g, gid in towns:
     p = {'kind': 'neighbour', 'name': n, 'region': county_label(gid), 'lp': label_pt(g)}
     if g.area * KM2 < 25 and n not in ALWAYS: p['minor'] = True
     base.append(feat(g, p))
-outside = polys(STATES.difference(REGION.buffer(0.0005)).difference(cutout))
+outside = wet(polys(STATES.difference(REGION.buffer(0.0005)).difference(cutout)))
 base.insert(0, feat(outside, {'kind': 'outside', 'name': ''}))
 dump('base', base)
 dump('region_areas', [feat(polys(counties[c][1]), {'region': county_label(c)}) for c in CORE if c in counties])
