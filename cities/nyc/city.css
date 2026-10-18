@@ -1,0 +1,25 @@
+/* New York City's own colours: the five boroughs, the subway's trunk-line colours (the MTA's published palette)
+   and the commuter-rail swatch. Everything else (page, civic layers, lenses, streets) comes from the engine. */
+:root{
+  --b-manhattan:#EE6E73; --b-bronx:#F2CE5E; --b-brooklyn:#7DAFE0; --b-queens:#95CA7E; --b-statenisland:#B9A5E6;
+  --l-ace:#0062CF; --l-bdfm:#EB6800; --l-g:#799534; --l-jz:#8E5C33; --l-l:#7C858C; --l-nqrw:#F6BC26; --l-123:#D82233;
+  --l-456:#009952; --l-7:#9A38A1; --l-s:#7C858C; --l-sir:#08179C;
+  /* US cities: red, white and blue. Panel toggles take the flag's blue; pins and buttons stay red. */
+  --accent-2:#1C4A94;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --b-manhattan:#C2484E; --b-bronx:#B8962E; --b-brooklyn:#4C7FB5; --b-queens:#5E9A48; --b-statenisland:#7D68B8;
+  --l-ace:#4D93E9; --l-jz:#B07E55; --l-l:#A3ABB2; --l-s:#A3ABB2; --l-sir:#5C6BE0; --l-7:#C06AC6; --accent-2:#4F84E8;
+}}
+:root[data-theme="dark"]{
+  --b-manhattan:#C2484E; --b-bronx:#B8962E; --b-brooklyn:#4C7FB5; --b-queens:#5E9A48; --b-statenisland:#7D68B8;
+  --l-ace:#4D93E9; --l-jz:#B07E55; --l-l:#A3ABB2; --l-s:#A3ABB2; --l-sir:#5C6BE0; --l-7:#C06AC6; --accent-2:#4F84E8;
+}
+.sw.boroughs{background:conic-gradient(var(--b-manhattan) 0 20%,var(--b-bronx) 0 40%,var(--b-brooklyn) 0 60%,var(--b-queens) 0 80%,var(--b-statenisland) 0)}
+.sw.subway{background:linear-gradient(var(--l-123) 0 20%,var(--l-456) 0 40%,var(--l-ace) 0 60%,var(--l-bdfm) 0 80%,var(--l-nqrw) 0)}
+.sw.rail{background:linear-gradient(#00985F 0 33%,#EE0034 0 66%,#EF3E42 0)}
+.fill-major.manhattan{fill:var(--b-manhattan)} .fill-major.bronx{fill:var(--b-bronx)} .fill-major.brooklyn{fill:var(--b-brooklyn)}
+.fill-major.queens{fill:var(--b-queens)} .fill-major.staten-island{fill:var(--b-statenisland)}
+.sub-line.lace{stroke:var(--l-ace)} .sub-line.lbdfm{stroke:var(--l-bdfm)} .sub-line.lg{stroke:var(--l-g)} .sub-line.ljz{stroke:var(--l-jz)}
+.sub-line.ll{stroke:var(--l-l)} .sub-line.lnqrw{stroke:var(--l-nqrw)} .sub-line.l123{stroke:var(--l-123)} .sub-line.l456{stroke:var(--l-456)}
+.sub-line.l7{stroke:var(--l-7)} .sub-line.ls{stroke:var(--l-s)} .sub-line.lsir{stroke:var(--l-sir)}
