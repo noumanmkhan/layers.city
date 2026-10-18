@@ -33,6 +33,7 @@ def get(url, tries=4):
 
 
 def rnd(c):
+    if not c: return c   # an empty part (New York's file has a few)
     return [rnd(x) for x in c] if isinstance(c[0], list) else [round(c[0], 6), round(c[1], 6)]
 
 

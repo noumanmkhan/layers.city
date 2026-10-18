@@ -93,7 +93,8 @@ def merge(parts, out):
                             if h.strip() not in heads: heads.append(h.strip())
             seen = set()
             with zo.open(n, 'w') as fo:
-                w = csv.writer(io.TextIOWrapper(fo, encoding='utf-8', newline=''))
+                tw = io.TextIOWrapper(fo, encoding='utf-8', newline='')
+                w = csv.writer(tw)
                 w.writerow(heads)
                 for z_ in zs:
                     if n not in z_.namelist(): continue
@@ -106,6 +107,7 @@ def merge(parts, out):
                                 if line in seen: continue
                                 seen.add(line)
                             w.writerow(line)
+                tw.flush(); tw.detach()   # write out the buffer before the zip entry closes
     print('  merged', len(parts), 'feeds into one:', names)
 
 
