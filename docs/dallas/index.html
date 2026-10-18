@@ -1259,7 +1259,7 @@ circle.cl{stroke-width:3;fill:var(--city)}
 .hover-tip::before{display:none}
 /* zoom-gated labels */
 #map:not(.z11) .lbl-area,#map:not(.z11) .lbl-ward,#map:not(.z11) .lbl-prov,#map:not(.z11) .lbl-fed,#map:not(.z11) .lbl-sbw{display:none}
-#map.z10 .lbl-region,#map:not(.z10) .lbl-muni,#map:not(.z10) .lbl-boro,#map:not(.z10) .shield:not(.outer),#map:not(.z12) .lbl-go:not(.end),#map:not(.z12) .go-stn:not(.end):not(.hub),#map:not(.z10) .poi b,#map:not(.z10) .lake-near,#map.z10 .lake-far{display:none}
+#map.z10 .lbl-region,#map:not(.z10) .lbl-muni,#map:not(.z12) .lbl-muni.minor,#map:not(.z10) .lbl-boro,#map:not(.z10) .shield:not(.outer),#map:not(.z12) .lbl-go:not(.end),#map:not(.z12) .go-stn:not(.end):not(.hub),#map:not(.z10) .poi b,#map:not(.z10) .lake-near,#map.z10 .lake-far{display:none}
 #map:not(.z12) .lbl-cult,#map:not(.z12) .shield.minor{display:none}
 #map:not(.z13) .lbl-nbhd,#map:not(.z13) .lbl-stn:not(.end){display:none}
 #map:not(.z11) .lbl-stn.end{display:none}
@@ -1811,7 +1811,8 @@ function buildBase(fc, regions){
   // An annex (kind annex): land beyond the city limits that the map treats as part of the city view (Vancouver's
   // University Endowment Lands): shaded and outlined apart, never masked, and inside the footprint, so taps there get
   // the full card. The city's units file names it (as one of its units); city-only layers simply stop at the line.
-  fc.features.filter(f => f.properties.kind === 'neighbour').forEach(f => label(f.properties.name, 'lbl-muni', ll(f.properties.lp)).addTo(map));
+  // A municipality marked minor (a small town in a dense region, such as New Jersey's boroughs) is named from zoom 12 only.
+  fc.features.filter(f => f.properties.kind === 'neighbour').forEach(f => label(f.properties.name, 'lbl-muni' + (f.properties.minor ? ' minor' : ''), ll(f.properties.lp)).addTo(map));
   regions.features.forEach(f => label(f.properties.name, 'lbl-region', ll(f.geometry.coordinates)).addTo(map));
   (CITY.water || []).forEach(w => label(w.name, 'lbl-lake ' + w.cls, w.at).addTo(map));
   map.on('click', tapMap);

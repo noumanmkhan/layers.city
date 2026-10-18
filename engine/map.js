@@ -175,7 +175,8 @@ function buildBase(fc, regions){
   // An annex (kind annex): land beyond the city limits that the map treats as part of the city view (Vancouver's
   // University Endowment Lands): shaded and outlined apart, never masked, and inside the footprint, so taps there get
   // the full card. The city's units file names it (as one of its units); city-only layers simply stop at the line.
-  fc.features.filter(f => f.properties.kind === 'neighbour').forEach(f => label(f.properties.name, 'lbl-muni', ll(f.properties.lp)).addTo(map));
+  // A municipality marked minor (a small town in a dense region, such as New Jersey's boroughs) is named from zoom 12 only.
+  fc.features.filter(f => f.properties.kind === 'neighbour').forEach(f => label(f.properties.name, 'lbl-muni' + (f.properties.minor ? ' minor' : ''), ll(f.properties.lp)).addTo(map));
   regions.features.forEach(f => label(f.properties.name, 'lbl-region', ll(f.geometry.coordinates)).addTo(map));
   (CITY.water || []).forEach(w => label(w.name, 'lbl-lake ' + w.cls, w.at).addTo(map));
   map.on('click', tapMap);
