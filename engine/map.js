@@ -178,7 +178,8 @@ function buildBase(fc, regions){
   // A municipality marked minor (a small town in a dense region, such as New Jersey's boroughs) is named from zoom 12 only.
   fc.features.filter(f => f.properties.kind === 'neighbour').forEach(f => label(f.properties.name, 'lbl-muni' + (f.properties.minor ? ' minor' : ''), ll(f.properties.lp)).addTo(map));
   regions.features.forEach(f => label(f.properties.name, 'lbl-region', ll(f.geometry.coordinates)).addTo(map));
-  (CITY.water || []).forEach(w => label(w.name, 'lbl-lake ' + w.cls, w.at).addTo(map));
+  // A water label may turn to follow a river ("rotate", degrees clockwise) and be set smaller (cls "river").
+  (CITY.water || []).forEach(w => label(w.rotate ? '<span class="rot" style="transform:rotate(' + (+w.rotate) + 'deg)">' + esc(w.name) + '</span>' : w.name, 'lbl-lake ' + w.cls, w.at).addTo(map));
   map.on('click', tapMap);
 }
 
@@ -2058,7 +2059,7 @@ function schools(x, y){
     const f = D.features.find(f => f.properties.level === lv && contains(f.geometry, x, y)); if (!f) return '';
     const p = f.properties, at = p.x != null ? [p.x, p.y] : null;
     const name = p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.name) + '</a>' : esc(p.name);
-    return '<dt>' + esc(label) + '</dt><dd>' + name + '<span>' + esc(fill(at ? S.sub : S.subNoDist, {grades: p.grades, dist: at ? dist(metres([x, y], at)) : ''})) + '</span></dd>';
+    return '<dt>' + esc(label) + '</dt><dd>' + name + '<span>' + esc(fill(at ? S.sub : S.subNoDist, {grades: p.grades, dist: at ? dist(metres([x, y], at)) : ''})) + '</span>' + (p.note ? '<span>' + esc(p.note) + '</span>' : '') + '</dd>';
   }).join('');
   return rows ? '<div class="live reps"><dl>' + rows + '</dl><p>' + esc(fill(S.note, {year: D.year || ''})) + '</p></div>' : '';
 }
