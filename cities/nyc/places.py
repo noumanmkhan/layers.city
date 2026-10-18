@@ -29,13 +29,19 @@ KEEP = {'NYU', 'CUNY', 'SUNY', 'NYC', 'LIU', 'BMCC', 'PS', 'IS', 'MS', 'HS', 'JH
 
 
 def tcase(s):
-    out = []
-    for i, w in enumerate((s or '').split()):
+    """Title case for the Facilities Database's capitals: "53RD STREET LIBRARY" -> "53rd Street Library",
+    "TERENCE CARDINAL COOKE-CATHEDRAL" -> "Terence Cardinal Cooke-Cathedral", "(SNFL)" kept, "MCGOLDRICK" -> "McGoldrick"."""
+    def word(w, first):
         u = w.upper()
-        if u in KEEP or re.match(r'^\d', w): out.append(u if u in KEEP else w)
-        elif i and w.lower() in SMALL: out.append(w.lower())
-        else: out.append(w[:1].upper() + w[1:].lower() if "'" not in w else "'".join(p[:1].upper() + p[1:].lower() for p in w.split("'")))
-    return ' '.join(out).replace("'S ", "'s ").replace("’S ", "’s ")
+        if u.strip('(),.') in KEEP or (w.startswith('(') and w.endswith(')') and len(w) <= 7): return u
+        if re.match(r'^\d+(ST|ND|RD|TH)$', u): return w.lower()          # 53RD -> 53rd
+        if re.match(r'^\d', w): return w                               # 89Q, 243K-
+        if re.fullmatch(r'(?:[A-Za-z]\.)+(?:/(?:[A-Za-z]\.)+)*', w): return u   # P.S., P.S./I.S.
+        if not first and w.lower() in SMALL: return w.lower()
+        cap = lambda p: (p[:1].upper() + p[1:].lower()) if not re.match(r'^Mc[a-z]', p[:1].upper() + p[1:].lower()) else 'Mc' + p[2:3].upper() + p[3:].lower()
+        return re.sub(r"[A-Za-z][^\s\-'’–/]*", lambda m: cap(m.group()), w)
+    out = ' '.join(word(w, i == 0) for i, w in enumerate((s or '').split()))
+    return re.sub(r"(['’])S\b", r"\1s", out)
 
 
 def fc(feats, **top):
