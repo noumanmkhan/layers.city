@@ -199,7 +199,7 @@ def socrata_dobnow(spec):
     cols = ['job_filing_number', 'filing_status', 'house_no', 'street_name', 'borough', 'job_type', 'building_type', 'existing_dwelling_units',
             'proposed_dwelling_units', 'proposed_no_of_stories', 'existing_stories', 'filing_date', 'approved_date', 'first_permit_date',
             'signoff_date', 'current_status_date', 'latitude', 'longitude', 'job_description', 'bbl']
-    where = 'job_type in(' + ','.join("'" + t + "'" for t in spec['types']) + ')'
+    where = 'job_type in(' + ','.join("'" + t + "'" for t in spec['types']) + ")' AND building_type not in('1 Family','2 Family')"   # houses: left out
     rows, off = [], 0
     while True:
         q = urllib.parse.urlencode({'$select': ','.join(cols), '$where': where, '$order': 'job_filing_number', '$limit': 50000, '$offset': off})
@@ -216,10 +216,15 @@ def socrata_dobnow(spec):
     for r in rows:
         for k in ('filing_date', 'approved_date', 'first_permit_date', 'signoff_date', 'current_status_date'):
             if r.get(k): r[k] = iso(r[k])
-    rows = [r for r in rows if max(r.get(k) or '' for k in ('filing_date', 'approved_date', 'first_permit_date', 'signoff_date', 'current_status_date')) >= cut]
+    # Kept: filings made in the window, or signed off in the last two years. (Every filing's current_status_date is
+    # recent, so it doesn't count.) Withdrawn ones are dropped here, and the descriptions trimmed.
+    two = since(2)
+    rows = [r for r in rows if ((r.get('filing_date') or '') >= cut or (r.get('signoff_date') or '') >= two) and 'Withdrawn' not in (r.get('filing_status') or '')]
+    for r in rows:
+        r.pop('bbl', None); r.pop('building_type', None)
+        if r.get('job_description'): r['job_description'] = r['job_description'][:300]
     print('  in the window', len(rows))
     print('  by type/status:', dict(collections.Counter((r.get('job_type'), r.get('filing_status')) for r in rows).most_common(40)))
-    print('  building types:', dict(collections.Counter(r.get('building_type') for r in rows).most_common(20)))
     print('  with coordinates:', sum(1 for r in rows if r.get('latitude')), '· date sample:', [r.get('filing_date') for r in rows[:3]], [r.get('signoff_date') for r in rows[:3]])
     print('  sample:', json.dumps(rows[-1])[:1200])
     return rows

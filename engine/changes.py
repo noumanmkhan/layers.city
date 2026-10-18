@@ -177,19 +177,20 @@ if os.path.exists(p):
              'LOC Issued': 'finished', 'CO Issued': 'finished', 'Full Demolition Signed-off': 'finished'}
     REVIEW = re.compile(r'Review|Pending|Objections|Incomplete|Assignment|QA', re.I)
     HOUSE = re.compile(r'\b(one|two|1|2)[- ]?(family|fam\.?)\b|single[- ]family|\bduplex\b|\b1 ?& ?2 family|\b[12]-?fam', re.I)
-    jobs = {}
+    jobs, first = {}, {}
     for r in json.load(open(p))['rows']:
-        j = (r.get('job_filing_number') or '').split('-')[0]
+        j, _, suf = (r.get('job_filing_number') or '').partition('-')
         if not j or not r.get('latitude'): continue
+        if suf.startswith('I') and r.get('job_description'): first[j] = r['job_description']   # the initial filing says what the job is
         last = max(r.get(k) or '' for k in ('current_status_date', 'signoff_date', 'first_permit_date', 'approved_date', 'filing_date'))
         if j not in jobs or last > jobs[j][0]: jobs[j] = (last, r)
     num = lambda v: int(float(v)) if v not in (None, '') and re.match(r'^-?\d+(\.\d+)?$', str(v).strip()) else None
-    for last, r in jobs.values():
+    for j, (last, r) in jobs.items():
         st = (r.get('filing_status') or '').strip()
         stage = STAGE.get(st) or ('proposed' if REVIEW.search(st) else None)
         if not stage: continue
         kind = 'demolition' if r['job_type'] == 'Full Demolition' else 'building'
-        desc = re.sub(r'\s+', ' ', r.get('job_description') or '').strip()
+        desc = re.sub(r'\s+', ' ', first.get(j) or r.get('job_description') or '').strip()
         new_u, old_u = num(r.get('proposed_dwelling_units')), num(r.get('existing_dwelling_units'))
         if kind == 'building' and ((new_u is not None and 0 < new_u <= 2) or (not new_u and HOUSE.search(desc))): continue
         if kind == 'demolition' and ((old_u is not None and 0 < old_u <= 2) or HOUSE.search(desc)): continue
