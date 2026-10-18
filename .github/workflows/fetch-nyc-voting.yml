@@ -1,5 +1,5 @@
 name: Fetch New York voting places
-# Where New Yorkers vote on November 3, 2026: the Board of Elections' poll site lists and the State's site points
+# Where New Yorkers vote on November 3, 2026, and what's on their ballot: the Board of Elections' poll site lists and the State's site points
 # (cities/nyc/fetch_voting.py), then docs/nyc/data/voting.geojson (cities/nyc/voting.py). Daily until election day,
 # twice on election morning, or by hand. After election day it does nothing. Commits to main only when the file changes.
 on:
@@ -36,12 +36,14 @@ jobs:
           set -o pipefail
           python3 -u cities/nyc/fetch_voting.py 2>&1 | tee cities/nyc/raw/fetch_voting.log
           python3 cities/nyc/voting.py
+          # The Board's candidate list is marked tentative: refetch it and rebuild the ballot rows (representatives.json).
+          python3 -u cities/nyc/fetch_ballot.py > cities/nyc/raw/ballot/fetch_ballot.log 2>&1 && python3 cities/nyc/ballot.py && python3 cities/nyc/representatives.py || echo 'ballot refresh failed; keeping the last list'
       - if: env.STOP != '1'
         run: |
-          if git diff --quiet -- docs/nyc/data/voting.geojson; then echo "no changes"; exit 0; fi
+          if git diff --quiet -- docs/nyc/data/voting.geojson docs/nyc/data/representatives.json; then echo "no changes"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/nyc/raw/voting cities/nyc/raw/fetch_voting.log docs/nyc/data/voting.geojson
-          git commit -m "Update New York voting places"
+          git add cities/nyc/raw/voting cities/nyc/raw/fetch_voting.log cities/nyc/raw/ballot docs/nyc/data/voting.geojson docs/nyc/data/representatives.json
+          git commit -m "Update New York voting places and ballot"
           git pull --rebase origin main
           git push origin HEAD:main
