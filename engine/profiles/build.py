@@ -128,7 +128,7 @@ WALK_GRID = os.path.join(OUT, 'walk_grid.json')
 wgrid = json.load(open(WALK_GRID)) if os.path.exists(WALK_GRID) else None
 HUBS = CFG.get('hubs', [])
 LONG_WALK_MIN = 30   # past this, a walk time stops being useful: give the distance instead
-TRANSFER = 3         # a change of line "costs" this many stops when choosing the best way to a hub
+TRANSFER = CFG.get('transferStops', 3)   # a change of line "costs" this many stops when choosing the best way to a hub
 
 
 SNAME = station_keys([{'properties': m} for _, m in stations])   # unique in the city (see common.station_keys)
