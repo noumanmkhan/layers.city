@@ -1,0 +1,14 @@
+{
+ "_about": "Skyscrapers layer, 650 ft (198 m) and taller (decided with the user October 18, 2026: Wikipedia's own threshold for New York, about 110 buildings; 150 m would be over 300). engine/fetch_skyscrapers.py fetches the Wikipedia list; engine/skyscrapers.py builds docs/nyc/data/skyscrapers.geojson. Table names are checked against the fetch log.",
+ "wiki": "List of tallest buildings in New York City",
+ "city": "New York City",
+ "min": 198,
+ "heights": ["ft", "m"],
+ "tables": {"built": "Tallest buildings", "uc": "Under construction", "timeline": "Timeline of tallest buildings"},
+ "exclude": {},
+ "geocode": {"suffix": "New York, NY, USA", "addresses": {}},
+ "use": {},
+ "open": {"_rule": "A tower listed with this year's date is drawn hollow (under construction) unless marked true here: it must be open for occupancy, not just topped out."},
+ "aka": {"One World Trade Center": "Freedom Tower"},
+ "facts": {}
+}

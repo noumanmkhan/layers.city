@@ -1,0 +1,41 @@
+name: Fetch New York City data
+# Runs a New York City fetch script and commits what it writes under cities/nyc/raw/
+# back to the branch that ran it. The sandbox can't reach these hosts; Actions can.
+# Pushing a changed fetch script to main runs it there, so no fetch branch is needed.
+on:
+  workflow_dispatch:
+    inputs:
+      script: {description: 'Script in cities/nyc/ to run', default: 'fetch.py'}
+  push:
+    branches: [main]
+    paths: ['cities/nyc/fetch*.py', '.github/workflows/fetch-nyc.yml']
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin && pip install -q shapely
+      # A manual run names its script; a push runs whichever fetch script its last commit changed (none: nothing to do).
+      - run: |
+          S="${{ inputs.script }}"
+          [ -n "$S" ] || S=$(git diff --name-only HEAD~1 HEAD -- 'cities/nyc/fetch*.py' | head -1 | xargs -r basename)
+          if [ -z "$S" ]; then echo "No fetch script changed in the last commit; nothing to fetch."; exit 0; fi
+          echo "SCRIPT=$S" >> "$GITHUB_ENV"
+          mkdir -p cities/nyc/raw
+          python3 -u "cities/nyc/$S" 2>&1 | tee "cities/nyc/raw/${S%.py}.log"
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          [ -n "$SCRIPT" ] || exit 0
+          git add cities/nyc/raw
+          git commit -m "Fetch New York City data ($SCRIPT)" || echo "no changes"
+          git pull --rebase
+          git push
