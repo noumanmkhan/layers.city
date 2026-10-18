@@ -31,9 +31,12 @@ jobs:
           java-version: '21'
       - if: inputs.script == 'fetch_transit_penn.py'
         run: pip install -q r5py geopandas
-      # A private repo's runner has 7 GB of memory: add swap so R5 building New York's network isn't killed.
+      # A private repo's runner has 7 GB of memory: add swap so R5 building New York's network isn't killed, and free disk for the network file it saves.
       - if: inputs.script == 'fetch_transit_penn.py'
-        run: sudo swapoff -a; sudo fallocate -l 10G /mnt/swapfile && sudo chmod 600 /mnt/swapfile && sudo mkswap /mnt/swapfile && sudo swapon /mnt/swapfile && free -h
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL   # R5 saves a large network file: make room
+          sudo swapoff -a; sudo fallocate -l 6G /mnt/swapfile && sudo chmod 600 /mnt/swapfile && sudo mkswap /mnt/swapfile && sudo swapon /mnt/swapfile
+          free -h; df -h / /mnt
       # A manual run names its script; a push runs whichever fetch script its last commit changed (none: nothing to do).
       - run: |
           S="${{ inputs.script }}"
