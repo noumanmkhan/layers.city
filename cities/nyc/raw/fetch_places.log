@@ -1,0 +1,29 @@
+== socrata
+wrote places/dsny_frequencies.geojson 19960 KB
+   dsny_frequencies 610 · MultiPolygon [[[[-73.8609131357793, 40.655133310354], [-73.8610205308854, · ['district', 'freq_bulk', 'freq_organics', 'freq_recycling', 'freq_refuse', 'frequency', 'objectid', 'schedulecode', 'section', 'shape_area', 'shape_length']
+wrote places/parks.geojson 7941 KB
+   parks 2061 · MultiPolygon [[[[-73.93732949281154, 40.81553449102845], [-73.93740869686 · ['acquisitiondate', 'acres', 'address', 'borough', 'class', 'communityboard', 'councildistrict', 'department', 'gisobjid', 'gispropnum', 'globalid', 'jurisdiction', 'location', 'mapped', 'name311', 'nys_assembly', 'nys_senate', 'objectid', 'omppropid', 'parentid', 'permit', 'permitdistrict', 'permitparent', 'pip_ratable', 'precinct', 'retired', 'signname', 'subcategory', 'typecategory', 'us_congress']
+wrote places/athletic.geojson 9396 KB
+   athletic 6951 · MultiPolygon [[[[-73.95398265838648, 40.6821786722751], [-73.953830165025 · ['accessible', 'adult_baseball', 'adult_football', 'adult_softball', 'basketball', 'bocce', 'borough', 'communityboard', 'councildistrict', 'cricket', 'department', 'dimensions', 'featurestatus', 'field_lighted', 'field_number', 'flagfootball', 'frisbee', 'gispropnum', 'handball', 'hockey', 'kickball', 'lacrosse', 'll_baseb_12andunder', 'll_baseb_13andolder', 'll_softball', 'maintenanceagreement', 'netball', 'nonregulation_soccer', 'pickleball', 'precinct']
+wrote places/pools.geojson 55 KB
+   pools 91 · Polygon [[[-73.8889859664428, 40.804149906408306], [-73.888808725917 · ['borough', 'communityboard', 'councildistrict', 'gispropnum', 'location', 'name', 'omppropid', 'parkdistrict', 'pooltype', 'system']
+wrote places/dog_runs.geojson 143 KB
+   dog_runs 95 · MultiPolygon [[[[-73.88376101947657, 40.8304560262645], [-73.883705223004 · ['borough', 'communityboard', 'councildistrict', 'department', 'dog_area_type', 'featurestatus', 'gispropnum', 'name', 'objectid', 'parentid', 'precinct', 'seating', 'surface', 'system', 'zipcode']
+wrote places/spray.geojson 323 KB
+   spray 1133 · Point [-73.9961120348127, 40.72164855702886] · ['boro', 'coundist', 'district', 'propid', 'propname', 'propnum', 'sitename', 'system']
+wrote places/skateparks.geojson 75 KB
+   skateparks 44 · MultiPolygon [[[[-73.90228015716708, 40.81494224824052], [-73.90221797171 · ['bmx_permit', 'borough', 'feature_su', 'features_1', 'features_2', 'features_3', 'gispropnum', 'inline_ska', 'name', 'park_surfa', 'scooter_pe', 'system']
+wrote places/playgrounds.geojson 1265 KB
+   playgrounds 1012 · MultiPolygon [[[[-73.92204760746661, 40.82961562889351], [-73.92210397631 · ['borough', 'gispropnum', 'omppropid', 'parkdistrict', 'publiclocation', 'publicname', 'system']
+wrote places/school_zones_es.geojson 2425 KB
+   school_zones_es 770 · MultiPolygon [[[[-74.01924633135063, 40.6431854115336], [-74.018652738340 · ['boro', 'boro_num', 'creat_date', 'dbn', 'edit_date', 'esid_no', 'initials', 'label', 'remarks', 'schooldist', 'shape_area', 'shape_leng', 'x_centroid', 'y_centroid', 'zoned_dist']
+wrote places/school_zones_ms.geojson 1326 KB
+   school_zones_ms 279 · MultiPolygon [[[[-73.88929539946649, 40.78726581255711], [-73.89048895927 · ['boro', 'boro_text', 'creat_date', 'dbn', 'edit_date', 'initials', 'label', 'msid_no', 'remarks', 'schooldist', 'shape_area', 'shape_leng', 'zoned_dist']
+wrote places/school_zones_hs.geojson 828 KB
+   school_zones_hs 80 · MultiPolygon [[[[-73.84839142489518, 40.86717776625579], [-73.84903154023 · ['boro', 'boro_text', 'catchment', 'dbn', 'edit_date', 'hsid_no', 'initials', 'label', 'remarks', 'sch_name', 'schooldist', 'zoned_dist']
+== facdb
+wrote places/facdb.json 18484 KB
+  facdb 19588 [(('YOUTH SERVICES', 'YOUTH CENTERS, LITERACY PROGRAMS, AND JOB TRAINING SERVICES'), 2659), (('YOUTH SERVICES', 'AFTER-SCHOOL PROGRAMS'), 2265), (('CULTURAL INSTITUTIONS', 'OTHER CULTURAL INSTITUTIONS'), 2207), (('SCHOOLS (K-12)', 'PUBLIC K-12 SCHOOLS'), 1521), (('HEALTH CARE', 'HOSPITALS AND CLINICS'), 1297), (('HEALTH CARE', 'MENTAL HEALTH'), 1247), (('SCHOOLS (K-12)', 'NON-PUBLIC K-12 SCHOOLS'), 952), (('PARKS AND PLAZAS', 'RECREATION AND WATERFRONT SITES'), 644), (('HUMAN SERVICES', 'SOUP KITCHENS AND FOOD PANTRIES'), 602), (('HUMAN SERVICES', 'SENIOR SERVICES'), 594), (('PARKS AND PLAZAS', 'STREETSCAPES, PLAZAS, AND MALLS'), 571), (('HUMAN SERVICES', 'LEGAL AND INTERVENTION SERVICES'), 503), (('SCHOOLS (K-12)', 'CHARTER K-12 SCHOOLS'), 466), (('PARKS AND PLAZAS', 'PARKS'), 455), (('PARKS AND PLAZAS', 'PRIVATELY OWNED PUBLIC SPACE'), 392), (('PARKS AND PLAZAS', 'GARDENS'), 350), (('CAMPS', 'CAMPS'), 324), (('HUMAN SERVICES', 'NON-RESIDENTIAL HOUSING AND HOMELESS SERVICES'), 275), (('HEALTH CARE', 'OTHER HEALTH CARE'), 250), (('LIBRARIES', 'PUBLIC LIBRARIES'), 227), (('HUMAN SERVICES', 'COMMUNITY CENTERS AND COMMUNITY PROGRAMS'), 223), (('HUMAN SERVICES', 'PROGRAMS FOR PEOPLE WITH DISABILITIES'), 206), (('HEALTH CARE', 'RESIDENTIAL HEALTH CARE'), 172), (('HUMAN SERVICES', 'WORKFORCE DEVELOPMENT'), 144), (('CULTURAL INSTITUTIONS', 'MUSEUMS'), 139), (('ADULT SERVICES', 'ADULT AND IMMIGRANT LITERACY'), 136), (('HIGHER EDUCATION', 'COLLEGES OR UNIVERSITIES'), 127), (('PARKS AND PLAZAS', 'PRESERVES AND CONSERVATION AREAS'), 121), (('SCHOOLS (K-12)', 'GED AND ALTERNATIVE HIGH SCHOOL EQUIVALENCY'), 103), (('HEALTH CARE', 'SUBSTANCE USE DISORDER TREATMENT PROGRAMS'), 87), (('HUMAN SERVICES', 'IMMIGRANT SERVICES'), 70), (('SCHOOLS (K-12)', 'PUBLIC AND PRIVATE SPECIAL EDUCATION SCHOOLS'), 66), (('HUMAN SERVICES', 'FINANCIAL ASSISTANCE AND SOCIAL SERVICES'), 64), (('CULTURAL INSTITUTIONS', 'HISTORICAL SOCIETIES'), 47), (('PARKS AND PLAZAS', 'UNDEVELOPED'), 37), (('LIBRARIES', 'ACADEMIC AND SPECIAL LIBRARIES'), 27), (('PARKS AND PLAZAS', 'CEMETERIES'), 12), (('HEALTH CARE', 'HEALTH PROMOTION AND DISEASE PREVENTION'), 6)]
+== worship
+wrote places/worship_osm.json 1285 KB
+FAILED: none
