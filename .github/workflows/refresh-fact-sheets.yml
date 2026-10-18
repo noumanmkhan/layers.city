@@ -1,6 +1,6 @@
 name: Refresh fact sheets
-# Keeps the neighbourhood fact sheets (docs/<city>/profiles/data/, built by engine/profiles/build.py) in step
-# with the map's data. Two kinds of run:
+# Keeps the fact sheets (docs/<city>/profiles/, built by engine/profiles/build.py from cities/<city>/factsheet.json)
+# in step with the map's data, for each city in CITIES. Two kinds of run:
 # - Quick: after a fetch job that changes the map files the fact sheets read (routes and stops, parking,
 #   bike lanes and Bike Share), rebuild the sheets from what's already committed. No network, a minute or two.
 # - Full: monthly, or by hand with "full", also re-fetches what the sheets alone use, from OpenStreetMap and
@@ -12,9 +12,12 @@ on:
   workflow_dispatch:
     inputs:
       full:
-        description: 'Also re-fetch walking network, walk times, ramps and drive times (30–90 min)'
+        description: 'Also re-fetch walking network, walk times, ramps and drive times (30–90 min a city)'
         type: boolean
         default: false
+      cities:
+        description: 'Cities, space-separated'
+        default: 'toronto nyc'
   schedule:
     - cron: '17 7 9 * *'
   workflow_run:
@@ -22,6 +25,7 @@ on:
       - "Fetch streetcar and bus routes"
       - "Fetch Toronto parking"
       - "Fetch bike lanes"
+      - "Fetch New York City data"
     types: [completed]
 permissions:
   contents: write
@@ -30,9 +34,9 @@ jobs:
   refresh:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 330
     env:
-      CITY: toronto
+      CITIES: ${{ inputs.cities || 'toronto nyc' }}
       FULL: ${{ github.event_name == 'schedule' || inputs.full == true }}
     steps:
       - uses: actions/checkout@v4
@@ -53,22 +57,28 @@ jobs:
         if: steps.have.outputs.ok && env.FULL == 'true'
         continue-on-error: true
         run: |
-          python3 -u engine/profiles/fetch_walk.py "$CITY"
-          python3 -u engine/profiles/walk_grid.py "$CITY"
+          for CITY in $CITIES; do
+            python3 -u engine/profiles/fetch_walk.py "$CITY" && python3 -u engine/profiles/walk_grid.py "$CITY" || echo "::warning::$CITY walk times not refreshed"
+          done
       - name: Highway ramps and drive times (full runs)
         if: steps.have.outputs.ok && env.FULL == 'true'
         continue-on-error: true
-        run: python3 -u engine/profiles/fetch_drive.py "$CITY"
+        run: |
+          for CITY in $CITIES; do
+            python3 -u engine/profiles/fetch_drive.py "$CITY" || echo "::warning::$CITY drive times not refreshed"
+          done
       - name: Rebuild the fact sheets
         if: steps.have.outputs.ok
-        run: python3 -u engine/profiles/build.py "$CITY"
+        run: for CITY in $CITIES; do python3 -u engine/profiles/build.py "$CITY"; done
       - name: Commit
         if: steps.have.outputs.ok
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add "docs/$CITY/profiles/data"
-          for f in ramps.json drive_profiles.json; do [ -f "cities/$CITY/raw/$f" ] && git add "cities/$CITY/raw/$f"; done
-          git commit -m "Refresh $CITY fact sheets$([ "$FULL" = true ] && echo ' (walk and drive times re-fetched)')" || { echo "no changes"; exit 0; }
+          for CITY in $CITIES; do
+            git add "docs/$CITY/profiles"
+            for f in ramps.json drive_profiles.json; do [ -f "cities/$CITY/raw/$f" ] && git add "cities/$CITY/raw/$f"; done
+          done
+          git commit -m "Refresh fact sheets ($CITIES)$([ "$FULL" = true ] && echo ', walk and drive times re-fetched')" || { echo "no changes"; exit 0; }
           git pull --rebase
           git push

@@ -1,0 +1,9 @@
+/* Line bullets in the map's subway colours (cities/nyc/city.css, the MTA's trunk-line palette); bus badges in MTA
+   bus blue, express buses green. Overnight is a family of ordinary routes here, so it gets no style of its own. */
+.ln{font-size:10.5px}
+.ln.l1,.ln.l2,.ln.l3{background:#D82233} .ln.l4,.ln.l5,.ln.l6{background:#009952} .ln.l7{background:#9A38A1}
+.ln.lA,.ln.lC,.ln.lE{background:#0062CF} .ln.lB,.ln.lD,.ln.lF,.ln.lM{background:#EB6800} .ln.lG{background:#799534}
+.ln.lJ,.ln.lZ{background:#8E5C33} .ln.lL,.ln.lS{background:#7C858C} .ln.lN,.ln.lQ,.ln.lR,.ln.lW{background:#F6BC26;color:#1A1414}
+.ln.lSIR{background:#08179C;font-size:7px}
+.rb,.rb.night{background:#fff;color:#0039A6;box-shadow:inset 0 0 0 1.5px #0039A6}
+.rb.exp{background:#00933C;color:#fff;box-shadow:none}
