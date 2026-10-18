@@ -123,6 +123,7 @@ for name in [n for n, _ in las] + [UEL_NAME]:
         d['lang'] = [[n, round(100 * c / tot)] for n, c in langs]
         d['langMulti'] = round(100 * v(LANG_MULTI) / tot)
     tot = v(AGE_T)
+    d['pop'], d['hh'] = int(round(tot)) or None, int(round(hh)) or None   # weights for citywide figures (Compare page); card never shows them
     d['ages'] = [round(100 * sum(v(AGE_R[j]) for j in grp) / tot) for grp in AGE_GROUPS] if tot else None
     tot = v(IMM_T)
     d['recent'] = round(100 * v(IMM_RECENT) / tot) if tot else None

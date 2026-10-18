@@ -524,6 +524,7 @@ Keyed by unit code as a string (`"71"`). Fields:
 | `value` | Median home value, dollars. Shown as `$800K`, `$1.2M`. |
 | `rent` | Median monthly rent paid by renting households, utilities included (Canada: shelter cost of rented dwellings; Chicago: ACS gross rent). Counts every renter, long-time and subsidized included, so it runs below new-lease rents. |
 | `renterPct`, `carPct`, `transitPct`, `walkBikePct` | Whole-number percentages. |
+| `pop`, `hh` | Optional, since October 19, 2026. The unit's population and private households from the same census or survey, as weights for citywide figures (the site's Compare page). Not shown on the card. |
 | `cost`, `commute`, `tenure` | Tier ids; labels come from `lens.lenses` (match `key`). |
 | `union`, `unionBand` | Toronto only: transit minutes to Union, weekday 8–9 am, and its tier. |
 | `loop`, `loopBand` | Chicago only: transit minutes to the Loop (quickest of five Loop arrival points), weekday 8–9 am, and its tier. Same tier ids as `unionBand`. |

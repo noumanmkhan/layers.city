@@ -122,6 +122,12 @@ select:hover{border-color:var(--ink)}
 .chip{font-size:13px;line-height:1.3;padding:5px 10px;border-radius:999px;border:1.5px solid var(--rule);color:var(--ink-2)}
 .chip b{font-weight:500;color:var(--ink)}
 
+/* Whole city / typical neighbourhood switch */
+.view{display:flex;flex-wrap:wrap;align-items:center;gap:10px;max-width:860px}
+.view .seg{display:inline-flex;border:1.5px solid var(--rule);border-radius:999px;background:var(--card);padding:3px}
+.view button{appearance:none;border:0;background:transparent;color:var(--ink-3);font:inherit;font-weight:500;font-size:14px;min-height:38px;padding:0 16px;border-radius:999px;cursor:pointer}
+.view button[aria-pressed=true]{background:var(--ink);color:#fff}
+.view p{margin:0;font-size:13px;line-height:1.45;color:var(--ink-3);flex:1 1 260px}
 .foot{max-width:860px;font-size:14px;line-height:1.6;color:var(--ink-3)}
 .foot a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 .cta{display:flex;flex-wrap:wrap;gap:10px}
@@ -175,6 +181,14 @@ footer a:hover{color:var(--ink)}
       <label><span class="who">CITY B</span><select id="b" aria-label="City B"></select></label>
     </section>
 
+    <section class="view" aria-label="How to count">
+      <div class="seg" role="group" aria-label="Count by">
+        <button type="button" id="v-city" aria-pressed="true">Whole city</button>
+        <button type="button" id="v-typical" aria-pressed="false">Typical neighbourhood</button>
+      </div>
+      <p id="view-note"></p>
+    </section>
+
     <section class="rows" id="rows" aria-live="polite"></section>
 
     <p class="foot" id="foot"></p>
@@ -205,6 +219,12 @@ footer a:hover{color:var(--ink)}
   selA.value = byId[q.get('a')] ? q.get('a') : 'toronto';
   selB.value = byId[q.get('b')] && q.get('b') !== selA.value ? q.get('b') : (selA.value === 'nyc' ? 'toronto' : 'nyc');
 
+  let view = q.get('view') === 'typical' ? 'typical' : 'city';
+  const V = c => c.views[view];
+  const NOTES = {
+    city: 'Each neighbourhood counts by its people and households, so these are the city’s own figures: the share of all residents, or the neighbourhood figure of the median household.',
+    typical: 'Each neighbourhood counts once, whatever its size. This is what the typical neighbourhood looks like, which flattens a city of big districts more than one of small ones.'
+  };
   const fmt = new Intl.NumberFormat('en-CA');
   const money = (n, cur) => n == null ? null :
     (n >= 1000000 ? '$' + (n/1000000).toFixed(n % 1000000 ? 2 : 0).replace(/0$/, '') + 'M' : n >= 10000 ? '$' + Math.round(n/1000) + 'k' : '$' + fmt.format(n)) + ' ' + cur;
@@ -215,62 +235,61 @@ footer a:hover{color:var(--ink)}
   const rows = [
     {label:'AT A GLANCE', cell: c => `
       <div class="big">${c.units.n}<small>${esc(c.units.plural.toUpperCase())}</small></div>
-      <div class="sub">${esc(c.source)}</div>`},
+      <div class="sub"><b>${fmt.format(c.units.pop)}</b> people, <b>${fmt.format(c.units.hh)}</b> households · ${esc(c.source)}</div>`},
 
-    {label:'HOME VALUE', small:'typical neighbourhood', cell: c => c.value.median == null ? `<div class="na">${na}</div>` : `
-      <div class="big">${money(c.value.median, c.currency)}</div>
-      <div class="sub">Middle half of ${esc(c.units.plural)}: <b>${money(c.value.range[0], c.currency)}</b> to <b>${money(c.value.range[1], c.currency)}</b></div>`,
-      note:'Median owner-estimated home value of the typical neighbourhood, in each city’s own currency; not a conversion and not current prices.'},
+    {label:'HOME VALUE', cell: c => { const v = V(c).value; return v.median == null ? `<div class="na">${na}</div>` : `
+      <div class="big">${money(v.median, c.currency)}</div>
+      <div class="sub">Middle half${view === 'city' ? ' of households' : ' of ' + esc(c.units.plural)}: <b>${money(v.range[0], c.currency)}</b> to <b>${money(v.range[1], c.currency)}</b></div>`},
+      note:'Owner-estimated home value, in each city’s own currency; not a conversion and not current prices. Whole city: the neighbourhood median that the median household lives under.'},
 
-    {label:'RENT', small:'typical neighbourhood', cell: c => c.rent.median == null ? `<div class="na">${na}</div>` : `
-      <div class="big">${money(c.rent.median, c.currency)}<small>/MO</small></div>
-      <div class="sub">Middle half: <b>${money(c.rent.range[0], c.currency)}</b> to <b>${money(c.rent.range[1], c.currency)}</b> · <b>${c.renterPct}%</b> of households rent</div>`,
+    {label:'RENT', cell: c => { const v = V(c).rent; return v.median == null ? `<div class="na">${na}</div>` : `
+      <div class="big">${money(v.median, c.currency)}<small>/MO</small></div>
+      <div class="sub">Middle half: <b>${money(v.range[0], c.currency)}</b> to <b>${money(v.range[1], c.currency)}</b> · <b>${V(c).renterPct}%</b> of households rent</div>`},
       note:'What renting households pay, utilities included, counting long-time tenants and subsidized homes, so it sits below what a new lease costs.'},
 
     {label:'GETTING TO WORK', cell: c => {
-      const m = c.modes, k = c.commute, n = c.units.n;
-      const word = k.transit > k.car && k.transit >= k.mixed ? 'Mostly transit' : k.car > k.transit && k.car >= k.mixed ? 'Car-dependent' : 'Mixed';
+      const m = V(c).modes;
+      const word = m.car >= 68 ? 'Car-dependent' : m.car >= 50 ? 'Mixed' : 'Mostly transit';
       return `
       <div class="big">${word}</div>
       <div class="stack" aria-hidden="true"><i style="width:${m.transit}%"></i><i style="width:${m.walkBike}%"></i><i style="width:${m.car}%"></i></div>
-      <div class="key"><span><b>${m.transit}%</b> transit</span><span><b>${m.walkBike}%</b> walk or bike</span><span><b>${m.car}%</b> drive</span></div>
-      <div class="sub">${k.transit} of ${n} ${esc(c.units.plural)} lean transit, ${k.mixed} are mixed, ${k.car} lean car</div>`},
-      note:'How commuters usually get to work, averaged across the city’s neighbourhoods. Each neighbourhood is called transit, mixed or car by the same rule the map’s card uses.'},
+      <div class="key"><span><b>${m.transit}%</b> transit</span><span><b>${m.walkBike}%</b> walk or bike</span><span><b>${m.car}%</b> drive</span></div>`},
+      note:'How commuters usually get to work. Car-dependent when 68% or more drive, mixed from 50%, mostly transit below that: the same cut-offs as the Toronto card.'},
 
-    {label:'TO DOWNTOWN', small:'by transit, weekday morning', cell: c => c.hub.median == null ? `<div class="na">${na}</div>` : `
-      <div class="big">${c.hub.median}<small>MIN</small></div>
-      <div class="sub"><b>${esc(c.hub.label)}</b> from the typical neighbourhood · middle half <b>${c.hub.range[0]}</b> to <b>${c.hub.range[1]}</b> min</div>`,
+    {label:'TO DOWNTOWN', small:'by transit, weekday morning', cell: c => { const h = V(c).hub; return h.median == null ? `<div class="na">${na}</div>` : `
+      <div class="big">${h.median}<small>MIN</small></div>
+      <div class="sub"><b>${esc(c.hubLabel)}</b>${view === 'city' ? ' for the median resident' : ' from the typical neighbourhood'} · middle half <b>${h.range[0]}</b> to <b>${h.range[1]}</b> min</div>`},
       note:'Scheduled transit time to each city’s main downtown hub. The hubs differ, so this compares what a commute feels like, not the two networks.'},
 
-    {label:'HOME TYPES', cell: c => bars(c.homes),
-      note:'Share of homes by building type, averaged across neighbourhoods. Canadian and US censuses group buildings differently, so the bands are each city’s own.'},
+    {label:'HOME TYPES', cell: c => bars(c.labels.homes, V(c).homes),
+      note:'Share of homes by building type. Canadian and US censuses group buildings differently, so the bands are each city’s own.'},
 
-    {label:'WHEN HOMES WERE BUILT', cell: c => bars(c.built),
+    {label:'WHEN HOMES WERE BUILT', cell: c => bars(c.labels.built, V(c).built),
       note:'Canada’s census and the US survey cut the decades differently; read each column on its own terms.'},
 
     {label:'LANGUAGE AT HOME', cell: c => `
-      <div class="big">${c.lang.english}%<small>ENGLISH</small></div>
+      <div class="big">${V(c).english}%<small>ENGLISH</small></div>
       <div class="sub">Also among the five most-spoken home languages in:</div>
-      <div class="chips">${c.lang.leading.map(([l, n]) => `<span class="chip"><b>${esc(l)}</b> · ${n} of ${c.units.n}</span>`).join('')}</div>`,
+      <div class="chips">${c.leading.map(([l, n]) => `<span class="chip"><b>${esc(l)}</b> · ${n} of ${c.units.n}</span>`).join('')}</div>`,
       note:'The language each person speaks most often at home. Canada names languages; the US survey groups them, which is why Chicago, New York and Dallas show categories.'},
 
     {label:'RECENT IMMIGRANTS', cell: c => `
-      <div class="big">${c.recent.mean}%</div>
-      <div class="sub">of residents ${esc(c.recent.definition)}, in the typical neighbourhood</div>`,
+      <div class="big">${V(c).recent}%</div>
+      <div class="sub">of residents ${esc(c.recentDefinition)}</div>`,
       note:'Definitions differ: Canada counts arrivals in the five years before the 2021 census; the US survey counts everyone born abroad who arrived from 2010 on.'},
 
-    {label:'AGES', cell: c => bars(c.ages)},
+    {label:'AGES', cell: c => bars(c.labels.ages, V(c).ages)},
 
-    {label:'TREE CANOPY', cell: c => c.canopy == null ? `<div class="na">${na}</div>` : `
-      <div class="big">${c.canopy}%</div>
-      <div class="sub">of the typical neighbourhood’s land is under trees</div>`,
+    {label:'TREE CANOPY', cell: c => V(c).canopy == null ? `<div class="na">${na}</div>` : `
+      <div class="big">${V(c).canopy}%</div>
+      <div class="sub">of the land is under trees${view === 'city' ? ', where the median resident lives' : ', in the typical neighbourhood'}</div>`,
       note:'Satellite land cover, 2021 (ESA WorldCover, 10 m).'},
   ];
 
-  function bars(d){
-    const max = Math.max(...d.shares.filter(x => x != null), 1);
-    return '<div class="bars">' + d.labels.map((l, i) => {
-      const v = d.shares[i];
+  function bars(labels, shares){
+    const max = Math.max(...shares.filter(x => x != null), 1);
+    return '<div class="bars">' + labels.map((l, i) => {
+      const v = shares[i];
       return `<span>${esc(l)}</span><span class="bar"><i style="width:${v == null ? 0 : Math.round(v / max * 100)}%"></i></span><span class="n">${v == null ? '–' : v + '%'}</span>`;
     }).join('') + '</div>';
   }
@@ -286,9 +305,11 @@ footer a:hover{color:var(--ink)}
         </div>
         ${r.note ? `<p class="note">${r.note}</p>` : ''}
       </section>`).join('');
+    document.getElementById('view-note').textContent = NOTES[view];
+    for (const k of ['city', 'typical']) document.getElementById('v-' + k).setAttribute('aria-pressed', String(view === k));
     document.getElementById('foot').innerHTML =
-      `Every figure summarises ${esc(a.name)}’s ${a.units.n} ${esc(a.units.plural)} and ${esc(b.name)}’s ${b.units.n} ${esc(b.units.plural)} as the map draws them: the median for money and minutes, the average for shares. They describe a typical neighbourhood, not the whole population, and the neighbourhoods are different sizes in each city. Sources and years are listed under “At a glance”; see <a href="/attributions/">Attributions</a>.`;
-    const u = new URL(location); u.searchParams.set('a', a.id); u.searchParams.set('b', b.id); history.replaceState(null, '', u);
+      `Every figure is built from ${esc(a.name)}’s ${a.units.n} ${esc(a.units.plural)} and ${esc(b.name)}’s ${b.units.n} ${esc(b.units.plural)}, as the map draws them. Whole city weights each by its residents or households; typical neighbourhood counts each once. Sources and years are listed under “At a glance”; see <a href="/attributions/">Attributions</a>.`;
+    const u = new URL(location); u.searchParams.set('a', a.id); u.searchParams.set('b', b.id); u.searchParams.set('view', view); history.replaceState(null, '', u);
     document.title = `${a.name} vs ${b.name} · Compare · Layers.City`;
   }
 
@@ -297,6 +318,7 @@ footer a:hover{color:var(--ink)}
   }
   selA.addEventListener('change', () => { guard(selA, selB); render(); });
   selB.addEventListener('change', () => { guard(selB, selA); render(); });
+  for (const k of ['city', 'typical']) document.getElementById('v-' + k).addEventListener('click', () => { view = k; render(); });
   document.getElementById('swap').addEventListener('click', () => { const t = selA.value; selA.value = selB.value; selB.value = t; render(); });
   render();
 })();

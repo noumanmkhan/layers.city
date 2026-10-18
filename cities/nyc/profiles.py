@@ -141,6 +141,7 @@ for n, name, _ in sorted(cas):
         d['lang'] = [[nm, round(100 * x / tot)] for nm, x in sorted(names, key=lambda a: -a[1])[:5]]
     d['ages'] = shares(m, AGE_VARS, 5)
     tot = v(m, 'B01001', 1)   # everyone (B05005's own total is only people born outside the US)
+    d['pop'], d['hh'] = tot or None, hh or None   # weights for citywide figures (Compare page); card never shows them
     d['recent'] = round(100 * sum(m[k] for k in RECENT_VARS) / tot) if tot else None
     d['recentSince'] = RECENT_PERIOD.replace('Entered ', '')   # "2010 or later"
 
