@@ -1,0 +1,59 @@
+{
+ "key": "senate_districts",
+ "looked_for": [
+  "State Senate Districts"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "h4i2-acfi",
+   "State Senate Districts",
+   "map",
+   "2026-05-26"
+  ],
+  [
+   "exact",
+   "afns-vxeu",
+   "State Senate Districts",
+   "dataset",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "7equ-j2vi",
+   "State Senate Districts (water areas included)",
+   "map",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "4294-fz9s",
+   "State Senate Districts (water areas included)",
+   "dataset",
+   "2026-05-26"
+  ]
+ ],
+ "picked": {
+  "id": "h4i2-acfi",
+  "name": "State Senate Districts",
+  "type": "map",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-05-26",
+  "view_modified": "2024-11-01",
+  "update_frequency": "Quarterly",
+  "description": "GIS data: Boundaries of State Senate Districts.\r\n\r\nAll previously released versions of this data are available at <a href=\"https://www1.nyc.gov/site/planning/data-maps/open-data/bytes-archive.page?sorts[year]=0\">BYTES of the BIG APPLE- Archive</a>"
+ },
+ "count": null,
+ "geo": {
+  "bytes": 53,
+  "error": "Expecting value: line 4 column 5 (char 53)"
+ },
+ "columns": [],
+ "samples": [
+  {},
+  {},
+  {}
+ ]
+}

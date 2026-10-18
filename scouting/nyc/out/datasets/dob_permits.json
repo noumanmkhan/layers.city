@@ -1,0 +1,489 @@
+{
+ "key": "dob_permits",
+ "looked_for": [
+  "DOB Permit Issuance"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "ipu4-2q9a",
+   "DOB Permit Issuance",
+   "dataset",
+   "2026-10-17"
+  ],
+  [
+   "contains",
+   "bty7-2jhb",
+   "Historical DOB Permit Issuance",
+   "dataset",
+   "2018-08-07"
+  ]
+ ],
+ "picked": {
+  "id": "ipu4-2q9a",
+  "name": "DOB Permit Issuance",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Buildings (DOB)",
+  "category": "Housing & Development",
+  "rows_updated": "2026-10-17",
+  "view_modified": "2026-10-17",
+  "update_frequency": "Daily",
+  "description": "The Department of Buildings (DOB) issues permits for construction and demolition activities in the City of New York. The construction industry must submit an application to DOB with details of the construction job they would like to complete. The primary types of application, aka job type, are: New Building, Demolition, and Alterations Type 1, 2, and 3. Each job type can have multiple work types, such as general construction, boiler, elevator, and plumbing. Each work type will receive a separate permit. (See the DOB Job Application Filings dataset for information about each job application.) Each row/record in this dataset represents the life cycle of one permit for one work type. The dataset is updated daily with new records, and each existing record will be updated as the permit applicat"
+ },
+ "count": 3990985,
+ "geo": null,
+ "columns": [
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "BOROUGH"
+  },
+  {
+   "name": "bin__",
+   "type": "text",
+   "label": "Bin #"
+  },
+  {
+   "name": "house__",
+   "type": "text",
+   "label": "House #"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "Street Name"
+  },
+  {
+   "name": "job__",
+   "type": "text",
+   "label": "Job #"
+  },
+  {
+   "name": "job_doc___",
+   "type": "text",
+   "label": "Job doc. #"
+  },
+  {
+   "name": "job_type",
+   "type": "text",
+   "label": "Job Type"
+  },
+  {
+   "name": "self_cert",
+   "type": "text",
+   "label": "Self_Cert"
+  },
+  {
+   "name": "block",
+   "type": "text",
+   "label": "Block"
+  },
+  {
+   "name": "lot",
+   "type": "text",
+   "label": "Lot"
+  },
+  {
+   "name": "community_board",
+   "type": "text",
+   "label": "Community Board"
+  },
+  {
+   "name": "zip_code",
+   "type": "text",
+   "label": "Zip Code"
+  },
+  {
+   "name": "bldg_type",
+   "type": "text",
+   "label": "Bldg Type"
+  },
+  {
+   "name": "residential",
+   "type": "text",
+   "label": "Residential"
+  },
+  {
+   "name": "special_district_1",
+   "type": "text",
+   "label": "Special District 1"
+  },
+  {
+   "name": "special_district_2",
+   "type": "text",
+   "label": "Special District 2"
+  },
+  {
+   "name": "work_type",
+   "type": "text",
+   "label": "Work Type"
+  },
+  {
+   "name": "permit_status",
+   "type": "text",
+   "label": "Permit Status"
+  },
+  {
+   "name": "filing_status",
+   "type": "text",
+   "label": "Filing Status"
+  },
+  {
+   "name": "permit_type",
+   "type": "text",
+   "label": "Permit Type"
+  },
+  {
+   "name": "permit_sequence__",
+   "type": "text",
+   "label": "Permit Sequence #"
+  },
+  {
+   "name": "permit_subtype",
+   "type": "text",
+   "label": "Permit Subtype"
+  },
+  {
+   "name": "oil_gas",
+   "type": "text",
+   "label": "Oil Gas"
+  },
+  {
+   "name": "site_fill",
+   "type": "text",
+   "label": "Site Fill"
+  },
+  {
+   "name": "filing_date",
+   "type": "text",
+   "label": "Filing Date"
+  },
+  {
+   "name": "issuance_date",
+   "type": "text",
+   "label": "Issuance Date"
+  },
+  {
+   "name": "expiration_date",
+   "type": "text",
+   "label": "Expiration Date"
+  },
+  {
+   "name": "job_start_date",
+   "type": "text",
+   "label": "Job Start Date"
+  },
+  {
+   "name": "permittee_s_first_name",
+   "type": "text",
+   "label": "Permittee's First Name"
+  },
+  {
+   "name": "permittee_s_last_name",
+   "type": "text",
+   "label": "Permittee's Last Name"
+  },
+  {
+   "name": "permittee_s_business_name",
+   "type": "text",
+   "label": "Permittee's Business Name"
+  },
+  {
+   "name": "permittee_s_phone__",
+   "type": "text",
+   "label": "Permittee's Phone #"
+  },
+  {
+   "name": "permittee_s_license_type",
+   "type": "text",
+   "label": "Permittee's License Type"
+  },
+  {
+   "name": "permittee_s_license__",
+   "type": "text",
+   "label": "Permittee's License #"
+  },
+  {
+   "name": "act_as_superintendent",
+   "type": "text",
+   "label": "Act as Superintendent"
+  },
+  {
+   "name": "permittee_s_other_title",
+   "type": "text",
+   "label": "Permittee's Other Title"
+  },
+  {
+   "name": "hic_license",
+   "type": "text",
+   "label": "HIC License"
+  },
+  {
+   "name": "site_safety_mgr_s_first_name",
+   "type": "text",
+   "label": "Site Safety Mgr's First Name"
+  },
+  {
+   "name": "site_safety_mgr_s_last_name",
+   "type": "text",
+   "label": "Site Safety Mgr's Last Name"
+  },
+  {
+   "name": "site_safety_mgr_business_name",
+   "type": "text",
+   "label": "Site Safety Mgr Business Name"
+  },
+  {
+   "name": "superintendent_first___last_name",
+   "type": "text",
+   "label": "Superintendent First & Last Name"
+  },
+  {
+   "name": "superintendent_business_name",
+   "type": "text",
+   "label": "Superintendent Business Name"
+  },
+  {
+   "name": "owner_s_business_type",
+   "type": "text",
+   "label": "Owner's Business Type"
+  },
+  {
+   "name": "non_profit",
+   "type": "text",
+   "label": "Non-Profit"
+  },
+  {
+   "name": "owner_s_business_name",
+   "type": "text",
+   "label": "Owner's Business Name"
+  },
+  {
+   "name": "owner_s_first_name",
+   "type": "text",
+   "label": "Owner's First Name"
+  },
+  {
+   "name": "owner_s_last_name",
+   "type": "text",
+   "label": "Owner's Last Name"
+  },
+  {
+   "name": "owner_s_house__",
+   "type": "text",
+   "label": "Owner's House #"
+  },
+  {
+   "name": "owner_s_house_street_name",
+   "type": "text",
+   "label": "Owner's House Street Name"
+  },
+  {
+   "name": "city",
+   "type": "text",
+   "label": "Owner’s House City"
+  },
+  {
+   "name": "state",
+   "type": "text",
+   "label": "Owner’s House State"
+  },
+  {
+   "name": "owner_s_zip_code",
+   "type": "text",
+   "label": "Owner’s House Zip Code"
+  },
+  {
+   "name": "permit_si_no",
+   "type": "text",
+   "label": "PERMIT_SI_NO"
+  },
+  {
+   "name": "gis_latitude",
+   "type": "text",
+   "label": "LATITUDE"
+  },
+  {
+   "name": "gis_longitude",
+   "type": "text",
+   "label": "LONGITUDE"
+  },
+  {
+   "name": "gis_council_district",
+   "type": "text",
+   "label": "COUNCIL_DISTRICT"
+  },
+  {
+   "name": "gis_census_tract",
+   "type": "text",
+   "label": "CENSUS_TRACT"
+  },
+  {
+   "name": "bbl",
+   "type": "number",
+   "label": "BBL"
+  },
+  {
+   "name": "gis_nta_name",
+   "type": "text",
+   "label": "NTA_NAME"
+  },
+  {
+   "name": "dobrundate",
+   "type": "calendar_date",
+   "label": "DOBRunDate"
+  }
+ ],
+ "samples": [
+  {
+   "borough": "BROOKLYN",
+   "bin__": "3185434",
+   "house__": "60",
+   "street_name": "BAY 34 ST",
+   "job__": "340733647",
+   "job_doc___": "01",
+   "job_type": "A2",
+   "self_cert": "Y",
+   "block": "06861",
+   "lot": "00067",
+   "community_board": "311",
+   "zip_code": "11214",
+   "bldg_type": "1",
+   "residential": "YES",
+   "work_type": "OT",
+   "permit_status": "ISSUED",
+   "filing_status": "INITIAL",
+   "permit_type": "EW",
+   "permit_sequence__": "01",
+   "permit_subtype": "OT",
+   "site_fill": "NOT APPLICABLE",
+   "filing_date": "06/17/2020",
+   "issuance_date": "06/17/2020",
+   "expiration_date": "02/26/2021",
+   "job_start_date": "06/17/2020",
+   "permittee_s_first_name": "JOHN",
+   "permittee_s_last_name": "SHEN",
+   "permittee_s_business_name": "HENRYSMITH PROPERTY MGMT",
+   "permittee_s_phone__": "7188020246",
+   "permittee_s_license_type": "GC",
+   "permittee_s_license__": "0037136",
+   "owner_s_business_type": "INDIVIDUAL",
+   "non_profit": "N",
+   "owner_s_business_name": "N/A",
+   "owner_s_first_name": "IRIS",
+   "owner_s_last_name": "LEE",
+   "owner_s_house__": "1878",
+   "owner_s_house_street_name": "WEST 6 ST",
+   "city": "BROOKLYN",
+   "state": "NY",
+   "owner_s_zip_code": "11214",
+   "permit_si_no": "3765466",
+   "gis_latitude": "40.599043",
+   "gis_longitude": "-73.992006",
+   "gis_council_district": "47",
+   "gis_census_tract": "300",
+   "gis_nta_name": "Bensonhurst East",
+   "dobrundate": "2020-06-18T00:00:00.000"
+  },
+  {
+   "borough": "QUEENS",
+   "bin__": "4623172",
+   "house__": "117",
+   "street_name": "BEACH 215 STREET",
+   "job__": "421538731",
+   "job_doc___": "01",
+   "job_type": "NB",
+   "self_cert": "N",
+   "block": "16350",
+   "lot": "00400",
+   "community_board": "414",
+   "zip_code": "11697",
+   "bldg_type": "1",
+   "residential": "YES",
+   "work_type": "EQ",
+   "permit_status": "ISSUED",
+   "filing_status": "RENEWAL",
+   "permit_type": "EQ",
+   "permit_sequence__": "02",
+   "permit_subtype": "FN",
+   "site_fill": "USE UNDER 300 CU.YD",
+   "filing_date": "06/17/2020",
+   "issuance_date": "06/17/2020",
+   "expiration_date": "06/17/2021",
+   "job_start_date": "06/06/2019",
+   "permittee_s_first_name": "JOHN",
+   "permittee_s_last_name": "NOLAN",
+   "permittee_s_business_name": "CELTIC CONSTRUCTION II",
+   "permittee_s_phone__": "5166371771",
+   "permittee_s_license_type": "GC",
+   "permittee_s_license__": "0035125",
+   "owner_s_business_type": "CORPORATION",
+   "non_profit": "N",
+   "owner_s_business_name": "BREEZY POINT COOPERATIVE, INC.",
+   "owner_s_first_name": "CHRISTOPHER",
+   "owner_s_last_name": "NORTON",
+   "owner_s_house__": "202-30",
+   "owner_s_house_street_name": "ROCKAWAY POINT BOULEVARD",
+   "city": "ROCKAWAY POINT",
+   "state": "NY",
+   "owner_s_zip_code": "11697",
+   "permit_si_no": "3765467",
+   "gis_latitude": "40.554860",
+   "gis_longitude": "-73.923824",
+   "gis_council_district": "32",
+   "gis_census_tract": "91601",
+   "gis_nta_name": "Breezy Point-Belle Harbor-Rockaway Park-Broad Channel",
+   "dobrundate": "2020-06-18T00:00:00.000"
+  },
+  {
+   "borough": "STATEN ISLAND",
+   "bin__": "5174573",
+   "house__": "620",
+   "street_name": "RICHMOND TERRACE",
+   "job__": "510113501",
+   "job_doc___": "01",
+   "job_type": "NB",
+   "self_cert": "N",
+   "block": "00062",
+   "lot": "00056",
+   "community_board": "501",
+   "zip_code": "10301",
+   "bldg_type": "2",
+   "permit_status": "ISSUED",
+   "filing_status": "RENEWAL",
+   "permit_type": "FO",
+   "permit_sequence__": "02",
+   "site_fill": "ON-SITE",
+   "filing_date": "06/17/2020",
+   "issuance_date": "06/17/2020",
+   "expiration_date": "07/01/2021",
+   "job_start_date": "10/22/2019",
+   "permittee_s_first_name": "DENNIS",
+   "permittee_s_last_name": "ROME",
+   "permittee_s_business_name": "PINNACLE COMMERCIAL DEVEL",
+   "permittee_s_phone__": "7328920080",
+   "permittee_s_license_type": "GC",
+   "permittee_s_license__": "0608513",
+   "superintendent_first___last_name": "JORGE LOPEZ",
+   "superintendent_business_name": "PINNACLE COMMERCIAL DEVEL",
+   "owner_s_business_type": "CORPORATION",
+   "non_profit": "N",
+   "owner_s_business_name": "572 RT LLC C/O ABINGDON SQUARE",
+   "owner_s_first_name": "BEN",
+   "owner_s_last_name": "ATKINS",
+   "owner_s_house__": "45",
+   "owner_s_house_street_name": "MAIN ST, SUITE 502",
+   "city": "BROOKLYN",
+   "state": "NY",
+   "owner_s_zip_code": "11201",
+   "permit_si_no": "3765795",
+   "gis_latitude": "40.645602",
+   "gis_longitude": "-74.092344",
+   "gis_council_district": "49",
+   "gis_census_tract": "81",
+   "gis_nta_name": "West New Brighton-New Brighton-St. George",
+   "dobrundate": "2020-06-18T00:00:00.000"
+  }
+ ]
+}

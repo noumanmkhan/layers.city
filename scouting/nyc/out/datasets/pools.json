@@ -1,0 +1,141 @@
+{
+ "key": "pools",
+ "looked_for": [
+  "Directory of Pools",
+  "NYC Parks Pools"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "y5rm-wagw",
+   "NYC Parks Pools",
+   "dataset",
+   "2026-10-15"
+  ],
+  [
+   "contains",
+   "jgf2-kw9q",
+   "NYC Parks Pools Map",
+   "map",
+   "2026-10-15"
+  ]
+ ],
+ "picked": {
+  "id": "y5rm-wagw",
+  "name": "NYC Parks Pools",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "NYC Parks",
+  "category": "Recreation",
+  "rows_updated": "2026-10-15",
+  "view_modified": "2026-10-15",
+  "update_frequency": "Monthly",
+  "description": "This dataset consists of indoor and outdoor pools under the jurisdiction of NYC Parks.\n\nTo view this data on a map, visit https://data.cityofnewyork.us/Recreation/NYC-Parks-Pools-Map/jgf2-kw9q\n\nTo learn more about pools, visit NYC Parks website: https://www.nycgovparks.org/highlights/places-to-go/pools"
+ },
+ "count": 91,
+ "geo": null,
+ "columns": [
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "BOROUGH"
+  },
+  {
+   "name": "communityboard",
+   "type": "number",
+   "label": "COMMUNITYBOARD"
+  },
+  {
+   "name": "councildistrict",
+   "type": "number",
+   "label": "COUNCILDISTRICT"
+  },
+  {
+   "name": "parkdistrict",
+   "type": "text",
+   "label": "PARKDISTRICT"
+  },
+  {
+   "name": "gispropnum",
+   "type": "text",
+   "label": "GISPROPNUM"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "NAME"
+  },
+  {
+   "name": "omppropid",
+   "type": "text",
+   "label": "OMPPROPID"
+  },
+  {
+   "name": "system",
+   "type": "text",
+   "label": "SYSTEM"
+  },
+  {
+   "name": "polygon",
+   "type": "polygon",
+   "label": "polygon"
+  },
+  {
+   "name": "pooltype",
+   "type": "text",
+   "label": "POOLTYPE"
+  }
+ ],
+ "samples": [
+  {
+   "borough": "X",
+   "communityboard": "202",
+   "councildistrict": "17",
+   "parkdistrict": "X-02",
+   "gispropnum": "X307",
+   "location": "Outdoor",
+   "name": "Floating Pool",
+   "omppropid": "X307",
+   "system": "X307-POOL-0028",
+   "polygon": {
+    "geometry_type": "Polygon"
+   },
+   "pooltype": "Intermediate"
+  },
+  {
+   "borough": "X",
+   "communityboard": "206",
+   "councildistrict": "15",
+   "parkdistrict": "X-06",
+   "gispropnum": "X236",
+   "location": "Outdoor",
+   "name": "Mapes Wading Pool",
+   "omppropid": "X236",
+   "system": "X236-POOL-0027",
+   "polygon": {
+    "geometry_type": "Polygon"
+   },
+   "pooltype": "Wading"
+  },
+  {
+   "borough": "X",
+   "communityboard": "206",
+   "councildistrict": "15",
+   "parkdistrict": "X-06",
+   "gispropnum": "X236",
+   "location": "Outdoor",
+   "name": "Mapes Pool",
+   "omppropid": "X236",
+   "system": "X236-POOL-0026",
+   "polygon": {
+    "geometry_type": "Polygon"
+   },
+   "pooltype": "Intermediate"
+  }
+ ]
+}

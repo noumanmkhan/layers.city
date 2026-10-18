@@ -1,0 +1,165 @@
+{
+ "key": "lpc_districts",
+ "looked_for": [
+  "Historic Districts"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "skyk-mpzq",
+   "Historic Districts",
+   "dataset",
+   "2026-06-18"
+  ],
+  [
+   "contains",
+   "xbvj-gfnw",
+   "Historic Districts (Map)",
+   "map",
+   "2026-06-18"
+  ]
+ ],
+ "picked": {
+  "id": "skyk-mpzq",
+  "name": "Historic Districts",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Landmarks Preservation Commission (LPC)",
+  "category": "Housing & Development",
+  "rows_updated": "2026-06-18",
+  "view_modified": "2026-06-18",
+  "update_frequency": "Quarterly",
+  "description": "Provides information regarding all historic districts that have calendared, heard, or designated by the Landmarks Preservation Commission, or for which an LP number has been issued, as well as many proposed districts in the study area phase."
+ },
+ "count": 141,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "polygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "Borough"
+  },
+  {
+   "name": "lp_number",
+   "type": "text",
+   "label": "LP_NUMBER"
+  },
+  {
+   "name": "current_",
+   "type": "text",
+   "label": "MOST_CURRENT"
+  },
+  {
+   "name": "area_name",
+   "type": "text",
+   "label": "LM_NAME"
+  },
+  {
+   "name": "extension",
+   "type": "text",
+   "label": "EXTENSION"
+  },
+  {
+   "name": "status_of_",
+   "type": "text",
+   "label": "SITE_STATUS"
+  },
+  {
+   "name": "last_actio",
+   "type": "text",
+   "label": "LAST_ACTION"
+  },
+  {
+   "name": "boundary_n",
+   "type": "text",
+   "label": "ACTION_NOTES"
+  },
+  {
+   "name": "public_hea",
+   "type": "text",
+   "label": "PUBLIC_HEARING"
+  },
+  {
+   "name": "other_hear",
+   "type": "text",
+   "label": "OTHER_HEARINGS"
+  },
+  {
+   "name": "desdate",
+   "type": "calendar_date",
+   "label": "DESIG_DATE"
+  },
+  {
+   "name": "caldate",
+   "type": "calendar_date",
+   "label": "CALEN_DATE"
+  },
+  {
+   "name": "shape_leng",
+   "type": "text",
+   "label": "Shape_Leng"
+  },
+  {
+   "name": "shape_area",
+   "type": "text",
+   "label": "Shape_Area"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "Polygon"
+   },
+   "borough": "BK",
+   "lp_number": "LP-02693",
+   "current_": "Yes",
+   "area_name": "Ditmas Park West Historic District",
+   "extension": "No",
+   "status_of_": "DESIGNATED",
+   "last_actio": "DESIGNATED",
+   "public_hea": "10/21/2025",
+   "desdate": "2025-11-25T00:00:00.000",
+   "caldate": "2025-06-17T00:00:00.000",
+   "shape_leng": "3728.3824419608377",
+   "shape_area": "739207.7713770915"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Polygon"
+   },
+   "borough": "BK",
+   "lp_number": "LP-02692",
+   "current_": "Yes",
+   "area_name": "Beverley Square West Historic District",
+   "extension": "No",
+   "status_of_": "DESIGNATED",
+   "last_actio": "DESIGNATED",
+   "public_hea": "10/21/2025",
+   "desdate": "2025-11-25T00:00:00.000",
+   "caldate": "2025-06-17T00:00:00.000",
+   "shape_leng": "4651.397850034275",
+   "shape_area": "744284.7103505391"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Polygon"
+   },
+   "borough": "BK",
+   "lp_number": "LP-02683",
+   "current_": "Yes",
+   "area_name": "Willoughby-Hart Historic District",
+   "status_of_": "DESIGNATED",
+   "last_actio": "DESIGNATED",
+   "public_hea": "6/11/2024",
+   "desdate": "2024-06-25T00:00:00.000",
+   "caldate": "2024-05-21T00:00:00.000",
+   "shape_leng": "2608.686678234513",
+   "shape_area": "372947.68809495633"
+  }
+ ]
+}

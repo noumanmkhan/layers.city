@@ -1,0 +1,185 @@
+{
+ "key": "census_tracts_2020",
+ "looked_for": [
+  "2020 Census Tracts"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "63ge-mke6",
+   "2020 Census Tracts",
+   "dataset",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "imfq-nf3j",
+   "2020 Census Tracts (water areas included)",
+   "dataset",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "4mvr-i7nd",
+   "2020 Census Tracts (water areas included) - Mapped",
+   "map",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "weqx-t5xr",
+   "2020 Census Tracts - Mapped",
+   "map",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "hm78-6dwm",
+   "2020 Census Tracts to 2020 NTAs and CDTAs Equivalency",
+   "dataset",
+   "2021-09-20"
+  ]
+ ],
+ "picked": {
+  "id": "63ge-mke6",
+  "name": "2020 Census Tracts",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-05-26",
+  "view_modified": "2026-05-26",
+  "update_frequency": "Quarterly",
+  "description": "Census Tracts from the 2020 US Census for New York City clipped to the shoreline. These boundary files are derived from the US Census Bureau's TIGER project and have been geographically modified to fit the New York City base map. Because some census tracts are under water not all census tracts are contained in this file, only census tracts that are partially or totally located on land have been mapped in this file.\n\nAll previously released versions of this data are available on the <a href=\"https://www.nyc.gov/content/planning/pages/resources/datasets/census-tracts\">DCP Website: BYTES of the BIG APPLE</a>. Current version: 26b"
+ },
+ "count": 2325,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "ctlabel",
+   "type": "text",
+   "label": "CTLabel"
+  },
+  {
+   "name": "borocode",
+   "type": "text",
+   "label": "BoroCode"
+  },
+  {
+   "name": "boroname",
+   "type": "text",
+   "label": "BoroName"
+  },
+  {
+   "name": "ct2020",
+   "type": "text",
+   "label": "CT2020"
+  },
+  {
+   "name": "boroct2020",
+   "type": "text",
+   "label": "BoroCT2020"
+  },
+  {
+   "name": "cdeligibil",
+   "type": "text",
+   "label": "CDEligibil"
+  },
+  {
+   "name": "ntaname",
+   "type": "text",
+   "label": "NTAName"
+  },
+  {
+   "name": "nta2020",
+   "type": "text",
+   "label": "NTA2020"
+  },
+  {
+   "name": "cdta2020",
+   "type": "text",
+   "label": "CDTA2020"
+  },
+  {
+   "name": "cdtaname",
+   "type": "text",
+   "label": "CDTANAME"
+  },
+  {
+   "name": "geoid",
+   "type": "text",
+   "label": "GEOID"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Length"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "ctlabel": "1",
+   "borocode": "1",
+   "boroname": "Manhattan",
+   "ct2020": "000100",
+   "boroct2020": "1000100",
+   "cdeligibil": "I",
+   "ntaname": "The Battery-Governors Island-Ellis Island-Liberty Island",
+   "nta2020": "MN0191",
+   "cdta2020": "MN01",
+   "cdtaname": "MN01 Financial District-Tribeca (CD 1 Equivalent)",
+   "geoid": "36061000100",
+   "shape_leng": "10833.0439286",
+   "shape_area": "1843004.52241"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "ctlabel": "22.01",
+   "borocode": "1",
+   "boroname": "Manhattan",
+   "ct2020": "002201",
+   "boroct2020": "1002201",
+   "cdeligibil": "E",
+   "ntaname": "Lower East Side",
+   "nta2020": "MN0302",
+   "cdta2020": "MN03",
+   "cdtaname": "MN03 Lower East Side-Chinatown (CD 3 Equivalent)",
+   "geoid": "36061002201",
+   "shape_leng": "5779.06260652",
+   "shape_area": "1740173.91584"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "ctlabel": "26.02",
+   "borocode": "1",
+   "boroname": "Manhattan",
+   "ct2020": "002602",
+   "boroct2020": "1002602",
+   "cdeligibil": "E",
+   "ntaname": "East Village",
+   "nta2020": "MN0303",
+   "cdta2020": "MN03",
+   "cdtaname": "MN03 Lower East Side-Chinatown (CD 3 Equivalent)",
+   "geoid": "36061002602",
+   "shape_leng": "4491.20321958",
+   "shape_area": "1114857.11794"
+  }
+ ]
+}

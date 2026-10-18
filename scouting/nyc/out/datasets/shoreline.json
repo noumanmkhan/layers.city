@@ -1,0 +1,53 @@
+{
+ "key": "shoreline",
+ "looked_for": [
+  "Shoreline",
+  "NYC Shoreline"
+ ],
+ "candidates": [
+  [
+   "contains",
+   "2qj2-cctx",
+   "NYC Planimetric Database: Shoreline",
+   "map",
+   "2024-04-24"
+  ],
+  [
+   "contains",
+   "59xk-wagz",
+   "NYC Planimetric Database: Shoreline",
+   "dataset",
+   "2024-04-24"
+  ],
+  [
+   "contains",
+   "pawq-tjb4",
+   "Tidally Coordinated Shoreline",
+   "file",
+   "2018-11-21"
+  ]
+ ],
+ "picked": {
+  "id": "2qj2-cctx",
+  "name": "NYC Planimetric Database: Shoreline",
+  "type": "map",
+  "viewType": "tabular",
+  "attribution": "Office of Technology and Innovation (OTI)",
+  "category": "Recreation",
+  "rows_updated": "2024-04-24",
+  "view_modified": "2024-04-30",
+  "update_frequency": "As needed",
+  "description": "Planimetric basemap line layer containing shoreline features. Please see the following link for additional documentation- https://github.com/CityOfNewYork/nyc-planimetrics/blob/master/Capture_Rules.md."
+ },
+ "count": null,
+ "geo": {
+  "bytes": 53,
+  "error": "Expecting value: line 4 column 5 (char 53)"
+ },
+ "columns": [],
+ "samples": [
+  {},
+  {},
+  {}
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "feeds": {
+  "gbfs": "https://gbfs.lyft.com/gbfs/2.3/bkn/gbfs.json",
+  "system_information": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/system_information.json",
+  "station_information": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/station_information.json",
+  "station_status": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/station_status.json",
+  "free_bike_status": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/free_bike_status.json",
+  "system_hours": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/system_hours.json",
+  "system_calendar": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/system_calendar.json",
+  "system_regions": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/system_regions.json",
+  "system_pricing_plans": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/system_pricing_plans.json",
+  "system_alerts": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/system_alerts.json",
+  "gbfs_versions": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/gbfs_versions.json",
+  "vehicle_types": "https://gbfs.lyft.com/gbfs/2.3/bkn/en/vehicle_types.json"
+ },
+ "stations": 2519,
+ "fields": [
+  "capacity",
+  "is_charging",
+  "lat",
+  "lon",
+  "name",
+  "region_id",
+  "rental_uris",
+  "short_name",
+  "station_id"
+ ],
+ "regions": [
+  [
+   "71",
+   2400
+  ],
+  [
+   "70",
+   78
+  ],
+  [
+   "311",
+   28
+  ],
+  [
+   null,
+   13
+  ]
+ ],
+ "charging": 0,
+ "capacity_total": 74238,
+ "sample": [
+  {
+   "station_id": "2121032386733337206",
+   "name": "37 St & 13 Ave",
+   "short_name": "3056.07",
+   "lon": -73.98505,
+   "lat": 40.64166,
+   "region_id": "71",
+   "capacity": 16,
+   "rental_uris": {
+    "android": "https://bkn.lft.to/lastmile_qr_scan",
+    "ios": "https://bkn.lft.to/lastmile_qr_scan"
+   },
+   "is_charging": false
+  },
+  {
+   "station_id": "29ced315-14b5-4edc-bef2-665316dfe3dd",
+   "name": "W 12 St & Hudson St",
+   "short_name": "5997.10",
+   "lon": -74.00558933615685,
+   "lat": 40.73752993301071,
+   "region_id": "71",
+   "capacity": 45,
+   "rental_uris": {
+    "android": "https://bkn.lft.to/lastmile_qr_scan",
+    "ios": "https://bkn.lft.to/lastmile_qr_scan"
+   },
+   "is_charging": false
+  }
+ ],
+ "system_information": {
+  "system_id": "lyft_nyc",
+  "language": "en",
+  "name": "Citi Bike",
+  "operator": "Lyft",
+  "url": "http://www.citibikenyc.com",
+  "purchase_url": "https://account.citibikenyc.com/access-plans",
+  "start_date": "2013-05-01",
+  "timezone": "America/New_York"
+ }
+}

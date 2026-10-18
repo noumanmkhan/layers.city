@@ -1,0 +1,346 @@
+{
+ "key": "facdb",
+ "looked_for": [
+  "Facilities Database",
+  "NYC Facilities Database"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "ji82-xba5",
+   "Facilities Database",
+   "dataset",
+   "2026-07-16"
+  ],
+  [
+   "contains",
+   "2fpa-bnsx",
+   "Facilities Database - Shapefile",
+   "map",
+   "2024-12-23"
+  ]
+ ],
+ "picked": {
+  "id": "ji82-xba5",
+  "name": "Facilities Database",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-07-16",
+  "view_modified": "2026-07-16",
+  "update_frequency": "Every 6 months",
+  "description": "The Department of City Planning aggregates information about 30,000+ facilities and program sites that are owned, operated, funded, licensed, or certified by a City, State, or Federal agency in the City of New York into a central database called the City Planning Facilities Database (FacDB). These facilities generally help to shape quality of life in the city's neighborhoods, and this dataset is the basis for a series of planning activities. This public data resource allows all New Yorkers to understand the breadth of government resources in their neighborhoods. The data is also complemented with a <b><a href=\"https://capitalplanning.nyc.gov/facilities\">new interactive web map</a></b> that enables users to easily filter the data for their needs. Users are strongly encouraged to read the da"
+ },
+ "count": 34446,
+ "geo": null,
+ "columns": [
+  {
+   "name": "uid",
+   "type": "text",
+   "label": "uid"
+  },
+  {
+   "name": "facname",
+   "type": "text",
+   "label": "facname"
+  },
+  {
+   "name": "addressnum",
+   "type": "text",
+   "label": "addressnum"
+  },
+  {
+   "name": "streetname",
+   "type": "text",
+   "label": "streetname"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "address"
+  },
+  {
+   "name": "city",
+   "type": "text",
+   "label": "city"
+  },
+  {
+   "name": "boro",
+   "type": "text",
+   "label": "boro"
+  },
+  {
+   "name": "borocode",
+   "type": "number",
+   "label": "borocode"
+  },
+  {
+   "name": "zipcode",
+   "type": "text",
+   "label": "zipcode"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "longitude"
+  },
+  {
+   "name": "xcoord",
+   "type": "number",
+   "label": "xcoord"
+  },
+  {
+   "name": "ycoord",
+   "type": "number",
+   "label": "ycoord"
+  },
+  {
+   "name": "bin",
+   "type": "number",
+   "label": "bin"
+  },
+  {
+   "name": "bbl",
+   "type": "number",
+   "label": "bbl"
+  },
+  {
+   "name": "cd",
+   "type": "number",
+   "label": "cd"
+  },
+  {
+   "name": "council",
+   "type": "number",
+   "label": "council"
+  },
+  {
+   "name": "ct2010",
+   "type": "text",
+   "label": "ct2010"
+  },
+  {
+   "name": "ct2020",
+   "type": "text",
+   "label": "ct2020"
+  },
+  {
+   "name": "nta2010",
+   "type": "text",
+   "label": "nta2010"
+  },
+  {
+   "name": "nta2020",
+   "type": "text",
+   "label": "nta2020"
+  },
+  {
+   "name": "facgroup",
+   "type": "text",
+   "label": "facgroup"
+  },
+  {
+   "name": "facsubgrp",
+   "type": "text",
+   "label": "facsubgrp"
+  },
+  {
+   "name": "factype",
+   "type": "text",
+   "label": "factype"
+  },
+  {
+   "name": "capacity",
+   "type": "text",
+   "label": "capacity"
+  },
+  {
+   "name": "captype",
+   "type": "text",
+   "label": "captype"
+  },
+  {
+   "name": "optype",
+   "type": "text",
+   "label": "optype"
+  },
+  {
+   "name": "opname",
+   "type": "text",
+   "label": "opname"
+  },
+  {
+   "name": "opabbrev",
+   "type": "text",
+   "label": "opabbrev"
+  },
+  {
+   "name": "overlevel",
+   "type": "text",
+   "label": "overlevel"
+  },
+  {
+   "name": "overagency",
+   "type": "text",
+   "label": "overagency"
+  },
+  {
+   "name": "overabbrev",
+   "type": "text",
+   "label": "overabbrev"
+  },
+  {
+   "name": "datasource",
+   "type": "text",
+   "label": "datasource"
+  },
+  {
+   "name": "facdomain",
+   "type": "text",
+   "label": "facdomain"
+  },
+  {
+   "name": "schooldist",
+   "type": "number",
+   "label": "schooldist"
+  },
+  {
+   "name": "policeprct",
+   "type": "number",
+   "label": "policeprct"
+  },
+  {
+   "name": "servarea",
+   "type": "text",
+   "label": "servarea"
+  },
+  {
+   "name": "geometry",
+   "type": "text",
+   "label": "geometry"
+  }
+ ],
+ "samples": [
+  {
+   "uid": "00041e822a3da19f11cb931f6b25b13f",
+   "facname": "560 W 43RD STREET PARKING CORP",
+   "address": "555 WEST 42 STREET",
+   "city": "NEW YORK",
+   "boro": "MANHATTAN",
+   "borocode": "1",
+   "zipcode": "10036",
+   "latitude": "40.760963",
+   "longitude": "-73.997607",
+   "xcoord": "984912.926264",
+   "ycoord": "216516.072922",
+   "bin": "1026911",
+   "bbl": "1010710001.0",
+   "cd": "104",
+   "council": "3",
+   "ct2010": "012900",
+   "ct2020": "012901",
+   "nta2010": "MN15",
+   "nta2020": "MN0402",
+   "facgroup": "TRANSPORTATION",
+   "facsubgrp": "PARKING LOTS AND GARAGES",
+   "factype": "COMMERCIAL GARAGE & PARKING LOT",
+   "capacity": "0",
+   "optype": "Non-public",
+   "opname": "560 W 43rd Street Parking Corp",
+   "opabbrev": "Non-public",
+   "overlevel": "City",
+   "overagency": "NYC Department of Consumer Affairs",
+   "overabbrev": "NYCDCA",
+   "datasource": "dca_operatingbusinesses",
+   "facdomain": "CORE INFRASTRUCTURE AND TRANSPORTATION",
+   "schooldist": "2",
+   "policeprct": "10",
+   "servarea": "Local",
+   "geometry": "POINT(984912.9262504578 216516.07293081284)"
+  },
+  {
+   "uid": "0004a8532521d7d9879f82f67f7fb2e5",
+   "facname": "SIXTEEN SYCAMORES PLAYGROUND",
+   "addressnum": "358",
+   "streetname": "SCHERMERHORN STREET",
+   "address": "358 SCHERMERHORN STREET",
+   "city": "BROOKLYN",
+   "boro": "BROOKLYN",
+   "borocode": "3",
+   "zipcode": "11217",
+   "latitude": "40.6865328767",
+   "longitude": "-73.9803003792",
+   "xcoord": "989713.430527",
+   "ycoord": "189399.483947",
+   "bin": "3000575",
+   "bbl": "3001730023.0",
+   "cd": "302",
+   "council": "33",
+   "ct2010": "003900",
+   "ct2020": "003900",
+   "nta2010": "BK38",
+   "nta2020": "BK0202",
+   "facgroup": "PARKS AND PLAZAS",
+   "facsubgrp": "RECREATION AND WATERFRONT SITES",
+   "factype": "PLAYGROUND",
+   "capacity": "0",
+   "optype": "Public",
+   "opname": "NYC Department of Parks and Recreation",
+   "opabbrev": "NYCDPR",
+   "overlevel": "City",
+   "overagency": "NYC Department of Parks and Recreation",
+   "overabbrev": "NYCDPR",
+   "datasource": "dpr_parksproperties",
+   "facdomain": "PARKS, GARDENS, AND HISTORICAL SITES",
+   "schooldist": "15",
+   "policeprct": "84",
+   "servarea": "Local",
+   "geometry": "POINT(989713.4305129051 189399.48395442963)"
+  },
+  {
+   "uid": "00056520e4c5483e13933cda8c8a736d",
+   "facname": "MARKS JCH OF BENSONHURST DAY CAMP",
+   "addressnum": "7802",
+   "streetname": "BAY PARKWAY",
+   "address": "7802 BAY PARKWAY",
+   "city": "BROOKLYN",
+   "boro": "BROOKLYN",
+   "borocode": "3",
+   "zipcode": "11214",
+   "latitude": "40.6063763817",
+   "longitude": "-73.9897520942",
+   "xcoord": "987095.538251",
+   "ycoord": "160195.826657",
+   "bin": "3162352",
+   "bbl": "3062640030.0",
+   "cd": "311",
+   "council": "43",
+   "ct2010": "027000",
+   "ct2020": "027000",
+   "nta2010": "BK28",
+   "nta2020": "BK1101",
+   "facgroup": "CAMPS",
+   "facsubgrp": "CAMPS",
+   "factype": "CAMP - ALL AGE",
+   "capacity": "0",
+   "optype": "Non-public",
+   "opname": "Edith & Carl Marks Jewish Community House Bensonhurst, Inc.",
+   "opabbrev": "Non-public",
+   "overlevel": "City",
+   "overagency": "NYC Department of Health and Mental Hygiene",
+   "overabbrev": "NYCDOHMH",
+   "datasource": "dohmh_daycare",
+   "facdomain": "EDUCATION, CHILD WELFARE, AND YOUTH",
+   "schooldist": "20",
+   "policeprct": "62",
+   "servarea": "Local",
+   "geometry": "POINT(987095.5382494926 160195.8266620636)"
+  }
+ ]
+}

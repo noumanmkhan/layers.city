@@ -1,0 +1,120 @@
+{
+ "key": "zap_bbl",
+ "looked_for": [
+  "Zoning Application Portal (ZAP) - BBL",
+  "Zoning Application Portal (ZAP) - Project BBLs"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "2iga-a6mk",
+   "Zoning Application Portal (ZAP) - BBL",
+   "dataset",
+   "2026-08-12"
+  ]
+ ],
+ "picked": {
+  "id": "2iga-a6mk",
+  "name": "Zoning Application Portal (ZAP) - BBL",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-08-12",
+  "view_modified": "2026-08-12",
+  "update_frequency": "Monthly",
+  "description": "The Department of City Planning (DCP) processes land use applications submitted by City or other public agencies and other (private) applicants. This data set provides information on land use applications, specifically the project tracking and description data related to approximately 30,000 projects since the late 1970s.\n\nZAP project data appears on NYC Planning - Zoning Application Portal Search. It includes data migrated from the prior applications tracking system (LUCATS) and covers all projects that have been \"Noticed\" (that they will appear before the City Planning Commission in 30 or more days for Certification as complete for the ULURP process to begin) or Filed (a CEQR or Land Use application has been formally submitted to the Department for review) through completion (approval, d"
+ },
+ "count": 132090,
+ "geo": null,
+ "columns": [
+  {
+   "name": "project_id",
+   "type": "text",
+   "label": "project_id"
+  },
+  {
+   "name": "bbl",
+   "type": "number",
+   "label": "bbl"
+  },
+  {
+   "name": "validated_borough",
+   "type": "text",
+   "label": "validated_borough"
+  },
+  {
+   "name": "validated_block",
+   "type": "number",
+   "label": "validated_block"
+  },
+  {
+   "name": "validated_lot",
+   "type": "number",
+   "label": "validated_lot"
+  },
+  {
+   "name": "validated",
+   "type": "text",
+   "label": "validated"
+  },
+  {
+   "name": "validated_date",
+   "type": "calendar_date",
+   "label": "validated_date"
+  },
+  {
+   "name": "unverified_borough",
+   "type": "text",
+   "label": "unverified_borough"
+  },
+  {
+   "name": "unverified_block",
+   "type": "number",
+   "label": "unverified_block"
+  },
+  {
+   "name": "unverified_lot",
+   "type": "number",
+   "label": "unverified_lot"
+  }
+ ],
+ "samples": [
+  {
+   "project_id": "P2017X0311",
+   "bbl": "2030430008",
+   "validated_borough": "Bronx",
+   "validated_block": "3043",
+   "validated_lot": "8",
+   "validated": "true",
+   "validated_date": "2021-02-03T21:39:41.000",
+   "unverified_borough": "Bronx",
+   "unverified_block": "3043",
+   "unverified_lot": "8"
+  },
+  {
+   "project_id": "P2017X0311",
+   "bbl": "2030430030",
+   "validated_borough": "Bronx",
+   "validated_block": "3043",
+   "validated_lot": "30",
+   "validated": "true",
+   "validated_date": "2021-02-03T21:39:59.000",
+   "unverified_borough": "Bronx",
+   "unverified_block": "3043",
+   "unverified_lot": "30"
+  },
+  {
+   "project_id": "2025K0154",
+   "bbl": "3019900040",
+   "validated_borough": "Brooklyn",
+   "validated_block": "1990",
+   "validated_lot": "40",
+   "validated": "true",
+   "validated_date": "2025-02-27T19:16:36.000",
+   "unverified_borough": "Brooklyn",
+   "unverified_block": "1990",
+   "unverified_lot": "40"
+  }
+ ]
+}

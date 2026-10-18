@@ -1,0 +1,172 @@
+{
+ "key": "evacuation_centers",
+ "looked_for": [
+  "Hurricane Evacuation Centers"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "p5md-weyf",
+   "Hurricane Evacuation Centers",
+   "dataset",
+   "2026-09-01"
+  ],
+  [
+   "contains",
+   "ayer-cga7",
+   "Hurricane Evacuation Centers (Map)",
+   "map",
+   "2026-09-01"
+  ]
+ ],
+ "picked": {
+  "id": "p5md-weyf",
+  "name": "Hurricane Evacuation Centers",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "NYC Emergency Management (NYCEM)",
+  "category": "Public Safety",
+  "rows_updated": "2026-09-01",
+  "view_modified": "2026-09-01",
+  "update_frequency": "Annually",
+  "description": "This dataset shows hurricane evacuation centers. Persons requiring shelter during a hurricane are processed at a \nhurricane evacuation center and then transported to a hurricane shelter. In the event of a hurricane, the status of these hurricane evacuation centers should be confirmed at www.nyc.gov or by calling 311."
+ },
+ "count": 60,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "point",
+   "label": "the_geom"
+  },
+  {
+   "name": "city",
+   "type": "text",
+   "label": "CITY"
+  },
+  {
+   "name": "bldg_name",
+   "type": "text",
+   "label": "EC_Name"
+  },
+  {
+   "name": "bldg_add",
+   "type": "text",
+   "label": "ADDRESS"
+  },
+  {
+   "name": "zip_code",
+   "type": "text",
+   "label": "ZIP_CODE"
+  },
+  {
+   "name": "borocode",
+   "type": "number",
+   "label": "BOROCODE"
+  },
+  {
+   "name": "state",
+   "type": "text",
+   "label": "STATE"
+  },
+  {
+   "name": "accessible",
+   "type": "text",
+   "label": "ACCESSIBLE"
+  },
+  {
+   "name": "bin",
+   "type": "number",
+   "label": "BIN"
+  },
+  {
+   "name": "bbl",
+   "type": "number",
+   "label": "BBL"
+  },
+  {
+   "name": ":@computed_region_efsh_h5xi",
+   "type": "number",
+   "label": "Zip Codes"
+  },
+  {
+   "name": ":@computed_region_f5dn_yrer",
+   "type": "number",
+   "label": "Community Districts"
+  },
+  {
+   "name": ":@computed_region_yeji_bk3q",
+   "type": "number",
+   "label": "Borough Boundaries"
+  },
+  {
+   "name": ":@computed_region_92fq_4b7q",
+   "type": "number",
+   "label": "City Council Districts"
+  },
+  {
+   "name": ":@computed_region_sbqj_enih",
+   "type": "number",
+   "label": "Police Precincts"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "city": "Brooklyn",
+   "bldg_name": "Adams St Educational Campus",
+   "bldg_add": "283 Adams Street",
+   "zip_code": "11201.0",
+   "borocode": "3",
+   "state": "NY",
+   "accessible": "Y",
+   "bin": "3331741",
+   "bbl": "3001400010.0",
+   ":@computed_region_efsh_h5xi": "16865",
+   ":@computed_region_f5dn_yrer": "68",
+   ":@computed_region_yeji_bk3q": "2",
+   ":@computed_region_92fq_4b7q": "38",
+   ":@computed_region_sbqj_enih": "54"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "city": "Brooklyn",
+   "bldg_name": "M.S. 2 Parkside Prep",
+   "bldg_add": "655 Parkside Avenue",
+   "zip_code": "11226.0",
+   "borocode": "3",
+   "state": "NY",
+   "accessible": "Y",
+   "bin": "3378201",
+   "bbl": "3050500051.0",
+   ":@computed_region_efsh_h5xi": "13509",
+   ":@computed_region_f5dn_yrer": "17",
+   ":@computed_region_yeji_bk3q": "2",
+   ":@computed_region_92fq_4b7q": "11",
+   ":@computed_region_sbqj_enih": "44"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "city": "Brooklyn",
+   "bldg_name": "P.S. 7 Abraham Lincoln",
+   "bldg_add": "858 Jamaica Avenue",
+   "zip_code": "11208.0",
+   "borocode": "3",
+   "state": "NY",
+   "accessible": "Y",
+   "bin": "3090998",
+   "bbl": "3041060039.0",
+   ":@computed_region_efsh_h5xi": "17215",
+   ":@computed_region_f5dn_yrer": "45",
+   ":@computed_region_yeji_bk3q": "2",
+   ":@computed_region_92fq_4b7q": "37",
+   ":@computed_region_sbqj_enih": "47"
+  }
+ ]
+}

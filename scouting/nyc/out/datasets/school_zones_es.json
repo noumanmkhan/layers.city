@@ -1,0 +1,172 @@
+{
+ "key": "school_zones_es",
+ "looked_for": [
+  "School Zones 2025-2026 (Elementary School)",
+  "School Zones 2024-2025 (Elementary School)"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "cmjf-yawu",
+   "School Zones 2024-2025 (Elementary School)",
+   "dataset",
+   "2024-03-13"
+  ]
+ ],
+ "picked": {
+  "id": "cmjf-yawu",
+  "name": "School Zones 2024-2025 (Elementary School)",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Education (DOE)",
+  "category": "Education",
+  "rows_updated": "2024-03-13",
+  "view_modified": "2024-11-26",
+  "update_frequency": "Annually",
+  "description": "Data is used to identify the  zoning for the Elementary School grades."
+ },
+ "count": 770,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "schooldist",
+   "type": "number",
+   "label": "SCHOOLDIST"
+  },
+  {
+   "name": "boro",
+   "type": "text",
+   "label": "BORO"
+  },
+  {
+   "name": "initials",
+   "type": "text",
+   "label": "INITIALS"
+  },
+  {
+   "name": "creat_date",
+   "type": "calendar_date",
+   "label": "CREAT_DATE"
+  },
+  {
+   "name": "edit_date",
+   "type": "calendar_date",
+   "label": "EDIT_DATE"
+  },
+  {
+   "name": "boro_num",
+   "type": "number",
+   "label": "BORO_NUM"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Leng"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  },
+  {
+   "name": "remarks",
+   "type": "text",
+   "label": "REMARKS"
+  },
+  {
+   "name": "dbn",
+   "type": "text",
+   "label": "DBN"
+  },
+  {
+   "name": "esid_no",
+   "type": "number",
+   "label": "ESID_NO"
+  },
+  {
+   "name": "label",
+   "type": "text",
+   "label": "Label"
+  },
+  {
+   "name": "zoned_dist",
+   "type": "text",
+   "label": "ZONED_DIST"
+  },
+  {
+   "name": "x_centroid",
+   "type": "number",
+   "label": "X_Centroid"
+  },
+  {
+   "name": "y_centroid",
+   "type": "number",
+   "label": "Y_Centroid"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "schooldist": "20.0",
+   "boro": "K",
+   "initials": "SP",
+   "creat_date": "2011-08-12T00:00:00.000",
+   "edit_date": "2019-11-15T00:00:00.000",
+   "boro_num": "3",
+   "shape_leng": "19512.2966006",
+   "shape_area": "6613407.70193",
+   "dbn": "20K503",
+   "esid_no": "816.0",
+   "label": "503",
+   "zoned_dist": "20",
+   "x_centroid": "0.0",
+   "y_centroid": "0.0"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "schooldist": "19.0",
+   "boro": "K",
+   "initials": "BS",
+   "creat_date": "2001-08-07T00:00:00.000",
+   "edit_date": "2021-10-26T00:00:00.000",
+   "boro_num": "3",
+   "shape_leng": "11278.3612118",
+   "shape_area": "5923154.18093",
+   "remarks": "For 2024-2025: Grades K-4 are zoned to 19K938; Grade 5 is zoned to PS 159.",
+   "dbn": "19K938,19K159",
+   "esid_no": "930.0",
+   "label": "938 (K-4), 159 (5)",
+   "zoned_dist": "19",
+   "x_centroid": "0.0",
+   "y_centroid": "0.0"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "schooldist": "19.0",
+   "boro": "K",
+   "initials": "JG",
+   "creat_date": "2001-08-07T00:00:00.000",
+   "edit_date": "2015-11-18T00:00:00.000",
+   "boro_num": "3",
+   "shape_leng": "6884.01154674",
+   "shape_area": "1885953.14902",
+   "dbn": "19K557",
+   "esid_no": "190.0",
+   "label": "557",
+   "zoned_dist": "19",
+   "x_centroid": "0.0",
+   "y_centroid": "0.0"
+  }
+ ]
+}

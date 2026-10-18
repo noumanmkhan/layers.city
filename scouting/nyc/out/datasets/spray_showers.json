@@ -1,0 +1,150 @@
+{
+ "key": "spray_showers",
+ "looked_for": [
+  "Directory of Spray Showers",
+  "Spray Showers"
+ ],
+ "candidates": [
+  [
+   "contains",
+   "tzuk-eq2f",
+   "Cool It! NYC 2020 - Spray Showers",
+   "dataset",
+   "2020-11-27"
+  ],
+  [
+   "contains",
+   "ckaz-6gaa",
+   "NYC Parks Spray Showers",
+   "dataset",
+   "2026-10-03"
+  ],
+  [
+   "contains",
+   "im58-6hb9",
+   "NYC Parks Spray Showers Map",
+   "map",
+   "2026-10-03"
+  ]
+ ],
+ "picked": {
+  "id": "tzuk-eq2f",
+  "name": "Cool It! NYC 2020 - Spray Showers",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Parks and Recreation (DPR)",
+  "category": null,
+  "rows_updated": "2020-11-27",
+  "view_modified": "2022-05-09",
+  "update_frequency": "Historical data",
+  "description": "This dataset represents amenities activated as a part of Cool It! NYC, a Citywide plan to increase the amount of cooling features available to the public during heat emergencies, particularly in neighborhoods that face the dangers of high heat. This is part of the Cool It! NYC 2020 Data Collection, which includes the following amenities:\r\n  \r\nDrinking Fountains: Indicates whether a drinking fountain is activated, not yet activated, broken, or under construction. \r\n\r\nSpray Showers: Indicates whether a spray shower installed before July 2020 is activated, not yet activated, broken, or under construction. At this time, spray showers are mapped to the middle of parks. \r\n \r\nCooling Sites: To measure neighborhoods that are the most at risk during extreme heat, NYC Health and Columbia University "
+ },
+ "count": 755,
+ "geo": null,
+ "columns": [
+  {
+   "name": "status",
+   "type": "text",
+   "label": "Status"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "Borough"
+  },
+  {
+   "name": "gispropnum",
+   "type": "text",
+   "label": "GISPropNum"
+  },
+  {
+   "name": "omppropid",
+   "type": "text",
+   "label": "OMPPropID"
+  },
+  {
+   "name": "subpropertyname",
+   "type": "text",
+   "label": "SubPropertyName"
+  },
+  {
+   "name": "propertyname",
+   "type": "text",
+   "label": "PropertyName"
+  },
+  {
+   "name": "feature",
+   "type": "text",
+   "label": "Feature"
+  },
+  {
+   "name": "system",
+   "type": "text",
+   "label": "System"
+  },
+  {
+   "name": "featuretype",
+   "type": "text",
+   "label": "FeatureType"
+  },
+  {
+   "name": "district",
+   "type": "text",
+   "label": "District"
+  },
+  {
+   "name": "x",
+   "type": "number",
+   "label": "x"
+  },
+  {
+   "name": "y",
+   "type": "number",
+   "label": "y"
+  }
+ ],
+ "samples": [
+  {
+   "status": "Activated",
+   "borough": "B",
+   "gispropnum": "B001",
+   "omppropid": "B001",
+   "subpropertyname": "American Playground",
+   "propertyname": "American Playground",
+   "feature": "Play Equipment",
+   "system": "B001-SPRAY01",
+   "featuretype": "Sprinkler",
+   "district": "B-01",
+   "x": "995942.28193132",
+   "y": "204739.17641795"
+  },
+  {
+   "status": "Under Construction",
+   "borough": "B",
+   "gispropnum": "B007",
+   "omppropid": "B007-01",
+   "subpropertyname": "Bensonhurst Park Playground",
+   "propertyname": "Bensonhurst Park",
+   "feature": "Play Equipment",
+   "system": "B007-01-SPRAY02",
+   "featuretype": "Sprinkler",
+   "district": "B-11",
+   "x": "984301.850934222",
+   "y": "156751.750522807"
+  },
+  {
+   "status": "Activated",
+   "borough": "B",
+   "gispropnum": "B012",
+   "omppropid": "B012",
+   "subpropertyname": "Brower Park",
+   "propertyname": "Brower Park",
+   "feature": "Play Equipment",
+   "system": "B012-SPRAY03",
+   "featuretype": "Sprinkler",
+   "district": "B-08",
+   "x": "999976.546552641",
+   "y": "184806.013628985"
+  }
+ ]
+}

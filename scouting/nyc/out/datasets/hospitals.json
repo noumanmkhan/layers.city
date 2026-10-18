@@ -1,0 +1,89 @@
+{
+ "key": "hospitals",
+ "looked_for": [
+  "NYC Health + Hospitals Facilities",
+  "Hospitals",
+  "Health Facility General Information"
+ ],
+ "candidates": [
+  [
+   "contains",
+   "sj3k-gzyx",
+   "DOHMH Covid-19 Milestone Data: Daily Number of People Admitted to NYC hospitals for Covid-19 like Illness",
+   "dataset",
+   "2021-06-15"
+  ]
+ ],
+ "picked": {
+  "id": "sj3k-gzyx",
+  "name": "DOHMH Covid-19 Milestone Data: Daily Number of People Admitted to NYC hospitals for Covid-19 like Illness",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Health and Mental Hygiene (DOHMH)",
+  "category": null,
+  "rows_updated": "2021-06-15",
+  "view_modified": "2021-12-01",
+  "update_frequency": "Daily",
+  "description": "This dataset shows the number of hospital admissions for influenza-like illness, pneumonia, or include ICD-10-CM code (U07.1) for 2019 novel coronavirus. Influenza-like illness is defined as a mention of either: fever and cough, fever and sore throat, fever and shortness of breath or difficulty breathing, or influenza. Patients whose ICD-10-CM code was subsequently assigned with only an ICD-10-CM code for influenza are excluded. Pneumonia is defined as mention or diagnosis of pneumonia. \nBaseline data represents the average number of people with COVID-19-like illness who are admitted to the hospital during this time of year based on historical counts. The average is based on the daily avg from the rolling same week (same day +/- 3 days) from the prior 3 years. Percent change data represent"
+ },
+ "count": 470,
+ "geo": null,
+ "columns": [
+  {
+   "name": "date",
+   "type": "date",
+   "label": "date"
+  },
+  {
+   "name": "ili_pne_admit",
+   "type": "number",
+   "label": "ili_pne_admit"
+  },
+  {
+   "name": "baseline",
+   "type": "text",
+   "label": "baseline"
+  },
+  {
+   "name": "percent_change",
+   "type": "text",
+   "label": "percent_change"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "status"
+  },
+  {
+   "name": "etldate",
+   "type": "date",
+   "label": "ETLdate"
+  }
+ ],
+ "samples": [
+  {
+   "date": "2020-03-01T00:00:00.000Z",
+   "ili_pne_admit": "133",
+   "baseline": "135.952381",
+   "percent_change": "-2.2",
+   "status": "Insert",
+   "etldate": "2021-03-29T11:27:03.000Z"
+  },
+  {
+   "date": "2020-03-02T00:00:00.000Z",
+   "ili_pne_admit": "188",
+   "baseline": "134",
+   "percent_change": "40.3",
+   "status": "Insert",
+   "etldate": "2021-03-29T11:27:03.000Z"
+  },
+  {
+   "date": "2020-03-03T00:00:00.000Z",
+   "ili_pne_admit": "174",
+   "baseline": "133.8095238",
+   "percent_change": "30",
+   "status": "Insert",
+   "etldate": "2021-03-29T11:27:03.000Z"
+  }
+ ]
+}

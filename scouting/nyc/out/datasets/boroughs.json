@@ -1,0 +1,107 @@
+{
+ "key": "boroughs",
+ "looked_for": [
+  "Borough Boundaries",
+  "Borough Boundaries (Water Areas Included)"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "gthc-hcne",
+   "Borough Boundaries",
+   "dataset",
+   "2026-05-26"
+  ],
+  [
+   "exact",
+   "yqww-f9f3",
+   "Borough Boundaries",
+   "map",
+   "2026-05-26"
+  ],
+  [
+   "exact",
+   "wh2p-dxnf",
+   "Borough Boundaries (water areas included)",
+   "dataset",
+   "2026-05-26"
+  ],
+  [
+   "exact",
+   "53n2-m85m",
+   "Borough Boundaries (water areas included)",
+   "map",
+   "2026-05-26"
+  ]
+ ],
+ "picked": {
+  "id": "gthc-hcne",
+  "name": "Borough Boundaries",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-05-26",
+  "view_modified": "2026-05-26",
+  "update_frequency": "Quarterly",
+  "description": "Boundaries of boroughs (water areas excluded).\n\nAll previously released versions of this data are available on the <a href=\"https://www.nyc.gov/content/planning/pages/resources/datasets/borough-boundaries\">DCP Website: BYTES of the BIG APPLE</a>. Current version: 26b"
+ },
+ "count": 5,
+ "geo": null,
+ "columns": [
+  {
+   "name": "borocode",
+   "type": "number",
+   "label": "BoroCode"
+  },
+  {
+   "name": "boroname",
+   "type": "text",
+   "label": "BoroName"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Length"
+  },
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  }
+ ],
+ "samples": [
+  {
+   "borocode": "5",
+   "boroname": "Staten Island",
+   "shape_area": "1623618358.46",
+   "shape_leng": "325912.288988",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "borocode": "3",
+   "boroname": "Brooklyn",
+   "shape_area": "1934462607.75",
+   "shape_leng": "726953.04509",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "borocode": "4",
+   "boroname": "Queens",
+   "shape_area": "3041419716.32",
+   "shape_leng": "887902.903727",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
+}

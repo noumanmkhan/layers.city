@@ -1,0 +1,77 @@
+{
+ "key": "evacuation_zones",
+ "looked_for": [
+  "Hurricane Evacuation Zones"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "epne-qv9x",
+   "Hurricane Evacuation Zones",
+   "dataset",
+   "2026-05-26"
+  ]
+ ],
+ "picked": {
+  "id": "epne-qv9x",
+  "name": "Hurricane Evacuation Zones",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-05-26",
+  "view_modified": "2026-05-26",
+  "update_frequency": "Quarterly",
+  "description": "The New York City Hurricane Evacuation Zones represent varying threat levels of flooding resulting from storm surge. New York City's hurricane contingency plans are based on six evacuation zones.\n\nHurricane evacuation zones should not be confused with flood insurance risk zones, which are designated by FEMA and available in the form of Flood Insurance Rate Maps (FIRMs).\n\nFor more information visit NYC.gov or call 311 (TTY: 212-504-4155).\n\nThese zones were created by New York City Emergency Management (NYCEM) and are maintained by the Department of City Planning (DCP).\n\nAll previously released versions of this data are available on the <a href=\"https://www.nyc.gov/content/planning/pages/resources/datasets/hurricane-evacuation-zones\">DCP Website: BYTES of the BIG APPLE</a>. Current version: "
+ },
+ "count": 8,
+ "geo": null,
+ "columns": [
+  {
+   "name": "hurricane_",
+   "type": "text",
+   "label": "Hurricane Evacuation Zone"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Length"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  },
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  }
+ ],
+ "samples": [
+  {
+   "hurricane_": "6",
+   "shape_leng": "2008102.93961",
+   "shape_area": "541623611.721",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "hurricane_": "X",
+   "shape_leng": "1719398.71536",
+   "shape_area": "4181863433.03",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "hurricane_": "3",
+   "shape_leng": "1448940.45586",
+   "shape_area": "390438140.68",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
+}

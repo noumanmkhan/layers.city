@@ -1,0 +1,427 @@
+{
+ "key": "athletic_facilities",
+ "looked_for": [
+  "Athletic Facilities",
+  "Directory of Athletic Facilities"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "qnem-b8re",
+   "Athletic Facilities",
+   "dataset",
+   "2026-07-23"
+  ],
+  [
+   "exact",
+   "qpgi-ckmp",
+   "Athletic Facilities",
+   "map",
+   "2026-07-23"
+  ],
+  [
+   "contains",
+   "yann-8etk",
+   "ARCHIVE - Athletic Facilities",
+   "map",
+   "2022-03-31"
+  ],
+  [
+   "contains",
+   "g3xg-qtbc",
+   "Parks Closure Status Due to COVID-19: Athletic Facilities",
+   "dataset",
+   "2021-11-22"
+  ]
+ ],
+ "picked": {
+  "id": "qnem-b8re",
+  "name": "Athletic Facilities",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": null,
+  "category": null,
+  "rows_updated": "2026-07-23",
+  "view_modified": "2026-07-23",
+  "update_frequency": "Monthly",
+  "description": "This dataset contains facilities that were designed specifically with sports in mind. These facilities are not the only places within parks where sports can be played. This layer contains all of the facilities that can be permitted for athletic activity and facilities that are specifically designated for sports but are not available for permitting. \n \nThis information is used by the Citywide Event Management System (CEMS) to book permits for Parks' athletic facilities. More information about athletic facility permits can be viewed at https://www.nycgovparks.org/permits/\n \nThis dataset uses the standard NYC projection of NAD_1983_StatePlane_New_York_Long_Island_FIPS_3104_Feet. Lengths are in feet and areas in square feet.\n\nData Dictionary: https://docs.google.com/spreadsheets/d/1iIhwuLBlIus"
+ },
+ "count": 6951,
+ "geo": null,
+ "columns": [
+  {
+   "name": "accessible",
+   "type": "checkbox",
+   "label": "ACCESSIBLE"
+  },
+  {
+   "name": "adult_baseball",
+   "type": "checkbox",
+   "label": "ADULT_BASEBALL"
+  },
+  {
+   "name": "adult_football",
+   "type": "checkbox",
+   "label": "ADULT_FOOTBALL"
+  },
+  {
+   "name": "adult_softball",
+   "type": "checkbox",
+   "label": "ADULT_SOFTBALL"
+  },
+  {
+   "name": "basketball",
+   "type": "checkbox",
+   "label": "BASKETBALL"
+  },
+  {
+   "name": "bocce",
+   "type": "checkbox",
+   "label": "BOCCE"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "BOROUGH"
+  },
+  {
+   "name": "communityboard",
+   "type": "number",
+   "label": "COMMUNITYBOARD"
+  },
+  {
+   "name": "councildistrict",
+   "type": "number",
+   "label": "COUNCILDISTRICT"
+  },
+  {
+   "name": "cricket",
+   "type": "checkbox",
+   "label": "CRICKET"
+  },
+  {
+   "name": "department",
+   "type": "text",
+   "label": "DEPARTMENT"
+  },
+  {
+   "name": "dimensions",
+   "type": "text",
+   "label": "DIMENSIONS"
+  },
+  {
+   "name": "featurestatus",
+   "type": "text",
+   "label": "FEATURESTATUS"
+  },
+  {
+   "name": "field_lighted",
+   "type": "checkbox",
+   "label": "FIELD_LIGHTED"
+  },
+  {
+   "name": "field_number",
+   "type": "text",
+   "label": "FIELD_NUMBER"
+  },
+  {
+   "name": "flagfootball",
+   "type": "checkbox",
+   "label": "FLAGFOOTBALL"
+  },
+  {
+   "name": "frisbee",
+   "type": "checkbox",
+   "label": "FRISBEE"
+  },
+  {
+   "name": "gispropnum",
+   "type": "text",
+   "label": "GISPROPNUM"
+  },
+  {
+   "name": "handball",
+   "type": "checkbox",
+   "label": "HANDBALL"
+  },
+  {
+   "name": "hockey",
+   "type": "checkbox",
+   "label": "HOCKEY"
+  },
+  {
+   "name": "kickball",
+   "type": "checkbox",
+   "label": "KICKBALL"
+  },
+  {
+   "name": "lacrosse",
+   "type": "checkbox",
+   "label": "LACROSSE"
+  },
+  {
+   "name": "ll_baseb_12andunder",
+   "type": "checkbox",
+   "label": "LL_BASEB_12ANDUNDER"
+  },
+  {
+   "name": "ll_baseb_13andolder",
+   "type": "checkbox",
+   "label": "LL_BASEB_13ANDOLDER"
+  },
+  {
+   "name": "ll_softball",
+   "type": "checkbox",
+   "label": "LL_SOFTBALL"
+  },
+  {
+   "name": "maintenanceagreement",
+   "type": "checkbox",
+   "label": "MAINTENANCEAGREEMENT"
+  },
+  {
+   "name": "netball",
+   "type": "checkbox",
+   "label": "NETBALL"
+  },
+  {
+   "name": "nonregulation_soccer",
+   "type": "checkbox",
+   "label": "NONREGULATION_SOCCER"
+  },
+  {
+   "name": "precinct",
+   "type": "number",
+   "label": "PRECINCT"
+  },
+  {
+   "name": "primary_sport",
+   "type": "text",
+   "label": "PRIMARY_SPORT"
+  },
+  {
+   "name": "pickleball",
+   "type": "checkbox",
+   "label": "Pickleball"
+  },
+  {
+   "name": "regulation_soccer",
+   "type": "checkbox",
+   "label": "REGULATION_SOCCER"
+  },
+  {
+   "name": "rugby",
+   "type": "checkbox",
+   "label": "RUGBY"
+  },
+  {
+   "name": "starea",
+   "type": "number",
+   "label": "STArea"
+  },
+  {
+   "name": "stlength",
+   "type": "number",
+   "label": "STLength"
+  },
+  {
+   "name": "surface_type",
+   "type": "text",
+   "label": "SURFACE_TYPE"
+  },
+  {
+   "name": "system",
+   "type": "text",
+   "label": "SYSTEM"
+  },
+  {
+   "name": "tennis",
+   "type": "checkbox",
+   "label": "TENNIS"
+  },
+  {
+   "name": "track_and_field",
+   "type": "checkbox",
+   "label": "TRACK_AND_FIELD"
+  },
+  {
+   "name": "t_ball",
+   "type": "checkbox",
+   "label": "T_BALL"
+  },
+  {
+   "name": "volleyball",
+   "type": "checkbox",
+   "label": "VOLLEYBALL"
+  },
+  {
+   "name": "wheelchairfootball",
+   "type": "checkbox",
+   "label": "WHEELCHAIRFOOTBALL"
+  },
+  {
+   "name": "youth_football",
+   "type": "checkbox",
+   "label": "YOUTH_FOOTBALL"
+  },
+  {
+   "name": "zipcode",
+   "type": "number",
+   "label": "ZIPCODE"
+  },
+  {
+   "name": "multipolygon",
+   "type": "multipolygon",
+   "label": "multipolygon"
+  }
+ ],
+ "samples": [
+  {
+   "accessible": false,
+   "adult_baseball": false,
+   "adult_football": false,
+   "adult_softball": false,
+   "basketball": false,
+   "bocce": false,
+   "borough": "B",
+   "communityboard": "303",
+   "councildistrict": "36",
+   "cricket": false,
+   "department": "B-03",
+   "dimensions": "Handball",
+   "featurestatus": "Active",
+   "field_lighted": false,
+   "field_number": "01",
+   "flagfootball": false,
+   "frisbee": false,
+   "gispropnum": "B237",
+   "handball": true,
+   "hockey": false,
+   "kickball": false,
+   "lacrosse": false,
+   "ll_baseb_12andunder": false,
+   "ll_baseb_13andolder": false,
+   "ll_softball": false,
+   "maintenanceagreement": false,
+   "netball": false,
+   "nonregulation_soccer": false,
+   "precinct": "79",
+   "primary_sport": "HDB",
+   "pickleball": false,
+   "regulation_soccer": false,
+   "rugby": false,
+   "starea": "1482.2278442382812",
+   "stlength": "154.8418585949147",
+   "surface_type": "Asphalt",
+   "system": "B237-HANDBALL-2",
+   "tennis": false,
+   "track_and_field": false,
+   "t_ball": false,
+   "volleyball": false,
+   "wheelchairfootball": false,
+   "youth_football": false,
+   "zipcode": "11216",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "accessible": false,
+   "adult_baseball": false,
+   "adult_football": false,
+   "adult_softball": false,
+   "basketball": false,
+   "bocce": false,
+   "borough": "X",
+   "communityboard": "207",
+   "councildistrict": "14",
+   "cricket": false,
+   "department": "X-05",
+   "dimensions": "Handball",
+   "featurestatus": "Active",
+   "field_lighted": false,
+   "field_number": "06",
+   "flagfootball": false,
+   "frisbee": false,
+   "gispropnum": "X150E",
+   "handball": true,
+   "hockey": false,
+   "kickball": false,
+   "lacrosse": false,
+   "ll_baseb_12andunder": false,
+   "ll_baseb_13andolder": false,
+   "ll_softball": false,
+   "maintenanceagreement": false,
+   "netball": false,
+   "nonregulation_soccer": false,
+   "precinct": "52",
+   "primary_sport": "HDB",
+   "pickleball": false,
+   "regulation_soccer": false,
+   "rugby": false,
+   "starea": "1218.2023010253906",
+   "stlength": "145.23766502674476",
+   "surface_type": "Asphalt",
+   "system": "X150E-HANDBALL-6",
+   "tennis": false,
+   "track_and_field": false,
+   "t_ball": false,
+   "volleyball": false,
+   "wheelchairfootball": false,
+   "youth_football": false,
+   "zipcode": "10468",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "accessible": false,
+   "adult_baseball": false,
+   "adult_football": false,
+   "adult_softball": false,
+   "basketball": false,
+   "bocce": false,
+   "borough": "X",
+   "communityboard": "208",
+   "councildistrict": "11",
+   "cricket": false,
+   "department": "X-08",
+   "dimensions": "Handball",
+   "featurestatus": "Active",
+   "field_lighted": false,
+   "field_number": "04",
+   "flagfootball": false,
+   "frisbee": false,
+   "gispropnum": "X186",
+   "handball": true,
+   "hockey": false,
+   "kickball": false,
+   "lacrosse": false,
+   "ll_baseb_12andunder": false,
+   "ll_baseb_13andolder": false,
+   "ll_softball": false,
+   "maintenanceagreement": false,
+   "netball": false,
+   "nonregulation_soccer": false,
+   "precinct": "50",
+   "primary_sport": "HDB",
+   "pickleball": false,
+   "regulation_soccer": false,
+   "rugby": false,
+   "starea": "1157.3428955078125",
+   "stlength": "140.96343513337146",
+   "surface_type": "Asphalt",
+   "system": "X186-HANDBALL-4",
+   "tennis": false,
+   "track_and_field": false,
+   "t_ball": false,
+   "volleyball": false,
+   "wheelchairfootball": false,
+   "youth_football": false,
+   "zipcode": "10463",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
+}

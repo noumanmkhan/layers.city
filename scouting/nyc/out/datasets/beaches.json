@@ -1,0 +1,138 @@
+{
+ "key": "beaches",
+ "looked_for": [
+  "Beaches",
+  "Directory of Beaches"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "ijwa-mn2v",
+   "Beaches",
+   "dataset",
+   "2026-10-15"
+  ],
+  [
+   "exact",
+   "7ii8-ytj7",
+   "Beaches",
+   "map",
+   "2026-10-15"
+  ],
+  [
+   "exact",
+   "zyf6-z3xt",
+   "Directory of Beaches",
+   "href",
+   "2011-08-16"
+  ],
+  [
+   "contains",
+   "qvtg-k2hn",
+   "ARCHIVE - Beaches",
+   "map",
+   "2015-04-23"
+  ],
+  [
+   "contains",
+   "4wtg-vt8c",
+   "DPR_Beaches_001",
+   "dataset",
+   "2015-04-23"
+  ]
+ ],
+ "picked": {
+  "id": "ijwa-mn2v",
+  "name": "Beaches",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": null,
+  "category": null,
+  "rows_updated": "2026-10-15",
+  "view_modified": "2026-10-15",
+  "update_frequency": "Monthly",
+  "description": "Larger beach properties are typically divided into zones, indicated with a ZN-xx designation, for ease of inspection and maintenance. These zones are sometimes further divided into sections for a particular street or beach segment, and it is those smaller sections that are depicted in this dataset.\n \nThis dataset uses the standard NYC projection of NAD_1983_StatePlane_New_York_Long_Island_FIPS_3104_Feet. Lengths are in feet and areas in square feet.\n\nData Dictionary: https://docs.google.com/spreadsheets/d/1YwneNR7WwLh5jZiI69LXWuW6yegeVo6HdiTpKTjI0tA/edit?usp=sharing"
+ },
+ "count": 197,
+ "geo": null,
+ "columns": [
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "BOROUGH"
+  },
+  {
+   "name": "featurestatus",
+   "type": "text",
+   "label": "FEATURESTATUS"
+  },
+  {
+   "name": "gispropnum",
+   "type": "text",
+   "label": "GISPROPNUM"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "NAME"
+  },
+  {
+   "name": "starea",
+   "type": "number",
+   "label": "STArea"
+  },
+  {
+   "name": "stlength",
+   "type": "number",
+   "label": "STLength"
+  },
+  {
+   "name": "system",
+   "type": "text",
+   "label": "SYSTEM"
+  },
+  {
+   "name": "multipolygon",
+   "type": "multipolygon",
+   "label": "multipolygon"
+  }
+ ],
+ "samples": [
+  {
+   "borough": "Q",
+   "featurestatus": "Active",
+   "gispropnum": "Q164",
+   "name": "Jacob Riis",
+   "starea": "2665533.065597534",
+   "stlength": "25697.5569163773",
+   "system": "Q164-BCH-0193",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "borough": "Q",
+   "featurestatus": "Active",
+   "gispropnum": "Q164",
+   "name": "Rockaway Beach",
+   "starea": "105969.64706420898",
+   "stlength": "1715.3656302147951",
+   "system": "Q164-ZN11A-BCH-0029",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "borough": "Q",
+   "featurestatus": "Active",
+   "gispropnum": "Q164",
+   "name": "Rockaway Beach",
+   "starea": "65010.67578125",
+   "stlength": "1048.9493003361877",
+   "system": "Q164-ZN11A-BCH-0026",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
+}

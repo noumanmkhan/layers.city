@@ -1,0 +1,244 @@
+{
+ "key": "truck_routes",
+ "looked_for": [
+  "Truck Routes",
+  "NYC Truck Routes"
+ ],
+ "candidates": [
+  [
+   "contains",
+   "jjja-shxy",
+   "New York City Truck Routes",
+   "dataset",
+   "2026-03-02"
+  ],
+  [
+   "contains",
+   "wnu3-egq7",
+   "New York City Truck Routes (Map)",
+   "map",
+   "2026-03-02"
+  ],
+  [
+   "contains",
+   "spax-mybh",
+   "NYC Truck Routes (Historical)",
+   "href",
+   "2015-03-13"
+  ]
+ ],
+ "picked": {
+  "id": "jjja-shxy",
+  "name": "New York City Truck Routes",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Transportation (DOT)",
+  "category": "Transportation",
+  "rows_updated": "2026-03-02",
+  "view_modified": "2026-03-02",
+  "update_frequency": "Annually",
+  "description": "The New York City Truck Route Network is a set of roads that commercial vehicles must use in New York City. \r\n\r\nNYC Truck Routes are also available in LION data. \r\nhttps://data.cityofnewyork.us/City-Government/LION/2v4z-66xt"
+ },
+ "count": 32939,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multiline",
+   "label": "the_geom"
+  },
+  {
+   "name": "objectid_1",
+   "type": "number",
+   "label": "OBJECTID_1"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "Street"
+  },
+  {
+   "name": "streetcode",
+   "type": "text",
+   "label": "StreetCode"
+  },
+  {
+   "name": "routetype",
+   "type": "text",
+   "label": "RouteType"
+  },
+  {
+   "name": "boroname",
+   "type": "text",
+   "label": "BoroName"
+  },
+  {
+   "name": "restrictio",
+   "type": "text",
+   "label": "Restrictio"
+  },
+  {
+   "name": "borocode",
+   "type": "number",
+   "label": "BoroCode"
+  },
+  {
+   "name": "truckroute",
+   "type": "text",
+   "label": "TruckRoute"
+  },
+  {
+   "name": "ltdlocal",
+   "type": "text",
+   "label": "LtdLocal"
+  },
+  {
+   "name": "nyc_reg",
+   "type": "text",
+   "label": "NYC_Reg"
+  },
+  {
+   "name": "segmentid",
+   "type": "text",
+   "label": "SegmentID"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Leng"
+  },
+  {
+   "name": "localtunl",
+   "type": "text",
+   "label": "LocalTunl"
+  },
+  {
+   "name": "localbrg",
+   "type": "text",
+   "label": "LocalBrg"
+  },
+  {
+   "name": "thrutunl",
+   "type": "text",
+   "label": "ThruTunl"
+  },
+  {
+   "name": "thrubrg",
+   "type": "text",
+   "label": "ThruBrg"
+  },
+  {
+   "name": "assem_dist",
+   "type": "number",
+   "label": "assem_dist"
+  },
+  {
+   "name": "cong_dist",
+   "type": "number",
+   "label": "cong_dist"
+  },
+  {
+   "name": "coun_dist",
+   "type": "number",
+   "label": "coun_dist"
+  },
+  {
+   "name": "st_sen_dis",
+   "type": "number",
+   "label": "st_sen_dis"
+  },
+  {
+   "name": "thruexwy",
+   "type": "text",
+   "label": "ThruExwy"
+  },
+  {
+   "name": "borocd",
+   "type": "number",
+   "label": "BoroCD"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "objectid_1": "1.0",
+   "street": "JEROME AVENUE",
+   "streetcode": "242820",
+   "routetype": "Local",
+   "boroname": "Bronx",
+   "restrictio": "",
+   "borocode": "2.0",
+   "truckroute": "Y",
+   "ltdlocal": "",
+   "nyc_reg": "NYCDOT Traffic Rules, Section 4-13-(f)(2)",
+   "segmentid": "0073071",
+   "shape_leng": "868.014779659",
+   "localtunl": "",
+   "localbrg": "",
+   "thrutunl": "",
+   "thrubrg": "",
+   "assem_dist": "86.0",
+   "cong_dist": "15.0",
+   "coun_dist": "14.0",
+   "st_sen_dis": "33.0",
+   "thruexwy": "",
+   "borocd": "205.0"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "objectid_1": "2.0",
+   "street": "EAST 149 STREET",
+   "streetcode": "226130",
+   "routetype": "Local",
+   "boroname": "Bronx",
+   "restrictio": "",
+   "borocode": "2.0",
+   "truckroute": "Y",
+   "ltdlocal": "",
+   "nyc_reg": "NYCDOT Traffic Rules, Section 4-13-(f)(2)",
+   "segmentid": "0077201",
+   "shape_leng": "293.285760538",
+   "localtunl": "",
+   "localbrg": "",
+   "thrutunl": "",
+   "thrubrg": "",
+   "assem_dist": "84.0",
+   "cong_dist": "15.0",
+   "coun_dist": "8.0",
+   "st_sen_dis": "32.0",
+   "thruexwy": "",
+   "borocd": "201.0"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "objectid_1": "3.0",
+   "street": "EAST 175 STREET",
+   "streetcode": "226910",
+   "routetype": "Local",
+   "boroname": "Bronx",
+   "restrictio": "",
+   "borocode": "2.0",
+   "truckroute": "Y",
+   "ltdlocal": "",
+   "nyc_reg": "NYCDOT Traffic Rules, Section 4-13-(f)(2)",
+   "segmentid": "0078397",
+   "shape_leng": "353.699567727",
+   "localtunl": "",
+   "localbrg": "",
+   "thrutunl": "",
+   "thrubrg": "",
+   "assem_dist": "86.0",
+   "cong_dist": "15.0",
+   "coun_dist": "15.0",
+   "st_sen_dis": "33.0",
+   "thruexwy": "",
+   "borocd": "206.0"
+  }
+ ]
+}

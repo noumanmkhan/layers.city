@@ -1,0 +1,157 @@
+{
+ "key": "street_closures_intersection",
+ "looked_for": [
+  "Street Closures due to construction activities by Intersection"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "478a-yykk",
+   "Street Closures due to Construction Activities by Intersection",
+   "dataset",
+   "2026-10-12"
+  ]
+ ],
+ "picked": {
+  "id": "478a-yykk",
+  "name": "Street Closures due to Construction Activities by Intersection",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Transportation (DOT)",
+  "category": "Transportation",
+  "rows_updated": "2026-10-12",
+  "view_modified": "2026-10-12",
+  "update_frequency": "Weekly",
+  "description": "DOT Street Closure data identifies locations in the New York City Street Closure map where a street is subject to a full closure, restricting through traffic, for the purpose of conducting construction related activity on a City street. Details about DOT construction permits can be found at Street Works Manual, http://streetworksmanual.nyc. Full Closure Permits are issued for a period of time during which the street may be closed to through traffic for only a portion of the time, and open at other times."
+ },
+ "count": 1476,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "point",
+   "label": "the_geom"
+  },
+  {
+   "name": "nodeid",
+   "type": "text",
+   "label": "NODEID"
+  },
+  {
+   "name": "oft",
+   "type": "number",
+   "label": "OFT"
+  },
+  {
+   "name": "onstreetname",
+   "type": "text",
+   "label": "ONSTREETNAME"
+  },
+  {
+   "name": "fromstreetname",
+   "type": "text",
+   "label": "FROMSTREETNAME"
+  },
+  {
+   "name": "borough_code",
+   "type": "text",
+   "label": "BOROUGH_CODE"
+  },
+  {
+   "name": "work_start_date",
+   "type": "calendar_date",
+   "label": "WORK_START_DATE"
+  },
+  {
+   "name": "work_end_date",
+   "type": "calendar_date",
+   "label": "WORK_END_DATE"
+  },
+  {
+   "name": "uniqueid",
+   "type": "text",
+   "label": "UNIQUEID"
+  },
+  {
+   "name": "purpose",
+   "type": "text",
+   "label": "PURPOSE"
+  },
+  {
+   "name": ":@computed_region_yeji_bk3q",
+   "type": "number",
+   "label": "Borough Boundaries"
+  },
+  {
+   "name": ":@computed_region_sbqj_enih",
+   "type": "number",
+   "label": "Police Precincts"
+  },
+  {
+   "name": ":@computed_region_92fq_4b7q",
+   "type": "number",
+   "label": "City Council Districts"
+  },
+  {
+   "name": ":@computed_region_f5dn_yrer",
+   "type": "number",
+   "label": "Community Districts"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "nodeid": "9034561",
+   "oft": "227120237020000000",
+   "onstreetname": "EAST  182 STREET",
+   "fromstreetname": "GROTE STREET",
+   "borough_code": "X",
+   "work_start_date": "2026-10-08T00:00:00.000",
+   "work_end_date": "2026-10-16T00:00:00.000",
+   "uniqueid": "ed1b9a9297f6791b8eeb8e59309fa0b8f46e4810c715d8926dfa739e11ba4f1e",
+   "purpose": "DOT IN-HOUSE PAVING",
+   ":@computed_region_yeji_bk3q": "5",
+   ":@computed_region_sbqj_enih": "31",
+   ":@computed_region_92fq_4b7q": "22",
+   ":@computed_region_f5dn_yrer": "35"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "nodeid": "89245",
+   "oft": "410890459990000000",
+   "onstreetname": "51 AVENUE",
+   "fromstreetname": "QUEENS BOULEVARD",
+   "borough_code": "Q",
+   "work_start_date": "2026-08-03T00:00:00.000",
+   "work_end_date": "2026-10-30T00:00:00.000",
+   "uniqueid": "10a69a0a0c2bf2b21cadfa02b10bfe6760c5c37f68de4dd082596e652106c51c",
+   "purpose": "DOT IN-HOUSE PAVING",
+   ":@computed_region_yeji_bk3q": "3",
+   ":@computed_region_sbqj_enih": "68",
+   ":@computed_region_92fq_4b7q": "5",
+   ":@computed_region_f5dn_yrer": "66"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "nodeid": "103538",
+   "oft": "342730349630000000",
+   "onstreetname": "FULTON STREET",
+   "fromstreetname": "HICKS STREET",
+   "borough_code": "B",
+   "work_start_date": "2026-10-16T00:00:00.000",
+   "work_end_date": "2026-10-19T00:00:00.000",
+   "uniqueid": "3da276e2f7aa0ef53dfb05ab3190a37c11442be19c1f8c0667c48440d2b11501",
+   "purpose": "DOT IN-HOUSE PAVING",
+   ":@computed_region_yeji_bk3q": "2",
+   ":@computed_region_sbqj_enih": "54",
+   ":@computed_region_92fq_4b7q": "38",
+   ":@computed_region_f5dn_yrer": "68"
+  }
+ ]
+}

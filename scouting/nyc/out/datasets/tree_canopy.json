@@ -1,0 +1,39 @@
+{
+ "key": "tree_canopy",
+ "looked_for": [
+  "Tree Canopy Change",
+  "Land Cover Raster Data"
+ ],
+ "candidates": [
+  [
+   "contains",
+   "by9k-vhck",
+   "Tree Canopy Change (2010 - 2017)",
+   "file",
+   "2018-12-07"
+  ],
+  [
+   "contains",
+   "he6d-2qns",
+   "Land Cover Raster Data (2017) – 6in Resolution",
+   "file",
+   "2018-12-07"
+  ]
+ ],
+ "picked": {
+  "id": "by9k-vhck",
+  "name": "Tree Canopy Change (2010 - 2017)",
+  "type": "file",
+  "viewType": "blobby",
+  "attribution": "Office of Technology and Innovation (OTI)",
+  "category": "Environment",
+  "rows_updated": "2018-12-07",
+  "view_modified": "2022-09-23",
+  "update_frequency": "As needed",
+  "description": "A 6-in resolution tree canopy change (2010 - 2017) dataset derived from the 2017 Light Detection and Ranging (LiDAR) data capture. This dataset represents a \"top-down\" mapping perspective and all tree polygons are classed as: (1) No Change, (2) Gain, (3) Loss. No change indicates that this portion of the canopy has undergone no modifications during the time period. Gain indicates that new tree canopy has appeared during the time period. Loss indicates that this portion of the tree canopy was removed during the time period.\n\nTo learn more about this dataset, visit the interactive \"Understanding the 2017 New York City LiDAR Capture\" Story Map -- https://maps.nyc.gov/lidar/2017/\nPlease see the following link for additional documentation on this dataset -- https://github.com/CityOfNewYork/nyc-"
+ },
+ "count": null,
+ "geo": null,
+ "columns": [],
+ "samples": []
+}

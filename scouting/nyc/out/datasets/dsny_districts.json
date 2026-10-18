@@ -1,0 +1,122 @@
+{
+ "key": "dsny_districts",
+ "looked_for": [
+  "DSNY Districts",
+  "DSNY Sections"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "i6mn-amj2",
+   "DSNY Districts",
+   "dataset",
+   "2026-09-17"
+  ],
+  [
+   "exact",
+   "7vgu-qbur",
+   "DSNY Sections",
+   "dataset",
+   "2024-02-06"
+  ],
+  [
+   "contains",
+   "fpv2-r9br",
+   "DSNY Districts With Disposal Vendor Assignments",
+   "dataset",
+   "2026-01-28"
+  ],
+  [
+   "contains",
+   "mjaj-dbuh",
+   "DSNY Districts With Disposal Vendors Assignments (Map)",
+   "map",
+   "2026-01-28"
+  ],
+  [
+   "contains",
+   "5hwa-9qfj",
+   "DSNY Sections (Map)",
+   "map",
+   "2024-02-06"
+  ]
+ ],
+ "picked": {
+  "id": "i6mn-amj2",
+  "name": "DSNY Districts",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Sanitation",
+  "category": "City Government",
+  "rows_updated": "2026-09-17",
+  "view_modified": "2026-09-23",
+  "update_frequency": "As needed",
+  "description": "This dataset contains a shape file of DSNY Districts. For operations management, the NYC Department of Sanitation (DSNY) divides the City into seven operation zones (Manhattan, Bronx, Brooklyn North, Brooklyn South, Queens West, Queens East, and Staten Island). These zones are further divided into 59 Sanitation Districts. The boundary for each DSNY district is congruent with NYC Community District boundaries."
+ },
+ "count": 59,
+ "geo": null,
+ "columns": [
+  {
+   "name": "district",
+   "type": "text",
+   "label": "DISTRICT"
+  },
+  {
+   "name": "districtcode",
+   "type": "text",
+   "label": "DISTRICTCODE"
+  },
+  {
+   "name": "objectid",
+   "type": "text",
+   "label": "OBJECTID"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "SHAPE_Area"
+  },
+  {
+   "name": "shape_length",
+   "type": "number",
+   "label": "SHAPE_Length"
+  },
+  {
+   "name": "multipolygon",
+   "type": "multipolygon",
+   "label": "multipolygon"
+  }
+ ],
+ "samples": [
+  {
+   "district": "BKS13",
+   "districtcode": "313",
+   "objectid": "7",
+   "shape_area": "88149641.6838102",
+   "shape_length": "65744.9470366868",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "district": "BX08",
+   "districtcode": "208",
+   "objectid": "12",
+   "shape_area": "92068731.8051143",
+   "shape_length": "47818.9067577367",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "district": "SI01",
+   "districtcode": "501",
+   "objectid": "105",
+   "shape_area": "376186283.657435",
+   "shape_length": "154338.930788704",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
+}

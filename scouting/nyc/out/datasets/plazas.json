@@ -1,0 +1,60 @@
+{
+ "key": "plazas",
+ "looked_for": [
+  "NYC DOT Pedestrian Plazas",
+  "Pedestrian Plazas"
+ ],
+ "candidates": [
+  [
+   "contains",
+   "fnkv-pyhj",
+   "NYC DOT Pedestrian Plazas (Map)",
+   "map",
+   "2026-10-01"
+  ],
+  [
+   "contains",
+   "5dck-9m6g",
+   "NYC DOT Pedestrian Plazas - Point Feature",
+   "dataset",
+   "2025-12-05"
+  ],
+  [
+   "contains",
+   "s8x5-ashy",
+   "NYC DOT Pedestrian Plazas - Point Feature (Map)",
+   "map",
+   "2025-12-05"
+  ],
+  [
+   "contains",
+   "k5k6-6jex",
+   "NYC DOT Pedestrian Plazas - Polygon",
+   "dataset",
+   "2026-10-01"
+  ]
+ ],
+ "picked": {
+  "id": "fnkv-pyhj",
+  "name": "NYC DOT Pedestrian Plazas (Map)",
+  "type": "map",
+  "viewType": "tabular",
+  "attribution": "Department of Transportation (DOT)",
+  "category": "Transportation",
+  "rows_updated": "2026-10-01",
+  "view_modified": "2022-05-11",
+  "update_frequency": "Annually",
+  "description": "A shapefile with all DOT pedestrian plaza locations across New York City."
+ },
+ "count": null,
+ "geo": {
+  "bytes": 53,
+  "error": "Expecting value: line 4 column 5 (char 53)"
+ },
+ "columns": [],
+ "samples": [
+  {},
+  {},
+  {}
+ ]
+}

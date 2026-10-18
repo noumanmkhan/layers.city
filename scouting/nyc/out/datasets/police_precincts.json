@@ -1,0 +1,77 @@
+{
+ "key": "police_precincts",
+ "looked_for": [
+  "Police Precincts"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "y76i-bdw7",
+   "Police Precincts",
+   "dataset",
+   "2026-05-26"
+  ]
+ ],
+ "picked": {
+  "id": "y76i-bdw7",
+  "name": "Police Precincts",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-05-26",
+  "view_modified": "2026-05-26",
+  "update_frequency": "Quarterly",
+  "description": "Boundaries of police precincts.\n\nAll previously released versions of this data are available on the <a href=\"https://www.nyc.gov/content/planning/pages/resources/datasets/police-precincts\">DCP Website: BYTES of the BIG APPLE</a>. Current version: 26b"
+ },
+ "count": 78,
+ "geo": null,
+ "columns": [
+  {
+   "name": "precinct",
+   "type": "number",
+   "label": "Precinct"
+  },
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Length"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  }
+ ],
+ "samples": [
+  {
+   "precinct": "1",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "shape_leng": "80093.4903098",
+   "shape_area": "47284748.3277"
+  },
+  {
+   "precinct": "5",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "shape_leng": "18807.0806071",
+   "shape_area": "18094771.1614"
+  },
+  {
+   "precinct": "6",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "shape_leng": "27255.9913162",
+   "shape_area": "22143015.2104"
+  }
+ ]
+}

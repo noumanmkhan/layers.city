@@ -1,0 +1,2166 @@
+{
+ "subway": {
+  "mb": 5.6,
+  "files": [
+   "agency.txt",
+   "calendar.txt",
+   "calendar_dates.txt",
+   "feed_info.txt",
+   "routes.txt",
+   "shapes.txt",
+   "stop_times.txt",
+   "stops.txt",
+   "transfers.txt",
+   "trips.txt"
+  ],
+  "feed_info": [
+   {
+    "feed_publisher_name": "MTA New York City Transit",
+    "feed_publisher_url": "https://www.mta.info/",
+    "feed_lang": "EN",
+    "feed_start_date": "20260526",
+    "feed_end_date": "20261031",
+    "feed_version": "20260826-X-long-term-supplement-trip-ids",
+    "feed_contact_url": "https://groups.google.com/forum/#!forum/mtadeveloperresources"
+   }
+  ],
+  "agencies": [
+   "MTA New York City Transit"
+  ],
+  "routes": 29,
+  "routes_by_type": [
+   [
+    "1",
+    28
+   ],
+   [
+    "2",
+    1
+   ]
+  ],
+  "express_routes": 0,
+  "sbs_routes": 0,
+  "stops": 1488,
+  "trips": 20621,
+  "calendar_span": [
+   "20260526",
+   "20261031"
+  ],
+  "routes_sample": [
+   [
+    "A",
+    "8 Avenue Express",
+    "1",
+    "0062CF"
+   ],
+   [
+    "C",
+    "8 Avenue Local",
+    "1",
+    "0062CF"
+   ],
+   [
+    "E",
+    "8 Avenue Local",
+    "1",
+    "0062CF"
+   ],
+   [
+    "B",
+    "6 Avenue Express",
+    "1",
+    "EB6800"
+   ],
+   [
+    "D",
+    "6 Avenue Express",
+    "1",
+    "EB6800"
+   ],
+   [
+    "F",
+    "Queens Blvd Express/6 Av Local",
+    "1",
+    "EB6800"
+   ],
+   [
+    "FX",
+    "Brooklyn F Express",
+    "1",
+    "EB6800"
+   ],
+   [
+    "M",
+    "Queens Blvd Local/6 Av Local",
+    "1",
+    "EB6800"
+   ],
+   [
+    "G",
+    "Brooklyn-Queens Crosstown",
+    "1",
+    "799534"
+   ],
+   [
+    "J",
+    "Nassau St Local",
+    "1",
+    "8E5C33"
+   ],
+   [
+    "Z",
+    "Nassau St Express",
+    "1",
+    "8E5C33"
+   ],
+   [
+    "L",
+    "14 St-Canarsie Local",
+    "1",
+    "7C858C"
+   ],
+   [
+    "N",
+    "Broadway Local",
+    "1",
+    "F6BC26"
+   ],
+   [
+    "Q",
+    "Broadway Express",
+    "1",
+    "F6BC26"
+   ],
+   [
+    "R",
+    "Broadway Local",
+    "1",
+    "F6BC26"
+   ],
+   [
+    "W",
+    "Broadway Local",
+    "1",
+    "F6BC26"
+   ],
+   [
+    "S",
+    "42 St Shuttle",
+    "1",
+    "7C858C"
+   ],
+   [
+    "S",
+    "Franklin Avenue Shuttle",
+    "1",
+    "7C858C"
+   ],
+   [
+    "S",
+    "Rockaway Park Shuttle",
+    "1",
+    "7C858C"
+   ],
+   [
+    "1",
+    "Broadway - 7 Avenue Local",
+    "1",
+    "D82233"
+   ],
+   [
+    "2",
+    "7 Avenue Express",
+    "1",
+    "D82233"
+   ],
+   [
+    "3",
+    "7 Avenue Express",
+    "1",
+    "D82233"
+   ],
+   [
+    "4",
+    "Lexington Avenue Express",
+    "1",
+    "009952"
+   ],
+   [
+    "5",
+    "Lexington Avenue Express",
+    "1",
+    "009952"
+   ],
+   [
+    "6",
+    "Lexington Avenue Local",
+    "1",
+    "009952"
+   ],
+   [
+    "6X",
+    "Pelham Bay Park Express",
+    "1",
+    "009952"
+   ],
+   [
+    "7",
+    "Flushing Local",
+    "1",
+    "9A38A1"
+   ],
+   [
+    "7X",
+    "Flushing Express",
+    "1",
+    "9A38A1"
+   ],
+   [
+    "SIR",
+    "Staten Island Railway",
+    "2",
+    "08179C"
+   ]
+  ]
+ },
+ "bus_bronx": {
+  "mb": 8.4,
+  "files": [
+   "agency.txt",
+   "calendar.txt",
+   "calendar_dates.txt",
+   "routes.txt",
+   "shapes.txt",
+   "stops.txt",
+   "stop_times.txt",
+   "trips.txt",
+   "feed_info.txt"
+  ],
+  "feed_info": [
+   {
+    "feed_publisher_name": "MTA New York City Transit",
+    "feed_publisher_url": "https://www.mta.info/",
+    "feed_lang": "en",
+    "feed_start_date": "20261012",
+    "feed_end_date": "20270102",
+    "feed_version": "20261009",
+    "feed_contact_url": "https://groups.google.com/forum/#!forum/mtadeveloperresources"
+   }
+  ],
+  "agencies": [
+   "MTA New York City Transit"
+  ],
+  "routes": 307,
+  "routes_by_type": [
+   [
+    "3",
+    255
+   ],
+   [
+    "711",
+    52
+   ]
+  ],
+  "express_routes": 36,
+  "sbs_routes": 17,
+  "stops": 1890,
+  "trips": 41156,
+  "calendar_span": [
+   "20261008",
+   "20270102"
+  ],
+  "routes_sample": [
+   [
+    "B1",
+    "Bay Ridge - Manhattan Beach",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B11",
+    "Sunset Park - Midwood",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B12",
+    "Lefferts Gardens - East New York",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B13",
+    "Spring Creek - Wyckoff Hospital",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B14",
+    "Spring Creek - Crown Heights",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B15",
+    "Bedford Stuyvesant - JFK AirTrain",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B16",
+    "Bay Ridge - Lefferts Gardens",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B17",
+    "Canarsie - Crown Heights",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B2",
+    "Kings Hwy Station - Kings Plaza",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B20",
+    "Ridgewood - Spring Creek",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B24",
+    "Williamsburg - Greenpoint",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B25",
+    "Dwntn Bklyn & DUMBO - Broadway Junction",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B26",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B3",
+    "Bensonhurst - Bergen Beach",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B31",
+    "Gerritsen Beach - Kings Hwy Station",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B32",
+    "Williamsburg - Long Island City",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B35",
+    "Brownsville - Sunset Park",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B36",
+    "Sheepshead Bay - Coney Island",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B37",
+    "Downtown Brooklyn - Bay Ridge",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B38",
+    "Ridgewood - Downtown Brooklyn",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B39",
+    "Williamsburg Bridge Plaza - Lower East Side",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B4",
+    "Bay Ridge - Sheepshead Bay",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B41",
+    "Kings Plaza - Downtown Brooklyn",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B42",
+    "Canarsie Pier - Rockaway Parkway Station",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B43",
+    "Greenpoint - Lefferts Gardens",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B44",
+    "Sheepshead Bay - Williamsburg",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B44-SBS",
+    "Sheepshead Bay - Williamsburg",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B45",
+    "Downtown Brooklyn - Crown Heights",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B46",
+    "Kings Plaza - Williamsburg",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B46-SBS",
+    "Kings Plaza - Williamsburg",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B47",
+    "Kings Plaza - Bedford-Stuyvesant",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B48",
+    "Lefferts Gardens - Greenpoint",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B49",
+    "Manhattan Beach - Bedford-Stuyvesant",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B52",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B54",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B57",
+    "Gowanus - Maspeth",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B6",
+    "Bath Beach - East New York",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B60",
+    "Williamsburg - Canarsie",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B61",
+    "Park Slope - Downtown Brooklyn",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B62",
+    "Astoria - Downtown Brooklyn",
+    "3",
+    "00AEEF"
+   ]
+  ]
+ },
+ "bus_brooklyn": {
+  "mb": 17.0,
+  "files": [
+   "agency.txt",
+   "calendar.txt",
+   "calendar_dates.txt",
+   "routes.txt",
+   "shapes.txt",
+   "stops.txt",
+   "stop_times.txt",
+   "trips.txt",
+   "feed_info.txt"
+  ],
+  "feed_info": [
+   {
+    "feed_publisher_name": "MTA New York City Transit",
+    "feed_publisher_url": "https://www.mta.info/",
+    "feed_lang": "en",
+    "feed_start_date": "20261012",
+    "feed_end_date": "20270102",
+    "feed_version": "20261009",
+    "feed_contact_url": "https://groups.google.com/forum/#!forum/mtadeveloperresources"
+   }
+  ],
+  "agencies": [
+   "MTA New York City Transit"
+  ],
+  "routes": 307,
+  "routes_by_type": [
+   [
+    "3",
+    255
+   ],
+   [
+    "711",
+    52
+   ]
+  ],
+  "express_routes": 36,
+  "sbs_routes": 17,
+  "stops": 4575,
+  "trips": 58357,
+  "calendar_span": [
+   "20261008",
+   "20270102"
+  ],
+  "routes_sample": [
+   [
+    "B1",
+    "Bay Ridge - Manhattan Beach",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B11",
+    "Sunset Park - Midwood",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B12",
+    "Lefferts Gardens - East New York",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B13",
+    "Spring Creek - Wyckoff Hospital",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B14",
+    "Spring Creek - Crown Heights",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B15",
+    "Bedford Stuyvesant - JFK AirTrain",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B16",
+    "Bay Ridge - Lefferts Gardens",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B17",
+    "Canarsie - Crown Heights",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B2",
+    "Kings Hwy Station - Kings Plaza",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B20",
+    "Ridgewood - Spring Creek",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B24",
+    "Williamsburg - Greenpoint",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B25",
+    "Dwntn Bklyn & DUMBO - Broadway Junction",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B26",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B3",
+    "Bensonhurst - Bergen Beach",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B31",
+    "Gerritsen Beach - Kings Hwy Station",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B32",
+    "Williamsburg - Long Island City",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B35",
+    "Brownsville - Sunset Park",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B36",
+    "Sheepshead Bay - Coney Island",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B37",
+    "Downtown Brooklyn - Bay Ridge",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B38",
+    "Ridgewood - Downtown Brooklyn",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B39",
+    "Williamsburg Bridge Plaza - Lower East Side",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B4",
+    "Bay Ridge - Sheepshead Bay",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B41",
+    "Kings Plaza - Downtown Brooklyn",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B42",
+    "Canarsie Pier - Rockaway Parkway Station",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B43",
+    "Greenpoint - Lefferts Gardens",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B44",
+    "Sheepshead Bay - Williamsburg",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B44-SBS",
+    "Sheepshead Bay - Williamsburg",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B45",
+    "Downtown Brooklyn - Crown Heights",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B46",
+    "Kings Plaza - Williamsburg",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B46-SBS",
+    "Kings Plaza - Williamsburg",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B47",
+    "Kings Plaza - Bedford-Stuyvesant",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B48",
+    "Lefferts Gardens - Greenpoint",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B49",
+    "Manhattan Beach - Bedford-Stuyvesant",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B52",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B54",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B57",
+    "Gowanus - Maspeth",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B6",
+    "Bath Beach - East New York",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B60",
+    "Williamsburg - Canarsie",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B61",
+    "Park Slope - Downtown Brooklyn",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B62",
+    "Astoria - Downtown Brooklyn",
+    "3",
+    "00AEEF"
+   ]
+  ]
+ },
+ "bus_manhattan": {
+  "mb": 8.3,
+  "files": [
+   "agency.txt",
+   "calendar.txt",
+   "calendar_dates.txt",
+   "routes.txt",
+   "shapes.txt",
+   "stops.txt",
+   "stop_times.txt",
+   "trips.txt",
+   "feed_info.txt"
+  ],
+  "feed_info": [
+   {
+    "feed_publisher_name": "MTA New York City Transit",
+    "feed_publisher_url": "https://www.mta.info/",
+    "feed_lang": "en",
+    "feed_start_date": "20261012",
+    "feed_end_date": "20270102",
+    "feed_version": "20261009",
+    "feed_contact_url": "https://groups.google.com/forum/#!forum/mtadeveloperresources"
+   }
+  ],
+  "agencies": [
+   "MTA New York City Transit"
+  ],
+  "routes": 307,
+  "routes_by_type": [
+   [
+    "3",
+    255
+   ],
+   [
+    "711",
+    52
+   ]
+  ],
+  "express_routes": 36,
+  "sbs_routes": 17,
+  "stops": 1823,
+  "trips": 37872,
+  "calendar_span": [
+   "20261008",
+   "20270102"
+  ],
+  "routes_sample": [
+   [
+    "B1",
+    "Bay Ridge - Manhattan Beach",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B11",
+    "Sunset Park - Midwood",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B12",
+    "Lefferts Gardens - East New York",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B13",
+    "Spring Creek - Wyckoff Hospital",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B14",
+    "Spring Creek - Crown Heights",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B15",
+    "Bedford Stuyvesant - JFK AirTrain",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B16",
+    "Bay Ridge - Lefferts Gardens",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B17",
+    "Canarsie - Crown Heights",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B2",
+    "Kings Hwy Station - Kings Plaza",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B20",
+    "Ridgewood - Spring Creek",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B24",
+    "Williamsburg - Greenpoint",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B25",
+    "Dwntn Bklyn & DUMBO - Broadway Junction",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B26",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B3",
+    "Bensonhurst - Bergen Beach",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B31",
+    "Gerritsen Beach - Kings Hwy Station",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B32",
+    "Williamsburg - Long Island City",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B35",
+    "Brownsville - Sunset Park",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B36",
+    "Sheepshead Bay - Coney Island",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B37",
+    "Downtown Brooklyn - Bay Ridge",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B38",
+    "Ridgewood - Downtown Brooklyn",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B39",
+    "Williamsburg Bridge Plaza - Lower East Side",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B4",
+    "Bay Ridge - Sheepshead Bay",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B41",
+    "Kings Plaza - Downtown Brooklyn",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B42",
+    "Canarsie Pier - Rockaway Parkway Station",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B43",
+    "Greenpoint - Lefferts Gardens",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B44",
+    "Sheepshead Bay - Williamsburg",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B44-SBS",
+    "Sheepshead Bay - Williamsburg",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B45",
+    "Downtown Brooklyn - Crown Heights",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B46",
+    "Kings Plaza - Williamsburg",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B46-SBS",
+    "Kings Plaza - Williamsburg",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B47",
+    "Kings Plaza - Bedford-Stuyvesant",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B48",
+    "Lefferts Gardens - Greenpoint",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B49",
+    "Manhattan Beach - Bedford-Stuyvesant",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B52",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B54",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B57",
+    "Gowanus - Maspeth",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B6",
+    "Bath Beach - East New York",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B60",
+    "Williamsburg - Canarsie",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B61",
+    "Park Slope - Downtown Brooklyn",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B62",
+    "Astoria - Downtown Brooklyn",
+    "3",
+    "00AEEF"
+   ]
+  ]
+ },
+ "bus_queens": {
+  "mb": 6.0,
+  "files": [
+   "agency.txt",
+   "calendar.txt",
+   "calendar_dates.txt",
+   "routes.txt",
+   "shapes.txt",
+   "stops.txt",
+   "stop_times.txt",
+   "trips.txt",
+   "feed_info.txt"
+  ],
+  "feed_info": [
+   {
+    "feed_publisher_name": "MTA New York City Transit",
+    "feed_publisher_url": "https://www.mta.info/",
+    "feed_lang": "en",
+    "feed_start_date": "20261012",
+    "feed_end_date": "20270102",
+    "feed_version": "20261009",
+    "feed_contact_url": "https://groups.google.com/forum/#!forum/mtadeveloperresources"
+   }
+  ],
+  "agencies": [
+   "MTA New York City Transit"
+  ],
+  "routes": 307,
+  "routes_by_type": [
+   [
+    "3",
+    255
+   ],
+   [
+    "711",
+    52
+   ]
+  ],
+  "express_routes": 36,
+  "sbs_routes": 17,
+  "stops": 1422,
+  "trips": 31199,
+  "calendar_span": [
+   "20261008",
+   "20270102"
+  ],
+  "routes_sample": [
+   [
+    "B1",
+    "Bay Ridge - Manhattan Beach",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B11",
+    "Sunset Park - Midwood",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B12",
+    "Lefferts Gardens - East New York",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B13",
+    "Spring Creek - Wyckoff Hospital",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B14",
+    "Spring Creek - Crown Heights",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B15",
+    "Bedford Stuyvesant - JFK AirTrain",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B16",
+    "Bay Ridge - Lefferts Gardens",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B17",
+    "Canarsie - Crown Heights",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B2",
+    "Kings Hwy Station - Kings Plaza",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B20",
+    "Ridgewood - Spring Creek",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B24",
+    "Williamsburg - Greenpoint",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B25",
+    "Dwntn Bklyn & DUMBO - Broadway Junction",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B26",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B3",
+    "Bensonhurst - Bergen Beach",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B31",
+    "Gerritsen Beach - Kings Hwy Station",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B32",
+    "Williamsburg - Long Island City",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B35",
+    "Brownsville - Sunset Park",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B36",
+    "Sheepshead Bay - Coney Island",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B37",
+    "Downtown Brooklyn - Bay Ridge",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B38",
+    "Ridgewood - Downtown Brooklyn",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B39",
+    "Williamsburg Bridge Plaza - Lower East Side",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B4",
+    "Bay Ridge - Sheepshead Bay",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B41",
+    "Kings Plaza - Downtown Brooklyn",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B42",
+    "Canarsie Pier - Rockaway Parkway Station",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B43",
+    "Greenpoint - Lefferts Gardens",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B44",
+    "Sheepshead Bay - Williamsburg",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B44-SBS",
+    "Sheepshead Bay - Williamsburg",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B45",
+    "Downtown Brooklyn - Crown Heights",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B46",
+    "Kings Plaza - Williamsburg",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B46-SBS",
+    "Kings Plaza - Williamsburg",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B47",
+    "Kings Plaza - Bedford-Stuyvesant",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B48",
+    "Lefferts Gardens - Greenpoint",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B49",
+    "Manhattan Beach - Bedford-Stuyvesant",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B52",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B54",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B57",
+    "Gowanus - Maspeth",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B6",
+    "Bath Beach - East New York",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B60",
+    "Williamsburg - Canarsie",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B61",
+    "Park Slope - Downtown Brooklyn",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B62",
+    "Astoria - Downtown Brooklyn",
+    "3",
+    "00AEEF"
+   ]
+  ]
+ },
+ "bus_staten_island": {
+  "mb": 6.4,
+  "files": [
+   "agency.txt",
+   "calendar.txt",
+   "calendar_dates.txt",
+   "routes.txt",
+   "shapes.txt",
+   "stops.txt",
+   "stop_times.txt",
+   "trips.txt",
+   "feed_info.txt"
+  ],
+  "feed_info": [
+   {
+    "feed_publisher_name": "MTA New York City Transit",
+    "feed_publisher_url": "https://www.mta.info/",
+    "feed_lang": "en",
+    "feed_start_date": "20261012",
+    "feed_end_date": "20270102",
+    "feed_version": "20261009",
+    "feed_contact_url": "https://groups.google.com/forum/#!forum/mtadeveloperresources"
+   }
+  ],
+  "agencies": [
+   "MTA New York City Transit"
+  ],
+  "routes": 307,
+  "routes_by_type": [
+   [
+    "3",
+    255
+   ],
+   [
+    "711",
+    52
+   ]
+  ],
+  "express_routes": 36,
+  "sbs_routes": 17,
+  "stops": 1965,
+  "trips": 16524,
+  "calendar_span": [
+   "20261012",
+   "20270102"
+  ],
+  "routes_sample": [
+   [
+    "B1",
+    "Bay Ridge - Manhattan Beach",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B11",
+    "Sunset Park - Midwood",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B12",
+    "Lefferts Gardens - East New York",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B13",
+    "Spring Creek - Wyckoff Hospital",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B14",
+    "Spring Creek - Crown Heights",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B15",
+    "Bedford Stuyvesant - JFK AirTrain",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B16",
+    "Bay Ridge - Lefferts Gardens",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B17",
+    "Canarsie - Crown Heights",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B2",
+    "Kings Hwy Station - Kings Plaza",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B20",
+    "Ridgewood - Spring Creek",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B24",
+    "Williamsburg - Greenpoint",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B25",
+    "Dwntn Bklyn & DUMBO - Broadway Junction",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B26",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B3",
+    "Bensonhurst - Bergen Beach",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B31",
+    "Gerritsen Beach - Kings Hwy Station",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B32",
+    "Williamsburg - Long Island City",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B35",
+    "Brownsville - Sunset Park",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B36",
+    "Sheepshead Bay - Coney Island",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B37",
+    "Downtown Brooklyn - Bay Ridge",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B38",
+    "Ridgewood - Downtown Brooklyn",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B39",
+    "Williamsburg Bridge Plaza - Lower East Side",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "B4",
+    "Bay Ridge - Sheepshead Bay",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B41",
+    "Kings Plaza - Downtown Brooklyn",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B42",
+    "Canarsie Pier - Rockaway Parkway Station",
+    "3",
+    "006CB7"
+   ],
+   [
+    "B43",
+    "Greenpoint - Lefferts Gardens",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B44",
+    "Sheepshead Bay - Williamsburg",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B44-SBS",
+    "Sheepshead Bay - Williamsburg",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B45",
+    "Downtown Brooklyn - Crown Heights",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B46",
+    "Kings Plaza - Williamsburg",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B46-SBS",
+    "Kings Plaza - Williamsburg",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B47",
+    "Kings Plaza - Bedford-Stuyvesant",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "B48",
+    "Lefferts Gardens - Greenpoint",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B49",
+    "Manhattan Beach - Bedford-Stuyvesant",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B52",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B54",
+    "Downtown Brooklyn - Ridgewood",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B57",
+    "Gowanus - Maspeth",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B6",
+    "Bath Beach - East New York",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B60",
+    "Williamsburg - Canarsie",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B61",
+    "Park Slope - Downtown Brooklyn",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "B62",
+    "Astoria - Downtown Brooklyn",
+    "3",
+    "00AEEF"
+   ]
+  ]
+ },
+ "bus_company": {
+  "mb": 8.4,
+  "files": [
+   "agency.txt",
+   "calendar.txt",
+   "calendar_dates.txt",
+   "routes.txt",
+   "shapes.txt",
+   "stop_times.txt",
+   "stops.txt",
+   "trips.txt",
+   "feed_info.txt"
+  ],
+  "feed_info": [
+   {
+    "feed_publisher_name": "MTA New York City Transit",
+    "feed_publisher_url": "https://www.mta.info/",
+    "feed_lang": "EN",
+    "feed_start_date": "20261012",
+    "feed_end_date": "20270102",
+    "feed_version": "20261012",
+    "feed_contact_url": "https://groups.google.com/forum/#!forum/mtadeveloperresources"
+   }
+  ],
+  "agencies": [
+   "MTA Bus Company"
+  ],
+  "routes": 92,
+  "routes_by_type": [
+   [
+    "3",
+    92
+   ]
+  ],
+  "express_routes": 43,
+  "sbs_routes": 3,
+  "stops": 2758,
+  "trips": 45424,
+  "calendar_span": [
+   "20261009",
+   "20270102"
+  ],
+  "routes_sample": [
+   [
+    "Q6",
+    "Jamaica - Sutphin Blvd - Jfk Cargo Area",
+    "3",
+    "EE352E"
+   ],
+   [
+    "Q7",
+    "Cypress Hills - Rockaway Blvd - Jfk Travel Plz.",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q8",
+    "Gateway Mall / East Ny - Jamaica",
+    "3",
+    "EE352E"
+   ],
+   [
+    "Q9",
+    "Jamaica - South Ozone Park",
+    "3",
+    "B933AD"
+   ],
+   [
+    "Q10",
+    "Jfk Airtrain - Kew Gardens Via Rockaway",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q11",
+    "Howard Beach - Elmhurst",
+    "3",
+    "6CBE45"
+   ],
+   [
+    "Q18",
+    "Astoria - Maspeth",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q19",
+    "Flushing - Astoria",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q22",
+    "Rockaway Beach Bl / Beach Channel Dr",
+    "3",
+    "EE352E"
+   ],
+   [
+    "Q23",
+    "East Elmhurst - Forest Hills",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q25",
+    "College Point - Jamaica",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q26",
+    "College Point - Fresh Meadows",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q28",
+    "Flushing - Bay Terrace Rush",
+    "3",
+    "B933AD"
+   ],
+   [
+    "Q32",
+    "Jackson Heights - Penn Station (Midtown)",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q33",
+    "Marine Air Terminal Lga-Jackson Heights",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q35",
+    "Rockaway Park - Midwood / Brooklyn Coll.",
+    "3",
+    "006CB7"
+   ],
+   [
+    "Q37",
+    "Kew Gardens - South Ozone Park",
+    "3",
+    "00AEEF"
+   ],
+   [
+    "Q40",
+    "South Ozone Park - Jamaica",
+    "3",
+    "B933AD"
+   ],
+   [
+    "Q41",
+    "Jamaica - Howard Beach",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q47",
+    "East Elmhurst - Glendale",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q49",
+    "East Elmhurst - Jackson Heights",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q50",
+    "Co-Op City/Pelham Bay - Flushing Ltd",
+    "3",
+    "EE352E"
+   ],
+   [
+    "Q51",
+    "Linden Blvd Limited",
+    "3",
+    "EE352E"
+   ],
+   [
+    "Q60",
+    "Queens Blvd. - East Midtown",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q63",
+    "Flushing - Long Island City Rush",
+    "3",
+    "B933AD"
+   ],
+   [
+    "Q64",
+    "Electchester - Forest Hills",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q65",
+    "Flushing - Jamaica",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q66",
+    "Flushing - Long Island City",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q69",
+    "East Elmhurst - Long Island City",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q72",
+    "LaGuardia Airport - Rego Park",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "Q74",
+    "Forest Hills - Qcc Ltd",
+    "3",
+    "EE352E"
+   ],
+   [
+    "Q80",
+    "Jfk Airtrain - Kew Gardens Via Lefferts",
+    "3",
+    "EE352E"
+   ],
+   [
+    "B100",
+    "Mill Basin - Midwood",
+    "3",
+    "B933AD"
+   ],
+   [
+    "B103",
+    "Canarsie - Downtown Brooklyn Ltd",
+    "3",
+    "FAA61A"
+   ],
+   [
+    "BM1",
+    "Mill Basin - Downtown/Midtown",
+    "3",
+    "00933C"
+   ],
+   [
+    "BM2",
+    "Canarsie/Spring Creek - Downtown/Midtown",
+    "3",
+    "00933C"
+   ],
+   [
+    "BM3",
+    "Sheepshead Bay - Downtown/Midtown",
+    "3",
+    "00933C"
+   ],
+   [
+    "BM4",
+    "Gerritsen Beach - Downtown/Midtown",
+    "3",
+    "00933C"
+   ],
+   [
+    "BM5",
+    "Spring Creek - Midtown",
+    "3",
+    "00933C"
+   ],
+   [
+    "Bx23",
+    "Pelham Bay - Co-Op City",
+    "3",
+    "B933AD"
+   ]
+  ]
+ },
+ "lirr": {
+  "mb": 1.7,
+  "files": [
+   "agency.txt",
+   "calendar_dates.txt",
+   "feed_info.txt",
+   "routes.txt",
+   "shapes.txt",
+   "stop_times.txt",
+   "stops.txt",
+   "transfers.txt",
+   "trips.txt"
+  ],
+  "feed_info": [
+   {
+    "feed_publisher_name": "Long Island Rail Road",
+    "feed_publisher_url": "http://web.mta.info/lirr",
+    "feed_timezone": "America/New York",
+    "feed_lang": "en",
+    "feed_version": "GO202_26"
+   }
+  ],
+  "agencies": [
+   "Long Island Rail Road"
+  ],
+  "routes": 13,
+  "routes_by_type": [
+   [
+    "2",
+    13
+   ]
+  ],
+  "express_routes": 0,
+  "sbs_routes": 0,
+  "stops": 127,
+  "trips": 2291,
+  "calendar_span": [
+   null,
+   null
+  ],
+  "routes_sample": [
+   [
+    null,
+    "Babylon Branch",
+    "2",
+    "00985F"
+   ],
+   [
+    null,
+    "Hempstead Branch",
+    "2",
+    "CE8E00"
+   ],
+   [
+    null,
+    "Oyster Bay Branch",
+    "2",
+    "00AF3F"
+   ],
+   [
+    null,
+    "Ronkonkoma Branch",
+    "2",
+    "A626AA"
+   ],
+   [
+    null,
+    "Montauk Branch",
+    "2",
+    "00B2A9"
+   ],
+   [
+    null,
+    "Long Beach Branch",
+    "2",
+    "FF6319"
+   ],
+   [
+    null,
+    "Far Rockaway Branch",
+    "2",
+    "6E3219"
+   ],
+   [
+    null,
+    "West Hempstead Branch",
+    "2",
+    "00A1DE"
+   ],
+   [
+    null,
+    "Port Washington Branch",
+    "2",
+    "C60C30"
+   ],
+   [
+    null,
+    "Port Jefferson Branch",
+    "2",
+    "006EC7"
+   ],
+   [
+    null,
+    "Belmont Park",
+    "2",
+    "60269E"
+   ],
+   [
+    null,
+    "City Terminal Zone",
+    "2",
+    "4D5357"
+   ],
+   [
+    null,
+    "Greenport Service",
+    "2",
+    "A626AA"
+   ]
+  ]
+ },
+ "metro_north": {
+  "mb": 4.4,
+  "files": [
+   "agency.txt",
+   "calendar_dates.txt",
+   "trips.txt",
+   "stop_times.txt",
+   "stops.txt",
+   "shapes.txt",
+   "routes.txt",
+   "transfers.txt",
+   "notes.txt"
+  ],
+  "feed_info": [],
+  "agencies": [
+   "Metro-North Railroad"
+  ],
+  "routes": 6,
+  "routes_by_type": [
+   [
+    "2",
+    6
+   ]
+  ],
+  "express_routes": 0,
+  "sbs_routes": 0,
+  "stops": 114,
+  "trips": 37196,
+  "calendar_span": [
+   null,
+   null
+  ],
+  "routes_sample": [
+   [
+    "",
+    "New Haven",
+    "2",
+    "EE0034"
+   ],
+   [
+    "",
+    "New Canaan",
+    "2",
+    "EE0034"
+   ],
+   [
+    "",
+    "Danbury",
+    "2",
+    "EE0034"
+   ],
+   [
+    "",
+    "Waterbury",
+    "2",
+    "EE0034"
+   ],
+   [
+    "",
+    "Hudson",
+    "2",
+    "009B3A"
+   ],
+   [
+    "",
+    "Harlem",
+    "2",
+    "0039A6"
+   ]
+  ]
+ },
+ "path": {
+  "ok": true,
+  "bytes": 3177,
+  "zip": false,
+  "gtfs_links": []
+ },
+ "nyc_ferry_gtfs": {
+  "ok": true,
+  "bytes": 35889,
+  "zip": true,
+  "gtfs_links": []
+ },
+ "njtransit_dev": {
+  "ok": true,
+  "bytes": 48328,
+  "zip": false,
+  "gtfs_links": []
+ }
+}

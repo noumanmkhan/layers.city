@@ -1,0 +1,184 @@
+{
+ "key": "playgrounds",
+ "looked_for": [
+  "Directory of Playgrounds",
+  "Playgrounds"
+ ],
+ "candidates": [
+  [
+   "contains",
+   "bvus-rxia",
+   "ARCHIVE - DPR_SchoolyardsToPlaygrounds_001",
+   "dataset",
+   "2015-04-23"
+  ],
+  [
+   "contains",
+   "urxm-vzzk",
+   "ARCHIVE - Schoolyards To Playgrounds",
+   "map",
+   "2015-04-23"
+  ],
+  [
+   "contains",
+   "a4qt-mpr5",
+   "Parks Closure Status Due to COVID-19: Playgrounds",
+   "dataset",
+   "2024-04-03"
+  ],
+  [
+   "contains",
+   "j55h-3upk",
+   "Playgrounds with Dedicated Children's Areas (DCAs)",
+   "dataset",
+   "2026-10-07"
+  ],
+  [
+   "contains",
+   "asdj-rj9b",
+   "Playgrounds with Dedicated Children's Areas (DCAs)",
+   "map",
+   "2026-10-07"
+  ],
+  [
+   "contains",
+   "dbmp-698d",
+   "Schoolyard to Playgrounds",
+   "map",
+   "2026-10-15"
+  ],
+  [
+   "contains",
+   "bbtf-6p3c",
+   "Schoolyard to Playgrounds",
+   "dataset",
+   "2026-10-15"
+  ]
+ ],
+ "picked": {
+  "id": "bvus-rxia",
+  "name": "ARCHIVE - DPR_SchoolyardsToPlaygrounds_001",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Parks and Recreation (DPR)",
+  "category": "City Government",
+  "rows_updated": "2015-04-23",
+  "view_modified": "2024-11-18",
+  "update_frequency": "As needed",
+  "description": "This data set has been archived. This data set is now updated here: https://data.cityofnewyork.us/dataset/Schoolyard-to-Playgrounds/dbmp-698d\r\n\r\nArchive description: Directory of Schoolyard to playground conversions"
+ },
+ "count": 231,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "gispropnum",
+   "type": "text",
+   "label": "GISPROPNUM"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "BOROUGH"
+  },
+  {
+   "name": "eapply",
+   "type": "text",
+   "label": "EAPPLY"
+  },
+  {
+   "name": "comfortsta",
+   "type": "text",
+   "label": "COMFORTSTA"
+  },
+  {
+   "name": "signname",
+   "type": "text",
+   "label": "SIGNNAME"
+  },
+  {
+   "name": "nys_assemb",
+   "type": "text",
+   "label": "NYS_ASSEMB"
+  },
+  {
+   "name": "nys_senate",
+   "type": "text",
+   "label": "NYS_SENATE"
+  },
+  {
+   "name": "us_congres",
+   "type": "text",
+   "label": "US_CONGRES"
+  },
+  {
+   "name": "shape_star",
+   "type": "number",
+   "label": "SHAPE_STAr"
+  },
+  {
+   "name": "shape_stle",
+   "type": "number",
+   "label": "SHAPE_STLe"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "gispropnum": "QS09",
+   "location": "Francis Lewis Blvd. bet.ween 192 St. and 35 Ave.",
+   "borough": "Q",
+   "eapply": "I.S. 25",
+   "comfortsta": "N-CONFSTA-PARK",
+   "signname": "I.S. 25",
+   "nys_assemb": "26",
+   "nys_senate": "11",
+   "us_congres": "6",
+   "shape_star": "51992.5298767",
+   "shape_stle": "1655.48993494"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "gispropnum": "QS10",
+   "location": "117 St. bet.ween Jamaica Ave. and 89 Ave.",
+   "borough": "Q",
+   "eapply": "P.S. 51",
+   "comfortsta": "N-CONFSTA-PARK",
+   "signname": "P.S. 51",
+   "nys_assemb": "24",
+   "nys_senate": "10",
+   "us_congres": "5",
+   "shape_star": "4487.09339905",
+   "shape_stle": "579.559712293"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "gispropnum": "BS30",
+   "location": "E. 2 St. bet.ween Ave. S and Ave. R",
+   "borough": "B",
+   "eapply": "P.S. 215",
+   "comfortsta": "N-CONFSTA-PARK",
+   "signname": "P.S. 215",
+   "nys_assemb": "45",
+   "nys_senate": "22",
+   "us_congres": "11",
+   "shape_star": "58128.0821228",
+   "shape_stle": "1057.44342553"
+  }
+ ]
+}

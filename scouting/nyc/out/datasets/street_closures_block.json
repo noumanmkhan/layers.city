@@ -1,0 +1,140 @@
+{
+ "key": "street_closures_block",
+ "looked_for": [
+  "Street Closures due to construction activities by Block"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "i6b5-j7bu",
+   "Street Closures due to Construction Activities by Block",
+   "dataset",
+   "2026-10-12"
+  ],
+  [
+   "contains",
+   "ezy6-djsf",
+   "Street Closures due to Construction Activities by Block and Intersection",
+   "dataset",
+   "2026-10-12"
+  ]
+ ],
+ "picked": {
+  "id": "i6b5-j7bu",
+  "name": "Street Closures due to Construction Activities by Block",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Transportation (DOT)",
+  "category": "Transportation",
+  "rows_updated": "2026-10-12",
+  "view_modified": "2026-10-12",
+  "update_frequency": "Weekly",
+  "description": "DOT Street Closure data identifies locations in the New York City Street Closure map where a street is subject to a full closure, restricting through traffic, for the purpose of conducting construction related activity on a City street. Details about DOT construction permits can be found at Street Works Manual, http://streetworksmanual.nyc/.  Full Closure Permits are issued for a period of time during which the street may be closed to through traffic for only a portion of the time, and open at other times."
+ },
+ "count": 3895,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multiline",
+   "label": "the_geom"
+  },
+  {
+   "name": "segmentid",
+   "type": "number",
+   "label": "SEGMENTID"
+  },
+  {
+   "name": "oft",
+   "type": "number",
+   "label": "OFT"
+  },
+  {
+   "name": "onstreetname",
+   "type": "text",
+   "label": "ONSTREETNAME"
+  },
+  {
+   "name": "fromstreetname",
+   "type": "text",
+   "label": "FROMSTREETNAME"
+  },
+  {
+   "name": "tostreetname",
+   "type": "text",
+   "label": "TOSTREETNAME"
+  },
+  {
+   "name": "borough_code",
+   "type": "text",
+   "label": "BOROUGH_CODE"
+  },
+  {
+   "name": "work_start_date",
+   "type": "calendar_date",
+   "label": "WORK_START_DATE"
+  },
+  {
+   "name": "work_end_date",
+   "type": "calendar_date",
+   "label": "WORK_END_DATE"
+  },
+  {
+   "name": "uniqueid",
+   "type": "text",
+   "label": "UNIQUEID"
+  },
+  {
+   "name": "purpose",
+   "type": "text",
+   "label": "PURPOSE"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "segmentid": "5587",
+   "oft": "550391529150529338",
+   "onstreetname": "SUMMERFIELD PLACE",
+   "fromstreetname": "FOREST AVENUE",
+   "tostreetname": "FRANCESCA LANE",
+   "borough_code": "S",
+   "work_start_date": "2026-09-02T00:00:00.000",
+   "work_end_date": "2026-10-28T00:00:00.000",
+   "uniqueid": "a5a11d1c5d592041e13a20de056952d2734359896cf50d78a17c1c5b1b2ea3a8",
+   "purpose": "DOT IN-HOUSE PAVING"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "segmentid": "5707",
+   "oft": "516400516410518600",
+   "onstreetname": "ARLINGTON AVENUE",
+   "fromstreetname": "ARLINGTON PLACE",
+   "tostreetname": "BENJAMIN PLACE",
+   "borough_code": "S",
+   "work_start_date": "2026-09-02T00:00:00.000",
+   "work_end_date": "2026-10-27T00:00:00.000",
+   "uniqueid": "77eecd0f3e50e95cc694d13140d655b5ef74571fe5a637ec5f2157f273320312",
+   "purpose": "DOT IN-HOUSE PAVING"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "segmentid": "6097",
+   "oft": "533125527365536532",
+   "onstreetname": "HILLTOP PLACE",
+   "fromstreetname": "ELEANOR LANE",
+   "tostreetname": "LINDENWOOD ROAD",
+   "borough_code": "S",
+   "work_start_date": "2026-09-16T00:00:00.000",
+   "work_end_date": "2026-10-16T00:00:00.000",
+   "uniqueid": "de0ed20ec66ca8f74991e32ad460354c1022e8a7ea9220d5cc194bf3f13e4a74",
+   "purpose": "TRIBUTARY INSTALL - GAS"
+  }
+ ]
+}

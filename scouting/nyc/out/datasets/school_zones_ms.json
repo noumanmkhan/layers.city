@@ -1,0 +1,149 @@
+{
+ "key": "school_zones_ms",
+ "looked_for": [
+  "School Zones 2025-2026 (Middle School)",
+  "School Zones 2024-2025 (Middle School)"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "t26j-jbq7",
+   "School Zones 2024-2025 (Middle School)",
+   "dataset",
+   "2024-03-13"
+  ]
+ ],
+ "picked": {
+  "id": "t26j-jbq7",
+  "name": "School Zones 2024-2025 (Middle School)",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Education (DOE)",
+  "category": "Education",
+  "rows_updated": "2024-03-13",
+  "view_modified": "2024-11-26",
+  "update_frequency": "Annually",
+  "description": "Data is used to identify the  zoning for the Middle School grades."
+ },
+ "count": 279,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "schooldist",
+   "type": "number",
+   "label": "SCHOOLDIST"
+  },
+  {
+   "name": "initials",
+   "type": "text",
+   "label": "INITIALS"
+  },
+  {
+   "name": "creat_date",
+   "type": "calendar_date",
+   "label": "CREAT_DATE"
+  },
+  {
+   "name": "edit_date",
+   "type": "calendar_date",
+   "label": "EDIT_DATE"
+  },
+  {
+   "name": "boro",
+   "type": "text",
+   "label": "BORO"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Leng"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  },
+  {
+   "name": "boro_text",
+   "type": "text",
+   "label": "Boro_Text"
+  },
+  {
+   "name": "dbn",
+   "type": "text",
+   "label": "DBN"
+  },
+  {
+   "name": "remarks",
+   "type": "text",
+   "label": "REMARKS"
+  },
+  {
+   "name": "msid_no",
+   "type": "number",
+   "label": "MSID_NO"
+  },
+  {
+   "name": "label",
+   "type": "text",
+   "label": "Label"
+  },
+  {
+   "name": "zoned_dist",
+   "type": "text",
+   "label": "ZONED_DIST"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "schooldist": "7.0",
+   "initials": "DMH",
+   "creat_date": "2001-08-06T00:00:00.000",
+   "boro": "2",
+   "shape_leng": "17425.8141513",
+   "shape_area": "17797358.4137",
+   "boro_text": "X",
+   "remarks": "park",
+   "msid_no": "114.0",
+   "zoned_dist": "7"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "schooldist": "11.0",
+   "initials": "JB",
+   "creat_date": "2001-08-06T00:00:00.000",
+   "boro": "2",
+   "shape_leng": "29198.411",
+   "shape_area": "11700947.9173",
+   "boro_text": "X",
+   "dbn": "11X175",
+   "msid_no": "116.0",
+   "label": "175",
+   "zoned_dist": "11"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "schooldist": "11.0",
+   "initials": "DMH",
+   "boro": "2",
+   "shape_leng": "14712.9400704",
+   "shape_area": "4526825.90065",
+   "boro_text": "X",
+   "remarks": "park",
+   "msid_no": "117.0",
+   "zoned_dist": "11"
+  }
+ ]
+}

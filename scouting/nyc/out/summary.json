@@ -1,0 +1,574 @@
+{
+ "catalog": {
+  "datasets": 3021,
+  "categories": [
+   [
+    "City Government",
+    906
+   ],
+   [
+    "Education",
+    653
+   ],
+   [
+    "Transportation",
+    369
+   ],
+   [
+    "Environment",
+    212
+   ],
+   [
+    "Housing & Development",
+    208
+   ],
+   [
+    "Social Services",
+    171
+   ],
+   [
+    "Public Safety",
+    141
+   ],
+   [
+    "Recreation",
+    105
+   ],
+   [
+    null,
+    105
+   ],
+   [
+    "Health",
+    77
+   ],
+   [
+    "Business",
+    68
+   ],
+   [
+    "NYC BigApps",
+    6
+   ]
+  ]
+ },
+ "datasets": {
+  "boroughs": [
+   "gthc-hcne",
+   "Borough Boundaries",
+   5,
+   "2026-05-26"
+  ],
+  "community_districts": [
+   "5crt-au7u",
+   "Community Districts",
+   71,
+   "2026-05-26"
+  ],
+  "ntas_2020": [
+   "9nt8-h7nd",
+   "2020 Neighborhood Tabulation Areas (NTAs)",
+   262,
+   "2026-05-28"
+  ],
+  "census_tracts_2020": [
+   "63ge-mke6",
+   "2020 Census Tracts",
+   2325,
+   "2026-05-26"
+  ],
+  "neighborhood_names": null,
+  "council_districts": [
+   "872g-cjhh",
+   "City Council Districts",
+   51,
+   "2026-05-26"
+  ],
+  "assembly_districts": [
+   "5yfv-9hkp",
+   "State Assembly Districts",
+   65,
+   "2026-05-28"
+  ],
+  "senate_districts": [
+   "h4i2-acfi",
+   "State Senate Districts",
+   null,
+   "2026-05-26"
+  ],
+  "congressional_districts": [
+   "j3u5-usz2",
+   "Congressional Districts",
+   13,
+   "2026-05-26"
+  ],
+  "election_districts": [
+   "h2n3-98hq",
+   "Election Districts",
+   null,
+   "2026-05-26"
+  ],
+  "school_districts": [
+   "8ugf-3d8u",
+   "School Districts",
+   33,
+   "2026-05-26"
+  ],
+  "bids": [
+   "ejxk-d93y",
+   "Business Improvement Districts",
+   null,
+   "2024-10-08"
+  ],
+  "lpc_districts": [
+   "skyk-mpzq",
+   "Historic Districts",
+   141,
+   "2026-06-18"
+  ],
+  "lpc_landmarks": [
+   "buis-pvji",
+   "Individual Landmark Sites",
+   1532,
+   "2026-06-30"
+  ],
+  "lpc_buildings": null,
+  "lpc_calendared": [
+   "ncre-qhxs",
+   "Designated and Calendared Buildings and Sites",
+   39363,
+   "2026-06-18"
+  ],
+  "parks_properties": [
+   "enfh-gkve",
+   "Parks Properties",
+   2061,
+   "2026-10-16"
+  ],
+  "playgrounds": [
+   "bvus-rxia",
+   "ARCHIVE - DPR_SchoolyardsToPlaygrounds_001",
+   231,
+   "2015-04-23"
+  ],
+  "spray_showers": [
+   "tzuk-eq2f",
+   "Cool It! NYC 2020 - Spray Showers",
+   755,
+   "2020-11-27"
+  ],
+  "dog_runs": [
+   "8nac-uner",
+   "NYC Parks Dog Runs",
+   null,
+   "2026-10-15"
+  ],
+  "comfort_stations": [
+   "hjae-yuav",
+   "Directory Of Toilets In Public Parks",
+   616,
+   "2013-06-21"
+  ],
+  "athletic_facilities": [
+   "qnem-b8re",
+   "Athletic Facilities",
+   6951,
+   "2026-07-23"
+  ],
+  "pools": [
+   "y5rm-wagw",
+   "NYC Parks Pools",
+   91,
+   "2026-10-15"
+  ],
+  "rinks": [
+   "sage-tgxd",
+   "Directory of Ice Skating Rinks",
+   null,
+   "2011-08-16"
+  ],
+  "skate_parks": [
+   "pvvr-75zk",
+   "Parks Closure Status Due to COVID-19: Skate Parks",
+   36,
+   "2021-11-22"
+  ],
+  "rec_centers": [
+   "ydj7-rk56",
+   "Directory of Recreation Centers",
+   null,
+   "2011-10-08"
+  ],
+  "facdb": [
+   "ji82-xba5",
+   "Facilities Database",
+   34446,
+   "2026-07-16"
+  ],
+  "schools_points": [
+   "jfju-ynrr",
+   "School Point Locations",
+   null,
+   "2011-09-22"
+  ],
+  "school_zones_es": [
+   "cmjf-yawu",
+   "School Zones 2024-2025 (Elementary School)",
+   770,
+   "2024-03-13"
+  ],
+  "school_zones_ms": [
+   "t26j-jbq7",
+   "School Zones 2024-2025 (Middle School)",
+   279,
+   "2024-03-13"
+  ],
+  "school_zones_hs": [
+   "ruu9-egea",
+   "School Zones 2024-2025 (High School)",
+   80,
+   "2024-03-13"
+  ],
+  "colleges": null,
+  "hospitals": [
+   "sj3k-gzyx",
+   "DOHMH Covid-19 Milestone Data: Daily Number of People Admitted to NYC hospitals for Covid-19 like Illness",
+   470,
+   "2021-06-15"
+  ],
+  "libraries": [
+   "p4pf-fyc4",
+   "Library",
+   null,
+   "2016-06-22"
+  ],
+  "street_centerline": null,
+  "lion": [
+   "2v4z-66xt",
+   "LION",
+   null,
+   "2013-01-28"
+  ],
+  "truck_routes": [
+   "jjja-shxy",
+   "New York City Truck Routes",
+   32939,
+   "2026-03-02"
+  ],
+  "bike_routes": [
+   "mzxg-pwib",
+   "New York City Bike Routes",
+   29695,
+   "2026-07-24"
+  ],
+  "bike_racks": [
+   "592z-n7dk",
+   "Bicycle Parking",
+   38107,
+   "2026-10-13"
+  ],
+  "street_closures_block": [
+   "i6b5-j7bu",
+   "Street Closures due to Construction Activities by Block",
+   3895,
+   "2026-10-12"
+  ],
+  "street_closures_intersection": [
+   "478a-yykk",
+   "Street Closures due to Construction Activities by Intersection",
+   1476,
+   "2026-10-12"
+  ],
+  "permitted_events": [
+   "tvpp-9vvx",
+   "NYC Permitted Event Information",
+   26859,
+   "2026-10-17"
+  ],
+  "dob_now_jobs": [
+   "w9ak-ipjd",
+   "DOB NOW: Build – Job Application Filings",
+   971491,
+   "2026-10-17"
+  ],
+  "dob_permits": [
+   "ipu4-2q9a",
+   "DOB Permit Issuance",
+   3990985,
+   "2026-10-17"
+  ],
+  "dob_now_permits": [
+   "rbx6-tga4",
+   "DOB NOW: Build – Approved Permits",
+   1016520,
+   "2026-10-17"
+  ],
+  "housing_database": [
+   "6umk-irkx",
+   "Housing Database",
+   null,
+   "2021-03-19"
+  ],
+  "zap_projects": [
+   "hgx4-8ukb",
+   "Zoning Application Portal (ZAP) - Project Data",
+   32964,
+   "2026-08-12"
+  ],
+  "zap_bbl": [
+   "2iga-a6mk",
+   "Zoning Application Portal (ZAP) - BBL",
+   132090,
+   "2026-08-12"
+  ],
+  "poll_sites_2018": [
+   "mifw-tguq",
+   "Voting/Poll Sites",
+   1231,
+   "2018-10-29"
+  ],
+  "evacuation_zones": [
+   "epne-qv9x",
+   "Hurricane Evacuation Zones",
+   8,
+   "2026-05-26"
+  ],
+  "evacuation_centers": [
+   "p5md-weyf",
+   "Hurricane Evacuation Centers",
+   60,
+   "2026-09-01"
+  ],
+  "parking_regulations": [
+   "nfid-uabd",
+   "Parking Regulation Locations and Signs",
+   441348,
+   "2026-10-18"
+  ],
+  "municipal_parking": [
+   "j4y5-w7iq",
+   "Carshare Locations - Municipal Garages and Lots",
+   9,
+   "2026-08-14"
+  ],
+  "ev_chargers": null,
+  "pops": [
+   "rvih-nhyn",
+   "Privately Owned Public Spaces (POPS)",
+   392,
+   "2025-10-14"
+  ],
+  "open_streets": [
+   "uiay-nctu",
+   "Open Streets Locations",
+   391,
+   "2026-10-01"
+  ],
+  "plazas": [
+   "fnkv-pyhj",
+   "NYC DOT Pedestrian Plazas (Map)",
+   null,
+   "2026-10-01"
+  ],
+  "ferry_routes": null,
+  "ferry_landings": null,
+  "subway_stations": null,
+  "shoreline": [
+   "2qj2-cctx",
+   "NYC Planimetric Database: Shoreline",
+   null,
+   "2024-04-24"
+  ],
+  "hydrography": [
+   "drh3-e2fd",
+   "NYC Planimetric Database: Hydrography",
+   null,
+   "2024-04-24"
+  ],
+  "address_points": null,
+  "dsny_frequencies_socrata": [
+   "rv63-53db",
+   "DSNY Frequencies",
+   610,
+   "2026-09-22"
+  ],
+  "dsny_districts": [
+   "i6mn-amj2",
+   "DSNY Districts",
+   59,
+   "2026-09-17"
+  ],
+  "police_precincts": [
+   "y76i-bdw7",
+   "Police Precincts",
+   78,
+   "2026-05-26"
+  ],
+  "nycha": null,
+  "beaches": [
+   "ijwa-mn2v",
+   "Beaches",
+   197,
+   "2026-10-15"
+  ],
+  "tree_canopy": [
+   "by9k-vhck",
+   "Tree Canopy Change (2010 - 2017)",
+   null,
+   "2018-12-07"
+  ],
+  "senior_centers": [
+   "xu8q-aip5",
+   "VZV Senior Centers",
+   null,
+   "2026-10-01"
+  ],
+  "community_centers": null
+ },
+ "arcgis": {
+  "dsny_frequencies": 610,
+  "nysdot_service": null,
+  "nysdot_inventory": 68851,
+  "nys_polling_search": null,
+  "nys_polling_0": 271,
+  "nys_polling_1": 157,
+  "nys_polling_2": 3649,
+  "nys_polling_3": 1206,
+  "search: NYC DCP LION": null,
+  "search: NYC Digital City Map": null,
+  "search: NJ municipal boundaries NJGIN": null,
+  "search: Connecticut town boundaries": null,
+  "search: MTA Subway Stations": null
+ },
+ "gtfs": {
+  "subway": {
+   "mb": 5.6,
+   "routes": 29,
+   "stops": 1488,
+   "calendar_span": [
+    "20260526",
+    "20261031"
+   ]
+  },
+  "bus_bronx": {
+   "mb": 8.4,
+   "routes": 307,
+   "stops": 1890,
+   "calendar_span": [
+    "20261008",
+    "20270102"
+   ]
+  },
+  "bus_brooklyn": {
+   "mb": 17.0,
+   "routes": 307,
+   "stops": 4575,
+   "calendar_span": [
+    "20261008",
+    "20270102"
+   ]
+  },
+  "bus_manhattan": {
+   "mb": 8.3,
+   "routes": 307,
+   "stops": 1823,
+   "calendar_span": [
+    "20261008",
+    "20270102"
+   ]
+  },
+  "bus_queens": {
+   "mb": 6.0,
+   "routes": 307,
+   "stops": 1422,
+   "calendar_span": [
+    "20261008",
+    "20270102"
+   ]
+  },
+  "bus_staten_island": {
+   "mb": 6.4,
+   "routes": 307,
+   "stops": 1965,
+   "calendar_span": [
+    "20261012",
+    "20270102"
+   ]
+  },
+  "bus_company": {
+   "mb": 8.4,
+   "routes": 92,
+   "stops": 2758,
+   "calendar_span": [
+    "20261009",
+    "20270102"
+   ]
+  },
+  "lirr": {
+   "mb": 1.7,
+   "routes": 13,
+   "stops": 127,
+   "calendar_span": [
+    null,
+    null
+   ]
+  },
+  "metro_north": {
+   "mb": 4.4,
+   "routes": 6,
+   "stops": 114,
+   "calendar_span": [
+    null,
+    null
+   ]
+  },
+  "path": {
+   "mb": null,
+   "routes": null,
+   "stops": null,
+   "calendar_span": null
+  },
+  "nyc_ferry_gtfs": {
+   "mb": null,
+   "routes": null,
+   "stops": null,
+   "calendar_span": null
+  },
+  "njtransit_dev": {
+   "mb": null,
+   "routes": null,
+   "stops": null,
+   "calendar_span": null
+  }
+ },
+ "citibike": {
+  "stations": 2519,
+  "charging": 0
+ },
+ "boe": {
+  "manhattan": [
+   896,
+   259
+  ],
+  "manhattan_r0": [
+   null,
+   null
+  ],
+  "bronx": [
+   null,
+   null
+  ],
+  "brooklyn": [
+   null,
+   null
+  ],
+  "queens": [
+   1123,
+   306
+  ],
+  "staten_island": [
+   254,
+   79
+  ]
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "key": "council_districts",
+ "looked_for": [
+  "City Council Districts"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "872g-cjhh",
+   "City Council Districts",
+   "dataset",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "jgqm-ccbd",
+   "City Council Districts (water areas included)",
+   "map",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "mkqi-d8x3",
+   "City Council Districts (Water Areas Included)",
+   "dataset",
+   "2026-05-26"
+  ]
+ ],
+ "picked": {
+  "id": "872g-cjhh",
+  "name": "City Council Districts",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-05-26",
+  "view_modified": "2026-05-26",
+  "update_frequency": "Quarterly",
+  "description": "The City Council district boundaries for New York City.\n\nAll previously released versions of this data are available on the <a href=\"https://www.nyc.gov/content/planning/pages/resources/datasets/city-council\">DCP Website: BYTES of the BIG APPLE</a>. Current version: 26b"
+ },
+ "count": 51,
+ "geo": null,
+ "columns": [
+  {
+   "name": "coundist",
+   "type": "number",
+   "label": "CounDist"
+  },
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Length"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  }
+ ],
+ "samples": [
+  {
+   "coundist": "42",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "shape_leng": "220755.073719",
+   "shape_area": "201334161.93"
+  },
+  {
+   "coundist": "45",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "shape_leng": "56967.6277458",
+   "shape_area": "117904762.16"
+  },
+  {
+   "coundist": "30",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "shape_leng": "75010.4317216",
+   "shape_area": "168734193.235"
+  }
+ ]
+}

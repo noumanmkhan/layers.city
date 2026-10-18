@@ -1,0 +1,231 @@
+{
+ "key": "lpc_landmarks",
+ "looked_for": [
+  "Individual Landmark Sites",
+  "Individual Landmarks"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "buis-pvji",
+   "Individual Landmark Sites",
+   "dataset",
+   "2026-06-30"
+  ],
+  [
+   "contains",
+   "ts56-fkf5",
+   "Individual Landmark Sites (Map)",
+   "map",
+   "2026-06-30"
+  ]
+ ],
+ "picked": {
+  "id": "buis-pvji",
+  "name": "Individual Landmark Sites",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Landmarks Preservation Commission (LPC)",
+  "category": "Housing & Development",
+  "rows_updated": "2026-06-30",
+  "view_modified": "2026-06-30",
+  "update_frequency": "Every 6 months",
+  "description": "This dataset contains site boundaries for all designated individual landmarks as well as administrative information such as site boundary description and designation date."
+ },
+ "count": 1532,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "polygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "objectid",
+   "type": "text",
+   "label": "OBJECTID"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "Borough"
+  },
+  {
+   "name": "block",
+   "type": "text",
+   "label": "Block"
+  },
+  {
+   "name": "lot",
+   "type": "text",
+   "label": "Lot"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "DESIG_ADDRESS"
+  },
+  {
+   "name": "bbl",
+   "type": "text",
+   "label": "BBL"
+  },
+  {
+   "name": "lpc_name",
+   "type": "text",
+   "label": "LM_NAME"
+  },
+  {
+   "name": "lpc_lpnumb",
+   "type": "text",
+   "label": "LP_NUMBER"
+  },
+  {
+   "name": "lpc_sitede",
+   "type": "text",
+   "label": "SITE_DESC"
+  },
+  {
+   "name": "lpc_sitest",
+   "type": "text",
+   "label": "SITE_STATUS"
+  },
+  {
+   "name": "lpc_altern",
+   "type": "text",
+   "label": "LM_NAME2"
+  },
+  {
+   "name": "desdate",
+   "type": "text",
+   "label": "DESIG_DATE"
+  },
+  {
+   "name": "landmarkty",
+   "type": "text",
+   "label": "LM_TYPE"
+  },
+  {
+   "name": "url_report",
+   "type": "text",
+   "label": "REPORT_URL"
+  },
+  {
+   "name": "cd",
+   "type": "text",
+   "label": "CD"
+  },
+  {
+   "name": "council",
+   "type": "text",
+   "label": "Council"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "Latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "Longitude"
+  },
+  {
+   "name": "bct2020",
+   "type": "number",
+   "label": "BCT2020"
+  },
+  {
+   "name": "nta2020",
+   "type": "text",
+   "label": "NTA2020"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Leng"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "Polygon"
+   },
+   "objectid": "1545",
+   "borough": "MN",
+   "block": "341",
+   "lot": "26",
+   "address": "440 GRAND STREET",
+   "bbl": "1003410026",
+   "lpc_name": "Church of Saint Mary",
+   "lpc_lpnumb": "LP-02694",
+   "lpc_sitede": "Borough of Manhattan, Tax Map Block 341, Lot 26",
+   "lpc_sitest": "Designated",
+   "desdate": "4/7/2026",
+   "landmarkty": "Individual",
+   "cd": "103",
+   "council": "1",
+   "latitude": "40.7158766",
+   "longitude": "-73.9852317",
+   "bct2020": "1001402",
+   "nta2020": "MN0302",
+   "shape_leng": "536.004670993048",
+   "shape_area": "14664.757287076749"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Polygon"
+   },
+   "objectid": "1544",
+   "borough": "BK",
+   "block": "174",
+   "lot": "1201",
+   "address": "362 SCHERMERHORN STREET",
+   "bbl": "3001741201",
+   "lpc_name": "Public School 15 Annex",
+   "lpc_lpnumb": "LP-02696",
+   "lpc_sitede": "Borough of Brooklyn, Tax Map Block 174, Lot 1201",
+   "lpc_sitest": "Designated",
+   "desdate": "4/7/2026",
+   "landmarkty": "Individual",
+   "cd": "302",
+   "council": "33",
+   "latitude": "40.6861417",
+   "longitude": "-73.979772",
+   "bct2020": "3003900",
+   "nta2020": "BK0202",
+   "shape_leng": "257.191045780416",
+   "shape_area": "4003.7930299170216"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Polygon"
+   },
+   "objectid": "1543",
+   "borough": "MN",
+   "block": "754",
+   "lot": "34",
+   "address": "307 WEST 30 STREET",
+   "bbl": "1007540034",
+   "lpc_name": "Lithuanian Alliance Building",
+   "lpc_lpnumb": "LP-02695",
+   "lpc_sitede": "Borough of Manhattan Tax Map Block 754, Lot 34",
+   "lpc_sitest": "Designated",
+   "desdate": "4/4/2026",
+   "landmarkty": "Individual",
+   "cd": "104",
+   "council": "3",
+   "latitude": "40.7500963",
+   "longitude": "-73.9957701",
+   "bct2020": "1010300",
+   "nta2020": "MN0401",
+   "shape_leng": "264.6011138989543",
+   "shape_area": "2641.0908466053743"
+  }
+ ]
+}

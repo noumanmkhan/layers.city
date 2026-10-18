@@ -1,0 +1,747 @@
+{
+ "key": "dob_now_jobs",
+ "looked_for": [
+  "DOB NOW: Build – Job Application Filings",
+  "DOB NOW: Build - Job Application Filings"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "w9ak-ipjd",
+   "DOB NOW: Build – Job Application Filings",
+   "dataset",
+   "2026-10-17"
+  ]
+ ],
+ "picked": {
+  "id": "w9ak-ipjd",
+  "name": "DOB NOW: Build – Job Application Filings",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Buildings (DOB)",
+  "category": "Housing & Development",
+  "rows_updated": "2026-10-17",
+  "view_modified": "2026-10-17",
+  "update_frequency": "Daily",
+  "description": "List of most job filings filed in DOB NOW. This dataset does not include certain types of job.  For Electrical jobs, use https://data.cityofnewyork.us/browse?Data-Collection_Data-Collection=DOB+NOW+Electrical+Permits+Data. Elevator and LAA jobs will also be published separately."
+ },
+ "count": 971491,
+ "geo": null,
+ "columns": [
+  {
+   "name": "job_filing_number",
+   "type": "text",
+   "label": "Job Filing Number"
+  },
+  {
+   "name": "filing_status",
+   "type": "text",
+   "label": "Filing Status"
+  },
+  {
+   "name": "house_no",
+   "type": "text",
+   "label": "House No"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "Street Name"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "Borough"
+  },
+  {
+   "name": "block",
+   "type": "text",
+   "label": "Block"
+  },
+  {
+   "name": "lot",
+   "type": "text",
+   "label": "LOT"
+  },
+  {
+   "name": "bin",
+   "type": "text",
+   "label": "Bin"
+  },
+  {
+   "name": "commmunity_board",
+   "type": "text",
+   "label": "Commmunity - Board"
+  },
+  {
+   "name": "work_on_floor",
+   "type": "text",
+   "label": "Work on Floor"
+  },
+  {
+   "name": "apt_condo_no_s",
+   "type": "text",
+   "label": "Apt./Condo No(s)"
+  },
+  {
+   "name": "applicant_professional_title",
+   "type": "text",
+   "label": "Applicant Professional Title"
+  },
+  {
+   "name": "applicant_license",
+   "type": "text",
+   "label": "Applicant License #"
+  },
+  {
+   "name": "applicant_first_name",
+   "type": "text",
+   "label": "Applicant First Name"
+  },
+  {
+   "name": "applicants_middle_initial",
+   "type": "text",
+   "label": "Applicants Middle Initial"
+  },
+  {
+   "name": "applicant_last_name",
+   "type": "text",
+   "label": "Applicant Last Name"
+  },
+  {
+   "name": "owner_s_business_name",
+   "type": "text",
+   "label": "Owner's Business Name"
+  },
+  {
+   "name": "applicant_street_name",
+   "type": "text",
+   "label": "Applicant Street Name"
+  },
+  {
+   "name": "city",
+   "type": "text",
+   "label": "Applicant City"
+  },
+  {
+   "name": "state",
+   "type": "text",
+   "label": "Applicant State"
+  },
+  {
+   "name": "zip",
+   "type": "text",
+   "label": "Applicant Zip"
+  },
+  {
+   "name": "filing_representative_first_name",
+   "type": "text",
+   "label": "Filing Representative First Name"
+  },
+  {
+   "name": "filing_representative_middle_initial",
+   "type": "text",
+   "label": "Filing Representative Middle Initial"
+  },
+  {
+   "name": "filing_representative_last_name",
+   "type": "text",
+   "label": "Filing Representative Last Name"
+  },
+  {
+   "name": "filing_representative_business_name",
+   "type": "text",
+   "label": "Filing Representative Business Name"
+  },
+  {
+   "name": "filing_representative_street_name",
+   "type": "text",
+   "label": "Filing Representative Street Name"
+  },
+  {
+   "name": "filing_representative_city",
+   "type": "text",
+   "label": "Filing Representative City"
+  },
+  {
+   "name": "filing_representative_state",
+   "type": "text",
+   "label": "Filing Representative State"
+  },
+  {
+   "name": "filing_representative_zip",
+   "type": "text",
+   "label": "Filing Representative Zip"
+  },
+  {
+   "name": "sprinkler_work_type",
+   "type": "text",
+   "label": "Sprinkler (Work Type)"
+  },
+  {
+   "name": "plumbing_work_type",
+   "type": "text",
+   "label": "Plumbing (Work Type)"
+  },
+  {
+   "name": "standpipe",
+   "type": "text",
+   "label": "Stand Pipe (Work Type)"
+  },
+  {
+   "name": "antenna",
+   "type": "text",
+   "label": "Antenna (Work Type)"
+  },
+  {
+   "name": "sign",
+   "type": "text",
+   "label": "Sign (Work Type)"
+  },
+  {
+   "name": "curb_cut",
+   "type": "text",
+   "label": "Curb Cut (Work Type)"
+  },
+  {
+   "name": "fence",
+   "type": "text",
+   "label": "Fence (Work Type)"
+  },
+  {
+   "name": "scaffold",
+   "type": "text",
+   "label": "Scaffold (Work Type)"
+  },
+  {
+   "name": "shed",
+   "type": "text",
+   "label": "Shed (Work Type)"
+  },
+  {
+   "name": "initial_cost",
+   "type": "text",
+   "label": "Initial Cost"
+  },
+  {
+   "name": "total_construction_floor_area",
+   "type": "text",
+   "label": "Total Construction Floor Area"
+  },
+  {
+   "name": "review_building_code",
+   "type": "text",
+   "label": "Review Building Code"
+  },
+  {
+   "name": "little_e",
+   "type": "text",
+   "label": "Little E"
+  },
+  {
+   "name": "unmapped_cco_street",
+   "type": "text",
+   "label": "Unmapped/CCO Street"
+  },
+  {
+   "name": "request_legalization",
+   "type": "text",
+   "label": "Request Legalization"
+  },
+  {
+   "name": "includes_permanent_removal",
+   "type": "text",
+   "label": "Includes Permanent Removal"
+  },
+  {
+   "name": "in_compliance_with_nycecc",
+   "type": "text",
+   "label": "In Compliance with NYCECC"
+  },
+  {
+   "name": "exempt_from_nycecc",
+   "type": "text",
+   "label": "Exempt from NYCECC"
+  },
+  {
+   "name": "building_type",
+   "type": "text",
+   "label": "Building Type"
+  },
+  {
+   "name": "existing_stories",
+   "type": "text",
+   "label": "Existing Stories"
+  },
+  {
+   "name": "existing_height",
+   "type": "text",
+   "label": "Existing Height"
+  },
+  {
+   "name": "existing_dwelling_units",
+   "type": "text",
+   "label": "Existing Dwelling Units"
+  },
+  {
+   "name": "proposed_no_of_stories",
+   "type": "text",
+   "label": "Proposed No of Stories"
+  },
+  {
+   "name": "proposed_height",
+   "type": "text",
+   "label": "Proposed Height"
+  },
+  {
+   "name": "proposed_dwelling_units",
+   "type": "text",
+   "label": "Proposed Dwelling Units"
+  },
+  {
+   "name": "specialinspectionrequirement",
+   "type": "text",
+   "label": "SpecialInspectionRequirement"
+  },
+  {
+   "name": "special_inspection_agency_number",
+   "type": "text",
+   "label": "Special Inspection Agency Number"
+  },
+  {
+   "name": "progressinspectionrequirement",
+   "type": "text",
+   "label": "ProgressInspectionRequirement"
+  },
+  {
+   "name": "built_1_information_value",
+   "type": "text",
+   "label": "Built 1 information value"
+  },
+  {
+   "name": "built_2_information_value",
+   "type": "text",
+   "label": "Built 2 information value"
+  },
+  {
+   "name": "built_2_a_information_value",
+   "type": "text",
+   "label": "Built 2 A information value"
+  },
+  {
+   "name": "built_2_b_information_value",
+   "type": "text",
+   "label": "Built 2 B information value"
+  },
+  {
+   "name": "filing_date",
+   "type": "calendar_date",
+   "label": "Filing Date"
+  },
+  {
+   "name": "current_status_date",
+   "type": "calendar_date",
+   "label": "Current Status Date"
+  },
+  {
+   "name": "first_permit_date",
+   "type": "calendar_date",
+   "label": "First Permit Date"
+  },
+  {
+   "name": "boiler_equipment_work_type_",
+   "type": "text",
+   "label": "Boiler Equipment (Work Type)"
+  },
+  {
+   "name": "earth_work_work_type_",
+   "type": "text",
+   "label": "Earth Work (Work Type)"
+  },
+  {
+   "name": "foundation_work_type_",
+   "type": "text",
+   "label": "Foundation (Work Type)"
+  },
+  {
+   "name": "general_construction_work_type_",
+   "type": "text",
+   "label": "General Construction (Work Type)"
+  },
+  {
+   "name": "mechanical_systems_work_type_",
+   "type": "text",
+   "label": "Mechanical Systems (Work Type)"
+  },
+  {
+   "name": "place_of_assembly_work_type_",
+   "type": "text",
+   "label": "Place of Assembly (Work Type)"
+  },
+  {
+   "name": "protection_mechanical_methods_work_type_",
+   "type": "text",
+   "label": "Protection Mechanical Methods (Work Type)"
+  },
+  {
+   "name": "sidewalk_shed_work_type_",
+   "type": "text",
+   "label": "Sidewalk Shed (Work Type)"
+  },
+  {
+   "name": "structural_work_type_",
+   "type": "text",
+   "label": "Structural (Work Type)"
+  },
+  {
+   "name": "support_of_excavation_work_type_",
+   "type": "text",
+   "label": "Support of Excavation (Work Type)"
+  },
+  {
+   "name": "temporary_place_of_assembly_work_type_",
+   "type": "text",
+   "label": "Temporary Place of Assembly (Work Type)"
+  },
+  {
+   "name": "green_roof_work_type_",
+   "type": "text",
+   "label": "Green Roof (Work Type)"
+  },
+  {
+   "name": "solar_work_type_",
+   "type": "text",
+   "label": "Solar (Work Type)"
+  },
+  {
+   "name": "full_demolition_work_type_",
+   "type": "text",
+   "label": "Full Demolition (Work Type) "
+  },
+  {
+   "name": "suspended_scaffold_work_type_",
+   "type": "text",
+   "label": "Suspended Scaffold (Work Type)"
+  },
+  {
+   "name": "job_type",
+   "type": "text",
+   "label": "Job Type"
+  },
+  {
+   "name": "latitude",
+   "type": "text",
+   "label": "Latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "text",
+   "label": "Longitude"
+  },
+  {
+   "name": "postcode",
+   "type": "text",
+   "label": "Postcode"
+  },
+  {
+   "name": "council_district",
+   "type": "text",
+   "label": "Council District"
+  },
+  {
+   "name": "census_tract",
+   "type": "text",
+   "label": "Census Tract"
+  },
+  {
+   "name": "bbl",
+   "type": "text",
+   "label": "BBL"
+  },
+  {
+   "name": "nta",
+   "type": "text",
+   "label": "NTA"
+  },
+  {
+   "name": "approved_date",
+   "type": "calendar_date",
+   "label": "Approved Date"
+  },
+  {
+   "name": "signoff_date",
+   "type": "calendar_date",
+   "label": "Signoff Date"
+  },
+  {
+   "name": "applicant_business_name",
+   "type": "text",
+   "label": "Applicant Business Name"
+  },
+  {
+   "name": "owner_first_name",
+   "type": "text",
+   "label": "Owner First Name"
+  },
+  {
+   "name": "owner_last_name",
+   "type": "text",
+   "label": "Owner Last Name"
+  },
+  {
+   "name": "owner_type",
+   "type": "text",
+   "label": "Owner Type"
+  },
+  {
+   "name": "job_description",
+   "type": "text",
+   "label": "Job Description"
+  },
+  {
+   "name": "filing_review_type",
+   "type": "text",
+   "label": "Filing Review Type"
+  }
+ ],
+ "samples": [
+  {
+   "job_filing_number": "B00319790-I1",
+   "filing_status": "LOC Issued",
+   "house_no": "367",
+   "street_name": "12 STREET",
+   "borough": "Brooklyn",
+   "block": "1024",
+   "lot": "74",
+   "bin": "3023048",
+   "commmunity_board": "306",
+   "work_on_floor": "Basement/Sub-basement, Cellar, Floor Number(s) 1 through 2, Roof",
+   "applicant_professional_title": "RA",
+   "applicant_license": "030377",
+   "applicant_first_name": "MICHELLE",
+   "applicant_last_name": "KROCHMAL",
+   "owner_s_business_name": "PR",
+   "applicant_street_name": "460 11TH ST., #2",
+   "city": "BROOKLYN",
+   "state": "NY",
+   "zip": "11215",
+   "filing_representative_first_name": "HETIENE",
+   "filing_representative_last_name": "RUDOLPHO",
+   "filing_representative_business_name": "BURNHAM NATIONWIDE INC",
+   "filing_representative_street_name": "86 Chambers Street",
+   "filing_representative_city": "New York",
+   "filing_representative_state": "NY",
+   "filing_representative_zip": "10007",
+   "sprinkler_work_type": "NO",
+   "plumbing_work_type": "YES",
+   "standpipe": "NO",
+   "antenna": "NO",
+   "sign": "NO",
+   "curb_cut": "NO",
+   "fence": "NO",
+   "scaffold": "NO",
+   "shed": "NO",
+   "initial_cost": "30000",
+   "total_construction_floor_area": "2264",
+   "review_building_code": "2014",
+   "little_e": "No",
+   "in_compliance_with_nycecc": "No",
+   "exempt_from_nycecc": "Yes",
+   "building_type": "1 Family",
+   "existing_dwelling_units": "1",
+   "proposed_dwelling_units": "1",
+   "filing_date": "2020-03-10T00:00:00.000",
+   "current_status_date": "2021-07-26T15:41:01.000",
+   "first_permit_date": "2020-07-14T00:00:00.000",
+   "boiler_equipment_work_type_": "NO",
+   "earth_work_work_type_": "NO",
+   "foundation_work_type_": "NO",
+   "general_construction_work_type_": "NO",
+   "mechanical_systems_work_type_": "NO",
+   "place_of_assembly_work_type_": "NO",
+   "protection_mechanical_methods_work_type_": "NO",
+   "sidewalk_shed_work_type_": "NO",
+   "structural_work_type_": "NO",
+   "support_of_excavation_work_type_": "No",
+   "temporary_place_of_assembly_work_type_": "NO",
+   "green_roof_work_type_": "NO",
+   "solar_work_type_": "NO",
+   "full_demolition_work_type_": "NO",
+   "suspended_scaffold_work_type_": "NO",
+   "job_type": "Alteration",
+   "latitude": "40.665793",
+   "longitude": "-73.984515",
+   "postcode": "11215",
+   "council_district": "39",
+   "census_tract": "151",
+   "bbl": "3010240074",
+   "nta": "Park Slope",
+   "approved_date": "2020-03-17T09:28:59.000",
+   "signoff_date": "2021-07-26T00:00:00.000",
+   "applicant_business_name": "FILAMENT ARCHITECTURE STUDIO, PLLC",
+   "owner_first_name": "Ilya",
+   "owner_last_name": "Finkler",
+   "owner_type": "Individual",
+   "job_description": "PLUMBING MODIFICATIONS ON EXISTING 1 FAMILY HOME AS PER DRAWINGS FILED HEREWITH, NO CHANGE IN USE, EGRESS OR OCCUPANCY UNDER THIS APPLICATION.",
+   "filing_review_type": "Standard Plan Examination"
+  },
+  {
+   "job_filing_number": "B00422847-I1",
+   "filing_status": "Incomplete",
+   "house_no": "761",
+   "street_name": "MACON STREET",
+   "borough": "Brooklyn",
+   "block": "1493",
+   "lot": "48",
+   "bin": "3040031",
+   "commmunity_board": "303",
+   "work_on_floor": "Floor Number(s) 001 through 02",
+   "applicant_professional_title": "PE",
+   "applicant_license": "054573",
+   "applicant_first_name": "BRIAN",
+   "applicant_last_name": "ROHAN",
+   "owner_s_business_name": "PR",
+   "applicant_street_name": "2116",
+   "city": "MERRICK",
+   "state": "NY",
+   "zip": "11566",
+   "filing_representative_first_name": "VINCENZO",
+   "filing_representative_last_name": "D'ANGELO",
+   "filing_representative_business_name": "VRD DEVELOPMENT, LLC",
+   "filing_representative_street_name": "2116 Merrick Avenue",
+   "filing_representative_city": "Merrick",
+   "filing_representative_state": "NY",
+   "filing_representative_zip": "11793",
+   "sprinkler_work_type": "NO",
+   "plumbing_work_type": "YES",
+   "standpipe": "NO",
+   "antenna": "NO",
+   "sign": "NO",
+   "curb_cut": "NO",
+   "fence": "NO",
+   "scaffold": "NO",
+   "shed": "NO",
+   "initial_cost": "21000",
+   "total_construction_floor_area": "320",
+   "review_building_code": "2014",
+   "little_e": "No",
+   "in_compliance_with_nycecc": "Yes",
+   "exempt_from_nycecc": "No",
+   "building_type": "2 Family",
+   "existing_dwelling_units": "2",
+   "proposed_dwelling_units": "2",
+   "progressinspectionrequirement": "Energy Code Compliance Inspections,HVAC insulation and sealing ,Maintenance information",
+   "filing_date": "2020-12-08T00:00:00.000",
+   "current_status_date": "2020-12-27T20:31:03.000",
+   "boiler_equipment_work_type_": "NO",
+   "earth_work_work_type_": "NO",
+   "foundation_work_type_": "NO",
+   "general_construction_work_type_": "NO",
+   "mechanical_systems_work_type_": "NO",
+   "place_of_assembly_work_type_": "NO",
+   "protection_mechanical_methods_work_type_": "NO",
+   "sidewalk_shed_work_type_": "NO",
+   "structural_work_type_": "NO",
+   "support_of_excavation_work_type_": "No",
+   "temporary_place_of_assembly_work_type_": "NO",
+   "green_roof_work_type_": "NO",
+   "solar_work_type_": "NO",
+   "full_demolition_work_type_": "NO",
+   "suspended_scaffold_work_type_": "NO",
+   "job_type": "Alteration",
+   "latitude": "40.684363",
+   "longitude": "-73.921153",
+   "postcode": "11233",
+   "council_district": "41",
+   "census_tract": "377",
+   "bbl": "3014930048",
+   "nta": "Bedford-Stuyvesant (East)",
+   "applicant_business_name": "ROHAN ENGINEERING, PC",
+   "owner_first_name": "PAUL",
+   "owner_last_name": "REIMER",
+   "owner_type": "Individual",
+   "job_description": "PLUMBING WORK FOR MODIFICATIONS TO EXISTING KITCHEN & BATHROOMS ON FLOOR 001-003. NEW WASHER & GAS DRYER AT 3RD FLOOR.",
+   "filing_review_type": "Standard Plan Examination"
+  },
+  {
+   "job_filing_number": "B00455182-I1",
+   "filing_status": "Permit Entire",
+   "house_no": "281",
+   "street_name": "MONROE STREET",
+   "borough": "Brooklyn",
+   "block": "1814",
+   "lot": "73",
+   "bin": "3051205",
+   "commmunity_board": "303",
+   "work_on_floor": "Ground Floor",
+   "applicant_professional_title": "PE",
+   "applicant_license": "086610",
+   "applicant_first_name": "RAFI",
+   "applicant_last_name": "HAMID",
+   "owner_s_business_name": "TOPLINE NYC CONTRACTING",
+   "applicant_street_name": "12 1/2 RAYNHAM DRIVE",
+   "city": "SYOSSET",
+   "state": "NY",
+   "zip": "11791",
+   "filing_representative_first_name": "JOGINDER",
+   "filing_representative_last_name": "SINGH",
+   "filing_representative_business_name": "TOPLINE NYC CONTRACTING",
+   "filing_representative_street_name": "92-19 101ST AVENUE",
+   "filing_representative_city": "OZONE PARK",
+   "filing_representative_state": "NY",
+   "filing_representative_zip": "11416",
+   "sprinkler_work_type": "NO",
+   "plumbing_work_type": "NO",
+   "standpipe": "NO",
+   "antenna": "NO",
+   "sign": "NO",
+   "curb_cut": "NO",
+   "fence": "NO",
+   "scaffold": "NO",
+   "shed": "YES",
+   "initial_cost": "5000",
+   "total_construction_floor_area": "1000",
+   "review_building_code": "2014",
+   "little_e": "No",
+   "unmapped_cco_street": "No",
+   "in_compliance_with_nycecc": "No",
+   "exempt_from_nycecc": "No",
+   "building_type": "Other",
+   "existing_dwelling_units": "3",
+   "proposed_dwelling_units": "3",
+   "filing_date": "2021-01-15T00:00:00.000",
+   "current_status_date": "2021-01-19T20:27:46.000",
+   "first_permit_date": "2021-01-19T00:00:00.000",
+   "boiler_equipment_work_type_": "NO",
+   "earth_work_work_type_": "NO",
+   "foundation_work_type_": "NO",
+   "general_construction_work_type_": "NO",
+   "mechanical_systems_work_type_": "NO",
+   "place_of_assembly_work_type_": "NO",
+   "protection_mechanical_methods_work_type_": "NO",
+   "sidewalk_shed_work_type_": "YES",
+   "structural_work_type_": "NO",
+   "support_of_excavation_work_type_": "No",
+   "temporary_place_of_assembly_work_type_": "NO",
+   "green_roof_work_type_": "NO",
+   "solar_work_type_": "NO",
+   "full_demolition_work_type_": "NO",
+   "suspended_scaffold_work_type_": "NO",
+   "job_type": "Alteration",
+   "latitude": "40.685912",
+   "longitude": "-73.94682",
+   "postcode": "11216",
+   "council_district": "36",
+   "census_tract": "265",
+   "bbl": "3018140073",
+   "nta": "Bedford-Stuyvesant (West)",
+   "approved_date": "2021-01-16T15:05:44.000",
+   "applicant_business_name": "SYED ENGINEERING, P.C.",
+   "owner_first_name": "JOGINDER",
+   "owner_last_name": "SINGH",
+   "owner_type": "Individual",
+   "job_description": "PROPOSED INSTALLATION OF HEAVY DUTY SIDEWALK SHED AS PER PLANS.  LIVE LOAD 300 PER SQUARE FEET. SIDEWALK SHED SHALL COMPLY WITH CHAPTER # 33 OF THE 2014 CODE. NO CHANGE IN USE OCCUPANCY OR EGRESS UNDER THIS APPLICATION.",
+   "filing_review_type": "Professional Certification"
+  }
+ ]
+}

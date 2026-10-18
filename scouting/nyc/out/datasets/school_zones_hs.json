@@ -1,0 +1,135 @@
+{
+ "key": "school_zones_hs",
+ "looked_for": [
+  "School Zones 2025-2026 (High School)",
+  "School Zones 2024-2025 (High School)"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "ruu9-egea",
+   "School Zones 2024-2025 (High School)",
+   "dataset",
+   "2024-03-13"
+  ]
+ ],
+ "picked": {
+  "id": "ruu9-egea",
+  "name": "School Zones 2024-2025 (High School)",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Education (DOE)",
+  "category": "Education",
+  "rows_updated": "2024-03-13",
+  "view_modified": "2024-11-26",
+  "update_frequency": "Annually",
+  "description": "Data is used to identify the zoning for the High School grades."
+ },
+ "count": 80,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "sch_name",
+   "type": "text",
+   "label": "SCH_NAME"
+  },
+  {
+   "name": "catchment",
+   "type": "number",
+   "label": "CATCHMENT"
+  },
+  {
+   "name": "boro",
+   "type": "number",
+   "label": "Boro"
+  },
+  {
+   "name": "hsid_no",
+   "type": "number",
+   "label": "HSID_No"
+  },
+  {
+   "name": "dbn",
+   "type": "text",
+   "label": "DBN"
+  },
+  {
+   "name": "remarks",
+   "type": "text",
+   "label": "Remarks"
+  },
+  {
+   "name": "label",
+   "type": "text",
+   "label": "Label"
+  },
+  {
+   "name": "zoned_dist",
+   "type": "text",
+   "label": "ZONED_DIST"
+  },
+  {
+   "name": "boro_text",
+   "type": "text",
+   "label": "Boro_Text"
+  },
+  {
+   "name": "schooldist",
+   "type": "text",
+   "label": "SCHOOLDIST"
+  },
+  {
+   "name": "initials",
+   "type": "text",
+   "label": "INITIALS"
+  },
+  {
+   "name": "edit_date",
+   "type": "calendar_date",
+   "label": "EDIT_DATE"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "sch_name": "Citywide High School Choice",
+   "catchment": "0",
+   "boro": "2",
+   "hsid_no": "9.0",
+   "remarks": "Citywide High School Choice",
+   "boro_text": "X"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "sch_name": "HARRY S. TRUMAN HIGH SCHOOL",
+   "catchment": "0",
+   "boro": "2",
+   "hsid_no": "10.0",
+   "dbn": "11X455",
+   "label": "11X455",
+   "zoned_dist": "11",
+   "boro_text": "X",
+   "schooldist": "11"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "sch_name": "Citywide High School Choice",
+   "catchment": "0",
+   "boro": "2",
+   "hsid_no": "11.0",
+   "remarks": "Citywide High School Choice",
+   "boro_text": "X"
+  }
+ ]
+}

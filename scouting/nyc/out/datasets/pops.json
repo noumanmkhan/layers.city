@@ -1,0 +1,348 @@
+{
+ "key": "pops",
+ "looked_for": [
+  "Privately Owned Public Spaces (POPS)",
+  "Privately Owned Public Spaces"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "rvih-nhyn",
+   "Privately Owned Public Spaces (POPS)",
+   "dataset",
+   "2025-10-14"
+  ],
+  [
+   "contains",
+   "qeta-4kqg",
+   "Privately Owned Public Spaces (POPS) - Map",
+   "map",
+   "2025-10-14"
+  ]
+ ],
+ "picked": {
+  "id": "rvih-nhyn",
+  "name": "Privately Owned Public Spaces (POPS)",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2025-10-14",
+  "view_modified": "2025-10-14",
+  "update_frequency": "Every 6 months",
+  "description": "Privately owned public spaces, also known by the acronym POPS, are outdoor  and indoor spaces provided for public enjoyment by private owners in exchange  for bonus floor area or waivers, an incentive first introduced into New York City's  zoning regulations in 1961. To find out more about POPS, visit the Department  of City Planning's website at http://nyc.gov/pops. This database contains detailed  information about each privately owned public space in New York City.\n\nData Source: Privately Owned Public Space Database (2018), owned and maintained  by the New York City Department of City Planning and created in collaboration  with Jerold S. Kayden and The Municipal Art Society of New York.\nAll previously released versions of this data are available on the <a href=\"https://www.nyc.gov/conte"
+ },
+ "count": 392,
+ "geo": null,
+ "columns": [
+  {
+   "name": "pops_number",
+   "type": "text",
+   "label": "POPS_Number"
+  },
+  {
+   "name": "borough_name",
+   "type": "text",
+   "label": "Borough"
+  },
+  {
+   "name": "borocode",
+   "type": "number",
+   "label": "Borocode"
+  },
+  {
+   "name": "community_district",
+   "type": "number",
+   "label": "Community Board"
+  },
+  {
+   "name": "address_number",
+   "type": "text",
+   "label": "Number"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "Street"
+  },
+  {
+   "name": "zip_code",
+   "type": "number",
+   "label": "Postcode"
+  },
+  {
+   "name": "building_address_with_zip",
+   "type": "text",
+   "label": "Building_Address_With_Zip_Code"
+  },
+  {
+   "name": "tax_block",
+   "type": "number",
+   "label": "Tax_Block"
+  },
+  {
+   "name": "tax_lot",
+   "type": "number",
+   "label": "Tax_Lot"
+  },
+  {
+   "name": "building_name",
+   "type": "text",
+   "label": "Building_Name"
+  },
+  {
+   "name": "building_location",
+   "type": "text",
+   "label": "Building_Location"
+  },
+  {
+   "name": "year_completed",
+   "type": "text",
+   "label": "Year_Completed"
+  },
+  {
+   "name": "building_constructed",
+   "type": "text",
+   "label": "Building_Constructed"
+  },
+  {
+   "name": "public_space_type",
+   "type": "text",
+   "label": "Public_Space_Type"
+  },
+  {
+   "name": "developer",
+   "type": "text",
+   "label": "Developer"
+  },
+  {
+   "name": "building_architect",
+   "type": "text",
+   "label": "Building_Architect"
+  },
+  {
+   "name": "principal_public_space",
+   "type": "text",
+   "label": "Principal_Public_Space_Designer"
+  },
+  {
+   "name": "size_required",
+   "type": "text",
+   "label": "Size_Required"
+  },
+  {
+   "name": "hour_of_access_required",
+   "type": "text",
+   "label": "Hour_Of_Access_Required"
+  },
+  {
+   "name": "amenities_required",
+   "type": "text",
+   "label": "Amenities_Required"
+  },
+  {
+   "name": "other_required",
+   "type": "text",
+   "label": "Other_Required"
+  },
+  {
+   "name": "permitted_amenities",
+   "type": "text",
+   "label": "Permitted_Amenities"
+  },
+  {
+   "name": "physically_disabled",
+   "type": "text",
+   "label": "Physically_Disabled"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "Latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "Longitude"
+  },
+  {
+   "name": "xcoordinate",
+   "type": "number",
+   "label": "XCoordinate"
+  },
+  {
+   "name": "ycoordinate",
+   "type": "number",
+   "label": "YCoordinate"
+  },
+  {
+   "name": "council_district",
+   "type": "number",
+   "label": "Council District"
+  },
+  {
+   "name": "census_tract",
+   "type": "number",
+   "label": "Census Tract"
+  },
+  {
+   "name": "bin",
+   "type": "number",
+   "label": "BIN"
+  },
+  {
+   "name": "bbl",
+   "type": "number",
+   "label": "BBL"
+  },
+  {
+   "name": "nta",
+   "type": "text",
+   "label": "NTA"
+  },
+  {
+   "name": "geocoded_column",
+   "type": "point",
+   "label": "Location"
+  },
+  {
+   "name": ":@computed_region_f5dn_yrer",
+   "type": "number",
+   "label": "Community Districts"
+  },
+  {
+   "name": ":@computed_region_yeji_bk3q",
+   "type": "number",
+   "label": "Borough Boundaries"
+  },
+  {
+   "name": ":@computed_region_92fq_4b7q",
+   "type": "number",
+   "label": "City Council Districts"
+  },
+  {
+   "name": ":@computed_region_sbqj_enih",
+   "type": "number",
+   "label": "Police Precincts"
+  },
+  {
+   "name": ":@computed_region_efsh_h5xi",
+   "type": "number",
+   "label": "Zip Codes"
+  }
+ ],
+ "samples": [
+  {
+   "pops_number": "M050022",
+   "borough_name": "Manhattan",
+   "borocode": "1",
+   "community_district": "5",
+   "address_number": "1350",
+   "street_name": "SIXTH AVENUE",
+   "zip_code": "10019",
+   "building_address_with_zip": "1350 SIXTH AVENUE, New York, NY 10019",
+   "tax_block": "1270",
+   "tax_lot": "71",
+   "building_name": "Men's Apparel",
+   "building_location": "Southeast corner of West 55th Street and Sixth Avenue",
+   "year_completed": "1966",
+   "building_constructed": "Completed",
+   "public_space_type": "Plaza",
+   "developer": "Samuel Minskoff & Sons",
+   "building_architect": "Emery Roth & Sons",
+   "principal_public_space": "Emery Roth & Sons",
+   "size_required": "Plaza 5879.50 sf",
+   "hour_of_access_required": "24 Hours",
+   "amenities_required": "None",
+   "physically_disabled": "Full/Partial",
+   "latitude": "40.762575",
+   "longitude": "-73.977778",
+   "xcoordinate": "990406",
+   "ycoordinate": "217104",
+   "council_district": "4",
+   "census_tract": "104",
+   "bin": "1034815",
+   "bbl": "1012700071",
+   "geocoded_column": {
+    "geometry_type": "Point"
+   },
+   ":@computed_region_f5dn_yrer": "11",
+   ":@computed_region_yeji_bk3q": "4",
+   ":@computed_region_92fq_4b7q": "51",
+   ":@computed_region_sbqj_enih": "10",
+   ":@computed_region_efsh_h5xi": "12081"
+  },
+  {
+   "pops_number": "M050065",
+   "borough_name": "Manhattan",
+   "borocode": "1",
+   "community_district": "5",
+   "address_number": "3",
+   "street_name": "PARK AVENUE",
+   "zip_code": "10016",
+   "building_address_with_zip": "3 PARK AVENUE, New York, NY 10016",
+   "tax_block": "889",
+   "tax_lot": "7501",
+   "building_name": "Three Park Avenue",
+   "building_location": "Full blockfront on east side of Park Avenue between East 33rd and 34th Streets",
+   "year_completed": "1974",
+   "building_constructed": "Completed",
+   "public_space_type": "Arcade; Plaza",
+   "building_architect": "Shreve Lamb & Harmon",
+   "principal_public_space": "Shreve Lamb & Harmon",
+   "size_required": "Arcade 2761.00 sf; Plaza 8862.00 sf",
+   "hour_of_access_required": "24 Hours",
+   "amenities_required": "None",
+   "physically_disabled": "Full/Partial",
+   "latitude": "40.746511",
+   "longitude": "-73.981075",
+   "xcoordinate": "989494",
+   "ycoordinate": "211251",
+   "council_district": "4",
+   "census_tract": "72",
+   "bin": "1087537",
+   "bbl": "1008897501",
+   "geocoded_column": {
+    "geometry_type": "Point"
+   },
+   ":@computed_region_f5dn_yrer": "11",
+   ":@computed_region_yeji_bk3q": "4",
+   ":@computed_region_92fq_4b7q": "50",
+   ":@computed_region_sbqj_enih": "8",
+   ":@computed_region_efsh_h5xi": "12078"
+  },
+  {
+   "pops_number": "M050117",
+   "borough_name": "Manhattan",
+   "borocode": "1",
+   "community_district": "5",
+   "address_number": "415",
+   "street_name": "MADISON AVENUE",
+   "zip_code": "10017",
+   "building_address_with_zip": "415 MADISON AVENUE, New York, NY 10017",
+   "tax_block": "1284",
+   "tax_lot": "21",
+   "building_constructed": "Under Construction",
+   "public_space_type": "Open Air Concourse",
+   "building_architect": "Skidmore Owings and Merrill",
+   "amenities_required": "Bicycle Parking",
+   "physically_disabled": "Full/Partial",
+   "latitude": "40.756662",
+   "longitude": "-73.976058",
+   "xcoordinate": "990883",
+   "ycoordinate": "214950",
+   "council_district": "4",
+   "census_tract": "94",
+   "bin": "1000000",
+   "bbl": "1012840021",
+   "geocoded_column": {
+    "geometry_type": "Point"
+   },
+   ":@computed_region_f5dn_yrer": "11",
+   ":@computed_region_yeji_bk3q": "4",
+   ":@computed_region_92fq_4b7q": "51",
+   ":@computed_region_sbqj_enih": "10",
+   ":@computed_region_efsh_h5xi": "12079"
+  }
+ ]
+}

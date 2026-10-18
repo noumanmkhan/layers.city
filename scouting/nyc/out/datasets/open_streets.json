@@ -1,0 +1,265 @@
+{
+ "key": "open_streets",
+ "looked_for": [
+  "Open Streets Locations",
+  "Open Streets"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "uiay-nctu",
+   "Open Streets Locations",
+   "dataset",
+   "2026-10-01"
+  ],
+  [
+   "contains",
+   "6vys-sfk5",
+   "Open Streets Locations (Map)",
+   "map",
+   "2026-10-01"
+  ]
+ ],
+ "picked": {
+  "id": "uiay-nctu",
+  "name": "Open Streets Locations",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Transportation",
+  "category": "Health",
+  "rows_updated": "2026-10-01",
+  "view_modified": "2026-10-05",
+  "update_frequency": "Monthly",
+  "description": "New York City's Open Streets program transforms streets into public spaces open to all. These public spaces allows a variety of activities including education and cultural programming as well as building communities. For more information please visit: https://www.nyc.gov/html/dot/html/pedestrians/openstreets.shtml\nPlease note: there may be a delay in updates to the Open Data files."
+ },
+ "count": 391,
+ "geo": null,
+ "columns": [
+  {
+   "name": "object_id",
+   "type": "number",
+   "label": "Object ID"
+  },
+  {
+   "name": "orgname",
+   "type": "text",
+   "label": "Organization Name"
+  },
+  {
+   "name": "appronstre",
+   "type": "text",
+   "label": "Approved On Street"
+  },
+  {
+   "name": "boroughname",
+   "type": "text",
+   "label": "Borough Name"
+  },
+  {
+   "name": "apprfromst",
+   "type": "text",
+   "label": "Approved From Street"
+  },
+  {
+   "name": "apprtostre",
+   "type": "text",
+   "label": "Approved To Street"
+  },
+  {
+   "name": "apprdayswe",
+   "type": "text",
+   "label": "apprDaysWe"
+  },
+  {
+   "name": "reviewstat",
+   "type": "text",
+   "label": "Status Type"
+  },
+  {
+   "name": "apprmonope",
+   "type": "text",
+   "label": "Approved Monday Open"
+  },
+  {
+   "name": "apprmonclo",
+   "type": "text",
+   "label": "Approved Monday Close"
+  },
+  {
+   "name": "apprtueope",
+   "type": "text",
+   "label": "Approved Tuesday Open"
+  },
+  {
+   "name": "apprtueclo",
+   "type": "text",
+   "label": "Approved Tuesday Close"
+  },
+  {
+   "name": "apprwedope",
+   "type": "text",
+   "label": "Approved Wednesday Open"
+  },
+  {
+   "name": "apprwedclo",
+   "type": "text",
+   "label": "Approved Wednesday Close"
+  },
+  {
+   "name": "apprthuope",
+   "type": "text",
+   "label": "Approved Thursday Open"
+  },
+  {
+   "name": "apprthuclo",
+   "type": "text",
+   "label": "Approved Thursday Close"
+  },
+  {
+   "name": "apprfriope",
+   "type": "text",
+   "label": "Approved Friday Open"
+  },
+  {
+   "name": "apprfriclo",
+   "type": "text",
+   "label": "Approved Friday Close"
+  },
+  {
+   "name": "apprsatope",
+   "type": "text",
+   "label": "Approved Saturday Open"
+  },
+  {
+   "name": "apprsatclo",
+   "type": "text",
+   "label": "Approved Saturday Close"
+  },
+  {
+   "name": "apprsunope",
+   "type": "text",
+   "label": "Approved Sunday Open"
+  },
+  {
+   "name": "apprsunclo",
+   "type": "text",
+   "label": "Approved Sunday Close"
+  },
+  {
+   "name": "apprstartd",
+   "type": "calendar_date",
+   "label": "apprStartD"
+  },
+  {
+   "name": "apprenddat",
+   "type": "calendar_date",
+   "label": "apprEndDat"
+  },
+  {
+   "name": "shape_stle",
+   "type": "text",
+   "label": "Shape_STLe"
+  },
+  {
+   "name": "segmentidt",
+   "type": "text",
+   "label": "segmentidt"
+  },
+  {
+   "name": "segmentidf",
+   "type": "text",
+   "label": "segmentidf"
+  },
+  {
+   "name": "lionversion",
+   "type": "text",
+   "label": "lionversion"
+  },
+  {
+   "name": "the_geom",
+   "type": "multiline",
+   "label": "The_Geom"
+  }
+ ],
+ "samples": [
+  {
+   "object_id": "1",
+   "orgname": "PS 5",
+   "appronstre": "DEISIUS STREET",
+   "boroughname": "Staten Island",
+   "apprfromst": "KINGDOM AVENUE",
+   "apprtostre": "STECHER STREET",
+   "apprdayswe": "mon,tue,wed,thu,fri",
+   "reviewstat": "approvedFullSchools",
+   "apprmonope": "07:30",
+   "apprmonclo": "15:00",
+   "apprtueope": "07:30",
+   "apprtueclo": "15:00",
+   "apprwedope": "07:30",
+   "apprwedclo": "15:00",
+   "apprthuope": "07:30",
+   "apprthuclo": "15:00",
+   "apprfriope": "07:30",
+   "apprfriclo": "15:00",
+   "apprstartd": "2024-09-05T00:00:00.000",
+   "apprenddat": "2025-06-27T00:00:00.000",
+   "shape_stle": "264.932398036",
+   "segmentidt": "0002920",
+   "segmentidf": "0002920",
+   "lionversion": "23C",
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   }
+  },
+  {
+   "object_id": "2",
+   "orgname": "Council of Jewish Organizations of Staten Island, a project of the Igud Harabonim of America Inc",
+   "appronstre": "SUFFOLK AVENUE",
+   "boroughname": "Staten Island",
+   "apprfromst": "HAROLD STREET",
+   "apprtostre": "QUEEN STREET",
+   "apprdayswe": "fri,sat,sun",
+   "reviewstat": "approvedFull",
+   "apprfriope": "14:00",
+   "apprfriclo": "21:00",
+   "apprsatope": "09:00",
+   "apprsatclo": "21:00",
+   "apprsunope": "09:00",
+   "apprsunclo": "21:00",
+   "apprstartd": "2024-03-29T00:00:00.000",
+   "apprenddat": "2024-10-31T00:00:00.000",
+   "shape_stle": "313.087821487",
+   "segmentidt": "0008171",
+   "segmentidf": "0008171",
+   "lionversion": "23C",
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   }
+  },
+  {
+   "object_id": "3",
+   "orgname": "Council of Jewish Organizations of Staten Island, a project of the Igud Harabonim of America Inc",
+   "appronstre": "SUFFOLK AVENUE",
+   "boroughname": "Staten Island",
+   "apprfromst": "HAROLD STREET",
+   "apprtostre": "QUEEN STREET",
+   "apprdayswe": "fri,sat,sun",
+   "reviewstat": "approvedFull",
+   "apprfriope": "14:00",
+   "apprfriclo": "21:00",
+   "apprsatope": "09:00",
+   "apprsatclo": "21:00",
+   "apprsunope": "09:00",
+   "apprsunclo": "21:00",
+   "apprstartd": "2024-03-29T00:00:00.000",
+   "apprenddat": "2024-10-31T00:00:00.000",
+   "shape_stle": "142.063500219",
+   "segmentidt": "0008177",
+   "segmentidf": "0008177",
+   "lionversion": "23C",
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   }
+  }
+ ]
+}

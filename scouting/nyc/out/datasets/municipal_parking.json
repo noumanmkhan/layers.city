@@ -1,0 +1,176 @@
+{
+ "key": "municipal_parking",
+ "looked_for": [
+  "Municipal Parking Facilities",
+  "DOT Municipal Parking Facilities",
+  "Carshare Locations - Municipal Garages and Lots"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "j4y5-w7iq",
+   "Carshare Locations - Municipal Garages and Lots",
+   "dataset",
+   "2026-08-14"
+  ],
+  [
+   "contains",
+   "7xqy-uv7r",
+   "Municipal Parking Facilities (Bronx)",
+   "href",
+   "2011-10-10"
+  ],
+  [
+   "contains",
+   "evdj-a5z2",
+   "Municipal Parking Facilities (Brooklyn)",
+   "href",
+   "2011-10-10"
+  ],
+  [
+   "contains",
+   "i8d5-5ciu",
+   "Municipal Parking Facilities (Manhattan)",
+   "href",
+   "2011-10-10"
+  ],
+  [
+   "contains",
+   "qfxy-c6k3",
+   "Municipal Parking Facilities (Queens)",
+   "href",
+   "2011-10-10"
+  ],
+  [
+   "contains",
+   "udt3-taj7",
+   "Municipal Parking Facilities (Staten Island)",
+   "href",
+   "2011-10-10"
+  ],
+  [
+   "contains",
+   "2y2t-x83x",
+   "Carshare Locations - Municipal Garages and Lots (Map)",
+   "map",
+   "2026-08-14"
+  ]
+ ],
+ "picked": {
+  "id": "j4y5-w7iq",
+  "name": "Carshare Locations - Municipal Garages and Lots",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Transportation (DOT)",
+  "category": "Transportation",
+  "rows_updated": "2026-08-14",
+  "view_modified": "2026-08-14",
+  "update_frequency": "Annually",
+  "description": "New York City Department of Transportation (NYC DOT) Carshare program designates dedicated parking spaces for the use of eligible carshare organizations. These parking spaces are located at curbside locations and in municipal parking facilities citywide. For more information, please visit the carshare website for more information: https://www.nyc.gov/html/dot/html/motorist/carshare.shtml"
+ },
+ "count": 9,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "point",
+   "label": "the_geom"
+  },
+  {
+   "name": "objectid_1",
+   "type": "number",
+   "label": "OBJECTID_1"
+  },
+  {
+   "name": "site_addres",
+   "type": "text",
+   "label": "SiteAddres"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "NAME"
+  },
+  {
+   "name": "boro",
+   "type": "text",
+   "label": "BORO"
+  },
+  {
+   "name": "shortname",
+   "type": "text",
+   "label": "shortname"
+  },
+  {
+   "name": "carshare_or",
+   "type": "text",
+   "label": "CarshareOr"
+  },
+  {
+   "name": "type",
+   "type": "text",
+   "label": "Type"
+  },
+  {
+   "name": "site_id",
+   "type": "text",
+   "label": "Site_ID"
+  },
+  {
+   "name": "cs_spaces_",
+   "type": "text",
+   "label": "CS_Spaces_"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "Status"
+  },
+  {
+   "name": "offset",
+   "type": "text",
+   "label": "Offset"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "objectid_1": "0.0",
+   "site_addres": "1400 Rockaway Pkwy, Brooklyn, NY 11236",
+   "name": "Canarsie Municipal Parking Field",
+   "boro": "Brooklyn",
+   "shortname": "Canarsie",
+   "carshare_or": "Zipcar",
+   "site_id": "L-Z 11",
+   "status": "Installed"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "objectid_1": "0.0",
+   "site_addres": "1763 86th Street, Brooklyn, NY 11214",
+   "name": "Bensonhurst 1 Municipal Parking Field",
+   "boro": "Brooklyn",
+   "shortname": "Bensonhurst 1",
+   "carshare_or": "Zipcar",
+   "site_id": "L-Z 2",
+   "status": "Installed"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "objectid_1": "0.0",
+   "site_addres": "556 Grant Avenue",
+   "name": "Grant Avenue Municipal Parking Field",
+   "boro": "Brooklyn",
+   "shortname": "Grant Ave",
+   "carshare_or": "Zipcar",
+   "site_id": "L-Z 3",
+   "status": "Installed"
+  }
+ ]
+}

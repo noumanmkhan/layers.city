@@ -1,0 +1,91 @@
+{
+ "key": "assembly_districts",
+ "looked_for": [
+  "State Assembly Districts"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "5yfv-9hkp",
+   "State Assembly Districts",
+   "dataset",
+   "2026-05-28"
+  ],
+  [
+   "contains",
+   "qh62-9utz",
+   "State Assembly Districts (water areas included)",
+   "map",
+   "2026-05-28"
+  ],
+  [
+   "contains",
+   "nymm-wb5m",
+   "State Assembly Districts (water areas included)",
+   "dataset",
+   "2026-05-28"
+  ]
+ ],
+ "picked": {
+  "id": "5yfv-9hkp",
+  "name": "State Assembly Districts",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-05-28",
+  "view_modified": "2026-05-28",
+  "update_frequency": "Quarterly",
+  "description": "New York State Assembly District boundaries for New York City clipped to the shoreline.\n\nAll previously released versions of this data are available on the <a href=\"https://www.nyc.gov/content/planning/pages/resources/datasets/state-assembly\">DCP Website: BYTES of the BIG APPLE</a>. Current version: 26b"
+ },
+ "count": 65,
+ "geo": null,
+ "columns": [
+  {
+   "name": "assembly_district",
+   "type": "number",
+   "label": "Assembly District"
+  },
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Length"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  }
+ ],
+ "samples": [
+  {
+   "assembly_district": "34",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "shape_leng": "82871.7651625",
+   "shape_area": "98905556.9712"
+  },
+  {
+   "assembly_district": "41",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "shape_leng": "69812.2406543",
+   "shape_area": "99108560.4628"
+  },
+  {
+   "assembly_district": "48",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "shape_leng": "42806.6739347",
+   "shape_area": "72162536.4279"
+  }
+ ]
+}

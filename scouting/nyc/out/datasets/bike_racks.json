@@ -1,0 +1,291 @@
+{
+ "key": "bike_racks",
+ "looked_for": [
+  "Bicycle Parking",
+  "Bicycle Parking Shelters"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "592z-n7dk",
+   "Bicycle Parking",
+   "dataset",
+   "2026-10-13"
+  ],
+  [
+   "exact",
+   "dimy-qyej",
+   "Bicycle Parking Shelters",
+   "dataset",
+   "2025-12-09"
+  ],
+  [
+   "contains",
+   "bzg2-2abf",
+   "Bicycle Parking (Map)",
+   "map",
+   "2026-10-13"
+  ],
+  [
+   "contains",
+   "thbt-gfu9",
+   "Bicycle Parking Shelters (Map)",
+   "map",
+   "2025-12-09"
+  ]
+ ],
+ "picked": {
+  "id": "592z-n7dk",
+  "name": "Bicycle Parking",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Transportation (DOT)",
+  "category": "Transportation",
+  "rows_updated": "2026-10-13",
+  "view_modified": "2026-10-13",
+  "update_frequency": "Monthly",
+  "description": "The data contains locations of all bike parking throughout the five boroughs as of the date of publication.  The data is in shapefile format."
+ },
+ "count": 38107,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "point",
+   "label": "the_geom"
+  },
+  {
+   "name": "borocode",
+   "type": "text",
+   "label": "BoroCode"
+  },
+  {
+   "name": "boroname",
+   "type": "text",
+   "label": "BoroName"
+  },
+  {
+   "name": "borocd",
+   "type": "text",
+   "label": "BoroCD"
+  },
+  {
+   "name": "coundist",
+   "type": "text",
+   "label": "CounDist"
+  },
+  {
+   "name": "assemdist",
+   "type": "text",
+   "label": "AssemDist"
+  },
+  {
+   "name": "stsendist",
+   "type": "text",
+   "label": "StSenDist"
+  },
+  {
+   "name": "congdist",
+   "type": "text",
+   "label": "CongDist"
+  },
+  {
+   "name": "program",
+   "type": "text",
+   "label": "Program"
+  },
+  {
+   "name": "site_id",
+   "type": "text",
+   "label": "Site_ID"
+  },
+  {
+   "name": "group_id",
+   "type": "text",
+   "label": "Group_ID"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "Borough"
+  },
+  {
+   "name": "ifoaddress",
+   "type": "text",
+   "label": "IFOAddress"
+  },
+  {
+   "name": "onstreet",
+   "type": "text",
+   "label": "OnStreet"
+  },
+  {
+   "name": "fromstreet",
+   "type": "text",
+   "label": "FromStreet"
+  },
+  {
+   "name": "tostreet",
+   "type": "text",
+   "label": "ToStreet"
+  },
+  {
+   "name": "side_of_st",
+   "type": "text",
+   "label": "Side_of_St"
+  },
+  {
+   "name": "racktype",
+   "type": "text",
+   "label": "RackType"
+  },
+  {
+   "name": "date_inst",
+   "type": "calendar_date",
+   "label": "Date_Inst"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "Latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "Longitude"
+  },
+  {
+   "name": "ntaname",
+   "type": "text",
+   "label": "NTAName"
+  },
+  {
+   "name": "femafldz",
+   "type": "text",
+   "label": "FEMAFldz"
+  },
+  {
+   "name": "femafldt",
+   "type": "text",
+   "label": "FEMAFldT"
+  },
+  {
+   "name": "hrcevac",
+   "type": "text",
+   "label": "HrcEvac"
+  },
+  {
+   "name": ":@computed_region_f5dn_yrer",
+   "type": "number",
+   "label": "Community Districts"
+  },
+  {
+   "name": ":@computed_region_yeji_bk3q",
+   "type": "number",
+   "label": "Borough Boundaries"
+  },
+  {
+   "name": ":@computed_region_sbqj_enih",
+   "type": "number",
+   "label": "Police Precincts"
+  },
+  {
+   "name": ":@computed_region_92fq_4b7q",
+   "type": "number",
+   "label": "City Council Districts"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "borocode": "4",
+   "boroname": "Queens",
+   "borocd": "406",
+   "coundist": "30",
+   "assemdist": "28",
+   "stsendist": "15",
+   "congdist": "6",
+   "program": "Bike Racks",
+   "site_id": "S.0043346",
+   "group_id": "SH.2016.06359",
+   "borough": "QN",
+   "ifoaddress": "90-21 63 Drive",
+   "onstreet": "63 Drive",
+   "racktype": "Small Hoop",
+   "date_inst": "2016-08-04T00:00:00.000",
+   "latitude": "40.72575024",
+   "longitude": "-73.86524267",
+   "ntaname": "Rego Park",
+   "femafldz": "X",
+   "femafldt": "AREA OF MINIMAL FLOOD HAZARD",
+   "hrcevac": "X",
+   ":@computed_region_f5dn_yrer": "40",
+   ":@computed_region_yeji_bk3q": "3",
+   ":@computed_region_sbqj_enih": "70",
+   ":@computed_region_92fq_4b7q": "28"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "borocode": "4",
+   "boroname": "Queens",
+   "borocd": "404",
+   "coundist": "25",
+   "assemdist": "30",
+   "stsendist": "13",
+   "congdist": "6",
+   "program": "Bike Racks",
+   "site_id": "S.0045431",
+   "group_id": "SH.2020.0192",
+   "borough": "QN",
+   "ifoaddress": "77-02 Broadway",
+   "onstreet": "Broadway",
+   "racktype": "Small Hoop",
+   "date_inst": "2020-10-09T00:00:00.000",
+   "latitude": "40.74522316",
+   "longitude": "-73.88819638",
+   "ntaname": "Elmhurst",
+   "femafldz": "X",
+   "femafldt": "AREA OF MINIMAL FLOOD HAZARD",
+   "hrcevac": "X",
+   ":@computed_region_f5dn_yrer": "66",
+   ":@computed_region_yeji_bk3q": "3",
+   ":@computed_region_sbqj_enih": "68",
+   ":@computed_region_92fq_4b7q": "5"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "borocode": "3",
+   "boroname": "Brooklyn",
+   "borocd": "314",
+   "coundist": "45",
+   "assemdist": "42",
+   "stsendist": "21",
+   "congdist": "9",
+   "program": "Bike Racks",
+   "site_id": "S.0000226",
+   "group_id": "RL.1900.00226",
+   "borough": "BK",
+   "ifoaddress": "2900 BEDFORD AV",
+   "fromstreet": "CAMPUS RD",
+   "tostreet": "AV H",
+   "racktype": "Wave Rack",
+   "date_inst": "1900-01-01T00:00:00.000",
+   "latitude": "40.631656",
+   "longitude": "-73.952716",
+   "ntaname": "Flatbush",
+   "femafldz": "X",
+   "femafldt": "AREA OF MINIMAL FLOOD HAZARD",
+   "hrcevac": "6",
+   ":@computed_region_f5dn_yrer": "60",
+   ":@computed_region_yeji_bk3q": "2",
+   ":@computed_region_sbqj_enih": "43",
+   ":@computed_region_92fq_4b7q": "26"
+  }
+ ]
+}

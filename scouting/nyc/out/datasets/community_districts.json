@@ -1,0 +1,98 @@
+{
+ "key": "community_districts",
+ "looked_for": [
+  "Community Districts"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "5crt-au7u",
+   "Community Districts",
+   "dataset",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "mzpm-a6vd",
+   "Community Districts (Water Areas Included)",
+   "map",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "6ak9-vek3",
+   "Community Districts (Water areas included)",
+   "dataset",
+   "2026-05-26"
+  ],
+  [
+   "contains",
+   "xi7c-iiu2",
+   "New York City Population By Community Districts",
+   "dataset",
+   "2024-11-12"
+  ]
+ ],
+ "picked": {
+  "id": "5crt-au7u",
+  "name": "Community Districts",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-05-26",
+  "view_modified": "2026-05-26",
+  "update_frequency": "Quarterly",
+  "description": "Community District boundaries for New York City.\n\nCommunity Districts (CD) are mandated by the city charter to review and monitor quality of life issues for New York City (NYC) neighborhoods.  NYC is currently comprised of 59 community districts. There are also 12 Joint Interest Areas (JIAs).  The JIAs are major parks and airports and are not contained within any community district.  The BoroCD value is the unique ID for CDs and JIAs with the first byte representing the borough code and the second and third bytes are the CD or JIA number.\n\nAll previously released versions of this data are available on the <a href=\"https://www.nyc.gov/content/planning/pages/resources/datasets/community-districts\">DCP Website: BYTES of the BIG APPLE</a>. Current version: 26b"
+ },
+ "count": 71,
+ "geo": null,
+ "columns": [
+  {
+   "name": "boro_cd",
+   "type": "number",
+   "label": "BoroCd"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Length"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  },
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  }
+ ],
+ "samples": [
+  {
+   "boro_cd": "410",
+   "shape_leng": "105822.37731",
+   "shape_area": "172077374.82",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "boro_cd": "483",
+   "shape_leng": "106865.598387",
+   "shape_area": "191997998.939",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "boro_cd": "226",
+   "shape_leng": "32824.8378966",
+   "shape_area": "50565041.6084",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
+}

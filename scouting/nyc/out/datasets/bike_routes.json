@@ -1,0 +1,228 @@
+{
+ "key": "bike_routes",
+ "looked_for": [
+  "New York City Bike Routes",
+  "Bicycle Routes",
+  "NYC Bike Routes"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "mzxg-pwib",
+   "New York City Bike Routes",
+   "dataset",
+   "2026-07-24"
+  ],
+  [
+   "contains",
+   "9e2b-mctv",
+   "New York City Bike Routes\t (Map)",
+   "map",
+   "2026-07-24"
+  ]
+ ],
+ "picked": {
+  "id": "mzxg-pwib",
+  "name": "New York City Bike Routes",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Transportation (DOT)",
+  "category": null,
+  "rows_updated": "2026-07-24",
+  "view_modified": "2026-07-24",
+  "update_frequency": "Annually",
+  "description": "The New York City Department of Transportation (NYC DOT) builds and manages bicycle facilities across the five boroughs, alongside other City agencies, New York State, and external partners. This dataset contain records of the current and historic network of designated bicycle routes and facilities, including bicycle facility type and relevant street information represented as line segments. Additional information about NYC DOT's commitment to safe all-ages and abilities bicycling, along with data about the growth of bicycling in NYC and PDF maps of the current network can be found at: https://www.nyc.gov/html/dot/html/bicyclists/bicyclists.shtml"
+ },
+ "count": 29695,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multiline",
+   "label": "the_geom"
+  },
+  {
+   "name": "segmentid",
+   "type": "text",
+   "label": "segmentid"
+  },
+  {
+   "name": "bikeid",
+   "type": "number",
+   "label": "bikeid"
+  },
+  {
+   "name": "prevbikeid",
+   "type": "text",
+   "label": "prevbikeid"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "status"
+  },
+  {
+   "name": "boro",
+   "type": "number",
+   "label": "boro"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "street"
+  },
+  {
+   "name": "fromstreet",
+   "type": "text",
+   "label": "fromstreet"
+  },
+  {
+   "name": "tostreet",
+   "type": "text",
+   "label": "tostreet"
+  },
+  {
+   "name": "onoffst",
+   "type": "text",
+   "label": "onoffst"
+  },
+  {
+   "name": "facilitycl",
+   "type": "text",
+   "label": "facilitycl"
+  },
+  {
+   "name": "allclasses",
+   "type": "text",
+   "label": "allclasses"
+  },
+  {
+   "name": "bikedir",
+   "type": "text",
+   "label": "bikedir"
+  },
+  {
+   "name": "lanecount",
+   "type": "number",
+   "label": "lanecount"
+  },
+  {
+   "name": "ft_facilit",
+   "type": "text",
+   "label": "ft_facilit"
+  },
+  {
+   "name": "tf_facilit",
+   "type": "text",
+   "label": "tf_facilit"
+  },
+  {
+   "name": "ft2facilit",
+   "type": "text",
+   "label": "ft2facilit"
+  },
+  {
+   "name": "tf2facilit",
+   "type": "text",
+   "label": "tf2facilit"
+  },
+  {
+   "name": "instdate",
+   "type": "calendar_date",
+   "label": "instdate"
+  },
+  {
+   "name": "ret_date",
+   "type": "calendar_date",
+   "label": "ret_date"
+  },
+  {
+   "name": "grnwy",
+   "type": "text",
+   "label": "grnwy"
+  },
+  {
+   "name": "gwsystem",
+   "type": "text",
+   "label": "gwsystem"
+  },
+  {
+   "name": "gwsys2",
+   "type": "text",
+   "label": "gwsys2"
+  },
+  {
+   "name": "spur",
+   "type": "text",
+   "label": "spur"
+  },
+  {
+   "name": "gwyjuris",
+   "type": "text",
+   "label": "gwyjuris"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "segmentid": "0190857",
+   "bikeid": "4.0",
+   "prevbikeid": "NA",
+   "status": "Current",
+   "boro": "1",
+   "street": "1 AV",
+   "fromstreet": "E 1 ST",
+   "tostreet": "E 20 ST",
+   "onoffst": "ON",
+   "facilitycl": "I",
+   "allclasses": "I",
+   "bikedir": "R",
+   "lanecount": "1",
+   "ft_facilit": "Protected",
+   "instdate": "2010-10-01T00:00:00.000"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "segmentid": "0338221",
+   "bikeid": "3046.0",
+   "prevbikeid": "NA",
+   "status": "Current",
+   "boro": "1",
+   "street": "BROADWAY BR",
+   "fromstreet": "9 AV",
+   "tostreet": "W 225 ST",
+   "onoffst": "OFF",
+   "facilitycl": "L",
+   "allclasses": "L",
+   "bikedir": "2",
+   "lanecount": "0",
+   "ft_facilit": "Link",
+   "tf_facilit": "Link",
+   "instdate": "1960-12-26T00:00:00.000"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiLineString"
+   },
+   "segmentid": "0022375",
+   "bikeid": "7972.0",
+   "prevbikeid": "NA",
+   "status": "Current",
+   "boro": "3",
+   "street": "SMITH ST",
+   "fromstreet": "SCHERMERHORN ST",
+   "tostreet": "HAMILTON AV",
+   "onoffst": "ON",
+   "facilitycl": "II",
+   "allclasses": "II",
+   "bikedir": "L",
+   "lanecount": "1",
+   "tf_facilit": "Conventional",
+   "instdate": "2010-06-01T00:00:00.000"
+  }
+ ]
+}

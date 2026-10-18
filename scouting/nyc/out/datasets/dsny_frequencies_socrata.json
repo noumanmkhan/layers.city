@@ -1,0 +1,148 @@
+{
+ "key": "dsny_frequencies_socrata",
+ "looked_for": [
+  "DSNY Frequencies"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "rv63-53db",
+   "DSNY Frequencies",
+   "dataset",
+   "2026-09-22"
+  ],
+  [
+   "contains",
+   "5qcq-w32p",
+   "DSNY Frequencies (Map)",
+   "map",
+   "2026-09-22"
+  ]
+ ],
+ "picked": {
+  "id": "rv63-53db",
+  "name": "DSNY Frequencies",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Sanitation",
+  "category": "City Government",
+  "rows_updated": "2026-09-22",
+  "view_modified": "2026-09-23",
+  "update_frequency": "As needed",
+  "description": "Citywide DSNY frequency boundaries for collection operation (refuse, recycling, organics, bulk items). These boundaries are sub-divisions of DSNY sections."
+ },
+ "count": 610,
+ "geo": null,
+ "columns": [
+  {
+   "name": "district",
+   "type": "text",
+   "label": "DISTRICT"
+  },
+  {
+   "name": "section",
+   "type": "text",
+   "label": "SECTION"
+  },
+  {
+   "name": "frequency",
+   "type": "text",
+   "label": "FREQUENCY"
+  },
+  {
+   "name": "schedulecode",
+   "type": "text",
+   "label": "SCHEDULECODE"
+  },
+  {
+   "name": "freq_refuse",
+   "type": "text",
+   "label": "FREQ_REFUSE"
+  },
+  {
+   "name": "freq_recycling",
+   "type": "text",
+   "label": "FREQ_RECYCLING"
+  },
+  {
+   "name": "freq_organics",
+   "type": "text",
+   "label": "FREQ_ORGANICS"
+  },
+  {
+   "name": "freq_bulk",
+   "type": "text",
+   "label": "FREQ_BULK"
+  },
+  {
+   "name": "objectid",
+   "type": "number",
+   "label": "ObjectID"
+  },
+  {
+   "name": "shape_area",
+   "type": "text",
+   "label": "SHAPE_Area"
+  },
+  {
+   "name": "shape_length",
+   "type": "text",
+   "label": "SHAPE_Length"
+  },
+  {
+   "name": "multipolygon",
+   "type": "multipolygon",
+   "label": "multipolygon"
+  }
+ ],
+ "samples": [
+  {
+   "district": "BKN05",
+   "section": "BKN053",
+   "frequency": "C",
+   "schedulecode": "3053C",
+   "freq_refuse": "Mon, Thu",
+   "freq_recycling": "Thu",
+   "freq_organics": "Thu",
+   "freq_bulk": "Mon, Thu",
+   "objectid": "199",
+   "shape_area": "19045311.707687378",
+   "shape_length": "22500.407792640337",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "district": "BKN05",
+   "section": "BKN052",
+   "frequency": "E",
+   "schedulecode": "3052E",
+   "freq_refuse": "Wed, Sat",
+   "freq_recycling": "Wed",
+   "freq_organics": "Wed",
+   "freq_bulk": "Wed, Sat",
+   "objectid": "198",
+   "shape_area": "11763841.021087646",
+   "shape_length": "21211.08703715613",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "district": "BKN05",
+   "section": "BKN052",
+   "frequency": "D",
+   "schedulecode": "3052D",
+   "freq_refuse": "Tue, Fri",
+   "freq_recycling": "Tue",
+   "freq_organics": "Tue",
+   "freq_bulk": "Tue, Fri",
+   "objectid": "197",
+   "shape_area": "9429520.143539429",
+   "shape_length": "20394.575421312573",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
+}

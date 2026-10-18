@@ -1,0 +1,217 @@
+{
+ "key": "poll_sites_2018",
+ "looked_for": [
+  "Voting/Poll Sites",
+  "Voting Poll Sites"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "mifw-tguq",
+   "Voting/Poll Sites",
+   "dataset",
+   "2018-10-29"
+  ]
+ ],
+ "picked": {
+  "id": "mifw-tguq",
+  "name": "Voting/Poll Sites",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Board of Elections (BOENY)",
+  "category": "City Government",
+  "rows_updated": "2018-10-29",
+  "view_modified": "2018-10-31",
+  "update_frequency": "As needed",
+  "description": "Locations of voting/poll sites through the city."
+ },
+ "count": 1231,
+ "geo": null,
+ "columns": [
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "BOROUGH"
+  },
+  {
+   "name": "site_status",
+   "type": "text",
+   "label": "SITE_STATUS"
+  },
+  {
+   "name": "site_name",
+   "type": "text",
+   "label": "SITE_NAME"
+  },
+  {
+   "name": "site_number",
+   "type": "text",
+   "label": "SITE_NUMBER"
+  },
+  {
+   "name": "street_number",
+   "type": "text",
+   "label": "STREET_NUMBER"
+  },
+  {
+   "name": "street_suffix",
+   "type": "text",
+   "label": "STREET_SUFFIX"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "STREET_NAME"
+  },
+  {
+   "name": "zip_code",
+   "type": "text",
+   "label": "POSTCODE"
+  },
+  {
+   "name": "city",
+   "type": "text",
+   "label": "CITY"
+  },
+  {
+   "name": "voter_entrance",
+   "type": "text",
+   "label": "VOTER_ENTRANCE"
+  },
+  {
+   "name": "handicap_entrance",
+   "type": "text",
+   "label": "HANDICAP_ENTRANCE"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "Latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "Longitude"
+  },
+  {
+   "name": "community_board",
+   "type": "number",
+   "label": "Community Board"
+  },
+  {
+   "name": "council_district",
+   "type": "number",
+   "label": "Council District"
+  },
+  {
+   "name": "census_tract",
+   "type": "number",
+   "label": "Census Tract"
+  },
+  {
+   "name": "bin",
+   "type": "number",
+   "label": "BIN"
+  },
+  {
+   "name": "bbl",
+   "type": "number",
+   "label": "BBL"
+  },
+  {
+   "name": "nta",
+   "type": "text",
+   "label": "NTA"
+  },
+  {
+   "name": "location",
+   "type": "location",
+   "label": "Location"
+  },
+  {
+   "name": ":@computed_region_efsh_h5xi",
+   "type": "number",
+   "label": "Zip Codes"
+  },
+  {
+   "name": ":@computed_region_f5dn_yrer",
+   "type": "number",
+   "label": "Community Districts"
+  },
+  {
+   "name": ":@computed_region_yeji_bk3q",
+   "type": "number",
+   "label": "Borough Boundaries"
+  },
+  {
+   "name": ":@computed_region_92fq_4b7q",
+   "type": "number",
+   "label": "City Council Districts"
+  },
+  {
+   "name": ":@computed_region_sbqj_enih",
+   "type": "number",
+   "label": "Police Precincts"
+  }
+ ],
+ "samples": [
+  {
+   "borough": "BROOKLYN",
+   "site_status": "A",
+   "site_name": "PS 12",
+   "site_number": "11537",
+   "street_number": "430",
+   "street_name": "Howard Avenue",
+   "zip_code": "11233",
+   "city": "Brooklyn",
+   "voter_entrance": "430 Howard Avenue (not used for voters)",
+   "handicap_entrance": "Enter on Prospect Place through school yard",
+   "community_board": "16",
+   "council_district": "41",
+   "census_tract": "363",
+   "bin": "3039174",
+   "bbl": "3014570032",
+   "nta": "Ocean Hill"
+  },
+  {
+   "site_status": "A",
+   "site_name": "Wyatt T. Walker Senior Housing",
+   "site_number": "11517",
+   "street_number": "2177",
+   "street_name": "Frederick Douglass Boulevard",
+   "zip_code": "10026",
+   "city": "New York",
+   "voter_entrance": "2177 Frederick Douglas Blvd",
+   "handicap_entrance": "2177 Frederick Douglas Blvd"
+  },
+  {
+   "borough": "QUEENS",
+   "site_status": "A",
+   "site_name": "Allen AME Senior Center",
+   "site_number": "10590",
+   "street_number": "112-04",
+   "street_name": "167 Street",
+   "zip_code": "11433",
+   "city": "Jamaica",
+   "voter_entrance": "112-04 167th Street",
+   "handicap_entrance": "112-04 167th Street",
+   "latitude": "40.691478",
+   "longitude": "-73.783335",
+   "community_board": "12",
+   "council_district": "27",
+   "census_tract": "266",
+   "bin": "4435291",
+   "bbl": "4123220001",
+   "nta": "South Jamaica",
+   "location": {
+    "latitude": "40.691478",
+    "longitude": "-73.783335"
+   },
+   ":@computed_region_efsh_h5xi": "24668",
+   ":@computed_region_f5dn_yrer": "41",
+   ":@computed_region_yeji_bk3q": "3",
+   ":@computed_region_92fq_4b7q": "6",
+   ":@computed_region_sbqj_enih": "71"
+  }
+ ]
+}

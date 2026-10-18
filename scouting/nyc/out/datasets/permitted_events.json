@@ -1,0 +1,147 @@
+{
+ "key": "permitted_events",
+ "looked_for": [
+  "NYC Permitted Event Information"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "tvpp-9vvx",
+   "NYC Permitted Event Information",
+   "dataset",
+   "2026-10-17"
+  ],
+  [
+   "contains",
+   "bkfu-528j",
+   "NYC Permitted Event Information - Historical",
+   "dataset",
+   "2026-07-28"
+  ]
+ ],
+ "picked": {
+  "id": "tvpp-9vvx",
+  "name": "NYC Permitted Event Information",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Office of Citywide Event Coordination and Management (CECM)",
+  "category": "City Government",
+  "rows_updated": "2026-10-17",
+  "view_modified": "2026-10-17",
+  "update_frequency": "Daily",
+  "description": "This list contains information on approved event applications that will occur within the next month. Please note that Permitted Film Events only reflect those permits which will impact one or more streets for at least five days."
+ },
+ "count": 26859,
+ "geo": null,
+ "columns": [
+  {
+   "name": "event_id",
+   "type": "number",
+   "label": "Event ID"
+  },
+  {
+   "name": "event_name",
+   "type": "text",
+   "label": "Event Name"
+  },
+  {
+   "name": "start_date_time",
+   "type": "calendar_date",
+   "label": "Start Date/Time"
+  },
+  {
+   "name": "end_date_time",
+   "type": "calendar_date",
+   "label": "End Date/Time"
+  },
+  {
+   "name": "event_agency",
+   "type": "text",
+   "label": "Event Agency"
+  },
+  {
+   "name": "event_type",
+   "type": "text",
+   "label": "Event Type"
+  },
+  {
+   "name": "event_borough",
+   "type": "text",
+   "label": "Event Borough"
+  },
+  {
+   "name": "event_location",
+   "type": "text",
+   "label": "Event Location"
+  },
+  {
+   "name": "event_street_side",
+   "type": "text",
+   "label": "Event Street Side"
+  },
+  {
+   "name": "street_closure_type",
+   "type": "text",
+   "label": "Street Closure Type"
+  },
+  {
+   "name": "community_board",
+   "type": "text",
+   "label": "Community Board"
+  },
+  {
+   "name": "police_precinct",
+   "type": "text",
+   "label": "Police Precinct"
+  },
+  {
+   "name": "cemsid",
+   "type": "text",
+   "label": "CEMSID"
+  }
+ ],
+ "samples": [
+  {
+   "event_id": "970459",
+   "event_name": "Baseball - 12 and Under (Little League)",
+   "start_date_time": "2026-10-20T15:30:00.000",
+   "end_date_time": "2026-10-20T17:30:00.000",
+   "event_agency": "Parks Department",
+   "event_type": "Sport - Adult",
+   "event_borough": "Manhattan",
+   "event_location": "Morningside Park: Softball-02",
+   "street_closure_type": "N/A",
+   "community_board": "09,",
+   "police_precinct": "26,",
+   "cemsid": "5618,"
+  },
+  {
+   "event_id": "950923",
+   "event_name": "Soccer - Non Regulation",
+   "start_date_time": "2026-11-05T16:00:00.000",
+   "end_date_time": "2026-11-05T17:00:00.000",
+   "event_agency": "Parks Department",
+   "event_type": "Sport - Youth",
+   "event_borough": "Manhattan",
+   "event_location": "Central Park: North Meadow-Soccer-03",
+   "street_closure_type": "N/A",
+   "community_board": "64,",
+   "police_precinct": "22,",
+   "cemsid": "10034,"
+  },
+  {
+   "event_id": "970922",
+   "event_name": "Softball - Adults",
+   "start_date_time": "2026-11-03T18:00:00.000",
+   "end_date_time": "2026-11-03T22:00:00.000",
+   "event_agency": "Parks Department",
+   "event_type": "Sport - Adult",
+   "event_borough": "Brooklyn",
+   "event_location": "St. John's Park: Softball-03",
+   "street_closure_type": "N/A",
+   "community_board": "08,",
+   "police_precinct": "77,",
+   "cemsid": "9688,"
+  }
+ ]
+}

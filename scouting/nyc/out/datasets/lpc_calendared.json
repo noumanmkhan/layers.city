@@ -1,0 +1,317 @@
+{
+ "key": "lpc_calendared",
+ "looked_for": [
+  "Designated and Calendared Buildings and Sites"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "ncre-qhxs",
+   "Designated and Calendared Buildings and Sites",
+   "dataset",
+   "2026-06-18"
+  ],
+  [
+   "contains",
+   "jcj6-zji6",
+   "Designated and Calendared Buildings and Sites (Map)",
+   "map",
+   "2026-06-18"
+  ]
+ ],
+ "picked": {
+  "id": "ncre-qhxs",
+  "name": "Designated and Calendared Buildings and Sites",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Landmarks Preservation Commission (LPC)",
+  "category": "Housing & Development",
+  "rows_updated": "2026-06-18",
+  "view_modified": "2026-06-18",
+  "update_frequency": "As needed",
+  "description": "Provides information on all items designated or under consideration for designation (i.e. calendared) by the New York City Landmarks Preservation Commission (LPC). </br>\nThis dataset contains information on all items designated or under consideration for designation (i.e. calendared) by the New York City Landmarks Preservation Commission (LPC). The dataset contains records for each individual, scenic, or interior landmark, as well as properties or sites located within the boundaries of historic districts. Please note that points in this dataset represent individual buildings in addition to non-building sites (such as vacant lots or monuments) regulated by LPC. It is possible for a single property to have multiple designations (such as individual and interior designations, or individual and"
+ },
+ "count": 39363,
+ "geo": null,
+ "columns": [
+  {
+   "name": "bin_number",
+   "type": "text",
+   "label": "BIN"
+  },
+  {
+   "name": "bbl",
+   "type": "text",
+   "label": "BBL"
+  },
+  {
+   "name": "boroughid",
+   "type": "text",
+   "label": "Borough"
+  },
+  {
+   "name": "block",
+   "type": "text",
+   "label": "BLOCK"
+  },
+  {
+   "name": "lot",
+   "type": "text",
+   "label": "LOT"
+  },
+  {
+   "name": "lp_number",
+   "type": "text",
+   "label": "LP_NUMBER"
+  },
+  {
+   "name": "lm_name",
+   "type": "text",
+   "label": "LM_NAME"
+  },
+  {
+   "name": "pluto_addr",
+   "type": "text",
+   "label": "PLUTO_ADDRESS"
+  },
+  {
+   "name": "desig_addr",
+   "type": "text",
+   "label": "DESIG_ADDRESS"
+  },
+  {
+   "name": "public_hea",
+   "type": "text",
+   "label": "PUBLIC_HEARING"
+  },
+  {
+   "name": "lm_type",
+   "type": "text",
+   "label": "LM_TYPE"
+  },
+  {
+   "name": "hist_distr",
+   "type": "text",
+   "label": "HIST_DISTRICT"
+  },
+  {
+   "name": "other_hear",
+   "type": "text",
+   "label": "OTHER_HEARINGS"
+  },
+  {
+   "name": "boundaries",
+   "type": "text",
+   "label": "BOUNDARIES"
+  },
+  {
+   "name": "most_curre",
+   "type": "text",
+   "label": "MOST_CURRENT"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "SITE_STATUS"
+  },
+  {
+   "name": "last_actio",
+   "type": "text",
+   "label": "LAST_ACTION"
+  },
+  {
+   "name": "count_bldg",
+   "type": "text",
+   "label": "COUNT_BLDG"
+  },
+  {
+   "name": "non_bldg",
+   "type": "text",
+   "label": "NON_BLDG"
+  },
+  {
+   "name": "vacant_lot",
+   "type": "text",
+   "label": "VACANT_LOT"
+  },
+  {
+   "name": "secnd_bldg",
+   "type": "text",
+   "label": "SECND_BLDG"
+  },
+  {
+   "name": "desdate",
+   "type": "text",
+   "label": "DESIG_DATE"
+  },
+  {
+   "name": "caldate",
+   "type": "text",
+   "label": "CALEN_DATE"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "Latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "Longitude"
+  },
+  {
+   "name": "council",
+   "type": "number",
+   "label": "Council"
+  },
+  {
+   "name": "cd",
+   "type": "number",
+   "label": "CD"
+  },
+  {
+   "name": "bct2020",
+   "type": "number",
+   "label": "BCT2020"
+  },
+  {
+   "name": "nta2020",
+   "type": "text",
+   "label": "NTA2020"
+  },
+  {
+   "name": "location",
+   "type": "point",
+   "label": "Location"
+  },
+  {
+   "name": ":@computed_region_f5dn_yrer",
+   "type": "number",
+   "label": "Community Districts"
+  },
+  {
+   "name": ":@computed_region_yeji_bk3q",
+   "type": "number",
+   "label": "Borough Boundaries"
+  },
+  {
+   "name": ":@computed_region_sbqj_enih",
+   "type": "number",
+   "label": "Police Precincts"
+  },
+  {
+   "name": ":@computed_region_92fq_4b7q",
+   "type": "number",
+   "label": "City Council Districts"
+  }
+ ],
+ "samples": [
+  {
+   "bin_number": "1056460",
+   "bbl": "1018710022",
+   "boroughid": "MN",
+   "block": "1871",
+   "lot": "22",
+   "lp_number": "LP-01710",
+   "lm_name": "Midtown Theater (now Metro Theater)",
+   "pluto_addr": "2626 BROADWAY",
+   "desig_addr": "2624 BROADWAY",
+   "public_hea": "5/16/1989",
+   "lm_type": "Individual Landmark",
+   "hist_distr": "No",
+   "boundaries": "Block & Lot",
+   "most_curre": "1",
+   "status": "DESIGNATED",
+   "last_actio": "DESIGNATED",
+   "count_bldg": "1",
+   "vacant_lot": "0",
+   "secnd_bldg": "0",
+   "desdate": "7/11/1989",
+   "latitude": "40.7966816",
+   "longitude": "-73.9698027",
+   "council": "7",
+   "cd": "107",
+   "bct2020": "1018700",
+   "nta2020": "MN0703",
+   "location": {
+    "geometry_type": "Point"
+   },
+   ":@computed_region_f5dn_yrer": "20",
+   ":@computed_region_yeji_bk3q": "4",
+   ":@computed_region_sbqj_enih": "15",
+   ":@computed_region_92fq_4b7q": "23"
+  },
+  {
+   "bin_number": "1077361",
+   "bbl": "1012450074",
+   "boroughid": "MN",
+   "block": "1245",
+   "lot": "74",
+   "lp_number": "LP-02463",
+   "lm_name": "Riverside-West End Historic District Extension I",
+   "pluto_addr": "489 WEST END AVENUE",
+   "desig_addr": "489 WEST END AVENUE",
+   "public_hea": "3/22/2011",
+   "lm_type": "Historic District",
+   "hist_distr": "Yes, Riverside-West End Historic District Extension I (Proposed)",
+   "boundaries": "Block & Lot",
+   "most_curre": "1",
+   "status": "DESIGNATED",
+   "last_actio": "DESIGNATED",
+   "count_bldg": "1",
+   "vacant_lot": "0",
+   "secnd_bldg": "0",
+   "desdate": "6/26/2012",
+   "caldate": "11/16/2010",
+   "latitude": "40.7873407",
+   "longitude": "-73.9793801",
+   "council": "6",
+   "cd": "107",
+   "bct2020": "1017100",
+   "nta2020": "MN0702",
+   "location": {
+    "geometry_type": "Point"
+   },
+   ":@computed_region_f5dn_yrer": "20",
+   ":@computed_region_yeji_bk3q": "4",
+   ":@computed_region_sbqj_enih": "12",
+   ":@computed_region_92fq_4b7q": "19"
+  },
+  {
+   "bin_number": "5015081",
+   "bbl": "5005840033",
+   "boroughid": "SI",
+   "block": "584",
+   "lot": "33",
+   "lp_number": "LP-02147",
+   "lm_name": "St. Paul's Avenue-Stapleton Heights Historic District",
+   "pluto_addr": "396 ST PAUL'S AVENUE",
+   "desig_addr": "396 ST PAUL'S AVENUE",
+   "public_hea": "3/30/2004",
+   "lm_type": "Historic District",
+   "hist_distr": "Yes, St. Paul's Avenue-Stapleton Heights",
+   "boundaries": "Block & Lot",
+   "most_curre": "1",
+   "status": "DESIGNATED",
+   "last_actio": "DESIGNATED",
+   "count_bldg": "1",
+   "vacant_lot": "0",
+   "secnd_bldg": "0",
+   "desdate": "6/22/2004",
+   "caldate": "3/9/2004",
+   "latitude": "40.6290961",
+   "longitude": "-74.0831989",
+   "council": "49",
+   "cd": "501",
+   "bct2020": "5003300",
+   "nta2020": "SI0104",
+   "location": {
+    "geometry_type": "Point"
+   },
+   ":@computed_region_f5dn_yrer": "4",
+   ":@computed_region_yeji_bk3q": "1",
+   ":@computed_region_sbqj_enih": "74",
+   ":@computed_region_92fq_4b7q": "13"
+  }
+ ]
+}

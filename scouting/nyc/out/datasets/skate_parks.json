@@ -1,0 +1,165 @@
+{
+ "key": "skate_parks",
+ "looked_for": [
+  "Directory of Skate Parks",
+  "Skate Parks"
+ ],
+ "candidates": [
+  [
+   "contains",
+   "pvvr-75zk",
+   "Parks Closure Status Due to COVID-19: Skate Parks",
+   "dataset",
+   "2021-11-22"
+  ]
+ ],
+ "picked": {
+  "id": "pvvr-75zk",
+  "name": "Parks Closure Status Due to COVID-19: Skate Parks",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Parks and Recreation (DPR)",
+  "category": null,
+  "rows_updated": "2021-11-22",
+  "view_modified": "2026-02-05",
+  "update_frequency": "Historical data",
+  "description": "In response to the COVID-19 pandemic, NYC Parks temporarily closed several amenities, including Skate Parks. This data collection contains the status of each Skate Park, and is subject to change. Although the data feed is refreshed daily, it may not reflect current conditions.\r\nData Dictionary: \r\n\r\nhttps://docs.google.com/spreadsheets/d/1aaYE82BS-SYh-xjI-t_oyJcNEPFWJNPfdI7T220-rv4/edit#gid=1185967183"
+ },
+ "count": 36,
+ "geo": null,
+ "columns": [
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "Borough"
+  },
+  {
+   "name": "closuretype",
+   "type": "text",
+   "label": "ClosureType"
+  },
+  {
+   "name": "editdate",
+   "type": "calendar_date",
+   "label": "EditDate"
+  },
+  {
+   "name": "gispropnum",
+   "type": "text",
+   "label": "GISPropNum"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "Name"
+  },
+  {
+   "name": "omppropid",
+   "type": "text",
+   "label": "OMPPropID"
+  },
+  {
+   "name": "parkdistrict",
+   "type": "text",
+   "label": "ParkDistrict"
+  },
+  {
+   "name": "propertyname",
+   "type": "text",
+   "label": "PropertyName"
+  },
+  {
+   "name": "red_sign_installed",
+   "type": "checkbox",
+   "label": "Red Sign Installed"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "Status"
+  },
+  {
+   "name": "subpropertyname",
+   "type": "text",
+   "label": "SubPropertyName"
+  },
+  {
+   "name": "system",
+   "type": "text",
+   "label": "System"
+  },
+  {
+   "name": "yellow_sign_removed",
+   "type": "checkbox",
+   "label": "Yellow Sign Removed"
+  },
+  {
+   "name": "polygon",
+   "type": "polygon",
+   "label": "polygon"
+  },
+  {
+   "name": "approx_date_closed",
+   "type": "calendar_date",
+   "label": "Approx Date Closed"
+  },
+  {
+   "name": "approx_date_reopened",
+   "type": "calendar_date",
+   "label": "Approx Date Reopened"
+  }
+ ],
+ "samples": [
+  {
+   "borough": "B",
+   "closuretype": "Completely Locked",
+   "editdate": "2020-06-23T15:33:52.000",
+   "gispropnum": "B058",
+   "name": "McCarren Park Skatepark",
+   "omppropid": "B058-ZN01",
+   "parkdistrict": "B-01",
+   "propertyname": "McCarren Park",
+   "status": "Reopened",
+   "subpropertyname": "McCarren Park Zone 1",
+   "system": "B058-ZN01-SKATEPARK-01",
+   "polygon": {
+    "geometry_type": "Polygon"
+   },
+   "approx_date_closed": "2020-04-09T19:11:11.000",
+   "approx_date_reopened": "2020-06-23T00:00:00.000"
+  },
+  {
+   "borough": "B",
+   "closuretype": "Completely Locked",
+   "editdate": "2020-06-23T15:15:02.000",
+   "gispropnum": "B066",
+   "name": "Owl's Head Millenium Skatepark",
+   "omppropid": "B066",
+   "parkdistrict": "B-10",
+   "propertyname": "Owl's Head Park",
+   "status": "Reopened",
+   "system": "B066-SKATEPARK-01",
+   "polygon": {
+    "geometry_type": "Polygon"
+   },
+   "approx_date_closed": "2020-04-09T19:11:11.000"
+  },
+  {
+   "borough": "B",
+   "closuretype": "Completely Locked",
+   "editdate": "2020-06-23T15:14:22.000",
+   "gispropnum": "B118A",
+   "name": "St. Mary's Playground Skatepark",
+   "omppropid": "B118A",
+   "parkdistrict": "B-06",
+   "propertyname": "St. Mary's Park",
+   "status": "Reopened",
+   "system": "B118A-SKATEPARK-01",
+   "polygon": {
+    "geometry_type": "Polygon"
+   },
+   "approx_date_closed": "2020-04-09T19:11:11.000",
+   "approx_date_reopened": "2020-06-22T00:00:00.000"
+  }
+ ]
+}

@@ -1,0 +1,90 @@
+{
+ "key": "comfort_stations",
+ "looked_for": [
+  "Directory of Toilets in Public Parks",
+  "Comfort Stations"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "hjae-yuav",
+   "Directory Of Toilets In Public Parks",
+   "dataset",
+   "2013-06-21"
+  ],
+  [
+   "contains",
+   "i5n2-q8ck",
+   "Parks Closure Status Due to COVID-19: Comfort Stations",
+   "dataset",
+   "2021-11-22"
+  ]
+ ],
+ "picked": {
+  "id": "hjae-yuav",
+  "name": "Directory Of Toilets In Public Parks",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Parks and Recreation (DPR)",
+  "category": "Recreation",
+  "rows_updated": "2013-06-21",
+  "view_modified": "2021-06-30",
+  "update_frequency": "As needed",
+  "description": "Directory of Toilets in Public Parks"
+ },
+ "count": 616,
+ "geo": null,
+ "columns": [
+  {
+   "name": "name",
+   "type": "text",
+   "label": "Name"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "Location"
+  },
+  {
+   "name": "open_year_round",
+   "type": "text",
+   "label": "Open Year-Round"
+  },
+  {
+   "name": "handicap_accessible",
+   "type": "text",
+   "label": "Handicap Accessible"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "Borough"
+  },
+  {
+   "name": "comments",
+   "type": "text",
+   "label": "Comments"
+  }
+ ],
+ "samples": [
+  {
+   "name": "100% Playground",
+   "location": "Glenwood Road, East 100 & East 101 streets",
+   "open_year_round": "Yes",
+   "borough": "Brooklyn"
+  },
+  {
+   "name": "174th Street Playground",
+   "location": "East 174 Street, Stratford Avenue, Bronx River Avenue",
+   "open_year_round": "Yes",
+   "borough": "Bronx"
+  },
+  {
+   "name": "227 Street Playground",
+   "location": "Bronx Boulevard between East 226 and East 228 streets",
+   "open_year_round": "Yes",
+   "handicap_accessible": "Yes",
+   "borough": "Bronx"
+  }
+ ]
+}

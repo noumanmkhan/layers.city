@@ -1,0 +1,1293 @@
+{
+ "dsny_frequencies": {
+  "url": "https://services.arcgis.com/uKN48PkxmWiqJM9q/ArcGIS/rest/services/DSNY_Frequencies_OFFICIAL/FeatureServer/0",
+  "name": "DSNY frequencies",
+  "geometry": "esriGeometryPolygon",
+  "count": 610,
+  "last_edit": "2026-04-08",
+  "fields": [
+   [
+    "OBJECTID",
+    "esriFieldTypeOID",
+    "OBJECTID"
+   ],
+   [
+    "DISTRICT",
+    "esriFieldTypeString",
+    "District"
+   ],
+   [
+    "SECTION",
+    "esriFieldTypeString",
+    "Section"
+   ],
+   [
+    "FREQUENCY",
+    "esriFieldTypeString",
+    "Frequency"
+   ],
+   [
+    "SCHEDULECODE",
+    "esriFieldTypeString",
+    "Schedule"
+   ],
+   [
+    "FREQ_REFUSE",
+    "esriFieldTypeString",
+    "Refuse"
+   ],
+   [
+    "FREQ_RECYCLING",
+    "esriFieldTypeString",
+    "Recycling"
+   ],
+   [
+    "FREQ_ORGANICS",
+    "esriFieldTypeString",
+    "Organics"
+   ],
+   [
+    "FREQ_BULK",
+    "esriFieldTypeString",
+    "Bulk pick-up"
+   ],
+   [
+    "Shape__Area",
+    "esriFieldTypeDouble",
+    "Shape__Area"
+   ],
+   [
+    "Shape__Length",
+    "esriFieldTypeDouble",
+    "Shape__Length"
+   ]
+  ],
+  "samples": [
+   {
+    "OBJECTID": 1,
+    "DISTRICT": "MN01",
+    "SECTION": "MN011",
+    "FREQUENCY": "A",
+    "SCHEDULECODE": "1011A",
+    "FREQ_REFUSE": "Mon, Wed, Fri",
+    "FREQ_RECYCLING": "Fri",
+    "FREQ_ORGANICS": null,
+    "FREQ_BULK": "Mon, Wed, Fri",
+    "Shape__Area": 11572246.43675232,
+    "Shape__Length": 21656.5116990729
+   },
+   {
+    "OBJECTID": 2,
+    "DISTRICT": "MN01",
+    "SECTION": "MN011",
+    "FREQUENCY": "B",
+    "SCHEDULECODE": "1011B",
+    "FREQ_REFUSE": "Tue, Thu, Sat",
+    "FREQ_RECYCLING": "Thu",
+    "FREQ_ORGANICS": null,
+    "FREQ_BULK": "Tue, Thu, Sat",
+    "Shape__Area": 10175029.511138916,
+    "Shape__Length": 25053.96017924247
+   },
+   {
+    "OBJECTID": 3,
+    "DISTRICT": "MN01",
+    "SECTION": "MN013",
+    "FREQUENCY": "A",
+    "SCHEDULECODE": "1013A",
+    "FREQ_REFUSE": "Mon, Wed, Fri",
+    "FREQ_RECYCLING": "Mon",
+    "FREQ_ORGANICS": null,
+    "FREQ_BULK": "Mon, Wed, Fri",
+    "Shape__Area": 2482216.38772583,
+    "Shape__Length": 7054.145863762796
+   }
+  ],
+  "copyright": "NYC Department of Sanitation",
+  "max_record_count": 2000
+ },
+ "nysdot_service": {
+  "url": "https://gis.dot.ny.gov/hostingny/rest/services/Roadways/RoadwayData/FeatureServer",
+  "layers": [
+   [
+    0,
+    "NYSDOT Roadway Inventory"
+   ],
+   [
+    1,
+    "NYSDOT State Touring Inventory"
+   ]
+  ],
+  "description": "NYSDOT Roadway Inventory, NYSDOT State Touring Inventory"
+ },
+ "nysdot_inventory": {
+  "url": "https://gis.dot.ny.gov/hostingny/rest/services/Roadways/RoadwayData/FeatureServer/0",
+  "name": "NYSDOT Roadway Inventory",
+  "geometry": "esriGeometryPolyline",
+  "count": 68851,
+  "last_edit": null,
+  "fields": [
+   [
+    "OBJECTID",
+    "esriFieldTypeOID",
+    "OBJECTID"
+   ],
+   [
+    "Route_ID",
+    "esriFieldTypeString",
+    "Route_ID"
+   ],
+   [
+    "From_Measure",
+    "esriFieldTypeDouble",
+    "From_Measure"
+   ],
+   [
+    "To_Measure",
+    "esriFieldTypeDouble",
+    "To_Measure"
+   ],
+   [
+    "Segment_Length",
+    "esriFieldTypeDouble",
+    "Segment_Length"
+   ],
+   [
+    "Shape__Length",
+    "esriFieldTypeDouble",
+    "SHAPE.STLength()"
+   ],
+   [
+    "Route_Display_Value",
+    "esriFieldTypeString",
+    "Route_Display_Value"
+   ],
+   [
+    "Route_Signing",
+    "esriFieldTypeString",
+    "Route_Signing"
+   ],
+   [
+    "Route_Number",
+    "esriFieldTypeString",
+    "Route_Number"
+   ],
+   [
+    "Route_Suffix",
+    "esriFieldTypeString",
+    "Route_Suffix"
+   ],
+   [
+    "Route_Qualifier",
+    "esriFieldTypeString",
+    "Route_Qualifier"
+   ],
+   [
+    "Roadway_Type",
+    "esriFieldTypeString",
+    "Roadway_Type"
+   ],
+   [
+    "Roadway_Feature",
+    "esriFieldTypeString",
+    "Roadway_Feature"
+   ],
+   [
+    "Direction",
+    "esriFieldTypeString",
+    "Direction"
+   ],
+   [
+    "DOT_Region_Number",
+    "esriFieldTypeString",
+    "DOT_Region_Number"
+   ],
+   [
+    "County_Name",
+    "esriFieldTypeString",
+    "County_Name"
+   ],
+   [
+    "County_FIPS_Code",
+    "esriFieldTypeString",
+    "County_FIPS_Code"
+   ],
+   [
+    "County_Road_Number",
+    "esriFieldTypeString",
+    "County_Road_Number"
+   ],
+   [
+    "Roadway_Name",
+    "esriFieldTypeString",
+    "Roadway_Name"
+   ],
+   [
+    "Begin_Description",
+    "esriFieldTypeString",
+    "Begin_Description"
+   ],
+   [
+    "End_Description",
+    "esriFieldTypeString",
+    "End_Description"
+   ],
+   [
+    "Located_Muni_Type",
+    "esriFieldTypeString",
+    "Located_Muni_Type"
+   ],
+   [
+    "Located_Muni_Name",
+    "esriFieldTypeString",
+    "Located_Muni_Name"
+   ],
+   [
+    "Maintenance_Jurisdiction",
+    "esriFieldTypeString",
+    "Maintenance_Jurisdiction"
+   ],
+   [
+    "Owning_Jurisdiction",
+    "esriFieldTypeString",
+    "Owning_Jurisdiction"
+   ],
+   [
+    "Owning_Muni_Name",
+    "esriFieldTypeString",
+    "Owning_Muni_Name"
+   ],
+   [
+    "Owning_Muni_Type",
+    "esriFieldTypeString",
+    "Owning_Muni_Type"
+   ],
+   [
+    "Functional_Class",
+    "esriFieldTypeString",
+    "Functional_Class"
+   ],
+   [
+    "National_Hghway_System",
+    "esriFieldTypeString",
+    "National_Hghway_System"
+   ],
+   [
+    "Federal_Aid_Highway",
+    "esriFieldTypeString",
+    "Federal_Aid_Highway"
+   ],
+   [
+    "Federal_Aid_Primary_1991",
+    "esriFieldTypeString",
+    "Federal_Aid_Primary_1991"
+   ],
+   [
+    "Parkway_Flag",
+    "esriFieldTypeString",
+    "Parkway_Flag"
+   ],
+   [
+    "Scenic_Byway_Flag",
+    "esriFieldTypeString",
+    "Scenic_Byway_Flag"
+   ],
+   [
+    "State_Highway_Number",
+    "esriFieldTypeString",
+    "State_Highway_Number"
+   ],
+   [
+    "Urban_Area_FIPS_Code",
+    "esriFieldTypeString",
+    "Urban_Area_FIPS_Code"
+   ],
+   [
+    "Urban_Area_Name",
+    "esriFieldTypeString",
+    "Urban_Area_Name"
+   ],
+   [
+    "MPO",
+    "esriFieldTypeString",
+    "MPO"
+   ],
+   [
+    "Indigenous_Territory",
+    "esriFieldTypeString",
+    "Indigenous_Territory"
+   ],
+   [
+    "BIN",
+    "esriFieldTypeString",
+    "BIN"
+   ],
+   [
+    "Railroad_Crossing",
+    "esriFieldTypeString",
+    "Railroad_Crossing"
+   ],
+   [
+    "Posted_Speed_Limit_MPH",
+    "esriFieldTypeSmallInteger",
+    "Posted_Speed_Limit_MPH"
+   ],
+   [
+    "One_Way",
+    "esriFieldTypeString",
+    "One_Way"
+   ],
+   [
+    "Access_Control",
+    "esriFieldTypeString",
+    "Access_Control"
+   ],
+   [
+    "Pavement_Type",
+    "esriFieldTypeString",
+    "Pavement_Type"
+   ],
+   [
+    "Travel_Lanes_Pr_Dir",
+    "esriFieldTypeSmallInteger",
+    "Travel_Lanes_Pr_Dir"
+   ],
+   [
+    "Travel_Lanes_NonPr_Dir",
+    "esriFieldTypeSmallInteger",
+    "Travel_Lanes_NonPr_Dir"
+   ],
+   [
+    "Travel_Lane_Width_Pr_Dir",
+    "esriFieldTypeDouble",
+    "Travel_Lane_Width_Pr_Dir"
+   ],
+   [
+    "Travel_Lane_Width_NonPr_Dir",
+    "esriFieldTypeDouble",
+    "Travel_Lane_Width_NonPr_Dir"
+   ],
+   [
+    "Shoulder_Width_Rght_Pr_Dir",
+    "esriFieldTypeDouble",
+    "Shoulder_Width_Rght_Pr_Dir"
+   ],
+   [
+    "Shoulder_Width_Rght_NonPr_Dir",
+    "esriFieldTypeDouble",
+    "Shoulder_Width_Rght_NonPr_Dir"
+   ],
+   [
+    "Shoulder_Width_Left_Pr_Dir",
+    "esriFieldTypeDouble",
+    "Shoulder_Width_Left_Pr_Dir"
+   ],
+   [
+    "Shoulder_Width_Left_NonPr_Dir",
+    "esriFieldTypeDouble",
+    "Shoulder_Width_Left_NonPr_Dir"
+   ],
+   [
+    "Center_Turn_Lane_Width",
+    "esriFieldTypeDouble",
+    "Center_Turn_Lane_Width"
+   ],
+   [
+    "Median_Type",
+    "esriFieldTypeString",
+    "Median_Type"
+   ],
+   [
+    "Median_Width",
+    "esriFieldTypeSmallInteger",
+    "Median_Width"
+   ],
+   [
+    "Cont_Count_Traffic_Station",
+    "esriFieldTypeString",
+    "Cont_Count_Traffic_Station"
+   ],
+   [
+    "Traffic_Station_ID",
+    "esriFieldTypeString",
+    "Traffic_Station_ID"
+   ],
+   [
+    "AADT_Current_Estimate",
+    "esriFieldTypeInteger",
+    "AADT_Current_Estimate"
+   ],
+   [
+    "AADT_Last_Actual",
+    "esriFieldTypeInteger",
+    "AADT_Last_Actual"
+   ],
+   [
+    "AADT_Last_Actual_Count_Year",
+    "esriFieldTypeSmallInteger",
+    "AADT_Last_Actual_Count_Year"
+   ],
+   [
+    "Truck_Percent_Average",
+    "esriFieldTypeDouble",
+    "Truck_Percent_Average"
+   ],
+   [
+    "Truck_Percent_Actual",
+    "esriFieldTypeDouble",
+    "Truck_Percent_Actual"
+   ],
+   [
+    "Truck_Percent_Actual_Year",
+    "esriFieldTypeSmallInteger",
+    "Truck_Percent_Actual_Year"
+   ],
+   [
+    "Overlap_Hierarchy",
+    "esriFieldTypeSmallInteger",
+    "Overlap_Hierarchy"
+   ],
+   [
+    "DOT_ID",
+    "esriFieldTypeString",
+    "DOT_ID"
+   ],
+   [
+    "Overlap_Number",
+    "esriFieldTypeSmallInteger",
+    "Overlap_Number"
+   ]
+  ],
+  "samples": [
+   {
+    "OBJECTID": 1,
+    "Route_ID": "100157031",
+    "From_Measure": 16.747,
+    "To_Measure": 18.97,
+    "Segment_Length": 2.223,
+    "Shape__Length": 3577.578834716601,
+    "Route_Display_Value": "US209 ",
+    "Route_Signing": "US",
+    "Route_Number": "209",
+    "Route_Suffix": null,
+    "Route_Qualifier": "No qualifier",
+    "Roadway_Type": "Route",
+    "Roadway_Feature": null,
+    "Direction": "0 - Primary Direction with Undivided Inventory",
+    "DOT_Region_Number": "8",
+    "County_Name": "Ulster",
+    "County_FIPS_Code": "111",
+    "County_Road_Number": null,
+    "Roadway_Name": null,
+    "Begin_Description": null,
+    "End_Description": "TOWN OF ROCHESTER & TOWN OF MARBLETOWN",
+    "Located_Muni_Type": "Town",
+    "Located_Muni_Name": "Rochester",
+    "Maintenance_Jurisdiction": "01-NYSDOT",
+    "Owning_Jurisdiction": "01-NYSDOT",
+    "Owning_Muni_Name": null,
+    "Owning_Muni_Type": null,
+    "Functional_Class": "4-Rural Principal Arterial Other",
+    "National_Hghway_System": "1-NHS",
+    "Federal_Aid_Highway": "T",
+    "Federal_Aid_Primary_1991": "T",
+    "Parkway_Flag": "F",
+    "Scenic_Byway_Flag": null,
+    "State_Highway_Number": "305",
+    "Urban_Area_FIPS_Code": null,
+    "Urban_Area_Name": null,
+    "MPO": "UCTC-Ulster County Transportation Council",
+    "Indigenous_Territory": null,
+    "BIN": null,
+    "Railroad_Crossing": null,
+    "Posted_Speed_Limit_MPH": 55,
+    "One_Way": null,
+    "Access_Control": null,
+    "Pavement_Type": "O-Overlay",
+    "Travel_Lanes_Pr_Dir": 1,
+    "Travel_Lanes_NonPr_Dir": 1,
+    "Travel_Lane_Width_Pr_Dir": 12.0,
+    "Travel_Lane_Width_NonPr_Dir": 12.0,
+    "Shoulder_Width_Rght_Pr_Dir": 4.0,
+    "Shoulder_Width_Rght_NonPr_Dir": 4.0,
+    "Shoulder_Width_Left_Pr_Dir": null,
+    "Shoulder_Width_Left_NonPr_Dir": null,
+    "Center_Turn_Lane_Width": null,
+    "Median_Type": "1-None",
+    "Median_Width": null,
+    "Cont_Count_Traffic_Station": null,
+    "Traffic_Station_ID": "860538",
+    "AADT_Current_Estimate": 7914,
+    "AADT_Last_Actual": 7914,
+    "AADT_Last_Actual_Count_Year": 2024,
+    "Truck_Percent_Average": null,
+    "Truck_Percent_Actual": 7.25297,
+    "Truck_Percent_Actual_Year": 2024,
+    "Overlap_Hierarchy": 1,
+    "DOT_ID": "100157",
+    "Overlap_Number": null
+   },
+   {
+    "OBJECTID": 2,
+    "Route_ID": "100267091",
+    "From_Measure": 19.2,
+    "To_Measure": 19.21,
+    "Segment_Length": 0.01,
+    "Shape__Length": 16.093508824367667,
+    "Route_Display_Value": "NY30 ",
+    "Route_Signing": "NY",
+    "Route_Number": "30",
+    "Route_Suffix": null,
+    "Route_Qualifier": "No qualifier",
+    "Roadway_Type": "Route",
+    "Roadway_Feature": null,
+    "Direction": "0 - Primary Direction with Undivided Inventory",
+    "DOT_Region_Number": "7",
+    "County_Name": "Franklin",
+    "County_FIPS_Code": "33",
+    "County_Road_Number": null,
+    "Roadway_Name": null,
+    "Begin_Description": "FISH CREEK",
+    "End_Description": null,
+    "Located_Muni_Type": "Town",
+    "Located_Muni_Name": "Santa Clara",
+    "Maintenance_Jurisdiction": "01-NYSDOT",
+    "Owning_Jurisdiction": null,
+    "Owning_Muni_Name": null,
+    "Owning_Muni_Type": null,
+    "Functional_Class": null,
+    "National_Hghway_System": null,
+    "Federal_Aid_Highway": null,
+    "Federal_Aid_Primary_1991": null,
+    "Parkway_Flag": "F",
+    "Scenic_Byway_Flag": null,
+    "State_Highway_Number": "8135",
+    "Urban_Area_FIPS_Code": null,
+    "Urban_Area_Name": null,
+    "MPO": null,
+    "Indigenous_Territory": null,
+    "BIN": "1021280",
+    "Railroad_Crossing": null,
+    "Posted_Speed_Limit_MPH": 35,
+    "One_Way": null,
+    "Access_Control": null,
+    "Pavement_Type": "A-Asphalt (flexible)",
+    "Travel_Lanes_Pr_Dir": null,
+    "Travel_Lanes_NonPr_Dir": 1,
+    "Travel_Lane_Width_Pr_Dir": null,
+    "Travel_Lane_Width_NonPr_Dir": null,
+    "Shoulder_Width_Rght_Pr_Dir": 4.0,
+    "Shoulder_Width_Rght_NonPr_Dir": 4.0,
+    "Shoulder_Width_Left_Pr_Dir": null,
+    "Shoulder_Width_Left_NonPr_Dir": null,
+    "Center_Turn_Lane_Width": null,
+    "Median_Type": "1-None",
+    "Median_Width": null,
+    "Cont_Count_Traffic_Station": null,
+    "Traffic_Station_ID": null,
+    "AADT_Current_Estimate": null,
+    "AADT_Last_Actual": null,
+    "AADT_Last_Actual_Count_Year": null,
+    "Truck_Percent_Average": null,
+    "Truck_Percent_Actual": null,
+    "Truck_Percent_Actual_Year": null,
+    "Overlap_Hierarchy": null,
+    "DOT_ID": "100267",
+    "Overlap_Number": null
+   },
+   {
+    "OBJECTID": 3,
+    "Route_ID": "107367011",
+    "From_Measure": 0.0884049,
+    "To_Measure": 0.0950337,
+    "Segment_Length": 0.0066288,
+    "Shape__Length": 10.668043563762023,
+    "Route_Display_Value": null,
+    "Route_Signing": null,
+    "Route_Number": null,
+    "Route_Suffix": null,
+    "Route_Qualifier": "No qualifier",
+    "Roadway_Type": "Road",
+    "Roadway_Feature": null,
+    "Direction": "0 - Primary Direction with Undivided Inventory",
+    "DOT_Region_Number": "1",
+    "County_Name": "Rensselaer",
+    "County_FIPS_Code": "83",
+    "County_Road_Number": "49",
+    "Roadway_Name": "EASTERN UNION T",
+    "Begin_Description": null,
+    "End_Description": null,
+    "Located_Muni_Type": "Town",
+    "Located_Muni_Name": "Sand Lake",
+    "Maintenance_Jurisdiction": "02-County",
+    "Owning_Jurisdiction": "02-County",
+    "Owning_Muni_Name": null,
+    "Owning_Muni_Type": null,
+    "Functional_Class": "17-Urban Major Collector",
+    "National_Hghway_System": null,
+    "Federal_Aid_Highway": "T",
+    "Federal_Aid_Primary_1991": null,
+    "Parkway_Flag": "F",
+    "Scenic_Byway_Flag": null,
+    "State_Highway_Number": null,
+    "Urban_Area_FIPS_Code": "00970",
+    "Urban_Area_Name": "Albany",
+    "MPO": "CDTC-Capital District Transportation Committee",
+    "Indigenous_Territory": null,
+    "BIN": "3303890",
+    "Railroad_Crossing": null,
+    "Posted_Speed_Limit_MPH": 40,
+    "One_Way": null,
+    "Access_Control": null,
+    "Pavement_Type": "A-Asphalt (flexible)",
+    "Travel_Lanes_Pr_Dir": 1,
+    "Travel_Lanes_NonPr_Dir": 1,
+    "Travel_Lane_Width_Pr_Dir": 10.0,
+    "Travel_Lane_Width_NonPr_Dir": 10.0,
+    "Shoulder_Width_Rght_Pr_Dir": 4.0,
+    "Shoulder_Width_Rght_NonPr_Dir": 4.0,
+    "Shoulder_Width_Left_Pr_Dir": null,
+    "Shoulder_Width_Left_NonPr_Dir": null,
+    "Center_Turn_Lane_Width": null,
+    "Median_Type": "1-None",
+    "Median_Width": null,
+    "Cont_Count_Traffic_Station": null,
+    "Traffic_Station_ID": "148051",
+    "AADT_Current_Estimate": 3229,
+    "AADT_Last_Actual": 3274,
+    "AADT_Last_Actual_Count_Year": 2023,
+    "Truck_Percent_Average": null,
+    "Truck_Percent_Actual": 5.32673,
+    "Truck_Percent_Actual_Year": 2023,
+    "Overlap_Hierarchy": null,
+    "DOT_ID": "107367",
+    "Overlap_Number": null
+   }
+  ],
+  "copyright": "",
+  "max_record_count": 2000,
+  "functional_class_field": "Functional_Class",
+  "county_field": "County_Name",
+  "nyc_by_class": [
+   {
+    "Functional_Class": "16-Urban Minor Arterial",
+    "n": 13
+   },
+   {
+    "Functional_Class": null,
+    "n": 17
+   },
+   {
+    "Functional_Class": "14-Urban Principal Arterial Other",
+    "n": 397
+   },
+   {
+    "Functional_Class": "11-Urban Principal Arterial Interstate",
+    "n": 1396
+   },
+   {
+    "Functional_Class": "12-Urban PA Other Freeway or Expressway",
+    "n": 840
+   }
+  ]
+ },
+ "nys_polling_search": [
+  [
+   "Feature Service",
+   "NYS Elections Districts and Polling Locations",
+   "NYSGIS_GPO",
+   "https://services6.arcgis.com/EbVsqZ18sv1kVJ3k/arcgis/rest/services/NYS_Elections_Districts_and_Polling_Locations/FeatureServer",
+   "2026-10-16"
+  ],
+  [
+   "Feature Service",
+   "Voting Sites",
+   "devin_HST",
+   "https://services8.arcgis.com/JI7FiIRUMjk9p0vW/arcgis/rest/services/Voting_Sites/FeatureServer",
+   "2021-06-04"
+  ],
+  [
+   "Web Map",
+   "NYS Elections Districts and Polling Locations",
+   "NYSGIS_GPO",
+   "",
+   "2026-10-16"
+  ],
+  [
+   "Feature Service",
+   "NYS_Electionss_Districts_and_Polling_Locations_2 (1)",
+   "leopichardo",
+   "https://services3.arcgis.com/eY0SXDByTqsVrLVW/arcgis/rest/services/NYS_Electionss_Districts_and_Polling_Locations_2_(1)/FeatureServer",
+   "2026-03-23"
+  ],
+  [
+   "Web Experience",
+   "NYS Elections Districts and Polling Locations",
+   "NYSGIS_GPO",
+   "https://experience.arcgis.com/experience/f3ca2418c3fa4f1d8f89bddd18b05738",
+   "2026-10-16"
+  ]
+ ],
+ "nys_polling_0": {
+  "url": "https://services6.arcgis.com/EbVsqZ18sv1kVJ3k/arcgis/rest/services/NYS_Elections_Districts_and_Polling_Locations/FeatureServer/0",
+  "name": "Early Voting Polling Sites Non NYC ",
+  "geometry": "esriGeometryPoint",
+  "count": 271,
+  "last_edit": "2026-10-16",
+  "fields": [
+   [
+    "OBJECTID",
+    "esriFieldTypeOID",
+    "ObjectID"
+   ],
+   [
+    "Polling_Place_Name",
+    "esriFieldTypeString",
+    "Polling Place Name"
+   ],
+   [
+    "Polling_Place_Address_1",
+    "esriFieldTypeString",
+    "Polling Place Address 1"
+   ],
+   [
+    "Polling_Place_Address_2",
+    "esriFieldTypeString",
+    "Polling Place Address 2"
+   ],
+   [
+    "City",
+    "esriFieldTypeString",
+    "City"
+   ],
+   [
+    "Zip",
+    "esriFieldTypeString",
+    "Zip"
+   ],
+   [
+    "County",
+    "esriFieldTypeString",
+    "County"
+   ],
+   [
+    "Comments",
+    "esriFieldTypeString",
+    "Comments"
+   ],
+   [
+    "Town",
+    "esriFieldTypeString",
+    "Town"
+   ],
+   [
+    "NYS_Lat",
+    "esriFieldTypeDouble",
+    "Latitude"
+   ],
+   [
+    "NYS_Long",
+    "esriFieldTypeDouble",
+    "Longitude"
+   ]
+  ],
+  "samples": [
+   {
+    "OBJECTID": 29,
+    "Polling_Place_Name": "ALBANY COUNTY BOARD OF ELECTIONS",
+    "Polling_Place_Address_1": "260 S PEARL ST",
+    "Polling_Place_Address_2": "<Null>",
+    "City": "ALBANY",
+    "Zip": "12202",
+    "County": "Albany",
+    "Comments": "<Null>",
+    "Town": "<Null>",
+    "NYS_Lat": 42.642576,
+    "NYS_Long": -73.754783
+   },
+   {
+    "OBJECTID": 30,
+    "Polling_Place_Name": "BETHLEHEM LUTHERAN CHURCH",
+    "Polling_Place_Address_1": "85 ELM AVE",
+    "Polling_Place_Address_2": "<Null>",
+    "City": "DELMAR",
+    "Zip": "12054",
+    "County": "Albany",
+    "Comments": "<Null>",
+    "Town": "<Null>",
+    "NYS_Lat": 42.610932,
+    "NYS_Long": -73.846834
+   },
+   {
+    "OBJECTID": 31,
+    "Polling_Place_Name": "BOGHT COMMUNITY FIRE DISTRICT",
+    "Polling_Place_Address_1": "8 PRESTON DRIVE",
+    "Polling_Place_Address_2": "<Null>",
+    "City": "COHOES",
+    "Zip": "12047",
+    "County": "Albany",
+    "Comments": "<Null>",
+    "Town": "<Null>",
+    "NYS_Lat": 42.776334,
+    "NYS_Long": -73.748591
+   }
+  ],
+  "copyright": "",
+  "max_record_count": 1000
+ },
+ "nys_polling_1": {
+  "url": "https://services6.arcgis.com/EbVsqZ18sv1kVJ3k/arcgis/rest/services/NYS_Elections_Districts_and_Polling_Locations/FeatureServer/1",
+  "name": "Early Voting Polling Sites NYC ",
+  "geometry": "esriGeometryPoint",
+  "count": 157,
+  "last_edit": "2026-10-16",
+  "fields": [
+   [
+    "OBJECTID",
+    "esriFieldTypeOID",
+    "ObjectID"
+   ],
+   [
+    "Poll_Site_Name",
+    "esriFieldTypeString",
+    "Poll Site Name"
+   ],
+   [
+    "Poll_Site_Address",
+    "esriFieldTypeString",
+    "Poll Site Address"
+   ],
+   [
+    "City",
+    "esriFieldTypeString",
+    "City"
+   ],
+   [
+    "ZipCode",
+    "esriFieldTypeString",
+    "Zip Code"
+   ],
+   [
+    "County",
+    "esriFieldTypeString",
+    "County"
+   ],
+   [
+    "NYS_Lat",
+    "esriFieldTypeDouble",
+    "Latitude"
+   ],
+   [
+    "NYS_Long",
+    "esriFieldTypeDouble",
+    "Longitude"
+   ]
+  ],
+  "samples": [
+   {
+    "OBJECTID": 10,
+    "Poll_Site_Name": "Bronx County Supreme Court House",
+    "Poll_Site_Address": "851 Grand Concourse",
+    "City": "Bronx",
+    "ZipCode": "10451",
+    "County": "Bronx",
+    "NYS_Lat": 40.826152,
+    "NYS_Long": -73.923402
+   },
+   {
+    "OBJECTID": 11,
+    "Poll_Site_Name": "Bronx Regional HS",
+    "Poll_Site_Address": "1010 Rev James A Polite Ave.",
+    "City": "Bronx",
+    "ZipCode": "10459",
+    "County": "Bronx",
+    "NYS_Lat": 40.823461,
+    "NYS_Long": -73.89876
+   },
+   {
+    "OBJECTID": 12,
+    "Poll_Site_Name": "Butler Memorial United Methodist Church",
+    "Poll_Site_Address": "3920 Paulding Avenue",
+    "City": "Bronx",
+    "ZipCode": "10466",
+    "County": "Bronx",
+    "NYS_Lat": 40.883509,
+    "NYS_Long": -73.852698
+   }
+  ],
+  "copyright": "",
+  "max_record_count": 1000
+ },
+ "nys_polling_2": {
+  "url": "https://services6.arcgis.com/EbVsqZ18sv1kVJ3k/arcgis/rest/services/NYS_Elections_Districts_and_Polling_Locations/FeatureServer/2",
+  "name": "Election Day Polling Sites Non NYC ",
+  "geometry": "esriGeometryPoint",
+  "count": 3649,
+  "last_edit": "2026-10-16",
+  "fields": [
+   [
+    "OBJECTID",
+    "esriFieldTypeOID",
+    "ObjectID"
+   ],
+   [
+    "Poll_Site",
+    "esriFieldTypeString",
+    "Poll Site"
+   ],
+   [
+    "Address1",
+    "esriFieldTypeString",
+    "Address 1"
+   ],
+   [
+    "Address2",
+    "esriFieldTypeString",
+    "Address 2"
+   ],
+   [
+    "City",
+    "esriFieldTypeString",
+    "City"
+   ],
+   [
+    "Zip",
+    "esriFieldTypeDouble",
+    "Zip"
+   ],
+   [
+    "County",
+    "esriFieldTypeString",
+    "County"
+   ],
+   [
+    "Comments",
+    "esriFieldTypeString",
+    "Comments"
+   ],
+   [
+    "NYS_Lat",
+    "esriFieldTypeDouble",
+    "Latitude"
+   ],
+   [
+    "NYS_Long",
+    "esriFieldTypeDouble",
+    "Longitude"
+   ]
+  ],
+  "samples": [
+   {
+    "OBJECTID": 226,
+    "Poll_Site": "ALBANY ANCIENT ORDER OF HIBERNIANS",
+    "Address1": "375 ONTARIO ST",
+    "Address2": "<Null>",
+    "City": "ALBANY",
+    "Zip": 12208,
+    "County": "Albany",
+    "Comments": "<Null>",
+    "NYS_Lat": 42.65757,
+    "NYS_Long": -73.785959
+   },
+   {
+    "OBJECTID": 227,
+    "Poll_Site": "ALBANY COMMUNITY DEVELOPMENT AGENCY",
+    "Address1": "200 HENRY JOHNSON BLVD",
+    "Address2": "<Null>",
+    "City": "ALBANY",
+    "Zip": 12210,
+    "County": "Albany",
+    "Comments": "<Null>",
+    "NYS_Lat": 42.663205,
+    "NYS_Long": -73.759057
+   },
+   {
+    "OBJECTID": 228,
+    "Poll_Site": "ALTAMONT FIRE DEPARTMENT/VILLAGE HALL",
+    "Address1": "115 MAIN ST",
+    "Address2": "<Null>",
+    "City": "ALTAMONT",
+    "Zip": 12009,
+    "County": "Albany",
+    "Comments": "<Null>",
+    "NYS_Lat": 42.702525,
+    "NYS_Long": -74.024881
+   }
+  ],
+  "copyright": "",
+  "max_record_count": 1000
+ },
+ "nys_polling_3": {
+  "url": "https://services6.arcgis.com/EbVsqZ18sv1kVJ3k/arcgis/rest/services/NYS_Elections_Districts_and_Polling_Locations/FeatureServer/3",
+  "name": "Election Day Polling Sites NYC",
+  "geometry": "esriGeometryPoint",
+  "count": 1206,
+  "last_edit": "2026-10-16",
+  "fields": [
+   [
+    "OBJECTID",
+    "esriFieldTypeOID",
+    "ObjectID"
+   ],
+   [
+    "Poll_Site_Name",
+    "esriFieldTypeString",
+    "Poll Site Name"
+   ],
+   [
+    "Poll_Site_Address",
+    "esriFieldTypeString",
+    "Poll Site Address"
+   ],
+   [
+    "City",
+    "esriFieldTypeString",
+    "City"
+   ],
+   [
+    "ZipCode",
+    "esriFieldTypeString",
+    "Zip Code"
+   ],
+   [
+    "County",
+    "esriFieldTypeString",
+    "County"
+   ],
+   [
+    "NYS_Lat",
+    "esriFieldTypeDouble",
+    "Latitude"
+   ],
+   [
+    "NYS_Long",
+    "esriFieldTypeDouble",
+    "Longitude"
+   ]
+  ],
+  "samples": [
+   {
+    "OBJECTID": 17,
+    "Poll_Site_Name": "1880 Valentine Ave Community Room",
+    "Poll_Site_Address": "1880 Valentine Avenue",
+    "City": "Bronx",
+    "ZipCode": "10457",
+    "County": "Bronx",
+    "NYS_Lat": 40.849048,
+    "NYS_Long": -73.900533
+   },
+   {
+    "OBJECTID": 18,
+    "Poll_Site_Name": "Adult Behavioral Health Center",
+    "Poll_Site_Address": "1500 Waters Place",
+    "City": "Bronx",
+    "ZipCode": "10461",
+    "County": "Bronx",
+    "NYS_Lat": 40.848778,
+    "NYS_Long": -73.83936
+   },
+   {
+    "OBJECTID": 19,
+    "Poll_Site_Name": "Baychester Academy",
+    "Poll_Site_Address": "3500 Edson Avenue",
+    "City": "Bronx",
+    "ZipCode": "10466",
+    "County": "Bronx",
+    "NYS_Lat": 40.881151,
+    "NYS_Long": -73.839585
+   }
+  ],
+  "copyright": "",
+  "max_record_count": 1000
+ },
+ "search: NYC DCP LION": [
+  [
+   "Feature Service",
+   "NYC City Council Districts (LION)",
+   "nycem_adminpub",
+   "https://services1.arcgis.com/8cuieNI8NbqQZQVJ/arcgis/rest/services/LION_Council_Districts/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "NYC_Community_Districts",
+   "DCP_GIS",
+   "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Community_Districts/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "NYC Congressional District boundaries 2022",
+   "nylcev_creator_ob",
+   "https://services9.arcgis.com/op3kw8gvQAQTwpGn/arcgis/rest/services/nycg_22a2/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "NYC_Hurricane_Evacuation_Zone",
+   "DCP_GIS",
+   "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_Hurricane_Evacuation_Zone/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "NYC_State_Assembly_Districts",
+   "DCP_GIS",
+   "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_State_Assembly_Districts/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "NYC_City_Council_Districts",
+   "DCP_GIS",
+   "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/NYC_City_Council_Districts/FeatureServer"
+  ]
+ ],
+ "search: NYC Digital City Map": [
+  [
+   "Feature Service",
+   "DCM_Digital_City_Map",
+   "DCP_GIS",
+   "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/DCM_Digital_City_Map/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "DCM_Street_Center_Line",
+   "DCP_GIS",
+   "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/DCM_Street_Center_Line/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "23AvesNumbered",
+   "n.blech",
+   "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/DCM_Street_Center_Line/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "23AvesNamed",
+   "n.blech",
+   "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/DCM_Street_Center_Line/FeatureServer"
+  ],
+  [
+   "StoryMap",
+   "Mapping The Green Book in New York City ",
+   "SkyeLam",
+   "https://storymaps.arcgis.com/stories/c61ac50131594a4fb2ff371e2bce7517"
+  ],
+  [
+   "Feature Service",
+   "DCM_Street_Name_Changes_Lines",
+   "DCP_GIS",
+   "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/DCM_Street_Name_Changes_Lines/FeatureServer"
+  ]
+ ],
+ "search: NJ municipal boundaries NJGIN": [
+  [
+   "Feature Service",
+   "School Districts - Secondary for NJ, 3424",
+   "NJOGIS",
+   "https://services2.arcgis.com/XVOqAjTOJ5P6ngMu/arcgis/rest/services/School_Districts___Secondary/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "Parcel Groups (35 Acres and Above) in New Jersey",
+   "NJDEPBGIS",
+   "https://mapsdep.nj.gov/arcgis/rest/services/Features/Utilities/MapServer/7"
+  ],
+  [
+   "Map Service",
+   "NJ OGIS Cadastral Parcel Map",
+   "NJT_GIS",
+   "https://maps.nj.gov/arcgis/rest/services/Framework/Cadastral/MapServer"
+  ],
+  [
+   "Feature Service",
+   "Parcels and MOD-IV Composite of NJ, Web Mercator (3857)",
+   "NJOGIS",
+   "https://services2.arcgis.com/XVOqAjTOJ5P6ngMu/arcgis/rest/services/Parcels_Composite_NJ_WM/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "Union County NJ Parcels",
+   "asgengnj",
+   "https://services3.arcgis.com/bZFuMLjurYWlGS7D/arcgis/rest/services/Union_County_NJ_Parcels/FeatureServer"
+  ],
+  [
+   "Map Service",
+   "NJ Cadastral",
+   "lutin@njta.gov_NJTA",
+   "https://maps.nj.gov/arcgis/rest/services/Framework/Cadastral/MapServer"
+  ]
+ ],
+ "search: Connecticut town boundaries": [
+  [
+   "Feature Service",
+   "Connecticut Towns Set",
+   "deepgis",
+   "https://services1.arcgis.com/FjPcSmEFuDYlIdKC/arcgis/rest/services/Connecticut_Towns_NoLabels/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "Connecticut and Vicinity Town Boundary Set",
+   "deepgis",
+   "https://services1.arcgis.com/FjPcSmEFuDYlIdKC/arcgis/rest/services/Connecticut_and_Vicinity_Town_Boundary_Set/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "Northeastern States Town Boundary Set",
+   "deepgis",
+   "https://services1.arcgis.com/FjPcSmEFuDYlIdKC/arcgis/rest/services/Northeastern_States_Town_Boundary_Set/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "Connecticut Towns",
+   "jill.kelly_yalemaps",
+   "https://services1.arcgis.com/FjPcSmEFuDYlIdKC/arcgis/rest/services/Connecticut_Towns_NoLabels/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "Connecticut Town Index",
+   "deepgis",
+   "https://services1.arcgis.com/FjPcSmEFuDYlIdKC/arcgis/rest/services/Connecticut_Town_Index/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "Washington Town Boundary",
+   "SteepRockAssoc",
+   "https://services8.arcgis.com/NVhzfyOHRQEbSqki/arcgis/rest/services/Washington_Town_Boundary/FeatureServer"
+  ]
+ ],
+ "search: MTA Subway Stations": [
+  [
+   "Feature Service",
+   "NYC Subway Stations",
+   "GeodataAcademy",
+   "https://services7.arcgis.com/kHi1Eco9RJ4lZsrC/arcgis/rest/services/SubwayStations_NYC_2016/FeatureServer"
+  ],
+  [
+   "Feature Service",
+   "Maryland Transit - Baltimore Metro Subway Lines",
+   "mdimapdatacatalog",
+   "https://mdgeodata.md.gov/imap/rest/services/Transportation/MD_Transit/FeatureServer/5"
+  ],
+  [
+   "Feature Service",
+   "Maryland Transit - Baltimore Metro Subway Parking",
+   "mdimapdatacatalog",
+   "https://mdgeodata.md.gov/imap/rest/services/Transportation/MD_Transit/FeatureServer/14"
+  ],
+  [
+   "Feature Service",
+   "SubwayStations_share",
+   "DCP_HEIP",
+   "https://services5.arcgis.com/GfwWNkhOj9bNBqoJ/arcgis/rest/services/SubwayStations_share/FeatureServer"
+  ],
+  [
+   "Web Map",
+   "NYC Subway and MicroTek Facility",
+   "GeodataAcademy",
+   null
+  ],
+  [
+   "Feature Service",
+   "Summarize_65_or_older_disability_by_CD_in_MTA_subway_stations",
+   "Nevin_Cohen_SPH",
+   "https://services2.arcgis.com/joj8NaPDxLA49REV/arcgis/rest/services/Summarize_65_or_older_disability_by_CD_in_MTA_subway_stations/FeatureServer"
+  ]
+ ]
+}

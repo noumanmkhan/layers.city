@@ -1,0 +1,323 @@
+{
+ "key": "parks_properties",
+ "looked_for": [
+  "Parks Properties"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "enfh-gkve",
+   "Parks Properties",
+   "dataset",
+   "2026-10-16"
+  ],
+  [
+   "contains",
+   "k2ya-ucmv",
+   "ARCHIVED - Parks Properties",
+   "map",
+   "2020-02-03"
+  ],
+  [
+   "contains",
+   "krz2-j7bn",
+   "Parks Properties Map",
+   "map",
+   "2026-10-16"
+  ]
+ ],
+ "picked": {
+  "id": "enfh-gkve",
+  "name": "Parks Properties",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Parks and Recreation (DPR)",
+  "category": "Recreation",
+  "rows_updated": "2026-10-16",
+  "view_modified": "2026-10-16",
+  "update_frequency": "Monthly",
+  "description": "This dataset identifies property managed partially or solely by NYC Parks. This data has been produced in whole or part using secondary data. Data accuracy is limited by the scale and accuracy of the original sources. Site-specific conditions should be field-verified. \n\nRecords are added as more land is designated under NYC Parks’ jurisdiction. Each record represents an acquisition. \n\nUser Guide: https://docs.google.com/document/d/1NExNJF5YKID04oOopi0fHainRuGG3Pz_jKSrMujPsPk/edit?usp=sharing\n\nData Dictionary: https://docs.google.com/spreadsheets/d/1Q4DBWu7riNFxWvy1vnTJHoOI3r2L9oW6eCN56jCNyCw/edit?usp=sharing"
+ },
+ "count": 2061,
+ "geo": null,
+ "columns": [
+  {
+   "name": "acquisitiondate",
+   "type": "calendar_date",
+   "label": "ACQUISITIONDATE"
+  },
+  {
+   "name": "acres",
+   "type": "number",
+   "label": "ACRES"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "ADDRESS"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "BOROUGH"
+  },
+  {
+   "name": "class",
+   "type": "text",
+   "label": "CLASS"
+  },
+  {
+   "name": "communityboard",
+   "type": "number",
+   "label": "COMMUNITYBOARD"
+  },
+  {
+   "name": "councildistrict",
+   "type": "text",
+   "label": "COUNCILDISTRICT"
+  },
+  {
+   "name": "department",
+   "type": "text",
+   "label": "DEPARTMENT"
+  },
+  {
+   "name": "gisobjid",
+   "type": "number",
+   "label": "GISOBJID"
+  },
+  {
+   "name": "gispropnum",
+   "type": "text",
+   "label": "GISPROPNUM"
+  },
+  {
+   "name": "globalid",
+   "type": "text",
+   "label": "GlobalID"
+  },
+  {
+   "name": "jurisdiction",
+   "type": "text",
+   "label": "JURISDICTION"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "mapped",
+   "type": "text",
+   "label": "MAPPED"
+  },
+  {
+   "name": "name311",
+   "type": "text",
+   "label": "NAME311"
+  },
+  {
+   "name": "nys_assembly",
+   "type": "number",
+   "label": "NYS_ASSEMBLY"
+  },
+  {
+   "name": "nys_senate",
+   "type": "number",
+   "label": "NYS_SENATE"
+  },
+  {
+   "name": "objectid",
+   "type": "number",
+   "label": "OBJECTID"
+  },
+  {
+   "name": "omppropid",
+   "type": "text",
+   "label": "OMPPROPID"
+  },
+  {
+   "name": "parentid",
+   "type": "text",
+   "label": "PARENTID"
+  },
+  {
+   "name": "permit",
+   "type": "checkbox",
+   "label": "PERMIT"
+  },
+  {
+   "name": "permitdistrict",
+   "type": "text",
+   "label": "PERMITDISTRICT"
+  },
+  {
+   "name": "permitparent",
+   "type": "text",
+   "label": "PERMITPARENT"
+  },
+  {
+   "name": "pip_ratable",
+   "type": "checkbox",
+   "label": "PIP_RATABLE"
+  },
+  {
+   "name": "precinct",
+   "type": "number",
+   "label": "PRECINCT"
+  },
+  {
+   "name": "retired",
+   "type": "checkbox",
+   "label": "RETIRED"
+  },
+  {
+   "name": "signname",
+   "type": "text",
+   "label": "SIGNNAME"
+  },
+  {
+   "name": "subcategory",
+   "type": "text",
+   "label": "SUBCATEGORY"
+  },
+  {
+   "name": "typecategory",
+   "type": "text",
+   "label": "TYPECATEGORY"
+  },
+  {
+   "name": "us_congress",
+   "type": "number",
+   "label": "US_CONGRESS"
+  },
+  {
+   "name": "waterfront",
+   "type": "checkbox",
+   "label": "WATERFRONT"
+  },
+  {
+   "name": "zipcode",
+   "type": "text",
+   "label": "ZIPCODE"
+  },
+  {
+   "name": "multipolygon",
+   "type": "multipolygon",
+   "label": "multipolygon"
+  }
+ ],
+ "samples": [
+  {
+   "acquisitiondate": "1934-07-12T00:00:00.000",
+   "acres": "0.456",
+   "address": "53-41 WEST 138 STREET",
+   "borough": "M",
+   "class": "PARK",
+   "communityboard": "110",
+   "councildistrict": "9",
+   "department": "M-10",
+   "gisobjid": "100003952",
+   "gispropnum": "M110",
+   "globalid": "2ECEBF8F-F858-4176-B497-3C788302F309",
+   "jurisdiction": "DPR",
+   "location": "W. 138 St., bet. Lenox Ave. and 5 Ave.",
+   "mapped": "False",
+   "name311": "William McCray Playground",
+   "nys_assembly": "70",
+   "nys_senate": "30",
+   "objectid": "170798",
+   "omppropid": "M110",
+   "parentid": "M-10",
+   "permit": true,
+   "permitdistrict": "M-10",
+   "permitparent": "M-10",
+   "pip_ratable": true,
+   "precinct": "32",
+   "retired": false,
+   "signname": "William McCray Playground",
+   "subcategory": "Neighborhood Plgd",
+   "typecategory": "Playground",
+   "us_congress": "13",
+   "waterfront": false,
+   "zipcode": "10037",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "acquisitiondate": "1961-01-12T00:00:00.000",
+   "acres": "2.646",
+   "address": "3800 BAYCHESTER AVENUE",
+   "borough": "X",
+   "class": "PARK",
+   "communityboard": "212",
+   "councildistrict": "12",
+   "department": "X-12",
+   "gisobjid": "100004607",
+   "gispropnum": "X193",
+   "globalid": "33576BAF-ADF8-4B15-A75A-2D3E98319EB4",
+   "jurisdiction": "DPR/DOE",
+   "location": "Crawford Ave. at Baychester Ave.",
+   "mapped": "False",
+   "name311": "Stars & Stripes Playground",
+   "nys_assembly": "83",
+   "nys_senate": "36",
+   "objectid": "170797",
+   "omppropid": "X193",
+   "parentid": "X-12",
+   "permit": true,
+   "permitdistrict": "X-12",
+   "permitparent": "X-12",
+   "pip_ratable": true,
+   "precinct": "47",
+   "retired": false,
+   "signname": "Stars & Stripes Playground",
+   "subcategory": "JOP",
+   "typecategory": "Jointly Operated Playground",
+   "us_congress": "16",
+   "waterfront": false,
+   "zipcode": "10466",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "acquisitiondate": "1970-01-19T00:00:00.000",
+   "acres": "0.817",
+   "address": "32-23 99 STREET",
+   "borough": "Q",
+   "class": "PARK",
+   "communityboard": "403",
+   "councildistrict": "21",
+   "department": "Q-03",
+   "gisobjid": "100000148",
+   "gispropnum": "Q441",
+   "globalid": "16D921AC-52B9-43CC-AD7A-C3BBC3494E6E",
+   "jurisdiction": "DPR",
+   "location": "32 Ave. bet. 99 St. and 100 St.",
+   "mapped": "False",
+   "name311": "Fisher Pool",
+   "nys_assembly": "35",
+   "nys_senate": "13",
+   "objectid": "170796",
+   "omppropid": "Q441",
+   "parentid": "Q-03",
+   "permit": true,
+   "permitdistrict": "Q-03",
+   "permitparent": "Q-03",
+   "pip_ratable": false,
+   "precinct": "115",
+   "retired": false,
+   "signname": "Fisher Pool",
+   "subcategory": "Building",
+   "typecategory": "Buildings/Institutions",
+   "us_congress": "14",
+   "waterfront": false,
+   "zipcode": "11369",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
+}

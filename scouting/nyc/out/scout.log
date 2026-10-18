@@ -1,0 +1,220 @@
+Catalogue: 3021 datasets on data.cityofnewyork.us
+boroughs: Borough Boundaries (gthc-hcne)
+boroughs: "Borough Boundaries" gthc-hcne · 5 rows · data 2026-05-26 · 5 cols
+community_districts: Community Districts (5crt-au7u)
+community_districts: "Community Districts" 5crt-au7u · 71 rows · data 2026-05-26 · 4 cols
+ntas_2020: 2020 Neighborhood Tabulation Areas (NTAs) (9nt8-h7nd)
+ntas_2020: "2020 Neighborhood Tabulation Areas (NTAs)" 9nt8-h7nd · 262 rows · data 2026-05-28 · 12 cols
+census_tracts_2020: 2020 Census Tracts (63ge-mke6)
+census_tracts_2020: "2020 Census Tracts" 63ge-mke6 · 2325 rows · data 2026-05-26 · 14 cols
+neighborhood_names: NOT FOUND in catalogue (Neighborhood Names GIS)
+council_districts: City Council Districts (872g-cjhh)
+council_districts: "City Council Districts" 872g-cjhh · 51 rows · data 2026-05-26 · 4 cols
+assembly_districts: State Assembly Districts (5yfv-9hkp)
+assembly_districts: "State Assembly Districts" 5yfv-9hkp · 65 rows · data 2026-05-28 · 4 cols
+senate_districts: State Senate Districts (h4i2-acfi)
+senate_districts: "State Senate Districts" h4i2-acfi · ? rows · data 2026-05-26 · 0 cols
+congressional_districts: Congressional Districts (j3u5-usz2)
+congressional_districts: "Congressional Districts" j3u5-usz2 · 13 rows · data 2026-05-26 · 4 cols
+election_districts: Election Districts (h2n3-98hq)
+election_districts: "Election Districts" h2n3-98hq · ? rows · data 2026-05-26 · 0 cols
+school_districts: School Districts (8ugf-3d8u)
+school_districts: "School Districts" 8ugf-3d8u · 33 rows · data 2026-05-26 · 4 cols
+bids: Business Improvement Districts (ejxk-d93y)
+bids: "Business Improvement Districts" ejxk-d93y · ? rows · data 2024-10-08 · 0 cols
+lpc_districts: Historic Districts (skyk-mpzq)
+lpc_districts: "Historic Districts" skyk-mpzq · 141 rows · data 2026-06-18 · 15 cols
+lpc_landmarks: Individual Landmark Sites (buis-pvji)
+lpc_landmarks: "Individual Landmark Sites" buis-pvji · 1532 rows · data 2026-06-30 · 23 cols
+lpc_buildings: NOT FOUND in catalogue (LPC Individual Landmark and Historic District Building Database)
+lpc_calendared: Designated and Calendared Buildings and Sites (ncre-qhxs)
+lpc_calendared: "Designated and Calendared Buildings and Sites" ncre-qhxs · 39363 rows · data 2026-06-18 · 34 cols
+parks_properties: Parks Properties (enfh-gkve)
+parks_properties: "Parks Properties" enfh-gkve · 2061 rows · data 2026-10-16 · 33 cols
+playgrounds: ARCHIVE - DPR_SchoolyardsToPlaygrounds_001 (bvus-rxia)
+playgrounds: "ARCHIVE - DPR_SchoolyardsToPlaygrounds_001" bvus-rxia · 231 rows · data 2015-04-23 · 12 cols
+spray_showers: Cool It! NYC 2020 - Spray Showers (tzuk-eq2f)
+spray_showers: "Cool It! NYC 2020 - Spray Showers" tzuk-eq2f · 755 rows · data 2020-11-27 · 12 cols
+dog_runs: NYC Parks Dog Runs (8nac-uner)
+dog_runs: "NYC Parks Dog Runs" 8nac-uner · ? rows · data 2026-10-15 · 0 cols
+comfort_stations: Directory Of Toilets In Public Parks (hjae-yuav)
+comfort_stations: "Directory Of Toilets In Public Parks" hjae-yuav · 616 rows · data 2013-06-21 · 6 cols
+athletic_facilities: Athletic Facilities (qnem-b8re)
+athletic_facilities: "Athletic Facilities" qnem-b8re · 6951 rows · data 2026-07-23 · 45 cols
+pools: NYC Parks Pools (y5rm-wagw)
+pools: "NYC Parks Pools" y5rm-wagw · 91 rows · data 2026-10-15 · 11 cols
+rinks: Directory of Ice Skating Rinks (sage-tgxd)
+  retry 1 https://data.cityofnewyork.us/resource/sage-tgxd.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/sage-tgxd.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/sage-tgxd.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 1 https://data.cityofnewyork.us/resource/sage-tgxd.json?$limit=3 HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/sage-tgxd.json?$limit=3 HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/sage-tgxd.json?$limit=3 HTTP Error 403: Forbidden
+rinks: "Directory of Ice Skating Rinks" sage-tgxd · ? rows · data 2011-08-16 · 0 cols
+skate_parks: Parks Closure Status Due to COVID-19: Skate Parks (pvvr-75zk)
+skate_parks: "Parks Closure Status Due to COVID-19: Skate Parks" pvvr-75zk · 36 rows · data 2021-11-22 · 16 cols
+rec_centers: Directory of Recreation Centers (ydj7-rk56)
+  retry 1 https://data.cityofnewyork.us/resource/ydj7-rk56.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/ydj7-rk56.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/ydj7-rk56.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 1 https://data.cityofnewyork.us/resource/ydj7-rk56.json?$limit=3 HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/ydj7-rk56.json?$limit=3 HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/ydj7-rk56.json?$limit=3 HTTP Error 403: Forbidden
+rec_centers: "Directory of Recreation Centers" ydj7-rk56 · ? rows · data 2011-10-08 · 0 cols
+facdb: Facilities Database (ji82-xba5)
+facdb: "Facilities Database" ji82-xba5 · 34446 rows · data 2026-07-16 · 38 cols
+schools_points: School Point Locations (jfju-ynrr)
+  retry 1 https://data.cityofnewyork.us/resource/jfju-ynrr.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/jfju-ynrr.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/jfju-ynrr.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 1 https://data.cityofnewyork.us/resource/jfju-ynrr.json?$limit=3 HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/jfju-ynrr.json?$limit=3 HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/jfju-ynrr.json?$limit=3 HTTP Error 403: Forbidden
+schools_points: "School Point Locations" jfju-ynrr · ? rows · data 2011-09-22 · 0 cols
+school_zones_es: School Zones 2024-2025 (Elementary School) (cmjf-yawu)
+school_zones_es: "School Zones 2024-2025 (Elementary School)" cmjf-yawu · 770 rows · data 2024-03-13 · 16 cols
+school_zones_ms: School Zones 2024-2025 (Middle School) (t26j-jbq7)
+school_zones_ms: "School Zones 2024-2025 (Middle School)" t26j-jbq7 · 279 rows · data 2024-03-13 · 14 cols
+school_zones_hs: School Zones 2024-2025 (High School) (ruu9-egea)
+school_zones_hs: "School Zones 2024-2025 (High School)" ruu9-egea · 80 rows · data 2024-03-13 · 13 cols
+colleges: NOT FOUND in catalogue (Colleges and Universities)
+hospitals: DOHMH Covid-19 Milestone Data: Daily Number of People Admitted to NYC hospitals for Covid-19 like Illness (sj3k-gzyx)
+hospitals: "DOHMH Covid-19 Milestone Data: Daily Number of People Admitted to NYC hospitals for Covid-19 like Illness" sj3k-gzyx · 470 rows · data 2021-06-15 · 6 cols
+libraries: Library (p4pf-fyc4)
+libraries: "Library" p4pf-fyc4 · ? rows · data 2016-06-22 · 0 cols
+street_centerline: NOT FOUND in catalogue (NYC Street Centerline (CSCL))
+lion: LION (2v4z-66xt)
+  retry 1 https://data.cityofnewyork.us/resource/2v4z-66xt.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/2v4z-66xt.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/2v4z-66xt.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 1 https://data.cityofnewyork.us/resource/2v4z-66xt.json?$limit=3 HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/2v4z-66xt.json?$limit=3 HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/2v4z-66xt.json?$limit=3 HTTP Error 403: Forbidden
+lion: "LION" 2v4z-66xt · ? rows · data 2013-01-28 · 0 cols
+truck_routes: New York City Truck Routes (jjja-shxy)
+truck_routes: "New York City Truck Routes" jjja-shxy · 32939 rows · data 2026-03-02 · 23 cols
+bike_routes: New York City Bike Routes (mzxg-pwib)
+bike_routes: "New York City Bike Routes" mzxg-pwib · 29695 rows · data 2026-07-24 · 25 cols
+bike_racks: Bicycle Parking (592z-n7dk)
+bike_racks: "Bicycle Parking" 592z-n7dk · 38107 rows · data 2026-10-13 · 29 cols
+street_closures_block: Street Closures due to Construction Activities by Block (i6b5-j7bu)
+street_closures_block: "Street Closures due to Construction Activities by Block" i6b5-j7bu · 3895 rows · data 2026-10-12 · 11 cols
+street_closures_intersection: Street Closures due to Construction Activities by Intersection (478a-yykk)
+street_closures_intersection: "Street Closures due to Construction Activities by Intersection" 478a-yykk · 1476 rows · data 2026-10-12 · 14 cols
+permitted_events: NYC Permitted Event Information (tvpp-9vvx)
+permitted_events: "NYC Permitted Event Information" tvpp-9vvx · 26859 rows · data 2026-10-17 · 13 cols
+dob_now_jobs: DOB NOW: Build – Job Application Filings (w9ak-ipjd)
+dob_now_jobs: "DOB NOW: Build – Job Application Filings" w9ak-ipjd · 971491 rows · data 2026-10-17 · 95 cols
+dob_permits: DOB Permit Issuance (ipu4-2q9a)
+dob_permits: "DOB Permit Issuance" ipu4-2q9a · 3990985 rows · data 2026-10-17 · 60 cols
+dob_now_permits: DOB NOW: Build – Approved Permits (rbx6-tga4)
+dob_now_permits: "DOB NOW: Build – Approved Permits" rbx6-tga4 · 1016520 rows · data 2026-10-17 · 46 cols
+housing_database: Housing Database (6umk-irkx)
+  retry 1 https://data.cityofnewyork.us/resource/6umk-irkx.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/6umk-irkx.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/6umk-irkx.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 1 https://data.cityofnewyork.us/resource/6umk-irkx.json?$limit=3 HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/6umk-irkx.json?$limit=3 HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/6umk-irkx.json?$limit=3 HTTP Error 403: Forbidden
+housing_database: "Housing Database" 6umk-irkx · ? rows · data 2021-03-19 · 0 cols
+zap_projects: Zoning Application Portal (ZAP) - Project Data (hgx4-8ukb)
+zap_projects: "Zoning Application Portal (ZAP) - Project Data" hgx4-8ukb · 32964 rows · data 2026-08-12 · 35 cols
+zap_bbl: Zoning Application Portal (ZAP) - BBL (2iga-a6mk)
+zap_bbl: "Zoning Application Portal (ZAP) - BBL" 2iga-a6mk · 132090 rows · data 2026-08-12 · 10 cols
+poll_sites_2018: Voting/Poll Sites (mifw-tguq)
+poll_sites_2018: "Voting/Poll Sites" mifw-tguq · 1231 rows · data 2018-10-29 · 25 cols
+evacuation_zones: Hurricane Evacuation Zones (epne-qv9x)
+evacuation_zones: "Hurricane Evacuation Zones" epne-qv9x · 8 rows · data 2026-05-26 · 4 cols
+evacuation_centers: Hurricane Evacuation Centers (p5md-weyf)
+evacuation_centers: "Hurricane Evacuation Centers" p5md-weyf · 60 rows · data 2026-09-01 · 15 cols
+parking_regulations: Parking Regulation Locations and Signs (nfid-uabd)
+parking_regulations: "Parking Regulation Locations and Signs" nfid-uabd · 441348 rows · data 2026-10-18 · 25 cols
+municipal_parking: Carshare Locations - Municipal Garages and Lots (j4y5-w7iq)
+municipal_parking: "Carshare Locations - Municipal Garages and Lots" j4y5-w7iq · 9 rows · data 2026-08-14 · 12 cols
+ev_chargers: NOT FOUND in catalogue (Electric Vehicle Charging Stations)
+pops: Privately Owned Public Spaces (POPS) (rvih-nhyn)
+pops: "Privately Owned Public Spaces (POPS)" rvih-nhyn · 392 rows · data 2025-10-14 · 39 cols
+open_streets: Open Streets Locations (uiay-nctu)
+open_streets: "Open Streets Locations" uiay-nctu · 391 rows · data 2026-10-01 · 29 cols
+plazas: NYC DOT Pedestrian Plazas (Map) (fnkv-pyhj)
+plazas: "NYC DOT Pedestrian Plazas (Map)" fnkv-pyhj · ? rows · data 2026-10-01 · 0 cols
+ferry_routes: NOT FOUND in catalogue (NYC Ferry Routes)
+ferry_landings: NOT FOUND in catalogue (NYC Ferry Landings)
+subway_stations: NOT FOUND in catalogue (MTA Subway Stations)
+shoreline: NYC Planimetric Database: Shoreline (2qj2-cctx)
+shoreline: "NYC Planimetric Database: Shoreline" 2qj2-cctx · ? rows · data 2024-04-24 · 0 cols
+hydrography: NYC Planimetric Database: Hydrography (drh3-e2fd)
+hydrography: "NYC Planimetric Database: Hydrography" drh3-e2fd · ? rows · data 2024-04-24 · 0 cols
+address_points: NOT FOUND in catalogue (NYC Address Points)
+dsny_frequencies_socrata: DSNY Frequencies (rv63-53db)
+dsny_frequencies_socrata: "DSNY Frequencies" rv63-53db · 610 rows · data 2026-09-22 · 12 cols
+dsny_districts: DSNY Districts (i6mn-amj2)
+dsny_districts: "DSNY Districts" i6mn-amj2 · 59 rows · data 2026-09-17 · 6 cols
+police_precincts: Police Precincts (y76i-bdw7)
+police_precincts: "Police Precincts" y76i-bdw7 · 78 rows · data 2026-05-26 · 4 cols
+nycha: NOT FOUND in catalogue (Map of NYCHA Developments)
+beaches: Beaches (ijwa-mn2v)
+beaches: "Beaches" ijwa-mn2v · 197 rows · data 2026-10-15 · 8 cols
+tree_canopy: Tree Canopy Change (2010 - 2017) (by9k-vhck)
+  retry 1 https://data.cityofnewyork.us/resource/by9k-vhck.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/by9k-vhck.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/by9k-vhck.json?$select=count(*) HTTP Error 403: Forbidden
+  retry 1 https://data.cityofnewyork.us/resource/by9k-vhck.json?$limit=3 HTTP Error 403: Forbidden
+  retry 2 https://data.cityofnewyork.us/resource/by9k-vhck.json?$limit=3 HTTP Error 403: Forbidden
+  retry 3 https://data.cityofnewyork.us/resource/by9k-vhck.json?$limit=3 HTTP Error 403: Forbidden
+tree_canopy: "Tree Canopy Change (2010 - 2017)" by9k-vhck · ? rows · data 2018-12-07 · 0 cols
+senior_centers: VZV Senior Centers (xu8q-aip5)
+senior_centers: "VZV Senior Centers" xu8q-aip5 · ? rows · data 2026-10-01 · 0 cols
+community_centers: NOT FOUND in catalogue (DYCD Cornerstone)
+ArcGIS dsny_frequencies: 610 features · edited 2026-04-08 · 11 fields
+NYSDOT gis.dot.ny.gov: layers [(0, 'NYSDOT Roadway Inventory'), (1, 'NYSDOT State Touring Inventory')]
+ArcGIS nysdot_inventory: 68851 features · edited None · 66 fields
+NYSDOT NYC segments by Functional_Class: [{'Functional_Class': '16-Urban Minor Arterial', 'n': 13}, {'Functional_Class': None, 'n': 17}, {'Functional_Class': '14-Urban Principal Arterial Other', 'n': 397}, {'Functional_Class': '11-Urban Principal Arterial Interstate', 'n': 1396}, {'Functional_Class': '12-Urban PA Other Freeway or Expressway', 'n': 840}]
+ArcGIS Online "Election Day Polling Sites NYC": [('Feature Service', 'NYS Elections Districts and Polling Locations', 'NYSGIS_GPO', 'https://services6.arcgis.com/EbVsqZ18sv1kVJ3k/arcgis/rest/services/NYS_Elections_Districts_and_Polling_Locations/FeatureServer', '2026-10-16'), ('Feature Service', 'Voting Sites', 'devin_HST', 'https://services8.arcgis.com/JI7FiIRUMjk9p0vW/arcgis/rest/services/Voting_Sites/FeatureServer', '2021-06-04'), ('Web Map', 'NYS Elections Districts and Polling Locations', 'NYSGIS_GPO', '', '2026-10-16')]
+ArcGIS nys_polling_0: 271 features · edited 2026-10-16 · 11 fields
+ArcGIS nys_polling_1: 157 features · edited 2026-10-16 · 8 fields
+ArcGIS nys_polling_2: 3649 features · edited 2026-10-16 · 10 fields
+ArcGIS nys_polling_3: 1206 features · edited 2026-10-16 · 8 fields
+GTFS subway: 5.6 MB · 29 routes [('1', 28), ('2', 1)] · 1488 stops · 20621 trips · ['20260526', '20261031']
+GTFS bus_bronx: 8.4 MB · 307 routes [('3', 255), ('711', 52)] · 1890 stops · 41156 trips · ['20261008', '20270102']
+GTFS bus_brooklyn: 17.0 MB · 307 routes [('3', 255), ('711', 52)] · 4575 stops · 58357 trips · ['20261008', '20270102']
+GTFS bus_manhattan: 8.3 MB · 307 routes [('3', 255), ('711', 52)] · 1823 stops · 37872 trips · ['20261008', '20270102']
+GTFS bus_queens: 6.0 MB · 307 routes [('3', 255), ('711', 52)] · 1422 stops · 31199 trips · ['20261008', '20270102']
+GTFS bus_staten_island: 6.4 MB · 307 routes [('3', 255), ('711', 52)] · 1965 stops · 16524 trips · ['20261012', '20270102']
+GTFS bus_company: 8.4 MB · 92 routes [('3', 92)] · 2758 stops · 45424 trips · ['20261009', '20270102']
+GTFS lirr: 1.7 MB · 13 routes [('2', 13)] · 127 stops · 2291 trips · [None, None]
+GTFS metro_north: 4.4 MB · 6 routes [('2', 6)] · 114 stops · 37196 trips · [None, None]
+probe path: {'ok': True, 'bytes': 3177, 'zip': False, 'gtfs_links': []}
+probe nyc_ferry_gtfs: {'ok': True, 'bytes': 35889, 'zip': True, 'gtfs_links': []}
+probe njtransit_dev: {'ok': True, 'bytes': 48328, 'zip': False, 'gtfs_links': []}
+Citi Bike: 2519 stations · 0 charging · regions [('71', 2400), ('70', 78), ('311', 28), (None, 13)]
+fontTools is required to fully parse the encoding of a CFF Type1 font in font dictionary {'/BaseFont': '/PDZMBJ+MinionPro-Regular', '/Encoding': '/WinAnsiEncoding', '/FirstChar': 32, '/FontDescriptor': IndirectObject(36, 0, 140366229456704), '/LastChar': 121, '/Subtype': '/Type1', '/Type': '/Font', '/Widths': [227, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 356, 228, 0, 480, 480, 480, 0, 0, 480, 480, 480, 0, 480, 228, 0, 0, 0, 0, 0, 0, 0, 0, 0, 735, 568, 0, 715, 0, 0, 0, 0, 538, 0, 743, 0, 563, 0, 0, 474, 0, 0, 0, 0, 0, 634, 0, 0, 0, 0, 0, 0, 0, 439, 0, 423, 528, 425, 0, 0, 0, 268, 0, 496, 253, 0, 547, 510, 0, 0, 371, 367, 305, 0, 463, 685, 0, 459]}, but is not installed. Consider installing fontTools if you encounter encoding problems.
+fontTools is required to fully parse the encoding of a CFF Type1 font in font dictionary {'/BaseFont': '/PDZMBJ+MinionPro-Regular', '/Encoding': '/WinAnsiEncoding', '/FirstChar': 32, '/FontDescriptor': IndirectObject(36, 0, 140366229456704), '/LastChar': 121, '/Subtype': '/Type1', '/Type': '/Font', '/Widths': [227, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 356, 228, 0, 480, 480, 480, 0, 0, 480, 480, 480, 0, 480, 228, 0, 0, 0, 0, 0, 0, 0, 0, 0, 735, 568, 0, 715, 0, 0, 0, 0, 538, 0, 743, 0, 563, 0, 0, 474, 0, 0, 0, 0, 0, 634, 0, 0, 0, 0, 0, 0, 0, 439, 0, 423, 528, 425, 0, 0, 0, 268, 0, 496, 253, 0, 547, 510, 0, 0, 371, 367, 305, 0, 463, 685, 0, 459]}, but is not installed. Consider installing fontTools if you encounter encoding problems.
+BOE manhattan: 896 ED rows · 259 sites · ADs [37, 61, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76]
+  retry 1 https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Election_Day_New_York.pdf HTTP Error 404: Not Found
+BOE manhattan_r0 not found
+  retry 1 https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Election_Day_Bronx.pdf HTTP Error 404: Not Found
+BOE bronx not found
+  retry 1 https://www.vote.nyc/sites/default/files/pdf/poll_site_list/GE2026/Poll_Site_List_Nov_General_2026_Election_Day_Kings.pdf HTTP Error 404: Not Found
+BOE brooklyn not found
+fontTools is required to fully parse the encoding of a CFF Type1 font in font dictionary {'/BaseFont': '/DWTDRH+MinionPro-Regular', '/Encoding': '/WinAnsiEncoding', '/FirstChar': 32, '/FontDescriptor': IndirectObject(36, 0, 140366225895360), '/LastChar': 121, '/Subtype': '/Type1', '/Type': '/Font', '/Widths': [227, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 356, 228, 0, 480, 480, 480, 0, 480, 0, 480, 480, 0, 480, 228, 0, 0, 0, 0, 0, 0, 0, 0, 0, 735, 568, 0, 715, 0, 0, 0, 0, 538, 0, 743, 0, 563, 745, 0, 474, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 439, 0, 423, 528, 425, 0, 0, 0, 268, 0, 0, 253, 0, 547, 510, 0, 0, 371, 367, 305, 531, 463, 0, 0, 459]}, but is not installed. Consider installing fontTools if you encounter encoding problems.
+fontTools is required to fully parse the encoding of a CFF Type1 font in font dictionary {'/BaseFont': '/DWTDRH+MinionPro-Regular', '/Encoding': '/WinAnsiEncoding', '/FirstChar': 32, '/FontDescriptor': IndirectObject(36, 0, 140366225895360), '/LastChar': 121, '/Subtype': '/Type1', '/Type': '/Font', '/Widths': [227, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 356, 228, 0, 480, 480, 480, 0, 480, 0, 480, 480, 0, 480, 228, 0, 0, 0, 0, 0, 0, 0, 0, 0, 735, 568, 0, 715, 0, 0, 0, 0, 538, 0, 743, 0, 563, 745, 0, 474, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 439, 0, 423, 528, 425, 0, 0, 0, 268, 0, 0, 253, 0, 547, 510, 0, 0, 371, 367, 305, 531, 463, 0, 0, 459]}, but is not installed. Consider installing fontTools if you encounter encoding problems.
+BOE queens: 1123 ED rows · 306 sites · ADs [23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+fontTools is required to fully parse the encoding of a CFF Type1 font in font dictionary {'/BaseFont': '/GTEUQM+MinionPro-Regular', '/Encoding': '/WinAnsiEncoding', '/FirstChar': 32, '/FontDescriptor': IndirectObject(30, 0, 140366225793456), '/LastChar': 121, '/Subtype': '/Type1', '/Type': '/Font', '/Widths': [227, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 356, 228, 0, 480, 480, 480, 480, 0, 480, 480, 480, 0, 480, 228, 0, 0, 0, 0, 0, 0, 0, 0, 0, 735, 568, 0, 715, 0, 0, 0, 0, 538, 0, 743, 0, 563, 0, 621, 474, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 439, 0, 423, 528, 425, 0, 0, 534, 268, 0, 0, 253, 819, 547, 510, 0, 0, 371, 367, 305, 0, 463, 0, 0, 459]}, but is not installed. Consider installing fontTools if you encounter encoding problems.
+BOE staten_island: 254 ED rows · 79 sites · ADs [61, 62, 63, 64]
+  retry 1 https://api.census.gov/data/2023/acs/acs5?get=NAME,B25003_001E,B25003_003E,B25077_001E,B25064_001E,B08301_001E,B08301_002E,B25024_001E&for=t Expecting value: line 1 column 1 (char 0)
+  retry 2 https://api.census.gov/data/2023/acs/acs5?get=NAME,B25003_001E,B25003_003E,B25077_001E,B25064_001E,B08301_001E,B08301_002E,B25024_001E&for=t Expecting value: line 1 column 1 (char 0)
+  retry 3 https://api.census.gov/data/2023/acs/acs5?get=NAME,B25003_001E,B25003_003E,B25077_001E,B25064_001E,B08301_001E,B08301_002E,B25024_001E&for=t Expecting value: line 1 column 1 (char 0)
+ACS 2023 tracts in NYC: None
+  retry 1 https://developer.nrel.gov/api/alt-fuel-stations/v1.json?api_key=DEMO_KEY&fuel_type=ELEC&state=NY&access=public&status=E&limit=1 <urlopen error [Errno -5] No address associated with hostname>
+  retry 2 https://developer.nrel.gov/api/alt-fuel-stations/v1.json?api_key=DEMO_KEY&fuel_type=ELEC&state=NY&access=public&status=E&limit=1 <urlopen error [Errno -5] No address associated with hostname>
+  retry 3 https://developer.nrel.gov/api/alt-fuel-stations/v1.json?api_key=DEMO_KEY&fuel_type=ELEC&state=NY&access=public&status=E&limit=1 <urlopen error [Errno -5] No address associated with hostname>
+AFDC public open EV stations in NY: None
+Wikipedia sections: ['History', 'Early skyscrapers', '1930s–1950s', '1960s–1980s', '1990s–present', 'WTC redevelopment', 'Supertall boom and Hudson Yards', 'Beyond Manhattan', 'Cityscape', 'Map of tallest buildings', 'Tallest buildings', 'Tallest buildings by pinnacle height']
+nys_kosher: ['Kosher Foods Registration | Agriculture and Markets'] · 5 links
+nys_halal: ['Halal Foods Registration | Agriculture and Markets'] · 5 links
+nys_halal_overview: [] · 0 links
+dcp_lion_page: ok=True zips=[]
+dcp_districts_page: ok=True zips=[]
+dcp_election_districts: ok=True zips=[]
+done

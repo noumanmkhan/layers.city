@@ -1,0 +1,217 @@
+{
+ "key": "parking_regulations",
+ "looked_for": [
+  "Parking Regulation Locations and Signs"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "nfid-uabd",
+   "Parking Regulation Locations and Signs",
+   "dataset",
+   "2026-10-18"
+  ]
+ ],
+ "picked": {
+  "id": "nfid-uabd",
+  "name": "Parking Regulation Locations and Signs",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Transportation (DOT)",
+  "category": "Transportation",
+  "rows_updated": "2026-10-18",
+  "view_modified": "2026-10-18",
+  "update_frequency": "Daily",
+  "description": "Department of Transpiration manages approximately 1,000,000 signs on the streets of New York. This dataset contains current and historical parking regulation signs. For all street signs, please use <a href=\"https://data.cityofnewyork.us/Transportation/Street-Sign-Work-Orders/qt6m-xctn\">Street Sign Work Orders</a>."
+ },
+ "count": 441348,
+ "geo": null,
+ "columns": [
+  {
+   "name": "order_number",
+   "type": "text",
+   "label": "order_number"
+  },
+  {
+   "name": "record_type",
+   "type": "text",
+   "label": "record_type"
+  },
+  {
+   "name": "order_type",
+   "type": "text",
+   "label": "order_type"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "borough"
+  },
+  {
+   "name": "on_street",
+   "type": "text",
+   "label": "on_street"
+  },
+  {
+   "name": "on_street_suffix",
+   "type": "text",
+   "label": "on_street_suffix"
+  },
+  {
+   "name": "from_street",
+   "type": "text",
+   "label": "from_street"
+  },
+  {
+   "name": "from_street_suffix",
+   "type": "text",
+   "label": "from_street_suffix"
+  },
+  {
+   "name": "to_street",
+   "type": "text",
+   "label": "to_street"
+  },
+  {
+   "name": "to_street_suffix",
+   "type": "text",
+   "label": "to_street_suffix"
+  },
+  {
+   "name": "side_of_street",
+   "type": "text",
+   "label": "side_of_street"
+  },
+  {
+   "name": "order_completed_on_date",
+   "type": "calendar_date",
+   "label": "order_completed_on_date"
+  },
+  {
+   "name": "sign_code",
+   "type": "text",
+   "label": "sign_code"
+  },
+  {
+   "name": "sign_description",
+   "type": "text",
+   "label": "sign_description"
+  },
+  {
+   "name": "sign_size",
+   "type": "text",
+   "label": "sign_size"
+  },
+  {
+   "name": "sign_design_voided_on_date",
+   "type": "calendar_date",
+   "label": "sign_design_voided_on_date"
+  },
+  {
+   "name": "sign_location",
+   "type": "text",
+   "label": "sign_location"
+  },
+  {
+   "name": "distance_from_intersection",
+   "type": "number",
+   "label": "distance_from_intersection"
+  },
+  {
+   "name": "arrow_direction",
+   "type": "text",
+   "label": "arrow_direction"
+  },
+  {
+   "name": "facing_direction",
+   "type": "text",
+   "label": "facing_direction"
+  },
+  {
+   "name": "sheeting_type",
+   "type": "text",
+   "label": "sheeting_type"
+  },
+  {
+   "name": "support",
+   "type": "text",
+   "label": "support"
+  },
+  {
+   "name": "sign_notes",
+   "type": "text",
+   "label": "sign_notes"
+  },
+  {
+   "name": "sign_x_coord",
+   "type": "number",
+   "label": "sign_x_coord"
+  },
+  {
+   "name": "sign_y_coord",
+   "type": "number",
+   "label": "sign_y_coord"
+  }
+ ],
+ "samples": [
+  {
+   "order_number": "P-01863203",
+   "record_type": "Current",
+   "order_type": "P-",
+   "borough": "Queens",
+   "on_street": "LIBERTY AVENUE",
+   "from_street": "111 STREET",
+   "to_street": "112 STREET",
+   "side_of_street": "S",
+   "order_completed_on_date": "2026-07-17T00:00:00.000",
+   "sign_code": "PS-9A",
+   "sign_description": "PAY-BY-CELL LOCATOR NUMBER",
+   "sign_size": "018 X 006",
+   "distance_from_intersection": "167",
+   "sheeting_type": "PNTD",
+   "support": "SAME",
+   "sign_notes": "409278",
+   "sign_x_coord": "1031236",
+   "sign_y_coord": "188870"
+  },
+  {
+   "order_number": "P-01667780",
+   "record_type": "Current",
+   "order_type": "P-",
+   "borough": "Manhattan",
+   "on_street": "3 AVENUE",
+   "from_street": "EAST   85 STREET",
+   "to_street": "EAST   86 STREET",
+   "side_of_street": "W",
+   "order_completed_on_date": "2023-09-13T00:00:00.000",
+   "sign_code": "PS-127C",
+   "sign_description": "2 HMP SATURDAY 8AM-7PM <->",
+   "sign_size": "018 X 018",
+   "distance_from_intersection": "44",
+   "sheeting_type": "PNTD",
+   "support": "SAME",
+   "sign_x_coord": "996877",
+   "sign_y_coord": "222815"
+  },
+  {
+   "order_number": "S-01665760",
+   "record_type": "Current",
+   "order_type": "S-",
+   "borough": "Bronx",
+   "on_street": "EAST  217 STREET",
+   "from_street": "WHITE PLAINS ROAD",
+   "to_street": "BARNES AVENUE",
+   "side_of_street": "N",
+   "order_completed_on_date": "2023-09-13T00:00:00.000",
+   "sign_code": "PS-191EA",
+   "sign_description": "TRUCK (SYMBOL) TRUCK LOADING ONLY MONDAY-FRIDAY 8AM-6PM --> (SUPERSEDES SP-449CA & SP-70BA)",
+   "sign_size": "018 X 018",
+   "distance_from_intersection": "146",
+   "arrow_direction": "West",
+   "sheeting_type": "PNTD",
+   "support": "DR",
+   "sign_x_coord": "1022145",
+   "sign_y_coord": "260647"
+  }
+ ]
+}

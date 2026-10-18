@@ -1,0 +1,261 @@
+{
+ "key": "zap_projects",
+ "looked_for": [
+  "Zoning Application Portal (ZAP) - Project Data"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "hgx4-8ukb",
+   "Zoning Application Portal (ZAP) - Project Data",
+   "dataset",
+   "2026-08-12"
+  ]
+ ],
+ "picked": {
+  "id": "hgx4-8ukb",
+  "name": "Zoning Application Portal (ZAP) - Project Data",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of City Planning (DCP)",
+  "category": "City Government",
+  "rows_updated": "2026-08-12",
+  "view_modified": "2026-08-12",
+  "update_frequency": "Monthly",
+  "description": "The Department of City Planning (DCP) processes land use applications submitted by City or other public agencies and other (private) applicants. This data set provides information on land use applications, specifically the project tracking and description data related to approximately 30,000 projects since the late 1970s.\n\nZAP project data appears on NYC Planning - Zoning Application Portal Search. It includes data migrated from the prior applications tracking system (LUCATS) and covers all projects that have been \"Noticed\" (that they will appear before the City Planning Commission in 30 or more days for Certification as complete for the ULURP process to begin) or Filed (a CEQR or Land Use application has been formally submitted to the Department for review) through completion (approval, d"
+ },
+ "count": 32964,
+ "geo": null,
+ "columns": [
+  {
+   "name": "project_id",
+   "type": "text",
+   "label": "project_id"
+  },
+  {
+   "name": "project_name",
+   "type": "text",
+   "label": "project_name"
+  },
+  {
+   "name": "project_brief",
+   "type": "text",
+   "label": "project_brief"
+  },
+  {
+   "name": "project_status",
+   "type": "text",
+   "label": "project_status"
+  },
+  {
+   "name": "public_status",
+   "type": "text",
+   "label": "public_status"
+  },
+  {
+   "name": "ulurp_non",
+   "type": "text",
+   "label": "ulurp_non"
+  },
+  {
+   "name": "actions",
+   "type": "text",
+   "label": "actions"
+  },
+  {
+   "name": "ulurp_numbers",
+   "type": "text",
+   "label": "ulurp_numbers"
+  },
+  {
+   "name": "ceqr_type",
+   "type": "text",
+   "label": "ceqr_type"
+  },
+  {
+   "name": "ceqr_number",
+   "type": "text",
+   "label": "ceqr_number"
+  },
+  {
+   "name": "eas_eis",
+   "type": "text",
+   "label": "eas_eis"
+  },
+  {
+   "name": "ceqr_leadagency",
+   "type": "text",
+   "label": "ceqr_leadagency"
+  },
+  {
+   "name": "primary_applicant",
+   "type": "text",
+   "label": "primary_applicant"
+  },
+  {
+   "name": "applicant_type",
+   "type": "text",
+   "label": "applicant_type"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "borough"
+  },
+  {
+   "name": "community_district",
+   "type": "text",
+   "label": "community_district"
+  },
+  {
+   "name": "cc_district",
+   "type": "number",
+   "label": "cc_district"
+  },
+  {
+   "name": "flood_zone_a",
+   "type": "text",
+   "label": "flood_zone_a"
+  },
+  {
+   "name": "flood_zone_shadedx",
+   "type": "text",
+   "label": "flood_zone_shadedx"
+  },
+  {
+   "name": "current_milestone",
+   "type": "text",
+   "label": "current_milestone"
+  },
+  {
+   "name": "current_milestone_date",
+   "type": "calendar_date",
+   "label": "current_milestone_date"
+  },
+  {
+   "name": "current_envmilestone",
+   "type": "text",
+   "label": "current_envmilestone"
+  },
+  {
+   "name": "current_envmilestone_date",
+   "type": "calendar_date",
+   "label": "current_envmilestone_date"
+  },
+  {
+   "name": "app_filed_date",
+   "type": "calendar_date",
+   "label": "app_filed_date"
+  },
+  {
+   "name": "noticed_date",
+   "type": "calendar_date",
+   "label": "noticed_date"
+  },
+  {
+   "name": "certified_referred",
+   "type": "calendar_date",
+   "label": "certified_referred"
+  },
+  {
+   "name": "approval_date",
+   "type": "calendar_date",
+   "label": "approval_date"
+  },
+  {
+   "name": "completed_date",
+   "type": "calendar_date",
+   "label": "completed_date"
+  },
+  {
+   "name": "mih_flag",
+   "type": "text",
+   "label": "mih_flag"
+  },
+  {
+   "name": "mih_option1",
+   "type": "text",
+   "label": "mih_option1"
+  },
+  {
+   "name": "mih_option2",
+   "type": "text",
+   "label": "mih_option2"
+  },
+  {
+   "name": "mih_workforce",
+   "type": "text",
+   "label": "mih_workforce"
+  },
+  {
+   "name": "mih_deepaffordability",
+   "type": "text",
+   "label": "mih_deepaffordability"
+  },
+  {
+   "name": "mih_mapped_no_res",
+   "type": "text",
+   "label": "mih_mapped_no_res"
+  },
+  {
+   "name": "dcp_visibility",
+   "type": "text",
+   "label": "dcp_visibility"
+  }
+ ],
+ "samples": [
+  {
+   "project_id": "P1977X0531",
+   "project_name": "SAY CHEESE",
+   "project_brief": "CONSENT-UNENCL SIDEWALK CAFE",
+   "project_status": "Complete",
+   "public_status": "Completed",
+   "ulurp_non": "ULURP",
+   "ulurp_numbers": "C770207TCX",
+   "primary_applicant": "DECUFFA, R & COHAN, M",
+   "applicant_type": "Private",
+   "borough": "Bronx",
+   "community_district": "X10",
+   "certified_referred": "1977-08-08T00:00:00.000",
+   "completed_date": "1978-01-19T00:00:00.000",
+   "dcp_visibility": "General Public"
+  },
+  {
+   "project_id": "2026X0354",
+   "project_name": "2 Ploughmans Bush  SNAD",
+   "project_brief": "A SNAD Certification (ZR 105-41) to facilitate the construction of a deck on an existing Single family dwelling, is being sought by the private applicant, represented by Michael Goldblum Building Studio Architects, at 2 Ploughmans Bush in Riverdale, Community District 8, the Bronx.",
+   "project_status": "Active",
+   "public_status": "Filed",
+   "ulurp_non": "Non-ULURP",
+   "actions": "ZC",
+   "ceqr_type": "Type II",
+   "ceqr_number": "26DCP139X",
+   "primary_applicant": "Michael Goldblum",
+   "applicant_type": "Private",
+   "borough": "Bronx",
+   "community_district": "X08",
+   "cc_district": "11",
+   "flood_zone_a": "false",
+   "flood_zone_shadedx": "false",
+   "current_milestone": "ZC - Review Filed Land Use Application",
+   "current_milestone_date": "2026-06-18T00:00:00.000",
+   "app_filed_date": "2026-05-05T00:00:00.000",
+   "mih_flag": "false",
+   "mih_option1": "false",
+   "mih_option2": "False",
+   "mih_workforce": "false",
+   "mih_deepaffordability": "false",
+   "dcp_visibility": "General Public"
+  },
+  {
+   "project_id": "P1984Y1090",
+   "project_status": "Withdrawn-Other",
+   "public_status": "Completed",
+   "ceqr_number": "84-059",
+   "primary_applicant": "Unknown",
+   "borough": "Citywide",
+   "certified_referred": "2011-01-31T00:00:00.000",
+   "dcp_visibility": "General Public"
+  }
+ ]
+}

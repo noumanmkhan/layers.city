@@ -1,0 +1,382 @@
+{
+ "key": "dob_now_permits",
+ "looked_for": [
+  "DOB NOW: Build – Approved Permits",
+  "DOB NOW: Build - Approved Permits"
+ ],
+ "candidates": [
+  [
+   "exact",
+   "rbx6-tga4",
+   "DOB NOW: Build – Approved Permits",
+   "dataset",
+   "2026-10-17"
+  ]
+ ],
+ "picked": {
+  "id": "rbx6-tga4",
+  "name": "DOB NOW: Build – Approved Permits",
+  "type": "dataset",
+  "viewType": "tabular",
+  "attribution": "Department of Buildings (DOB)",
+  "category": "Housing & Development",
+  "rows_updated": "2026-10-17",
+  "view_modified": "2026-10-17",
+  "update_frequency": "Daily",
+  "description": "List of all approved construction permits in DOB NOW except for <a href=\"https://data.cityofnewyork.us/City-Government/DOB-NOW-Electrical-Permit-Applications/dm9a-ab7w\">Electrical</a>, <a href=\"https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Elevator-Permit-Applications/kfp4-dz4h\">Elevator</a>, and <a href=\"https://data.cityofnewyork.us/Housing-Development/DOB-NOW-Build-Limited-Alteration-Applications/xxbr-ypig\">Limited Alteration Application (LAA)</a> which have their own datasets."
+ },
+ "count": 1016520,
+ "geo": null,
+ "columns": [
+  {
+   "name": "job_filing_number",
+   "type": "text",
+   "label": "Job Filing Number"
+  },
+  {
+   "name": "work_permit",
+   "type": "text",
+   "label": "Work Permit"
+  },
+  {
+   "name": "sequence_number",
+   "type": "text",
+   "label": "Sequence Number"
+  },
+  {
+   "name": "filing_reason",
+   "type": "text",
+   "label": "Filing Reason"
+  },
+  {
+   "name": "house_no",
+   "type": "text",
+   "label": "House No"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "Street Name"
+  },
+  {
+   "name": "borough",
+   "type": "text",
+   "label": "Borough"
+  },
+  {
+   "name": "lot",
+   "type": "text",
+   "label": "LOT"
+  },
+  {
+   "name": "bin",
+   "type": "text",
+   "label": "Bin"
+  },
+  {
+   "name": "block",
+   "type": "text",
+   "label": "Block"
+  },
+  {
+   "name": "c_b_no",
+   "type": "text",
+   "label": "C B NO"
+  },
+  {
+   "name": "apt_condo_no_s",
+   "type": "text",
+   "label": "Apt/Condo No(s)"
+  },
+  {
+   "name": "work_on_floor",
+   "type": "text",
+   "label": "Work on Floor"
+  },
+  {
+   "name": "work_type",
+   "type": "text",
+   "label": "Work Type"
+  },
+  {
+   "name": "permittee_s_license_type",
+   "type": "text",
+   "label": "Permittee's License Type"
+  },
+  {
+   "name": "applicant_license",
+   "type": "text",
+   "label": "Applicant License #"
+  },
+  {
+   "name": "applicant_first_name",
+   "type": "text",
+   "label": "Applicant First Name"
+  },
+  {
+   "name": "applicant_middle_name",
+   "type": "text",
+   "label": "Applicant Middle Name"
+  },
+  {
+   "name": "applicant_last_name",
+   "type": "text",
+   "label": "Applicant Last Name"
+  },
+  {
+   "name": "applicant_business_name",
+   "type": "text",
+   "label": "Applicant Business Name"
+  },
+  {
+   "name": "applicant_business_address",
+   "type": "text",
+   "label": "Applicant Business Address"
+  },
+  {
+   "name": "filing_representative_first_name",
+   "type": "text",
+   "label": "Filing Representative First Name"
+  },
+  {
+   "name": "filing_representative_middle_initial",
+   "type": "text",
+   "label": "Filing Representative Middle Initial"
+  },
+  {
+   "name": "filing_representative_last_name",
+   "type": "text",
+   "label": "Filing Representative Last Name"
+  },
+  {
+   "name": "filing_representative_business_name",
+   "type": "text",
+   "label": "Filing Representative Business Name"
+  },
+  {
+   "name": "approved_date",
+   "type": "calendar_date",
+   "label": "Approved Date"
+  },
+  {
+   "name": "issued_date",
+   "type": "calendar_date",
+   "label": "Issued Date"
+  },
+  {
+   "name": "expired_date",
+   "type": "calendar_date",
+   "label": "Expired Date"
+  },
+  {
+   "name": "job_description",
+   "type": "text",
+   "label": "Job Description"
+  },
+  {
+   "name": "estimated_job_costs",
+   "type": "text",
+   "label": "Estimated Job Costs"
+  },
+  {
+   "name": "owner_business_name",
+   "type": "text",
+   "label": "Owner Business Name"
+  },
+  {
+   "name": "owner_name",
+   "type": "text",
+   "label": "Owner Name"
+  },
+  {
+   "name": "owner_street_address",
+   "type": "text",
+   "label": "Owner Street Address"
+  },
+  {
+   "name": "owner_city",
+   "type": "text",
+   "label": "Owner City"
+  },
+  {
+   "name": "owner_state",
+   "type": "text",
+   "label": "Owner State"
+  },
+  {
+   "name": "owner_zip_code",
+   "type": "text",
+   "label": "Owner Zip Code"
+  },
+  {
+   "name": "permit_status",
+   "type": "text",
+   "label": "Permit Status"
+  },
+  {
+   "name": "tracking_number",
+   "type": "text",
+   "label": "Tracking Number"
+  },
+  {
+   "name": "zip_code",
+   "type": "text",
+   "label": "Zip Code"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "Latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "Longitude"
+  },
+  {
+   "name": "community_board",
+   "type": "number",
+   "label": "Community Board"
+  },
+  {
+   "name": "council_district",
+   "type": "number",
+   "label": "Council District"
+  },
+  {
+   "name": "bbl",
+   "type": "number",
+   "label": "BBL"
+  },
+  {
+   "name": "census_tract",
+   "type": "number",
+   "label": "Census Tract (2020)"
+  },
+  {
+   "name": "nta",
+   "type": "text",
+   "label": "Neighborhood Tabulation Area (NTA) (2020)"
+  }
+ ],
+ "samples": [
+  {
+   "job_filing_number": "Permit is no",
+   "work_permit": "Permit is not yet issued",
+   "filing_reason": "Initial Permit",
+   "house_no": "43-30",
+   "street_name": "PARSONS BOULEVARD",
+   "borough": "QUEENS",
+   "lot": "21",
+   "bin": "4117367",
+   "block": "5198",
+   "c_b_no": "407",
+   "work_on_floor": "Open Space",
+   "work_type": "Construction Fence",
+   "permittee_s_license_type": "GC",
+   "applicant_license": "618334",
+   "applicant_first_name": "JAMES",
+   "applicant_middle_name": "M",
+   "applicant_last_name": "COSTELLO",
+   "applicant_business_name": "COSTELLO CONSTRUCTION GRO",
+   "applicant_business_address": "19 ROLLING HILLS ROAD",
+   "filing_representative_first_name": "MAJORIE",
+   "filing_representative_last_name": "COSTELLO",
+   "filing_representative_business_name": "MERCURE CONSULTING LLC",
+   "job_description": "Demolition of 3 story building",
+   "estimated_job_costs": "100",
+   "owner_business_name": "FLUSHING HOSPITAL MEDICAL CENTER",
+   "owner_name": "NEIL PAPPAS",
+   "permit_status": "Signed-off",
+   "tracking_number": "593832799",
+   "zip_code": "11355",
+   "latitude": "40.756514",
+   "longitude": "-73.817023",
+   "community_board": "407",
+   "council_district": "20",
+   "bbl": "4051980021",
+   "census_tract": "861",
+   "nta": "East Flushing"
+  },
+  {
+   "job_filing_number": "M01360498-I1",
+   "work_permit": "M01360498-I1-GC",
+   "sequence_number": "1",
+   "filing_reason": "Initial Permit",
+   "house_no": "115",
+   "street_name": "NORFOLK STREET",
+   "borough": "Manhattan",
+   "lot": "7503",
+   "bin": "1088708",
+   "block": "353",
+   "c_b_no": "103",
+   "work_on_floor": "Facade",
+   "work_type": "General Construction",
+   "permittee_s_license_type": "GC",
+   "applicant_license": "002656",
+   "applicant_first_name": "STEVE",
+   "applicant_last_name": "KATZ",
+   "applicant_business_name": "KAY WATERPROOFING CORP",
+   "applicant_business_address": "211 EAST 123RD STREET",
+   "filing_representative_first_name": "BARRY",
+   "filing_representative_last_name": "GRUMMER",
+   "filing_representative_business_name": "KAY WATERPROOFING CORP",
+   "approved_date": "2026-04-10T00:00:00.000",
+   "issued_date": "2026-05-18T00:00:00.000",
+   "expired_date": "2026-12-31T05:00:00.000",
+   "job_description": "APPLICATION FOR FACADE AND LEAK REPAIRS AS PER PLANS HERE WITHIN.  NO CHANGE IN USE, OCCUAPNCY, OR EGRSSS.",
+   "estimated_job_costs": "185040",
+   "owner_business_name": "NORFOLK ATRIUM CONDOMINIUM",
+   "owner_name": "Elliot Katz",
+   "permit_status": "Permit Issued",
+   "tracking_number": "915515932",
+   "zip_code": "10002",
+   "latitude": "40.719143",
+   "longitude": "-73.986984",
+   "community_board": "103",
+   "council_district": "1",
+   "bbl": "1003537503",
+   "census_tract": "18",
+   "nta": "Lower East Side"
+  },
+  {
+   "job_filing_number": "M01248246-I1",
+   "work_permit": "M01248246-I1-EW-SP",
+   "sequence_number": "1",
+   "filing_reason": "Initial Permit",
+   "house_no": "12",
+   "street_name": "EAST   52 STREET",
+   "borough": "MANHATTAN",
+   "lot": "62",
+   "bin": "1035477",
+   "block": "1287",
+   "c_b_no": "105",
+   "work_on_floor": "Cellar, Floor Number(s) 1 through 7",
+   "work_type": "Sprinklers",
+   "permittee_s_license_type": "F",
+   "applicant_license": "001115",
+   "applicant_first_name": "CHRISTOPHER",
+   "applicant_middle_name": "J",
+   "applicant_last_name": "PINHO",
+   "applicant_business_name": "STALWART PLUMBING CORP",
+   "applicant_business_address": "59-24 57TH STREET",
+   "approved_date": "2025-08-14T00:00:00.000",
+   "issued_date": "2025-09-19T00:00:00.000",
+   "expired_date": "2026-06-06T00:00:00.000",
+   "job_description": "REMOVAL OF SPRINKLER HEADS AND RELATED PIPING AS SHOWN ON DRAWINGS. NO CHANGE TO USE, EGRESS OR OCCUANCY.",
+   "estimated_job_costs": "20000",
+   "owner_business_name": "PR",
+   "owner_name": "SAMUEL RAMIREZ",
+   "permit_status": "Signed-off",
+   "tracking_number": "912522473",
+   "zip_code": "10022",
+   "latitude": "40.759481",
+   "longitude": "-73.975581",
+   "community_board": "105",
+   "council_district": "4",
+   "bbl": "1012870062",
+   "census_tract": "102",
+   "nta": "Midtown-Times Square"
+  }
+ ]
+}
