@@ -223,6 +223,6 @@ if os.path.exists(os.path.join(DATA, 'faith.geojson')):
     for f in json.load(open(os.path.join(DATA, 'faith.geojson')))['features']:
         p = f['properties']
         G[p['cat']].append(f['geometry']['coordinates'] + [p['name']])
-        if p['cat'] == 'church' and p.get('group'): G['church:' + p['group']].append(f['geometry']['coordinates'] + [p['name']])
+        if p['cat'] == 'church' and p.get('grp'): G['church:' + p['grp']].append(f['geometry']['coordinates'] + [p['name']])
 write('nearby.json', {'groups': dict(G)})
 print('nearby:', {k: len(v) for k, v in G.items()})

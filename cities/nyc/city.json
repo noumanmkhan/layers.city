@@ -53,18 +53,20 @@
   {
    "name": "Hudson River",
    "at": [
-    40.79,
-    -73.99
+    40.815,
+    -73.968
    ],
-   "cls": "lake-near"
+   "cls": "lake-near river",
+   "rotate": -62
   },
   {
    "name": "East River",
    "at": [
-    40.735,
-    -73.965
+    40.733,
+    -73.968
    ],
-   "cls": "lake-near"
+   "cls": "lake-near river",
+   "rotate": -75
   },
   {
    "name": "Upper New York Bay",
@@ -804,7 +806,51 @@
      "name": "Places of worship",
      "place": "Place of worship",
      "note": "Churches, synagogues, mosques, temples and gurdwaras, from OpenStreetMap; pick any mix below",
-     "catNote": "Tap a faith to hide or show it. Other faiths: Jain, Bahá’í, Unitarian and more."
+     "catNote": "Tap a faith to hide or show it. Other faiths: Jain, Bahá’í, Unitarian and more.",
+     "groups": [
+      [
+       "catholic",
+       "Catholic"
+      ],
+      [
+       "baptist",
+       "Baptist"
+      ],
+      [
+       "evangelical",
+       "Evangelical"
+      ],
+      [
+       "episcopal",
+       "Episcopal"
+      ],
+      [
+       "methodist",
+       "Methodist"
+      ],
+      [
+       "presbyterian",
+       "Presbyterian"
+      ],
+      [
+       "lutheran",
+       "Lutheran"
+      ],
+      [
+       "orthodox",
+       "Orthodox"
+      ],
+      [
+       "other",
+       "Other"
+      ]
+     ],
+     "groupsFor": "church",
+     "groupLabel": "Churches by denomination",
+     "allText": "All",
+     "countText": "{n} churches shown.",
+     "allNote": "Some aren’t listed with a denomination, so they appear only here.",
+     "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal churches."
     }
    ]
   ],
@@ -1511,6 +1557,27 @@
     ]
    ],
    "note": "Straight-line distances; half a mile is about a 10-minute walk. NYC Parks, the three public library systems and the City’s Facilities Database. Counts parks, not courts. Schools are NYC Public Schools; zoning depends on the address, not distance. Places of worship (OpenStreetMap) show while their layer is on."
+  },
+  "schools": {
+   "file": "attendance.geojson",
+   "title": "Schools",
+   "levels": [
+    [
+     "es",
+     "Elementary"
+    ],
+    [
+     "ms",
+     "Middle school"
+    ],
+    [
+     "hs",
+     "High school"
+    ]
+   ],
+   "sub": "Grades {grades} · {dist} away",
+   "subNoDist": "Grades {grades}",
+   "note": "The NYC Public Schools zoned for this spot, from the DOE’s {year} school zones. Distances are straight-line to the building. Zones change and some schools have more applicants than seats; the DOE’s school search has the final word."
   }
  },
  "drive": {
