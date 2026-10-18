@@ -220,9 +220,21 @@ def socrata_dobnow(spec):
     # recent, so it doesn't count.) Withdrawn ones are dropped here, and the descriptions trimmed.
     two = since(2)
     rows = [r for r in rows if ((r.get('filing_date') or '') >= cut or (r.get('signoff_date') or '') >= two) and 'Withdrawn' not in (r.get('filing_status') or '')]
+    # One row per job (job_filing_number "X08055450-S9" is job X08055450's ninth amendment): the latest status, with the
+    # initial filing's description, which says what the job is.
+    jobs, first = {}, {}
     for r in rows:
-        r.pop('bbl', None); r.pop('building_type', None)
+        j, _, suf = (r.get('job_filing_number') or '').partition('-')
+        if suf.startswith('I') and r.get('job_description'): first[j] = r['job_description']
+        last = max(r.get(k) or '' for k in ('current_status_date', 'signoff_date', 'first_permit_date', 'approved_date', 'filing_date'))
+        if j not in jobs or last > jobs[j][0]: jobs[j] = (last, r)
+    rows = []
+    for j, (_, r) in jobs.items():
+        r = {k: v for k, v in r.items() if v not in (None, '') and k not in ('bbl', 'building_type')}
+        if first.get(j): r['job_description'] = first[j]
         if r.get('job_description'): r['job_description'] = r['job_description'][:300]
+        rows.append(r)
+    print('  jobs', len(rows))
     print('  in the window', len(rows))
     print('  by type/status:', dict(collections.Counter((r.get('job_type'), r.get('filing_status')) for r in rows).most_common(40)))
     print('  with coordinates:', sum(1 for r in rows if r.get('latitude')), '· date sample:', [r.get('filing_date') for r in rows[:3]], [r.get('signoff_date') for r in rows[:3]])

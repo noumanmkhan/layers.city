@@ -177,6 +177,10 @@ if os.path.exists(p):
              'LOC Issued': 'finished', 'CO Issued': 'finished', 'Full Demolition Signed-off': 'finished'}
     REVIEW = re.compile(r'Review|Pending|Objections|Incomplete|Assignment|QA', re.I)
     HOUSE = re.compile(r'\b(one|two|1|2)[- ]?(family|fam\.?)\b|single[- ]family|\bduplex\b|\b1 ?& ?2 family|\b[12]-?fam', re.I)
+    ACC = re.compile(r'\b(garages?|sheds?|carports?|cabanas?|pool houses?|bulkheads?|fences?|parking lot)\b', re.I)
+    CORE = re.compile(r'\b(dwelling|residential|apartments?|mixed[- ]use|commercial|school|hotel|office|units?|store|retail|community facility|warehouse|church|hospital)\b', re.I)
+    # Numbered streets as people write them: "5 Avenue" -> "5th Avenue", "East 158 Street" -> "East 158th Street".
+    ORD = lambda a: re.sub(r'\b(\d+) (Street|Avenue|Road|Place|Drive|Terrace|Court|Lane|Walk)\b', lambda m: m.group(1) + ('th' if 10 <= int(m.group(1)) % 100 <= 20 else {1: 'st', 2: 'nd', 3: 'rd'}.get(int(m.group(1)) % 10, 'th')) + ' ' + m.group(2), a)
     jobs, first = {}, {}
     for r in json.load(open(p))['rows']:
         j, _, suf = (r.get('job_filing_number') or '').partition('-')
@@ -193,6 +197,7 @@ if os.path.exists(p):
         desc = re.sub(r'\s+', ' ', first.get(j) or r.get('job_description') or '').strip()
         new_u, old_u = num(r.get('proposed_dwelling_units')), num(r.get('existing_dwelling_units'))
         if kind == 'building' and ((new_u is not None and 0 < new_u <= 2) or (not new_u and HOUSE.search(desc))): continue
+        if ACC.search(desc) and not CORE.search(desc): continue   # a garage or shed on its own
         if kind == 'demolition' and ((old_u is not None and 0 < old_u <= 2) or HOUSE.search(desc)): continue
         filed, perm, done = r.get('filing_date') or '', r.get('first_permit_date') or r.get('approved_date') or '', r.get('signoff_date') or r.get('current_status_date') or ''
         if stage == 'finished' and done < ago(WIN): continue
@@ -203,8 +208,8 @@ if os.path.exists(p):
         if not desc: desc = 'New building' if kind == 'building' else 'Demolition'
         stories = num(r.get('proposed_no_of_stories'))
         if kind == 'building' and stories and stories > 1 and 'stor' not in desc.lower(): desc = '%d-story building. %s' % (stories, desc)
-        items.append({'k': kind, 's': stage, 'date': date[:10], 'dl': dl, 'a': address(r.get('house_no'), r.get('street_name')),
-                      'd': short(sentence(desc) if desc.isupper() else desc), 'n': (r.get('job_filing_number') or '').split('-')[0],
+        items.append({'k': kind, 's': stage, 'date': date[:10], 'dl': dl, 'a': ORD(address(r.get('house_no'), r.get('street_name'))),
+                      'd': short(sentence(desc) if sum(c.isupper() for c in desc) > 0.6 * sum(c.isalpha() for c in desc) else desc),   # mostly capitals 'n': (r.get('job_filing_number') or '').split('-')[0],
                       'at': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)],
                       'units': new_u if kind == 'building' and new_u and new_u > 2 else None, 'status': st})
 
