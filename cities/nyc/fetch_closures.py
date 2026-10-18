@@ -78,6 +78,8 @@ def norm(s):
     w = s.split()
     if not w: return ''
     if len(w) > 2 and w[0] in DIRS: w[0] = DIRS[w[0]]                   # a direction before the name
+    if len(w) > 2 and w[-1] in DIRS: w[-1] = DIRS[w[-1]]                # ... or after it (CENTRAL PARK WEST)
+    if len(w) > 2 and w[-1] in DIRS.values() and w[-2] in TYPES: w[-2] = TYPES[w[-2]]
     if len(w) > 1 and w[-1] in TYPES: w[-1] = TYPES[w[-1]]              # the street type at the end
     if len(w) > 1 and w[0] in ('AVENUE', 'AV') : w[0] = 'AVE'           # AVENUE R
     if w[0] == 'SAINT' and len(w) > 1: w[0] = 'ST'
@@ -116,16 +118,16 @@ for e in evs:
     for on, a, z in chunks(e.get('event_location')):
         for n in (on, a, z): want.setdefault(b, set()).add(core(norm(n)))
 lines = {}   # (boro, normalised full name) -> [LineString]
-for b, names in want.items():
+for names in [set().union(*want.values()) if want else set()]:
     names = sorted(n for n in names if n)
     for i in range(0, len(names), 50):
-        q = "boroughcode='%s' AND street_name in(%s)" % (b, ','.join("'" + n.replace("'", "''") + "'" for n in names[i:i + 50]))
-        got = json.load(urllib.request.urlopen(urllib.request.Request(CL_API + '?' + urllib.parse.urlencode({'$select': 'full_street_name,the_geom', '$where': q, '$limit': 50000}),
+        q = "street_name in(%s)" % ','.join("'" + n.replace("'", "''") + "'" for n in names[i:i + 50])   # every borough: routes cross them
+        got = json.load(urllib.request.urlopen(urllib.request.Request(CL_API + '?' + urllib.parse.urlencode({'$select': 'full_street_name,boroughcode,the_geom', '$where': q, '$limit': 50000}),
                                                                       headers={'User-Agent': 'city-layers-pipeline (layers.city)'}), timeout=300))
         for r in got:
             g = r.get('the_geom') or {}
             for part in (g.get('coordinates') or []) if g.get('type') == 'MultiLineString' else [g.get('coordinates')] if g.get('type') == 'LineString' else []:
-                if part and len(part) > 1: lines.setdefault((b, norm(r.get('full_street_name'))), []).append(LineString(part))
+                if part and len(part) > 1: lines.setdefault((r.get('boroughcode'), norm(r.get('full_street_name'))), []).append(LineString(part))
 print('centerline:', sum(len(v) for v in lines.values()), 'segments on', len(lines), 'streets; sample names', sorted(k[1] for k in lines)[:12])
 
 
@@ -139,19 +141,48 @@ def meet(b, s1, s2):
     return p if p.distance(q) * 111000 < 25 else None
 
 
+def path(segs, pa, pz):
+    """The stretch along a street's segments from near pa to near pz: the shortest route over the segments, joined
+    where their ends meet (within about 1 m), so a divided avenue or a street in many short pieces still works."""
+    import heapq
+    key = lambda c: (round(c[0], 5), round(c[1], 5))
+    adj = {}
+    for L in segs:
+        c = list(L.coords)
+        a, z = key(c[0]), key(c[-1])
+        adj.setdefault(a, []).append((z, L.length, c)); adj.setdefault(z, []).append((a, L.length, c[::-1]))
+    nodes = list(adj)
+    near = lambda p: min(nodes, key=lambda n: (n[0] - p.x) ** 2 + (n[1] - p.y) ** 2)
+    s0, s1 = near(pa), near(pz)
+    if s0 == s1: return None
+    dist, prev, q = {s0: 0}, {}, [(0, s0)]
+    while q:
+        d, n = heapq.heappop(q)
+        if n == s1: break
+        if d > dist.get(n, 1e9): continue
+        for m, w, c in adj[n]:
+            if d + w < dist.get(m, 1e9): dist[m] = d + w; prev[m] = (n, c); heapq.heappush(q, (d + w, m))
+    if s1 not in prev: return None
+    edges, n = [], s1
+    while n != s0:
+        p, c = prev[n]; edges.append(c); n = p
+    edges.reverse()
+    return edges[0] + [pt for e in edges[1:] for pt in e[1:]]
+
+
 def stretch(b, on, a, z):
     on_n, a_n, z_n = norm(on), norm(a), norm(z)
-    if not lines.get((b, on_n)): return None, 'no centerline for ' + on_n
-    pa, pz = meet(b, on_n, a_n), meet(b, on_n, z_n)
-    if pa is None or pz is None: return None, 'no meeting point (%s / %s)' % (a_n if pa is None else '', z_n if pz is None else '')
-    merged = linemerge(MultiLineString(lines[(b, on_n)]))
-    parts = list(getattr(merged, 'geoms', [merged]))
-    best = min(parts, key=lambda L: L.distance(pa) + L.distance(pz))
-    if best.distance(pa) * 111000 > 30 or best.distance(pz) * 111000 > 30: return None, 'meeting points on separate pieces'
-    d1, d2 = sorted((best.project(pa), best.project(pz)))
-    seg = substring(best, d1, d2)
-    if seg.is_empty or seg.length * 111000 < 10 or seg.length * 111000 > 6000: return None, 'stretch length %.0f m' % (seg.length * 111000)
-    return [[round(x, 6), round(y, 6)] for x, y in seg.coords], None
+    for bb in [b] + [x for x in BORO.values() if x != b]:     # the permit's borough first, then the rest
+        if not lines.get((bb, on_n)): continue
+        pa, pz = meet(bb, on_n, a_n), meet(bb, on_n, z_n)
+        if pa is None or pz is None: continue
+        c = path(lines[(bb, on_n)], pa, pz)
+        if not c: continue
+        L = LineString(c)
+        if L.length * 111000 < 10 or L.length * 111000 > 8000: continue
+        return [[round(x, 6), round(y, 6)] for x, y in c], None
+    if not any(lines.get((bb, on_n)) for bb in BORO.values()): return None, 'no centerline for ' + on_n
+    return None, 'no stretch between %s and %s' % (a_n, z_n)
 
 
 ev_permits, misses = [], []
