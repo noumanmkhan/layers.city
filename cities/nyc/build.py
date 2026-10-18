@@ -17,7 +17,7 @@ from shapely.prepared import prep
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from names import BORO, CD_NAMES, CD_INFO, BORO_INFO, KNOWN_AS, MAJOR_STREETS, HIGHWAYS, street_key
+from names import BORO, CD_NAMES, CD_INFO, BORO_INFO, KNOWN_AS, MAJOR_STREETS, HIGHWAYS, street_key, street_name
 
 R = os.path.join(HERE, 'raw') + '/'
 OUT = os.path.join(HERE, '..', '..', 'docs', 'nyc', 'data') + '/'
@@ -265,6 +265,23 @@ for (name, cls), gs in segs.items():
     streets.append(feat(m, {'name': name, 'cls': cls, 'len': round(m.length * 1000, 1)}))
 streets.sort(key=lambda f: (f['properties']['cls'] != 'major', -f['properties']['len']))
 dump('streets', streets)
+
+# Manhattan's East and West streets, side kept ("E 42nd St"), for How addresses work (engine/addresses.py, with
+# Fifth Avenue from the main streets as the divide). Written straight to docs: the address layer reads it.
+if os.path.exists(R + 'osm_manhattan_ew.json'):
+    MAN = boroughs['Manhattan'].buffer(0.0003)
+    ew = defaultdict(list)
+    for w in load('osm_manhattan_ew.json')['elements']:
+        if len(w.get('geometry', [])) < 2: continue
+        n = street_name(w['tags']['name'])
+        g = clip(way_line(w), MAN)
+        if g is not None and re.match(r'^[EW] ', n): ew[n].append(g)
+    out_ew = []
+    for n, gs in sorted(ew.items()):
+        m = merged(gs, 0.05)
+        if m is not None: out_ew.append(feat(m, {'name': n}))
+    write('streets_ew', out_ew)
+    print('Manhattan East/West streets', len(out_ew))
 print('main streets missing from the data:', sorted(MAJOR_STREETS - {n for n, c in segs if c == 'major'}))
 
 # ---------- Highways: expressways and parkways inside the city by name; across the region by route ----------

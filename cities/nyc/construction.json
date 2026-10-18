@@ -1,0 +1,12 @@
+{
+  "_about": "Transit under construction (engine/construction.py). Lines come from OpenStreetMap ways whose name matches 'match' (engine/fetch_construction.py); stations from OSM where mapped. Only facts the MTA has published go in 'opens'. Penn Station Access (Metro-North to Penn Station with four new Bronx stations) runs on existing Amtrak track, so it isn't drawn as a new line yet.",
+  "lat0": 40.75,
+  "lines": [
+    {"id": "sas2", "name": "Second Avenue Subway, Phase 2", "short": "Second Avenue Subway", "mode": "subway", "color": "#00ADD0",
+     "owner": "MTA Construction & Development", "length": "1.5 miles, 3 stations",
+     "about": "Extends the Q train north from 96th Street along Second Avenue and across 125th Street to Lexington Avenue, with new stations at 106th, 116th and 125th Streets.",
+     "link": "https://new.mta.info/project/second-avenue-subway-phase-2",
+     "match": "^Second Avenue Subway Phase 2$", "stationsFromOsm": true}
+  ],
+  "existing": []
+}

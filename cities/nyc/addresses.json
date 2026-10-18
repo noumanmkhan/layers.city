@@ -1,0 +1,8 @@
+{
+  "_about": "How addresses work (engine/addresses.py): in Manhattan, Fifth Avenue splits the numbered streets into East and West (E 42nd St, W 42nd St), and their numbers count up away from Fifth. Below Washington Square the split is at Broadway and the Bowery, so only streets within 400 m of Fifth count. The card names the side in Manhattan only (city.json card.address.within) and explains the other boroughs' systems in words. Manhattan's East/West streets come from build.py (streets_ew).",
+  "type": "divide",
+  "street": "5th Ave",
+  "prefix": true,
+  "near": 400,
+  "files": ["streets_ew", "streets"]
+}
