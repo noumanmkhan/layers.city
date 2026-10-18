@@ -24,7 +24,7 @@ B = 'https://rrgtfsfeeds.s3.amazonaws.com/'
 FEEDS = [('subway', [B + 'gtfs_subway.zip'], True), ('bx', [B + 'gtfs_bx.zip'], True), ('b', [B + 'gtfs_b.zip'], True),
          ('m', [B + 'gtfs_m.zip'], True), ('q', [B + 'gtfs_q.zip'], True), ('si', [B + 'gtfs_si.zip'], True),
          ('busco', [B + 'gtfs_busco.zip'], True), ('lirr', [B + 'gtfslirr.zip'], True), ('mnr', [B + 'gtfsmnr.zip'], True),
-         ('siferry', ['https://www.nyc.gov/html/dot/downloads/misc/siferry-gtfs.zip'], False),
+         ('siferry', ['https://data.cityofnewyork.us/download/b57i-ri22/application/x-zip-compressed', 'https://www.nyc.gov/html/dot/downloads/misc/siferry-gtfs.zip'], False),
          ('nycferry', ['http://nycferry.connexionz.net/rtt/public/utility/gtfs.aspx'], False)]
 OSM = 'https://download.bbbike.org/osm/bbbike/NewYork/NewYork.osm.pbf'
 STATE = 'https://download.geofabrik.de/north-america/us/new-york-latest.osm.pbf'
