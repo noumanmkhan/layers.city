@@ -1,0 +1,14 @@
+{
+ "_about": "Tree canopy per community district (engine/fetch_canopy.py, engine/canopy.py), from ESA WorldCover 2021 (10 m, CC BY 4.0): tree cells over land cells, water left out. 'cuts' split the lens into four bands.",
+ "units": "districts",
+ "sources": [
+  {
+   "type": "worldcover"
+  }
+ ],
+ "cuts": [
+  10,
+  20,
+  30
+ ]
+}

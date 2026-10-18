@@ -1,0 +1,64 @@
+{
+ "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): NYC DOT's New York City Bike Routes (mzxg-pwib), current segments. Each segment's facility type (ft_facilit, the from-to direction; tf_facilit the other way) puts it in a class; types not listed are left out and printed by the build.",
+ "source": {
+  "type": "socrata_geojson",
+  "url": "https://data.cityofnewyork.us/resource/mzxg-pwib.geojson?$limit=50000&status=Current",
+  "meta": "https://data.cityofnewyork.us/api/views/mzxg-pwib.json"
+ },
+ "fields": [
+  "street",
+  "fromstreet",
+  "tostreet",
+  "ft_facilit",
+  "tf_facilit",
+  "facilitycl",
+  "instdate",
+  "boro"
+ ],
+ "typeField": "ft_facilit",
+ "name": "street",
+ "from": "fromstreet",
+ "to": "tostreet",
+ "titleCase": true,
+ "year": "instdate",
+ "classes": {
+  "prot": [
+   "Protected Path",
+   "Protected Bike Lane"
+  ],
+  "paint": [
+   "Standard",
+   "Buffered",
+   "Buffered Conventional",
+   "Conventional",
+   "Curbside",
+   "Bike Lane",
+   "Bike-Friendly Parking"
+  ],
+  "shared": [
+   "Sharrows",
+   "Sharrows/Standard",
+   "Signed Route",
+   "Link",
+   "Ped Plaza",
+   "Shared Lane"
+  ],
+  "trail": [
+   "Greenway",
+   "Dirt Trail",
+   "Boardwalk",
+   "Path"
+  ]
+ },
+ "labels": {
+  "Protected Path": "Protected bike lane",
+  "Standard": "Painted bike lane",
+  "Buffered": "Buffered bike lane",
+  "Curbside": "Curbside bike lane",
+  "Sharrows": "Shared lane (sharrows)",
+  "Signed Route": "Signed bike route",
+  "Greenway": "Greenway",
+  "Dirt Trail": "Dirt trail",
+  "Boardwalk": "Boardwalk"
+ }
+}

@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin && pip install -q shapely
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin && pip install -q shapely pypdf pyshp rasterio pyproj numpy
       # A manual run names its script; a push runs whichever fetch script its last commit changed (none: nothing to do).
       - run: |
           S="${{ inputs.script }}"
