@@ -1,6 +1,6 @@
 name: Fetch transit closures
 # Daily, just after midnight Eastern: pulls road closures and lane restrictions caused by transit
-# construction from Toronto's live Road Restrictions feed and Chicago's CDOT permits
+# construction from Toronto's live Road Restrictions feed, Chicago's CDOT permits and NYC DOT's closures by block
 # (cities/<city>/fetch_closures.py -> raw/closures/permits.json), builds
 # docs/<city>/data/closures.geojson with engine/closures.py, and commits both to main. Pages
 # redeploys on the push, so the map shows that day's permits. Toronto's fetch also saves special-event
@@ -43,7 +43,7 @@ jobs:
       # Each city on its own, so one failing keeps the other's update (and yesterday's file stays up).
       - if: steps.when.outputs.skip != '1'
         run: |
-          for c in toronto chicago; do
+          for c in toronto chicago nyc; do
             mkdir -p cities/$c/raw/closures
             ( python3 -u cities/$c/fetch_closures.py && python3 -u engine/closures.py $c && python3 -u engine/events.py $c ) 2>&1 | tee cities/$c/raw/closures/fetch.log || true
           done
@@ -51,7 +51,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          for p in cities/toronto/raw/closures cities/chicago/raw/closures docs/toronto/data/closures.geojson docs/chicago/data/closures.geojson docs/toronto/data/events.geojson; do
+          for p in cities/toronto/raw/closures cities/chicago/raw/closures cities/nyc/raw/closures docs/toronto/data/closures.geojson docs/chicago/data/closures.geojson docs/nyc/data/closures.geojson docs/toronto/data/events.geojson docs/nyc/data/events.geojson; do
             if [ -e "$p" ]; then git add "$p"; fi
           done
           git commit -m "Daily transit closures ($(TZ=America/New_York date +%F))" || echo "no changes"
