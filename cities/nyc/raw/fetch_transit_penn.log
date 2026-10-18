@@ -1,0 +1,53 @@
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip 5483 KB
+   subway.zip 5246 trips in the morning window
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_bx.zip 8231 KB
+   bx.zip 11703 trips in the morning window
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_b.zip 16646 KB
+   b.zip 16548 trips in the morning window
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_m.zip 8127 KB
+   m.zip 10230 trips in the morning window
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_q.zip 5842 KB
+   q.zip 8923 trips in the morning window
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_si.zip 6256 KB
+   si.zip 5190 trips in the morning window
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfs_busco.zip 8248 KB
+   busco.zip 13315 trips in the morning window
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfslirr.zip 1679 KB
+   lirr.zip 595 trips in the morning window
+  got https://rrgtfsfeeds.s3.amazonaws.com/gtfsmnr.zip 4310 KB
+   mnr.zip 12448 trips in the morning window
+  retry 1 https://www.nyc.gov/html/dot/downloads/misc/siferry-gtfs.zip HTTP Error 403: Forbidden
+  retry 2 https://www.nyc.gov/html/dot/downloads/misc/siferry-gtfs.zip HTTP Error 403: Forbidden
+  retry 3 https://www.nyc.gov/html/dot/downloads/misc/siferry-gtfs.zip HTTP Error 403: Forbidden
+  retry 4 https://www.nyc.gov/html/dot/downloads/misc/siferry-gtfs.zip HTTP Error 403: Forbidden
+WARNING: no siferry feed; going on without it
+  got http://nycferry.connexionz.net/rtt/public/utility/gtfs.aspx 35 KB
+   nycferry.zip 189 trips in the morning window
+  got https://download.bbbike.org/osm/bbbike/NewYork/NewYork.osm.pbf 149674 KB
+feed ranges [('20260526', '20261031'), ('20261008', '20270102'), ('20261008', '20270102'), ('20261008', '20270102'), ('20261008', '20270102'), ('20261012', '20270102'), ('20261009', '20270102'), ('20261016', '20261108'), ('20261015', '20270523')]
+departure 2026-10-27 08:00:00
+4441 origin points, 2 hubs
+Traceback (most recent call last):
+  File "KryoNetworkSerializer.java", line 115, in com.conveyal.r5.kryo.KryoNetworkSerializer.write
+java.io.java.io.IOException: java.io.IOException: No space left on device
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "KryoNetworkSerializer.java", line 115, in com.conveyal.r5.kryo.KryoNetworkSerializer.write
+Exception: Java Exception
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/cities/nyc/fetch_transit_penn.py", line 174, in <module>
+    net = TransportNetwork(pbf, feeds)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 179, in __init__
+    self._save_pickled_transport_network(
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/r5py/r5/transport_network.py", line 282, in _save_pickled_transport_network
+    com.conveyal.r5.kryo.KryoNetworkSerializer.write(transport_network, output_file)
+com.esotericsoftware.kryo.com.esotericsoftware.kryo.KryoException: com.esotericsoftware.kryo.KryoException: java.io.IOException: No space left on device
+Serialization trace:
+stopToVertexDistanceTables (com.conveyal.r5.transit.TransitLayer)
+transitLayer (com.conveyal.r5.transit.TransportNetwork)
