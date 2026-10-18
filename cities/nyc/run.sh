@@ -31,6 +31,8 @@ python3 ../../engine/regions.py nyc
 [ -f raw/heritage_buildings.json ] && python3 ../../engine/heritage_buildings.py nyc   # LPC individual landmarks
 [ -f raw/construction/osm.json ] && python3 ../../engine/construction.py nyc   # after streets: lines being built
 python3 ../../engine/addresses.py nyc   # after streets: Fifth Avenue, East and West (Manhattan)
+[ -f raw/ferries/nycferry.zip ] && python3 ferries.py   # NYC Ferry and the Staten Island Ferry
+python3 crz.py   # after build.py's streets_ew: the Congestion Relief Zone, Manhattan from 60th Street south
 [ -f raw/places/worship_osm.json ] && python3 faith.py   # places of worship (OpenStreetMap)
 [ -f raw/places/facdb.json ] && python3 places.py   # after faith: hospitals, colleges, libraries, schools, parks, sports, the card's Nearby
 [ -f raw/places/evacuation_zones.geojson ] && python3 evacuation.py && npx mapshaper -i tmp/evacuation.geojson -simplify interval=20 keep-shapes -o $OUT/evacuation.geojson precision=0.0001 -quiet   # after places.py: hurricane evacuation zones and centers

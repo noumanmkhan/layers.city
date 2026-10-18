@@ -117,7 +117,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · Hurricane evacuation zones and centers: NYC Emergency Management · Places of worship & lines being built: © OpenStreetMap contributors",
+ "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · Ferries: NYC Ferry and NYC DOT timetables (GTFS) · Congestion Relief Zone: drawn from the MTA’s description (60th Street and south) · Hurricane evacuation zones and centers: NYC Emergency Management · Places of worship & lines being built: © OpenStreetMap contributors",
  "example": {
   "at": [
    40.7532,
@@ -471,6 +471,20 @@
      "hover": "{name}"
     },
     {
+     "id": "ferry",
+     "kind": "rail",
+     "files": [
+      "ferry_lines",
+      "ferry_stations",
+      "ferry_lines_inner"
+     ],
+     "name": "Ferries",
+     "note": "NYC Ferry’s five routes and the free Staten Island Ferry",
+     "on": false,
+     "hover": "{name}",
+     "pane": "transit"
+    },
+    {
      "id": "hwy",
      "kind": "highways",
      "files": [
@@ -489,6 +503,17 @@
       "MP": "Mosholu"
      },
      "tollShield": "Toll"
+    },
+    {
+     "id": "crz",
+     "kind": "patches",
+     "cls": "crz",
+     "lcls": "lbl-crz",
+     "file": "crz",
+     "name": "Congestion Relief Zone",
+     "note": "Manhattan from 60th Street south, where drivers pay the MTA’s toll to enter",
+     "label": "",
+     "hover": "Congestion Relief Zone: toll to drive in"
     },
     {
      "id": "streets",
@@ -1286,6 +1311,12 @@
    {
     "label": "Collection day",
     "pickup": true
+   },
+   {
+    "label": "Congestion toll",
+    "layer": "crz",
+    "onlyInside": true,
+    "text": "Inside the Congestion Relief Zone: driving in costs $9 a day for a car at peak times with E-ZPass, less at night (2026; the FDR Drive and West Side Highway are toll-free)"
    },
    {
     "label": "Historic district",
