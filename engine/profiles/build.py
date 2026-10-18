@@ -336,7 +336,9 @@ def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km, na
 # ---- driving: highways, arterials, on-ramps (raw/ramps.json) and drive times (raw/drive_profiles.json)
 highways = layer('highways') + [(g, m) for g, m in layer(CFG.get('regionHighways', 'region_highways'))]   # the city's own, then the region's
 drive_prof = raw('drive_profiles.json')
-DRIVE_DEST = [d['name'].replace(' Station', '') for d in drive_prof['destinations']] if drive_prof else []
+# A station destination is named without "Station" ("Union"), unless "drive.keepStation" (New York's "Penn Station")
+dest_name = lambda n: n if CFG.get('drive', {}).get('keepStation') else n.replace(' Station', '')
+DRIVE_DEST = [dest_name(d['name']) for d in drive_prof['destinations']] if drive_prof else []
 
 
 def drive_to(name, k):
@@ -790,7 +792,7 @@ if highways:
         'city': [[rxy(*c) for c in part.exterior.simplify(0.2).coords]
                  for part in getattr(CITY, 'geoms', [CITY]) if part.geom_type == 'Polygon' and part.area > 1],
         'hwy': [{'route': m.get('route'), 'kind': hwy_kind(m), 'paths': p} for g, m in highways if (p := rpaths(g))],
-        'dest': [dict(zip(('x', 'y'), rxy(*km(Point(*d['at'])).coords[0])), name=d['name'].replace(' Station', ''))
+        'dest': [dict(zip(('x', 'y'), rxy(*km(Point(*d['at'])).coords[0])), name=dest_name(d['name']))
                  for d in (drive_prof or {}).get('destinations', [])],
     }
 
