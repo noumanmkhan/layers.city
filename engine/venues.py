@@ -377,6 +377,8 @@ ul.events .where{color:var(--ink-3);font-size:15px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
 .chips button{font:inherit;font-size:15px;min-height:36px;padding:0 14px;border-radius:999px;border:1.5px solid var(--rule);background:var(--card);color:var(--ink);cursor:pointer}
 .chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hide{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:15px;color:var(--ink-2)}.hide input{width:18px;height:18px;margin:0;accent-color:var(--accent)}
+.tier{margin-top:32px;padding:0;border:0;background:none}.tier h2{font-size:24px}
 .busy{border-color:var(--accent)}.busy ul{margin:0;padding-left:20px}.busy li{margin:4px 0}
 table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;padding:8px 10px 8px 0;border-top:1px solid var(--rule);vertical-align:top}th{font-weight:500;color:var(--ink-2)}tr:first-child th,tr:first-child td{border-top:0}
 td.n{white-space:nowrap}
@@ -533,7 +535,7 @@ for v in venues:
     if not EV:
         sec += '<p class="empty">No listing yet: the events feed hasn’t run. Getting-there facts below don’t depend on it.</p>'
     else:
-        empty = v.get('tickets') or 'Nothing listed here this week.'
+        empty = v.get('tickets') or v.get('season') or 'Nothing listed here this week.'
         sec += (f'<ul class="events">{"".join(event_li(e) for e in this_week)}</ul>' if this_week else '') + \
                f'<p class="empty"{"" if not this_week else " hidden"}>{esc(empty)}</p>'
         if next_week:
@@ -591,11 +593,11 @@ for v in venues:
     soonest = evs[0]['d'].isoformat() if evs else '9999-12-31'
     from_json = {r['name']: [r['drive'], r['km'], r['taxi'], r['transit'], r['fare']] for r in rows}
     ev_html = (f'<ul class="events">{"".join(event_li(e) for e in soon7)}</ul>' if soon7 else '') + \
-              (f'<p class="empty"{"" if not soon7 else " hidden"}>{esc(v.get("tickets") or "Nothing listed here in the next seven days.")}</p>' if EV else '')
-    cards.append(f'<article class="card" data-cap="{v["capacity"]}" data-kinds="{esc(" ".join(v["kinds"]))}" data-soon="{soonest}" data-from="{esc(json.dumps(from_json, separators=(",", ":")))}">'
+              (f'<p class="empty"{"" if not soon7 else " hidden"}>{esc(v.get("tickets") or v.get("season") or "Nothing listed here in the next seven days.")}</p>' if EV else '')
+    cards.append((v.get('tier', 'main'), f'<article class="card" data-cap="{v["capacity"]}" data-kinds="{esc(" ".join(v["kinds"]))}" data-soon="{soonest}" data-has="{1 if soon7 else 0}" data-from="{esc(json.dumps(from_json, separators=(",", ":")))}">'
                  f'<h2><a href="/{city}/venues/{v["slug"]}/">{esc(v["name"])}</a></h2>'
                  f'<p class="meta">about {v["capacity"]:,} seats · {esc(v["address"])}{esc(home)}<br>{esc(arrive)}</p>'
-                 f'{ev_html}<p class="from" hidden></p></article>')
+                 f'{ev_html}<p class="from" hidden></p></article>'))
 
 # ---- the list page: busy nights, controls, cards -----------------------------------------------------------------
 busy = {}
@@ -617,26 +619,32 @@ controls = f"""<div class="controls">
 </div>
 <ul class="chips" id="kinds" role="group" aria-label="Kind of event">
 <li><button type="button" data-kind="" aria-pressed="true">All</button></li><li><button type="button" data-kind="sports" aria-pressed="false">Sports</button></li><li><button type="button" data-kind="concerts" aria-pressed="false">Concerts</button></li><li><button type="button" data-kind="comedy" aria-pressed="false">Comedy</button></li><li><button type="button" data-kind="theatre" aria-pressed="false">Theatre</button></li>
-</ul>"""
+</ul>
+<label class="hide"><input type="checkbox" id="hideEmpty"> Hide venues with nothing on in the next seven days</label>"""
 script = """<script>
-(()=>{const cards=[...document.querySelectorAll('article.card')],list=document.getElementById('list'),sortEl=document.getElementById('sort'),fromEl=document.getElementById('from');
+(()=>{const cards=[...document.querySelectorAll('article.card')],lists={main:document.getElementById('list'),other:document.getElementById('list2')},sortEl=document.getElementById('sort'),fromEl=document.getElementById('from'),hideEl=document.getElementById('hideEmpty');
+const tierOf=c=>c.closest('#list2')?'other':'main';cards.forEach(c=>c.dataset.tier=tierOf(c));
 let kind='';try{fromEl.value=localStorage.getItem('venues.from')||'';}catch(e){}
 const fromOf=c=>{try{return JSON.parse(c.dataset.from)[fromEl.value]}catch(e){return null}};
-function apply(){const f=fromEl.value;cards.forEach(c=>{const r=f?fromOf(c):null,p=c.querySelector('.from');c.hidden=!!kind&&!c.dataset.kinds.split(' ').includes(kind);
+function apply(){const f=fromEl.value;cards.forEach(c=>{const r=f?fromOf(c):null,p=c.querySelector('.from');c.hidden=(!!kind&&!c.dataset.kinds.split(' ').includes(kind))||(hideEl.checked&&c.dataset.has==='0');
 if(r){p.hidden=false;p.innerHTML='From <b>'+f.replace(/</g,'&lt;')+'</b>: '+(r[0]!=null?'drive about '+r[0]+' min ('+r[1]+' km), taxi meter about $'+r[2]+' · ':'')+r[3].replace(/</g,'&lt;')+(r[4]?' · '+r[4].replace(/</g,'&lt;'):'');}else p.hidden=true;});
 const key=sortEl.value;const val=c=>key==='cap'?-(+c.dataset.cap):key==='soon'?c.dataset.soon:(f&&fromOf(c)&&fromOf(c)[0]!=null?fromOf(c)[0]:1e9);
-[...cards].sort((a,b)=>val(a)<val(b)?-1:val(a)>val(b)?1:0).forEach(c=>list.appendChild(c));
+[...cards].sort((a,b)=>val(a)<val(b)?-1:val(a)>val(b)?1:0).forEach(c=>lists[c.dataset.tier].appendChild(c));
+const sec=document.getElementById('other');if(sec)sec.hidden=!cards.some(c=>c.dataset.tier==='other'&&!c.hidden);
 try{localStorage.setItem('venues.from',f)}catch(e){}}
-sortEl.addEventListener('change',apply);fromEl.addEventListener('change',()=>{if(fromEl.value&&sortEl.value==='cap')sortEl.value='near';apply()});
+sortEl.addEventListener('change',apply);hideEl.addEventListener('change',apply);fromEl.addEventListener('change',()=>{if(fromEl.value&&sortEl.value==='cap')sortEl.value='near';apply()});
 document.querySelectorAll('#kinds button').forEach(b=>b.addEventListener('click',()=>{kind=b.dataset.kind;document.querySelectorAll('#kinds button').forEach(x=>x.setAttribute('aria-pressed',x===b));apply()}));
 apply();})();
 </script>"""
 intro = (f'<h1>{esc(CITY)}’s big venues, this week</h1>'
-         f'<p class="kind">What’s on at the {len(venues)} places most of the GTA travels to, and how to get to each: nearest station, streetcars and buses, Green P within a ten-minute walk, and drive and transit from across the region. '
+         f'<p class="kind">What’s on at the {len(main_cards_count := [v for v in venues if v.get('tier', 'main') == 'main'])} places most of the GTA travels to, and how to get to each: nearest station, streetcars and buses, Green P within a ten-minute walk, and drive and transit from across the region. '
          f'A listing, not a guide: the facts and a link to the source, nothing else.</p>'
          + (f'<p class="stamp">Listing from Ticketmaster as of {esc(asof_text)} · week runs {esc(V.get("week", "Monday to Sunday"))}. Cards show the next seven days; each venue’s page has this week and next. Pick where you’re coming from to see the trip.</p>' if asof_text else
             '<p class="stamp">The events feed hasn’t run yet, so there’s no listing; every venue’s getting-there facts are here already.</p>'))
-body = intro + strip + controls + '<div id="list">' + ''.join(cards) + '</div>' + script
+main_cards = [h for t, h in cards if t == 'main']; other_cards = [h for t, h in cards if t == 'other']
+other_sec = ('<section class="tier" id="other"><h2>Other venues</h2><p class="note" style="margin:0 0 4px">Smaller rooms and the suburbs’ arenas and halls, same facts, same listing.</p></section>'
+             '<div id="list2">' + ''.join(other_cards) + '</div>') if other_cards else '<div id="list2"></div>'
+body = intro + strip + controls + '<div id="list">' + ''.join(main_cards) + '</div>' + other_sec + script
 idx_desc = f"What's on this week at {CITY}'s big venues, from Rogers Centre and Scotiabank Arena to Massey Hall, and how to get to each: nearest subway and GO, streetcars, Green P within a ten-minute walk, drive and transit from across the GTA."
 og_image(f'{CITY}’s big venues', [v['at'] for v in venues], os.path.join(OUT, 'card.png'), 'This week, and how to get there')
 open(os.path.join(OUT, 'index.html'), 'w').write(page(f'{CITY} venues this week · Layers.City', idx_desc, INDEX, f'{INDEX}card.png', body, crumbs_idx))
