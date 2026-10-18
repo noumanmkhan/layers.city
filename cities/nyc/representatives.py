@@ -61,6 +61,23 @@ out = {'council': {k: v for k, v in council.items() if k in nums('council.geojso
        'senate': {k: v for k, v in senate.items() if k in nums('senate.geojson')},
        'congress': {k: v for k, v in congress.items() if k in nums('congress.geojson')},
        'borough': BOROUGH, 'mayor': MAYOR}
+# The November 3, 2026 ballot (raw/ballot/candidates.json, from ballot.py): each district's race and, on each sitting
+# member, where they're running (engine/ballot.py; the Assembly is its "house"). The card shows them until election day.
+BAL = os.path.join(HERE, 'raw', 'ballot', 'candidates.json')
+if os.path.exists(BAL):
+    import sys; sys.path.insert(0, os.path.join(HERE, '..', '..', 'engine'))
+    from ballot import ballot_tables, same
+    cand = json.load(open(BAL))
+    tables = ballot_tables(cand, {'congress': out['congress'], 'house': out['assembly'], 'senate': out['senate']})
+    tables['race_assembly'] = tables.pop('race_house')
+    tables['race_statewide']['proposals'].pop('parties', None)   # the Charter questions are yes or no
+    # A council seat on this ballot (a special election): the race, and whether the sitting member is in it.
+    tables['race_council'] = {d: {'candidates': [c[0] for c in cs], 'parties': [c[1] for c in cs]} for d, cs in cand['races']['council'].items()}
+    for d in tables['race_council']:
+        m = out['council'].get(d)
+        if m: m['runs'] = {'office': 'council', 'district': d} if any(same(m['name'], c[0]) for c in cand['races']['council'][d]) else None
+    out.update(tables)
+
 old = json.load(open(OUT)) if os.path.exists(OUT) else {}
 same = {k: v for k, v in old.items() if k != 'updated'} == out
 out = {'updated': old['updated'] if same and old.get('updated') else datetime.date.today().isoformat(), **out}

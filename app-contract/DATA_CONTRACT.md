@@ -367,7 +367,7 @@ first matching feature in file order wins.
    `retiring`), then under it, with the trustees' wording and dates: the winner and `acclaimed` or
    `elected` once there is one, otherwise `race`/`counting` with the candidate names on expand. From `starts` on,
    the plain office row.
-   **Partisan ballots** (`card.reps.ballot`, Chicago and Dallas for November 3, 2026): `{election, through, race, one,
+   **Partisan ballots** (`card.reps.ballot`, Chicago, Dallas and New York for November 3, 2026): `{election, through, race, one,
    again, retiring, notUp, elsewhere {congress, house, senate, statewide}, races {key: label}, party {name: short},
    note}`, overriding the trustees' wording for `race` rows. Rows show the race until the end of `through` (election
    day; there is no results feed), then go back to the plain office row. An office's `race` may name `kind`
@@ -589,7 +589,7 @@ toronto.ca) and `mayorRace: {city: {candidates, incumbentRunning, winner?}}` (th
 There are no incumbent trustees in this data: TDSB's wards were redrawn for 2026, so the trustees
 in office until November 15 sat on different lines.
 
-Chicago and Dallas also have the November 3, 2026 ballot (engine/ballot.py, from each city's
+New York's ballot (cities/nyc/ballot.py, from the Board of Elections' contest list) uses the same shapes with `race_assembly` in place of `race_house` (members' `runs.office` is still `house`), adds `race_council` (special elections; the member's `runs.office` `council`), and `race_statewide` keys `governor`, `comptroller`, `attorneygeneral` and `proposals` (the City Charter questions: `candidates` are the questions' titles, no `parties`; its office row has `ballot.text.race` for its own wording). New York's `parties` are already short and list every line a candidate is on ("D, WF"; an independent line named after the candidate is "independent"). Chicago and Dallas also have the November 3, 2026 ballot (engine/ballot.py, from each city's
 `raw/ballot/candidates.json`): `race_congress`, `race_house`, `race_senate` `{district: {candidates: [names],
 parties: [party as printed]}}` (a Senate district the ballot covers with no race: `{notUp: true}`), and
 `race_statewide` `{ussenate, governor}`. Each `house`, `senate` and `congress` member gains `runs`:

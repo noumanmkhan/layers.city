@@ -1399,31 +1399,104 @@
      "layer": "council",
      "table": "council",
      "key": "num",
-     "sub": "{r.party} · District {f.num}"
+     "sub": "{r.party} · District {f.num}",
+     "race": {
+      "table": "race_council",
+      "kind": "council"
+     }
     },
     {
      "role": "Assembly member",
      "layer": "assembly",
      "table": "assembly",
      "key": "num",
-     "sub": "{r.party} · District {f.num}"
+     "sub": "{r.party} · District {f.num}",
+     "race": {
+      "table": "race_assembly",
+      "kind": "house"
+     }
     },
     {
      "role": "State senator",
      "layer": "senate",
      "table": "senate",
      "key": "num",
-     "sub": "{r.party} · District {f.num}"
+     "sub": "{r.party} · District {f.num}",
+     "race": {
+      "table": "race_senate",
+      "kind": "senate"
+     }
     },
     {
      "role": "U.S. representative",
      "layer": "congress",
      "table": "congress",
      "key": "num",
-     "sub": "{r.party} · NY-{f.num}"
+     "sub": "{r.party} · NY-{f.num}",
+     "race": {
+      "table": "race_congress",
+      "kind": "congress"
+     }
+    },
+    {
+     "role": "Governor",
+     "ballot": {
+      "table": "race_statewide",
+      "key": "governor"
+     },
+     "sub": "Statewide, with Lieutenant Governor"
+    },
+    {
+     "role": "State Comptroller",
+     "ballot": {
+      "table": "race_statewide",
+      "key": "comptroller"
+     },
+     "sub": "Statewide"
+    },
+    {
+     "role": "Attorney General",
+     "ballot": {
+      "table": "race_statewide",
+      "key": "attorneygeneral"
+     },
+     "sub": "Statewide"
+    },
+    {
+     "role": "Ballot proposals",
+     "ballot": {
+      "table": "race_statewide",
+      "key": "proposals",
+      "text": {
+       "race": "{n} City Charter questions · {election}"
+      }
+     },
+     "sub": "Citywide: yes or no on each"
     }
    ],
-   "note": "Names open each person’s official page. Council members’ parties aren’t shown: the City Council’s pages don’t list them. Senate District 12 has been vacant since August 2026; it’s on the November 3 ballot. Checked against the official lists; last change {date}."
+   "note": "Names open each person’s official page. Council members’ parties aren’t shown: the City Council’s pages don’t list them. Senate District 12 has been vacant since August 2026; it’s on the November 3 ballot. Checked against the official lists; last change {date}.",
+   "ballot": {
+    "election": "2026-11-03",
+    "through": "2026-11-03",
+    "race": "{n} candidate[{s}] on the ballot · {election}",
+    "one": "Unopposed on the ballot: {name}",
+    "again": "running again",
+    "retiring": "not on the ballot this year",
+    "elsewhere": {
+     "congress": "running for Congress, NY-{district}",
+     "house": "running for Assembly, District {district}",
+     "senate": "running for State Senate, District {district}",
+     "council": "running for City Council, District {district}",
+     "statewide": "running for {race}"
+    },
+    "races": {
+     "governor": "Governor",
+     "comptroller": "State Comptroller",
+     "attorneygeneral": "Attorney General"
+    },
+    "party": {},
+    "note": "Candidates on the November 3 ballot, in ballot order, with every party line each is on (D Democratic, R Republican, C Conservative, WF Working Families), from the Board of Elections’ contest list of September 11 (tentative); shown until election day."
+   }
   },
   "outsideFacts": [],
   "vote": {
