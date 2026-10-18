@@ -40,6 +40,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - if: steps.when.outputs.skip != '1'
+        run: pip install -q shapely   # New York's event closures are placed on the street centerline
       # Each city on its own, so one failing keeps the other's update (and yesterday's file stays up).
       - if: steps.when.outputs.skip != '1'
         run: |

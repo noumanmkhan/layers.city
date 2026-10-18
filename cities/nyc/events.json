@@ -1,0 +1,9 @@
+{
+ "_about": "Special-event street closures (engine/events.py), from NYC's Permitted Event Information placed on NYC DOT's street centerline by fetch_closures.py. Each permit's event name is its organizer, so an event's closures group together and a recurring one splits where two days pass between dates. Events with at least 'bannerMin' closures get the map's banner 'lead' days ahead; 'organizers' can name or banner one by its permit's event name.",
+ "tz": "America/New_York",
+ "lat0": 40.75,
+ "lead": 3,
+ "ahead": 14,
+ "bannerMin": 25,
+ "organizers": {}
+}
