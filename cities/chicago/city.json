@@ -59,6 +59,7 @@
     ]],
     ["Getting around", [
       {"id": "cta", "kind": "metro", "files": ["cta_lines", "cta_stations"], "name": "The ‘L’", "note": "CTA Red, Blue, Brown, Green, Orange, Pink, Purple and Yellow lines", "on": true,
+       "badges": {"red": "Red", "blue": "Blue", "brown": "Brown", "green": "Green", "orange": "Orange", "pink": "Pink", "purple": "Purple", "yellow": "Yellow"},
        "stationHover": "{name} · {lines}", "sub": {"id": "stnNames", "label": "Show station names", "on": true}},
       {"id": "metra", "kind": "rail", "files": ["metra_lines", "metra_stations", "metra_lines_inner"], "name": "Metra trains", "note": "11 commuter lines from four downtown stations", "on": true,
        "hover": "{name} · downtown – {to}"},

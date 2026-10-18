@@ -39,7 +39,7 @@ Toronto's geography is described in several overlapping ways at once. A single a
 | Collector streets | 989 streets | The tier below (Dovercourt, Greenwood…),<br>from zoom 13; most non-arterial bus streets |
 | Yonge: East and West | 43 streets | Yonge and the streets it splits<br>into East and West |
 | Highways | 10 in Toronto,<br>14 across the GTA | 400-series, QEW, 407 ETR,<br>DVP, Gardiner, Allen Rd |
-| Subway & LRT | 5 lines | Lines 1, 2, 4, 5, 6 with station names |
+| Subway & LRT | 5 lines | Lines 1, 2, 4, 5, 6: a numbered badge per line,<br>stations and names from zoom 13 |
 | Streetcars | 11 routes | Numbered along the line;<br>stops when zoomed in |
 | Bus routes | 230 routes,<br>by family | All, frequent, express, regular<br>or overnight; any route on demand |
 | Bike lanes | 1,581 segments | Protected, painted, shared, trails<br>(any mix); City's Cycling Network |

@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### Line badges instead of stations when zoomed out (October 18)
+- Every city's rapid-transit layer (subway, the 'L', SkyTrain, DART) now hides its stations, dots and names alike,
+  until zoom 13. In their place each line carries a badge in its own colour: a TTC-style number, New York's letter
+  bullets (a trunk's services grouped, e.g. A C E) or a name pill where lines go by colour (Red, Expo). With a whole
+  line in view the badge sits near its outer end, the way transit maps mark lines; zoomed in, it is re-placed after
+  each move on the line's longest stretch on screen, clear of the panels and other badges, so a line in view always
+  says which it is. Labels come from a new `badges` map on the metro layer in city.json (Toronto's line ids are
+  already its numbers). Prompted by New York's 461 stations, which buried the city view.
+
 ### About link moves to the hub footer (October 18)
 - The "How it's built" card is gone from the hub; the write-up at `/about/` is now an About link in the footer,
   beside Privacy, Attributions and Terms. No change to the page itself, the maps or the app's data.

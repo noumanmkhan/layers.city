@@ -956,6 +956,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .lbl-stn{font-size:10px;font-weight:600}
 .lbl-stn.end{font-size:11px;font-weight:700}
 .stn.end{stroke-width:2.6}
+/* Rapid-transit line badges (lineBadges in map.js): bullets for numbers and letters, pills for names; colours set inline */
+.sub-b{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;gap:2px;pointer-events:auto;cursor:pointer}
+.sub-b i{display:grid;place-items:center;box-sizing:border-box;width:18px;height:18px;border-radius:50%;font:700 11px/1 var(--font);font-style:normal;
+  letter-spacing:-.01em;box-shadow:0 0 0 1.5px var(--city),0 1px 3px rgba(0,0,0,.3);white-space:nowrap}
+.sub-b i.w{width:auto;border-radius:9px;padding:0 6px;font-size:10.5px}
+#map.z14 .sub-b i{width:20px;height:20px;font-size:12px} #map.z14 .sub-b i.w{width:auto;height:20px;border-radius:10px}
 .lm{display:flex;align-items:center;gap:6px;white-space:nowrap;transform:translate(-11px,-11px)}
 .lm i{display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;background:var(--panel);color:var(--lm);box-shadow:0 0 0 1.5px var(--lm),0 1px 3px rgba(0,0,0,.25)}
 .lm i svg{width:13px;height:13px}
@@ -1262,8 +1268,7 @@ circle.cl{stroke-width:3;fill:var(--city)}
 #map:not(.z11) .lbl-area,#map:not(.z11) .lbl-ward,#map:not(.z11) .lbl-prov,#map:not(.z11) .lbl-fed,#map:not(.z11) .lbl-sbw{display:none}
 #map.z10 .lbl-region,#map:not(.z10) .lbl-muni,#map:not(.z12) .lbl-muni.minor,#map:not(.z10) .lbl-boro,#map:not(.z10) .shield:not(.outer),#map:not(.z12) .lbl-go:not(.end),#map:not(.z12) .go-stn:not(.end):not(.hub),#map:not(.z10) .poi b,#map:not(.z10) .lake-near,#map.z10 .lake-far{display:none}
 #map:not(.z12) .lbl-cult,#map:not(.z12) .shield.minor{display:none}
-#map:not(.z13) .lbl-nbhd,#map:not(.z13) .lbl-stn:not(.end){display:none}
-#map:not(.z11) .lbl-stn.end{display:none}
+#map:not(.z13) .lbl-nbhd,#map:not(.z13) .lbl-stn,#map:not(.z13) .stn{display:none}
 #map:not(.z13) .lbl-permit,#map:not(.z14) .lbl-bia,#map:not(.z14) .lbl-hd{display:none}
 #map.z13 .lbl-boro{opacity:.35}
 
@@ -1798,7 +1803,7 @@ map.on('zoomend', zoomClasses); zoomClasses();
 
 /* Label declutter: after each move, place labels in priority order and hide any that would overlap
    a label already placed. Icons stay; hovering an icon still shows its name. */
-const LABEL_PRIORITY = ['.lbl-focus', '#map.elect .lbl-ward.el', '.rt-b.pick', '.lm.t1 b', '.lm.t2 b', '.lm.tw.sup b', '.lm.inst b', '.lm.tw b', '.lbl-stn.end', '.lbl-go.end', '.shield', '.lbl-stn', '.lbl-go', '.rt-b', '.lbl-cult', '.lbl-area', '.lbl-nbhd', '.lbl-ward, .lbl-prov, .lbl-fed, .lbl-sbw', '.lbl-bia', '.lbl-hd'];
+const LABEL_PRIORITY = ['.lbl-focus', '.sub-b', '#map.elect .lbl-ward.el', '.rt-b.pick', '.lm.t1 b', '.lm.t2 b', '.lm.tw.sup b', '.lm.inst b', '.lm.tw b', '.lbl-stn.end', '.lbl-go.end', '.shield', '.lbl-stn', '.lbl-go', '.rt-b', '.lbl-cult', '.lbl-area', '.lbl-nbhd', '.lbl-ward, .lbl-prov, .lbl-fed, .lbl-sbw', '.lbl-bia', '.lbl-hd'];
 let declutterQueued = false;
 function declutter(){
   declutterQueued = false;
@@ -2138,7 +2143,7 @@ const KINDS = {
       // Keep clear of other labels, shields and the panels floating over the map.
       const mr = map.getContainer().getBoundingClientRect();
       // A layer that yields (collectors) also keeps clear of the main streets' names, placed just before.
-      document.querySelectorAll('#search, #here, #panel, .leaflet-tooltip.lbl, .shield, .lm i, .lm b, .stn, .leaflet-pin-pane > *' + (it.yieldLabels ? ', .st-lbl:not(.coll)' : '')).forEach(el => {
+      document.querySelectorAll('#search, #here, #panel, .leaflet-tooltip.lbl, .shield, .lm i, .lm b, .stn, .sub-b, .leaflet-pin-pane > *' + (it.yieldLabels ? ', .st-lbl:not(.coll)' : '')).forEach(el => {
         const r = el.getBoundingClientRect();
         if (r.width && r.height) boxes.push(rect((r.left + r.right) / 2 - mr.left, (r.top + r.bottom) / 2 - mr.top, r.width / 2 + 3, r.height / 2 + 3, 0));
       });
@@ -2231,6 +2236,8 @@ const KINDS = {
       names.addLayer(L.tooltip({permanent:true, direction:'right', offset:[6,0], className:'lbl lbl-stn' + (f.properties.terminus ? ' end' : ''), interactive:false}).setLatLng(ll(f.geometry.coordinates)).setContent(f.properties.name));
     });
     g._names = names;
+    // Stations (dots and names) show from zoom 13 (CSS); zoomed out, each line carries a badge instead.
+    g.addLayer(lineBadges(it, lines, lg, g));
     return g;
   },
   // Streetcar routes with daytime service, each numbered along its line (badges from zoom 12).
@@ -2968,6 +2975,106 @@ function along(c, t){
   return [c[i - 1][0] + (c[i][0] - c[i - 1][0]) * s, c[i - 1][1] + (c[i][1] - c[i - 1][1]) * s];
 }
 const span = c => c.reduce((a, p, i) => i ? a + Math.hypot((p[0] - c[i - 1][0]) * .72, p[1] - c[i - 1][1]) : 0, 0);
+/* Rapid-transit line badges: each line's number, letters or name in its own colour, sitting on the line.
+   it.badges maps a line id to its label: a string, or a list for a trunk that carries several services
+   (New York's A C E). One or two characters make a round bullet; a word makes a pill. With the whole line
+   in view the badge goes near its outer end, the way transit maps mark lines; zoomed in, it is re-placed
+   after every move on the longest stretch of the line in the open part of the map (clear of the panels,
+   other badges and, where there's room, names), so a line on screen always says which it is. A badge keeps
+   its spot while that spot stays in view, so panning doesn't make them jump. */
+function lineBadges(it, fc, lg, owner){
+  const g = L.layerGroup(), B = it.badges || {}, last = {};
+  let lastZ = null;
+  // The line's colour: the variable its CSS rule strokes with (so it follows the theme), else what's drawn.
+  const rule = id => { for (const sh of document.styleSheets){ let rs; try { rs = sh.cssRules; } catch (e) { continue; }
+    for (const r of rs) if (r.selectorText === '.sub-line.l' + id && r.style.stroke) return r.style.stroke; } return null; };
+  const ink = c => { const m = String(c).match(/\d+(\.\d+)?/g); if (!m || m.length < 3) return '#fff';
+    const [r, gg, b] = m.slice(0, 3).map(Number); return (r * 299 + gg * 587 + b * 114) / 1000 > 165 ? '#111' : '#fff'; };
+  const paths = {}; lg.eachLayer(l => { paths[l.feature.properties.line] = l; });
+  const items = fc.features.map(f => {
+    const p = f.properties, parts = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.coordinates;
+    const labs = [].concat(B[p.line] != null ? B[p.line] : p.line);
+    // A part's end is the end of the line if no other part of it carries on from there (not a junction).
+    const near = (a, b) => Math.abs(a[0] - b[0]) < 2e-4 && Math.abs(a[1] - b[1]) < 2e-4;
+    const loose = (pt, i) => !parts.some((q, j) => j !== i && q.some(v => near(v, pt)));
+    const ends = parts.map((c, i) => [loose(c[0], i), loose(c[c.length - 1], i)]);
+    const w = labs.reduce((a, s) => a + (String(s).length > 2 ? String(s).length * 6.6 + 12 : 18) + 2, 0);
+    return {f, p, parts, labs, ends, w, v: rule(p.line)};
+  });
+  const html = x => {
+    const el = paths[x.p.line] && paths[x.p.line].getElement(), c = x.v || x.p.color || (el && getComputedStyle(el).stroke) || 'var(--ink)';
+    const seen = el ? getComputedStyle(el).stroke : x.p.color, fg = ink(seen || '');
+    return '<span class="sub-b">' + x.labs.map(s => '<i class="' + (String(s).length > 2 ? 'w' : '') + '" style="background:' + c + ';color:' + fg + '">' + esc(s) + '</i>').join('') + '</span>';
+  };
+  const len = r => r.reduce((a, q, i) => i ? a + q.distanceTo(r[i - 1]) : 0, 0);
+  const at = (r, d) => { for (let i = 1; i < r.length; i++){ const s = r[i].distanceTo(r[i - 1]); if (d <= s) return r[i - 1].add(r[i].subtract(r[i - 1]).multiplyBy(s ? d / s : 0)); d -= s; } return r[r.length - 1]; };
+  function place(){
+    g.clearLayers();
+    if (!map.hasLayer(owner)) return;
+    const size = map.getSize(), mr = map.getContainer().getBoundingClientRect(), m = 16;
+    const view = L.bounds([m, m], [size.x - m, size.y - m]), mid = size.divideBy(2);
+    const rects = sel => [...document.querySelectorAll(sel)].map(el => el.getBoundingClientRect()).filter(r => r.width && r.height)
+      .map(r => [r.left - mr.left - 4, r.top - mr.top - 4, r.right - mr.left + 4, r.bottom - mr.top + 4]);
+    // Hard: the panels and controls floating over the map, then each badge as it's placed. Soft (kept clear of
+    // where there's room): names of streets and stations, station dots, route numbers.
+    const hard = saving ? [] : rects('#panel, #search, #here, #ptabs, .leaflet-control');
+    const soft = rects('.st-lbl, .leaflet-tooltip.lbl, .stn, .rt-b, .shield, .lm i');
+    const hits = (b, list) => list.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
+    // Busiest lines first, so the trunks with several services get the best spots.
+    [...items].sort((a, b) => b.labs.length - a.labs.length).forEach(x => {
+      const box = q => [q.x - x.w / 2 - 2, q.y - 11, q.x + x.w / 2 + 2, q.y + 11];
+      const inView = q => q.x - x.w / 2 > m && q.x + x.w / 2 < size.x - m && q.y > m + 10 && q.y < size.y - m - 10;
+      const ok = (q, strict) => inView(q) && !hits(box(q), hard) && (!strict || !hits(box(q), soft));
+      // The line's stretches in view (screen points), noting which ends are the end of the line.
+      const runs = [];
+      x.parts.forEach((c, i) => {
+        const px = c.map(v => map.latLngToContainerPoint([v[1], v[0]]));
+        let cur = null;
+        for (let k = 1; k < px.length; k++){
+          const s = L.LineUtil.clipSegment(px[k - 1], px[k], view, false, false);
+          if (!s){ if (cur){ runs.push(cur); cur = null; } continue; }
+          if (!cur || cur.pts[cur.pts.length - 1] !== s[0]){ if (cur) runs.push(cur); cur = {pts: [s[0]], a: k === 1 && s[0] === px[0] && x.ends[i][0], b: false}; }
+          cur.pts.push(s[1]);
+          if (k === px.length - 1 && s[1] === px[k] && x.ends[i][1]) cur.b = true;
+        }
+        if (cur) runs.push(cur);
+      });
+      if (!runs.length){ delete last[x.p.line]; return; }
+      runs.forEach(r => { r.len = len(r.pts); });
+      const cands = [];
+      // Where it was, if that's still in view and the zoom hasn't changed (a new zoom starts afresh).
+      if (last[x.p.line] && lastZ === map.getZoom()) cands.push(map.latLngToContainerPoint(last[x.p.line]));
+      // Near an end of the line, outermost first (the ends spread out; the middles bunch up downtown).
+      const tips = [];
+      runs.forEach(r => { if (r.len < 40) return;
+        if (r.a) tips.push([r.pts, r.pts[0]]);
+        if (r.b){ const rev = [...r.pts].reverse(); tips.push([rev, rev[0]]); } });
+      tips.sort((a, b) => b[1].distanceTo(mid) - a[1].distanceTo(mid))
+        .forEach(([pts]) => [x.w / 2 + 16, x.w / 2 + 40, x.w / 2 + 70].forEach(d => cands.push(at(pts, d))));
+      // Otherwise along the longest stretches in view, from their middles outward.
+      runs.sort((a, b) => b.len - a.len).slice(0, 4).forEach(r => [.5, .4, .6, .3, .7, .2, .8, .1, .9].forEach(t => cands.push(at(r.pts, r.len * t))));
+      // Where every spot is crowded, the one that covers the fewest names.
+      const cover = q => soft.filter(o => { const b = box(q); return b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]; }).length;
+      const best = cands.filter(q => ok(q, false)).map(q => [q, cover(q)]).reduce((a, b) => !a || b[1] < a[1] ? b : a, null);
+      const q = cands.find(q => ok(q, true)) || (best && best[0]);
+      if (!q) return;
+      hard.push(box(q));
+      const ll_ = map.containerPointToLatLng(q); last[x.p.line] = ll_;
+      const mk = L.marker(ll_, {pane:'pts', keyboard:false, zIndexOffset: 500,
+        icon: L.divIcon({className:'', iconSize:[0, 0], html: html(x)})});
+      hoverTip(mk, x.p.name);
+      mk.on('click', e => inspect(e.latlng));
+      g.addLayer(mk);
+    });
+    lastZ = map.getZoom();
+  }
+  map.on('moveend', place); owner.on('add', () => setTimeout(place));
+  // A new theme changes the lines' colours (and so whether the text on a badge reads better dark or light).
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => setTimeout(place));
+  new MutationObserver(() => setTimeout(place)).observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
+  setTimeout(place);
+  return g;
+}
 // Route lines with number badges. Line widths follow the zoom through CSS (.z12, .z14 on the map).
 // opts.pane: the map pane (default 'transit'); opts.within(c): badges go mid-way along the longest stretch
 // of the route where it's true (e.g. inside the city), or nowhere if there's none.
@@ -5438,7 +5545,7 @@ async function saveImage(labels){
     await new Promise(r => setTimeout(r, 400)); declutter(); await frames(2);
     const has = (n, c) => n.classList && n.classList.contains(c);
     const skip = n => has(n, 'leaflet-control-container') || has(n, 'leaflet-pin-pane') || has(n, 'hover-tip') ||
-      (!labels && (has(n, 'leaflet-tooltip-pane') || has(n, 'leaflet-stlbl-pane') || has(n, 'shield') || has(n, 'rt-b') ||
+      (!labels && (has(n, 'leaflet-tooltip-pane') || has(n, 'leaflet-stlbl-pane') || has(n, 'shield') || has(n, 'rt-b') || has(n, 'sub-b') ||
         (n.tagName === 'B' && n.parentElement && has(n.parentElement, 'lm'))));
     restoreSvg = inlineSvgStyles(el);
     canvas = await lib.toCanvas(el, {width: cw, height: ch, canvasWidth: W, canvasHeight: H, pixelRatio: 1,

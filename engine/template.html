@@ -291,6 +291,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .lbl-stn{font-size:10px;font-weight:600}
 .lbl-stn.end{font-size:11px;font-weight:700}
 .stn.end{stroke-width:2.6}
+/* Rapid-transit line badges (lineBadges in map.js): bullets for numbers and letters, pills for names; colours set inline */
+.sub-b{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:flex;gap:2px;pointer-events:auto;cursor:pointer}
+.sub-b i{display:grid;place-items:center;box-sizing:border-box;width:18px;height:18px;border-radius:50%;font:700 11px/1 var(--font);font-style:normal;
+  letter-spacing:-.01em;box-shadow:0 0 0 1.5px var(--city),0 1px 3px rgba(0,0,0,.3);white-space:nowrap}
+.sub-b i.w{width:auto;border-radius:9px;padding:0 6px;font-size:10.5px}
+#map.z14 .sub-b i{width:20px;height:20px;font-size:12px} #map.z14 .sub-b i.w{width:auto;height:20px;border-radius:10px}
 .lm{display:flex;align-items:center;gap:6px;white-space:nowrap;transform:translate(-11px,-11px)}
 .lm i{display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:50%;background:var(--panel);color:var(--lm);box-shadow:0 0 0 1.5px var(--lm),0 1px 3px rgba(0,0,0,.25)}
 .lm i svg{width:13px;height:13px}
@@ -597,8 +603,7 @@ circle.cl{stroke-width:3;fill:var(--city)}
 #map:not(.z11) .lbl-area,#map:not(.z11) .lbl-ward,#map:not(.z11) .lbl-prov,#map:not(.z11) .lbl-fed,#map:not(.z11) .lbl-sbw{display:none}
 #map.z10 .lbl-region,#map:not(.z10) .lbl-muni,#map:not(.z12) .lbl-muni.minor,#map:not(.z10) .lbl-boro,#map:not(.z10) .shield:not(.outer),#map:not(.z12) .lbl-go:not(.end),#map:not(.z12) .go-stn:not(.end):not(.hub),#map:not(.z10) .poi b,#map:not(.z10) .lake-near,#map.z10 .lake-far{display:none}
 #map:not(.z12) .lbl-cult,#map:not(.z12) .shield.minor{display:none}
-#map:not(.z13) .lbl-nbhd,#map:not(.z13) .lbl-stn:not(.end){display:none}
-#map:not(.z11) .lbl-stn.end{display:none}
+#map:not(.z13) .lbl-nbhd,#map:not(.z13) .lbl-stn,#map:not(.z13) .stn{display:none}
 #map:not(.z13) .lbl-permit,#map:not(.z14) .lbl-bia,#map:not(.z14) .lbl-hd{display:none}
 #map.z13 .lbl-boro{opacity:.35}
 
