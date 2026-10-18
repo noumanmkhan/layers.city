@@ -109,10 +109,18 @@ def status(ev):
     return {'cancelled': 'cancelled', 'postponed': 'postponed', 'rescheduled': 'rescheduled'}.get(s)
 
 
+# Not events: the feed also sells add-ons to a game (Fan Access "Plus Ups", warm-up access), building tours and
+# parking as if they were shows. They arrive without a Sports/Music/Arts classification, so an unclassified entry
+# whose name reads like one of those is dropped. A real show with no classification still goes through.
+ADDON = re.compile(r'\b(fan access|plus ups?|add[- ]?ons?|upgrade|parking|guided tours?|tour of|courtside access|'
+                   r'warm-?ups?|experience package|vip package|meet (and|&) greet|early entry)\b', re.I)
+
 out, unmatched, seen = {v['slug']: [] for v in venues}, {}, set()
 for ev in events:
     vs = (ev.get('_embedded') or {}).get('venues') or []
     if not vs or ev.get('id') in exclude:
+        continue
+    if kind(ev) == 'other' and ADDON.search(ev.get('name', '')):
         continue
     tv = vs[0]
     slug = known.get(tv.get('id')) or by_name.get(norm(tv.get('name', '')))

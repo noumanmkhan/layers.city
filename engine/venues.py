@@ -533,8 +533,9 @@ for v in venues:
     if not EV:
         sec += '<p class="empty">No listing yet: the events feed hasn’t run. Getting-there facts below don’t depend on it.</p>'
     else:
+        empty = v.get('tickets') or 'Nothing listed here this week.'
         sec += (f'<ul class="events">{"".join(event_li(e) for e in this_week)}</ul>' if this_week else '') + \
-               f'<p class="empty"{"" if not this_week else " hidden"}>Nothing listed here this week.</p>'
+               f'<p class="empty"{"" if not this_week else " hidden"}>{esc(empty)}</p>'
         if next_week:
             sec += f'<h3>Next week</h3><ul class="events">{"".join(event_li(e) for e in next_week)}</ul><p class="empty" hidden>Nothing listed for next week.</p>'
         sec += f'<p class="stamp">Listing from Ticketmaster, as of {esc(asof_text)}. Week runs {esc(V.get("week", "Monday to Sunday"))}.</p>'
@@ -590,7 +591,7 @@ for v in venues:
     soonest = evs[0]['d'].isoformat() if evs else '9999-12-31'
     from_json = {r['name']: [r['drive'], r['km'], r['taxi'], r['transit'], r['fare']] for r in rows}
     ev_html = (f'<ul class="events">{"".join(event_li(e) for e in soon7)}</ul>' if soon7 else '') + \
-              (f'<p class="empty"{"" if not soon7 else " hidden"}>Nothing listed here in the next seven days.</p>' if EV else '')
+              (f'<p class="empty"{"" if not soon7 else " hidden"}>{esc(v.get("tickets") or "Nothing listed here in the next seven days.")}</p>' if EV else '')
     cards.append(f'<article class="card" data-cap="{v["capacity"]}" data-kinds="{esc(" ".join(v["kinds"]))}" data-soon="{soonest}" data-from="{esc(json.dumps(from_json, separators=(",", ":")))}">'
                  f'<h2><a href="/{city}/venues/{v["slug"]}/">{esc(v["name"])}</a></h2>'
                  f'<p class="meta">about {v["capacity"]:,} seats · {esc(v["address"])}{esc(home)}<br>{esc(arrive)}</p>'
