@@ -25,10 +25,19 @@ BOROUGH = {
     'Staten Island': {'name': 'Vito Fossella', 'party': 'Republican', 'url': 'https://www.statenislandusa.com/'},
 }
 
+# Council members' parties (council.nyc.gov doesn't give them), hand-kept from the November 2025 results: five
+# Republicans, the rest Democrats. Applied only while the district's member is the one named here, so a new member
+# shows with no party until this list is checked.
+COUNCIL_R = {'19': 'Paladino', '32': 'Ariola', '48': 'Vernikov', '50': 'Carr', '51': 'Morano'}
 council = {}
 for n, v in json.load(open(os.path.join(SRC, 'council.json'))).items():
     name = v['title'].split(' - ', 1)[-1].strip() if ' - ' in v['title'] else ''
     if name and 'Council' not in name: council[n] = {'name': name, 'url': v['url']}
+
+KNOWN = json.load(open(os.path.join(HERE, 'council_members.json')))   # {district: name} as checked on October 19, 2026
+for n, c in council.items():
+    if KNOWN.get(n) == c['name']:
+        c['party'] = 'Republican' if n in COUNCIL_R else 'Democrat'
 
 assembly, senate = {}, {}
 for r in csv.DictReader(open(os.path.join(SRC, 'ny.csv'), encoding='utf-8')):
