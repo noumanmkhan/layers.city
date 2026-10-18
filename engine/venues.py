@@ -180,8 +180,10 @@ if ASOF:
 
 
 def events_for(slug):
+    """This venue's upcoming events, with timed-entry slots (the same show sold at several times on one day,
+    as a haunted house or an exhibition is) folded into one row that gives the first and last entry."""
     rows = EV.get('venues', {}).get(slug, [])
-    out = []
+    out, by_day = [], {}
     for r in rows:
         try:
             d = date.fromisoformat(r['date'])
@@ -189,7 +191,16 @@ def events_for(slug):
             continue
         if d < TODAY:
             continue
-        out.append(dict(r, d=d))
+        k = (r['name'], d)
+        if k in by_day:
+            prev = by_day[k]
+            prev.setdefault('times', [prev['time']]).append(r['time'])
+        else:
+            by_day[k] = dict(r, d=d); out.append(by_day[k])
+    for e in out:
+        ts = sorted(t for t in e.get('times', []) if t)
+        if len(ts) > 1:
+            e['time'], e['until'], e['slots'] = ts[0], ts[-1], len(ts)
     return out
 
 
@@ -209,8 +220,9 @@ def event_li(e, show_venue=None):
     st = f' <span class="status">{esc(e["status"])}</span>' if e.get('status') else ''
     link = f' <a class="src" href="{esc(e["url"])}" rel="noopener">Ticketmaster ↗</a>' if e.get('url') else ''
     where = f' <span class="where">{esc(show_venue)}</span>' if show_venue else ''
-    return (f'<li data-date="{e["d"].isoformat()}"><time datetime="{e["d"].isoformat()}{"T" + e["time"] if e.get("time") else ""}">'
-            f'<b>{esc(day_label(e["d"]))}</b> {esc(fmt_time(e.get("time")))}</time> <span class="ev">{esc(e["name"])}</span>{where} {chip}{st}{link}</li>')
+    when = f'<b>{esc(day_label(e["d"]))}</b> {esc(fmt_time(e.get("time")))}' + (f' to {esc(fmt_time(e["until"]))}, {e["slots"]} entry times' if e.get('until') else '')
+    return (f'<li data-date="{e["d"].isoformat()}"><time datetime="{e["d"].isoformat()}{"T" + e["time"] if e.get("time") else ""}">{when}</time>'
+            f' <span class="ev">{esc(e["name"])}</span>{where} {chip}{st}{link}</li>')
 
 
 # ---- the small map on a venue page --------------------------------------------------------------------------------

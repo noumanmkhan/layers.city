@@ -113,7 +113,7 @@ def status(ev):
 # parking as if they were shows. They arrive without a Sports/Music/Arts classification, so an unclassified entry
 # whose name reads like one of those is dropped. A real show with no classification still goes through.
 ADDON = re.compile(r'\b(fan access|plus ups?|add[- ]?ons?|upgrade|parking|guided tours?|tour of|courtside access|'
-                   r'warm-?ups?|experience package|vip package|meet (and|&) greet|early entry)\b', re.I)
+                   r'warm-?ups?|experience package|vip package|meet (and|&) greet|early entry|general admission|admission ticket)\b', re.I)
 
 out, unmatched, seen = {v['slug']: [] for v in venues}, {}, set()
 for ev in events:
