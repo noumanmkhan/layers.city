@@ -2031,7 +2031,8 @@ const KINDS = {
     [[lines, full], [linesInner, inner]].forEach(([fc, grp]) => fc.features.forEach(f => {
       const parts = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.coordinates;
       parts.forEach(part => {
-        const pl = L.polyline(part.map(ll), {pane:'rail', className:'go-line', color: f.properties.color, weight: w(), offset: f.properties.offset * gap(), feat: f});
+        // it.pane: a layer whose lines run on water (ferries) draws above the mask that fades what's beyond the city's land.
+        const pl = L.polyline(part.map(ll), {pane: it.pane || 'rail', className:'go-line', color: f.properties.color, weight: w(), offset: f.properties.offset * gap(), feat: f});
         hoverTip(pl, fill((it.lineHover || {})[f.properties.line] || it.hover, f.properties));
         pl.on('click', e => inspect(e.latlng));
         grp.addLayer(pl); segs.push([pl, f]);
@@ -2045,7 +2046,7 @@ const KINDS = {
     stns.features.forEach(f => {
       const c = f.geometry.coordinates, p = f.properties;
       const end = ends.some(e => Math.abs(e[0] - c[0]) < .01 && Math.abs(e[1] - c[1]) < .008);
-      const out = !hit(data.footprint, c[0], c[1]) ? ' go-out' : '';
+      const out = !it.pane && !hit(data.footprint, c[0], c[1]) ? ' go-out' : '';   // a water layer's landings sit just off the land: never "outside"
       const m = L.circleMarker(ll(c), {pane:'pts', radius: p.hub ? 6 : end ? 4.5 : 3.5, className: 'go-stn' + (p.hub ? ' hub' : '') + (end ? ' end' : '') + out});
       hoverTip(m, p.name + ' · ' + p.lines.join(', '));
       m.on('click', e => inspect(e.latlng));
