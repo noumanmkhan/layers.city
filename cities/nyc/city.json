@@ -117,7 +117,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · Ferries: NYC Ferry and NYC DOT timetables (GTFS) · Congestion Relief Zone: drawn from the MTA’s description (60th Street and south) · Hurricane evacuation zones and centers: NYC Emergency Management · Places of worship & lines being built: © OpenStreetMap contributors",
+ "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · New development: NYC Department of Buildings (DOB NOW) · Ferries: NYC Ferry and NYC DOT timetables (GTFS) · Congestion Relief Zone: drawn from the MTA’s description (60th Street and south) · Hurricane evacuation zones and centers: NYC Emergency Management · Places of worship & lines being built: © OpenStreetMap contributors",
  "example": {
   "at": [
    40.7532,
@@ -644,6 +644,48 @@
   [
    "What's changing",
    [
+    {
+     "id": "chg",
+     "kind": "changes",
+     "file": "changes",
+     "lazy": true,
+     "optional": true,
+     "live": true,
+     "staleDays": 9,
+     "name": "New development",
+     "note": "New buildings and demolitions filed with the Department of Buildings. Leaves out one- and two-family houses.",
+     "stages": {
+      "proposed": [
+       "Filed",
+       "Filed, under plan review"
+      ],
+      "approved": [
+       "Approved",
+       "Plans approved; no permit yet"
+      ],
+      "building": [
+       "Under construction",
+       "Work permit issued"
+      ],
+      "finished": [
+       "Finished",
+       "Signed off or certificate of occupancy in the last two years"
+      ]
+     },
+     "kinds": {
+      "building": "New building",
+      "demolition": "Demolition"
+     },
+     "dates": {
+      "applied": "filed {date}",
+      "issued": "permit {date}",
+      "finished": "{date}"
+     },
+     "unitsText": "{n} homes",
+     "alsoText": "Also here",
+     "linkText": "Job details",
+     "legend": "From DOB NOW job filings for new buildings and full demolitions. Demolitions are dashed rings. Filings still open, and anything approved, started or finished in the last two years. Rezonings and other land-use applications aren’t included yet."
+    },
     {
      "id": "build",
      "kind": "construction",
@@ -1746,6 +1788,14 @@
    "sub": "Grades {grades} · {dist} away",
    "subNoDist": "Grades {grades}",
    "note": "The NYC Public Schools zoned for this spot, from the DOE’s {year} school zones. Distances are straight-line to the building. Zones change and some schools have more applicants than seats; the DOE’s school search has the final word."
+  },
+  "changes": {
+   "title": "Changing nearby",
+   "radius": 805,
+   "max": 6,
+   "none": "Nothing big filed, approved, under way or finished within ½ mile in the last two years.",
+   "more": "And {n} more nearby: turn on New development to see them.",
+   "note": "Big changes within ½ mile: new buildings and demolitions, no one- or two-family houses. NYC Department of Buildings job filings (DOB NOW), as of {date}."
   }
  },
  "drive": {
