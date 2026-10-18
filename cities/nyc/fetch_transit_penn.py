@@ -12,7 +12,7 @@ fetch_transit_loop.py.
 """
 import csv, datetime as dt, io, json, os, statistics, subprocess, sys, time, urllib.request, zipfile
 
-sys.argv += ['--max-memory', '12G']   # r5py reads its JVM settings from the command line
+sys.argv += ['--max-memory', '10G']   # r5py reads its JVM settings from the command line; 12G left too little for Python on a 16 GB runner
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORK = os.path.join(HERE, 'tmp', 'transit'); os.makedirs(WORK, exist_ok=True)
 UA = {'User-Agent': 'city-layers-pipeline (github.com/noumanmkhan/city-layers)'}
