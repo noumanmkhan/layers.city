@@ -79,14 +79,25 @@ print(len(want), 'addresses to place;', len(cache), 'already placed')
 
 
 def geosearch(q):
-    """NYC Planning Labs GeoSearch (NYC's own address points, public). Only an address-level hit counts."""
-    u = 'https://geosearch.planninglabs.nyc/v2/search?' + urllib.parse.urlencode({'text': q, 'size': 1})
+    """NYC Planning Labs GeoSearch (NYC's own address points, public). Only an address-level hit counts: a confident
+    one, or any whose house number is the one asked for (Queens' "100-28" style numbers can score low with a
+    neighbourhood name instead of the borough)."""
+    num = q.split(' ', 1)[0]
+    u = 'https://geosearch.planninglabs.nyc/v2/search?' + urllib.parse.urlencode({'text': q, 'size': 3})
     try: j = json.loads(get(u, 2))
     except SystemExit: return None
-    f = (j.get('features') or [None])[0]
-    if not f or f['properties'].get('layer') != 'address' or f['properties'].get('confidence', 0) < 0.8: return None
-    lon, lat = f['geometry']['coordinates']
-    return {'at': [round(lon, 5), round(lat, 5)], 'type': 'address', 'src': 'geosearch', 'match': f['properties'].get('label')}
+    for f in j.get('features') or []:
+        pr = f['properties']
+        if pr.get('layer') != 'address': continue
+        if pr.get('confidence', 0) >= 0.8 or (pr.get('housenumber') or '').replace(' ', '') == num:
+            lon, lat = f['geometry']['coordinates']
+            return {'at': [round(lon, 5), round(lat, 5)], 'type': 'address', 'src': 'geosearch', 'match': pr.get('label')}
+    return None
+
+
+QUEENS = {'rego park', 'forest hills', 'kew gardens', 'flushing', 'jackson heights', 'jamaica', 'astoria', 'long island city', 'woodside',
+          'elmhurst', 'corona', 'richmond hill', 'ozone park', 'fresh meadows', 'bayside', 'whitestone', 'far rockaway', 'queens village',
+          'ridgewood', 'middle village', 'hollis', 'saint albans', 'glen oaks', 'bellerose', 'little neck', 'douglaston', 'howard beach'}
 
 
 def census(q):
@@ -116,7 +127,8 @@ def nominatim(addr, loc):
 for k in want:
     addr, loc = k.rsplit(', ', 1)
     # GeoSearch only knows the five boroughs, so a suburb falls through to the Census geocoder.
-    hit = (geosearch(f'{addr}, {loc}, NY') if loc.lower() in NYC or loc else None) or census(f'{addr}, {loc}, NY') or nominatim(addr, loc)
+    hit = ((geosearch(f'{addr}, {loc}, NY') or (geosearch(f'{addr}, Queens, NY') if loc.lower() in QUEENS else None)) if loc else None) \
+        or census(f'{addr}, {loc}, NY') or nominatim(addr, loc)
     if hit: cache[k] = hit; print('  placed', k, '->', hit['src'], hit.get('match'))
     else: print('  NOT FOUND', k)
     time.sleep(0.5)
