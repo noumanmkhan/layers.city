@@ -11,8 +11,10 @@
    - the page address and referrer go out as origin + path only;
    - event data keeps only short ids (letters, digits, - and _), true/false, and a whole number under
      the key "step" (a tour step), so a coordinate can't pass as a number;
-   - nothing loads off layers.city, with Do Not Track or Global Privacy Control on, or after an opt-out
-     on the privacy page (localStorage "umami.disabled").
+   - nothing loads off layers.city, with Global Privacy Control on, or after an opt-out on the privacy
+     page (localStorage "umami.disabled"). Do Not Track is deliberately not honoured (October 19, 2026):
+     the counts hold no personal data and no cookies, and honouring it hid every Chrome visitor who had
+     it switched on.
 
    Leave ID empty to switch counting off everywhere. */
 (function(){
@@ -28,8 +30,7 @@
     else if (queue.length < 20) queue.push([name, data]);
   };
   if (!ID || HOSTS.indexOf(location.hostname) < 0) return;
-  var nav = navigator, dnt = nav.doNotTrack || window.doNotTrack || nav.msDoNotTrack;
-  if (dnt === '1' || dnt === 'yes' || dnt === 1 || nav.globalPrivacyControl) return;
+  if (navigator.globalPrivacyControl) return;
   try { if (localStorage.getItem('umami.disabled')) return; } catch (e) {}
 
   var ID_LIKE = /^[\w-]{1,40}$/;
@@ -64,7 +65,6 @@
   s.setAttribute('data-domains', HOSTS.join(','));
   s.setAttribute('data-exclude-search', 'true');
   s.setAttribute('data-exclude-hash', 'true');
-  s.setAttribute('data-do-not-track', 'true');
   s.setAttribute('data-before-send', 'lcBeforeSend');
   s.onload = function(){ ready = true; var q = queue; queue = []; q.forEach(function(a){ window.umami && window.umami.track(a[0], a[1]); }); };
   document.head.appendChild(s);
