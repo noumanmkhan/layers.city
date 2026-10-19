@@ -43,13 +43,15 @@
   "busSection": "Buses",
   "railSection": "Rail, cycling and driving",
   "overnight": "Overnight buses",
+  "parkingLots": "Municipal garages and fields",
+  "parkingNearest": "Nearest municipal parking",
   "mainRoads": "Longest main streets",
   "roads": [["major", "Main streets"], ["collector", "Collector streets"]]
  },
  "page": {
   "city": "New York City",
   "kind": "NEW YORK CITY",
-  "description": "Printable one-page fact sheets for each of New York City’s 59 community districts: subway, buses, highways, drive times, parks, libraries and Citi Bike. Drop a pin for walk and drive times from any spot.",
+  "description": "Printable one-page fact sheets for each of New York City’s 59 community districts: subway, buses, highways, drive times, municipal parking, EV charging, parks, libraries and Citi Bike. Drop a pin for walk and drive times from any spot.",
   "unit": "district",
   "Unit": "Community district",
   "boundary": "NYC community district boundary (Department of City Planning)",
@@ -60,13 +62,14 @@
   "credits": "Boundaries: NYC Department of City Planning · Transit: MTA GTFS · Citi Bike: Lyft · Parks: NYC Parks · Census figures: ACS 2020–24",
   "creditsPin": " · Walks along streets and paths at 3 mph from the 500 ft square around the pin: © OpenStreetMap contributors · Drive times are free-flow",
   "creditsTransit": " · Stops and changes counted along each service’s own stops · Door to door: typical weekday-morning trip",
-  "creditsDriving": " · Highways and ramps: © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads, no tolls or traffic); distances straight-line · Congestion Relief Zone: drawn from the MTA’s description",
+  "creditsDriving": " · Highways and ramps: © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads, no tolls or traffic); distances straight-line · Congestion Relief Zone: drawn from the MTA’s description · Municipal parking: NYC DOT · EV charging: U.S. DOE Alternative Fuels Data Center",
   "sysNote": "Subway lines, simplified. Stops and changes are counted along each service, so an express skips what it skips.",
   "sysLabel": "New York City’s subway with this district highlighted",
   "nearestStop": "Nearest bus stop",
   "nearestDock": "Nearest Citi Bike dock",
+  "parkingNearest": "Nearest municipal parking",
   "legendTransit": [["line", "#0062CF", "Subway"], ["line", "var(--bus)", "Frequent bus"], ["thin", "var(--bus)", "Other daytime bus"], ["line", "var(--bike)", "Bike lane or greenway"]],
-  "legendDriving": [["hwy", "#F7C548", "Highway"], ["hwy", "#B6B9BF", "Parkway or expressway"], ["road", "#FFFFFF", "Main street"], ["ramp", "#fff", "On-ramp"]],
+  "legendDriving": [["hwy", "#F7C548", "Highway"], ["hwy", "#B6B9BF", "Parkway or expressway"], ["road", "#FFFFFF", "Main street"], ["ramp", "#fff", "On-ramp"], ["gp", "#0B8A44", "Municipal garage"], ["gps", "#fff", "Municipal field"], ["dot", "#0A86B0", "EV charging"]],
   "legendOverview": [["line", "#0062CF", "Subway"], ["line", "var(--bike)", "Bike lane or greenway"], ["dot", "var(--park)", "Park"]]
  }
 }

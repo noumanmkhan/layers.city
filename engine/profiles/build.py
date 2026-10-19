@@ -835,7 +835,7 @@ with open(os.path.join(OUT, 'index.json'), 'w') as f:
 # ---- the page: engine/profiles/page.html with this city's wording, settings and badge colours ------------
 PG = CFG.get('page', {})
 FS = dict(PG, unitsFile=units_file(CFG), stationLabels=CFG.get('stationLabels'), hubBullets=CFG.get('hubBullets', True),
-          lineOrder=CFG.get('lineOrder'), parking=HAS('parking'), distance=CFG.get('distance', 'km'), rampKm=round(RAMP_KM, 3), rampText=U.radius(RAMP_R),
+          lineOrder=CFG.get('lineOrder'), parking=HAS('parking'), permits=HAS('permit_areas'), distance=CFG.get('distance', 'km'), rampKm=round(RAMP_KM, 3), rampText=U.radius(RAMP_R),
           hub=HUB.get('name', ''), nearestRail=RAIL.get('nearest', 'Nearest train station'), railBadge=RAIL.get('badge'))
 FS.pop('description', None)
 page = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'page.html'), encoding='utf-8').read()

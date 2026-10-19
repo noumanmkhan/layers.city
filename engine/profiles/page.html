@@ -284,7 +284,7 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
     return { title: 'Highway access from this spot', rows: rows.length ? rows : [['Highway on-ramps', `None within ${FS.rampText}`]], here: true };
   }
   const parkingData = once(() => FS.parking ? getJSON('../data/parking.geojson').catch(() => null) : Promise.resolve(null));
-  const permitData = once(() => FS.parking ? getJSON('../data/permit_areas.geojson').catch(() => null) : Promise.resolve(null));
+  const permitData = once(() => FS.permits ? getJSON('../data/permit_areas.geojson').catch(() => null) : Promise.resolve(null));
   async function parkingFromPin(base) {
     const [pk, pa] = await Promise.all([parkingData(), permitData()]);
     if (!pk) return base;
