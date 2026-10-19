@@ -15,7 +15,7 @@ on:
     - cron: '7 5 * * *'
   push:
     branches: [main]
-    paths: ['cities/*/fetch_closures.py', 'cities/*/construction.json', 'cities/*/events.json', 'engine/closures.py', 'engine/events.py', '.github/workflows/fetch-closures.yml']
+    paths: ['cities/*/fetch_closures.py', 'cities/*/fetch_marathon.py', 'cities/*/centerline.py', 'cities/*/marathon.json', 'cities/*/construction.json', 'cities/*/events.json', 'engine/closures.py', 'engine/events.py', '.github/workflows/fetch-closures.yml']
 permissions:
   contents: write
 concurrency: fetch-closures
@@ -41,12 +41,13 @@ jobs:
         with:
           python-version: '3.12'
       - if: steps.when.outputs.skip != '1'
-        run: pip install -q shapely   # New York's event closures are placed on the street centerline
+        run: pip install -q shapely pypdf   # New York's event closures are placed on the street centerline; its marathon notice is a PDF
       # Each city on its own, so one failing keeps the other's update (and yesterday's file stays up).
       - if: steps.when.outputs.skip != '1'
         run: |
           for c in toronto chicago nyc; do
             mkdir -p cities/$c/raw/closures
+            [ -f cities/$c/fetch_marathon.py ] && ( python3 -u cities/$c/fetch_marathon.py 2>&1 | tee cities/$c/raw/closures/marathon.log || true )   # New York: the City's marathon notice, once posted
             ( python3 -u cities/$c/fetch_closures.py && python3 -u engine/closures.py $c && python3 -u engine/events.py $c ) 2>&1 | tee cities/$c/raw/closures/fetch.log || true
           done
       - if: steps.when.outputs.skip != '1'
