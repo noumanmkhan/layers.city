@@ -46,6 +46,29 @@ BRIDGES = {'verraz': 'VERRAZZANO BRG', 'queensboro': 'ED KOCH QUEENSBORO BRG', '
            'willis avenue bridge': 'WILLIS AVE  BRIDGE', 'madison avenue bridge': 'MADISON AVE  BRIDGE'}
 BRIDGE_NAME = {'verraz': 'Verrazzano-Narrows Bridge', 'queensboro': 'Ed Koch Queensboro Bridge', 'pulaski': 'Pulaski Bridge',
                'willis avenue bridge': 'Willis Avenue Bridge', 'madison avenue bridge': 'Madison Avenue Bridge'}
+# Central Park's drives (Manhattan's EAST DR, not Prospect Park's) and its transverse roads, named in the notice
+# without boundaries: the whole road. The transverses' centerline names vary, so they're found by pattern and told
+# apart by their street number or their old "Transverse Road No. 1-4" names.
+DRIVES = {'central park east drive': 'EAST DR', 'central park west drive': 'WEST DR', 'central park center drive': 'CENTER DR'}
+DRIVE_NAME = {'central park east drive': 'East Drive, Central Park', 'central park west drive': 'West Drive, Central Park',
+              'central park center drive': 'Center Drive, Central Park'}
+TRANSVERSES = {'65th traverse': ('65', 'ONE', '1'), '79th traverse': ('79', 'TWO', '2'), '86th traverse': ('86', 'THREE', '3'),
+               '96th traverse': ('97', 'FOUR', '4'), '97th traverse': ('97', 'FOUR', '4')}
+TRANSVERSE_NAME = {'65th traverse': '65th Street Transverse', '79th traverse': '79th Street Transverse', '86th traverse': '86th Street Transverse',
+                   '96th traverse': '97th Street Transverse', '97th traverse': '97th Street Transverse'}
+NAMES = {**BRIDGE_NAME, **DRIVE_NAME, **TRANSVERSE_NAME}
+
+
+def transverse_key(full):
+    """Which transverse a centerline name is ("65 ST TRANSVERSE", "TRANSVERSE RD NUMBER ONE"), or None."""
+    f = ' ' + re.sub(r'\s+', ' ', full.upper()) + ' '
+    if 'TRANSVERSE' not in f and 'TRAVERSE' not in f: return None
+    for k, (num, word, digit) in TRANSVERSES.items():
+        if f' {num} ' in f or f' {word} ' in f or f'NO {digit} ' in f or f'NO. {digit} ' in f or f'NUMBER {word} ' in f:
+            return k
+    return None
+
+
 # The notice's spellings that aren't the centerline's.
 FIX = {'MCGUINESS BLVD': 'MCGUINNESS BLVD', 'MCCLEAN': 'MC CLEAN AVE', 'MCCLEAN AVE': 'MC CLEAN AVE', 'MT MORRIS PARK W': 'MOUNT MORRIS PARK W',
        'FERRY TERMINAL': 'FERRY TERMINAL DR', 'EAST DRIVE': 'EAST DR', 'EAST DR': 'EAST DR', 'FDR DR': 'FDR DR',
@@ -149,12 +172,12 @@ def place(body, year, start, end, lines, idx, bridges):
     body = clean(body)
     if ' to ' not in body and '/' in body: body = re.sub(r'\s*/\s*', ' to ', body, count=1)   # "Nassau Avenue Bedford Ave/ Lorimer Street"
     if ' to ' not in body:
-        key = next((k for k in BRIDGES if k in body.lower()), None)
+        key = next((k for k in list(BRIDGES) + list(DRIVES) + list(TRANSVERSES) if k in body.lower()), None)
         segs = bridges.get(key) if key else None
-        if not segs: return [], 'no boundaries and not a known bridge'
+        if not segs: return [], 'no boundaries and not a known bridge or park road' + (' (none on the centerline by that name)' if key else '')
         parts = [bridge_line(segs)]
         # Named, without the notice's "Upper Level" / "Lower Level": both levels share one centerline.
-        return [([[round(x, 6), round(y, 6)] for x, y in g.coords], BRIDGE_NAME[key], '') for g in parts], None
+        return [([[round(x, 6), round(y, 6)] for x, y in g.coords], NAMES[key], '') for g in parts], None
     left, z = body.split(' to ', 1)
     z = re.split(r'\s*/\s*', z)[0]
     w = left.split(' ')
@@ -196,8 +219,8 @@ def bridge_line(segs):
     z, prev = far(a)
     edges, n = [], z
     while n != a: n, c = prev[n]; edges.append(c)
-    edges = [e[::-1] for e in edges]
-    c = edges[-1] + [pt for e in reversed(edges[:-1]) for pt in e[1:]]
+    edges.reverse()                       # walked back from z: each edge runs from the node before it, so a to z in order
+    c = edges[0] + [pt for e in edges[1:] for pt in e[1:]]
     return LineString(c)
 
 
@@ -206,7 +229,10 @@ def bridge_lines(rows):
     segments under (borough, name) for streets that meet a bridge."""
     by, named = {}, {}
     for r in rows:
-        key = next((k for k, v in BRIDGES.items() if v == r.get('full_street_name')), None)
+        full = r.get('full_street_name') or ''
+        key = next((k for k, v in BRIDGES.items() if v == full), None) or \
+              (next((k for k, v in DRIVES.items() if v == full), None) if r.get('boroughcode') == '1' else None) or \
+              (transverse_key(full) if r.get('boroughcode') == '1' else None)
         g = r.get('the_geom') or {}
         for part in (g.get('coordinates') or []) if g.get('type') == 'MultiLineString' else [g.get('coordinates')] if g.get('type') == 'LineString' else []:
             if key and part and len(part) > 1:
@@ -243,9 +269,11 @@ for year in [CFG['year'], CFG.get('test')]:
             names.add(core(norm(' '.join(w[:k])))); names.add(core(norm(re.split(r'\s*/\s*', ' '.join(w[k:]))[0])))
     names |= {'OF THE AMERICAS', 'FDR', 'CENTRAL', 'COLUMBUS'} | {core(v) for v in FIX.values()} | {v.split(' ')[0] for v in FIX.values()}
     lines = fetch_lines(names)
-    q = "full_street_name in(%s)" % ','.join("'" + v + "'" for v in BRIDGES.values())
+    q = ("full_street_name in(%s) OR (boroughcode='1' AND (upper(full_street_name) like '%%TRANSVERSE%%' OR upper(full_street_name) like '%%TRAVERSE%%'))"
+         % ','.join("'" + v + "'" for v in list(BRIDGES.values()) + list(DRIVES.values())))
     rows = json.load(urllib.request.urlopen(urllib.request.Request(CL_API + '?' + urllib.parse.urlencode({'$select': 'full_street_name,boroughcode,the_geom', '$where': q, '$limit': 5000}), headers=UA), timeout=180))
     bridges, named = bridge_lines(rows)
+    print('  transverse names on the centerline:', sorted({(r_.get('full_street_name'), transverse_key(r_.get('full_street_name') or '')) for r_ in rows if r_.get('boroughcode') == '1' and 'TRAV' in (r_.get('full_street_name') or '').upper() or 'TRANSV' in (r_.get('full_street_name') or '').upper()}))
     for k, v in named.items(): lines.setdefault(k, []).extend(v)
     lines, idx = prepare(lines)
     for k, segs in bridges.items(): print('  bridge', k, ':', len(segs), 'segments,', round(sum(s.length for s in segs) * 85000), 'm')
