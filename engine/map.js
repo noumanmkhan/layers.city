@@ -205,6 +205,8 @@ const GLYPH = {
   secondary: '<path d="M2 7h20v2.5H2zM3 10.5h18V21h-6.5v-4.5h-5V21H3zm2 1.5v2.5h2.5V12zm4.25 0v2.5h2.5V12zm4.25 0v2.5H16V12zm3.75 0v2.5H19V12zM12 2l5 4H7z"/>',
   library: '<path d="M3 4.5c3.2-.6 6.2-.2 8 1.4V20c-1.8-1.4-4.8-1.8-8-1.2zm18 0c-3.2-.6-6.2-.2-8 1.4V20c1.8-1.4 4.8-1.8 8-1.2z"/>',
   centre: '<path d="M12 2 1.5 10.2h2.6V22h15.8V10.2h2.6zM9.5 12a2.5 2.5 0 1 1 5 0 2.5 2.5 0 0 1-5 0zm-2 8c0-2.6 2-4.2 4.5-4.2s4.5 1.6 4.5 4.2z"/>',
+  // A community centre (category cc, where a city's centre already means something else): a hall with two people.
+  cc: '<path fill-rule="evenodd" d="M12 2 1.5 10.2h2.6V22h15.8V10.2h2.6zM7.2 12.6a1.8 1.8 0 1 0 3.6 0 1.8 1.8 0 1 0-3.6 0zm6 0a1.8 1.8 0 1 0 3.6 0 1.8 1.8 0 1 0-3.6 0zM6 20c0-2 1.3-3.4 3-3.4s3 1.4 3 3.4zm6 0c0-2 1.3-3.4 3-3.4s3 1.4 3 3.4z"/>',
   otherfaith: '<path d="M12 2 2.5 9.2v12.8h7v-6.2h5V22h7V9.2z"/>',
   halal: '<path d="M2.5 9h19v2.3h-1.2L18.6 21H5.4L3.7 11.3H2.5zM6.6 8.2 10.4 2.6l1.5 1-3.1 4.6zm10.8 0-3.8-5.6-1.5 1 3.1 4.6z"/>',
   kosher: '<path d="M2.5 9h19v2.3h-1.2L18.6 21H5.4L3.7 11.3H2.5zM6.6 8.2 10.4 2.6l1.5 1-3.1 4.6zm10.8 0-3.8-5.6-1.5 1 3.1 4.6z"/>',

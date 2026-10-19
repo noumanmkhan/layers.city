@@ -1,7 +1,8 @@
 """New York City's place layers and the card's Nearby points, from raw/places/ (fetch_places.py) and faith.geojson.
 Writes into docs/nyc/data/:
   institutions.geojson  hospitals, universities and CUNY community colleges (Landmarks' toggles and Colleges layer)
-  community.geojson     the three public library systems' branches and older adult (senior) centers
+  community.geojson     the three public library systems' branches, older adult (senior) centers, and community centers
+                        (NYC Parks recreation centers, NYCHA community centers, Beacon centers in schools)
   schools.geojson       NYC Public Schools, elementary (with K-8) and middle and high, from the Facilities Database
   parks.geojson         NYC Parks properties that are parks, with amenities: playground, spray shower, dog run
   sports.geojson        NYC Parks athletic facilities, pools and skateparks, one point per park with its sports
@@ -130,6 +131,52 @@ for r in fac:
         comm.append({'type': 'Feature', 'properties': {'name': tcase(r['facname']), 'cat': 'library', 'sub': r['opname']}, 'geometry': pt(r['longitude'], r['latitude'])})
     elif r.get('factype') in ('SENIOR CENTER', 'NYCHA COMMUNITY CENTER - SENIOR CENTER'):
         comm.append({'type': 'Feature', 'properties': {'name': tcase(r['facname']), 'cat': 'centre', 'sub': 'Older adult center · ' + tcase(r.get('opname') or '')}, 'geometry': pt(r['longitude'], r['latitude'])})
+# ---------- Community centers ----------
+# The nearest thing to Toronto's City-run community centres: buildings anyone in the neighbourhood can walk into.
+# - NYC Parks recreation centers (raw/places/rec_centers.json, fetch_centres.py, from NYC Parks Structures: every
+#   active building flagged as a recreation center; one point per center, at the middle of its buildings).
+# - NYCHA community centers (FacDB): the developments' centres, kept when their use is a community centre or
+#   youth, sports, Cornerstone or Compass programs; offices, clinics, food pantries and the like are left out, and
+#   senior centres are already Older adult centers. DYCD's Cornerstone programs run in these same centres, so they
+#   aren't added again.
+# - Beacon community centers (FacDB): DYCD centres run in public school buildings after school, in the evenings
+#   and in summer, named for their school.
+from shapely.geometry import shape as _shape
+OPERATOR = re.compile(r'\b(INC|CORP|COUNCIL|SERVICES|ASSOCIATION|SOCIETY|FOUNDATION|LEAGUE|Y\.?M\.?C\.?A|NETWORK|AGENCY|ALLIANCE|COMMITTEE|PROGRAMS?|PARTNERSHIP|COALITION|SETTLEMENT|CENTER FOR|FUND|INSTITUTE)\b', re.I)
+CC_USE = re.compile(r'COMMUNITY CENTER|CORNERSTONE|COMPASS|YOUTH|SPORTS|RECREATION')
+cc = []
+if os.path.exists(os.path.join(RAW, 'rec_centers.json')):
+    by = defaultdict(list)
+    for r in load('rec_centers.json')['records']:
+        if not r.get('recreation_center') or (r.get('featurestatus') or 'Active') != 'Active' or not r.get('multipolygon'): continue
+        nm = re.sub(r'\s*[-–]\s*(Main\s+)?Building\s*$', '', (r.get('description') or '').strip())
+        nm = re.sub(r'\s+(Rec(reation)?\.?\s+(Center|Ctr\.?))$', ' Recreation Center', nm)
+        nm = re.sub(r'^FMCP-', '', re.sub(r'\s*&\s*Playground.*$', '', nm))   # "FMCP-Al Oerter ...", "... & Playground PR"
+        if not nm: continue
+        by[nm].append(_shape(r['multipolygon']).centroid)
+    for nm, pts_ in sorted(by.items()):
+        x = sum(q.x for q in pts_) / len(pts_); y = sum(q.y for q in pts_) / len(pts_)
+        cc.append({'type': 'Feature', 'properties': {'name': nm, 'cat': 'cc', 'sub': 'Recreation center · NYC Parks'}, 'geometry': pt(x, y)})
+seen_cc = set()
+for r in fac:
+    t = r.get('factype') or ''
+    if not r.get('latitude'): continue
+    if t.startswith('NYCHA COMMUNITY CENTER'):
+        use = t[len('NYCHA COMMUNITY CENTER'):].strip(' -')
+        if use and not CC_USE.search(use): continue
+        key = (r.get('bin') or '', round(float(r['latitude']), 4), round(float(r['longitude']), 4))
+        if key in seen_cc: continue
+        seen_cc.add(key)
+        nm = tcase(r['facname']); nm = nm if 'center' in nm.lower() else nm + ' Community Center'
+        cc.append({'type': 'Feature', 'properties': {'name': nm, 'cat': 'cc', 'sub': 'Community center · NYCHA'}, 'geometry': pt(r['longitude'], r['latitude'])})
+    elif t == 'BEACON':
+        school = re.sub(r'\s*\([0-9A-Z]{5,7}\)\s*$', '', r['facname'] or '').strip()
+        # FacDB sometimes names the nonprofit that runs the Beacon instead of the school: then name it by its address.
+        at = tcase(school) if not OPERATOR.search(school) else tcase(r.get('address') or school)
+        cc.append({'type': 'Feature', 'properties': {'name': 'Beacon at ' + at, 'cat': 'cc',
+                   'sub': 'Beacon community center · in a public school, after school, evenings and summer'}, 'geometry': pt(r['longitude'], r['latitude'])})
+comm += cc
+print('community centers:', dict(Counter(f['properties']['sub'].split(' · ')[0] for f in cc)))
 write('community.geojson', fc(comm, count=dict(Counter(f['properties']['cat'] for f in comm))))
 print('community:', dict(Counter(f['properties']['cat'] for f in comm)))
 
