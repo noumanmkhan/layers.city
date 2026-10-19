@@ -144,6 +144,20 @@ footer a:hover{color:var(--ink)}
 .guide svg{flex:none;color:var(--accent);transition:transform .18s ease}
 .guide:hover .t{color:var(--ink);text-decoration-color:var(--accent)}.guide:hover svg{transform:translateX(3px)}
 .card-link:focus-visible,.guide:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+/* Compare: one wide card under the city maps, the page on the left, ready-made comparisons on the right */
+.card.compare{padding:0;gap:0;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);margin-top:24px}
+.card.compare .card-link{border-radius:14px 0 0 14px}
+.card.compare .body{display:flex;flex-direction:column;gap:18px;padding:28px 32px 30px;flex-grow:1}
+.card.compare .host{text-align:left;margin-bottom:12px}
+.card.compare h2{margin:0 0 10px}
+.card.compare .pair{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.card.compare .pair i{width:14px;height:14px;border-radius:4px;background:var(--accent)}
+.card.compare .pair i + i{background:var(--ink)}
+.card.compare .examples{display:flex;flex-direction:column;border-left:1.5px solid var(--rule)}
+.card.compare .examples .guide{flex:1;border-top:0;border-bottom:1.5px solid var(--rule);padding:18px 28px;background:var(--card)}
+.card.compare .examples .guide:last-child{border-bottom:0}
+.card.compare .examples .tag{min-width:62px;align-self:center;margin:0;text-align:center}
+@media (max-width:760px){.card.compare{grid-template-columns:1fr}.card.compare .card-link{border-radius:14px 14px 0 0}.card.compare .examples{border-left:0;border-top:1.5px solid var(--rule)}.card.compare .examples .guide{padding:14px 24px}.card.compare .body{padding:22px 24px 24px}}
 </style>
 <script src="/stats.js" defer></script>
 </head>
@@ -271,6 +285,26 @@ footer a:hover{color:var(--ink)}
             </div>
           </a>
           <a class="guide" href="/vancouver/local-areas/" aria-label="Guide to Vancouver’s 22 local areas"><span class="tag">GUIDE</span><span class="t">22 local areas</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+        </div>
+      </div>
+      <div class="card compare">
+        <a class="card-link" href="/compare/">
+          <div class="body">
+            <div>
+              <div class="host">layers.city/<wbr>compare</div>
+              <div class="pair" aria-hidden="true"><i></i><i></i></div>
+              <h2>Compare</h2>
+              <p>Put any two cities side by side: what homes cost, how people get to work, what the streets are built of and the languages spoken at home. Or pick a neighbourhood and find the places most like it in another city, for anyone weighing a move.</p>
+            </div>
+            <div class="go">Open Compare
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+            </div>
+          </div>
+        </a>
+        <div class="examples" aria-label="Ready-made comparisons">
+          <a class="guide" href="/compare/?a=toronto&amp;b=nyc"><span class="tag">CITIES</span><span class="t">Toronto and New York, side by side</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+          <a class="guide" href="/compare/?mode=nbhd&amp;a=toronto:98&amp;b=nyc"><span class="tag">PLACES</span><span class="t">Rosedale’s closest match in New York</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+          <a class="guide" href="/compare/?mode=nbhd&amp;a=chicago:7&amp;b=toronto"><span class="tag">PLACES</span><span class="t">Lincoln Park’s closest match in Toronto</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
         </div>
       </div>
       <div class="live">
