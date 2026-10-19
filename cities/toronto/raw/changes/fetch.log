@@ -16,7 +16,7 @@
     ('OZ', 'OMB Appeal') 132
     ('OZ', 'OMB Approved') 12
     ('OZ', 'Refused') 1
-    ('OZ', 'Under Review ') 350
+    ('OZ', 'Under Review ') 349
     ('PL', 'Approved') 3
     ('PL', 'Closed') 30
     ('PL', 'Under Review ') 6
@@ -26,7 +26,7 @@
     ('SA', 'NOAC Issued') 65
     ('SA', 'OMB Appeal') 10
     ('SA', 'Under Review') 3
-    ('SA', 'Under Review ') 433
+    ('SA', 'Under Review ') 432
     ('SB', 'Under Review ') 54
   type/status, submitted before it:
     ('CD', 'Closed') 2149
@@ -39,7 +39,7 @@
     ('OZ', 'OMB Appeal') 423
     ('OZ', 'OMB Approved') 623
     ('OZ', 'Under Review') 15
-    ('OZ', 'Under Review ') 267
+    ('OZ', 'Under Review ') 268
     ('PL', 'Approved') 13
     ('PL', 'Closed') 607
     ('PL', 'Under Review ') 15
@@ -51,7 +51,7 @@
     ('SA', 'OMB Approved') 21
     ('SA', 'Refused') 10
     ('SA', 'Under Review') 14
-    ('SA', 'Under Review ') 1417
+    ('SA', 'Under Review ') 1418
     ('SB', 'Appeal Received') 22
     ('SB', 'Closed') 685
     ('SB', 'Draft Plan Approved') 58
@@ -128,10 +128,10 @@
     ('Mechanical(MS)', 'Alter: Boiler/Furnace/AC Replacement') 749
     ('Residential Building Permit', 'Alteration to Existing Building') 747
     ('Small Residential Projects', 'Canopy') 743
-  selected 3907 · by status {'Inspection': 1116, 'Closed': 1105, 'Revision Issued': 475, 'Permit Issued': 374, 'Under Review ': 245, "Examiner's Notice Sent": 188, 'Cancelled': 124, 'Closed - Dormant': 70, 'Response Received': 58, 'Refusal Notice': 23, 'Revocation Pending': 23, 'Work Not Started': 23, 'Application Acceptable': 19, 'Pending Cancellation': 13, 'Not Started': 13, 'Application On Hold': 12, 'Issuance Pending': 12, 'Application Received': 4, 'Ready for Issuance': 4, 'Abandoned': 1, 'Agreement in Progress': 1, 'Forwarded for Issuance': 1, 'Extension Granted': 1, 'Application Withdrawn': 1, 'Notice Sent': 1}
+  selected 3906 · by status {'Inspection': 1116, 'Closed': 1105, 'Revision Issued': 475, 'Permit Issued': 374, 'Under Review ': 245, "Examiner's Notice Sent": 188, 'Cancelled': 123, 'Closed - Dormant': 70, 'Response Received': 58, 'Refusal Notice': 23, 'Revocation Pending': 23, 'Work Not Started': 23, 'Application Acceptable': 19, 'Pending Cancellation': 13, 'Not Started': 13, 'Application On Hold': 12, 'Issuance Pending': 12, 'Application Received': 4, 'Ready for Issuance': 4, 'Abandoned': 1, 'Agreement in Progress': 1, 'Forwarded for Issuance': 1, 'Extension Granted': 1, 'Application Withdrawn': 1, 'Notice Sent': 1}
   got https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/abedd8bc-e3dd-4d45-8e69-79165a76e4fa/resource/64d4e54b-738f-4cd9 174 MB
   address points: 525372
-  placed: {'geo_id': 3127, 'none': 326, 'address': 454}
-  wrote permits 3581 rows, 2443 KB
+  placed: {'geo_id': 3126, 'none': 326, 'address': 454}
+  wrote permits 3580 rows, 2442 KB
 toronto: 5984 items → 2839 sites · 1378 KB
   by kind/stage: {('siteplan', 'proposed'): 726, ('demolition', 'finished'): 490, ('rezoning', 'proposed'): 426, ('building', 'building'): 309, ('building', 'finished'): 272, ('building', 'proposed'): 161, ('demolition', 'approved'): 125, ('subdivision', 'proposed'): 121, ('demolition', 'building'): 66, ('building', 'approved'): 43, ('siteplan', 'approved'): 36, ('demolition', 'proposed'): 34, ('rezoning', 'approved'): 30}
