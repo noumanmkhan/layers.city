@@ -1,0 +1,11 @@
+{
+ "_about": "The TCS New York City Marathon's street closures, from the City's own notice (NYC Citywide Event Coordination and Management, a PDF table by borough: street, boundaries, restriction, time), read by fetch_marathon.py into raw/closures/marathon_<year>.json and placed on the street centerline by fetch_closures.py as an event. NYRR publishes no course file, so no course line is drawn. The notice usually appears in the last week of October; until then fetch_marathon.py finds nothing for this year and the map shows no marathon. 'test' is a past year's notice, fetched only to check the parser.",
+ "year": 2026,
+ "date": "2026-11-01",
+ "name": "TCS New York City Marathon",
+ "organizer": "TCS New York City Marathon",
+ "link": "https://www.nyrr.org/tcsnycmarathon",
+ "notice": ["https://www.nyc.gov/assets/cecm/downloads/pdf/marathon-street-closures-no-parking-{year}.pdf",
+            "https://home4.nyc.gov/assets/cecm/downloads/pdf/marathon-street-closures-no-parking-{year}.pdf"],
+ "test": 2025
+}
