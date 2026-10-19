@@ -58,7 +58,7 @@ for level, f in (('es', 'school_zones_es'), ('ms', 'school_zones_ms'), ('hs', 's
         if rem.lower() in ('park', 'pelham bay park') or rem.lower().endswith(' park'): continue
         dbns = [d.strip() for d in re.split(r'[,;/ ]+', p.get('dbn') or '') if d.strip()]
         dbn = dbns[0] if dbns else ''
-        q = {'level': level, 'grades': GRADES[level]}
+        q = {'level': level, 'board': level, 'grades': GRADES[level]}   # board: the map's School zones layer draws one level at a time
         names = []
         for d in dbns:
             s = school(d)
