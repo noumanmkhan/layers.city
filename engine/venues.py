@@ -465,7 +465,7 @@ table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;p
 td.n{white-space:nowrap}
 footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(--ink-2)}
 [hidden]{display:none!important}
-@media (max-width:560px){section,.card{padding:16px}ul.events time{flex-basis:100%}h1{margin-top:12px}.in-card dt{margin-top:10px}}"""
+@media (max-width:560px){td.n{white-space:normal}table{font-size:14px}th,td{padding-right:6px}section,.card{padding:16px}ul.events time{flex-basis:100%}h1{margin-top:12px}.in-card dt{margin-top:10px}}"""
 _fc = os.path.join(CITY_DIR, 'factsheet.css')       # the city's line bullets and route badges, shared with the fact sheets
 CSS += '\n' + open(_fc).read() if os.path.exists(_fc) else ''
 PIN = ('<svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/>'
