@@ -9,8 +9,9 @@ The rules (Toronto's, decided October 14, 2026; Chicago mirrors them, October 16
   congregations and new buildings, so faith_overrides.csv adds them ("add"), corrects them ("fix": any
   field it fills wins) or takes them out ("drop"). Denomination is shown only where OSM or the overrides
   give one; it is never guessed.
-- Food shops come from the certifiers' own lists (HMS for halal, cRc for kosher), curated in
-  faith_shops.csv: independent grocers, butchers and bakeries selling food to take home, one point per
+- Food shops come from New York State's halal and kosher registries (raw/places/registry_*.json, fetch_shops.py),
+  which list every registered establishment with its certifier but no type, curated by name in faith_shops.csv
+  (five boroughs, Long Island, Westchester and Rockland: New Jersey and Connecticut aren't in a New York registry): independent grocers, butchers and bakeries selling food to take home, one point per
   shop with all its roles; chains with a halal or kosher aisle, wholesalers and restaurants are left out.
   Restaurants belong to a future commercial layer."""
 import csv, json, math, os, re
@@ -123,13 +124,14 @@ for w in kept:
         if not props['grp']: del props['grp']
     feats.append({'type': 'Feature', 'properties': props, 'geometry': {'type': 'Point', 'coordinates': w['at']}})
 
-ROLE = (('grocer', 'grocer'), ('butcher', 'butcher'), ('bakery', 'bakery'))
+ROLE = (('grocer', 'grocer'), ('butcher', 'butcher'), ('bakery', 'bakery'), ('fish', 'fish market'))
 for r in csv.DictReader(open(os.path.join(HERE, 'faith_shops.csv'), encoding='utf-8')):
     at = place(r)
     if not at: unplaced.append(r['name'] + (' (' + r['sub'] + ')' if r['sub'] else '')); continue
-    roles = [label for key, label in ROLE if r[key]]
+    roles = [label for key, label in ROLE if r.get(key)]
     what = ', '.join(roles[:-1]) + ' and ' + roles[-1] if len(roles) > 1 else roles[0]
-    sub = ' · '.join(x for x in (r['sub'], r['diet'].capitalize() + ' ' + what, r['certifier'] + '-certified') if x)
+    # New York's certifiers come from the State registry as the registrant wrote them: "certified by …" or "self-certified".
+    sub = ' · '.join(x for x in (r['sub'], r['diet'].capitalize() + ' ' + what, r['certifier']) if x)
     feats.append({'type': 'Feature', 'properties': {'name': r['name'], 'cat': r['diet'], 'sub': sub, 'roles': roles,
                                                     'cert': r['certifier']},
                   'geometry': {'type': 'Point', 'coordinates': at}})
