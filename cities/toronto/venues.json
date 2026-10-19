@@ -2,13 +2,132 @@
   "_about": "Toronto's big live venues for the Venues pages (engine/venues.py). Hand-curated: capacity is the venue's usual figure and is only used to sort and to say 'about'; notes are plain arrival facts written from the venue's own pages. Events come from Ticketmaster's Discovery API (fetch_venue_events.py), matched by `tm` names; `tmIds` are filled in by that script once it has seen the venue. Keep this a short list of places most people in the GTA would travel to, not every room with a stage.",
   "city": "Toronto",
   "week": "Monday to Sunday, Toronto time",
+  "feed": {
+    "_about": "engine/fetch_venue_events.py: one sweep of every event within radiusKm of the centre (between downtown and Downsview; Mississauga and Rexdale are inside).",
+    "centre": [
+      43.675,
+      -79.45
+    ],
+    "radiusKm": 30,
+    "country": "CA",
+    "drop": [
+      "toronto",
+      "on",
+      "ontario",
+      "canada"
+    ],
+    "mode": "sweep"
+  },
   "fares": {
-    "_about": "Flat figures the pages quote. Check them before a release; they go stale. ttc is the adult PRESTO single fare. taxi is the City of Toronto meter rate (drop plus per-km), the only published benchmark for a car ride; rideshare prices are not published and surge after events.",
+    "_about": "Flat figures the pages quote. Check them before a release; they go stale. local is the TTC adult PRESTO single fare. taxi is the City of Toronto meter rate (drop plus per-km), the only published benchmark for a car ride; rideshare prices are not published and surge after events.",
     "asof": "2026-10",
-    "ttc": 3.35,
     "taxiDrop": 4.25,
     "taxiPerKm": 1.75,
-    "oneFare": "GO Transit riders transfer to the TTC free under One Fare, so a GO trip to Union plus the subway or streetcar to the venue costs the GO fare alone."
+    "oneFare": "GO Transit riders transfer to the TTC free under One Fare, so a GO trip to Union plus the subway or streetcar to the venue costs the GO fare alone.",
+    "local": 3.35
+  },
+  "page": {
+    "_about": "How engine/venues.py reads this city: which of the map's published files are the subway, regional rail, streetcars, parking and boundaries, the hub trips are finished from, the rows of the What's here preview, and the page's own words.",
+    "units": "neighbourhoods",
+    "trams": "streetcars",
+    "rail": {
+      "stations": "go_stations",
+      "lines": "go_lines",
+      "walk": "go",
+      "within": 2.5
+    },
+    "hubs": [
+      {
+        "name": "Union Station",
+        "short": "Union",
+        "at": [
+          -79.38192,
+          43.64433
+        ]
+      }
+    ],
+    "parking": {
+      "cat": "gp",
+      "label": "Green P",
+      "note": "Green P figures are capacities, not live availability. Venues’ own lots are described in the notes."
+    },
+    "permit": "permit_areas",
+    "here": [
+      {
+        "label": "Former city",
+        "file": "boroughs",
+        "text": "{name}"
+      },
+      {
+        "label": "Area",
+        "file": "areas",
+        "text": "{name}",
+        "empty": "Outside the named areas",
+        "within": {
+          "file": "boroughs",
+          "name": "Old Toronto"
+        }
+      },
+      {
+        "label": "Neighbourhood",
+        "file": "neighbourhoods",
+        "text": "{name} (#{code})",
+        "page": true
+      },
+      {
+        "label": "BIA",
+        "file": "bia",
+        "text": "{name}",
+        "empty": "None"
+      },
+      {
+        "label": "City ward",
+        "file": "wards",
+        "text": "Ward {num} · {name}",
+        "rep": [
+          "wards",
+          "num"
+        ]
+      },
+      {
+        "label": "Provincial",
+        "file": "wards",
+        "text": "{prov}",
+        "rep": [
+          "prov",
+          "prov"
+        ]
+      },
+      {
+        "label": "Federal",
+        "file": "federal",
+        "text": "{name}",
+        "rep": [
+          "fed",
+          "name"
+        ]
+      }
+    ],
+    "words": {
+      "local": "TTC",
+      "localFare": "TTC adult fare ${fare:.2f}",
+      "railShort": "GO",
+      "railFare": "GO fare; the TTC leg is free (One Fare)",
+      "subway": "Subway",
+      "rail": "GO Transit",
+      "routes": "Streetcars and buses within a 5-minute walk",
+      "atDoor": "Bus or streetcar at the door",
+      "bikeshare": "Bike Share",
+      "region": "the GTA",
+      "taxi": "the City of Toronto meter rate",
+      "busy": "Busy nights downtown",
+      "legend": "Subway lines in their colours, streetcars red, GO lines dashed green, Green P in green squares, other venues in grey.",
+      "sources": "Transit: TTC and Metrolinx. Parking: Toronto Parking Authority.",
+      "venueDesc": "what's on this week, nearest subway and GO, streetcars and buses, Green P parking within a ten-minute walk, and drive and transit from across the GTA.",
+      "intro": "places most of the GTA travels to, and how to get to each: nearest station, streetcars and buses, Green P within a ten-minute walk, and drive and transit from across the region.",
+      "listDesc": "from Rogers Centre and Scotiabank Arena to Massey Hall, and how to get to each: nearest subway and GO, streetcars, Green P within a ten-minute walk, drive and transit from across the GTA.",
+      "other": "Smaller rooms and the suburbs’ arenas and halls, same facts, same listing."
+    }
   },
   "origins": [
     {

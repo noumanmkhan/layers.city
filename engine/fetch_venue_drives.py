@@ -1,9 +1,10 @@
-"""Best-case drive minutes and road distance from each GTA origin in venues.json to each venue, for the
+"""Best-case drive minutes and road distance from each regional origin in venues.json to each venue, for the
 Venues pages' "From …" picker.
 
-Usage:  python3 cities/toronto/fetch_venue_drives.py
-Reads:  cities/toronto/venues.json (origins, venues), docs/toronto/data/go_stations.geojson (origin points)
-Writes: cities/toronto/raw/venue_drives.json   {asof, origins, venues, min[origin][venue], km[origin][venue]}
+Usage:  python3 engine/fetch_venue_drives.py <city>
+Reads:  cities/<city>/venues.json (origins, venues), and for an origin without its own "at" the station it
+        leaves from ("via"), in the map's regional-rail or subway stations (docs/<city>/data/)
+Writes: cities/<city>/raw/venue_drives.json   {asof, origins, venues, min[origin][venue], km[origin][venue]}
 
 One OSRM table request (the public demo server's car profile: posted speeds on empty roads, the same
 source and caveat as the map's suburban lens). Run it in Actions or on a computer with normal internet;
@@ -13,17 +14,21 @@ Data: © OpenStreetMap contributors, ODbL.
 import json, os, sys, urllib.request
 from datetime import date
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+city = sys.argv[1] if len(sys.argv) > 1 else sys.exit('usage: fetch_venue_drives.py <city>')
+HERE = os.path.join(ROOT, 'cities', city)
 cfg = json.load(open(os.path.join(HERE, 'venues.json')))
-go = {f['properties']['name']: f['geometry']['coordinates']
-      for f in json.load(open(os.path.join(ROOT, 'docs', 'toronto', 'data', 'go_stations.geojson')))['features']}
+go = {}
+for fn in ['subway_stations', (cfg.get('page', {}).get('rail') or {}).get('stations')]:
+    p = fn and os.path.join(ROOT, 'docs', city, 'data', fn + '.geojson')
+    if p and os.path.exists(p):
+        go.update({f['properties']['name']: f['geometry']['coordinates'] for f in json.load(open(p))['features']})
 
 origins = []
 for o in cfg['origins']:
     at = o.get('at') or go.get(o['via'])
     if not at:
-        sys.exit(f"origin {o['name']}: no coordinates and {o['via']} is not in go_stations.geojson")
+        sys.exit(f"origin {o['name']}: no coordinates and {o['via']} is not a station on the map")
     origins.append((o['name'], at))
 venues = [(v['slug'], v['at']) for v in cfg['venues']]
 coords = ';'.join(f'{lon:.5f},{lat:.5f}' for _, (lon, lat) in origins + venues)

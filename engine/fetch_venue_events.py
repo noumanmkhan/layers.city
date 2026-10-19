@@ -1,15 +1,21 @@
-"""What's on at Toronto's big venues, from Ticketmaster's Discovery API, for the Venues pages.
+"""What's on at a city's big venues, from Ticketmaster's Discovery API, for the Venues pages.
 
-Usage:  TICKETMASTER_KEY=... python3 cities/toronto/fetch_venue_events.py
-Reads:  cities/toronto/venues.json             the curated venues (name, `tm` aliases) and `exclude` ids
-        cities/toronto/raw/venue_tm_ids.json   Ticketmaster venue ids learned on earlier runs (written here)
-Writes: cities/toronto/raw/venue_events.json   the next two weeks of events per venue slug, plus the venues
-                                               the feed had events at that aren't in venues.json (so the
-                                               list can grow by hand, not by itself)
+Usage:  TICKETMASTER_KEY=... python3 engine/fetch_venue_events.py <city>
+Reads:  cities/<city>/venues.json             the curated venues (name, `tm` aliases), `exclude` ids, and "feed":
+                                              {centre [lat, lon], radiusKm, country, drop (words left out when
+                                              matching names), mode}
+        cities/<city>/raw/venue_tm_ids.json   Ticketmaster venue ids learned on earlier runs (written here)
+Writes: cities/<city>/raw/venue_events.json   the next two weeks of events per venue slug, plus (in a sweep)
+                                              the venues the feed had events at that aren't in venues.json
+                                              (so the list can grow by hand, not by itself)
 
-One sweep of every event within RADIUS_KM of downtown over the next 14 days (a few pages of 200), grouped
-by the feed's venue and matched to ours by id, then by name. That is well inside the API's default quota
-(5,000 calls a day, 5 a second) and gives the "tonight downtown" strip every venue at once. Nothing but the
+Two ways to read the feed, by "mode":
+  sweep   every event within radiusKm of the centre over the next 14 days (a few pages of 200; the API stops at
+          1,000), grouped by the feed's venue and matched to ours by id, then by name. Fine where the area has
+          fewer than 1,000 events a fortnight.
+  venues  one query per venue: its Ticketmaster venue id (learned, or found once by searching the API's venues
+          by name near our point), then its events. For a city with far more than 1,000 events a fortnight.
+Either is well inside the API's default quota (5,000 calls a day, 5 a second). Nothing but the
 listing facts is kept: name, date, time, kind, status and the event's own page on Ticketmaster, which is the
 link the pages show. No images, prices or descriptions. Content is cached for a day at a time, which is the
 "reasonable period" the API terms allow; an organiser's removal request is honoured by adding the event id
@@ -25,13 +31,14 @@ affiliate or paid links; see claude/venues.md in the project notes.
 import json, os, re, sys, time, urllib.parse, urllib.request, unicodedata
 from datetime import datetime, timedelta, timezone
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+city = sys.argv[1] if len(sys.argv) > 1 else sys.exit('usage: fetch_venue_events.py <city>')
+HERE = os.path.join(ROOT, 'cities', city)
 RAW = os.path.join(HERE, 'raw')
 OUT = os.path.join(RAW, 'venue_events.json')
 IDS = os.path.join(RAW, 'venue_tm_ids.json')
 API = 'https://app.ticketmaster.com/discovery/v2/events.json'
-CENTRE = (43.675, -79.45)     # between downtown and Downsview; Mississauga and Rexdale are inside the radius
-RADIUS_KM = 30
+VAPI = 'https://app.ticketmaster.com/discovery/v2/venues.json'
 DAYS = 14
 UA = {'User-Agent': 'city-layers/1.0 (https://layers.city; go@layers.city)'}
 
@@ -41,6 +48,9 @@ if not key:
     sys.exit(0)
 
 cfg = json.load(open(os.path.join(HERE, 'venues.json')))
+FEED = cfg['feed']
+CENTRE, RADIUS_KM = tuple(FEED['centre']), FEED.get('radiusKm', 30)
+DROP = r'\b(the|at|' + '|'.join(map(re.escape, FEED.get('drop', []))) + r')\b'
 venues = cfg['venues']
 exclude = set(cfg.get('exclude', []))
 known = json.load(open(IDS)) if os.path.exists(IDS) else {}       # tm venue id -> our slug
@@ -48,7 +58,7 @@ known = json.load(open(IDS)) if os.path.exists(IDS) else {}       # tm venue id 
 
 def norm(s):
     s = unicodedata.normalize('NFKD', s or '').encode('ascii', 'ignore').decode().lower()
-    s = re.sub(r'\b(the|at|toronto|on|ontario|canada)\b', ' ', s)
+    s = re.sub(DROP, ' ', s)
     return re.sub(r'[^a-z0-9]+', '', s)
 
 
@@ -76,18 +86,53 @@ start = now.replace(minute=0, second=0, microsecond=0)
 end = start + timedelta(days=DAYS)
 fmt = lambda d: d.strftime('%Y-%m-%dT%H:%M:%SZ')
 base = {'apikey': key, 'latlong': f'{CENTRE[0]},{CENTRE[1]}', 'radius': RADIUS_KM, 'unit': 'km',
-        'countryCode': 'CA', 'locale': '*', 'sort': 'date,asc', 'size': 200,
+        'countryCode': FEED.get('country', 'US'), 'locale': '*', 'sort': 'date,asc', 'size': 200,
         'startDateTime': fmt(start), 'endDateTime': fmt(end)}
 
 events = []
-page, pages = 0, 1
-while page < pages and page < 5:                 # the API caps page*size at 1,000: five pages at most
-    data = get(dict(base, page=page))
-    pages = data.get('page', {}).get('totalPages', 1)
-    events += data.get('_embedded', {}).get('events', [])
-    page += 1
-    time.sleep(0.3)
-print(f'{len(events)} events in {page} page(s), {fmt(start)} to {fmt(end)}')
+if FEED.get('mode', 'sweep') == 'sweep':
+    page, pages = 0, 1
+    while page < pages and page < 5:                 # the API caps page*size at 1,000: five pages at most
+        data = get(dict(base, page=page))
+        pages = data.get('page', {}).get('totalPages', 1)
+        events += data.get('_embedded', {}).get('events', [])
+        page += 1
+        time.sleep(0.3)
+    print(f'{len(events)} events in {page} page(s), {fmt(start)} to {fmt(end)}')
+else:
+    def ids_for(v):
+        """The venue's Ticketmaster ids: learned ones, else the API's venues named like ours within 1.5 km of our point."""
+        got = [i for i, s in known.items() if s == v['slug']]
+        if got:
+            return got
+        for n in [v['name']] + v.get('tm', []):
+            data = get({'apikey': key, 'keyword': n, 'countryCode': FEED.get('country', 'US'), 'size': 20, 'locale': '*'})
+            time.sleep(0.25)
+            for tv in (data or {}).get('_embedded', {}).get('venues', []):
+                loc = tv.get('location') or {}
+                try:
+                    lat, lon = float(loc['latitude']), float(loc['longitude'])
+                except (KeyError, TypeError, ValueError):
+                    continue
+                d = ((lat - v['at'][1]) * 111) ** 2 + ((lon - v['at'][0]) * 85) ** 2
+                if d <= 1.5 ** 2 and norm(tv.get('name')) in {norm(x) for x in [v['name']] + v.get('tm', [])}:
+                    known[tv['id']] = v['slug']; got.append(tv['id'])
+            if got:
+                break
+        if not got:
+            print(f"  no Ticketmaster venue found for {v['name']}")
+        return got
+    q = dict(base); [q.pop(k) for k in ('latlong', 'radius', 'unit')]
+    for v in venues:
+        for vid in ids_for(v):
+            page, pages = 0, 1
+            while page < pages and page < 5:
+                data = get(dict(q, venueId=vid, page=page)) or {}
+                pages = data.get('page', {}).get('totalPages', 1)
+                events += data.get('_embedded', {}).get('events', [])
+                page += 1
+                time.sleep(0.25)
+    print(f'{len(events)} events at {len(venues)} venues, {fmt(start)} to {fmt(end)}')
 if not events:
     print('::warning::the feed returned no events: keeping the last venue_events.json')
     sys.exit(0)

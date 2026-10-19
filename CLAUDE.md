@@ -27,8 +27,9 @@ the landing page, stop and say so; don't change this repo.
   lists it, so its commits go live. By hand: `python3 engine/profiles/build.py <city>` after the map's data changes.
 - **Venues** (`cities/toronto/venues.json`, `engine/venues.py`, pages at `docs/toronto/venues/`, on dev since October 18):
   Toronto's big live venues, what's on at each this fortnight from Ticketmaster's Discovery API
-  (`cities/toronto/fetch_venue_events.py`, secret `TICKETMASTER_KEY`) and how to get to each from across the GTA
-  (`fetch_venue_drives.py`, OSRM). `.github/workflows/refresh-venues.yml` fetches nightly and rebuilds the pages;
+  (`engine/fetch_venue_events.py <city>`, secret `TICKETMASTER_KEY`) and how to get to each from across the region
+  (`engine/fetch_venue_drives.py <city>`, OSRM). Each city's words, files and fares are in its venues.json "page",
+  "feed" and "fares"; the engine names no city. `.github/workflows/refresh-venues.yml` fetches nightly and rebuilds the pages;
   deploy.yml lists it. Facts only: no images, prices, copy or affiliate links (the API terms forbid deriving
   revenue from it). The venue list and the fare figures in venues.json are hand-kept; `engine/places.py` adds the
   pages to the sitemap. By hand: `python3 engine/venues.py toronto`. Notes in the project's claude/venues.md.

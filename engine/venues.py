@@ -1,16 +1,20 @@
-"""Venues pages: Toronto's big live venues, what's on at each this week, and how to get there.
+"""Venues pages: a city's big live venues, what's on at each this week, and how to get there.
 
-Usage:  python3 engine/venues.py toronto          (refresh-venues.yml runs it nightly after the events fetch)
-Reads:  cities/<city>/venues.json                  the curated venues, GTA origins and fare figures
+Usage:  python3 engine/venues.py <city>            (refresh-venues.yml runs it nightly after the events fetch)
+Reads:  cities/<city>/venues.json                  the curated venues, regional origins and fare figures, and
+                                                   "page": which of the map's files are the subway, regional
+                                                   rail, streetcars, parking and boundaries, and the city's
+                                                   own words for them (the engine names no city)
+        cities/<city>/factsheet.css                line bullets and route badges in the city's colours
         cities/<city>/raw/venue_events.json        this fortnight's events (fetch_venue_events.py; optional)
         cities/<city>/raw/venue_drives.json        best-case drive minutes and km from each origin (optional)
         docs/<city>/data/*                         the map's published files: stations, lines, stops, streets,
-                                                   Green P, permit areas, Bike Share, neighbourhoods
+                                                   parking, permit areas, bike share, boundaries
         docs/<city>/profiles/data/walk_grid.json   walk minutes to the nearest station, stop and dock
 Writes: docs/<city>/venues/index.html, og.png      the list: every venue, this week's events, a "busy nights"
                                                    strip, sort and filter controls, a "From …" picker
         docs/<city>/venues/<slug>/index.html, og.png   one page per venue: map, events, getting there, parking,
-                                                   arrival notes, every GTA origin
+                                                   arrival notes, every regional origin
 
 The rules: facts only. An event is a name, a date, a time, what kind of thing it is and a link to its own
 page at the source; no images, prices or copy. Venues are the stable unit (a page each, so the address lives
@@ -41,6 +45,15 @@ OUT = os.path.join(DOCS, city, 'venues')
 cfg = json.load(open(os.path.join(D, 'city.json')))
 V = json.load(open(os.path.join(CITY_DIR, 'venues.json')))
 CITY = V.get('city') or cfg.get('heading') or cfg['title'].split(' · ')[0]
+PG = V.get('page', {})
+W = PG.get('words', {})
+word = lambda k, d='': W.get(k, d)
+RAIL = PG.get('rail') or {}
+HUBS = PG.get('hubs') or []
+PARK = PG.get('parking') or {}
+MI = PG.get('distance') == 'mi'
+UNIT = 'mi' if MI else 'km'
+dist_u = lambda d: round(d / 1.609344, 1) if (MI and d is not None) else d      # road km from OSRM, in the page's unit
 esc = lambda s: html.escape(str(s), quote=True)
 CA = cfg.get('search', {}).get('country') == 'ca'
 BIG = 8000            # a venue this size or more counts towards a "busy night"
@@ -62,33 +75,36 @@ def gj(name):
 
 
 # ---- a flat projection in km, as in engine/profiles/build.py ------------------------------------------------
-hoods = gj('neighbourhoods')
+hoods = gj(PG.get('units', 'neighbourhoods'))
 LAT0 = sum(shape(f['geometry']).centroid.y for f in hoods) / len(hoods)
 KX, KY = 111.32 * math.cos(math.radians(LAT0)), 110.574
 km = lambda lon, lat: (lon * KX, lat * KY)
 dist_km = lambda a, b: math.hypot((a[0] - b[0]) * KX, (a[1] - b[1]) * KY)
 walk_min = lambda d: max(1, round(d * 1.3 / 4.8 * 60))
-fmt_km = lambda d: f'{d * 1000:.0f} m' if d < 1 else f'{d:.1f} km'
+fmt_km = ((lambda d: f'{d / 1.609344 * 5280:,.0f} ft' if d < 0.4 else f'{d / 1.609344:.1f} mi') if MI else
+          (lambda d: f'{d * 1000:.0f} m' if d < 1 else f'{d:.1f} km'))
 
 stations = [(f['geometry']['coordinates'], f['properties']) for f in gj('subway_stations')]
 subway_lines = gj('subway_lines')
-streetcars = gj('streetcars')
-go_lines = gj('go_lines')
-go_stations = [(f['geometry']['coordinates'], f['properties']) for f in gj('go_stations')]
+streetcars = gj(PG['trams']) if PG.get('trams') else []
+go_lines = gj(RAIL['lines']) if RAIL.get('lines') else []
+go_stations = [(f['geometry']['coordinates'], f['properties']) for f in gj(RAIL['stations'])] if RAIL.get('stations') else []
 streets = gj('streets')
-greenp = [(f['geometry']['coordinates'], f['properties']) for f in gj('parking') if f['properties'].get('c') == 'gp']
-permit = [(shape(f['geometry']), f['properties']) for f in gj('permit_areas')]
+greenp = [(f['geometry']['coordinates'], f['properties']) for f in gj('parking') if f['properties'].get('c') == PARK.get('cat', 'gp')] if PARK else []
+permit = [(shape(f['geometry']), f['properties']) for f in gj(PG['permit'])] if PG.get('permit') else []
 bikeshare = [(f['geometry']['coordinates'], f['properties']) for f in gj('bikeshare')]
 hood_shapes = [(make_valid(shape(f['geometry'])), f['properties']) for f in hoods]
 # For the What's here preview: the same boundaries the map's card reads, by point-in-polygon at build time.
 def shapes(name):
     return [(make_valid(shape(f['geometry'])), f['properties']) for f in gj(name)]
-boroughs, areas, wards, fed, bias = shapes('boroughs'), shapes('areas'), shapes('wards'), shapes('federal'), shapes('bia')
+HERE_SHAPES = {r['file']: None for r in PG.get('here', [])}
+for r_ in PG.get('here', []):
+    if r_.get('within'): HERE_SHAPES[r_['within']['file']] = None
+for k in HERE_SHAPES: HERE_SHAPES[k] = shapes(k)
 REPS = opt_json(os.path.join(D, 'representatives.json'), {})
 transit = opt_json(os.path.join(D, 'transit.json'), {'routes': [], 'stops': []})
 ROUTES, STOPS = transit['routes'], transit['stops']
 LINE_COLOR = {f['properties'].get('line'): f['properties'].get('color') for f in subway_lines}
-GO_BY_NAME = {p['name']: c for c, p in go_stations}
 
 
 def slugify(s):
@@ -123,29 +139,32 @@ def first_in(items, pt):
 
 
 def whats_here(pt):
-    """[(label, text, url or None)]: what the map's card would say at this spot."""
+    """[(label, text, url or None)]: what the map's card would say at this spot, by the rows in "page.here":
+    {label, file, text ("{field}" placeholders), empty (shown when the spot is in none; else the row is left
+    out), page (link the unit's place page), rep: [representatives.json key, field] (adds the member and links
+    their page), within: {file, name} (only when the spot is inside that one)}."""
     rows = []
-    b, a, h = first_in(boroughs, pt), first_in(areas, pt), first_in(hood_shapes, pt)
-    if b: rows.append(('Former city', b['name'], None))
-    if b and b['name'] == 'Old Toronto': rows.append(('Area', a['name'] if a else 'Outside the named areas', None))
-    if h: rows.append(('Neighbourhood', f"{h['name']} (#{h['code']})", f"/{city}/{slugify(h['name'])}/"))
-    bia = first_in(bias, pt)
-    rows.append(('BIA', bia['name'] if bia else 'None', None))
-    w = first_in(wards, pt)
-    if w:
-        c = (REPS.get('wards') or {}).get(str(w['num']), {})
-        rows.append(('City ward', f"Ward {w['num']} · {w['name']}" + (f" · {c['name']}" if c.get('name') else ''), c.get('url')))
-        pv = (REPS.get('prov') or {}).get(w.get('prov'), {})
-        rows.append(('Provincial', w.get('prov', '') + (f" · {pv['name']}" if pv.get('name') else ''), pv.get('url')))
-    f = first_in(fed, pt)
-    if f:
-        fd = (REPS.get('fed') or {}).get(f['name'], {})
-        rows.append(('Federal', f['name'] + (f" · {fd['name']}" if fd.get('name') else ''), fd.get('url')))
+    for r in PG.get('here', []):
+        if r.get('within'):
+            w = first_in(HERE_SHAPES[r['within']['file']], pt)
+            if not w or w.get('name') != r['within']['name']:
+                continue
+        props = first_in(HERE_SHAPES[r['file']], pt)
+        if not props:
+            if 'empty' in r: rows.append((r['label'], r['empty'], None))
+            continue
+        text = re.sub(r'\{(\w+)\}', lambda m: str(props.get(m.group(1), '')), r['text'])
+        url = f"/{city}/{slugify(props['name'])}/" if r.get('page') else None
+        if r.get('rep'):
+            m = (REPS.get(r['rep'][0]) or {}).get(str(props.get(r['rep'][1])), {})
+            text += f" · {m['name']}" if m.get('name') else ''
+            url = m.get('url')
+        rows.append((r['label'], text, url))
     return rows
 
 
 def route_badges(rs):
-    """Route chips in the fact sheets' TTC styles: streetcars red, buses outlined, express green, GO green."""
+    """Route chips in the fact sheets' styles (cities/<city>/factsheet.css): streetcar, express, night, regional."""
     out = []
     for r in rs:
         cls = 'tram' if r.get('m') == 'tram' else 'go' if r.get('m') == 'go' else 'exp' if 'exp' in r.get('f', []) else 'night' if 'night' in r.get('f', []) else ''
@@ -182,15 +201,16 @@ def facts(v):
         subs.append((p['name'], p.get('lines', []), mins))
     f['subway'] = subs
     g = sorted(((dist_km(c, pt), p) for c, p in go_stations), key=lambda t: t[0])[0] if go_stations else None
-    if g and g[0] <= 2.5:
-        mins = w['go'][0] if w.get('go') and w['go'][1] == g[1]['name'] else walk_min(g[0])
+    gk = RAIL.get('walk', 'go')
+    if g and g[0] <= RAIL.get('within', 2.5):
+        mins = w[gk][0] if w.get(gk) and w[gk][1] == g[1]['name'] else walk_min(g[0])
         f['go'] = (g[1]['name'], g[1].get('lines', []), mins)
     f['routes'] = near_routes(pt)
     f['stop'] = w['stop'][0] if w.get('stop') else None
     f['bikeshare'] = w['bikeshare'][0] if w.get('bikeshare') else (walk_min(min(dist_km(c, pt) for c, _ in bikeshare)) if bikeshare else None)
-    union = GO_BY_NAME.get('Union Station') or [-79.3806, 43.6453]
-    f['union_km'] = dist_km(union, pt)
-    f['union_walk'] = walk_min(f['union_km'])
+    f['hubs'] = [(h, dist_km(h['at'], pt), walk_min(dist_km(h['at'], pt))) for h in HUBS]
+    # the main hub (the first), as the origins table finishes trips from it
+    f['union_km'], f['union_walk'] = (f['hubs'][0][1], f['hubs'][0][2]) if f['hubs'] else (99, 999)
     lots = sorted(((dist_km(c, pt), p) for c, p in greenp if dist_km(c, pt) <= NEAR_GP_KM), key=lambda t: t[0])
     f['greenp'] = [(p['n'], p.get('cap'), p.get('t'), d) for d, p in lots]
     pp = Point(*pt)
@@ -264,6 +284,9 @@ def event_li(e, show_venue=None):
             f' <span class="ev">{esc(e["name"])}</span>{where} {chip}{st}{link}</li>')
 
 
+HUB_NAMES = {h.get('station', h['name']) for h in HUBS}
+
+
 # ---- the small map on a venue page --------------------------------------------------------------------------------
 MAP_W, MAP_H, HALF_KM = 600, 400, 1.15
 
@@ -286,7 +309,7 @@ def venue_map(v, others):
         return out
 
     inside = lambda lon, lat: x0 <= lon * KX <= x1 and y0 <= lat * KY <= y1
-    p = [f'<svg class="vmap" viewBox="0 0 {MAP_W} {MAP_H}" role="img" aria-label="Map of the streets, transit and Green P parking around {esc(v["name"])}">',
+    p = [f'<svg class="vmap" viewBox="0 0 {MAP_W} {MAP_H}" role="img" aria-label="Map of the streets, transit{esc(" and " + PARK["label"] + " parking" if PARK else "")} around {esc(v["name"])}">',
          f'<rect width="{MAP_W}" height="{MAP_H}" fill="var(--land)"/>']
     for f in streets:
         w = 4.2 if f['properties'].get('cls') == 'major' else 2.6
@@ -307,7 +330,7 @@ def venue_map(v, others):
             p.append(f'<rect x="{x - 5}" y="{y - 5}" width="10" height="10" rx="2" fill="#0B8A44"/><text x="{x}" y="{y + 3.4}" text-anchor="middle" font-size="8" font-weight="800" fill="#fff" font-family="var(--display)">P</text>')
     labels = []
     for c, pr in go_stations:
-        if inside(*c) and pr['name'] != 'Union Station':
+        if inside(*c) and pr['name'] not in HUB_NAMES:
             x, y = xy(*c); p.append(f'<rect x="{x - 4}" y="{y - 4}" width="8" height="8" fill="#fff" stroke="var(--go)" stroke-width="2"/>'); labels.append((x, y, pr['name']))
     for c, pr in stations:
         if inside(*c):
@@ -412,10 +435,8 @@ ul.events .where{color:var(--ink-3);font-size:15px}
 .src{font-size:14px;white-space:nowrap}
 .empty{color:var(--ink-3);margin:0}
 .ln{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font:800 11px/1 var(--display);color:#fff;vertical-align:-3px;margin-right:2px}
-.ln.l1{background:#FFC425;color:#1A1414}.ln.l2{background:#00A64F}.ln.l4{background:#A8518A}.ln.l5{background:#F58426}.ln.l6{background:#959595}
-.rbs{display:inline-flex;flex-wrap:wrap;gap:4px;vertical-align:middle}
-.rb{display:inline-grid;place-items:center;box-sizing:border-box;height:19px;min-width:27px;padding:0 4px;border-radius:4px;font:700 11.5px/1 var(--body);background:#fff;color:#D7261E;box-shadow:inset 0 0 0 1.5px #D7261E}
-.rb.tram{background:#D7261E;color:#fff;box-shadow:none}.rb.exp{background:#15924A;color:#fff;box-shadow:none}.rb.go{background:#1E6B47;color:#fff;box-shadow:none}.rb.night{background:#fff;color:#1F4FA3;box-shadow:inset 0 0 0 1.5px #1F4FA3}
+.rbs{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:2px}.rbs .rb{flex:none}.rb.go{min-height:0;margin:0;padding:0 4px;text-decoration:none}
+.rb{display:inline-grid;place-items:center;box-sizing:border-box;height:19px;min-width:27px;padding:0 4px;border-radius:4px;font:700 11.5px/1 var(--body)}
 .vmap{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--rule)}
 .legend{font-size:13px;color:var(--ink-3);margin:8px 0 0}
 .card{background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:20px 22px;margin:14px 0}
@@ -445,6 +466,8 @@ td.n{white-space:nowrap}
 footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(--ink-2)}
 [hidden]{display:none!important}
 @media (max-width:560px){section,.card{padding:16px}ul.events time{flex-basis:100%}h1{margin-top:12px}.in-card dt{margin-top:10px}}"""
+_fc = os.path.join(CITY_DIR, 'factsheet.css')       # the city's line bullets and route badges, shared with the fact sheets
+CSS += '\n' + open(_fc).read() if os.path.exists(_fc) else ''
 PIN = ('<svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/>'
        '<polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/>'
        '<polygon points="60,20 90,34 60,48 30,34" fill="#fff"/>%s</svg>')
@@ -453,8 +476,8 @@ PIN %= ('<path transform="translate(51,24.5) scale(0.9)" d="M10 0 L11.6 3.2 L13.
         'L0.8 9.2 L2.6 8.2 L1.6 5.2 L4.2 5.8 L4.8 4.2 L7.4 6.6 L6.8 2.4 L8.4 3.2 Z" fill="#C8102E"/>' if CA else '')
 BRAND = '-ca' if CA else ''
 SOURCE_NOTE = ('Event listings: Ticketmaster Discovery API, refreshed nightly; each event links to its own Ticketmaster page. '
-               'Layers.City sells nothing and carries no paid or affiliate links. Transit: TTC and Metrolinx. Parking: Toronto Parking Authority. '
-               'Walk and drive times: OpenStreetMap data, OSRM for driving (best case, empty roads).')
+               'Layers.City sells nothing and carries no paid or affiliate links. ' + word('sources') +
+               ' Walk and drive times: OpenStreetMap data, OSRM for driving (best case, empty roads).')
 
 
 def page(title, desc, canonical, og, body, crumbs):
@@ -511,22 +534,40 @@ if DR:
 
 
 def taxi(km_):
-    return FARES.get('taxiDrop', 0) + km_ * FARES.get('taxiPerKm', 0)
+    """The meter on that road distance: drop, plus the rate per km or per mile, plus any flat surcharges."""
+    per = FARES.get('taxiPerMi', 0) / 1.609344 if FARES.get('taxiPerMi') else FARES.get('taxiPerKm', 0)
+    return FARES.get('taxiDrop', 0) + FARES.get('taxiExtra', 0) + km_ * per
 
 
 GO_LINES_AT = {p['name']: set(p.get('lines', [])) for _, p in go_stations}
+LINES_AT = {}
+for c_, p_ in stations:
+    LINES_AT.setdefault(p_['name'], set()).update(p_.get('lines', []))
+HUB_LINES = {h['name']: set().union(*[set(p.get('lines', [])) for c, p in stations if dist_km(c, h['at']) <= h.get('lineRadius', 0.35)])
+             for h in HUBS}
+LOCAL = word('local', 'Transit')
+order_lines = lambda ls: sorted(ls, key=lambda l: (not l.isdigit(), len(l), l))
 
 
-def from_union_words(f):
-    """How to finish the trip from Union Station, from the venue's own facts."""
-    if f['union_walk'] <= 15:
-        return f"then about {f['union_walk']} min on foot"
+def ride(frm_lines, n, lines):
+    """The subway from somewhere to station n: "the 4/5/6 to n" when lines run straight there (and the city asks
+    for line hints), else "the subway to n"."""
+    common = order_lines(set(frm_lines) & set(lines)) if PG.get('lineHints') else []
+    return f"the {'/'.join(common)} to {n}" if common else f"the subway to {n}"
+
+
+def from_hub_words(f, hub=None):
+    """How to finish the trip from a hub station, from the venue's own facts."""
+    hub = hub or (HUBS[0] if HUBS else {'name': ''})
+    hw = next((w for h, d, w in f['hubs'] if h is hub), f['union_walk'])
+    if hw <= 15:
+        return f"then about {hw} min on foot"
     if f['subway']:
         n, lines, mins = f['subway'][0]
-        return f"then the subway to {n} and about {mins} min on foot"
+        return f"then {ride(HUB_LINES.get(hub['name'], ()), n, lines)} and about {mins} min on foot"
     if f.get('go'):
-        return f"then GO to {f['go'][0]} and about {f['go'][2]} min on foot"
-    return 'then a TTC connection'
+        return f"then {word('railShort', 'the train')} to {f['go'][0]} and about {f['go'][2]} min on foot"
+    return f"then a {LOCAL} connection"
 
 
 def site_name(u):
@@ -537,26 +578,34 @@ def origin_rows(v, f):
     rows = []
     for o in ORIGINS:
         dm = DR_MIN.get((o['name'], v['slug']))
-        if o['mode'] == 'ttc':
-            if o['via'] == 'Union Station':
-                transit = f"From Union, {from_union_words(f)[5:]}"
+        hub = next((h for h in HUBS if h['name'] == o.get('hub')), HUBS[0] if HUBS else None)
+        hshort = (hub or {}).get('short', (hub or {}).get('name', ''))
+        if o['mode'] in ('ttc', 'local'):
+            if hub and o['via'] == hub.get('station', hub['name']):
+                transit = f"From {hshort}, {from_hub_words(f, hub)[5:]}"
             elif f['subway'] and f['subway'][0][2] <= 25:
-                n, _, mins = f['subway'][0]
-                transit = f"TTC from {o['via']} to {n}, then about {mins} min on foot"
+                n, lines, mins = f['subway'][0]
+                transit = (f"{LOCAL} from {o['via']} to {n}" if not PG.get('lineHints') else
+                           f"From {o['via']}, {ride(LINES_AT.get(o['via'], ()), n, lines)}") + f", then about {mins} min on foot"
             else:
-                transit = f"TTC from {o['via']} to Union, {from_union_words(f)}"
-            fare = f"TTC adult fare ${FARES['ttc']:.2f}" if FARES.get('ttc') else None
+                transit = f"{LOCAL} from {o['via']} to {hshort}, {from_hub_words(f, hub)}"
+            fare = word('localFare').format(fare=FARES.get('local', 0)) if word('localFare') and FARES.get('local') else None
         else:
-            # A GO train that stops at the venue's own station (Exhibition on Lakeshore West, Downsview Park on Barrie)
-            direct = f.get('go') and f['go'][2] <= 25 and GO_LINES_AT.get(o['via'], set()) & set(f['go'][1]) and f['go'][0] != 'Union Station'
+            rail = o.get('rail') or word('railShort', 'Train')
+            # A train that stops at the venue's own station (Exhibition on Lakeshore West; Mets-Willets Point on the Port Washington Branch)
+            direct = f.get('go') and f['go'][2] <= 25 and GO_LINES_AT.get(o['via'], set()) & set(f['go'][1]) and f['go'][0] not in HUB_NAMES
             if direct:
-                transit = f"GO from {o['via']} to {f['go'][0]}, then about {f['go'][2]} min on foot"
+                transit = f"{rail} from {o['via']} to {f['go'][0]}, then about {f['go'][2]} min on foot"
             else:
-                transit = f"GO from {o['via']} to Union, {from_union_words(f)}"
-            fare = 'GO fare; the TTC leg is free (One Fare)'
+                transit = f"{rail} from {o['via']} to {hshort}, {from_hub_words(f, hub)}"
+            fare = o.get('fare') or word('railFare') or None
+        # A venue can say it in its own words: outside the city, where the trip doesn't run through a hub
+        # (UBS Arena by LIRR, MetLife by the event train from Secaucus), keyed by origin name or "*".
+        own = (v.get('transit') or {})
+        transit = own.get(o['name']) or own.get('*') or transit
         rows.append({'name': o['name'], 'transit': transit, 'fare': fare,
-                     'drive': None if not dm or dm[0] is None else dm[0], 'km': None if not dm or dm[1] is None else dm[1],
-                     'taxi': None if not dm or dm[1] is None or not FARES.get('taxiPerKm') else round(taxi(dm[1]))})
+                     'drive': None if not dm or dm[0] is None else dm[0], 'km': None if not dm or dm[1] is None else dist_u(dm[1]),
+                     'taxi': None if not dm or dm[1] is None or not (FARES.get('taxiPerKm') or FARES.get('taxiPerMi')) else round(taxi(dm[1]))})
     return rows
 
 
@@ -577,7 +626,7 @@ for v in venues:
     home = f" · Home of {' and '.join(v['homeOf'])}" if v.get('homeOf') else ''
     arrive = (f"{f['subway'][0][0]} station, about {f['subway'][0][2]} min on foot" if f['subway'] and f['subway'][0][2] <= 25
               else f"{f['go'][0]}, about {f['go'][2]} min on foot" if f.get('go') and f['go'][2] <= 25
-              else 'Bus or streetcar at the door' if f['routes'] else 'Best reached by car')
+              else word('atDoor', 'Bus at the door') if f['routes'] else 'Best reached by car')
     map_link = f"/{city}/#map=16/{v['at'][1]}/{v['at'][0]}&pin={v['at'][1]},{v['at'][0]}&name={quote(v['name'])}"
 
     # ---- the venue's own page
@@ -588,12 +637,14 @@ for v in venues:
         parts.append(f'<p class="in">In <a href="/{city}/{hs}/">{esc(f["hood"]["name"])}</a>' +
                      (f' · <a href="/{city}/profiles/?n={hs}&amp;at={v["at"][1]:.3f},{v["at"][0]:.3f}">Fact sheet from this spot</a>' if os.path.exists(os.path.join(DOCS, city, 'profiles', 'data', hs + '.json')) else '') + '</p>')
     parts.append(f'<a class="go" href="{esc(map_link)}">Open {esc(v["name"])} on the map <span aria-hidden="true">→</span></a>')
-    parts.append(venue_map(v, venues))
+    if not v.get('outside'):        # the map's streets stop at the city line
+        parts.append(venue_map(v, venues))
     here = whats_here(v['at'])
     if here:
         parts.append('<section><h2>What’s here</h2><dl>' + ''.join(f'<dt>{esc(l)}</dt><dd>' + (f'<a href="{esc(u)}">{esc(t)}</a>' if u else esc(t)) + '</dd>' for l, t, u in here) +
                      '</dl><p class="note" style="margin:12px 0 0">The same rows the map’s What’s here card gives for this address; the map adds collection day, heritage and school wards.</p></section>')
-    parts.append('<p class="legend">Subway lines in their colours, streetcars red, GO lines dashed green, Green P in green squares, other venues in grey.</p>')
+    if not v.get('outside'):
+        parts.append(f'<p class="legend">{esc(word("legend"))}</p>')
     # events
     sec = '<section><h2>This week</h2>'
     if not EV:
@@ -609,26 +660,31 @@ for v in venues:
     # getting there
     dl = []
     if f['subway']:
-        dl.append(('Subway', '<br>'.join(f'{LINES_HTML(l)} {esc(n)} · about {m} min on foot' for n, l, m in f['subway'])))
+        dl.append((word('subway', 'Subway'), '<br>'.join(f'{LINES_HTML(l)} {esc(n)} · about {m} min on foot' for n, l, m in f['subway'])))
     if f.get('go'):
-        dl.append(('GO Transit', f'{esc(f["go"][0])} · about {f["go"][2]} min on foot · {esc(", ".join(f["go"][1]))}'))
+        dl.append((word('rail', 'Regional rail'), f'{esc(f["go"][0])} · about {f["go"][2]} min on foot · {esc(", ".join(f["go"][1]))}'))
     if f['routes']:
-        dl.append(('Streetcars and buses within a 5-minute walk', f'<span class="rbs">{route_badges(f["routes"][:14])}</span>' + (f' <span class="note">+{len(f["routes"]) - 14} more</span>' if len(f['routes']) > 14 else '')))
-    dl.append(('From Union Station', f'about {f["union_walk"]} min on foot ({fmt_km(f["union_km"])} as the crow flies)' if f['union_walk'] <= 40 else f'{fmt_km(f["union_km"])} as the crow flies; see the origins table below'))
-    if f['bikeshare'] is not None:
-        dl.append(('Nearest Bike Share dock', f'about {f["bikeshare"]} min on foot'))
+        dl.append((word('routes', 'Buses within a 5-minute walk'), f'<span class="rbs">{route_badges(f["routes"][:14])}</span>' + (f' <span class="note">+{len(f["routes"]) - 14} more</span>' if len(f['routes']) > 14 else '')))
+    for h, hk, hw in f['hubs']:
+        if h.get('row') is False: continue
+        dl.append((f'From {h["name"]}', f'about {hw} min on foot ({fmt_km(hk)} as the crow flies)' if hw <= 40 else f'{fmt_km(hk)} as the crow flies; see the origins table below'))
+    if f['bikeshare'] is not None and not v.get('outside'):
+        dl.append((f'Nearest {word("bikeshare", "bike-share")} dock', f'about {f["bikeshare"]} min on foot'))
     parts.append('<section><h2>Getting there</h2><dl>' + ''.join(f'<dt>{esc(a)}</dt><dd>{b}</dd>' for a, b in dl) + '</dl></section>')
-    # parking
+    # parking (the city's own lots and garages; a venue outside the city has only its notes)
     pk = []
-    if f['greenp']:
-        pk.append(('Green P within a 10-minute walk', '<br>'.join(f'{esc(n)} · {"garage" if t == "g" else "lot"}' + (f' · {c:,} spaces' if c else '') + f' · {fmt_km(d)}' for n, c, t, d in f['greenp'][:8]) +
-                   (f'<br><span class="note">+{len(f["greenp"]) - 8} more</span>' if len(f['greenp']) > 8 else '')))
-        pk.append(('Green P spaces within that walk', f'{sum(c or 0 for _, c, _, _ in f["greenp"]):,} in {len(f["greenp"])} locations'))
-    else:
-        pk.append(('Green P within a 10-minute walk', 'None'))
-    pk.append(('Street parking', f'Permit area {esc(f["permit"])}: residents’ permits apply on side streets' if f['permit'] else 'Not in a permit-parking area'))
-    parts.append('<section><h2>Parking</h2><dl>' + ''.join(f'<dt>{esc(a)}</dt><dd>{b}</dd>' for a, b in pk) + '</dl>'
-                 '<p class="note" style="margin:12px 0 0">Green P figures are capacities, not live availability. Venues’ own lots are described in the notes.</p></section>')
+    PL = PARK.get('label', 'Public parking')
+    if PARK and not v.get('outside'):
+        if f['greenp']:
+            pk.append((f'{PL} within a 10-minute walk', '<br>'.join(f'{esc(n)} · {"garage" if t == "g" else "lot"}' + (f' · {c:,} spaces' if c else '') + f' · {fmt_km(d)}' for n, c, t, d in f['greenp'][:8]) +
+                       (f'<br><span class="note">+{len(f["greenp"]) - 8} more</span>' if len(f['greenp']) > 8 else '')))
+            pk.append((f'{PL} spaces within that walk', f'{sum(c or 0 for _, c, _, _ in f["greenp"]):,} in {len(f["greenp"])} locations'))
+        else:
+            pk.append((f'{PL} within a 10-minute walk', 'None'))
+        if permit:
+            pk.append(('Street parking', f'Permit area {esc(f["permit"])}: residents’ permits apply on side streets' if f['permit'] else 'Not in a permit-parking area'))
+        parts.append('<section><h2>Parking</h2><dl>' + ''.join(f'<dt>{esc(a)}</dt><dd>{b}</dd>' for a, b in pk) + '</dl>'
+                     f'<p class="note" style="margin:12px 0 0">{esc(PARK.get("note", ""))}</p></section>')
     if v.get('notes'):
         parts.append('<section><h2>Arriving</h2>' + ''.join(f'<p style="margin:0 0 10px">{esc(n)}</p>' for n in v['notes']) +
                      f'<p class="note">Written from the venue’s own visitor pages; gates and policies change, so check <a href="{esc(v["site"])}" rel="noopener">{esc(site_name(v["site"]))}</a> before you go.</p></section>')
@@ -639,15 +695,17 @@ for v in venues:
     for r in rows:
         tbl += f'<tr><td class="n">{esc(r["name"])}</td>'
         if have_drive:
-            tbl += (f'<td class="n">{r["drive"]} min · {r["km"]} km</td><td class="n">${r["taxi"]}</td>' if r['drive'] is not None else '<td>–</td><td>–</td>')
+            tbl += (f'<td class="n">{r["drive"]} min · {r["km"]} {UNIT}</td><td class="n">${r["taxi"]}</td>' if r['drive'] is not None else '<td>–</td><td>–</td>')
         tbl += f'<td>{esc(r["transit"])}' + (f'<br><span class="note">{esc(r["fare"])}</span>' if r['fare'] else '') + '</td></tr>'
     tbl += '</table>'
-    parts.append('<section><h2>From across the GTA</h2>' + tbl +
+    rate = (f'${FARES.get("taxiDrop", 0):.2f} plus ${FARES["taxiPerMi"]:.2f}/mi' if FARES.get('taxiPerMi') else f'${FARES.get("taxiDrop", 0):.2f} plus ${FARES.get("taxiPerKm", 0):.2f}/km') + \
+           (f' plus ${FARES["taxiExtra"]:.2f} in surcharges' if FARES.get('taxiExtra') else '')
+    parts.append(f'<section><h2>From across {esc(word("region", "the region"))}</h2>' + tbl +
                  f'<p class="note" style="margin:12px 0 0">Drive times are OSRM’s on empty roads, the same best-case figure as the map’s suburban lens; game nights run far slower. '
-                 f'The taxi figure is the City of Toronto meter rate (${FARES.get("taxiDrop", 0):.2f} plus ${FARES.get("taxiPerKm", 0):.2f}/km, as of {esc(FARES.get("asof", ""))}) on that distance, the only published benchmark; rideshare prices aren’t published and surge after events. '
+                 f'The taxi figure is {esc(word("taxi", "the local meter rate"))} ({rate}, as of {esc(FARES.get("asof", ""))}) on that distance, the only published benchmark; rideshare prices aren’t published and surge after events. '
                  f'{esc(FARES.get("oneFare", ""))}</p></section>')
     parts.append(f'<p class="note"><a href="/{city}/venues/">All {esc(CITY)} venues</a></p>')
-    desc = f"{v['name']}, {v['address']}: what's on this week, nearest subway and GO, streetcars and buses, Green P parking within a ten-minute walk, and drive and transit from across the GTA."
+    desc = f"{v['name']}, {v['address']}: " + word('venueDesc', "what's on this week, nearest stations, parking and how to get there from across the region.")
     vdir = os.path.join(OUT, v['slug']); os.makedirs(vdir, exist_ok=True)
     og_image(v['name'], [v['at']], os.path.join(vdir, 'og.png'), f'Venue · {CITY}')
     open(os.path.join(vdir, 'index.html'), 'w').write(page(f"{v['name']} · {CITY} venues · Layers.City", desc, f'{INDEX}{v["slug"]}/', f'{INDEX}{v["slug"]}/og.png', '\n'.join(parts), crumbs_idx))
@@ -661,8 +719,8 @@ for v in venues:
     here = whats_here(v['at'])
     here_rows = ''.join(f'<dt>{esc(l)}</dt><dd>' + (f'<a href="{esc(u)}">{esc(t)}</a>' if u else esc(t)) + '</dd>' for l, t, u in here)
     pop = (f'<div class="pop" id="pop-{v["slug"]}" hidden><p class="k">What’s here</p><dl>{here_rows}'
-           + (f'<dt>Nearest subway</dt><dd>{esc(f["subway"][0][0])} · about {f["subway"][0][2]} min on foot</dd>' if f['subway'] else '')
-           + (f'<dt>Green P nearby</dt><dd>{len(f["greenp"])} within a 10-min walk · {sum(c or 0 for _, c, _, _ in f["greenp"]):,} spaces</dd>' if f['greenp'] else '')
+           + (f'<dt>Nearest {word("subway", "Subway").lower()}</dt><dd>{esc(f["subway"][0][0])} · about {f["subway"][0][2]} min on foot</dd>' if f['subway'] else '')
+           + (f'<dt>{esc(PARK.get("label", ""))} nearby</dt><dd>{len(f["greenp"])} within a 10-min walk · {sum(c or 0 for _, c, _, _ in f["greenp"]):,} spaces</dd>' if f['greenp'] else '')
            + f'</dl><div class="acts"><a class="go" href="{esc(map_link)}">Open on the map <span aria-hidden="true">→</span></a>'
              f'<a class="alt" href="/{city}/venues/{v["slug"]}/">Venue page</a></div></div>')
     pin_svg = '<svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="currentColor"/><circle cx="60" cy="48" r="14" fill="var(--card)"/></svg>'
@@ -679,10 +737,10 @@ for e in all_events:
 busy_days = [(d, vs) for d, vs in sorted(busy.items()) if len(vs) >= 2]
 strip = ''
 if busy_days:
-    strip = '<section class="busy"><h2>Busy nights downtown</h2><p class="note" style="margin:0 0 8px">Two or more of the big venues on the same day: expect full garages, slow approaches and crowded trains after.</p><ul>' + \
+    strip = f'<section class="busy"><h2>{esc(word("busy", "Busy nights"))}</h2><p class="note" style="margin:0 0 8px">Two or more of the big venues on the same day: expect full garages, slow approaches and crowded trains after.</p><ul>' + \
             ''.join(f'<li data-date="{d.isoformat()}"><b>{esc(day_label(d))}</b>: ' + ' · '.join(f'{esc(vn)} ({esc(evn[0])}{" +" + str(len(evn) - 1) if len(evn) > 1 else ""})' for vn, evn in vs.items()) + '</li>' for d, vs in busy_days) + '</ul></section>'
 elif EV:
-    strip = '<section class="busy"><h2>Busy nights downtown</h2><p class="note" style="margin:0">No day this week or next has two of the big venues busy at once, by the listing.</p></section>'
+    strip = f'<section class="busy"><h2>{esc(word("busy", "Busy nights"))}</h2><p class="note" style="margin:0">No day this week or next has two of the big venues busy at once, by the listing.</p></section>'
 
 origin_opts = ''.join(f'<option value="{esc(o["name"])}">{esc(o["name"])}</option>' for o in ORIGINS)
 controls = f"""<div class="controls">
@@ -699,7 +757,7 @@ const tierOf=c=>c.closest('#list2')?'other':'main';cards.forEach(c=>c.dataset.ti
 let kind='';try{fromEl.value=localStorage.getItem('venues.from')||'';}catch(e){}
 const fromOf=c=>{try{return JSON.parse(c.dataset.from)[fromEl.value]}catch(e){return null}};
 function apply(){const f=fromEl.value;cards.forEach(c=>{const r=f?fromOf(c):null,p=c.querySelector('.from');c.hidden=(!!kind&&!c.dataset.kinds.split(' ').includes(kind))||(hideEl.checked&&c.dataset.has==='0');
-if(r){p.hidden=false;p.innerHTML='From <b>'+f.replace(/</g,'&lt;')+'</b>: '+(r[0]!=null?'drive about '+r[0]+' min ('+r[1]+' km), taxi meter about $'+r[2]+' · ':'')+r[3].replace(/</g,'&lt;')+(r[4]?' · '+r[4].replace(/</g,'&lt;'):'');}else p.hidden=true;});
+if(r){p.hidden=false;p.innerHTML='From <b>'+f.replace(/</g,'&lt;')+'</b>: '+(r[0]!=null?'drive about '+r[0]+' min ('+r[1]+' UNIT), taxi meter about $'+r[2]+' · ':'')+r[3].replace(/</g,'&lt;')+(r[4]?' · '+r[4].replace(/</g,'&lt;'):'');}else p.hidden=true;});
 const key=sortEl.value;const val=c=>key==='cap'?-(+c.dataset.cap):key==='soon'?c.dataset.soon:(f&&fromOf(c)&&fromOf(c)[0]!=null?fromOf(c)[0]:1e9);
 [...cards].sort((a,b)=>val(a)<val(b)?-1:val(a)>val(b)?1:0).forEach(c=>lists[c.dataset.tier].appendChild(c));
 const sec=document.getElementById('other');if(sec)sec.hidden=!cards.some(c=>c.dataset.tier==='other'&&!c.hidden);
@@ -711,17 +769,17 @@ if(open){pop.hidden=false;b.setAttribute('aria-expanded','true');}}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.pop').forEach(p=>p.hidden=true);document.querySelectorAll('.pinbtn').forEach(x=>x.setAttribute('aria-expanded','false'));}});fromEl.addEventListener('change',()=>{if(fromEl.value&&sortEl.value==='cap')sortEl.value='near';apply()});
 document.querySelectorAll('#kinds button').forEach(b=>b.addEventListener('click',()=>{kind=b.dataset.kind;document.querySelectorAll('#kinds button').forEach(x=>x.setAttribute('aria-pressed',x===b));apply()}));
 apply();})();
-</script>"""
+</script>""".replace('UNIT', UNIT)
 intro = (f'<h1>{esc(CITY)}’s big venues, this week</h1>'
-         f'<p class="kind">What’s on at the {len(main_cards_count := [v for v in venues if v.get('tier', 'main') == 'main'])} places most of the GTA travels to, and how to get to each: nearest station, streetcars and buses, Green P within a ten-minute walk, and drive and transit from across the region. '
+         f'<p class="kind">What’s on at the {len(main_cards_count := [v for v in venues if v.get('tier', 'main') == 'main'])} {esc(word("intro", "places most of the region travels to, and how to get to each."))} '
          f'A listing, not a guide: the facts and a link to the source, nothing else.</p>'
          + (f'<p class="stamp">Listing from Ticketmaster as of {esc(asof_text)} · week runs {esc(V.get("week", "Monday to Sunday"))}. Cards show the next seven days; each venue’s page has this week and next. Pick where you’re coming from to see the trip.</p>' if asof_text else
             '<p class="stamp">The events feed hasn’t run yet, so there’s no listing; every venue’s getting-there facts are here already.</p>'))
 main_cards = [h for t, h in cards if t == 'main']; other_cards = [h for t, h in cards if t == 'other']
-other_sec = ('<section class="tier" id="other"><h2>Other venues</h2><p class="note" style="margin:0 0 4px">Smaller rooms and the suburbs’ arenas and halls, same facts, same listing.</p></section>'
+other_sec = (f'<section class="tier" id="other"><h2>Other venues</h2><p class="note" style="margin:0 0 4px">{esc(word("other", "Smaller rooms, same facts, same listing."))}</p></section>'
              '<div id="list2">' + ''.join(other_cards) + '</div>') if other_cards else '<div id="list2"></div>'
 body = intro + strip + controls + '<div id="list">' + ''.join(main_cards) + '</div>' + other_sec + script
-idx_desc = f"What's on this week at {CITY}'s big venues, from Rogers Centre and Scotiabank Arena to Massey Hall, and how to get to each: nearest subway and GO, streetcars, Green P within a ten-minute walk, drive and transit from across the GTA."
+idx_desc = f"What's on this week at {CITY}'s big venues, " + word('listDesc', 'and how to get to each.')
 og_image(f'{CITY}’s big venues', [v['at'] for v in venues], os.path.join(OUT, 'card.png'), 'This week, and how to get there')
 open(os.path.join(OUT, 'index.html'), 'w').write(page(f'{CITY} venues this week · Layers.City', idx_desc, INDEX, f'{INDEX}card.png', body, crumbs_idx))
 print(f'{city}: {len(venues)} venue pages + /{city}/venues/ ({sum(len(events_for(v["slug"])) for v in venues)} events{"" if DR else ", no drive times yet"})')
