@@ -36,13 +36,16 @@ jobs:
       - name: Drive times from regional origins (monthly or on request)
         if: env.DRIVES == 'true'
         continue-on-error: true
-        run: for c in $(ls cities/*/venues.json | cut -d/ -f2); do python3 -u engine/fetch_venue_drives.py $c || echo "::warning::$c drive times failed"; done
+        run: |
+          for c in $(ls cities/*/venues.json | cut -d/ -f2); do python3 -u engine/fetch_venue_drives.py $c || echo "::warning::$c drive times failed"; done
       - name: This week's events
         env:
           TICKETMASTER_KEY: ${{ secrets.TICKETMASTER_KEY }}
-        run: for c in $(ls cities/*/venues.json | cut -d/ -f2); do python3 -u engine/fetch_venue_events.py $c || echo "::warning::$c events failed: keeping the last listing"; done
+        run: |
+          for c in $(ls cities/*/venues.json | cut -d/ -f2); do python3 -u engine/fetch_venue_events.py $c || echo "::warning::$c events failed: keeping the last listing"; done
       - name: Build the pages
-        run: for c in $(ls cities/*/venues.json | cut -d/ -f2); do python3 -u engine/venues.py $c; done
+        run: |
+          for c in $(ls cities/*/venues.json | cut -d/ -f2); do python3 -u engine/venues.py $c; done
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
