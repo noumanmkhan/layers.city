@@ -24,7 +24,7 @@ notice, to check the parser; fetch_closures.py only ever uses the race year).
 """
 import io, json, os, re, time, urllib.parse, urllib.request
 from pypdf import PdfReader
-from shapely.geometry import LineString
+from shapely.geometry import LineString, Point
 from shapely.ops import linemerge
 from centerline import BORO, CL_API, TYPES, UA, core, norm, fetch_lines, meet, path
 
@@ -152,8 +152,7 @@ def place(body, year, start, end, lines, idx, bridges):
         key = next((k for k in BRIDGES if k in body.lower()), None)
         segs = bridges.get(key) if key else None
         if not segs: return [], 'no boundaries and not a known bridge'
-        # The bridge's roadways joined end to end (a closure is one line), without the short stubs between them.
-        m = linemerge(segs); parts = [g for g in getattr(m, 'geoms', [m]) if g.length * 85000 >= 100]
+        parts = [bridge_line(segs)]
         # Named, without the notice's "Upper Level" / "Lower Level": both levels share one centerline.
         return [([[round(x, 6), round(y, 6)] for x, y in g.coords], BRIDGE_NAME[key], '') for g in parts], None
     left, z = body.split(' to ', 1)
@@ -166,6 +165,40 @@ def place(body, year, start, end, lines, idx, bridges):
         if coords: return [(coords, on, a + ' to ' + z)], None
         if lvl > best[0]: best = (lvl, why)
     return [], best[1]
+
+
+def bridge_line(segs):
+    """One line per bridge, end to end: the route over its roadways between the two ends farthest apart, joining
+    segment ends within 8 m (a closure is one line; the parallel roadways and decks would otherwise list the bridge
+    dozens of times)."""
+    import heapq
+    ends = [c for g in segs for c in (g.coords[0], g.coords[-1])]
+    rep = list(range(len(ends)))
+    def find(i):
+        while rep[i] != i: rep[i] = rep[rep[i]]; i = rep[i]
+        return i
+    for i in range(len(ends)):
+        for j in range(i + 1, len(ends)):
+            if Point(ends[i]).distance(Point(ends[j])) * 85000 < 8: rep[find(i)] = find(j)
+    adj = {}
+    for k, g in enumerate(segs):
+        a, z, c = find(2 * k), find(2 * k + 1), list(g.coords)
+        adj.setdefault(a, []).append((z, g.length, c)); adj.setdefault(z, []).append((a, g.length, c[::-1]))
+    def far(s0):
+        dist, prev, q = {s0: 0}, {}, [(0, s0)]
+        while q:
+            d, n = heapq.heappop(q)
+            if d > dist[n]: continue
+            for m, w, c in adj[n]:
+                if d + w < dist.get(m, 1e9): dist[m] = d + w; prev[m] = (n, c); heapq.heappush(q, (d + w, m))
+        return max(dist, key=dist.get), prev
+    a, _ = far(next(iter(adj)))           # the farthest node from anywhere, then the farthest from that: the longest route
+    z, prev = far(a)
+    edges, n = [], z
+    while n != a: n, c = prev[n]; edges.append(c)
+    edges = [e[::-1] for e in edges]
+    c = edges[-1] + [pt for e in reversed(edges[:-1]) for pt in e[1:]]
+    return LineString(c)
 
 
 def bridge_lines(rows):
