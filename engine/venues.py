@@ -199,7 +199,7 @@ def facts(v):
             break
         mins = w['subway'][0] if w.get('subway') and w['subway'][1] == p['name'] else walk_min(d)
         subs.append((p['name'], p.get('lines', []), mins))
-    f['subway'] = subs
+    f['subway'] = sorted(subs, key=lambda t: (t[2], -len(t[1])))       # by the walk, the busiest station first on a tie
     g = sorted(((dist_km(c, pt), p) for c, p in go_stations), key=lambda t: t[0])[0] if go_stations else None
     gk = RAIL.get('walk', 'go')
     if g and g[0] <= RAIL.get('within', 2.5):
@@ -556,6 +556,16 @@ def ride(frm_lines, n, lines):
     return f"the {'/'.join(common)} to {n}" if common else f"the subway to {n}"
 
 
+def best_station(f, frm_lines):
+    """The venue's station to ride to: with line hints, the nearest (within 15 min on foot) that a line from the
+    starting point runs straight to; else the nearest."""
+    if PG.get('lineHints'):
+        for t in f['subway']:
+            if t[2] <= 15 and set(frm_lines) & set(t[1]):
+                return t
+    return f['subway'][0]
+
+
 def from_hub_words(f, hub=None):
     """How to finish the trip from a hub station, from the venue's own facts."""
     hub = hub or (HUBS[0] if HUBS else {'name': ''})
@@ -563,7 +573,7 @@ def from_hub_words(f, hub=None):
     if hw <= 15:
         return f"then about {hw} min on foot"
     if f['subway']:
-        n, lines, mins = f['subway'][0]
+        n, lines, mins = best_station(f, HUB_LINES.get(hub['name'], ()))
         return f"then {ride(HUB_LINES.get(hub['name'], ()), n, lines)} and about {mins} min on foot"
     if f.get('go'):
         return f"then {word('railShort', 'the train')} to {f['go'][0]} and about {f['go'][2]} min on foot"
@@ -584,7 +594,7 @@ def origin_rows(v, f):
             if hub and o['via'] == hub.get('station', hub['name']):
                 transit = f"From {hshort}, {from_hub_words(f, hub)[5:]}"
             elif f['subway'] and f['subway'][0][2] <= 25:
-                n, lines, mins = f['subway'][0]
+                n, lines, mins = best_station(f, LINES_AT.get(o['via'], ()))
                 transit = (f"{LOCAL} from {o['via']} to {n}" if not PG.get('lineHints') else
                            f"From {o['via']}, {ride(LINES_AT.get(o['via'], ()), n, lines)}") + f", then about {mins} min on foot"
             else:
@@ -605,7 +615,11 @@ def origin_rows(v, f):
         # A venue can say it in its own words: outside the city, where the trip doesn't run through a hub
         # (UBS Arena by LIRR, MetLife by the event train from Secaucus), keyed by origin name or "*".
         own = (v.get('transit') or {})
-        transit = own.get(o['name']) or own.get('*') or transit
+        mine = own.get(o['name']) if o['name'] in own else own.get('*')       # null: the worked-out route
+        if mine:
+            transit, fare = mine, v.get('transitFare')
+        if fare and o['mode'] not in ('ttc', 'local') and ';' in fare and re.search(r'(then|From [^,]+,) about \d+ min on foot$', transit) and ' the ' not in transit.split(',', 1)[-1]:
+            fare = fare.split(';')[0]          # no subway leg: the rail fare alone
         rows.append({'name': o['name'], 'transit': transit, 'fare': fare,
                      'drive': None if not dm or dm[0] is None else dm[0], 'km': None if not dm or dm[1] is None else dist_u(dm[1]),
                      'taxi': None if not dm or dm[1] is None or not (FARES.get('taxiPerKm') or FARES.get('taxiPerMi')) else round(taxi(dm[1]))})
@@ -627,7 +641,7 @@ for v in venues:
     next_week = [e for e in evs if WEEK1 <= e['d'] < WEEK1 + timedelta(days=7)]
     kinds = ', '.join({'sports': 'sports', 'concerts': 'concerts', 'comedy': 'comedy', 'theatre': 'theatre'}[k] for k in v['kinds'])
     home = f" · Home of {' and '.join(v['homeOf'])}" if v.get('homeOf') else ''
-    arrive = (f"{f['subway'][0][0]} station, about {f['subway'][0][2]} min on foot" if f['subway'] and f['subway'][0][2] <= 25
+    arrive = v.get('arrive') or (f"{f['subway'][0][0]} station, about {f['subway'][0][2]} min on foot" if f['subway'] and f['subway'][0][2] <= 25
               else f"{f['go'][0]}, about {f['go'][2]} min on foot" if f.get('go') and f['go'][2] <= 25
               else word('atDoor', 'Bus at the door') if f['routes'] else 'Best reached by car')
     map_link = f"/{city}/#map=16/{v['at'][1]}/{v['at'][0]}&pin={v['at'][1]},{v['at'][0]}&name={quote(v['name'])}"
@@ -642,7 +656,7 @@ for v in venues:
     parts.append(f'<a class="go" href="{esc(map_link)}">Open {esc(v["name"])} on the map <span aria-hidden="true">→</span></a>')
     if not v.get('outside'):        # the map's streets stop at the city line
         parts.append(venue_map(v, venues))
-    here = whats_here(v['at'])
+    here = [] if v.get('outside') else whats_here(v['at'])
     if here:
         parts.append('<section><h2>What’s here</h2><dl>' + ''.join(f'<dt>{esc(l)}</dt><dd>' + (f'<a href="{esc(u)}">{esc(t)}</a>' if u else esc(t)) + '</dd>' for l, t, u in here) +
                      '</dl><p class="note" style="margin:12px 0 0">The same rows the map’s What’s here card gives for this address; the map adds collection day, heritage and school wards.</p></section>')
@@ -669,7 +683,7 @@ for v in venues:
     if f['routes']:
         dl.append((word('routes', 'Buses within a 5-minute walk'), f'<span class="rbs">{route_badges(f["routes"][:14])}</span>' + (f' <span class="note">+{len(f["routes"]) - 14} more</span>' if len(f['routes']) > 14 else '')))
     for h, hk, hw in f['hubs']:
-        if h.get('row') is False: continue
+        if h.get('row') is False or v.get('outside'): continue
         dl.append((f'From {h["name"]}', f'about {hw} min on foot ({fmt_km(hk)} as the crow flies)' if hw <= 40 else f'{fmt_km(hk)} as the crow flies; see the origins table below'))
     if f['bikeshare'] is not None and not v.get('outside'):
         dl.append((f'Nearest {word("bikeshare", "bike-share")} dock', f'about {f["bikeshare"]} min on foot'))
@@ -693,14 +707,23 @@ for v in venues:
                      f'<p class="note">Written from the venue’s own visitor pages; gates and policies change, so check <a href="{esc(v["site"])}" rel="noopener">{esc(site_name(v["site"]))}</a> before you go.</p></section>')
     # origins
     rows = origin_rows(v, f)
+    star = (v.get('transit') or {}).get('*')          # one way in from everywhere: said once, above the table
     have_drive = any(r['drive'] is not None for r in rows)
-    tbl = '<table><tr><th>From</th>' + ('<th>Drive, best case</th><th>Taxi meter, about</th>' if have_drive else '') + '<th>Transit</th></tr>'
-    for r in rows:
-        tbl += f'<tr><td class="n">{esc(r["name"])}</td>'
-        if have_drive:
-            tbl += (f'<td class="n">{r["drive"]} min · {r["km"]} {UNIT}</td><td class="n">${r["taxi"]}</td>' if r['drive'] is not None else '<td>–</td><td>–</td>')
-        tbl += f'<td>{esc(r["transit"])}' + (f'<br><span class="note">{esc(r["fare"])}</span>' if r['fare'] else '') + '</td></tr>'
-    tbl += '</table>'
+    have_transit = any(r['transit'] != star for r in rows) or not star
+    tbl = ''
+    if have_drive or have_transit:
+        tbl = '<table><tr><th>From</th>' + ('<th>Drive, best case</th><th>Taxi meter, about</th>' if have_drive else '') + ('<th>Transit</th>' if have_transit else '') + '</tr>'
+        for r in rows:
+            tbl += f'<tr><td class="n">{esc(r["name"])}</td>'
+            if have_drive:
+                tbl += (f'<td class="n">{r["drive"]} min · {r["km"]} {UNIT}</td><td class="n">${r["taxi"]}</td>' if r['drive'] is not None else '<td>–</td><td>–</td>')
+            if have_transit:
+                tbl += ('<td><span class="note">As above</span></td>' if star and r['transit'] == star else
+                        f'<td>{esc(r["transit"])}' + (f'<br><span class="note">{esc(r["fare"])}</span>' if r['fare'] else '') + '</td>')
+            tbl += '</tr>'
+        tbl += '</table>'
+    if star:
+        tbl = f'<p style="margin:0 0 14px"><b>By transit, from anywhere in {esc(word("region", "the region"))}:</b> {esc(star)}.</p>' + tbl
     rate = (f'${FARES.get("taxiDrop", 0):.2f} plus ${FARES["taxiPerMi"]:.2f}/mi' if FARES.get('taxiPerMi') else f'${FARES.get("taxiDrop", 0):.2f} plus ${FARES.get("taxiPerKm", 0):.2f}/km') + \
            (f' plus ${FARES["taxiExtra"]:.2f} in surcharges' if FARES.get('taxiExtra') else '')
     parts.append(f'<section><h2>From across {esc(word("region", "the region"))}</h2>' + tbl +
@@ -719,7 +742,7 @@ for v in venues:
     from_json = {r['name']: [r['drive'], r['km'], r['taxi'], r['transit'], r['fare']] for r in rows}
     ev_html = (f'<ul class="events">{"".join(event_li(e) for e in soon7)}</ul>' if soon7 else '') + \
               (f'<p class="empty"{"" if not soon7 else " hidden"}>{empty_html(v, "Nothing listed here in the next seven days.")}</p>' if EV else '')
-    here = whats_here(v['at'])
+    here = [] if v.get('outside') else whats_here(v['at'])
     here_rows = ''.join(f'<dt>{esc(l)}</dt><dd>' + (f'<a href="{esc(u)}">{esc(t)}</a>' if u else esc(t)) + '</dd>' for l, t, u in here)
     pop = (f'<div class="pop" id="pop-{v["slug"]}" hidden><p class="k">What’s here</p><dl>{here_rows}'
            + (f'<dt>Nearest {word("subway", "Subway").lower()}</dt><dd>{esc(f["subway"][0][0])} · about {f["subway"][0][2]} min on foot</dd>' if f['subway'] else '')

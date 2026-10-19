@@ -1,0 +1,785 @@
+{
+  "_about": "New York's big live venues for the Venues pages (engine/venues.py), with the three across the state and river lines that New Yorkers travel to (MetLife, Prudential Center, UBS Arena; \"outside\": no map, City parking or What's here for those). Hand-curated: capacity is the venue's usual figure and is only used to sort and to say 'about'; notes are plain arrival facts written from the venue's own pages. Events come from Ticketmaster's Discovery API (engine/fetch_venue_events.py nyc, venue by venue), matched by `tm` names near each venue's point; their ids are learned into raw/venue_tm_ids.json. Keep this a short list of the places most people travel to, not a directory.",
+  "city": "New York",
+  "week": "Monday to Sunday, New York time",
+  "feed": {
+    "_about": "engine/fetch_venue_events.py: venue by venue (a sweep of New York stops at 1,000 events, a few days' worth). drop: words left out when matching the feed's venue names to ours.",
+    "centre": [
+      40.75,
+      -73.95
+    ],
+    "radiusKm": 40,
+    "country": "US",
+    "drop": [
+      "new york",
+      "ny",
+      "nyc",
+      "new jersey",
+      "nj",
+      "brooklyn",
+      "queens",
+      "bronx",
+      "manhattan",
+      "newark",
+      "elmont",
+      "flushing",
+      "city"
+    ],
+    "mode": "venues"
+  },
+  "fares": {
+    "_about": "Flat figures the pages quote. Check them before a release; they go stale. local is the MTA subway and bus fare (OMNY, from January 4, 2026). The taxi figures are the TLC yellow-cab meter: $3.00 to start and $0.70 a fifth of a mile ($3.50 a mile), plus the $0.50 MTA and $1.00 improvement surcharges every trip pays (taxiExtra). Sources: nyc.gov/tlc taxi-fare page; mta.info fares.",
+    "asof": "2026-10",
+    "local": 3.0,
+    "taxiDrop": 3.0,
+    "taxiPerMi": 3.5,
+    "taxiExtra": 1.5,
+    "oneFare": "A taxi trip that starts, ends or passes through Manhattan below 96th Street adds $2.50, and $0.75 more below 60th Street; rush hour, overnight, tolls and tip are extra. OMNY caps subway and local bus fares at $35 for any 7 days."
+  },
+  "page": {
+    "_about": "How engine/venues.py reads New York: the map's subway and its commuter rail and PATH stations, City (NYC DOT) municipal parking, community districts as the units, and the hubs a trip from outside the city arrives at. lineHints: name the subway lines that run from a hub or origin to the venue's station.",
+    "units": "districts",
+    "distance": "mi",
+    "lineHints": true,
+    "rail": {
+      "stations": "rail_stations",
+      "lines": "rail_lines",
+      "walk": "go",
+      "within": 1.5
+    },
+    "hubs": [
+      {
+        "name": "Penn Station",
+        "short": "Penn Station",
+        "at": [
+          -73.9935,
+          40.7506
+        ]
+      },
+      {
+        "name": "Grand Central",
+        "short": "Grand Central",
+        "at": [
+          -73.9772,
+          40.7527
+        ]
+      },
+      {
+        "name": "33rd Street (PATH)",
+        "short": "33rd Street",
+        "station": "33rd Street",
+        "at": [
+          -73.9884,
+          40.749
+        ],
+        "row": false
+      },
+      {
+        "name": "Whitehall Terminal",
+        "short": "Whitehall Terminal",
+        "station": "Whitehall Terminal",
+        "at": [
+          -74.0131,
+          40.7013
+        ],
+        "row": false
+      }
+    ],
+    "parking": {
+      "cat": "gp",
+      "label": "City parking",
+      "note": "NYC DOT’s municipal garages and fields; figures are capacities, not live availability. Venues’ own lots are described in the notes."
+    },
+    "here": [
+      {
+        "label": "Borough",
+        "file": "boroughs",
+        "text": "{name}"
+      },
+      {
+        "label": "Community district",
+        "file": "districts",
+        "text": "{name} ({label})",
+        "page": true
+      },
+      {
+        "label": "Neighborhood (NTA)",
+        "file": "ntas",
+        "text": "{name}"
+      },
+      {
+        "label": "BID",
+        "file": "bids",
+        "text": "{name}",
+        "empty": "None"
+      },
+      {
+        "label": "City Council",
+        "file": "council",
+        "text": "District {num}",
+        "rep": [
+          "council",
+          "num"
+        ]
+      },
+      {
+        "label": "State Assembly",
+        "file": "assembly",
+        "text": "District {num}",
+        "rep": [
+          "assembly",
+          "num"
+        ]
+      },
+      {
+        "label": "State Senate",
+        "file": "senate",
+        "text": "District {num}",
+        "rep": [
+          "senate",
+          "num"
+        ]
+      },
+      {
+        "label": "U.S. House",
+        "file": "congress",
+        "text": "NY-{num}",
+        "rep": [
+          "congress",
+          "num"
+        ]
+      }
+    ],
+    "words": {
+      "local": "Subway",
+      "localFare": "Subway fare ${fare:.2f}",
+      "railShort": "commuter rail",
+      "subway": "Subway",
+      "rail": "Commuter rail and PATH",
+      "routes": "Buses within a 5-minute walk",
+      "atDoor": "Bus at the door",
+      "bikeshare": "Citi Bike",
+      "region": "the region",
+      "taxi": "the TLC yellow-cab meter rate",
+      "busy": "Busy nights",
+      "legend": "Subway lines in their colours, commuter rail and PATH dashed, City parking in green squares, other venues in grey.",
+      "sources": "Transit: MTA, NJ Transit and the Port Authority (PATH). Parking: NYC DOT.",
+      "venueDesc": "what's on this week, nearest subway and commuter rail, buses, City parking within a ten-minute walk, and drive and transit from across the region.",
+      "intro": "places most of the region travels to, and how to get to each: nearest station, buses, City parking within a ten-minute walk, and drive and transit from Long Island, Westchester, Connecticut and New Jersey.",
+      "listDesc": "from Madison Square Garden and Barclays Center to Carnegie Hall, and how to get to each: nearest subway and commuter rail, City parking, drive and transit from across the region.",
+      "other": "Smaller rooms, same facts, same listing."
+    }
+  },
+  "origins": [
+    {
+      "name": "Midtown Manhattan",
+      "via": "Times Sq-42 St",
+      "mode": "local",
+      "at": [
+        -73.987,
+        40.7557
+      ]
+    },
+    {
+      "name": "Lower Manhattan",
+      "via": "Fulton St",
+      "mode": "local",
+      "at": [
+        -74.0076,
+        40.7102
+      ]
+    },
+    {
+      "name": "Downtown Brooklyn",
+      "via": "Jay St-MetroTech",
+      "mode": "local",
+      "at": [
+        -73.9872,
+        40.6923
+      ]
+    },
+    {
+      "name": "Flushing",
+      "via": "Flushing-Main St",
+      "mode": "local",
+      "at": [
+        -73.8303,
+        40.7596
+      ]
+    },
+    {
+      "name": "Jamaica",
+      "via": "Sutphin Blvd-Archer Av-JFK Airport",
+      "mode": "local",
+      "at": [
+        -73.8079,
+        40.7003
+      ]
+    },
+    {
+      "name": "Fordham (Bronx)",
+      "via": "Fordham Rd",
+      "mode": "local",
+      "at": [
+        -73.8986,
+        40.8615
+      ]
+    },
+    {
+      "name": "St. George (Staten Island)",
+      "via": "St. George",
+      "mode": "rail",
+      "rail": "Staten Island Ferry",
+      "hub": "Whitehall Terminal",
+      "at": [
+        -74.073,
+        40.6437
+      ],
+      "fare": "The ferry is free; then the subway fare ($3.00)"
+    },
+    {
+      "name": "Hicksville",
+      "via": "Hicksville",
+      "mode": "rail",
+      "rail": "LIRR",
+      "hub": "Penn Station",
+      "fare": "LIRR fare by zone, peak or off-peak; then the subway fare ($3.00)"
+    },
+    {
+      "name": "Babylon",
+      "via": "Babylon",
+      "mode": "rail",
+      "rail": "LIRR",
+      "hub": "Penn Station",
+      "fare": "LIRR fare by zone, peak or off-peak; then the subway fare ($3.00)"
+    },
+    {
+      "name": "Ronkonkoma",
+      "via": "Ronkonkoma",
+      "mode": "rail",
+      "rail": "LIRR",
+      "hub": "Penn Station",
+      "fare": "LIRR fare by zone, peak or off-peak; then the subway fare ($3.00)"
+    },
+    {
+      "name": "Yonkers",
+      "via": "Yonkers",
+      "mode": "rail",
+      "rail": "Metro-North",
+      "hub": "Grand Central",
+      "fare": "Metro-North fare by zone, peak or off-peak; then the subway fare ($3.00)"
+    },
+    {
+      "name": "White Plains",
+      "via": "White Plains",
+      "mode": "rail",
+      "rail": "Metro-North",
+      "hub": "Grand Central",
+      "fare": "Metro-North fare by zone, peak or off-peak; then the subway fare ($3.00)"
+    },
+    {
+      "name": "Stamford",
+      "via": "Stamford",
+      "mode": "rail",
+      "rail": "Metro-North",
+      "hub": "Grand Central",
+      "fare": "Metro-North fare by zone, peak or off-peak; then the subway fare ($3.00)"
+    },
+    {
+      "name": "Hoboken",
+      "via": "Hoboken",
+      "mode": "rail",
+      "rail": "PATH",
+      "hub": "33rd Street (PATH)",
+      "fare": "PATH $3.25; then the subway fare ($3.00), paid separately"
+    },
+    {
+      "name": "Jersey City (Journal Square)",
+      "via": "Journal Square Transportation Center",
+      "mode": "rail",
+      "rail": "PATH",
+      "hub": "33rd Street (PATH)",
+      "fare": "PATH $3.25; then the subway fare ($3.00), paid separately"
+    },
+    {
+      "name": "Newark",
+      "via": "Newark Penn Station",
+      "mode": "rail",
+      "rail": "NJ Transit",
+      "hub": "Penn Station",
+      "fare": "NJ Transit fare by station; then the subway fare ($3.00)"
+    },
+    {
+      "name": "Princeton",
+      "via": "Princeton Junction",
+      "mode": "rail",
+      "rail": "NJ Transit",
+      "hub": "Penn Station",
+      "fare": "NJ Transit fare by station; then the subway fare ($3.00)"
+    }
+  ],
+  "venues": [
+    {
+      "slug": "metlife-stadium",
+      "name": "MetLife Stadium",
+      "kinds": [
+        "sports",
+        "concerts"
+      ],
+      "capacity": 82500,
+      "homeOf": [
+        "New York Giants",
+        "New York Jets"
+      ],
+      "address": "1 MetLife Stadium Drive, East Rutherford, NJ",
+      "at": [
+        -74.07444,
+        40.81361
+      ],
+      "site": "https://www.metlifestadium.com/",
+      "tm": [
+        "MetLife Stadium",
+        "MetLife Stadium - East Rutherford"
+      ],
+      "outside": true,
+      "season": "Football runs from August to early January and stadium concerts are in summer; February to April is mostly quiet.",
+      "notes": [
+        "On big event days NJ Transit runs Meadowlands Rail trains from Secaucus Junction to the stadium's own Meadowlands station, and riders show a valid train ticket at Secaucus to get a wristband.",
+        "Coach USA's 351 Meadowlands Express runs from the Port Authority Bus Terminal to Lot K.",
+        "The entrances are the AMEX, MetLife and Verizon gates; parking is paid, and only clear bags up to 12 x 6 x 12 inches (or a small clutch) are allowed, one per person."
+      ],
+      "transit": {
+        "*": "On event days, NJ Transit to Secaucus Junction (from Penn Station or Hoboken), then the Meadowlands train to the stadium; or Coach USA’s 351 from the Port Authority Bus Terminal"
+      },
+      "arrive": "Meadowlands Rail from Secaucus Junction on event days, or the 351 bus from Port Authority"
+    },
+    {
+      "slug": "yankee-stadium",
+      "name": "Yankee Stadium",
+      "kinds": [
+        "sports",
+        "concerts"
+      ],
+      "capacity": 46537,
+      "homeOf": [
+        "New York Yankees",
+        "New York City FC"
+      ],
+      "address": "1 East 161st Street, The Bronx",
+      "at": [
+        -73.92639,
+        40.82917
+      ],
+      "site": "https://www.mlb.com/yankees/ballpark/information/know-before-you-go",
+      "tm": [
+        "Yankee Stadium",
+        "Yankee Stadium - Bronx"
+      ],
+      "tickets": "Yankees home games are sold by the team through MLB, not Ticketmaster, so they aren’t in this listing; concerts and NYCFC matches are.",
+      "calendar": "https://www.mlb.com/yankees/schedule",
+      "season": "Open-air: baseball runs from April to September (October in a playoff year); it is quiet from November to March.",
+      "notes": [
+        "The 4, B and D trains stop at 161 St-Yankee Stadium, and Metro-North's Yankees-E 153 St station is also steps from the gates; the B runs on weekdays only.",
+        "The gates are 2 (left field, Jerome Avenue and East 164th Street), 4 (home plate, East 161st Street), 6 (right field, East 161st Street and River Avenue) and 8 (centre field, River Avenue and East 164th Street).",
+        "One soft-sided bag up to 16 x 16 x 8 inches plus one small personal item is allowed, and the team does not run the paid garages nearby."
+      ]
+    },
+    {
+      "slug": "citi-field",
+      "name": "Citi Field",
+      "kinds": [
+        "sports",
+        "concerts"
+      ],
+      "capacity": 41922,
+      "homeOf": [
+        "New York Mets",
+        "New York City FC"
+      ],
+      "address": "41 Seaver Way, Queens",
+      "at": [
+        -73.84583,
+        40.75694
+      ],
+      "site": "https://www.mlb.com/mets/ballpark/information/guide",
+      "tm": [
+        "Citi Field",
+        "Citi Field - Flushing"
+      ],
+      "tickets": "Mets home games are sold by the team through MLB, not Ticketmaster, so they aren’t in this listing; concerts are.",
+      "calendar": "https://www.mlb.com/mets/schedule",
+      "season": "Open-air: baseball runs from April to September (October in a playoff year); it is quiet from November to March.",
+      "notes": [
+        "The 7 train and the LIRR Port Washington Branch both stop at Mets-Willets Point beside the ballpark.",
+        "The main entry is the Jackie Robinson Rotunda, with Left Field, Right Field and Bullpen gates as well (the Bullpen gate is on Seaver Way).",
+        "Backpacks are not allowed, other bags must be no larger than 16 x 16 x 8 inches and there is no bag check; paid game-day parking is in Lot F."
+      ]
+    },
+    {
+      "slug": "arthur-ashe-stadium",
+      "name": "Arthur Ashe Stadium",
+      "kinds": [
+        "sports"
+      ],
+      "capacity": 23771,
+      "address": "USTA Billie Jean King National Tennis Center, Flushing Meadows Corona Park",
+      "at": [
+        -73.84703,
+        40.74989
+      ],
+      "site": "https://www.usopen.org/en_US/news/articles/2026-03-04/how_to_get_to_the_us_open.html",
+      "tm": [
+        "Arthur Ashe Stadium",
+        "USTA Billie Jean King National Tennis Center"
+      ],
+      "season": "The US Open fills it in late August and early September; the rest of the year it seldom has ticketed events.",
+      "notes": [
+        "The 7 train and LIRR Port Washington Branch trains stop at Mets-Willets Point, and from there a boardwalk leads to the Main Entry.",
+        "Rideshare drop-off is in the New York Hall of Science lot, with a path to the Champion's Entry.",
+        "Both entrances screen bags, and large bags are not allowed."
+      ]
+    },
+    {
+      "slug": "madison-square-garden",
+      "name": "Madison Square Garden",
+      "kinds": [
+        "sports",
+        "concerts",
+        "comedy"
+      ],
+      "capacity": 19812,
+      "homeOf": [
+        "New York Knicks",
+        "New York Rangers"
+      ],
+      "address": "4 Pennsylvania Plaza",
+      "at": [
+        -73.99361,
+        40.75056
+      ],
+      "site": "https://www.msg.com/madison-square-garden",
+      "tm": [
+        "Madison Square Garden"
+      ],
+      "notes": [
+        "Above Penn Station, between Seventh and Eighth Avenues from 31st to 33rd Street, so the LIRR, NJ Transit and the 1, 2, 3, A, C and E trains stop underneath.",
+        "The Chase entrances are on Eighth Avenue, and there is a Seventh Avenue entrance too.",
+        "The Garden has no parking of its own; drivers use nearby commercial garages."
+      ]
+    },
+    {
+      "slug": "ubs-arena",
+      "name": "UBS Arena",
+      "kinds": [
+        "sports",
+        "concerts",
+        "comedy"
+      ],
+      "capacity": 17255,
+      "homeOf": [
+        "New York Islanders"
+      ],
+      "address": "2400 Hempstead Turnpike, Elmont, NY",
+      "at": [
+        -73.72604,
+        40.71179
+      ],
+      "site": "https://ubsarena.com/getting-here",
+      "tm": [
+        "UBS Arena",
+        "UBS Arena - Elmont"
+      ],
+      "outside": true,
+      "notes": [
+        "LIRR trains from Grand Central Madison and Penn Station reach Elmont-UBS Arena station in about 30 minutes, then it is a 10 to 15 minute walk or a free shuttle to the arena.",
+        "Parking is paid, in lots reached only from the Cross Island Parkway (exits 26A, 26B and 26D), and drivers must leave the way they came.",
+        "Bags up to 12 x 12 x 6 inches are allowed; backpacks of any size are not, and there is a bag check in the Acrisure Great Hall."
+      ],
+      "transit": {
+        "*": "LIRR to Elmont-UBS Arena (about 30 min from Penn Station or Grand Central Madison; from elsewhere on Long Island, change at Jamaica), then a 10 to 15 min walk or the free shuttle"
+      },
+      "arrive": "LIRR to Elmont-UBS Arena, then a 10 to 15 min walk or the free shuttle"
+    },
+    {
+      "slug": "prudential-center",
+      "name": "Prudential Center",
+      "kinds": [
+        "sports",
+        "concerts"
+      ],
+      "capacity": 16514,
+      "homeOf": [
+        "New Jersey Devils",
+        "Seton Hall Pirates"
+      ],
+      "address": "25 Lafayette Street, Newark, NJ",
+      "at": [
+        -74.17111,
+        40.73361
+      ],
+      "site": "https://prucenter.com/transit",
+      "tm": [
+        "Prudential Center"
+      ],
+      "outside": true,
+      "notes": [
+        "Two blocks west of Newark Penn Station, which NJ Transit rail, PATH and the Newark Light Rail serve.",
+        "The entrances are Citizens Tower (Mulberry Street and Edison Place), M&M's Tower (Mulberry and Lafayette) and the Lafayette Street entrance.",
+        "Bags larger than 14 x 12 x 6 inches and backpacks are not allowed, and there are paid lockers outside; prepaid parking is sold for lots within walking distance."
+      ],
+      "transit": {
+        "*": "NJ Transit from Penn Station, or PATH from 33rd Street or the World Trade Center, to Newark Penn Station, then about 10 min on foot",
+        "Newark": "From Newark Penn Station, about 10 min on foot",
+        "Princeton": "NJ Transit from Princeton Junction to Newark Penn Station, then about 10 min on foot",
+        "Hoboken": "PATH from Hoboken to Newark Penn Station, changing at Journal Square, then about 10 min on foot",
+        "Jersey City (Journal Square)": "PATH from Journal Square to Newark Penn Station, then about 10 min on foot"
+      }
+    },
+    {
+      "slug": "barclays-center",
+      "name": "Barclays Center",
+      "kinds": [
+        "sports",
+        "concerts",
+        "comedy"
+      ],
+      "capacity": 17732,
+      "homeOf": [
+        "Brooklyn Nets",
+        "New York Liberty"
+      ],
+      "address": "620 Atlantic Avenue, Brooklyn",
+      "at": [
+        -73.97523,
+        40.68266
+      ],
+      "site": "https://www.barclayscenter.com/a-z-guide",
+      "tm": [
+        "Barclays Center"
+      ],
+      "notes": [
+        "Above the Atlantic Av-Barclays Ctr subway station (2, 3, 4, 5, B, D, N, Q, R) and across from the LIRR's Atlantic Terminal.",
+        "The main Atrium entrance is at the corner of Flatbush and Atlantic Avenues, and there are also Flatbush, Atlantic and Dean Street entrances.",
+        "Backpacks and bags larger than 10 x 6 x 2 inches are not allowed, and the venue says parking nearby is very limited."
+      ],
+      "transit": {
+        "Hicksville": "LIRR from Hicksville to Atlantic Terminal, changing at Jamaica; the arena is across the street",
+        "Babylon": "LIRR from Babylon to Atlantic Terminal, changing at Jamaica; the arena is across the street",
+        "Ronkonkoma": "LIRR from Ronkonkoma to Atlantic Terminal, changing at Jamaica; the arena is across the street"
+      }
+    },
+    {
+      "slug": "forest-hills-stadium",
+      "name": "Forest Hills Stadium",
+      "kinds": [
+        "concerts"
+      ],
+      "capacity": 14000,
+      "address": "1 Tennis Place, Forest Hills, Queens",
+      "at": [
+        -73.8487,
+        40.7196
+      ],
+      "site": "https://foresthillsstadium.com/get-here",
+      "tm": [
+        "Forest Hills Stadium"
+      ],
+      "tickets": "Sells through AXS rather than Ticketmaster, so its shows aren’t in this listing.",
+      "calendar": "https://foresthillsstadium.com/calendar",
+      "season": "Open-air: concerts run from late spring to early autumn; it is quiet in winter.",
+      "notes": [
+        "The entrance is on Burns Street near 69th Avenue, a few blocks from the Forest Hills-71 Av subway station and next to the LIRR's Forest Hills station.",
+        "There is no parking at the venue or on the residential streets around it, and taxis and rideshares use 71st/Continental Avenue at Queens Boulevard.",
+        "Bags up to 16 x 16 x 8 inches are allowed, and larger bags must be checked for a fee."
+      ]
+    },
+    {
+      "slug": "radio-city-music-hall",
+      "name": "Radio City Music Hall",
+      "kinds": [
+        "concerts",
+        "comedy",
+        "theatre"
+      ],
+      "capacity": 5960,
+      "address": "1260 Avenue of the Americas",
+      "at": [
+        -73.97917,
+        40.75972
+      ],
+      "site": "https://www.msg.com/radio-city-music-hall",
+      "tm": [
+        "Radio City Music Hall"
+      ],
+      "notes": [
+        "On Sixth Avenue between 50th and 51st Streets in Rockefeller Center, with the box office under the marquee at 50th Street.",
+        "Bags must fit under the seat, bags larger than 22 x 14 x 9 inches are not allowed, and there is no bag or coat check.",
+        "There is no venue parking; drivers use nearby commercial garages."
+      ]
+    },
+    {
+      "slug": "metropolitan-opera",
+      "name": "Metropolitan Opera House",
+      "kinds": [
+        "theatre",
+        "concerts"
+      ],
+      "capacity": 3850,
+      "address": "30 Lincoln Center Plaza",
+      "at": [
+        -73.98417,
+        40.77278
+      ],
+      "site": "https://www.metopera.org/visit/getting-here/",
+      "tm": [],
+      "tickets": "Sells through the Met’s own box office and website rather than Ticketmaster, so its performances aren’t in this listing.",
+      "calendar": "https://www.metopera.org/calendar/",
+      "notes": [
+        "At Lincoln Center, between West 62nd and 65th Streets and Columbus and Amsterdam Avenues; the Met points people to the 1 train at 66 St-Lincoln Center.",
+        "A public garage under Lincoln Center has entrances on West 62nd and West 65th Streets and on Amsterdam Avenue."
+      ]
+    },
+    {
+      "slug": "kings-theatre",
+      "name": "Kings Theatre",
+      "kinds": [
+        "concerts",
+        "comedy",
+        "theatre"
+      ],
+      "capacity": 3250,
+      "address": "1027 Flatbush Avenue, Brooklyn",
+      "at": [
+        -73.9576,
+        40.64584
+      ],
+      "site": "https://www.kingstheatre.com/your-visit/getting-here",
+      "tm": [
+        "Kings Theatre"
+      ],
+      "tickets": "Sells through ATG Tickets and its own box office rather than Ticketmaster, so its shows aren’t in this listing.",
+      "calendar": "https://us.atgtickets.com/venues/kings-theatre-brooklyn/whats-on/",
+      "notes": [
+        "On Flatbush Avenue between Tilden and Duryea, a short walk from Beverley Rd (Q) and Church Av (B, Q).",
+        "Bags must be 18 x 14 x 9 inches or smaller.",
+        "Street parking is limited, and the public lot behind the theatre is not run by the venue."
+      ]
+    },
+    {
+      "slug": "beacon-theatre",
+      "name": "Beacon Theatre",
+      "kinds": [
+        "concerts",
+        "comedy"
+      ],
+      "capacity": 2894,
+      "address": "2124 Broadway",
+      "at": [
+        -73.98111,
+        40.78056
+      ],
+      "site": "https://www.msg.com/beacon-theatre",
+      "tm": [
+        "Beacon Theatre"
+      ],
+      "notes": [
+        "On Broadway between West 74th and 75th Streets.",
+        "Bags must fit under the seat, and bags larger than 22 x 14 x 9 inches are not allowed.",
+        "There is no venue parking; drivers use nearby commercial garages."
+      ]
+    },
+    {
+      "slug": "carnegie-hall",
+      "name": "Carnegie Hall",
+      "kinds": [
+        "concerts"
+      ],
+      "capacity": 2790,
+      "address": "881 Seventh Avenue",
+      "at": [
+        -73.97993,
+        40.76503
+      ],
+      "site": "https://www.carnegiehall.org/Visit/Directions-and-Parking",
+      "tm": [],
+      "tickets": "Sells through its own box office and website rather than Ticketmaster, so its concerts aren’t in this listing.",
+      "calendar": "https://www.carnegiehall.org/Calendar",
+      "notes": [
+        "At 57th Street and Seventh Avenue, where the box office is.",
+        "The stations the hall lists are 57 St-7 Av, 57 St on Sixth Avenue, 7 Av and 59 St-Columbus Circle.",
+        "Parking is in commercial garages on West 56th and West 57th Streets."
+      ]
+    },
+    {
+      "slug": "hammerstein-ballroom",
+      "name": "Hammerstein Ballroom",
+      "kinds": [
+        "concerts"
+      ],
+      "capacity": 2500,
+      "tier": "other",
+      "address": "311 West 34th Street",
+      "at": [
+        -73.99419,
+        40.75291
+      ],
+      "site": "https://www.manhattancenter.com/",
+      "tm": [
+        "Manhattan Center Hammerstein Ballroom",
+        "Hammerstein Ballroom"
+      ],
+      "notes": [
+        "On West 34th Street between Eighth and Ninth Avenues, a block west of Penn Station.",
+        "The box office opens only for some events, and only after doors."
+      ]
+    },
+    {
+      "slug": "terminal-5",
+      "name": "Terminal 5",
+      "kinds": [
+        "concerts"
+      ],
+      "capacity": 3000,
+      "tier": "other",
+      "address": "610 West 56th Street",
+      "at": [
+        -73.99275,
+        40.76965
+      ],
+      "site": "https://www.bowerypresents.com/shows/terminal-5",
+      "tm": [
+        "Terminal 5"
+      ],
+      "tickets": "Sells through AXS (The Bowery Presents) rather than Ticketmaster, so its shows aren’t in this listing.",
+      "calendar": "https://www.bowerypresents.com/shows/terminal-5",
+      "notes": [
+        "Near Eleventh Avenue; the nearest subway stations are 59 St-Columbus Circle (A, B, C, D, 1) and 50 St (C, E).",
+        "Small bags are allowed and searched, and bags larger than 14 x 14 inches are not.",
+        "There is no parking on site."
+      ]
+    },
+    {
+      "slug": "brooklyn-paramount",
+      "name": "Brooklyn Paramount",
+      "kinds": [
+        "concerts"
+      ],
+      "capacity": 2700,
+      "tier": "other",
+      "address": "385 Flatbush Avenue Extension, Brooklyn",
+      "at": [
+        -73.9826,
+        40.6901
+      ],
+      "site": "https://brooklynparamount.com/visit",
+      "tm": [
+        "Brooklyn Paramount"
+      ],
+      "notes": [
+        "At Flatbush Avenue Extension and DeKalb Avenue, across the street from DeKalb Av (B, Q, R), with Nevins St (2, 3, 4, 5) about 0.2 miles away.",
+        "Allowed bags are clear ones up to 12 x 6 x 12 inches or a small bag up to 6 x 9 inches, and larger bags must be checked for a fee.",
+        "Tickets are mobile only, and parking is in nearby garages."
+      ]
+    }
+  ]
+}
