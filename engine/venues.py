@@ -593,8 +593,11 @@ def origin_rows(v, f):
         else:
             rail = o.get('rail') or word('railShort', 'Train')
             # A train that stops at the venue's own station (Exhibition on Lakeshore West; Mets-Willets Point on the Port Washington Branch)
-            direct = f.get('go') and f['go'][2] <= 25 and GO_LINES_AT.get(o['via'], set()) & set(f['go'][1]) and f['go'][0] not in HUB_NAMES
-            if direct:
+            # (only where the rail file's lines are real branches: "direct": false turns it off)
+            direct = RAIL.get('direct', True) and f.get('go') and f['go'][2] <= 25 and GO_LINES_AT.get(o['via'], set()) & set(f['go'][1]) and f['go'][0] not in HUB_NAMES
+            if f.get('go') and f['go'][0] == o['via'] and f['go'][2] <= 25:
+                transit = f"From {o['via']}, about {f['go'][2]} min on foot"
+            elif direct:
                 transit = f"{rail} from {o['via']} to {f['go'][0]}, then about {f['go'][2]} min on foot"
             else:
                 transit = f"{rail} from {o['via']} to {hshort}, {from_hub_words(f, hub)}"
