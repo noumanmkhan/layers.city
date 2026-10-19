@@ -24,6 +24,7 @@ on:
     workflows:
       - "Fetch streetcar and bus routes"
       - "Fetch Toronto parking"
+      - "Fetch New York City parking"
       - "Fetch bike lanes"
       - "Fetch New York City data"
     types: [completed]

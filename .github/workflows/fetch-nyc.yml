@@ -8,7 +8,7 @@ on:
       script: {description: 'Script in cities/nyc/ to run', default: 'fetch.py'}
   push:
     branches: [main]
-    paths: ['cities/nyc/fetch*.py', '.github/workflows/fetch-nyc.yml']
+    paths: ['cities/nyc/fetch*.py', '!cities/nyc/fetch_parking.py', '.github/workflows/fetch-nyc.yml']   # parking has its own job
 permissions:
   contents: write
 jobs:

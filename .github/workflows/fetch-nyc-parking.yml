@@ -1,0 +1,38 @@
+name: Fetch New York City parking
+# NYC DOT municipal garages and fields (placed from the hand-kept cities/nyc/parking.json) and public EV chargers
+# (cities/nyc/fetch_parking.py) into cities/nyc/raw/parking/, then docs/nyc/data/parking.geojson with
+# cities/nyc/parking.py. Monthly (EV chargers change), when the scripts or the list change, or by hand.
+# Uses the NLR_API_KEY secret if set. deploy.yml lists this workflow, so its commits go live.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '53 6 4 * *'
+  push:
+    branches: [main]
+    paths: ['cities/nyc/fetch_parking.py', 'cities/nyc/parking.py', 'cities/nyc/parking.json', '.github/workflows/fetch-nyc-parking.yml']
+permissions:
+  contents: write
+concurrency: fetch-nyc-parking
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q shapely
+      - env:
+          NLR_API_KEY: ${{ secrets.NLR_API_KEY }}
+        run: |
+          mkdir -p cities/nyc/raw/parking
+          python3 -u cities/nyc/fetch_parking.py 2>&1 | tee cities/nyc/raw/parking/fetch.log
+          python3 -u cities/nyc/parking.py 2>&1 | tee -a cities/nyc/raw/parking/fetch.log
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/nyc/raw/parking docs/nyc/data/parking.geojson
+          git commit -m "Update New York City parking: municipal garages and fields, EV chargers" || echo "no changes"
+          git pull --rebase
+          git push
