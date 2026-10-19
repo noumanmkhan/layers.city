@@ -762,7 +762,9 @@ for e in all_events:
         busy.setdefault(e['d'], {}).setdefault(e['venue']['name'], []).append(e['name'])
 busy_days = [(d, vs) for d, vs in sorted(busy.items()) if len(vs) >= 2]
 strip = ''
-if busy_days:
+if PG.get('busy') is False:          # a city whose big venues are on most nights, far apart: the strip says nothing
+    pass
+elif busy_days:
     strip = f'<section class="busy"><h2>{esc(word("busy", "Busy nights"))}</h2><p class="note" style="margin:0 0 8px">Two or more of the big venues on the same day: expect full garages, slow approaches and crowded trains after.</p><ul>' + \
             ''.join(f'<li data-date="{d.isoformat()}"><b>{esc(day_label(d))}</b>: ' + ' · '.join(f'{esc(vn)} ({esc(evn[0])}{" +" + str(len(evn) - 1) if len(evn) > 1 else ""})' for vn, evn in vs.items()) + '</li>' for d, vs in busy_days) + '</ul></section>'
 elif EV:

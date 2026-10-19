@@ -165,7 +165,7 @@ def status(ev):
 ADDON = re.compile(r'\b(fan access|plus ups?|add[- ]?ons?|upgrade|parking|guided tours?|tour of|courtside access|'
                    r'warm-?ups?|experience package|vip package|meet (and|&) greet|early entry|general admission|admission ticket)\b', re.I)
 
-TOURS = re.compile(r"\b(classic|guided|ballpark|stadium|arena|backstage|behind[- ]the[- ]scenes|venue) tours?\b|\btours? (at|of) ", re.I)
+TOURS = re.compile(r"\b(classic|guided|ballpark|stadium|arena|center|centre|garden|backstage|behind[- ]the[- ]scenes|venue) tours?\b|\btours? (at|of) |\btour experience\b", re.I)
 
 out, unmatched, seen = {v['slug']: [] for v in venues}, {}, set()
 for ev in events:
