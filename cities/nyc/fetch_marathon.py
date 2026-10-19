@@ -25,6 +25,7 @@ notice, to check the parser; fetch_closures.py only ever uses the race year).
 import io, json, os, re, time, urllib.parse, urllib.request
 from pypdf import PdfReader
 from shapely.geometry import LineString
+from shapely.ops import linemerge
 from centerline import BORO, CL_API, TYPES, UA, core, norm, fetch_lines, meet, path
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -43,6 +44,8 @@ ABBR = [(r'\bMt\.?\s', 'Mount '), (r'\bPk\b', 'Park'), (r'\bFt\.?\s', 'Fort '), 
 # The bridges by their centerline names exactly (not their ramps, entrances or bike and foot paths).
 BRIDGES = {'verraz': 'VERRAZZANO BRG', 'queensboro': 'ED KOCH QUEENSBORO BRG', 'pulaski': 'PULASKI BRG',
            'willis avenue bridge': 'WILLIS AVE  BRIDGE', 'madison avenue bridge': 'MADISON AVE  BRIDGE'}
+BRIDGE_NAME = {'verraz': 'Verrazzano-Narrows Bridge', 'queensboro': 'Ed Koch Queensboro Bridge', 'pulaski': 'Pulaski Bridge',
+               'willis avenue bridge': 'Willis Avenue Bridge', 'madison avenue bridge': 'Madison Avenue Bridge'}
 # The notice's spellings that aren't the centerline's.
 FIX = {'MCGUINESS BLVD': 'MCGUINNESS BLVD', 'MCCLEAN': 'MC CLEAN AVE', 'MCCLEAN AVE': 'MC CLEAN AVE', 'MT MORRIS PARK W': 'MOUNT MORRIS PARK W',
        'FERRY TERMINAL': 'FERRY TERMINAL DR', 'EAST DRIVE': 'EAST DR', 'EAST DR': 'EAST DR', 'FDR DR': 'FDR DR',
@@ -149,7 +152,10 @@ def place(body, year, start, end, lines, idx, bridges):
         key = next((k for k in BRIDGES if k in body.lower()), None)
         segs = bridges.get(key) if key else None
         if not segs: return [], 'no boundaries and not a known bridge'
-        return [([[round(x, 6), round(y, 6)] for x, y in s.coords], body, '') for s in segs], None
+        # The bridge's roadways joined end to end (a closure is one line), without the short stubs between them.
+        m = linemerge(segs); parts = [g for g in getattr(m, 'geoms', [m]) if g.length * 85000 >= 100]
+        # Named, without the notice's "Upper Level" / "Lower Level": both levels share one centerline.
+        return [([[round(x, 6), round(y, 6)] for x, y in g.coords], BRIDGE_NAME[key], '') for g in parts], None
     left, z = body.split(' to ', 1)
     z = re.split(r'\s*/\s*', z)[0]
     w = left.split(' ')
@@ -202,7 +208,7 @@ for year in [CFG['year'], CFG.get('test')]:
         names.add(core(norm(re.split(r'\s*/\s*', z)[0])))
         for k in range(1, len(w)):
             names.add(core(norm(' '.join(w[:k])))); names.add(core(norm(re.split(r'\s*/\s*', ' '.join(w[k:]))[0])))
-    names |= {'OF THE AMERICAS', 'FDR'}
+    names |= {'OF THE AMERICAS', 'FDR', 'CENTRAL', 'COLUMBUS'} | {core(v) for v in FIX.values()} | {v.split(' ')[0] for v in FIX.values()}
     lines = fetch_lines(names)
     q = "full_street_name in(%s)" % ','.join("'" + v + "'" for v in BRIDGES.values())
     rows = json.load(urllib.request.urlopen(urllib.request.Request(CL_API + '?' + urllib.parse.urlencode({'$select': 'full_street_name,boroughcode,the_geom', '$where': q, '$limit': 5000}), headers=UA), timeout=180))
