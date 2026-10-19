@@ -68,8 +68,8 @@ for v in venues:
         by_name[norm(n)] = v['slug']
 
 
-def get(params):
-    url = API + '?' + urllib.parse.urlencode(params)
+def get(params, api=API):
+    url = api + '?' + urllib.parse.urlencode(params)
     for attempt in range(4):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
@@ -106,7 +106,7 @@ else:
         if got:
             return got
         for n in [v['name']] + v.get('tm', []):
-            data = get({'apikey': key, 'keyword': n, 'countryCode': FEED.get('country', 'US'), 'size': 20, 'locale': '*'})
+            data = get({'apikey': key, 'keyword': n, 'countryCode': FEED.get('country', 'US'), 'size': 20, 'locale': '*'}, VAPI)
             time.sleep(0.25)
             for tv in (data or {}).get('_embedded', {}).get('venues', []):
                 loc = tv.get('location') or {}
@@ -120,7 +120,7 @@ else:
             if got:
                 break
         if not got:
-            print(f"  no Ticketmaster venue found for {v['name']}")
+            print(f"  no Ticketmaster venue named like {v['name']} within 1.5 km")
         return got
     q = dict(base); [q.pop(k) for k in ('latlong', 'radius', 'unit')]
     for v in venues:
