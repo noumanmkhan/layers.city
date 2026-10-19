@@ -1,43 +1,43 @@
 nyc closures: 49 rows -> 49 segments; ['51st St', 'Arlington Ave', 'Ave I', 'Ave J', 'Ave N', 'Broadway', 'De Reimer Ave', 'E 110th St', 'E 2nd St', 'E 47th St', 'E 48th St', 'Keap St', 'Mc Donald Ave', 'Park Ave', 'Rockaway Freeway', 'Rodney St', 'S 5th St']
-centerline: 26299 segments on 994 streets; sample names ['1 AVE', '1 AVE', '1 AVE LOOP', '1 CT', '1 DR', '1 PL', '1 PL', '1 ST', '10 AVE', '10 AVE', '10 ST', '11 AVE']
-nyc events: 169 permits -> 241 closures placed; 204 chunks not placed
-   not placed: Get To The Point - 5K Run | DRIGGS AVENUE between DIAMOND STREET and NEWELL STREET | no meeting point ( / NEWELL ST)
-   not placed: Annual Into The Light Walk For Epilepsy | SOUTH STREET between JOHN STREET and WHITEHALL STREET | meeting points on separate pieces
-   not placed: Dawn McIntyre Annual Halloween Parade | CROSS BAY BOULEVARD between EAST 16TH ROAD and EAST 17TH ROAD | no meeting point ( / E 17 RD)
-   not placed: Dawn McIntyre Annual Halloween Parade | CROSS BAY BOULEVARD between EAST 17 ROAD and NOEL ROAD | no meeting point (E 17 RD / )
-   not placed: Street co-naming for Cecile Richards | WEST   83 STREET between CPW and COLUMBUS AVENUE | no meeting point (CENTRAL PARK W / )
-   not placed: West 95th Street 2026 Halloween Party | WEST   95 STREET between CENTRAL PARK WEST and COLUMBUS AVENUE | no meeting point (CENTRAL PARK WEST / )
-   not placed: Halloween Event | WEST   90 STREET between CENTRAL PARK WEST and COLUMBUS AVENUE | no meeting point (CENTRAL PARK WEST / )
-   not placed: Stone Street Pedestrian Mall | STONE STREET between BROAD STREET and HANOVER SQUARE | meeting points on separate pieces
+centerline: 43876 segments on 1962 streets; sample names ['1 AVE', '1 AVE', '1 AVE', '1 AVE', '1 AVE LOOP', '1 CT', '1 DR', '1 PL', '1 PL', '1 ST', '1 ST', '1 ST']
+nyc events: 124 permits -> 264 closures placed; 88 chunks not placed
+   not placed: Dawn McIntyre Annual Halloween Parade | CROSS BAY BOULEVARD between EAST 16TH ROAD and EAST 17TH ROAD | no stretch between E 16 RD and E 17 RD
+   not placed: Dawn McIntyre Annual Halloween Parade | CROSS BAY BOULEVARD between EAST 17 ROAD and NOEL ROAD | no stretch between E 17 RD and NOEL RD
+   not placed: Stone Street Pedestrian Mall | STONE STREET between BROAD STREET and HANOVER SQUARE | no stretch between BROAD ST and HANOVER SQ
    not placed: 19th Annual Washington Heights Halloween Parade | Fort Tryon Park: Cafe Lawn Fort Tryon Park between Cafe Lawn and and | no centerline for FORT TRYON PARK CAFE LAWN FORT TRYON PARK
-   not placed: Throggs Neck Halloween Parade | SAMPSON AVENUE between EAST TREMONT AVENUE and CROSS BRONX SERVICE ROAD SOUTH | no meeting point ( / CROSS BRONX SERVICE ROAD SOUTH)
-   not placed: Throggs Neck Halloween Parade | CROSS BRONX SERVICE ROAD SOUTH between SAMPSON AVENUE and THROGS NECK BLVD | no centerline for CROSS BRONX SERVICE ROAD SOUTH
-   not placed: Throggs Neck Halloween Parade | THROGS NECK BOULEVARD between CROSS BRONX EXPRESSWAY SOUTH and HARDING AVE | no meeting point (CROSS BRONX EXPRESSWAY SOUTH / )
-   not placed: Soccer Streets Senator St PS 413 | SENATOR STREET between RIDGE BOULEVARD and 3 AVENUE | meeting points on separate pieces
-   not placed: Get To The Point - 5K Run | DRIGGS AVENUE between DIAMOND STREET and NEWELL STREET | no meeting point ( / NEWELL ST)
-   not placed: Get To The Point - 5K Run | DRIGGS AVENUE between NEWELL STREET and NORTH   12 STREET | no meeting point (NEWELL ST / )
-   not placed: Get To The Point - 5K Run | BERRY ST between N 12 ST and LORIMER ST | no meeting point ( / LORIMER ST)
-   not placed: Get To The Point - 5K Run | FRANKLIN STREET between CALYER STREET and KENT STREET | meeting points on separate pieces
-   not placed: LaGuardia Community Run | BORDEN AVENUE between 25 STREET and CENTER BOULEVARD | meeting points on separate pieces
-   not placed: NYC Century Bike Tour 2026 | KENT AVENUE between SOUTH    4 STREET and WILLIAMSBURG ST WEST | no meeting point ( / WILLIAMSBURG ST WEST)
-   not placed: NYC Century Bike Tour 2026 | WILLIAMSBURG STREET WEST between KENT AVENUE and FLUSHING AVENUE | no centerline for WILLIAMSBURG STREET WEST
-   not placed: NYC Century Bike Tour 2026 | FLUSHING AVENUE between WILLIAMSBURG ST WEST and NAVY STREET | no meeting point (WILLIAMSBURG ST WEST / )
-   not placed: NYC Century Bike Tour 2026 | NAVY STREET between FLUSHING AVENUE and HUDSON AVENUE | meeting points on separate pieces
-   not placed: NYC Century Bike Tour 2026 | TILLARY STREET between JAY STREET and BROOKLYN BRIDGE BOULEVARD | no meeting point ( / BROOKLYN BRIDGE BLVD)
+   not placed: Throggs Neck Halloween Parade | SAMPSON AVENUE between EAST TREMONT AVENUE and CROSS BRONX SERVICE ROAD SOUTH | no stretch between E TREMONT AVE and CROSS BRONX SERVICE RD S
+   not placed: Throggs Neck Halloween Parade | CROSS BRONX SERVICE ROAD SOUTH between SAMPSON AVENUE and THROGS NECK BLVD | no centerline for CROSS BRONX SERVICE RD S
+   not placed: Throggs Neck Halloween Parade | THROGS NECK BOULEVARD between CROSS BRONX EXPRESSWAY SOUTH and HARDING AVE | no stretch between CROSS BRONX EXPWY S and HARDING AVE
+   not placed: NYC Century Bike Tour 2026 | KENT AVENUE between SOUTH    4 STREET and WILLIAMSBURG ST WEST | no stretch between S 4 ST and WILLIAMSBURG ST W
+   not placed: NYC Century Bike Tour 2026 | WILLIAMSBURG STREET WEST between KENT AVENUE and FLUSHING AVENUE | no centerline for WILLIAMSBURG ST W
+   not placed: NYC Century Bike Tour 2026 | FLUSHING AVENUE between WILLIAMSBURG ST WEST and NAVY STREET | no stretch between WILLIAMSBURG ST W and NAVY ST
+   not placed: NYC Century Bike Tour 2026 | NAVY STREET between FLUSHING AVENUE and HUDSON AVENUE | no stretch between FLUSHING AVE and HUDSON AVE
+   not placed: NYC Century Bike Tour 2026 | TILLARY STREET between JAY STREET and BROOKLYN BRIDGE BOULEVARD | no stretch between JAY ST and BROOKLYN BRIDGE BLVD
    not placed: NYC Century Bike Tour 2026 | Brooklyn Bridge: Brooklyn Bridge Pedestrian: 1 between Park Row (S) and Tillary Street | no centerline for BROOKLYN BRIDGE BROOKLYN BRIDGE PEDESTRIAN 1
-   not placed: NYC Century Bike Tour 2026 | CENTRE STREET between PARK ROW and CLEVELAND PLACE | no meeting point (PARK ROW / CLEVELAND PL)
-   not placed: NYC Century Bike Tour 2026 | CLEVELAND PLACE between CENTRE STREET and LAFAYETTE STREET | no centerline for CLEVELAND PL
-   not placed: NYC Century Bike Tour 2026 | LAFAYETTE STREET between CLEVELAND PLACE and 4 AVENUE | no centerline for LAFAYETTE ST
-   not placed: NYC Century Bike Tour 2026 | EAST   13 STREET between 4 AVENUE and WEST   13 STREET | no meeting point (4 AVE / W 13 ST)
-   not placed: NYC Century Bike Tour 2026 | WEST   13 STREET between EAST   13 STREET and GREENWICH AVENUE | no meeting point (E 13 ST / GREENWICH AVE)
-   not placed: NYC Century Bike Tour 2026 | GREENWICH AVENUE between WEST   13 STREET and 8 AVENUE | no centerline for GREENWICH AVE
-   not placed: NYC Century Bike Tour 2026 | WEST   15 STREET between 8 AVENUE and 10 AVENUE | no meeting point (8 AVE / 10 AVE)
-   not placed: NYC Century Bike Tour 2026 | WEST   59 STREET between 10 AVENUE and RIVERSIDE BOULEVARD | no centerline for W 59 ST
-   not placed: NYC Century Bike Tour 2026 | RIVERSIDE BOULEVARD between WEST   59 STREET and WEST   72 STREET | no centerline for RIVERSIDE BLVD
-   not placed: NYC Century Bike Tour 2026 | RIVERSIDE DRIVE between WEST   72 STREET and WEST  165 STREET | no centerline for RIVERSIDE DR
-   not placed: NYC Century Bike Tour 2026 | WEST  165 STREET between RIVERSIDE DRIVE and EDGECOMBE AVENUE | no centerline for W 165 ST
-   not placed: NYC Century Bike Tour 2026 | UNIVERSITY AVENUE between WEST  170 STREET and EDWARD GRANT HIGHWAY | no centerline for UNIVERSITY AVE
+   not placed: NYC Century Bike Tour 2026 | RIVERSIDE DRIVE between WEST   72 STREET and WEST  165 STREET | no stretch between W 72 ST and W 165 ST
+   not placed: NYC Century Bike Tour 2026 | UNIVERSITY AVENUE between WEST  170 STREET and EDWARD GRANT HIGHWAY | no stretch between W 170 ST and EDWARD GRANT HWY
    not placed: NYC Century Bike Tour 2026 | EDWARD GRANT HIGHWAY between UNIVERSITY AVENUE and EAST  167 STREET | no centerline for EDWARD GRANT HWY
-   not placed: NYC Century Bike Tour 2026 | EAST  167 STREET between EDWARD GRANT HIGHWAY and CLAY AVENUE | no centerline for E 167 ST
-   not placed: NYC Century Bike Tour 2026 | CLAY AVENUE between EAST  167 STREET and EAST  168 STREET | no centerline for CLAY AVE
-   not placed: NYC Century Bike Tour 2026 | EAST  168 STREET between CLAY AVENUE and FRANKLIN AVENUE | no centerline for E 168 ST
+   not placed: NYC Century Bike Tour 2026 | EAST  167 STREET between EDWARD GRANT HIGHWAY and CLAY AVENUE | no stretch between EDWARD GRANT HWY and CLAY AVE
+   not placed: NYC Century Bike Tour 2026 | EAST  174 STREET between LONGFELLOW AVENUE and BRONX RIVER AVENUE | no stretch between LONGFELLOW AVE and BRONX RIVER AVE
+   not placed: NYC Century Bike Tour 2026 | GARRISON AVE between EDGEWATER ROAD and LONGFELLOW AVE | no stretch between EDGEWATER RD and LONGFELLOW AVE
+   not placed: NYC Century Bike Tour 2026 | BRUCKNER BOULEVARD between LAFAYETTE AVENUE and EAST  138 STREET | no stretch between LAFAYETTE AVE and E 138 ST
+   not placed: NYC Century Bike Tour 2026 | Willis Avenue Bridge : Willis Avenue Bridge (E124th St. to Willis Ave.) Willis Avenue Bridge between E. 124th Street and Willis Avenue | no centerline for WILLIS AVENUE BRIDGE WILLIS AVENUE BRIDGE E124TH ST TO WILLIS AVE WILLIS AVENUE BRIDGE
+   not placed: NYC Century Bike Tour 2026 | SHORE BOULEVARD between ASTORIA PARK SOUTH and 20 AVENUE | no stretch between ASTORIA PARK S and 20 AVE
+   not placed: NYC Century Bike Tour 2026 | NORTHERN BOULEVARD between MARINA ROAD and PRINCE STREET | no stretch between MARINA RD and PRINCE ST
+   not placed: NYC Century Bike Tour 2026 | UTOPIA PARKWAY between CROSS ISLAND PARKWAY SERVICE ROAD and 22ND AVE | no stretch between CROSS ISLAND PARKWAY SERVICE RD and 22 AVE
+   not placed: NYC Century Bike Tour 2026 | WINCHESTER BOULEVARD between DOUGLASTON PARKWAY and UNION TURNPIKE | no stretch between DOUGLASTON PKWY and UNION TURNPIKE
+   not placed: NYC Century Bike Tour 2026 | Forest Park: Bandshell Parking Lot Forest Park between Picnic Grove 01 and p | no centerline for FOREST PARK BANDSHELL PARKING LOT FOREST PARK
+   not placed: NYC Century Bike Tour 2026 | ARION ROAD between 88 STREET and DEAD END | no stretch between 88 ST and DEAD END
+   not placed: NYC Century Bike Tour 2026 | OCEAN PARKWAY between WEST AVENUE and SURF AVENUE | no stretch between WEST AVE and SURF AVE
+   not placed: NYC Century Bike Tour 2026 | CROPSEY AVENUE between HART PLACE and SHORE PARKWAY | no stretch between HART PL and SHORE PKWY
+   not placed: NYC Century Bike Tour 2026 | SHORE PARKWAY between CROPSEY AVENUE and WEST   17 STREET | no stretch between CROPSEY AVE and W 17 ST
+   not placed: NYC Century Bike Tour 2026 | WEST   17 STREET between SHORE PARKWAY and CANAL AVENUE | no stretch between SHORE PKWY and CANAL AVE
+   not placed: NYC Century Bike Tour 2026 | QUEENS BOULEVARD between BROADWAY and ASCAN AVENUE | no stretch between BROADWAY and ASCAN AVE
+   not placed: NYC Century Bike Tour 2026 | ASCAN AVENUE between QUEENS BOULEVARD and GREENWAY NORTH | no stretch between QUEENS BLVD and GREENWAY NORTH
+   not placed: NYC Century Bike Tour 2026 | GREENWAY NORTH between ASCAN AVENUE and MARKWOOD ROAD | no centerline for GREENWAY NORTH
+   not placed: NYC Century Bike Tour 2026 | MARKWOOD ROAD between GREENWAY NORTH and PARK LANE | no centerline for MARKWOOD RD
+   not placed: NYC Century Bike Tour 2026 | PITKIN AVENUE between 79TH STREET and WYONA ST | no stretch between 79 ST and WYONA ST
+   not placed: NYC Century Bike Tour 2026 | MOTHER GASTON BOULEVARD between BLAKE AVENUE and EAST NEW YORK AVENUE | no stretch between BLAKE AVE and E NEW YORK AVE
+   not placed: NYC Century Bike Tour 2026 | BERGEN STREET between MOTHER GASTON BOULEVARD and THOMAS BOYLAND STREET | no stretch between MOTHER GASTON BLVD and THOMAS BOYLAND ST
+   not placed: NYC Century Bike Tour 2026 | THOMAS BOYLAND STREET between BERGEN STREET and BROADWAY | no centerline for THOMAS BOYLAND ST
+   not placed: NYC Century Bike Tour 2026 | BROADWAY between THOMAS BOYLAND STREET and ELDERT STREET | no stretch between THOMAS BOYLAND ST and ELDERT ST
