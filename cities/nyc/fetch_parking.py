@@ -58,9 +58,15 @@ def corner(a, b, near):
 
 
 def geosearch(q, near):
-    d = get('https://geosearch.planninglabs.nyc/v2/search?' + urllib.parse.urlencode({'text': q, 'size': 3}), tries=3)
-    pts = [f['geometry']['coordinates'] for f in (d or {}).get('features', [])]
-    return (pts[0], (d['features'][0]['properties'].get('label') or '')) if pts else (None, '')
+    """An address through NYC Planning's GeoSearch. Only a match with the same house number in the same borough counts:
+    its fuzzy matching will otherwise answer "1 Bay Street, Staten Island" with a Bay Street in the Bronx."""
+    d = get('https://geosearch.planninglabs.nyc/v2/search?' + urllib.parse.urlencode({'text': q, 'size': 10}), tries=3)
+    num, boro = q.split(' ')[0], q.rsplit(', ', 1)[-1].lower()
+    for f in (d or {}).get('features', []):
+        pr = f['properties']
+        if (pr.get('borough') or '').lower() == boro and (pr.get('housenumber') or '') == num:
+            return f['geometry']['coordinates'], pr.get('label') or ''
+    return None, 'no match in ' + boro
 
 
 # ---- NYC DOT municipal garages and fields
@@ -89,7 +95,7 @@ for f in cfg['facilities']:
     if at and f.get('near') and dist(at, f['near']) > 2.5:
         print(f"  {f['name']}: placed {dist(at, f['near']):.1f} km from its rough position, kept the rough position"); at, how = f['near'], 'rough position'
     if at and f.get('shift'): at = [at[0] + f['shift'][0], at[1] + f['shift'][1]]
-    if not at: missing.append(f['name']); continue
+    if not at: missing.append(f['name']); print(f"  {f['name']}: not placed ({how})"); continue
     placed.append(dict(f, xy=[round(at[0], 5), round(at[1], 5)], how=how))
     print(f"  {f['name']}: {how}", flush=True)
 if placed:
