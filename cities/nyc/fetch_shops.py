@@ -100,6 +100,17 @@ QUEENS = {'rego park', 'forest hills', 'kew gardens', 'flushing', 'jackson heigh
           'ridgewood', 'middle village', 'hollis', 'saint albans', 'glen oaks', 'bellerose', 'little neck', 'douglaston', 'howard beach'}
 
 
+def pluto(addr):
+    """The City's tax lots (PLUTO): an exact street address, for city addresses GeoSearch doesn't know."""
+    a = re.sub(r'\bBlvd\b', 'Boulevard', re.sub(r'\bAve\b', 'Avenue', re.sub(r'\bSt\b', 'Street', addr))).upper()
+    u = 'https://data.cityofnewyork.us/resource/64uk-42ks.json?' + urllib.parse.urlencode({'$select': 'address,latitude,longitude', '$where': "address='" + a.replace("'", "''") + "'", '$limit': 2})
+    try: j = json.loads(get(u, 2))
+    except SystemExit: return None
+    j = [x for x in j if x.get('latitude')]
+    if len(j) != 1: return None
+    return {'at': [round(float(j[0]['longitude']), 5), round(float(j[0]['latitude']), 5)], 'type': 'address', 'src': 'pluto', 'match': j[0]['address']}
+
+
 def census(q):
     u = 'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress?' + urllib.parse.urlencode(
         {'address': q, 'benchmark': 'Public_AR_Current', 'format': 'json'})
@@ -128,7 +139,7 @@ for k in want:
     addr, loc = k.rsplit(', ', 1)
     # GeoSearch only knows the five boroughs, so a suburb falls through to the Census geocoder.
     hit = ((geosearch(f'{addr}, {loc}, NY') or (geosearch(f'{addr}, Queens, NY') if loc.lower() in QUEENS else None)) if loc else None) \
-        or census(f'{addr}, {loc}, NY') or nominatim(addr, loc)
+        or (pluto(addr) if loc.lower() in NYC or loc.lower() in QUEENS else None) or census(f'{addr}, {loc}, NY') or nominatim(addr, loc)
     if hit: cache[k] = hit; print('  placed', k, '->', hit['src'], hit.get('match'))
     else: print('  NOT FOUND', k)
     time.sleep(0.5)
