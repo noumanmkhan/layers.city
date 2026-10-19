@@ -2,7 +2,7 @@
 (engine/fetch_changes.py) for the "changes" layer and the card's Changing nearby section.
 
 Big changes only (Vancouver: issued permits only, all "approved"): new buildings that aren't single houses, demolitions of buildings that aren't houses,
-and (Toronto) rezoning, site plan and subdivision applications. Each item gets:
+and (Toronto) rezoning, site plan and subdivision applications, (New York) land-use applications that rezone. Each item gets:
   - a kind: rezoning, siteplan, subdivision (applications), building (new building), demolition;
   - a stage: proposed (an application or permit under review), approved (approved or permit issued, work
     not started), building (permit inspections under way: work started), finished (closed or occupancy
@@ -212,6 +212,36 @@ if os.path.exists(p):
                       'd': short(sentence(desc) if sum(c.isupper() for c in desc) > 0.6 * sum(c.isalpha() for c in desc) else desc),   # mostly capitals 'n': (r.get('job_filing_number') or '').split('-')[0],
                       'at': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)],
                       'units': new_u if kind == 'building' and new_u and new_u > 2 else None, 'status': st})
+
+# ---------- New York: land-use applications that rezone (ZAP) ----------
+p = os.path.join(RAW, 'zap.json')
+if os.path.exists(p):
+    # Active projects are proposals (filed, or in public review: certified, at the community board, borough
+    # president, City Planning Commission or City Council); completed ones count as approved, dated by their
+    # completion (ZAP keeps the decision date, unlike Toronto's open data). Withdrawn, terminated, on-hold and
+    # closed records are left out. A project covering many lots (an area rezoning) sits at the middle of them.
+    ZDONE = re.compile(r'^Complet', re.I)
+    zs = collections.Counter()
+    for r in json.load(open(p))['rows']:
+        st, ps = r.get('project_status') or '', r.get('public_status') or ''
+        zs[(st, ps)] += 1
+        filed, done = (r.get('app_filed_date') or r.get('certified_referred') or '')[:10], (r.get('completed_date') or '')[:10]
+        if st == 'Active':
+            if filed and filed < ago(OPEN_Y): continue
+            stage, date, dl = 'proposed', filed or (r.get('current_milestone_date') or '')[:10], 'applied'
+        elif ZDONE.match(st) and done:
+            if done < ago(APPR_Y): continue
+            stage, date, dl = 'approved', done, 'decided'
+        else: continue
+        name = re.sub(r'\s+', ' ', r.get('project_name') or '').strip()
+        brief = re.sub(r'\s+', ' ', r.get('project_brief') or '').strip()
+        lots = r.get('lots') or 0
+        a = title_case(r['addr']) if r.get('addr') and lots <= 3 else (name or 'Area rezoning')
+        d = brief or name
+        if lots > 3: d = ('%d lots. ' % lots) + d
+        items.append({'k': 'rezoning', 's': stage, 'date': date, 'dl': dl, 'a': a, 'd': short(d), 'n': r['project_id'],
+                      'u': 'https://zap.planning.nyc.gov/projects/' + r['project_id'], 'at': r['at'], 'status': ps or st})
+    print('  ZAP status counts:', dict(zs.most_common(20)))
 
 # ---------- one site per place ----------
 def metres(a, b):

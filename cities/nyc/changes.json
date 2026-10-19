@@ -1,5 +1,5 @@
 {
- "_about": "What's changing here (engine/fetch_changes.py in fetch-changes.yml, then engine/changes.py). New York: DOB NOW job filings for new buildings and full demolitions (the Department of Buildings moved these filings to DOB NOW by 2021; older ones in its legacy BIS system aren't included). City Planning's land-use applications (ZAP) have no coordinates in the open data: not yet included.",
+ "_about": "What's changing here (engine/fetch_changes.py in fetch-changes.yml, then engine/changes.py). New York: DOB NOW job filings for new buildings and full demolitions (the Department of Buildings moved these filings to DOB NOW by 2021; older ones in its legacy BIS system aren't included), and City Planning's land-use applications that rezone (ZAP projects with a zoning map amendment), placed on their tax lots through PLUTO.",
  "sources": {
   "dobnow": {
    "type": "socrata_dobnow",
@@ -8,6 +8,13 @@
     "New Building",
     "Full Demolition"
    ],
+   "years": 6
+  },
+  "zap": {
+   "type": "socrata_zap",
+   "url": "https://data.cityofnewyork.us/resource/hgx4-8ukb.json",
+   "bbl_url": "https://data.cityofnewyork.us/resource/2iga-a6mk.json",
+   "pluto_url": "https://data.cityofnewyork.us/resource/64uk-42ks.json",
    "years": 6
   }
  },

@@ -15,6 +15,10 @@ Kinds of source:
   - "socrata_dobnow" (New York): DOB NOW Job Application Filings whose job_type is in the config's "types" (new
     buildings, full demolitions). All of them are fetched (the dates are text fields, so the window is applied in
     changes.py). Owner, applicant and filing representative names are never requested.
+  - "socrata_zap" (New York): City Planning's land-use applications (ZAP Project Data) whose actions include a
+    zoning map amendment (ZM: a rezoning), filed in the last `years` years or still active. The open data has no
+    coordinates, so each project's tax lots (ZAP BBL, spec "bbl_url") are placed on PLUTO's lot positions (spec
+    "pluto_url"), and the project at the middle of its lots. Applicant names are never requested.
   - "ods_permits" (Vancouver): Issued Building Permits (Opendatasoft "portal", "dataset") issued in the last
     `years` years whose typeofwork is in the config's "types". Applicant and contractor names and addresses are
     never requested.
@@ -242,7 +246,50 @@ def socrata_dobnow(spec):
     return rows
 
 
-FN = {'ckan_devapps': ckan_devapps, 'ckan_permits': ckan_permits, 'socrata_permits': socrata_permits, 'ods_permits': ods_permits, 'socrata_dobnow': socrata_dobnow}
+def socrata_zap(spec):
+    cols = ['project_id', 'project_name', 'project_brief', 'project_status', 'public_status', 'ulurp_non', 'actions', 'borough',
+            'community_district', 'app_filed_date', 'certified_referred', 'completed_date', 'current_milestone', 'current_milestone_date', 'dcp_visibility']
+    cut = since(spec['years'])
+    where = "actions like '%ZM%' AND (app_filed_date >= '" + cut + "' OR completed_date >= '" + cut + "' OR project_status = 'Active')"
+    rows, off = [], 0
+    while True:
+        q = urllib.parse.urlencode({'$select': ','.join(cols), '$where': where, '$order': 'project_id', '$limit': 50000, '$offset': off})
+        page = json.loads(get(spec['url'] + '?' + q)); rows += page; off += len(page)
+        if len(page) < 50000: break
+    rows = [r for r in rows if (r.get('dcp_visibility') or 'General Public') == 'General Public']
+    print('  projects with a zoning map amendment:', len(rows), dict(collections.Counter((r.get('project_status'), r.get('public_status')) for r in rows).most_common(20)))
+    # Tax lots per project.
+    ids = [r['project_id'] for r in rows]; lots = collections.defaultdict(set)
+    for i in range(0, len(ids), 80):
+        q = urllib.parse.urlencode({'$where': 'project_id in(' + ','.join("'" + x + "'" for x in ids[i:i + 80]) + ')', '$limit': 50000})
+        for b in json.loads(get(spec['bbl_url'] + '?' + q)):
+            v = re.sub(r'\D', '', str(b.get('bbl') or ''))[:10]
+            if len(v) == 10: lots[b['project_id']].add(v)
+    allb = sorted({b for v in lots.values() for b in v})
+    print('  projects with lots:', len(lots), '· lots:', len(allb), '· bbl sample:', allb[:3])
+    # Lot positions from PLUTO (bbl is a number there, "1000010010.00000000"): ask for the numbers.
+    pos = {}
+    for i in range(0, len(allb), 150):
+        q = urllib.parse.urlencode({'$select': 'bbl,latitude,longitude,address', '$where': 'bbl in(' + ','.join(allb[i:i + 150]) + ')', '$limit': 50000})
+        for l in json.loads(get(spec['pluto_url'] + '?' + q)):
+            k = re.sub(r'\.0*$', '', str(l.get('bbl') or ''))[:10]
+            if l.get('latitude') and l.get('longitude'): pos[k] = (float(l['longitude']), float(l['latitude']), (l.get('address') or '').strip())
+    print('  lots placed:', len(pos), 'of', len(allb))
+    out = []
+    for r in rows:
+        ps = [pos[b] for b in sorted(lots.get(r['project_id'], ())) if b in pos]
+        if not ps: continue
+        r = {k: v for k, v in r.items() if v not in (None, '') and k != 'dcp_visibility'}
+        r['lots'] = len(lots[r['project_id']])
+        r['at'] = [round(sum(p[0] for p in ps) / len(ps), 6), round(sum(p[1] for p in ps) / len(ps), 6)]
+        if len(ps) <= 3 and ps[0][2]: r['addr'] = ps[0][2]
+        if r.get('project_brief'): r['project_brief'] = r['project_brief'][:400]
+        out.append(r)
+    print('  placed projects:', len(out), '· sample:', json.dumps(out[-1])[:900])
+    return out
+
+
+FN = {'socrata_zap': socrata_zap, 'ckan_devapps': ckan_devapps, 'ckan_permits': ckan_permits, 'socrata_permits': socrata_permits, 'ods_permits': ods_permits, 'socrata_dobnow': socrata_dobnow}
 for name, spec in CFG['sources'].items():
     print('==', name, spec['type'])
     try:
