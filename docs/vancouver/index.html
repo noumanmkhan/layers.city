@@ -2769,7 +2769,8 @@ function dkPopup(p, latlng){
 /* ---------- parking spots (kind "spots") ----------
    One points file shared by its layers (e.g. parking.geojson: Green P car parks and EV chargers), each layer's own
    picked by p.c === it.cat. Top level asof {cat: date} and count. Lots: n name or address, t "g" garage or "s"
-   surface, cap spaces, h clearance (m), ttc 1 for a transit commuter lot. Chargers: n name, a address, l1, l2, dc
+   surface, cap spaces, h clearance (m), ttc 1 for a transit commuter lot, and where given a address, h24 or hrs
+   hours, note (a closure the operator announces). Chargers: n name, a address, l1, l2, dc
    ports, kw fastest DC power, net network, h24 1 for 24 hours (else hrs as listed), fee, tes 1 Tesla only, off 1
    temporarily unavailable, conf the listing's last confirmed date. asof is keyed by cat. Text lives on the layer (city.json). */
 const SPOTS = LAYERS.filter(it => it.kind === 'spots');
@@ -2805,6 +2806,9 @@ function spotPopup(it, p, latlng){
     if (p.cap) rows.push([it.spacesLabel, plural(p.cap, it.spacesText)]);
     if (p.h) rows.push([it.heightLabel, fill(it.heightText, {h: p.h.toFixed(2)})]);
     if (p.ttc) rows.push([it.ttcLabel, it.ttcText]);
+    if (p.a) rows.push([it.addressLabel, p.a]);
+    if (p.h24 || p.hrs) rows.push([it.hoursLabel, p.h24 ? it.h24Text : p.hrs]);
+    if (p.note) rows.push([it.noteLabel, p.note]);
   } else {
     kind = p.dc && p.l2 ? it.bothText : it.typeText[c];
     if (p.dc) rows.push([it.dcLabel, plural(p.dc, it.portText) + (p.kw ? ' · ' + fill(it.kwText, {kw: p.kw}) : '')]);

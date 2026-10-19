@@ -116,7 +116,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · Street closures: NYC Department of Transportation; special events: NYC permitted events and street centerline · New development: NYC Department of Buildings (DOB NOW) · Ferries: NYC Ferry and NYC DOT timetables (GTFS) · Congestion Relief Zone: drawn from the MTA’s description (60th Street and south) · Hurricane evacuation zones and centers: NYC Emergency Management · Places of worship & lines being built: © OpenStreetMap contributors",
+ "attribution": "Boroughs, community districts, NTAs, council, Assembly, Senate, congressional and school districts: NYC Department of City Planning · Historic districts: NYC Landmarks Preservation Commission · Business improvement districts: NYC Small Business Services · Subway, LIRR & Metro-North: MTA GTFS · Towns and counties around the city & ACS figures: U.S. Census Bureau · Skyscrapers: Wikipedia (CC BY-SA) · NJ Transit & PATH lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Poll sites: NYC Board of Elections; positions: NYS GIS Program Office · Representatives: Open States, Clerk of the U.S. House, NYC Council · Buses: MTA GTFS · Bike lanes: NYC DOT · Citi Bike stations: Lyft (Citi Bike data policy) · Landmarks: NYC Landmarks Preservation Commission · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Drive times: OSRM on OpenStreetMap · Collection days: NYC Department of Sanitation · Parks, playgrounds, pools and courts: NYC Parks · Hospitals, colleges, libraries, schools and older adult centers: NYC Department of City Planning Facilities Database · Street closures: NYC Department of Transportation; special events: NYC permitted events and street centerline · New development: NYC Department of Buildings (DOB NOW) · Ferries: NYC Ferry and NYC DOT timetables (GTFS) · Congestion Relief Zone: drawn from the MTA’s description (60th Street and south) · Hurricane evacuation zones and centers: NYC Emergency Management · Places of worship & lines being built: © OpenStreetMap contributors · Municipal parking: NYC DOT · EV chargers: U.S. DOE Alternative Fuels Data Center",
  "example": {
   "at": [
    40.7532,
@@ -846,6 +846,101 @@
        "BMCC"
       ]
      }
+    }
+   ]
+  ],
+  [
+   "Parking & Charging",
+   [
+    {
+     "id": "greenp",
+     "kind": "spots",
+     "mark": "lot",
+     "file": "parking",
+     "cat": "gp",
+     "countKey": "greenp",
+     "lazy": true,
+     "optional": true,
+     "minZoom": 11,
+     "name": "Municipal parking",
+     "note": "NYC DOT’s garages and fields: garages filled, fields outlined, bigger for more spaces. From zoom 11.",
+     "countNote": "{n} NYC DOT garages and fields with {spaces} spaces. From zoom 11.",
+     "classes": {
+      "g": [
+       "Garages",
+       "Multi-level garages"
+      ],
+      "s": [
+       "Fields",
+       "Open-air lots, which the City calls parking fields"
+      ]
+     },
+     "legend": "Bigger squares hold more cars.",
+     "zoomText": "Zoom in to see them.",
+     "typeText": {
+      "g": "Municipal parking garage",
+      "s": "Municipal parking field"
+     },
+     "spacesLabel": "Spaces",
+     "spacesText": [
+      "{n} space",
+      "{n} spaces"
+     ],
+     "addressLabel": "Where",
+     "hoursLabel": "Hours",
+     "h24Text": "24 hours, 7 days",
+     "noteLabel": "Note",
+     "fine": "From NYC DOT’s list of municipal parking facilities as of {date}. Rates, hours and closures change: check NYC DOT before you go."
+    },
+    {
+     "id": "ev",
+     "kind": "spots",
+     "mark": "charger",
+     "file": "parking",
+     "cat": "ev",
+     "countKey": "ev",
+     "lazy": true,
+     "optional": true,
+     "minZoom": 12,
+     "name": "EV chargers",
+     "note": "Public charging: DC fast filled, Level 2 ringed, bigger for more ports. From zoom 12.",
+     "countNote": "{n} public charging sites with {dc} DC fast and {l2} Level 2 ports. From zoom 12.",
+     "classes": {
+      "dc": [
+       "DC fast",
+       "Fast chargers: most of a charge in under an hour"
+      ],
+      "l2": [
+       "Level 2 only",
+       "Slower chargers: hours for a full charge, for a long stop"
+      ]
+     },
+     "legend": "Bigger dots have more ports; grey dashed ones are listed as temporarily unavailable.",
+     "zoomText": "Zoom in to see them.",
+     "typeText": {
+      "dc": "DC fast charging",
+      "l2": "Level 2 charging"
+     },
+     "bothText": "DC fast and Level 2 charging",
+     "dcLabel": "DC fast",
+     "l2Label": "Level 2",
+     "l1Label": "Level 1",
+     "portText": [
+      "{n} port",
+      "{n} ports"
+     ],
+     "kwText": "up to {kw} kW",
+     "addressLabel": "Address",
+     "operatorLabel": "Run by",
+     "networkLabel": "Network",
+     "hoursLabel": "Hours",
+     "h24Text": "24 hours",
+     "priceLabel": "Price",
+     "accessLabel": "Access",
+     "teslaText": "Tesla drivers only",
+     "statusLabel": "Status",
+     "offText": "Temporarily unavailable",
+     "fine": "The U.S. Department of Energy’s Alternative Fuels Data Center as of {date}[; this listing last confirmed {conf}]. Chargers can be busy or out of order: check the network’s app before you go."
     }
    ]
   ],
