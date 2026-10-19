@@ -124,7 +124,12 @@ else:
         return got
     q = dict(base); [q.pop(k) for k in ('latlong', 'radius', 'unit')]
     for v in venues:
-        for vid in ids_for(v):
+        try:
+            vids = ids_for(v)
+        except Exception as e:                       # one venue's lookup failing shouldn't lose the rest
+            print(f"  {v['name']}: venue lookup failed ({e})"); continue
+        print(f"  {v['name']}: Ticketmaster venue ids {vids}")
+        for vid in vids:
             page, pages = 0, 1
             while page < pages and page < 5:
                 data = get(dict(q, venueId=vid, page=page)) or {}
