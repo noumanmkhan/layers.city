@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>75201 · Dallas · Layers.City</title>
 <meta name="description" content="75201 is a zip code in Dallas (Downtown &amp; Uptown). Includes Arts District. Median home $690K, 89% of households rent, about 18 min by transit to downtown. Boundaries, representatives and more on the map.">
@@ -49,7 +50,9 @@ ul{margin:0;padding-left:20px}li{margin:4px 0}
 .cols{columns:2 240px;column-gap:28px}.cols h3{font-family:var(--display);font-size:17px;margin:14px 0 4px;break-after:avoid}
 .cols ul{list-style:none;padding:0}
 footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(--ink-2)}
-@media (max-width:520px){section{padding:18px}h1{margin-top:12px}}</style>
+@media (max-width:520px){section{padding:18px}h1{margin-top:12px}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}</style>
 <script src="/stats.js" defer></script>
 </head>
 <body>

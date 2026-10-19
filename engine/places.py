@@ -199,6 +199,8 @@ ul{margin:0;padding-left:20px}li{margin:4px 0}
 .cols ul{list-style:none;padding:0}
 footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(--ink-2)}
 @media (max-width:520px){section{padding:18px}h1{margin-top:12px}}"""
+from theme import SCRIPT as THEME_SCRIPT, css as theme_css
+CSS += theme_css()
 PIN = ('<svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/>'
        '<polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/>'
        '<polygon points="60,20 90,34 60,48 30,34" fill="#fff"/>%s</svg>')
@@ -214,6 +216,7 @@ def page(title, desc, canonical, og, body, extra_head=''):
 <html lang="en">
 <head>
 <meta charset="utf-8">
+{THEME_SCRIPT}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">

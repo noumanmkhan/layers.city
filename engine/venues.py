@@ -331,10 +331,10 @@ def venue_map(v, others):
     labels = []
     for c, pr in go_stations:
         if inside(*c) and pr['name'] not in HUB_NAMES:
-            x, y = xy(*c); p.append(f'<rect x="{x - 4}" y="{y - 4}" width="8" height="8" fill="#fff" stroke="var(--go)" stroke-width="2"/>'); labels.append((x, y, pr['name']))
+            x, y = xy(*c); p.append(f'<rect x="{x - 4}" y="{y - 4}" width="8" height="8" fill="var(--card)" stroke="var(--go)" stroke-width="2"/>'); labels.append((x, y, pr['name']))
     for c, pr in stations:
         if inside(*c):
-            x, y = xy(*c); p.append(f'<circle cx="{x}" cy="{y}" r="4.5" fill="#fff" stroke="#1A1414" stroke-width="2"/>'); labels.append((x, y, pr['name']))
+            x, y = xy(*c); p.append(f'<circle cx="{x}" cy="{y}" r="4.5" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>'); labels.append((x, y, pr['name']))
     for o in others:
         if o['slug'] != v['slug'] and inside(*o['at']):
             x, y = xy(*o['at']); p.append(f'<circle cx="{x}" cy="{y}" r="5" fill="var(--muted)"/>'); labels.append((x, y, o['name']))
@@ -466,6 +466,8 @@ td.n{white-space:nowrap}
 footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(--ink-2)}
 [hidden]{display:none!important}
 @media (max-width:560px){td.n{white-space:normal}table{font-size:14px}th,td{padding-right:6px}section,.card{padding:16px}ul.events time{flex-basis:100%}h1{margin-top:12px}.in-card dt{margin-top:10px}}"""
+from theme import SCRIPT as THEME_SCRIPT, css as theme_css
+CSS += theme_css(['.pop{box-shadow:0 10px 30px rgba(0,0,0,.45)}'])
 _fc = os.path.join(CITY_DIR, 'factsheet.css')       # the city's line bullets and route badges, shared with the fact sheets
 CSS += '\n' + open(_fc).read() if os.path.exists(_fc) else ''
 PIN = ('<svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/>'
@@ -485,6 +487,7 @@ def page(title, desc, canonical, og, body, crumbs):
 <html lang="en">
 <head>
 <meta charset="utf-8">
+{THEME_SCRIPT}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">

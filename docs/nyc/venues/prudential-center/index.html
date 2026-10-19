@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Prudential Center · New York venues · Layers.City</title>
 <meta name="description" content="Prudential Center, 25 Lafayette Street, Newark, NJ: what&#x27;s on this week, nearest subway and commuter rail, buses, City parking within a ten-minute walk, and drive and transit from across the region.">
@@ -84,6 +85,9 @@ td.n{white-space:nowrap}
 footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(--ink-2)}
 [hidden]{display:none!important}
 @media (max-width:560px){td.n{white-space:normal}table{font-size:14px}th,td{padding-right:6px}section,.card{padding:16px}ul.events time{flex-basis:100%}h1{margin-top:12px}.in-card dt{margin-top:10px}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) .pop{box-shadow:0 10px 30px rgba(0,0,0,.45)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}
+:root[data-theme="dark"] .pop{box-shadow:0 10px 30px rgba(0,0,0,.45)}
 /* Line bullets in the map's subway colours (cities/nyc/city.css, the MTA's trunk-line palette); bus badges in MTA
    bus blue, express buses green. Overnight is a family of ordinary routes here, so it gets no style of its own. */
 .ln{font-size:10.5px}
