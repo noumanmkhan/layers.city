@@ -13,6 +13,7 @@ Everything is fetched in GitHub Actions (`.github/workflows/fetch-nyc.yml`, by h
 | | `mta_rail.json` | MTA GTFS (rrgtfsfeeds.s3.amazonaws.com): `gtfs_subway.zip` (with the Staten Island Railway), `gtfslirr.zip`, `gtfsmnr.zip`. Free to use; MTA names, bullets and map styling need a licence, so the map draws its own lines |
 | | `osm_*.json` | OpenStreetMap via Overpass (ODbL): place names and main streets in the city, highways across the region, NJ Transit, PATH and AirTrain route relations and stations, landmark positions |
 | `fetch_acs.py` | `acs_tracts.json`, `tracts.json` | ACS 5-year table-based summary files (B25003, B08301, B25075, B25063, B25036, B25032, C16001, B01001, B05005) for the five counties' tracts; TIGERweb tract internal points |
+| `fetch_marathon.py` (daily in fetch-closures.yml) | `closures/marathon_<year>.{txt,json}` | NYC Citywide Event Coordination and Management, the marathon's street closure and no-parking notice (a PDF at nyc.gov, usually posted in the last week of October). Its "Street Closed" rows are placed on NYC DOT's street centerline (inkn-q76z) and added to the special events by `fetch_closures.py`; `marathon.json` holds the race date and notice URLs, and a past year (`test`) to check the parser |
 | `engine/fetch_skyscrapers.py` | `skyscrapers/wiki.json` | English Wikipedia, "List of tallest buildings in New York City" (CC BY-SA 4.0); cut at 650 ft (198 m), Wikipedia's own threshold |
 
 ## Quirks
@@ -20,3 +21,4 @@ Everything is fetched in GitHub Actions (`.github/workflows/fetch-nyc.yml`, by h
 - The subway is drawn by trunk line (the MTA's colour groups: A C E, B D F M, 1 2 3...), merging every service's main shapes; stations list services.
 - NJ Transit and PATH come from OpenStreetMap: NJ Transit's GTFS needs a developer account and agreement (on the commercial re-check list).
 - Towers under construction without Wikipedia coordinates (2 WTC, 70 Hudson Yards, 80 Flatbush...) are left out until placed by hand (`skyscrapers.json` coords).
+- The marathon notice names streets loosely ("120th Street" for Manhattan's E and W 120 ST, "McGuiness"); `fetch_marathon.py` resolves them to centerline names. Central Park's drives and traverses, expressway ramps and a few Staten Island streets stay unplaced. NYRR publishes no course GPX, so no course line is drawn.
