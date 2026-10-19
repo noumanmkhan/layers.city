@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Layers.City for iPhone · Layers.City</title>
 <meta name="description" content="The Layers.City iPhone app: what it does, testing, and support.">
@@ -125,6 +126,14 @@ main.doc{padding-top:56px;gap:40px}
 .mail{display:inline-flex!important;align-items:center;gap:8px;min-height:44px;padding:0 18px;margin:4px 0 12px;border-radius:999px;font-weight:500;font-size:16px;background:var(--ink);color:#fff!important;text-decoration:none!important}
 .mail:focus-visible,.toc a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 @media (max-width:520px){.policy{padding:24px}main.doc{padding-top:32px}}
+/* Dark: the system setting, or the choice saved on the map (Auto, Light, Dark) */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045)} :root:not([data-theme="light"]) .soon{background:rgba(255,255,255,.03)} :root:not([data-theme="light"]) .pill.dark{color:var(--bg)} :root:not([data-theme="light"]) .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) img.thumb{filter:brightness(.88)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045)}
+:root[data-theme="dark"] .soon{background:rgba(255,255,255,.03)}
+:root[data-theme="dark"] .pill.dark{color:var(--bg)}
+:root[data-theme="dark"] .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] img.thumb{filter:brightness(.88)}
 </style>
 </head>
 <body>

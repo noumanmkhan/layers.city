@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Attributions · Maps · Nouman Khan</title>
 <meta name="description" content="The data sources, licences and open-source software behind the maps on layers.city and the City Layers app.">
@@ -131,6 +132,14 @@ main.doc{padding-top:56px;gap:40px}
 .src .lic a{color:var(--accent)}
 .policy h3:first-of-type{margin-top:20px}
 @media (max-width:640px){.policy .src li{grid-template-columns:1fr}.src .lic{grid-column:1;grid-row:auto}}
+/* Dark: the system setting, or the choice saved on the map (Auto, Light, Dark) */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#14191A;--card:#1C2224;--ink:#E9EEEC;--ink-2:#BCC6C2;--ink-3:#93A09B;--rule:#34403C;--accent:#4FC2B1;--accent-soft:rgba(79,194,177,.16);--grid:rgba(233,238,236,.045)} :root:not([data-theme="light"]) .soon{background:rgba(255,255,255,.03)} :root:not([data-theme="light"]) .pill.dark{color:var(--bg)} :root:not([data-theme="light"]) .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) img.thumb{filter:brightness(.88)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#14191A;--card:#1C2224;--ink:#E9EEEC;--ink-2:#BCC6C2;--ink-3:#93A09B;--rule:#34403C;--accent:#4FC2B1;--accent-soft:rgba(79,194,177,.16);--grid:rgba(233,238,236,.045)}
+:root[data-theme="dark"] .soon{background:rgba(255,255,255,.03)}
+:root[data-theme="dark"] .pill.dark{color:var(--bg)}
+:root[data-theme="dark"] .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] img.thumb{filter:brightness(.88)}
 </style>
 <script src="/stats.js" defer></script>
 </head>

@@ -151,7 +151,7 @@ Three more rows describe the place without ranking it: *Home types* (the mix of 
 
 **Moving between maps:** the map's name at the top of the layer panel is a menu. Pick another city to jump straight to its map, or *All maps* to return to the maps hub; an *All maps* link above the name does the same on wider screens. Each city's menu is built from the cities in the repo, so a new city appears in every map's menu on its next build.
 
-**Light or dark:** the page follows your device's setting, or you can pick Light or Dark at the bottom of the layer panel.
+**Light or dark:** the page follows your device's setting, or you can pick Light or Dark at the bottom of the layer panel. The rest of the site (the hub, About, the guides, Compare and the venue pages) follows the same setting and the choice made on the map; only the fact sheets stay light, because they're made to print.
 
 **What's here:** click anywhere and a card sums up the spot in a few coloured pills, then breaks it down in sections you can open and close (the page remembers which you keep open):
 

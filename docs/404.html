@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found · Layers.City</title>
 <meta name="robots" content="noindex">
@@ -43,6 +44,14 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,
 footer{padding-top:24px;padding-bottom:24px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-family:var(--mono);font-size:13px;color:var(--ink-3)}
 footer a:hover{color:var(--ink)}
 @media (max-width:520px){main{padding-top:40px}}
+/* Dark: the system setting, or the choice saved on the map (Auto, Light, Dark) */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045)} :root:not([data-theme="light"]) .soon{background:rgba(255,255,255,.03)} :root:not([data-theme="light"]) .pill.dark{color:var(--bg)} :root:not([data-theme="light"]) .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) img.thumb{filter:brightness(.88)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045)}
+:root[data-theme="dark"] .soon{background:rgba(255,255,255,.03)}
+:root[data-theme="dark"] .pill.dark{color:var(--bg)}
+:root[data-theme="dark"] .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] img.thumb{filter:brightness(.88)}
 </style>
 </head>
 <body>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Layers.City · Maps that explain how a city fits together</title>
 <meta name="description" content="Layers.City: interactive maps of Toronto, New York City, Chicago, Dallas and Vancouver that show every way each city is divided, plus high-resolution print maps. By Nouman Khan.">
@@ -158,6 +159,14 @@ footer a:hover{color:var(--ink)}
 .card.compare .examples .guide:last-child{border-bottom:0}
 .card.compare .examples .tag{min-width:62px;align-self:center;margin:0;text-align:center}
 @media (max-width:760px){.card.compare{grid-template-columns:1fr}.card.compare .card-link{border-radius:14px 14px 0 0}.card.compare .examples{border-left:0;border-top:1.5px solid var(--rule)}.card.compare .examples .guide{padding:14px 24px}.card.compare .body{padding:22px 24px 24px}}
+/* Dark: the system setting, or the choice saved on the map (Auto, Light, Dark) */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045)} :root:not([data-theme="light"]) .soon{background:rgba(255,255,255,.03)} :root:not([data-theme="light"]) .pill.dark{color:var(--bg)} :root:not([data-theme="light"]) .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) img.thumb{filter:brightness(.88)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045)}
+:root[data-theme="dark"] .soon{background:rgba(255,255,255,.03)}
+:root[data-theme="dark"] .pill.dark{color:var(--bg)}
+:root[data-theme="dark"] .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] img.thumb{filter:brightness(.88)}
 </style>
 <script src="/stats.js" defer></script>
 </head>

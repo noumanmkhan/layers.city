@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How Layers.City is built · Layers.City</title>
 <meta name="description" content="The idea, principles and architecture behind Layers.City: open city data turned into one map that keeps itself current, built by Nouman Khan with AI as an engineering partner.">
@@ -165,6 +166,14 @@ main.doc{padding-top:56px;gap:32px}
 @media (max-width:860px){.flow{grid-template-columns:1fr}.flow li:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-12px;transform:translate(-50%,50%)}}
 @media (max-width:600px){.rules{grid-template-columns:1fr}.rules dd{border-top:0;padding-top:0}}
 @media (max-width:520px){.block{padding:24px}main.doc{padding-top:32px}}
+/* Dark: the system setting, or the choice saved on the map (Auto, Light, Dark) */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045)} :root:not([data-theme="light"]) .soon{background:rgba(255,255,255,.03)} :root:not([data-theme="light"]) .pill.dark{color:var(--bg)} :root:not([data-theme="light"]) .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) img.thumb{filter:brightness(.88)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045)}
+:root[data-theme="dark"] .soon{background:rgba(255,255,255,.03)}
+:root[data-theme="dark"] .pill.dark{color:var(--bg)}
+:root[data-theme="dark"] .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] img.thumb{filter:brightness(.88)}
 </style>
 <script src="/stats.js" defer></script>
 </head>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Terms of use · Maps · Nouman Khan</title>
 <meta name="description" content="Terms of use for the maps on layers.city: what you can do with them, and what stays with their maker.">
@@ -124,6 +125,14 @@ main.doc{padding-top:56px;gap:40px}
 .optout button{min-height:44px;padding:0 18px;border-radius:999px;font:inherit;font-weight:500;font-size:16px;cursor:pointer;background:var(--card);color:var(--ink);border:1.5px solid var(--ink)}
 .optout button:hover{background:var(--ink);color:#fff}
 .optout button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+/* Dark: the system setting, or the choice saved on the map (Auto, Light, Dark) */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#14191A;--card:#1C2224;--ink:#E9EEEC;--ink-2:#BCC6C2;--ink-3:#93A09B;--rule:#34403C;--accent:#4FC2B1;--accent-soft:rgba(79,194,177,.16);--grid:rgba(233,238,236,.045)} :root:not([data-theme="light"]) .soon{background:rgba(255,255,255,.03)} :root:not([data-theme="light"]) .pill.dark{color:var(--bg)} :root:not([data-theme="light"]) .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)} :root:not([data-theme="light"]) img.thumb{filter:brightness(.88)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#14191A;--card:#1C2224;--ink:#E9EEEC;--ink-2:#BCC6C2;--ink-3:#93A09B;--rule:#34403C;--accent:#4FC2B1;--accent-soft:rgba(79,194,177,.16);--grid:rgba(233,238,236,.045)}
+:root[data-theme="dark"] .soon{background:rgba(255,255,255,.03)}
+:root[data-theme="dark"] .pill.dark{color:var(--bg)}
+:root[data-theme="dark"] .pill:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] .card:hover{box-shadow:0 14px 34px rgba(0,0,0,.45)}
+:root[data-theme="dark"] img.thumb{filter:brightness(.88)}
 </style>
 <script src="/stats.js" defer></script>
 </head>
