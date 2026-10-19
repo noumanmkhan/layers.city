@@ -107,7 +107,18 @@ def pluto(addr):
     try: j = json.loads(get(u, 2))
     except SystemExit: return None
     j = [x for x in j if x.get('latitude')]
-    if len(j) != 1: return None
+    if len(j) != 1:
+        # Queens "100-28" numbers: a building's lot is often filed under a neighbouring number. Take the lot on the same
+        # block ("100-") and street with the nearest house number, within 10: the same block face.
+        m = re.match(r'^(\d+)-(\d+) (.+)$', a)
+        if not m: return None
+        u = 'https://data.cityofnewyork.us/resource/64uk-42ks.json?' + urllib.parse.urlencode({'$select': 'address,latitude,longitude', '$where': "address like '" + m.group(1) + "-% " + m.group(3).replace("'", "''") + "'", '$limit': 200})
+        try: c = [x for x in json.loads(get(u, 2)) if x.get('latitude')]
+        except SystemExit: return None
+        num = lambda x: int(re.match(r'^\d+-(\d+)', x['address']).group(1)) if re.match(r'^\d+-\d+', x['address']) else 9999
+        c = sorted(c, key=lambda x: abs(num(x) - int(m.group(2))))
+        if not c or abs(num(c[0]) - int(m.group(2))) > 10: return None
+        j = c[:1]
     return {'at': [round(float(j[0]['longitude']), 5), round(float(j[0]['latitude']), 5)], 'type': 'address', 'src': 'pluto', 'match': j[0]['address']}
 
 
