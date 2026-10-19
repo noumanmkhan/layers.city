@@ -3,16 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Compare cities · Layers.City</title>
-<meta name="description" content="Two cities side by side: housing, commuting, home types, languages at home and more, from the same census figures the maps use.">
-<meta name="robots" content="noindex, nofollow">
+<title>Compare cities and neighbourhoods · Layers.City</title>
+<meta name="description" content="Compare Toronto, New York, Chicago, Vancouver and Dallas side by side, or pick a neighbourhood and find the places most like it in another city: housing, getting around, home types and more.">
 <link rel="canonical" href="https://layers.city/compare/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://layers.city/compare/">
 <meta property="og:site_name" content="Layers.City">
-<meta property="og:title" content="Compare cities">
-<meta property="og:description" content="Two cities side by side: housing, commuting, home types, languages at home and more.">
+<meta property="og:title" content="Compare cities and neighbourhoods">
+<meta property="og:description" content="Five cities side by side, or a neighbourhood and the places most like it in another city.">
 <meta property="og:image" content="https://layers.city/og-layers.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -216,7 +215,6 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
   <main class="wrap">
     <section class="hero">
       <div class="coords">COMPARE</div>
-      <span class="tag">PREVIEW</span>
       <h1>Side by side</h1>
       <p class="lede" id="lede"></p>
     </section>
@@ -273,9 +271,14 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
   const q = new URLSearchParams(location.search);
   let mode = q.get('mode') === 'nbhd' ? 'nbhd' : 'city';
   let view = q.get('view') === 'typical' ? 'typical' : 'city';
+  // A place B or C given without a unit opens on the closest match to place A; a link that names only place A
+  // (the map card's "Places like … in other cities") gets a partner city to match in.
+  const PARTNER = {toronto:'nyc', nyc:'toronto', chicago:'toronto', vancouver:'toronto', dallas:'chicago'};
   let cols = ['a', 'b', 'c'].map(k => q.get(k)).filter(Boolean).map(v => { const [city, unit] = v.split(':'); return {city, unit}; })
     .filter(c => byId[c.city]);
+  if (cols.length === 1) cols.push({city: byId[PARTNER[cols[0].city]] ? PARTNER[cols[0].city] : cities.find(c => c.id !== cols[0].city).id});
   if (cols.length < 2) cols = [{city:'toronto'}, {city:'nyc'}];
+  cols.forEach((c, i) => { if (mode === 'nbhd' && i > 0 && !c.unit) c.match = true; });
 
   // ---- Profiles, loaded per city when a column first needs them
   const cache = {};

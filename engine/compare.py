@@ -137,6 +137,7 @@ def city(cid, pfile, hub, currency):
 cities = []
 for cid, pfile, hub, currency in CITIES:
     if os.path.exists(os.path.join(DOCS, cid, 'data', pfile + '.json')):
+        if json.load(open(os.path.join(DOCS, cid, 'data', 'city.json'))).get('unlisted'): continue   # like the hub: unlisted cities stay out
         cities.append(city(cid, pfile, hub, currency))
         c = cities[-1]
         print(f"{cid}: {c['units']['n']} {c['units']['plural']}, {c['units']['pop']:,} people; drive {c['views']['typical']['modes']['car']}% typical → {c['views']['city']['modes']['car']}% city; towers/20+ {c['views']['typical']['homes'][3]}% → {c['views']['city']['homes'][3]}%")

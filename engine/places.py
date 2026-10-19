@@ -348,6 +348,7 @@ for c in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
     if os.path.exists(os.path.join(vd, 'index.html')):
         urls.append(f'{SITE}/{c}/venues/')
         urls += [f'{SITE}/{c}/venues/{n}/' for n in sorted(os.listdir(vd)) if os.path.exists(os.path.join(vd, n, 'index.html'))]
+urls += [f'{SITE}/compare/'] if os.path.exists(os.path.join(DOCS, 'compare', 'index.html')) else []
 urls += [f'{SITE}/about/', f'{SITE}/privacy/', f'{SITE}/attributions/', f'{SITE}/terms/']
 open(os.path.join(DOCS, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     ''.join(f'  <url><loc>{u}</loc></url>\n' for u in urls) + '</urlset>\n')
