@@ -10,7 +10,7 @@
                         is the curated list of grocers, butchers and bakeries taken from these.
   geocode.json          Positions for faith_shops.csv rows without their own lat/lon (the cache faith.py
                         reads): NYC Planning's GeoSearch inside the five boroughs, the US Census geocoder
-                        elsewhere. Addresses already placed are not looked up again."""
+                        elsewhere, then OpenStreetMap Nominatim. Addresses already placed are not looked up again."""
 import csv, html, json, os, re, time, urllib.parse, urllib.request
 from html.parser import HTMLParser
 
@@ -100,10 +100,23 @@ def census(q):
     return {'at': [round(c['x'], 5), round(c['y'], 5)], 'type': 'address', 'src': 'census', 'match': m[0].get('matchedAddress')}
 
 
+def nominatim(addr, loc):
+    """OpenStreetMap Nominatim, for what the other two can't parse (state routes in Rockland, station concourses).
+    One request a second, as its usage policy asks. Only a house-level match counts."""
+    for q in (f'{addr}, {loc}, New York', re.sub(r'\bNY-(\d+)\b', r'Route \1', addr) + f', {loc}, New York'):
+        u = 'https://nominatim.openstreetmap.org/search?' + urllib.parse.urlencode({'q': q, 'format': 'jsonv2', 'limit': 1, 'countrycodes': 'us'})
+        time.sleep(1.1)
+        try: j = json.loads(get(u, 2))
+        except SystemExit: continue
+        if j and (j[0].get('addresstype') in ('building', 'house', 'shop', 'place', 'amenity') or j[0].get('type') in ('house', 'supermarket', 'bakery', 'butcher', 'convenience')):
+            return {'at': [round(float(j[0]['lon']), 5), round(float(j[0]['lat']), 5)], 'type': 'address', 'src': 'nominatim', 'match': j[0].get('display_name', '')[:120]}
+    return None
+
+
 for k in want:
     addr, loc = k.rsplit(', ', 1)
     # GeoSearch only knows the five boroughs, so a suburb falls through to the Census geocoder.
-    hit = (geosearch(f'{addr}, {loc}, NY') if loc.lower() in NYC or loc else None) or census(f'{addr}, {loc}, NY')
+    hit = (geosearch(f'{addr}, {loc}, NY') if loc.lower() in NYC or loc else None) or census(f'{addr}, {loc}, NY') or nominatim(addr, loc)
     if hit: cache[k] = hit; print('  placed', k, '->', hit['src'], hit.get('match'))
     else: print('  NOT FOUND', k)
     time.sleep(0.5)
