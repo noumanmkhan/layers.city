@@ -235,6 +235,16 @@ if os.path.exists(p):
         else: continue
         name = re.sub(r'\s+', ' ', r.get('project_name') or '').strip()
         brief = re.sub(r'\s+', ' ', r.get('project_brief') or '').strip()
+        # Who applied stays out (as with building filings): drop "X LLC is requesting", "is being sought by X", "represented by X".
+        m = re.search(r'\b(?:(?:is|are) (?:requesting|proposing|seeking|applying for)|seeks?|requests?|proposes?|requesting)\s+(?=an?\b|the\b|[a-z]*\s*(?:zoning|ZM|ZR|rezon|minor|special|actions?))', brief)
+        if m and m.start() < 160: brief = brief[m.end():]
+        brief = re.sub(r',?\s*(?:is|are) being (?:sought|requested|proposed) by .*?(?=,? (?:at|in|on|to|for) |\.|$)', '', brief)
+        brief = re.sub(r'^This is an? (?:private |public )?application (?:by|from) .*?\b(?:for|requesting|seeking|to)\s+', '', brief, flags=re.I)
+        brief = re.sub(r'^The (?:private )?applicant,? [^,]*?,? (?:seeks|requests|proposes|is seeking|is requesting)\s+', '', brief, flags=re.I)
+        brief = re.sub(r',?\s*(?:by|from|on behalf of) (?:the )?[A-Z0-9][^,.;]*?\b(?:LLC|L\.L\.C|Inc|Corp|Corporation|L\.?P|Associates|Holdings|Partners|Realty|Development|Company|Co)\b\.?,?', '', brief)
+        brief = re.sub(r',?\s*represented by [^,.;]*', '', brief)
+        brief = re.sub(r',?\s*(?:a|the) (?:private|public) applicant,?', '', brief)
+        brief = brief[:1].upper() + brief[1:]
         lots = r.get('lots') or 0
         a = title_case(r['addr']) if r.get('addr') and lots <= 3 else (name or 'Area rezoning')
         d = brief or name

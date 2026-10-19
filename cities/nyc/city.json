@@ -662,15 +662,15 @@
      "live": true,
      "staleDays": 9,
      "name": "New development",
-     "note": "New buildings and demolitions filed with the Department of Buildings. Leaves out one- and two-family houses.",
+     "note": "Rezonings proposed or approved (City Planning land-use applications); new buildings and demolitions filed with the Department of Buildings. Leaves out one- and two-family houses.",
      "stages": {
       "proposed": [
-       "Filed",
-       "Filed, under plan review"
+       "Proposed",
+       "Filed, or in public review: a proposal, not a decision"
       ],
       "approved": [
        "Approved",
-       "Plans approved; no permit yet"
+       "Rezoning approved, or building plans approved; no work permit yet"
       ],
       "building": [
        "Under construction",
@@ -682,17 +682,19 @@
       ]
      },
      "kinds": {
+      "rezoning": "Rezoning",
       "building": "New building",
       "demolition": "Demolition"
      },
      "dates": {
       "applied": "filed {date}",
       "issued": "permit {date}",
-      "finished": "{date}"
+      "finished": "{date}",
+      "decided": "approved {date}"
      },
      "unitsText": "{n} homes",
      "alsoText": "Also here",
-     "linkText": "Job details",
+     "linkText": "Project on ZAP",
      "legend": "From DOB NOW job filings for new buildings and full demolitions. Demolitions are dashed rings. Filings still open, and anything approved, started or finished in the last two years. Rezonings and other land-use applications aren’t included yet."
     },
     {
@@ -1994,9 +1996,9 @@
    "title": "Changing nearby",
    "radius": 805,
    "max": 6,
-   "none": "Nothing big filed, approved, under way or finished within ½ mile in the last two years.",
+   "none": "Nothing big proposed, approved, under way or finished within ½ mile in the last two years.",
    "more": "And {n} more nearby: turn on New development to see them.",
-   "note": "Big changes within ½ mile: new buildings and demolitions, no one- or two-family houses. NYC Department of Buildings job filings (DOB NOW), as of {date}."
+   "note": "Land-use applications are proposals, not decisions; an area rezoning is placed at the middle of its lots. Big changes within ½ mile: rezonings, new buildings and demolitions, no one- or two-family houses. NYC Department of City Planning (ZAP) and Department of Buildings (DOB NOW), as of {date}."
   },
   "closures": {
    "title": "Street closures",
