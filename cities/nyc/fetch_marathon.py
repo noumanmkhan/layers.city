@@ -9,7 +9,12 @@ RESTRICTION, TIME AFFECTED. Read here:
   - Times like "Sun. Nov. 2, 6am to 9:30pm", "Sat. Nov. 1, 11pm to Sunday Nov. 2, 4:00pm" or "Sat. Nov. 1 to Sun.
     Nov. 2" (whole days) become local start and end times in the race year.
   - "Central Park West 77th Street to 86th Street" doesn't say where the street ends and the boundary begins, so each
-    split is tried on the centerline until one places. Bridges named without boundaries are matched by name.
+    split is tried on the centerline until one places. Names are matched as the centerline spells them: "120th
+    Street" is Manhattan's E and W 120 ST, "Fingerboard" is FINGERBOARD RD, and a few misspellings are fixed (FIX).
+  - Bridges named without boundaries (Verrazzano, Pulaski, Queensboro, Willis and Madison Avenue) are their
+    centerline roadways by exact name, without ramps or paths.
+  - Central Park's drives and traverses, the expressways (BQE, Major Deegan ramps) and a few Staten Island streets
+    the centerline doesn't name stay unplaced; they are listed as misses.
   - The borough headings in the PDF run together (Brooklyn's rows sit under the Bronx heading), so placement tries
     every borough.
 
@@ -20,7 +25,7 @@ notice, to check the parser; fetch_closures.py only ever uses the race year).
 import io, json, os, re, time, urllib.parse, urllib.request
 from pypdf import PdfReader
 from shapely.geometry import LineString
-from centerline import CL_API, UA, core, norm, fetch_lines, stretch
+from centerline import BORO, CL_API, TYPES, UA, core, norm, fetch_lines, meet, path
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CFG = json.load(open(os.path.join(HERE, 'marathon.json')))
@@ -35,9 +40,18 @@ TIME = r'\d{1,2}(?::\d{2})?\s*[ap]m'
 WHEN = re.compile(r'^(?P<d1>' + DATE + r')(?:,\s*(?P<t1>' + TIME + r'))?(?:\s+to\s+(?:(?P<d2>' + DATE + r')(?:,\s*(?P<t2>' + TIME + r'))?|(?P<t2b>' + TIME + r')))?\s*$', re.I)
 ABBR = [(r'\bMt\.?\s', 'Mount '), (r'\bPk\b', 'Park'), (r'\bFt\.?\s', 'Fort '), (r'\bExp\.?$', 'Expressway'), (r'\bTerr\b', 'Terrace'),
         (r'\bPlz\b', 'Plaza'), (r'\bE\.\s', 'East '), (r'\bW\.\s', 'West '), (r'\bSt\.\s+(?=[A-Z])', 'Saint '), (r'\bPl\.$', 'Place')]
-BRIDGES = [('verraz', "upper(full_street_name) like '%VERRAZ%'"), ('pulaski', "upper(full_street_name) like '%PULASKI%'"),
-           ('queensboro', "upper(full_street_name) like '%QUEENSBORO%'"), ('willis avenue bridge', "upper(full_street_name) like '%WILLIS AVE%BR%'"),
-           ('madison avenue bridge', "upper(full_street_name) like '%MADISON AVE%BR%'")]
+# The bridges by their centerline names exactly (not their ramps, entrances or bike and foot paths).
+BRIDGES = {'verraz': 'VERRAZZANO BRG', 'queensboro': 'ED KOCH QUEENSBORO BRG', 'pulaski': 'PULASKI BRG',
+           'willis avenue bridge': 'WILLIS AVE  BRIDGE', 'madison avenue bridge': 'MADISON AVE  BRIDGE'}
+# The notice's spellings that aren't the centerline's.
+FIX = {'MCGUINESS BLVD': 'MCGUINNESS BLVD', 'MCCLEAN': 'MC CLEAN AVE', 'MCCLEAN AVE': 'MC CLEAN AVE', 'MT MORRIS PARK W': 'MOUNT MORRIS PARK W',
+       'FERRY TERMINAL': 'FERRY TERMINAL DR', 'EAST DRIVE': 'EAST DR', 'EAST DR': 'EAST DR', 'FDR DR': 'FDR DR',
+       '59 ST BRIDGE': 'ED KOCH QUEENSBORO BRG', 'WILLIS AVE BRIDGE': 'WILLIS AVE BRIDGE', 'VERRAZANO BRIDGE': 'VERRAZZANO BRG',
+       'COLUMBUS CIRCLE': 'COLUMBUS CIR', 'FINGERBOARD AVE': 'FINGERBOARD RD'}
+# Where the notice names a street past its end: 59th Street is Central Park South between Fifth and Eighth Avenues, and
+# Eighth Avenue ends at Columbus Circle.
+ALT = {'59 ST': ['CENTRAL PARK S', 'COLUMBUS CIR'], '8 AVE': ['COLUMBUS CIR']}
+MAXLEN = 15000   # metres: the course's longest closed stretches (Fourth Avenue) run past the 8 km fetch_closures allows
 
 
 def fetch_pdf(year):
@@ -88,24 +102,78 @@ def rows_of(text):
     return out
 
 
-def place(body, year, start, end, lines, bridges):
+def prepare(lines):
+    """Manhattan's (and some Brooklyn) streets come in East and West halves ("E 120 ST", "W 120 ST"); the notice
+    names them bare ("120th Street"), so each pair is also kept under the bare name where no street has it."""
+    extra = {}
+    for (b, k), segs in lines.items():
+        if k[:2] in ('E ', 'W ') and (b, k[2:]) not in lines: extra.setdefault((b, k[2:]), []).extend(segs)
+    lines.update(extra)
+    idx = {}
+    for b, k in lines: idx.setdefault(b, set()).add(k)
+    return lines, idx
+
+
+def keys(idx, b, s):
+    """The centerline names in borough b the notice's text s could mean: its own spelling, a known fix, or the
+    name with a street type added ("Fingerboard" -> FINGERBOARD RD)."""
+    n = norm(s); n = FIX.get(n, n); have = idx.get(b, set())
+    if n in have: return [n] + [k for k in ALT.get(n, []) if k in have]
+    return sorted(k for k in have if k.startswith(n + ' ') and k[len(n) + 1:].split(' ')[0] in TYPES.values() and len(k[len(n) + 1:].split()) <= 2)
+
+
+def run(lines, idx, on, a, z):
+    """(coords, None, _), or (None, why, score): how much of the split named real streets, to report the likeliest."""
+    got_on, score = False, 0
+    for b in BORO.values():
+        for o in keys(idx, b, on):
+            got_on = True
+            score = max(score, 1 + bool(keys(idx, b, a)) + bool(keys(idx, b, z)))
+            for ka in keys(idx, b, a):
+                pa = meet(lines, b, o, ka)
+                if pa is None: continue
+                for kz in keys(idx, b, z):
+                    pz = meet(lines, b, o, kz)
+                    if pz is None: continue
+                    c = path(lines[(b, o)], pa, pz)
+                    if c and 10 < LineString(c).length * 85000 < MAXLEN: return [[round(x, 6), round(y, 6)] for x, y in c], None, 9
+    if not got_on: return None, 'no centerline for ' + norm(on), 0
+    return None, 'no stretch on %s between %s and %s' % (norm(on), norm(a), norm(z)), score
+
+
+def place(body, year, start, end, lines, idx, bridges):
     """One row's closure: [(coords, street, extent)] and, if nothing placed, why."""
     body = clean(body)
+    if ' to ' not in body and '/' in body: body = re.sub(r'\s*/\s*', ' to ', body, count=1)   # "Nassau Avenue Bedford Ave/ Lorimer Street"
     if ' to ' not in body:
-        key = next((k for k, _ in BRIDGES if k in body.lower()), None)
+        key = next((k for k in BRIDGES if k in body.lower()), None)
         segs = bridges.get(key) if key else None
         if not segs: return [], 'no boundaries and not a known bridge'
         return [([[round(x, 6), round(y, 6)] for x, y in s.coords], body, '') for s in segs], None
     left, z = body.split(' to ', 1)
     z = re.split(r'\s*/\s*', z)[0]
     w = left.split(' ')
-    why = 'no split placed'
+    best = (-1, 'no split placed')
     for k in range(1, len(w)):
         on, a = ' '.join(w[:k]), re.split(r'\s*/\s*', ' '.join(w[k:]))[0]
-        coords, why = stretch(lines, None, on, a, z)
+        coords, why, lvl = run(lines, idx, on, a, z)
         if coords: return [(coords, on, a + ' to ' + z)], None
-    return [], why
+        if lvl > best[0]: best = (lvl, why)
+    return [], best[1]
 
+
+def bridge_lines(rows):
+    """{notice key: [LineString]} from centerline rows (full_street_name, boroughcode, the_geom), and the same
+    segments under (borough, name) for streets that meet a bridge."""
+    by, named = {}, {}
+    for r in rows:
+        key = next((k for k, v in BRIDGES.items() if v == r.get('full_street_name')), None)
+        g = r.get('the_geom') or {}
+        for part in (g.get('coordinates') or []) if g.get('type') == 'MultiLineString' else [g.get('coordinates')] if g.get('type') == 'LineString' else []:
+            if key and part and len(part) > 1:
+                L = LineString(part); by.setdefault(key, []).append(L)
+                named.setdefault((r.get('boroughcode'), norm(r['full_street_name'])), []).append(L)
+    return by, named
 
 ORDINAL = lambda s: re.sub(r'\b(\d+)\b(?!(?:st|nd|rd|th))', lambda m: m.group(1) + ('th' if 10 <= int(m.group(1)) % 100 <= 20 else {1: 'st', 2: 'nd', 3: 'rd'}.get(int(m.group(1)) % 10, 'th')), s)
 
@@ -134,22 +202,21 @@ for year in [CFG['year'], CFG.get('test')]:
         names.add(core(norm(re.split(r'\s*/\s*', z)[0])))
         for k in range(1, len(w)):
             names.add(core(norm(' '.join(w[:k])))); names.add(core(norm(re.split(r'\s*/\s*', ' '.join(w[k:]))[0])))
+    names |= {'OF THE AMERICAS', 'FDR'}
     lines = fetch_lines(names)
-    bridges = {}
-    for key, where in BRIDGES:
-        got = json.load(urllib.request.urlopen(urllib.request.Request(CL_API + '?' + urllib.parse.urlencode({'$select': 'full_street_name,the_geom', '$where': where, '$limit': 500}), headers=UA), timeout=180))
-        segs = []
-        for g in got:
-            geo = g.get('the_geom') or {}
-            for part in (geo.get('coordinates') or []) if geo.get('type') == 'MultiLineString' else [geo.get('coordinates')] if geo.get('type') == 'LineString' else []:
-                if part and len(part) > 1: segs.append(LineString(part))
-        bridges[key] = segs
-        print('  bridge', key, ':', len(segs), 'segments,', round(sum(s.length for s in segs) * 85000), 'm of centerline;', sorted({g.get('full_street_name') for g in got})[:6])
-    permits, misses = [], []
+    q = "full_street_name in(%s)" % ','.join("'" + v + "'" for v in BRIDGES.values())
+    rows = json.load(urllib.request.urlopen(urllib.request.Request(CL_API + '?' + urllib.parse.urlencode({'$select': 'full_street_name,boroughcode,the_geom', '$where': q, '$limit': 5000}), headers=UA), timeout=180))
+    bridges, named = bridge_lines(rows)
+    for k, v in named.items(): lines.setdefault(k, []).extend(v)
+    lines, idx = prepare(lines)
+    for k, segs in bridges.items(): print('  bridge', k, ':', len(segs), 'segments,', round(sum(s.length for s in segs) * 85000), 'm')
+    permits, misses, seen = [], [], set()
     for i, (body, start, end) in enumerate(parsed):
-        got, why = place(body, year, start, end, lines, bridges)
+        got, why = place(body, year, start, end, lines, idx, bridges)
         if not got: misses.append('%s | %s' % (body, why)); continue
         for j, (coords, on, extent) in enumerate(got):
+            if (str(coords), start, end) in seen: continue      # the bridges' upper and lower levels share a centerline
+            seen.add((str(coords), start, end))
             permits.append({'id': 'nycm-%d-%d-%d' % (year, i, j), 'street': ORDINAL(on), 'extent': ORDINAL(extent), 'kind': 'closed', 'both': True,
                             'start': start, 'end': end, 'who': CFG['organizer'],
                             'desc': 'Street closed for the %s (City of New York closure notice).' % CFG['name'], 'coords': coords})
