@@ -2515,7 +2515,8 @@ function wireCard(){
   here.querySelectorAll('[data-route]').forEach(b => b.addEventListener('click', () => pickRoute(b.dataset.route, !picked.has(b.dataset.route))));
   here.querySelectorAll('[data-pf]').forEach(b => b.addEventListener('click', () => { const [id, ...n] = b.dataset.pf.split(':'); setPlaceFocus(id, n.join(':'), true); if (placeF) logEvent('focus', {layer: id, via: 'card'}); }));
   here.querySelectorAll('details.sec').forEach(d => d.addEventListener('toggle', () => { const st = secState(); st[d.dataset.sec] = d.open; if (st === secOpen) try { localStorage.setItem('cardSections', JSON.stringify(secOpen)); } catch (e) {} }));
-  const cg = here.querySelector('.cmp-go'); if (cg) cg.onclick = () => { startCompare(); logEvent('compare'); };
+  const cg = here.querySelector('button.cmp-go'); if (cg) cg.onclick = () => { startCompare(); logEvent('compare'); };
+  const ce = here.querySelector('.cmp-else'); if (ce) ce.onclick = () => logEvent('compare_elsewhere');
   const cc = here.querySelector('.cmp-cancel'); if (cc) cc.onclick = () => endCompare(0);
   here.querySelectorAll('[data-drop]').forEach(b => b.addEventListener('click', () => endCompare(+b.dataset.drop)));
 }
@@ -2539,8 +2540,12 @@ function inspect(latlng, title, muniName){
   placePin(latlng, title);
   here.hidden = false;
   // Waiting for the second place: a note with Cancel stands where the Compare button was.
+  // Beside Compare: the site's Compare page, opened on this spot's unit with the closest match in another city.
+  const unitHere = !c.outside && UNITS && c.hits[UNITS.id], unitCode = unitHere && String(unitHere.properties.code);
+  const elsewhere = unitHere && data.profiles && data.profiles[unitCode] && CMP.elsewhere
+    ? '<a class="cmp-go cmp-else" href="/compare/?mode=nbhd&amp;a=' + encodeURIComponent(CITY.id + ':' + unitCode) + '">' + esc(fill(CMP.elsewhere, {name: unitHere.properties.name})) + '</a>' : '';
   const cmpRow = cmp ? '<div class="cmp-wait"><span>' + esc(fill(CMP.wait, {name: c.heading})) + '</span><button type="button" class="cmp-cancel">' + esc(CMP.cancel) + '</button></div>'
-    : '<button type="button" class="cmp-go">' + esc(CMP.start) + '</button>';
+    : '<div class="cmp-row"><button type="button" class="cmp-go">' + esc(CMP.start) + '</button>' + elsewhere + '</div>';
   if (c.outside){
     const m = c.m;
     here.innerHTML = cardHead('What’s here', c.heading, dirBtn(c.y, c.x, c.heading)) +
@@ -2608,7 +2613,8 @@ function wireReport(latlng, name){
    same rows the card has. Nothing is marked as better or worse. Tapping elsewhere replaces B; removing a
    place goes back to the other one's card. Links keep both (pin2=, name2=). */
 const CMP = Object.assign({start: 'Compare with another place', wait: 'Now tap the map or search for a place to compare with {name}.', cancel: 'Cancel',
-  title: 'Comparing', remove: 'Remove', stands: 'Stands out', none: '—'}, CITY.card.compare || {});
+  title: 'Comparing', remove: 'Remove', stands: 'Stands out', none: '—',
+  elsewhere: 'Places like {name} in other cities'}, CITY.card.compare || {});
 let cmp = null, pinB = null;
 function startCompare(){
   if (!lastInspect) return;

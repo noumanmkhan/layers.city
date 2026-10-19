@@ -844,6 +844,8 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
 /* ---------- Compare two places ---------- */
 .cmp-go{display:block;margin:0 16px 12px;font:inherit;font-size:12px;font-weight:600;border:1px solid var(--rule);border-radius:8px;padding:6px 10px;background:none;color:var(--accent);cursor:pointer}
 .cmp-go:hover{border-color:var(--accent)}
+.cmp-row{display:flex;flex-wrap:wrap;gap:8px;margin:0 16px 12px}
+.cmp-row .cmp-go{margin:0;text-decoration:none}
 .rpt{border-top:1px solid var(--rule);padding:8px 16px 14px}
 .rpt-go{font:inherit;font-size:12px;background:none;border:none;padding:4px 0;color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .rpt-go:hover,.rpt-go[aria-expanded="true"]{color:var(--accent)}
@@ -888,7 +890,7 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
 .pin.lettered{display:grid;place-items:center;font:700 10px/1 var(--font);color:#fff}
 .pin.b{background:var(--cmp-b);box-shadow:0 0 0 7px color-mix(in srgb,var(--cmp-b) 28%,transparent),0 2px 8px rgba(0,0,0,.4)}
 @media (min-width:761px){#side.cmp{width:min(540px,calc(100vw - 364px))}}
-@media (max-width:760px){.cmp-cols,.cmp-rows{padding-left:12px;padding-right:12px} .cmp-go,.cmp-wait{margin-left:12px;margin-right:12px}}
+@media (max-width:760px){.cmp-cols,.cmp-rows{padding-left:12px;padding-right:12px} .cmp-go,.cmp-wait,.cmp-row{margin-left:12px;margin-right:12px} .cmp-row .cmp-go{margin:0}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <style>
