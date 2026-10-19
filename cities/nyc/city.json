@@ -1171,6 +1171,31 @@
      "countText": "{n} churches shown.",
      "allNote": "Some aren’t listed with a denomination, so they appear only here.",
      "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal churches."
+    },
+    {
+     "id": "food",
+     "kind": "places",
+     "file": "faith",
+     "icon": "halal",
+     "cats": [
+      [
+       "halal",
+       "Halal",
+       "Halal shop"
+      ],
+      [
+       "kosher",
+       "Kosher",
+       "Kosher shop"
+      ]
+     ],
+     "name": "Halal & kosher food",
+     "place": "Registered food shop",
+     "note": "Grocers, butchers, bakeries and fish markets on New York State’s halal and kosher registries; no restaurants or chain-store counters. New Jersey and Connecticut aren’t covered",
+     "replaces": {
+      "halal": "halal",
+      "kosher": "kosher"
+     }
     }
    ]
   ],
@@ -1929,6 +1954,16 @@
      "church",
      "Church",
      "worship:church"
+    ],
+    [
+     "halal",
+     "Halal shop",
+     "food:halal"
+    ],
+    [
+     "kosher",
+     "Kosher shop",
+     "food:kosher"
     ]
    ],
    "within": "Within half a mile",
