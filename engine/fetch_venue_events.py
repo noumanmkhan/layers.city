@@ -165,12 +165,16 @@ def status(ev):
 ADDON = re.compile(r'\b(fan access|plus ups?|add[- ]?ons?|upgrade|parking|guided tours?|tour of|courtside access|'
                    r'warm-?ups?|experience package|vip package|meet (and|&) greet|early entry|general admission|admission ticket)\b', re.I)
 
+TOURS = re.compile(r"\b(classic|guided|ballpark|stadium|arena|backstage|behind[- ]the[- ]scenes|venue) tours?\b|\btours? (at|of) ", re.I)
+
 out, unmatched, seen = {v['slug']: [] for v in venues}, {}, set()
 for ev in events:
     vs = (ev.get('_embedded') or {}).get('venues') or []
     if not vs or ev.get('id') in exclude:
         continue
     if kind(ev) == 'other' and ADDON.search(ev.get('name', '')):
+        continue
+    if TOURS.search(ev.get('name', '')):          # building tours, sold as "sports" at the ballparks
         continue
     tv = vs[0]
     slug = known.get(tv.get('id')) or by_name.get(norm(tv.get('name', '')))
