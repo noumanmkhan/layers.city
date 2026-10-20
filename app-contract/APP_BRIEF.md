@@ -29,7 +29,15 @@ links out to layers.city rather than being rebuilt in the app.
    (less automatically) when the answer is no.
 6. **Every city, from `city.json`.** Features read what each city publishes and quietly hide where a city has no
    data for them (no garbage-day row in Vancouver, for example). No city names in the app's code.
-7. **Trust over coverage.** A widget that says a road is closed when it isn't gets removed. Show the data's date,
+7. **Apple Maps finds things; Layers.City explains places** (decided October 20, 2026). Bike share, EV
+   chargers, washrooms, parking and other amenities are already in Apple Maps, preinstalled on every iPhone,
+   with live availability and hours we can't match or keep current. The app never becomes a place to look
+   them up. Where an amenity appears at all, it is a count that describes the neighbourhood ("6 bike share
+   stations within 5 minutes"), and tapping it opens Apple Maps on that search near the spot. A map is drawn
+   in the app only to show something Apple and Google don't: boundaries (neighbourhood, ward, school board,
+   permit area), what's changing, event and transit construction closures with their permit dates, pickup
+   areas.
+8. **Trust over coverage.** A widget that says a road is closed when it isn't gets removed. Show the data's date,
    prefer fewer items, and drop an item rather than guess.
 
 ## What it should be
@@ -69,10 +77,14 @@ links out to layers.city rather than being rebuilt in the app.
 - Needs a new published file on the website side (below). Cities without the inputs don't offer it.
 
 ### 4. The app itself: "around you" in numbers
-- One screen per city, big tiles with numbers and short phrases: closures nearby, parks and playgrounds within
-  walking distance, bike share stations, nearest library and community centre, next pickup, ward and
-  councillor, transit within a short walk. Tiles come from the card's Nearby, pickup, reps and closures data.
-- Each tile opens a plain list or a small map, with a "See it on layers.city" link for the full picture.
+- One screen per city, big tiles with numbers and short phrases. Two kinds:
+  - **Identity and what's going on** (the app's own answers): neighbourhood, ward and councillor, next pickup,
+    closures nearby, what's changing, voting place in election season. These open a plain list or, only where
+    a boundary or closure needs it, a small map.
+  - **What the area has** (counts that describe it, from the card's Nearby data): parks and playgrounds,
+    bike share stations, libraries, community centres, transit within a short walk. Tapping one opens Apple
+    Maps searching for it near the spot. No in-app lists of amenities, no live availability.
+- A "See it on layers.city" link for the full picture.
 - Pick any spot (search, or a saved place) to see the same tiles there.
 
 ### 5. More, in rough order of value
@@ -100,8 +112,9 @@ links out to layers.city rather than being rebuilt in the app.
 
 ## What it shouldn't be
 
-- **Not a map app.** No competing with Apple or Google Maps, no turn-by-turn, no attempt to draw every layer.
-  A small map appears only where a list can't explain the answer.
+- **Not a map app.** No competing with Apple or Google Maps, no turn-by-turn, no attempt to draw every layer,
+  no amenity lookups. A small map appears only to show something those maps don't (principle 7). The first
+  attempt at this app was a map; that was the mistake this restart fixes.
 - **Not a transit app.** No live arrivals or trip planning; Transit, the TTC's own apps and others do it well.
 - **Not an amenity directory.** Washrooms, Wi-Fi, water fountains and litter bins are what other city apps
   already do (Toronto: Transit & Amenities); Layers.City adds what they don't: identity (where am I, who

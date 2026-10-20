@@ -16,6 +16,10 @@ change, clone or fetch from.
 - The app is the glance, the website is the deep tool: widgets, a few notifications, big numbers
   and short phrases. Never aim for parity with the web map; link to layers.city instead.
 - Design each feature for the lock screen widget first.
+- Never build amenity lookups (bike share, chargers, washrooms, parking): Apple Maps already does them.
+  Amenities appear only as counts that describe a neighbourhood, and tapping one opens Apple Maps
+  (`MKMapItem` / a maps URL search near the spot). Draw a map only for what Apple and Google don't
+  show: boundaries, what's changing, closures with permit dates, pickup areas.
 - Every feature works for every city from its `city.json`, and hides itself where a city has no
   data for it. No city names in code.
 
