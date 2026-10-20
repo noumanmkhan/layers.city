@@ -85,6 +85,9 @@ the landing page, stop and say so; don't change this repo.
 - An iOS app (separate repo, built in Cursor) reads the published `docs/<city>/data/` files and
   `docs/<city>/data/city.json` (written by `engine/assemble.py`). `app-contract/DATA_CONTRACT.md`
   describes them.
+- `app-contract/APP_BRIEF.md` says what the app is and isn't (restarted from it October 20, 2026);
+  `app-contract/cursor-rules.mdc` is the copy of the app repo's Cursor rules. Features in the brief that
+  need new published data (such as `weekend.json`) are built here first, then added to the contract.
 - When a change alters a published file, field or card row, update the contract in the same
   commit. Adding things is fine. Renaming, removing or changing the meaning or units of a field or
   file is a breaking change: bump `"schema"` in every `cities/*/city.json` and add a migration

@@ -1,13 +1,23 @@
 ---
-description: City Layers iOS app — boundaries, data source and display rules
+description: Layers.City iOS app — what it is, data source, privacy and display rules
 alwaysApply: true
 ---
 
-# City Layers iOS app
+# Layers.City iOS app
 
-This repo is the iOS app (SwiftUI app + WidgetKit extension) for City Layers, the map at
+This repo is the iOS app (SwiftUI app + WidgetKit extension) for Layers.City, the maps at
 https://layers.city/. The website lives in a separate repo that this project must never
 change, clone or fetch from.
+
+## What the app is (read first)
+- `APP_BRIEF.md` in this repo says what the app should and shouldn't be. The app was restarted
+  from it on October 20, 2026; don't carry over code or screens from the first attempt unless the
+  brief calls for them.
+- The app is the glance, the website is the deep tool: widgets, a few notifications, big numbers
+  and short phrases. Never aim for parity with the web map; link to layers.city instead.
+- Design each feature for the lock screen widget first.
+- Every feature works for every city from its `city.json`, and hides itself where a city has no
+  data for it. No city names in code.
 
 ## Where the data comes from
 - Read `DATA_CONTRACT.md` in this repo before writing any code that loads or shows map data.
@@ -21,9 +31,17 @@ change, clone or fetch from.
 - Ship a bundled copy of each city's data for offline use and refresh it in the background.
 - Colours come from `palette` in `city.json` (light and dark per CSS variable name). Don't copy
   hex values into the app.
-- Map layers: section 11 of `DATA_CONTRACT.md` says which layers to draw, how the website styles
-  and labels them, and how to adapt that to Apple's map. Polygons have holes; use
-  `MKGeoJSONDecoder` and keep `interiorPolygons`.
+- Maps are secondary. Where the brief calls for a small map, section 11 of `DATA_CONTRACT.md`
+  says how the website styles layers and how to adapt that to Apple's map. Polygons have holes;
+  use `MKGeoJSONDecoder` and keep `interiorPolygons`.
+
+## Privacy (not negotiable)
+- Location, saved places and the neighbourhood timeline stay on the device (iCloud private sync
+  at most). No accounts, no server that receives location or identity, no ad or analytics SDKs.
+- Ask for each permission (Always location, notifications) only when the user turns on the
+  feature that needs it, with a one-line reason. Every feature must still work without it.
+- Schedule notifications locally from published data wherever possible.
+- One clear control to wipe the timeline and saved places.
 
 ## Display rules (from the website; keep them)
 - Describe, don't rank. Language at home and any other demographic field is shown on the card
