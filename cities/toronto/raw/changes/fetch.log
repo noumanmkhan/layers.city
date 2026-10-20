@@ -60,21 +60,21 @@
     ('SB', 'OMB Approved') 20
     ('SB', 'Under Review ') 356
   kept 5269 of 26648
-  first row both projections: 23 212767 NNY 18 SA {2952: [-79.418119, 43.795797], 2019: [-79.418116, 43.797733]}
+  first row both projections: 25 251661 NNY 08 OZ {2952: [-79.443308, 43.719304], 2019: [-79.443304, 43.721239]}
   wrote devapps 5269 rows, 3971 KB
 == permits ckan_permits
   got https://ckan0.cf.opendata.inter.prod-toronto.ca/datastore/dump/6d0229af-bc54-46de-9c2b-26759b01dd05 64 MB
-  resource building-permits-active-permits 201876 rows so far
+  resource building-permits-active-permits 201860 rows so far
   got https://ckan0.cf.opendata.inter.prod-toronto.ca/datastore/dump/a96c0ba4-3026-402b-b09d-5b1268b8f810 143 MB
-  resource Cleared Building Permits since 2017 444904 rows so far
+  resource Cleared Building Permits since 2017 444920 rows so far
   permit type / work (top 60):
     ('Plumbing(PS)', 'Building Permit Related(PS)') 121108
     ('Mechanical(MS)', 'Building Permit Related(MS)') 112952
     ('Building Additions/Alterations', 'Interior Alterations') 56238
     ('Small Residential Projects', 'Multiple Projects') 46701
-    ('Drain and Site Service', 'Building Permit Related (DR)') 38788
+    ('Drain and Site Service', 'Building Permit Related (DR)') 38787
     ('New Houses', 'New Building') 34209
-    ('Drain and Site Service', 'Back Water Valve (Sewer only)') 24354
+    ('Drain and Site Service', 'Back Water Valve (Sewer only)') 24357
     ('Small Residential Projects', 'Interior Alterations') 22301
     ('Demolition Folder (DM)', 'Demolition') 14834
     ('Designated Structures', 'Sign Building Permit Related') 12173
@@ -96,7 +96,7 @@
     ('Small Residential Projects', 'New Laneway / Rear Yard Suite') 3229
     ('Building Additions/Alterations', 'Garage Repair/Reconstruction') 2947
     ('Small Residential Projects', 'Accessory Building(s)') 2799
-    ('Drain and Site Service', 'Inside and Outside Drains') 2623
+    ('Drain and Site Service', 'Inside and Outside Drains') 2621
     ('Conditional Permit', 'New Building') 2578
     ('Fire/Security Upgrade', 'Building Permit Related(FS)') 2531
     ('Building Additions/Alterations', 'Addition(s) ') 2482
@@ -128,10 +128,10 @@
     ('Mechanical(MS)', 'Alter: Boiler/Furnace/AC Replacement') 749
     ('Residential Building Permit', 'Alteration to Existing Building') 747
     ('Small Residential Projects', 'Canopy') 743
-  selected 3906 · by status {'Inspection': 1116, 'Closed': 1105, 'Revision Issued': 475, 'Permit Issued': 374, 'Under Review ': 245, "Examiner's Notice Sent": 188, 'Cancelled': 123, 'Closed - Dormant': 70, 'Response Received': 58, 'Refusal Notice': 23, 'Revocation Pending': 23, 'Work Not Started': 23, 'Application Acceptable': 19, 'Pending Cancellation': 13, 'Not Started': 13, 'Application On Hold': 12, 'Issuance Pending': 12, 'Application Received': 4, 'Ready for Issuance': 4, 'Abandoned': 1, 'Agreement in Progress': 1, 'Forwarded for Issuance': 1, 'Extension Granted': 1, 'Application Withdrawn': 1, 'Notice Sent': 1}
+  selected 3906 · by status {'Inspection': 1116, 'Closed': 1105, 'Revision Issued': 475, 'Permit Issued': 374, 'Under Review ': 245, "Examiner's Notice Sent": 188, 'Cancelled': 123, 'Closed - Dormant': 70, 'Response Received': 58, 'Refusal Notice': 23, 'Revocation Pending': 23, 'Work Not Started': 23, 'Application Acceptable': 18, 'Not Started': 14, 'Pending Cancellation': 13, 'Application On Hold': 12, 'Issuance Pending': 12, 'Application Received': 4, 'Ready for Issuance': 4, 'Abandoned': 1, 'Agreement in Progress': 1, 'Forwarded for Issuance': 1, 'Extension Granted': 1, 'Application Withdrawn': 1, 'Notice Sent': 1}
   got https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/abedd8bc-e3dd-4d45-8e69-79165a76e4fa/resource/64d4e54b-738f-4cd9 174 MB
-  address points: 525372
-  placed: {'geo_id': 3126, 'none': 326, 'address': 454}
+  address points: 525371
+  placed: {'address': 454, 'geo_id': 3126, 'none': 326}
   wrote permits 3580 rows, 2442 KB
-toronto: 5984 items → 2839 sites · 1378 KB
-  by kind/stage: {('siteplan', 'proposed'): 726, ('demolition', 'finished'): 490, ('rezoning', 'proposed'): 426, ('building', 'building'): 309, ('building', 'finished'): 272, ('building', 'proposed'): 161, ('demolition', 'approved'): 125, ('subdivision', 'proposed'): 121, ('demolition', 'building'): 66, ('building', 'approved'): 43, ('siteplan', 'approved'): 36, ('demolition', 'proposed'): 34, ('rezoning', 'approved'): 30}
+toronto: 5983 items → 2840 sites · 1379 KB
+  by kind/stage: {('siteplan', 'proposed'): 722, ('demolition', 'finished'): 489, ('rezoning', 'proposed'): 421, ('building', 'building'): 309, ('building', 'finished'): 273, ('building', 'proposed'): 161, ('subdivision', 'proposed'): 130, ('demolition', 'approved'): 125, ('demolition', 'building'): 66, ('building', 'approved'): 43, ('siteplan', 'approved'): 37, ('demolition', 'proposed'): 34, ('rezoning', 'approved'): 30}
