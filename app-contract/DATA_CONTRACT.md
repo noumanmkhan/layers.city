@@ -802,8 +802,10 @@ one from Friday to Sunday.
 - `closed[].kind`: `transit` (a planned rapid transit closure: `title` "Line 1 · Finch to Sheppard-Yonge",
   `line` "No service · shuttle buses" or "Closes early at night", `text` the agency's full notice), `event`
   (special-event road closures: `line` "126 road closures", `at` the middle of the event, `link` the organizer's
-  notice when there is one) or `road` (full closures of an expressway or major arterial, one item per street:
-  `line` the stretch or "3 stretches closed", `at` a point on it). Ranked transit, then events by size, then
+  notice when there is one) or `road` (full closures of an expressway, ramp or major arterial that start at most a
+  week before the weekend, so long-running closures don't repeat every week; closures within 600 m are one item,
+  "3 closures near Lawrence W DVP N Ramp", `line` the stretch or "… and 2 more nearby", `at` a point on it;
+  `when` says "Nightly 9 p.m.–5 a.m." or "Daily 6 a.m.–6 p.m." when the permit has set hours). Ranked transit, then events by size, then
   expressways, then arterials.
 - `when` is display text clipped to the weekend: "Sat–Sun", "Sun 6 a.m.–6 p.m.", "All weekend". `start`/`end`
   are the full times in city time.

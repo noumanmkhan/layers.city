@@ -112,24 +112,45 @@ if ev is not None:
                        'when': span(e['start'], e['end']), 'start': e['start'], 'end': e['end'],
                        'at': [round((w + x) / 2, 5), round((s + n) / 2, 5)], 'link': e.get('notice') or e.get('link')})
 
-# 3. Full closures of expressways and major arterials, one item per street.
+# 3. Full closures of expressways and major arterials: news only (starting at most a week before the weekend;
+# a closure in place for months is the status quo, not this weekend's news). Permits within 600 m of each
+# other are one item (the four ramps of one interchange). Night-only permits say so.
 maj = load(CITY, 'raw', 'closures', 'major.json')
 if maj is not None:
     sources.append('roads')
-    by_street = {}
-    for p in maj.get('permits', []):
-        if p.get('kind') != 'closed' or not overlaps(p['start'], p['end']) or not p.get('street'):
-            continue
-        by_street.setdefault(p['street'], []).append(p)
-    for street, ps in by_street.items():
-        ps.sort(key=lambda p: p['start'] or '')
-        expressway = any('express' in str(p.get('roadClass') or '').lower() for p in ps)
-        p = ps[0]
-        mid = p['coords'][len(p['coords']) // 2]
-        closed.append({'kind': 'road', 'rank': 2 if expressway else 3, 'size': len(ps),
-                       'title': street, 'line': p['extent'] if len(ps) == 1 else '%d stretches closed' % len(ps),
-                       'when': span(min(x['start'] for x in ps), max(x['end'] or W1 for x in ps)),
-                       'start': p['start'], 'end': max(x['end'] or W1 for x in ps), 'at': mid})
+    since = (start - timedelta(days=7)).strftime('%Y-%m-%dT%H:%M')
+    ps = [p for p in maj.get('permits', []) if p.get('kind') == 'closed' and p.get('street') and p.get('coords')
+          and overlaps(p['start'], p['end']) and (p['start'] or '') >= since
+          and p.get('days') in (None, 'daily', 'weekends')]
+    for p in ps:
+        p['mid'] = p['coords'][len(p['coords']) // 2]
+        p['xway'] = 'express' in str(p.get('roadClass') or '').lower()
+    ps.sort(key=lambda p: (not p['xway'], p['start'] or ''))
+    groups = []
+    for p in ps:
+        g = next((g for g in groups if km(g[0]['mid'], p['mid']) < 0.6), None)
+        (g.append(p) if g else groups.append([p]))
+
+    def name(t):
+        return re.sub(r'\bDvp\b', 'DVP', t)
+
+    def hours(g):
+        hs = {p.get('hours') for p in g}
+        if len(hs) == 1 and None not in hs and '24h' not in hs:
+            a, b = hs.pop().split('–')
+            return 'nightly %s–%s' % (ampm('T' * 11 + a), ampm('T' * 11 + b)) if a > b else 'daily %s–%s' % (ampm('T' * 11 + a), ampm('T' * 11 + b))
+        return None
+
+    for g in groups:
+        p = g[0]
+        h = hours(g)
+        first, last = min(x['start'] for x in g), max(x['end'] or W1 for x in g)
+        line = name(p['extent']) if len(g) == 1 else '%s and %d more nearby' % (name(p['street']), len(g) - 1)
+        closed.append({'kind': 'road', 'rank': 2 if p['xway'] else 3, 'size': len(g),
+                       'title': name(p['street']) if len(g) == 1 else '%d closures near %s' % (len(g), name(p['street'])),
+                       'line': line if len(g) == 1 else line,
+                       'when': ('All weekend, ' + h) if h and span(first, last) == 'All weekend' else (h.capitalize() if h else span(first, last)),
+                       'start': first, 'end': last, 'at': p['mid']})
 
 closed.sort(key=lambda c: (c['rank'], -c.get('size', 0), c['start'] or ''))
 closed = closed[:MAX]
