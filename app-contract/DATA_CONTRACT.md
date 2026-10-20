@@ -783,3 +783,33 @@ announced, `region` the regional view's bounds `[[south, west], [north, east]]` 
 city a spot might be in, before the footprint and `base.geojson` tests in section 5), `data` the path of its
 data folder. The build rewrites it whenever any city is assembled. Load a city's files only after its `schema`
 is one the app knows; keep bundled cities working offline.
+
+## 14. The weekend brief
+
+`weekend.json` (Toronto and New York as of October 21, 2026; a city without it has no brief: hide the Weekend
+tab's content and its notification). Built daily by `engine/weekend.py` in *Fetch transit closures* and
+*Refresh venues*, so it always describes the next weekend: the coming one from Monday to Thursday, the current
+one from Friday to Sunday.
+
+```
+{version: 1, city, tz, asof,
+ weekend: {from: "2026-10-23T17:00", to: "2026-10-25T23:59", label: "Oct 23–25"},   city time, Fri 5 p.m. to Sun midnight
+ sources: ["subway", "events", "roads", "venues"],                                   which inputs this city has
+ closed: [{kind, title, line, when, start, end, at?, text?, link?}],                at most 5, already ranked
+ on:     [{title, venue, slug, when, start, shows, at, link}]}                       at most 5, already ranked
+```
+
+- `closed[].kind`: `transit` (a planned rapid transit closure: `title` "Line 1 · Finch to Sheppard-Yonge",
+  `line` "No service · shuttle buses" or "Closes early at night", `text` the agency's full notice), `event`
+  (special-event road closures: `line` "126 road closures", `at` the middle of the event, `link` the organizer's
+  notice when there is one) or `road` (full closures of an expressway or major arterial, one item per street:
+  `line` the stretch or "3 stretches closed", `at` a point on it). Ranked transit, then events by size, then
+  expressways, then arterials.
+- `when` is display text clipped to the weekend: "Sat–Sun", "Sun 6 a.m.–6 p.m.", "All weekend". `start`/`end`
+  are the full times in city time.
+- `on[]`: shows at the city's big venues (Venues), biggest venue first, at most two from one venue; a show that
+  repeats has `shows` > 1 and `when` "Fri–Sun" or "Sat · 3 shows". `link` is the venue's page on layers.city
+  (getting there, parking). Facts only: no prices, images or ticket links (the event data's terms).
+- Either list may be empty: say so ("No planned closures this weekend") rather than hiding the section.
+- Transit closures come from the TTC's alerts list behind ttc.ca (not a documented open feed); if it stops
+  working, `sources` loses `subway` and the brief carries on without it.

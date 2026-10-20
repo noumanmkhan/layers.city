@@ -5,6 +5,8 @@ name: Fetch transit closures
 # docs/<city>/data/closures.geojson with engine/closures.py, and commits both to main. Pages
 # redeploys on the push, so the map shows that day's permits. Toronto's fetch also saves special-event
 # closures (raw/closures/events.json), which engine/events.py turns into docs/toronto/data/events.geojson.
+# Then the weekend brief for the iOS app: TTC planned subway closures (fetch_subway_alerts.py) and
+# engine/weekend.py for every city -> docs/<city>/data/weekend.json.
 # Actions schedules are in UTC: midnight in New York is 04:00 UTC in summer and 05:00 UTC in winter.
 # Both schedules fire; the first to start fetches and the second exits if today's file is built.
 # Scheduled runs often start hours late; the page hides permits that have ended, so that's harmless.
@@ -15,7 +17,7 @@ on:
     - cron: '7 5 * * *'
   push:
     branches: [main]
-    paths: ['cities/*/fetch_closures.py', 'cities/*/fetch_marathon.py', 'cities/*/centerline.py', 'cities/*/marathon.json', 'cities/*/construction.json', 'cities/*/events.json', 'engine/closures.py', 'engine/events.py', '.github/workflows/fetch-closures.yml']
+    paths: ['cities/*/fetch_closures.py', 'cities/*/fetch_marathon.py', 'cities/*/centerline.py', 'cities/*/marathon.json', 'cities/*/construction.json', 'cities/*/events.json', 'engine/closures.py', 'engine/events.py', 'engine/weekend.py', 'cities/*/fetch_subway_alerts.py', '.github/workflows/fetch-closures.yml']
 permissions:
   contents: write
 concurrency: fetch-closures
@@ -50,11 +52,14 @@ jobs:
             [ -f cities/$c/fetch_marathon.py ] && ( python3 -u cities/$c/fetch_marathon.py 2>&1 | tee cities/$c/raw/closures/marathon.log || true )   # New York: the City's marathon notice, once posted
             ( python3 -u cities/$c/fetch_closures.py && python3 -u engine/closures.py $c && python3 -u engine/events.py $c ) 2>&1 | tee cities/$c/raw/closures/fetch.log || true
           done
+          # The weekend brief for the iOS app (engine/weekend.py): Toronto's planned subway closures first.
+          ( python3 -u cities/toronto/fetch_subway_alerts.py 2>&1 | tee -a cities/toronto/raw/closures/fetch.log ) || true
+          for c in $(ls cities/*/city.json | cut -d/ -f2); do python3 -u engine/weekend.py $c || echo "::warning::$c weekend failed"; done
       - if: steps.when.outputs.skip != '1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          for p in cities/toronto/raw/closures cities/chicago/raw/closures cities/nyc/raw/closures docs/toronto/data/closures.geojson docs/chicago/data/closures.geojson docs/nyc/data/closures.geojson docs/toronto/data/events.geojson docs/nyc/data/events.geojson; do
+          for p in cities/toronto/raw/closures cities/chicago/raw/closures cities/nyc/raw/closures docs/toronto/data/closures.geojson docs/chicago/data/closures.geojson docs/nyc/data/closures.geojson docs/toronto/data/events.geojson docs/nyc/data/events.geojson docs/*/data/weekend.json; do
             if [ -e "$p" ]; then git add "$p"; fi
           done
           git commit -m "Daily transit closures ($(TZ=America/New_York date +%F))" || echo "no changes"

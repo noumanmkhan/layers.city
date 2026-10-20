@@ -7,6 +7,9 @@ Kept: every permit whose source / work event type / permit type is "Metrolinx", 
 the transit consortiums in construction.json "closures.contractors" (a few Ontario Line permits
 are filed as "Other"). Which project a permit belongs to is decided later, by where it is.
 
+Also kept, separately: full closures of expressways and major arterials starting within 10 days, from
+any permit holder, written to raw/closures/major.json for the weekend brief (engine/weekend.py).
+
 Also kept, separately: every record flagged specialEvent = "Yes" (races, parades, festivals, block
 parties), written to raw/closures/events.json for engine/events.py and the Special events layer.
 Event closures are filed with the event's organizer as contractor (the Waterfront Marathon's are all
@@ -107,6 +110,21 @@ json.dump({'fetched': now, 'source': URL, 'permits': events}, open(os.path.join(
 print('Toronto:', len(events), 'special-event closures')
 if LOCAL:
     sys.exit(0)
+
+# Full closures of expressways and major arterials from any permit holder (Gardiner and DVP weekend
+# work, bridge repairs, filming), starting within 10 days and not already ended: the weekend brief's road
+# items (engine/weekend.py). Not drawn on the map. The road class counts go to the log for checking.
+from collections import Counter
+from datetime import timedelta
+soon = (datetime.now(TZ) + timedelta(days=10)).strftime('%Y-%m-%dT%H:%M')
+print('Toronto road classes of full closures:', dict(Counter(r.get('roadClass') for r in recs if r.get('type') == 'ROAD_CLOSED')))
+major = [p for p in (permit(r, 'closed') for r in recs
+                     if r.get('type') == 'ROAD_CLOSED' and not is_transit(r)
+                     and str(r.get('specialEvent')).strip().lower() != 'yes'
+                     and re.search(r'expressway|major', str(r.get('roadClass') or ''), re.I)) if p
+         and (p['end'] or '9999') >= now and (p['start'] or '') <= soon]
+json.dump({'fetched': now, 'source': URL, 'permits': major}, open(os.path.join(OUT, 'major.json'), 'w'), indent=0)
+print('Toronto:', len(major), 'full closures of expressways and major arterials in the next 10 days')
 
 out = [p for p in (permit(r, 'closed' if r.get('type') == 'ROAD_CLOSED' else 'narrowed') for r in recs if is_transit(r)) if p]
 json.dump({'fetched': now, 'source': URL, 'permits': out},

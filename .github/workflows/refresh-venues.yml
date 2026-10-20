@@ -46,10 +46,13 @@ jobs:
       - name: Build the pages
         run: |
           for c in $(ls cities/*/venues.json | cut -d/ -f2); do python3 -u engine/venues.py $c; done
+      - name: The weekend brief (iOS app)
+        run: |
+          for c in $(ls cities/*/city.json | cut -d/ -f2); do python3 -u engine/weekend.py $c || echo "::warning::$c weekend failed"; done
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/*/raw/venue_events.log cities/*/raw/venue_events.json cities/*/raw/venue_tm_ids.json cities/*/raw/venue_drives.json docs/*/venues
+          git add cities/*/raw/venue_events.log cities/*/raw/venue_events.json cities/*/raw/venue_tm_ids.json cities/*/raw/venue_drives.json docs/*/venues docs/*/data/weekend.json
           git commit -m "Venues: this week's events and pages ($(date -u +%Y-%m-%d))" || echo "no changes"
           git pull --rebase
           git push
