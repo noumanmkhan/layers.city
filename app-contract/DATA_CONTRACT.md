@@ -763,3 +763,13 @@ The app opens these pages in an in-app Safari sheet rather than rebuilding them 
 - **Venue pages:** `https://layers.city/<city>/venues/<slug>/` (Toronto and New York). The venue list isn't
   published as app data yet; it will be when the weekend brief needs it.
 
+
+## 13. The list of cities
+
+`https://layers.city/cities.json` (added October 21, 2026) lists every published city, so an app picks up
+a new city without an update: `{version: 1, cities: [{id, name, title, schema, country, listed, region, data}]}`.
+`name` is the short name ("Toronto"), `country` `ca` or `us`, `listed` false for a city that's live but not
+announced, `region` the regional view's bounds `[[south, west], [north, east]]` (a quick first test of which
+city a spot might be in, before the footprint and `base.geojson` tests in section 5), `data` the path of its
+data folder. The build rewrites it whenever any city is assembled. Load a city's files only after its `schema`
+is one the app knows; keep bundled cities working offline.

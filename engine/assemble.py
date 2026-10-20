@@ -71,3 +71,25 @@ cfg_out = os.path.join(ROOT, 'docs', city, 'data', 'city.json')
 os.makedirs(os.path.dirname(cfg_out), exist_ok=True)
 open(cfg_out, 'w', encoding='utf-8').write(json.dumps(pub, ensure_ascii=False, separators=(',', ':')) + '\n')
 print('published docs/%s/data/city.json' % city)
+
+# docs/cities.json: the list of published cities, for apps (DATA_CONTRACT.md section 13), so a new
+# city reaches them without an app update. Rebuilt from every published city on each assemble.
+cities = []
+for cid in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
+    src = os.path.join(ROOT, 'cities', cid, 'city.json')
+    if not (os.path.isfile(src) and os.path.isfile(os.path.join(ROOT, 'docs', cid, 'data', 'city.json'))):
+        continue
+    c = json.loads(read(src))
+    cities.append({
+        'id': c['id'],
+        'name': c.get('heading') or c.get('title'),
+        'title': c.get('title'),
+        'schema': c.get('schema'),
+        'country': (c.get('search') or {}).get('country'),
+        'listed': not c.get('unlisted', False),
+        'region': (c.get('view') or {}).get('region'),
+        'data': '/%s/data/' % c['id'],
+    })
+open(os.path.join(ROOT, 'docs', 'cities.json'), 'w', encoding='utf-8').write(
+    json.dumps({'version': 1, 'cities': cities}, ensure_ascii=False, separators=(',', ':')) + '\n')
+print('published docs/cities.json', len(cities), 'cities')
