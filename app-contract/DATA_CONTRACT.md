@@ -740,3 +740,20 @@ Toronto, 43.66810, -79.36690 (the worked example in section 5) sits inside the D
 (`--a-downtown`), in Ward 13, inside the Cabbagetown (Metcalfe) heritage district, and outside
 any BIA. `https://layers.city/toronto/#pin=43.66810,-79.36690` shows the same; turn the
 layers on there to compare.
+
+## 12. Links to pages on the website
+
+The app opens these pages in an in-app Safari sheet rather than rebuilding them (added October 20, 2026).
+
+- **Fact sheet for a spot:** `https://layers.city/<city>/profiles/?at=<lat>,<lon>` (latitude first,
+  3 decimals is plenty). The page finds the neighbourhood that contains the spot, opens its sheet and
+  drops a "you are here" pin. Outside every unit it says so. Optional `&lens=<id>` opens a lens other
+  than the overview.
+- **Fact sheet for a named unit:** `https://layers.city/<city>/profiles/?n=<slug>`, where `<slug>` comes
+  from `https://layers.city/<city>/profiles/data/index.json` (`{asof, places: [{slug, name}]}`); match the
+  unit's `name` from the card. Prefer the `at=` form when you have a spot.
+- **Which cities have fact sheets:** those whose `profiles/data/index.json` loads (Toronto and New York as of
+  October 20, 2026). A 404 means none yet: hide the link.
+- **Venue pages:** `https://layers.city/<city>/venues/<slug>/` (Toronto and New York). The venue list isn't
+  published as app data yet; it will be when the weekend brief needs it.
+
