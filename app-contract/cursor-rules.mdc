@@ -16,6 +16,11 @@ change, clone or fetch from.
 - The app is the glance, the website is the deep tool: widgets, a few notifications, big numbers
   and short phrases. Never aim for parity with the web map; link to layers.city instead.
 - Design each feature for the lock screen widget first.
+- Fact sheets, Venues, Compare and place pages are never rebuilt as screens: open them from
+  layers.city in an in-app Safari sheet (`SFSafariViewController`). Use their published data only
+  for glance features (weekend brief, event-night alerts).
+- Scheduled information only (closures, planned shutdowns, pickup days). No live incident alerts
+  and no push server.
 - Never build amenity lookups (bike share, chargers, washrooms, parking): Apple Maps already does them.
   Amenities appear only as counts that describe a neighbourhood, and tapping one opens Apple Maps
   (`MKMapItem` / a maps URL search near the spot). Draw a map only for what Apple and Google don't

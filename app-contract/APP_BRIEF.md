@@ -37,7 +37,21 @@ links out to layers.city rather than being rebuilt in the app.
    in the app only to show something Apple and Google don't: boundaries (neighbourhood, ward, school board,
    permit area), what's changing, event and transit construction closures with their permit dates, pickup
    areas.
-8. **Trust over coverage.** A widget that says a road is closed when it isn't gets removed. Show the data's date,
+8. **The app uses the data; the website hosts the pages** (decided October 20, 2026). Fact sheets, Venues,
+   Compare and place pages stay on layers.city and are never rebuilt as app screens. The app opens them in an
+   in-app Safari sheet, which keeps one copy to maintain and sends visits, links and search signals to the
+   website. Their data still feeds the glance features: venue events are the "On" half of the weekend brief
+   and the event-night alerts.
+   - Tapping the neighbourhood name on "Around you" opens its fact sheet.
+   - Tapping a collected stamp opens that neighbourhood's fact sheet.
+   - Each event item has a "Getting there" link to its venue page.
+9. **Planned, not live** (decided October 20, 2026). The app knows what's scheduled: permitted closures,
+   event closures, planned subway shutdowns, pickup days. It does not report incidents as they happen
+   ("Line 2 delayed, security incident, 5 minutes ago"); transit apps, the TTC's own alerts and Apple Maps do
+   that, and doing it well needs a server polling feeds and sending pushes, which the app doesn't have. A
+   possible later step, pull-only: the widget and app show the agency's current service alerts when they
+   refresh, always with the time they were fetched, and never as a push.
+10. **Trust over coverage.** A widget that says a road is closed when it isn't gets removed. Show the data's date,
    prefer fewer items, and drop an item rather than guess.
 
 ## What it should be
@@ -115,7 +129,9 @@ links out to layers.city rather than being rebuilt in the app.
 - **Not a map app.** No competing with Apple or Google Maps, no turn-by-turn, no attempt to draw every layer,
   no amenity lookups. A small map appears only to show something those maps don't (principle 7). The first
   attempt at this app was a map; that was the mistake this restart fixes.
-- **Not a transit app.** No live arrivals or trip planning; Transit, the TTC's own apps and others do it well.
+- **Not a transit app.** No live arrivals, trip planning or live incident alerts; Transit, the TTC's own
+  apps and Apple Maps do them well (principle 9).
+- **Not a copy of the website.** Fact sheets, Venues and Compare are links out (principle 8).
 - **Not an amenity directory.** Washrooms, Wi-Fi, water fountains and litter bins are what other city apps
   already do (Toronto: Transit & Amenities); Layers.City adds what they don't: identity (where am I, who
   represents me), what's changing, closures and the weekend, pickup days, and every city.
