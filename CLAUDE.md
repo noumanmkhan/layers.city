@@ -82,7 +82,7 @@ the landing page, stop and say so; don't change this repo.
   commit the raw file. It also rejects bursts of parallel requests, so fetch one layer at a time.
 
 ## Apps that read this data
-- An iOS app (separate repo, built in Cursor) reads the published `docs/<city>/data/` files and
+- An iOS app (separate repo, built with Claude Code) reads the published `docs/<city>/data/` files and
   `docs/<city>/data/city.json` (written by `engine/assemble.py`). `app-contract/DATA_CONTRACT.md`
   describes them.
 - The app's repo is `noumanmkhan/layers.city.ios`; its product brief (`APP_BRIEF.md`) and `CLAUDE.md`
