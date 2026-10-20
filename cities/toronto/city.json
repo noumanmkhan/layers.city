@@ -306,7 +306,8 @@
                   ["halal", "Halal grocer", "food:halal"], ["kosher", "Kosher shop", "food:kosher"]],
       "within": "Within 1 km",
       "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["tennis", "park with tennis courts", "parks with tennis courts"], ["offleash", "dog off-leash area", "dog off-leash areas"], ["school_e", "elementary school", "elementary schools"], ["school_s", "secondary school", "secondary schools"]],
-      "note": "Straight-line distances; 1 km is about a 15-minute walk. City of Toronto parks and recreation, Toronto Public Library and the hospitals layer. Counts parks, not courts. Schools from the Ministry of Education; the nearest school is not always the one a home is zoned for. Places of worship (OpenStreetMap) and HMA- and COR-certified shops show while their layers are on."
+      "note": "Straight-line distances; 1 km is about a 15-minute walk. City of Toronto parks and recreation, Toronto Public Library and the hospitals layer. Counts parks, not courts. Schools from the Ministry of Education; the nearest school is not always the one a home is zoned for. Places of worship (OpenStreetMap) and HMA- and COR-certified shops show while their layers are on.",
+      "sources": "Sources: City of Toronto parks and recreation, Toronto Public Library, Ontario Ministry of Education (schools), OpenStreetMap (hospitals, places of worship), HMA and COR (certified shops)."
     },
     "reps": {
       "file": "representatives.json",

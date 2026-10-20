@@ -391,7 +391,8 @@ first matching feature in file order wins.
    `"mi"`: "250 ft away" to the nearest 50 ft under 0.1 mile, then "0.4 mi", whole miles from 10). Then one row,
    label `within`, value the count of points of each `[key, one, many]` in `counts` within
    `radius` metres, "19 parks · 7 playgrounds …" (`one` when the count is 1). Footer `note`, always
-   shown. Counts only: never a score, ranking or "best". The website shows this section between
+   shown. `sources` (added October 20, 2026; every city): one line naming the section's sources, with no
+   reference to map layers, for apps whose footer can't use `note` (which mentions the web map's layers). Counts only: never a score, ranking or "best". The website shows this section between
    Schools and Representatives.
    **Schools** (`card.schools`, Chicago and New York): load `card.schools.file` (`attendance.geojson`). For
    each `[level, label]` in `levels`, the feature of that `level` containing the coordinate: row
