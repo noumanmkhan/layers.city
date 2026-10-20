@@ -93,7 +93,9 @@ if sub is not None:
         if not overlaps(c['start'], c['end']):
             continue
         early = 'early' in c['effect'].lower()
-        closed.append({'kind': 'transit', 'rank': 0,
+        palette = (load(DATA, 'city.json') or {}).get('palette', {})
+        closed.append({'kind': 'transit', 'rank': 0, 'route': str(c['line']),
+                       'color': ('--l%s' % c['line']) if ('--l%s' % c['line']) in palette else None,
                        'title': '%s · %s to %s' % (re.sub(r'^(Line \d+).*', r'\1', c['name']), c['from'], c['to']),
                        'line': ('Closes early at night' if early else 'No service') + (' · shuttle buses' if c['shuttle'] else ''),
                        'when': span(c['start'], c['end']), 'start': c['start'], 'end': c['end'], 'text': c['text']})

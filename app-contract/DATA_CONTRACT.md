@@ -799,7 +799,9 @@ one from Friday to Sunday.
  on:     [{title, venue, slug, when, start, shows, at, link}]}                       at most 5, already ranked
 ```
 
-- `closed[].kind`: `transit` (a planned rapid transit closure: `title` "Line 1 · Finch to Sheppard-Yonge",
+- `closed[].kind`: `transit` (a planned rapid transit closure: `route` the line's number as text ("1"), `color`
+  its palette key ("--l1", null when the palette has none; Toronto's Line 1 is yellow, so pick the badge's text
+  colour for contrast), `title` "Line 1 · Finch to Sheppard-Yonge",
   `line` "No service · shuttle buses" or "Closes early at night", `text` the agency's full notice), `event`
   (special-event road closures: `line` "126 road closures", `at` the middle of the event, `link` the organizer's
   notice when there is one) or `road` (full closures of an expressway, ramp or major arterial that start at most a
