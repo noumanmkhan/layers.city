@@ -259,6 +259,9 @@ How the website's search does it, for an app that wants to match:
 - `drive`: `hub` (`[lat, lon]`) and `hubName` ("Union Station", "State & Madison").
 - `outside`: `beyond` (message when the point is outside the whole region), `regionPill`
   (template for the region name), `note` (shown on outside cards).
+  Apps use `appBeyond` and `appNote` instead (added October 21, 2026; every city): the same messages
+  without references to the web map's layers. In general, a key starting with `app` is the app's
+  wording of the website text beside it; prefer it when present.
 - `regionPlaces` (Toronto only): `file`, and `near`, the place kinds used for a "Near …" pill.
 - `attribution`.
 
