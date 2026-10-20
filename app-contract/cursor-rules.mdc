@@ -36,8 +36,10 @@ change, clone or fetch from.
   use `MKGeoJSONDecoder` and keep `interiorPolygons`.
 
 ## Privacy (not negotiable)
-- Location, saved places and the neighbourhood timeline stay on the device (iCloud private sync
-  at most). No accounts, no server that receives location or identity, no ad or analytics SDKs.
+- Location, saved places and the neighbourhood timeline stay on the device, synced only through
+  CloudKit's private database (the user's own iCloud). No accounts or sign-in (including Sign in
+  with Apple), no server that receives location or identity, no ad or analytics SDKs.
+- With iCloud unavailable, keep working on-device and offer Export / Import of a backup file.
 - Ask for each permission (Always location, notifications) only when the user turns on the
   feature that needs it, with a one-line reason. Every feature must still work without it.
 - Schedule notifications locally from published data wherever possible.

@@ -47,8 +47,17 @@ links out to layers.city rather than being rebuilt in the app.
   doesn't count). Progress per city: "47 of 158 Toronto neighbourhoods".
 - Toronto and New York show each neighbourhood's badge drawing (`badges.json`) as a collected stamp; other cities
   show the unit's outline.
-- Opt-in, needs Always location, stored only on the device; one button wipes it. Manual check-offs allowed for
-  people who say no to background location.
+- Opt-in, needs Always location. Manual check-offs allowed for people who say no to background location.
+- **Stored with CloudKit's private database, no accounts** (decided October 20, 2026). Stamps follow the user
+  to a new phone or iPad through their own iCloud; the developer never sees them and runs no server. Build it
+  this way from the first version, not as a later retrofit.
+  - iCloud off or signed out: stamps stay on the device, with an Export / Import button that saves a small
+    file to Files as a manual backup.
+  - "Delete my history" wipes both the device copy and the iCloud copy.
+  - No Sign in with Apple or any other sign-in. Revisit only for an Android version, sharing stamps with
+    friends, or showing stamps on layers.city (CloudKit JS can do the last one with the user's Apple ID, still
+    without a server of our own). Any third-party sign-in would require offering Sign in with Apple too, and
+    any account requires in-app account deletion.
 - Optional fun extras later: "new this month", a per-city map that fills in as you go, a share image that shows
   progress but never dates or routes.
 
@@ -72,7 +81,7 @@ links out to layers.city rather than being rebuilt in the app.
   your car** from `sweeping.geojson` (prevents tickets; likely the single most useful notification here).
   Scheduled locally from the published calendar; no server.
 - **Saved places.** Home, work, a parent's place. Each gets the tiles, the pickup reminder and closure alerts.
-  Kept on the device.
+  Kept on the device and synced the same way as the stamps (CloudKit private database).
 - **Closures on your routes.** A notification when a new closure or special-event closure in `closures.geojson`
   or `events.geojson` touches a saved place's streets, checked when the app refreshes in the background. Big
   events (the marathon) get a heads-up two days before.
