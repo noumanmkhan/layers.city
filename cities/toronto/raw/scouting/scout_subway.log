@@ -1,0 +1,45 @@
+alerts_api 200 application/json; charset=utf-8 56265
+gtfsrt_alerts 200 application/x-google-protobuf 3006
+advisories_subway 200 text/html; charset=utf-8 39681
+advisories_all 200 text/html; charset=utf-8 32664
+service_changes 200 text/html; charset=utf-8 39072
+{
+ "alerts_api": {
+  "status": 200,
+  "type": "application/json; charset=utf-8",
+  "bytes": 56265,
+  "top_keys": [
+   "total",
+   "lastUpdated",
+   "rszLastUpdated",
+   "routes",
+   "accessibility",
+   "siteWide",
+   "siteWideCustom",
+   "generalCustom",
+   "stops",
+   "status"
+  ],
+  "subway_like": 20
+ },
+ "gtfsrt_alerts": {
+  "status": 200,
+  "type": "application/x-google-protobuf",
+  "bytes": 3006
+ },
+ "advisories_subway": {
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 39681
+ },
+ "advisories_all": {
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 32664
+ },
+ "service_changes": {
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 39072
+ }
+}

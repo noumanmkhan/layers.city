@@ -1,0 +1,605 @@
+{
+ "alerts_api": {
+  "url": "https://alerts.ttc.ca/api/alerts/list",
+  "status": 200,
+  "type": "application/json; charset=utf-8",
+  "bytes": 56265,
+  "top_keys": [
+   "total",
+   "lastUpdated",
+   "rszLastUpdated",
+   "routes",
+   "accessibility",
+   "siteWide",
+   "siteWideCustom",
+   "generalCustom",
+   "stops",
+   "status"
+  ],
+  "n_routes": 20,
+  "n_siteWideCustom": 0,
+  "n_generalCustom": 0,
+  "subway_like": 20,
+  "subway_samples": [
+   {
+    "from": "routes",
+    "item": {
+     "id": "78167",
+     "priority": 0,
+     "alertType": "Planned",
+     "lastUpdated": "2026-10-20T12:17:53.15Z",
+     "activePeriod": {
+      "start": "2026-10-14T11:36:52Z",
+      "end": "2026-10-22T23:00:00Z"
+     },
+     "activePeriodGroup": [
+      "Current"
+     ],
+     "routeOrder": 1,
+     "route": "1",
+     "routeBranch": "",
+     "routeTypeSrc": "400",
+     "routeType": "Subway",
+     "stopStart": "York Mills",
+     "stopEnd": "Eglinton",
+     "stopStartId": "7462",
+     "stopEndId": "7671",
+     "stops": [
+      "7671",
+      "2811",
+      "7462"
+     ],
+     "title": "There will be no subway service between York Mills and Eglinton stations, starting 11 p.m., nightly Mon, October 19 to Thursday, October 22, due to planned track work. On Tuesday, October 20 and Wednesday October 21, the subway closure area will be extended starting at 1 a.m., with no service between York Mills and St Clair stations. Shuttle buses will operate.",
+     "description": "",
+     "url": "",
+     "urlPlaceholder": "",
+     "accessibility": "Routes",
+     "effect": "REDUCED_SERVICE",
+     "effectDesc": "Subway Closure - Early Closure",
+     "severityOrder": 1,
+     "severity": "Critical",
+     "customHeaderText": null,
+     "headerText": "Line 1 Yonge-University: There will be no subway service between York Mills and Eglinton stations, starting 11 p.m., nightly Mon, October 19 to Thursday, October 22, due to planned track work. On Tuesday, October 20 and Wednesday October 21, the subway closure area will be extended starting at 1 a.m., with no service between York Mills and St Clair stations. Shuttle buses will operate.",
+     "direction": "Both ways",
+     "cause": "MAINTENANCE",
+     "causeDescription": "CLOSURE - Planned Track Work",
+     "stopIDList": [
+      "Eglinton",
+      "Lawrence",
+      "York Mills"
+     ],
+     "stopNameList": [],
+     "stopRouteList": [],
+     "rszLength": null,
+     "distance": null,
+     "trackPercent": null,
+     "reducedSpeed": null,
+     "averageSpeed": null,
+     "targetRemoval": null,
+     "shuttleType": "Will Operate",
+     "shuttleStart": null,
+     "shuttleEnd": null,
+     "elevatorCode": null,
+     "escalatorCode": null,
+     "criticality": 0,
+     "childAlerts": [
+      {
+       "id": "78547",
+       "startTime": "2026-10-20T23:00:00Z",
+       "endTime": "2026-10-21T03:30:00Z"
+      },
+      {
+       "id": "78548",
+       "startTime": "2026-10-21T23:00:00Z",
+       "endTime": "2026-10-22T03:30:00Z"
+      },
+      {
+       "id": "78549",
+       "startTime": "2026-10-22T23:00:00Z",
+       "endTime": "2026-10-23T03:30:00Z"
+      }
+     ]
+    }
+   },
+   {
+    "from": "routes",
+    "item": {
+     "id": "78567",
+     "priority": 0,
+     "alertType": "Planned",
+     "lastUpdated": "2026-10-20T16:56:33.247Z",
+     "activePeriod": {
+      "start": "2026-10-20T16:56:33.247Z",
+      "end": "0001-01-01T00:00:00Z"
+     },
+     "activePeriodGroup": [
+      "Current"
+     ],
+     "routeOrder": 1,
+     "route": "1",
+     "routeBranch": "",
+     "routeTypeSrc": "400",
+     "routeType": "Subway",
+     "stopStart": "York Mills",
+     "stopEnd": "York Mills",
+     "stopStartId": "7462",
+     "stopEndId": "7462",
+     "stops": [
+      "7462"
+     ],
+     "title": "Trains are not stopping at York Mills station due to a security incident.",
+     "description": "",
+     "url": "",
+     "urlPlaceholder": "",
+     "accessibility": "Routes",
+     "effect": "NO_SERVICE",
+     "effectDesc": "Bypass",
+     "severityOrder": 2,
+     "severity": "Critical",
+     "customHeaderText": null,
+     "headerText": "Line 1 Yonge-University: Trains are not stopping at York Mills station due to a security incident.",
+     "direction": "Both ways",
+     "cause": "POLICE_ACTIVITY",
+     "causeDescription": "Security incident",
+     "stopIDList": [
+      "York Mills"
+     ],
+     "stopNameList": [],
+     "stopRouteList": [],
+     "rszLength": null,
+     "distance": null,
+     "trackPercent": null,
+     "reducedSpeed": null,
+     "averageSpeed": null,
+     "targetRemoval": null,
+     "shuttleType": null,
+     "shuttleStart": null,
+     "shuttleEnd": null,
+     "elevatorCode": null,
+     "escalatorCode": null,
+     "criticality": 0,
+     "childAlerts": []
+    }
+   },
+   {
+    "from": "routes",
+    "item": {
+     "id": "78173",
+     "priority": 0,
+     "alertType": "Planned",
+     "lastUpdated": "2026-10-14T11:42:42.513Z",
+     "activePeriod": {
+      "start": "2026-10-14T11:42:42.513Z",
+      "end": "2026-10-23T00:00:00Z"
+     },
+     "activePeriodGroup": [
+      "Current"
+     ],
+     "routeOrder": 2,
+     "route": "2",
+     "routeBranch": "",
+     "routeTypeSrc": "400",
+     "routeType": "Subway",
+     "stopStart": "Kipling",
+     "stopEnd": "Jane",
+     "stopStartId": "7906",
+     "stopEndId": "1167",
+     "stops": [
+      "7906",
+      "2708",
+      "6967",
+      "6423",
+      "1167"
+     ],
+     "title": "There will be no subway service between Kipling and Jane stations, starting 12 a.m., nightly Tuesday, October 20 to Friday, October 23, due to planned track work. Shuttle buses will operate.",
+     "description": "Subway service on Line 2 between Kipling and Jane stations will end nightly at 11:59 p.m. From Monday, October 19 to Friday, October 23 for planned track work. The Grenview entrance at Royal York Station will be closed. Regular subway service will resume each morning at approximately 6 a.m.",
+     "url": "",
+     "urlPlaceholder": "",
+     "accessibility": "Routes",
+     "effect": "REDUCED_SERVICE",
+     "effectDesc": "Subway Closure - Early Closure",
+     "severityOrder": 1,
+     "severity": "Critical",
+     "customHeaderText": null,
+     "headerText": "Line 2 Bloor-Danforth: There will be no subway service between Kipling and Jane stations, starting 12 a.m., nightly Tuesday, October 20 to Friday, October 23, due to planned track work. Shuttle buses will operate.",
+     "direction": "Both ways",
+     "cause": "MAINTENANCE",
+     "causeDescription": "CLOSURE - Planned Track Work",
+     "stopIDList": [
+      "Kipling",
+      "Islington",
+      "Royal York",
+      "Old Mill",
+      "Jane"
+     ],
+     "stopNameList": [],
+     "stopRouteList": [],
+     "rszLength": null,
+     "distance": null,
+     "trackPercent": null,
+     "reducedSpeed": null,
+     "averageSpeed": null,
+     "targetRemoval": null,
+     "shuttleType": "Will Operate",
+     "shuttleStart": null,
+     "shuttleEnd": null,
+     "elevatorCode": null,
+     "escalatorCode": null,
+     "criticality": 0,
+     "childAlerts": [
+      {
+       "id": "78175",
+       "startTime": "2026-10-21T00:00:00Z",
+       "endTime": "2026-10-22T03:30:00Z"
+      },
+      {
+       "id": "78176",
+       "startTime": "2026-10-22T00:00:00Z",
+       "endTime": "2026-10-23T03:30:00Z"
+      },
+      {
+       "id": "78177",
+       "startTime": "2026-10-23T00:00:00Z",
+       "endTime": "2026-10-24T03:30:00Z"
+      }
+     ]
+    }
+   },
+   {
+    "from": "routes",
+    "item": {
+     "id": "78525",
+     "priority": 0,
+     "alertType": "Planned",
+     "lastUpdated": "2026-10-20T07:43:59.59Z",
+     "activePeriod": {
+      "start": "2026-10-20T07:43:59.59Z",
+      "end": "0001-01-01T00:00:00Z"
+     },
+     "activePeriodGroup": [
+      "Current"
+     ],
+     "routeOrder": 37,
+     "route": "37",
+     "routeBranch": "",
+     "routeTypeSrc": "700",
+     "routeType": "Bus",
+     "stopStart": "WOODBINE RACE TRACK LOOP (MAIN ENTRANCE)",
+     "stopEnd": "WOODBINE RACE TRACK LOOP (MAIN ENTRANCE)",
+     "stopStartId": "13921",
+     "stopEndId": "13921",
+     "stops": [
+      "13921"
+     ],
+     "title": "Buses are not stopping near WOODBINE RACE TRACK LOOP (MAIN ENTRANCE) due to a demonstration.",
+     "description": "",
+     "url": "",
+     "urlPlaceholder": "",
+     "accessibility": "Routes",
+     "effect": "NO_SERVICE",
+     "effectDesc": "Bypass",
+     "severityOrder": 2,
+     "severity": "Critical",
+     "customHeaderText": null,
+     "headerText": "37, 37A Islington: Buses are not stopping near WOODBINE RACE TRACK LOOP (MAIN ENTRANCE) due to a demonstration.",
+     "direction": "Both ways",
+     "cause": "DEMONSTRATION ",
+     "causeDescription": "Demonstration",
+     "stopIDList": [
+      "WOODBINE RACE TRACK LOOP (MAIN ENTRANCE)",
+      "WOODBINE RACE TRACK LOOP (MAIN ENTRANCE)"
+     ],
+     "stopNameList": [],
+     "stopRouteList": [],
+     "rszLength": null,
+     "distance": null,
+     "trackPercent": null,
+     "reducedSpeed": null,
+     "averageSpeed": null,
+     "targetRemoval": null,
+     "shuttleType": null,
+     "shuttleStart": null,
+     "shuttleEnd": null,
+     "elevatorCode": null,
+     "escalatorCode": null,
+     "criticality": 0,
+     "childAlerts": []
+    }
+   },
+   {
+    "from": "routes",
+    "item": {
+     "id": "78525-1",
+     "priority": 0,
+     "alertType": "Planned",
+     "lastUpdated": "2026-10-20T07:43:59.59Z",
+     "activePeriod": {
+      "start": "2026-10-20T07:43:59.59Z",
+      "end": "0001-01-01T00:00:00Z"
+     },
+     "activePeriodGroup": [
+      "Current"
+     ],
+     "routeOrder": 37,
+     "route": "37A",
+     "routeBranch": "A",
+     "routeTypeSrc": "700",
+     "routeType": "Bus",
+     "stopStart": "WOODBINE RACE TRACK LOOP (MAIN ENTRANCE)",
+     "stopEnd": "WOODBINE RACE TRACK LOOP (MAIN ENTRANCE)",
+     "stopStartId": "13921",
+     "stopEndId": "13921",
+     "stops": [
+      "13921"
+     ],
+     "title": "Buses are not stopping near WOODBINE RACE TRACK LOOP (MAIN ENTRANCE) due to a demonstration.",
+     "description": "",
+     "url": "",
+     "urlPlaceholder": "",
+     "accessibility": "Routes",
+     "effect": "NO_SERVICE",
+     "effectDesc": "Bypass",
+     "severityOrder": 2,
+     "severity": "Critical",
+     "customHeaderText": null,
+     "headerText": "37, 37A Islington: Buses are not stopping near WOODBINE RACE TRACK LOOP (MAIN ENTRANCE) due to a demonstration.",
+     "direction": "Both ways",
+     "cause": "DEMONSTRATION ",
+     "causeDescription": "Demonstration",
+     "stopIDList": [
+      "WOODBINE RACE TRACK LOOP (MAIN ENTRANCE)",
+      "WOODBINE RACE TRACK LOOP (MAIN ENTRANCE)"
+     ],
+     "stopNameList": [],
+     "stopRouteList": [],
+     "rszLength": null,
+     "distance": null,
+     "trackPercent": null,
+     "reducedSpeed": null,
+     "averageSpeed": null,
+     "targetRemoval": null,
+     "shuttleType": null,
+     "shuttleStart": null,
+     "shuttleEnd": null,
+     "elevatorCode": null,
+     "escalatorCode": null,
+     "criticality": 0,
+     "childAlerts": []
+    }
+   },
+   {
+    "from": "routes",
+    "item": {
+     "id": "78556",
+     "priority": 0,
+     "alertType": "Planned",
+     "lastUpdated": "2026-10-20T14:22:25.093Z",
+     "activePeriod": {
+      "start": "2026-10-20T14:22:25.093Z",
+      "end": "0001-01-01T00:00:00Z"
+     },
+     "activePeriodGroup": [
+      "Current"
+     ],
+     "routeOrder": 39,
+     "route": "39",
+     "routeBranch": "",
+     "routeTypeSrc": "700",
+     "routeType": "Bus",
+     "stopStart": "Victoria Park Ave at McNicoll Ave",
+     "stopEnd": "Victoria Park Ave at Tempo Ave",
+     "stopStartId": "8480",
+     "stopEndId": "3159",
+     "stops": [
+      "8480",
+      "3159"
+     ],
+     "title": "Detour eastbound via Victoria Park Ave, Temple Ave, Harold St and Mcnicoll Ave due to construction.",
+     "description": "",
+     "url": "",
+     "urlPlaceholder": "",
+     "accessibility": "Routes",
+     "effect": "DETOUR",
+     "effectDesc": "Detour",
+     "severityOrder": 3,
+     "severity": "Critical",
+     "customHeaderText": null,
+     "headerText": "39 Finch East: Detour eastbound via Victoria Park Ave, Temple Ave, Harold St and Mcnicoll Ave due to construction.",
+     "direction": "Eastbound",
+     "cause": "CONSTRUCTION",
+     "causeDescription": "Construction",
+     "stopIDList": [
+      "Victoria Park Ave at McNicoll Ave",
+      "Victoria Park Ave at Tempo Ave"
+     ],
+     "stopNameList": [],
+     "stopRouteList": [],
+     "rszLength": null,
+     "distance": null,
+     "trackPercent": null,
+     "reducedSpeed": null,
+     "averageSpeed": null,
+     "targetRemoval": null,
+     "shuttleType": null,
+     "shuttleStart": null,
+     "shuttleEnd": null,
+     "elevatorCode": null,
+     "escalatorCode": null,
+     "criticality": 0,
+     "childAlerts": []
+    }
+   },
+   {
+    "from": "routes",
+    "item": {
+     "id": "78565",
+     "priority": 0,
+     "alertType": "Planned",
+     "lastUpdated": "2026-10-20T16:20:31.543Z",
+     "activePeriod": {
+      "start": "2026-10-20T16:20:31.543Z",
+      "end": "0001-01-01T00:00:00Z"
+     },
+     "activePeriodGroup": [
+      "Current"
+     ],
+     "routeOrder": 119,
+     "route": "119",
+     "routeBranch": "",
+     "routeTypeSrc": "700",
+     "routeType": "Bus",
+     "stopStart": "Arrow Rd at Sheppard Ave West North Side",
+     "stopEnd": "Arrow Rd at Sheppard Ave West North Side",
+     "stopStartId": "11858",
+     "stopEndId": "11858",
+     "stops": [
+      "11858"
+     ],
+     "title": "Detour westbound via Sheppard Ave W, Oakdale Rd and Finch Ave W due to a collision.",
+     "description": "",
+     "url": "",
+     "urlPlaceholder": "",
+     "accessibility": "Routes",
+     "effect": "DETOUR",
+     "effectDesc": "Detour",
+     "severityOrder": 3,
+     "severity": "Critical",
+     "customHeaderText": null,
+     "headerText": "119 Torbarrie: Detour westbound via Sheppard Ave W, Oakdale Rd and Finch Ave W due to a collision.",
+     "direction": "Westbound",
+     "cause": "ACCIDENT",
+     "causeDescription": "Collision",
+     "stopIDList": [
+      "Arrow Rd at Sheppard Ave West North Side",
+      "Arrow Rd at Sheppard Ave West North Side"
+     ],
+     "stopNameList": [],
+     "stopRouteList": [],
+     "rszLength": null,
+     "distance": null,
+     "trackPercent": null,
+     "reducedSpeed": null,
+     "averageSpeed": null,
+     "targetRemoval": null,
+     "shuttleType": null,
+     "shuttleStart": null,
+     "shuttleEnd": null,
+     "elevatorCode": null,
+     "escalatorCode": null,
+     "criticality": 0,
+     "childAlerts": []
+    }
+   },
+   {
+    "from": "routes",
+    "item": {
+     "id": "77534",
+     "priority": 0,
+     "alertType": "Planned",
+     "lastUpdated": "2026-10-05T11:19:22.643Z",
+     "activePeriod": {
+      "start": "2026-10-05T11:19:22.643Z",
+      "end": "0001-01-01T00:00:00Z"
+     },
+     "activePeriodGroup": [
+      "Current"
+     ],
+     "routeOrder": 1,
+     "route": "1",
+     "routeBranch": "",
+     "routeTypeSrc": "400",
+     "routeType": "Subway",
+     "stopStart": "Sheppard-Yonge",
+     "stopEnd": "York Mills",
+     "stopStartId": "7129",
+     "stopEndId": "7462",
+     "stops": [
+      "7462",
+      "7129"
+     ],
+     "title": "Subway trains will move slower than usual southbound from Sheppard-Yonge to York Mills stations while we work on track issues.",
+     "description": "",
+     "url": "",
+     "urlPlaceholder": "",
+     "accessibility": "Routes",
+     "effect": "SIGNIFICANT_DELAYS",
+     "effectDesc": "Reduced Speed Zone",
+     "severityOrder": 5,
+     "severity": "Minor",
+     "customHeaderText": null,
+     "headerText": "Line 1 Yonge-University: Subway trains will move slower than usual southbound from Sheppard-Yonge to York Mills stations while we work on track issues.",
+     "direction": "Southbound From Finch",
+     "cause": "MAINTENANCE",
+     "causeDescription": "Track issue",
+     "stopIDList": [
+      "York Mills",
+      "Sheppard-Yonge"
+     ],
+     "stopNameList": [],
+     "stopRouteList": [],
+     "rszLength": "168",
+     "distance": "1957",
+     "trackPercent": "9",
+     "reducedSpeed": "25",
+     "averageSpeed": "56",
+     "targetRemoval": "TBD",
+     "shuttleType": null,
+     "shuttleStart": null,
+     "shuttleEnd": null,
+     "elevatorCode": null,
+     "escalatorCode": null,
+     "criticality": 0,
+     "childAlerts": []
+    }
+   }
+  ]
+ },
+ "gtfsrt_alerts": {
+  "url": "https://bustime.ttc.ca/gtfsrt/alerts",
+  "status": 200,
+  "type": "application/x-google-protobuf",
+  "bytes": 3006
+ },
+ "advisories_subway": {
+  "url": "https://www.ttc.ca/service-advisories/subway-service",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 39681,
+  "advisory_links": [
+   "/service-advisories/subway-service"
+  ],
+  "title": "Subway and LRT service",
+  "json_endpoints": [
+   "https://cdn.ttc.ca/-/media/Base-Themes/XA-API/Scripts/optimized-min.js?rev=f554dd2aa4714629a770ef7473790e43&t=20230815T125932Z&hash=FD98C9E4EAD5867688ACE7471C3BB939"
+  ]
+ },
+ "advisories_all": {
+  "url": "https://www.ttc.ca/service-advisories",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 32664,
+  "advisory_links": [
+   "/service-advisories/Service-Changes",
+   "/service-advisories/construction-notices",
+   "/service-advisories/subway-service"
+  ],
+  "title": "Service advisories",
+  "json_endpoints": [
+   "https://cdn.ttc.ca/-/media/Base-Themes/XA-API/Scripts/optimized-min.js?rev=f554dd2aa4714629a770ef7473790e43&t=20230815T125932Z&hash=FD98C9E4EAD5867688ACE7471C3BB939"
+  ]
+ },
+ "service_changes": {
+  "url": "https://www.ttc.ca/service-advisories/Service-Changes",
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "bytes": 39072,
+  "advisory_links": [
+   "/service-advisories/Service-Changes"
+  ],
+  "title": "Service Changes",
+  "json_endpoints": [
+   "https://cdn.ttc.ca/-/media/Base-Themes/XA-API/Scripts/optimized-min.js?rev=f554dd2aa4714629a770ef7473790e43&t=20230815T125932Z&hash=FD98C9E4EAD5867688ACE7471C3BB939"
+  ]
+ },
+ "advisory_pages": []
+}
