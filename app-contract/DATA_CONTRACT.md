@@ -241,6 +241,13 @@ How the website's search does it, for an app that wants to match:
   `apple`, `pick`). Website only: it links to Google Maps or Apple Maps directions to a place's coordinates.
   Apps may ignore it.
 - `card`: `pills`, `facts`, `living`, `reps` (section 6).
+- `card.appLocal` (added October 21, 2026; Toronto and Chicago `wards`, Dallas and New York `council`): the
+  `reps` office `table` that is the spot's local representative, for the app's line under the title and its
+  representative tile (New York's first office with a layer is the borough president). Absent (Vancouver,
+  whose council is elected citywide): no local representative line.
+- `card.appTitle` (Dallas only, October 21, 2026): `{"knownas": 650}`: when a known-as point is within that
+  many metres, the app titles the spot with the nearest one's name ("Uptown") and moves the unit's name to
+  the line beneath ("ZIP 75204"); otherwise the unit's name is the title. Dallas's units are ZIP codes.
 - `lens.file` (the profiles file) and `lens.lenses`: each has `key` (the profile field holding a
   tier id) and `tiers: [[tierId, label, colourVariable], …]`. Use the label; the colour variable
   resolves through `palette`.

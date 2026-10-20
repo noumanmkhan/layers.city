@@ -250,6 +250,7 @@
   },
   "party": {"label": "Colour by party", "note": "Each seat in the colour of its sitting member’s party, from the weekly check of the official member lists. Grey: vacant.", "vacant": "Vacant", "other": "Other", "parties": [["Liberal", "red", ["Liberal", "Ontario Liberal Party"]], ["PC", "blue", ["Progressive Conservative Party of Ontario"]], ["Conservative", "blue", ["Conservative"]], ["NDP", "orange", ["NDP", "New Democratic Party of Ontario"]], ["Green", "green", ["Green Party", "Green Party of Ontario"]], ["Independent", "other", ["Independent"]]]},
   "card": {
+    "appLocal": "wards",
     "report": {"to": "go@layers.city"},
     "pills": [
       {"layer": "areas", "else": "boroughs"},

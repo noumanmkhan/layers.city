@@ -178,6 +178,7 @@
   },
   "party": {"label": "Colour by party", "note": "Each district in the colour of its sitting member’s party (Illinois House: the state representative), from the weekly check of the official member lists. Grey: vacant.", "vacant": "Vacant", "other": "Other", "parties": [["Democrat", "blue", ["Democrat", "Democratic"]], ["Republican", "red", ["Republican"]], ["Independent", "other", ["Independent"]]]},
   "card": {
+    "appLocal": "wards",
     "report": {"to": "go@layers.city", "kinds": ["A boundary or area is wrong", "A representative or election detail is wrong", "A street closure is wrong", "A name, landmark or place is wrong", "Something else"]},
     "pills": [
       {"layer": "sides", "else": "sides"},
