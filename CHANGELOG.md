@@ -2,6 +2,20 @@
 
 ## Since 1.1
 
+### Chicago: vote centers in the election box (October 20)
+- Chicago's election box now lists the three nearest vote centers and marks them on the map, as Dallas's does.
+  Until November 2 they are early voting sites (the 50 ward sites and the two downtown sites: "any voter in
+  Chicago can vote at any Early Voting/Vote Center site"); on November 3, the 51 election day vote centers
+  (the ward sites and the downtown SuperSite; the Board's office is early voting only), beside each voter's own
+  precinct polling place, which the Board still doesn't publish. The footer names the ward and precinct and
+  points to the Board's lookup for that polling place.
+- From the Board of Election Commissioners' Early Voting/Vote Centers page (its table of ward, site and
+  address), placed with the Census geocoder, then Nominatim: `cities/chicago/fetch_vote_centers.py`, daily to
+  election day in *Fetch Chicago voting places* (`fetch-chicago-voting.yml`, in deploy.yml's list).
+- For the iOS app: Chicago's `voting.geojson` precincts gain `k: "chicago"`, and the file gains top-level
+  `centers` and `counts`; `card.vote` gains `early`, `counties` and the centers wording (contract sections 3, 5).
+  Same format as Dallas's; additive, schema stays 1.
+
 ### Line badges instead of stations when zoomed out (October 18)
 - Every city's rapid-transit layer (subway, the 'L', SkyTrain, DART) now hides its stations, dots and names alike,
   until zoom 13. In their place each line carries a badge in its own colour: a TTC-style number, New York's letter
