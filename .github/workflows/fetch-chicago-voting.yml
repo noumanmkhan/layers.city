@@ -1,0 +1,40 @@
+name: Fetch Chicago voting places
+# Chicago's early voting and election day vote centers (cities/chicago/fetch_vote_centers.py, from the Board of
+# Election Commissioners' page) into cities/chicago/raw/vote_centers/, then docs/chicago/data/voting.geojson
+# with cities/chicago/voting.py. Sites can change up to election day (November 3), so this runs daily from
+# October 19 to November 3, on change, or by hand. A day with no change commits nothing.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 10 19-31 10 *'   # daily, 10:37 UTC (5:37 am Chicago)
+    - cron: '37 10 1-3 11 *'
+  push:
+    branches: [main]
+    paths: ['cities/chicago/fetch_vote_centers.py', 'cities/chicago/voting.py', '.github/workflows/fetch-chicago-voting.yml']
+permissions:
+  contents: write
+concurrency: fetch-chicago-voting
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: |
+          mkdir -p cities/chicago/raw/vote_centers
+          python3 -u cities/chicago/fetch_vote_centers.py 2>&1 | tee cities/chicago/raw/vote_centers/fetch.log
+          npm install --silent
+          python3 -u cities/chicago/voting.py 2>&1 | tee -a cities/chicago/raw/vote_centers/fetch.log
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/chicago/raw/vote_centers/centers.json docs/chicago/data/voting.geojson
+          git commit -m "Update Chicago voting places" || echo "no changes"
+          git pull --rebase
+          git push
