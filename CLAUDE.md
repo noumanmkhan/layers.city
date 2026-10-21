@@ -35,7 +35,7 @@ the landing page, stop and say so; don't change this repo.
   pages to the sitemap. By hand: `python3 engine/venues.py <city>`. Notes in the project's claude/venues.md.
 - **Weekend brief** (`engine/weekend.py`, `docs/<city>/data/weekend.json`, October 21, 2026): what's closed and what's
   on this weekend, for the iOS app only (no web page yet). Built for every city that has inputs (planned subway closures
-  from `cities/toronto/fetch_subway_alerts.py`, `events.geojson`, `raw/closures/major.json`, the Venues listing) at the
+  from the TTC's GTFS-RT alerts via `cities/toronto/fetch_subway_alerts.py`, `events.geojson`, `raw/closures/major.json`, the Venues listing) at the
   end of *Fetch transit closures* and *Refresh venues*. Contract section 14.
 - To let the user try an experiment on dev on a phone: run the "Deploy to Cloudflare Pages" workflow by
   hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev. The branch is the

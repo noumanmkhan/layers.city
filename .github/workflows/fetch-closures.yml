@@ -5,7 +5,7 @@ name: Fetch transit closures
 # docs/<city>/data/closures.geojson with engine/closures.py, and commits both to main. Pages
 # redeploys on the push, so the map shows that day's permits. Toronto's fetch also saves special-event
 # closures (raw/closures/events.json), which engine/events.py turns into docs/toronto/data/events.geojson.
-# Then the weekend brief for the iOS app: TTC planned subway closures (fetch_subway_alerts.py) and
+# Then the weekend brief for the iOS app: TTC planned subway closures from its GTFS-RT alerts (fetch_subway_alerts.py) and
 # engine/weekend.py for every city -> docs/<city>/data/weekend.json.
 # Actions schedules are in UTC: midnight in New York is 04:00 UTC in summer and 05:00 UTC in winter.
 # Both schedules fire; the first to start fetches and the second exits if today's file is built.
@@ -43,7 +43,7 @@ jobs:
         with:
           python-version: '3.12'
       - if: steps.when.outputs.skip != '1'
-        run: pip install -q shapely pypdf   # New York's event closures are placed on the street centerline; its marathon notice is a PDF
+        run: pip install -q shapely pypdf gtfs-realtime-bindings   # TTC subway alerts (GTFS-RT). New York's event closures are placed on the street centerline; its marathon notice is a PDF
       # Each city on its own, so one failing keeps the other's update (and yesterday's file stays up).
       - if: steps.when.outputs.skip != '1'
         run: |

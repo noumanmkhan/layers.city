@@ -90,15 +90,23 @@ sub = load(CITY, 'raw', 'closures', 'subway.json')
 if sub is not None:
     sources.append('subway')
     for c in sub.get('closures', []):
-        if not overlaps(c['start'], c['end']):
+        wins = c.get('windows') or [[c['start'], c['end']]]
+        wins = [w for w in wins if overlaps(w[0], w[1])]
+        if not wins:
             continue
         early = 'early' in c['effect'].lower()
+        when = span(min(w[0] for w in wins), max(w[1] for w in wins))
+        if early:
+            # Each night's closure runs past midnight: name the evening it starts.
+            nights = sorted({day((datetime.fromisoformat(w[1]) - timedelta(hours=8)).strftime('%Y-%m-%dT%H:%M')) for w in wins},
+                            key=DAYS.index)
+            when = ('%s night' % nights[0]) if len(nights) == 1 else '%s–%s nights' % (nights[0], nights[-1])
         palette = (load(DATA, 'city.json') or {}).get('palette', {})
         closed.append({'kind': 'transit', 'rank': 0, 'route': str(c['line']),
                        'color': ('--l%s' % c['line']) if ('--l%s' % c['line']) in palette else None,
                        'title': '%s · %s to %s' % (re.sub(r'^(Line \d+).*', r'\1', c['name']), c['from'], c['to']),
                        'line': ('Closes early at night' if early else 'No service') + (' · shuttle buses' if c['shuttle'] else ''),
-                       'when': span(c['start'], c['end']), 'start': c['start'], 'end': c['end'], 'text': c['text']})
+                       'when': when, 'start': c['start'], 'end': c['end'], 'text': c['text']})
 
 # 2. Special-event road closures.
 ev = load(DATA, 'events.geojson')

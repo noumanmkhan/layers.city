@@ -815,5 +815,7 @@ one from Friday to Sunday.
   repeats has `shows` > 1 and `when` "Fri–Sun" or "Sat · 3 shows". `link` is the venue's page on layers.city
   (getting there, parking). Facts only: no prices, images or ticket links (the event data's terms).
 - Either list may be empty: say so ("No planned closures this weekend") rather than hiding the section.
-- Transit closures come from the TTC's alerts list behind ttc.ca (not a documented open feed); if it stops
-  working, `sources` loses `subway` and the brief carries on without it.
+- Transit closures in Toronto come from the TTC's GTFS-Realtime service alerts (City of Toronto Open Data, Open
+  Government Licence – Toronto; since October 21, 2026, replacing the alerts list behind ttc.ca). A closure that
+  runs only at night says "Closes early at night" with `when` naming the nights ("Fri night", "Fri–Sun nights").
+  If the feed fails, `sources` loses `subway` and the brief carries on without it.
