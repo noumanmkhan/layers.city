@@ -5,14 +5,14 @@
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Layers.City for iPhone · Layers.City</title>
-<meta name="description" content="The Layers.City iPhone app: what it does, testing, and support.">
+<meta name="description" content="The Layers.City iPhone app: your neighbourhood, pickup days, closures and this weekend, on your lock screen. What it does, testing, and support.">
 <link rel="canonical" href="https://layers.city/app/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://layers.city/app/">
 <meta property="og:site_name" content="Layers.City">
 <meta property="og:title" content="Layers.City for iPhone">
-<meta property="og:description" content="The Layers.City iPhone app: what it does, testing, and support.">
+<meta property="og:description" content="The Layers.City iPhone app: your neighbourhood, pickup days, closures and this weekend, on your lock screen. What it does, testing, and support.">
 <meta property="og:image" content="https://layers.city/og-layers.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -154,9 +154,9 @@ main.doc{padding-top:56px;gap:40px}
 
   <main class="wrap doc">
     <section class="hero">
-      <span class="status">IN DEVELOPMENT</span>
+      <span class="status">IN BETA</span>
       <h1>Layers.City for iPhone</h1>
-      <p class="lede">The Layers.City maps, as an app. Drop a pin anywhere in a city it covers and a “What’s here” card describes the spot. It’s being built now and tested with a small group before it goes on the App Store.</p>
+      <p class="lede">Know where you are and what’s going on around you, without opening anything. A lock screen widget, a few well-timed reminders, and a home screen of big numbers for the neighbourhood you’re in, in Toronto, Chicago, Vancouver, Dallas and New York.</p>
       <nav class="toc" aria-label="On this page">
         <a href="#about">What it does</a>
         <a href="#testing">Testing</a>
@@ -167,17 +167,19 @@ main.doc{padding-top:56px;gap:40px}
     <section class="policy" id="about" aria-labelledby="about-h">
       <h2 id="about-h">What it does</h2>
       <ul>
-        <li><strong>What’s here:</strong> pin any spot to see its neighbourhood, its ward and who represents it, and how people live there, from public census and city data.</li>
-        <li><strong>Map layers:</strong> switch boundaries on and off to see how the city is divided.</li>
-        <li><strong>Widget:</strong> a home-screen widget that shows what’s here wherever you are.</li>
+        <li><strong>Where am I:</strong> a lock screen and home screen widget with your neighbourhood, your ward and one thing worth knowing today: a closure nearby, pickup tomorrow, or where to vote on election day.</li>
+        <li><strong>Around you:</strong> who represents you, your next pickup, road closures and what’s changing nearby, and what the area has within a short walk. Tap a count, such as bike share stations, to see them in Apple Maps.</li>
+        <li><strong>Pickup reminders:</strong> the evening before collection day at your saved home. In Chicago, a “move your car” reminder before street sweeping.</li>
+        <li><strong>This weekend:</strong> what’s closed (subway shutdowns, event and major road closures) and what’s on at the big venues, with an optional Friday morning summary.</li>
+        <li><strong>Been to:</strong> neighbourhood stamps for the places you’ve spent time in, if you turn that on.</li>
       </ul>
-      <p>It describes places rather than ranking them: no “best” or “worst” neighbourhood scores. It has no accounts, ads or tracking; see the <a href="/privacy/">privacy policy</a>.</p>
-      <p>Layers.City is an independent project by Nouman Khan. It isn’t affiliated with any city government.</p>
+      <p>The app is the glance; this website is the deep tool. Fact sheets, venue pages and the full maps open from layers.city inside the app. It describes places rather than ranking them: no “best” or “worst” neighbourhood scores. It has no accounts, ads or tracking; see the <a href="/privacy/#app">privacy policy</a>.</p>
+      <p>Layers.City is an independent project by Nouman Khan. It isn’t affiliated with any city government or transit agency.</p>
     </section>
 
     <section class="policy" id="testing" aria-labelledby="testing-h">
       <h2 id="testing-h">Testing</h2>
-      <p>The app is in beta through Apple’s TestFlight. Testers install the free TestFlight app from the App Store, then open their invitation link to install Layers.City.</p>
+      <p>The app is in beta through Apple’s TestFlight, ahead of its App Store release. Testers install the free TestFlight app from the App Store, then open their invitation link to install Layers.City.</p>
       <p>Testing is by invitation for now. If you know one of the cities well and would like to help, email me and say which one.</p>
     </section>
 
@@ -190,17 +192,23 @@ main.doc{padding-top:56px;gap:40px}
       </a>
       <p>It helps to include your iPhone model and iOS version, the city, and what you tapped. A screenshot is ideal. Testers can also send feedback from inside TestFlight, which attaches these details automatically.</p>
 
-      <h3>Location isn’t working</h3>
-      <p>Location is optional. To turn it on, open iOS Settings, then Layers.City, then Location. Without it you can still drop a pin or search.</p>
-
       <h3>Adding the widget</h3>
-      <p>Touch and hold an empty part of the home screen, tap Edit, then Add Widget, and choose Layers.City.</p>
+      <p>Lock screen: touch and hold the lock screen, tap Customize, then Lock Screen, tap the area under the clock and choose Layers.City. Home screen: touch and hold an empty part of the home screen, tap Edit, then Add Widget, and choose Layers.City.</p>
+
+      <h3>The widget shows the wrong place</h3>
+      <p>Without background updates, the widget shows where you were the last time you opened the app. To have it follow you, turn on <strong>Update in the background</strong> in the app’s Settings and allow location <strong>Always</strong> when iOS asks. Or choose a spot in Settings to see a particular place.</p>
+
+      <h3>Location is optional</h3>
+      <p>The app works without it: it shows a sample spot, or one you choose by searching for a neighbourhood, address or postal code. To change location access, open iOS Settings, then Layers.City, then Location.</p>
+
+      <h3>Reminders don’t arrive</h3>
+      <p>Pickup reminders need a saved home in a city with collection data (Toronto, Chicago, Dallas and New York) and notifications allowed for Layers.City in iOS Settings. Opening the app now and then keeps the schedule fresh.</p>
 
       <h3>A boundary or fact looks wrong</h3>
-      <p>The data comes from public sources: each city’s own open data, the national census (Statistics Canada and the U.S. Census Bureau) and OpenStreetMap, credited in the app’s About screen. Census figures are from the most recent release, so they lag a few years behind. If something looks wrong, email the spot and what you expected; local knowledge is exactly what’s useful.</p>
+      <p>The data comes from public sources: each city’s own open data, transit agencies, the national census (Statistics Canada and the U.S. Census Bureau) and OpenStreetMap, credited in the app’s Settings and on the <a href="/attributions/">Attributions</a> page. Census figures are from the most recent release, so they lag a few years behind. If something looks wrong, email the spot and what you expected; local knowledge is exactly what’s useful.</p>
 
       <h3>Removing your data</h3>
-      <p>Everything the app saves (your preferred city, last pin and widget snapshot) stays on your iPhone. Deleting the app deletes it.</p>
+      <p><strong>Delete my history</strong> in the app’s Settings removes your saved home and the neighbourhoods you’ve been to, from your iPhone and from iCloud. Everything else the app keeps is on your iPhone and goes when you delete the app.</p>
     </section>
   </main>
 

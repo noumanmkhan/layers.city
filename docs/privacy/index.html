@@ -5,13 +5,13 @@
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy · Maps · Nouman Khan</title>
-<meta name="description" content="Privacy policy for the City Layers iOS app and the maps on layers.city.">
+<meta name="description" content="Privacy policy for the Layers.City iPhone app and the maps on layers.city.">
 <link rel="canonical" href="https://layers.city/privacy/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://layers.city/privacy/">
 <meta property="og:title" content="Privacy · Maps · Nouman Khan">
-<meta property="og:description" content="Privacy policy for the City Layers iOS app and the maps on layers.city.">
+<meta property="og:description" content="Privacy policy for the Layers.City iPhone app and the maps on layers.city.">
 <meta property="og:image" content="https://noumankhan.ca/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -154,12 +154,12 @@ main.doc{padding-top:56px;gap:40px}
 
   <main class="wrap doc">
     <section class="hero">
-      <div class="coords">LAST UPDATED · OCTOBER 14, 2026</div>
+      <div class="coords">LAST UPDATED · OCTOBER 21, 2026</div>
       <h1>Privacy</h1>
-      <p class="lede">How the City Layers app and the maps on this site handle your information. The short version: no accounts, no ads, no tracking cookies, and nothing about you is sold. The website counts visits and which features get used, without identifying anyone.</p>
-      <p class="lede"><strong>What changed on October 14, 2026:</strong> the website now uses Umami, a privacy-focused analytics service, to count visits and feature use. It never receives your location, pins, searches or place names. <a href="#counting">Details and opt-out</a>. The site also moved from GitHub Pages to Cloudflare Pages for hosting (<a href="#website">details</a>).</p>
+      <p class="lede">How the Layers.City iPhone app and the maps on this site handle your information. The short version: no accounts, no ads, no tracking cookies, and nothing about you is sold. The website counts visits and which features get used, without identifying anyone.</p>
+      <p class="lede"><strong>What changed on October 21, 2026:</strong> the iPhone app was rebuilt as Layers.City, with optional background location, iCloud sync for your saved home and the neighbourhoods you’ve been to, on-phone reminders, and address search with Apple Maps. <a href="#app">Its section</a> is rewritten; the website’s is unchanged.</p>
       <nav class="toc" aria-label="On this page">
-        <a href="#app">City Layers app (iOS)</a>
+        <a href="#app">Layers.City app (iPhone)</a>
         <a href="#website">This website</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -170,7 +170,8 @@ main.doc{padding-top:56px;gap:40px}
       <ul>
         <li>There are no accounts, no sign-ups, no advertising and no tracking cookies. The app uses no analytics.</li>
         <li>The website counts visits and which features get used (for example “someone picked the Getting around view”), with Umami. It doesn’t identify you, and you can <a href="#counting">opt out</a>. Cloudflare, the site’s host, also measures page loads and speed, without cookies (<a href="#cloudflare-stats">details</a>).</li>
-        <li>Your location is optional, is only used when you ask for it, and stays on your device. Pins, searches and place names are never counted.</li>
+        <li>Your location is optional, is only used when you ask for it, and stays on your device. The app updates in the background only if you turn that on. Pins, searches and place names are never counted.</li>
+        <li>If you use iCloud, the app’s saved home and the neighbourhoods you’ve been to sync through your own iCloud account, which I can’t see.</li>
         <li>Searching for an address sends what you type to a search service (Apple in the app, OpenStreetMap on the website) so it can find the place.</li>
         <li>Your settings are saved on your own device, not on a server run by me.</li>
         <li>I don’t sell, rent or share personal information, because I don’t collect it.</li>
@@ -178,23 +179,40 @@ main.doc{padding-top:56px;gap:40px}
     </section>
 
     <section class="policy" id="app" aria-labelledby="app-h">
-      <h2 id="app-h">City Layers app (iOS)</h2>
-      <p class="dated">LAST UPDATED · OCTOBER 9, 2026</p>
+      <h2 id="app-h">Layers.City app (iPhone)</h2>
+      <p class="dated">LAST UPDATED · OCTOBER 21, 2026</p>
 
       <h3>What the app is</h3>
-      <p>City Layers shows neighbourhood and community-area map layers, and a “What’s here” card describing a spot you pick, for Toronto and Chicago. It is made by Nouman Khan, an individual developer.</p>
+      <p>Layers.City for iPhone shows where you are in a city (neighbourhood, ward, representatives), what’s going on around you (pickup days, road and transit closures, where to vote) and what’s on this weekend, for the cities on this site. It is made by Nouman Khan, an individual developer. It has no accounts and no server of its own: everything it shows comes from the same public files as the maps on this site.</p>
 
       <h3>Your location</h3>
-      <p>Location access is optional. The app only uses it when you tap the button to find your location, to place the map pin near you. Working out which neighbourhood, ward or district you’re in happens on your device. Your location is not sent to me, not stored on a server, not sold, and not used for advertising or tracking. You can turn location access off at any time in iOS Settings, and the app still works: you can drop a pin or search instead.</p>
+      <p>Location access is optional, and the app works without it: it shows a sample spot, or a spot you choose. There are two levels, each asked for only when you turn on the feature that needs it:</p>
+      <ul>
+        <li><strong>While using the app</strong> (“Use my location”): to show what’s around where you are.</li>
+        <li><strong>Always</strong> (“Update in the background”, off unless you turn it on): so the widget follows you, and so the app can note the neighbourhoods you spend time in. It uses iOS’s low-power “significant change” and “visit” updates, not continuous tracking.</li>
+      </ul>
+      <p>Working out which neighbourhood, ward or district a spot is in happens on your phone. Your location is never sent to me or to any server of mine, never stored on a server, never sold, and never used for advertising. You can change or turn off location access at any time in iOS Settings.</p>
 
-      <h3>Address and place search</h3>
-      <p>When you search for an address, the app uses Apple’s maps and search services (MapKit), so what you type is sent to Apple to find the place. Apple handles that under its own <a href="https://www.apple.com/legal/privacy/">privacy policy</a>. Map display also comes from Apple Maps.</p>
+      <h3>Neighbourhoods you’ve been to</h3>
+      <p>With “Update in the background” on, the app records the neighbourhoods you’ve stopped in (passing through doesn’t count), or ones you mark yourself with “I’ve been here”. It keeps only the neighbourhood’s name and when you were first and last there: never coordinates or routes. A spot you choose in Settings never counts as a visit.</p>
 
-      <h3>Map and census data</h3>
-      <p>The map layers and neighbourhood facts are public open data (from the City of Toronto, the City of Chicago, Statistics Canada, the U.S. Census Bureau, OpenStreetMap and others, credited in the app’s About screen and on the <a href="/attributions/">Attributions</a> page). The app comes with a copy of this data so it works offline, and it downloads updates from <code>layers.city</code>. Those downloads are ordinary file requests: they don’t include your location, searches or any identifier, though, as with any web request, the server that delivers the files sees your device’s IP address (see <a href="#website">the website section</a>).</p>
+      <h3>Saved places and iCloud</h3>
+      <p>Your saved home (its name and position) and the neighbourhoods you’ve been to are stored on your phone and, if you use iCloud, synced through your own iCloud account (Apple’s CloudKit private database) so they follow you to a new phone. Apple stores them under your Apple Account; I can’t see them. Without iCloud they stay on your phone. <strong>Delete my history</strong> in Settings removes them from your phone and from iCloud.</p>
 
-      <h3>What’s stored on your device</h3>
-      <p>The app saves your preferences (such as your preferred city), your last pin, and a snapshot of the “What’s here” card so the home-screen widget can show it. These stay on your device, in storage shared only between the app and its own widget. Deleting the app deletes them.</p>
+      <h3>Searching for a spot</h3>
+      <p>When you choose a spot in Settings, neighbourhood and place names are matched on your phone as you type, and nothing is sent. Addresses and postal codes are looked up with Apple Maps, and only when you press Search: what you type goes to Apple to find the place, under Apple’s <a href="https://www.apple.com/legal/privacy/">privacy policy</a>. Layers.City keeps no record of it.</p>
+
+      <h3>Reminders</h3>
+      <p>Pickup reminders, the Friday weekend summary and other notifications are optional and asked for only when you turn them on. They’re scheduled on your phone from the published data; there is no notification server that knows who or where you are.</p>
+
+      <h3>Data the app downloads</h3>
+      <p>The app comes with a copy of each city’s data so it works offline, and downloads updates from <code>layers.city</code>: the list of cities, each city’s map data and the weekend summary. Those downloads are ordinary file requests: they don’t include your location, searches or any identifier, though, as with any web request, the server that delivers the files sees your device’s IP address (see <a href="#website">the website section</a>). The data is public open data, credited in the app’s Settings and on the <a href="/attributions/">Attributions</a> page.</p>
+
+      <h3>Pages and maps it opens</h3>
+      <p>Fact sheets, venue pages and the full map open from <code>layers.city</code> in a browser sheet inside the app; those are this website, so <a href="#website">the website section</a> applies, including its visit counts. Tapping a count such as “6 bike share stations” opens Apple Maps searching near that spot, under Apple’s privacy policy.</p>
+
+      <h3>What’s stored on your phone</h3>
+      <p>Your settings (such as reminder time and a chosen spot) and a small summary of where you are, which the widgets read, are kept in storage shared only between the app and its own widgets. Deleting the app deletes them.</p>
 
       <h3>What the app doesn’t do</h3>
       <ul>
@@ -203,7 +221,7 @@ main.doc{padding-top:56px;gap:40px}
         <li>No collection of contacts, photos, health data or other personal information.</li>
         <li>No selling or sharing of personal data with anyone.</li>
       </ul>
-      <p>If you choose to share something from the app (for example a link to a spot on the map), it goes only where you send it, through the iOS share sheet.</p>
+      <p>If you’ve allowed iOS to share analytics with app developers, Apple may send me anonymous crash reports; you control that in iOS Settings, under Privacy &amp; Security.</p>
     </section>
 
     <section class="policy" id="website" aria-labelledby="web-h">
