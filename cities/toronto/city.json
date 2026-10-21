@@ -256,7 +256,7 @@
       {"layer": "areas", "else": "boroughs"},
       {"knownas": 2},
       {"layer": "bia", "text": "{name} BIA", "color": "--bia"},
-      {"layer": "fed", "text": "Votes in {name}", "color": "--fed"}
+      {"layer": "wards", "text": "Votes in Ward {num} · {name}", "color": "--ward"}
     ],
     "address": {"label": "Address", "east": "East of Yonge", "west": "West of Yonge", "example": {"e": "Queen St E", "w": "Queen St W"}, "sub": "Streets that cross Yonge take E or W ({street}) and count up away from Yonge; north–south streets count up from their south end."},
     "facts": [
