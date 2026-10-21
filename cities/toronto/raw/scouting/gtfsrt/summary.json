@@ -1,0 +1,2567 @@
+{
+ "index": {
+  "status": 200,
+  "type": "text/html; charset=utf-8",
+  "links": [
+   "/alerts/accessibility?format=binary",
+   "/alerts/accessibility?format=text",
+   "/alerts/all?format=binary",
+   "/alerts/all?format=text",
+   "/alerts/bus?format=binary",
+   "/alerts/bus?format=text",
+   "/alerts/stops?format=binary",
+   "/alerts/stops?format=text",
+   "/alerts/streetcar?format=binary",
+   "/alerts/streetcar?format=text",
+   "/alerts/subway?format=binary",
+   "/alerts/subway?format=text",
+   "/release-notes",
+   "/trips/detour?format=binary",
+   "/trips/detour?format=text",
+   "/trips/modified_update?format=binary",
+   "/trips/modified_update?format=text",
+   "/trips/subway?format=binary",
+   "/trips/subway?format=text",
+   "/trips/update?format=binary",
+   "/trips/update?format=text",
+   "/vehicles/position?format=binary",
+   "/vehicles/position?format=text"
+  ]
+ },
+ "https://gtfsrt.ttc.ca/alerts/accessibility?format=binary": {
+  "status": 200,
+  "type": "application/x-protobuf",
+  "bytes": 8071,
+  "entities": 38,
+  "header": {
+   "gtfsRealtimeVersion": "2.0",
+   "incrementality": "FULL_DATASET",
+   "timestamp": "1792578880"
+  },
+  "samples": [
+   {
+    "id": "78591",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792577359"
+      }
+     ],
+     "informedEntity": [
+      {
+       "stopId": "16071"
+      },
+      {
+       "stopId": "16072"
+      }
+     ],
+     "effect": "ACCESSIBILITY_ISSUE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Avenue: Escalator 7 out of service between mechanical/electrical concourse and mezzanine level while we perform maintenance.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78590",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792576493"
+      }
+     ],
+     "informedEntity": [
+      {
+       "stopId": "13777"
+      },
+      {
+       "stopId": "13778"
+      }
+     ],
+     "effect": "ACCESSIBILITY_ISSUE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Jane: Elevator 12B2L out of service between concourse and Line 2 eastbound platform while we perform maintenance.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78589",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792576051"
+      }
+     ],
+     "informedEntity": [
+      {
+       "stopId": "13735"
+      },
+      {
+       "stopId": "13736"
+      }
+     ],
+     "effect": "ACCESSIBILITY_ISSUE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Main Street: Escalator 13D1E out of service from concourse to Main St entrance while we perform maintenance.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78588",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792575961"
+      }
+     ],
+     "informedEntity": [
+      {
+       "stopId": "13840"
+      },
+      {
+       "stopId": "13839"
+      },
+      {
+       "stopId": "14817"
+      },
+      {
+       "stopId": "15055"
+      }
+     ],
+     "effect": "ACCESSIBILITY_ISSUE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Wilson: Escalator 8S9E out of service from lower bus platform to upper bus platform while we perform maintenance.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78587",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792575469"
+      }
+     ],
+     "informedEntity": [
+      {
+       "stopId": "13752"
+      },
+      {
+       "stopId": "13751"
+      }
+     ],
+     "effect": "ACCESSIBILITY_ISSUE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Castle Frank: Elevator 5D2L out of service between Castle Frank Rd entrance and Line 2 Kennedy (eastbound) platform while we perform maintenance.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78584",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792555763"
+      }
+     ],
+     "informedEntity": [
+      {
+       "stopId": "13769"
+      },
+      {
+       "stopId": "13770"
+      }
+     ],
+     "effect": "ACCESSIBILITY_ISSUE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Dundas West: Elevator 8B2L out of service between concourse and Line 2 westbound platform while we perform maintenance.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "https://gtfsrt.ttc.ca/alerts/accessibility?format=text": {
+  "status": 200,
+  "type": "text/plain; charset=utf-8",
+  "bytes": 20620,
+  "decode": "Error parsing message with type 'transit_realtime.FeedMessage': Wire format was corrupt",
+  "head": "header {\r\n  gtfs_realtime_version: \"2.0\"\r\n  incrementality: FULL_DATASET\r\n  timestamp: 1792578881\r\n}\r\nentity {\r\n  id: \"78591\"\r\n  alert {\r\n    active_period {\r\n      start: 1792577359\r\n    }\r\n    informed_entity {\r\n      stop_id: \"16071\"\r\n    }\r\n    informed_entity {\r\n      stop_id: \"16072\"\r\n    }\r\n "
+ },
+ "https://gtfsrt.ttc.ca/alerts/all?format=binary": {
+  "status": 200,
+  "type": "application/x-protobuf",
+  "bytes": 32302,
+  "entities": 70,
+  "header": {
+   "gtfsRealtimeVersion": "2.0",
+   "incrementality": "FULL_DATASET",
+   "timestamp": "1792578881"
+  },
+  "samples": [
+   {
+    "id": "78585",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792574585"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "2",
+       "stopId": "13734"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13733"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13732"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13731"
+      },
+      {
+       "routeId": "2",
+       "stopId": "14947"
+      },
+      {
+       "routeId": "2",
+       "stopId": "16081"
+      }
+     ],
+     "cause": "OTHER_CAUSE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 2 Bloor-Danforth: No service between Victoria Park and Kennedy stations due to track level power issues. Shuttle buses are running between Victoria Park and Kennedy.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78549",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792724400",
+       "end": "1792740600"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "1",
+       "stopId": "16073"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13796"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13794"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13793"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13791"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13792"
+      }
+     ],
+     "cause": "MAINTENANCE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 1 Yonge-University: There is no subway service between York Mills and Eglinton stations due to planned track work. Shuttle buses are running.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78548",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792638000",
+       "end": "1792654200"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "1",
+       "stopId": "16073"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13796"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13794"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13793"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13791"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13792"
+      }
+     ],
+     "cause": "MAINTENANCE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 1 Yonge-University: There is no subway service between York Mills and Eglinton stations due to planned track work. Shuttle buses are running.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78177",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792728000",
+       "end": "1792827000"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "2",
+       "stopId": "13785"
+      },
+      {
+       "routeId": "2",
+       "stopId": "14948"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13784"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13783"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13781"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13782"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13780"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13779"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13777"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13778"
+      }
+     ],
+     "cause": "MAINTENANCE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 2 Bloor-Danforth: There is no subway service between Kipling and Jane stations due to planned track work. Shuttle buses are running. Subway service on Line 2 between Kipling and Jane stations will end nightly at 11:59 p.m. From Monday, October 19 to Friday, October 23 for planned track work. The Grenview entrance at Royal York Station will be closed. Regular subway service will resume each morning at approximately 6 a.m.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78176",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792641600",
+       "end": "1792740600"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "2",
+       "stopId": "13785"
+      },
+      {
+       "routeId": "2",
+       "stopId": "14948"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13784"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13783"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13781"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13782"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13780"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13779"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13777"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13778"
+      }
+     ],
+     "cause": "MAINTENANCE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 2 Bloor-Danforth: There is no subway service between Kipling and Jane stations due to planned track work. Shuttle buses are running. Subway service on Line 2 between Kipling and Jane stations will end nightly at 11:59 p.m. From Monday, October 19 to Friday, October 23 for planned track work. The Grenview entrance at Royal York Station will be closed. Regular subway service will resume each morning at approximately 6 a.m.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78175",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792555200",
+       "end": "1792654200"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "2",
+       "stopId": "13785"
+      },
+      {
+       "routeId": "2",
+       "stopId": "14948"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13784"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13783"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13781"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13782"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13780"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13779"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13777"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13778"
+      }
+     ],
+     "cause": "MAINTENANCE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 2 Bloor-Danforth: There is no subway service between Kipling and Jane stations due to planned track work. Shuttle buses are running. Subway service on Line 2 between Kipling and Jane stations will end nightly at 11:59 p.m. From Monday, October 19 to Friday, October 23 for planned track work. The Grenview entrance at Royal York Station will be closed. Regular subway service will resume each morning at approximately 6 a.m.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "https://gtfsrt.ttc.ca/alerts/all?format=text": {
+  "status": 200,
+  "type": "text/plain; charset=utf-8",
+  "bytes": 66407,
+  "decode": "Error parsing message with type 'transit_realtime.FeedMessage': Wire format was corrupt",
+  "head": "header {\r\n  gtfs_realtime_version: \"2.0\"\r\n  incrementality: FULL_DATASET\r\n  timestamp: 1792578882\r\n}\r\nentity {\r\n  id: \"78585\"\r\n  alert {\r\n    active_period {\r\n      start: 1792574585\r\n    }\r\n    informed_entity {\r\n      route_id: \"2\"\r\n      stop_id: \"13734\"\r\n    }\r\n    informed_entity {\r\n      route"
+ },
+ "https://gtfsrt.ttc.ca/alerts/bus?format=binary": {
+  "status": 200,
+  "type": "application/x-protobuf",
+  "bytes": 13996,
+  "entities": 17,
+  "header": {
+   "gtfsRealtimeVersion": "2.0",
+   "incrementality": "FULL_DATASET",
+   "timestamp": "1792578882"
+  },
+  "samples": [
+   {
+    "id": "100",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1773547200",
+       "end": "1804221000"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "88"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/88-Route-change-due-to-Ontario-Line-construction",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "88 South Leaside – Route change, due to Ontario Line construction",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "The routing of the 88 South Leaside will be adjusted to accommodate the temporary full closure of Beth Nealson Drive for Ontario Line construction. \n \n88A South Leaside will be adjusted to operate between St Clair Station and Thorncliffe Park. \n \n88B South Leaside will be adjusted to operate between St Clair Station and Wicksteed Avenue via Laird Station. \n \nTo accommodate local travel, temporary service on the new 156 Millwood will begin, operating between Thorncliffe Park and Wicksteed Avenue via Laird Station. \n \nService on the 156 Millwood will operate every 25 to 30 minutes approximately between 5 a.m. and 7 p.m. on weekdays, 5:30 a.m. and 7 p.m. on Saturdays, and 7 a.m. and 7 p.m. on Sundays.",
+        "language": "en"
+       }
+      ]
+     },
+     "image": {
+      "localizedImage": [
+       {
+        "url": "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/March/88-South-Leaside-RC-031526-PoleCard-PG.jpg?rev=8ad9ea77e27d4a7d9f16ac5ab2dfefca",
+        "mediaType": "image/jpeg",
+        "language": "en"
+       }
+      ]
+     },
+     "imageAlternativeText": {
+      "translation": [
+       {
+        "text": "advisory image",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "101",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1776675600",
+       "end": "1830313800"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "51"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/51-Temporary-route-change-due-to-bridge-work",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "To Leslie Station Via Laird Station – Temporary route change due to bridge work",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "51A Leslie buses will divert northbound on Leslie Street, west on Sheppard Avenue East and west/south on Old Leslie Street, to Leslie Station. \n \nStops not served: northbound through North York General Hospital, west on Esther Shiner Boulevard and north on Old Leslie Street, to Leslie Station.",
+        "language": "en"
+       }
+      ]
+     },
+     "image": {
+      "localizedImage": [
+       {
+        "url": "https://cdn.ttc.ca/-/media/1-RD/51_BW_Apr20.gif?rev=62e43036213e49aea3fc9f78d4007762",
+        "mediaType": "image/gif",
+        "language": "en"
+       }
+      ]
+     },
+     "imageAlternativeText": {
+      "translation": [
+       {
+        "text": "advisory image",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "102",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1779177600",
+       "end": "1830313800"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "94"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/94-Temporary-route-change-due-to-Wellesley-Street-project",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "94 Wellesley – Temporary route change due to Wellesley Street project",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "94 Wellesley buses will divert eastbound via south on Jarvis Street, east on Carlton Street and north on Parliament Street, to regular route. \n \nStops not served: eastbound Wellesley Street East between Jarvis and Parliament streets.",
+        "language": "en"
+       }
+      ]
+     },
+     "image": {
+      "localizedImage": [
+       {
+        "url": "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/May/94-Wellesley-via-Carlton-260519.jpg?rev=fa58e72968e6477e87039e54b7f9a9fb",
+        "mediaType": "image/jpeg",
+        "language": "en"
+       }
+      ]
+     },
+     "imageAlternativeText": {
+      "translation": [
+       {
+        "text": "advisory image",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "103",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1786532400",
+       "end": "1793401200"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "23"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/23-Temporary-route-change-due-to-road-work",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "23 Dawes – Temporary route change due to road work",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "23 Dawes buses will divert north on Main Street, east on Doncaster Avenue, north on Barrington Avenue, east on Secord Avenue, and north on Dawes Road, to regular route.\n \nStops not served: eastbound Danforth Avenue between Main Street and Dawes Road, northbound on Dawes Road between Danforth and Secord avenues.",
+        "language": "en"
+       }
+      ]
+     },
+     "image": {
+      "localizedImage": [
+       {
+        "url": "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/August/Danforth-Road-Work/23---Dawes---Road-Work.jpg?rev=2aaf3b5f3e174e99a8de13b420cd197d",
+        "mediaType": "image/jpeg",
+        "language": "en"
+       }
+      ]
+     },
+     "imageAlternativeText": {
+      "translation": [
+       {
+        "text": "advisory image",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "104",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1786532400",
+       "end": "1793401200"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "300"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/300-Temporary-route-change-due-to-road-work",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "300 Bloor-Danforth – Temporary route change due to road work",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "300 Bloor-Danforth Night Bus eastbound will divert south on Main Street, east on Gerrard Street East, north on Victoria Park Avenue, and east on Danforth Avenue, to regular route. \n \nStops not served: eastbound on Danforth Avenue between Main Street and Victoria Park Avenue.",
+        "language": "en"
+       }
+      ]
+     },
+     "image": {
+      "localizedImage": [
+       {
+        "url": "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/August/Danforth-Road-Work/300---Bloor-Danforth---Road-Work.jpg?rev=8f1f196edbda4f3fa70c8a25700963da",
+        "mediaType": "image/jpeg",
+        "language": "en"
+       }
+      ]
+     },
+     "imageAlternativeText": {
+      "translation": [
+       {
+        "text": "advisory image",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "105",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1787137200",
+       "end": "1793487600"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "160"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/160-Temporary-route-change-due-to-mall-construction",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "160 Bathurst North – Temporary route change due to mall construction",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "Revised route - August 19, 7 a.m. to October 31, 2026, 7 p.m.\n \n160 Bathurst North buses will divert northbound via Bathurst Street, west on Centre Street and south on North Promenade, to regular route.\n \nStops not served: East Promenade, Promenade Circle between East Promenade and North Promenade, Promenade Circle between North Promenade and Brownridge Drive, Brownridge Drive, New Westminister Drive between Brownridge Drive and Centre Street.",
+        "language": "en"
+       }
+      ]
+     },
+     "image": {
+      "localizedImage": [
+       {
+        "url": "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/August/160-Bathurst-North-260819-REVISED.jpg?rev=c8e81b9e61fb478786fe7ca0944472c8",
+        "mediaType": "image/jpeg",
+        "language": "en"
+       }
+      ]
+     },
+     "imageAlternativeText": {
+      "translation": [
+       {
+        "text": "advisory image",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "https://gtfsrt.ttc.ca/alerts/bus?format=text": {
+  "status": 200,
+  "type": "text/plain; charset=utf-8",
+  "bytes": 25268,
+  "decode": "Error parsing message with type 'transit_realtime.FeedMessage': Wire format was corrupt",
+  "head": "header {\r\n  gtfs_realtime_version: \"2.0\"\r\n  incrementality: FULL_DATASET\r\n  timestamp: 1792578882\r\n}\r\nentity {\r\n  id: \"100\"\r\n  alert {\r\n    active_period {\r\n      start: 1773547200\r\n      end: 1804221000\r\n    }\r\n    informed_entity {\r\n      route_id: \"88\"\r\n    }\r\n    effect: MODIFIED_SERVICE\r\n    he"
+ },
+ "https://gtfsrt.ttc.ca/alerts/stops?format=binary": {
+  "status": 200,
+  "type": "application/x-protobuf",
+  "bytes": 15,
+  "entities": 0,
+  "header": {
+   "gtfsRealtimeVersion": "2.0",
+   "incrementality": "FULL_DATASET",
+   "timestamp": "1792578883"
+  },
+  "samples": []
+ },
+ "https://gtfsrt.ttc.ca/alerts/stops?format=text": {
+  "status": 200,
+  "type": "text/plain; charset=utf-8",
+  "bytes": 102,
+  "decode": "Error parsing message with type 'transit_realtime.FeedMessage': Wire format was corrupt",
+  "head": "header {\r\n  gtfs_realtime_version: \"2.0\"\r\n  incrementality: FULL_DATASET\r\n  timestamp: 1792578883\r\n}\r\n"
+ },
+ "https://gtfsrt.ttc.ca/alerts/streetcar?format=binary": {
+  "status": 200,
+  "type": "application/x-protobuf",
+  "bytes": 6059,
+  "entities": 5,
+  "header": {
+   "gtfsRealtimeVersion": "2.0",
+   "incrementality": "FULL_DATASET",
+   "timestamp": "1792578883"
+  },
+  "samples": [
+   {
+    "id": "200",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1780876800",
+       "end": "1798693200"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "501"
+      },
+      {
+       "routeId": "301"
+      },
+      {
+       "routeId": "507"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/501-301-507-508-Long-Branch-Loop-Streetcar-Track-Renewal-Work",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "– Long Branch Loop Streetcar Track Renewal Work",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "With the start of the TTC construction at Long Branch Loop service will be adjusted on the following routes: \n \n501 Queen: 501A Queen streetcar will be extended to operate in the late evening period between Neville Park Loop and Humber Loop. Streetcars will continue to arrive every 10 minutes. \n \nService on the 501C Queen will be suspended during this construction period. \n \n301 Queen: Overnight service on the 301 Queen streetcar will be shortened to operate between Neville Park Loop and Humber Loop. \n \n301L Queen bus replacement service will be introduced between Long Branch Loop and Dufferin Gate Loop via The Queensway, Park Lawn Road and Lake Shore Boulevard West. Buses will arrive every 30 minutes. \n \n507 Long Branch: Service on the 507 Long Branch streetcar will be suspended and replaced by 507 Long Branch bus replacement service. \n \n507 Long Branch bus replacement service will operate between Humber Loop and Long Branch Loop via Lake Shore Boulevard West, Park Lawn Road and The Queensway. \n \nBuses will arrive every 10 minutes and be extended into the late evening period to replace suspended 501C Queen streetcar service. \n \n507M Long Branch bus replacement shuttle service will begin operating between Humber Loop and Humber Bay Shores (Marine Parade Drive and Silver Moon Drive) via The Queensway, Park Lawn Road, Lake Shore Boulevard West and Marine Parade Drive.\n \nBuses will arrive 15 minutes during the weekday peak periods and between 20 and 30 minutes in off peak periods. \n \nService on the 508 Lake Shore streetcar will be suspended for the summer.",
+        "language": "en"
+       }
+      ]
+     },
+     "image": {
+      "localizedImage": [
+       {
+        "url": "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/July/501-507-508-Long-Branch-060726-PoleCard-PG.jpg?rev=de1da929774342adb531e8de7a309b7d",
+        "mediaType": "image/jpeg",
+        "language": "en"
+       }
+      ]
+     },
+     "imageAlternativeText": {
+      "translation": [
+       {
+        "text": "advisory image",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "201",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1777262400",
+       "end": "1798777800"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "501"
+      },
+      {
+       "routeId": "301"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/501-301-301B-Route-change-due-to-end-of-TTC-track-work",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "– Route change due to end of TTC track work",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "Regular streetcar service will resume on the 501/301 Queen as TTC track work ends on Queen Street East between Broadview Avenue and Davies Avenue. \n \nThe 301B Queen bus replacement service will be removed.",
+        "language": "en"
+       }
+      ]
+     },
+     "image": {
+      "localizedImage": [
+       {
+        "url": "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/April/501-301-Queen-Route-Change.jpg?rev=07c21e6c2f03422fb439635d62b6d3ad",
+        "mediaType": "image/jpeg",
+        "language": "en"
+       }
+      ]
+     },
+     "imageAlternativeText": {
+      "translation": [
+       {
+        "text": "advisory image",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "202",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1777262400",
+       "end": "1798777800"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "503"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/503-Route-change-due-to-end-of-TTC-track-work",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "503 Kingston Rd – Route change due to end of TTC track work",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "The 503 Kingston Rd replacement bus will no longer divert as the TTC track work ends on Queen Street East between Broadview Avenue and Davies Avenue. \n \nWith this change, regular service will resume on Queen Street East between Broadview Avenue and King Street East, and on King Street East between Queen Street East and Parliament Street.",
+        "language": "en"
+       }
+      ]
+     },
+     "image": {
+      "localizedImage": [
+       {
+        "url": "https://cdn.ttc.ca/-/media/Project/TTC/DevProto/Images/Home/Service-alerts/Route-Diversions/2026/April/503-Route-Change.jpg?rev=717b9b272b844e23961959c8a2f546ce",
+        "mediaType": "image/jpeg",
+        "language": "en"
+       }
+      ]
+     },
+     "imageAlternativeText": {
+      "translation": [
+       {
+        "text": "advisory image",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "203",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1788321600",
+       "end": "1793593800"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "506"
+      },
+      {
+       "routeId": "306"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/506-306-Route-change-due-to-City-and-TTC-construction",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "– Route change due to City and TTC construction",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "Westbound 506B/306B Carlton bus replacement service will be adjusted to divert via Parliament Street, Carlton Street, Yonge Street and Wellesley Street as the portion of Carlton Street construction ends. \nEastbound 506B/306B Carlton replacement buses will continue to operate via Spadina Avenue, College Street, Carlton Street, Parliament Street, and Gerrard Street East. \n \n506/306 Carlton streetcars will continue to divert via Bay Street, Dundas Street, and Parliament Street while construction activities remain underway within the corridor. \n \nPlease note: These route changes will not be reflected on the TTC’s Routes and Schedules pages or most trip‑planning apps.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "204",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792396800",
+       "end": "1792638000"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "510"
+      },
+      {
+       "routeId": "310"
+      }
+     ],
+     "effect": "MODIFIED_SERVICE",
+     "url": {
+      "translation": [
+       {
+        "text": "https://www.ttc.ca/service-advisories/Service-Changes/510-310-Temporary-route-change-due-to-streetcar-infrastructure-work",
+        "language": "en"
+       }
+      ]
+     },
+     "headerText": {
+      "translation": [
+       {
+        "text": "– Temporary route change due to streetcar infrastructure work",
+        "language": "en"
+       }
+      ]
+     },
+     "descriptionText": {
+      "translation": [
+       {
+        "text": "October 19, 4 a.m. to October 21, 2026, 11 p.m.\n \n510/310 Spadina streetcars will divert via College and Bathurst streets to Bathurst Station. \n \n510/310 Spadina replacement buses will operate between Spadina Station and south of College Street. \n \nFrom Spadina Station, replacement buses will serve stops at bus platforms. \n \nTransfer points: \n \nNorthbound replacement buses: board at the temporary stop on the east side of Spadina Avenue, south of College Street. \n \nSouthbound streetcars: board on the west side of Spadina Avenue, south of College Street. \n \nReplacement buses will serve curbside stops.\n \n\n \nNightly, October 19, 11 p.m. to October 21, 2026, 4 a.m. \n \n510/310 Spadina streetcars will divert via Dundas Street West and Bathurst Street to Bathurst Station. \n \n510/310 Spadina replacement buses will operate between Spadina Station and south of Dundas Street West. From Spadina Station, replacement buses will serve stops at bus platforms. \n \nTransfer points: \n \nNorthbound replacement buses: board on the east side of Spadina Avenue, south of Dundas Street West. \n \nSouthbound streetcars: board on the south side of Dundas Street West, west of Spadina Avenue. \n \nReplacement buses will serve curbside stops.",
+        "language": "en"
+       }
+      ]
+     },
+     "image": {
+      "localizedImage": [
+       {
+        "url": "https://cdn.ttc.ca/-/media/1-RD/310-510_SIW_Oct19-2.gif?rev=3b1f7ab0d7984876bdd2d9588a903124",
+        "mediaType": "image/gif",
+        "language": "en"
+       }
+      ]
+     },
+     "imageAlternativeText": {
+      "translation": [
+       {
+        "text": "advisory image",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "https://gtfsrt.ttc.ca/alerts/streetcar?format=text": {
+  "status": 200,
+  "type": "text/plain; charset=utf-8",
+  "bytes": 9370,
+  "decode": "Error parsing message with type 'transit_realtime.FeedMessage': Wire format was corrupt",
+  "head": "header {\r\n  gtfs_realtime_version: \"2.0\"\r\n  incrementality: FULL_DATASET\r\n  timestamp: 1792578884\r\n}\r\nentity {\r\n  id: \"200\"\r\n  alert {\r\n    active_period {\r\n      start: 1780876800\r\n      end: 1798693200\r\n    }\r\n    informed_entity {\r\n      route_id: \"501\"\r\n    }\r\n    informed_entity {\r\n      route_"
+ },
+ "https://gtfsrt.ttc.ca/alerts/subway?format=binary": {
+  "status": 200,
+  "type": "application/x-protobuf",
+  "bytes": 3783,
+  "entities": 8,
+  "header": {
+   "gtfsRealtimeVersion": "2.0",
+   "incrementality": "FULL_DATASET",
+   "timestamp": "1792578884"
+  },
+  "samples": [
+   {
+    "id": "78585",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792574585"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "2",
+       "stopId": "13734"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13733"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13732"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13731"
+      },
+      {
+       "routeId": "2",
+       "stopId": "14947"
+      },
+      {
+       "routeId": "2",
+       "stopId": "16081"
+      }
+     ],
+     "cause": "OTHER_CAUSE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 2 Bloor-Danforth: No service between Victoria Park and Kennedy stations due to track level power issues. Shuttle buses are running between Victoria Park and Kennedy.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78549",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792724400",
+       "end": "1792740600"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "1",
+       "stopId": "16073"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13796"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13794"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13793"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13791"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13792"
+      }
+     ],
+     "cause": "MAINTENANCE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 1 Yonge-University: There is no subway service between York Mills and Eglinton stations due to planned track work. Shuttle buses are running.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78548",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792638000",
+       "end": "1792654200"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "1",
+       "stopId": "16073"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13796"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13794"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13793"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13791"
+      },
+      {
+       "routeId": "1",
+       "stopId": "13792"
+      }
+     ],
+     "cause": "MAINTENANCE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 1 Yonge-University: There is no subway service between York Mills and Eglinton stations due to planned track work. Shuttle buses are running.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78177",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792728000",
+       "end": "1792827000"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "2",
+       "stopId": "13785"
+      },
+      {
+       "routeId": "2",
+       "stopId": "14948"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13784"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13783"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13781"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13782"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13780"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13779"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13777"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13778"
+      }
+     ],
+     "cause": "MAINTENANCE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 2 Bloor-Danforth: There is no subway service between Kipling and Jane stations due to planned track work. Shuttle buses are running. Subway service on Line 2 between Kipling and Jane stations will end nightly at 11:59 p.m. From Monday, October 19 to Friday, October 23 for planned track work. The Grenview entrance at Royal York Station will be closed. Regular subway service will resume each morning at approximately 6 a.m.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78176",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792641600",
+       "end": "1792740600"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "2",
+       "stopId": "13785"
+      },
+      {
+       "routeId": "2",
+       "stopId": "14948"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13784"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13783"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13781"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13782"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13780"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13779"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13777"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13778"
+      }
+     ],
+     "cause": "MAINTENANCE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 2 Bloor-Danforth: There is no subway service between Kipling and Jane stations due to planned track work. Shuttle buses are running. Subway service on Line 2 between Kipling and Jane stations will end nightly at 11:59 p.m. From Monday, October 19 to Friday, October 23 for planned track work. The Grenview entrance at Royal York Station will be closed. Regular subway service will resume each morning at approximately 6 a.m.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "id": "78175",
+    "alert": {
+     "activePeriod": [
+      {
+       "start": "1792555200",
+       "end": "1792654200"
+      }
+     ],
+     "informedEntity": [
+      {
+       "routeId": "2",
+       "stopId": "13785"
+      },
+      {
+       "routeId": "2",
+       "stopId": "14948"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13784"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13783"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13781"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13782"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13780"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13779"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13777"
+      },
+      {
+       "routeId": "2",
+       "stopId": "13778"
+      }
+     ],
+     "cause": "MAINTENANCE",
+     "effect": "NO_SERVICE",
+     "headerText": {
+      "translation": [
+       {
+        "text": "Line 2 Bloor-Danforth: There is no subway service between Kipling and Jane stations due to planned track work. Shuttle buses are running. Subway service on Line 2 between Kipling and Jane stations will end nightly at 11:59 p.m. From Monday, October 19 to Friday, October 23 for planned track work. The Grenview entrance at Royal York Station will be closed. Regular subway service will resume each morning at approximately 6 a.m.",
+        "language": "en"
+       }
+      ]
+     }
+    }
+   }
+  ]
+ },
+ "https://gtfsrt.ttc.ca/alerts/subway?format=text": {
+  "status": 200,
+  "type": "text/plain; charset=utf-8",
+  "bytes": 9761,
+  "decode": "Error parsing message with type 'transit_realtime.FeedMessage': Wire format was corrupt",
+  "head": "header {\r\n  gtfs_realtime_version: \"2.0\"\r\n  incrementality: FULL_DATASET\r\n  timestamp: 1792578884\r\n}\r\nentity {\r\n  id: \"78585\"\r\n  alert {\r\n    active_period {\r\n      start: 1792574585\r\n    }\r\n    informed_entity {\r\n      route_id: \"2\"\r\n      stop_id: \"13734\"\r\n    }\r\n    informed_entity {\r\n      route"
+ },
+ "https://gtfsrt.ttc.ca/trips/subway?format=binary": {
+  "status": 200,
+  "type": "application/x-protobuf",
+  "bytes": 12420,
+  "entities": 79,
+  "header": {
+   "gtfsRealtimeVersion": "2.0",
+   "incrementality": "FULL_DATASET",
+   "timestamp": "1792578885"
+  },
+  "samples": [
+   {
+    "id": "subway-134929272|East",
+    "tripUpdate": {
+     "trip": {
+      "tripId": "134929272",
+      "scheduleRelationship": "SCHEDULED",
+      "routeId": "2"
+     },
+     "stopTimeUpdate": [
+      {
+       "stopSequence": 1,
+       "arrival": {
+        "time": "1792578884"
+       },
+       "stopId": "13785",
+       "scheduleRelationship": "SCHEDULED"
+      }
+     ],
+     "vehicle": {
+      "id": "207",
+      "label": "207"
+     }
+    }
+   },
+   {
+    "id": "subway-134928876|North",
+    "tripUpdate": {
+     "trip": {
+      "tripId": "134928876",
+      "scheduleRelationship": "SCHEDULED",
+      "routeId": "1"
+     },
+     "stopTimeUpdate": [
+      {
+       "stopSequence": 13,
+       "arrival": {
+        "time": "1792578945"
+       },
+       "stopId": "13830",
+       "scheduleRelationship": "SCHEDULED"
+      },
+      {
+       "stopSequence": 14,
+       "arrival": {
+        "time": "1792579065"
+       },
+       "stopId": "13827",
+       "scheduleRelationship": "SCHEDULED"
+      },
+      {
+       "stopSequence": 15,
+       "arrival": {
+        "time": "1792579185"
+       },
+       "stopId": "13854",
+       "scheduleRelationship": "SCHEDULED"
+      },
+      {
+       "stopSequence": 16,
+       "arrival": {
+        "time": "1792579245"
+       },
+       "stopId": "13857",
+       "scheduleRelationship": "SCHEDULED"
+      }
+     ],
+     "vehicle": {
+      "id": "148",
+      "label": "148"
+     }
+    }
+   },
+   {
+    "id": "subway-134928874|North",
+    "tripUpdate": {
+     "trip": {
+      "tripId": "134928874",
+      "scheduleRelationship": "SCHEDULED",
+      "routeId": "1"
+     },
+     "stopTimeUpdate": [
+      {
+       "stopSequence": 26,
+       "arrival": {
+        "time": "1792578885"
+       },
+       "stopId": "13808",
+       "scheduleRelationship": "SCHEDULED"
+      },
+      {
+       "stopSequence": 27,
+       "arrival": {
+        "time": "1792578945"
+       },
+       "stopId": "13805",
+       "scheduleRelationship": "SCHEDULED"
+      },
+      {
+       "stopSequence": 28,
+       "arrival": {
+        "time": "1792579005"
+       },
+       "stopId": "13863",
+       "scheduleRelationship": "SCHEDULED"
+      }
+     ],
+     "vehicle": {
+      "id": "137",
+      "label": "137"
+     }
+    }
+   },
+   {
+    "id": "subway-134929346|West",
+    "tripUpdate": {
+     "trip": {
+      "tripId": "134929346",
+      "scheduleRelationship": "SCHEDULED",
+      "routeId": "2"
+     },
+     "stopTimeUpdate": [
+      {
+       "stopSequence": 31,
+       "arrival": {
+        "time": "1792578884"
+       },
+       "stopId": "14948",
+       "scheduleRelationship": "SCHEDULED"
+      }
+     ],
+     "vehicle": {
+      "id": "209",
+      "label": "209"
+     }
+    }
+   },
+   {
+    "id": "subway-134929039|East",
+    "tripUpdate": {
+     "trip": {
+      "tripId": "134929039",
+      "scheduleRelationship": "SCHEDULED",
+      "routeId": "2"
+     },
+     "stopTimeUpdate": [
+      {
+       "stopSequence": 29,
+       "arrival": {
+        "time": "1792578884"
+       },
+       "stopId": "13734",
+       "scheduleRelationship": "SCHEDULED"
+      },
+      {
+       "stopSequence": 30,
+       "arrival": {
+        "time": "1792579124"
+       },
+       "stopId": "13732",
+       "scheduleRelationship": "SCHEDULED"
+      },
+      {
+       "stopSequence": 31,
+       "arrival": {
+        "time": "1792579424"
+       },
+       "stopId": "14947",
+       "scheduleRelationship": "SCHEDULED"
+      }
+     ],
+     "vehicle": {
+      "id": "226",
+      "label": "226"
+     }
+    }
+   },
+   {
+    "id": "subway-134928215|North",
+    "tripUpdate": {
+     "trip": {
+      "tripId": "134928215",
+      "scheduleRelationship": "SCHEDULED",
+      "routeId": "1"
+     },
+     "stopTimeUpdate": [
+      {
+       "stopSequence": 1,
+       "arrival": {
+        "time": "1792578885"
+       },
+       "stopId": "14111",
+       "scheduleRelationship": "SCHEDULED"
+      }
+     ],
+     "vehicle": {
+      "id": "122",
+      "label": "122"
+     }
+    }
+   }
+  ]
+ },
+ "https://gtfsrt.ttc.ca/trips/subway?format=text": {
+  "status": 200,
+  "type": "text/plain; charset=utf-8",
+  "bytes": 82120,
+  "decode": "Error parsing message with type 'transit_realtime.FeedMessage': Wire format was corrupt",
+  "head": "header {\r\n  gtfs_realtime_version: \"2.0\"\r\n  incrementality: FULL_DATASET\r\n  timestamp: 1792578885\r\n}\r\nentity {\r\n  id: \"subway-134928642|North\"\r\n  trip_update {\r\n    trip {\r\n      trip_id: \"134928642\"\r\n      route_id: \"1\"\r\n      schedule_relationship: SCHEDULED\r\n    }\r\n    stop_time_update {\r\n      s"
+ },
+ "https://gtfsrt.ttc.ca/alerts/subway": {
+  "status": 200,
+  "type": "text/plain; charset=utf-8",
+  "bytes": 9761,
+  "decode": "Error parsing message with type 'transit_realtime.FeedMessage': Wire format was corrupt",
+  "head": "header {\r\n  gtfs_realtime_version: \"2.0\"\r\n  incrementality: FULL_DATASET\r\n  timestamp: 1792578885\r\n}\r\nentity {\r\n  id: \"78585\"\r\n  alert {\r\n    active_period {\r\n      start: 1792574585\r\n    }\r\n    informed_entity {\r\n      route_id: \"2\"\r\n      stop_id: \"13734\"\r\n    }\r\n    informed_entity {\r\n      route"
+ },
+ "https://gtfsrt.ttc.ca/alerts/all": {
+  "status": 200,
+  "type": "text/plain; charset=utf-8",
+  "bytes": 66407,
+  "decode": "Error parsing message with type 'transit_realtime.FeedMessage': Wire format was corrupt",
+  "head": "header {\r\n  gtfs_realtime_version: \"2.0\"\r\n  incrementality: FULL_DATASET\r\n  timestamp: 1792578886\r\n}\r\nentity {\r\n  id: \"78585\"\r\n  alert {\r\n    active_period {\r\n      start: 1792574585\r\n    }\r\n    informed_entity {\r\n      route_id: \"2\"\r\n      stop_id: \"13734\"\r\n    }\r\n    informed_entity {\r\n      route"
+ },
+ "https://gtfsrt.ttc.ca/alerts": {
+  "status": 404,
+  "type": "",
+  "bytes": 25,
+  "decode": "Error parsing message with type 'transit_realtime.FeedMessage': Wire format was corrupt",
+  "head": "HTTP Error 404: Not Found"
+ },
+ "best_feed": "https://gtfsrt.ttc.ca/trips/subway?format=binary",
+ "alerts": [
+  {
+   "id": "subway-134929272|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928876|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928874|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929346|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929039|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928215|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928830|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929390|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929396|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928625|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928731|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928861|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928356|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928609|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928340|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928606|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928604|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928492|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928740|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928871|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928205|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928216|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928466|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929470|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928532|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928732|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928787|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929777|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134930049|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928209|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929531|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929530|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928208|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928601|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928607|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928206|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928931|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928611|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928912|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928863|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928338|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928600|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929209|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929694|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928638|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929274|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928353|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929595|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928214|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928202|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928844|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928603|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928390|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929600|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929403|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929402|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928834|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929314|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928473|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929404|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929213|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929212|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928211|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929469|West",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929210|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928255|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928610|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928203|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928642|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928598|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928596|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929269|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928632|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929263|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929267|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929265|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928212|South",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134929850|East",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  },
+  {
+   "id": "subway-134928643|North",
+   "cause": null,
+   "effect": null,
+   "routes": [],
+   "periods": null,
+   "header": "",
+   "ext": {}
+  }
+ ]
+}

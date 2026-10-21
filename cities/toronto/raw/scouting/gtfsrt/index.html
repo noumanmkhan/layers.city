@@ -1,0 +1,174 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="robots" content="noindex">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TTC GTFS-RT</title>
+    <style type="text/css">
+            * {
+                padding: 0;
+                margin: 0;
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
+            }
+
+                *,
+                *:before,
+                *:after {
+                    box-sizing: inherit;
+                }
+
+            html {
+                height: 100%;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Swiss 721 W01 Medium", Arial, Helvetica, sans-serif;
+                font-size: 18px;
+                color: #1e1e1e;
+                margin: 0;
+                min-height: 100%;
+                position: relative;
+                overflow-x: hidden;
+                padding-bottom: 100px;
+                box-sizing: border-box;
+            }
+
+            .container {
+                max-width: 810px;
+                margin: auto;
+            }
+
+            .navbar .container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .navbar {
+                background: #da251d;
+                border: none;
+                margin-bottom: 50px;
+            }
+
+            .body-content {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .footer-bottom {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+
+            footer {
+                padding: 20px 15px;
+            }
+
+            .col-md-4 {
+                width: 33.33333333%;
+            }
+
+            .row {
+                margin-right: -15px;
+                margin-left: -15px;
+            }
+
+            .nobr {
+                white-space: nowrap;
+            }
+
+            hr {
+                margin: 20px 0;
+            }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container body-content">
+            <img alt="TTC Logo" width="122" height="80" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxODUiIGhlaWdodD0iNzMiIHZpZXdCb3g9IjAgMCAxODUgNzMiPg0KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+DQogICAgICAgIDxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik03MC41IDYzLjdIMjIuNkwuNCAzNC42aDUzLjNsLTEwLjEtMThoMTAuN0w0OC4yLjdoODguNmwtNi4xIDE1LjloMTAuN2wtMTAuMSAxOGg1My4zbC0yMi4xIDI5LjFoLTQ3LjljLTUuNiA2LTE0IDktMjIuMSA5LTgtLjEtMTYuNS0zLjEtMjItOXoiLz4NCiAgICAgICAgPHBhdGggZmlsbD0iI0RBMjUxRCIgZD0iTTgzLjMgMjcuNnYtM2gtLjlMNzkgMjkuMWwxIDFjLjItLjMuNi0uNi44LS45LjctLjcgMS42LTEuMiAyLjUtMS42em0yMy43LTNIOTAuNnYyLjZoMS4zdjE1LjFjMSAuNyAyLjMuNiAzLjQuNXYzLjdoLTMuNGMwIDEuOC0uNiAzLjUtMi40IDQuMi0uNi4zLTEuNS40LTIuMi40djEuOGgxNC44di0xLjhjLS43LjEtMS42LS4xLTIuMy0uNC0xLjgtLjctMi40LTIuNC0yLjQtNC4zVjI3LjJoNi43YzEuNCAwIDIuOC42IDMuOCAxLjUuNS40IDEgLjkgMS40IDEuNGwxLjEtMS0zLjQtNC41em0tNy43LTcuM0g3NC42bC0zLjQgNC41IDEgMWMuNC0uNS45LTEgMS40LTEuNCAxLjEtLjkgMi40LTEuNSAzLjgtMS41aDYuN3YxOS4yYzAgMS44LS42IDMuNS0yLjQgNC4zLS42LjMtMS41LjQtMi4yLjR2MS44aDE0Ljh2LTEuOGMtLjcuMS0xLjYtLjEtMi4zLS40LTEuOC0uNy0yLjQtMi40LTIuNC00LjNWMTkuOWg2LjdjMS40IDAgMi44LjYgMy44IDEuNS41LjQgMSAuOSAxLjQgMS40bDEuMS0xLTMuMy00LjV6bS0xIDE0LjljMy40LjUgNy41IDEuNyA5LjYgNC41bDEuNC0uOC00LTQuNC0uMy4zYy0uNC4yLS44LjQtMS4yLjQtLjcgMC0xLjYtLjItMi4yLS40LTEuMS0uNC0yLjEtLjctMy4yLTF2MS40aC0uMXptMS41IDE3LjVjMy42LTEgNi43LTIuOSA5LjQtNS41bC0xLjEtMS4xYy0yLjcgMi41LTUuOSA0LjItOS41IDQuOC4xLjcuNSAxLjMgMS4yIDEuOHptLTguNy0xOS45aC0uNXYyLjRoLjV2LTIuNHptLTE0LjUgMTVjLTEuMi0xLjQtMS45LTMuMS0yLTUgMC0uNiAwLTEuMS4yLTEuNy40LTEuNyAxLjUtMy4yIDIuOC00LjMgMS42LTEuNCAzLjYtMi4zIDUuNi0yLjlsLjItLjFWMzVjLTEuMyAxLjItMi40IDIuOC0yLjQgNC42IDAgLjkuMyAxLjkuOCAyLjdsLjEuMWMtMS4xLjYtMiAuNS0zLjEuNHYzLjVoOC4zYzEuMy41IDIuNi45IDQgMS4yLS4zIDEuNC0xLjIgMi4zLTIuNSAyLjYtNC4zLS42LTkuMS0xLjktMTItNS4zem0tNS4yIDE2LjdIMjMuNkw0LjggMzYuN2g1Mi42bC0xMC4xLTE4aDEwLjJMNTEuNCAyLjhoODIuNGwtNi4xIDE1LjloMTAuMmwtMTAuMSAxOGg1Mi42bC0xOC45IDI0LjhoLTQ3LjhjLTUuMiA2LTEzLjQgOS0yMS4xIDktNy44IDAtMTYtMy0yMS4yLTl6bTIxLjEgNi44YzcuNSAwIDE1LjQtMyAyMC4xLTloNDcuN0wxNzYgMzguOWgtNTEuOWwxMC4xLTE4aC05LjZMMTMwLjcgNUg1NC41bDYuMSAxNS45SDUxbDEwLjEgMThoLTUybDE1LjYgMjAuNWg0Ny43YzQuNyA2IDEyLjcgOC45IDIwLjEgOC45ek0xMjIuMyA0MmwtOCAxNC4zaDQ0LjRsMTEtMTQuM2gtNDcuNHptLTU5LjQgMGw4IDE0LjNIMjYuNEwxNS41IDQyaDQ3LjR6TTU4LjggNy44TDc2IDUyLjVjMy4zIDguNiA5LjkgMTIuOCAxNi41IDEyLjhzMTMuMi00LjIgMTYuNS0xMi44bDE3LjMtNDQuN0g1OC44eiIvPg0KICAgIDwvZz4NCjwvc3ZnPg0K">
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        <h1>Welcome to the TTC GTFS-RT Feed</h1>
+        <br />
+        <p>This provides realtime TTC transit alerts in GTFS-RT textproto format.</p>
+        <br />
+        <h3>How to Use</h3>
+        <p>Choose one of the following endpoints to retrieve a feed:</p>
+        <br />
+        <h3>Service Alerts</h3>
+        <ul>
+            <li>
+                Combined Feed (<a href="/alerts/all?format=text">text</a>/<a href="/alerts/all?format=binary">binary</a>) - Includes all alerts.
+            </li>
+            <li>
+                Subway Feed (<a href="/alerts/subway?format=text">text</a>/<a href="/alerts/subway?format=binary">binary</a>) - Includes all subway alerts.
+            </li>
+            <li>
+                Bus Feed (<a href="/alerts/bus?format=text">text</a>/<a href="/alerts/bus?format=binary">binary</a>) - Includes all bus alerts.
+            </li>
+            <li>
+                Streetcar Feed (<a href="/alerts/streetcar?format=text">text</a>/<a href="/alerts/streetcar?format=binary">binary</a>) - Includes all streetcar alerts.
+            </li>
+            <li>
+                Accessibility Feed (<a href="/alerts/accessibility?format=text">text</a>/<a href="/alerts/accessibility?format=binary">binary</a>) - Includes all accessibility (elevator and escalator) alerts.
+            </li>
+            <li>
+                Stops Feed (<a href="/alerts/stops?format=text">text</a>/<a href="/alerts/stops?format=binary">binary</a>) - Includes all stops alerts.
+            </li>
+        </ul>
+        <br />
+        <h3>Trip Updates</h3>
+        <ul>
+            <li>
+                Trip Updates (<a href="/trips/update?format=text">text</a>/<a href="/trips/update?format=binary">binary</a>)
+            </li>
+            <li>
+                Modified Trip Updates (<a href="/trips/modified_update?format=text">text</a>/<a href="/trips/modified_update?format=binary">binary</a>)
+            </li>
+            <li>
+                Subway Trip Updates (<a href="/trips/subway?format=text">text</a>/<a href="/trips/subway?format=binary">binary</a>)
+            </li>
+
+            <li>
+                Trip Modifications (<a href="/trips/detour?format=text">text</a>/<a href="/trips/detour?format=binary">binary</a>)
+            </li>
+        </ul>
+        <br />
+        <h3>Vehicle Positions</h3>
+        <ul>
+            <li>
+                Vehicle Positions (<a href="/vehicles/position?format=text">text</a>/<a href="/vehicles/position?format=binary">binary</a>)
+            </li>
+        </ul>
+        <br />
+        <p>Simply send a GET request to the desired URL. The response will be plain text in GTFS-RT textproto format or binary protobuf format depending on query parameter ("?format=text/binary").</p>
+    </div>
+    <br />
+    <div class="container body-content">
+        <p>Please click <a href="/release-notes">here</a> to see our release notes.</p>
+    </div>
+    <div class="footer-bottom">
+        <footer class="container">
+            <hr>
+            <div class="footer-content">
+                Toronto Transit Commission, <span class="nobr">Copyright 1997-<span id="copyright-year"></span></span>
+            </div>
+        </footer>
+        <script>
+                    document.getElementById('copyright-year').innerHTML = new Date().getFullYear();
+        </script>
+    </div>
+
+</body>
+</html>
