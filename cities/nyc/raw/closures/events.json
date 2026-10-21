@@ -1,5 +1,5 @@
 {
-"fetched": "2026-10-20",
+"fetched": "2026-10-21",
 "source": "https://data.cityofnewyork.us/resource/tvpp-9vvx.json",
 "permits": [
 {
@@ -193,6 +193,27 @@
 ]
 },
 {
+"id": "936849-1",
+"street": "E 4th St",
+"extent": "Bowery to Second Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-05T16:00",
+"end": "2026-11-05T21:00",
+"who": "East 4th Street Open Street",
+"desc": "Street closed for the East 4th Street Open Street: open street partner event.",
+"coords": [
+[
+-73.991553,
+40.727103
+],
+[
+-73.98943,
+40.726196
+]
+]
+},
+{
 "id": "980181-1",
 "street": "Washington Ave",
 "extent": "E 183rd St to E 184th St",
@@ -281,6 +302,51 @@
 [
 -73.920825,
 40.697926
+]
+]
+},
+{
+"id": "914367-1",
+"street": "E 104th St",
+"extent": "Third Ave to Second Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-05T08:00",
+"end": "2026-11-05T15:00",
+"who": "HHFM East Harlem Market",
+"desc": "Street closed for the HHFM East Harlem Market: farmers market.",
+"coords": [
+[
+-73.945635,
+40.790261
+],
+[
+-73.945216,
+40.790084
+],
+[
+-73.945103,
+40.790037
+],
+[
+-73.944647,
+40.789844
+],
+[
+-73.944542,
+40.7898
+],
+[
+-73.944322,
+40.789707
+],
+[
+-73.944228,
+40.789667
+],
+[
+-73.943397,
+40.789317
 ]
 ]
 },
@@ -1525,6 +1591,47 @@
 [
 -73.951592,
 40.730459
+]
+]
+},
+{
+"id": "971337-10",
+"street": "Mcguinness Blvd",
+"extent": "Greenpoint Ave to Freeman St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-01T07:00",
+"end": "2026-11-01T18:00",
+"who": "2026 TCS NYC Marathon",
+"desc": "Street closed for the 2026 TCS NYC Marathon: athletic race / tour.",
+"coords": [
+[
+-73.951592,
+40.730459
+],
+[
+-73.951872,
+40.731152
+],
+[
+-73.951984,
+40.731862
+],
+[
+-73.952103,
+40.732571
+],
+[
+-73.95222,
+40.733279
+],
+[
+-73.952342,
+40.733988
+],
+[
+-73.952561,
+40.734688
 ]
 ]
 },
@@ -11286,10 +11393,6 @@
 [
 -73.957904,
 40.670862
-],
-[
--73.957974,
-40.670666
 ]
 ]
 },

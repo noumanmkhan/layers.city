@@ -1,5 +1,5 @@
 {
- "fetched": "2026-10-20T17:37",
+ "fetched": "2026-10-21T05:19",
  "source": "https://alerts.ttc.ca/api/alerts/list",
  "closures": [
   {
@@ -12,6 +12,18 @@
    "end": "2026-10-22T19:00",
    "effect": "Subway Closure - Early Closure",
    "text": "There will be no subway service between York Mills and Eglinton stations, starting 11 p.m., nightly Mon, October 19 to Thursday, October 22, due to planned track work. On Tuesday, October 20 and Wednesday October 21, the subway closure area will be extended starting at 1 a.m., with no service between York Mills and St Clair stations. Shuttle buses will operate.",
+   "shuttle": true
+  },
+  {
+   "id": "78175",
+   "line": "2",
+   "name": "Line 2 Bloor-Danforth",
+   "from": "Kipling",
+   "to": "Jane",
+   "start": "2026-10-20T20:00",
+   "end": "2026-10-21T23:30",
+   "effect": "Subway closure",
+   "text": "There is no subway service between Kipling and Jane stations due to planned track work. Shuttle buses are running. Subway service on Line 2 between Kipling and Jane stations will end nightly at 11",
    "shuttle": true
   },
   {
