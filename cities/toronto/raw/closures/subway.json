@@ -1,54 +1,28 @@
 {
- "fetched": "2026-10-21T06:37",
+ "fetched": "2026-10-22T05:23",
  "source": "https://gtfsrt.ttc.ca/alerts/subway?format=binary",
  "licence": "Open Government Licence – Toronto",
  "closures": [
   {
-   "id": "78177",
+   "id": "78625",
    "line": "2",
    "name": "Line 2 Bloor-Danforth",
    "from": "Kipling",
    "to": "Jane",
    "windows": [
     [
-     "2026-10-21T00:00",
-     "2026-10-22T03:30"
-    ],
-    [
-     "2026-10-22T00:00",
+     "2026-10-22T23:59",
      "2026-10-23T03:30"
     ],
     [
-     "2026-10-23T00:00",
+     "2026-10-23T23:59",
      "2026-10-24T03:30"
     ]
    ],
-   "text": "There is no subway service between Kipling and Jane stations due to planned track work. Shuttle buses are running. Subway service on Line 2 between Kipling and Jane stations will end nightly at 11:59 p.m. From Monday, October 19 to Friday, October 23 for planned track work. The Grenview entrance at Royal York Station will be closed. Regular subway service will resume each morning at approximately 6 a.m.",
+   "text": "There is no subway service between Kipling and Jane stations due to planned track work. Shuttle buses are running.",
    "shuttle": true,
-   "start": "2026-10-21T00:00",
+   "start": "2026-10-22T23:59",
    "end": "2026-10-24T03:30",
-   "effect": "Early closure"
-  },
-  {
-   "id": "78549",
-   "line": "1",
-   "name": "Line 1 Yonge-University",
-   "from": "York Mills",
-   "to": "Eglinton",
-   "windows": [
-    [
-     "2026-10-21T23:00",
-     "2026-10-22T03:30"
-    ],
-    [
-     "2026-10-22T23:00",
-     "2026-10-23T03:30"
-    ]
-   ],
-   "text": "There is no subway service between York Mills and Eglinton stations due to planned track work. Shuttle buses are running.",
-   "shuttle": true,
-   "start": "2026-10-21T23:00",
-   "end": "2026-10-23T03:30",
    "effect": "Early closure"
   }
  ]

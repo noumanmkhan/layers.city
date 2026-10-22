@@ -1,7 +1,175 @@
 {
-"fetched": "2026-10-21T06:37",
+"fetched": "2026-10-22T05:22",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
+{
+"id": "Tor-RD52026-6447-3",
+"street": "Lawrence W Dvp N Ramp",
+"extent": "Lawrence W Dvp N Ramp 20 m West of Lawrence Ave E to 42 m South of Don Valley Parkway N",
+"kind": "closed",
+"both": true,
+"start": "2026-10-19T21:00",
+"end": "2026-10-30T05:00",
+"hours": "21:00\u201305:00",
+"days": "weekdays",
+"who": "PTR Paving Inc.",
+"desc": "INTERIM REPAIRS ON THE ROADWAYS INCLUDING LOCALIZE CURBS SIDEWALK REPIARS AT VARIOUS LOCATIONS WITHIN THE NORTH YORK DISTRICT.",
+"roadClass": "Expressway Ramp",
+"coords": [
+[
+-79.3287,
+43.7402
+],
+[
+-79.32888,
+43.7402
+],
+[
+-79.32901,
+43.74021
+],
+[
+-79.3291,
+43.74022
+],
+[
+-79.3292,
+43.74024
+],
+[
+-79.3293,
+43.74027
+],
+[
+-79.32938,
+43.74032
+],
+[
+-79.32948,
+43.74037
+],
+[
+-79.32956,
+43.74046
+],
+[
+-79.32963,
+43.74054
+],
+[
+-79.32969,
+43.74063
+],
+[
+-79.32975,
+43.74073
+],
+[
+-79.3298,
+43.74083
+],
+[
+-79.32984,
+43.7409
+],
+[
+-79.3299,
+43.74102
+],
+[
+-79.32997,
+43.74116
+],
+[
+-79.33005,
+43.74131
+],
+[
+-79.33012,
+43.74144
+],
+[
+-79.3302,
+43.74153
+],
+[
+-79.33029,
+43.74163
+],
+[
+-79.3304,
+43.74171
+],
+[
+-79.33049,
+43.74176
+],
+[
+-79.33063,
+43.74182
+],
+[
+-79.33076,
+43.74186
+],
+[
+-79.33089,
+43.74189
+],
+[
+-79.33104,
+43.74192
+],
+[
+-79.33118,
+43.74195
+],
+[
+-79.33124,
+43.74197
+],
+[
+-79.33137,
+43.74199
+],
+[
+-79.33151,
+43.74203
+],
+[
+-79.33161,
+43.74206
+],
+[
+-79.33176,
+43.74211
+],
+[
+-79.33185,
+43.74217
+],
+[
+-79.33195,
+43.74224
+],
+[
+-79.33202,
+43.74231
+],
+[
+-79.33207,
+43.74239
+],
+[
+-79.3321,
+43.74245
+],
+[
+-79.33211,
+43.74247
+]
+]
+},
 {
 "id": "Tor-RD52026-6447-7",
 "street": "Lawrence E Dvp N Ramp",
@@ -391,6 +559,30 @@
 ]
 },
 {
+"id": "Tor-RD52026-5471",
+"street": "Dixon Rd",
+"extent": "Dixon Rd 21 m East of Dixington Cres to Dixington Cres",
+"kind": "closed",
+"both": true,
+"start": "2026-09-21T21:00",
+"end": "2026-10-23T05:00",
+"hours": "21:00\u201305:00",
+"days": "weekdays",
+"who": "OJCR Construction LTD",
+"desc": "Water and Sewer Connection",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.54129,
+43.69827
+],
+[
+-79.54154,
+43.69822
+]
+]
+},
+{
 "id": "Tor-RD52026-6447-1",
 "street": "Lawrence W Dvp S Ramp",
 "extent": "Lawrence W Dvp S Ramp 43 m North of Don Valley Parkway S to 69 m West of Don Valley Parkway S",
@@ -435,250 +627,6 @@
 [
 -79.33313,
 43.73934
-]
-]
-},
-{
-"id": "Tor-RD52026-6447-3",
-"street": "Lawrence W Dvp N Ramp",
-"extent": "Lawrence W Dvp N Ramp 20 m West of Lawrence Ave E to 42 m South of Don Valley Parkway N",
-"kind": "closed",
-"both": true,
-"start": "2026-10-19T21:00",
-"end": "2026-10-30T05:00",
-"hours": "21:00\u201305:00",
-"days": "weekdays",
-"who": "PTR Paving Inc.",
-"desc": "INTERIM REPAIRS ON THE ROADWAYS INCLUDING LOCALIZE CURBS SIDEWALK REPIARS AT VARIOUS LOCATIONS WITHIN THE NORTH YORK DISTRICT.",
-"roadClass": "Expressway Ramp",
-"coords": [
-[
--79.3287,
-43.7402
-],
-[
--79.32888,
-43.7402
-],
-[
--79.32901,
-43.74021
-],
-[
--79.3291,
-43.74022
-],
-[
--79.3292,
-43.74024
-],
-[
--79.3293,
-43.74027
-],
-[
--79.32938,
-43.74032
-],
-[
--79.32948,
-43.74037
-],
-[
--79.32956,
-43.74046
-],
-[
--79.32963,
-43.74054
-],
-[
--79.32969,
-43.74063
-],
-[
--79.32975,
-43.74073
-],
-[
--79.3298,
-43.74083
-],
-[
--79.32984,
-43.7409
-],
-[
--79.3299,
-43.74102
-],
-[
--79.32997,
-43.74116
-],
-[
--79.33005,
-43.74131
-],
-[
--79.33012,
-43.74144
-],
-[
--79.3302,
-43.74153
-],
-[
--79.33029,
-43.74163
-],
-[
--79.3304,
-43.74171
-],
-[
--79.33049,
-43.74176
-],
-[
--79.33063,
-43.74182
-],
-[
--79.33076,
-43.74186
-],
-[
--79.33089,
-43.74189
-],
-[
--79.33104,
-43.74192
-],
-[
--79.33118,
-43.74195
-],
-[
--79.33124,
-43.74197
-],
-[
--79.33137,
-43.74199
-],
-[
--79.33151,
-43.74203
-],
-[
--79.33161,
-43.74206
-],
-[
--79.33176,
-43.74211
-],
-[
--79.33185,
-43.74217
-],
-[
--79.33195,
-43.74224
-],
-[
--79.33202,
-43.74231
-],
-[
--79.33207,
-43.74239
-],
-[
--79.3321,
-43.74245
-],
-[
--79.33211,
-43.74247
-]
-]
-},
-{
-"id": "Tor-RD52026-5471",
-"street": "Dixon Rd",
-"extent": "Dixon Rd 21 m East of Dixington Cres to Dixington Cres",
-"kind": "closed",
-"both": true,
-"start": "2026-09-21T21:00",
-"end": "2026-10-23T05:00",
-"hours": "21:00\u201305:00",
-"days": "weekdays",
-"who": "OJCR Construction LTD",
-"desc": "Water and Sewer Connection",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.54129,
-43.69827
-],
-[
--79.54154,
-43.69822
-]
-]
-},
-{
-"id": "Tor-RD042026-1359-2",
-"street": "Yonge St",
-"extent": "Yonge St 48 m South of Cumberland St to 40 m North of Bloor St W",
-"kind": "closed",
-"both": true,
-"start": "2026-10-14T22:00",
-"end": "2026-10-22T05:00",
-"hours": "22:00\u201305:00",
-"days": "weekdays",
-"who": "EnVision Consultants Ltd",
-"desc": "1) 6 Monitoring Well - Water-levels , K-Testing and Water sampling for City of Toronto Sewer By-Law 2) Wells will be developed first - Depending on the water and recharged rate of ground water. 3) Once completed - K testing and sampling will be carried out. 4) Only one closure by one crew - will be utilised during the time period of this permit (RoDARS) - ( No Two closures at the same time)",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.38697,
-43.6707
-],
-[
--79.38692,
-43.67057
-]
-]
-},
-{
-"id": "Tor-RD042026-1359-4",
-"street": "Bloor St E",
-"extent": "Bloor St E 75 m East of Yonge St to 91 m East of Yonge St",
-"kind": "closed",
-"both": true,
-"start": "2026-10-14T22:00",
-"end": "2026-10-22T05:00",
-"hours": "22:00\u201305:00",
-"days": "weekdays",
-"who": "EnVision Consultants Ltd",
-"desc": "1) 6 Monitoring Well - Water-levels , K-Testing and Water sampling for City of Toronto Sewer By-Law 2) Wells will be developed first - Depending on the water and recharged rate of ground water. 3) Once completed - K testing and sampling will be carried out. 4) Only one closure by one crew - will be utilised during the time period of this permit (RoDARS) - ( No Two closures at the same time)",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.3859,
-43.67042
-],
-[
--79.38572,
-43.67046
-],
-[
--79.3857,
-43.67046
 ]
 ]
 },
@@ -1127,6 +1075,54 @@
 [
 -79.33222,
 43.73612
+]
+]
+},
+{
+"id": "Tor-RD022026-80-2",
+"street": "Lake Shore Blvd E",
+"extent": "Lake Shore Blvd E 409 m Southwest of Lake Shore Blvd East Trl to 383 m Northeast of Carlaw Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-26T07:00",
+"end": "2026-10-31T17:00",
+"hours": null,
+"days": null,
+"who": "Valentine Undeground Services LTD",
+"desc": "Caroline Avenue extension from Eastern to Lakeshore Blvd. Construction of temporary MUT Connection of Caroline Ave to Lakeshore-Removal & replace curb, sidewalk and MUT. Installation of traffic signaling, addition of eastbound left turn lane on Lakeshore Ave. where Caroline Ave to intersect.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.33293,
+43.65709
+],
+[
+-79.33343,
+43.65686
+]
+]
+},
+{
+"id": "Tor-RD1S2026-1246",
+"street": "Richmond St W",
+"extent": "Richmond St W 81 m West of Peter St to 3 m West of Peter St",
+"kind": "closed",
+"both": true,
+"start": "2026-10-31T07:00",
+"end": "2026-11-01T19:00",
+"hours": "07:00\u201319:00",
+"days": "daily",
+"who": "Gabrielli Crane Erectors",
+"desc": "Hoisting Operation for the Purpose of Erecting Tower Crane for project located at 128 Peter Street.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.39424,
+43.64818
+],
+[
+-79.39332,
+43.64838
 ]
 ]
 },
