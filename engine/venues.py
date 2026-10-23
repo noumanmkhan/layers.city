@@ -8,6 +8,8 @@ Reads:  cities/<city>/venues.json                  the curated venues, regional 
         cities/<city>/factsheet.css                line bullets and route badges in the city's colours
         cities/<city>/raw/venue_events.json        this fortnight's events (fetch_venue_events.py; optional)
         cities/<city>/raw/venue_drives.json        best-case drive minutes and km from each origin (optional)
+        cities/<city>/<fares.railTable>            the regional rail fare between two stations, {"fares": {from: {to:
+                                                   price}}} (Toronto: raw/go_fares.json, fetch_go_fares.py; optional)
         docs/<city>/data/*                         the map's published files: stations, lines, stops, streets,
                                                    parking, permit areas, bike share, boundaries
         docs/<city>/profiles/data/walk_grid.json   walk minutes to the nearest station, stop and dock
@@ -529,6 +531,15 @@ document.querySelectorAll('ul.events').forEach(ul=>{{if(![...ul.children].some(l
 # ---- origins: transit route in words, drive and taxi figures -----------------------------------------------------
 FARES = V.get('fares', {})
 ORIGINS = V.get('origins', [])
+# Station-to-station regional rail fares, when the city has a table; else the pages name the fare without a figure.
+_rt = os.path.join(CITY_DIR, FARES['railTable']) if FARES.get('railTable') else None
+RAIL_FARES = json.load(open(_rt)).get('fares', {}) if _rt and os.path.exists(_rt) else {}
+
+
+def rail_fare(frm, to):
+    """The rail fare from one station to another in the city's words ("railFareAmt"), or None if not known."""
+    amt = RAIL_FARES.get(frm, {}).get(to) if to else None
+    return word('railFareAmt').format(fare=amt) if amt is not None and word('railFareAmt') else None
 DR_MIN = {}
 if DR:
     for i, o in enumerate(DR['origins']):
@@ -608,13 +619,20 @@ def origin_rows(v, f):
             # A train that stops at the venue's own station (Exhibition on Lakeshore West; Mets-Willets Point on the Port Washington Branch)
             # (only where the rail file's lines are real branches: "direct": false turns it off)
             direct = RAIL.get('direct', True) and f.get('go') and f['go'][2] <= 25 and GO_LINES_AT.get(o['via'], set()) & set(f['go'][1]) and f['go'][0] not in HUB_NAMES
-            if f.get('go') and f['go'][0] == o['via'] and f['go'][2] <= 25:
-                transit = f"From {o['via']}, about {f['go'][2]} min on foot"
+            dest, walk_only = None, False
+            if f.get('go') and f['go'][0] == o['via']:
+                # The origin is the venue's own station: walk from it (riding to the hub and back would be absurd).
+                transit, walk_only = f"From {o['via']}, about {f['go'][2]} min on foot", True
             elif direct:
                 transit = f"{rail} from {o['via']} to {f['go'][0]}, then about {f['go'][2]} min on foot"
+                dest = f['go'][0]
             else:
-                transit = f"{rail} from {o['via']} to {hshort}, {from_hub_words(f, hub)}"
-            fare = o.get('fare') or word('railFare') or None
+                fh = from_hub_words(f, hub)
+                transit = f"{rail} from {o['via']} to {hshort}, {fh}"
+                # A second train from the hub to the venue's station: the rail fare runs end to end.
+                dest = f['go'][0] if f.get('go') and fh.startswith(f"then {word('railShort', 'the train')} to ") else \
+                    (hub.get('station', hub['name']) if hub else None)
+            fare = o.get('fare') or (None if walk_only else rail_fare(o['via'], dest) or word('railFare') or None)
         # A venue can say it in its own words: outside the city, where the trip doesn't run through a hub
         # (UBS Arena by LIRR, MetLife by the event train from Secaucus), keyed by origin name or "*".
         own = (v.get('transit') or {})

@@ -19,12 +19,13 @@
     "mode": "sweep"
   },
   "fares": {
-    "_about": "Flat figures the pages quote. Check them before a release; they go stale. local is the TTC adult PRESTO single fare. taxi is the City of Toronto meter rate (drop plus per-km), the only published benchmark for a car ride; rideshare prices are not published and surge after events.",
+    "_about": "Flat figures the pages quote. Check them before a release; they go stale. local is the TTC adult PRESTO single fare. taxi is the City of Toronto meter rate (drop plus per-km), the only published benchmark for a car ride; rideshare prices are not published and surge after events. railTable is GO’s own station-to-station fare from its GTFS (fetch_go_fares.py, monthly), so it is not hand-kept.",
     "asof": "2026-10",
     "taxiDrop": 4.25,
     "taxiPerKm": 1.75,
     "oneFare": "GO Transit riders transfer to the TTC free under One Fare, so a GO trip to Union plus the subway or streetcar to the venue costs the GO fare alone.",
-    "local": 3.35
+    "local": 3.35,
+    "railTable": "raw/go_fares.json"
   },
   "page": {
     "_about": "How engine/venues.py reads this city: which of the map's published files are the subway, regional rail, streetcars, parking and boundaries, the hub trips are finished from, the rows of the What's here preview, and the page's own words.",
@@ -126,7 +127,8 @@
       "venueDesc": "what's on this week, nearest subway and GO, streetcars and buses, Green P parking within a ten-minute walk, and drive and transit from across the GTA.",
       "intro": "places most of the GTA travels to, and how to get to each: nearest station, streetcars and buses, Green P within a ten-minute walk, and drive and transit from across the region.",
       "listDesc": "from Rogers Centre and Scotiabank Arena to Massey Hall, and how to get to each: nearest subway and GO, streetcars, Green P within a ten-minute walk, drive and transit from across the GTA.",
-      "other": "Smaller rooms and the suburbs’ arenas and halls, same facts, same listing."
+      "other": "Smaller rooms and the suburbs’ arenas and halls, same facts, same listing.",
+      "railFareAmt": "GO fare ${fare:.2f}; the TTC leg is free (One Fare)"
     }
   },
   "origins": [

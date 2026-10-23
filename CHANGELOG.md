@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Venues: GO fares by station (October 24)
+- Toronto venue pages quote the GO fare for each trip from the GTA (Brampton to Scotiabank Arena: GO fare $10.30)
+  instead of just "GO fare". The figures are GO's own station-to-station fares from its GTFS
+  (`cities/toronto/fetch_go_fares.py`, *Fetch GO fares*, monthly), so they aren't hand-kept. A trip that changes at
+  Union onto another GO train is priced end to end. Engine: an optional `fares.railTable` and a `railFareAmt` word.
+- Fix: a trip from the venue's own GO station (Cooksville for the Living Arts Centre) now says to walk from it,
+  instead of riding to Union and back.
+
 ### Chicago: vote centers in the election box (October 20)
 - Chicago's election box now lists the three nearest vote centers and marks them on the map, as Dallas's does.
   Until November 2 they are early voting sites (the 50 ward sites and the two downtown sites: "any voter in
