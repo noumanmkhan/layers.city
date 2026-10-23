@@ -1,0 +1,32 @@
+name: Fetch GO fares
+# GO Transit fares between the map's GO stations, from Metrolinx's GTFS (cities/toronto/fetch_go_fares.py), for the
+# Venues pages' "GO fare" figures. Monthly, or by hand; GO fares change rarely. Rebuilds the Toronto venue pages
+# with the new figures and commits both. deploy.yml lists this workflow, so a commit goes live.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 3 * *'        # monthly, the 3rd
+permissions:
+  contents: write
+concurrency: refresh-venues
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q shapely pillow fonttools brotli
+      - name: GO fares
+        run: python3 -u cities/toronto/fetch_go_fares.py 2>&1 | tee cities/toronto/raw/go_fares.log
+      - name: Rebuild the Toronto venue pages
+        run: python3 -u engine/venues.py toronto
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/go_fares.json cities/toronto/raw/go_fares.log docs/toronto/venues
+          git commit -m "Fetch GO fares ($(date -u +%Y-%m-%d))" || echo "no changes"
+          git pull --rebase
+          git push
