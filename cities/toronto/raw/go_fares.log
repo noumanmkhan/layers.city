@@ -1,0 +1,9 @@
+files: ['agency.txt', 'calendar_dates.txt', 'fare_attributes.txt', 'fare_rules.txt', 'feed_info.txt', 'routes.txt', 'shapes.txt', 'stop_amenities.txt', 'stop_times.txt', 'stops.txt', 'transfers.txt', 'trips.txt']
+fare_attributes: 8281 rows ['fare_id', 'price', 'currency_type', 'payment_method', 'transfers', 'agency_id'] [{'fare_id': '111-111', 'price': '4.40', 'currency_type': 'CAD', 'payment_method': '1', 'transfers': '', 'agency_id': 'GO'}, {'fare_id': '111-100', 'price': '20.50', 'currency_type': 'CAD', 'payment_method': '1', 'transfers': '', 'agency_id': 'GO'}, {'fare_id': '100-111', 'price': '20.50', 'currency_type': 'CAD', 'payment_method': '1', 'transfers': '', 'agency_id': 'GO'}]
+fare_rules: 8281 rows ['fare_id', 'origin_id', 'destination_id'] [{'fare_id': '111-111', 'origin_id': '111', 'destination_id': '111'}, {'fare_id': '111-100', 'origin_id': '111', 'destination_id': '100'}, {'fare_id': '100-111', 'origin_id': '100', 'destination_id': '111'}]
+matched 70 of 71 stations; missing: ['Pearson Airport (UP)']
+pairs: 4830
+  Brampton Innovation District GO -> Union Station: 10.3
+  Oakville GO -> Union Station: 9.7
+  Allandale Waterfront GO -> Union Station: 15.8
+wrote /home/runner/work/city-layers/city-layers/cities/toronto/raw/go_fares.json
