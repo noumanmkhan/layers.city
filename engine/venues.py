@@ -614,6 +614,12 @@ def origin_rows(v, f):
             else:
                 transit = f"{LOCAL} from {o['via']} to {hshort}, {from_hub_words(f, hub)}"
             fare = word('localFare').format(fare=FARES.get('local', 0)) if word('localFare') and FARES.get('local') else None
+            # The trip ends on a regional train from the hub (Union to Exhibition for BMO Field): that leg sets the
+            # fare, and the local leg before it is free where the city's words say so (railFareAmt).
+            if hub and f.get('go') and f"{word('railShort', 'the train')} to {f['go'][0]}" in transit:
+                rf = rail_fare(hub.get('station', hub['name']), f['go'][0])
+                if rf:
+                    fare = rf.split(';')[0] if o['via'] == hub.get('station', hub['name']) else rf
         else:
             rail = o.get('rail') or word('railShort', 'Train')
             # A train that stops at the venue's own station (Exhibition on Lakeshore West; Mets-Willets Point on the Port Washington Branch)

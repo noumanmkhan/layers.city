@@ -6,7 +6,9 @@
 - Toronto venue pages quote the GO fare for each trip from the GTA (Brampton to Scotiabank Arena: GO fare $10.30)
   instead of just "GO fare". The figures are GO's own station-to-station fares from its GTFS
   (`cities/toronto/fetch_go_fares.py`, *Fetch GO fares*, monthly), so they aren't hand-kept. A trip that changes at
-  Union onto another GO train is priced end to end. Engine: an optional `fares.railTable` and a `railFareAmt` word.
+  Union onto another GO train is priced end to end, and so is a trip from inside Toronto that ends on GO (Finch to BMO
+  Field: TTC to Union, then GO to Exhibition, GO fare $4.40 with the TTC leg free), which used to say only the TTC fare.
+  Engine: an optional `fares.railTable` and a `railFareAmt` word.
 - Fix: a trip from the venue's own GO station (Cooksville for the Living Arts Centre) now says to walk from it,
   instead of riding to Union and back.
 
