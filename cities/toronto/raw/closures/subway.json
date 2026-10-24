@@ -1,25 +1,37 @@
 {
- "fetched": "2026-10-23T05:18",
+ "fetched": "2026-10-24T04:50",
  "source": "https://gtfsrt.ttc.ca/alerts/subway?format=binary",
  "licence": "Open Government Licence – Toronto",
  "closures": [
   {
-   "id": "78625",
-   "line": "2",
-   "name": "Line 2 Bloor-Danforth",
-   "from": "Kipling",
-   "to": "Jane",
+   "id": "78762",
+   "line": "1",
+   "name": "Line 1 Yonge-University",
+   "from": "Lawrence West",
+   "to": "St George",
    "windows": [
     [
-     "2026-10-23T23:59",
-     "2026-10-24T03:30"
+     "2026-10-26T23:59",
+     "2026-10-27T03:30"
+    ],
+    [
+     "2026-10-27T23:59",
+     "2026-10-28T03:30"
+    ],
+    [
+     "2026-10-28T23:59",
+     "2026-10-29T03:30"
+    ],
+    [
+     "2026-10-29T23:59",
+     "2026-10-30T03:30"
     ]
    ],
-   "text": "There is no subway service between Kipling and Jane stations due to planned track work. Shuttle buses are running.",
+   "text": "There is no subway service between Lawrence West and St George stations due to planned track work. Shuttle buses are running.",
    "shuttle": true,
-   "start": "2026-10-23T23:59",
-   "end": "2026-10-24T03:30",
-   "effect": "Full closure"
+   "start": "2026-10-26T23:59",
+   "end": "2026-10-30T03:30",
+   "effect": "Early closure"
   }
  ]
 }

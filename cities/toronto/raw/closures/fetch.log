@@ -1,8 +1,24 @@
-Toronto: 5 special-event closures
-Toronto road classes of full closures: {'Expressway Ramp': 10, 'Unknown': 48, 'Major Arterial Road': 16, 'Local Road': 326, 'Minor Arterial Road': 22, 'Expressway': 1}
-Toronto: 13 full closures of expressways and major arterials in the next 10 days
-Toronto: 2502 restrictions in feed; 119 from transit construction
-toronto closures: 82 kept of 119 · dropped {'dates': 1, 'existing line': 9, 'local lane work': 24} · by project {'Ontario Line': 42, 'GO Expansion (Barrie line)': 3, 'GO Expansion (Lakeshore East line)': 1, 'Eglinton Crosstown West extension': 13, 'Line 2 East extension': 14, 'GO Expansion (Stouffville line)': 7, 'GO Expansion (Kitchener line)': 2} · closed 15 · on arterials 74
-toronto: 5 special-event closures in 1 events: Wyndham Street Halloween Eve Trick or Treat Block Party (5, 2026-10-31T17:30 to 2026-10-31T21:30)
+Traceback (most recent call last):
+  File "/home/runner/work/city-layers/city-layers/cities/toronto/fetch_closures.py", line 42, in <module>
+    raw = urllib.request.urlopen(req, timeout=180).read().decode('utf-8', 'replace')
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 500: Internal Server Error
 Toronto: 1 planned subway closures (GTFS-RT)
-  Line 2 Bloor-Danforth Kipling -> Jane Full closure 2026-10-23T23:59 2026-10-24T03:30 1 windows
+  Line 1 Yonge-University Lawrence West -> St George Early closure 2026-10-26T23:59 2026-10-30T03:30 4 windows

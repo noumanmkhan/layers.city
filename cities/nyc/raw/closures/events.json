@@ -1,7 +1,185 @@
 {
-"fetched": "2026-10-23",
+"fetched": "2026-10-24",
 "source": "https://data.cityofnewyork.us/resource/tvpp-9vvx.json",
 "permits": [
+{
+"id": "983260-1",
+"street": "Prince St",
+"extent": "35th Ave to 33rd Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:30",
+"end": "2026-11-08T14:30",
+"who": "Master Huaguang Birthday Memorial Procession",
+"desc": "Street closed for the Master Huaguang Birthday Memorial Procession: parade.",
+"coords": [
+[
+-73.833351,
+40.764092
+],
+[
+-73.833375,
+40.765151
+],
+[
+-73.833383,
+40.765396
+],
+[
+-73.83342,
+40.766585
+]
+]
+},
+{
+"id": "983260-2",
+"street": "Farrington St",
+"extent": "33rd Ave to Northern Blvd",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:30",
+"end": "2026-11-08T14:30",
+"who": "Master Huaguang Birthday Memorial Procession",
+"desc": "Street closed for the Master Huaguang Birthday Memorial Procession: parade.",
+"coords": [
+[
+-73.832715,
+40.766754
+],
+[
+-73.831774,
+40.764462
+],
+[
+-73.831311,
+40.763289
+]
+]
+},
+{
+"id": "983260-3",
+"street": "Northern Blvd",
+"extent": "Farrington St to Leavitt St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:30",
+"end": "2026-11-08T14:30",
+"who": "Master Huaguang Birthday Memorial Procession",
+"desc": "Street closed for the Master Huaguang Birthday Memorial Procession: parade.",
+"coords": [
+[
+-73.831311,
+40.763289
+],
+[
+-73.830209,
+40.763551
+],
+[
+-73.829748,
+40.763658
+],
+[
+-73.828738,
+40.763916
+]
+]
+},
+{
+"id": "983260-4",
+"street": "Leavitt St",
+"extent": "35th Ave to 137th St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:30",
+"end": "2026-11-08T14:30",
+"who": "Master Huaguang Birthday Memorial Procession",
+"desc": "Street closed for the Master Huaguang Birthday Memorial Procession: parade.",
+"coords": [
+[
+-73.82906,
+40.765102
+],
+[
+-73.829107,
+40.765247
+],
+[
+-73.829107,
+40.765247
+],
+[
+-73.829107,
+40.765247
+],
+[
+-73.829135,
+40.765396
+],
+[
+-73.829142,
+40.765547
+],
+[
+-73.82913,
+40.765696
+]
+]
+},
+{
+"id": "983260-5",
+"street": "Leavitt St",
+"extent": "Northern Blvd to 35th Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:30",
+"end": "2026-11-08T14:30",
+"who": "Master Huaguang Birthday Memorial Procession",
+"desc": "Street closed for the Master Huaguang Birthday Memorial Procession: parade.",
+"coords": [
+[
+-73.828738,
+40.763916
+],
+[
+-73.828907,
+40.764565
+],
+[
+-73.82906,
+40.765102
+]
+]
+},
+{
+"id": "983260-6",
+"street": "Latimer Pl",
+"extent": "137th St to Linden Pl",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:30",
+"end": "2026-11-08T14:30",
+"who": "Master Huaguang Birthday Memorial Procession",
+"desc": "Street closed for the Master Huaguang Birthday Memorial Procession: parade.",
+"coords": [
+[
+-73.830378,
+40.766825
+],
+[
+-73.831239,
+40.766626
+],
+[
+-73.831309,
+40.76661
+],
+[
+-73.831444,
+40.766579
+]
+]
+},
 {
 "id": "976775-1",
 "street": "W 51st St",
@@ -74,27 +252,6 @@
 [
 -73.987578,
 40.765372
-]
-]
-},
-{
-"id": "979421-1",
-"street": "Carroll St",
-"extent": "Rogers Ave to Nostrand Ave",
-"kind": "closed",
-"both": true,
-"start": "2026-10-23T15:00",
-"end": "2026-10-23T18:30",
-"who": "MECPS PEP RALLY",
-"desc": "Street closed for the MECPS PEP RALLY: street event.",
-"coords": [
-[
--73.953523,
-40.667341
-],
-[
--73.950753,
-40.66719
 ]
 ]
 },
@@ -992,6 +1149,56 @@
 ]
 },
 {
+"id": "979955-1",
+"street": "Macon St",
+"extent": "Nostrand Ave to Marcy Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-31T11:00",
+"end": "2026-10-31T19:30",
+"who": "Trick-or-Streets",
+"desc": "Street closed for the Trick-or-Streets: street event.",
+"coords": [
+[
+-73.949716,
+40.681078
+],
+[
+-73.947633,
+40.681323
+],
+[
+-73.947165,
+40.681375
+],
+[
+-73.946438,
+40.681457
+]
+]
+},
+{
+"id": "979955-2",
+"street": "Verona Pl",
+"extent": "Macon St to Fulton St",
+"kind": "closed",
+"both": true,
+"start": "2026-10-31T11:00",
+"end": "2026-10-31T19:30",
+"who": "Trick-or-Streets",
+"desc": "Street closed for the Trick-or-Streets: street event.",
+"coords": [
+[
+-73.947633,
+40.681323
+],
+[
+-73.947732,
+40.6803
+]
+]
+},
+{
 "id": "971414-1",
 "street": "W 90th St",
 "extent": "Central Park W to Columbus Ave",
@@ -1046,6 +1253,27 @@
 [
 -74.010071,
 40.704554
+]
+]
+},
+{
+"id": "985381-1",
+"street": "Sherman Ave",
+"extent": "W 204th St to W 207th St",
+"kind": "closed",
+"both": true,
+"start": "2026-10-30T14:30",
+"end": "2026-10-30T16:30",
+"who": "Pumpkin on Sherman",
+"desc": "Street closed for the Pumpkin on Sherman: street event.",
+"coords": [
+[
+-73.921884,
+40.865108
+],
+[
+-73.919997,
+40.865805
 ]
 ]
 },
@@ -1135,6 +1363,47 @@
 [
 -73.93417,
 40.859267
+]
+]
+},
+{
+"id": "965085-1",
+"street": "W 69th St",
+"extent": "Central Park W to Broadway",
+"kind": "closed",
+"both": true,
+"start": "2026-10-31T18:00",
+"end": "2026-10-31T20:00",
+"who": "Halloween Party",
+"desc": "Street closed for the Halloween Party: street event.",
+"coords": [
+[
+-73.977372,
+40.774289
+],
+[
+-73.979256,
+40.775087
+],
+[
+-73.979331,
+40.775118
+],
+[
+-73.98021,
+40.775489
+],
+[
+-73.982014,
+40.776255
+],
+[
+-73.982139,
+40.776306
+],
+[
+-73.982244,
+40.776343
 ]
 ]
 },
@@ -1474,6 +1743,27 @@
 [
 -73.818086,
 40.820489
+]
+]
+},
+{
+"id": "980688-1",
+"street": "Madison St",
+"extent": "Bedford Ave to Nostrand Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-31T16:30",
+"end": "2026-10-31T20:00",
+"who": "Trick or Streets",
+"desc": "Street closed for the Trick or Streets: street event.",
+"coords": [
+[
+-73.954102,
+40.684321
+],
+[
+-73.950447,
+40.684743
 ]
 ]
 },
@@ -3212,6 +3502,31 @@
 [
 -73.887787,
 40.657691
+]
+]
+},
+{
+"id": "980099-1",
+"street": "Driggs Ave",
+"extent": "N 12th St to Lorimer St",
+"kind": "closed",
+"both": true,
+"start": "2026-10-24T12:00",
+"end": "2026-10-24T14:00",
+"who": "The Longest Pastry Table",
+"desc": "Street closed for the The Longest Pastry Table: street event.",
+"coords": [
+[
+-73.95347,
+40.719806
+],
+[
+-73.952711,
+40.720459
+],
+[
+-73.950647,
+40.721714
 ]
 ]
 },
@@ -12753,60 +13068,6 @@
 ]
 },
 {
-"id": "973414-1",
-"street": "Roosevelt Ave",
-"extent": "Union St to Main St",
-"kind": "closed",
-"both": true,
-"start": "2026-10-23T15:00",
-"end": "2026-10-23T18:00",
-"who": "KAFSC 29th Annual Silent March",
-"desc": "Street closed for the KAFSC 29th Annual Silent March: parade.",
-"coords": [
-[
--73.826542,
-40.760472
-],
-[
--73.827796,
-40.760159
-],
-[
--73.830141,
-40.759579
-]
-]
-},
-{
-"id": "973414-2",
-"street": "Main St",
-"extent": "Roosevelt Ave to 41st Ave",
-"kind": "closed",
-"both": true,
-"start": "2026-10-23T15:00",
-"end": "2026-10-23T18:00",
-"who": "KAFSC 29th Annual Silent March",
-"desc": "Street closed for the KAFSC 29th Annual Silent March: parade.",
-"coords": [
-[
--73.830141,
-40.759579
-],
-[
--73.829843,
-40.758971
-],
-[
--73.829702,
-40.758692
-],
-[
--73.829637,
-40.758558
-]
-]
-},
-{
 "id": "914367-1",
 "street": "E 104th St",
 "extent": "Third Ave to Second Ave",
@@ -12848,6 +13109,27 @@
 [
 -73.943397,
 40.789317
+]
+]
+},
+{
+"id": "965778-1",
+"street": "Macon St",
+"extent": "Lewis Ave to Stuyvesant Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-31T16:30",
+"end": "2026-10-31T20:30",
+"who": "Masquerade on Macon",
+"desc": "Street closed for the Masquerade on Macon: street event.",
+"coords": [
+[
+-73.935009,
+40.682772
+],
+[
+-73.932088,
+40.683109
 ]
 ]
 },
@@ -12955,6 +13237,35 @@
 [
 -73.851544,
 40.791523
+]
+]
+},
+{
+"id": "966655-1",
+"street": "W 80th St",
+"extent": "Broadway to W End Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-31T15:00",
+"end": "2026-10-31T17:00",
+"who": "All Angels Hallowfest Event",
+"desc": "Street closed for the All Angels Hallowfest Event: street event.",
+"coords": [
+[
+-73.979372,
+40.78449
+],
+[
+-73.979472,
+40.784531
+],
+[
+-73.979572,
+40.784574
+],
+[
+-73.980667,
+40.785035
 ]
 ]
 },
@@ -13071,6 +13382,125 @@
 [
 -73.98943,
 40.726196
+]
+]
+},
+{
+"id": "974193-1",
+"street": "Lafayette Ave",
+"extent": "E Tremont Ave to Swinton Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:00",
+"end": "2026-11-08T14:00",
+"who": "Bronx Veterans Day Parade",
+"desc": "Street closed for the Bronx Veterans Day Parade: parade.",
+"coords": [
+[
+-73.825296,
+40.829697
+],
+[
+-73.826215,
+40.829232
+],
+[
+-73.827006,
+40.828843
+],
+[
+-73.827795,
+40.828458
+],
+[
+-73.828585,
+40.828069
+]
+]
+},
+{
+"id": "974193-2",
+"street": "E Tremont Ave",
+"extent": "Lafayette Ave to Randall Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:00",
+"end": "2026-11-08T14:00",
+"who": "Bronx Veterans Day Parade",
+"desc": "Street closed for the Bronx Veterans Day Parade: parade.",
+"coords": [
+[
+-73.825296,
+40.829697
+],
+[
+-73.824704,
+40.829061
+],
+[
+-73.824158,
+40.828478
+],
+[
+-73.82358,
+40.827876
+],
+[
+-73.822363,
+40.826806
+],
+[
+-73.821677,
+40.82621
+]
+]
+},
+{
+"id": "974193-3",
+"street": "Randall Ave",
+"extent": "E Tremont Ave to Ellsworth Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:00",
+"end": "2026-11-08T14:00",
+"who": "Bronx Veterans Day Parade",
+"desc": "Street closed for the Bronx Veterans Day Parade: parade.",
+"coords": [
+[
+-73.821677,
+40.82621
+],
+[
+-73.82083,
+40.82661
+],
+[
+-73.820038,
+40.827001
+],
+[
+-73.819175,
+40.827422
+],
+[
+-73.818323,
+40.827843
+],
+[
+-73.81791,
+40.82804
+],
+[
+-73.817827,
+40.82808
+],
+[
+-73.817748,
+40.828119
+],
+[
+-73.817338,
+40.828326
 ]
 ]
 },
@@ -13597,6 +14027,403 @@
 [
 -73.94693,
 40.67823
+]
+]
+},
+{
+"id": "970013-2",
+"street": "Queens Blvd",
+"extent": "61st St to 55th St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T15:00",
+"end": "2026-11-08T18:00",
+"who": "LADY OF HAVEN FATIMA SAW",
+"desc": "Street closed for the LADY OF HAVEN FATIMA SAW: parade.",
+"coords": [
+[
+-73.902581,
+40.741096
+],
+[
+-73.902645,
+40.741105
+],
+[
+-73.902695,
+40.741113
+],
+[
+-73.902774,
+40.741125
+],
+[
+-73.902975,
+40.74115
+],
+[
+-73.903227,
+40.741178
+],
+[
+-73.903728,
+40.74124
+],
+[
+-73.904297,
+40.741304
+],
+[
+-73.90462,
+40.74134
+],
+[
+-73.904902,
+40.741373
+],
+[
+-73.905505,
+40.741442
+],
+[
+-73.906077,
+40.741506
+],
+[
+-73.906341,
+40.741535
+],
+[
+-73.906826,
+40.74159
+],
+[
+-73.907556,
+40.741673
+],
+[
+-73.908341,
+40.741765
+],
+[
+-73.909291,
+40.741875
+],
+[
+-73.90945,
+40.741895
+],
+[
+-73.910193,
+40.74198
+],
+[
+-73.91078,
+40.742052
+],
+[
+-73.911089,
+40.742086
+],
+[
+-73.911332,
+40.742116
+],
+[
+-73.911988,
+40.742197
+],
+[
+-73.912605,
+40.742273
+],
+[
+-73.912951,
+40.742315
+],
+[
+-73.913829,
+40.742422
+],
+[
+-73.913953,
+40.742435
+],
+[
+-73.914078,
+40.742449
+],
+[
+-73.915022,
+40.742561
+],
+[
+-73.915841,
+40.742641
+],
+[
+-73.915944,
+40.742689
+],
+[
+-73.916237,
+40.742726
+],
+[
+-73.916518,
+40.742756
+],
+[
+-73.916888,
+40.742795
+],
+[
+-73.917787,
+40.742901
+],
+[
+-73.918731,
+40.74301
+],
+[
+-73.919662,
+40.743114
+],
+[
+-73.920589,
+40.743224
+],
+[
+-73.921514,
+40.743333
+],
+[
+-73.922444,
+40.74344
+],
+[
+-73.923372,
+40.743545
+],
+[
+-73.924293,
+40.743652
+],
+[
+-73.92522,
+40.743759
+],
+[
+-73.926185,
+40.743876
+],
+[
+-73.927081,
+40.743967
+],
+[
+-73.928008,
+40.744084
+],
+[
+-73.928935,
+40.744186
+],
+[
+-73.929861,
+40.744297
+],
+[
+-73.930788,
+40.744405
+],
+[
+-73.931717,
+40.744518
+],
+[
+-73.932636,
+40.744627
+],
+[
+-73.932764,
+40.744662
+],
+[
+-73.93289,
+40.744703
+],
+[
+-73.933012,
+40.74475
+],
+[
+-73.933131,
+40.744801
+],
+[
+-73.933246,
+40.744857
+],
+[
+-73.933356,
+40.744918
+],
+[
+-73.93345,
+40.745018
+],
+[
+-73.933472,
+40.745041
+],
+[
+-73.933506,
+40.745154
+],
+[
+-73.933382,
+40.745111
+],
+[
+-73.933334,
+40.745091
+],
+[
+-73.933123,
+40.745002
+],
+[
+-73.932579,
+40.744947
+],
+[
+-73.931651,
+40.744841
+],
+[
+-73.930723,
+40.744729
+],
+[
+-73.929795,
+40.744626
+],
+[
+-73.928869,
+40.744517
+],
+[
+-73.927943,
+40.74441
+],
+[
+-73.927014,
+40.744301
+],
+[
+-73.926121,
+40.7442
+],
+[
+-73.925155,
+40.744085
+],
+[
+-73.924228,
+40.74398
+],
+[
+-73.923306,
+40.743877
+],
+[
+-73.922379,
+40.743767
+],
+[
+-73.921448,
+40.743661
+],
+[
+-73.920524,
+40.743551
+],
+[
+-73.919596,
+40.743445
+],
+[
+-73.918668,
+40.74334
+],
+[
+-73.91772,
+40.743227
+],
+[
+-73.916812,
+40.743123
+],
+[
+-73.916464,
+40.743089
+],
+[
+-73.916169,
+40.743048
+],
+[
+-73.915879,
+40.743006
+],
+[
+-73.915774,
+40.743043
+],
+[
+-73.914946,
+40.742934
+],
+[
+-73.914008,
+40.742819
+],
+[
+-73.91387,
+40.742803
+],
+[
+-73.913714,
+40.742784
+],
+[
+-73.912803,
+40.742681
+],
+[
+-73.912569,
+40.742654
+],
+[
+-73.911904,
+40.742575
+],
+[
+-73.911262,
+40.742482
+],
+[
+-73.911013,
+40.742452
+],
+[
+-73.910706,
+40.742418
+],
+[
+-73.910122,
+40.742363
 ]
 ]
 },
@@ -15417,31 +16244,6 @@
 ]
 },
 {
-"id": "946615-1",
-"street": "E 71st St",
-"extent": "3rd Ave to 2nd Ave",
-"kind": "closed",
-"both": true,
-"start": "2026-10-23T11:00",
-"end": "2026-10-23T15:00",
-"who": "Marymount Manhattan College- Apple Fest 2026",
-"desc": "Street closed for the Marymount Manhattan College- Apple Fest 2026: street event.",
-"coords": [
-[
--73.961111,
-40.769073
-],
-[
--73.96043,
-40.768792
-],
-[
--73.958863,
-40.768128
-]
-]
-},
-{
 "id": "980905-1",
 "street": "Suydam St",
 "extent": "Wilson Ave to Knickerbocker Ave",
@@ -16505,6 +17307,189 @@
 ]
 },
 {
+"id": "901890-1",
+"street": "Cadman Plaza W",
+"extent": "Tillary St to Montague St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T11:00",
+"end": "2026-11-08T12:30",
+"who": "Walk to End Alzheimers - Brooklyn",
+"desc": "Street closed for the Walk to End Alzheimers - Brooklyn: parade.",
+"coords": [
+[
+-73.991074,
+40.696189
+],
+[
+-73.990741,
+40.69504
+],
+[
+-73.990607,
+40.69458
+],
+[
+-73.990377,
+40.693835
+],
+[
+-73.990454,
+40.693729
+]
+]
+},
+{
+"id": "901890-2",
+"street": "Remsen St",
+"extent": "Court St to Brooklyn Heights Promenade",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T11:00",
+"end": "2026-11-08T12:30",
+"who": "Walk to End Alzheimers - Brooklyn",
+"desc": "Street closed for the Walk to End Alzheimers - Brooklyn: parade.",
+"coords": [
+[
+-73.99073,
+40.693056
+],
+[
+-73.992745,
+40.693613
+],
+[
+-73.99462,
+40.694128
+],
+[
+-73.996175,
+40.694565
+],
+[
+-73.9977,
+40.694991
+],
+[
+-73.998237,
+40.695155
+]
+]
+},
+{
+"id": "901890-6",
+"street": "Cadman Plaza W",
+"extent": "Middagh St to Tillary St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T11:00",
+"end": "2026-11-08T12:30",
+"who": "Walk to End Alzheimers - Brooklyn",
+"desc": "Street closed for the Walk to End Alzheimers - Brooklyn: parade.",
+"coords": [
+[
+-73.99109,
+40.699865
+],
+[
+-73.991306,
+40.699377
+],
+[
+-73.991361,
+40.699199
+],
+[
+-73.991406,
+40.69902
+],
+[
+-73.991441,
+40.698839
+],
+[
+-73.991467,
+40.698658
+],
+[
+-73.991483,
+40.698476
+],
+[
+-73.991489,
+40.698293
+],
+[
+-73.991488,
+40.697805
+],
+[
+-73.99143,
+40.697039
+],
+[
+-73.99141,
+40.696887
+],
+[
+-73.991396,
+40.696779
+],
+[
+-73.991372,
+40.696594
+],
+[
+-73.991309,
+40.696439
+],
+[
+-73.991266,
+40.696332
+],
+[
+-73.991253,
+40.696299
+],
+[
+-73.991219,
+40.696198
+],
+[
+-73.990864,
+40.69503
+],
+[
+-73.990725,
+40.694575
+],
+[
+-73.990521,
+40.693837
+],
+[
+-73.990454,
+40.693729
+],
+[
+-73.990377,
+40.693835
+],
+[
+-73.990607,
+40.69458
+],
+[
+-73.990741,
+40.69504
+],
+[
+-73.991074,
+40.696189
+]
+]
+},
+{
 "id": "973176-1",
 "street": "E 36th St",
 "extent": "Quentin Rd to Ave R",
@@ -16555,6 +17540,137 @@
 [
 -73.977887,
 40.680225
+]
+]
+},
+{
+"id": "982707-1",
+"street": "Metropolitan Ave",
+"extent": "79th St to 78th St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:00",
+"end": "2026-11-08T15:00",
+"who": "Queens Veterans Parade",
+"desc": "Street closed for the Queens Veterans Parade: parade.",
+"coords": [
+[
+-73.873594,
+40.713242
+],
+[
+-73.874326,
+40.713204
+],
+[
+-73.875273,
+40.713145
+],
+[
+-73.87548,
+40.713129
+]
+]
+},
+{
+"id": "982707-2",
+"street": "Metropolitan Ave",
+"extent": "79th St to 69th St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:00",
+"end": "2026-11-08T15:00",
+"who": "Queens Veterans Parade",
+"desc": "Street closed for the Queens Veterans Parade: parade.",
+"coords": [
+[
+-73.873594,
+40.713242
+],
+[
+-73.874326,
+40.713204
+],
+[
+-73.875273,
+40.713145
+],
+[
+-73.87548,
+40.713129
+],
+[
+-73.877709,
+40.712897
+],
+[
+-73.878293,
+40.71284
+],
+[
+-73.879344,
+40.712735
+],
+[
+-73.880064,
+40.712661
+],
+[
+-73.882055,
+40.712462
+],
+[
+-73.884352,
+40.712238
+],
+[
+-73.885077,
+40.712169
+],
+[
+-73.885199,
+40.712175
+],
+[
+-73.886229,
+40.712211
+],
+[
+-73.886378,
+40.712216
+]
+]
+},
+{
+"id": "982707-3",
+"street": "Metropolitan Ave",
+"extent": "71st St to 69th St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T12:00",
+"end": "2026-11-08T15:00",
+"who": "Queens Veterans Parade",
+"desc": "Street closed for the Queens Veterans Parade: parade.",
+"coords": [
+[
+-73.884352,
+40.712238
+],
+[
+-73.885077,
+40.712169
+],
+[
+-73.885199,
+40.712175
+],
+[
+-73.886229,
+40.712211
+],
+[
+-73.886378,
+40.712216
 ]
 ]
 },
