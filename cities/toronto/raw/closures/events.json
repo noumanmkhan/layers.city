@@ -1,9 +1,9 @@
 {
-"fetched": "2026-10-23T05:18",
+"fetched": "2026-10-25T05:06",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
 {
-"id": "12293058-2",
+"id": "12293058-4",
 "street": "Wyndham St",
 "extent": "Westbound and Eastbound Wyndham St from St. Clarens Ave to Brock Ave",
 "kind": "closed",
@@ -17,12 +17,40 @@
 "roadClass": "Local Road",
 "coords": [
 [
--79.434831,
-43.647842
+-79.436579,
+43.6475
 ],
 [
--79.435693,
-43.647662
+-79.436775,
+43.647467
+]
+]
+},
+{
+"id": "12293058-5",
+"street": "Wyndham St",
+"extent": "Westbound and Eastbound Wyndham St from St. Clarens Ave to Brock Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-31T17:30",
+"end": "2026-10-31T21:30",
+"hours": "24h",
+"days": "daily",
+"who": "City of Toronto",
+"desc": "Road is temporarily closed for the Wyndham Street Halloween Eve Trick or Treat Block Party",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.436775,
+43.647467
+],
+[
+-79.437142,
+43.647405
+],
+[
+-79.437259,
+43.647356
 ]
 ]
 },
@@ -75,7 +103,7 @@
 ]
 },
 {
-"id": "12293058-5",
+"id": "12293058-2",
 "street": "Wyndham St",
 "extent": "Westbound and Eastbound Wyndham St from St. Clarens Ave to Brock Ave",
 "kind": "closed",
@@ -89,40 +117,12 @@
 "roadClass": "Local Road",
 "coords": [
 [
--79.436775,
-43.647467
+-79.434831,
+43.647842
 ],
 [
--79.437142,
-43.647405
-],
-[
--79.437259,
-43.647356
-]
-]
-},
-{
-"id": "12293058-4",
-"street": "Wyndham St",
-"extent": "Westbound and Eastbound Wyndham St from St. Clarens Ave to Brock Ave",
-"kind": "closed",
-"both": true,
-"start": "2026-10-31T17:30",
-"end": "2026-10-31T21:30",
-"hours": "24h",
-"days": "daily",
-"who": "City of Toronto",
-"desc": "Road is temporarily closed for the Wyndham Street Halloween Eve Trick or Treat Block Party",
-"roadClass": "Local Road",
-"coords": [
-[
--79.436579,
-43.6475
-],
-[
--79.436775,
-43.647467
+-79.435693,
+43.647662
 ]
 ]
 }

@@ -1,24 +1,8 @@
-Traceback (most recent call last):
-  File "/home/runner/work/city-layers/city-layers/cities/toronto/fetch_closures.py", line 42, in <module>
-    raw = urllib.request.urlopen(req, timeout=180).read().decode('utf-8', 'replace')
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 215, in urlopen
-    return opener.open(url, data, timeout)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 521, in open
-    response = meth(req, response)
-               ^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 630, in http_response
-    response = self.parent.error(
-               ^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 559, in error
-    return self._call_chain(*args)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 492, in _call_chain
-    result = func(*args)
-             ^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/urllib/request.py", line 639, in http_error_default
-    raise HTTPError(req.full_url, code, msg, hdrs, fp)
-urllib.error.HTTPError: HTTP Error 500: Internal Server Error
+Toronto: 5 special-event closures
+Toronto road classes of full closures: {'Major Arterial Road': 18, 'Unknown': 45, 'Local Road': 307, 'Minor Arterial Road': 21, 'Expressway Ramp': 10, 'Expressway': 1}
+Toronto: 16 full closures of expressways and major arterials in the next 10 days
+Toronto: 2296 restrictions in feed; 99 from transit construction
+toronto closures: 67 kept of 99 · dropped {'dates': 3, 'existing line': 6, 'local lane work': 20} · by project {'Ontario Line': 30, 'GO Expansion (Barrie line)': 3, 'GO Expansion (Lakeshore East line)': 1, 'Eglinton Crosstown West extension': 10, 'Line 2 East extension': 14, 'GO Expansion (Stouffville line)': 7, 'GO Expansion (Kitchener line)': 2} · closed 15 · on arterials 59
+toronto: 5 special-event closures in 1 events: Wyndham Street Halloween Eve Trick or Treat Block Party (5, 2026-10-31T17:30 to 2026-10-31T21:30)
 Toronto: 1 planned subway closures (GTFS-RT)
   Line 1 Yonge-University Lawrence West -> St George Early closure 2026-10-26T23:59 2026-10-30T03:30 4 windows
