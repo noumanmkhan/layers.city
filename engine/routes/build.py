@@ -116,7 +116,10 @@ for src in CFG.get('pois', []):
             kind = src['cats'][p['cat']]
         else:
             kind = p.get(src.get('cat', 'cat')) or ''
-        pois.append((p['name'], kind, proj(shape(f['geometry']))))
+        name = p['name']
+        # A campus by its own name (Centennial College, Story Arts Centre), when the layer's note is one.
+        if src.get('sub') and p.get('sub') and re.search(src['sub'], p['sub']): name = f"{name}, {p['sub']}"
+        pois.append((name, kind, proj(shape(f['geometry']))))
 stop_by_name = {}
 for s in RAW_S['stops']:
     stop_by_name.setdefault(s[1], []).append(s)
@@ -331,7 +334,8 @@ for sid, rs in stop_routes.items():
     s = stops[sid]
     sides = stop_side.get(sid, {})
     w = max(sides, key=sides.get) if sides else None
-    out_stops.append([sid, s[1], s[2], s[3], SIDE.get(w, ''), w or '', {k: sorted(v) for k, v in rs.items()}])
+    # [id, name, lon, lat, side, travel direction, {route: [[pattern, d]...]}, code on the pole ('' if none)]
+    out_stops.append([sid, s[1], s[2], s[3], SIDE.get(w, ''), w or '', {k: sorted(v) for k, v in rs.items()}, s[5] if len(s) > 5 else ''])
 json.dump({'asof': TRANSIT.get('asof'), 'week': TRANSIT.get('week'), 'routes': route_index, 'stops': out_stops},
           open(os.path.join(OUT, 'data', 'stops.json'), 'w'), separators=(',', ':'), ensure_ascii=False)
 

@@ -9,6 +9,9 @@
   labelled by side of the street (North side of Overlea Blvd). Built by `engine/routes/build.py` from the TTC
   schedule and the map's published layers; `cities/toronto/routes.json` holds the settings and a short list of
   extra landmarks (malls, civic centres, big parks) placed at the TTC stop that serves them. Buses only for now.
+- Each stop shows its stop number (the one on the pole, from the schedule's stop codes) and opens walking
+  directions to that exact stop in Apple Maps or Google Maps. Campuses are named by campus (Centennial College,
+  Story Arts Centre).
 
 ### Venues: GO fares by station (October 24)
 - Toronto venue pages quote the GO fare for each trip from the GTA (Brampton to Scotiabank Arena: GO fare $10.30)
