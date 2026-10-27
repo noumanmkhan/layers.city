@@ -28,7 +28,10 @@ jobs:
         with:
           python-version: '3.12'
       - run: python3 cities/toronto/fetch_representatives.py
-      - run: python3 cities/toronto/representatives.py
+      # On failure, repeat the script's last lines as an annotation, readable from the run's summary page.
+      - run: |
+          set -o pipefail
+          python3 cities/toronto/representatives.py 2>&1 | tee /tmp/reps.txt || { echo "::error::$(tail -n 6 /tmp/reps.txt | tr '\n' ' ' | cut -c1-900)"; exit 1; }
       - run: |
           if git diff --quiet -- docs/toronto/data/representatives.json; then echo "no changes"; exit 0; fi
           git config user.name "github-actions[bot]"
