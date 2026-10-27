@@ -36,7 +36,7 @@ jobs:
               d=cities/$c/raw/surface${f:+/$f}; mkdir -p $d
               # A failed fetch keeps last time's files; say so as a warning on the run (readable from the API).
               ( set -o pipefail; python3 -u engine/fetch_surface.py $c $f 2>&1 | tee /tmp/fetch-$c-$f.log ) \
-                || echo "::warning::$c ${f:-} fetch failed: $(tail -4 /tmp/fetch-$c-$f.log | tr '\n' ' ' | cut -c1-600)"
+                || echo "::warning::$c ${f:-} fetch failed: $(tail -2 /tmp/fetch-$c-$f.log | tr '\n' ' ' | cut -c1-900)"
               # A new feed (changed or first fetched): keep its log.
               if [ -n "$(git status --porcelain -- $d/routes.json)" ]; then cp /tmp/fetch-$c-$f.log $d/fetch.log; changed=1; fi
             done
