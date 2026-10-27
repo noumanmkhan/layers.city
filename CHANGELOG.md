@@ -15,6 +15,11 @@
 - Loops: a stop near the end of a trip that loops round and leaves again the other way (the 88 inside
   Thorncliffe Park) shows the ride on through the loop ("↻ Loops round first", then St Clair Station), with a
   "stay on" step where the bus turns back, instead of saying the bus ends a few stops later.
+- "Takes you through" is now a paragraph for the whole route in the chosen direction, condensed from the same
+  data as the step-by-step list: where it starts, its main streets, the regions it crosses, the places it serves
+  (the names people use first, like Riverdale), its subway connections (Pape Station in Greektown), landmarks
+  and where it ends. The route map tints each neighbourhood it passes in turn and names them, with the
+  known-as names (Greektown, Canary District) in italics.
 
 ### Venues: GO fares by station (October 24)
 - Toronto venue pages quote the GO fare for each trip from the GTA (Brampton to Scotiabank Arena: GO fare $10.30)

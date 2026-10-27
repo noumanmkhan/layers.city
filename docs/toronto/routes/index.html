@@ -18,7 +18,8 @@
   --hood:#FBE3E5; --land:#F2EEEC; --water:#DCE7EC; --park:#4E9A57; --bus:#2F5E9E;
   --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
   /* the route map's colours, so it follows the theme */
-  --m-city:#F7F4F3; --m-out:#ECE7E5; --m-edge:#D8CFCD; --m-hood:#FBE3E5; --m-hoodline:#E0D2CF;
+  --m-t0:#F9DCE0; --m-t1:#F3E6D2; --m-t2:#DFEBDA; --m-t3:#DCE6F1;
+  --m-city:#F7F4F3; --m-out:#ECE7E5; --m-edge:#D8CFCD; --m-hood:#FBE3E5; --m-hoodline:#CDBDB9;
   --m-major:#CFC6C3; --m-minor:#DDD5D2; --m-halo:#FFFFFF; --pill-line:#D8CFCD; --sub:#5C5251;
 }
 *{box-sizing:border-box}
@@ -81,12 +82,18 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .tabs{display:inline-flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
 .tab{border:1.5px solid var(--ink);border-radius:999px;background:var(--card);padding:6px 14px;min-height:40px;cursor:pointer;font-weight:500}
 .tab[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}
 .fact{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:12px 14px}
 .fact .k{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin-bottom:4px}
 .fact .v{font-weight:500;line-height:1.3}
 .fact .v small{display:block;color:var(--muted);font-weight:400;font-size:12.5px;margin-top:2px}
 .fact .v .stn{display:flex;margin:2px 0}
+.fact.wide{grid-column:1 / -1}
+.fact.wide .v{font-weight:400;font-size:16px;line-height:1.55}
+.fact.wide .v b{font-weight:500}
+.fact.wide .v .stn{display:inline;margin:0;white-space:normal}
+.fact.wide .v .stn .lns{display:inline-flex;vertical-align:-3px;margin-right:4px}
+.fact.wide .v .ka{font-style:italic;color:var(--accent);font-weight:500}
 .split{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;align-items:start}
 .mapbox{background:var(--card);border:1px solid var(--rule);border-radius:12px;overflow:hidden;position:sticky;top:12px}
 .mapbox svg{display:block;width:100%;height:auto;background:var(--water)}
@@ -123,6 +130,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   .split{grid-template-columns:minmax(0,1fr)}
   .mapbox{position:static}
   .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts .fact:nth-child(4){grid-column:1 / -1}
 }
 @media (max-width:520px){
   .wrap{padding:0 16px 32px}
@@ -161,9 +169,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .rb.go{background:#1E6B47;color:#fff;box-shadow:none}
 
 
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp){background:var(--card)} :root:not([data-theme="light"]) .row:hover{background:#262A30} :root:not([data-theme="light"]) .tl li.on{background:#262A30}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--m-t0:#40262B;--m-t1:#3B3326;--m-t2:#28362A;--m-t3:#253140;--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp){background:var(--card)} :root:not([data-theme="light"]) .row:hover{background:#262A30} :root:not([data-theme="light"]) .tl li.on{background:#262A30}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}
-:root[data-theme="dark"] body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8}
+:root[data-theme="dark"] body{--m-t0:#40262B;--m-t1:#3B3326;--m-t2:#28362A;--m-t3:#253140;--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8}
 :root[data-theme="dark"] .rb:not(.tram):not(.exp){background:var(--card)}
 :root[data-theme="dark"] .row:hover{background:#262A30}
 :root[data-theme="dark"] .tl li.on{background:#262A30}
@@ -233,7 +241,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 </main>
 <script>
 (() => {
-  const RS = {"city": "Toronto", "title": "Where does my bus go?", "short": "Routes from here", "description": "Find the bus stops nearest you in Toronto and see where each bus goes: the neighbourhoods it passes through, the main streets it runs along, the subway stations it connects to and the landmarks on the way.", "lede": "Find the stops near you, then pick a bus to see where it goes: the neighbourhoods, main streets, subway connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No bus stops within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data", "mapLink": "Open on the map"};   // this city's wording (cities/<city>/routes.json, page)
+  const RS = {"city": "Toronto", "title": "Where does my bus go?", "short": "Routes from here", "description": "Find the bus stops nearest you in Toronto and see where each bus goes: the neighbourhoods it passes through, the main streets it runs along, the subway stations it connects to and the landmarks on the way.", "lede": "Find the stops near you, then pick a bus to see where it goes: the neighbourhoods, main streets, subway connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No bus stops within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data", "mapLink": "Open on the map", "known": "cultural", "the": ["East End", "West End"]};   // this city's wording (cities/<city>/routes.json, page)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g', 'polygon'];
@@ -252,7 +260,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 
   const hoods = once(() => getJSON('../data/' + (RS.units || 'neighbourhoods') + '.geojson'));
   const cityCfg = once(() => getJSON('../data/city.json'));
-  const basemap = once(() => Promise.all(['base', 'streets', 'subway_lines', 'neighbourhoods']
+  const basemap = once(() => Promise.all(['base', 'streets', 'subway_lines', 'neighbourhoods', RS.known || 'cultural']
     .map(n => getJSON('../data/' + n + '.geojson').catch(() => ({ features: [] })))));
   const routeFile = {};
   const route = rid => (routeFile[rid] ||= getJSON('data/r/' + encodeURIComponent(rid) + '.json'));
@@ -430,6 +438,70 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const at = (spans, d) => { const s = spans.find(s => s[0] - 1 <= d && d <= s[1] + 1) || spans.filter(s => s[0] <= d).pop(); return s ? s[2] : null; };
 
   // Directions on offer at this stop and the stops across the street, for the tabs.
+  // ---- the route in a paragraph: where it starts, the streets it runs along, the places it serves, its subway
+  // connections and landmarks, and where it ends. Built from the same data as the step-by-step list. ----
+  const listOf = items => { const out = []; items.forEach((x, i) => { if (i) out.push(i === items.length - 1 ? ' and ' : ', '); out.push(x); }); return out; };
+  const THE = new Set(RS.the || []);   // region names that take "the" (the East End)
+  const reg = n => THE.has(n) ? 'the ' + n : n;
+  function summary(P, doc, known, lead) {
+    const L = P.stops[P.stops.length - 1][0], line = P.line;
+    const near = (d, km) => {   // the name people use for the area around a point on the line, if there is one
+      const [lon, lat] = pointAt(line, d); let best = null;
+      (known.features || []).forEach(f => { const c = f.geometry.coordinates; const k = kmBetween(lon, lat, c[0], c[1]); if (k < km && (!best || k < best[0])) best = [k, f.properties.name]; });
+      return best && best[1];
+    };
+    const hoodAt = d => { const h = at(P.hoods, d); return h && !Array.isArray(h) ? h : null; };
+    const area = d => near(d, 0.5) || hoodAt(d);
+    const ka = t => el('span', { class: 'ka' }, t);
+    const used = new Set();
+    // A stop that is a station (by name, or the line's station at that point).
+    const stnAt = (d, name) => P.stations.find(t => t[1] === clean(name || '')) || P.stations.find(t => Math.abs(t[0] - d) < 300);
+    const place = (d, name) => {
+      const t = stnAt(d, name), k = near(d, 0.5), a = t ? k : area(d);   // a station only takes a name people use
+      if (a) used.add(a);
+      const what = t ? [stnEl(t[1], t[2])] : [el('b', {}, clean(name))];
+      return a && !(t && t[1].startsWith(a)) ? [...what, ' in ', k === a ? ka(a) : a] : what;
+    };
+    // Main streets: the ones it runs along for a good share of the trip, in order.
+    const lens = new Map();
+    P.streets.forEach(x => { if (!/Bridge|Viaduct/.test(x[2])) lens.set(x[2], (lens.get(x[2]) || 0) + x[1] - x[0]); });
+    let mains = [...lens.entries()].filter(([, l]) => l >= Math.max(700, L * 0.1)).map(([n]) => n);
+    if (!mains.length) mains = [...lens.entries()].sort((a, b) => b[1] - a[1]).slice(0, 2).map(([n]) => n);
+    mains = mains.sort((a, b) => P.streets.find(x => x[2] === a)[0] - P.streets.find(x => x[2] === b)[0]).slice(0, 4);
+    const regs = P.regions.map(r => r[2]).filter((r, i, a) => r !== a[i - 1]);
+    const regPhrase = regs.length > 2 ? [', from ', reg(regs[0]), ' through ', regs.slice(1, -1).map(reg).join(', '), ' into ', reg(regs[regs.length - 1])]
+      : regs.length === 2 ? [', from ', reg(regs[0]), ' into ', reg(regs[1])] : regs.length === 1 ? [' within ', reg(regs[0])] : [];
+    const startD = P.stops[0][0], startName = doc.stops[P.stops[0][1]] || '';
+    const ends = new Set([stnAt(startD, startName), stnAt(L, P.to)].filter(Boolean).map(t => t[1]));
+    const start = place(startD, startName);
+    const end = place(L, P.to);
+    // Places it serves: the names people use along the way, topped up with official neighbourhood names.
+    // (A neighbourhood whose name overlaps one already given, Leaside-Bennington after Leaside, is left out.)
+    const knownSet = new Set(P.known.map(k => k[1]));
+    const cand = [];
+    const clash = n => [...used, ...cand.map(c => c[1])].some(u => n === u || n.includes(u));
+    P.known.forEach(k => { if (!clash(k[1])) cand.push([k[0], k[1]]); });
+    if (cand.length < 3) P.hoods.filter(h => !Array.isArray(h[2]) && h[1] - h[0] >= 500).sort((a, b) => (b[1] - b[0]) - (a[1] - a[0]))
+      .forEach(h => { if (cand.length < 4 && !clash(h[2])) cand.push([h[0], h[2]]); });
+    const serve = cand.sort((a, b) => a[0] - b[0]).map(c => c[1]);
+    // Subway connections along the way (not where it starts or ends).
+    const mid = P.stations.filter(t => !ends.has(t[1])).filter((t, i, a) => a.findIndex(u => u[1] === t[1]) === i);
+    const conn = mid.map(t => { const a = near(t[0], 0.5); if (a) used.add(a); return a && !t[1].startsWith(a) ? [stnEl(t[1], t[2]), ' in ', ka(a)] : [stnEl(t[1], t[2])]; });
+    const sights = P.pois.filter(p => p[0] > startD + 100 && p[0] < L - 100).slice(0, 4).map(p => p[2] === 'Bridge' ? 'the ' + p[1] : p[1]);
+    const p1 = [lead + ' starts at ', ...start];
+    if (mains.length) p1.push(' and runs along ', ...listOf(mains.map(n => el('b', {}, n))));
+    p1.push(...regPhrase, '. ');
+    const parts = [];
+    if (serve.length) parts.push(['serves ', ...listOf(serve.slice(0, 5).map(n => knownSet.has(n) ? ka(n) : n))]);
+    if (conn.length) parts.push(['connects with the subway at ', ...listOf(conn.map(c => el('span', {}, c)))]);
+    if (sights.length) parts.push(['passes ', listOf(sights).join('')]);
+    // The clauses take a comma before their "and", since the lists inside them have their own.
+    const clauses = [];
+    parts.forEach((x, i) => { if (i) clauses.push(i === parts.length - 1 ? ', and ' : ', '); clauses.push(el('span', {}, x)); });
+    const p2 = parts.length ? ['It ', ...clauses, ', before ending at ', ...end, '.'] : ['It ends at ', ...end, '.'];
+    return [...p1, ...p2];
+  }
+
   // A pattern and the one it loops round into, as one ride: the second's distances follow on from the first's.
   function throughLoop(P, Q) {
     const off = P.line[P.line.length - 1][2], last = P.stops[P.stops.length - 1];
@@ -494,8 +566,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const startHood = hoodName(at(P.hoods, d0)), endHood = hoodName(at(P.hoods, lastD));
     const fact = (k, v) => el('div', { class: 'fact' }, [el('div', { class: 'k' }, k), el('div', { class: 'v' }, v)]);
     const others = [...new Set(doc.patterns.filter(q => q.k !== k && q.head === P.head && q.stops.some(x => x[1] === sid)).map(q => clean(q.to)))].filter(t => t !== clean(P.to));
+    const known = (await basemap())[4];
+    const whole = rd.loop != null ? doc.patterns[rd.loop] : P;   // through a loop: describe the trip it carries on as
+    const wide = el('div', { class: 'fact wide' }, [el('div', { class: 'k' }, 'Takes you through'), el('div', { class: 'v' }, summary(whole, doc, known, `The ${R[0]} ${DIR[whole.head].toLowerCase()}`))]);
     $('facts').replaceChildren(
-      fact('Takes you through', [regs.join(' → ') || '—', el('small', {}, startHood ? `You’re ${startHood.startsWith('between') ? '' : 'in '}${startHood}` : '')]),
+      wide,
       fact('Subway connections', stns.length ? stns.map(t => stnEl(t[1], t[2])) : [el('span', {}, 'None on this route'), el('small', {}, 'from here')]),
       fact('Ends at', [clean(P.to), el('small', {}, endHood ? `in ${endHood}` : '')]),
       fact('The ride', [`${ahead} stops · ${fmtM(lastD - d0)}`, el('small', {}, R[4] ? `About every ${R[4]} min, weekday middays` : 'Check the schedule: not frequent')]),
@@ -506,7 +581,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const push2 = (d, kind, t, s2, extra) => ev.push({ d, kind, t, s: s2, extra });
     push2(d0, 'start', clean(s[1]), [startHood, at(P.regions, d0)].filter(Boolean).join(' · '));
     const r0 = at(P.regions, d0);
-    P.regions.forEach(r => { if (r[0] > d0 + 50 && r[2] !== r0) push2(r[0], 'region', `Into ${r[2]}`); });
+    P.regions.forEach(r => { if (r[0] > d0 + 50 && r[2] !== r0) push2(r[0], 'region', `Into ${reg(r[2])}`); });
     const bridges = new Set(P.pois.filter(p => p[2] === 'Bridge').map(p => p[1]));
     P.streets.forEach(x => { if (x[1] > d0 + 150 && !bridges.has(x[2])) { const a = Math.max(x[0], d0); push2(a, 'street', `Along ${x[2]}`, fmtM(Math.min(x[1], lastD) - a)); } });
     const h0 = at(P.hoods, d0);
@@ -548,7 +623,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   // ---- the route map: the city's own layers, the route ahead in red, what's behind faded ----
   let mapState = null;
   async function drawMap(P, d0, s) {
-    const [base, streets, subway, nb] = await basemap();
+    const [base, streets, subway, nb, known] = await basemap();
     const ahead = P.line.filter(p => p[2] >= d0);
     const pts = ahead.length > 1 ? ahead : P.line;
     let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
@@ -581,8 +656,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Map of the route ahead, from ${clean(s[1])} to ${clean(P.to)}` });
     // Land: the city and its neighbours; the lake shows through as the background.
     base.features.forEach(f => { if (f.properties.kind === 'outside') return; rings(f.geometry).forEach(r => { if (near(r)) svg.append(el('path', { d: pathOf(r, true), fill: f.properties.kind === 'city' ? 'var(--m-city)' : 'var(--m-out)', stroke: 'var(--m-edge)', 'stroke-width': 1 })); }); });
-    const onRoute = new Set(P.hoods.filter(h => h[1] > d0).flatMap(h => Array.isArray(h[2]) ? h[2] : [h[2]]));
-    nb.features.forEach(f => rings(f.geometry).forEach(r => { if (near(r)) svg.append(el('path', { d: pathOf(r, true), fill: onRoute.has(f.properties.name) ? 'var(--m-hood)' : 'none', 'fill-opacity': .8, stroke: 'var(--m-hoodline)', 'stroke-width': 1 })); }));
+    // Each neighbourhood the ride passes gets its own tint, in turn along the route, so neighbours differ.
+    const order = [];
+    P.hoods.filter(h => h[1] > d0).forEach(h => (Array.isArray(h[2]) ? h[2] : [h[2]]).forEach(n => { if (!order.includes(n)) order.push(n); }));
+    const tint = n => order.includes(n) ? `var(--m-t${order.indexOf(n) % 4})` : 'none';
+    nb.features.forEach(f => rings(f.geometry).forEach(r => { if (near(r)) svg.append(el('path', { d: pathOf(r, true), fill: tint(f.properties.name), stroke: 'var(--m-hoodline)', 'stroke-width': order.includes(f.properties.name) ? 1.6 : 1 })); }));
     streets.features.forEach(f => linesOf(f.geometry).forEach(c => { if (near(c)) svg.append(el('path', { d: pathOf(c), fill: 'none', stroke: f.properties.cls === 'major' ? 'var(--m-major)' : 'var(--m-minor)', 'stroke-width': f.properties.cls === 'major' ? 2.2 : 1.4, 'stroke-linecap': 'round' })); }));
     subway.features.forEach(f => linesOf(f.geometry).forEach(c => { if (near(c)) svg.append(el('path', { d: pathOf(c), fill: 'none', stroke: f.properties.color || '#333', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-opacity': .9 })); }));
     // The route: behind you faded, ahead in red with a white casing.
@@ -601,13 +679,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     // Labels, placed in priority order and skipped where they'd overlap.
     const taken = [];
     const label = (x, y, text, opts = {}) => {
-      const fs = opts.size || 13, wd = text.length * fs * 0.56, left = x > W - wd - 20;
-      const tx = left ? x - 9 : x + 9, ty = y + fs * 0.35;
-      const box = [left ? tx - wd : tx, ty - fs, left ? tx : tx + wd, ty + 3];
+      const fs = opts.size || 13, wd = text.length * fs * (0.56 + (opts.spacing ? opts.spacing * 0.1 : 0)), left = !opts.center && x > W - wd - 20;
+      const tx = opts.center ? x : left ? x - 9 : x + 9, ty = y + fs * 0.35;
+      const box = opts.center ? [tx - wd / 2, ty - fs, tx + wd / 2, ty + 3] : [left ? tx - wd : tx, ty - fs, left ? tx : tx + wd, ty + 3];
       if (box[0] < 2 || box[2] > W - 2 || box[1] < 2 || box[3] > H - 2) return false;
       if (taken.some(t => box[0] < t[2] && box[2] > t[0] && box[1] < t[3] && box[3] > t[1])) return false;
       taken.push(box);
-      svg.append(el('text', { x: tx, y: ty, 'text-anchor': left ? 'end' : 'start', 'font-size': fs, 'font-weight': opts.weight || 500, fill: opts.color || 'var(--ink)',
+      svg.append(el('text', { x: tx, y: ty, 'text-anchor': opts.center ? 'middle' : left ? 'end' : 'start', 'letter-spacing': opts.spacing ? opts.spacing + 'px' : null, 'font-size': fs, 'font-weight': opts.weight || 500, fill: opts.color || 'var(--ink)',
         stroke: 'var(--m-halo)', 'stroke-width': 3.5, 'paint-order': 'stroke', 'stroke-linejoin': 'round', 'font-family': 'IBM Plex Sans, sans-serif', 'font-style': opts.italic ? 'italic' : null }, text));
       return true;
     };
@@ -632,6 +710,19 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const toName = clean(P.to);
     if (!endStn) label(ex, ey, toName.length > 34 ? toName.slice(0, 32) + '…' : toName, { size: 13, weight: 700, color: 'var(--accent)' });
     poiPts.forEach(([p, [x, y]]) => label(x, y, p[1], { size: 12.5 }));
+    // Neighbourhood names (at each one's label point, in small capitals), then the names people use (Greektown).
+    nb.features.filter(f => order.includes(f.properties.name) && f.properties.lp).forEach(f => {
+      const [x, y] = xy(...f.properties.lp);
+      label(x, y, f.properties.name.toUpperCase(), { size: 10.5, weight: 500, color: 'var(--muted)', center: true, spacing: 0.6 });
+    });
+    const aheadLine = ahead.map(p => [p[0], p[1]]);
+    const nearAhead = (lon, lat) => aheadLine.some(([a, b]) => kmBetween(lon, lat, a, b) < 0.6);
+    (known.features || []).forEach(f => {
+      const [lon, lat] = f.geometry.coordinates || [];
+      if (lon == null || !inside(lon, lat, 0) || !nearAhead(lon, lat)) return;
+      const [x, y] = xy(lon, lat);
+      label(x, y, f.properties.name, { size: 12.5, italic: true, weight: 500, color: 'var(--accent)', center: true });
+    });
     // Street names at the middle of each street the route runs along.
     P.streets.filter(x => x[1] > d0 + 300).forEach(x => {
       const m = (Math.max(x[0], d0) + x[1]) / 2, [lx, ly] = xy(...pointAt(P.line, m));
@@ -643,7 +734,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     $('map').replaceChildren(svg);
     $('key').replaceChildren(
       el('span', {}, [el('i', { style: 'background:#C8102E' }), 'The route ahead']),
-      el('span', {}, [el('i', { style: 'background:var(--m-hood);height:10px;border:1px solid var(--m-hoodline)' }), 'Neighbourhoods it passes']),
+      el('span', {}, [el('i', { style: 'background:var(--m-t0);height:10px;border:1px solid var(--m-hoodline)' }), el('i', { style: 'background:var(--m-t1);height:10px;border:1px solid var(--m-hoodline);margin-left:-4px' }), 'Neighbourhoods it passes']),
+      el('span', { style: 'font-style:italic;color:var(--accent)' }, 'Greektown: the names people use'),
     );
   }
   function mark(P, d) {

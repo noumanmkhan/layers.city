@@ -118,7 +118,7 @@ for src in CFG.get('pois', []):
             kind = p.get(src.get('cat', 'cat')) or ''
         name = p['name']
         # A campus by its own name (Centennial College, Story Arts Centre), when the layer's note is one.
-        if src.get('sub') and p.get('sub') and re.search(src['sub'], p['sub']): name = f"{name}, {p['sub']}"
+        if src.get('sub') and p.get('sub') and re.search(src['sub'], p['sub']): name = f"{name} ({p['sub']})"
         pois.append((name, kind, proj(shape(f['geometry']))))
 stop_by_name = {}
 for s in RAW_S['stops']:
@@ -357,13 +357,15 @@ json.dump({'asof': TRANSIT.get('asof'), 'week': TRANSIT.get('week'), 'routes': r
 if not os.path.exists(os.path.join(ROOT, 'engine', 'routes', 'page.html')): sys.exit(print(f'{city}: {len(route_index)} routes, {len(out_stops)} stops (no page template yet)'))
 sys.path.insert(0, os.path.join(ROOT, 'engine'))
 from theme import SCRIPT as THEME_SCRIPT, css as theme_css   # dark theme, as the guides and venue pages have
-DARK_MAP = ['body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;'
+DARK_MAP = ['body{--m-t0:#40262B;--m-t1:#3B3326;--m-t2:#28362A;--m-t3:#253140;--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;'
             '--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8}',
             '.rb:not(.tram):not(.exp){background:var(--card)}', '.row:hover{background:#262A30}', '.tl li.on{background:#262A30}']
 tpl = open(os.path.join(ROOT, 'engine', 'routes', 'page.html'), encoding='utf-8').read()
 css_p = os.path.join(ROOT, 'cities', city, 'factsheet.css')
 page = dict(CFG['page'])
 cfg_out = {k: v for k, v in page.items()}
+cfg_out['known'] = CFG.get('known')
+cfg_out['the'] = CFG.get('regionsWithThe', [])
 html = (tpl.replace('{{RS}}', json.dumps(cfg_out, ensure_ascii=False))
         .replace('{{css}}', open(css_p, encoding='utf-8').read() if os.path.exists(css_p) else '')
         .replace('{{title}}', page['title']).replace('{{city}}', page['city'])
