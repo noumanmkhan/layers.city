@@ -135,6 +135,7 @@ known = [(f['properties']['name'], proj(shape(f['geometry']))) for f in layer(CF
 SC = CFG['stations']
 stations = [(f['properties']['name'] + SC.get('suffix', ''), f['properties'].get('lines', []), proj(shape(f['geometry'])))
             for f in layer(SC['file'])]
+STATION_NAMES = {n for n, _, _ in stations}
 
 # ---- routes ----
 meta = {r['r']: r for r in TRANSIT['routes']}
@@ -318,6 +319,19 @@ for r in routes:
         for d, sid in seq:
             stop_routes.setdefault(sid, {}).setdefault(rid, []).append([p['k'], d])
     if not pats: continue
+    # Loops: a pattern that ends away from a station, where a pattern the other way starts (the same stop or
+    # within ~150 m), carries on as that pattern: the 88 ends its eastbound trip inside Thorncliffe Park and
+    # leaves again westbound for St Clair. The page lets a rider near the end of the first ride on through.
+    for p in pats:
+        if p['to'] in STATION_NAMES: continue   # ends at a station: everyone gets off there
+        e = stops[p['stops'][-1][1]]
+        best = None
+        for q in pats:
+            if q['dir'] == p['dir']: continue
+            f = stops[q['stops'][0][1]]
+            gap = math.hypot((e[2] - f[2]) * KX, (e[3] - f[3]) * KY)
+            if gap <= 150 and (best is None or q['trips'] > best['trips']): best = q
+        if best: p['next'] = best['k']
     doc = {'r': mt['r'], 'n': mt['n'], 'm': r['mode'], 'f': mt.get('f', []), 'h': mt.get('h'),
            'stops': {sid: stops[sid][1] for p in pats for _, sid in p['stops']},
            'patterns': pats}
@@ -326,7 +340,7 @@ for r in routes:
     # passes through and its subway connections (both with distances, so the page can start them at a stop).
     route_index[rid] = [mt['r'], mt['n'], r['mode'], mt.get('f', []), mt.get('h'),
                         [[p['head'], p['to'], round(p['km'] * 1000), p['share'], p['regions'],
-                          [[d, n, lines] for d, n, lines in p['stations']]] for p in pats]]
+                          [[d, n, lines] for d, n, lines in p['stations']], p.get('next')] for p in pats]]
 
 # The stops list: [id, name, lon, lat, side ("East side"...), {route: [patterns]}]
 out_stops = []

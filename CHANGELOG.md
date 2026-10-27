@@ -12,6 +12,9 @@
 - Each stop shows its stop number (the one on the pole, from the schedule's stop codes) and opens walking
   directions to that exact stop in Apple Maps or Google Maps. Campuses are named by campus (Centennial College,
   Story Arts Centre).
+- Loops: a stop near the end of a trip that loops round and leaves again the other way (the 88 inside
+  Thorncliffe Park) shows the ride on through the loop ("↻ Loops round first", then St Clair Station), with a
+  "stay on" step where the bus turns back, instead of saying the bus ends a few stops later.
 
 ### Venues: GO fares by station (October 24)
 - Toronto venue pages quote the GO fare for each trip from the GTA (Brampton to Scotiabank Arena: GO fare $10.30)

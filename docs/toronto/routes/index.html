@@ -65,6 +65,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .row .to{font-weight:500;line-height:1.3}
 .row .via{grid-column:2;color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
 .row .go{color:var(--accent);font-weight:500;font-size:13px;align-self:center;grid-row:1 / span 2;grid-column:3}
+.via .loopy{color:var(--accent);font-weight:500}
 .dirw{font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-right:4px}
 /* Badges: shapes here, colours from the city's factsheet.css */
 .rb{display:inline-grid;place-items:center;box-sizing:border-box;height:26px;min-width:40px;padding:0 6px;border-radius:5px;font:700 14px/1 var(--body);background:#fff;color:#1A1414;box-shadow:inset 0 0 0 2px #1A1414;flex:none}
@@ -104,6 +105,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .tl li.minor::after{left:8px;top:8px;width:4px;height:4px;background:var(--accent);box-shadow:none}
 .tl li.hood .t{font-weight:400}
 .tl li.hood::after{width:8px;height:8px;left:6px;top:13px;background:var(--m-hood);box-shadow:inset 0 0 0 2px var(--accent)}
+.tl li.loop .t{color:var(--accent)}
+.tl li.loop::after{content:'↻';background:none;box-shadow:none;color:var(--accent);font-weight:700;font-size:15px;line-height:10px;left:3px;width:auto;height:auto}
 .tl li.region{padding-top:14px}
 .tl li.region::after{display:none}
 .tl li.region b{display:inline-block;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em}
@@ -288,20 +291,33 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   }
 
   // ---- the stops near a spot ----
+  // One ride from a stop: pattern pk from distance d. Near the end of a pattern that loops round and leaves
+  // again the other way (P[6], from build.py), the ride carries on through the loop, as the bus does.
+  function ride(rid, pk, d) {
+    const R = D.routes[rid], P = R[5][pk], rest = P[2] - d;
+    if (P[6] != null && rest < Math.max(1500, P[2] * 0.3)) {
+      const Q = R[5][P[6]], off = P[2];
+      return { rid, k: pk, d, loop: P[6], head: Q[0], to: Q[1], rest: rest + Q[2],
+        regions: P[4].filter(r => r[1] > d).concat(Q[4].map(r => [r[0] + off, r[1] + off, r[2]])),
+        stations: P[5].concat(Q[5].map(t => [t[0] + off, t[1], t[2]])) };
+    }
+    return { rid, k: pk, d, loop: null, head: P[0], to: P[1], rest, regions: P[4], stations: P[5] };
+  }
+
   function nearby(lon, lat) {
     for (const r of [0.45, 0.8]) {
       const close = D.stops.map(s => [kmBetween(lon, lat, s[2], s[3]), s]).filter(([k]) => k <= r).sort((a, b) => a[0] - b[0]);
       if (!close.length) continue;
-      // The nearest stop for each route and direction.
-      const best = new Map();
+      // The nearest stop for each route and direction. A ride that loops round first counts as a little
+      // further away, so a stop across the street going straight there wins over a long way round.
+      const best = new Map(), score = new Map();
       for (const [k, s] of close) for (const [rid, pats] of Object.entries(s[6])) {
         if (!dayRoute(rid)) continue;   // overnight-only routes (they'd crowd the daytime list)
-        const R = D.routes[rid];
         for (const [pk, d] of pats) {
-          const P = R[5][pk];
-          if (P[2] - d < 300) continue;   // the bus ends here
-          const key = rid + ' ' + P[0];
-          if (!best.has(key)) best.set(key, s[0]);
+          const x = ride(rid, pk, d);
+          if (x.rest < 300) continue;   // the bus ends here
+          const key = rid + ' ' + x.head, sc = k + (x.loop != null ? 0.2 : 0);
+          if (!best.has(key) || sc < score.get(key)) { best.set(key, s[0]); score.set(key, sc); }
         }
       }
       const chosen = close.filter(([, s]) => [...best.values()].includes(s[0]));
@@ -322,13 +338,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const out = [];
     for (const [rid, pats] of Object.entries(s[6])) {
       if (!dayRoute(rid)) continue;
-      const R = D.routes[rid], dirs = new Map();
+      const dirs = new Map();
       for (const [pk, d] of pats) {
-        const P = R[5][pk], rest = P[2] - d;
-        if (rest < 300) continue;
-        const cur = dirs.get(P[0]);
-        if (!cur || rest > cur.rest) dirs.set(P[0], { rid, k: pk, d, rest, head: P[0], ends: new Set([...(cur ? cur.ends : []), P[1]]) });
-        else cur.ends.add(P[1]);
+        const x = ride(rid, pk, d);
+        if (x.rest < 300) continue;
+        const cur = dirs.get(x.head);
+        // Prefer the straight ride, then the longest.
+        if (!cur || (cur.loop != null && x.loop == null) || ((cur.loop == null) === (x.loop == null) && x.rest > cur.rest)) dirs.set(x.head, x);
       }
       dirs.forEach(v => { if (!best || best.get(rid + ' ' + v.head) === s[0]) out.push(v); });
     }
@@ -337,16 +353,17 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   }
 
   function routeRow(sid, x) {
-    const R = D.routes[x.rid], P = R[5][x.k];
-    const regs = P[4].filter(r => r[1] > x.d + 200).map(r => r[2]);
-    const stns = P[5].filter(t => t[0] >= x.d - 100).slice(0, 2);
+    const R = D.routes[x.rid];
+    const regs = x.regions.filter(r => r[1] > x.d + 200).map(r => r[2]).filter((r, i, a) => r !== a[i - 1]);
+    const stns = x.stations.filter(t => t[0] >= x.d - 100).slice(0, 2);
     const via = el('span', { class: 'via' });
+    if (x.loop != null) via.append(el('span', { class: 'loopy' }, '↻ Loops round first'));
     stns.forEach(t => via.append(stnEl(t[1], t[2])));
     if (regs.length > 1) via.append(el('span', {}, regs.slice(1).join(' → ')));
     else if (!stns.length && regs.length) via.append(el('span', {}, 'Stays in ' + regs[0]));
-    const b = el('button', { type: 'button', class: 'row', 'aria-label': `Route ${R[0]} ${R[1]}, ${DIR[x.head] || ''} to ${clean(P[1])}` }, [
+    const b = el('button', { type: 'button', class: 'row', 'aria-label': `Route ${R[0]} ${R[1]}, ${DIR[x.head] || ''} to ${clean(x.to)}${x.loop != null ? ', looping round first' : ''}` }, [
       badge(x.rid),
-      el('span', { class: 'to' }, [el('span', { class: 'dirw' }, cap(x.head)), ' ', `${R[1]} to ${clean(P[1])}`]),
+      el('span', { class: 'to' }, [el('span', { class: 'dirw' }, cap(x.head)), ' ', `${R[1]} to ${clean(x.to)}`]),
       el('span', { class: 'go', 'aria-hidden': 'true' }, 'See route →'),
       via,
     ]);
@@ -413,13 +430,32 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const at = (spans, d) => { const s = spans.find(s => s[0] - 1 <= d && d <= s[1] + 1) || spans.filter(s => s[0] <= d).pop(); return s ? s[2] : null; };
 
   // Directions on offer at this stop and the stops across the street, for the tabs.
+  // A pattern and the one it loops round into, as one ride: the second's distances follow on from the first's.
+  function throughLoop(P, Q) {
+    const off = P.line[P.line.length - 1][2], last = P.stops[P.stops.length - 1];
+    const sh = a => a.map(x => [x[0] + off, ...x.slice(1)]);
+    const spans = a => a.map(x => [x[0] + off, x[1] + off, x[2]]);
+    const join = (a, b) => {   // a stretch that carries on across the loop is one stretch
+      const out = a.map(x => x.slice()), first = b[0];
+      if (out.length && first && JSON.stringify(out[out.length - 1][2]) === JSON.stringify(first[2])) { out[out.length - 1][1] = first[1]; b = b.slice(1); }
+      return out.concat(b);
+    };
+    return { ...Q, k: P.k, share: P.share, km: P.km + Q.km,
+      line: P.line.concat(Q.line.map(([x, y, d]) => [x, y, d + off])),
+      stops: P.stops.concat(sh(Q.stops).filter(x => x[1] !== last[1])),
+      hoods: join(P.hoods, spans(Q.hoods)), regions: join(P.regions, spans(Q.regions)), streets: join(P.streets, spans(Q.streets)),
+      cross: P.cross.concat(sh(Q.cross)), stations: P.stations.concat(sh(Q.stations)), pois: P.pois.concat(sh(Q.pois)),
+      known: P.known.concat(sh(Q.known)).filter((x, i, a) => a.findIndex(y => y[1] === x[1]) === i),
+      loopAt: last[0], loopStop: last[1] };
+  }
+
   function directions(sid, rid) {
     const s = byId.get(sid), name = clean(s[1]);
     const sibs = D.stops.filter(t => t[6][rid] && clean(t[1]) === name && kmBetween(s[2], s[3], t[2], t[3]) < 0.15);
     const out = new Map();
     for (const t of sibs) for (const x of rowsAt(t)) if (x.rid === rid) {
       const cur = out.get(x.head);
-      if (!cur || (t[0] === sid && cur.sid !== sid)) out.set(x.head, { sid: t[0], k: x.k });
+      if (!cur || (t[0] === sid && cur.sid !== sid)) out.set(x.head, { sid: t[0], k: x.k, to: x.to });
     }
     return out;
   }
@@ -431,21 +467,22 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (push) syncURL(view);
     remember(sid);
     const doc = await route(rid);
-    const P = doc.patterns[k];
     const R = D.routes[rid];
     const d0 = (s[6][rid].find(x => x[0] === k) || [k, 0])[1];
+    const rd = ride(rid, k, d0);
+    const P = rd.loop != null ? throughLoop(doc.patterns[k], doc.patterns[rd.loop]) : doc.patterns[k];
     const L = P.line[P.line.length - 1][2];
     const lastD = P.stops[P.stops.length - 1][0];
     const ahead = P.stops.filter(x => x[0] > d0).length;
 
     $('rbadge').replaceChildren(badge(rid, true));
     $('rname').textContent = `${R[0]} ${R[1]}`;
-    $('rfrom').textContent = `${DIR[P.head]} from ${clean(s[1])}` + (s[4] ? ` (${s[4].toLowerCase()})` : '') + (s[7] ? ` · ${stopNo(s)}` : '');
+    $('rfrom').textContent = `${DIR[P.head]}${P.loopAt != null ? ', after looping round,' : ''} from ${clean(s[1])}` + (s[4] ? ` (${s[4].toLowerCase()})` : '') + (s[7] ? ` · ${stopNo(s)}` : '');
     const oldWalk = $('route').querySelector('.rhead + .walk'); if (oldWalk) oldWalk.remove();
     $('route').querySelector('.rhead').after(walkLinks(s));
     const tabs = directions(sid, rid);
     $('tabs').replaceChildren(...[...tabs.entries()].map(([h, v]) => {
-      const b = el('button', { type: 'button', class: 'tab', 'aria-pressed': String(h === P.head) }, `${DIR[h]} to ${clean(D.routes[rid][5][v.k][1])}`);
+      const b = el('button', { type: 'button', class: 'tab', 'aria-pressed': String(h === P.head) }, `${DIR[h]} to ${clean(v.to)}`);
       b.addEventListener('click', () => openRoute(v.sid, rid, v.k, true));
       return b;
     }));
@@ -477,10 +514,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     P.stations.forEach(t => { if (t[0] >= d0 - 100) push2(Math.max(t[0], d0), 'stn', t[1], 'Change for ' + t[2].map(l => 'Line ' + l).join(', '), t[2]); });
     P.pois.forEach(p => { if (p[0] > d0 + 50) p[2] === 'Bridge' ? push2(p[0], 'poi', `Over the ${p[1]}`, 'Bridge') : push2(p[0], 'poi', p[1], p[2]); });
     P.known.forEach(p => { if (p[0] > d0 + 50) push2(p[0], 'known', `Known as ${p[1]}`); });
+    if (P.loopAt != null && P.loopAt > d0) push2(P.loopAt, 'loop', `The bus loops round at ${clean(doc.stops[P.loopStop] || '')}`, `Stay on: it turns back here and carries on to ${clean(P.to)}`);
     P.cross.forEach(c => { if (c[0] > d0 + 30 && c[0] < lastD - 30) push2(c[0], 'cross', `Crosses ${c[1]}`); });
     const endStn = P.stations.find(t => Math.abs(t[0] - lastD) < 250);
     if (!endStn) push2(lastD, 'end', clean(P.to), [endHood, at(P.regions, lastD)].filter(Boolean).join(' · '));
-    const order = { start: 0, region: 1, street: 2, hood: 3, stn: 4, poi: 5, known: 6, cross: 7, end: 8 };
+    const order = { loop: 7.5, start: 0, region: 1, street: 2, hood: 3, stn: 4, poi: 5, known: 6, cross: 7, end: 8 };
     ev.sort((a, b) => a.d - b.d || order[a.kind] - order[b.kind]);
     for (let i = ev.length - 1; i >= 0; i--) if (ev[i].d > lastD + 20 || (ev[i].d > lastD - 60 && ev[i].kind === 'street')) ev.splice(i, 1);
     if (endStn) { const e = ev.filter(x => x.kind === 'stn').pop(); if (e) { e.kind = 'stn end'; e.s = 'End of the line here · ' + e.s; } }
