@@ -34,7 +34,9 @@ jobs:
             # The city's own agency, then any others listed under "feeds" in its surface.json (e.g. GO buses).
             for f in "" $(python3 -c "import json; print(' '.join(json.load(open('cities/$c/surface.json')).get('feeds', {})))"); do
               d=cities/$c/raw/surface${f:+/$f}; mkdir -p $d
-              python3 -u engine/fetch_surface.py $c $f 2>&1 | tee /tmp/fetch-$c-$f.log || true
+              # A failed fetch keeps last time's files; say so as a warning on the run (readable from the API).
+              ( set -o pipefail; python3 -u engine/fetch_surface.py $c $f 2>&1 | tee /tmp/fetch-$c-$f.log ) \
+                || echo "::warning::$c ${f:-} fetch failed: $(tail -4 /tmp/fetch-$c-$f.log | tr '\n' ' ' | cut -c1-600)"
               # A new feed (changed or first fetched): keep its log.
               if [ -n "$(git status --porcelain -- $d/routes.json)" ]; then cp /tmp/fetch-$c-$f.log $d/fetch.log; changed=1; fi
             done
