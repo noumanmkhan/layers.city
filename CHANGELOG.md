@@ -20,6 +20,9 @@
   (the names people use first, like Riverdale), its subway connections (Pape Station in Greektown), landmarks
   and where it ends. The route map tints each neighbourhood it passes in turn and names them, with the
   known-as names (Greektown, Canary District) in italics.
+- The paragraph opens with a one-line tag in the TTC's own style ("Don Valley Station to Commissioners St (via
+  Pape Station)"; a stop on the route's own street goes by its cross street), and on phones shows its first
+  sentence with "More" for the rest.
 
 ### Venues: GO fares by station (October 24)
 - Toronto venue pages quote the GO fare for each trip from the GTA (Brampton to Scotiabank Arena: GO fare $10.30)

@@ -94,6 +94,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .fact.wide .v .stn{display:inline;margin:0;white-space:normal}
 .fact.wide .v .stn .lns{display:inline-flex;vertical-align:-3px;margin-right:4px}
 .fact.wide .v .ka{font-style:italic;color:var(--accent);font-weight:500}
+.fact.wide .tag{font-family:var(--display);font-weight:800;font-size:19px;line-height:1.25;letter-spacing:-.01em;margin:2px 0 6px}
+.fact.wide .more{display:none;background:none;border:0;padding:0 2px;min-height:32px;color:var(--accent);font-weight:500;cursor:pointer}
+@media (max-width:520px){
+  .fact.wide .more{display:inline}
+  .fact.wide.clamp .rest{display:none}
+  .fact.wide .tag{font-size:17px}
+}
 .split{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;align-items:start}
 .mapbox{background:var(--card);border:1px solid var(--rule);border-radius:12px;overflow:hidden;position:sticky;top:12px}
 .mapbox svg{display:block;width:100%;height:auto;background:var(--water)}
@@ -499,7 +506,20 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const clauses = [];
     parts.forEach((x, i) => { if (i) clauses.push(i === parts.length - 1 ? ', and ' : ', '); clauses.push(el('span', {}, x)); });
     const p2 = parts.length ? ['It ', ...clauses, ', before ending at ', ...end, '.'] : ['It ends at ', ...end, '.'];
-    return [...p1, ...p2];
+    // A one-line tag in the agency's own style: "Don Valley Station to Commissioners St (via Pape Station)".
+    // A stop on the route's own main street goes by its cross street (Lawrence Ave East at Collinsgrove Rd: Collinsgrove Rd).
+    const norm = n => n.replace(/\bEast\b/g, 'E').replace(/\bWest\b/g, 'W').replace(/\bNorth\b/g, 'N').replace(/\bSouth\b/g, 'S').toLowerCase();
+    const onMain = n => [...lens.keys()].some(k => norm(k) === norm(n) && lens.get(k) >= Math.max(700, L * 0.1));
+    const short = (d, name) => {
+      const t = stnAt(d, name); if (t) return t[1];
+      const [a, b] = clean(name).split(/ at /);
+      return (b && onMain(a) ? b : a).replace(/^\d+[A-Z]?\s+/, '');
+    };
+    const longest = [...lens.entries()].sort((a, b) => b[1] - a[1])[0];
+    const via = mid.length ? mid[0][1] : longest ? longest[0] : null;
+    const from = short(startD, startName), to = short(L, P.to);
+    const tag = `${from} to ${to}` + (via && norm(via) !== norm(from) && norm(via) !== norm(to) ? ` (via ${via})` : '');
+    return { tag, first: p1, rest: p2 };
   }
 
   // A pattern and the one it loops round into, as one ride: the second's distances follow on from the first's.
@@ -568,7 +588,15 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const others = [...new Set(doc.patterns.filter(q => q.k !== k && q.head === P.head && q.stops.some(x => x[1] === sid)).map(q => clean(q.to)))].filter(t => t !== clean(P.to));
     const known = (await basemap())[4];
     const whole = rd.loop != null ? doc.patterns[rd.loop] : P;   // through a loop: describe the trip it carries on as
-    const wide = el('div', { class: 'fact wide' }, [el('div', { class: 'k' }, 'Takes you through'), el('div', { class: 'v' }, summary(whole, doc, known, `The ${R[0]} ${DIR[whole.head].toLowerCase()}`))]);
+    const sum = summary(whole, doc, known, `The ${R[0]} ${DIR[whole.head].toLowerCase()}`);
+    // On a phone the paragraph opens at its first sentence, with "More" for the rest.
+    const more = el('button', { type: 'button', class: 'more', 'aria-expanded': 'false' }, 'More');
+    const wide = el('div', { class: 'fact wide clamp' }, [
+      el('div', { class: 'k' }, 'Takes you through'),
+      el('div', { class: 'tag' }, sum.tag),
+      el('div', { class: 'v' }, [el('span', {}, sum.first), el('span', { class: 'rest' }, sum.rest), ' ', more]),
+    ]);
+    more.addEventListener('click', () => { const open = wide.classList.toggle('clamp'); more.setAttribute('aria-expanded', String(!open)); more.textContent = open ? 'More' : 'Less'; });
     $('facts').replaceChildren(
       wide,
       fact('Subway connections', stns.length ? stns.map(t => stnEl(t[1], t[2])) : [el('span', {}, 'None on this route'), el('small', {}, 'from here')]),
