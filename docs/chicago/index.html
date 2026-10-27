@@ -987,6 +987,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .lm.tw b{font-size:10.5px;font-weight:600} .lm.tw.sup b{font-size:11.5px;font-weight:700}
 #map:not(.z12) .lm.tw.sup,#map:not(.z14) .lm.tw:not(.sup),#map:not(.z13) .lm.tw.sup b,#map:not(.z15) .lm.tw:not(.sup) b{display:none}
 .sw.k-towers{background:var(--panel);display:grid;place-items:center;color:var(--tw-com)}
+.row.plink{text-decoration:none;color:inherit;align-items:center}
+.row.plink .tx b{color:var(--accent)}
+.sw.k-plink{display:grid;place-items:center;color:var(--accent);background:var(--pill-bg)}
+.row.plink .pgo{flex:none;width:32px;text-align:center;color:var(--accent);font-weight:600}
+.row.plink:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
 .row.child{margin-left:16px} .lensbox.child{margin-left:64px}
 .twkey .lm.tw{transform:none;display:inline-flex} .twkey .lm.tw i{width:16px;height:16px;border-radius:4px} .twkey .lm.tw.sup i{width:16px;height:16px} .twkey .lm.tw.sup i svg{width:11px;height:11px} .sw.in-university{color:var(--in-university)} .sw.in-college{color:var(--in-college)} .sw.in-hospital{color:var(--in-hospital)} .sw.in-mosque{color:var(--in-mosque)} .sw.in-gurdwara{color:var(--in-gurdwara)} .sw.in-synagogue{color:var(--in-synagogue)} .sw.in-hindu{color:var(--in-hindu)} .sw.in-buddhist{color:var(--in-buddhist)} .sw.in-church{color:var(--in-church)} .sw.in-otherfaith{color:var(--in-otherfaith)} .sw.in-halal{color:var(--in-halal)} .sw.in-kosher{color:var(--in-kosher)} .sw.in-library{color:var(--in-library)} .sw.in-elementary{color:var(--in-elementary)} .sw.in-secondary{color:var(--in-secondary)} .sw.in-centre{color:var(--in-centre)} .sw.in-cc{color:var(--in-cc)} .sw.in-frschool{color:var(--in-frschool)} .sw.in-immersion{color:var(--in-immersion)} .sw.in-pool{color:var(--in-pool)} .sw.in-rink{color:var(--in-rink)} .sw.in-diamond{color:var(--in-diamond)} .sw.in-field{color:var(--in-field)} .sw.in-tennis{color:var(--in-tennis)} .sw.in-pickleball{color:var(--in-pickleball)} .sw.in-basketball{color:var(--in-basketball)} .sw.in-skatepark{color:var(--in-skatepark)} .sw.in-cricket{color:var(--in-cricket)}
 .sw.k-places svg{width:14px;height:14px}
@@ -3298,6 +3303,7 @@ function groupCounts(){
     const c = g.querySelector('.gon'); if (c) c.textContent = n ? fill(CITY.groupOnText || '{n} on', {n}) : '';
   });
 }
+const PLINK_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M8 17v3M16 17v3"/><circle cx="8.5" cy="14" r=".6" fill="currentColor"/><circle cx="15.5" cy="14" r=".6" fill="currentColor"/></svg>';
 CITY.groups.forEach(([title, items]) => {
   const grpOuter = document.createElement('div'); grpOuter.className = 'grp'; grpOuter.dataset.group = title;
   const gid = 'grp-' + title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -3426,6 +3432,15 @@ CITY.groups.forEach(([title, items]) => {
       s.querySelector('input').addEventListener('change', () => { syncStnNames(); queueHash(); });
     }
     state[it.id] = !!it.on;
+  });
+  // Pages of the site that belong with this group (city.json "pageLinks": {group, id, name, note, href}), as rows
+  // that open the page instead of a switch. They count as Basic, not Live, for the panel tabs.
+  (CITY.pageLinks || []).filter(l => l.group === title).forEach(l => {
+    const w = document.createElement('div'); w.className = 'it'; w.dataset.live = '';
+    w.innerHTML = '<a class="row plink" href="' + esc(l.href) + '"><span class="sw k-plink" aria-hidden="true">' + PLINK_ICON + '</span>' +
+      '<span class="tx"><b>' + esc(l.name) + '</b><span>' + esc(l.note || '') + '</span></span><span class="pgo" aria-hidden="true">→</span></a>';
+    w.querySelector('a').addEventListener('click', () => logEvent('page_link', {id: l.id || l.href}));
+    body.appendChild(w);
   });
   host.appendChild(grpOuter);
   if (foldedGroups.includes(title)) foldGroup(grpOuter, true, false);

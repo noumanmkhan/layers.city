@@ -51,6 +51,10 @@
   "facts": {"peers": ["areas", "boroughs"], "in": "in {name}", "inNames": {"West End": "in the West End", "East End": "in the East End"}, "city": "in Toronto", "hub": "Union"},
   "units": {"singular": "Neighbourhood", "plural": "neighbourhoods"},
 
+  "pageLinks": [
+    {"group": "Getting around", "id": "routes", "name": "Where does my bus go?", "note": "Find the stops near you and see where each bus takes you", "href": "/toronto/routes/"}
+  ],
+
   "groups": [
     ["Places", [
       {"id": "nbhd", "kind": "units", "file": "neighbourhoods", "name": "Neighbourhoods", "note": "The City’s 158 official neighbourhoods", "on": true, "hover": "{name} · #{code}"},

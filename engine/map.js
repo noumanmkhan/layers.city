@@ -1611,6 +1611,7 @@ function groupCounts(){
     const c = g.querySelector('.gon'); if (c) c.textContent = n ? fill(CITY.groupOnText || '{n} on', {n}) : '';
   });
 }
+const PLINK_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M8 17v3M16 17v3"/><circle cx="8.5" cy="14" r=".6" fill="currentColor"/><circle cx="15.5" cy="14" r=".6" fill="currentColor"/></svg>';
 CITY.groups.forEach(([title, items]) => {
   const grpOuter = document.createElement('div'); grpOuter.className = 'grp'; grpOuter.dataset.group = title;
   const gid = 'grp-' + title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -1739,6 +1740,15 @@ CITY.groups.forEach(([title, items]) => {
       s.querySelector('input').addEventListener('change', () => { syncStnNames(); queueHash(); });
     }
     state[it.id] = !!it.on;
+  });
+  // Pages of the site that belong with this group (city.json "pageLinks": {group, id, name, note, href}), as rows
+  // that open the page instead of a switch. They count as Basic, not Live, for the panel tabs.
+  (CITY.pageLinks || []).filter(l => l.group === title).forEach(l => {
+    const w = document.createElement('div'); w.className = 'it'; w.dataset.live = '';
+    w.innerHTML = '<a class="row plink" href="' + esc(l.href) + '"><span class="sw k-plink" aria-hidden="true">' + PLINK_ICON + '</span>' +
+      '<span class="tx"><b>' + esc(l.name) + '</b><span>' + esc(l.note || '') + '</span></span><span class="pgo" aria-hidden="true">→</span></a>';
+    w.querySelector('a').addEventListener('click', () => logEvent('page_link', {id: l.id || l.href}));
+    body.appendChild(w);
   });
   host.appendChild(grpOuter);
   if (foldedGroups.includes(title)) foldGroup(grpOuter, true, false);
