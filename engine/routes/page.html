@@ -65,6 +65,17 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .row:hover{background:var(--bg)}
 .row .to{font-weight:500;line-height:1.3}
 .row .via{grid-column:2;color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.row .live{grid-column:2;min-height:0}
+.next{display:inline;font-weight:600;font-size:14px;color:var(--ink);line-height:1.6}
+.next .t{font-variant-numeric:tabular-nums}
+.next .t.sched{color:var(--muted);font-weight:500;font-style:italic}
+.next .sep{color:var(--muted)}
+.next.none{font-weight:400;font-size:12.5px;color:var(--muted)}
+.next .pulse{display:inline-block;vertical-align:1px;width:8px;height:8px;border-radius:50%;background:#1E9E57;margin-right:6px;box-shadow:0 0 0 0 rgba(30,158,87,.55);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(30,158,87,.55)}70%{box-shadow:0 0 0 7px rgba(30,158,87,0)}100%{box-shadow:0 0 0 0 rgba(30,158,87,0)}}
+@media (prefers-reduced-motion:reduce){.next .pulse{animation:none}}
+.rnext{margin-top:6px}
+.rnext .next{font-size:16px}
 .row .go{color:var(--accent);font-weight:500;font-size:13px;align-self:center;grid-row:1 / span 2;grid-column:3}
 .via .loopy{color:var(--accent);font-weight:500}
 .dirw{font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-right:4px}
@@ -218,7 +229,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     <button type="button" class="back" id="back">← All stops nearby</button>
     <div class="rhead">
       <span id="rbadge"></span>
-      <div><h2 id="rname"></h2><div class="from" id="rfrom"></div></div>
+      <div><h2 id="rname"></h2><div class="from" id="rfrom"></div><div class="rnext" id="rnext" aria-live="polite"></div></div>
     </div>
     <div class="tabs" id="tabs" role="group" aria-label="Direction"></div>
     <div class="facts" id="facts"></div>
@@ -353,6 +364,43 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     return out.sort((a, b) => fam(a.rid) - fam(b.rid) || (parseInt(D.routes[a.rid][0]) || 999) - (parseInt(D.routes[b.rid][0]) || 999));
   }
 
+  // ---- live arrivals (functions/api/arrivals.js reads the agency's realtime feed): "6, 18, 32 min" ----
+  const LIVE = RS.live && RS.live.api;
+  let liveSkew = 0, liveTimer = null, liveRun = null;
+  async function fetchLive(stopIds) {
+    if (!LIVE || !stopIds.length) return null;
+    try {
+      const r = await fetch(LIVE + '&stops=' + encodeURIComponent(stopIds.join(',')));
+      if (!r.ok) return null;
+      const j = await r.json(); liveSkew = Date.now() / 1000 - j.now; return j;
+    } catch { return null; }
+  }
+  // The next three for one route at one stop, as [minutes, live]. Matched by stop and route only: a stop sits on
+  // one side of the street, and the TTC's feed doesn't fill in direction_id (it reads 0 for every trip).
+  function nextAt(j, sid, rid) {
+    const now = Date.now() / 1000 - liveSkew;
+    return ((j && j.stops[sid]) || []).filter(x => x[0] === rid && x[2] >= now - 30)
+      .slice(0, 3).map(x => [Math.max(0, Math.round((x[2] - now) / 60)), x[3]]);
+  }
+  function timesEl(ts, long) {
+    if (!ts.length) return el('span', { class: 'next none' }, long ? 'No live times for this stop right now' : 'No live times right now');
+    const parts = [];
+    ts.forEach(([m, live], i) => {
+      if (i) parts.push(el('span', { class: 'sep' }, ', '));
+      parts.push(el('span', { class: live ? 't' : 't sched', title: live ? 'Live: the bus is on its way' : 'Scheduled: this bus hasn’t started its trip yet' }, m === 0 ? 'Due' : String(m)));
+    });
+    if (ts.some(([m]) => m > 0)) parts.push(' min');
+    return el('span', { class: 'next' }, [el('i', { class: 'pulse', 'aria-hidden': 'true' }), long ? 'Next buses: ' : '', ...parts]);
+  }
+  // One refresh loop for whatever is on screen, every 30 s, paused while the page is hidden.
+  function startLive(run) {
+    clearInterval(liveTimer); liveRun = run;
+    if (!LIVE) return;
+    run();
+    liveTimer = setInterval(() => { if (!document.hidden && liveRun === run) run(); }, 30000);
+  }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && liveRun) liveRun(); });
+
   function routeRow(sid, x) {
     const R = D.routes[x.rid];
     const regs = x.regions.filter(r => r[1] > x.d + 200).map(r => r[2]).filter((r, i, a) => r !== a[i - 1]);
@@ -366,8 +414,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       badge(x.rid),
       el('span', { class: 'to' }, [el('span', { class: 'dirw' }, cap(x.head)), ' ', `${R[1]} to ${clean(x.to)}`]),
       el('span', { class: 'go', 'aria-hidden': 'true' }, 'See route →'),
+      el('span', { class: 'live' }),
       via,
     ]);
+    b.dataset.sid = sid; b.dataset.rid = x.rid;
     b.addEventListener('click', () => openRoute(sid, x.rid, x.k, true));
     return b;
   }
@@ -398,6 +448,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       if (card.querySelector('.side')) box.append(card);
     });
     $('near').hidden = false; $('route').hidden = true;
+    const rowsShown = [...box.querySelectorAll('.row[data-sid]')];
+    startLive(async () => {
+      const j = await fetchLive([...new Set(rowsShown.map(r => r.dataset.sid))]);
+      rowsShown.forEach(r => r.querySelector('.live').replaceChildren(j ? timesEl(nextAt(j, r.dataset.sid, r.dataset.rid)) : ''));
+    });
   }
 
   // ---- one route from one stop ----
@@ -632,6 +687,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     await drawMap(P, d0, s);
     $('near').hidden = true; $('route').hidden = false;
     if (push) $('route').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    startLive(async () => {
+      const j = await fetchLive([sid]);
+      $('rnext').replaceChildren(j ? timesEl(nextAt(j, sid, rid), true) : '');
+    });
   }
 
   // ---- the route map: the city's own layers, the route ahead in red, what's behind faded ----

@@ -226,11 +226,14 @@ main.doc{padding-top:56px;gap:40px}
 
     <section class="policy" id="website" aria-labelledby="web-h">
       <h2 id="web-h">This website</h2>
-      <p class="dated">LAST UPDATED · OCTOBER 19, 2026</p>
+      <p class="dated">LAST UPDATED · OCTOBER 27, 2026</p>
       <p>This covers <code>layers.city</code>: the maps page and every city’s map.</p>
 
       <h3>No accounts, ads or tracking cookies</h3>
       <p>You don’t need an account, there is no advertising, and the site sets no tracking cookies.</p>
+
+      <h3 id="live-times">Live bus times</h3>
+      <p>On the <a href="/toronto/routes/">Where does my bus go?</a> page, “Find stops near me” works out the stops around you in your browser; your location isn’t sent anywhere. To show when the next buses come, the page then asks <code>layers.city/api/arrivals</code> for the times at those stops. That request carries only the stop numbers. The site reads the TTC’s public live feed to answer it, keeps nothing about the request, and sets no cookies; as with any web request, Cloudflare, which hosts the site, sees your IP address.</p>
 
       <h3 id="counting">Counting visits and feature use</h3>
       <p>To learn which cities and features people find useful, the site uses <a href="https://umami.is">Umami Cloud</a>, a privacy-focused analytics service that sets no cookies (<a href="https://umami.is/privacy">Umami’s privacy policy</a>). It receives:</p>

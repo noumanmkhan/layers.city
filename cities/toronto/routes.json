@@ -3,6 +3,10 @@
  "modes": [
   "bus"
  ],
+ "live": {
+  "api": "/api/arrivals?city=toronto",
+  "source": "TTC GTFS-Realtime"
+ },
  "_modes": "Route modes from raw/surface/routes.json to include: bus now; add \"tram\" for streetcars.",
  "gridTilt": 17,
  "_gridTilt": "Degrees the street grid is turned from true north (Toronto's grid runs about 17 degrees west of north), so Yonge reads as north-south and Bloor as east-west.",
@@ -227,7 +231,7 @@
   "outside": "That spot is outside Toronto. Try an address in the city.",
   "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.",
   "noStops": "No bus stops within {r} of that spot.",
-  "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data",
+  "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (City of Toronto Open Data)",
   "mapLink": "Open on the map"
  }
 }

@@ -365,6 +365,7 @@ css_p = os.path.join(ROOT, 'cities', city, 'factsheet.css')
 page = dict(CFG['page'])
 cfg_out = {k: v for k, v in page.items()}
 cfg_out['known'] = CFG.get('known')
+cfg_out['live'] = CFG.get('live')   # live arrivals: {api}, served by functions/api/arrivals.js
 cfg_out['the'] = CFG.get('regionsWithThe', [])
 html = (tpl.replace('{{RS}}', json.dumps(cfg_out, ensure_ascii=False))
         .replace('{{css}}', open(css_p, encoding='utf-8').read() if os.path.exists(css_p) else '')

@@ -22,6 +22,7 @@ on:
     branches: [main]
     paths:
       - 'docs/**'
+      - 'functions/**'
       - '.github/workflows/deploy.yml'
   workflow_run:
     workflows:
