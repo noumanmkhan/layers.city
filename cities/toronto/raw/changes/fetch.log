@@ -5,53 +5,53 @@
   type/status, submitted in the window:
     ('CD', 'Amend Drft Plan App') 1
     ('CD', 'Application Received') 1
-    ('CD', 'Closed') 58
-    ('CD', 'Draft Plan Approved') 91
-    ('CD', 'Under Review ') 27
+    ('CD', 'Closed') 56
+    ('CD', 'Draft Plan Approved') 90
+    ('CD', 'Under Review ') 25
     ('OZ', 'Appeal Dismissed') 3
     ('OZ', 'Appeal Received') 50
     ('OZ', 'Application Received') 23
-    ('OZ', 'Closed') 472
-    ('OZ', 'Council Approved') 58
+    ('OZ', 'Closed') 467
+    ('OZ', 'Council Approved') 57
     ('OZ', 'OMB Appeal') 132
     ('OZ', 'OMB Approved') 12
     ('OZ', 'Refused') 1
-    ('OZ', 'Under Review ') 349
+    ('OZ', 'Under Review ') 342
     ('PL', 'Approved') 3
     ('PL', 'Closed') 30
     ('PL', 'Under Review ') 6
     ('SA', 'Application Received') 25
     ('SA', 'Closed') 68
     ('SA', 'Final Approval Completed') 3
-    ('SA', 'NOAC Issued') 65
+    ('SA', 'NOAC Issued') 64
     ('SA', 'OMB Appeal') 10
     ('SA', 'Under Review') 3
-    ('SA', 'Under Review ') 432
+    ('SA', 'Under Review ') 430
     ('SB', 'Under Review ') 54
   type/status, submitted before it:
-    ('CD', 'Closed') 2149
-    ('CD', 'Draft Plan Approved') 106
+    ('CD', 'Closed') 2151
+    ('CD', 'Draft Plan Approved') 107
     ('CD', 'Final Approval Completed') 8
-    ('CD', 'Under Review ') 246
+    ('CD', 'Under Review ') 248
     ('OZ', 'Appeal Received') 272
-    ('OZ', 'Closed') 8747
-    ('OZ', 'Council Approved') 283
+    ('OZ', 'Closed') 8752
+    ('OZ', 'Council Approved') 284
     ('OZ', 'OMB Appeal') 423
     ('OZ', 'OMB Approved') 623
     ('OZ', 'Under Review') 15
-    ('OZ', 'Under Review ') 268
+    ('OZ', 'Under Review ') 275
     ('PL', 'Approved') 13
     ('PL', 'Closed') 607
     ('PL', 'Under Review ') 15
     ('SA', 'Appeal Received') 89
     ('SA', 'Closed') 7292
     ('SA', 'Final Approval Completed') 79
-    ('SA', 'NOAC Issued') 669
+    ('SA', 'NOAC Issued') 670
     ('SA', 'OMB Appeal') 101
     ('SA', 'OMB Approved') 21
     ('SA', 'Refused') 10
     ('SA', 'Under Review') 14
-    ('SA', 'Under Review ') 1418
+    ('SA', 'Under Review ') 1420
     ('SB', 'Appeal Received') 22
     ('SB', 'Closed') 685
     ('SB', 'Draft Plan Approved') 58
@@ -59,79 +59,79 @@
     ('SB', 'OMB Appeal') 31
     ('SB', 'OMB Approved') 20
     ('SB', 'Under Review ') 356
-  kept 5269 of 26648
-  first row both projections: 25 251661 NNY 08 OZ {2952: [-79.443308, 43.719304], 2019: [-79.443304, 43.721239]}
-  wrote devapps 5269 rows, 3971 KB
+  kept 5259 of 26648
+  first row both projections: 26 127354 STE 19 SA {2952: [-79.298195, 43.687213], 2019: [-79.298191, 43.689147]}
+  wrote devapps 5259 rows, 3965 KB
 == permits ckan_permits
   got https://ckan0.cf.opendata.inter.prod-toronto.ca/datastore/dump/6d0229af-bc54-46de-9c2b-26759b01dd05 64 MB
-  resource building-permits-active-permits 201860 rows so far
+  resource building-permits-active-permits 200978 rows so far
   got https://ckan0.cf.opendata.inter.prod-toronto.ca/datastore/dump/a96c0ba4-3026-402b-b09d-5b1268b8f810 143 MB
-  resource Cleared Building Permits since 2017 444920 rows so far
+  resource Cleared Building Permits since 2017 446667 rows so far
   permit type / work (top 60):
-    ('Plumbing(PS)', 'Building Permit Related(PS)') 121108
-    ('Mechanical(MS)', 'Building Permit Related(MS)') 112952
-    ('Building Additions/Alterations', 'Interior Alterations') 56238
-    ('Small Residential Projects', 'Multiple Projects') 46701
-    ('Drain and Site Service', 'Building Permit Related (DR)') 38787
-    ('New Houses', 'New Building') 34209
-    ('Drain and Site Service', 'Back Water Valve (Sewer only)') 24357
-    ('Small Residential Projects', 'Interior Alterations') 22301
-    ('Demolition Folder (DM)', 'Demolition') 14834
-    ('Designated Structures', 'Sign Building Permit Related') 12173
-    ('Small Residential Projects', 'Addition(s) ') 11860
-    ('Plumbing(PS)', ' Backflow Prevention Devices (Water only)') 8648
-    ('Building Additions/Alterations', 'Other(BA)') 7550
-    ('Small Residential Projects', 'Garage') 7398
-    ('Small Residential Projects', 'Party Wall Admin Permits') 7339
-    ('Small Residential Projects', 'Other(SR)') 7227
-    ('Building Additions/Alterations', 'Multiple Projects') 5616
-    ('Small Residential Projects', 'Deck') 5467
-    ('New Building', 'New Building') 4750
-    ('Fire/Security Upgrade', 'Electromagnetic Locks') 4372
-    ('Small Residential Projects', 'Second Suite (New)') 4191
-    ('Small Residential Projects', 'Porch') 4026
-    ('Plumbing(PS)', 'Other(PS)') 3800
-    ('Small Residential Projects', 'Underpinning') 3762
+    ('Plumbing(PS)', 'Building Permit Related(PS)') 121265
+    ('Mechanical(MS)', 'Building Permit Related(MS)') 113088
+    ('Building Additions/Alterations', 'Interior Alterations') 56318
+    ('Small Residential Projects', 'Multiple Projects') 46756
+    ('Drain and Site Service', 'Building Permit Related (DR)') 38832
+    ('New Houses', 'New Building') 34237
+    ('Drain and Site Service', 'Back Water Valve (Sewer only)') 24423
+    ('Small Residential Projects', 'Interior Alterations') 22331
+    ('Demolition Folder (DM)', 'Demolition') 14853
+    ('Designated Structures', 'Sign Building Permit Related') 12201
+    ('Small Residential Projects', 'Addition(s) ') 11885
+    ('Plumbing(PS)', ' Backflow Prevention Devices (Water only)') 8649
+    ('Building Additions/Alterations', 'Other(BA)') 7558
+    ('Small Residential Projects', 'Garage') 7415
+    ('Small Residential Projects', 'Party Wall Admin Permits') 7344
+    ('Small Residential Projects', 'Other(SR)') 7232
+    ('Building Additions/Alterations', 'Multiple Projects') 5623
+    ('Small Residential Projects', 'Deck') 5473
+    ('New Building', 'New Building') 4754
+    ('Fire/Security Upgrade', 'Electromagnetic Locks') 4377
+    ('Small Residential Projects', 'Second Suite (New)') 4202
+    ('Small Residential Projects', 'Porch') 4031
+    ('Plumbing(PS)', 'Other(PS)') 3801
+    ('Small Residential Projects', 'Underpinning') 3766
     ('Fire/Security Upgrade', 'Fire Alarm') 3668
-    ('Small Residential Projects', 'New Laneway / Rear Yard Suite') 3229
-    ('Building Additions/Alterations', 'Garage Repair/Reconstruction') 2947
-    ('Small Residential Projects', 'Accessory Building(s)') 2799
+    ('Small Residential Projects', 'New Laneway / Rear Yard Suite') 3242
+    ('Building Additions/Alterations', 'Garage Repair/Reconstruction') 2949
+    ('Small Residential Projects', 'Accessory Building(s)') 2804
     ('Drain and Site Service', 'Inside and Outside Drains') 2621
-    ('Conditional Permit', 'New Building') 2578
-    ('Fire/Security Upgrade', 'Building Permit Related(FS)') 2531
-    ('Building Additions/Alterations', 'Addition(s) ') 2482
-    ('AS Alternative Solution', 'Alternative Solution') 2450
-    ('Fire/Security Upgrade', 'Sprinklers') 2403
+    ('Conditional Permit', 'New Building') 2577
+    ('Fire/Security Upgrade', 'Building Permit Related(FS)') 2533
+    ('Building Additions/Alterations', 'Addition(s) ') 2484
+    ('AS Alternative Solution', 'Alternative Solution') 2454
+    ('Fire/Security Upgrade', 'Sprinklers') 2417
     ('Residential Building Permit', 'New Building') 2192
     ('Small Residential Projects', 'Pool Fence Enclosure') 2051
-    ('Drain and Site Service', 'Site Service') 1885
+    ('Drain and Site Service', 'Site Service') 1888
     ('Small Residential Projects', 'Walk-Out Stair') 1824
-    ('Building Additions/Alterations', 'Balcony/Guard Repairs') 1612
-    ('Mechanical(MS)', 'Other(MS)') 1574
+    ('Building Additions/Alterations', 'Balcony/Guard Repairs') 1615
+    ('Mechanical(MS)', 'Other(MS)') 1577
     ('Small Residential Projects', 'Unknown') 1506
-    ('Small Residential Projects', 'Fire Damage') 1499
+    ('Small Residential Projects', 'Fire Damage') 1505
     ('Temporary Structures', 'Certified Tents') 1323
-    ('Temporary Structures', 'Temporary Structures') 1267
-    ('Partial Permit', 'Partial Permit - Structural Framing') 1220
-    ('Plumbing(PS)', ' Fixtures/Roof Drains: SFD') 1198
-    ('Mechanical(MS)', 'Special Ventilation System') 1096
-    ('Plumbing(PS)', 'Piping: Other Buildings') 1088
+    ('Temporary Structures', 'Temporary Structures') 1270
+    ('Partial Permit', 'Partial Permit - Structural Framing') 1224
+    ('Plumbing(PS)', ' Fixtures/Roof Drains: SFD') 1199
+    ('Mechanical(MS)', 'Special Ventilation System') 1097
+    ('Plumbing(PS)', 'Piping: Other Buildings') 1089
     ('New Houses', 'New Building - Lead') 1018
-    ('Plumbing(PS)', ' Fixtures/Roof Drains: Other ') 1009
-    ('Small Residential Projects', 'Finishing Basements') 1002
+    ('Plumbing(PS)', ' Fixtures/Roof Drains: Other ') 1010
+    ('Small Residential Projects', 'Finishing Basements') 1007
     ('Building Additions/Alterations', 'Re-Roofing/Re-Cladding') 976
-    ('Partial Permit', 'Partial Permit - Foundation') 952
-    ('Small Residential Projects', 'Carport') 859
+    ('Partial Permit', 'Partial Permit - Foundation') 954
+    ('Small Residential Projects', 'Carport') 861
     ('Plumbing(PS)', 'Unknown') 851
-    ('Temporary Structures', 'Other Temporary Tents') 807
-    ('Partial Permit', 'Partial Permit - Shoring') 775
+    ('Temporary Structures', 'Other Temporary Tents') 808
+    ('Partial Permit', 'Partial Permit - Shoring') 777
     ('Mechanical(MS)', 'Alter: Boiler/Furnace/AC Replacement') 749
     ('Residential Building Permit', 'Alteration to Existing Building') 747
-    ('Small Residential Projects', 'Canopy') 743
-  selected 3906 · by status {'Inspection': 1116, 'Closed': 1105, 'Revision Issued': 475, 'Permit Issued': 374, 'Under Review ': 245, "Examiner's Notice Sent": 188, 'Cancelled': 123, 'Closed - Dormant': 70, 'Response Received': 58, 'Refusal Notice': 23, 'Revocation Pending': 23, 'Work Not Started': 23, 'Application Acceptable': 18, 'Not Started': 14, 'Pending Cancellation': 13, 'Application On Hold': 12, 'Issuance Pending': 12, 'Application Received': 4, 'Ready for Issuance': 4, 'Abandoned': 1, 'Agreement in Progress': 1, 'Forwarded for Issuance': 1, 'Extension Granted': 1, 'Application Withdrawn': 1, 'Notice Sent': 1}
+    ('Small Residential Projects', 'Canopy') 746
+  selected 3899 · by status {'Inspection': 1114, 'Closed': 1098, 'Revision Issued': 479, 'Permit Issued': 379, 'Under Review ': 251, "Examiner's Notice Sent": 188, 'Cancelled': 122, 'Closed - Dormant': 70, 'Response Received': 53, 'Work Not Started': 24, 'Revocation Pending': 23, 'Refusal Notice': 20, 'Application Acceptable': 20, 'Pending Cancellation': 13, 'Issuance Pending': 13, 'Not Started': 10, 'Application On Hold': 10, 'Ready for Issuance': 5, 'Application Received': 3, 'Abandoned': 1, 'Extension Granted': 1, 'Application Withdrawn': 1, 'Notice Sent': 1}
   got https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/abedd8bc-e3dd-4d45-8e69-79165a76e4fa/resource/64d4e54b-738f-4cd9 174 MB
-  address points: 525371
-  placed: {'address': 454, 'geo_id': 3126, 'none': 326}
-  wrote permits 3580 rows, 2442 KB
-toronto: 5983 items → 2840 sites · 1379 KB
-  by kind/stage: {('siteplan', 'proposed'): 722, ('demolition', 'finished'): 489, ('rezoning', 'proposed'): 421, ('building', 'building'): 309, ('building', 'finished'): 273, ('building', 'proposed'): 161, ('subdivision', 'proposed'): 130, ('demolition', 'approved'): 125, ('demolition', 'building'): 66, ('building', 'approved'): 43, ('siteplan', 'approved'): 37, ('demolition', 'proposed'): 34, ('rezoning', 'approved'): 30}
+  address points: 525377
+  placed: {'geo_id': 3119, 'address': 454, 'none': 326}
+  wrote permits 3573 rows, 2438 KB
+toronto: 5970 items → 2833 sites · 1373 KB
+  by kind/stage: {('siteplan', 'proposed'): 716, ('demolition', 'finished'): 486, ('rezoning', 'proposed'): 424, ('building', 'building'): 309, ('building', 'finished'): 272, ('building', 'proposed'): 161, ('subdivision', 'proposed'): 127, ('demolition', 'approved'): 124, ('demolition', 'building'): 67, ('building', 'approved'): 50, ('demolition', 'proposed'): 35, ('siteplan', 'approved'): 34, ('rezoning', 'approved'): 28}
