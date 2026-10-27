@@ -81,6 +81,11 @@ jobs:
       - name: Rebuild the fact sheets
         if: steps.have.outputs.ok
         run: for CITY in $CITIES; do python3 -u engine/profiles/build.py "$CITY"; done
+      # The Routes page (engine/routes/build.py) reads the same routes and stops, so it's rebuilt here too,
+      # for each city with a cities/<city>/routes.json.
+      - name: Rebuild the Routes pages
+        if: steps.have.outputs.ok
+        run: for CITY in $CITIES; do if [ -f "cities/$CITY/routes.json" ]; then python3 -u engine/routes/build.py "$CITY"; fi; done
       - name: Commit
         if: steps.have.outputs.ok
         run: |
@@ -88,8 +93,9 @@ jobs:
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
           for CITY in $CITIES; do
             git add "docs/$CITY/profiles"
+            [ -d "docs/$CITY/routes" ] && git add "docs/$CITY/routes"
             for f in ramps.json drive_profiles.json factsheet_walk.log; do [ -f "cities/$CITY/raw/$f" ] && git add "cities/$CITY/raw/$f"; done
           done
-          git commit -m "Refresh fact sheets ($CITIES)$([ "$FULL" = true ] && echo ', walk and drive times re-fetched')" || { echo "no changes"; exit 0; }
+          git commit -m "Refresh fact sheets and Routes pages ($CITIES)$([ "$FULL" = true ] && echo ', walk and drive times re-fetched')" || { echo "no changes"; exit 0; }
           git pull --rebase
           git push
