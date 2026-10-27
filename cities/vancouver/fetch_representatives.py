@@ -13,5 +13,10 @@ sys.path.insert(0, HERE)
 import fetch_lib as F
 
 OUT = os.path.join(HERE, 'raw', 'representatives'); os.makedirs(OUT, exist_ok=True)
-open(os.path.join(OUT, 'ourcommons.xml'), 'wb').write(F.get('https://www.ourcommons.ca/Members/en/search/XML'))
+try:
+    data = F.get('https://www.ourcommons.ca/Members/en/search/XML')
+    open(os.path.join(OUT, 'ourcommons.xml'), 'wb').write(data)
+except RuntimeError as e:   # blocked or down: keep the committed copy (MPs change only at by-elections)
+    if not os.path.exists(os.path.join(OUT, 'ourcommons.xml')): raise
+    print('  ! ourcommons.xml not refreshed; keeping the last copy:', e)
 print('ourcommons.xml', os.path.getsize(os.path.join(OUT, 'ourcommons.xml')) // 1000, 'KB')

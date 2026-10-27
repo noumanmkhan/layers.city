@@ -13,7 +13,7 @@ Run from GitHub Actions (weekly, and on demand); writes raw/representatives/.
 
 Open North's Represent API was considered and not used: its House of Commons list lagged a
 by-election by months. Taking names from the same pages the site links to keeps them in step."""
-import json, os, re, time, urllib.request
+import json, os, re, time, urllib.error, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'raw', 'representatives'); os.makedirs(OUT, exist_ok=True)
@@ -28,13 +28,29 @@ def get(url, tries=4):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120) as r:
                 return r.read()
+        except urllib.error.HTTPError as e:
+            print('  retry', i + 1, url, e)
+            if e.code in (401, 403, 404): break   # a refusal, not a blip: retrying won't change it
+            time.sleep(5 * (i + 1))
         except Exception as e:
             print('  retry', i + 1, url, e); time.sleep(5 * (i + 1))
     raise SystemExit('failed: ' + url)
 
 
-open(os.path.join(OUT, 'ourcommons.xml'), 'wb').write(get('https://www.ourcommons.ca/Members/en/search/XML'))
-open(os.path.join(OUT, 'ola.html'), 'wb').write(get('https://www.ola.org/en/members/current'))
+def keep(name, url):
+    """Fetch url into raw/representatives/<name>; if the site refuses or is down, keep the committed copy
+    (MPs and MPPs change only at by-elections) so one blocked source can't stop the rest, such as
+    the election-night results."""
+    path = os.path.join(OUT, name)
+    try:
+        open(path, 'wb').write(get(url))
+    except SystemExit as e:
+        if not os.path.exists(path): raise
+        print('  ! %s not refreshed; keeping the last copy:' % name, e)
+
+
+keep('ourcommons.xml', 'https://www.ourcommons.ca/Members/en/search/XML')
+keep('ola.html', 'https://www.ola.org/en/members/current')
 wards = {}
 for n in range(1, 26):
     html = get(WARD.format(n)).decode('utf-8', 'replace')
