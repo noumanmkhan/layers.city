@@ -126,8 +126,12 @@ if not feed_url: raise SystemExit('No GTFS found')
 # The job runs weekly; agencies publish a new feed every few weeks. Same feed as last time: nothing to do,
 # so the repo only changes when the schedule does.
 SHA = hashlib.sha256(b''.join(open(p, 'rb').read() for p in (parts if urls is None else [ZIP]))).hexdigest()[:16]   # merged feeds: the parts' bytes
+# FORMAT changes when these files gain a field (2: each stop's rider-facing stop code), so the next run rewrites
+# them even from the same feed.
+FORMAT = 2
 try:
-    if json.load(open(os.path.join(OUT, 'routes.json'))).get('sha') == SHA:
+    prev = json.load(open(os.path.join(OUT, 'routes.json')))
+    if prev.get('sha') == SHA and prev.get('format', 1) == FORMAT:
         print('feed unchanged (sha', SHA + '); keeping the files from last time'); sys.exit(0)
 except (OSError, ValueError):
     pass
@@ -248,10 +252,12 @@ out_routes.sort(key=lambda r: (len(r['short']), r['short']))
 names = {}
 for r in rows('stops.txt'):
     if r['stop_id'] in stop_routes and r.get('stop_lat'):
+        # [id, name, lon, lat, routes, code]: the code is the number riders see on the stop's pole (GTFS stop_code), or ''.
         names[r['stop_id']] = [r['stop_id'], r.get('stop_name', ''), round(float(r['stop_lon']), 5), round(float(r['stop_lat']), 5),
-                               sorted({routes[x]['short'] for x in stop_routes[r['stop_id']]}, key=lambda s: (len(s), s))]
+                               sorted({routes[x]['short'] for x in stop_routes[r['stop_id']]}, key=lambda s: (len(s), s)),
+                               (r.get('stop_code') or '').strip()]
 
-meta = {'source': feed_url, 'sha': SHA, 'fetched': dt.date.today().isoformat(), 'feed': [str(first), str(last)], 'week': str(day),
+meta = {'format': FORMAT, 'source': feed_url, 'sha': SHA, 'fetched': dt.date.today().isoformat(), 'feed': [str(first), str(last)], 'week': str(day),
         'days': {k: str(v) for k, v in PICK.items()}}
 json.dump(dict(meta, routes=out_routes), open(os.path.join(OUT, 'routes.json'), 'w'), separators=(',', ':'))
 json.dump(dict(meta, stops=list(names.values())), open(os.path.join(OUT, 'stops.json'), 'w'), separators=(',', ':'))
