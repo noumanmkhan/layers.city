@@ -103,12 +103,17 @@ try:
     res = json.load(open(os.path.join(RAW, 'results.json')))
 except FileNotFoundError:
     res = None
+def num(v):
+    """The results file gives counts as text; on election night they may carry thousands separators."""
+    return int(re.sub(r'[^0-9]', '', str(v or '')) or 0)
+
+
 def race(w, what):
-    cands = [(c['name'], int(c['votesReceived'] or 0)) for c in w['candidate']]
+    cands = [(c['name'], num(c['votesReceived'])) for c in w['candidate']]
     row = {'candidates': [n for n, _ in cands]}
     if len(cands) == 1:
         row.update(winner=cands[0][0], acclaimed=True)
-    elif int(w['polls'] or 0) and int(w['pollsReceived'] or 0) >= int(w['polls']):
+    elif num(w['polls']) and num(w['pollsReceived']) >= num(w['polls']):
         top = sorted(cands, key=lambda c: -c[1])
         if top[0][1] > top[1][1]: row['winner'] = top[0][0]
         else: problems.append('tie: %s ward %s' % (what, w['num']))
