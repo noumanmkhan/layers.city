@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Live next-bus times (October 27)
+- Where does my bus go? shows the next buses for each route at each stop near you, and on the route view
+  ("Next buses: 5, 10, 18 min"; italic when the bus hasn't started its trip yet), refreshed every 30 seconds.
+- From the TTC's GTFS-Realtime trip updates, read by the site's first server code, a Cloudflare Pages Function
+  (`functions/api/arrivals.js`, `/api/arrivals?city=toronto&stops=...`), since the TTC's server doesn't let
+  browsers read the feed. The feed is cached 20 s and answers 15 s at the edge; a lean protobuf scan keeps it
+  inside the free plan. Privacy and Attributions updated.
+
 ### Where does my bus go? (October 27)
 - A new page at `/toronto/routes/`, linked from the hub's Toronto card and a new row in the map's Getting around
   group (city.json `pageLinks`: rows in the layer panel that open a page instead of toggling a layer): find stops near you (or an address) and see, for

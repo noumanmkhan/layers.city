@@ -30,6 +30,11 @@ the landing page, stop and say so; don't change this repo.
   card, the sitemap (places.py) and the map's Getting around group (city.json `pageLinks`, rows that open a page).
   Built from `raw/surface/` and the map's published layers; the engine names no city.
   `refresh-fact-sheets.yml` rebuilds it with the fact sheets. By hand: `python3 engine/routes/build.py <city>`.
+  Live next-bus times come from `functions/api/arrivals.js`, a Cloudflare Pages Function deployed with the site
+  (the repo's only server code; Pages serves it at /api/arrivals and nothing else). It reads the agency's
+  GTFS-realtime trip updates through a 20 s edge cache with a hand-written protobuf scan (keep it lean: the free
+  plan allows about 10 ms of CPU a request). A city turns it on with `"live": {"api": ...}` in routes.json and
+  a feed URL in the function's FEEDS. Test it on a preview branch first (deploy.yml with `-f branch=<name>`).
 - **Venues** (`cities/<city>/venues.json`, `engine/venues.py`, pages at `docs/<city>/venues/`; Toronto October 18, New York
   October 19): each city's big live venues, what's on at each this fortnight from Ticketmaster's Discovery API
   (`engine/fetch_venue_events.py <city>`, secret `TICKETMASTER_KEY`) and how to get to each from across the region
