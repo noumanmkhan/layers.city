@@ -43,10 +43,12 @@ def keep(name, url):
     the election-night results."""
     path = os.path.join(OUT, name)
     try:
-        open(path, 'wb').write(get(url))
+        data = get(url)   # fetch before opening the file, which would empty the last copy
     except SystemExit as e:
         if not os.path.exists(path): raise
         print('  ! %s not refreshed; keeping the last copy:' % name, e)
+        return
+    open(path, 'wb').write(data)
 
 
 keep('ourcommons.xml', 'https://www.ourcommons.ca/Members/en/search/XML')
