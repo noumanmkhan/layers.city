@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Routes from here: where does my bus go? (October 27, unlisted)
+- A new page at `/toronto/routes/`, not yet linked from the hub: find stops near you (or an address) and see, for
+  each bus and direction, where it ends and its subway connections; pick one for the ride from your stop in order
+  (neighbourhoods, main streets along and across, stations, landmarks, the end) and a route map. Stops are
+  labelled by side of the street (North side of Overlea Blvd). Built by `engine/routes/build.py` from the TTC
+  schedule and the map's published layers; `cities/toronto/routes.json` holds the settings and a short list of
+  extra landmarks (malls, civic centres, big parks) placed at the TTC stop that serves them. Buses only for now.
+
 ### Venues: GO fares by station (October 24)
 - Toronto venue pages quote the GO fare for each trip from the GTA (Brampton to Scotiabank Arena: GO fare $10.30)
   instead of just "GO fare". The figures are GO's own station-to-station fares from its GTFS

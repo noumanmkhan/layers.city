@@ -1,0 +1,228 @@
+{
+ "_about": "Settings for the Routes page (engine/routes/: build.py, page.html), at /toronto/routes/: pick a stop near you, see where each route from it goes. Everything Toronto-specific lives here: which modes to include, the street grid's tilt, the regions a trip is described by, the extra landmarks and the page's wording. The engine names no city.",
+ "modes": [
+  "bus"
+ ],
+ "_modes": "Route modes from raw/surface/routes.json to include: bus now; add \"tram\" for streetcars.",
+ "gridTilt": 17,
+ "_gridTilt": "Degrees the street grid is turned from true north (Toronto's grid runs about 17 degrees west of north), so Yonge reads as north-south and Bloor as east-west.",
+ "keepRight": true,
+ "regions": [
+  "areas",
+  "boroughs"
+ ],
+ "_regions": "Published files, in order, whose names describe where a trip goes (the first that contains a spot wins): Downtown, Midtown, East End..., then the former cities (Scarborough, North York...).",
+ "regionSkip": [
+  "Old Toronto"
+ ],
+ "units": "neighbourhoods",
+ "streets": {
+  "raw": "streets.json",
+  "name": "LINEAR_NAME_FULL",
+  "along": [
+   "Major Arterial",
+   "Minor Arterial",
+   "Collector"
+  ],
+  "cross": [
+   "Major Arterial"
+  ]
+ },
+ "nameFix": {
+  "Leaside Bdge": "Leaside Bridge",
+  "Prince Edward Viaduct": "Prince Edward (Bloor) Viaduct"
+ },
+ "bridges": [
+  "Leaside Bridge",
+  "Prince Edward (Bloor) Viaduct"
+ ],
+ "notCrossed": "\\b(Bdge|Viaduct)\\b",
+ "pois": [
+  {
+   "file": "landmarks",
+   "cat": "catLabel"
+  },
+  {
+   "file": "institutions",
+   "cats": {
+    "hospital": "Hospital",
+    "university": "University",
+    "college": "College"
+   }
+  }
+ ],
+ "known": "cultural",
+ "stations": {
+  "file": "subway_stations",
+  "lines": "subway_lines",
+  "suffix": " Station"
+ },
+ "extras": [
+  {
+   "name": "Fairview Mall",
+   "cat": "Shopping mall",
+   "stops": [
+    "Don Mills Rd at Fairview Mall Dr"
+   ]
+  },
+  {
+   "name": "Yorkdale Shopping Centre",
+   "cat": "Shopping mall",
+   "stops": [
+    "Yorkdale Rd at Yorkdale Mall (North Entrance)"
+   ]
+  },
+  {
+   "name": "Scarborough Town Centre",
+   "cat": "Shopping mall",
+   "stops": [
+    "Scarborough Centre Station"
+   ]
+  },
+  {
+   "name": "Sherway Gardens",
+   "cat": "Shopping mall",
+   "stops": [
+    "The Queensway at Sherway Gardens Mall"
+   ]
+  },
+  {
+   "name": "Dufferin Mall",
+   "cat": "Shopping mall",
+   "stops": [
+    "Dufferin Mall"
+   ]
+  },
+  {
+   "name": "Gerrard Square",
+   "cat": "Shopping mall",
+   "stops": [
+    "Gerrard St East at Pape Ave"
+   ]
+  },
+  {
+   "name": "East York Town Centre",
+   "cat": "Shopping mall",
+   "stops": [
+    "East York Town Centre"
+   ]
+  },
+  {
+   "name": "Shops at Don Mills",
+   "cat": "Shopping centre",
+   "stops": [
+    "Don Mills Rd at Lawrence Ave East"
+   ]
+  },
+  {
+   "name": "Bayview Village",
+   "cat": "Shopping mall",
+   "stops": [
+    "Bayview Ave at Sheppard Ave East"
+   ]
+  },
+  {
+   "name": "Centerpoint Mall",
+   "cat": "Shopping mall",
+   "stops": [
+    "Steeles Ave West at Yonge St - Centerpoint Mall"
+   ]
+  },
+  {
+   "name": "Woodbine Centre",
+   "cat": "Shopping mall",
+   "stops": [
+    "Highway 27 at Queen's Plate Dr - Woodbine Centre"
+   ]
+  },
+  {
+   "name": "Cedarbrae Mall",
+   "cat": "Shopping mall",
+   "stops": [
+    "Lawrence Ave East at Cedarbrae Mall"
+   ]
+  },
+  {
+   "name": "Malvern Town Centre",
+   "cat": "Shopping mall",
+   "stops": [
+    "Neilson Rd at Malvern Town Centre"
+   ]
+  },
+  {
+   "name": "Scarborough Civic Centre",
+   "cat": "Civic centre",
+   "stops": [
+    "156 Borough Dr - Scarborough Civic Centre"
+   ]
+  },
+  {
+   "name": "Etobicoke Civic Centre",
+   "cat": "Civic centre",
+   "stops": [
+    "399 The West Mall - Etobicoke Civic Centre"
+   ]
+  },
+  {
+   "name": "York Civic Centre",
+   "cat": "Civic centre",
+   "stops": [
+    "Eglinton Ave West at Municipal Dr - York Civic Centre"
+   ]
+  },
+  {
+   "name": "Downsview Park",
+   "cat": "Park",
+   "stops": [
+    "Downsview Park Blvd at Keele St",
+    "Downsview Park Blvd at Stanley Greene Blvd"
+   ]
+  },
+  {
+   "name": "Edwards Gardens",
+   "cat": "Park",
+   "stops": [
+    "Lawrence Ave East at Leslie St"
+   ]
+  },
+  {
+   "name": "Woodbine Racetrack",
+   "cat": "Racetrack and casino",
+   "stops": [
+    "Woodbine Racetrack Loop"
+   ]
+  },
+  {
+   "name": "Harbourfront Centre",
+   "cat": "Waterfront arts centre",
+   "stops": [
+    "Queens Quay West at Harbourfront Centre"
+   ]
+  },
+  {
+   "name": "Jack Layton Ferry Terminal",
+   "cat": "Island ferries",
+   "stops": [
+    "Bay St at Queens Quay West North Side - Jack Layton Ferry Terminal"
+   ]
+  }
+ ],
+ "near": {
+  "poi": 200,
+  "station": 150,
+  "known": 250
+ },
+ "page": {
+  "city": "Toronto",
+  "title": "Where does my bus go?",
+  "short": "Routes from here",
+  "description": "Find the bus stops nearest you in Toronto and see where each bus goes: the neighbourhoods it passes through, the main streets it runs along, the subway stations it connects to and the landmarks on the way.",
+  "lede": "Find the stops near you, then pick a bus to see where it goes: the neighbourhoods, main streets, subway connections and landmarks along the way.",
+  "placeholder": "Or search an address",
+  "outside": "That spot is outside Toronto. Try an address in the city.",
+  "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.",
+  "noStops": "No bus stops within {r} of that spot.",
+  "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data",
+  "mapLink": "Open on the map"
+ }
+}
