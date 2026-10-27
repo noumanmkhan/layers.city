@@ -1,0 +1,82 @@
+
+[notice] A new release of pip is available: 26.2.1 -> 26.2.2
+[notice] To update, run: pip install --upgrade pip
+{
+ "bytes": 625871,
+ "download_s": 0.79,
+ "decode_s": 0.004,
+ "header_timestamp": 1793123069,
+ "age_s": 20,
+ "trips": 1902,
+ "stop_time_updates": 27248,
+ "with_absolute_time": 26387,
+ "with_stop_id": 27248,
+ "per_trip_median": 13,
+ "horizon_min": {
+  "min": -387.9,
+  "p50": 13.5,
+  "max": 456.2
+ },
+ "routes": 174,
+ "with_vehicle": 1880,
+ "schedule_relationship": {
+  "DELETED": 28,
+  "SCHEDULED": 1874
+ },
+ "headers": {
+  "Content-Type": "application/x-protobuf",
+  "Content-Length": "625871",
+  "Server": "Microsoft-IIS/10.0"
+ }
+}
+8344 49 Thorncliffe Park Dr [['72', '10301020', 4.6, 0, '8479'], ['156', '19406020', 9.2, 0, '6646'], ['72', '85808020', 10.4, 0, '6012'], ['88', '73871020', 12.0, 0, '8668'], ['72', '14445020', 18.2, 0, '6010'], ['72', '50342020', 29.4, 0, '8930']]
+8361 Thorncliffe Park Dr East at Overlea Blvd [['72', '130478020', 3.8, 0, '8552'], ['72', '40297020', 10.6, 0, '8515'], ['72', '28799020', 28.7, 0, '8513']]
+2977 46 Overlea Blvd [['25', '63358020', -2.6, 0, '8652'], ['100', '80274020', 3.8, 0, '8771'], ['25', '89447020', 8.6, 0, '8680'], ['25', '68055020', 9.5, 0, '8832'], ['100', '133457020', 11.9, 0, '6734'], ['88', '22666020', 14.6, 0, '8668'], ['25', '97663020', 18.9, 0, '6689'], ['156', '113014020', 20.0, 0, '6646'], ['100', '84211020', 28.8, 0, '6654']]
+{
+ "bytes": 624481,
+ "download_s": 0.77,
+ "decode_s": 0.004,
+ "header_timestamp": 1793123102,
+ "age_s": 18,
+ "trips": 1901,
+ "stop_time_updates": 27215,
+ "with_absolute_time": 26269,
+ "with_stop_id": 27215,
+ "per_trip_median": 13,
+ "horizon_min": {
+  "min": -388.4,
+  "p50": 13.5,
+  "max": 455.6
+ },
+ "routes": 174,
+ "with_vehicle": 1879,
+ "schedule_relationship": {
+  "DELETED": 28,
+  "SCHEDULED": 1873
+ }
+}
+{
+ "bytes": 626467,
+ "download_s": 0.72,
+ "decode_s": 0.004,
+ "header_timestamp": 1793123127,
+ "age_s": 23,
+ "trips": 1908,
+ "stop_time_updates": 27273,
+ "with_absolute_time": 26390,
+ "with_stop_id": 27273,
+ "per_trip_median": 13,
+ "horizon_min": {
+  "min": -388.9,
+  "p50": 13.5,
+  "max": 455.1
+ },
+ "routes": 174,
+ "with_vehicle": 1886,
+ "schedule_relationship": {
+  "DELETED": 28,
+  "SCHEDULED": 1880
+ }
+}
+vehicles {'bytes': 107890, 'entities': 1554, 'age_s': 24}
+node {"node_decode_ms_first":43,"node_decode_ms_warm":14,"entities":1902} 
