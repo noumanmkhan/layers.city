@@ -2,8 +2,9 @@
 
 ## Since 1.1
 
-### Routes from here: where does my bus go? (October 27, unlisted)
-- A new page at `/toronto/routes/`, not yet linked from the hub: find stops near you (or an address) and see, for
+### Where does my bus go? (October 27)
+- A new page at `/toronto/routes/`, linked from the hub's Toronto card and a new row in the map's Getting around
+  group (city.json `pageLinks`: rows in the layer panel that open a page instead of toggling a layer): find stops near you (or an address) and see, for
   each bus and direction, where it ends and its subway connections; pick one for the ride from your stop in order
   (neighbourhoods, main streets along and across, stations, landmarks, the end) and a route map. Stops are
   labelled by side of the street (North side of Overlea Blvd). Built by `engine/routes/build.py` from the TTC
