@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Find the bus and streetcar stops nearest you in Toronto and see where each route goes, with live next-bus times: the neighbourhoods it passes through, the main streets it runs along, the subway stations it connects to and the landmarks on the way.">
+<meta name="description" content="Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.">
 <title>Where does my bus go? · Toronto · Layers.City</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
@@ -82,6 +82,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 /* Badges: shapes here, colours from the city's factsheet.css */
 .rb{display:inline-grid;place-items:center;box-sizing:border-box;height:26px;min-width:40px;padding:0 6px;border-radius:5px;font:700 14px/1 var(--body);background:#fff;color:#1A1414;box-shadow:inset 0 0 0 2px #1A1414;flex:none}
 .rb.big{height:40px;min-width:60px;font-size:20px;border-radius:7px}
+.ln.lb{width:28px;height:28px;font-size:14px}
+.ln.lb.big{width:40px;height:40px;font-size:20px}
+@media (max-width:520px){.ln.lb.big{width:34px;height:34px;font-size:17px}}
+.tl li.call::after{width:12px;height:12px;left:4px;top:11px;background:var(--card);box-shadow:inset 0 0 0 2.5px var(--ink)}
 .ln{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font:800 11px/1 var(--display);color:#fff;background:#5E5452;flex:none}
 .lns{display:inline-flex;gap:3px;align-items:center}
 .stn{display:inline-flex;gap:5px;align-items:center;white-space:nowrap}
@@ -220,7 +224,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   <section class="intro" id="intro">
     <div class="kicker" id="kicker"></div>
     <h1>Where does my bus go?</h1>
-    <p class="lede">Find the stops near you, then pick a bus or streetcar to see where it goes: the neighbourhoods, main streets, subway connections and landmarks along the way.</p>
+    <p class="lede">Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.</p>
     <form class="find" id="find">
       <button type="button" class="btn primary" id="locate">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg>
@@ -255,11 +259,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     </div>
   </section>
 
-  <footer class="foot"><span>Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (City of Toronto Open Data)</span><span id="asof"></span></footer>
+  <footer class="foot"><span>Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)</span><span id="asof"></span></footer>
 </main>
 <script>
 (() => {
-  const RS = {"city": "Toronto", "title": "Where does my bus go?", "short": "Routes from here", "description": "Find the bus and streetcar stops nearest you in Toronto and see where each route goes, with live next-bus times: the neighbourhoods it passes through, the main streets it runs along, the subway stations it connects to and the landmarks on the way.", "lede": "Find the stops near you, then pick a bus or streetcar to see where it goes: the neighbourhoods, main streets, subway connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No bus or streetcar stops within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (City of Toronto Open Data)", "mapLink": "Open on the map", "known": "cultural", "live": {"api": "/api/arrivals?city=toronto", "source": "TTC GTFS-Realtime"}, "the": ["East End", "West End"], "theKnown": "^(.* District|Port Lands|Danforth Village|Junction Triangle|Upper Beaches|Annex)$"};   // this city's wording (cities/<city>/routes.json, page)
+  const RS = {"city": "Toronto", "title": "Where does my bus go?", "short": "Routes from here", "description": "Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.", "lede": "Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No stops or stations within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)", "mapLink": "Open on the map", "known": "cultural", "live": {"api": "/api/arrivals?city=toronto", "source": "TTC GTFS-Realtime"}, "the": ["East End", "West End"], "theKnown": "^(.* District|Port Lands|Danforth Village|Junction Triangle|Upper Beaches|Annex)$"};   // this city's wording (cities/<city>/routes.json, page)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g', 'polygon'];
@@ -296,13 +300,16 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const cap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
   const DIR = { north: 'Northbound', south: 'Southbound', east: 'Eastbound', west: 'Westbound' };
   // TTC stop names repeat the side ("North Side", "(East)"): the card says it once, from the geometry.
-  const clean = n => n.replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+/g, ' ').trim();
+  const clean = n => n.replace(/\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)? ?Platform\b.*$/i, '').replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+/g, ' ').trim();
   const street = n => clean(n).split(/ at /)[0].replace(/^\d+[A-Z]?\s+/, '');
   const dayRoute = rid => { const f = D.routes[rid][3]; return f.some(x => x !== 'night'); };
   const routeCls = R => R[2] === 'tram' ? 'tram' : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
-  const badge = (rid, big) => { const R = D.routes[rid]; return el('span', { class: `rb ${routeCls(R)}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0]); };
+  const isRapid = rid => ['subway', 'lrt'].includes(D.routes[rid][2]);
+  const badge = (rid, big) => { const R = D.routes[rid];
+    return isRapid(rid) ? el('span', { class: `ln lb l${R[0]}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0])
+      : el('span', { class: `rb ${routeCls(R)}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0]); };
   const bullets = lines => el('span', { class: 'lns' }, lines.map(l => el('span', { class: 'ln l' + l, title: 'Line ' + l }, l)));
-  const stnEl = (name, lines) => el('span', { class: 'stn' }, [bullets(lines), name]);
+  const stnEl = (name, lines) => el('span', { class: 'stn' }, lines && lines.length ? [bullets(lines), name] : [name]);
   // The number on the stop's pole (riders text it or type it into a trip planner), and walking directions to
   // that exact stop in the phone's own maps app: Apple Maps first on Apple devices, Google Maps first elsewhere.
   const stopNo = s => s[7] ? `Stop #${s[7]}` : '';
@@ -323,16 +330,17 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const R = D.routes[rid], P = R[5][pk], rest = P[2] - d;
     if (P[6] != null && rest < Math.max(1500, P[2] * 0.3)) {
       const Q = R[5][P[6]], off = P[2];
-      return { rid, k: pk, d, loop: P[6], head: Q[0], to: Q[1], rest: rest + Q[2],
+      return { rid, k: pk, d, loop: P[6], head: Q[0], key: Q[0], to: Q[1], rest: rest + Q[2],
         regions: P[4].filter(r => r[1] > d).concat(Q[4].map(r => [r[0] + off, r[1] + off, r[2]])),
         stations: P[5].concat(Q[5].map(t => [t[0] + off, t[1], t[2]])) };
     }
-    return { rid, k: pk, d, loop: null, head: P[0], to: P[1], rest, regions: P[4], stations: P[5] };
+    return { rid, k: pk, d, loop: null, head: P[0], key: isRapid(rid) ? 'd' + P[7] : P[0], to: P[1], rest, regions: P[4], stations: P[5] };
   }
 
   function nearby(lon, lat) {
     for (const r of [0.45, 0.8]) {
-      const close = D.stops.map(s => [kmBetween(lon, lat, s[2], s[3]), s]).filter(([k]) => k <= r).sort((a, b) => a[0] - b[0]);
+      // Subway and LRT platforms count from further away: people walk further to a station.
+      const close = D.stops.map(s => [kmBetween(lon, lat, s[2], s[3]), s]).filter(([k, s]) => k <= (s[8] ? Math.max(r, RS.stationKm || 1) : r)).sort((a, b) => a[0] - b[0]);
       if (!close.length) continue;
       // The nearest stop for each route and direction. A ride that loops round first counts as a little
       // further away, so a stop across the street going straight there wins over a long way round.
@@ -342,7 +350,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
         for (const [pk, d] of pats) {
           const x = ride(rid, pk, d);
           if (x.rest < 300) continue;   // the bus ends here
-          const key = rid + ' ' + x.head, sc = k + (x.loop != null ? 0.2 : 0);
+          const key = rid + ' ' + x.key, sc = k + (x.loop != null ? 0.2 : 0);
           if (!best.has(key) || sc < score.get(key)) { best.set(key, s[0]); score.set(key, sc); }
         }
       }
@@ -354,7 +362,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
         const c = cards.find(c => c.name === name && kmBetween(c.stops[0][1][2], c.stops[0][1][3], s[2], s[3]) < 0.15);
         if (c) c.stops.push([k, s]); else cards.push({ name, km: k, stops: [[k, s]] });
       }
-      return { r, cards: cards.slice(0, 8), best };
+      // At most eight cards, closest first; a station card always makes the list.
+      const shown = cards.slice(0, 8).concat(cards.slice(8).filter(c => c.stops.some(([, s]) => s[8])));
+      return { r, cards: shown, best };
     }
     return { r: 0.8, cards: [], best: new Map() };
   }
@@ -368,13 +378,14 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       for (const [pk, d] of pats) {
         const x = ride(rid, pk, d);
         if (x.rest < 300) continue;
-        const cur = dirs.get(x.head);
+        if (s[8] && s[5]) x.head = s[5];   // a platform's own word: Line 1 is southbound on Yonge, northbound on University
+        const cur = dirs.get(x.key);
         // Prefer the straight ride, then the longest.
-        if (!cur || (cur.loop != null && x.loop == null) || ((cur.loop == null) === (x.loop == null) && x.rest > cur.rest)) dirs.set(x.head, x);
+        if (!cur || (cur.loop != null && x.loop == null) || ((cur.loop == null) === (x.loop == null) && x.rest > cur.rest)) dirs.set(x.key, x);
       }
-      dirs.forEach(v => { if (!best || best.get(rid + ' ' + v.head) === s[0]) out.push(v); });
+      dirs.forEach(v => { if (!best || best.get(rid + ' ' + v.key) === s[0]) out.push(v); });
     }
-    const fam = rid => { const f = D.routes[rid][3]; return f.includes('freq') ? 0 : f.includes('exp') ? 1 : f.includes('reg') ? 2 : 3; };
+    const fam = rid => { const f = D.routes[rid][3]; return isRapid(rid) ? -1 : f.includes('freq') ? 0 : f.includes('exp') ? 1 : f.includes('reg') ? 2 : 3; };
     return out.sort((a, b) => fam(a.rid) - fam(b.rid) || (parseInt(D.routes[a.rid][0]) || 999) - (parseInt(D.routes[b.rid][0]) || 999));
   }
 
@@ -384,7 +395,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   async function fetchLive(stopIds) {
     if (!LIVE || !stopIds.length) return null;
     try {
-      const r = await fetch(LIVE + '&stops=' + encodeURIComponent(stopIds.join(',')));
+      const rapid = stopIds.some(id => (byId.get(id) || [])[8]);
+      const r = await fetch(LIVE + '&stops=' + encodeURIComponent(stopIds.join(',')) + (rapid ? '&rapid=1' : ''));
       if (!r.ok) return null;
       const j = await r.json(); liveSkew = Date.now() / 1000 - j.now; return j;
     } catch { return null; }
@@ -404,7 +416,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       parts.push(el('span', { class: live ? 't' : 't sched', title: live ? 'Live: the bus is on its way' : 'Scheduled: this bus hasn’t started its trip yet' }, m === 0 ? 'Due' : String(m)));
     });
     if (ts.some(([m]) => m > 0)) parts.push(' min');
-    return el('span', { class: 'next' }, [el('i', { class: 'pulse', 'aria-hidden': 'true' }), long ? 'Next buses: ' : '', ...parts]);
+    return el('span', { class: 'next' }, [el('i', { class: 'pulse', 'aria-hidden': 'true' }), long ? (long === 'train' ? 'Next trains: ' : 'Next buses: ') : '', ...parts]);
   }
   // One refresh loop for whatever is on screen, every 30 s, paused while the page is hidden.
   function startLive(run) {
@@ -417,8 +429,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 
   function routeRow(sid, x) {
     const R = D.routes[x.rid];
-    const regs = x.regions.filter(r => r[1] > x.d + 200).map(r => r[2]).filter((r, i, a) => r !== a[i - 1]);
-    const stns = x.stations.filter(t => t[0] >= x.d - 100).slice(0, 2);
+    const regs = x.regions.filter(r => r[1] > x.d + 200).map(r => r[2]).filter((r, i, a) => a.indexOf(r) === i);
+    const stns = x.stations.filter(t => t[0] > x.d + 150).slice(0, 2);
     const via = el('span', { class: 'via' });
     if (x.loop != null) via.append(el('span', { class: 'loopy' }, '↻ Loops round first'));
     stns.forEach(t => via.append(stnEl(t[1], t[2])));
@@ -426,7 +438,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     else if (!stns.length && regs.length) via.append(el('span', {}, 'Stays in ' + regs[0]));
     const b = el('button', { type: 'button', class: 'row', 'aria-label': `Route ${R[0]} ${R[1]}, ${DIR[x.head] || ''} to ${clean(x.to)}${x.loop != null ? ', looping round first' : ''}` }, [
       badge(x.rid),
-      el('span', { class: 'to' }, [el('span', { class: 'dirw' }, cap(x.head)), ' ', `${R[1]} to ${clean(x.to)}`]),
+      el('span', { class: 'to' }, [el('span', { class: 'dirw' }, cap(x.head)), ' ', isRapid(x.rid) ? `${R[1].replace(/\s*\(.*\)$/, '')} to ${clean(x.to)}` : `${R[1]} to ${clean(x.to)}`]),
       el('span', { class: 'go', 'aria-hidden': 'true' }, 'See route →'),
       el('span', { class: 'live' }),
       via,
@@ -448,13 +460,15 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       const card = el('article', { class: 'card' }, [
         el('div', {}, [el('h3', {}, c.name), el('div', { class: 'meta' }, `${fmtM(c.km * 1000)} away · about ${walkMin(c.km)} min walk`)]),
       ]);
+      c.stops.sort((a, b) => (b[1][8] || 0) - (a[1][8] || 0) || a[0] - b[0]);   // a station's platforms before its bus bays
       c.stops.forEach(([k, s]) => {
         const rows = rowsAt(s, best);
         if (!rows.length) return;
-        const sideTxt = s[4] ? `${s[4]} of ${street(s[1])}` : 'Stop';
+        const sideTxt = s[8] ? s[4] : s[4] ? `${s[4]} of ${street(s[1])}` : 'Stop';
+        const walkOnce = !s[8] || !card.querySelector('.walk');
         const sec = el('div', { class: 'side' }, [
           el('div', { class: 'side-h' }, [el('span', {}, [sideTxt, s[7] ? ' · ' : '', s[7] ? el('span', { class: 'no' }, stopNo(s)) : null]), c.stops.length > 1 ? el('span', {}, fmtM(k * 1000)) : null]),
-          walkLinks(s),
+          walkOnce ? walkLinks(s) : null,
         ]);
         rows.forEach(x => sec.append(routeRow(s[0], x)));
         card.append(sec);
@@ -506,7 +520,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const THE = new Set(RS.the || []);   // region names that take "the" (the East End)
   const reg = n => THE.has(n) ? 'the ' + n : n;
   const THE_K = new RegExp(RS.theKnown || '(?!)');
-  function summary(P, doc, known, lead) {
+  function summary(P, doc, known, lead, verb = 'runs along', minMain = 0) {
     const L = P.stops[P.stops.length - 1][0], line = P.line;
     const near = (d, km) => {   // the name people use for the area around a point on the line, if there is one
       const [lon, lat] = pointAt(line, d); let best = null;
@@ -519,7 +533,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const ka = t => el('span', {}, [THE_K.test(t) ? 'the ' : '', el('span', { class: 'ka' }, t)]);
     const used = new Set();
     // A stop that is a station (by name, or the line's station at that point).
-    const stnAt = (d, name) => P.stations.find(t => t[1] === clean(name || '')) || P.stations.find(t => Math.abs(t[0] - d) < 300);
+    // A line's own stations are its calls; for a bus, the subway stations it passes.
+    const calls = (P.calls || []).map(c => P.stations.find(t => t[1] === c[1] && Math.abs(t[0] - c[0]) < 300) || [c[0], c[1], []]);
+    const stnAt = (d, name) => [...P.stations, ...calls].find(t => t[1] === clean(name || '')) || [...P.stations, ...calls].find(t => Math.abs(t[0] - d) < 300);
     const place = (d, name) => {
       const t = stnAt(d, name), k = near(d, 0.5), a = t ? k : area(d);   // a station only takes a name people use
       if (a) used.add(a);
@@ -529,10 +545,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     // Main streets: the ones it runs along for a good share of the trip, in order.
     const lens = new Map();
     P.streets.forEach(x => { if (!/Bridge|Viaduct/.test(x[2])) lens.set(x[2], (lens.get(x[2]) || 0) + x[1] - x[0]); });
-    let mains = [...lens.entries()].filter(([, l]) => l >= Math.max(700, L * 0.1)).map(([n]) => n);
+    let mains = [...lens.entries()].filter(([, l]) => l >= (minMain || Math.max(700, L * 0.1))).map(([n]) => n);
     if (!mains.length) mains = [...lens.entries()].sort((a, b) => b[1] - a[1]).slice(0, 2).map(([n]) => n);
     mains = mains.sort((a, b) => P.streets.find(x => x[2] === a)[0] - P.streets.find(x => x[2] === b)[0]).slice(0, 4);
-    const regs = P.regions.map(r => r[2]).filter((r, i, a) => r !== a[i - 1]);
+    // Each region once, in the order reached; a route that wanders along a boundary doesn't repeat itself.
+    const allRegs = P.regions.map(r => r[2]);
+    const regs = allRegs.filter((r, i, a) => a.indexOf(r) === i);
+    if (allRegs.length && regs[regs.length - 1] !== allRegs[allRegs.length - 1] && regs.length > 1) regs.push(allRegs[allRegs.length - 1]);
     const regPhrase = regs.length > 2 ? [', from ', reg(regs[0]), ' through ', regs.slice(1, -1).map(reg).join(', '), ' into ', reg(regs[regs.length - 1])]
       : regs.length === 2 ? [', from ', reg(regs[0]), ' into ', reg(regs[1])] : regs.length === 1 ? [' within ', reg(regs[0])] : [];
     const startD = P.stops[0][0], startName = doc.stops[P.stops[0][1]] || '';
@@ -542,6 +561,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     // Subway connections along the way (not where it starts or ends).
     const mid = P.stations.filter(t => !ends.has(t[1])).filter((t, i, a) => a.findIndex(u => u[1] === t[1]) === i);
     // Each connection's area, said once: "King Station and St Andrew Station in the Financial District".
+    // A line the route runs alongside (the 34 under Line 5's 25 stations) is said once ("follows Line 5, 23 stations
+    // along the way"); only the stations where another line meets it are named.
+    const perLine = {}; mid.forEach(t => t[2].forEach(l => { perLine[l] = (perLine[l] || 0) + 1; }));
+    const along = Object.keys(perLine).filter(l => perLine[l] >= 4);
+    if (along.length) { const keep = mid.filter(t => t[2].some(l => !along.includes(l)) || t[2].length > 1); mid.length = 0; mid.push(...keep); }
     const areas = mid.map(t => { const a = near(t[0], 0.5); return a && !t[1].startsWith(a) ? a : null; });
     areas.forEach(a => a && used.add(a));
     const conn = mid.map((t, i) => areas[i] && areas[i] !== areas[i + 1] ? [stnEl(t[1], t[2]), ' in ', ka(areas[i])] : [stnEl(t[1], t[2])]);
@@ -556,11 +580,12 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const serve = cand.sort((a, b) => a[0] - b[0]).map(c => c[1]);
     const sights = P.pois.filter(p => p[0] > startD + 100 && p[0] < L - 100).slice(0, 4).map(p => p[2] === 'Bridge' ? 'the ' + p[1] : p[1]);
     const p1 = [lead + ' starts at ', ...start];
-    if (mains.length) p1.push(' and runs along ', ...listOf(mains.map(n => el('b', {}, n))));
+    if (mains.length) p1.push(` and ${verb} `, ...listOf(mains.map(n => el('b', {}, n))));
     p1.push(...regPhrase, '. ');
     const parts = [];
     if (serve.length) parts.push(['serves ', ...listOf(serve.slice(0, 5).map(n => knownSet.has(n) ? ka(n) : n))]);
-    if (conn.length) parts.push(['connects with the subway at ', ...listOf(conn.map(c => el('span', {}, c)))]);
+    along.forEach(l => parts.push(['follows ', el('span', { class: 'stn' }, [bullets([l]), `Line ${l}`]), `, with ${perLine[l]} of its stations along the way`]));
+    if (conn.length) parts.push([along.length ? 'meets other lines at ' : 'connects with the subway at ', ...listOf(conn.map(c => el('span', {}, c)))]);
     if (sights.length) parts.push(['passes ', listOf(sights).join('')]);
     // The clauses take a comma before their "and", since the lists inside them have their own.
     const clauses = [];
@@ -576,7 +601,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       return (b && onMain(a) ? b : a).replace(/^\d+[A-Z]?\s+/, '');
     };
     const longest = [...lens.entries()].sort((a, b) => b[1] - a[1])[0];
-    const via = mid.length ? mid[0][1] : longest ? longest[0] : null;
+    // "via": the station where the most lines meet, the one nearest the middle of the trip if several tie.
+    const hub = mid.slice().sort((a, b) => b[2].length - a[2].length || Math.abs(a[0] - L / 2) - Math.abs(b[0] - L / 2))[0];
+    const via = hub ? hub[1] : longest ? longest[0] : null;
     const from = short(startD, startName), to = short(L, P.to);
     const tag = `${from} to ${to}` + (via && norm(via) !== norm(from) && norm(via) !== norm(to) ? ` (via ${via})` : '');
     return { tag, first: p1, rest: p2 };
@@ -606,8 +633,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const sibs = D.stops.filter(t => t[6][rid] && clean(t[1]) === name && kmBetween(s[2], s[3], t[2], t[3]) < 0.15);
     const out = new Map();
     for (const t of sibs) for (const x of rowsAt(t)) if (x.rid === rid) {
-      const cur = out.get(x.head);
-      if (!cur || (t[0] === sid && cur.sid !== sid)) out.set(x.head, { sid: t[0], k: x.k, to: x.to });
+      const cur = out.get(x.key);
+      if (!cur || (t[0] === sid && cur.sid !== sid)) out.set(x.key, { sid: t[0], k: x.k, to: x.to, head: x.head });
     }
     return out;
   }
@@ -628,13 +655,14 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const ahead = P.stops.filter(x => x[0] > d0).length;
 
     $('rbadge').replaceChildren(badge(rid, true));
-    $('rname').textContent = `${R[0]} ${R[1]}`;
-    $('rfrom').textContent = `${DIR[P.head]}${P.loopAt != null ? ', after looping round,' : ''} from ${clean(s[1])}` + (s[4] ? ` (${s[4].toLowerCase()})` : '') + (s[7] ? ` · ${stopNo(s)}` : '');
+    const rapid = isRapid(rid), word = rapid && s[5] ? s[5] : P.head;
+    $('rname').textContent = rapid ? R[1] : `${R[0]} ${R[1]}`;
+    $('rfrom').textContent = `${DIR[word] || ''}${P.loopAt != null ? ', after looping round,' : ''} from ${clean(s[1])}` + (s[4] && !s[8] ? ` (${s[4].toLowerCase()})` : '') + (s[7] ? ` · ${stopNo(s)}` : '');
     const oldWalk = $('route').querySelector('.rhead + .walk'); if (oldWalk) oldWalk.remove();
     $('route').querySelector('.rhead').after(walkLinks(s));
     const tabs = directions(sid, rid);
     $('tabs').replaceChildren(...[...tabs.entries()].map(([h, v]) => {
-      const b = el('button', { type: 'button', class: 'tab', 'aria-pressed': String(h === P.head) }, `${DIR[h]} to ${clean(v.to)}`);
+      const b = el('button', { type: 'button', class: 'tab', 'aria-pressed': String(v.k === k || h === rd.key) }, rapid ? `To ${clean(v.to)}` : `${DIR[v.head] || ''} to ${clean(v.to)}`);
       b.addEventListener('click', () => openRoute(v.sid, rid, v.k, true));
       return b;
     }));
@@ -642,13 +670,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 
     // Facts: where it takes you, its subway connections, where it ends, how far and how often.
     const regs = P.regions.filter(r => r[1] > d0 + 200).map(r => r[2]);
-    const stns = P.stations.filter(t => t[0] >= d0 - 100);
+    const stns = P.stations.filter(t => t[0] > d0 + 150);   // ahead, not the station you're standing at
     const startHood = hoodName(at(P.hoods, d0)), endHood = hoodName(at(P.hoods, lastD));
     const fact = (k, v) => el('div', { class: 'fact' }, [el('div', { class: 'k' }, k), el('div', { class: 'v' }, v)]);
     const others = [...new Set(doc.patterns.filter(q => q.k !== k && q.head === P.head && q.stops.some(x => x[1] === sid)).map(q => clean(q.to)))].filter(t => t !== clean(P.to));
     const known = (await basemap())[4];
     const whole = rd.loop != null ? doc.patterns[rd.loop] : P;   // through a loop: describe the trip it carries on as
-    const sum = summary(whole, doc, known, `The ${R[0]} ${DIR[whole.head].toLowerCase()}`);
+    const sum = summary(whole, doc, known, rapid ? `Line ${R[0]} towards ${clean(whole.to)}` : `The ${R[0]} ${DIR[whole.head].toLowerCase()}`, R[2] === 'subway' ? 'runs under' : 'runs along', rapid ? 1500 : 0);
     // On a phone the paragraph opens at its first sentence, with "More" for the rest.
     const more = el('button', { type: 'button', class: 'more', 'aria-expanded': 'false' }, 'More');
     const wide = el('div', { class: 'fact wide clamp' }, [
@@ -671,17 +699,19 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const r0 = at(P.regions, d0);
     P.regions.forEach(r => { if (r[0] > d0 + 50 && r[2] !== r0) push2(r[0], 'region', `Into ${reg(r[2])}`); });
     const bridges = new Set(P.pois.filter(p => p[2] === 'Bridge').map(p => p[1]));
-    P.streets.forEach(x => { if (x[1] > d0 + 150 && !bridges.has(x[2])) { const a = Math.max(x[0], d0); push2(a, 'street', `Along ${x[2]}`, fmtM(Math.min(x[1], lastD) - a)); } });
+    P.streets.forEach(x => { if (x[1] > d0 + 150 && !bridges.has(x[2])) { const a = Math.max(x[0], d0); push2(a, 'street', `${R[2] === 'subway' ? 'Under' : 'Along'} ${x[2]}`, fmtM(Math.min(x[1], lastD) - a)); } });
     const h0 = at(P.hoods, d0);
     P.hoods.forEach(h => { if (h[1] > d0 + 150 && h[0] > d0 + 20 && JSON.stringify(h[2]) !== JSON.stringify(h0)) push2(Math.max(h[0], d0), 'hood', cap(hoodName(h[2]))); });
     P.stations.forEach(t => { if (t[0] >= d0 - 100) push2(Math.max(t[0], d0), 'stn', t[1], 'Change for ' + t[2].map(l => 'Line ' + l).join(', '), t[2]); });
+    // A subway or LRT line stops at every station: each is a step, except where the list already has it.
+    (P.calls || []).forEach(c => { if (c[0] > d0 + 50 && c[0] < lastD - 50 && !P.stations.some(t => Math.abs(t[0] - c[0]) < 300)) push2(c[0], 'call', c[1]); });
     P.pois.forEach(p => { if (p[0] > d0 + 50) p[2] === 'Bridge' ? push2(p[0], 'poi', `Over the ${p[1]}`, 'Bridge') : push2(p[0], 'poi', p[1], p[2]); });
     P.known.forEach(p => { if (p[0] > d0 + 50) push2(p[0], 'known', `Known as ${p[1]}`); });
     if (P.loopAt != null && P.loopAt > d0) push2(P.loopAt, 'loop', `The bus loops round at ${clean(doc.stops[P.loopStop] || '')}`, `Stay on: it turns back here and carries on to ${clean(P.to)}`);
     P.cross.forEach(c => { if (c[0] > d0 + 30 && c[0] < lastD - 30) push2(c[0], 'cross', `Crosses ${c[1]}`); });
     const endStn = P.stations.find(t => Math.abs(t[0] - lastD) < 250);
     if (!endStn) push2(lastD, 'end', clean(P.to), [endHood, at(P.regions, lastD)].filter(Boolean).join(' · '));
-    const order = { loop: 7.5, start: 0, region: 1, street: 2, hood: 3, stn: 4, poi: 5, known: 6, cross: 7, end: 8 };
+    const order = { call: 3.5, loop: 7.5, start: 0, region: 1, street: 2, hood: 3, stn: 4, poi: 5, known: 6, cross: 7, end: 8 };
     ev.sort((a, b) => a.d - b.d || order[a.kind] - order[b.kind]);
     for (let i = ev.length - 1; i >= 0; i--) if (ev[i].d > lastD + 20 || (ev[i].d > lastD - 60 && ev[i].kind === 'street')) ev.splice(i, 1);
     if (endStn) { const e = ev.filter(x => x.kind === 'stn').pop(); if (e) { e.kind = 'stn end'; e.s = 'End of the line here · ' + e.s; } }
@@ -708,7 +738,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (push) $('route').scrollIntoView({ behavior: 'smooth', block: 'start' });
     startLive(async () => {
       const j = await fetchLive([sid]);
-      $('rnext').replaceChildren(j ? timesEl(nextAt(j, sid, rid), true) : '');
+      $('rnext').replaceChildren(j ? timesEl(nextAt(j, sid, rid), isRapid(rid) ? 'train' : true) : '');
     });
   }
 
@@ -785,7 +815,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const [sx, sy] = xy(s[2], s[3]);
     taken.push([sx - 14, sy - 30, sx + 14, sy + 6]);
     const endPt = pointAt(P.line, last);
-    const stnsAhead = P.stations.filter(t => t[0] >= d0 - 100);
+    // A subway or LRT line: every station it calls at; a bus: the stations it passes.
+    const stnsAhead = (P.calls ? P.calls.map(c => P.stations.find(t => Math.abs(t[0] - c[0]) < 300) || [c[0], c[1], []]) : P.stations).filter(t => t[0] >= d0 - 100);
     const stnPts = stnsAhead.map(t => [t, dot(...pointAt(P.line, t[0]), 7, 'var(--m-halo)', 'var(--ink)', 2.6)]);
     const [ex, ey] = xy(...endPt);
     const endStn = stnsAhead.find(t => Math.abs(t[0] - last) < 250);
@@ -798,7 +829,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     g.append(el('circle', { cy: -19, r: 4, fill: '#fff' }));
     svg.append(g);
     label(sx + 6, sy - 10, 'Your stop', { size: 13, weight: 700, color: 'var(--accent)' });
-    stnPts.forEach(([t, [x, y]]) => label(x, y, t[1], { size: 13.5, weight: 700 }));
+    stnPts.filter(([t]) => t[2].length || !P.calls).forEach(([t, [x, y]]) => label(x, y, t[1], { size: 13.5, weight: 700 }));
+    stnPts.filter(([t]) => !t[2].length && P.calls).forEach(([t, [x, y]]) => label(x, y, t[1].replace(/ Station$/, ''), { size: 12, weight: 500 }));
     const toName = clean(P.to);
     if (!endStn) label(ex, ey, toName.length > 34 ? toName.slice(0, 32) + '…' : toName, { size: 13, weight: 700, color: 'var(--accent)' });
     poiPts.forEach(([p, [x, y]]) => label(x, y, p[1], { size: 12.5 }));

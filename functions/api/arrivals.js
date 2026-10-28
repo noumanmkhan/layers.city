@@ -1,4 +1,4 @@
-/* Live arrivals for the Routes page: GET /api/arrivals?city=toronto&stops=8344,2977
+/* Live arrivals for the Routes page: GET /api/arrivals?city=toronto&stops=8344,2977[&rapid=1]
  *
  * A Cloudflare Pages Function (deployed with the site by deploy.yml; it serves only /api/*). It reads the city's
  * GTFS-realtime trip updates, which browsers can't fetch themselves (the agency's server sends no CORS header),
@@ -11,10 +11,13 @@
  * the agency sees at most a few requests a minute from each Cloudflare location, however many people are looking.
  * It is scanned with a small hand-written protobuf reader that only looks at the fields used here, instead of a
  * full decoder (which takes 15 to 40 ms in V8 for this feed): it keeps the free plan's CPU budget.
+ * rapid=1 (some of the stops are subway or LRT platforms) also reads the city's rapid-transit feed, when it has one
+ * (Toronto: the subway, about 12 KB), and merges its arrivals in; the main feed is read too, since a light rail
+ * line may be in either. Only the feeds needed are fetched.
  * No logging, no cookies, nothing about the visitor is kept: the request carries only stop ids.
  */
 const FEEDS = {
-  toronto: 'https://gtfsrt.ttc.ca/trips/update?format=binary',
+  toronto: { main: 'https://gtfsrt.ttc.ca/trips/update?format=binary', rapid: 'https://gtfsrt.ttc.ca/trips/subway?format=binary' },
 };
 const FEED_TTL = 20;      // seconds the feed is cached at the edge
 const MAX_STOPS = 24;
@@ -24,26 +27,32 @@ const PER_STOP = 30;
 export async function onRequestGet({ request }) {
   const url = new URL(request.url);
   const city = url.searchParams.get('city') || 'toronto';
-  const feedUrl = FEEDS[city];
+  const feeds = FEEDS[city];
   const stops = [...new Set((url.searchParams.get('stops') || '').split(',').map(s => s.trim()).filter(s => /^[\w.-]{1,32}$/.test(s)))].slice(0, MAX_STOPS);
-  if (!feedUrl || !stops.length) return json({ error: 'Give a known city and one or more stop ids.' }, 400, 60);
+  if (!feeds || !stops.length) return json({ error: 'Give a known city and one or more stop ids.' }, 400, 60);
+  const rapid = url.searchParams.get('rapid') === '1' && !!feeds.rapid;
 
   // The same question within 15 s gets the same answer from the edge cache, without reading the feed again.
-  const key = new Request(`${url.origin}/api/arrivals?city=${city}&stops=${[...stops].sort().join(',')}`);
+  const key = new Request(`${url.origin}/api/arrivals?city=${city}&stops=${[...stops].sort().join(',')}${rapid ? '&rapid=1' : ''}`);
   const cache = caches.default;
   const hit = await cache.match(key);
   if (hit) return hit;
 
-  let buf;
-  try {
-    const r = await fetch(feedUrl, { cf: { cacheTtl: FEED_TTL, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)' } });
+  const get = async u => {
+    const r = await fetch(u, { cf: { cacheTtl: FEED_TTL, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)' } });
     if (!r.ok) throw new Error('feed ' + r.status);
-    buf = new Uint8Array(await r.arrayBuffer());
-  } catch (e) {
-    return json({ error: 'The live feed is not responding right now.' }, 503, 10);
-  }
+    return new Uint8Array(await r.arrayBuffer());
+  };
   const now = Math.floor(Date.now() / 1000);
-  const out = scan(buf, stops, now);
+  const bufs = await Promise.allSettled([get(feeds.main), rapid ? get(feeds.rapid) : Promise.reject('not asked')]);
+  if (bufs.every(b => b.status === 'rejected')) return json({ error: 'The live feed is not responding right now.' }, 503, 10);
+  const out = { asof: 0, stops: Object.fromEntries(stops.map(s => [s, []])) };
+  for (const b of bufs) {
+    if (b.status !== 'fulfilled') continue;
+    const o = scan(b.value, stops, now);
+    out.asof = Math.max(out.asof, o.asof);
+    for (const s of stops) out.stops[s].push(...o.stops[s]);
+  }
   for (const k of Object.keys(out.stops)) out.stops[k] = out.stops[k].sort((a, b) => a[2] - b[2]).slice(0, PER_STOP);
   const res = json({ now, asof: out.asof, stops: out.stops }, 200, 15);
   await cache.put(key, res.clone());

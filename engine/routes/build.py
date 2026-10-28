@@ -143,6 +143,32 @@ meta = {r['r']: r for r in TRANSIT['routes']}
 routes = [r for r in RAW_R['routes'] if r['mode'] in MODES and r['id'] in meta]
 stops = {s[0]: s for s in RAW_S['stops']}
 
+# Rapid transit (subway, LRT) from raw/surface/rapid_*.json (engine/fetch_surface.py, surface.json "rapid"): each
+# shape lists its platforms in order, so they're placed exactly rather than matched to the line by distance. The
+# map's transit.json doesn't list these lines, so their entry (name, frequency) is made here from the schedule.
+RAPID_MODES = {'subway', 'lrt'} & MODES
+DIRWORD = re.compile(r'\b(North|South|East|West)bound\b', re.I)
+def station_of(name):
+    return re.sub(r'\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)\b.*$', '', name).strip()
+rapid_ids = set()
+if RAPID_MODES and os.path.exists(os.path.join(RAW, 'surface', 'rapid_routes.json')):
+    RR = json.load(open(os.path.join(RAW, 'surface', 'rapid_routes.json')))['routes']
+    RS_ = json.load(open(os.path.join(RAW, 'surface', 'rapid_stops.json')))['stops']
+    for s_ in RS_: stops[s_[0]] = s_
+    for r in RR:
+        if r['mode'] not in RAPID_MODES: continue
+        ds_ = [v for v in r.get('wk', {}).values() if sum(v[10:15])]
+        n_ = max((sum(v[10:15]) for v in ds_), default=0)
+        meta[r['id']] = {'r': r['short'], 'n': r['long'], 'm': r['mode'], 'f': ['freq'], 'h': round(300 / n_) if n_ >= 5 else None}
+        # The same platforms in the same order are one pattern, however many shapes the schedule draws for it.
+        seen = {}
+        for sh in sorted(r['shapes'], key=lambda x: -x['trips']):
+            key = (sh['dir'], tuple(sh.get('stops', [])))
+            if key in seen: seen[key]['trips'] += sh['trips']
+            else: seen[key] = dict(sh)
+        routes.append(dict(r, shapes=list(seen.values())))
+        rapid_ids.add(r['id'])
+
 
 def runs(seq, step):
     """[(value, start index, end index)] for consecutive equal values."""
@@ -166,7 +192,7 @@ if not CFG.get('keepRight', True):
 STEP = 30
 
 
-def story(line):
+def story(line, tol=18):
     """Everything along one pattern, measured in metres from its start."""
     L = line.length
     ds = list(range(0, int(L), STEP)) + [int(L)]
@@ -206,10 +232,10 @@ def story(line):
         if a.equals(b): along.append(None); continue
         brg = axis(b.x - a.x, b.y - a.y)
         best = None
-        for j in S_TREE.query(p.buffer(18)):
+        for j in S_TREE.query(p.buffer(tol)):
             n, _, g = streets[j]
             dist = g.distance(p)
-            if dist > 18: continue
+            if dist > tol: continue
             s0 = g.project(p); q0 = g.interpolate(max(s0 - 12, 0)); q1 = g.interpolate(min(s0 + 12, g.length))
             if q0.equals(q1) or adiff(axis(q1.x - q0.x, q1.y - q0.y), brg) > 25: continue
             if best is None or dist < best[0]: best = (dist, n)
@@ -293,6 +319,13 @@ for r in routes:
         if line.length < 200: continue
         L = line.length
         cs = []
+        if r['id'] in rapid_ids:   # platforms in order, from the schedule; each serves one direction
+            for sid in sh.get('stops', []):
+                if sid not in stops: continue
+                p = Point(*m(stops[sid][2], stops[sid][3]))
+                cs.append([round(line.project(p)), sid, True, False, None])
+            cands.append((sh, line, cs))
+            continue
         for s in on_route:
             p = Point(*m(s[2], s[3]))
             dist = line.distance(p)
@@ -315,6 +348,7 @@ for r in routes:
         for d, sid, right, end, w in cs:
             if len(dirs_any[sid]) > 1 and not end and dirs_right.get(sid) and sh['dir'] not in dirs_right[sid]: continue
             seq.append([d, sid])
+            if w is None: continue
             stop_side.setdefault(sid, {}).setdefault(w, 0)
             stop_side[sid][w] += sh['trips']
         seq.sort()
@@ -331,10 +365,24 @@ for r in routes:
         p = {'k': len(pats), 'dir': sh['dir'], 'trips': sh['trips'], 'share': round(sh['trips'] / total, 2),
              'head': head, 'km': round(L / 1000, 1), 'to': st_end[0] if st_end else last[1], 'line': coords,
              'stops': seq}
-        p.update(story(line))
+        p.update(story(line, 110 if r['id'] in rapid_ids else 18))   # a tunnel's drawn line strays further from the street above
         # A route that ends at a station connects there, even when its loop sits a little off the platform.
         if st_end and not any(n == st_end[0] for _, n, _ in p['stations']):
             p['stations'].append([seq[-1][0], st_end[0], st_end[1]])
+        if r['id'] in rapid_ids:
+            # A line's own stations are its stops ("calls"); its connections are the stations where other lines meet.
+            # Main streets it crosses don't apply underground. Direction: the platforms' own word (Eastbound).
+            p['calls'] = []
+            for d, sid in seq:
+                q = Point(*m(stops[sid][2], stops[sid][3]))
+                near_st = min(stations, key=lambda x: x[2].distance(q))
+                name = near_st[0] if near_st[2].distance(q) < 300 else station_of(stops[sid][1])
+                p['calls'].append([d, name])
+            own = r['short']
+            p['stations'] = [[d, n, [l for l in lines if l != own]] for d, n, lines in p['stations'] if [l for l in lines if l != own]]
+            p['cross'] = []
+            words = [w.group(1).lower() for _, sid in seq for w in [DIRWORD.search(stops[sid][1])] if w]
+            if words: p['head'] = max(set(words), key=words.count)
         pats.append(p)
         for d, sid in seq:
             stop_routes.setdefault(sid, {}).setdefault(rid, []).append([p['k'], d])
@@ -360,7 +408,7 @@ for r in routes:
     # passes through and its subway connections (both with distances, so the page can start them at a stop).
     route_index[rid] = [mt['r'], mt['n'], r['mode'], mt.get('f', []), mt.get('h'),
                         [[p['head'], p['to'], round(p['km'] * 1000), p['share'], p['regions'],
-                          [[d, n, lines] for d, n, lines in p['stations']], p.get('next')] for p in pats]]
+                          [[d, n, lines] for d, n, lines in p['stations']], p.get('next'), p['dir']] for p in pats]]
 
 # The stops list: [id, name, lon, lat, side ("East side"...), {route: [patterns]}]
 out_stops = []
@@ -369,7 +417,23 @@ for sid, rs in stop_routes.items():
     sides = stop_side.get(sid, {})
     w = max(sides, key=sides.get) if sides else None
     # [id, name, lon, lat, side, travel direction, {route: [[pattern, d]...]}, code on the pole ('' if none)]
-    out_stops.append([sid, s[1], s[2], s[3], SIDE.get(w, ''), w or '', {k: sorted(v) for k, v in rs.items()}, s[5] if len(s) > 5 else ''])
+    plat = any(k in rapid_ids for k in rs)
+    if plat:   # a platform: its direction from its own name (Eastbound Platform), or the line it starts
+        wm = DIRWORD.search(s[1])
+        w = wm.group(1).lower() if wm else None
+        if not wm:   # a terminal's platform ("Kennedy Station - Subway Platform"): the way the line leaves it
+            k0 = next(((rid_, pk) for rid_, v in rs.items() for pk, d in v if d < 50), None)
+            w = route_index[k0[0]][5][k0[1]][0] if k0 and k0[0] in route_index else None
+        side = f'{wm.group(1).capitalize()}bound platform' if wm else (f'{w.capitalize()}bound platform' if w else 'Platform')
+    else:
+        side = SIDE.get(w, '')
+    name = s[1]
+    if plat:   # a platform goes by its station's name on the map (Bloor-Yonge, not "Bloor" and "Yonge" for its two lines)
+        q = Point(*m(s[2], s[3]))
+        st = min(stations, key=lambda x: x[2].distance(q))
+        if st[2].distance(q) < 300: name = st[0] + (f' - {wm.group(1).capitalize()}bound Platform' if wm else ' - Platform')
+    # [id, name, lon, lat, side, travel direction, {route: [[pattern, d]...]}, code on the pole ('' if none), platform 1/0]
+    out_stops.append([sid, name, s[2], s[3], side, w or '', {k: sorted(v) for k, v in rs.items()}, s[5] if len(s) > 5 and not plat else '', 1 if plat else 0])
 json.dump({'asof': TRANSIT.get('asof'), 'week': TRANSIT.get('week'), 'routes': route_index, 'stops': out_stops},
           open(os.path.join(OUT, 'data', 'stops.json'), 'w'), separators=(',', ':'), ensure_ascii=False)
 
