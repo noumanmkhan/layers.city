@@ -35,6 +35,11 @@ the landing page, stop and say so; don't change this repo.
   GTFS-realtime trip updates through a 20 s edge cache with a hand-written protobuf scan (keep it lean: the free
   plan allows about 10 ms of CPU a request). A city turns it on with `"live": {"api": ...}` in routes.json and
   a feed URL in the function's FEEDS. Test it on a preview branch first (deploy.yml with `-f branch=<name>`).
+  Subway and LRT come from `raw/surface/rapid_*.json` (fetch_surface.py, surface.json `rapid`: each shape lists its
+  platforms in order); the function reads the subway feed only when the page sends `rapid=1`. The TTC publishes no
+  live data for Lines 5 and 6 (routes.json `live.none`): the page shows their frequency. surface.json `gtfs.fallback`
+  ends with the Mobility Database's archived October 27 schedule while the City's file is an empty zip: drop it
+  once the City's file is fixed.
 - **Venues** (`cities/<city>/venues.json`, `engine/venues.py`, pages at `docs/<city>/venues/`; Toronto October 18, New York
   October 19): each city's big live venues, what's on at each this fortnight from Ticketmaster's Discovery API
   (`engine/fetch_venue_events.py <city>`, secret `TICKETMASTER_KEY`) and how to get to each from across the region

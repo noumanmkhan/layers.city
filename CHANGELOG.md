@@ -2,6 +2,22 @@
 
 ## Since 1.1
 
+### Subway and LRT on Where does my bus go? (October 28)
+- Stations show as their own cards in the stops near you (Bloor-Yonge Station: Northbound, Southbound, Eastbound
+  and Westbound platforms, then its bus bays), each platform with its line's bullet, where it goes and the next
+  trains, live from the TTC's subway feed. Stations count from up to 1 km away; a station card is never cut from
+  the list.
+- Each line gets the same treatment as a bus: a paragraph ("Line 2 towards Kennedy Station starts at Kipling Station
+  and runs under Bloor St W, Bloor St E and Danforth Ave… connects with the subway at Spadina Station in the Annex,
+  St George Station and Bloor-Yonge Station…"), every station as a step, and a map with each one marked.
+  A bus that runs alongside a line (the 34 under Line 5) now says "follows Line 5, with 23 of its stations along the
+  way" instead of naming all of them. The station you're at is no longer listed as a connection.
+- Lines 5 and 6 show how often they run ("Every 6 min or so"): the TTC publishes no live data for them yet.
+- Data: the weekly schedule fetch keeps the subway and LRT apart (`raw/surface/rapid_routes.json`, `rapid_stops.json`,
+  each shape with its platforms in order) and now tries backup copies of the schedule: the City's file has been an
+  empty zip since October 27, so it currently uses the Mobility Database's archived October 27 copy (service to
+  December 21). That also brought in the stop numbers.
+
 ### Streetcars on Where does my bus go? (October 28)
 - The 16 streetcar routes join the buses: about 500 more stops, red TTC streetcar badges, the route paragraph and
   map, and live times (they were already in the TTC's live feed). Wording now says "bus or streetcar"; the page

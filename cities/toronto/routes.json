@@ -2,11 +2,16 @@
  "_about": "Settings for the Routes page (engine/routes/: build.py, page.html), at /toronto/routes/: pick a stop near you, see where each route from it goes. Everything Toronto-specific lives here: which modes to include, the street grid's tilt, the regions a trip is described by, the extra landmarks and the page's wording. The engine names no city.",
  "modes": [
   "bus",
-  "tram"
+  "tram",
+  "subway",
+  "lrt"
  ],
  "live": {
   "api": "/api/arrivals?city=toronto",
-  "source": "TTC GTFS-Realtime"
+  "source": "TTC GTFS-Realtime",
+  "none": {
+   "lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet"
+  }
  },
  "_modes": "Route modes from raw/surface/routes.json to include: bus now; add \"tram\" for streetcars.",
  "gridTilt": 17,
@@ -230,13 +235,13 @@
   "city": "Toronto",
   "title": "Where does my bus go?",
   "short": "Routes from here",
-  "description": "Find the bus and streetcar stops nearest you in Toronto and see where each route goes, with live next-bus times: the neighbourhoods it passes through, the main streets it runs along, the subway stations it connects to and the landmarks on the way.",
-  "lede": "Find the stops near you, then pick a bus or streetcar to see where it goes: the neighbourhoods, main streets, subway connections and landmarks along the way.",
+  "description": "Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.",
+  "lede": "Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
   "outside": "That spot is outside Toronto. Try an address in the city.",
   "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.",
-  "noStops": "No bus or streetcar stops within {r} of that spot.",
-  "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (City of Toronto Open Data)",
+  "noStops": "No stops or stations within {r} of that spot.",
+  "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)",
   "mapLink": "Open on the map"
  }
 }
