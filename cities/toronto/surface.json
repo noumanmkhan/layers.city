@@ -1,7 +1,10 @@
 {
-  "_about": "Streetcars and buses (engine/fetch_surface.py, engine/surface.py). 'gtfs' says where the agency's schedule comes from: a CKAN package (ckan) or a direct zip (url). 'skip' lists route numbers already drawn by another layer (Subway & LRT). 'feeds' adds other agencies, each fetched into raw/surface/<feed>/: GO buses keep their own mode ('go') and a 'GO ' prefix so GO 41 never collides with TTC 41; they get no families (frequent, express...), which describe the TTC network.",
-  "gtfs": {"ckan": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=ttc-routes-and-schedules"},
+  "_about": "Streetcars and buses (engine/fetch_surface.py, engine/surface.py). 'gtfs' says where the agency's schedule comes from: a CKAN package (ckan) or a direct zip (url). 'skip' lists route numbers already drawn by another layer (Subway & LRT). 'feeds' adds other agencies, each fetched into raw/surface/<feed>/: GO buses keep their own mode ('go') and a 'GO ' prefix so GO 41 never collides with TTC 41; they get no families (frequent, express...), which describe the TTC network. 'rapid' keeps the subway and LRT lines apart, in raw/surface/rapid_*.json, for the Routes page only. 'fallback' (in 'gtfs') lists other copies of the schedule to try when the City's file is broken.",
+  "gtfs": {"ckan": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=ttc-routes-and-schedules",
+           "fallback": ["http://opendata.toronto.ca/toronto.transit.commission/ttc-routes-and-schedules/OpenData_TTC_Schedules.zip",
+                        "https://files.mobilitydatabase.org/mdb-732/latest.zip"]},
   "skip": ["1", "2", "3", "4", "5", "6"],
+  "rapid": {"1": "subway", "2": "subway", "4": "subway", "5": "lrt", "6": "lrt"},
   "feeds": {
     "go": {
       "gtfs": {"url": "https://assets.metrolinx.com/raw/upload/Documents/Metrolinx/Open%20Data/GO-GTFS.zip"},

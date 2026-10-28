@@ -22,6 +22,14 @@ collide with TTC 41) and "simplify" (shape tolerance in degrees; long regional r
 A feed with "osm" instead of "gtfs" takes its routes from OpenStreetMap (engine/osm_routes.py; Chicago's Pace,
 whose own GTFS is offered for non-commercial use only).
 
+Rapid transit (surface.json "rapid": {route number: mode}, e.g. Toronto's subway lines and LRT) is kept apart from
+the streetcars and buses, in raw/surface/rapid_routes.json and rapid_stops.json (same shapes; the stops are the
+lines' platforms), for the Routes page. The map draws those lines from its own layers, so routes.json and
+stops.json never include them.
+
+When the agency's file is broken (the City's CKAN zip came back empty for a week in October 2026), "fallback"
+URLs in the "gtfs" block are tried in turn (Toronto: the TTC's own address, then the Mobility Database's copy).
+
 Usage: python3 engine/fetch_surface.py <city> [feed]
 """
 import collections, csv, datetime as dt, hashlib, io, json, os, sys, time, urllib.request, zipfile
@@ -120,7 +128,7 @@ if urls is None:
     merge(parts, ZIP)
     feed_url = ' + '.join(src['urls'])
 else:
-    feed_url = next((u for u in urls if download(u, ZIP) and ok(ZIP)), None)
+    feed_url = next((u for u in urls + src.get('fallback', []) if download(u, ZIP) and ok(ZIP)), None)
 if not feed_url: raise SystemExit('No GTFS found')
 
 # The job runs weekly; agencies publish a new feed every few weeks. Same feed as last time: nothing to do,
@@ -128,7 +136,7 @@ if not feed_url: raise SystemExit('No GTFS found')
 SHA = hashlib.sha256(b''.join(open(p, 'rb').read() for p in (parts if urls is None else [ZIP]))).hexdigest()[:16]   # merged feeds: the parts' bytes
 # FORMAT changes when these files gain a field (2: each stop's rider-facing stop code), so the next run rewrites
 # them even from the same feed.
-FORMAT = 2
+FORMAT = 3   # 3: rapid_routes.json and rapid_stops.json
 try:
     prev = json.load(open(os.path.join(OUT, 'routes.json')))
     if prev.get('sha') == SHA and prev.get('format', 1) == FORMAT:
@@ -155,11 +163,13 @@ def mode(t):
     return None
 
 
+RAPID = CFG.get('rapid', {})   # route number -> mode ("subway", "lrt")
 routes = {}
 for r in rows('routes.txt'):
     m = mode(r.get('route_type'))
     short = r.get('route_short_name') or r['route_id']
-    if not m or m not in TYPES or short in SKIP: continue
+    if short in RAPID: m = RAPID[short]
+    elif not m or m not in TYPES or short in SKIP: continue
     routes[r['route_id']] = {'id': r['route_id'], 'short': PREFIX + short, 'long': r.get('route_long_name', ''), 'mode': CFG.get('mode', m),
                              'color': r.get('route_color', ''), 'text': r.get('route_text_color', '')}
 print('routes kept:', len(routes))
@@ -248,19 +258,28 @@ for rid, rt in routes.items():
     if not shapes: continue
     out_routes.append(dict(rt, shapes=shapes, **{k: dict(v) for k, v in counts[rid].items()}))
 out_routes.sort(key=lambda r: (len(r['short']), r['short']))
+rapid_ids = {rid for rid, rt in routes.items() if rt['short'] in RAPID}
+rapid_routes = [r for r in out_routes if r['id'] in rapid_ids]
+out_routes = [r for r in out_routes if r['id'] not in rapid_ids]
 
-names = {}
+names, rapid_names = {}, {}
 for r in rows('stops.txt'):
     if r['stop_id'] in stop_routes and r.get('stop_lat'):
         # [id, name, lon, lat, routes, code]: the code is the number riders see on the stop's pole (GTFS stop_code), or ''.
-        names[r['stop_id']] = [r['stop_id'], r.get('stop_name', ''), round(float(r['stop_lon']), 5), round(float(r['stop_lat']), 5),
-                               sorted({routes[x]['short'] for x in stop_routes[r['stop_id']]}, key=lambda s: (len(s), s)),
-                               (r.get('stop_code') or '').strip()]
+        for keep, out in ((lambda x: x not in rapid_ids, names), (lambda x: x in rapid_ids, rapid_names)):
+            rs = sorted({routes[x]['short'] for x in stop_routes[r['stop_id']] if keep(x)}, key=lambda s: (len(s), s))
+            if rs:
+                out[r['stop_id']] = [r['stop_id'], r.get('stop_name', ''), round(float(r['stop_lon']), 5), round(float(r['stop_lat']), 5),
+                                     rs, (r.get('stop_code') or '').strip()]
 
 meta = {'format': FORMAT, 'source': feed_url, 'sha': SHA, 'fetched': dt.date.today().isoformat(), 'feed': [str(first), str(last)], 'week': str(day),
         'days': {k: str(v) for k, v in PICK.items()}}
 json.dump(dict(meta, routes=out_routes), open(os.path.join(OUT, 'routes.json'), 'w'), separators=(',', ':'))
 json.dump(dict(meta, stops=list(names.values())), open(os.path.join(OUT, 'stops.json'), 'w'), separators=(',', ':'))
+if RAPID:
+    json.dump(dict(meta, routes=rapid_routes), open(os.path.join(OUT, 'rapid_routes.json'), 'w'), separators=(',', ':'))
+    json.dump(dict(meta, stops=list(rapid_names.values())), open(os.path.join(OUT, 'rapid_stops.json'), 'w'), separators=(',', ':'))
+    print('rapid lines written:', [(r['short'], r['mode'], len(r['shapes'])) for r in rapid_routes], '· platforms', len(rapid_names))
 print('routes written:', len(out_routes), '· trams', sum(r['mode'] == 'tram' for r in out_routes), '· stops', len(names))
 for r in out_routes:
     wk = r['wk']; mid = max(sum(v[10:15]) for v in wk.values()) if wk else 0
