@@ -6,6 +6,8 @@ writes docs/<city>/routes/:
   - index.html, from engine/routes/page.html and the city's cities/<city>/routes.json "page" wording;
   - data/stops.json: every stop of the included modes, with the routes and directions that serve it and the
     side of the street it's on;
+  - data/sched.json, when the schedule fetch wrote one: when each route runs at each stop, for "next bus at 5:42 am"
+    when there are no live times;
   - data/r/<route>.json, one per route: each pattern's line (with distance along it), its stops in order, and
     its "story" measured along the line: the regions and neighbourhoods it passes through, the streets it
     runs along, the main streets it crosses, its subway connections and the landmarks it passes.
@@ -437,6 +439,30 @@ for sid, rs in stop_routes.items():
 json.dump({'asof': TRANSIT.get('asof'), 'week': TRANSIT.get('week'), 'routes': route_index, 'stops': out_stops},
           open(os.path.join(OUT, 'data', 'stops.json'), 'w'), separators=(',', ':'), ensure_ascii=False)
 
+# When each route runs at each stop (raw/surface/sched.json, written by fetch_surface.py when surface.json has
+# "sched"), for "next bus at 5:42 am" when there are no live times: only the stops and routes on this page, and the
+# span lists they use. The page reads it only when a route has no live times.
+SCHED = None
+sp = os.path.join(RAW, 'surface', 'sched.json')
+if os.path.exists(sp):
+    sc = json.load(open(sp))
+    keep, remap, spans = {}, {}, []
+    for st in out_stops:
+        row = {}
+        for rid in st[6]:
+            v = sc['stops'].get(st[0], {}).get(rid)
+            if v is None: continue
+            for i in v:
+                if i not in remap: remap[i] = len(spans); spans.append(sc['spans'][i])
+            row[rid] = [remap[i] for i in v]
+        if row: keep[st[0]] = row
+    SCHED = {k: sc[k] for k in ('fetched', 'feed', 'tz', 'gap', 'days', 'week')}
+    SCHED.update(spans=spans, stops=keep)
+    json.dump(SCHED, open(os.path.join(OUT, 'data', 'sched.json'), 'w'), separators=(',', ':'))
+    print('sched.json:', len(keep), 'stops,', os.path.getsize(os.path.join(OUT, 'data', 'sched.json')), 'bytes')
+elif os.path.exists(os.path.join(OUT, 'data', 'sched.json')):
+    os.remove(os.path.join(OUT, 'data', 'sched.json'))
+
 # ---- the page ----
 if not os.path.exists(os.path.join(ROOT, 'engine', 'routes', 'page.html')): sys.exit(print(f'{city}: {len(route_index)} routes, {len(out_stops)} stops (no page template yet)'))
 sys.path.insert(0, os.path.join(ROOT, 'engine'))
@@ -450,6 +476,7 @@ page = dict(CFG['page'])
 cfg_out = {k: v for k, v in page.items()}
 cfg_out['known'] = CFG.get('known')
 cfg_out['live'] = CFG.get('live')   # live arrivals: {api}, served by functions/api/arrivals.js
+cfg_out['sched'] = 'data/sched.json' if SCHED else None   # scheduled times, when there are no live ones
 cfg_out['the'] = CFG.get('regionsWithThe', [])
 cfg_out['theKnown'] = CFG.get('knownWithThe')   # a pattern: known-as names that take "the"
 html = (tpl.replace('{{RS}}', json.dumps(cfg_out, ensure_ascii=False))

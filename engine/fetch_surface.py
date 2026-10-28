@@ -27,6 +27,10 @@ the streetcars and buses, in raw/surface/rapid_routes.json and rapid_stops.json 
 lines' platforms), for the Routes page. The map draws those lines from its own layers, so routes.json and
 stops.json never include them.
 
+"sched": true also writes raw/surface/sched.json: for each stop and route, the spans of the day it runs in, for each
+distinct day of service over the next ten weeks (and a typical week for days past the feed's end). The Routes page
+uses it for "next bus at 5:42 am" when the live feed has nothing (overnight, rush-hour-only routes).
+
 When the agency's file is broken (the City's CKAN zip came back empty for a week in October 2026), "fallback"
 URLs in the "gtfs" block are tried in turn (Toronto: the TTC's own address, then the Mobility Database's copy).
 
@@ -136,7 +140,7 @@ if not feed_url: raise SystemExit('No GTFS found')
 SHA = hashlib.sha256(b''.join(open(p, 'rb').read() for p in (parts if urls is None else [ZIP]))).hexdigest()[:16]   # merged feeds: the parts' bytes
 # FORMAT changes when these files gain a field (2: each stop's rider-facing stop code), so the next run rewrites
 # them even from the same feed.
-FORMAT = 4   # 3: rapid_routes.json and rapid_stops.json; 4: each rapid shape's platforms in order
+FORMAT = 5   # 3: rapid_routes.json and rapid_stops.json; 4: each rapid shape's platforms in order; 5: sched.json
 try:
     prev = json.load(open(os.path.join(OUT, 'routes.json')))
     if prev.get('sha') == SHA and prev.get('format', 1) == FORMAT:
@@ -205,8 +209,11 @@ PICK = {'wk': WEEK[2], 'sat': WEEK[5], 'sun': WEEK[6]}
 print('feed', first, '-', last, '· week from', day, '· days', {k: str(v) for k, v in PICK.items()})
 
 trips = {}
+SCHED = bool(CFG.get('sched'))
+svc_of = {}   # every trip of a kept route, any day -> (route number, service id): for sched.json
 for r in rows('trips.txt'):
     if r['route_id'] not in routes: continue
+    if SCHED: svc_of[r['trip_id']] = (routes[r['route_id']]['short'], r['service_id'])
     days = [active(r['service_id'], d) for d in WEEK]
     if not any(days): continue
     trips[r['trip_id']] = (r['route_id'], r.get('direction_id') or '0', r.get('shape_id', ''), days)
@@ -216,7 +223,13 @@ first_dep = {}                     # trip -> (stop_sequence, hour)
 stop_routes = collections.defaultdict(set)
 rapid_trip_ids = {tid for tid, t in trips.items() if routes[t[0]]['short'] in RAPID}
 rapid_seq = collections.defaultdict(list)   # rapid trip -> [(stop_sequence, stop_id)]
+sched_times = collections.defaultdict(list)   # (stop, route number, service id) -> departure minutes
 for r in rows('stop_times.txt'):
+    if SCHED and r['trip_id'] in svc_of:
+        tm = r.get('departure_time') or r.get('arrival_time')
+        if tm:
+            h, m = tm.split(':')[:2]
+            sched_times[(r['stop_id'],) + svc_of[r['trip_id']]].append(int(h) * 60 + int(m))
     t = trips.get(r['trip_id'])
     if not t: continue
     stop_routes[r['stop_id']].add(t[0])
@@ -288,6 +301,44 @@ if RAPID:
     json.dump(dict(meta, routes=rapid_routes), open(os.path.join(OUT, 'rapid_routes.json'), 'w'), separators=(',', ':'))
     json.dump(dict(meta, stops=list(rapid_names.values())), open(os.path.join(OUT, 'rapid_stops.json'), 'w'), separators=(',', ':'))
     print('rapid lines written:', [(r['short'], r['mode'], len(r['shapes'])) for r in rapid_routes], '· platforms', len(rapid_names))
+if SCHED:
+    # When each route runs at each stop, for the Routes page's "next bus at 5:42 am" when there are no live times
+    # (overnight, or a route that runs only at rush hour). Per stop and route, for each distinct day of service:
+    # the spans in which it runs, as [start, end, start, end...] in minutes after the service day's midnight (GTFS
+    # writes after-midnight trips as 24:xx, so these can pass 1440). A span ends where the next departure is more
+    # than GAP minutes later, the live feed's reach: with no live times, the next departure is the start of a span.
+    GAP = 90
+    tz = next((r.get('agency_timezone') for r in rows('agency.txt')), '')
+    used = {sv for _, sv in svc_of.values()}
+    today = dt.date.today()
+    span = [max(today - dt.timedelta(days=1), first) + dt.timedelta(days=i) for i in range(70)]
+    span = [d for d in span if d <= last]
+    pats, pat_of = [], {}
+    def pat(d):
+        k = frozenset(sv for sv in used if active(sv, d))
+        if k not in pat_of: pat_of[k] = len(pats); pats.append(k)
+        return pat_of[k]
+    days = {d.isoformat(): pat(d) for d in span}
+    week = [pat(d) for d in WEEK]   # Monday to Sunday of a typical week: for days past the feed's end
+    times = collections.defaultdict(lambda: collections.defaultdict(list))   # (stop, route) -> service -> minutes
+    for (st, rs, sv), v in sched_times.items(): times[(st, rs)][sv] = v
+    lists, list_ix, out = [], {}, collections.defaultdict(dict)
+    for (st, rs), bysv in times.items():
+        row = []
+        for k in pats:
+            ts = sorted({t for sv in k for t in bysv.get(sv, ())})
+            spans = []
+            for t in ts:
+                if spans and t - spans[-1] <= GAP: spans[-1] = t
+                else: spans += [t, t]
+            key = tuple(spans)
+            if key not in list_ix: list_ix[key] = len(lists); lists.append(spans)
+            row.append(list_ix[key])
+        out[st][rs] = row
+    json.dump({'format': 1, 'fetched': today.isoformat(), 'feed': [str(first), str(last)], 'tz': tz, 'gap': GAP, 'days': days,
+               'week': week, 'spans': lists, 'stops': out}, open(os.path.join(OUT, 'sched.json'), 'w'), separators=(',', ':'))
+    print('sched.json:', len(out), 'stops ·', len(pats), 'kinds of day ·', len(lists), 'span lists ·',
+          os.path.getsize(os.path.join(OUT, 'sched.json')), 'bytes')
 print('routes written:', len(out_routes), '· trams', sum(r['mode'] == 'tram' for r in out_routes), '· stops', len(names))
 for r in out_routes:
     wk = r['wk']; mid = max(sum(v[10:15]) for v in wk.values()) if wk else 0
