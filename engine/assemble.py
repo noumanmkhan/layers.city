@@ -78,6 +78,9 @@ if os.path.isfile(rcfg_p) and os.path.isfile(os.path.join(ROOT, 'docs', city, 'r
         'page': '/%s/routes/' % city,
         'stops': '/%s/routes/data/stops.json' % city,
         'route': '/%s/routes/data/r/{route}.json' % city,
+        # scheduled times, split by stop id into schedFiles files (DATA_CONTRACT.md section 15)
+        'sched': '/%s/routes/data/sched/{bucket}.json' % city if os.path.isfile(os.path.join(ROOT, 'docs', city, 'routes', 'data', 'sched', '0.json')) else None,
+        'schedFiles': len([f for f in os.listdir(os.path.join(ROOT, 'docs', city, 'routes', 'data', 'sched')) if f.endswith('.json')]) if os.path.isdir(os.path.join(ROOT, 'docs', city, 'routes', 'data', 'sched')) else 0,
         'live': live.get('api'), 'liveRapid': '&rapid=1', 'liveNone': live.get('none', {}), 'liveSource': live.get('source'),
         'modes': rc.get('modes', []), 'stationKm': rc.get('stationKm', 1), 'nearKm': [0.45, 0.8],
         'regionsWithThe': rc.get('regionsWithThe', []), 'knownWithThe': rc.get('knownWithThe'), 'known': rc.get('known'),

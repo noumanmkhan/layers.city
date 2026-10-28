@@ -9,6 +9,8 @@
 
 > **October 28, 2026:** section 15 (transit: stops near a spot, routes, live arrivals) and `city.json` `transit`.
 > Additive; schema stays 2.
+> **October 28, 2026, later:** `transit.sched`, `transit.schedFiles` and the `sched/` files (section 15, "Scheduled times"): the next
+> scheduled departure when there are no live times. Additive.
 
 This is everything an app needs to rebuild the map's "What's here" card from the published
 data, without reading the website's code. The website (this repo) is the only producer; an app is
@@ -842,6 +844,8 @@ transit: {
   page:   "/toronto/routes/",                         the web page (deep link: ?stop=<stop id>&r=<route>&p=<pattern>)
   stops:  "/toronto/routes/data/stops.json",          every stop and platform, and every route's directions (below)
   route:  "/toronto/routes/data/r/{route}.json",      one file per route: its patterns' lines, stops and "story"
+  sched:  "/toronto/routes/data/sched/{bucket}.json", when each route runs at each stop (below); null if none
+  schedFiles: 128,                                    how many files sched is split into
   live:   "/api/arrivals?city=toronto",               next arrivals (below); null when the city has no live feed
   liveRapid: "&rapid=1",                              add when any stop asked for is a platform (s[8] = 1)
   liveNone: {"lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet"},   modes with no live data: show
@@ -937,6 +941,34 @@ data and refresh it with the rest; fetch route files when a route is opened and 
 - The request carries only stop ids; nothing about the caller is kept. Nearby stop ids do say roughly where the
   phone is: ask only while the list or a widget is showing, and say so in the app's privacy notes.
 - On an error (503) or no network, show no times rather than old ones as if new.
+
+### Scheduled times: `sched/{bucket}.json`
+
+For a route with no live times (overnight, a rush-hour-only route, Lines 5 and 6 before they open for the day),
+the next departure from the timetable: "Next bus at 5:42 a.m.", "Next streetcar tomorrow at 6:01
+a.m.", "Next train Monday at 6:00 a.m." (bus, streetcar, train for subway and LRT).
+
+The timetable is split by stop id into `schedFiles` files. A stop's file: `h = 0`, then for each character of the
+id, `h = (h × 31 + its character code) mod schedFiles`; fetch `sched` with `{bucket}` replaced by `h`. Each file
+is a few kilobytes and stands alone:
+
+```
+{fetched: "2026-10-28", feed: ["2026-11-01", "2026-12-21"], tz: "America/Toronto", gap: 90,
+ days:  {"2026-11-01": 0, …},             each date in the next ten weeks (within the feed) -> its kind of day
+ week:  [1, 2, 3, 3, 4, 5, 0],            Monday to Sunday of a typical week: for a date not in days
+ spans: [[342, 1530, …], …],              this file's span lists: [start, end, start, end…], minutes
+ stops: {"<stop id>": {"<route id>": [index into spans for each kind of day], …}, …}}
+```
+
+- Minutes are in `tz`, from the start of that service day; they can pass 1440 (a 1:30 a.m. bus is 1530 on the day
+  before). A span is a run of departures with no gap longer than `gap` minutes (the live feed's reach); an empty
+  list means the route doesn't stop there that kind of day.
+- Next departure: take the city's date and time now; for the day before, today and the next seven days, add that
+  day's offset × 1440 to its spans. If now falls inside a span, the route is running: show nothing from here (the
+  live times, or "No live times right now"). Otherwise the next departure is the earliest span start after now.
+- Show it only when there are no live times for that row, and for `liveNone` routes in place of the frequency
+  while they aren't running. The page says "from the timetable" in the route detail. Fetch a stop's file when first needed and cache it until
+  `stops.json` changes.
 
 ### One route from one stop: `r/<route>.json`
 

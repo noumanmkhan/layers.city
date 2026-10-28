@@ -71,6 +71,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .next .t.sched{color:var(--muted);font-weight:500;font-style:italic}
 .next .sep{color:var(--muted)}
 .next.none{font-weight:400;font-size:12.5px;color:var(--muted)}
+.next.sched{font-weight:400;font-size:13px;color:var(--muted)}
+.next.sched b{font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
 .next .pulse{display:inline-block;vertical-align:1px;width:8px;height:8px;border-radius:50%;background:#1E9E57;margin-right:6px;box-shadow:0 0 0 0 rgba(30,158,87,.55);animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(30,158,87,.55)}70%{box-shadow:0 0 0 7px rgba(30,158,87,0)}100%{box-shadow:0 0 0 0 rgba(30,158,87,0)}}
 @media (prefers-reduced-motion:reduce){.next .pulse{animation:none}}
@@ -263,7 +265,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 </main>
 <script>
 (() => {
-  const RS = {"city": "Toronto", "title": "Where does this line or route go?", "short": "Routes from here", "description": "Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.", "lede": "Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No stops or stations within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)", "mapLink": "Open on the map", "known": "cultural", "live": {"api": "/api/arrivals?city=toronto", "source": "TTC GTFS-Realtime", "none": {"lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet"}}, "the": ["East End", "West End"], "theKnown": "^(.* District|Port Lands|Danforth Village|Junction Triangle|Upper Beaches|Annex)$"};   // this city's wording (cities/<city>/routes.json, page)
+  const RS = {"city": "Toronto", "title": "Where does this line or route go?", "short": "Routes from here", "description": "Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.", "lede": "Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No stops or stations within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)", "mapLink": "Open on the map", "known": "cultural", "live": {"api": "/api/arrivals?city=toronto", "source": "TTC GTFS-Realtime", "none": {"lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet"}}, "sched": {"url": "data/sched/{b}.json", "n": 128}, "the": ["East End", "West End"], "theKnown": "^(.* District|Port Lands|Danforth Village|Junction Triangle|Upper Beaches|Annex)$"};   // this city's wording (cities/<city>/routes.json, page)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g', 'polygon'];
@@ -426,10 +428,71 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (ts.some(([m]) => m > 0)) parts.push(' min');
     return el('span', { class: 'next' }, [el('i', { class: 'pulse', 'aria-hidden': 'true' }), long ? (long === 'train' ? 'Next trains: ' : 'Next buses: ') : '', ...parts]);
   }
+  // ---- scheduled times (data/sched.json, from the agency's timetable): "Next bus at 5:42 a.m." when the live feed
+  // has nothing, overnight or for a route that runs only at rush hour. For each stop and route, the spans of each
+  // kind of day the route runs in, in minutes after that day's midnight (past 1440 after midnight). Outside every
+  // span, the next departure is the start of the next one. Inside one with no live times, nothing is claimed.
+  // Split by stop id into RS.sched.n files (engine/routes/build.py bucket()); only the files for the stops shown are fetched.
+  const schedFiles = new Map();
+  function bucket(id) { let h = 0; for (const c of id) h = (h * 31 + c.charCodeAt(0)) % RS.sched.n; return h; }
+  async function loadSched(ids) {
+    if (!RS.sched) return null;
+    const bs = [...new Set(ids.map(bucket))];
+    bs.forEach(b => { if (!schedFiles.has(b)) schedFiles.set(b, fetch(RS.sched.url.replace('{b}', b)).then(r => r.ok ? r.json() : null).catch(() => null)); });
+    const fs = (await Promise.all(bs.map(b => schedFiles.get(b)))).filter(Boolean);
+    if (!fs.length) return null;
+    const S = Object.assign({}, fs[0], { stops: {} });   // one view over them: each stop's rows carry their own file's span lists
+    fs.forEach(f => Object.entries(f.stops).forEach(([sid, v]) => { S.stops[sid] = Object.fromEntries(Object.entries(v).map(([r, ix]) => [r, ix.map(i => f.spans[i])])); }));
+    return S;
+  }
+  function cityNow(tz) {
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' })
+      .formatToParts(new Date(Date.now() - liveSkew * 1000)).map(x => [x.type, x.value]));
+    return { day: Date.UTC(+p.year, +p.month - 1, +p.day), min: +p.hour * 60 + +p.minute };
+  }
+  // The next scheduled departure as {day offset, minute of that day}, or null while the route is running (or unknown).
+  function nextSched(S, sid, rid) {
+    const v = S && S.stops[sid] && S.stops[sid][rid];
+    if (!v) return null;
+    const { day, min } = cityNow(S.tz || 'UTC');
+    let next = Infinity;
+    for (let o = -1; o <= 7; o++) {
+      const d = new Date(day + o * 864e5), iso = d.toISOString().slice(0, 10);
+      const k = iso in S.days ? S.days[iso] : S.week[(d.getUTCDay() + 6) % 7];
+      const sp = v[k] || [];
+      for (let i = 0; i < sp.length; i += 2) {
+        const a = sp[i] + o * 1440, b = sp[i + 1] + o * 1440;
+        if (a <= min && min <= b) return null;   // running now: the live feed should have it
+        if (a > min && a < next) next = a;
+      }
+    }
+    return next === Infinity ? null : { o: Math.floor(next / 1440), m: next % 1440, day };
+  }
+  const WORD = { bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train' };
+  function clock(m) {
+    const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
+    return `${h % 12 || 12}:${mm} ${h < 12 ? 'a.m.' : 'p.m.'}`;
+  }
+  function schedEl(S, sid, rid, long) {
+    const n = nextSched(S, sid, rid);
+    if (!n) return null;
+    const when = n.o === 0 ? '' : n.o === 1 ? 'tomorrow ' : new Date(n.day + n.o * 864e5).toLocaleDateString('en-CA', { weekday: 'long', timeZone: 'UTC' }) + ' ';
+    const w = WORD[D.routes[rid][2]] || 'bus';
+    return el('span', { class: 'next sched', title: 'From the timetable: no live times until it starts running' },
+      [`Next ${w} `, el('b', {}, when + 'at ' + clock(n.m)), long ? ' · from the timetable; live times show once it’s on its way' : '']);
+  }
+  // What a row shows: live times, else (when the route isn't running) the next scheduled one, else how often it runs.
+  function arrivalsEl(j, S, sid, rid, long) {
+    if (noLive(rid)) return schedEl(S, sid, rid, long) || everyEl(rid, long);
+    const ts = j ? nextAt(j, sid, rid) : [];
+    if (ts.length) return timesEl(ts, long);
+    return schedEl(S, sid, rid, long) || (j ? timesEl(ts, long) : '');
+  }
+
   // One refresh loop for whatever is on screen, every 30 s, paused while the page is hidden.
   function startLive(run) {
     clearInterval(liveTimer); liveRun = run;
-    if (!LIVE) return;
+    if (!LIVE) { if (RS.sched) run(); return; }
     run();
     liveTimer = setInterval(() => { if (!document.hidden && liveRun === run) run(); }, 30000);
   }
@@ -487,7 +550,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const rowsShown = [...box.querySelectorAll('.row[data-sid]')];
     startLive(async () => {
       const j = await fetchLive([...new Set(rowsShown.filter(r => !noLive(r.dataset.rid)).map(r => r.dataset.sid))]);
-      rowsShown.forEach(r => r.querySelector('.live').replaceChildren(noLive(r.dataset.rid) ? everyEl(r.dataset.rid) : j ? timesEl(nextAt(j, r.dataset.sid, r.dataset.rid)) : ''));
+      // The timetable only when some row has no live times.
+      const want = rowsShown.filter(r => noLive(r.dataset.rid) || !nextAt(j, r.dataset.sid, r.dataset.rid).length).map(r => r.dataset.sid);
+      const S = want.length ? await loadSched(want) : null;
+      rowsShown.forEach(r => r.querySelector('.live').replaceChildren(arrivalsEl(j, S, r.dataset.sid, r.dataset.rid) || ''));
     });
   }
 
@@ -746,7 +812,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (push) $('route').scrollIntoView({ behavior: 'smooth', block: 'start' });
     startLive(async () => {
       const j = noLive(rid) ? null : await fetchLive([sid]);
-      $('rnext').replaceChildren(noLive(rid) ? everyEl(rid, true) : j ? timesEl(nextAt(j, sid, rid), isRapid(rid) ? 'train' : true) : '');
+      const S = noLive(rid) || !nextAt(j, sid, rid).length ? await loadSched([sid]) : null;
+      $('rnext').replaceChildren(arrivalsEl(j, S, sid, rid, isRapid(rid) ? 'train' : true) || '');
     });
   }
 

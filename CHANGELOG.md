@@ -2,6 +2,16 @@
 
 ## Since 1.1
 
+### Next scheduled bus when nothing is live (October 28)
+- On Where does this line or route go?, a route with no live times because it isn't running (overnight, a
+  rush-hour-only route, Lines 5 and 6 before they open) now says when the next one is due from the timetable: "Next
+  streetcar at 5:28 a.m.", "Next bus tomorrow at 6:42 a.m.", "Next bus Monday at 6:31 a.m.". While a route is
+  running, live times are unchanged.
+- Data: the weekly schedule fetch writes `raw/surface/sched.json` (surface.json `"sched"`): for each stop and route,
+  the spans of each kind of day it runs in. The page build splits it by stop into 128 small files
+  (`docs/toronto/routes/data/sched/`), so the page loads a few kilobytes for the stops on screen, and only when a
+  route has no live times. Contract section 15 and `city.json` `transit.sched` for the iOS app.
+
 ### Renamed: Where does this line or route go? (October 28)
 - With buses, streetcars, subway and LRT on it, "Where does my bus go?" is now "Where does this line or route go?"
   (page title, map panel row, Privacy and Attributions), and its hub row is tagged TRANSIT instead of BUSES.

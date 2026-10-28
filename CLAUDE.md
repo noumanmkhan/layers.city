@@ -37,7 +37,9 @@ the landing page, stop and say so; don't change this repo.
   a feed URL in the function's FEEDS. Test it on a preview branch first (deploy.yml with `-f branch=<name>`).
   Subway and LRT come from `raw/surface/rapid_*.json` (fetch_surface.py, surface.json `rapid`: each shape lists its
   platforms in order); the function reads the subway feed only when the page sends `rapid=1`. The TTC publishes no
-  live data for Lines 5 and 6 (routes.json `live.none`): the page shows their frequency. surface.json `gtfs.fallback`
+  live data for Lines 5 and 6 (routes.json `live.none`): the page shows their frequency. A route that isn't running shows its next
+  scheduled departure from `docs/<city>/routes/data/sched/<bucket>.json`, which the build splits out of
+  `raw/surface/sched.json` (fetch_surface.py writes it when surface.json has `"sched": true`; contract section 15). surface.json `gtfs.fallback`
   ends with the Mobility Database's archived October 27 schedule while the City's file is an empty zip: drop it
   once the City's file is fixed.
   The iOS app rebuilds this page natively (its 1.1 Transit tab) from `city.json` `transit` (assemble.py writes it
