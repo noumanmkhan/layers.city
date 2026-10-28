@@ -119,6 +119,7 @@ for src in CFG.get('pois', []):
         name = p['name']
         # A campus by its own name (Centennial College, Story Arts Centre), when the layer's note is one.
         if src.get('sub') and p.get('sub') and re.search(src['sub'], p['sub']): name = f"{name} ({p['sub']})"
+        name = CFG.get('poiNames', {}).get(name, name)   # a name that needs a word of context (History, the music venue)
         pois.append((name, kind, proj(shape(f['geometry']))))
 stop_by_name = {}
 for s in RAW_S['stops']:
@@ -249,6 +250,7 @@ def story(line):
     out['stations'] = sorted(stn)
     pp = []
     for n, kind, g in pois:
+        if n in {x[1] for x in stn}: continue   # Union Station is a landmark and a station: say it once, as the station
         if line.distance(g) <= NEAR.get('poi', 200): pp.append([round(line.project(g)), n, kind])
     for n in BRIDGES:   # bridges come from the streets themselves
         for a, b, s in st:
@@ -279,24 +281,42 @@ for r in routes:
     on_route = [s for s in RAW_S['stops'] if rid in s[4]]
     total = sum(s['trips'] for s in r['shapes']) or 1
     pats = []
+    # First every pattern's candidate stops, with which side of the line each is on. Streetcar tracks (and some
+    # bus shapes) run down the middle of the street, so a stop can sit within a few metres of the line both
+    # ways; where a stop matches the route in both directions, it keeps only the direction whose side of the
+    # street it's on (keep right), unless it's at an end of the line, where buses loop through.
+    keepR = CFG.get('keepRight', True)
+    cands = []
     for k, sh in enumerate(sorted(r['shapes'], key=lambda s: -s['trips'])):
         if sh['trips'] / total < 0.03 and k: continue   # a handful of trips a day (garage runs, detours)
         line = LineString([m(*c) for c in sh['coords']])
         if line.length < 200: continue
         L = line.length
-        seq = []
+        cs = []
         for s in on_route:
             p = Point(*m(s[2], s[3]))
             dist = line.distance(p)
             end = line.project(p) < 120 or line.project(p) > L - 120
             if dist > (70 if end else 25): continue
             off, d, (dx, dy) = side_of(line, p)
-            right = off < 0 if CFG.get('keepRight', True) else off > 0
+            right = off < 0 if keepR else off > 0
             if not (end or abs(off) <= 6 or right): continue
-            seq.append([round(d), s[0]])
-            w = turn(dx, dy)
-            stop_side.setdefault(s[0], {}).setdefault(w, 0)
-            stop_side[s[0]][w] += sh['trips']
+            cs.append([round(d), s[0], right, end, turn(dx, dy)])
+        cands.append((sh, line, cs))
+    dirs_right = {}   # stop -> directions it's on the right-hand side for
+    dirs_any = {}
+    for sh, line, cs in cands:
+        for d, sid, right, end, w in cs:
+            dirs_any.setdefault(sid, set()).add(sh['dir'])
+            if right and not end: dirs_right.setdefault(sid, set()).add(sh['dir'])
+    for sh, line, cs in cands:
+        L = line.length
+        seq = []
+        for d, sid, right, end, w in cs:
+            if len(dirs_any[sid]) > 1 and not end and dirs_right.get(sid) and sh['dir'] not in dirs_right[sid]: continue
+            seq.append([d, sid])
+            stop_side.setdefault(sid, {}).setdefault(w, 0)
+            stop_side[sid][w] += sh['trips']
         seq.sort()
         if len(seq) < 2: continue
         sx, sy = line.coords[0]; ex, ey = line.coords[-1]
@@ -367,6 +387,7 @@ cfg_out = {k: v for k, v in page.items()}
 cfg_out['known'] = CFG.get('known')
 cfg_out['live'] = CFG.get('live')   # live arrivals: {api}, served by functions/api/arrivals.js
 cfg_out['the'] = CFG.get('regionsWithThe', [])
+cfg_out['theKnown'] = CFG.get('knownWithThe')   # a pattern: known-as names that take "the"
 html = (tpl.replace('{{RS}}', json.dumps(cfg_out, ensure_ascii=False))
         .replace('{{css}}', open(css_p, encoding='utf-8').read() if os.path.exists(css_p) else '')
         .replace('{{title}}', page['title']).replace('{{city}}', page['city'])

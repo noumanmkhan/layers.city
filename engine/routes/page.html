@@ -491,6 +491,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const listOf = items => { const out = []; items.forEach((x, i) => { if (i) out.push(i === items.length - 1 ? ' and ' : ', '); out.push(x); }); return out; };
   const THE = new Set(RS.the || []);   // region names that take "the" (the East End)
   const reg = n => THE.has(n) ? 'the ' + n : n;
+  const THE_K = new RegExp(RS.theKnown || '(?!)');
   function summary(P, doc, known, lead) {
     const L = P.stops[P.stops.length - 1][0], line = P.line;
     const near = (d, km) => {   // the name people use for the area around a point on the line, if there is one
@@ -500,7 +501,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     };
     const hoodAt = d => { const h = at(P.hoods, d); return h && !Array.isArray(h) ? h : null; };
     const area = d => near(d, 0.5) || hoodAt(d);
-    const ka = t => el('span', { class: 'ka' }, t);
+    // A name people use, in italics; districts and a few others take "the" (the Financial District).
+    const ka = t => el('span', {}, [THE_K.test(t) ? 'the ' : '', el('span', { class: 'ka' }, t)]);
     const used = new Set();
     // A stop that is a station (by name, or the line's station at that point).
     const stnAt = (d, name) => P.stations.find(t => t[1] === clean(name || '')) || P.stations.find(t => Math.abs(t[0] - d) < 300);
@@ -523,6 +525,12 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const ends = new Set([stnAt(startD, startName), stnAt(L, P.to)].filter(Boolean).map(t => t[1]));
     const start = place(startD, startName);
     const end = place(L, P.to);
+    // Subway connections along the way (not where it starts or ends).
+    const mid = P.stations.filter(t => !ends.has(t[1])).filter((t, i, a) => a.findIndex(u => u[1] === t[1]) === i);
+    // Each connection's area, said once: "King Station and St Andrew Station in the Financial District".
+    const areas = mid.map(t => { const a = near(t[0], 0.5); return a && !t[1].startsWith(a) ? a : null; });
+    areas.forEach(a => a && used.add(a));
+    const conn = mid.map((t, i) => areas[i] && areas[i] !== areas[i + 1] ? [stnEl(t[1], t[2]), ' in ', ka(areas[i])] : [stnEl(t[1], t[2])]);
     // Places it serves: the names people use along the way, topped up with official neighbourhood names.
     // (A neighbourhood whose name overlaps one already given, Leaside-Bennington after Leaside, is left out.)
     const knownSet = new Set(P.known.map(k => k[1]));
@@ -532,9 +540,6 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (cand.length < 3) P.hoods.filter(h => !Array.isArray(h[2]) && h[1] - h[0] >= 500).sort((a, b) => (b[1] - b[0]) - (a[1] - a[0]))
       .forEach(h => { if (cand.length < 4 && !clash(h[2])) cand.push([h[0], h[2]]); });
     const serve = cand.sort((a, b) => a[0] - b[0]).map(c => c[1]);
-    // Subway connections along the way (not where it starts or ends).
-    const mid = P.stations.filter(t => !ends.has(t[1])).filter((t, i, a) => a.findIndex(u => u[1] === t[1]) === i);
-    const conn = mid.map(t => { const a = near(t[0], 0.5); if (a) used.add(a); return a && !t[1].startsWith(a) ? [stnEl(t[1], t[2]), ' in ', ka(a)] : [stnEl(t[1], t[2])]; });
     const sights = P.pois.filter(p => p[0] > startD + 100 && p[0] < L - 100).slice(0, 4).map(p => p[2] === 'Bridge' ? 'the ' + p[1] : p[1]);
     const p1 = [lead + ' starts at ', ...start];
     if (mains.length) p1.push(' and runs along ', ...listOf(mains.map(n => el('b', {}, n))));

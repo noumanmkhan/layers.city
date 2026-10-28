@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Streetcars on Where does my bus go? (October 28)
+- The 16 streetcar routes join the buses: about 500 more stops, red TTC streetcar badges, the route paragraph and
+  map, and live times (they were already in the TTC's live feed). Wording now says "bus or streetcar"; the page
+  name stays.
+- Fix, buses too: a stop that sits near a route in both directions (streetcar tracks down the middle of King,
+  bus shapes drawn on a street's centreline) now belongs only to the direction whose side of the street it's on.
+  Before, a stop across the street could be offered as the nearest one, and stop counts included both sides
+  (the 72 southbound from Don Valley read 51 stops; it's 42).
+- Paragraph wording: "the" before district names (the Financial District), stations sharing an area name it once,
+  a landmark that is also a station (Union) is said once, and History reads "History (music venue)".
+
 ### Live next-bus times (October 27)
 - Where does my bus go? shows the next buses for each route at each stop near you, and on the route view
   ("Next buses: 5, 10, 18 min"; italic when the bus hasn't started its trip yet), refreshed every 30 seconds.

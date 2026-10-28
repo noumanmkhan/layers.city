@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Find the bus stops nearest you in Toronto and see where each bus goes: the neighbourhoods it passes through, the main streets it runs along, the subway stations it connects to and the landmarks on the way.">
+<meta name="description" content="Find the bus and streetcar stops nearest you in Toronto and see where each route goes, with live next-bus times: the neighbourhoods it passes through, the main streets it runs along, the subway stations it connects to and the landmarks on the way.">
 <title>Where does my bus go? · Toronto · Layers.City</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
@@ -220,7 +220,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   <section class="intro" id="intro">
     <div class="kicker" id="kicker"></div>
     <h1>Where does my bus go?</h1>
-    <p class="lede">Find the stops near you, then pick a bus to see where it goes: the neighbourhoods, main streets, subway connections and landmarks along the way.</p>
+    <p class="lede">Find the stops near you, then pick a bus or streetcar to see where it goes: the neighbourhoods, main streets, subway connections and landmarks along the way.</p>
     <form class="find" id="find">
       <button type="button" class="btn primary" id="locate">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg>
@@ -259,7 +259,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 </main>
 <script>
 (() => {
-  const RS = {"city": "Toronto", "title": "Where does my bus go?", "short": "Routes from here", "description": "Find the bus stops nearest you in Toronto and see where each bus goes: the neighbourhoods it passes through, the main streets it runs along, the subway stations it connects to and the landmarks on the way.", "lede": "Find the stops near you, then pick a bus to see where it goes: the neighbourhoods, main streets, subway connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No bus stops within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (City of Toronto Open Data)", "mapLink": "Open on the map", "known": "cultural", "live": {"api": "/api/arrivals?city=toronto", "source": "TTC GTFS-Realtime"}, "the": ["East End", "West End"]};   // this city's wording (cities/<city>/routes.json, page)
+  const RS = {"city": "Toronto", "title": "Where does my bus go?", "short": "Routes from here", "description": "Find the bus and streetcar stops nearest you in Toronto and see where each route goes, with live next-bus times: the neighbourhoods it passes through, the main streets it runs along, the subway stations it connects to and the landmarks on the way.", "lede": "Find the stops near you, then pick a bus or streetcar to see where it goes: the neighbourhoods, main streets, subway connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No bus or streetcar stops within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (City of Toronto Open Data)", "mapLink": "Open on the map", "known": "cultural", "live": {"api": "/api/arrivals?city=toronto", "source": "TTC GTFS-Realtime"}, "the": ["East End", "West End"], "theKnown": "^(.* District|Port Lands|Danforth Village|Junction Triangle|Upper Beaches|Annex)$"};   // this city's wording (cities/<city>/routes.json, page)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g', 'polygon'];
@@ -505,6 +505,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const listOf = items => { const out = []; items.forEach((x, i) => { if (i) out.push(i === items.length - 1 ? ' and ' : ', '); out.push(x); }); return out; };
   const THE = new Set(RS.the || []);   // region names that take "the" (the East End)
   const reg = n => THE.has(n) ? 'the ' + n : n;
+  const THE_K = new RegExp(RS.theKnown || '(?!)');
   function summary(P, doc, known, lead) {
     const L = P.stops[P.stops.length - 1][0], line = P.line;
     const near = (d, km) => {   // the name people use for the area around a point on the line, if there is one
@@ -514,7 +515,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     };
     const hoodAt = d => { const h = at(P.hoods, d); return h && !Array.isArray(h) ? h : null; };
     const area = d => near(d, 0.5) || hoodAt(d);
-    const ka = t => el('span', { class: 'ka' }, t);
+    // A name people use, in italics; districts and a few others take "the" (the Financial District).
+    const ka = t => el('span', {}, [THE_K.test(t) ? 'the ' : '', el('span', { class: 'ka' }, t)]);
     const used = new Set();
     // A stop that is a station (by name, or the line's station at that point).
     const stnAt = (d, name) => P.stations.find(t => t[1] === clean(name || '')) || P.stations.find(t => Math.abs(t[0] - d) < 300);
@@ -537,6 +539,12 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const ends = new Set([stnAt(startD, startName), stnAt(L, P.to)].filter(Boolean).map(t => t[1]));
     const start = place(startD, startName);
     const end = place(L, P.to);
+    // Subway connections along the way (not where it starts or ends).
+    const mid = P.stations.filter(t => !ends.has(t[1])).filter((t, i, a) => a.findIndex(u => u[1] === t[1]) === i);
+    // Each connection's area, said once: "King Station and St Andrew Station in the Financial District".
+    const areas = mid.map(t => { const a = near(t[0], 0.5); return a && !t[1].startsWith(a) ? a : null; });
+    areas.forEach(a => a && used.add(a));
+    const conn = mid.map((t, i) => areas[i] && areas[i] !== areas[i + 1] ? [stnEl(t[1], t[2]), ' in ', ka(areas[i])] : [stnEl(t[1], t[2])]);
     // Places it serves: the names people use along the way, topped up with official neighbourhood names.
     // (A neighbourhood whose name overlaps one already given, Leaside-Bennington after Leaside, is left out.)
     const knownSet = new Set(P.known.map(k => k[1]));
@@ -546,9 +554,6 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (cand.length < 3) P.hoods.filter(h => !Array.isArray(h[2]) && h[1] - h[0] >= 500).sort((a, b) => (b[1] - b[0]) - (a[1] - a[0]))
       .forEach(h => { if (cand.length < 4 && !clash(h[2])) cand.push([h[0], h[2]]); });
     const serve = cand.sort((a, b) => a[0] - b[0]).map(c => c[1]);
-    // Subway connections along the way (not where it starts or ends).
-    const mid = P.stations.filter(t => !ends.has(t[1])).filter((t, i, a) => a.findIndex(u => u[1] === t[1]) === i);
-    const conn = mid.map(t => { const a = near(t[0], 0.5); if (a) used.add(a); return a && !t[1].startsWith(a) ? [stnEl(t[1], t[2]), ' in ', ka(a)] : [stnEl(t[1], t[2])]; });
     const sights = P.pois.filter(p => p[0] > startD + 100 && p[0] < L - 100).slice(0, 4).map(p => p[2] === 'Bridge' ? 'the ' + p[1] : p[1]);
     const p1 = [lead + ' starts at ', ...start];
     if (mains.length) p1.push(' and runs along ', ...listOf(mains.map(n => el('b', {}, n))));
