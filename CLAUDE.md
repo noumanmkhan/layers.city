@@ -40,6 +40,9 @@ the landing page, stop and say so; don't change this repo.
   live data for Lines 5 and 6 (routes.json `live.none`): the page shows their frequency. surface.json `gtfs.fallback`
   ends with the Mobility Database's archived October 27 schedule while the City's file is an empty zip: drop it
   once the City's file is fixed.
+  The iOS app rebuilds this page natively (its 1.1 Transit tab) from `city.json` `transit` (assemble.py writes it
+  from routes.json) and contract section 15: a change to the page's files, their fields, the arrivals API or how
+  the page words things goes in that section too, and the contract is copied to the app repo.
 - **Venues** (`cities/<city>/venues.json`, `engine/venues.py`, pages at `docs/<city>/venues/`; Toronto October 18, New York
   October 19): each city's big live venues, what's on at each this fortnight from Ticketmaster's Discovery API
   (`engine/fetch_venue_events.py <city>`, secret `TICKETMASTER_KEY`) and how to get to each from across the region

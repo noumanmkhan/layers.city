@@ -243,5 +243,48 @@
   "noStops": "No stops or stations within {r} of that spot.",
   "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)",
   "mapLink": "Open on the map"
+ },
+ "badges": {
+  "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses white with a red outline, streetcars red, express green, overnight-only white with a blue outline; subway and LRT lines as round bullets in the line's colour.",
+  "bus": {
+   "fill": "#FFFFFF",
+   "text": "#D7261E",
+   "outline": "#D7261E"
+  },
+  "tram": {
+   "fill": "#D7261E",
+   "text": "#FFFFFF"
+  },
+  "exp": {
+   "fill": "#15924A",
+   "text": "#FFFFFF"
+  },
+  "night": {
+   "fill": "#FFFFFF",
+   "text": "#1F4FA3",
+   "outline": "#1F4FA3"
+  },
+  "lines": {
+   "1": {
+    "fill": "#FFC425",
+    "text": "#1A1414"
+   },
+   "2": {
+    "fill": "#00A64F",
+    "text": "#FFFFFF"
+   },
+   "4": {
+    "fill": "#A8518A",
+    "text": "#FFFFFF"
+   },
+   "5": {
+    "fill": "#F58426",
+    "text": "#FFFFFF"
+   },
+   "6": {
+    "fill": "#959595",
+    "text": "#FFFFFF"
+   }
+  }
  }
 }

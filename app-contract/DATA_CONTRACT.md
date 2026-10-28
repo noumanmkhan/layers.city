@@ -7,6 +7,9 @@
 > maps each old id to its category. Nearby rows (`card.nearby.nearest`) now name `"layer:category"`
 > (`"worship:mosque"`) instead of the old layer id. The data files and feature `cat` values are unchanged.
 
+> **October 28, 2026:** section 15 (transit: stops near a spot, routes, live arrivals) and `city.json` `transit`.
+> Additive; schema stays 2.
+
 This is everything an app needs to rebuild the map's "What's here" card from the published
 data, without reading the website's code. The website (this repo) is the only producer; an app is
 a read-only consumer. Last updated October 18, 2026 (New York City on dev, unlisted: `docs/nyc/data/` has the same files as Toronto where it has the layer, with these differences: `schools.geojson` `b` is the community school district ("District 2") and `cat` `secondary` covers middle and high schools; `parks.geojson` amenities are `play`, `water` (spray shower) and `dog` (dog run), `u` the NYC Parks property number; `community.geojson` `centre` is an older adult center, and (since October 19, 2026) a third `cat`, `cc`, is a community center (NYC Parks recreation centers, NYCHA community centers and Beacon centers in schools; `sub` says which), also a `nearby.json` group `cc`; `nearby.json` adds bare-point groups `spray`, `dogrun` and `basketball`; no `er` (no open list of emergency departments). `evacuation.geojson` (hurricane evacuation zones 1 to 6, a `patches` layer `evac`: `zone` 1–6, `name`, `lp`; a card row "Evacuation zone" with `empty` when the spot is in none) and the `nearby.json` named group `evaccenter` (NYC Emergency Management's evacuation centers); `closures.geojson` (street closures for rapid transit construction from NYC DOT's closures by block, all `kind` `closed`, no `who` or hours), `events.geojson` (special-event street closures in Toronto's shape, from NYC's permitted events placed on the street centerline; `organizer` is the permit's event name), `changes.geojson` (New development, from DOB NOW job filings: kinds `building` and `demolition`, all four stages, `n` the DOB job number, no `u`; since October 19, 2026 also kind `rezoning` from City Planning's land-use applications (ZAP) with a zoning map amendment, stages `proposed` and `approved` only, `n` the ZAP project id, `u` its ZAP page, and for approved ones a new `dl` value, `decided`, the date City Planning closed the project; an area rezoning sits at the middle of its lots and its `d` starts with the lot count; additive), `crz.geojson` (the Congestion Relief Zone, one polygon, a `patches` layer `crz` and a card row "Congestion toll" shown only inside it), `ferry_lines`, `ferry_lines_inner` and `ferry_stations` (NYC Ferry and the Staten Island Ferry in the `rail` file shapes, a `rail` layer `ferry` with `pane: "transit"`, so lines on water draw above the city mask and landings are never marked outside); a `patches` layer may set `clsBy` (a property) to shade each feature by its value. `card.address.within` (`{layer, name, elsewhere: {name: text}}`) limits the Address row to one area of a layer (New York: the Manhattan borough); a spot elsewhere shows `elsewhere[its name]` as the row, or no row. `badges.json` and a `badges` layer under `cd` (13 drawings). `parking.geojson` and the `spots` layers `greenp` (Municipal parking) and `ev` in a Parking & Charging group. All additive. Before that, Toronto Sports & rec on dev: `sports.geojson`, a `places` layer `sports` in *Outdoors* whose features may list several categories in `cats`, and the layer options `narrow` and `search`; additive. Before that, layer panel reorganised on dev in every city: `groups` now run Places, Outdoors, Getting around, What's changing (the `live` layers), Education (universities, colleges, French schools), Parking & Charging, Representation, Faith & Community, Lenses (`lens`, `drive`); improvement areas (`bia`, `ssa`, `pid`) moved to Places; `under` changed on `badges` (now `nbhd`, Toronto), `unis`, `colleges`, `addr` and `closures` (now top level) and `events` (now `closures`); the `chg` layer's `name` is "New development"; Toronto opens with `boroughs`, `areas`, `cultural` and `tram` off. Ids, kinds and files unchanged; display only. Before that, Toronto Parks on dev: `parks.geojson` and the `parks` layer kind, in a new *Outdoors* group; additive. Before that, October 17, 2026: Toronto parking on dev: `parking.geojson` (Green P car parks and EV chargers, the `spots` layer kind), `permit_areas.geojson` (a `patches` layer), profile fields `permit` and `permitBand`, and a Permit parking row on the card with a `cover` line; all additive. Before that, October 16, 2026: Vancouver on dev reaches Toronto's features: `institutions`, `skyscrapers` (100 m cut-off), `heritage` districts (with a `kind` line: historic area or heritage conservation area), `heritage_buildings` (`t` is the Heritage Register's evaluation group, "Group A"), `french_schools`, `faith` (no halal or kosher shops), `collectors`, `bikes`, `bikeshare` (Mobi), `changes` (issued permits only, every item at stage `approved`), `construction`, `provincial.geojson` and `federal.geojson` (outline layers cut to the city line), `bia`, `nearby.json`, `representatives.json` (MPs only until the October 2026 elections), `voting.geojson` in Dallas's vote-centre shape with one area `k` `vancouver`, the suburban drive lens and a `canopy` profile field; Chicago on dev: Pace buses (`m` `pace` in `transit.json`, a `regional` layer `pace`, a Transit nearby row) and Faith & Community (`faith.geojson`, the nine `places` layers, Nearby rows); Dallas on dev reaches Toronto's features: `institutions`, `nearby.json`, `skyscrapers`, `heritage` landmark districts, public improvement districts (`pids.geojson`), a `school` boards file with ISDs and Dallas ISD trustee districts, `collection.geojson`, `bikes.geojson`, `transit.json`, the suburban drive lens, `canopy` and `downtown` profile fields, `representatives.json`, and an office `file` for seats on lines the map doesn't draw (`us_house_2021.geojson`); Bike Share stations on dev: `bikeshare.geojson` and the `docks` layer kind in Toronto, under Bike lanes, and a Bike Share row in Transit nearby (`card.transit.bikeshare`); Neighbourhood badges on dev: `badges.json` and the `badges` layer kind in Toronto, drawings only; Bike lanes: `bikes.geojson` and the `bikes` layer kind in Toronto and Chicago; French schools: `french_schools.geojson` and two more `places` layers in Toronto; Faith & Community: `faith.geojson`, nine more `places` layers in Toronto, Nearby rows that show only while a named layer is on; Skyscrapers: the `towers` layer kind, `skyscrapers.geojson` and a tower block on the card; campuses off the Landmarks file, their nicknames now on the Universities layer as `aliases`; `under` on layers nested under Landmarks; `distance` unit, Chicago in miles with a half-mile Nearby radius; Chicago's Schools section and `attendance.geojson`; Nearby section and `nearby.json`; institution points: the `places` layer kind and `institutions.geojson`; school boards in both cities: the `boards` layer kind, a School wards / School board row and trustee rows, with Chicago's leader and citywide president; earlier: map layers and `palette`, section 11; card title names the neighbourhood; profile facts; Chicago's To the Loop fields).
@@ -294,6 +297,11 @@ Card text in `city.json` is a template, filled from a feature's properties:
 
 Example: `"{name}[ (designated {since})]"` gives "Cabbagetown South (designated 2005)", or just the
 name when `since` is missing.
+
+### `transit` (October 28, 2026)
+
+Where a city's transit stops, routes and live arrivals are, with the wording settings and route badge colours:
+section 15. Only Toronto has it so far.
 
 ## 5. Building the "What's here" card for a coordinate
 
@@ -820,3 +828,168 @@ one from Friday to Sunday.
   Government Licence – Toronto; since October 21, 2026, replacing the alerts list behind ttc.ca). A closure that
   runs only at night says "Closes early at night" with `when` naming the nights ("Fri night", "Fri–Sun nights").
   If the feed fails, `sources` loses `subway` and the brief carries on without it.
+
+## 15. Transit: stops near a spot, where each route goes, live arrivals
+
+Toronto as of October 28, 2026 (buses, streetcars, subway and LRT). It is the data behind the website's
+"Where does this line or route go?" page (`/toronto/routes/`); an app can rebuild that page natively from it. A
+city without `transit` in its `city.json` has none of this: hide the feature.
+
+### Where things are: `city.json` `transit`
+
+```
+transit: {
+  page:   "/toronto/routes/",                         the web page (deep link: ?stop=<stop id>&r=<route>&p=<pattern>)
+  stops:  "/toronto/routes/data/stops.json",          every stop and platform, and every route's directions (below)
+  route:  "/toronto/routes/data/r/{route}.json",      one file per route: its patterns' lines, stops and "story"
+  live:   "/api/arrivals?city=toronto",               next arrivals (below); null when the city has no live feed
+  liveRapid: "&rapid=1",                              add when any stop asked for is a platform (s[8] = 1)
+  liveNone: {"lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet"},   modes with no live data: show
+                                                      the route's frequency ("Every 6 min or so") and, in detail, this
+  liveSource: "TTC GTFS-Realtime",
+  modes: ["bus", "tram", "subway", "lrt"],
+  stationKm: 1, nearKm: [0.45, 0.8],                  search radii (below)
+  regionsWithThe: ["East End", "West End"],           region names that take "the" in a sentence
+  knownWithThe: "^(.* District|…)$",                  a pattern: known-as names that take "the" (the Financial District)
+  known: "cultural",                                  the known-as layer file (section 3), for "in Greektown"
+  title, credits,                                     the page's title and the credit line to show
+  badges: {bus, tram, exp, night: {fill, text, outline?},   route badges: a rounded rectangle, number in it
+           lines: {"1": {fill, text}, …}}                   subway and LRT: a round bullet in the line's colour
+}
+```
+
+Paths are on `https://layers.city`. The files are rebuilt whenever the schedule changes (weekly at most); they
+are about 1.3 MB (`stops.json`, ~310 KB compressed) and 1–50 KB per route. Bundle `stops.json` with the city's
+data and refresh it with the rest; fetch route files when a route is opened and cache them.
+
+### `stops.json`
+
+```
+{asof: "2026-10-28", week: "2026-11-02",
+ routes: {"<route id>": [short, name, mode, families, minutes, patterns]},
+ stops:  [[id, name, lon, lat, side, travel, {"<route id>": [[pattern, d], …]}, code, platform], …]}
+```
+
+- **Route entry**: `short` the number riders see ("72", "1"), `name` ("Pape", "Line 1 (Yonge-University)"), `mode`
+  (`bus`, `tram`, `subway`, `lrt`), `families` (`freq` every 10 min or better all day, `exp` express, `reg`
+  other daytime routes, `night` overnight; a route whose only family is `night` runs overnight only: leave it
+  out of the daytime list), `minutes` the typical weekday midday wait (null if under one an hour).
+- **`patterns`**: one entry per pattern (a direction, or a branch of one), indexed from 0, matching
+  `r/<route>.json` `patterns[k]`: `[head, to, length_m, share, regions, stations, next, dir]`.
+  - `head`: `north`, `south`, `east` or `west`, the way the pattern runs on the city's grid (for subway and LRT,
+    the word most of its platforms use). Show it as "Northbound" and so on.
+  - `to`: where it ends: a station name ("Don Valley Station") or the last stop's name. Clean it (below).
+  - `share`: its share of the route's trips (a branch with 0.2 is one bus in five).
+  - `regions`: `[[from_m, to_m, name], …]`, the districts it passes through in order ("East End", "Scarborough").
+  - `stations`: `[[d, name, lines], …]`, subway stations it connects with, `lines` the line numbers there. For a
+    subway or LRT pattern these are only the stations where *other* lines meet it.
+  - `next`: for a pattern that ends somewhere other than a station, the pattern it carries on as after looping
+    round (the 88 inside Thorncliffe Park), or null.
+  - `dir`: the schedule's direction, "0" or "1".
+- **Stop**: `id` the agency's stop id (the id live arrivals use); `name` as the agency writes it; `side` "South side",
+  "Eastbound platform" or ""; `travel` the direction traffic travels there (`north`…); then which patterns of
+  which routes call there and how far along each (`d`, metres from the pattern's start); `code` the stop number on
+  the pole ("Stop #8361"), "" for platforms; `platform` 1 for a subway or LRT platform, else 0.
+- A stop is matched to the direction whose side of the street it's on, so the two sides of a street are two stops.
+  Platforms are named after the station on the map ("Bloor-Yonge Station - Northbound Platform").
+- **Cleaning names** (as the page does): drop a platform suffix (" - Eastbound Platform", " LRT Platform") and
+  the agency's side notes (" North Side", " (East)"). The street of a stop is the cleaned name before " at ",
+  without a leading house number ("44 Thorncliffe Park Dr" → "Thorncliffe Park Dr").
+
+### Stops near a spot (the list)
+
+1. Take stops within `nearKm[0]` (450 m) of the spot, and platforms within `stationKm` (1 km); if there are
+   none, try `nearKm[1]` (800 m).
+2. For each daytime route and direction, keep only its **nearest** stop. The direction key is the pattern's
+   `head` for buses and streetcars, and its `dir` for subway and LRT (Line 1 is southbound on Yonge and
+   northbound on University in the same direction of travel). Skip a pattern with less than 300 m left
+   after the stop (the bus ends there). A ride that loops round first (below) counts as 200 m further away, so a
+   stop across the road going straight there wins.
+3. Group the kept stops into cards by cleaned name, when within 150 m of each other (both sides of an
+   intersection; a station's platforms and its bus bays). Sort cards by distance and show at most eight, plus
+   any station card beyond them. In a card, platforms come first, then stops by distance.
+4. Each stop is a section headed by its `side` ("Eastbound platform", or "South side of Overlea Blvd · Stop
+   #8344") with walking directions to its exact position. Each route there is a row: the badge, the
+   direction word (for a platform, the platform's own `travel` word), "<name> to <to>" ("Pape to Don Valley
+   Station"; for a line, "Line 2 to Kennedy Station"), the next arrivals, then up to two subway connections
+   *ahead* of the stop (`stations` with `d` more than 150 m past the stop's `d`) and the regions it goes on
+   to ("East York → North York", each once, in order). Rows sort subway and LRT first, then frequent routes,
+   express, others, then by number.
+5. **Loops**: when a pattern has `next` and less than max(1.5 km, 30% of the pattern) is left after the stop,
+   describe the ride as carrying on into pattern `next`: its direction, `to`, regions and stations follow on
+   (the second pattern's distances shifted by the first's length). Mark the row "↻ Loops round first". Among
+   rides in the same direction, prefer a straight one, then the longest.
+
+### Live arrivals: `GET {live}&stops=<id>,<id>…[&rapid=1]`
+
+```
+{now: 1793123589, asof: 1793123574,
+ stops: {"8344": [[route, dir, epoch_s, live], …], …}}       sorted by time, up to 90 minutes ahead
+```
+
+- Up to 24 stop ids per request. Send `liveRapid` when any of them is a platform. Answers are cached 15 s at the
+  edge and the agency's feed 20 s, so refreshing more often than every 30 s gains nothing.
+- Match an arrival to a row by stop id and `route` (the route id). Ignore `dir`: Toronto's feed leaves it 0.
+- `live` 1: a vehicle is on its way (a prediction). 0: the trip hasn't started; the time is the schedule's. Show
+  the second kind differently (the page uses grey italics).
+- Show the next three as minutes from now, from `epoch_s - now` (correct for the phone's clock skew with `now`);
+  "Due" under a minute. A route in `liveNone` has no arrivals: show "Every {minutes} min or so".
+- The request carries only stop ids; nothing about the caller is kept. Nearby stop ids do say roughly where the
+  phone is: ask only while the list or a widget is showing, and say so in the app's privacy notes.
+- On an error (503) or no network, show no times rather than old ones as if new.
+
+### One route from one stop: `r/<route>.json`
+
+```
+{r, n, m, f, h,                         as the route entry above
+ stops: {"<stop id>": "name", …},       every stop the route calls at
+ patterns: [{k, dir, trips, share, head, km, to,
+             line: [[lon, lat, d], …],  the pattern's path, d metres along it
+             stops: [[d, stop id], …],  its stops in order
+             hoods:   [[from, to, name or [a, b]], …],   neighbourhoods; [a, b] means it runs on the boundary
+                                                         ("between Blake-Jones and North Riverdale")
+             regions: [[from, to, name], …],
+             streets: [[from, to, name], …],             the streets it runs along (under, for a subway)
+             cross:   [[d, name], …],                    main streets it crosses (none for subway and LRT)
+             stations:[[d, name, lines], …],
+             pois:    [[d, name, kind], …],              landmarks within 200 m: "Shopping mall", "Hospital",
+                                                         "Bridge" ("Over the Leaside Bridge") …
+             known:   [[d, name], …],                    known-as names within 250 m ("Riverdale")
+             calls:   [[d, station], …],                 subway and LRT only: every station, in order
+             next?}]}                                    the pattern it loops into, as in stops.json
+```
+
+Everything is measured in metres along the pattern, so a ride from a stop is the part of each list past the
+stop's `d` (from `stops.json`). Through a loop, append pattern `next` with its distances shifted by the first
+pattern's length (its last `line` d), and add a step "The bus loops round at <last stop>: stay on".
+
+**The paragraph ("Takes you through")** describes the whole pattern the rider is on (for a loop, the pattern
+it loops into), as the page writes it:
+
+- A title: "<from> to <to> (via <station>)". A start or end at a station is the station; a stop on the route's
+  own main street goes by its cross street. "via" is the connection where the most lines meet, the one nearest
+  the middle of the trip on a tie, else the street it runs along longest.
+- "The 72 southbound starts at <start> and runs along <main streets>, from <first region> through <…> into
+  <last region>." For a line: "Line 2 towards Kennedy Station starts at …" and "runs under" for subway. Main
+  streets are those it runs along for at least max(700 m, 10% of its length) (1.5 km for subway and LRT),
+  at most four, in order. Each region once, in the order reached.
+- "It serves <places>, connects with the subway at <stations>, and passes <landmarks>, before ending at <end>."
+  Places: the known-as names along it (in italics), topped up to three or four with neighbourhoods it runs
+  through for 500 m or more, at most five, leaving out a name that repeats one already used (Leaside-Bennington
+  after Leaside). Stations: those between start and end, each with the known-as name within 500 m ("Pape
+  Station in Greektown"), said once for neighbours sharing it. A line with four or more stations along the
+  route becomes "follows Line 5, with 23 of its stations along the way", naming only stations where another
+  line meets it. Landmarks: at most four. Names matching `knownWithThe` and regions in `regionsWithThe` take
+  "the".
+
+**The steps ("From your stop, in order")**: from the stop's `d` to the last stop, ordered by `d`: the stop
+(with its neighbourhood and region), "Into <region>", "Along <street>" (with its length; "Under" for subway),
+each new neighbourhood, stations ("Change for Line 2"), for subway and LRT each station called at, landmarks
+with their kind, known-as names, "Crosses <street>" (in a quieter style), and the end. Facts beside it: the
+connections ahead, where it ends (with its neighbourhood), and "<n> stops · <distance> · about every <h> min,
+weekday middays".
+
+**The map**: draw `line` from the stop's `d` on (the part behind faded or left out) over the city's
+neighbourhoods, main streets and subway lines (sections 3 and 11), with the stop, the end, stations (every
+call, for a line) and landmarks marked at their `d` along `line`. Tint the neighbourhoods it passes, each a
+different colour in turn, with their names, and the known-as names near the route.

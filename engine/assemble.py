@@ -67,6 +67,23 @@ def colours(css, selector):
 styles = read(HERE, 'template.html') + '\n' + read(CITY_DIR, 'city.css')
 light, dark = colours(styles, ':root'), colours(styles, ':root[data-theme="dark"]')
 pub = dict(cfg, palette={k: {'light': v.upper(), 'dark': dark.get(k, v).upper()} for k, v in light.items()})
+# "transit": where an app finds the Routes page's data (engine/routes/build.py) and the live arrivals, with the
+# settings it needs to word things as the page does (DATA_CONTRACT.md section 15). Only for a city with a
+# cities/<city>/routes.json whose page has been built.
+rcfg_p = os.path.join(CITY_DIR, 'routes.json')
+if os.path.isfile(rcfg_p) and os.path.isfile(os.path.join(ROOT, 'docs', city, 'routes', 'data', 'stops.json')):
+    rc = json.loads(read(CITY_DIR, 'routes.json'))
+    live = rc.get('live') or {}
+    pub['transit'] = {
+        'page': '/%s/routes/' % city,
+        'stops': '/%s/routes/data/stops.json' % city,
+        'route': '/%s/routes/data/r/{route}.json' % city,
+        'live': live.get('api'), 'liveRapid': '&rapid=1', 'liveNone': live.get('none', {}), 'liveSource': live.get('source'),
+        'modes': rc.get('modes', []), 'stationKm': rc.get('stationKm', 1), 'nearKm': [0.45, 0.8],
+        'regionsWithThe': rc.get('regionsWithThe', []), 'knownWithThe': rc.get('knownWithThe'), 'known': rc.get('known'),
+        'title': rc['page'].get('title'), 'credits': rc['page'].get('credits'),
+        'badges': {k: v for k, v in (rc.get('badges') or {}).items() if not k.startswith('_')},
+    }
 cfg_out = os.path.join(ROOT, 'docs', city, 'data', 'city.json')
 os.makedirs(os.path.dirname(cfg_out), exist_ok=True)
 open(cfg_out, 'w', encoding='utf-8').write(json.dumps(pub, ensure_ascii=False, separators=(',', ':')) + '\n')
