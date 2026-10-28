@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.">
-<title>Where does my bus go? · Toronto · Layers.City</title>
+<title>Where does this line or route go? · Toronto · Layers.City</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <style>
@@ -223,7 +223,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 <main class="wrap">
   <section class="intro" id="intro">
     <div class="kicker" id="kicker"></div>
-    <h1>Where does my bus go?</h1>
+    <h1>Where does this line or route go?</h1>
     <p class="lede">Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.</p>
     <form class="find" id="find">
       <button type="button" class="btn primary" id="locate">
@@ -263,7 +263,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 </main>
 <script>
 (() => {
-  const RS = {"city": "Toronto", "title": "Where does my bus go?", "short": "Routes from here", "description": "Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.", "lede": "Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No stops or stations within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)", "mapLink": "Open on the map", "known": "cultural", "live": {"api": "/api/arrivals?city=toronto", "source": "TTC GTFS-Realtime", "none": {"lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet"}}, "the": ["East End", "West End"], "theKnown": "^(.* District|Port Lands|Danforth Village|Junction Triangle|Upper Beaches|Annex)$"};   // this city's wording (cities/<city>/routes.json, page)
+  const RS = {"city": "Toronto", "title": "Where does this line or route go?", "short": "Routes from here", "description": "Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.", "lede": "Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No stops or stations within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)", "mapLink": "Open on the map", "known": "cultural", "live": {"api": "/api/arrivals?city=toronto", "source": "TTC GTFS-Realtime", "none": {"lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet"}}, "the": ["East End", "West End"], "theKnown": "^(.* District|Port Lands|Danforth Village|Junction Triangle|Upper Beaches|Annex)$"};   // this city's wording (cities/<city>/routes.json, page)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g', 'polygon'];

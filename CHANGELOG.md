@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### Renamed: Where does this line or route go? (October 28)
+- With buses, streetcars, subway and LRT on it, "Where does my bus go?" is now "Where does this line or route go?"
+  (page title, map panel row, Privacy and Attributions), and its hub row is tagged TRANSIT instead of BUSES.
+  The address stays /toronto/routes/.
+
 ### Subway and LRT on Where does my bus go? (October 28)
 - Stations show as their own cards in the stops near you (Bloor-Yonge Station: Northbound, Southbound, Eastbound
   and Westbound platforms, then its bus bays), each platform with its line's bullet, where it goes and the next
