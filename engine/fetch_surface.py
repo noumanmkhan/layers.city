@@ -136,7 +136,7 @@ if not feed_url: raise SystemExit('No GTFS found')
 SHA = hashlib.sha256(b''.join(open(p, 'rb').read() for p in (parts if urls is None else [ZIP]))).hexdigest()[:16]   # merged feeds: the parts' bytes
 # FORMAT changes when these files gain a field (2: each stop's rider-facing stop code), so the next run rewrites
 # them even from the same feed.
-FORMAT = 3   # 3: rapid_routes.json and rapid_stops.json
+FORMAT = 4   # 3: rapid_routes.json and rapid_stops.json; 4: each rapid shape's platforms in order
 try:
     prev = json.load(open(os.path.join(OUT, 'routes.json')))
     if prev.get('sha') == SHA and prev.get('format', 1) == FORMAT:
@@ -214,10 +214,13 @@ print('trips in the week:', len(trips))
 
 first_dep = {}                     # trip -> (stop_sequence, hour)
 stop_routes = collections.defaultdict(set)
+rapid_trip_ids = {tid for tid, t in trips.items() if routes[t[0]]['short'] in RAPID}
+rapid_seq = collections.defaultdict(list)   # rapid trip -> [(stop_sequence, stop_id)]
 for r in rows('stop_times.txt'):
     t = trips.get(r['trip_id'])
     if not t: continue
     stop_routes[r['stop_id']].add(t[0])
+    if r['trip_id'] in rapid_trip_ids: rapid_seq[r['trip_id']].append((int(r['stop_sequence']), r['stop_id']))
     seq = int(r['stop_sequence']); tm = r.get('departure_time') or r.get('arrival_time')
     if tm and (r['trip_id'] not in first_dep or seq < first_dep[r['trip_id']][0]):
         first_dep[r['trip_id']] = (seq, int(tm.split(':')[0]))
@@ -254,7 +257,12 @@ for rid, rt in routes.items():
         for sh, n in c.most_common():
             if sh in need:
                 g = line(sh)
-                if g: shapes.append({'dir': d, 'share': round(n / tot, 2), 'trips': n, 'coords': g})
+                if not g: continue
+                e = {'dir': d, 'share': round(n / tot, 2), 'trips': n, 'coords': g}
+                if rt['short'] in RAPID:   # a rapid line's platforms in order, from its busiest trip on this shape
+                    seqs = [rapid_seq[t] for t, v in trips.items() if v[0] == rid and v[2] == sh and t in rapid_seq]
+                    if seqs: e['stops'] = [sid for _, sid in sorted(max(seqs, key=len))]
+                shapes.append(e)
     if not shapes: continue
     out_routes.append(dict(rt, shapes=shapes, **{k: dict(v) for k, v in counts[rid].items()}))
 out_routes.sort(key=lambda r: (len(r['short']), r['short']))
