@@ -1,139 +1,7 @@
 {
-"fetched": "2026-10-27T05:45",
+"fetched": "2026-10-28T06:31",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
-{
-"id": "Tor-RD52026-6079-3-2",
-"street": "Eastern Av E Dvp N Ramp",
-"extent": "Eastern Av E Dvp N Ramp at Eastern Ave Diversion to 116 m East of Eastern Ave Diversion",
-"kind": "closed",
-"both": true,
-"start": "2026-10-26T21:00",
-"end": "2026-11-17T05:30",
-"hours": "21:00\u201305:30",
-"days": "weekdays",
-"who": "PCL",
-"desc": "Closures are for Storm structure installations on Eastern Ave",
-"roadClass": "Expressway",
-"coords": [
-[
--79.35244,
-43.65672
-],
-[
--79.35165,
-43.65614
-],
-[
--79.3515,
-43.65602
-],
-[
--79.35136,
-43.65594
-],
-[
--79.35123,
-43.6559
-],
-[
--79.35105,
-43.65585
-],
-[
--79.35092,
-43.65584
-],
-[
--79.35078,
-43.65584
-],
-[
--79.35064,
-43.65587
-],
-[
--79.35051,
-43.65591
-],
-[
--79.35039,
-43.65598
-],
-[
--79.3503,
-43.65606
-],
-[
--79.35023,
-43.65615
-],
-[
--79.35018,
-43.65626
-],
-[
--79.35016,
-43.65638
-],
-[
--79.35016,
-43.65648
-],
-[
--79.35018,
-43.65654
-]
-]
-},
-{
-"id": "Tor-RD52026-6447-1",
-"street": "Lawrence W Dvp S Ramp",
-"extent": "Lawrence W Dvp S Ramp 43 m North of Don Valley Parkway S to 69 m West of Don Valley Parkway S",
-"kind": "closed",
-"both": true,
-"start": "2026-10-19T21:00",
-"end": "2026-10-30T05:00",
-"hours": "21:00\u201305:00",
-"days": "weekdays",
-"who": "PTR Paving Inc.",
-"desc": "INTERIM REPAIRS ON THE ROADWAYS INCLUDING LOCALIZE CURBS SIDEWALK REPIARS AT VARIOUS LOCATIONS WITHIN THE NORTH YORK DISTRICT.",
-"roadClass": "Expressway Ramp",
-"coords": [
-[
--79.33235,
-43.73985
-],
-[
--79.33279,
-43.74034
-],
-[
--79.33363,
-43.74027
-],
-[
--79.3339,
-43.73999
-],
-[
--79.3339,
-43.73961
-],
-[
--79.33362,
-43.73937
-],
-[
--79.3332,
-43.73933
-],
-[
--79.33313,
-43.73934
-]
-]
-},
 {
 "id": "Tor-RD52026-6447-3",
 "street": "Lawrence W Dvp N Ramp",
@@ -299,6 +167,54 @@
 [
 -79.33211,
 43.74247
+]
+]
+},
+{
+"id": "Tor-RD52026-6447-1",
+"street": "Lawrence W Dvp S Ramp",
+"extent": "Lawrence W Dvp S Ramp 43 m North of Don Valley Parkway S to 69 m West of Don Valley Parkway S",
+"kind": "closed",
+"both": true,
+"start": "2026-10-19T21:00",
+"end": "2026-10-30T05:00",
+"hours": "21:00\u201305:00",
+"days": "weekdays",
+"who": "PTR Paving Inc.",
+"desc": "INTERIM REPAIRS ON THE ROADWAYS INCLUDING LOCALIZE CURBS SIDEWALK REPIARS AT VARIOUS LOCATIONS WITHIN THE NORTH YORK DISTRICT.",
+"roadClass": "Expressway Ramp",
+"coords": [
+[
+-79.33235,
+43.73985
+],
+[
+-79.33279,
+43.74034
+],
+[
+-79.33363,
+43.74027
+],
+[
+-79.3339,
+43.73999
+],
+[
+-79.3339,
+43.73961
+],
+[
+-79.33362,
+43.73937
+],
+[
+-79.3332,
+43.73933
+],
+[
+-79.33313,
+43.73934
 ]
 ]
 },
@@ -1471,6 +1387,162 @@
 ]
 },
 {
+"id": "Tor-RD032026-157-4",
+"street": "College St",
+"extent": "College St 13 m West of Bay St to 17 m East of University Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-30T07:00",
+"end": "2026-11-11T05:00",
+"hours": "24h",
+"days": "daily",
+"who": "Toronto Transit Commission",
+"desc": "The Overhead crew will work on the curblane on both eastbound and westbound on College St and Carlton St between McCaul and Parliament between July 26 and Dec 31, 2026. This will be a rolling operation. Scope of Work In support of TTC's ongoing system-wide overhead infrastructure modernization program, the following work is planned during the College Street streetcar service closure: * Installation of the auto-tensioning system. * Adjustment of the contact wire stagger to meet TTC Engineering's full pantograph standards. * Installation of new section breaks and removal of redundant section break infrastructure. * Testing and commissioning of the upgraded Track and OCS infrastructure before the restoration of regular streetcar service.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.38601,
+43.66079
+],
+[
+-79.38666,
+43.66068
+],
+[
+-79.38666,
+43.66068
+],
+[
+-79.38741,
+43.66052
+],
+[
+-79.38741,
+43.66052
+],
+[
+-79.39029,
+43.6599
+]
+]
+},
+{
+"id": "Tor-RD032026-157-3",
+"street": "College St",
+"extent": "College St 6 m West of Carlton St to 11 m East of Bay St",
+"kind": "closed",
+"both": true,
+"start": "2026-10-28T07:00",
+"end": "2026-10-30T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Toronto Transit Commission",
+"desc": "The Overhead crew will work on the curblane on both eastbound and westbound on College St and Carlton St between McCaul and Parliament between July 26 and Dec 31, 2026. This will be a rolling operation. Scope of Work In support of TTC's ongoing system-wide overhead infrastructure modernization program, the following work is planned during the College Street streetcar service closure: * Installation of the auto-tensioning system. * Adjustment of the contact wire stagger to meet TTC Engineering's full pantograph standards. * Installation of new section breaks and removal of redundant section break infrastructure. * Testing and commissioning of the upgraded Track and OCS infrastructure before the restoration of regular streetcar service.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.38318,
+43.66136
+],
+[
+-79.38371,
+43.66125
+],
+[
+-79.38371,
+43.66125
+],
+[
+-79.38572,
+43.66084
+]
+]
+},
+{
+"id": "Tor-RD52026-6079-4-2",
+"street": "Eastern Av E Dvp N Ramp",
+"extent": "Eastern Av E Dvp N Ramp at Eastern Ave Diversion to 116 m East of Eastern Ave Diversion",
+"kind": "closed",
+"both": true,
+"start": "2026-10-29T21:00",
+"end": "2026-11-17T05:30",
+"hours": "21:00\u201305:30",
+"days": "weekdays",
+"who": "PCL",
+"desc": "Closures are for Storm structure installations on Eastern Ave",
+"roadClass": "Expressway",
+"coords": [
+[
+-79.35244,
+43.65672
+],
+[
+-79.35165,
+43.65614
+],
+[
+-79.3515,
+43.65602
+],
+[
+-79.35136,
+43.65594
+],
+[
+-79.35123,
+43.6559
+],
+[
+-79.35105,
+43.65585
+],
+[
+-79.35092,
+43.65584
+],
+[
+-79.35078,
+43.65584
+],
+[
+-79.35064,
+43.65587
+],
+[
+-79.35051,
+43.65591
+],
+[
+-79.35039,
+43.65598
+],
+[
+-79.3503,
+43.65606
+],
+[
+-79.35023,
+43.65615
+],
+[
+-79.35018,
+43.65626
+],
+[
+-79.35016,
+43.65638
+],
+[
+-79.35016,
+43.65648
+],
+[
+-79.35018,
+43.65654
+]
+]
+},
+{
 "id": "Tor-RD52026-6928-1",
 "street": "Steeles Ave E",
 "extent": "Steeles Ave E 4 m East of Conacher Dr to 15 m West of Bayview Ave",
@@ -2335,174 +2407,6 @@
 ]
 },
 {
-"id": "Tor-RD52026-6469-3",
-"street": "Eastern Ave Diversion",
-"extent": "Eastern Ave Diversion at Eastern Ave to 34 m East of Broadview S Eastern W Ramp",
-"kind": "closed",
-"both": true,
-"start": "2026-11-04T22:30",
-"end": "2026-11-05T05:30",
-"hours": "22:30\u201305:30",
-"days": "daily",
-"who": "Soncin Construction",
-"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, etc.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.3574,
-43.65452
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35606,
-43.65517
-],
-[
--79.35585,
-43.65536
-],
-[
--79.35585,
-43.65536
-],
-[
--79.35497,
-43.65572
-],
-[
--79.35497,
-43.65572
-],
-[
--79.35422,
-43.65606
-],
-[
--79.35422,
-43.65606
-],
-[
--79.35343,
-43.65637
-],
-[
--79.35343,
-43.65637
-],
-[
--79.35327,
-43.65644
-],
-[
--79.35327,
-43.65644
-],
-[
--79.35322,
-43.65646
-],
-[
--79.35317,
-43.65648
-],
-[
--79.35314,
-43.6565
-],
-[
--79.35314,
-43.6565
-],
-[
--79.35294,
-43.65657
-],
-[
--79.35294,
-43.65657
-],
-[
--79.35255,
-43.65669
-],
-[
--79.35255,
-43.65669
-],
-[
--79.3525,
-43.6567
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35211,
-43.65681
-],
-[
--79.35177,
-43.65687
-],
-[
--79.35153,
-43.65691
-],
-[
--79.35153,
-43.65691
-],
-[
--79.35116,
-43.65697
-],
-[
--79.35089,
-43.65699
-],
-[
--79.35061,
-43.657
-],
-[
--79.35032,
-43.65698
-],
-[
--79.35007,
-43.65695
-],
-[
--79.34986,
-43.65691
-],
-[
--79.34986,
-43.65691
-],
-[
--79.34947,
-43.65681
-]
-]
-},
-{
 "id": "Tor-RD52026-6469-1",
 "street": "Adelaide St E",
 "extent": "Adelaide St E 6 m Northeast of Parliament St to 47 m Southwest of Bayview Ave",
@@ -2683,6 +2587,174 @@
 [
 -79.35389,
 43.65611
+]
+]
+},
+{
+"id": "Tor-RD52026-6469-3",
+"street": "Eastern Ave Diversion",
+"extent": "Eastern Ave Diversion at Eastern Ave to 34 m East of Broadview S Eastern W Ramp",
+"kind": "closed",
+"both": true,
+"start": "2026-11-04T22:30",
+"end": "2026-11-05T05:30",
+"hours": "22:30\u201305:30",
+"days": "daily",
+"who": "Soncin Construction",
+"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, etc.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.3574,
+43.65452
+],
+[
+-79.35697,
+43.65474
+],
+[
+-79.35697,
+43.65474
+],
+[
+-79.35606,
+43.65517
+],
+[
+-79.35585,
+43.65536
+],
+[
+-79.35585,
+43.65536
+],
+[
+-79.35497,
+43.65572
+],
+[
+-79.35497,
+43.65572
+],
+[
+-79.35422,
+43.65606
+],
+[
+-79.35422,
+43.65606
+],
+[
+-79.35343,
+43.65637
+],
+[
+-79.35343,
+43.65637
+],
+[
+-79.35327,
+43.65644
+],
+[
+-79.35327,
+43.65644
+],
+[
+-79.35322,
+43.65646
+],
+[
+-79.35317,
+43.65648
+],
+[
+-79.35314,
+43.6565
+],
+[
+-79.35314,
+43.6565
+],
+[
+-79.35294,
+43.65657
+],
+[
+-79.35294,
+43.65657
+],
+[
+-79.35255,
+43.65669
+],
+[
+-79.35255,
+43.65669
+],
+[
+-79.3525,
+43.6567
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35211,
+43.65681
+],
+[
+-79.35177,
+43.65687
+],
+[
+-79.35153,
+43.65691
+],
+[
+-79.35153,
+43.65691
+],
+[
+-79.35116,
+43.65697
+],
+[
+-79.35089,
+43.65699
+],
+[
+-79.35061,
+43.657
+],
+[
+-79.35032,
+43.65698
+],
+[
+-79.35007,
+43.65695
+],
+[
+-79.34986,
+43.65691
+],
+[
+-79.34986,
+43.65691
+],
+[
+-79.34947,
+43.65681
 ]
 ]
 },
