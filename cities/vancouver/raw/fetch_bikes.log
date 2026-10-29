@@ -1,4 +1,4 @@
-segments: 3744 of 3744
+segments: 3765 of 3765
 fields in source: ['aaa_network', 'aaa_segment', 'bike_route_name', 'bikeway_direction', 'bikeway_type', 'construction_note', 'e_s_bound_type', 'geo_point_2d', 'notes', 'object_id', 'overall_direction', 'snow_removal', 'speed_limit', 'status', 'street_name', 'street_segment_type', 'subtype', 'surface_type', 'upgrade_year', 'vehicle_direction', 'w_n_bound_type', 'year_of_construction']
 types: [
 [
@@ -7,7 +7,7 @@ types: [
 ],
 [
 "Protected Bike Lanes",
-818
+839
 ],
 [
 "Painted Lanes",
@@ -18,6 +18,6 @@ types: [
 119
 ]
 ]
-wrote /home/runner/work/city-layers/city-layers/cities/vancouver/raw/bikes.geojson 1263 KB
+wrote /home/runner/work/city-layers/city-layers/cities/vancouver/raw/bikes.geojson 1132 KB
 vancouver: +345 segments from raw/uel_bikes.geojson
-vancouver: 4088 segments {'shared': 2495, 'trail': 494, 'paint': 615, 'prot': 484} km {'shared': 186, 'trail': 102, 'paint': 66, 'prot': 43} asof 2026-09-21 854 KB
+vancouver: 4109 segments {'shared': 2495, 'trail': 513, 'paint': 615, 'prot': 486} km {'shared': 186, 'trail': 103, 'paint': 66, 'prot': 43} asof 2026-10-26 858 KB
