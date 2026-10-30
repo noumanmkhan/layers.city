@@ -1,0 +1,266 @@
+{
+ "_about": "Settings for New York's Routes page (engine/routes/: build.py, page.html), at /nyc/routes/: pick a stop or platform near you, see where each MTA bus and subway line from it goes. The subway's lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their platforms in order.",
+ "modes": [
+  "bus",
+  "subway"
+ ],
+ "live": {
+  "api": "/api/arrivals?city=nyc",
+  "source": "MTA GTFS-Realtime (subway)",
+  "none": {
+   "bus": "live bus times aren’t connected yet (they need an MTA Bus Time key)"
+  }
+ },
+ "gridTilt": 29,
+ "_gridTilt": "Manhattan's street grid is turned about 29 degrees east of north, so the avenues read north-south and the streets east-west.",
+ "keepRight": true,
+ "platformLabels": {
+  "raw": "station_labels.json",
+  "suffix": [
+   "N",
+   "S"
+  ],
+  "skip": [
+   "Last Stop"
+  ]
+ },
+ "_platformLabels": "Platforms are headed with the MTA's own direction words (Uptown & The Bronx, Manhattan, Coney Island), from cities/nyc/fetch_station_labels.py.",
+ "regions": [
+  "boroughs"
+ ],
+ "regionsWithThe": [
+  "Bronx"
+ ],
+ "knownWithThe": "^(.* District|.* Village|Bowery|Battery|Upper East Side|Upper West Side|Lower East Side|Rockaways|Hub)$",
+ "units": "ntas",
+ "streets": {
+  "raw": "osm_streets.json",
+  "osm": true,
+  "name": "name",
+  "along": [
+   "trunk",
+   "primary",
+   "secondary"
+  ],
+  "cross": [
+   "trunk",
+   "primary"
+  ]
+ },
+ "pois": [
+  {
+   "file": "landmarks",
+   "cat": "catLabel"
+  },
+  {
+   "file": "institutions",
+   "cats": {
+    "hospital": "Hospital",
+    "university": "University",
+    "college": "College"
+   }
+  }
+ ],
+ "known": "knownas",
+ "stations": {
+  "files": [
+   "subway_stations"
+  ]
+ },
+ "near": {
+  "poi": 200,
+  "station": 150,
+  "known": 250,
+  "platform": 150
+ },
+ "page": {
+  "city": "New York City",
+  "title": "Where does this line or route go?",
+  "short": "Routes from here",
+  "description": "Find the bus stops and subway platforms nearest you in New York City and see where each route goes, with live next-train times: the neighborhoods it passes through, the main streets it runs along, its subway connections and the landmarks on the way.",
+  "lede": "Find the stops and stations near you, then pick a bus or subway line to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
+  "placeholder": "Or search an address",
+  "outside": "That spot is outside New York City. Try an address in the five boroughs.",
+  "noMatch": "No match in New York City for “{q}”. Try the full street name, like “350 Fifth Avenue”.",
+  "noStops": "No stops or stations within {r} of that spot.",
+  "credits": "Routes, stops and timetable: MTA (New York City Transit and MTA Bus) GTFS · Neighborhoods: NYC Department of City Planning · Streets: © OpenStreetMap contributors (ODbL) · Live times: MTA subway GTFS-Realtime",
+  "mapLink": "Open on the map",
+  "mi": true,
+  "connectWith": "the subway",
+  "legendUnits": "Neighborhoods it passes",
+  "legendKnown": "DUMBO: the names people use",
+  "lineFiles": [
+   "subway_lines"
+  ],
+  "lineColors": {
+   "123": "#D82233",
+   "456": "#009952",
+   "7": "#9A38A1",
+   "ace": "#0062CF",
+   "bdfm": "#EB6800",
+   "g": "#799534",
+   "jz": "#8E5C33",
+   "l": "#7C858C",
+   "nqrw": "#F6BC26",
+   "s": "#7C858C",
+   "sir": "#08179C"
+  },
+  "lineNames": {
+   "1": "1 train",
+   "2": "2 train",
+   "3": "3 train",
+   "4": "4 train",
+   "5": "5 train",
+   "6": "6 train",
+   "7": "7 train",
+   "A": "A train",
+   "B": "B train",
+   "C": "C train",
+   "D": "D train",
+   "E": "E train",
+   "F": "F train",
+   "G": "G train",
+   "J": "J train",
+   "L": "L train",
+   "M": "M train",
+   "N": "N train",
+   "Q": "Q train",
+   "R": "R train",
+   "W": "W train",
+   "Z": "Z train",
+   "S": "S shuttle",
+   "GS": "42 St Shuttle",
+   "FS": "Franklin Av Shuttle",
+   "H": "Rockaway Park Shuttle",
+   "SI": "Staten Island Railway",
+   "SIR": "Staten Island Railway",
+   "5X": "5 express",
+   "6X": "6 express",
+   "7X": "7 express",
+   "FX": "F express"
+  },
+  "at": "/",
+  "changeBare": true
+ },
+ "badges": {
+  "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses white with an MTA blue outline, express buses green; subway lines as round bullets in the trunk line's colour.",
+  "bus": {
+   "fill": "#FFFFFF",
+   "text": "#0039A6",
+   "outline": "#0039A6"
+  },
+  "exp": {
+   "fill": "#00933C",
+   "text": "#FFFFFF"
+  },
+  "night": {
+   "fill": "#FFFFFF",
+   "text": "#0039A6",
+   "outline": "#0039A6"
+  },
+  "lines": {
+   "1": {
+    "fill": "#D82233",
+    "text": "#FFFFFF"
+   },
+   "2": {
+    "fill": "#D82233",
+    "text": "#FFFFFF"
+   },
+   "3": {
+    "fill": "#D82233",
+    "text": "#FFFFFF"
+   },
+   "4": {
+    "fill": "#009952",
+    "text": "#FFFFFF"
+   },
+   "5": {
+    "fill": "#009952",
+    "text": "#FFFFFF"
+   },
+   "6": {
+    "fill": "#009952",
+    "text": "#FFFFFF"
+   },
+   "7": {
+    "fill": "#9A38A1",
+    "text": "#FFFFFF"
+   },
+   "A": {
+    "fill": "#0062CF",
+    "text": "#FFFFFF"
+   },
+   "B": {
+    "fill": "#EB6800",
+    "text": "#FFFFFF"
+   },
+   "C": {
+    "fill": "#0062CF",
+    "text": "#FFFFFF"
+   },
+   "D": {
+    "fill": "#EB6800",
+    "text": "#FFFFFF"
+   },
+   "E": {
+    "fill": "#0062CF",
+    "text": "#FFFFFF"
+   },
+   "F": {
+    "fill": "#EB6800",
+    "text": "#FFFFFF"
+   },
+   "G": {
+    "fill": "#799534",
+    "text": "#FFFFFF"
+   },
+   "J": {
+    "fill": "#8E5C33",
+    "text": "#FFFFFF"
+   },
+   "L": {
+    "fill": "#7C858C",
+    "text": "#FFFFFF"
+   },
+   "M": {
+    "fill": "#EB6800",
+    "text": "#FFFFFF"
+   },
+   "N": {
+    "fill": "#F6BC26",
+    "text": "#1A1414"
+   },
+   "Q": {
+    "fill": "#F6BC26",
+    "text": "#1A1414"
+   },
+   "R": {
+    "fill": "#F6BC26",
+    "text": "#1A1414"
+   },
+   "W": {
+    "fill": "#F6BC26",
+    "text": "#1A1414"
+   },
+   "Z": {
+    "fill": "#8E5C33",
+    "text": "#FFFFFF"
+   },
+   "S": {
+    "fill": "#7C858C",
+    "text": "#FFFFFF"
+   },
+   "SIR": {
+    "fill": "#08179C",
+    "text": "#FFFFFF"
+   },
+   "SI": {
+    "fill": "#08179C",
+    "text": "#FFFFFF"
+   }
+  }
+ },
+ "notCrossed": "(?i)\\b(Bridge|Tunnel|Level|Roadway|Expressway|Expwy|Exit|Approach|Ramp|Viaduct)\\b",
+ "_notCrossed": "A bus crosses avenues, not the bridge decks and tunnel approaches drawn over or under them."
+}

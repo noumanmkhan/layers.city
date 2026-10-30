@@ -851,7 +851,8 @@ one from Friday to Sunday.
 ## 15. Transit: stops near a spot, where each route goes, live arrivals
 
 Toronto as of October 28, 2026 (buses, streetcars, subway and LRT), San Francisco as of October 30 (Muni buses
-and Muni Metro, as `lrt`; live times from 511.org, `/api/arrivals?city=sf`, one feed, so `liveRapid` changes nothing). It is the data behind
+and Muni Metro, as `lrt`; live times from 511.org, `/api/arrivals?city=sf`, one feed, so `liveRapid` changes nothing). New York as of October 30 (MTA buses and the subway; live times for the subway only, so `liveNone` has `bus`;
+add `&lines=<route ids>` with `liveRapid`, the rapid routes at the platforms asked for, so only their feeds are read). It is the data behind
 the website's "Where does this line or route go?" page (`/toronto/routes/`, `/sf/routes/`); an app can rebuild that page natively from it. A
 city without `transit` in its `city.json` has none of this: hide the feature.
 
@@ -893,11 +894,13 @@ wording, shown in brackets):
 - `connectWith`: "connects with <this> at <stations>" ("the subway"): "BART and Muni Metro".
 - `connectionsLabel`: the heading of the connections fact ("Subway connections").
 - `mi`: true to show distances in feet under 0.1 mi and miles above (metres and km).
+- `changeBare`: true to list lines in "Change for …" by their ids ("Change for 4, 5, 6") rather than `lineNames`.
 
 Platforms' `side` and `travel` words can also be the agency's own: Muni's subway platforms are `inbound` and
 `outbound` ("Inbound platform"), as are a Muni Metro line's patterns' `head` (show them capitalised, "Outbound").
 In San Francisco a street stop a bus shares with a Muni Metro line is a stop (`platform` 0) with its side of the
 street; a stop only Muni Metro uses, or one at a station, is a platform.
+New York's platforms' `side` is the MTA's own sign wording: "Uptown platform", "Manhattan-bound platform".
 
 Paths are on `https://layers.city`. The files are rebuilt whenever the schedule changes (weekly at most); they
 are about 1.3 MB (`stops.json`, ~310 KB compressed) and 1–50 KB per route. Bundle `stops.json` with the city's

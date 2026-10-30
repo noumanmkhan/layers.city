@@ -1,5 +1,5 @@
 {
- "_about": "Buses (engine/fetch_surface.py, engine/surface.py): the MTA publishes its buses as six GTFS files, one per borough plus MTA Bus Company; 'urls' merges them into one feed, so the families (frequent, express, overnight) describe the whole network. Subway and Staten Island Railway come from the subway layer. Express buses are numbered X, BM, BxM, QM and SIM. The subway's file joins them too, for the Routes page only: its lines are kept apart as rapid lines ('rapid', raw/surface/rapid_*.json, each shape with its platforms in order; the shuttles are listed under every name the feed has used, S, GS, FS and H, and the Staten Island Railway under SI and SIR), and the map still draws the subway from its own layer. 'sched' writes the timetable the Routes page shows when nothing is live.",
+ "_about": "Buses (engine/fetch_surface.py, engine/surface.py): the MTA publishes its buses as six GTFS files, one per borough plus MTA Bus Company; 'urls' merges them into one feed, so the families (frequent, express, overnight) describe the whole network. Subway and Staten Island Railway come from the subway layer. Express buses are numbered X, BM, BxM, QM and SIM. The subway's file joins them too, for the Routes page only: its lines are kept apart as rapid lines ('rapid', raw/surface/rapid_*.json, each shape with its platforms in order; the shuttles are listed under every name the feed has used, S, GS, FS and H, and the Staten Island Railway under SI and SIR), and the map still draws the subway from its own layer. 'sched' writes the timetable the Routes page shows when nothing is live. Stop names come in capitals ('1 AV/E 14 ST'); 'stopNames' writes them '1 Av/E 14 St'.",
  "gtfs": {
   "urls": [
    "https://rrgtfsfeeds.s3.amazonaws.com/gtfs_m.zip",
@@ -48,5 +48,22 @@
   "SI": "subway",
   "SIR": "subway"
  },
- "sched": true
+ "sched": true,
+ "stopNames": {
+  "title": true,
+  "keep": [
+   "JFK",
+   "LGA",
+   "CUNY",
+   "MTA",
+   "SUNY",
+   "NYU",
+   "LIU",
+   "SBS",
+   "YMCA",
+   "USPS",
+   "NYCHA"
+  ],
+  "strip": "(?i)\\s*\\((no |use |not |last stop|near|far|lot)[^)]*\\)$|\\s+rdwy$"
+ }
 }

@@ -38,6 +38,9 @@ const FEEDS = {
       '5X': '1234567', '6X': '1234567', '7X': '1234567', GS: '1234567', S: '1234567', A: 'ace', C: 'ace', E: 'ace',
       H: 'ace', FS: 'ace', B: 'bdfm', D: 'bdfm', F: 'bdfm', FX: 'bdfm', M: 'bdfm', G: 'g', J: 'jz', Z: 'jz',
       N: 'nqrw', Q: 'nqrw', R: 'nqrw', W: 'nqrw', L: 'l', SI: 'si', SIR: 'si' },
+    // The MTA's subway trip updates carry no vehicle (it's in the feed's own extension), but they're predictions:
+    // count every arrival as live.
+    liveAll: true,
   },
   sf: { main: env => env.FIVE11_KEY && `https://api.511.org/transit/tripupdates?api_key=${encodeURIComponent(env.FIVE11_KEY)}&agency=SF`,
         ttl: 60, keep: 900, idPrefix: '1' },
@@ -97,7 +100,7 @@ export async function onRequestGet({ request, env }) {
     if (b.status !== 'fulfilled') continue;
     const o = scan(b.value, feedIds, now);
     out.asof = Math.max(out.asof, o.asof);
-    stops.forEach((s, i) => out.stops[s].push(...o.stops[feedIds[i]]));
+    stops.forEach((s, i) => out.stops[s].push(...o.stops[feedIds[i]].map(x => feeds.liveAll ? [x[0], x[1], x[2], 1] : x)));
   }
   for (const k of Object.keys(out.stops)) out.stops[k] = out.stops[k].sort((a, b) => a[2] - b[2]).slice(0, PER_STOP);
   const res = json({ now, asof: out.asof, stops: out.stops }, 200, Math.min(15, ttl));
