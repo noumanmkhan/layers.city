@@ -6,9 +6,7 @@ wrote places/schools.json 164 KB
    schools.json 235 ['analysis_neighborhood', 'cds_code', 'charter_yesno', 'data_as_of', 'data_loaded_at', 'district', 'educational_program_type', 'entity_type', 'high_grade', 'latitude', 'longitude', 'low_grade', 'open_date', 'phone', 'public_yesno', 'record_type', 'school', 'status', 'street_address', 'street_city', 'street_state', 'street_zip', 'supervisor_district', 'website']
 wrote places/city_facilities.json 14 KB
    city_facilities.json 29 ['address', 'block_lot', 'city', 'common_name', 'data_as_of', 'data_last_updated', 'data_loaded_at', 'department_name', 'dept_id', 'facility_id', 'gross_sq_ft', 'land_id', 'latitude', 'longitude', 'owned_leased', 'supervisor_district', 'zip_code']
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
-  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-wrote places/osm_hospitals.json 10 KB
+wrote places/osm_hospitals.json 9 KB
 wrote places/osm_colleges.json 15 KB
 wrote places/osm_worship.json 140 KB
 FAILED: none

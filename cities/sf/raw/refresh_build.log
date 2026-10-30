@@ -19,11 +19,23 @@ permit areas: 32 94 KB
 EV: 268 public charging points; 935 Level 2 ports, 231 DC fast ports at 36 sites; 23 Tesla-only; 5 temporarily unavailable; left out {'private': 39, 'restricted': 5, 'planned': 2, 'outside the city': 375}
 parking.geojson: {'greenp': 46, 'ev': 268, 'spaces': 13916, 'l2': 935, 'dc': 231}
 sweeping: 22132 block sides, 490 squares, 153-26616 bytes (median 8108), 3885 KB in all
-Traceback (most recent call last):
-  File "/home/runner/work/layers.city/layers.city/cities/sf/../../engine/assemble.py", line 45, in <module>
-    t = t.replace('/*LEAFLET_CSS*/', read(ROOT, 'node_modules', 'leaflet', 'dist', 'leaflet.css'))
-                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/layers.city/layers.city/cities/sf/../../engine/assemble.py", line 15, in <lambda>
-    read = lambda *p: open(os.path.join(*p), encoding='utf-8').read()
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/layers.city/layers.city/engine/../node_modules/leaflet/dist/leaflet.css'
+faith and community: {'buddhist': 26, 'church': 344, 'hindu': 3, 'mosque': 4, 'otherfaith': 23, 'synagogue': 13} | merged duplicates: 4
+  churches by family: {'baptist': 72, '(none)': 63, 'catholic': 46, 'evangelical': 41, 'other': 33, 'presbyterian': 21, 'lutheran': 20, 'episcopal': 19, 'methodist': 16, 'orthodox': 13}
+institutions: {'hospital': 11, 'university': 7, 'college': 1} · not found in OSM: []
+community: {'library': 28, 'centre': 17}
+schools: {'secondary': 30, 'elementary': 72} {'High school': 13, 'Elementary school': 64, 'Middle school': 13, 'K–8 school': 8, 'Continuation high school': 2, 'Middle and high school': 2}
+parks: 240 Counter({'play': 131, 'dog': 33})
+sports: 103 {'pool': 8, 'diamond': 40, 'field': 23, 'tennis': 66, 'pickleball': 13, 'basketball': 76, 'skatepark': 6}
+nearby: {'library': 28, 'centre': 17, 'tennis': 66, 'basketball': 76, 'pool': 8, 'park': 239, 'playground': 131, 'dogrun': 33, 'school_s': 30, 'school_e': 72, 'buddhist': 26, 'church': 344, 'church:baptist': 72, 'church:lutheran': 20, 'church:catholic': 46, 'church:episcopal': 19, 'church:orthodox': 13, 'church:evangelical': 41, 'church:methodist': 16, 'church:other': 33, 'church:presbyterian': 21, 'hindu': 3, 'mosque': 4, 'otherfaith': 23, 'synagogue': 13, 'soft': 4954}
+tsunami: 13.4 km² of the city
+seismic: 350 shapes joined, 27.3 km²
+ferries: {'Golden Gate Ferry': 'MultiLineString', 'San Francisco Bay Ferry': 'MultiLineString', 'Treasure Island Ferry': 'LineString'} · terminals ['Alameda Main Street', 'Angel Island', 'Harbor Bay', 'Larkspur', 'Mare Island', 'Oakland Jack London Square', 'Richmond', 'San Francisco Ferry Building', 'Sausalito', 'Seaplane Lagoon', 'South San Francisco Oyster Point', 'Tiburon', 'Treasure Island', 'Vallejo']
+institutions: {'hospital': 11, 'university': 7, 'college': 1} · not found in OSM: []
+community: {'library': 28, 'centre': 17}
+schools: {'secondary': 30, 'elementary': 72} {'High school': 13, 'Elementary school': 64, 'Middle school': 13, 'K–8 school': 8, 'Continuation high school': 2, 'Middle and high school': 2}
+parks: 240 Counter({'play': 131, 'dog': 33})
+sports: 103 {'pool': 8, 'diamond': 40, 'field': 23, 'tennis': 66, 'pickleball': 13, 'basketball': 76, 'skatepark': 6}
+nearby: {'library': 28, 'centre': 17, 'tennis': 66, 'basketball': 76, 'pool': 8, 'park': 239, 'playground': 131, 'dogrun': 33, 'school_s': 30, 'school_e': 72, 'buddhist': 26, 'church': 344, 'church:baptist': 72, 'church:lutheran': 20, 'church:catholic': 46, 'church:episcopal': 19, 'church:orthodox': 13, 'church:evangelical': 41, 'church:methodist': 16, 'church:other': 33, 'church:presbyterian': 21, 'hindu': 3, 'mosque': 4, 'otherfaith': 23, 'synagogue': 13, 'soft': 4954}
+assembled docs/sf/index.html 451215 bytes
+published docs/sf/data/city.json
+published docs/cities.json 7 cities
