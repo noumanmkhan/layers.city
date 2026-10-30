@@ -1,0 +1,19 @@
+wrote ca.csv 81922
+wrote house.xml 557203
+wrote bos_supervisors.html 0
+wrote bos_home.html 0
+wrote bos_sfgov.html 0
+  retry 1 https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_06_cd119_500k.zip HTTP Error 404: Not Found
+  retry 2 https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_06_cd119_500k.zip HTTP Error 404: Not Found
+  retry 3 https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_06_cd119_500k.zip HTTP Error 404: Not Found
+FAILED us_house_2021 RuntimeError('failed: https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_06_cd119_500k.zip')
+Traceback (most recent call last):
+  File "/home/runner/work/layers.city/layers.city/cities/sf/fetch_lib.py", line 45, in step
+    fn()
+  File "/home/runner/work/layers.city/layers.city/cities/sf/fetch_representatives.py", line 30, in house_2021
+    z = download('https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_06_cd119_500k.zip', os.path.join(TMP, 'cd119.zip'))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/layers.city/layers.city/cities/sf/fetch_lib.py", line 40, in download
+    raise RuntimeError('failed: ' + url)
+RuntimeError: failed: https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_06_cd119_500k.zip
+failed: ['us_house_2021']
