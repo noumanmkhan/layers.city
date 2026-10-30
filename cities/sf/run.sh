@@ -21,5 +21,6 @@ cp tmp/region_areas.geojson tmp/region_areas.raw.geojson
 npx mapshaper -i tmp/region_areas.raw.geojson -simplify interval=60 keep-shapes -o tmp/region_areas.geojson precision=0.00005 format=geojson -quiet
 python3 ../../engine/regions.py sf
 [ -f raw/skyscrapers/wiki.json ] && python3 ../../engine/skyscrapers.py sf   # towers 150 m+ (fetch-skyscrapers.yml)
+[ -f raw/heritage_buildings.json ] && python3 ../../engine/heritage_buildings.py sf   # Article 10 landmarks (fetch-heritage-buildings.yml)
 python3 ../../engine/assemble.py sf
 echo "Done. Preview: cd docs && python3 -m http.server 8000"

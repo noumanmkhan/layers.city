@@ -83,7 +83,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni: GTFS from BART, Caltrain and SFMTA · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni: GTFS from BART, Caltrain and SFMTA · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA)",
  "example": {
   "at": [
    37.779,
@@ -184,6 +184,35 @@
      "note": "The Golden Gate Bridge, Coit Tower, the Ferry Building, parks and ballparks"
     },
     {
+     "id": "towers",
+     "kind": "towers",
+     "under": "landmarks",
+     "file": "skyscrapers",
+     "name": "Skyscrapers",
+     "place": "Skyscraper",
+     "note": "Buildings 150 m (492 ft) and taller, from Salesforce Tower down",
+     "key": {
+      "res": "Residential",
+      "com": "Commercial (office or hotel)",
+      "mix": "Mixed use",
+      "uc": "Under construction · hollow",
+      "sup": "Supertall, 300 m (984 ft) or more · gold ring"
+     },
+     "purpose": {
+      "Residential": "Residential tower",
+      "Office": "Office tower",
+      "Hotel": "Hotel tower",
+      "Mixed-use": "Mixed-use tower"
+     },
+     "supText": "Supertall",
+     "ucText": "Under construction",
+     "builtText": "Completed",
+     "expectedText": "Expected",
+     "akaText": "Also known as {aka}",
+     "moreText": "More on Wikipedia",
+     "sourceText": "Source: Wikipedia"
+    },
+    {
      "id": "heritage",
      "kind": "districts",
      "file": "heritage",
@@ -191,6 +220,19 @@
      "note": "Landmark districts (Article 10) and downtown conservation districts (Article 11)",
      "label": "{name}",
      "hover": "{name} · {kind}"
+    },
+    {
+     "id": "hbld",
+     "kind": "heritage",
+     "file": "heritage_buildings",
+     "name": "Landmark buildings",
+     "note": "The City’s individual landmarks (Article 10 of the Planning Code); from zoom 15",
+     "place": "City landmark",
+     "builtText": "built {y}",
+     "byText": "{ar}",
+     "designatedText": "designated {d}",
+     "bylawText": "Designation",
+     "hcdText": "Also in (historic district)"
     },
     {
      "id": "cultural",
@@ -666,6 +708,10 @@
     "onlyInside": true
    },
    {
+    "label": "Landmark",
+    "heritageBuilding": true
+   },
+   {
     "label": "Cultural district",
     "layer": "cultural",
     "text": "{name}",
@@ -765,12 +811,14 @@
    {
     "id": "explore",
     "name": "Explore downtown",
-    "note": "Landmarks and historic districts from the Embarcadero to Civic Center, with BART, Muni Metro and the cable cars.",
+    "note": "Landmarks, towers and historic districts from the Embarcadero to Civic Center, with BART, Muni Metro and the cable cars.",
     "layers": [
      "sides",
      "knownas",
      "landmarks",
+     "towers",
      "heritage",
+     "hbld",
      "streets",
      "bart",
      "muni",
