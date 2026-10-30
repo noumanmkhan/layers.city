@@ -31,13 +31,19 @@ RAW = os.path.join(ROOT, 'cities', city, 'raw', 'surface')
 OUT = os.path.join(ROOT, 'docs', city, 'data')
 R = json.load(open(os.path.join(RAW, 'routes.json')))
 S = json.load(open(os.path.join(RAW, 'stops.json')))
+# surface.json "skip" is applied when fetching; applying it here too means a route added to it drops out without
+# waiting for the agency's next feed.
+SKIP = set(CFG.get('skip', []))
+R['routes'] = [r for r in R['routes'] if r['short'] not in SKIP]
 FREQ = CFG.get('frequent', {'perHour': 6, 'from': 7, 'to': 19})
 NIGHT = CFG.get('overnight', {'from': 2, 'to': 4})
 EXPRESS = re.compile(CFG.get('express', r'\bExpress\b'), re.I)
 # Routes an agency brands as express by number rather than name (Vancouver's RapidBus R1-R6 and the 99 B-Line).
 EXPRESS_NO = re.compile(CFG['expressRoutes']) if CFG.get('expressRoutes') else None
 # Route numbers as riders say them: TransLink pads its numbers ("002", "099"); "stripZeros" drops the padding.
-num = (lambda s: s.lstrip('0') or s) if CFG.get('stripZeros') else (lambda s: s)
+_num = (lambda s: s.lstrip('0') or s) if CFG.get('stripZeros') else (lambda s: s)
+# surface.json "rename": route numbers as riders know them where the feed's differ ("LOWL" -> "L Owl").
+num = lambda s: CFG.get('rename', {}).get(s, _num(s))
 # Agencies that publish stop names in capitals with routing codes ("ABRAMS @ LA VISTA - S - FS"): surface.json
 # "stopNames": {"strip": a pattern cut from the end, "title": true, "at": " & "} tidies them for the card.
 SN = CFG.get('stopNames') or {}
@@ -51,6 +57,16 @@ def stop_name(n):
         n = re.sub(r'\b(\d+)(st|nd|rd|th)\b', lambda m: m.group(1) + m.group(2).lower(), n, flags=re.I)
         for w in SN.get('keep', []): n = re.sub(r'\b' + re.escape(w) + r'\b', w, n, flags=re.I)
     if SN.get('at'): n = re.sub(r'\s*@\s*', SN['at'], n)
+    return n
+
+
+# Route names in capitals ("HAIGHT-NORIEGA"): surface.json "routeNames": {"title": true, "keep": [words kept as written]}.
+RN = CFG.get('routeNames') or {}
+def route_name(n):
+    if not (RN.get('title') and n.isupper()): return n
+    n = re.sub(r"\b([A-Za-z])([A-Za-z']*)", lambda m: m.group(1).upper() + m.group(2).lower(), n)
+    n = re.sub(r'\b(\d+)(st|nd|rd|th)\b', lambda m: m.group(1) + m.group(2).lower(), n, flags=re.I)
+    for w in RN.get('keep', []): n = re.sub(r'\b' + re.escape(w) + r'\b', w, n, flags=re.I)
     return n
 
 
@@ -119,7 +135,7 @@ for r in R['routes']:
     if day and 'freq' not in fam and 'exp' not in fam: fam.append('reg')
     g = geometry(r)
     minx, miny, maxx, maxy = g.bounds
-    entry = {'r': num(r['short']), 'n': r['long'], 'm': r['mode'], 'f': fam, 'day': day, 'h': midday(r),
+    entry = {'r': num(r['short']), 'n': route_name(r['long']), 'm': r['mode'], 'f': fam, 'day': day, 'h': midday(r),
              'b': [round(minx, 4), round(miny, 4), round(maxx, 4), round(maxy, 4)]}
     routes.append(entry)
     props = {k: entry[k] for k in ('r', 'n', 'm', 'f', 'day', 'h')}
@@ -147,7 +163,7 @@ for key, fc in CFG.get('feeds', {}).items():
     start = len(routes)
     for r in FR['routes']:
         g = geometry(r); minx, miny, maxx, maxy = g.bounds
-        entry = {'r': r['short'], 'n': r['long'], 'm': r['mode'], 'f': [], 'day': daytime(r), 'h': midday(r),
+        entry = {'r': r['short'], 'n': route_name(r['long']), 'm': r['mode'], 'f': [], 'day': daytime(r), 'h': midday(r),
                  'b': [round(minx, 4), round(miny, 4), round(maxx, 4), round(maxy, 4)]}
         routes.append(entry)
         feats.append({'type': 'Feature', 'properties': {k: entry[k] for k in ('r', 'n', 'm', 'f', 'day', 'h')}, 'geometry': mapping(g)})
