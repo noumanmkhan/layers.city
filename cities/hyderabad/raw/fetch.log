@@ -1,105 +1,17 @@
 
 == pincodes
+  resource Hyderabad and Secunderabad Pin Codes Map 2025 2025-11-25T14:22:19.395513 https://data.opencity.in/dataset/a85a2a89-24bb-4b35-8914-c8d77b23f473/resource/e397beea-61a0-4d97-b541-f328250b2008/download/94a087f2-9e0a-421c-a776-5ce69f09c401.kml
+  size 437 KB
+  features 133 · fields ['Circle', 'Division', 'Office_Name', 'Pincode', 'Region', 'extrude', 'tessellate', 'visibility']
+  sample {'tessellate': -1, 'extrude': 0, 'visibility': -1, 'Pincode': '500001', 'Office_Name': 'Hyderabad G.P.O.', 'Division': 'Hyderabad GPO', 'Region': 'Hyderabad City', 'Circle': 'Telangana'}
   resource All India Pin Code Map 2025 2025-11-25T14:22:17.058137 https://data.opencity.in/dataset/a85a2a89-24bb-4b35-8914-c8d77b23f473/resource/962ca587-6a88-4ee2-89f5-14a20aa3a183/download/dd7bfd69-143e-462b-bfa3-2ac35d931342.kmz
   size 21297 KB
-ERROR 4: /vsizip//tmp/tmpzm72whvx/dd7bfd69-143e-462b-bfa3-2ac35d931342.kmz is not a valid kmz file
-FAILURE:
-Unable to open datasource `/vsizip//tmp/tmpzm72whvx/dd7bfd69-143e-462b-bfa3-2ac35d931342.kmz' with the following drivers.
-  -> `FITS'
-  -> `PCIDSK'
-  -> `netCDF'
-  -> `PDS4'
-  -> `VICAR'
-  -> `JP2OpenJPEG'
-  -> `PDF'
-  -> `MBTiles'
-  -> `BAG'
-  -> `EEDA'
-  -> `OGCAPI'
-  -> `ESRI Shapefile'
-  -> `MapInfo File'
-  -> `UK .NTF'
-  -> `LVBAG'
-  -> `OGR_SDTS'
-  -> `S57'
-  -> `DGN'
-  -> `OGR_VRT'
-  -> `Memory'
-  -> `CSV'
-  -> `NAS'
-  -> `GML'
-  -> `GPX'
-  -> `LIBKML'
-  -> `KML'
-  -> `GeoJSON'
-  -> `GeoJSONSeq'
-  -> `ESRIJSON'
-  -> `TopoJSON'
-  -> `Interlis 1'
-  -> `Interlis 2'
-  -> `OGR_GMT'
-  -> `GPKG'
-  -> `SQLite'
-  -> `ODBC'
-  -> `WAsP'
-  -> `PGeo'
-  -> `MSSQLSpatial'
-  -> `OGR_OGDI'
-  -> `PostgreSQL'
-  -> `MySQL'
-  -> `OpenFileGDB'
-  -> `DXF'
-  -> `CAD'
-  -> `FlatGeobuf'
-  -> `Geoconcept'
-  -> `GeoRSS'
-  -> `VFK'
-  -> `PGDUMP'
-  -> `OSM'
-  -> `GPSBabel'
-  -> `OGR_PDS'
-  -> `WFS'
-  -> `OAPIF'
-  -> `SOSI'
-  -> `EDIGEO'
-  -> `SVG'
-  -> `Idrisi'
-  -> `XLS'
-  -> `ODS'
-  -> `XLSX'
-  -> `Elasticsearch'
-  -> `Carto'
-  -> `AmigoCloud'
-  -> `SXF'
-  -> `Selafin'
-  -> `JML'
-  -> `PLSCENES'
-  -> `CSW'
-  -> `VDV'
-  -> `GMLAS'
-  -> `MVT'
-  -> `NGW'
-  -> `MapML'
-  -> `GTFS'
-  -> `PMTiles'
-  -> `JSONFG'
-  -> `TIGER'
-  -> `AVCBin'
-  -> `AVCE00'
-  -> `HTTP'
-FAILED pincodes CalledProcessError(1, ['ogr2ogr', '-f', 'GeoJSON', '-t_srs', 'EPSG:4326', '-spat', '77.2', '16.6', '79.2', '18.45', '-nlt', 'PROMOTE_TO_MULTI', '/tmp/tmpzm72whvx/pin_0.geojson', '/vsizip//tmp/tmpzm72whvx/dd7bfd69-143e-462b-bfa3-2ac35d931342.kmz'])
-Traceback (most recent call last):
-  File "/home/runner/work/layers.city/layers.city/cities/hyderabad/fetch.py", line 24, in step
-    try: fn()
-         ^^^^
-  File "/home/runner/work/layers.city/layers.city/cities/hyderabad/fetch.py", line 65, in pincodes
-    subprocess.run(['ogr2ogr', '-f', 'GeoJSON', '-t_srs', 'EPSG:4326', '-spat', str(W), str(S), str(E), str(N), '-nlt', 'PROMOTE_TO_MULTI', out, src], check=True)
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 571, in run
-    raise CalledProcessError(retcode, process.args,
-subprocess.CalledProcessError: Command '['ogr2ogr', '-f', 'GeoJSON', '-t_srs', 'EPSG:4326', '-spat', '77.2', '16.6', '79.2', '18.45', '-nlt', 'PROMOTE_TO_MULTI', '/tmp/tmpzm72whvx/pin_0.geojson', '/vsizip//tmp/tmpzm72whvx/dd7bfd69-143e-462b-bfa3-2ac35d931342.kmz']' returned non-zero exit status 1.
+  features 386 · fields ['Circle', 'Division', 'Office_Name', 'Pincode', 'Region', 'extrude', 'tessellate', 'visibility']
+  sample {'tessellate': -1, 'extrude': 0, 'visibility': -1, 'Pincode': '413517', 'Office_Name': 'Udgir S.O', 'Division': 'Dharashiv', 'Region': 'al Office, Aurangabad', 'Circle': 'Maharashtra'}
+  wrote pincodes.geojson 862 KB
 
 == constituencies
   wrote assembly.geojson 160 KB
   wrote loksabha.geojson 50 KB
 
-failed: ['pincodes']
+failed: none
