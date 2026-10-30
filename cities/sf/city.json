@@ -796,8 +796,43 @@
   },
   "reps": {
    "file": "representatives.json",
-   "offices": [],
-   "note": ""
+   "offices": [
+    {
+     "role": "Mayor",
+     "citywide": "city",
+     "table": "mayor",
+     "sub": "Citywide"
+    },
+    {
+     "role": "Supervisor",
+     "layer": "sup",
+     "table": "sup",
+     "key": "num",
+     "sub": "District {f.num}"
+    },
+    {
+     "role": "Assemblymember",
+     "layer": "assembly",
+     "table": "assembly",
+     "key": "num",
+     "sub": "{r.party} · District {f.num}"
+    },
+    {
+     "role": "State senator",
+     "layer": "senate",
+     "table": "senate",
+     "key": "num",
+     "sub": "{r.party} · District {f.num}"
+    },
+    {
+     "role": "U.S. representative",
+     "file": "us_house_2021",
+     "table": "congress",
+     "key": "num",
+     "sub": "{r.party} · CA-{f.num}"
+    }
+   ],
+   "note": "Names open each person’s official page. San Francisco’s Board of Supervisors elections are nonpartisan. Supervisor Districts 2, 4, 6, 8 and 10 are on the November 3 ballot, and new terms start January 8. Each U.S. representative is shown for the district they were elected on; the congressional lines on the map are the new Proposition 50 ones used on November 3, and the winners take office in January. Last change {date}."
   }
  },
  "presets": {
