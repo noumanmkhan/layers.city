@@ -1,0 +1,29 @@
+representatives: {'sup': 11, 'assembly': 2, 'senate': 1, 'congress': 2, 'mayor': 1} updated 2026-10-30
+  assembly {'19': ('Catherine Stefani', 'Democrat', 'https://a19.asmdc.org/'), '17': ('Matt Haney', 'Democrat', 'https://a17.asmdc.org/')}
+  senate {'11': ('Scott Wiener', 'Democrat', 'https://sd11.senate.ca.gov/')}
+  congress {'11': ('Nancy Pelosi', 'Democrat', 'https://clerk.house.gov/members/P000197'), '15': ('Kevin Mullin', 'Democrat', 'https://clerk.house.gov/members/M001225')}
+  not placed: Music Concourse
+  not placed: Crane Cove Park Lot
+  not placed: Seawall Lot 314
+  not placed: 816 Michigan Lot
+  not placed: Pier 30 Lot
+  not placed: Pier 19 1/2
+  not placed: Pier 29 1/2
+  not placed: Seawall Lot 321
+  not placed: Seawall Lot 330
+  not placed: Seawall Lot 301
+  not placed: Kezar
+  not placed: Seawall Lot 323-324
+Garages and lots: 46 (22 garages), 13,916 spaces
+permit areas: 32 94 KB
+EV: 268 public charging points; 935 Level 2 ports, 231 DC fast ports at 36 sites; 23 Tesla-only; 5 temporarily unavailable; left out {'private': 39, 'restricted': 5, 'planned': 2, 'outside the city': 375}
+parking.geojson: {'greenp': 46, 'ev': 268, 'spaces': 13916, 'l2': 935, 'dc': 231}
+sweeping: 22132 block sides, 490 squares, 153-26616 bytes (median 8108), 3885 KB in all
+Traceback (most recent call last):
+  File "/home/runner/work/layers.city/layers.city/cities/sf/../../engine/assemble.py", line 45, in <module>
+    t = t.replace('/*LEAFLET_CSS*/', read(ROOT, 'node_modules', 'leaflet', 'dist', 'leaflet.css'))
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/layers.city/layers.city/cities/sf/../../engine/assemble.py", line 15, in <lambda>
+    read = lambda *p: open(os.path.join(*p), encoding='utf-8').read()
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/layers.city/layers.city/engine/../node_modules/leaflet/dist/leaflet.css'
