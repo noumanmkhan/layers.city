@@ -27,6 +27,7 @@ npx mapshaper -i tmp/region_areas.raw.geojson -simplify interval=60 keep-shapes 
 [ -f raw/parking/garages.json ] && python3 parking.py   # garages and lots, permit areas, EV chargers (fetch_parking.py)
 [ -f raw/sweeping.json ] && python3 sweeping.py        # street sweeping squares for the card (fetch_sweeping.py)
 [ -f raw/representatives/ca.csv ] && python3 representatives.py   # current officeholders (fetch_representatives.py)
+python3 ../../engine/badges.py sf   # a drawing for a few neighborhoods (cities/sf/badges/)
 python3 ../../engine/regions.py sf
 [ -f raw/drive_times.json ] && python3 ../../engine/drive.py build sf   # after base is simplified: drive times to Montgomery St
 [ -f raw/skyscrapers/wiki.json ] && python3 ../../engine/skyscrapers.py sf   # towers 150 m+ (fetch-skyscrapers.yml)
