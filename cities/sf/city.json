@@ -83,7 +83,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni: GTFS from BART, Caltrain and SFMTA · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni: GTFS from BART, Caltrain and SFMTA · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA)",
  "example": {
   "at": [
    37.779,
@@ -330,6 +330,46 @@
      "name": "Main streets",
      "note": "Market, Mission, Van Ness, Geary, 19th Avenue, the Embarcadero",
      "on": true
+    }
+   ]
+  ],
+  [
+   "What's changing",
+   [
+    {
+     "id": "events",
+     "kind": "events",
+     "file": "events",
+     "optional": true,
+     "live": true,
+     "staleDays": 2,
+     "name": "Special events",
+     "note": "Streets closed for races, parades, festivals and block parties",
+     "tz": "America/Los_Angeles",
+     "closedText": "Street closed",
+     "narrowedText": "Lanes closed",
+     "nowText": "Closed now, until {until}",
+     "whenText": "{from} to {to}",
+     "whenLabel": "When",
+     "eventLabel": "For",
+     "noticeText": "Organizer’s notice",
+     "courseText": "{event} {name} course · {km} km",
+     "startText": "Start",
+     "finishText": "Finish",
+     "fineText": "Times are the permit’s times; streets often reopen sooner. SFMTA temporary street closure permits, as of {date}.",
+     "viewLayers": [
+      "streets",
+      "hwy",
+      "events"
+     ],
+     "viewName": "{short}",
+     "viewNote": "Street closures for the {name}, with main streets. Tap a closure for its times.",
+     "bannerText": "{name} is on {when}.",
+     "bannerGo": "Street closures",
+     "bannerClose": "Not now",
+     "weekendText": "this weekend",
+     "todayText": "today",
+     "rangeText": "{from} to {to}"
     }
    ]
   ],
