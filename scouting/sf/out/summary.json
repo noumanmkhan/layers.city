@@ -1,0 +1,227 @@
+{
+ "catalog": {
+  "datasets": 5,
+  "categories": [
+   [
+    "Housing and Buildings",
+    2
+   ],
+   [
+    "Geographic Locations and Boundaries",
+    1
+   ],
+   [
+    "Economy and Community",
+    1
+   ],
+   [
+    "Culture and Recreation",
+    1
+   ]
+  ],
+  "licences": [
+   [
+    "Open Data Commons Public Domain Dedication and License",
+    5
+   ]
+  ]
+ },
+ "datasets": {
+  "analysis_neighborhoods": [
+   "p5b7-5n3h",
+   "Analysis Neighborhoods",
+   41,
+   "2023-10-17",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "tracts_to_neighborhoods": [
+   "sevw-6tgi",
+   "Analysis Neighborhoods - 2020 census tracts assigned to neighborhoods",
+   242,
+   "2022-07-08",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "sffind_neighborhoods": [
+   "pty2-tcw4",
+   "SF Find Neighborhoods",
+   117,
+   "2023-10-17",
+   "Public Domain U.S. Government"
+  ],
+  "realtor_neighborhoods": null,
+  "supervisor_districts": null,
+  "precincts": null,
+  "polling_places": null,
+  "zip_codes": [
+   "srq6-hmpi",
+   "San Francisco ZIP Codes",
+   32,
+   "2023-10-27",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "city_boundary": null,
+  "shoreline": null,
+  "historic_districts": [
+   "63x5-g3m4",
+   "Historic Districts",
+   204,
+   "2026-10-29",
+   "Public Domain U.S. Government"
+  ],
+  "article10_landmarks": [
+   "97yj-54sx",
+   "Landmarks Listed in Article 10 of the San Francisco Planning Code",
+   394,
+   "2026-10-29",
+   "Public Domain U.S. Government"
+  ],
+  "cbds": null,
+  "cultural_districts": null,
+  "rec_park_properties": null,
+  "rec_park_facilities": null,
+  "playgrounds": null,
+  "dog_play_areas": null,
+  "pools": null,
+  "public_restrooms": null,
+  "popos": null,
+  "libraries": null,
+  "city_facilities": null,
+  "schools": null,
+  "sfusd_attendance": null,
+  "hospitals": null,
+  "street_centerline": null,
+  "bike_network": null,
+  "bike_parking": null,
+  "slow_streets": null,
+  "muni_stops": null,
+  "muni_routes": null,
+  "street_closures": [
+   "8x25-yybr",
+   "Temporary Street Closures",
+   4006,
+   "2026-10-29",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "closure_intersections": null,
+  "closures_wzdx": [
+   "4ftp-yz2f",
+   "Temporary Street Closures in the Work Zone Data Exchange (WZDx) Format",
+   null,
+   "2022-03-22",
+   "Creative Commons 1.0 Universal (Public Domain Dedication)"
+  ],
+  "street_use_permits": null,
+  "building_permits": null,
+  "dev_pipeline": null,
+  "planning_projects": null,
+  "offstreet_parking": [
+   "vqzx-t7c4",
+   "SFMTA Managed Off-street Parking",
+   58,
+   "2026-09-26",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "offstreet_parking_all": [
+   "mizu-nf6z",
+   "SFMTA - Off-Street Parking Locations (Lots and Parking Garages)",
+   1406,
+   "2018-10-01",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "rpp_areas": null,
+  "rpp_parcels": null,
+  "street_sweeping": [
+   "yhqp-riqs",
+   "Street Sweeping Schedule",
+   37878,
+   "2026-05-14",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "parking_meters": null,
+  "ev_chargers": null,
+  "beach_water": [
+   "v3fv-x3ux",
+   "Beach Water Quality Monitoring",
+   21558,
+   "2026-10-29",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "tsunami": null,
+  "liquefaction": null,
+  "soft_story": null,
+  "police_districts": null,
+  "tree_inventory": null,
+  "zoning": null,
+  "height_districts": null,
+  "address_points": null,
+  "recology": null
+ },
+ "arcgis": {
+  "mtc_region_incorporatedplace_clp": 101,
+  "mtc_region_incorporatedplace": 101,
+  "mtc_region_county_clp": 9,
+  "mtc_region_county": 9,
+  "mtc_services": null,
+  "sfmta_master_layers": null,
+  "search: Residential Parking Permit Areas San Francisco": null,
+  "search: San Francisco polling places 2026": null,
+  "search: Bay Area cities boundaries MTC": null,
+  "search: California Protected Areas Database": null,
+  "search: Golden Gate National Recreation Area boundary": null,
+  "search: California tsunami hazard area": null,
+  "search: SFUSD attendance area": null,
+  "search: Community Benefit Districts San Francisco": null,
+  "search: AB 604 congressional districts": null
+ },
+ "gtfs": {
+  "muni": "download failed (https://gtfs.sfmta.com/transitdata/google_transit.zip)",
+  "bart": {
+   "mb": 1.0,
+   "routes": 14,
+   "stops": 291,
+   "calendar_span": [
+    "20260810",
+    "20270110"
+   ]
+  },
+  "caltrain": {
+   "mb": 0.2,
+   "routes": 5,
+   "stops": 106,
+   "calendar_span": [
+    "20260131",
+    "20270131"
+   ]
+  },
+  "511_regional": "skipped: no FIVE11_KEY secret (request a free key at 511.org/open-data/token)"
+ },
+ "baywheels": {
+  "stations": 654,
+  "regions": [
+   [
+    "San Francisco",
+    372
+   ],
+   [
+    "Oakland",
+    103
+   ],
+   [
+    "San Jose",
+    81
+   ],
+   [
+    "Berkeley",
+    48
+   ],
+   [
+    null,
+    35
+   ],
+   [
+    "Emeryville",
+    15
+   ]
+  ]
+ }
+}

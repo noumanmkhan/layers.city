@@ -1,0 +1,181 @@
+{
+ "key": "street_sweeping",
+ "looked_for": [
+  "Street Sweeping Schedule"
+ ],
+ "candidates": [
+  [
+   "id",
+   "yhqp-riqs",
+   "(pinned id, not in catalogue)",
+   null,
+   null
+  ]
+ ],
+ "picked": {
+  "id": "yhqp-riqs",
+  "name": "Street Sweeping Schedule",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "San Francisco Public Works",
+  "category": "City Infrastructure",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-05-14",
+  "view_modified": "2026-10-29",
+  "description": "<strong>A. SUMMARY</strong>\nMechanical street sweeping and street cleaning schedule managed by San Francisco Public Works.\n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThis dataset is created by extracting all street sweeping schedule data from a Department of Public Works database, it is then geocoded to add common identifiers such as Centerline Network Number (\"CNN\") then published to the open data portal.\n\n<strong>C. UPDATE PROCESS</strong>\nThis dataset will be updated on an 'as needed' basis, when sweeping schedules change.\n\n<strong>D. HOW TO USE THIS DATASET</strong>\nUse this dataset to understand, track, or analyze street sweeping in San Francisco.\n\n<strong>Please note that bike lane sweeping is not included in this dataset.</strong>\nPublic Works maintains a route book for bike la"
+ },
+ "count": 37878,
+ "geo": null,
+ "columns": [
+  {
+   "name": "cnn",
+   "type": "text",
+   "label": "CNN"
+  },
+  {
+   "name": "corridor",
+   "type": "text",
+   "label": "Corridor"
+  },
+  {
+   "name": "limits",
+   "type": "text",
+   "label": "Limits"
+  },
+  {
+   "name": "cnnrightleft",
+   "type": "text",
+   "label": "CNNRightLeft"
+  },
+  {
+   "name": "blockside",
+   "type": "text",
+   "label": "BlockSide"
+  },
+  {
+   "name": "fullname",
+   "type": "text",
+   "label": "FullName"
+  },
+  {
+   "name": "weekday",
+   "type": "text",
+   "label": "WeekDay"
+  },
+  {
+   "name": "fromhour",
+   "type": "number",
+   "label": "FromHour"
+  },
+  {
+   "name": "tohour",
+   "type": "number",
+   "label": "ToHour"
+  },
+  {
+   "name": "week1",
+   "type": "number",
+   "label": "Week1"
+  },
+  {
+   "name": "week2",
+   "type": "number",
+   "label": "Week2"
+  },
+  {
+   "name": "week3",
+   "type": "number",
+   "label": "Week3"
+  },
+  {
+   "name": "week4",
+   "type": "number",
+   "label": "Week4"
+  },
+  {
+   "name": "week5",
+   "type": "number",
+   "label": "Week5"
+  },
+  {
+   "name": "holidays",
+   "type": "number",
+   "label": "Holidays"
+  },
+  {
+   "name": "blocksweepid",
+   "type": "number",
+   "label": "BlockSweepID"
+  },
+  {
+   "name": "line",
+   "type": "line",
+   "label": "Line"
+  }
+ ],
+ "samples": [
+  {
+   "cnn": "8753101",
+   "corridor": "Market St",
+   "limits": "Larkin St  -  Polk St",
+   "cnnrightleft": "L",
+   "blockside": "SouthEast",
+   "fullname": "Tuesday",
+   "weekday": "Tues",
+   "fromhour": "5",
+   "tohour": "6",
+   "week1": "1",
+   "week2": "1",
+   "week3": "1",
+   "week4": "1",
+   "week5": "1",
+   "holidays": "0",
+   "blocksweepid": "1640782",
+   "line": {
+    "geometry_type": "LineString"
+   }
+  },
+  {
+   "cnn": "8508000",
+   "corridor": "Lower Great Hwy",
+   "limits": "Lincoln Way  -  Irving St",
+   "cnnrightleft": "R",
+   "blockside": "West",
+   "fullname": "Tue 1st, 3rd, 5th",
+   "weekday": "Tues",
+   "fromhour": "13",
+   "tohour": "15",
+   "week1": "1",
+   "week2": "0",
+   "week3": "1",
+   "week4": "0",
+   "week5": "1",
+   "holidays": "0",
+   "blocksweepid": "1645051",
+   "line": {
+    "geometry_type": "LineString"
+   }
+  },
+  {
+   "cnn": "397000",
+   "corridor": "08th Ave",
+   "limits": "Judah St  -  Kirkham St",
+   "cnnrightleft": "L",
+   "blockside": "East",
+   "fullname": "Wed 1st & 3rd",
+   "weekday": "Wed",
+   "fromhour": "8",
+   "tohour": "10",
+   "week1": "1",
+   "week2": "0",
+   "week3": "1",
+   "week4": "0",
+   "week5": "0",
+   "holidays": "0",
+   "blocksweepid": "1636409",
+   "line": {
+    "geometry_type": "LineString"
+   }
+  }
+ ]
+}

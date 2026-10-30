@@ -1,0 +1,151 @@
+{
+ "key": "historic_districts",
+ "looked_for": [
+  "Historic Districts"
+ ],
+ "candidates": [
+  [
+   "id",
+   "63x5-g3m4",
+   "(pinned id, not in catalogue)",
+   null,
+   null
+  ]
+ ],
+ "picked": {
+  "id": "63x5-g3m4",
+  "name": "Historic Districts",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "City and County of San Francisco Planning Department",
+  "category": "Geographic Locations and Boundaries",
+  "licence": "Public Domain U.S. Government",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "A. SUMMARY\nHistoric districts in San Francisco. These include districts listed in Articles 10 and 11 of the San Francisco Planning Code and districts listed or eligible for listing in the California Register of Historical Resources and/or the National Register of Historic Places (links below).\n\nB. HOW THE DATASET IS CREATED\nDistrict boundaries have been mapped by the San Francisco Planning Department. \n\nC. UPDATE PROCESS\nThe data is updated several times a year when new historic districts are approved by the Historic Preservation Commission, or when historic districts are listed or found to be eligible for listing in the California Register of Historical Resources and/or the National Register of Historic Places.  This dataset syncs with the Planning Department's database very night, so any"
+ },
+ "count": 204,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "name_1",
+   "type": "text",
+   "label": "name"
+  },
+  {
+   "name": "cr",
+   "type": "text",
+   "label": "cr"
+  },
+  {
+   "name": "nr",
+   "type": "text",
+   "label": "nr"
+  },
+  {
+   "name": "a10",
+   "type": "text",
+   "label": "a10"
+  },
+  {
+   "name": "a11",
+   "type": "text",
+   "label": "a11"
+  },
+  {
+   "name": "origin",
+   "type": "text",
+   "label": "origin"
+  },
+  {
+   "name": "pos_1",
+   "type": "text",
+   "label": "pos_1"
+  },
+  {
+   "name": "docname",
+   "type": "text",
+   "label": "docname"
+  },
+  {
+   "name": "link",
+   "type": "url",
+   "label": "link"
+  },
+  {
+   "name": "dateadop",
+   "type": "calendar_date",
+   "label": "dateadop"
+  },
+  {
+   "name": "description",
+   "type": "text",
+   "label": "description"
+  },
+  {
+   "name": "date_updated",
+   "type": "calendar_date",
+   "label": "date_updated"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "name_1": "Miraloma Park Historic District Extension",
+   "cr": "Eligible",
+   "nr": "No",
+   "a10": "No",
+   "a11": "No",
+   "origin": "2023-001656ENV",
+   "pos_1": "1926",
+   "docname": "Miraloma Park Historic District extension",
+   "link": {
+    "url": "https://citypln-m-extnl.sfgov.org/external/link.ashx?Action=Download&ObjectVersion=-1&vault={A4A7DACD-B0DC-4322-BD29-F6F07103C6E0}&objectGUID={9A0234E9-D20E-4D17-AE2F-F25D2BB2BDCF}&fileGUID={FF699195-C5F7-4BCF-97AB-377CD03CAF45}"
+   },
+   "description": "All properties on Block 2980 bound by Miraloma Drive, Juanita Way, and Marne Avenue, are determined to be eligible for inclusion in the Miraloma Park Historic District as a continuation of a cohesive collection of Pre-War Period Revival Style residential",
+   "date_updated": "2026-10-29T04:00:18.000"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "name_1": "Russian Hill-Paris Block Architectural Historic District",
+   "cr": "Listed",
+   "nr": "Listed",
+   "a10": "No",
+   "a11": "No",
+   "pos_1": "1880 - 1925",
+   "docname": "Russian Hill-Paris Block Architectural Historic District",
+   "link": {
+    "url": "https://citypln-m-extnl.sfgov.org/external/link.ashx?Action=Download&ObjectVersion=-1&vault={A4A7DACD-B0DC-4322-BD29-F6F07103C6E0}&objectGUID={46B85EEE-811C-4F2D-8941-898B8948B6E1}&fileGUID={06E0B435-8548-4CCE-9291-5F83081AA280}"
+   },
+   "dateadop": "1988-01-07T00:00:00.000",
+   "description": "The Russian Hill/Paris Block Architectural District is a group of eleven single or multiple dwellings facing each other on a single, flat block of Green Street atop Russian Hill in San Francisco. There are eleven residences in eleven different styles: Oc",
+   "date_updated": "2026-10-29T04:00:18.000"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "name_1": "Baker Street Period Revival Bungalows Historic District",
+   "cr": "Eligible",
+   "nr": "No",
+   "a10": "No",
+   "a11": "No",
+   "origin": "2021-008228ENV",
+   "pos_1": "1927-1928",
+   "link": {
+    "url": "https://citypln-m-extnl.sfgov.org/external/link.ashx?Action=Download&ObjectVersion=-1&vault={A4A7DACD-B0DC-4322-BD29-F6F07103C6E0}&objectGUID={537E491B-2D5C-45DE-9C4C-1829C739DE28}&fileGUID={F2F29EEC-4CD1-4D44-8BF4-0FBDA0AA2E31}"
+   },
+   "description": "The west side of Baker Street between Bay and Francisco Street (subject block) possesses a concentration of\r\nhistorically and thematically unified buildings in conjunction with the subject property such that it is eligible as a\r\nhistoric district under C",
+   "date_updated": "2026-10-29T04:00:18.000"
+  }
+ ]
+}

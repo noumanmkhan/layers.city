@@ -1,0 +1,126 @@
+{
+ "key": "article10_landmarks",
+ "looked_for": [
+  "Landmarks Listed in Article 10 of the San Francisco Planning Code"
+ ],
+ "candidates": [
+  [
+   "id",
+   "97yj-54sx",
+   "(pinned id, not in catalogue)",
+   null,
+   null
+  ]
+ ],
+ "picked": {
+  "id": "97yj-54sx",
+  "name": "Landmarks Listed in Article 10 of the San Francisco Planning Code",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "City and County of San Francisco Planning Department",
+  "category": "Housing and Buildings",
+  "licence": "Public Domain U.S. Government",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "<strong>A. SUMMARY</strong>\nHistoric Landmarks Listed in Article 10 of the San Francisco Planning Code\n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nCreated by the the San Francisco Planning Department.  Areas represent parcel boundaries or streets listed in Article 10 of the Planning Code\n\n<strong>C. UPDATE PROCESS</strong>\nAutomated to refresh daily. The data contents are updated a few times a year when new sites are approved by the Historic Preservation Commission.\n\n<strong>D. HOW TO USE THIS DATASET</strong>\nFor further information:\nhttps://codelibrary.amlegal.com/codes/san_francisco/latest/sf_planning/0-0-0-27871"
+ },
+ "count": 394,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "apn",
+   "type": "text",
+   "label": "apn"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "name"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "Address"
+  },
+  {
+   "name": "landmarkno",
+   "type": "number",
+   "label": "LandmarkNo"
+  },
+  {
+   "name": "yeardesignated",
+   "type": "number",
+   "label": "YearDesignated"
+  },
+  {
+   "name": "designationdocument",
+   "type": "url",
+   "label": "DesignationDocument"
+  },
+  {
+   "name": "photo",
+   "type": "url",
+   "label": "Photo"
+  },
+  {
+   "name": "pimlink",
+   "type": "url",
+   "label": "PIMLink"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "apn": "3725088",
+   "name": "Mint Mall and Hall",
+   "address": "951-957 Mission",
+   "landmarkno": "321",
+   "yeardesignated": "2025.0",
+   "designationdocument": {
+    "url": "https://files.sfplanning.org/documents/preservation/LM321.pdf"
+   },
+   "photo": {
+    "url": "https://files.sfplanning.org/documents/preservation/321.jpg"
+   },
+   "pimlink": {
+    "url": "https://sfplanninggis.org/pim/?search=3725/088"
+   }
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "apn": "3650/022",
+   "name": "Duboce Triangle Greek Revival Home",
+   "address": "2173 15th Street",
+   "landmarkno": "342",
+   "yeardesignated": "2026.0",
+   "designationdocument": {
+    "url": "https://sfplanninggis.org/docs/landmarks_and_districts/LM342.pdf"
+   },
+   "photo": {
+    "url": "https://sfplanninggis.org/Preservation/Landmarks/Large/342.jpg"
+   },
+   "pimlink": {
+    "url": "https://sfplanninggis.org/pim?search=3560/022"
+   }
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "apn": "6797046",
+   "name": "Excelsior Branch Library",
+   "address": "4400 MISSION ST",
+   "landmarkno": "0",
+   "yeardesignated": "0.0"
+  }
+ ]
+}

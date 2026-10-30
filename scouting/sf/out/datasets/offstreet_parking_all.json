@@ -1,0 +1,493 @@
+{
+ "key": "offstreet_parking_all",
+ "looked_for": [
+  "SFMTA - Off-Street Parking Locations (Lots and Parking Garages)"
+ ],
+ "candidates": [
+  [
+   "id",
+   "mizu-nf6z",
+   "(pinned id, not in catalogue)",
+   null,
+   null
+  ]
+ ],
+ "picked": {
+  "id": "mizu-nf6z",
+  "name": "SFMTA - Off-Street Parking Locations (Lots and Parking Garages)",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2018-10-01",
+  "view_modified": "2024-05-06",
+  "description": "A. PURPOSE \nSFMTA managed off street parking locations, hours, and amenities. Includes both lots and garages.\t \n\nB. METHODOLOGY\nImported from SFpark data warehouse\n\nC. UPDATE FREQUENCY \nUpdated once per month\t \n\nD. OTHER CRITICAL INFO\nIncludes both lots and garages operated by SFMTA"
+ },
+ "count": 1406,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "point",
+   "label": "the_geom"
+  },
+  {
+   "name": "objectid",
+   "type": "number",
+   "label": "OBJECTID"
+  },
+  {
+   "name": "owner",
+   "type": "text",
+   "label": "OWNER"
+  },
+  {
+   "name": "globalid",
+   "type": "text",
+   "label": "GLOBALID"
+  },
+  {
+   "name": "created_user",
+   "type": "text",
+   "label": "CREATED_USER"
+  },
+  {
+   "name": "created_date",
+   "type": "date",
+   "label": "CREATED_DATE"
+  },
+  {
+   "name": "last_edited_user",
+   "type": "text",
+   "label": "LAST_EDITED_USER"
+  },
+  {
+   "name": "last_edited_date",
+   "type": "date",
+   "label": "LAST_EDITED_DATE"
+  },
+  {
+   "name": "off_id_1",
+   "type": "number",
+   "label": "OFF_ID_1"
+  },
+  {
+   "name": "twohr_1",
+   "type": "number",
+   "label": "TWOHR_1"
+  },
+  {
+   "name": "wedopen",
+   "type": "number",
+   "label": "WEDOPEN"
+  },
+  {
+   "name": "friopen",
+   "type": "number",
+   "label": "FRIOPEN"
+  },
+  {
+   "name": "address_1",
+   "type": "text",
+   "label": "ADDRESS_1"
+  },
+  {
+   "name": "wedclose",
+   "type": "number",
+   "label": "WEDCLOSE"
+  },
+  {
+   "name": "sunopen",
+   "type": "number",
+   "label": "SUNOPEN"
+  },
+  {
+   "name": "early1star",
+   "type": "number",
+   "label": "EARLY1STAR"
+  },
+  {
+   "name": "ver_date_1",
+   "type": "date",
+   "label": "VER_DATE_1"
+  },
+  {
+   "name": "tuesclose",
+   "type": "number",
+   "label": "TUESCLOSE"
+  },
+  {
+   "name": "onehr_1",
+   "type": "number",
+   "label": "ONEHR_1"
+  },
+  {
+   "name": "evestart",
+   "type": "text",
+   "label": "EVESTART"
+  },
+  {
+   "name": "early1end",
+   "type": "number",
+   "label": "EARLY1END"
+  },
+  {
+   "name": "eveend",
+   "type": "text",
+   "label": "EVEEND"
+  },
+  {
+   "name": "secondty_1",
+   "type": "text",
+   "label": "SECONDTY_1"
+  },
+  {
+   "name": "oldhours_1",
+   "type": "text",
+   "label": "OLDHOURS_1"
+  },
+  {
+   "name": "friclosed",
+   "type": "number",
+   "label": "FRICLOSED"
+  },
+  {
+   "name": "earlybird1",
+   "type": "number",
+   "label": "EARLYBIRD1"
+  },
+  {
+   "name": "notes_1",
+   "type": "text",
+   "label": "NOTES_1"
+  },
+  {
+   "name": "thursclose",
+   "type": "number",
+   "label": "THURSCLOSE"
+  },
+  {
+   "name": "eveflat_1",
+   "type": "number",
+   "label": "EVEFLAT_1"
+  },
+  {
+   "name": "assessor_1",
+   "type": "number",
+   "label": "ASSESSOR_1"
+  },
+  {
+   "name": "regmonth_1",
+   "type": "number",
+   "label": "REGMONTH_1"
+  },
+  {
+   "name": "primetyp_1",
+   "type": "text",
+   "label": "PRIMETYP_1"
+  },
+  {
+   "name": "satclose",
+   "type": "number",
+   "label": "SATCLOSE"
+  },
+  {
+   "name": "lotgone",
+   "type": "number",
+   "label": "LOTGONE"
+  },
+  {
+   "name": "twelvehr_1",
+   "type": "number",
+   "label": "TWELVEHR_1"
+  },
+  {
+   "name": "monclose",
+   "type": "number",
+   "label": "MONCLOSE"
+  },
+  {
+   "name": "dailyfla_1",
+   "type": "number",
+   "label": "DAILYFLA_1"
+  },
+  {
+   "name": "g_l_1",
+   "type": "text",
+   "label": "G_L_1"
+  },
+  {
+   "name": "dailyend",
+   "type": "text",
+   "label": "DAILYEND"
+  },
+  {
+   "name": "verifier_1",
+   "type": "text",
+   "label": "VERIFIER_1"
+  },
+  {
+   "name": "name2_1",
+   "type": "text",
+   "label": "NAME2_1"
+  },
+  {
+   "name": "tuesopen",
+   "type": "number",
+   "label": "TUESOPEN"
+  },
+  {
+   "name": "oldhours",
+   "type": "text",
+   "label": "OLDHOURS"
+  },
+  {
+   "name": "assignmt_1",
+   "type": "number",
+   "label": "ASSIGNMT_1"
+  },
+  {
+   "name": "early2star",
+   "type": "number",
+   "label": "EARLY2STAR"
+  },
+  {
+   "name": "regcap_1",
+   "type": "number",
+   "label": "REGCAP_1"
+  },
+  {
+   "name": "thursopen",
+   "type": "number",
+   "label": "THURSOPEN"
+  },
+  {
+   "name": "dailystart",
+   "type": "text",
+   "label": "DAILYSTART"
+  },
+  {
+   "name": "fourhr_1",
+   "type": "number",
+   "label": "FOURHR_1"
+  },
+  {
+   "name": "monopen",
+   "type": "number",
+   "label": "MONOPEN"
+  },
+  {
+   "name": "definiti_1",
+   "type": "text",
+   "label": "DEFINITI_1"
+  },
+  {
+   "name": "early2end",
+   "type": "number",
+   "label": "EARLY2END"
+  },
+  {
+   "name": "threehr_1",
+   "type": "number",
+   "label": "THREEHR_1"
+  },
+  {
+   "name": "sunclose",
+   "type": "number",
+   "label": "SUNCLOSE"
+  },
+  {
+   "name": "mc_cap_1",
+   "type": "number",
+   "label": "MC_CAP_1"
+  },
+  {
+   "name": "earlybird2",
+   "type": "number",
+   "label": "EARLYBIRD2"
+  },
+  {
+   "name": "valetcap_1",
+   "type": "number",
+   "label": "VALETCAP_1"
+  },
+  {
+   "name": "name1_1",
+   "type": "text",
+   "label": "NAME1_1"
+  },
+  {
+   "name": "satopen",
+   "type": "number",
+   "label": "SATOPEN"
+  },
+  {
+   "name": "agency_1",
+   "type": "text",
+   "label": "AGENCY_1"
+  },
+  {
+   "name": "dailymax_1",
+   "type": "number",
+   "label": "DAILYMAX_1"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "objectid": "5",
+   "owner": "Private",
+   "globalid": "{BBBC805D-852B-4BFE-AC8E-879714EE8576}",
+   "off_id_1": "50",
+   "twohr_1": "28",
+   "wedopen": "500",
+   "friopen": "500",
+   "address_1": "235 MONTGOMERY ST",
+   "wedclose": "2000",
+   "sunopen": "0",
+   "early1star": "500",
+   "ver_date_1": "2011-07-13T00:00:00.000Z",
+   "tuesclose": "2000",
+   "onehr_1": "14",
+   "early1end": "830",
+   "oldhours_1": "5-8",
+   "friclosed": "2000",
+   "earlybird1": "23",
+   "notes_1": "Early bird rate is in by 8:30 am out by 5:30 pm.\nTenant monthly rate is 400.\nThis RegCap actually includes valet parking.",
+   "thursclose": "2000",
+   "eveflat_1": "0",
+   "assessor_1": "187",
+   "regmonth_1": "460",
+   "primetyp_1": "PPA",
+   "satclose": "0",
+   "lotgone": "0",
+   "twelvehr_1": "31",
+   "monclose": "2000",
+   "dailyfla_1": "0",
+   "g_l_1": "G",
+   "verifier_1": "MRhodes",
+   "name2_1": "AMPCO",
+   "tuesopen": "500",
+   "oldhours": "5-8",
+   "assignmt_1": "0",
+   "early2star": "0",
+   "regcap_1": "312",
+   "thursopen": "500",
+   "fourhr_1": "31",
+   "monopen": "500",
+   "early2end": "0",
+   "threehr_1": "31",
+   "sunclose": "0",
+   "mc_cap_1": "0",
+   "earlybird2": "0",
+   "valetcap_1": "0",
+   "satopen": "0",
+   "dailymax_1": "31"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "objectid": "1299",
+   "owner": "State of CA",
+   "globalid": "{3CFFD1EB-E6FE-410B-984D-10D77872DAAA}",
+   "off_id_1": "1341",
+   "twohr_1": "0",
+   "wedopen": "0",
+   "friopen": "0",
+   "address_1": "195 Hunters Point Expy",
+   "wedclose": "0",
+   "sunopen": "0",
+   "early1star": "0",
+   "ver_date_1": "2009-09-15T00:00:00.000Z",
+   "tuesclose": "0",
+   "onehr_1": "0",
+   "early1end": "0",
+   "friclosed": "0",
+   "earlybird1": "0",
+   "thursclose": "0",
+   "eveflat_1": "0",
+   "assessor_1": "0",
+   "regmonth_1": "0",
+   "primetyp_1": "FPA",
+   "satclose": "0",
+   "lotgone": "0",
+   "twelvehr_1": "0",
+   "monclose": "0",
+   "dailyfla_1": "0",
+   "g_l_1": "L",
+   "verifier_1": "Matt",
+   "tuesopen": "0",
+   "assignmt_1": "0",
+   "early2star": "0",
+   "regcap_1": "63",
+   "thursopen": "0",
+   "fourhr_1": "0",
+   "monopen": "0",
+   "early2end": "0",
+   "threehr_1": "0",
+   "sunclose": "0",
+   "mc_cap_1": "0",
+   "earlybird2": "0",
+   "valetcap_1": "0",
+   "name1_1": "Candlestick Point SRA",
+   "satopen": "0",
+   "agency_1": "State of CA",
+   "dailymax_1": "0"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "objectid": "1113",
+   "owner": "Private",
+   "globalid": "{0E7D6B10-F485-41D9-BC59-FA84EFF9215D}",
+   "off_id_1": "1210",
+   "twohr_1": "0",
+   "wedopen": "0",
+   "friopen": "0",
+   "address_1": "825 Newhall St",
+   "wedclose": "0",
+   "sunopen": "0",
+   "early1star": "0",
+   "ver_date_1": "2009-09-15T00:00:00.000Z",
+   "tuesclose": "0",
+   "onehr_1": "0",
+   "early1end": "0",
+   "friclosed": "0",
+   "earlybird1": "0",
+   "thursclose": "0",
+   "eveflat_1": "0",
+   "assessor_1": "0",
+   "regmonth_1": "0",
+   "primetyp_1": "CPO",
+   "satclose": "0",
+   "lotgone": "0",
+   "twelvehr_1": "0",
+   "monclose": "0",
+   "dailyfla_1": "0",
+   "g_l_1": "L",
+   "verifier_1": "Matt",
+   "tuesopen": "0",
+   "assignmt_1": "0",
+   "early2star": "0",
+   "regcap_1": "12",
+   "thursopen": "0",
+   "fourhr_1": "0",
+   "monopen": "0",
+   "definiti_1": "religious",
+   "early2end": "0",
+   "threehr_1": "0",
+   "sunclose": "0",
+   "mc_cap_1": "0",
+   "earlybird2": "0",
+   "valetcap_1": "0",
+   "name1_1": "St John Baptist Church",
+   "satopen": "0",
+   "dailymax_1": "0"
+  }
+ ]
+}

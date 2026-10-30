@@ -1,0 +1,1367 @@
+{
+ "mtc_region_incorporatedplace_clp": {
+  "url": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/ArcGIS/rest/services/region_incorporatedplace_clp/FeatureServer/0",
+  "name": "region_incorporatedplace_clp",
+  "geometry": "esriGeometryPolygon",
+  "count": 101,
+  "last_edit": "2025-07-02",
+  "fields": [
+   [
+    "objectid",
+    "esriFieldTypeOID",
+    "objectid"
+   ],
+   [
+    "fipst",
+    "esriFieldTypeString",
+    "State FIPS"
+   ],
+   [
+    "fipco",
+    "esriFieldTypeString",
+    "County FIPS"
+   ],
+   [
+    "jurname",
+    "esriFieldTypeString",
+    "Jurisdiction"
+   ],
+   [
+    "Shape__Area",
+    "esriFieldTypeDouble",
+    "Shape__Area"
+   ],
+   [
+    "Shape__Length",
+    "esriFieldTypeDouble",
+    "Shape__Length"
+   ]
+  ],
+  "samples": [
+   {
+    "objectid": 405,
+    "fipst": "06",
+    "fipco": "095",
+    "jurname": "Dixon",
+    "Shape__Area": 0.001923448643537995,
+    "Shape__Length": 0.3642369574413644
+   },
+   {
+    "objectid": 406,
+    "fipst": "06",
+    "fipco": "095",
+    "jurname": "Fairfield",
+    "Shape__Area": 0.0111636849255774,
+    "Shape__Length": 1.2771625083774147
+   },
+   {
+    "objectid": 407,
+    "fipst": "06",
+    "fipco": "095",
+    "jurname": "Rio Vista",
+    "Shape__Area": 0.0017663147068560647,
+    "Shape__Length": 0.26797432519861153
+   }
+  ],
+  "copyright": "",
+  "max_record_count": 2000
+ },
+ "mtc_region_incorporatedplace": {
+  "url": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/ArcGIS/rest/services/region_incorporatedplace/FeatureServer/0",
+  "name": "region_incorporatedplace",
+  "geometry": "esriGeometryPolygon",
+  "count": 101,
+  "last_edit": "2025-07-02",
+  "fields": [
+   [
+    "objectid",
+    "esriFieldTypeOID",
+    "objectid"
+   ],
+   [
+    "fipst",
+    "esriFieldTypeString",
+    "State FIPS"
+   ],
+   [
+    "fipco",
+    "esriFieldTypeString",
+    "County FIPS"
+   ],
+   [
+    "jurname",
+    "esriFieldTypeString",
+    "Jurisdiction"
+   ],
+   [
+    "Shape__Area",
+    "esriFieldTypeDouble",
+    "Shape__Area"
+   ],
+   [
+    "Shape__Length",
+    "esriFieldTypeDouble",
+    "Shape__Length"
+   ]
+  ],
+  "samples": [
+   {
+    "objectid": 203,
+    "fipst": "06",
+    "fipco": "097",
+    "jurname": "Cloverdale",
+    "Shape__Area": 0.0008420166413998231,
+    "Shape__Length": 0.2548425794784104
+   },
+   {
+    "objectid": 204,
+    "fipst": "06",
+    "fipco": "097",
+    "jurname": "Cotati",
+    "Shape__Area": 0.0005010262002542731,
+    "Shape__Length": 0.18407729149956756
+   },
+   {
+    "objectid": 205,
+    "fipst": "06",
+    "fipco": "097",
+    "jurname": "Healdsburg",
+    "Shape__Area": 0.0011842916774185142,
+    "Shape__Length": 0.329401630669053
+   }
+  ],
+  "copyright": "",
+  "max_record_count": 2000
+ },
+ "mtc_region_county_clp": {
+  "url": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/ArcGIS/rest/services/region_county_clp/FeatureServer/0",
+  "name": "region_county_clp",
+  "geometry": "esriGeometryPolygon",
+  "count": 9,
+  "last_edit": "2024-09-20",
+  "fields": [
+   [
+    "objectid",
+    "esriFieldTypeOID",
+    "objectid"
+   ],
+   [
+    "fipst",
+    "esriFieldTypeString",
+    "State FIPS Code"
+   ],
+   [
+    "fipco",
+    "esriFieldTypeString",
+    "County FIPS Code"
+   ],
+   [
+    "coname",
+    "esriFieldTypeString",
+    "County Name"
+   ],
+   [
+    "Shape__Area",
+    "esriFieldTypeDouble",
+    "Shape__Area"
+   ],
+   [
+    "Shape__Length",
+    "esriFieldTypeDouble",
+    "Shape__Length"
+   ]
+  ],
+  "samples": [
+   {
+    "objectid": 28,
+    "fipst": "06",
+    "fipco": "001",
+    "coname": "Alameda",
+    "Shape__Area": 0.19690581202121393,
+    "Shape__Length": 3.927896303116262
+   },
+   {
+    "objectid": 29,
+    "fipst": "06",
+    "fipco": "013",
+    "coname": "Contra Costa",
+    "Shape__Area": 0.19366600691182612,
+    "Shape__Length": 5.521490243433535
+   },
+   {
+    "objectid": 30,
+    "fipst": "06",
+    "fipco": "041",
+    "coname": "Marin",
+    "Shape__Area": 0.1395965911915482,
+    "Shape__Length": 4.577377727346415
+   }
+  ],
+  "copyright": "",
+  "max_record_count": 2000
+ },
+ "mtc_region_county": {
+  "url": "https://services3.arcgis.com/i2dkYWmb4wHvYPda/ArcGIS/rest/services/region_county/FeatureServer/0",
+  "name": "region_county",
+  "geometry": "esriGeometryPolygon",
+  "count": 9,
+  "last_edit": "2023-01-20",
+  "fields": [
+   [
+    "objectid",
+    "esriFieldTypeOID",
+    "objectid"
+   ],
+   [
+    "fipst",
+    "esriFieldTypeString",
+    "fipst"
+   ],
+   [
+    "fipco",
+    "esriFieldTypeString",
+    "fipco"
+   ],
+   [
+    "coname",
+    "esriFieldTypeString",
+    "coname"
+   ],
+   [
+    "Shape__Area",
+    "esriFieldTypeDouble",
+    "Shape__Area"
+   ],
+   [
+    "Shape__Length",
+    "esriFieldTypeDouble",
+    "Shape__Length"
+   ]
+  ],
+  "samples": [
+   {
+    "objectid": 10,
+    "fipst": "06",
+    "fipco": "097",
+    "coname": null,
+    "Shape__Area": 0.4730333496745516,
+    "Shape__Length": 3.9863084572426906
+   },
+   {
+    "objectid": 11,
+    "fipst": "06",
+    "fipco": "075",
+    "coname": null,
+    "Shape__Area": 0.06141418340439486,
+    "Shape__Length": 1.6502561927440813
+   },
+   {
+    "objectid": 12,
+    "fipst": "06",
+    "fipco": "041",
+    "coname": null,
+    "Shape__Area": 0.2201800503053164,
+    "Shape__Length": 2.422524954355086
+   }
+  ],
+  "copyright": "",
+  "max_record_count": 2000
+ },
+ "mtc_services": [
+  "101_lighting_only_C_hagen_July_2026_csv",
+  "10252023_Preservation_Ecosystem_Map_WFL1",
+  "2019_Priority_Development_Area_Letter_of_Interest_Guide_WFL1",
+  "2024_PCAGrants_All_Final",
+  "2025_Blueprint_Networks",
+  "2030_Blueprint_Networks",
+  "2035_Blueprint_Networks",
+  "2035_Employment_by_MAZ",
+  "2040_Blueprint_Networks",
+  "2050_Blueprint_Networks",
+  "2050_Employment_by_MAZ",
+  "2050_Plan_Bay_Area_Growth_Geographies_WFL1",
+  "417fbc2f89db4c65bad9d7d814c4fbfd_public_view_1625693809490",
+  "511_Transit_Routes",
+  "511_Transit_Routes_by_Subcategory",
+  "AB617_CERP_Community_Boundary_BG",
+  "AB617_R_SP_Air_Monitoring_Boundary",
+  "AB617_Universe",
+  "Active_Transportation_Network",
+  "Additional_PDA_Eligible_Area_(potential_Blueprint_transit)",
+  "Adopted_Priority_Sites_WFL1",
+  "AffordableHousingPipeline_Geocode",
+  "Aging_Business_Parks_and_Shopping_Centers",
+  "Airport_Influence_Areas_in_SB79_Jurisdictions",
+  "Alameda_County_Proposed_PUMA_Delineations",
+  "Alameda_Priority_Sites",
+  "Alameda_Priority_Sites_Draft_Map_WFL1",
+  "all_grant_projects",
+  "all_projects",
+  "all_projects_identity_short",
+  "All_Stations_HM_Buffer_Housing_Units",
+  "Amenities_DrinkingFountains",
+  "Amenities_Erosion",
+  "Amenities_Fishing",
+  "Amenities_PublicMonitoring",
+  "Amenities_Restroom_Test",
+  "Amenities_Seating",
+  "Amenities_Tables",
+  "Amenities_WasteReceptacles_Test",
+  "Approved_Priority_Sites_Detailed_Data_WFL1",
+  "BAAQMD_Boundary_2021",
+  "BAAQMD_ISR_Warehouse_Request_WFL1",
+  "BAAQMD_Jurisdiction",
+  "BAIFA_I680_civil_locates",
+  "BARC_Disadvantaged_Communities_Overlay",
+  "BARC_Disadvantaged_Communities_Within_Urbanized_Areas",
+  "BART_Stations",
+  "BART_Stations_HM_Housing_Capacity",
+  "Base_2050_2ft",
+  "Bay Area Businesses 2023 Clipped to R_SP AM Boundary",
+  "Bay_Area_Census_Tracts_2010",
+  "Bay_Area_Disadvantaged_Communities",
+  "Bay_Area_Incorp_Places_Counties_2020",
+  "Bay_Area_Opportunity_Zones",
+  "Bay_Area_Paratransit_Service_Areas_2022",
+  "Bay_Area_Places_2020",
+  "Bay_Area_Trails_Collaborative_network",
+  "bay_trail",
+  "bay_trail_connector_trails",
+  "bay_trail_fieldwork_results",
+  "bay_trail_gaps",
+  "BayArea_Ethnic_Minority_Concentration_Tracts_ACS2016_5yr",
+  "BayArea_SB35_Determination_2018_WGS84",
+  "BayAreaDACs",
+  "BayREN_BRRR_Eligibility_Map_WFL1",
+  "bayWheels_proposed_bike_stations",
+  "BCDC_ART_Indicators_2017",
+  "bcdc_art_slr_inundation_108",
+  "bcdc_art_slr_inundation_66",
+  "Benson_Lake_Loop_WFL1",
+  "Benson_Lakes_Loops_Photo_Points",
+  "bikeshare_east_bay_trips_2017_May_2018",
+  "Blue_Ribbon_Transit_Recovery_Task_Forcet_Headway_Exploration_Map_WFL1",
+  "BRTF_Transit_Hubs",
+  "Bus_Stop_Headways_During_Peak_Period_in_2019",
+  "BVHP_CERP_Childcare_Centers",
+  "BVHP_CERP_Elder_Care_Facilities",
+  "BVHP_CERP_Healthcare_Centers",
+  "BVHP_CERP_Hospitals",
+  "BVHP_CERP_Private_Schools",
+  "BVHP_CERP_Public_Schools",
+  "BVHP_San_Francisco_Zoning",
+  "BVHP_Traffic_Volumes",
+  "CalEnviroScreen_3",
+  "CalEnviroScreen_4_Air_District_Jurisdiction",
+  "CalEnviroScreen_4_and_5_Union",
+  "CalEPA_DACs_and_MTC_Recommended_Criterion_WFL1",
+  "calepa_sb535_dac_2022",
+  "CalFire_Active_Fire_Perimeters_2017",
+  "California_Protected_Areas_Database_Open_Space",
+  "CALTRAIN_Stations_HM_Buffer_Housing_Units",
+  "caltrans_needs_linear",
+  "caltrans_needs_point",
+  "Caltrans_PM_Boss811",
+  "CARECommunities",
+  "cde_school_public",
+  "cdf_fire_responsibility_areas_and_risk",
+  "cdf_wildfire_perimeters",
+  "cdf_wildland_urban_interface",
+  "cdot_ca_transit_routes",
+  "cdot_ca_transit_stops",
+  "CEJS_Tract",
+  "census_bay_area_tracts_2000",
+  "census_bay_area_tracts_2010",
+  "census_bay_area_tracts_2020",
+  "census_st_county_clpd",
+  "census_urban_area_2020",
+  "CES_4_Diesel_PM_Percentile",
+  "CES4_BAAQMD_Top30",
+  "cgs_alquist_priolo_zones",
+  "cgs_landslide_study_zones",
+  "cgs_liquefaction_study_zones",
+  "Change_in_Households_per_Acre_Revised",
+  "Change_in_Jobs_per_Acre",
+  "chhs_healthcare_facilities",
+  "City_of_Oakland_Priority_Sites_WFL1",
+  "City_TPAs",
+  "Clipper_Retail_Locations_time_with_dst",
+  "Clipper_Retail_October_2023_WFL1",
+  "ClipperCard_Replacement_FC",
+  "COCs_NPH",
+  "Commercial_Corridors_screened",
+  "communities_of_concern_2018_w_acs2016",
+  "communities_of_concern_2020_acs2018",
+  "Community_Boundary",
+  "CommunityAssets_FloodRiskStoryMap",
+  "composit_exceedance",
+  "Contra_Costa_County_Proposed_PUMA_Delineations",
+  "County_Boundaries",
+  "county_vmt_metrics_taz",
+  "CTCAC_HCD_Opportunity_Areas_2017_WGS84",
+  "dacFeatures_nad83",
+  "Daly_City_Study_Area",
+  "Daytime_Population_by_MAZ",
+  "Daytime_Population_Residents_by_MAZ",
+  "Daytime_Population_Workers_by_MAZ",
+  "Delta_shoreline_M3Det_clippedbycounty",
+  "Draft_Bay_Area_Zoning_2023",
+  "draft_equity_priority_communities_pba2050plus_acs2022a",
+  "Draft_PBA50_Blueprint_Modeled_Growth_Geographies_WFL1",
+  "Draft_PDA_Growth_Framework",
+  "Draft_Plan_Bay_Area_2050_Blueprint_Growth_Geographies_WFL1",
+  "Draft_Plan_Bay_Area_2050_Blueprint_Modeled_Growth_Geographies_WFL1",
+  "DRAFT_TOC_Transit_Stations_Existing_June_2023_",
+  "DRAFT_TOC_Transit_Stops_Existing_June_2023_",
+  "DRAFT_TOC_Transit_Stops_June_2023_",
+  "DRAFT_Transit_Stops_Planned_Plan_Bay_Area_2050_",
+  "earthquake_deaggregation_region",
+  "East_Oakland",
+  "EcoAtlas_Habitat_Project_Impact_Sites",
+  "ecoatlas_habitat_project_site_areas",
+  "EcoAtlas_Habitat_Project_Sites",
+  "ecoatlas_habitat_project_sites_src",
+  "Emissions_Inventory_Boundary",
+  "employment_investment_areas",
+  "EN4_Urban_Growth_Boundary",
+  "EPCs_and_SLR_WFL1_view",
+  "eq_berryessa",
+  "eq_calaveras_all",
+  "eq_calaveras_central",
+  "eq_concord_southerngreenvalley",
+  "eq_greatvalley_4b_gordonvalley",
+  "eq_greatvalley_5_kirbyhills",
+  "eq_greenville",
+  "eq_hayward_northsouth",
+  "eq_hayward_south",
+  "eq_maacama",
+  "eq_mountdiablo",
+  "eq_rodgerscreek",
+  "eq_sanandreas_allnorthern",
+  "eq_sanandreas_peninsula",
+  "eq_sangregorio",
+  "eq_westnapa",
+  "equity_priority_communities_2025_acs2018",
+  "esri_bay_area_water_bodies",
+  "ExistingPCAs_PointsAreas",
+  "express_lanes_2025",
+  "express_lanes_2025_begend_pts",
+  "Express_Lanes_May2019_WFL1",
+  "FebProjectMap2_WFL1",
+  "fema_flood_zones",
+  "fema_Flood_Zones_2015",
+  "ferry_routes",
+  "ferry_terminals",
+  "FHSZ_2025",
+  "Final_Blueprint_Draft_2_WFL1",
+  "Final_Blueprint_Growth_Geographies_Model_Details",
+  "Final_Blueprint_Growth_Geographies_WFL1",
+  "Find_Locations_in_PCAGrants_ExclNo_1018",
+  "FMMP_Urban",
+  "fmmp_urbanized_area",
+  "Frontline_Communities_WFL1",
+  "gis_TRANSPORTATION_Transit_Hubs",
+  "gp_base_polygon_2024",
+  "growth_boundaries_2019",
+  "Growth_Geographies",
+  "halfMile_NPH",
+  "Hazard_Overlay_Lookup",
+  "Hazard_Viewer_Map_WFL1",
+  "HESS_parcels_newark_gilroy_subset_v2",
+  "high_quality_transit_corridors_1_2_mile_2017",
+  "high_quality_transit_corridors_1_4_mile_2017",
+  "HistoricWildfirePerimeters_1950_2016",
+  "Housing_Policy_Toolkit_7_20_18",
+  "I_California_Protected_Areas",
+  "I680_Backhaul_As_Built_South",
+  "I680_Backhaul_North",
+  "I680_backhaul_South_addon",
+  "I680_Caltrans_PM",
+  "I680_Electrical_ETS_Lighting_North",
+  "I680_Electrical_ETS_Main_St_Updates",
+  "I680_lighting_north",
+  "I680_South_ETS",
+  "I680_STA_numbering",
+  "I80_Backhaul_AsBuilt",
+  "I80_Caltrans_PM",
+  "I80_Electrical_ETS_AsBuilt",
+  "I80_STA_numbering",
+  "I80_USA_shape_20260513",
+  "Infill_Opportunity_Zone_2017",
+  "Intersect_of_Bay_Area_Places_2020_and_Bay_Area_Census_Tracts_2010",
+  "IRWM_Boundary",
+  "IRWM_Map_V2_WFL1",
+  "ISR_Warehouses_WFL1",
+  "Jobs_Housing_Fit_Ratio",
+  "Jurisdiction_Limits",
+  "LargePublicSites_screened",
+  "lifeline_routes",
+  "lines",
+  "liq_berryessa",
+  "liq_calaveras_all",
+  "liq_calaveras_central",
+  "liq_concord_southerngreenvalley",
+  "liq_greenville",
+  "liq_hayward_northsouth",
+  "liq_hayward_south",
+  "liq_maacama",
+  "liq_mountdiablo",
+  "liq_rodgerscreek",
+  "liq_sanandreas_allnorthern",
+  "liq_sanandreas_peninsula",
+  "liq_sangregorio",
+  "liq_westnapa",
+  "Major_Public_Land_Projects_(PBA_2050)",
+  "Major_Rail_Stations",
+  "Major_Transit_Existing_2015",
+  "Map",
+  "maxdua_poly_final",
+  "mcl_exceedance",
+  "MMBN_CAPITOL_ROUTE_MTC",
+  "Mobility_Hub_Buffer",
+  "MTC_Communities_of_Concern_ACS_2010_2014_2017",
+  "mtc_mobility_hubs_2020_updt",
+  "mtc_obag4_pdatoconemilebuffer",
+  "mtc_passenger_rail_stations_2024",
+  "mtc_passenger_railways_2024",
+  "MTC_Public_Lands_Workforce_Housing_Study_2018_WFL1",
+  "mtc_sb79_jurisdictions_with_pop_acs2019_2023",
+  "mtc_sb79_tod_access_points",
+  "mtc_sb79_tod_stations",
+  "mtc_sb79_tod_stops",
+  "mtc_sb79_tod_zones",
+  "mtc_tip2027_projects_line",
+  "mtc_tip2027_projects_polygon",
+  "mtc_vmt_home_work_pba2050p",
+  "MUNI_Stations_HM_Buffer_Housing_Units",
+  "Napa_Priority_Sites__for_City_Review__WFL1",
+  "Natural_Land_PCA_Eligibility_v0a",
+  "New_and_Modified_PDAs_2023_WFL1",
+  "Nike_Stores",
+  "Nike_Stores_50_Mile_Buffer_Sales_Territory_Data_Stats",
+  "Nike_Stores_California_Sales_Territory",
+  "no_development_sites_pba2040",
+  "Non_Urbanized_Areas",
+  "Oakland_Priority_Sites_WFL1",
+  "Oakland_Sites",
+  "OBAG_2_Transportation_Projects_Point_Features",
+  "OBAG_Transportation_Projects_Line_Features",
+  "obag3_pdaonemilebuffer",
+  "obag3_projects_line",
+  "obag3_projects_poly",
+  "obag3_projects_pt",
+  "oehha_calenviroscreen4",
+  "oehha_calenviroscreen5_draft",
+  "Opportunity_Zones_in_Disadvantaged_Communities",
+  "Outreach_Base_Map_WFL1",
+  "parcel_hazard",
+  "park_and_ride_lots_2007",
+  "Passenger_Rail_Stations_2018",
+  "Passenger_Railways_2018",
+  "PBA_2050_Draft_Blueprint_Growth_Geographies",
+  "PBA_2050_Mall_and_Office_Park_Projects",
+  "pba2040_forecast_employment",
+  "pba2040_forecast_households",
+  "pba2040_forecast_landuse_transportation",
+  "pba2040_forecast_population_demographics",
+  "pba2040_projections_co_fpop_age",
+  "pba2040_projections_co_hh_pop",
+  "pba2040_projections_co_job_emp",
+  "pba2040_projections_co_mpop_age",
+  "pba2040_projections_co_tpop_age",
+  "pba2040_projections_juris_fpop_age",
+  "pba2040_projections_juris_hh_pop",
+  "pba2040_projections_juris_job_emp",
+  "pba2040_projections_juris_mpop_age",
+  "pba2040_projections_juris_tpop_age",
+  "pba2040_projections_tract_hh_pop",
+  "pba2040_projections_tract_job",
+  "pba2050_growth_geographies_2020",
+  "PBA50_VMT_Maps",
+  "PBA50plus_EN1_Analysis_AllProjects",
+  "PBA50plus_EN1_RPL",
+  "pba50plus_fbp_growth_geographies",
+  "PCA_2025_Authoritative",
+  "pca_eligibilityareas_climateadaptation",
+  "PCAGrants_All_Points_1017",
+  "PCAGrants_Featured2_1018",
+  "PCB_BayMargins_BayRMP_20250807",
+  "PDA_and_PDA_Eligible_Areas_WFL1",
+  "PDA_and_TPA_061319",
+  "PDA_Eligible_Areas_3_WFL1",
+  "PDA_Eligible_Areas_March_2020",
+  "PDA_Eligible_Map4_WFL1",
+  "PDA_Letter_of_Interest_Guide_WFL1",
+  "PDA_only_061319",
+  "PDA_only_071019",
+  "PDA_Plan_Adopt_Sept_2018_WFL1",
+  "pda_tpa_overlay",
+  "PDA_TPA_Overlay_2017",
+  "PDAs",
+  "PDAs_and_Additional_PDA_Eligible_Areas_for_Webmap_WFL1",
+  "PDAs_and_PDA_Eligible_Areas_2019_(2)",
+  "PDAs_and_PDA_Eligible_Areas_4_WFL1",
+  "PDAs_and_PDA_Eligible_Areas_v6_WFL1",
+  "Performance_Equity_Results_v3",
+  "Permitted_Facilities",
+  "Permitted_Stationary_Sources",
+  "phg_exceedance",
+  "Place_Grid_Index_5mile",
+  "placeholders_21032023",
+  "places_Identity_overlay",
+  "places_Identity_UrbanAreas",
+  "Places_Urbanized_Areas_UGB",
+  "places_w_remainder",
+  "Plan_Bay_Area_2050__Resilience_Project_List_WFL1",
+  "Plan_Bay_Area_2050_Final_Blueprint_Growth_Geographies__model_detail__WFL1",
+  "Plan_Bay_Area_2050_Final_Blueprint_Growth_Geographies_WFL1",
+  "Plan_Bay_Area_2050_Mall_and_Office_Park_Reuse_Projects_WFL1",
+  "planbayarea2050_rtp_line",
+  "planbayarea2050_rtp_point",
+  "planbayarea2050_rtp_polygon",
+  "Planning_2050_4p9ft",
+  "points",
+  "polys",
+  "Portions_of_PDAs_meeting_program_Transit_Criteria",
+  "ports",
+  "Potential_New_PDA_Eligible_Areas_(potential_Blueprint_transit)",
+  "Potential_Priority_Areas_v1_WFL1",
+  "PotentialFocusAreas_v2",
+  "poverty_2x_fpl_2018",
+  "PPA_and_PDA_071019",
+  "PPA_only_071019",
+  "priority_conservation_areas_pt_pba2050_2020_mtc",
+  "Priority_Development_Area_Eligible_Areas",
+  "Priority_Development_Areas_(March_2020)",
+  "priority_development_areas_pba2040",
+  "priority_development_areas_pba2050",
+  "Priority_Development_Areas_Plan_Bay_Area_2050_Plus",
+  "Priority_Production_Area_Eligibility_Map_WFL1",
+  "Priority_Production_Areas_(March_2020)",
+  "priority_production_areas_current",
+  "Priority_Sites__for_PBA50__Pipeline__WFL1",
+  "Priority_Sites_Current_WFL1",
+  "Priority_Sites_Nominations_WFL1",
+  "probabilistic_seismic_hazard_assessment",
+  "project_costing_inprogress_inventory_08032023",
+  "project_costing_studies_20032023",
+  "project_level_inventory_NOstudies_22022023",
+  "project_level_inventory_studies_22022023",
+  "project_level_placeholders_22022023",
+  "Project_Mode",
+  "Public_Lands_Suitable_For_Housing_Development_2018_WFL1",
+  "Public_Parcels_Qualifying_for_Tax_Credits_WGS84",
+  "PUMA_2020_Delineation_Baseline_Alt",
+  "quarterMile_NPH",
+  "Race_and_Ethnicity_by_census_block",
+  "rb14_routes",
+  "RBP_2018",
+  "REAP_2_0_Preservation_Pilot_Eligible_Areas_2025_WFL1",
+  "REAP_2_0_Preservation_Pilot_Eligible_Areas_WFL1",
+  "region_2020_blockgroup",
+  "region_2020_blockgroup_clp",
+  "region_2020_censustract",
+  "region_blockgroup",
+  "region_blockgroup_clp",
+  "region_censustract",
+  "region_county",
+  "region_county_clp",
+  "region_incorporatedplace",
+  "region_incorporatedplace_clp",
+  "region_jurisdiction",
+  "region_jurisdiction_clp",
+  "region_road",
+  "region_spheres_of_influence",
+  "region_water_area",
+  "regional_bike_facilities",
+  "regional_bikeway_network_2019",
+  "Regional_Housing_Need_Assessment_2015_to_2023_Housing_Opportunity_Sites",
+  "regional_housing_need_assessment_sites",
+  "Regional_Recreation_PCA_Eligibility",
+  "RegionalHousingNeedAssessment_20072014_HousingElementSites",
+  "RegionalHousingNeedAssessment_20152023_HousingElementSites",
+  "Regionally_Identified_Climate_Adaptation_PCA",
+  "Regionally_Identified_Climate_Adaptation_PCA_Simple",
+  "Regionally_Identified_Natural_Land_PCA",
+  "Regionally_Identified_Regional_Recreation_PCA",
+  "Regionally_Identified_Urban_Greening_PCA",
+  "Regionally_Identified_Working_Land_PCA",
+  "residentialpermits_attributes",
+  "residentialpermits_features",
+  "RHNA_Housing_Elements_Sites_WFL1",
+  "RHNA_Housing_Elements_v3_WFL1",
+  "RHNA_Housing_Elements_WFL1",
+  "RHNA_Sites_V2_WFL1",
+  "Richmond_North_Richmond_San_Pablo",
+  "rural_community_investment_areas",
+  "San_Francisco_Proposed_PUMAs_2020",
+  "San_Jose_Priority_Sites_WFL1",
+  "San_Leandro_Potential_Priority_Sites",
+  "Santa_Rosa_Priority_Sites_WFL1",
+  "SB35_Map_Overlay__Simplified",
+  "SB50_Peak_Period_Routes_15_mins_or_Better_Headways",
+  "SB50_Rail_Ferry_Stops",
+  "scl",
+  "Seamless_Nodes",
+  "sensitive_communities",
+  "SF_36ft_MaxHeights",
+  "SF_above36ft_MaxHeights",
+  "SF_above55ft_MaxHeights",
+  "SF_above75ft_MaxHeights",
+  "SF_Zoning",
+  "sfei_elu_2020_rel1",
+  "sfei_operational_landscape_units_v1r1",
+  "SFEP_Full_Estuary",
+  "SFEP_Planning",
+  "Shoreline_access_points_LEPView",
+  "Shoreline_access_points_LowIncView",
+  "Shoreline_access_points_NoDemoView",
+  "Shoreline_access_points_NoVehicleView",
+  "Shoreline_access_points_POCView",
+  "Shoreline_access_service_areas",
+  "Simulated_Vehicle_Miles_Traveled_by_Place_of_Residence_2017",
+  "Simulated_Vehicle_Miles_Traveled_by_Place_of_Work_2017",
+  "Simulated_VMT_per_Capita_by_Place_of_Residence_RTP_2013",
+  "Simulated_VMT_per_Capita_by_Place_of_Work_RTP_2013",
+  "Simulated_VMT_per_capita_by_residence_2020",
+  "Simulated_VMT_per_capita_by_residence_2030",
+  "Simulated_VMT_per_capita_by_residence_2040",
+  "Sites_Visited(Sheet1)",
+  "SLR_with_PDAs_TOCs_Map_WFL1",
+  "Sonoma_proposed_PUMA",
+  "SonomaCountyVacantParcels_Geocode",
+  "STA_numbering_Boss811",
+  "State_Adopted_Opportunity_Zones",
+  "State_owned_sites_in_the_Bay_Area_WFL1",
+  "subregional_study_areas_2007",
+  "survey123_04e75096ba06407780343ce151a01a0e_form",
+  "survey123_41b19df3d8494743b746c7422ca12e48_form",
+  "survey123_922697477bbb434f95e052677dadc6d2_form",
+  "survey123_9d5362a009bd45acba9e757035fce1b1_form",
+  "survey123_ac1696d569c14be4ad3f9539a63f82ad_results",
+  "survey123_bd09514733514af6969b8427ed1eb6b7_form",
+  "survey123_e0c24288aaca44358857a27a7d46fdf1",
+  "T2010_Developed_prj",
+  "T2014_Developed_prj",
+  "tip2023_projects_line",
+  "tip2023_projects_point",
+  "tip2023_projects_polygon",
+  "tip2025_line",
+  "tip2025_polygon",
+  "TM2_network_QA_Alameda_2015",
+  "TOC_Transit_Stations_v0m",
+  "TOC_Transit_Stations_Weighted_Averages",
+  "Total_Employment_by_MAZ",
+  "Total_Population_by_MAZ",
+  "TPA_Non_Bus_Eligible_Stops_2019",
+  "TPA_only_061319",
+  "TPAs",
+  "TPAs_NPH",
+  "TPEAs_TPAs",
+  "TPI_inventory_geo_index",
+  "TPI_inventory_geo_line",
+  "TPI_inventory_geo_mpoint",
+  "TPI_inventory_geo_polygon",
+  "tracts_tenure_nad83",
+  "Transit_Neighborhoods",
+  "Transit_Operator_Route_Service_Disruptions",
+  "Transit_Operator_Stops",
+  "transit_priority_areas_2026",
+  "Transit_Priority_Project_Eligible_Areas_2017_SB375_Plan_Bay_Area_2040_Official",
+  "Transit_Routes_by_Mode",
+  "transitstops_existing_planned_2021",
+  "transportation_analysis_zones_1454",
+  "Travel_Analysis_Zones",
+  "travel_model_super_districts",
+  "Travel_Model_Two_MAZ_TAZ_v2_2_updated_WFL1",
+  "tsunami_evacuationplanning",
+  "tsunami_safrr_scenario",
+  "updated_contamination_and_vulnerability_layers_WFL1",
+  "Urban_Centers",
+  "Urban_Edge_Sites",
+  "Urban_Greening_PCA_Eligibility",
+  "Urban_Growth_Boundaries",
+  "Urban_Growth_Boundary_2016",
+  "US101_Lighting_data_for_arcGIS",
+  "USEPA_Climate_Pollution_Reduction_V2_WFL1",
+  "usgs_existing_landslide_areas",
+  "USGS_flooding",
+  "usgs_liquefaction_susceptibility",
+  "Viable_Publicly_Owned_Parcels_WGS84",
+  "vpp_map_4_WFL1",
+  "VTA_Stations_HM_Buffer_Housing_Units",
+  "water_test_locations_all",
+  "West_Oakland",
+  "WetlandAccessAmenities_Routes",
+  "WetlandAccessAmenities_Routes_ViewLayer",
+  "WetlandAccessAmenities_SiteOptions",
+  "Working_Land_PCA_Eligibility",
+  "Final_Blueprint_Growth_Geographies_Model_Details",
+  "Williamson_Act_Tile_Layer",
+  "CMS_Transit_Travel_Times_Map_WFL1",
+  "I80_BAIFA_Assets_view_only",
+  "Electrical_ETS_Lighting_Boss811",
+  "Backhaul_As_built_Boss811",
+  "Jurisdiction_Corridor_Buffers_v3a",
+  "mtc_transit_service_areas_2023",
+  "cdot_ca_hq_transit_areas",
+  "cdot_ca_hq_transit_stops",
+  "BAIFA_assets_Boss811",
+  "cdot_br_hq_transit_stops_apr2026",
+  "bike_share_stations",
+  "mtc_tip2027_projects_point",
+  "EcoAtlas_HabitatProjects_20260831",
+  "Transit_Priority_Areas_(2026)",
+  "EcoAtlas_HabitatProjects_SitesActivities_20260722",
+  "Bay_Area_Air_District_Zip_Codes_WFL1",
+  "mtc_apr_certificates_2026",
+  "mtc_apr_permits_2026",
+  "EcoAtlas_HabitatProjects_BenefitsCommunitiesTest_20261008",
+  "mtc_apr_entitlements_2026",
+  "Pullboxes_Vaults_Boss811",
+  "Shoreline_Amenities_Map_PublicView"
+ ],
+ "sfmta_master_layers": [
+  [
+   0,
+   "MTA.stopsigns"
+  ],
+  [
+   1,
+   "MTA.signals"
+  ],
+  [
+   2,
+   "MTA.speedlimits"
+  ],
+  [
+   4,
+   "MTA.clearanceheights"
+  ],
+  [
+   5,
+   "MTA.vehiclerestrictions"
+  ],
+  [
+   6,
+   "MTA.commutershuttles_stops"
+  ],
+  [
+   8,
+   "MTA.Muni_stops"
+  ],
+  [
+   9,
+   "MTA.Muni_simpleroutes"
+  ],
+  [
+   10,
+   "MTA.transitonlylanes"
+  ],
+  [
+   11,
+   "MTA.equitystrategy_nhoods"
+  ],
+  [
+   12,
+   "MTA.curbs"
+  ],
+  [
+   13,
+   "MTA.crossingguard_intersections"
+  ],
+  [
+   14,
+   "MTA.crossingguard_schools"
+  ],
+  [
+   15,
+   "MTA.saferoutes_schools"
+  ],
+  [
+   16,
+   "MTA.paintedsafetyzones"
+  ],
+  [
+   17,
+   "MTA.pedvolumemodel"
+  ],
+  [
+   18,
+   "MTA.sidewalk_widths"
+  ],
+  [
+   19,
+   "MTA.meters"
+  ],
+  [
+   20,
+   "MTA.offstreetparking"
+  ],
+  [
+   21,
+   "MTA.carshare_onstreet"
+  ],
+  [
+   22,
+   "MTA.colorcurb_blue_accessible"
+  ],
+  [
+   23,
+   "MTA.motoparking_unmetered"
+  ],
+  [
+   24,
+   "MTA.parkingregulations"
+  ],
+  [
+   25,
+   "MTA.meteredblockfaces"
+  ],
+  [
+   26,
+   "MTA.parkingcensus_onstreet"
+  ],
+  [
+   27,
+   "MTA.meteredstreetblocks"
+  ],
+  [
+   28,
+   "MTA.parkingmanagementdistricts"
+  ],
+  [
+   29,
+   "MTA.rpp_parcels"
+  ],
+  [
+   30,
+   "MTA.specialevents_area"
+  ],
+  [
+   31,
+   "MTA.bikecounters"
+  ],
+  [
+   32,
+   "MTA.bikeparking"
+  ],
+  [
+   33,
+   "MTA.bikevolume_manual"
+  ],
+  [
+   34,
+   "MTA.bikewaynetwork_pointfeatures"
+  ],
+  [
+   35,
+   "MTA.greenwave_signals"
+  ],
+  [
+   36,
+   "MTA.bikeshare_stations"
+  ],
+  [
+   37,
+   "MTA.bikewaynetwork"
+  ],
+  [
+   38,
+   "MTA.greenwave_streets"
+  ],
+  [
+   39,
+   "MTA.projects_points"
+  ],
+  [
+   40,
+   "MTA.projects_lines"
+  ],
+  [
+   41,
+   "MTA.projects_poly"
+  ],
+  [
+   42,
+   "MTA.taxistands"
+  ],
+  [
+   43,
+   "MTA.Muni_simpleroutes_core"
+  ],
+  [
+   44,
+   "MTA.slowstreets"
+  ],
+  [
+   45,
+   "MTA.sharedspaces"
+  ],
+  [
+   46,
+   "MTA.temp_street_closures"
+  ],
+  [
+   47,
+   "MTA.temp_street_closures_intrsctn"
+  ],
+  [
+   48,
+   "MTA.slowstreets_pointfeatures"
+  ],
+  [
+   49,
+   "MTA.colorcurb"
+  ],
+  [
+   50,
+   "MTA.MDS_geography"
+  ],
+  [
+   51,
+   "MTA.trafficcalming"
+  ],
+  [
+   52,
+   "MTA.trafficcalming_pointfeatures"
+  ],
+  [
+   53,
+   "MTA.continentalcrosswalks"
+  ],
+  [
+   54,
+   "MTA.CTA_trafficlanes"
+  ],
+  [
+   55,
+   "MTA.ped_walkingtimes"
+  ]
+ ],
+ "search: Residential Parking Permit Areas San Francisco": [
+  [
+   "Web Map",
+   "City of San Francisco Residential Parking Permit Regulations",
+   "sfmtacurb",
+   "",
+   "2023-11-16"
+  ],
+  [
+   "Web Map",
+   "City of San Francisco Time-Limited Parking",
+   "Steph.Nelson_sfmta",
+   null,
+   "2015-09-24"
+  ],
+  [
+   "Web Map",
+   "City of San Francisco Time-Limited Parking-Copy",
+   "csinclair0",
+   null,
+   "2018-11-24"
+  ],
+  [
+   "Feature Service",
+   "Imperial Beach Flood Map",
+   "intrivedi_UCSDOnline",
+   "https://services1.arcgis.com/eGSDp8lpKe5izqVc/arcgis/rest/services/Imperial_Beach_Flood_Map/FeatureServer",
+   "2025-05-07"
+  ],
+  [
+   "Code Attachment",
+   "City of San Francisco Residential Permit Parking Eligibility Areas",
+   "sfmtacurb",
+   "https://sfgov.maps.arcgis.com/sharing/rest/content/items/efb2bfe552454d1cbe9b2ea74ea91d6c/package",
+   "2023-10-23"
+  ]
+ ],
+ "search: San Francisco polling places 2026": [],
+ "search: Bay Area cities boundaries MTC": [
+  [
+   "Feature Service",
+   "Urban Growth Boundaries",
+   "ksmith@bayareametro.gov_MTC",
+   "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/EN4_Urban_Growth_Boundary/FeatureServer",
+   "2025-02-28"
+  ],
+  [
+   "Feature Service",
+   "Urban Growth Boundaries",
+   "mshorett@bayareametro.gov_MTC",
+   "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/Urban_Growth_Boundaries/FeatureServer",
+   "2026-07-23"
+  ],
+  [
+   "Feature Service",
+   "Growth Boundaries (2019)",
+   "orgData",
+   "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/growth_boundaries_2019/FeatureServer",
+   "2025-08-05"
+  ],
+  [
+   "Feature Service",
+   "Priority Conservation Areas in Brisbane (2025)",
+   "cityofbrisbane",
+   "https://services9.arcgis.com/UGpGSV1ugL0pHSgX/arcgis/rest/services/SBM_PCA_2025/FeatureServer",
+   "2025-12-03"
+  ],
+  [
+   "Feature Service",
+   "San Francisco Bay Region Spheres of Influence",
+   "orgData",
+   "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/region_spheres_of_influence/FeatureServer",
+   "2025-08-05"
+  ],
+  [
+   "Feature Service",
+   "Public Access and Recreation",
+   "bayrat_BCDC",
+   "https://services2.arcgis.com/4Z9x989NrBVrvFwm/arcgis/rest/services/Public_Access_and_Recreation/FeatureServer",
+   "2025-07-11"
+  ]
+ ],
+ "search: California Protected Areas Database": [
+  [
+   "Feature Service",
+   "California Protected Areas Database (AT Network Map)",
+   "orgData",
+   "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/California_Protected_Areas_Database_Open_Space/FeatureServer",
+   "2023-03-17"
+  ],
+  [
+   "Feature Service",
+   "California Protected Areas Database 2024a - Units",
+   "GreenInfoNetwork",
+   "https://services1.arcgis.com/4ZKi1B1zTblbwgWB/arcgis/rest/services/cpad_2024a_unitsgdb/FeatureServer",
+   "2024-06-20"
+  ],
+  [
+   "Feature Service",
+   "California Protected Areas Database 2024a - SuperUnits",
+   "GreenInfoNetwork",
+   "https://services1.arcgis.com/4ZKi1B1zTblbwgWB/arcgis/rest/services/cpad_2024a_superunitsgdb/FeatureServer",
+   "2024-06-20"
+  ],
+  [
+   "Feature Service",
+   "California Protected Areas Database 2024a - Holdings",
+   "GreenInfoNetwork",
+   "https://services1.arcgis.com/4ZKi1B1zTblbwgWB/arcgis/rest/services/cpad_2024a_holdingsgdb/FeatureServer",
+   "2024-06-22"
+  ],
+  [
+   "Feature Service",
+   "Protected Areas Database",
+   "jill_ory@fws.gov_fws",
+   "https://services.arcgis.com/QVENGdaPbd4LUkLV/arcgis/rest/services/Protected_Areas_Database/FeatureServer",
+   "2023-09-22"
+  ],
+  [
+   "Feature Service",
+   "I_California_Protected_Areas (Draft)",
+   "ksmith@bayareametro.gov_MTC",
+   "https://services3.arcgis.com/i2dkYWmb4wHvYPda/arcgis/rest/services/I_California_Protected_Areas/FeatureServer",
+   "2018-02-15"
+  ]
+ ],
+ "search: Golden Gate National Recreation Area boundary": [
+  [
+   "Feature Service",
+   "GOGA Legislative Boundary",
+   "gfigueroa@nps.gov_nps",
+   "https://services1.arcgis.com/fBc8EJBxQRMcHlei/arcgis/rest/services/NPS_Land_Resources_Division_Boundary_and_Tract_Data_Service/FeatureServer",
+   "2024-09-25"
+  ],
+  [
+   "Feature Service",
+   "NM National Parks",
+   "jav46_dukeuniv",
+   "https://services1.arcgis.com/XBhYkoXKJCRHbe7M/arcgis/rest/services/NMNationalParks_gdb/FeatureServer",
+   "2025-12-01"
+  ],
+  [
+   "Feature Service",
+   "GOGA San Mateo County and San Francisco Fine Scale Vegetation",
+   "gfigueroa@nps.gov_nps",
+   "https://services1.arcgis.com/fBc8EJBxQRMcHlei/arcgis/rest/services/GOGA_San_Mateo_County_and_San_Francisco_Fine_Scale_Vegetation/FeatureServer",
+   "2024-10-31"
+  ],
+  [
+   "Feature Service",
+   "GOGA_Marin_County_Fine_Scale_Vegetation",
+   "gfigueroa@nps.gov_nps",
+   "https://services1.arcgis.com/fBc8EJBxQRMcHlei/arcgis/rest/services/GOGA_Marin_County_Fine_Scale_Vegetation/FeatureServer",
+   "2024-12-19"
+  ],
+  [
+   "Feature Service",
+   "One Tam Area of Interest",
+   "zstanley_onetam",
+   "https://services9.arcgis.com/D49vnq4lqWmKCLj0/arcgis/rest/services/One_Tam_Area_of_Interest/FeatureServer",
+   "2019-10-09"
+  ],
+  [
+   "Feature Service",
+   "One Tam Area of Interest",
+   "svc_AGOL@parksconservancy.org_parksconservancy",
+   "https://services5.arcgis.com/tdQLEzq0fgVElWN3/arcgis/rest/services/One_Tam_Area_of_Interest/FeatureServer",
+   "2025-07-25"
+  ]
+ ],
+ "search: California tsunami hazard area": [
+  [
+   "Feature Service",
+   "CA Tsunami Hazard Area Brochure",
+   "gis_cadoc",
+   "https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CA_Tsunami_Hazard_Area_Brochure/FeatureServer",
+   "2022-12-01"
+  ],
+  [
+   "Feature Service",
+   "CA Tsunami Hazard Area",
+   "gis_cadoc",
+   "https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CA_Tsunami_Hazard_Area/FeatureServer",
+   "2022-12-01"
+  ],
+  [
+   "Feature Service",
+   "Tsunami Hazard Area",
+   "bye@smcgov.org_smcmaps",
+   "https://services.arcgis.com/yq3FgOI44hYHAFVZ/arcgis/rest/services/Tsunami_Hazard_Area_Extended_3/FeatureServer",
+   "2025-03-26"
+  ],
+  [
+   "Feature Service",
+   "CA Tsunami Hazard Line",
+   "gis_cadoc",
+   "https://services2.arcgis.com/zr3KAIbsRSUyARHG/arcgis/rest/services/CA_Tsunami_Hazard_Line/FeatureServer",
+   "2022-12-01"
+  ],
+  [
+   "Feature Service",
+   "Tsunami Hazard Area",
+   "jcucino_hmp",
+   "https://services1.arcgis.com/P5Mv5GY5S66M8Z1Q/arcgis/rest/services/Tsunami_Hazard_Area/FeatureServer",
+   "2025-05-01"
+  ],
+  [
+   "Feature Service",
+   "Tsunami Hazard Area",
+   "Eric.Howard@CalOES.ca.gov_CalEMA",
+   "https://services.arcgis.com/BLN4oKB0N1YSgvY8/arcgis/rest/services/Tsunami_Hazard_Area/FeatureServer",
+   "2025-01-07"
+  ]
+ ],
+ "search: SFUSD attendance area": [
+  [
+   "Map Package",
+   "SFUSD Attendance Areas and CTIP1",
+   "marealma",
+   null,
+   "2012-04-04"
+  ],
+  [
+   "Layer Package",
+   "ESAA_012811",
+   "marealma",
+   "http:///ArcGIS/rest/services//MapServer",
+   "2012-04-04"
+  ],
+  [
+   "GeoJson",
+   "SFUSD_School_Attendance_Areas_(2024_2025)_20260427",
+   "aoyagatacushcagua26",
+   null,
+   "2026-04-27"
+  ]
+ ],
+ "search: Community Benefit Districts San Francisco": [
+  [
+   "Feature Service",
+   "Registered Business Locations - San Francisco (from DataSF, pulled daily)",
+   "vll_sfgis",
+   "https://services.arcgis.com/Zs2aNLFN00jrS4gG/arcgis/rest/services/Registered_Business_Locations_San_Francisco_from_DataSF_pulled_daily_/FeatureServer",
+   "2026-10-29"
+  ],
+  [
+   "Web Map",
+   "San Francisco's Community Benefit District 2021",
+   "mimi.tam.oewd",
+   null,
+   "2021-09-21"
+  ],
+  [
+   "Web Mapping Application",
+   "Community Benefit Districts",
+   "david.ranzolin_ecn",
+   "https://sfgov.maps.arcgis.com/apps/webappviewer/index.html?id=61f223bbdc6f4934a4d2ba584f126db7",
+   "2024-09-04"
+  ],
+  [
+   "StoryMap",
+   "Private vs. Public Open Space in San Francisco",
+   "epp36_georgetownuniv",
+   "https://storymaps.arcgis.com/stories/b9dbfd6c511a4bb1959b6fae09d7a73c",
+   "2025-08-12"
+  ],
+  [
+   "Web Mapping Application",
+   "Community Benefit Districts-Parcels",
+   "david.ranzolin_ecn",
+   "https://sfgov.maps.arcgis.com/apps/webappviewer/index.html?id=75c7689184774d38841a6c679400b2d3",
+   "2024-09-04"
+  ],
+  [
+   "Feature Service",
+   "Visual 3 - Tenderloin Business Closures 2020-2023",
+   "1984531_CAL",
+   "https://services2.arcgis.com/iq8zYa0SRsvIFFKz/arcgis/rest/services/Visual_3_-_Tenderloin_Business_Closures_2020-2023/FeatureServer",
+   "2026-06-25"
+  ]
+ ],
+ "search: AB 604 congressional districts": [
+  [
+   "Feature Service",
+   "AB 604 - California Congressional Districts 2027-2032 as enacted by Proposition 50",
+   "CDT_GIS",
+   "https://services3.arcgis.com/uknczv4rpevve42E/arcgis/rest/services/AB_604_-_California_Congressional_Districts_2027-2032_as_enacted_by_Proposition_50_view/FeatureServer",
+   "2026-04-03"
+  ],
+  [
+   "Feature Service",
+   "Congressional Districts 2025",
+   "ayhan.kosan_capuc",
+   "https://services2.arcgis.com/VofPZYDe2pLxSP5G/arcgis/rest/services/Legislative_CongressionalDistricts_CA_20250821_v1/FeatureServer",
+   "2025-12-05"
+  ],
+  [
+   "Feature Service",
+   "AB604 2025 Congressional Districts",
+   "dallum@sjcrov.org_sjc_gis",
+   "https://services2.arcgis.com/GQhSReJEO6f7tsvy/arcgis/rest/services/AB604_2025_Congressional_Districts/FeatureServer",
+   "2026-07-29"
+  ],
+  [
+   "Feature Service",
+   "Congressional District 2026",
+   "SACOG_Admin",
+   "https://services.sacog.org/hosting/rest/services/Legislative/Congressional_District_2026/FeatureServer",
+   "2026-01-22"
+  ],
+  [
+   "Feature Service",
+   "Congressional Districts Contained in AB 604 – Chaptered 8/21/2025 (Chapter 96, Statutes of 2025)",
+   "andrew.hintz@asm.ca.gov",
+   "https://services6.arcgis.com/VAYhpnTznyOkqxfz/arcgis/rest/services/CD_AB604/FeatureServer",
+   "2026-01-20"
+  ],
+  [
+   "Feature Service",
+   "2025 US Congressional Districts",
+   "LVillanueva@rrcc.lacounty.gov_lacounty",
+   "https://services.arcgis.com/RmCCgQtiZLDCtblq/arcgis/rest/services/ProposedUCCon2025/FeatureServer",
+   "2025-11-07"
+  ]
+ ]
+}

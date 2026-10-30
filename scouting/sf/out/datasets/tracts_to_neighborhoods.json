@@ -1,0 +1,141 @@
+{
+ "key": "tracts_to_neighborhoods",
+ "looked_for": [
+  "Analysis Neighborhoods - 2020 census tracts assigned to neighborhoods"
+ ],
+ "candidates": [
+  [
+   "id",
+   "sevw-6tgi",
+   "(pinned id, not in catalogue)",
+   null,
+   null
+  ]
+ ],
+ "picked": {
+  "id": "sevw-6tgi",
+  "name": "Analysis Neighborhoods - 2020 census tracts assigned to neighborhoods",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Geographic Locations and Boundaries",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2022-07-08",
+  "view_modified": "2025-01-07",
+  "description": "<strong>A. SUMMARY</strong>\nThis dataset maps 2020 census tracts to Analysis Neighborhoods. \n\nThe Department of Public Health and the Mayor’s Office of Housing and Community Development, with support from the Planning Department originally created the 41 <u><a href=\"https://data.sfgov.org/d/p5b7-5n3h\">Analysis Neighborhoods</a></u>  by grouping 2010 Census tracts, using common real estate and residents’ definitions for the purpose of providing consistency in the analysis and reporting of socio-economic, demographic, and environmental data, and data on City-funded programs and services. They are not codified in Planning Code nor Administrative Code. \n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThis dataset is produced by mapping the 2020 Census tracts to Analysis neighborhoods.  \n\n<stro"
+ },
+ "count": 242,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "object_id",
+   "type": "text",
+   "label": "object_id"
+  },
+  {
+   "name": "state_fp",
+   "type": "text",
+   "label": "state_fp"
+  },
+  {
+   "name": "county_fp",
+   "type": "text",
+   "label": "county_fp"
+  },
+  {
+   "name": "tractce",
+   "type": "text",
+   "label": "tractce"
+  },
+  {
+   "name": "name",
+   "type": "text",
+   "label": "name"
+  },
+  {
+   "name": "neighborhoods_analysis_boundaries",
+   "type": "text",
+   "label": "neighborhoods_analysis_boundaries"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": "sup_dist_2012",
+   "type": "text",
+   "label": "sup_dist_2012"
+  },
+  {
+   "name": "sup_dist_2022",
+   "type": "text",
+   "label": "sup_dist_2022"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "geoid",
+   "type": "text",
+   "label": "geoid"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "object_id": "242",
+   "state_fp": "06",
+   "county_fp": "075",
+   "tractce": "980900",
+   "name": "9809",
+   "neighborhoods_analysis_boundaries": "Bayview Hunters Point",
+   "data_loaded_at": "2022-07-08T14:12:00.000",
+   "sup_dist_2012": "10",
+   "sup_dist_2022": "10",
+   "data_as_of": "2022-07-08T21:09:48.141",
+   "geoid": "06075980900"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "object_id": "241",
+   "state_fp": "06",
+   "county_fp": "075",
+   "tractce": "980600",
+   "name": "9806",
+   "neighborhoods_analysis_boundaries": "Bayview Hunters Point",
+   "data_loaded_at": "2022-07-08T14:12:00.000",
+   "sup_dist_2012": "10",
+   "sup_dist_2022": "10",
+   "data_as_of": "2022-07-08T21:09:48.141",
+   "geoid": "06075980600"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "object_id": "240",
+   "state_fp": "06",
+   "county_fp": "075",
+   "tractce": "980501",
+   "name": "9805.01",
+   "neighborhoods_analysis_boundaries": "McLaren Park",
+   "data_loaded_at": "2022-07-08T14:12:00.000",
+   "sup_dist_2012": "10",
+   "sup_dist_2022": "10",
+   "data_as_of": "2022-07-08T21:09:48.141",
+   "geoid": "06075980501"
+  }
+ ]
+}

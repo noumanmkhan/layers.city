@@ -1,0 +1,95 @@
+{
+ "key": "beach_water",
+ "looked_for": [
+  "Beach Water Quality Monitoring"
+ ],
+ "candidates": [
+  [
+   "id",
+   "v3fv-x3ux",
+   "(pinned id, not in catalogue)",
+   null,
+   null
+  ]
+ ],
+ "picked": {
+  "id": "v3fv-x3ux",
+  "name": "Beach Water Quality Monitoring",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Energy and Environment",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "Working with the San Francisco Department of Public Health (SFDPH), we jointly administer the beach water quality monitoring program in San Francisco. Both agencies participate in sample collection; the San Francisco Water, Power and Sewer Microbiology Laboratory performs bacteriological analyses.\n\nMore information: \nhttps://sfwater.org/index.aspx?page=87\nhttps://sfwater.org/sapps/beachesandbay.html"
+ },
+ "count": 21558,
+ "geo": null,
+ "columns": [
+  {
+   "name": "source",
+   "type": "text",
+   "label": "source"
+  },
+  {
+   "name": "sample_date",
+   "type": "calendar_date",
+   "label": "sample_date"
+  },
+  {
+   "name": "analyte",
+   "type": "text",
+   "label": "analyte"
+  },
+  {
+   "name": "data",
+   "type": "text",
+   "label": "data"
+  },
+  {
+   "name": "uniqueid",
+   "type": "text",
+   "label": "uniqueID"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "source": "BAY#301.1_SL",
+   "sample_date": "2026-10-27T00:00:00.000",
+   "analyte": "COLI_FECAL",
+   "data": "15",
+   "uniqueid": "FE281EC76C43855927F583E9A8A9BE33",
+   "data_as_of": "2026-10-28T23:03:15.000",
+   "data_loaded_at": "2026-10-28T23:08:21.000"
+  },
+  {
+   "source": "BAY#301.1_SL",
+   "sample_date": "2026-10-27T00:00:00.000",
+   "analyte": "COLI_TOTAL",
+   "data": "90",
+   "uniqueid": "B90301F268FC7A8D94346E9EC2B22C3A",
+   "data_as_of": "2026-10-28T23:03:15.000",
+   "data_loaded_at": "2026-10-28T23:08:21.000"
+  },
+  {
+   "source": "BAY#301.1_SL",
+   "sample_date": "2026-10-27T00:00:00.000",
+   "analyte": "ENTERO",
+   "data": "20",
+   "uniqueid": "BD58D138304017E6EAB8BD37298E856D",
+   "data_as_of": "2026-10-28T23:03:15.000",
+   "data_loaded_at": "2026-10-28T23:08:21.000"
+  }
+ ]
+}

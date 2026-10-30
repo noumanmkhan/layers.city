@@ -1,0 +1,352 @@
+{
+ "key": "offstreet_parking",
+ "looked_for": [
+  "SFMTA Managed Off-street Parking"
+ ],
+ "candidates": [
+  [
+   "id",
+   "vqzx-t7c4",
+   "(pinned id, not in catalogue)",
+   null,
+   null
+  ]
+ ],
+ "picked": {
+  "id": "vqzx-t7c4",
+  "name": "SFMTA Managed Off-street Parking",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "SFMTA",
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-09-26",
+  "view_modified": "2026-09-26",
+  "description": "<strong>A. SUMMARY SFMTA </strong>\nmanaged off street parking locations, hours, and amenities. Includes both lots and garages.\n\n<strong>B. METHODOLOGY </strong>\nImported from SFpark data warehouse\n\n<strong>C. UPDATE FREQUENCY </strong>\nUpdated once per month \n\n<strong>D. OTHER CRITICAL INFO </strong>\nIncludes both lots and garages operated by SFMTA"
+ },
+ "count": 58,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "number",
+   "label": "OBJECTID"
+  },
+  {
+   "name": "osp_id",
+   "type": "number",
+   "label": "OSP_ID"
+  },
+  {
+   "name": "facility_name",
+   "type": "text",
+   "label": "FACILITY_NAME"
+  },
+  {
+   "name": "street_address",
+   "type": "text",
+   "label": "STREET_ADDRESS"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "phone",
+   "type": "text",
+   "label": "PHONE"
+  },
+  {
+   "name": "pm_district_id",
+   "type": "number",
+   "label": "PM_DISTRICT_ID"
+  },
+  {
+   "name": "area_type",
+   "type": "text",
+   "label": "AREA_TYPE"
+  },
+  {
+   "name": "blockface_id",
+   "type": "number",
+   "label": "BLOCKFACE_ID"
+  },
+  {
+   "name": "street_seg_ctrln_id",
+   "type": "number",
+   "label": "STREET_SEG_CTRLN_ID"
+  },
+  {
+   "name": "facility_type",
+   "type": "text",
+   "label": "FACILITY_TYPE"
+  },
+  {
+   "name": "owner",
+   "type": "text",
+   "label": "OWNER"
+  },
+  {
+   "name": "sensor_flag",
+   "type": "text",
+   "label": "SENSOR_FLAG"
+  },
+  {
+   "name": "meter_flag",
+   "type": "text",
+   "label": "METER_FLAG"
+  },
+  {
+   "name": "data_feed_flag",
+   "type": "text",
+   "label": "DATA_FEED_FLAG"
+  },
+  {
+   "name": "services",
+   "type": "text",
+   "label": "SERVICES"
+  },
+  {
+   "name": "web_site",
+   "type": "text",
+   "label": "WEB_SITE"
+  },
+  {
+   "name": "veh_entry_lanes",
+   "type": "number",
+   "label": "VEH_ENTRY_LANES"
+  },
+  {
+   "name": "mc_entry_lanes",
+   "type": "number",
+   "label": "MC_ENTRY_LANES"
+  },
+  {
+   "name": "veh_exit_lanes",
+   "type": "number",
+   "label": "VEH_EXIT_LANES"
+  },
+  {
+   "name": "mc_exit_lanes",
+   "type": "number",
+   "label": "MC_EXIT_LANES"
+  },
+  {
+   "name": "system",
+   "type": "text",
+   "label": "SYSTEM"
+  },
+  {
+   "name": "hi_vol_disc_flag",
+   "type": "text",
+   "label": "HI_VOL_DISC_FLAG"
+  },
+  {
+   "name": "validation_pgm",
+   "type": "text",
+   "label": "VALIDATION_PGM"
+  },
+  {
+   "name": "sp_evt_rates",
+   "type": "text",
+   "label": "SP_EVT_RATES"
+  },
+  {
+   "name": "activation_fee",
+   "type": "number",
+   "label": "ACTIVATION_FEE"
+  },
+  {
+   "name": "card_replace_fee",
+   "type": "number",
+   "label": "CARD_REPLACE_FEE"
+  },
+  {
+   "name": "late_fee",
+   "type": "number",
+   "label": "LATE_FEE"
+  },
+  {
+   "name": "reopen_fee",
+   "type": "number",
+   "label": "REOPEN_FEE"
+  },
+  {
+   "name": "no_key_valet_fee",
+   "type": "number",
+   "label": "NO_KEY_VALET_FEE"
+  },
+  {
+   "name": "capacity",
+   "type": "number",
+   "label": "CAPACITY"
+  },
+  {
+   "name": "main_entrance_long",
+   "type": "number",
+   "label": "MAIN_ENTRANCE_LONG"
+  },
+  {
+   "name": "main_entrance_lat",
+   "type": "number",
+   "label": "MAIN_ENTRANCE_LAT"
+  },
+  {
+   "name": "created_dt",
+   "type": "calendar_date",
+   "label": "CREATED_DT"
+  },
+  {
+   "name": "last_upd_dt",
+   "type": "calendar_date",
+   "label": "LAST_UPD_DT"
+  },
+  {
+   "name": "globalid",
+   "type": "text",
+   "label": "GLOBALID"
+  },
+  {
+   "name": "shape",
+   "type": "point",
+   "label": "shape"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": "analysis_neighborhood",
+   "type": "text",
+   "label": "analysis_neighborhood"
+  },
+  {
+   "name": "supervisor_district",
+   "type": "text",
+   "label": "supervisor_district"
+  },
+  {
+   "name": ":@computed_region_ajp5_b2md",
+   "type": "number",
+   "label": "Analysis Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_jwn9_ihcz",
+   "type": "number",
+   "label": "Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_6qbp_sg9q",
+   "type": "number",
+   "label": "SF Find Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_qgnn_b9vv",
+   "type": "number",
+   "label": "Current Police Districts"
+  },
+  {
+   "name": ":@computed_region_26cr_cadq",
+   "type": "number",
+   "label": "Current Supervisor Districts"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "43498",
+   "osp_id": "953",
+   "facility_name": "Music Concourse",
+   "street_address": "Music Concourse Dr",
+   "location": "Golden Gate Park, between DeYoung Museum & Academy of Sciences",
+   "phone": "(415)956-8002",
+   "facility_type": "G",
+   "owner": "RPD",
+   "sensor_flag": "N",
+   "meter_flag": "N",
+   "data_feed_flag": "Y",
+   "services": "validation, event rate, bike parking, electrical vehicle charger",
+   "veh_entry_lanes": "2",
+   "mc_entry_lanes": "0",
+   "veh_exit_lanes": "2",
+   "mc_exit_lanes": "0",
+   "system": "Skidata",
+   "sp_evt_rates": "Y",
+   "activation_fee": "40",
+   "card_replace_fee": "40",
+   "late_fee": "40",
+   "reopen_fee": "63",
+   "no_key_valet_fee": "40",
+   "capacity": "800",
+   "created_dt": "2025-12-03T09:08:08.000",
+   "last_upd_dt": "2025-12-03T09:08:10.000",
+   "data_as_of": "2026-09-26T02:14:08.000",
+   "data_loaded_at": "2026-09-26T10:29:06.000"
+  },
+  {
+   "objectid": "43494",
+   "osp_id": "962",
+   "facility_name": "Crane Cove Park Lot",
+   "street_address": "1050 Front St",
+   "location": "est side of The Embarcadero between Green Street and Union Street",
+   "pm_district_id": "11",
+   "facility_type": "L",
+   "owner": "PORT",
+   "capacity": "150",
+   "created_dt": "2026-09-25T11:34:42.000",
+   "last_upd_dt": "2026-09-25T11:34:42.000",
+   "data_as_of": "2026-09-26T02:14:08.000",
+   "data_loaded_at": "2026-09-26T10:29:06.000"
+  },
+  {
+   "objectid": "43461",
+   "osp_id": "922",
+   "facility_name": "West Portal Lot",
+   "street_address": "174 West Portal Avenue",
+   "location": "West Portal between Vicente & 14th Ave",
+   "pm_district_id": "10",
+   "area_type": "Control",
+   "blockface_id": "725012",
+   "street_seg_ctrln_id": "13578201",
+   "facility_type": "L",
+   "owner": "SFMTA",
+   "sensor_flag": "N",
+   "meter_flag": "Y",
+   "data_feed_flag": "N",
+   "veh_entry_lanes": "0",
+   "mc_entry_lanes": "0",
+   "veh_exit_lanes": "0",
+   "mc_exit_lanes": "0",
+   "hi_vol_disc_flag": "-",
+   "sp_evt_rates": "-",
+   "activation_fee": "0",
+   "card_replace_fee": "0",
+   "late_fee": "0",
+   "reopen_fee": "0",
+   "no_key_valet_fee": "0",
+   "capacity": "19",
+   "main_entrance_long": "-122.4680364",
+   "main_entrance_lat": "37.73918993",
+   "created_dt": "2011-02-08T10:51:00.000",
+   "last_upd_dt": "2011-04-20T11:15:13.000",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2026-09-26T02:14:08.000",
+   "data_loaded_at": "2026-09-26T10:29:06.000",
+   "analysis_neighborhood": "West of Twin Peaks",
+   "supervisor_district": "7",
+   ":@computed_region_ajp5_b2md": "41",
+   ":@computed_region_jwn9_ihcz": "46",
+   ":@computed_region_6qbp_sg9q": "46",
+   ":@computed_region_qgnn_b9vv": "10",
+   ":@computed_region_26cr_cadq": "8"
+  }
+ ]
+}

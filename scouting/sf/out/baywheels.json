@@ -1,0 +1,119 @@
+{
+ "feeds": {
+  "gbfs": "https://gbfs.lyft.com/gbfs/1.1/bay/gbfs.json",
+  "ebikes_at_stations": "https://gbfs.lyft.com/gbfs/1.1/bay/en/ebikes_at_stations.json",
+  "system_information": "https://gbfs.lyft.com/gbfs/1.1/bay/en/system_information.json",
+  "station_information": "https://gbfs.lyft.com/gbfs/1.1/bay/en/station_information.json",
+  "station_status": "https://gbfs.lyft.com/gbfs/1.1/bay/en/station_status.json",
+  "free_bike_status": "https://gbfs.lyft.com/gbfs/1.1/bay/en/free_bike_status.json",
+  "system_hours": "https://gbfs.lyft.com/gbfs/1.1/bay/en/system_hours.json",
+  "system_calendar": "https://gbfs.lyft.com/gbfs/1.1/bay/en/system_calendar.json",
+  "system_regions": "https://gbfs.lyft.com/gbfs/1.1/bay/en/system_regions.json",
+  "system_pricing_plans": "https://gbfs.lyft.com/gbfs/1.1/bay/en/system_pricing_plans.json",
+  "system_alerts": "https://gbfs.lyft.com/gbfs/1.1/bay/en/system_alerts.json",
+  "gbfs_versions": "https://gbfs.lyft.com/gbfs/1.1/bay/en/gbfs_versions.json"
+ },
+ "stations": 654,
+ "fields": [
+  "capacity",
+  "eightd_has_key_dispenser",
+  "eightd_station_services",
+  "electric_bike_surcharge_waiver",
+  "external_id",
+  "has_kiosk",
+  "lat",
+  "lon",
+  "name",
+  "region_id",
+  "rental_methods",
+  "rental_uris",
+  "short_name",
+  "station_id",
+  "station_type"
+ ],
+ "regions": [
+  [
+   "San Francisco",
+   372
+  ],
+  [
+   "Oakland",
+   103
+  ],
+  [
+   "San Jose",
+   81
+  ],
+  [
+   "Berkeley",
+   48
+  ],
+  [
+   null,
+   35
+  ],
+  [
+   "Emeryville",
+   15
+  ]
+ ],
+ "charging": 0,
+ "capacity_total": 14278,
+ "sample": [
+  {
+   "station_id": "0d730ac1-7ce6-45cf-aca6-b412ea46709d",
+   "name": "Mission St at 1st St",
+   "short_name": "SJ-H10",
+   "lon": -121.9020161,
+   "lat": 37.3509643,
+   "region_id": "5",
+   "capacity": 27,
+   "rental_uris": {
+    "android": "https://sfo.lft.to/lastmile_qr_scan",
+    "ios": "https://sfo.lft.to/lastmile_qr_scan"
+   },
+   "rental_methods": [
+    "KEY",
+    "CREDITCARD"
+   ],
+   "has_kiosk": true,
+   "station_type": "classic",
+   "external_id": "0d730ac1-7ce6-45cf-aca6-b412ea46709d",
+   "electric_bike_surcharge_waiver": false,
+   "eightd_station_services": [],
+   "eightd_has_key_dispenser": false
+  },
+  {
+   "station_id": "ab8cc22e-0f34-4476-bf81-293cbbb2e69c",
+   "name": "Kerley Dr at Rosemary St",
+   "short_name": "SJ-F10",
+   "lon": -121.90683424472809,
+   "lat": 37.360854155253826,
+   "region_id": "5",
+   "capacity": 27,
+   "rental_uris": {
+    "android": "https://sfo.lft.to/lastmile_qr_scan",
+    "ios": "https://sfo.lft.to/lastmile_qr_scan"
+   },
+   "rental_methods": [
+    "KEY",
+    "CREDITCARD"
+   ],
+   "has_kiosk": true,
+   "station_type": "classic",
+   "external_id": "ab8cc22e-0f34-4476-bf81-293cbbb2e69c",
+   "electric_bike_surcharge_waiver": false,
+   "eightd_station_services": [],
+   "eightd_has_key_dispenser": false
+  }
+ ],
+ "system_information": {
+  "system_id": "lyft_bay",
+  "language": "en",
+  "name": "Lyft Bike",
+  "operator": "Lyft",
+  "url": "https://lyftbikes.com/",
+  "purchase_url": "https://account.lyftbikes.com/access-plans",
+  "timezone": "America/Los_Angeles"
+ }
+}

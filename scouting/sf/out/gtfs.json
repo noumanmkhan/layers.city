@@ -1,0 +1,278 @@
+{
+ "muni": "download failed (https://gtfs.sfmta.com/transitdata/google_transit.zip)",
+ "bart": {
+  "mb": 1.0,
+  "files": [
+   "agency.txt",
+   "calendar.txt",
+   "calendar_attributes.txt",
+   "calendar_dates.txt",
+   "directions.txt",
+   "fare_attributes.txt",
+   "fare_rider_categories.txt",
+   "fare_rules.txt",
+   "feed_info.txt",
+   "realtime_routes.txt",
+   "rider_categories.txt",
+   "routes.txt",
+   "route_attributes.txt",
+   "shapes.txt",
+   "stops.txt",
+   "stop_times.txt",
+   "transfers.txt",
+   "trips.txt"
+  ],
+  "feed_info": [
+   {
+    "feed_publisher_name": "Bay Area Rapid Transit",
+    "feed_publisher_url": "http://www.bart.gov",
+    "feed_lang": "en",
+    "feed_start_date": "20260112",
+    "feed_end_date": "20260830",
+    "feed_version": "72"
+   }
+  ],
+  "agencies": [
+   [
+    "BART",
+    "Bay Area Rapid Transit"
+   ]
+  ],
+  "routes": 14,
+  "routes_by_type": [
+   [
+    "1",
+    12
+   ],
+   [
+    "3",
+    2
+   ]
+  ],
+  "routes_by_agency": [
+   [
+    null,
+    14
+   ]
+  ],
+  "stops": 291,
+  "trips": 6377,
+  "shapes": true,
+  "calendar_span": [
+   "20260810",
+   "20270110"
+  ],
+  "routes_sample": [
+   [
+    null,
+    "Yellow-S",
+    "Antioch to SF Int'l Airport SFO/Millbrae",
+    "1",
+    "FFFF33"
+   ],
+   [
+    null,
+    "Yellow-N",
+    "Millbrae/SF Int'l SFO to Antioch",
+    "1",
+    "FFFF33"
+   ],
+   [
+    null,
+    "Orange-N",
+    "Berryessa/North San Jose to Richmond",
+    "1",
+    "FF9933"
+   ],
+   [
+    null,
+    "Orange-S",
+    "Richmond to Berryessa/North San Jose",
+    "1",
+    "FF9933"
+   ],
+   [
+    null,
+    "Green-S",
+    "Berryessa/North San Jose to Daly City",
+    "1",
+    "339933"
+   ],
+   [
+    null,
+    "Green-N",
+    "Daly City to Berryessa/North San Jose",
+    "1",
+    "339933"
+   ],
+   [
+    null,
+    "Red-S",
+    "Richmond to SF Int'l Airport SFO/Millbrae",
+    "1",
+    "FF0000"
+   ],
+   [
+    null,
+    "Red-N",
+    "Millbrae/SF Int'l Airport SFO to Richmond",
+    "1",
+    "FF0000"
+   ],
+   [
+    null,
+    "Blue-S",
+    "Dublin/Pleasanton to Daly City",
+    "1",
+    "0099CC"
+   ],
+   [
+    null,
+    "Blue-N",
+    "Daly City to Dublin/Pleasanton",
+    "1",
+    "0099CC"
+   ],
+   [
+    null,
+    "Grey-N",
+    "Oakland Int'l Airport OAK to Coliseum",
+    "1",
+    "B0BEC7"
+   ],
+   [
+    null,
+    "Grey-S",
+    "Coliseum to Oakland Int'l Airport OAK",
+    "1",
+    "B0BEC7"
+   ],
+   [
+    null,
+    "BridgeA",
+    "Bus Bridge",
+    "3",
+    "000000"
+   ],
+   [
+    null,
+    "BridgeB",
+    "Bus Bridge",
+    "3",
+    "000000"
+   ]
+  ]
+ },
+ "caltrain": {
+  "mb": 0.2,
+  "files": [
+   "agency.txt",
+   "areas.txt",
+   "booking_rules.txt",
+   "calendar_attributes.txt",
+   "calendar_dates.txt",
+   "calendar.txt",
+   "directions.txt",
+   "fare_attributes.txt",
+   "fare_rider_categories.txt",
+   "fare_rules.txt",
+   "farezone_attributes.txt",
+   "feed_info.txt",
+   "frequencies.txt",
+   "linked_datasets.txt",
+   "location_groups.txt",
+   "realtime_routes.txt",
+   "rider_categories.txt",
+   "route_attributes.txt",
+   "routes.txt",
+   "runcut.txt",
+   "shapes.txt",
+   "stop_attributes.txt",
+   "stop_times.txt",
+   "stops.txt",
+   "timetable_stop_order.txt",
+   "timetables.txt",
+   "transfers.txt",
+   "trips.txt"
+  ],
+  "feed_info": [
+   {
+    "feed_publisher_url": "http://www.trilliumtransit.com",
+    "feed_publisher_name": "Trillium Solutions, Inc.",
+    "feed_lang": "en",
+    "feed_version": "UTC: 10-Jun-2026 22:25",
+    "feed_license": "",
+    "feed_contact_email": "support+caltrain-ca-us@trilliumtransit.com",
+    "feed_contact_url": "http://support.trilliumtransit.com",
+    "feed_start_date": "20260131",
+    "feed_end_date": "20270131",
+    "feed_id": "caltrain-ca-us"
+   }
+  ],
+  "agencies": [
+   [
+    "1000",
+    "Caltrain"
+   ]
+  ],
+  "routes": 5,
+  "routes_by_type": [
+   [
+    "2",
+    5
+   ]
+  ],
+  "routes_by_agency": [
+   [
+    "1000",
+    5
+   ]
+  ],
+  "stops": 106,
+  "trips": 260,
+  "shapes": true,
+  "calendar_span": [
+   "20260131",
+   "20270131"
+  ],
+  "routes_sample": [
+   [
+    "1000",
+    "Local Weekday",
+    "",
+    "2",
+    "dcddde"
+   ],
+   [
+    "1000",
+    "Local Weekend",
+    "",
+    "2",
+    "dcddde"
+   ],
+   [
+    "1000",
+    "Limited",
+    "",
+    "2",
+    "99d7dc"
+   ],
+   [
+    "1000",
+    "Express",
+    "",
+    "2",
+    "ce202f"
+   ],
+   [
+    "1000",
+    "South County",
+    "South Santa Clara County Connector",
+    "2",
+    "fae4a7"
+   ]
+  ]
+ },
+ "511_regional": "skipped: no FIVE11_KEY secret (request a free key at 511.org/open-data/token)",
+ "511_terms_mentions": []
+}

@@ -1,0 +1,250 @@
+{
+ "key": "street_closures",
+ "looked_for": [
+  "Temporary Street Closures"
+ ],
+ "candidates": [
+  [
+   "id",
+   "8x25-yybr",
+   "(pinned id, not in catalogue)",
+   null,
+   null
+  ]
+ ],
+ "picked": {
+  "id": "8x25-yybr",
+  "name": "Temporary Street Closures",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "SFMTA",
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "<strong>A. SUMMARY</strong>\nThis dataset stores upcoming and current street closures occurring as a result of the  Shared Spaces program, certain special events, and some construction work. This dataset only includes street closures permitted by the San Francisco Municipal Transportation Agency (SFMTA). It doesn’t include street closures managed by other City departments such as Public Works or the Police Department.\n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThe data is exported from the Street Closure Salesforce database which is maintained by the SFMTA ISCOTT unit and converted to the geometry of streets and intersections based on closed street extent descriptions.\n\n<strong>C. UPDATE PROCESS</strong>\nDatabase is updated constantly. This report is issued daily.\n\n<strong>D. HOW TO US"
+ },
+ "count": 4006,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "text",
+   "label": "objectid"
+  },
+  {
+   "name": "case_num",
+   "type": "text",
+   "label": "case_num"
+  },
+  {
+   "name": "case_name",
+   "type": "text",
+   "label": "case_name"
+  },
+  {
+   "name": "type",
+   "type": "text",
+   "label": "type"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "status"
+  },
+  {
+   "name": "start_date",
+   "type": "calendar_date",
+   "label": "start_date"
+  },
+  {
+   "name": "start_time",
+   "type": "text",
+   "label": "start_time"
+  },
+  {
+   "name": "start_dt",
+   "type": "calendar_date",
+   "label": "start_dt"
+  },
+  {
+   "name": "end_date",
+   "type": "calendar_date",
+   "label": "end_date"
+  },
+  {
+   "name": "end_time",
+   "type": "text",
+   "label": "end_time"
+  },
+  {
+   "name": "end_dt",
+   "type": "calendar_date",
+   "label": "end_dt"
+  },
+  {
+   "name": "loc_desc",
+   "type": "text",
+   "label": "loc_desc"
+  },
+  {
+   "name": "cnn",
+   "type": "text",
+   "label": "cnn"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "street"
+  },
+  {
+   "name": "from_st",
+   "type": "text",
+   "label": "from_st"
+  },
+  {
+   "name": "to_st",
+   "type": "text",
+   "label": "to_st"
+  },
+  {
+   "name": "direction",
+   "type": "text",
+   "label": "direction"
+  },
+  {
+   "name": "veh_imp",
+   "type": "text",
+   "label": "veh_imp"
+  },
+  {
+   "name": "info",
+   "type": "text",
+   "label": "info"
+  },
+  {
+   "name": "start_utc",
+   "type": "calendar_date",
+   "label": "start_utc"
+  },
+  {
+   "name": "end_utc",
+   "type": "calendar_date",
+   "label": "end_utc"
+  },
+  {
+   "name": "shape",
+   "type": "line",
+   "label": "shape"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": "created_date",
+   "type": "calendar_date",
+   "label": "created_date"
+  },
+  {
+   "name": "last_edited_date",
+   "type": "calendar_date",
+   "label": "last_edited_date"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "27952470",
+   "case_num": "1592180",
+   "case_name": "San Francisco Half Marathon and 5K",
+   "type": "Special Event",
+   "status": "Permitted",
+   "start_date": "2027-02-07T00:00:00.000",
+   "start_time": "07:00:00",
+   "start_dt": "2027-02-07T07:00:00.000",
+   "end_date": "2027-02-07T00:00:00.000",
+   "end_time": "10:00:00",
+   "end_dt": "2027-02-07T10:00:00.000",
+   "loc_desc": "OAK ST between STANYAN ST and BRODERICK ST",
+   "cnn": "12952000",
+   "street": "OAK ST",
+   "from_st": "OAK ACCESS RD",
+   "to_st": "JOHN F KENNEDY DR",
+   "direction": "undefined",
+   "veh_imp": "all-lanes-closed",
+   "start_utc": "2027-02-07T15:00:00.000",
+   "end_utc": "2027-02-07T18:00:00.000",
+   "shape": {
+    "geometry_type": "LineString"
+   },
+   "data_as_of": "2026-10-29T00:03:14.000",
+   "data_loaded_at": "2026-10-29T13:05:29.756",
+   "created_date": "2026-10-29T00:03:14.000",
+   "last_edited_date": "2026-10-29T00:03:14.000"
+  },
+  {
+   "objectid": "27952471",
+   "case_num": "1592180",
+   "case_name": "San Francisco Half Marathon and 5K",
+   "type": "Special Event",
+   "status": "Permitted",
+   "start_date": "2027-02-07T00:00:00.000",
+   "start_time": "07:00:00",
+   "start_dt": "2027-02-07T07:00:00.000",
+   "end_date": "2027-02-07T00:00:00.000",
+   "end_time": "10:00:00",
+   "end_dt": "2027-02-07T10:00:00.000",
+   "loc_desc": "OAK ST between STANYAN ST and BRODERICK ST",
+   "cnn": "9765000",
+   "street": "OAK ST",
+   "from_st": "CENTRAL AVE",
+   "to_st": "MASONIC AVE",
+   "direction": "undefined",
+   "veh_imp": "all-lanes-closed",
+   "start_utc": "2027-02-07T15:00:00.000",
+   "end_utc": "2027-02-07T18:00:00.000",
+   "shape": {
+    "geometry_type": "LineString"
+   },
+   "data_as_of": "2026-10-29T00:03:14.000",
+   "data_loaded_at": "2026-10-29T13:05:29.756",
+   "created_date": "2026-10-29T00:03:14.000",
+   "last_edited_date": "2026-10-29T00:03:14.000"
+  },
+  {
+   "objectid": "27952473",
+   "case_num": "1635512",
+   "case_name": "Block Party - Prentiss Street",
+   "type": "Special Event",
+   "status": "Permitted",
+   "start_date": "2026-11-14T00:00:00.000",
+   "start_time": "11:30:00",
+   "start_dt": "2026-11-14T11:30:00.000",
+   "end_date": "2026-11-14T00:00:00.000",
+   "end_time": "18:00:00",
+   "end_dt": "2026-11-14T18:00:00.000",
+   "loc_desc": "PRENTISS ST between JARBOE AVE and CORTLAND AVE",
+   "cnn": "10756000",
+   "street": "PRENTISS ST",
+   "from_st": "CORTLAND AVE",
+   "to_st": "JARBOE AVE",
+   "direction": "undefined",
+   "veh_imp": "all-lanes-closed",
+   "start_utc": "2026-11-14T19:30:00.000",
+   "end_utc": "2026-11-15T02:00:00.000",
+   "shape": {
+    "geometry_type": "LineString"
+   },
+   "data_as_of": "2026-10-29T00:03:14.000",
+   "data_loaded_at": "2026-10-29T13:05:29.756",
+   "created_date": "2026-10-29T00:03:14.000",
+   "last_edited_date": "2026-10-29T00:03:14.000"
+  }
+ ]
+}
