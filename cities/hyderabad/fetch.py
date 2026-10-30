@@ -54,13 +54,18 @@ def ckan_resource_urls(package):
 def pincodes():
     feats, meta = [], []
     for package, want in (('india-pincode-maps-2025', r'(?i)hyderabad|all india'),):
-        for name, url, mod in ckan_resource_urls(package):
+        # The Hyderabad file first: where both cover a PIN, build.py keeps the first source's shape.
+        res = sorted(ckan_resource_urls(package), key=lambda r: 'hyderabad' not in (r[0] or '').lower())
+        for name, url, mod in res:
             if not re.search(want, name or ''): continue
             print('  resource', name, mod, url)
             p = os.path.join(TMP, os.path.basename(urllib.parse.urlparse(url).path))
             open(p, 'wb').write(get(url))
             print('  size', os.path.getsize(p) // 1000, 'KB')
-            src = '/vsizip/' + p if p.lower().endswith('.kmz') else p
+            src = p
+            if p.lower().endswith('.kmz'):   # a zip holding a .kml (GDAL's KMZ reader rejects this one): unzip it
+                d = tempfile.mkdtemp(dir=TMP); zipfile.ZipFile(p).extractall(d)
+                src = next(os.path.join(r, f) for r, _, fs in os.walk(d) for f in fs if f.lower().endswith('.kml'))
             out = os.path.join(TMP, 'pin_%d.geojson' % len(meta))
             subprocess.run(['ogr2ogr', '-f', 'GeoJSON', '-t_srs', 'EPSG:4326', '-spat', str(W), str(S), str(E), str(N), '-nlt', 'PROMOTE_TO_MULTI', out, src], check=True)
             fs = json.load(open(out))['features']
