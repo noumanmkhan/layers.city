@@ -83,7 +83,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni: GTFS from BART, Caltrain and SFMTA · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA)",
  "example": {
   "at": [
    37.779,
@@ -297,6 +297,46 @@
      "stationHover": "{name} · {lines}"
     },
     {
+     "id": "bus",
+     "kind": "buses",
+     "file": "transit_routes",
+     "lazy": true,
+     "name": "Muni buses",
+     "note": "Every Muni bus and trolleybus route; stops from zoom 15",
+     "allText": "All",
+     "default": "freq",
+     "allNote": "Every daytime bus route.",
+     "families": [
+      [
+       "freq",
+       "Frequent",
+       "A bus every 10 minutes or better, 7 am to 7 pm on weekdays, each way."
+      ],
+      [
+       "exp",
+       "Express",
+       "Muni’s X routes: rush-hour buses with few stops."
+      ],
+      [
+       "night",
+       "Owl",
+       "At least one bus each way every hour from 2 to 4 am on weeknights."
+      ],
+      [
+       "reg",
+       "Regular",
+       "Every other daytime route."
+      ]
+     ],
+     "solo": [],
+     "comboText": "Express routes are dashed.",
+     "countText": "{n} routes",
+     "hint": "Tap a route or its number to see it alone; tap elsewhere for all.",
+     "pickText": "Drawn on the map",
+     "unpickText": "Stop drawing route {r}",
+     "clearText": "Clear"
+    },
+    {
      "id": "rail",
      "kind": "rail",
      "files": [
@@ -330,6 +370,61 @@
      "name": "Main streets",
      "note": "Market, Mission, Van Ness, Geary, 19th Avenue, the Embarcadero",
      "on": true
+    },
+    {
+     "id": "bikes",
+     "kind": "bikes",
+     "file": "bikes",
+     "lazy": true,
+     "name": "Bike lanes",
+     "note": "SFMTA’s bike network: separated bikeways, bike lanes, bike routes and paths",
+     "classes": {
+      "prot": [
+       "Separated",
+       "Class IV bikeways, separated from traffic by posts, curbs or parking"
+      ],
+      "paint": [
+       "Painted",
+       "Class II painted bike lanes, some with a buffer"
+      ],
+      "shared": [
+       "Shared",
+       "Class III routes with sharrows or signs: you ride with traffic"
+      ],
+      "trail": [
+       "Paths",
+       "Class I off-street paths, such as the Panhandle and the Bay Trail"
+      ]
+     },
+     "default": [
+      "prot",
+      "paint",
+      "trail"
+     ],
+     "legend": "From SFMTA’s bike network (California’s Class I to IV). Slow Streets aren’t included.",
+     "asofText": "SFMTA data as of {date}.",
+     "betweenText": "Between",
+     "fine": "Shown as built: construction can close a lane for a while."
+    },
+    {
+     "id": "bikeshare",
+     "kind": "docks",
+     "under": "bikes",
+     "file": "bikeshare",
+     "lazy": true,
+     "optional": true,
+     "minZoom": 12,
+     "name": "Bay Wheels stations",
+     "note": "Bay Wheels docking stations; filled where e-bikes charge. From zoom 12.",
+     "countNote": "{n} {system} stations; filled where e-bikes charge. From zoom 12.",
+     "kindText": "{system} station",
+     "docksText": "{n} docks",
+     "docksLabel": "Docks",
+     "chargeLabel": "E-bikes",
+     "chargeText": "Charging station",
+     "payLabel": "Paying",
+     "noCardText": "No card reader: unlock with the Lyft or Bay Wheels app",
+     "fine": "Station list as of {date}. For bikes and free docks right now, check the Bay Wheels app."
     }
    ]
   ],
@@ -924,6 +1019,38 @@
     }
    ],
    "note": "Names open each person’s official page. San Francisco’s Board of Supervisors elections are nonpartisan. Supervisor Districts 2, 4, 6, 8 and 10 are on the November 3 ballot, and new terms start January 8. Each U.S. representative is shown for the district they were elected on; the congressional lines on the map are the new Proposition 50 ones used on November 3, and the winners take office in January. Last change {date}."
+  },
+  "transit": {
+   "file": "transit.json",
+   "routes": "transit_routes",
+   "title": "Transit nearby",
+   "radius": 402,
+   "station": "Nearest BART station",
+   "stationSub": "{dist} away",
+   "rows": [
+    [
+     "bus",
+     "Muni buses",
+     false
+    ]
+   ],
+   "night": "Owl",
+   "stop": "Nearest stop",
+   "none": "No bus stop within ¼ mile",
+   "bikeshare": {
+    "label": "Bay Wheels",
+    "radius": 402,
+    "sub": "{dist} away[ · {docks} docks]",
+    "charge": "charges e-bikes",
+    "none": "No station within ¼ mile"
+   },
+   "every": "about every {h} min on weekday middays",
+   "nightOnly": "Owl service only",
+   "routeClasses": [],
+   "kinds": {
+    "bus": "Muni bus route"
+   },
+   "note": "Muni bus routes with a stop within ¼ mile, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. Muni schedules, week of {week}; Bay Wheels’ station list."
   }
  },
  "presets": {
