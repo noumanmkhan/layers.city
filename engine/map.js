@@ -2526,7 +2526,28 @@ function pickupRow(x, y){
    side of the dividing street the spot is on, with a nearby street that carries that side's E or W.
    [label, html, true] (html), or null when there's nothing to say. */
 const ADDR = byKind('addresses');
+/* Origins (card.address.origins: San Francisco, which has no citywide grid): the nearest street's own numbering,
+   from squares of its address points (docs/<city>/data/<dir>/<i>_<j>.json, cities/sf/addresses.py):
+   {s: [[street, starts at, rises toward, lowest hundred], ...], p: [[street index, lon, lat, number], ...]}. */
+const adTiles = new Map();
+function originsRow(x, y){
+  const A = CITY.card.address, key = Math.floor(x / A.cell) + '_' + Math.floor(y / A.cell);
+  if (!adTiles.has(key)){
+    adTiles.set(key, null);
+    get(A.dir + '/' + key + '.json').then(d => { adTiles.set(key, d); redrawCard(); }).catch(() => adTiles.set(key, {s: [], p: []}));
+    return null;
+  }
+  const T = adTiles.get(key); if (!T || !T.p.length) return null;
+  const near = T.p.map(p => [p, metres([x, y], [p[1], p[2]])]).filter(a => a[1] <= (A.within || 45)).sort((a, b) => a[1] - b[1]);
+  if (!near.length) return null;
+  const [p0] = near[0], st = T.s[p0[0]], blk = Math.floor(p0[3] / 100) * 100;
+  const line = blk < 100 ? fill(A.textLow, {street: st[0]}) : fill(A.text, {street: st[0], block: String(blk)});
+  const rise = !st[2] ? '' : st[3] >= 100 && st[1] ? fill(A.riseFrom, {low: String(st[3]), from: st[1], toward: st[2]})
+    : st[1] ? fill(A.rise, {from: st[1], toward: st[2]}) : fill(A.riseNoFrom, {toward: st[2]});
+  return [A.label, esc(line) + (rise ? '<span class="ag-sub">' + esc(rise) + '</span>' : '') + (A.sub ? '<span class="ag-sub">' + esc(A.sub) + '</span>' : ''), true];
+}
 function addressRow(x, y, hits){
+  if (CITY.card.address && CITY.card.address.origins) return originsRow(x, y);
   const A = CITY.card.address, D = ADDR && loaded[ADDR.file];
   if (!A || !D) return null;
   // A dividing street that only holds in part of the city (card.address.within: New York's Fifth Avenue, Manhattan

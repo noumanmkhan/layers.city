@@ -5,7 +5,7 @@ name: Refresh San Francisco data
 #   weekly (Mondays): representatives (fetch_representatives.py), garages, permit areas and EV chargers
 #     (fetch_parking.py), street sweeping (fetch_sweeping.py)
 #   monthly (the 6th): parks, schools, libraries, hospitals, colleges and places of worship (fetch_places.py),
-#     hazard zones, soft-story buildings, Slow Streets and ferries (fetch_extras.py)
+#     hazard zones, soft-story buildings, Slow Streets and ferries (fetch_extras.py), address points (fetch_addresses.py)
 # By hand: all of them (workflow_dispatch, "which": weekly, monthly or all).
 on:
   workflow_dispatch:
@@ -38,7 +38,7 @@ jobs:
           WHICH: ${{ inputs.which || (github.event.schedule == '29 9 6 * *' && 'monthly' || 'weekly') }}
         run: |
           weekly="fetch_representatives.py fetch_parking.py fetch_sweeping.py"
-          monthly="fetch_places.py fetch_extras.py"
+          monthly="fetch_places.py fetch_extras.py fetch_addresses.py"
           case "$WHICH" in weekly) S="$weekly";; monthly) S="$monthly";; *) S="$weekly $monthly";; esac
           echo "SCRIPTS=$S" >> "$GITHUB_ENV"
           for s in $S; do
@@ -56,6 +56,7 @@ jobs:
             fetch_representatives.py) python3 representatives.py ;;
             fetch_parking.py) python3 parking.py ;;
             fetch_sweeping.py) python3 sweeping.py ;;
+            fetch_addresses.py) python3 addresses.py ;;
             fetch_places.py) python3 faith.py && python3 places.py ;;
             fetch_extras.py) python3 extras.py && python3 places.py ;;   # soft-story counts are in places.py's Nearby
           esac || echo "::warning::build after $s failed"; done

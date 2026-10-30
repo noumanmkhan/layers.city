@@ -530,6 +530,15 @@ disagree, the live page is right.
 
 **Pickup row** (`card.pickup`, a Boundaries row placed by `{"label", "pickup": true}` in `card.facts`; Toronto "Collection day" after Address, Chicago "Street sweeping" after Address grid; October 14, 2026): find the feature of `file` containing the spot. None: show `outside` if set (Toronto: not on curbside routes), else no row. Otherwise take its `sched` dates on or after today in `tz`; none left: `after` with `{year}` if set (Toronto), else no row (Chicago, out of season). With `group`, dates within 4 days of each other are one visit ("Oct 30 and Nov 2"). The row: `head` filled with `{day}` (the weekday most of the area's dates fall on) and the feature's properties (Chicago "Ward {w}, section {s}"), then the next `show` visits each as `next` ("{when}: {items}"; `{when}` is "Today", "Tomorrow" or "Thu, Oct 15", `{items}` the `items` labels joined, first letter capitalised), then `note` with `{year}`.
 
+**Address row, by each street's own start** (`card.address.origins`; San Francisco, October 31, 2026, which has no
+citywide grid): `dir` names a folder of squares like the street sweeping row's (`<i>_<j>.json`, `cell` 0.005°), each
+`{s: [[street, starts at (cross street, or ""), rises toward (north, northeast…, or "" for a short street), lowest
+hundred], …], p: [[street index, lon, lat, number], …]}` (address points about 30 m apart). Take the point nearest
+the spot within `within` metres (none: no row). The row: `text` with `{street}` and `{block}` (the point's number
+rounded down to the hundred; `textLow` under 100), then, when there's a `toward`, `riseFrom` (lowest hundred 100 or
+more and a cross street: `{low}`, `{from}`, `{toward}`), else `rise` (`{from}`, `{toward}`), else `riseNoFrom`,
+then `sub`.
+
 **Street sweeping row** (`card.sweep`, a Boundaries row placed by `{"label", "sweep": true}` in `card.facts`; San
 Francisco, October 31, 2026): `dir` names a folder of squares, `<i>_<j>.json` with i = floor(lon / `cell`) and j =
 floor(lat / `cell`) (`cell` 0.005°, about 450 m); fetch the square holding the spot. Each square is

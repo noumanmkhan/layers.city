@@ -82,7 +82,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA) · Street sweeping: San Francisco Public Works (DataSF)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA) · Street sweeping: San Francisco Public Works (DataSF) · Addresses: City and County of San Francisco, Enterprise Addressing System (DataSF)",
  "example": {
   "at": [
    37.779,
@@ -1423,6 +1423,10 @@
     "empty": "—"
    },
    {
+    "label": "Address",
+    "address": true
+   },
+   {
     "label": "Known as",
     "knownas": true
    },
@@ -1713,6 +1717,19 @@
    "tz": "America/Los_Angeles",
    "note": "Not on City holidays. Check the street's signs: they rule.",
    "source": "Public Works"
+  },
+  "address": {
+   "label": "Address",
+   "origins": true,
+   "dir": "addresses",
+   "cell": 0.005,
+   "within": 45,
+   "text": "{street}, the {block} block",
+   "textLow": "{street}, numbers under 100",
+   "rise": "Numbers start at {from} and rise to the {toward}, about 100 a block.",
+   "riseNoFrom": "Numbers rise to the {toward}, about 100 a block.",
+   "sub": "No citywide grid: each street counts up from its own start.",
+   "riseFrom": "Numbers start at {low} at {from} and rise to the {toward}, about 100 a block."
   }
  },
  "presets": {
