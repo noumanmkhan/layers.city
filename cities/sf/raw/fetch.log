@@ -1,12 +1,19 @@
 == datasf
-   analysis_neighborhoods https://data.sfgov.org/api/geospatial/p5b7-5n3h?method=export&format=GeoJSON Expecting value: line 4 column 5 (char 53)
-   sffind https://data.sfgov.org/api/geospatial/pty2-tcw4?method=export&format=GeoJSON Expecting value: line 4 column 5 (char 53)
+wrote analysis_neighborhoods.geojson 1719 KB
+  analysis_neighborhoods 41 features · [':created_at', ':id', ':updated_at', ':version', 'nhood']
+wrote sffind.geojson 309 KB
+  sffind 117 features · [':created_at', ':id', ':updated_at', ':version', 'link', 'name']
 wrote supervisors.geojson 304 KB
   supervisors 11 features · ['data_as_of', 'data_loaded_at', 'sup_dist', 'sup_dist_name', 'sup_dist_num', 'sup_dist_pad', 'sup_name']
 wrote historic_districts.geojson 1350 KB
   historic_districts 204 features · ['a10', 'a11', 'cr', 'date_updated', 'dateadop', 'description', 'docname', 'link', 'name_1', 'nr', 'origin', 'pos_1']
 wrote cultural_districts.geojson 96 KB
   cultural_districts 10 features · ['designation_date', 'district_name']
+== tracts_an
+wrote an_tracts.json 1949 KB
+  crosswalk 242 rows · ['county_fp', 'data_as_of', 'data_loaded_at', 'geoid', 'name', 'neighborhoods_analysis_boundaries', 'object_id', 'state_fp', 'sup_dist_2012', 'sup_dist_2022', 'the_geom', 'tractce']
+  downloaded tract.zip 4 MB
+wrote tracts_2020.geojson 242 features
 == region
   region_incorporatedplace_clp | fields: ['objectid', 'fipst', 'fipco', 'jurname', 'Shape__Area', 'Shape__Length']
 wrote cities.geojson 3207 KB
@@ -39,4 +46,4 @@ wrote osm_highways.json 9776 KB
 wrote osm_rail.json 8382 KB
 wrote osm_stations.json 119 KB
 wrote osm_landmarks.json 92 KB
-FAILED: ['analysis_neighborhoods', 'sffind']
+FAILED: none
