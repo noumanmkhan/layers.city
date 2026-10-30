@@ -424,7 +424,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (!LIVE || !stopIds.length) return null;
     try {
       const rapid = stopIds.some(id => (byId.get(id) || [])[8]);
-      const r = await fetch(LIVE + '&stops=' + encodeURIComponent(stopIds.join(',')) + (rapid ? '&rapid=1' : ''));
+      // The rapid lines at these platforms, so a city with a feed per group of lines (New York) reads only theirs.
+      const lines = rapid ? [...new Set(stopIds.flatMap(id => { const s = byId.get(id); return s && s[8] ? Object.keys(s[6]).filter(isRapid) : []; }))] : [];
+      const r = await fetch(LIVE + '&stops=' + encodeURIComponent(stopIds.join(',')) + (rapid ? '&rapid=1' + (lines.length ? '&lines=' + encodeURIComponent(lines.join(',')) : '') : ''));
       if (!r.ok) return null;
       const j = await r.json(); liveSkew = Date.now() / 1000 - j.now;
       // An answer from a feed's kept copy (511.org turned a request away) more than 5 minutes old: its times are

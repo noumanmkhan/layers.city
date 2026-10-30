@@ -22,9 +22,23 @@
  * kept for 15 minutes: when 511 says no (too many requests, or down), the answer is built from that copy, whose
  * times are still clock times, and says how old it is in asof. 511 writes stop ids as the rider-facing stop code
  * (1 + the GTFS stop_id: stop 5417 is 15417), so "idPrefix" maps the page's ids to the feed's and back.
+ *
+ * New York: the subway's trip updates come one feed per group of lines (A C E, B D F M, …; no key). The page sends
+ * the rapid lines at the platforms asked for (&lines=A,C), and only those lines' feeds are read ("rapid" is then a
+ * map of feeds and "lineFeed" says which feed carries each line; with no lines given, all are read). The buses'
+ * live times need an MTA Bus Time key, which isn't set up: "main" is empty and bus stops get no live times.
  */
 const FEEDS = {
   toronto: { main: 'https://gtfsrt.ttc.ca/trips/update?format=binary', rapid: 'https://gtfsrt.ttc.ca/trips/subway?format=binary' },
+  nyc: {
+    main: null,
+    rapid: Object.fromEntries(['ace', 'bdfm', 'g', 'jz', 'nqrw', 'l', 'si', ''].map(k => [k || '1234567',
+      'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs' + (k ? '-' + k : '')])),
+    lineFeed: { 1: '1234567', 2: '1234567', 3: '1234567', 4: '1234567', 5: '1234567', 6: '1234567', 7: '1234567',
+      '5X': '1234567', '6X': '1234567', '7X': '1234567', GS: '1234567', S: '1234567', A: 'ace', C: 'ace', E: 'ace',
+      H: 'ace', FS: 'ace', B: 'bdfm', D: 'bdfm', F: 'bdfm', FX: 'bdfm', M: 'bdfm', G: 'g', J: 'jz', Z: 'jz',
+      N: 'nqrw', Q: 'nqrw', R: 'nqrw', W: 'nqrw', L: 'l', SI: 'si', SIR: 'si' },
+  },
   sf: { main: env => env.FIVE11_KEY && `https://api.511.org/transit/tripupdates?api_key=${encodeURIComponent(env.FIVE11_KEY)}&agency=SF`,
         ttl: 60, keep: 900, idPrefix: '1' },
 };
@@ -41,8 +55,13 @@ export async function onRequestGet({ request, env }) {
   if (!feeds || !stops.length) return json({ error: 'Give a known city and one or more stop ids.' }, 400, 60);
   const rapid = url.searchParams.get('rapid') === '1' && !!feeds.rapid;
 
+  // A city with a feed per group of rapid lines: only the feeds for the lines asked for (all when none are named).
+  const lines = [...new Set((url.searchParams.get('lines') || '').split(',').map(s => s.trim()).filter(s => /^\w{1,8}$/.test(s)))].sort();
+  const rapidFeeds = !rapid ? [] : typeof feeds.rapid === 'object' && feeds.rapid
+    ? [...new Set(lines.length && feeds.lineFeed && lines.every(l => feeds.lineFeed[l]) ? lines.map(l => feeds.lineFeed[l]) : Object.keys(feeds.rapid))]
+    : ['rapid'];
   // The same question within 15 s gets the same answer from the edge cache, without reading the feed again.
-  const key = new Request(`${url.origin}/api/arrivals?city=${city}&stops=${[...stops].sort().join(',')}${rapid ? '&rapid=1' : ''}`);
+  const key = new Request(`${url.origin}/api/arrivals?city=${city}&stops=${[...stops].sort().join(',')}${rapid ? '&rapid=1&f=' + rapidFeeds.join(',') : ''}`);
   const cache = caches.default;
   const hit = await cache.match(key);
   if (hit) return hit;
@@ -51,7 +70,8 @@ export async function onRequestGet({ request, env }) {
   // A feed's last good copy, for a feed that sets "keep" (seconds), under a key of its own that names no secret.
   const keepKey = which => new Request(`${url.origin}/api/arrivals/__feed/${city}/${which}`);
   const get = async which => {
-    const u = typeof feeds[which] === 'function' ? feeds[which](env || {}) : feeds[which];
+    const src = which === 'main' || which === 'rapid' ? feeds[which] : feeds.rapid[which];
+    const u = typeof src === 'function' ? src(env || {}) : src;
     try {
       if (!u) throw new Error('no feed address');
       const r = await fetch(u, { cf: { cacheTtlByStatus: { '200-299': ttl, '400-599': 60 }, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)' } });
@@ -70,7 +90,7 @@ export async function onRequestGet({ request, env }) {
   // The feed's own stop ids for the ones asked for (511: 1 + the stop_id), and back again.
   const pre = feeds.idPrefix || '';
   const feedIds = stops.map(s => pre + s);
-  const bufs = await Promise.allSettled([get('main'), rapid ? get('rapid') : Promise.reject('not asked')]);
+  const bufs = await Promise.allSettled([feeds.main ? get('main') : Promise.reject('no main feed'), ...rapidFeeds.map(get)]);
   if (bufs.every(b => b.status === 'rejected')) return json({ error: 'The live feed is not responding right now.' }, 503, 10);
   const out = { asof: 0, stops: Object.fromEntries(stops.map(s => [s, []])) };
   for (const b of bufs) {
