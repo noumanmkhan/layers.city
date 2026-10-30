@@ -1,0 +1,28 @@
+{
+ "_about": "Bike lanes (engine/fetch_bikes.py, engine/bikes.py): SFMTA's Bike Network Linear Features (DataSF ygmz-vaxd). Each segment's California facility class (facility_t) puts it in a class: Class IV separated bikeways, Class II bike lanes, Class III bike routes (sharrows and signs), Class I off-street paths. Types not listed are left out and printed by the build.",
+ "source": {
+  "type": "socrata_geojson",
+  "url": "https://data.sfgov.org/resource/ygmz-vaxd.geojson?$limit=50000",
+  "meta": "https://data.sfgov.org/api/views/ygmz-vaxd.json"
+ },
+ "fields": ["streetname", "street_", "from_st", "to_st", "facility_t", "symbology", "buffered", "raised", "contraflow", "install_yr"],
+ "typeField": "facility_t",
+ "name": "streetname",
+ "from": "from_st",
+ "to": "to_st",
+ "titleCase": true,
+ "year": "install_yr",
+ "classes": {
+  "prot": ["CLASS IV"],
+  "paint": ["CLASS II"],
+  "shared": ["CLASS III"],
+  "trail": ["CLASS I"]
+ },
+ "labels": {
+  "CLASS IV": "Separated bikeway",
+  "CLASS II": "Bike lane",
+  "CLASS III": "Bike route (sharrows or signs)",
+  "CLASS I": "Off-street bike path"
+ },
+ "merge": true
+}
