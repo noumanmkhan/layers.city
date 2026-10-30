@@ -46,7 +46,7 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/toronto/raw/surface cities/chicago/raw/surface cities/vancouver/raw/surface cities/dallas/raw/surface cities/sf/raw/surface
+          git add cities/toronto/raw/surface cities/chicago/raw/surface cities/vancouver/raw/surface cities/dallas/raw/surface cities/sf/raw/surface cities/nyc/raw/surface
           for c in toronto chicago vancouver dallas sf nyc; do [ -f docs/$c/data/transit.json ] || continue; git add docs/$c/data/transit.json docs/$c/data/transit_routes.geojson; [ -f docs/$c/data/streetcars.geojson ] && git add docs/$c/data/streetcars.geojson; done
           git commit -m "Update streetcar and bus routes from the agencies' latest schedules" || echo "no changes"
           git pull --rebase
