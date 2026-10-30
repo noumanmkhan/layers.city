@@ -1,3 +1,5 @@
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
   no ways in OSM, left out: 234
 chicago: 136 routes from 361 OSM relations · 6292 named stops (0 unnamed left out)
           Pace 208  Golf Road                                                     pieces 54
@@ -10,7 +12,7 @@ chicago: 136 routes from 361 OSM relations · 6292 named stops (0 unnamed left o
           Pace 226  Oakton Street                                                 pieces 2
           Pace 230  South Des Plaines                                             pieces 17
           Pace 240  Greenwood-Talcott                                             pieces 2
-          Pace 241  Cumberland CTA Station – Golf Mill Mall                       pieces 10
+          Pace 241  Golf Mill Mall – Cumberland CTA Station                       pieces 10
           Pace 250  Dempster Street                                               pieces 8
           Pace 270  Milwaukee Avenue                                              pieces 10
           Pace 272  Milwaukee Avenue North                                        pieces 14
@@ -32,7 +34,7 @@ chicago: 136 routes from 361 OSM relations · 6292 named stops (0 unnamed left o
           Pace 318  West North Avenue                                             pieces 2
           Pace 319  Grand Avenue                                                  pieces 5
           Pace 322  Cermak Road - 22nd Street                                     pieces 5
-          Pace 330  Archer/Harlem – O'Hare MMF                                    pieces 9
+          Pace 330  O'Hare MMF – Archer/Harlem                                    pieces 9
           Pace 331  Cumberland - 5th Avenue                                       pieces 41
           Pace 332  River Road - York Road                                        pieces 70
           Pace 348  Blue Island - Harvey - Riverdale                              pieces 16
@@ -42,12 +44,12 @@ chicago: 136 routes from 361 OSM relations · 6292 named stops (0 unnamed left o
           Pace 353  95th/Dan Ryan CTA – River Oaks – Homewood Limited             pieces 40
           Pace 354  Harvey-Oak Forest Loop                                        pieces 4
           Pace 356  Harvey - Homewood - Tinley Park                               pieces 4
-          Pace 357  Lawrence Manor – Woodlawn & 13th Place                        pieces 14
+          Pace 357  Woodlawn/13th Place – Lawrence Manor                          pieces 14
           Pace 358  Torrence                                                      pieces 4
           Pace 359  95th Dan/Ryan CTA Station – Advocate South Suburban Hospital  pieces 5
           Pace 360  Harvey-Amazon Monee Express                                   pieces 4
           Pace 361  Harvey - Laraway Crossings Express                            pieces 12
-          Pace 364  Morton & Willow – Herion/Wheeler                              pieces 54
+          Pace 364  Herion/Wheeler – Morton/Willow                                pieces 54
           Pace 366  Chicago Heights-Park Forest                                   pieces 2
           Pace 367  University Park – Park Forest                                 pieces 25
           Pace 379  Midway - Orland Square                                        pieces 15
@@ -76,10 +78,10 @@ chicago: 136 routes from 361 OSM relations · 6292 named stops (0 unnamed left o
           Pace 509  Joliet-Fairmont                                               pieces 9
           Pace 511  Joliet-Elwood-CenterPoint                                     pieces 25
           Pace 512  Joliet - Centerpoint                                          pieces 18
-          Pace 524  Woodman's – Aurora Transportation Center                      pieces 9
-          Pace 530  Nelson & Constitution – Naperville Metra Station              pieces 82
-          Pace 533  Aurora Transportation Center – Walmart East Side of Parking   pieces 12
-          Pace 540  Walmart East – Rush-Copley Medical Center                     pieces 2
+          Pace 524  Aurora Transportation Center – Woodman's                      pieces 9
+          Pace 530  Naperville Metra Station – Nelson & Constitution              pieces 82
+          Pace 533  Walmart East Side of Parking Lot – Aurora Transportation Cen  pieces 12
+          Pace 540  Rush-Copley Medical Center – Walmart East                     pieces 2
           Pace 541  Northeast Elgin                                               pieces 2
           Pace 542  Bluff City                                                    pieces 10
           Pace 543  Dundee-Carpentersville                                        pieces 15
@@ -90,12 +92,12 @@ chicago: 136 routes from 361 OSM relations · 6292 named stops (0 unnamed left o
           Pace 550  Elgin Transportation Center - Crystal Lake                    pieces 55
           Pace 552  North State - Spring Hill Mall                                pieces 33
           Pace 554  Elgin - Woodfield                                             pieces 23
-          Pace 559  High Meadow – Corporate Lane                                  pieces 43
+          Pace 559  Corporate Lane – Fox Valley Mall                              pieces 43
           Pace 561  Castlecrest via McAree                                        pieces 3
           Pace 562  Gurnee via Sunset                                             pieces 9
           Pace 563  Great Lakes Naval Station                                     pieces 8
           Pace 564  Jackson / 14th Street                                         pieces 21
-          Pace 565  Route 21 & Great America (Employee Entrance) – Sheridan & Wa  pieces 24
+          Pace 565  College of Lake County – Sheridan & Washington                pieces 24
           Pace 566  McAree-Keller                                                 pieces 6
           Pace 568  Belvidere                                                     pieces 17
           Pace 569  Lewis                                                         pieces 3
@@ -112,9 +114,9 @@ chicago: 136 routes from 361 OSM relations · 6292 named stops (0 unnamed left o
           Pace 607  I-90/Randall Road Park-n-Ride - Schaumburg Express            pieces 14
           Pace 626  Skokie-Buffalo Grove Limited                                  pieces 43
           Pace 697  Pace Northwest Transportation Center – Harper College         pieces 2
-          Pace 711  Addison – Wheaton                                             pieces 20
+          Pace 711  Wheaton – Addison                                             pieces 20
           Pace 714  College of DuPage-Naperville-Wheaton Connector                pieces 4
-          Pace 715  Addison Walmart – Brookhaven Plaza                            pieces 22
+          Pace 715  Brookhaven Plaza – Addison Walmart                            pieces 22
           Pace 722  Ogden Avenue                                                  pieces 12
           Pace 755  Plainfield – IMD – West Loop Express                          pieces 11
           Pace 801  Geneva Metra Station – Pace Elgin Transportation Center       pieces 18
@@ -126,13 +128,13 @@ chicago: 136 routes from 361 OSM relations · 6292 named stops (0 unnamed left o
           Pace 811  Rosemont Entertainment Circulator                             pieces 18
           Pace 832  Joliet-Orland Park                                            pieces 2
           Pace 834  Joliet Metra – Branding/Finley                                pieces 57
-          Pace 850  Pace Canterbury Park-N-Ride – Michigan/Superior               pieces 2
-          Pace 851  Michigan/Superior – Pace White Fence Farm Park-N-Ride         pieces 2
+          Pace 850  Michigan/Superior – Pace Canterbury Park-N-Ride               pieces 2
+          Pace 851  Pace White Fence Farm Park-N-Ride – Michigan/Superior         pieces 2
           Pace 855  Pace Plainfield Park-N-Ride – Michigan/Superior               pieces 15
           Pace 890  Chicago Heights-UPS Hodgkins Limited                          pieces 12
           Pace 905  Schaumburg's Woodfield Trolley                                pieces 14
         Pace 223-E  Tower/Mark – Rosemont CTA Station                             pieces 2
-        Pace 223-W  Rosemont CTA Station – Tower/Mark                             pieces 2
-        Pace 223-X  Rosemont CTA Station – Tower/Mark                             pieces 2
+        Pace 223-W  Tower/Mark – Rosemont CTA Station                             pieces 2
+        Pace 223-X  Tower/Mark – Rosemont CTA Station                             pieces 2
     Pulse Dempster  Davis CTA Station – O'Hare MMF                                pieces 2
-   Pulse Milwaukee  Jeff Park Transit Center – Golf Mill Mall                     pieces 2
+   Pulse Milwaukee  Golf Mill Mall – Jeff Park Transit Center                     pieces 2
