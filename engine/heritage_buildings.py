@@ -99,8 +99,11 @@ elif city == 'sf':
     # Planning's Article 10 landmarks: parcels (one point each), with the landmark number.
     for r in R['rows']:
         if r.get('lat') is None or not (r.get('name') or '').strip(): continue
-        p = {'n': r['name'].strip(), 'a': (r.get('address') or '').strip(), 'd': year(r.get('yeardesignated')),
-             'b': ('Landmark No. ' + str(r['landmarkno']).split('.')[0]) if r.get('landmarkno') else '', 'id': r.get('landmarkno')}
+        a = (r.get('address') or '').strip()
+        if a.isupper(): a = re.sub(r'\bSt$', 'Street', re.sub(r'\bAve?$', 'Avenue', a.title()))  # a few rows are in capitals
+        no = str(r.get('landmarkno') or '').split('.')[0]
+        no = '' if no in ('', '0') else no  # 0 = not yet numbered
+        p = {'n': r['name'].strip(), 'a': a, 'd': year(r.get('yeardesignated')), 'b': 'Landmark No. ' + no if no else '', 'id': no or r['name'].strip()}
         feats.append({'type': 'Feature', 'properties': {k: v for k, v in p.items() if v}, 'geometry': {'type': 'Point', 'coordinates': [round(r['lon'], 6), round(r['lat'], 6)]}})
 else:
     F = {k.lower(): k for k in R['fields']}
