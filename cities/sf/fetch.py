@@ -29,9 +29,12 @@ def datasf(only=None):
     """Each dataset as GeoJSON: the resource API first, the geospatial export for map-type datasets."""
     for name, i in DATASF:
         if only and name not in only: continue
-        for url in [f'{SOC}/resource/{i}.geojson?$limit=50000', f'{SOC}/api/geospatial/{i}?method=export&format=GeoJSON']:
+        for url in [f'{SOC}/resource/{i}.geojson?$limit=50000', f'{SOC}/api/v3/views/{i}/query.geojson?accessType=DOWNLOAD',
+                    f'{SOC}/api/views/{i}/rows.geojson?accessType=DOWNLOAD', f'{SOC}/api/geospatial/{i}?method=export&format=GeoJSON']:
             try:
-                d = json.loads(get(url, tries=2))
+                raw = get(url, tries=2)
+                try: d = json.loads(raw)
+                except ValueError: print('   not JSON from', url, raw[:200]); continue
                 if d.get('features') and d['features'][0].get('geometry') and d['features'][0].get('properties'):
                     save(name + '.geojson', d)
                     print(' ', name, len(d['features']), 'features ·', sorted(d['features'][0]['properties'])[:20])
@@ -41,6 +44,16 @@ def datasf(only=None):
         else:
             FAILED.append(name)
         time.sleep(2)
+
+
+def tracts_an():
+    """The 41 rebuilt the City's way, in case the map-type dataset won't export: 2020 tracts (Census cartographic
+    boundaries, shoreline-clipped) and DataSF's tract-to-neighborhood crosswalk (sevw-6tgi)."""
+    xw = json.loads(get(f'{SOC}/resource/sevw-6tgi.json?$limit=5000'))
+    save('an_tracts.json', xw)
+    print('  crosswalk', len(xw), 'rows ·', sorted(xw[0]) if xw else None)
+    z = download(CB + 'cb_2024_06_tract_500k.zip', os.path.join(TMP, 'tract.zip'))
+    shp_to_geojson(z, "COUNTYFP = '075'", 'tracts_2020.geojson')
 
 
 def region():
@@ -128,7 +141,8 @@ def osm():
 
 if __name__ == '__main__':
     want = [a for a in sys.argv[1:] if not a.startswith('--')]
-    for label, fn in [('datasf', datasf), ('region', region), ('census', census), ('congress', congress), ('gtfs', gtfs), ('osm', osm)]:
+    if want == ['datasf_fix']: want = ['datasf', 'tracts_an']
+    for label, fn in [('datasf', datasf), ('tracts_an', tracts_an), ('region', region), ('census', census), ('congress', congress), ('gtfs', gtfs), ('osm', osm)]:
         if want and label not in want: continue
         print('==', label); step(label, fn)
     print('FAILED:', FAILED or 'none')
