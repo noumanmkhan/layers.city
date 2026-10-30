@@ -1,0 +1,201 @@
+{
+ "_about": "Settings for San Francisco's Routes page (engine/routes/: build.py, page.html), at /sf/routes/: pick a stop near you, see where each Muni bus and Muni Metro line from it goes. Muni Metro's lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their stops in order. BART isn't a route here (it's another agency's feed); its stations are connections, with Muni Metro's.",
+ "modes": [
+  "bus",
+  "lrt"
+ ],
+ "gridTilt": 0,
+ "_gridTilt": "San Francisco's grids disagree (north of Market they run true north, south of Market they're turned 45 degrees), so directions are read from true north.",
+ "keepRight": true,
+ "platformDirs": {
+  "Outbound": "outbound",
+  "Outbd": "outbound",
+  "Inbound": "inbound",
+  "Downtown": "inbound",
+  "Downtn": "inbound"
+ },
+ "_platformDirs": "Muni names its subway platforms Outbound and Downtown (inbound); Central Subway platforms say Northbound and Southbound.",
+ "regions": [
+  "sides"
+ ],
+ "_regions": "The map's five parts of the city: Downtown, the Northside, the West Side, Central and the Southeast.",
+ "regionsWithThe": [
+  "Northside",
+  "West Side",
+  "Southeast"
+ ],
+ "knownWithThe": "^(.* District|Mission|Castro|Haight|Tenderloin|Presidio|Richmond|Sunset|Marina|Embarcadero|Excelsior|Dogpatch)$",
+ "units": "neighbourhoods",
+ "streets": {
+  "raw": "osm_streets.json",
+  "osm": true,
+  "name": "name",
+  "along": [
+   "trunk",
+   "primary",
+   "secondary",
+   "tertiary"
+  ],
+  "cross": [
+   "trunk",
+   "primary"
+  ]
+ },
+ "pois": [
+  {
+   "file": "landmarks",
+   "cat": "catLabel"
+  },
+  {
+   "file": "institutions",
+   "cats": {
+    "hospital": "Hospital",
+    "university": "University",
+    "college": "College"
+   }
+  }
+ ],
+ "known": "knownas",
+ "stations": {
+  "files": [
+   "bart_stations",
+   "muni_stations"
+  ],
+  "skip": "^(?!4th ).+ & ",
+  "_skip": "muni_stations also lists some street stops (Church St & 16th St); only stations count as connections, keeping 4th St & King St (Caltrain) and 4th & Brannan."
+ },
+ "near": {
+  "poi": 200,
+  "station": 200,
+  "known": 250,
+  "platform": 120
+ },
+ "page": {
+  "city": "San Francisco",
+  "title": "Where does this line or route go?",
+  "short": "Routes from here",
+  "description": "Find the Muni bus stops and Muni Metro stops nearest you in San Francisco and see where each route goes: the neighborhoods it passes through, the main streets it runs along, its BART and Muni Metro connections and the landmarks on the way.",
+  "lede": "Find the stops near you, then pick a Muni bus or Muni Metro line to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
+  "placeholder": "Or search an address",
+  "outside": "That spot is outside San Francisco. Try an address in the city.",
+  "noMatch": "No match in San Francisco for “{q}”. Try the full street name, like “1 Ferry Building”.",
+  "noStops": "No stops within {r} of that spot.",
+  "credits": "Routes, stops and timetable: SFMTA (Muni) GTFS via DataSF · Neighborhoods: City and County of San Francisco (DataSF) · Streets: © OpenStreetMap contributors (ODbL) · BART stations: BART",
+  "mapLink": "Open on the map",
+  "mi": true,
+  "at": " & ",
+  "connectWith": "BART and Muni Metro",
+  "lineFiles": [
+   "metro_lines"
+  ],
+  "lineColors": {
+   "yellow": "#E6C800",
+   "orange": "#F9A11B",
+   "red": "#ED1C24",
+   "green": "#4DB848",
+   "blue": "#00AEEF",
+   "beige": "#A89F80",
+   "j": "#E08A2E",
+   "k": "#4E8FB8",
+   "l": "#8E3A8E",
+   "m": "#2E8B57",
+   "n": "#1D5FA0",
+   "t": "#C0384F"
+  },
+  "lineNames": {
+   "J": "J Church",
+   "K": "K Ingleside",
+   "L": "L Taraval",
+   "M": "M Ocean View",
+   "N": "N Judah",
+   "T": "T Third",
+   "Yellow": "BART Yellow line",
+   "Orange": "BART Orange line",
+   "Red": "BART Red line",
+   "Green": "BART Green line",
+   "Blue": "BART Blue line",
+   "Oakland Airport": "BART to Oakland Airport"
+  },
+  "connectionsLabel": "BART and Muni Metro",
+  "lineGroups": {
+   "BART": [
+    "Yellow",
+    "Orange",
+    "Red",
+    "Green",
+    "Blue",
+    "Oakland Airport"
+   ]
+  },
+  "legendUnits": "Neighborhoods it passes",
+  "legendKnown": "SoMa: the names people use"
+ },
+ "badges": {
+  "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses white with a Muni red outline, express blue, owl-only white with a navy outline; Muni Metro lines as round bullets in the line's colour, BART lines as plain dots.",
+  "bus": {
+   "fill": "#FFFFFF",
+   "text": "#BA0C2F",
+   "outline": "#BA0C2F"
+  },
+  "exp": {
+   "fill": "#1D5FA0",
+   "text": "#FFFFFF"
+  },
+  "night": {
+   "fill": "#FFFFFF",
+   "text": "#1C2A4A",
+   "outline": "#1C2A4A"
+  },
+  "lines": {
+   "J": {
+    "fill": "#E08A2E",
+    "text": "#FFFFFF"
+   },
+   "K": {
+    "fill": "#4E8FB8",
+    "text": "#FFFFFF"
+   },
+   "L": {
+    "fill": "#8E3A8E",
+    "text": "#FFFFFF"
+   },
+   "M": {
+    "fill": "#2E8B57",
+    "text": "#FFFFFF"
+   },
+   "N": {
+    "fill": "#1D5FA0",
+    "text": "#FFFFFF"
+   },
+   "T": {
+    "fill": "#C0384F",
+    "text": "#FFFFFF"
+   },
+   "Yellow": {
+    "fill": "#E6C800",
+    "text": "#E6C800"
+   },
+   "Orange": {
+    "fill": "#F9A11B",
+    "text": "#F9A11B"
+   },
+   "Red": {
+    "fill": "#ED1C24",
+    "text": "#ED1C24"
+   },
+   "Green": {
+    "fill": "#4DB848",
+    "text": "#4DB848"
+   },
+   "Blue": {
+    "fill": "#00AEEF",
+    "text": "#00AEEF"
+   },
+   "Oakland Airport": {
+    "fill": "#A89F80",
+    "text": "#A89F80"
+   }
+  }
+ },
+ "_near": "Stations within 200 m of a route count as connections: Mission Street's buses run a block from the BART stations under Market Street."
+}

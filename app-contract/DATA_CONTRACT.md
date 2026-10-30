@@ -850,8 +850,9 @@ one from Friday to Sunday.
 
 ## 15. Transit: stops near a spot, where each route goes, live arrivals
 
-Toronto as of October 28, 2026 (buses, streetcars, subway and LRT). It is the data behind the website's
-"Where does this line or route go?" page (`/toronto/routes/`); an app can rebuild that page natively from it. A
+Toronto as of October 28, 2026 (buses, streetcars, subway and LRT), San Francisco as of October 30 (Muni buses
+and Muni Metro, as `lrt`; no live times yet, so `live` is null and the timetable stands in). It is the data behind
+the website's "Where does this line or route go?" page (`/toronto/routes/`, `/sf/routes/`); an app can rebuild that page natively from it. A
 city without `transit` in its `city.json` has none of this: hide the feature.
 
 ### Where things are: `city.json` `transit`
@@ -876,8 +877,27 @@ transit: {
   title, credits,                                     the page's title and the credit line to show
   badges: {bus, tram, exp, night: {fill, text, outline?},   route badges: a rounded rectangle, number in it
            lines: {"1": {fill, text}, …}}                   subway and LRT: a round bullet in the line's colour
+  words: {…}                                          the city's own wording (below); {} for Toronto
 }
 ```
+
+**City wording** (`transit.words`, added October 30, 2026; every key optional, and a missing key means Toronto's
+wording, shown in brackets):
+- `lineNames`: what to call a line in a sentence ("Line 1"): San Francisco's `{"J": "J Church", "Yellow": "BART
+  Yellow line", …}`. A line named here leads a sentence with "The": "The J Church towards Balboa Park starts at …".
+- `lineGroups`: lines said once by a group name: `{"BART": ["Yellow", "Orange", "Red", "Green", "Blue",
+  "Oakland Airport"]}`. A station's bullets show one "BART" bullet (badge colour `#0E6FB8`, white text) instead of
+  one per line, and "Change for BART, J Church".
+- `at`: what joins a stop name's two streets (" at "): San Francisco's " & " ("Mission St & 16th St"). Use it
+  wherever this section says " at ".
+- `connectWith`: "connects with <this> at <stations>" ("the subway"): "BART and Muni Metro".
+- `connectionsLabel`: the heading of the connections fact ("Subway connections").
+- `mi`: true to show distances in feet under 0.1 mi and miles above (metres and km).
+
+Platforms' `side` and `travel` words can also be the agency's own: Muni's subway platforms are `inbound` and
+`outbound` ("Inbound platform"), as are a Muni Metro line's patterns' `head` (show them capitalised, "Outbound").
+In San Francisco a street stop a bus shares with a Muni Metro line is a stop (`platform` 0) with its side of the
+street; a stop only Muni Metro uses, or one at a station, is a platform.
 
 Paths are on `https://layers.city`. The files are rebuilt whenever the schedule changes (weekly at most); they
 are about 1.3 MB (`stops.json`, ~310 KB compressed) and 1–50 KB per route. Bundle `stops.json` with the city's
