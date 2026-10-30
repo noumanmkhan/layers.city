@@ -33,3 +33,15 @@ follow the new wards; the merged municipalities aren't in OSM (only mandals, whi
 ## When to look again
 Ward maps should become public before the corporation elections (reported for December 2026 or
 December 2027). Re-run the workflow then, or when OpenCity updates "Hyderabad - Wards Info".
+
+## Re-check, October 30, 2026: unchanged
+- The workflow re-ran (out/ refreshed): OSM, OpenCity and the PIN code sources are as above. Still no
+  corporation, new-ward, Cantonment or expanded-HMDA boundaries.
+- Checked by hand from a browser in Hyderabad (the sites block GitHub's servers): cmc.telangana.gov.in and
+  ghmc.gov.in load. Their zone, circle and ward maps are JPEG images only (CMCMap.jpeg, NEW ZONES,CIRCLE MAP.jpg,
+  zone maps on Google Drive). GHMC also links the 300-ward delimitation notification of 25.12.2025 (a PDF that
+  describes boundaries in words). Its elections portal has nothing for the corporation polls yet.
+- Civic boundaries are still moving: a June 2026 plan would raise wards from 300 to 400 (GHMC 200, Cyberabad
+  100, Malkajgiri 100); GHMC polls were being aimed at November–December 2026, with no notification yet.
+- Revenue boundaries are frozen for the census: no district, sub-district (mandal) or village changes from
+  January 1, 2026 to March 31, 2027. Ward boundaries aren't covered by the freeze.
