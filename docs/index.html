@@ -77,11 +77,11 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,
 
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:24px}
 .cards.one{grid-template-columns:minmax(0,560px)}
-/* The maps: two lead cities side by side, the rest three to a row below */
-.cards.lead{grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr))}
+/* The maps: the three full-featured cities in one row; below them, smaller cards for the cities still being built */
+.cards.lead{grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
 .cards.more{grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));margin-top:24px}
 .cards.lead .card.map h2{font-size:32px}.cards.lead .card.map h3{font-size:24px}
-.cards.more .card.map .body{padding:22px 24px 26px}.cards.more .card.map p{font-size:16px}
+.cards.more .card.map .card-link{flex-direction:row}.cards.more .card.map .thumb{width:34%;flex:none;aspect-ratio:auto;height:auto;object-fit:contain;background:#FBF8F7;border-bottom:0;border-right:1.5px solid var(--rule)}.cards.more .card.map .body{padding:16px 18px;gap:10px}.cards.more .card.map .host{font-size:12px;margin-bottom:6px}.cards.more .card.map h2{display:none}.cards.more .card.map h3{margin:6px 0 4px;font-size:20px;color:var(--ink)}.cards.more .card.map p{font-size:14px;line-height:1.5}.cards.more .card.map .go{font-size:14px}.cards.more .card.map .go svg{width:15px;height:15px}.cards.more .guide{padding:11px 18px;font-size:14px}.card .tag.dev{margin:0;font-size:10.5px;padding:3px 9px;color:var(--ink-2);background:transparent;border:1.5px dashed var(--ink-3)}
 .card{display:flex;flex-direction:column;gap:20px;background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:32px}
 .card-top{display:flex;align-items:center;justify-content:space-between;gap:16px}
 .icon{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;background:var(--accent);flex:none}
@@ -137,7 +137,7 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(44px,7vw,
 footer{padding-top:24px;padding-bottom:24px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;font-family:var(--mono);font-size:13px;color:var(--ink-3)}
 footer a:hover{color:var(--ink)}
 .made{display:flex;align-items:center;gap:8px}
-@media (max-width:520px){.links{flex-wrap:nowrap;gap:8px}.pill{gap:6px;min-height:40px;padding:0 13px;font-size:14px}.pill svg{width:16px;height:16px}.pill .full{display:none}.pill .short{display:inline}main{padding-top:40px;gap:40px}.card,.soon{padding:24px}.card.print .body,.card.map .body{padding:22px 24px 24px}.guide{padding:14px 24px}}
+@media (max-width:520px){.links{flex-wrap:nowrap;gap:8px}.pill{gap:6px;min-height:40px;padding:0 13px;font-size:14px}.pill svg{width:16px;height:16px}.pill .full{display:none}.pill .short{display:inline}main{padding-top:40px;gap:40px}.card,.soon{padding:24px}.card.print .body,.card.map .body{padding:22px 24px 24px}.guide{padding:14px 24px}.cards.more .card.map .body{padding:14px 16px}.cards.more .guide{padding:11px 16px}}
 .card-link{display:flex;flex-direction:column;flex-grow:1;border-radius:14px 14px 0 0}
 .guide{display:flex;align-items:center;gap:12px;padding:16px 32px;border-top:1.5px solid var(--rule);font-size:15px;color:var(--ink-2)}
 .guide .tag{margin:0;white-space:nowrap;font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--ink-3)}
@@ -242,6 +242,25 @@ footer a:hover{color:var(--ink)}
           <a class="guide" href="/nyc/profiles/" aria-label="Printable fact sheets for New York City’s 59 community districts"><span class="tag">FACT SHEETS</span><span class="t">Ready to print</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
           <a class="guide" href="/nyc/venues/" aria-label="New York’s big venues: what’s on this week and how to get there"><span class="tag">VENUES</span><span class="t">This week, and how to get there</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
         </div>
+        <div class="card map">
+          <a class="card-link" href="/sf/">
+            <img class="thumb" src="/thumbs/sf.svg" alt="Outline of the City and County of San Francisco on a grid" width="800" height="600">
+            <div class="body">
+              <div>
+                <div class="host">layers.city/<wbr>sf</div>
+                <h2>Layers<b>.City</b></h2>
+                <h3>San Francisco</h3>
+                <p>San Francisco inside the nine-county Bay Area: 41 neighborhoods, supervisor and state districts, BART, Muni and the ferries, tsunami and seismic hazard zones, permit parking, and where the region’s big tech companies have their headquarters. Type in any address to see every boundary it falls in and who represents it.</p>
+              </div>
+              <div class="go">Open the map
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+              </div>
+            </div>
+          </a>
+          <a class="guide" href="/sf/neighborhoods/" aria-label="Guide to San Francisco’s 41 neighborhoods"><span class="tag">GUIDE</span><span class="t">41 neighborhoods</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+          <a class="guide" href="/sf/profiles/" aria-label="Printable fact sheets for San Francisco’s 41 neighborhoods"><span class="tag">FACT SHEETS</span><span class="t">Ready to print</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+          <a class="guide" href="/sf/venues/" aria-label="San Francisco’s big venues: what’s on this week and how to get there"><span class="tag">VENUES</span><span class="t">This week, and how to get there</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+        </div>
       </div>
       <div class="cards more">
         <div class="card map">
@@ -250,9 +269,10 @@ footer a:hover{color:var(--ink)}
             <div class="body">
               <div>
                 <div class="host">layers.city/<wbr>chicago</div>
+                <span class="tag dev">IN DEVELOPMENT</span>
                 <h2>Layers<b>.City</b></h2>
                 <h3>Chicago</h3>
-                <p>The same map for Chicago: the nine sides, 77 community areas, 50 wards, Special Service Areas, the ‘L’ and Metra, and the neighbourhood names people actually use, like Wicker Park. Type in any address or place to see every boundary it falls in and who represents it.</p>
+                <p>Community areas, wards, the ‘L’ and Metra, and the names people use, like Wicker Park.</p>
               </div>
               <div class="go">Open the map
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
@@ -268,9 +288,10 @@ footer a:hover{color:var(--ink)}
             <div class="body">
               <div>
                 <div class="host">layers.city/<wbr>dallas</div>
+                <span class="tag dev">IN DEVELOPMENT</span>
                 <h2>Layers<b>.City</b></h2>
                 <h3>Dallas</h3>
-                <p>Dallas inside the whole Dallas–Fort Worth region: ZIP codes grouped into areas, council, Texas House, Senate and congressional districts, school districts, DART rail and buses, and where to vote on November 3. Type in any address to see every district it falls in and who represents it.</p>
+                <p>Dallas inside the DFW region: ZIP code areas, council and state districts, DART rail and buses.</p>
               </div>
               <div class="go">Open the map
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
@@ -286,9 +307,10 @@ footer a:hover{color:var(--ink)}
             <div class="body">
               <div>
                 <div class="host">layers.city/<wbr>vancouver</div>
+                <span class="tag dev">IN DEVELOPMENT</span>
                 <h2>Layers<b>.City</b></h2>
                 <h3>Vancouver</h3>
-                <p>Downtown and the East and West Sides, 22 local areas and the University Endowment Lands out at UBC, SkyTrain and every bus route, bikeways, heritage, BIAs and ridings, and the names locals use, like Gastown and Commercial Drive. Type in any address to see every boundary it falls in.</p>
+                <p>22 local areas and UBC, SkyTrain and buses, bikeways, heritage and ridings, and names like Gastown.</p>
               </div>
               <div class="go">Open the map
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>

@@ -233,9 +233,9 @@ The fifth city (`cities/nyc/`), listed on the hub on October 19, 2026 beside Tor
 
 It has Toronto's features: boroughs, known-as names, landmarks, skyscrapers from 650 ft, historic districts and individual landmarks, BIDs, the subway (by trunk line), LIRR, Metro-North, NJ Transit and PATH, ferries, highways and main streets, MTA buses with a Transit nearby section, bike lanes and Citi Bike, How addresses work (Fifth Avenue's East and West, Manhattan only), collection days, parks, sports, schools with the zoned elementary, middle and high school on the card, colleges, hospitals, libraries, community centers (NYC Parks recreation centers, NYCHA centers, Beacons in schools), older adult centers and places of worship, halal and kosher grocers, butchers, bakeries and fish markets picked from New York State's registries (no restaurants or chain counters), School zones as a map layer (elementary, middle or high), New development from DOB NOW with rezonings from City Planning's land-use applications (ZAP, placed on their tax lots through PLUTO, applicant names removed), the community district lens from the American Community Survey, tree canopy, *To Penn Station* transit times (r5py on the MTA schedules) and the suburban drive lens, representatives with council members' parties, and where to vote on November 3 with the ballot. Parking & Charging has NYC DOT's 39 municipal garages and fields (spaces and hours, from the City's list, kept by hand) and public EV chargers from the DOE's Alternative Fuels Data Center. New York-only layers: hurricane evacuation zones (and the nearest evacuation center) and the Congestion Relief Zone. What's left is in `cities/nyc/PARKED.md`; sources in `cities/nyc/SOURCES.md`.
 
-## San Francisco and the Bay Area (unlisted)
+## San Francisco and the Bay Area
 
-**Live at:** https://layers.city/sf/ (not on the hub yet)
+**Live at:** https://layers.city/sf/ (on the hub since October 30, 2026, in the top row with Toronto and New York)
 
 The seventh city (`cities/sf/`), started October 30, 2026: the City and County of San Francisco inside a nine-county Bay Area view (101 cities and towns, from MTC/ABAG). The units are the City's 41 Analysis Neighborhoods, with SF Find's 117 neighborhoods as a finer layer and a hand grouping of the city into Downtown, the Northside, the West Side, Central and the Southeast.
 
