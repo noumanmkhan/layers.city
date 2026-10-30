@@ -1768,7 +1768,7 @@ const wide = () => !matchMedia('(max-width:760px)').matches;
 map.fitBounds(CITY_BOUNDS, wide() ? {paddingTopLeft:[330,20], paddingBottomRight:[350,20]} : {paddingTopLeft:[0,150], paddingBottomRight:[0,90]});
 map.setMaxBounds(L.latLngBounds(CITY.view.max));  // the region plus a margin
 
-const panes = [['base',200],['fill',350],['lines',420],['streets',400],['badges',410],['civic',430],['hwy',450],['pfdim',455],['rail',460],['mask',465],['focus',468],['transit',470],['evcourse',471],['pfdim2',472],['pfline',473],['stlbl',475],['pts',480],['pin',620]];
+const panes = [['base',200],['fill',350],['lines',420],['streets',400],['badges',410],['civic',430],['hwy',450],['pfdim',455],['rail',460],['mask',465],['focus',468],['hwytop',469],['transit',470],['evcourse',471],['pfdim2',472],['pfline',473],['stlbl',475],['pts',480],['pin',620]];
 panes.forEach(([n,z]) => { map.createPane(n); map.getPane(n).style.zIndex = z; });
 map.getPane('base').style.pointerEvents = 'none';
 map.getPane('stlbl').style.pointerEvents = 'none';
@@ -2109,7 +2109,7 @@ const KINDS = {
     const k = f => f.properties.cls === 'major' ? 1 : f.properties.cls === 'coll' ? .55 : .75;
     const cas = L.geoJSON(fc, {pane:'streets', interactive:false, style: f => ({className:'st-case ' + f.properties.cls, weight: w()[0] * k(f)})});
     const core = L.geoJSON(fc, {pane:'streets', style: f => ({className:'st-core ' + f.properties.cls, weight: w()[1] * k(f)}),
-      onEachFeature: (f, lyr) => { hoverTip(lyr, f.properties.name); lyr.on('click', e => inspect(e.latlng)); }});
+      onEachFeature: (f, lyr) => { if (f.properties.name) hoverTip(lyr, f.properties.name); lyr.on('click', e => inspect(e.latlng)); }});
     map.on('zoomend', () => { cas.eachLayer(l => l.setStyle({weight: w()[0] * k(l.feature)})); core.eachLayer(l => l.setStyle({weight: w()[1] * k(l.feature)})); });
     g.addLayer(cas); g.addLayer(core); g.addLayer(labels);
     const streets = fc.features.map(f => {
@@ -2138,7 +2138,7 @@ const KINDS = {
       });
       let count = 0;
       for (const s of streets){
-        if ((s.cls === 'minor' && z < 13) || count >= 90) continue;
+        if (!s.name || (s.cls === 'minor' && z < 13) || count >= 90) continue;   // unnamed stretches draw but carry no label
         ctx.font = (s.cls === 'major' ? '600 11.5px ' : s.cls === 'coll' ? '500 10px ' : '500 10.5px ') + fam;
         const tw = ctx.measureText(s.name).width + 8, th = s.cls === 'major' ? 15 : 14;
         const mine = seen[s.name] || (seen[s.name] = []);
@@ -2178,11 +2178,17 @@ const KINDS = {
   highways: (it, [fc, outer, outerShields]) => {
     const g = L.layerGroup();
     const w = () => { const z = map.getZoom(); return z < 11 ? [5, 2.4] : z < 13 ? [7, 3.6] : [10, 5.5]; };
-    const cas = L.geoJSON(fc, {pane:'hwy', interactive:false, style: f => ({className:'hwy-case', weight: w()[0]})});
-    const core = L.geoJSON(fc, {pane:'hwy', style: f => ({className:'hwy-core ' + f.properties.kind, weight: w()[1]}),
-      onEachFeature: (f, lyr) => { hoverTip(lyr, f.properties.name); lyr.on('click', e => inspect(e.latlng)); }});
-    map.on('zoomend', () => { cas.eachLayer(l => l.setStyle({weight: w()[0]})); core.eachLayer(l => l.setStyle({weight: w()[1]})); });
-    g.addLayer(cas); g.addLayer(core);
+    // A feature marked "over" (a ring road that leaves the city and comes back) draws above the mask, so it reads whole
+    // in the city view; the rest sit under it.
+    [false, true].forEach(over => {
+      const part = {type: 'FeatureCollection', features: fc.features.filter(f => !!f.properties.over === over)}, pane = over ? 'hwytop' : 'hwy';
+      if (!part.features.length) return;
+      const cas = L.geoJSON(part, {pane, interactive:false, style: f => ({className:'hwy-case', weight: w()[0]})});
+      const core = L.geoJSON(part, {pane, style: f => ({className:'hwy-core ' + f.properties.kind, weight: w()[1]}),
+        onEachFeature: (f, lyr) => { hoverTip(lyr, f.properties.name); lyr.on('click', e => inspect(e.latlng)); }});
+      map.on('zoomend', () => { cas.eachLayer(l => l.setStyle({weight: w()[0]})); core.eachLayer(l => l.setStyle({weight: w()[1]})); });
+      g.addLayer(cas); g.addLayer(core);
+    });
     // Beyond the city limits (OpenStreetMap): same look, shields stay visible when zoomed out to the region.
     const gcas = L.geoJSON(outer, {pane:'hwy', interactive:false, style: () => ({className:'hwy-case outer', weight: w()[0]})});
     const gcore = L.geoJSON(outer, {pane:'hwy', style: () => ({className:'hwy-core outer', weight: w()[1]}),
