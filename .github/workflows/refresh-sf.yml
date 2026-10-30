@@ -28,6 +28,7 @@ jobs:
           python-version: '3.12'
       - run: pip install -q shapely
       - name: Fetch
+        continue-on-error: true
         env:
           NLR_API_KEY: ${{ secrets.NLR_API_KEY }}   # fetch_parking.py: the AFDC station API
           WHICH: ${{ inputs.which || (github.event.schedule == '29 9 6 * *' && 'monthly' || 'weekly') }}
@@ -42,8 +43,11 @@ jobs:
               || echo "::warning::$s failed: $(tail -2 cities/sf/raw/${s%.py}.log | tr '\n' ' ' | cut -c1-600)"
           done
       - name: Build what the fetched files feed
+        if: always()
+        continue-on-error: true
         run: |
           cd cities/sf
+          exec > >(tee raw/refresh_build.log) 2>&1
           for s in $SCRIPTS; do case $s in
             fetch_representatives.py) python3 representatives.py ;;
             fetch_parking.py) python3 parking.py ;;
@@ -52,7 +56,8 @@ jobs:
             fetch_extras.py) python3 extras.py && python3 places.py ;;   # soft-story counts are in places.py's Nearby
           esac || echo "::warning::build after $s failed"; done
           python3 ../../engine/assemble.py sf
-      - run: |
+      - if: always()
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
           git add cities/sf/raw docs/sf/data docs/sf/index.html
