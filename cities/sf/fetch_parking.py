@@ -43,7 +43,7 @@ def rpp():
     for f in feats:
         v = (f['properties'].get('rppeligib') or '').strip().upper()
         vals[v] += 1
-        if len(v) == 1 and v.isalpha() and f.get('geometry'):
+        if 1 <= len(v) <= 2 and v.isalpha() and f.get('geometry'):   # A to Z, then AA to EE and HV (Hayes Valley)
             try: by[v].append(shape(f['geometry']).buffer(0))
             except Exception: pass
     print('  values', dict(vals.most_common(40)))
