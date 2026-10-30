@@ -50,6 +50,7 @@
       {"id": "mandals", "kind": "units", "file": "mandals", "name": "Mandals", "note": "The revenue units in and around the ring road, where land records, certificates and registrations are handled", "on": true, "hover": "{name} mandal · {district} district"},
       {"id": "knownas", "kind": "knownas", "file": "knownas", "name": "Known-as names", "note": "HITEC City, Banjara Hills, the Old City, Dilsukhnagar…: the names people give directions by", "on": true},
       {"id": "landmarks", "kind": "landmarks", "file": "landmarks", "name": "Landmarks", "note": "Charminar, Golconda, the stations, stadiums and universities", "on": true},
+      {"id": "biz", "kind": "places", "under": "landmarks", "file": "bizparks", "cat": "tw-com", "name": "Business parks", "place": "Business park", "minZoom": 12, "on": true, "hover": "{name} · {sub}", "note": "The office parks many companies share: Mindspace, Sattva Knowledge City, DLF Cybercity, Waverock…; from zoom 12"},
       {"id": "pin", "kind": "districts", "file": "pincodes", "name": "PIN codes", "note": "Postal delivery areas from the Department of Posts (2025)", "label": "{pin}", "hover": "PIN {pin}[ · {office}]"}
     ]],
     ["Getting around", [
@@ -59,7 +60,8 @@
       {"id": "rail", "kind": "rail", "files": ["rail_lines", "rail_stations", "rail_lines_inner"], "name": "MMTS", "note": "The suburban trains from Lingampalli, Falaknuma and Medchal", "on": true, "hover": "{name} · {to}"},
       {"id": "hwy", "kind": "highways", "files": ["highways", "region_highways", "region_shields"], "name": "Highways", "note": "The Outer Ring Road, the PVNR Expressway and the national highways", "on": true,
        "shields": {"ORR": "ORR", "PVNR": "PVNR"}, "tollShield": "Toll"},
-      {"id": "streets", "kind": "streets", "file": "streets", "name": "Main streets", "note": "The main roads inside the ring road", "on": true}
+      {"id": "streets", "kind": "streets", "file": "streets", "name": "Main streets", "note": "The arterial roads: Road No. 1, Banjara Hills; Old Mumbai Highway; Tank Bund…", "on": true},
+      {"id": "coll", "kind": "streets", "file": "collectors", "under": "streets", "labelZoom": 15, "yieldLabels": true, "name": "Collector streets", "note": "The roads linking neighbourhoods to the main streets; from zoom 13", "on": true}
     ]]
   ],
   "lens": {"label": "", "file": "profiles.json", "source": "", "filters": [],

@@ -11,7 +11,7 @@ OUT=../../docs/hyderabad/data
 simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
 npx mapshaper -i tmp/base.geojson -simplify interval=60 keep-shapes -filter-slivers min-area=20000m2 -filter "!this.isNull" -o $OUT/base.geojson precision=0.00005 format=geojson -quiet
 simplify districts 15; simplify mandals 12; simplify pincodes 15
-for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval=6 -o $OUT/$f.geojson precision=0.00001 -quiet; done
+for f in highways streets collectors; do npx mapshaper -i tmp/$f.geojson -simplify interval=6 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 npx mapshaper -i tmp/region_highways.geojson -simplify interval=25 -o $OUT/region_highways.geojson precision=0.00001 -quiet
 for f in rail_lines rail_lines_inner metro_lines; do npx mapshaper -i tmp/$f.geojson -simplify interval=8 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 cp tmp/region_areas.geojson tmp/region_areas.raw.geojson

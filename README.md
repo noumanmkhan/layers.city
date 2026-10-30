@@ -246,8 +246,10 @@ three corporations in February 2026) and is published only as pictures, so this 
 
 "The city" is the 35 mandals mostly inside the Outer Ring Road, coloured by the four districts they belong to
 (Hyderabad, Medchal–Malkajgiri, Ranga Reddy, Sangareddy); the regional view shows the other mandals of those districts,
-with a focus picker per district. Also: known-as names (HITEC City, the Old City, Banjara Hills…), landmarks, 2025 PIN
-codes, main streets, the ORR, the PVNR Expressway and the national highways, the Metro's three lines and the MMTS.
+with a focus picker per district. Also: known-as names (HITEC City, the Old City, Banjara Hills…), landmarks, the big
+multi-tenant business parks people give directions by (Mindspace, Sattva Knowledge City, Dallas Center…), 2025 PIN
+codes, main and collector streets, the whole ORR, the PVNR Expressway and the national highways, the Metro's three
+lines and the MMTS.
 The card says plainly what isn't on the map yet: the municipal corporation, and the MLA and MP, because the open
 constituency maps put well-known places in the wrong seat (checked against the old ward map). A revenue/civic picker
 comes once the civic boundaries are published. Scouting notes: `scouting/hyderabad/FINDINGS.md`.
@@ -363,7 +365,7 @@ Vancouver:
 
 Hyderabad:
 
-- Districts and mandals (the Government of Telangana's lines), lakes, roads, the Metro, the MMTS and place names © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL), read from Geofabrik's southern India extract.
+- Districts and mandals (the Government of Telangana's lines), lakes, roads, the Metro, the MMTS, place names and business park sites © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL), read from Geofabrik's southern India extract.
 - PIN codes: the Department of Posts' 2025 delivery areas, via [OpenCity](https://data.opencity.in/) (public domain).
 
 `cities/toronto/SOURCES.md`, `cities/chicago/SOURCES.md`, `cities/vancouver/SOURCES.md`, `cities/dallas/SOURCES.md` and `cities/hyderabad/SOURCES.md` list the exact queries used to fetch the raw data. The data stays under its original licences.

@@ -16,7 +16,7 @@ from shapely.prepared import prep
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from names import DISTRICTS, DISTRICT_INFO, KNOWN_AS, BEYOND
+from names import DISTRICTS, DISTRICT_INFO, KNOWN_AS, BEYOND, BUSINESS_PARKS
 
 R = os.path.join(HERE, 'raw') + '/'
 OUT = os.path.join(HERE, '..', '..', 'docs', 'hyderabad', 'data') + '/'
@@ -219,6 +219,21 @@ for k in KNOWN_AS:
                   'geometry': {'type': 'Point', 'coordinates': [round(pt[0], 5), round(pt[1], 5)]}})
 write('knownas', known)
 
+# ---------- Business parks (names.py), placed at OpenStreetMap's site of the same name ----------
+biz_osm = defaultdict(list)
+for b in load('osm_bizparks.json')['elements']:
+    biz_osm[b['name'].lower()].append(((b['lon'], b['lat']), b['km2']))
+bizf = []
+for b in BUSINESS_PARKS:
+    lat, lon = b['at']
+    cands = [c for c in biz_osm.get(b['osm'].lower(), []) if dist_km(c[0], (lon, lat)) < 1.0]
+    pt = max(cands, key=lambda c: c[1])[0] if cands else (lon, lat)   # the largest mapped site of that name
+    if not cands: print('  business park from hand position:', b['name'])
+    bizf.append({'type': 'Feature', 'properties': {'name': b['name'], 'cat': 'tw-com', 'sub': b['area']},
+                 'geometry': {'type': 'Point', 'coordinates': [round(pt[0], 5), round(pt[1], 5)]}})
+write('bizparks', bizf)
+print('business parks', len(bizf))
+
 # ---------- Places beyond the city, for search ("Near Patancheru") ----------
 KIND = {'town': 'Town', 'village': 'Village', 'suburb': 'Suburb', 'quarter': 'Neighbourhood', 'neighbourhood': 'Neighbourhood',
         'locality': 'Locality', 'hamlet': 'Hamlet', 'city': 'Town'}
@@ -238,26 +253,6 @@ rp.sort(key=lambda p: p['name'])
 json.dump(rp, open(OUT + 'region_places.json', 'w'), separators=(',', ':'), ensure_ascii=False)
 print('places beyond the city', len(rp), Counter(p['kind'] for p in rp))
 
-# ---------- Main streets (OpenStreetMap primary and secondary roads in the city) ----------
-CITY_B3 = CITY.buffer(0.0003)
-segs = defaultdict(list)
-for f in roads:
-    p = f['properties']
-    if p['hw'] not in ('primary', 'secondary') or not p.get('name'): continue
-    n = p['name'].strip()
-    if re.search(r'(?i)\b(flyover|ramp|underpass|service road|exit)\b', n): continue
-    g = clip(shape(f['geometry']), CITY_B3)
-    if g is None: continue
-    segs[(n, 'major' if p['hw'] == 'primary' else 'minor')].append(g)
-streets = []
-for (n, cls), gs in segs.items():
-    m = merged(gs, 0.15)
-    if m is None or m.length * KM < (0.6 if cls == 'major' else 1.0): continue
-    streets.append(feat(m, {'name': n, 'cls': cls, 'len': round(m.length * 1000, 1)}))
-streets.sort(key=lambda f: (f['properties']['cls'] != 'major', -f['properties']['len']))
-dump('streets', streets)
-print('main streets', len(streets), sum(f['properties']['cls'] == 'major' for f in streets), 'major')
-
 # ---------- Highways: the ORR, the PVNR Expressway and the national highways ----------
 def hw_of(p):
     n, ref = p.get('name') or '', (p.get('ref') or '') + ';' + (p.get('nat') or '')
@@ -276,14 +271,38 @@ for f in roads:
     h = hw_of(p)
     if not h: continue
     line = shape(f['geometry'])
-    g = clip(line, CITY_B5)
+    g = line if h[0] == 'ORR' else clip(line, CITY_B5)   # the ORR whole: it leaves the city's mandals and comes back
     if g is not None: in_city[h].append(g)
     if not INNER_P.contains(line): outer[h].append(line)
 hw = []
 for (route, name, kind), gs in in_city.items():
     m = merged(gs, 0.3)
-    if m is not None: hw.append(feat(m, {'route': route, 'name': name, 'kind': kind}))
+    if m is not None: hw.append(feat(m, dict({'route': route, 'name': name, 'kind': kind}, **({'over': True} if route == 'ORR' else {}))))
 dump('highways', hw)
+
+# ---------- Main streets and collectors (OpenStreetMap, inside the city) ----------
+# Main: trunk roads that aren't the ORR, PVNR or a national highway, and primary roads (major); secondary (minor).
+# Collectors: tertiary. Unnamed stretches are kept so the network doesn't break off; they draw without a label.
+CITY_B3 = CITY.buffer(0.0003)
+CLS = {'trunk': 'major', 'primary': 'major', 'secondary': 'minor', 'tertiary': 'coll'}
+segs = defaultdict(list)
+for f in roads:
+    p = f['properties']
+    if p['hw'] not in CLS or (p['hw'] == 'trunk' and hw_of(p)): continue
+    n = (p.get('name') or '').strip() or None
+    if n and re.search(r'(?i)\b(ramp|exit|entry|slip road|service road|u-?turn)\b', n): n = None
+    g = clip(shape(f['geometry']), CITY_B3)
+    if g is None: continue
+    segs[(n, CLS[p['hw']])].append(g)
+streets, colls = [], []
+for (n, cls), gs in segs.items():
+    m = merged(gs, 0.05)
+    if m is None or (n and m.length * KM < 0.3): continue
+    (colls if cls == 'coll' else streets).append(feat(m, {'name': n, 'cls': cls, 'len': round(m.length * 1000, 1)}))
+for L in (streets, colls): L.sort(key=lambda f: (f['properties']['name'] is None, f['properties']['cls'] != 'major', -f['properties']['len']))
+dump('streets', streets); dump('collectors', colls)
+print('main streets', len(streets), sum(f['properties']['cls'] == 'major' for f in streets), 'major,',
+      round(sum(f['properties']['len'] for f in streets) / 1000 * KM), 'km · collectors', len(colls), round(sum(f['properties']['len'] for f in colls) / 1000 * KM), 'km')
 REG_P = prep(REGION.buffer(0.01))
 gh, shields = [], []
 for (route, name, kind), gs in outer.items():
@@ -361,7 +380,7 @@ print('MMTS routes', sum(1 for r in rail['routes'] if r['route'] == 'train'), '�
 
 # ---------- An empty profile file: the map has no neighbourhood lens (see city.json "lens") ----------
 json.dump({}, open(OUT + 'profiles.json', 'w'))
-print('units', len(units), '· known-as', len(known), '· streets', len(streets), '· PIN codes', len(pinf))
+print('units', len(units), '· known-as', len(known), '· PIN codes', len(pinf))
 
 # The page asks for a representatives file even with no offices on the card: publish an empty one (no 404).
 json.dump({'updated': '2026-10-30'}, open(OUT + 'representatives.json', 'w'))

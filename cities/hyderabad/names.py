@@ -89,3 +89,34 @@ WATER_LABELS = [('Hussain Sagar', [17.4239, 78.4738], 'lake-near'), ('Osman Saga
 BEYOND = [('Yadadri Bhuvanagiri district', [79.0, 17.5]), ('Siddipet district', [78.75, 18.15]), ('Nalgonda district', [79.05, 16.95]),
           ('Nagarkurnool district', [78.55, 16.66]), ('Mahabubnagar district', [77.85, 16.7]), ('Bidar district, Karnataka', [77.35, 17.95]),
           ('Kamareddy district', [78.15, 18.38])]
+
+# Business parks: the large office parks and campuses that many companies share, which people give directions by
+# ("I work in Mindspace"). Not single-company campuses (Microsoft, Infosys, TCS…). (name, OSM name or None, [lat, lon], area)
+# Placed at OpenStreetMap's site of that name within 1 km (raw/osm_bizparks.json); otherwise the hand position stands.
+BUSINESS_PARKS = [{'name': n, 'osm': o or n, 'at': at, 'area': a} for n, o, at, a in [
+    ('Mindspace', 'Mindspace Technology Park', [17.4403, 78.3800], 'Madhapur'),
+    ('Cyber Towers', None, [17.4507, 78.3801], 'HITEC City'),
+    ('Cyber Gateway', None, [17.4468, 78.3761], 'HITEC City'),
+    ('Cyber Pearl', 'Cyber Pearl I', [17.4452, 78.3764], 'HITEC City'),
+    ('Divyasree Trinity', None, [17.4440, 78.3740], 'HITEC City'),
+    ('Phoenix Avance Business Park', 'Pheonix Avance Business Park', [17.4469, 78.3705], 'HITEC City'),
+    ('Divyasree Omega', None, [17.4587, 78.3731], 'Kondapur'),
+    ('The V IT Park', 'The V Ascendas IT Park', [17.4350, 78.3849], 'Madhapur'),
+    ('iLabs Centre', None, [17.4324, 78.3873], 'Madhapur'),
+    ('Sattva Knowledge City', 'Salapuria Sattva Knowledge City', [17.4338, 78.3814], 'Raidurg'),
+    ('Dallas Center', None, [17.4328, 78.3785], 'Raidurg'),
+    ('The Skyview', None, [17.4310, 78.3755], 'Raidurg'),
+    ('RMZ Nexity', None, [17.4319, 78.3830], 'Raidurg'),
+    ('Commerzone', 'Raheja Commerce Zone', [17.4294, 78.3804], 'Raidurg'),
+    ('T-Hub', 'T-HUB Corporate Office', [17.4342, 78.3793], 'Raidurg'),
+    ('Divyasree Orion', None, [17.4227, 78.3753], 'Raidurg'),   # not in OpenStreetMap: position from gharpe.com
+    ('DLF Cybercity', None, [17.4471, 78.3558], 'Gachibowli'),
+    ('Waverock', None, [17.4182, 78.3469], 'Nanakramguda'),
+    ('Sattva Knowledge Capital', None, [17.4165, 78.3451], 'Financial District'),
+    ('Kapil Towers', None, [17.4218, 78.3388], 'Financial District'),
+    ('Prestige SkyTech', None, [17.4153, 78.3389], 'Financial District'),
+    ('GAR Laxmi Infobahn', None, [17.4040, 78.3320], 'Kokapet'),
+    ('NSL IT Park', None, [17.4028, 78.5465], 'Uppal'),
+    ('GMR Aerospace & Industrial Park', None, [17.2404, 78.4574], 'Shamshabad'),
+    ('Genome Valley', None, [17.6613, 78.6156], 'Shamirpet'),
+]]

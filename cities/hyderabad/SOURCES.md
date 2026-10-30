@@ -13,7 +13,8 @@ and villages from January 1, 2026 to March 31, 2027.
 |---|---|
 | `admin.geojson` | OpenStreetMap (ODbL), from Geofabrik's daily southern India extract cut to the four districts with osmium (`fetch_osm.py`; the Overpass servers timed out on these queries): administrative boundaries at levels 5 (districts) and 6 (mandals) around Hyderabad. Telangana's are imported from the Government of Telangana's district and mandal shapefiles (GODL, 2023). Simplified to about 10 m in the fetch |
 | `lakes.geojson` | OpenStreetMap: `natural=water` and `landuse=reservoir` polygons of 0.15 km² or more (rivers, canals and ponds left out); the build cuts those of 0.4 km² or more out of the land |
-| `roads.geojson` | OpenStreetMap: motorway and trunk roads across the region (the Outer Ring Road, the PVNR Expressway, the national highways) and named primary and secondary roads around the ring road |
+| `roads.geojson` | OpenStreetMap: motorway and trunk roads across the region (the Outer Ring Road, the PVNR Expressway, the national highways), and primary, secondary and tertiary roads around the ring road, named or not (unnamed pieces keep the network joined up). The build draws primary and trunk as main streets, secondary as smaller main streets and tertiary as collector streets, and the whole Outer Ring Road even where it leaves the city |
+| `osm_bizparks.json` | OpenStreetMap: named office, commercial and industrial sites around the ring road (707), to place the hand-kept business parks in `names.py` on the largest site of the same name |
 | `osm_rail.json` | OpenStreetMap: Hyderabad Metro route relations and the MMTS train routes, their stops, and railway stations |
 | `osm_places.json` | OpenStreetMap: place nodes (city, town, suburb, quarter, neighbourhood, locality, village, hamlet) across the four districts. Used to place the known-as names and, beyond the city, for search |
 | `osm_landmarks.json` | OpenStreetMap: positions for the curated landmarks in `names.py` |
@@ -22,7 +23,7 @@ and villages from January 1, 2026 to March 31, 2027.
 | `oc_ac_telangana.geojson`, `oc_ac_hyd_rr.geojson`, `oc_pc_telangana.geojson`, `oc_ghmc_wards_2022.geojson` | OpenCity copies of the 2018 assembly and 2019 Lok Sabha constituency maps and GHMC's 2022 map of the old 150 wards. **Not drawn**: the 2018 map got 13 of 16 places right but splits 59 of the 155 old wards between seats (each ward lies wholly in one) |
 | `reps/` | Wikipedia pages (wikitext) the hand-kept `representatives.json` was checked against: the Telangana Legislative Assembly's members, the 2023 assembly results (with its by-elections section: Secunderabad Cantonment, May 2024; Jubilee Hills, November 2025), the 2024 Lok Sabha results in Telangana and the 18th Lok Sabha members |
 
-Hand-kept in this folder: `names.py` (districts, known-as names, landmarks, lake labels, district labels beyond) and
+Hand-kept in this folder: `names.py` (districts, known-as names, landmarks, business parks, lake labels, district labels beyond; the business parks are large multi-tenant office parks and IT parks, not single-company campuses, and Divyasree Orion, which OpenStreetMap lacks, is placed by hand) and
 `representatives.json` (all 119 MLAs and 17 MPs, the party each was elected for, a link to each member's Wikipedia page;
 Khairatabad vacant since its member's disqualification in September 2026). It isn't on the map yet (no accurate
 constituency lines); keep it current after any by-election so it's ready.

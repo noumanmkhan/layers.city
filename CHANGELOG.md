@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### Hyderabad: fuller streets, the whole ring road, business parks (October 30)
+- Main streets now take every primary and secondary road around the ring road, named or not, so they no longer stop
+  and start; tertiary roads are a new Collector streets layer. 341 main streets and 371 collectors.
+- The Outer Ring Road draws in full, over the area beyond the city, instead of being cut at the city line.
+- Business parks under Landmarks: 25 multi-tenant office and IT parks (Mindspace, Cyber Towers, Sattva Knowledge City,
+  Dallas Center, Divyasree Orion, DLF Cybercity, Waverock, Genome Valley...), from zoom 12. No single-company campuses.
+- Engine: a highway feature with `"over": true` draws above the mask that greys the area beyond the city; streets
+  without a name no longer get an empty hover tip.
+
 ### Hyderabad, unlisted: the revenue-track map (October 30)
 - A new city at /hyderabad/, kept off the hub. The 35 mandals mostly inside the Outer Ring Road are the units, filled by
   their district; the regional view covers every mandal of the four districts, with a district focus. Known-as names,

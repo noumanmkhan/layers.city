@@ -3,15 +3,15 @@
 :root{
   --d-hyd:#EE8A65; --d-medchal:#7DAFE0; --d-ranga:#95CA7E; --d-sanga:#F2CE5E;
   --l-red:#E2231A; --l-blue:#1D5FBF; --l-green:#2E9E48; --l-mmts:#7A4E9E;
-  --pin:#8A6BBE;
+  --pin:#8A6BBE; --biz:#2F5D8A;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --d-hyd:#C0603F; --d-medchal:#4C7FB5; --d-ranga:#5E9A48; --d-sanga:#B8962E;
-  --l-blue:#4D8FE8; --l-green:#4CC266; --l-mmts:#B08AD6; --pin:#A88BDB;
+  --l-blue:#4D8FE8; --l-green:#4CC266; --l-mmts:#B08AD6; --pin:#A88BDB; --biz:#7FA9D6;
 }}
 :root[data-theme="dark"]{
   --d-hyd:#C0603F; --d-medchal:#4C7FB5; --d-ranga:#5E9A48; --d-sanga:#B8962E;
-  --l-blue:#4D8FE8; --l-green:#4CC266; --l-mmts:#B08AD6; --pin:#A88BDB;
+  --l-blue:#4D8FE8; --l-green:#4CC266; --l-mmts:#B08AD6; --pin:#A88BDB; --biz:#7FA9D6;
 }
 .sw.dist{background:conic-gradient(var(--d-hyd) 0 25%,var(--d-medchal) 0 50%,var(--d-ranga) 0 75%,var(--d-sanga) 0)}
 .sw.metro{background:linear-gradient(var(--l-red) 0 33%,var(--l-blue) 0 66%,var(--l-green) 0)}
@@ -19,3 +19,4 @@
 .fill-major.hyderabad{fill:var(--d-hyd)} .fill-major.medchal-malkajgiri{fill:var(--d-medchal)}
 .fill-major.ranga-reddy{fill:var(--d-ranga)} .fill-major.sangareddy{fill:var(--d-sanga)}
 .sub-line.lred{stroke:var(--l-red)} .sub-line.lblue{stroke:var(--l-blue)} .sub-line.lgreen{stroke:var(--l-green)}
+.lm.in-tw-com{--lm:var(--biz)}
