@@ -572,7 +572,7 @@ def ride(frm_lines, n, lines):
     """The subway from somewhere to station n: "the 4/5/6 to n" when lines run straight there (and the city asks
     for line hints), else "the subway to n"."""
     common = order_lines(set(frm_lines) & set(lines)) if PG.get('lineHints') else []
-    return f"the {'/'.join(common)} to {n}" if common else f"the subway to {n}"
+    return f"the {'/'.join(common)} to {n}" if common else f"{word('metroRide', 'the subway')} to {n}"
 
 
 def best_station(f, frm_lines):
@@ -619,6 +619,7 @@ def origin_rows(v, f):
             else:
                 transit = f"{LOCAL} from {o['via']} to {hshort}, {from_hub_words(f, hub)}"
             fare = word('localFare').format(fare=FARES.get('local', 0)) if word('localFare') and FARES.get('local') else None
+            if o.get('fare'): fare = o['fare']   # an origin on the metro with its own fare (BART is by distance, not Muni's flat fare)
             # The trip ends on a regional train from the hub (Union to Exhibition for BMO Field): that leg sets the
             # fare, and the local leg before it is free where the city's words say so (railFareAmt).
             if hub and f.get('go') and f"{word('railShort', 'the train')} to {f['go'][0]}" in transit:
