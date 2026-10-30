@@ -1,0 +1,9 @@
+fields: [':@computed_region_26cr_cadq', ':@computed_region_6qbp_sg9q', ':@computed_region_ajp5_b2md', ':@computed_region_qgnn_b9vv', 'address', 'address_number', 'cnn', 'data_as_of', 'data_loaded_at', 'data_updated_at', 'direct_source', 'eas_address_id', 'eas_baseid', 'latitude', 'longitude', 'nhood', 'numbertext', 'parcel_number', 'point', 'street_full_street_name', 'street_name', 'street_type', 'supdist', 'supdistpad', 'supervisor', 'supname', 'zip_code'] [{'eas_baseid': '362874', 'eas_address_id': '579430', 'address_number': '77', 'street_name': 'HILL', 'street_type': 'ST', 'cnn': '6920000', 'street_full_street_name': 'HILL ST', 'parcel_number': '3617035', 'zip_code': '94110', 'address': '77 HILL ST', 'longitude': '-122.4226887935738', 'latitude': '37.75577193550929', 'point': {'type': 'Point', 'coordinates': [-122.422688794, 37.755771936]}, 'supdist': 'SUPERVISORIAL DISTRICT 9', 'numbertext': 'NINE', 'supervisor': '9', 'supdistpad': '09', 'supname': 'Jackie Fielder', 'nhood': 'Mission', 'direct_source': 'SF DBI', 'data_as_of': '2026-10-29T18:02:56.000', 'data_updated_at': '1970-01-01T00:00:00.000', 'data_loaded_at': '2026-10-29T20:12:04.277', ':@computed_region_ajp5_b2md': '20', ':@computed_region_6qbp_sg9q': '52', ':@computed_region_qgnn_b9vv': '3', ':@computed_region_26cr_cadq': '5'}]
+using address_number street_name street_type longitude latitude point
+rows so far 49731 of 50000
+rows so far 98907 of 100000
+rows so far 147679 of 150000
+rows so far 196003 of 200000
+rows so far 219465 of 224439
+219465 addresses on 2066 streets; [('MISSION ST', 2194), ('CALIFORNIA ST', 1471), ('UNION ST', 1222), ('21ST AVE', 1155), ('FOLSOM ST', 1139)]
+size 8500236
