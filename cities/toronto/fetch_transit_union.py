@@ -1,5 +1,7 @@
 """Travel time by transit from every Toronto neighbourhood to Union Station, on a weekday morning.
 Run from GitHub Actions (needs Java 21, r5py and internet access); writes raw/transit_union.json.
+With HUB=bloor in the environment (October 30, 2026), the same trip to Bloor-Yonge instead, the second hub the map
+offers in its transit lens; writes raw/transit_bloor.json.
 
 How it works:
   1. Download the schedules (GTFS) for the TTC (City of Toronto open data), GO Transit and
@@ -14,11 +16,13 @@ Driving is deliberately not computed: free routing tools assume empty roads, whi
 understates a Toronto rush hour."""
 import datetime as dt, io, json, os, statistics, subprocess, sys, time, urllib.request, zipfile
 
-sys.argv += ['--max-memory', '12G']   # r5py reads its JVM settings from the command line
+sys.argv += ['--max-memory', os.environ.get('R5_MEMORY', '12G')]   # r5py reads its JVM settings from the command line
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORK = os.path.join(HERE, 'tmp', 'transit'); os.makedirs(WORK, exist_ok=True)
 UA = {'User-Agent': 'city-layers-pipeline (github.com/noumanmkhan/city-layers)'}
-UNION = (-79.3806, 43.6453)
+HUBS = {'union': ('Union Station', (-79.3806, 43.6453), 'transit_union.json'),
+        'bloor': ('Bloor-Yonge', (-79.3858, 43.6709), 'transit_bloor.json')}   # Bloor-Yonge: Lines 1 and 2, Yonge at Bloor
+HUB_NAME, UNION, OUT_FILE = HUBS[os.environ.get('HUB', 'union')]
 TTC_CKAN = 'https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=ttc-routes-and-schedules'
 GO = ['https://assets.metrolinx.com/raw/upload/Documents/Metrolinx/Open%20Data/GO-GTFS.zip']
 UP = ['https://assets.metrolinx.com/raw/upload/Documents/Metrolinx/Open%20Data/UP-GTFS.zip']
@@ -154,10 +158,10 @@ for code, grp in origins.groupby('code'):
         points.append([round(r.geometry.x, 4), round(r.geometry.y, 4), None if v is None or v != v else int(v)])
     out[str(code)] = {'minutes': round(statistics.median(vals)) if vals else None,
                       'best': round(min(vals)) if vals else None, 'points': len(grp), 'reached': len(vals)}
-json.dump({'to': 'Union Station', 'departure': depart.isoformat(), 'window_minutes': 60,
+json.dump({'to': HUB_NAME, 'departure': depart.isoformat(), 'window_minutes': 60,
            'modes': 'walk + transit (TTC, GO, UP Express)', 'sources': log,
            'neighbourhoods': out, 'points': points},
-          open(os.path.join(HERE, 'raw', 'transit_union.json'), 'w'), separators=(',', ':'))
+          open(os.path.join(HERE, 'raw', OUT_FILE), 'w'), separators=(',', ':'))
 mins = sorted(v['minutes'] for v in out.values() if v['minutes'] is not None)
-print('wrote raw/transit_union.json:', len(out), 'neighbourhoods; minutes min/median/max',
+print('wrote raw/' + OUT_FILE + ':', len(out), 'neighbourhoods; minutes min/median/max',
       mins[0], mins[len(mins) // 2], mins[-1])

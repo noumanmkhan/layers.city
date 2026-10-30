@@ -1,9 +1,11 @@
 name: Compute transit times to Union
 # Downloads TTC, GO and UP Express schedules plus an OpenStreetMap extract, routes a weekday
-# morning trip to Union Station from points across every neighbourhood with r5py, and commits
-# cities/toronto/raw/transit_union.json back to the branch that ran it.
+# morning trip to Union Station (or, with hub=bloor, to Bloor-Yonge) from points across every neighbourhood with r5py,
+# and commits cities/toronto/raw/transit_union.json (transit_bloor.json) back to the branch that ran it.
 on:
   workflow_dispatch:
+    inputs:
+      hub: {description: 'union, or bloor for Bloor-Yonge (the transit lens\'s second hub)', default: 'union'}
   push:
     branches: [fetch-transit-union]
     paths: ['cities/toronto/fetch_transit_union.py', '.github/workflows/fetch-transit-union.yml']
@@ -24,10 +26,19 @@ jobs:
           python-version: '3.12'
       - run: sudo apt-get update -q && sudo apt-get install -y -q osmium-tool
       - run: pip install r5py geopandas shapely
-      - run: python3 cities/toronto/fetch_transit_union.py
+      # A private repo's runner has 7 GB of memory: add swap so R5 building the GTA's network isn't killed.
+      - run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          sudo swapoff -a; sudo fallocate -l 8G /mnt/swapfile && sudo chmod 600 /mnt/swapfile && sudo mkswap /mnt/swapfile && sudo swapon /mnt/swapfile
+          free -h
+      - run: python3 -u cities/toronto/fetch_transit_union.py
+        env:
+          HUB: ${{ inputs.hub || 'union' }}
+          R5_MEMORY: 6G
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/toronto/raw/transit_union.json
-          git commit -m "Compute transit times from each neighbourhood to Union Station" || echo "no changes"
+          git add cities/toronto/raw/transit_union.json cities/toronto/raw/transit_bloor.json 2>/dev/null || git add cities/toronto/raw/transit_*.json
+          git commit -m "Compute transit times from each neighbourhood to ${{ inputs.hub || 'union' }}" || echo "no changes"
+          git pull --rebase
           git push
