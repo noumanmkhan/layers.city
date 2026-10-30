@@ -851,7 +851,7 @@ one from Friday to Sunday.
 ## 15. Transit: stops near a spot, where each route goes, live arrivals
 
 Toronto as of October 28, 2026 (buses, streetcars, subway and LRT), San Francisco as of October 30 (Muni buses
-and Muni Metro, as `lrt`; no live times yet, so `live` is null and the timetable stands in). It is the data behind
+and Muni Metro, as `lrt`; live times from 511.org, `/api/arrivals?city=sf`, one feed, so `liveRapid` changes nothing). It is the data behind
 the website's "Where does this line or route go?" page (`/toronto/routes/`, `/sf/routes/`); an app can rebuild that page natively from it. A
 city without `transit` in its `city.json` has none of this: hide the feature.
 
@@ -968,6 +968,8 @@ data and refresh it with the rest; fetch route files when a route is opened and 
  stops: {"8344": [[route, dir, epoch_s, live], …], …}}       sorted by time, up to 90 minutes ahead
 ```
 
+- San Francisco's answers can be up to 15 minutes old when 511.org turns a request away (it allows 60 an hour):
+  compare `asof` with `now`, and past 5 minutes treat the times as scheduled (no "live" styling).
 - Up to 24 stop ids per request. Send `liveRapid` when any of them is a platform. Answers are cached 15 s at the
   edge and the agency's feed 20 s, so refreshing more often than every 30 s gains nothing.
 - Match an arrival to a row by stop id and `route` (the route id). Ignore `dir`: Toronto's feed leaves it 0.
