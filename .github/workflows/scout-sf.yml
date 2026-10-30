@@ -1,0 +1,32 @@
+name: Scout San Francisco and Bay Area data
+# One-off check of what DataSF, MTC/ABAG, Muni, BART, Caltrain, 511 and Bay Wheels publish,
+# before building the city. Writes scouting/sf/out/ and commits it to the branch it ran on. Doesn't touch the site.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scouting/sf/scout.py']
+permissions:
+  contents: write
+concurrency: scout-sf
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - env:
+          FIVE11_KEY: ${{ secrets.FIVE11_KEY }}
+        run: |
+          mkdir -p scouting/sf/out
+          python3 -u scouting/sf/scout.py 2>&1 | tee scouting/sf/out/scout.log || true
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add scouting/sf/out
+          git commit -m "San Francisco scouting report" || echo "no changes"
+          git pull --rebase
+          git push
