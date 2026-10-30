@@ -26,7 +26,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -q shapely
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # gdal (ogr2ogr): fetch_representatives.py reads the Census district file; npm: assemble.py inlines Leaflet's CSS.
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin && pip install -q shapely && npm install --silent
       - name: Fetch
         continue-on-error: true
         env:
