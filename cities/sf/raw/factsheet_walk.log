@@ -1,0 +1,75 @@
+sf: walkable ways in 37.696,-122.527,37.844,-122.345, as 9 tiles
+  streets tile 1/9: fetching ...
+    44,866 elements in 39 s
+  streets tile 2/9: fetching ...
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    overpass.private.coffee: HTTP Error 504: Gateway Timeout; trying again in 40 s
+    overpass.kumi.systems: HTTP Error 504: Gateway Timeout; trying again in 60 s
+    49,016 elements in 386 s
+  streets tile 3/9: fetching ...
+    15,162 elements in 29 s
+  streets tile 4/9: fetching ...
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    36,618 elements in 245 s
+  streets tile 5/9: fetching ...
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    81,132 elements in 249 s
+  streets tile 6/9: fetching ...
+    31,398 elements in 30 s
+  streets tile 7/9: fetching ...
+    13,240 elements in 34 s
+  streets tile 8/9: fetching ...
+    24,452 elements in 33 s
+  streets tile 9/9: fetching ...
+    8,395 elements in 32 s
+sf: 231,217 nodes, 271,027 links -> cities/sf/raw/walk_network.json (10 MB)
+  entrances and parks tile 1/9: fetching ...
+    37 elements in 31 s
+  entrances and parks tile 2/9: fetching ...
+    70 elements in 30 s
+  entrances and parks tile 3/9: fetching ...
+    25 elements in 32 s
+  entrances and parks tile 4/9: fetching ...
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    overpass.private.coffee: Remote end closed connection without response; trying again in 40 s
+    36 elements in 581 s
+  entrances and parks tile 5/9: fetching ...
+    134 elements in 29 s
+  entrances and parks tile 6/9: fetching ...
+    overpass-api.de: HTTP Error 504: Gateway Timeout; trying again in 20 s
+    overpass.private.coffee: HTTP Error 502: Bad Gateway; trying again in 40 s
+    overpass.kumi.systems: HTTP Error 502: Bad Gateway; trying again in 60 s
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 80 s
+    83 elements in 836 s
+  entrances and parks tile 7/9: fetching ...
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    overpass.private.coffee: Remote end closed connection without response; trying again in 40 s
+    overpass.kumi.systems: HTTP Error 502: Bad Gateway; trying again in 60 s
+    1 elements in 685 s
+  entrances and parks tile 8/9: fetching ...
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    overpass.private.coffee: Remote end closed connection without response; trying again in 40 s
+    overpass.kumi.systems: HTTP Error 502: Bad Gateway; trying again in 60 s
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 80 s
+    overpass.private.coffee: HTTP Error 504: Gateway Timeout; trying again in 100 s
+    overpass.kumi.systems: HTTP Error 502: Bad Gateway; trying again in 120 s
+    trying the lighter query
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    overpass.private.coffee: Remote end closed connection without response; trying again in 40 s
+    overpass.kumi.systems: Remote end closed connection without response; trying again in 60 s
+    31 elements in 2040 s
+  entrances and parks tile 9/9: fetching ...
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    18 elements in 96 s
+sf: 71 subway entrances, 344 parks -> cities/sf/raw/walk_extras.json
+sf: network 231,217 corners, 271,027 links (as of 2026-10-30)
+  subway: 71 mapped entrances at 25 of 187 stations
+  park: 381 park outlines from OSM
+  grid 93 x 92, 5,773 squares on a street
+  subway: 258 places, 5,322 squares within 60 min
+  go: 53 places, 2,462 squares within 60 min
+  stop: 2,965 places, 5,603 squares within 60 min
+  bikeshare: 652 places, 5,602 squares within 60 min
+  park: 9,371 places, 5,619 squares within 60 min
+  library: 28 places, 5,420 squares within 60 min
+sf: -> docs/sf/profiles/data/walk_grid.json (0.3 MB)
