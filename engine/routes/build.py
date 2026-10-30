@@ -165,6 +165,7 @@ stops = {s[0]: s for s in RAW_S['stops']}
 # shape lists its platforms in order, so they're placed exactly rather than matched to the line by distance. The
 # map's transit.json doesn't list these lines, so their entry (name, frequency) is made here from the schedule.
 RAPID_MODES = {'subway', 'lrt'} & MODES
+STREET_STOPS = []   # stops of street lines from the rapid files (below)
 # A platform's direction from its name: "Eastbound Platform", or the agency's own words (routes.json "platformDirs":
 # Muni's "Metro Castro Station/Outbound" and ".../Downtown" are outbound and inbound).
 PDIRS = CFG.get('platformDirs', {})
@@ -184,6 +185,18 @@ if RAPID_MODES and os.path.exists(os.path.join(RAW, 'surface', 'rapid_routes.jso
     RS_ = json.load(open(os.path.join(RAW, 'surface', 'rapid_stops.json')))['stops']
     for s_ in RS_: stops[s_[0]] = s_
     for r in RR:
+        if r['mode'] in MODES and r['mode'] not in RAPID_MODES:
+            # A street-running line kept apart only so the map doesn't draw it twice (San Francisco's F streetcar
+            # and cable cars, surface.json "rapid" with mode "tram" or "cable"): a route like the buses, its stops
+            # matched to its line by side of the street, its entry made here from the schedule.
+            ds_ = [v for v in r.get('wk', {}).values() if sum(v[10:15])]
+            n_ = max((sum(v[10:15]) for v in ds_), default=0)
+            h_ = round(300 / n_) if n_ >= 5 else None
+            meta[r['id']] = {'r': r['short'], 'n': r['long'].title() if r['long'].isupper() else r['long'], 'm': r['mode'],
+                             'f': ['freq'] if h_ and h_ <= 10 else ['reg'], 'h': h_}
+            routes.append(r)
+            STREET_STOPS.extend(x for x in RS_ if r['id'] in x[4] or r['short'] in x[4])
+            continue
         if r['mode'] not in RAPID_MODES: continue
         ds_ = [v for v in r.get('wk', {}).values() if sum(v[10:15])]
         n_ = max((sum(v[10:15]) for v in ds_), default=0)
@@ -333,7 +346,7 @@ route_index = {}
 for r in routes:
     rid = r['id']
     mt = meta[rid]
-    on_route = [s for s in RAW_S['stops'] if rid in s[4]]
+    on_route = [s for s in RAW_S['stops'] + STREET_STOPS if rid in s[4]]
     total = sum(s['trips'] for s in r['shapes']) or 1
     pats = []
     # First every pattern's candidate stops, with which side of the line each is on. Streetcar tracks (and some
@@ -523,7 +536,7 @@ sys.path.insert(0, os.path.join(ROOT, 'engine'))
 from theme import SCRIPT as THEME_SCRIPT, css as theme_css   # dark theme, as the guides and venue pages have
 DARK_MAP = ['body{--m-t0:#40262B;--m-t1:#3B3326;--m-t2:#28362A;--m-t3:#253140;--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;'
             '--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8}',
-            '.rb:not(.tram):not(.exp){background:var(--card)}', '.row:hover{background:#262A30}', '.tl li.on{background:#262A30}']
+            '.rb:not(.tram):not(.exp):not(.cable){background:var(--card)}', '.row:hover{background:#262A30}', '.tl li.on{background:#262A30}']
 tpl = open(os.path.join(ROOT, 'engine', 'routes', 'page.html'), encoding='utf-8').read()
 css_p = os.path.join(ROOT, 'cities', city, 'factsheet.css')
 page = dict(CFG['page'])

@@ -2,6 +2,8 @@
  "_about": "Settings for San Francisco's Routes page (engine/routes/: build.py, page.html), at /sf/routes/: pick a stop near you, see where each Muni bus and Muni Metro line from it goes. Muni Metro's lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their stops in order. BART isn't a route here (it's another agency's feed); its stations are connections, with Muni Metro's.",
  "modes": [
   "bus",
+  "tram",
+  "cable",
   "lrt"
  ],
  "live": {
@@ -78,8 +80,8 @@
   "city": "San Francisco",
   "title": "Where does this line or route go?",
   "short": "Routes from here",
-  "description": "Find the Muni bus stops and Muni Metro stops nearest you in San Francisco and see where each route goes, with live next-bus and next-train times: the neighborhoods it passes through, the main streets it runs along, its BART and Muni Metro connections and the landmarks on the way.",
-  "lede": "Find the stops near you, then pick a Muni bus or Muni Metro line to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
+  "description": "Find the Muni bus, streetcar, cable car and Muni Metro stops nearest you in San Francisco and see where each route goes, with live next-bus and next-train times: the neighborhoods it passes through, the main streets it runs along, its BART and Muni Metro connections and the landmarks on the way.",
+  "lede": "Find the stops near you, then pick a Muni bus, the F streetcar, a cable car or a Muni Metro line to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
   "outside": "That spot is outside San Francisco. Try an address in the city.",
   "noMatch": "No match in San Francisco for “{q}”. Try the full street name, like “1 Ferry Building”.",
@@ -199,6 +201,14 @@
     "fill": "#A89F80",
     "text": "#A89F80"
    }
+  },
+  "tram": {
+   "fill": "#BA0C2F",
+   "text": "#FFFFFF"
+  },
+  "cable": {
+   "fill": "#7A4A26",
+   "text": "#FFFFFF"
   }
  },
  "_near": "Stations within 200 m of a route count as connections: Mission Street's buses run a block from the BART stations under Market Street."

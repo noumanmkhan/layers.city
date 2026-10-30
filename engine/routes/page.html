@@ -304,7 +304,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const clean = n => n.replace(/\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)? ?Platform\b.*$/i, '').replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+/g, ' ').trim();
   const street = n => clean(n).split(AT)[0].replace(/^\d+[A-Z]?\s+/, '');
   const dayRoute = rid => { const f = D.routes[rid][3]; return f.some(x => x !== 'night'); };
-  const routeCls = R => R[2] === 'tram' ? 'tram' : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
+  const routeCls = R => R[2] === 'tram' ? 'tram' : R[2] === 'cable' ? 'cable' : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
   const isRapid = rid => ['subway', 'lrt'].includes(D.routes[rid][2]);
   const badge = (rid, big) => { const R = D.routes[rid];
     return isRapid(rid) ? el('span', { class: `ln lb l${R[0]}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0])
@@ -476,7 +476,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     }
     return next === Infinity ? null : { o: Math.floor(next / 1440), m: next % 1440, day };
   }
-  const WORD = { bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train' };
+  const WORD = { bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train', cable: 'cable car' };
   function clock(m) {
     const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
     return `${h % 12 || 12}:${mm} ${h < 12 ? 'a.m.' : 'p.m.'}`;
