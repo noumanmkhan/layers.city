@@ -1,5 +1,5 @@
 {
- "_about": "Buses (engine/fetch_surface.py, engine/surface.py): the MTA publishes its buses as six GTFS files, one per borough plus MTA Bus Company; 'urls' merges them into one feed, so the families (frequent, express, overnight) describe the whole network. Subway and Staten Island Railway come from the subway layer. Express buses are numbered X, BM, BxM, QM and SIM.",
+ "_about": "Buses (engine/fetch_surface.py, engine/surface.py): the MTA publishes its buses as six GTFS files, one per borough plus MTA Bus Company; 'urls' merges them into one feed, so the families (frequent, express, overnight) describe the whole network. Subway and Staten Island Railway come from the subway layer. Express buses are numbered X, BM, BxM, QM and SIM. The subway's file joins them too, for the Routes page only: its lines are kept apart as rapid lines ('rapid', raw/surface/rapid_*.json, each shape with its platforms in order; the shuttles are listed under every name the feed has used, S, GS, FS and H, and the Staten Island Railway under SI and SIR), and the map still draws the subway from its own layer. 'sched' writes the timetable the Routes page shows when nothing is live.",
  "gtfs": {
   "urls": [
    "https://rrgtfsfeeds.s3.amazonaws.com/gtfs_m.zip",
@@ -7,10 +7,46 @@
    "https://rrgtfsfeeds.s3.amazonaws.com/gtfs_b.zip",
    "https://rrgtfsfeeds.s3.amazonaws.com/gtfs_q.zip",
    "https://rrgtfsfeeds.s3.amazonaws.com/gtfs_si.zip",
-   "https://rrgtfsfeeds.s3.amazonaws.com/gtfs_busco.zip"
+   "https://rrgtfsfeeds.s3.amazonaws.com/gtfs_busco.zip",
+   "https://rrgtfsfeeds.s3.amazonaws.com/gtfs_subway.zip"
   ]
  },
  "skip": [],
  "expressRoutes": "^(X|BM|BxM|QM|SIM)\\d",
- "simplify": 6e-05
+ "simplify": 6e-05,
+ "rapid": {
+  "1": "subway",
+  "2": "subway",
+  "3": "subway",
+  "4": "subway",
+  "5": "subway",
+  "5X": "subway",
+  "6": "subway",
+  "6X": "subway",
+  "7": "subway",
+  "7X": "subway",
+  "A": "subway",
+  "B": "subway",
+  "C": "subway",
+  "D": "subway",
+  "E": "subway",
+  "F": "subway",
+  "FX": "subway",
+  "G": "subway",
+  "J": "subway",
+  "L": "subway",
+  "M": "subway",
+  "N": "subway",
+  "Q": "subway",
+  "R": "subway",
+  "W": "subway",
+  "Z": "subway",
+  "S": "subway",
+  "GS": "subway",
+  "FS": "subway",
+  "H": "subway",
+  "SI": "subway",
+  "SIR": "subway"
+ },
+ "sched": true
 }
