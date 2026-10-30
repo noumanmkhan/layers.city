@@ -4,7 +4,7 @@ name: Fetch transit closures
 # (cities/<city>/fetch_closures.py -> raw/closures/permits.json), builds
 # docs/<city>/data/closures.geojson with engine/closures.py, and commits both to main. Pages
 # redeploys on the push, so the map shows that day's permits. Toronto's fetch also saves special-event
-# closures (raw/closures/events.json), which engine/events.py turns into docs/toronto/data/events.geojson.
+# closures (San Francisco's fetch saves only these, from SFMTA's Temporary Street Closures) (raw/closures/events.json), which engine/events.py turns into docs/toronto/data/events.geojson.
 # Then the weekend brief for the iOS app: TTC planned subway closures from its GTFS-RT alerts (fetch_subway_alerts.py) and
 # engine/weekend.py for every city -> docs/<city>/data/weekend.json.
 # Actions schedules are in UTC: midnight in New York is 04:00 UTC in summer and 05:00 UTC in winter.
@@ -47,10 +47,10 @@ jobs:
       # Each city on its own, so one failing keeps the other's update (and yesterday's file stays up).
       - if: steps.when.outputs.skip != '1'
         run: |
-          for c in toronto chicago nyc; do
+          for c in toronto chicago nyc sf; do
             mkdir -p cities/$c/raw/closures
             [ -f cities/$c/fetch_marathon.py ] && ( python3 -u cities/$c/fetch_marathon.py 2>&1 | tee cities/$c/raw/closures/marathon.log || true )   # New York: the City's marathon notice, once posted
-            ( python3 -u cities/$c/fetch_closures.py && python3 -u engine/closures.py $c && python3 -u engine/events.py $c ) 2>&1 | tee cities/$c/raw/closures/fetch.log || true
+            ( python3 -u cities/$c/fetch_closures.py && { [ ! -f cities/$c/construction.json ] || python3 -u engine/closures.py $c; } && python3 -u engine/events.py $c )   # San Francisco has special events only (no construction.json) 2>&1 | tee cities/$c/raw/closures/fetch.log || true
           done
           # The weekend brief for the iOS app (engine/weekend.py): Toronto's planned subway closures first.
           ( python3 -u cities/toronto/fetch_subway_alerts.py 2>&1 | tee -a cities/toronto/raw/closures/fetch.log ) || true
@@ -59,7 +59,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          for p in cities/toronto/raw/closures cities/chicago/raw/closures cities/nyc/raw/closures docs/toronto/data/closures.geojson docs/chicago/data/closures.geojson docs/nyc/data/closures.geojson docs/toronto/data/events.geojson docs/nyc/data/events.geojson docs/*/data/weekend.json; do
+          for p in cities/toronto/raw/closures cities/chicago/raw/closures cities/nyc/raw/closures cities/sf/raw/closures docs/toronto/data/closures.geojson docs/chicago/data/closures.geojson docs/nyc/data/closures.geojson docs/toronto/data/events.geojson docs/nyc/data/events.geojson docs/sf/data/events.geojson docs/*/data/weekend.json; do
             if [ -e "$p" ]; then git add "$p"; fi
           done
           git commit -m "Daily transit closures ($(TZ=America/New_York date +%F))" || echo "no changes"

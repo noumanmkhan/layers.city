@@ -1,0 +1,9 @@
+{
+ "_about": "Special-event street closures (engine/events.py), from SFMTA's Temporary Street Closures (DataSF 8x25-yybr) via fetch_closures.py: the permits of type Special Event, each block with its own line. Each permit's case name is its organizer, so an event's blocks group together. Events with at least 'bannerMin' closures get the map's banner 'lead' days ahead; 'organizers' can rename or banner one by its permit's case name.",
+ "tz": "America/Los_Angeles",
+ "lat0": 37.77,
+ "lead": 3,
+ "ahead": 14,
+ "bannerMin": 25,
+ "organizers": {}
+}
