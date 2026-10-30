@@ -170,9 +170,13 @@ SHA = hashlib.sha256(b''.join(open(p, 'rb').read() for p in (parts if urls is No
 # FORMAT changes when these files gain a field (2: each stop's rider-facing stop code), so the next run rewrites
 # them even from the same feed.
 FORMAT = 5   # 3: rapid_routes.json and rapid_stops.json; 4: each rapid shape's platforms in order; 5: sched.json
+# The options that shape these files (surface.json without its notes): a change to them (a route added to "rapid",
+# "sched" turned on) rewrites the files from the same feed too. Files written before this was kept carry none, and
+# count as matching, so adding it rewrites nothing.
+OPTS = hashlib.sha256(json.dumps({k: v for k, v in CFG.items() if not k.startswith('_') and k != 'feeds'}, sort_keys=True).encode()).hexdigest()[:12]
 try:
     prev = json.load(open(os.path.join(OUT, 'routes.json')))
-    if prev.get('sha') == SHA and prev.get('format', 1) == FORMAT:
+    if prev.get('sha') == SHA and prev.get('format', 1) == FORMAT and prev.get('opts', OPTS) == OPTS:
         print('feed unchanged (sha', SHA + '); keeping the files from last time'); sys.exit(0)
 except (OSError, ValueError):
     pass
@@ -327,7 +331,7 @@ for r in rows('stops.txt'):
                 out[r['stop_id']] = [r['stop_id'], r.get('stop_name', ''), round(float(r['stop_lon']), 5), round(float(r['stop_lat']), 5),
                                      rs, (r.get('stop_code') or '').strip()]
 
-meta = {'format': FORMAT, 'source': feed_url, 'sha': SHA, 'fetched': dt.date.today().isoformat(), 'feed': [str(first), str(last)], 'week': str(day),
+meta = {'format': FORMAT, 'opts': OPTS, 'source': feed_url, 'sha': SHA, 'fetched': dt.date.today().isoformat(), 'feed': [str(first), str(last)], 'week': str(day),
         'days': {k: str(v) for k, v in PICK.items()}}
 json.dump(dict(meta, routes=out_routes), open(os.path.join(OUT, 'routes.json'), 'w'), separators=(',', ':'))
 json.dump(dict(meta, stops=list(names.values())), open(os.path.join(OUT, 'stops.json'), 'w'), separators=(',', ':'))

@@ -1,5 +1,5 @@
 {
- "_about": "Muni buses (engine/fetch_surface.py, engine/surface.py), trolleybuses included. Muni Metro, the F and E streetcars and the cable cars are drawn by the muni layer, so only buses are kept ('types'). SFMTA's 'current' file sometimes lags its schedule changes (in October 2026 it still ended August 28), so every address is tried and the one that runs latest wins ('preferCurrent'); a feed that has run out is counted on its last full week. Express routes are numbered with an X (1X, 8AX, 30X...); Rapid routes, lettered R (5R, 9R, 14R...), are left to the frequency families; the owl network is numbered 90 to 97 plus the L Owl and N Owl buses. Bus substitutes for Muni Metro lines (FBUS, KBUS, NBUS, TBUS) and the 714 BART Early Bird are left out ('skip'). Names come in capitals; 'routeNames' and 'stopNames' tidy them.",
+ "_about": "Muni buses (engine/fetch_surface.py, engine/surface.py), trolleybuses included. Muni Metro, the F and E streetcars and the cable cars are drawn by the muni layer, so only buses are kept ('types'). SFMTA's 'current' file sometimes lags its schedule changes (in October 2026 it still ended August 28), so every address is tried and the one that runs latest wins ('preferCurrent'); a feed that has run out is counted on its last full week. Express routes are numbered with an X (1X, 8AX, 30X...); Rapid routes, lettered R (5R, 9R, 14R...), are left to the frequency families; the owl network is numbered 90 to 97 plus the L Owl and N Owl buses. Bus substitutes for Muni Metro lines (FBUS, KBUS, NBUS, TBUS) and the 714 BART Early Bird are left out ('skip'). Names come in capitals; 'routeNames' and 'stopNames' tidy them. Muni Metro's J, K, L, M, N and T are kept apart as rapid lines ('rapid', in raw/surface/rapid_*.json, each shape with its stops in order) for the Routes page only; the map still draws them from the muni layer. 'sched' writes the timetable the Routes page shows when nothing is live.",
  "gtfs": {
   "url": "https://muni-gtfs.apps.sfmta.com/data/muni_gtfs-current.zip",
   "preferCurrent": true,
@@ -44,5 +44,14 @@
  "rename": {
   "LOWL": "L Owl",
   "NOWL": "N Owl"
- }
+ },
+ "rapid": {
+  "J": "lrt",
+  "K": "lrt",
+  "L": "lrt",
+  "M": "lrt",
+  "N": "lrt",
+  "T": "lrt"
+ },
+ "sched": true
 }
