@@ -1,0 +1,39 @@
+name: Probe 511 (temporary)
+on:
+  push:
+    branches: [probe-511]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q gtfs-realtime-bindings
+      - env:
+          K: ${{ secrets.MTA_BUSTIME_KEY }}
+        run: |
+          exec > >(sed "s/$K/KEY/g" | tee probe.txt) 2>&1
+          [ -n "$K" ] || { echo "no key"; exit 0; }
+          curl -sS -D h1.txt -o tu.pb "https://gtfsrt.prod.obanyc.com/tripUpdates?key=$K"
+          grep -iv "set-cookie" h1.txt; ls -l tu.pb; head -c 200 tu.pb | od -c | head -3
+          python3 - <<'PY'
+          from google.transit import gtfs_realtime_pb2 as g
+          import collections, time
+          f=g.FeedMessage(); f.ParseFromString(open('tu.pb','rb').read())
+          print('header ts', f.header.timestamp, 'age', int(time.time())-f.header.timestamp, 'entities', len(f.entity))
+          tu=[e.trip_update for e in f.entity if e.HasField('trip_update')]
+          print('trip updates', len(tu), 'with vehicle', sum(1 for t in tu if t.vehicle.id))
+          print('routes', collections.Counter(t.trip.route_id for t in tu).most_common(40))
+          print('stu', sum(len(t.stop_time_update) for t in tu))
+          print('sample stops', [s.stop_id for t in tu[:3] for s in t.stop_time_update][:15])
+          print('times', [(s.arrival.time, s.departure.time) for t in tu[:1] for s in t.stop_time_update][:5])
+          print('dir', collections.Counter(t.trip.direction_id for t in tu))
+          PY
+          node -e "
+          import('./functions/api/arrivals.js').then(m=>{const b=new Uint8Array(require('fs').readFileSync('tu.pb'));const now=Math.floor(Date.now()/1000);
+          let t0=performance.now();for(let i=0;i<10;i++)m.scan(b,['401687','MTA_401687'],now);console.log('scan ms',(performance.now()-t0)/10);
+          console.log(JSON.stringify(m.scan(b,['401687','MTA_401687','308214'],now)).slice(0,500))})"
+      - run: |
+          git config user.name probe; git config user.email probe@users.noreply.github.com
+          git add -f probe.txt && git commit -qm "probe output" && git push -q
