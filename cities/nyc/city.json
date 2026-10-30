@@ -1276,7 +1276,27 @@
      ]
     ],
     "note": "Typical transit trip to Penn Station leaving 8–9 am on a weekday, walking to the stop included (subway, buses, LIRR and Metro-North). Median across each community district.",
-    "source": "MTA schedules, routed with r5py."
+    "source": "MTA schedules, routed with r5py.",
+    "hubs": [
+     {
+      "id": "penn",
+      "name": "Penn Station",
+      "short": "To Penn Station",
+      "key": "pennBand",
+      "minutes": "penn",
+      "note": "Typical transit trip to Penn Station leaving 8–9 am on a weekday, walking to the stop included (subway, buses, LIRR and Metro-North). Median across each community district.",
+      "filter": "To Penn Station by transit"
+     },
+     {
+      "id": "gct",
+      "name": "Grand Central",
+      "short": "To Grand Central",
+      "key": "gctBand",
+      "minutes": "gct",
+      "note": "Typical transit trip to Grand Central (42 St) leaving 8–9 am on a weekday, walking to the stop included (subway, buses, LIRR and Metro-North). Median across each community district.",
+      "filter": "To Grand Central by transit"
+     }
+    ]
    },
    {
     "id": "commute",
@@ -1490,7 +1510,8 @@
     "label": "Most common home",
     "top": true
    }
-  ]
+  ],
+  "hubLabel": "Trip to"
  },
  "party": {
   "label": "Colour by party",
@@ -1523,7 +1544,9 @@
   ]
  },
  "card": {
-  "appTitle": {"layer": "nta"},
+  "appTitle": {
+   "layer": "nta"
+  },
   "appLocal": "council",
   "report": {
    "to": "go@layers.city",

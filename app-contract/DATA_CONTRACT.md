@@ -9,6 +9,9 @@
 
 > **October 28, 2026:** section 15 (transit: stops near a spot, routes, live arrivals) and `city.json` `transit`.
 > Additive; schema stays 2.
+> **October 30, 2026:** a transit lens may offer several hubs (`hubs` on the lens, `lens.hubLabel`; section 4 and the
+> Living here rows): New York (Penn Station or Grand Central) and San Francisco (Montgomery St or 4th & King). Additive:
+> the lens's own `key`, `minutes`, `short` and `note` still name the default hub.
 > **October 28, 2026, later:** `transit.sched`, `transit.schedFiles` and the `sched/` files (section 15, "Scheduled times"): the next
 > scheduled departure when there are no live times. Additive.
 
@@ -260,6 +263,12 @@ How the website's search does it, for an app that wants to match:
 - `lens.file` (the profiles file) and `lens.lenses`: each has `key` (the profile field holding a
   tier id) and `tiers: [[tierId, label, colourVariable], …]`. Use the label; the colour variable
   resolves through `palette`.
+- `hubs` (optional, since October 30, 2026; on the lens that has `minutes`): the trip-to-the-centre lens can end at
+  more than one hub. `[{id, name, short, key, minutes, note, filter}]`, the default first; the lens's own `key`,
+  `minutes`, `short` and `note` repeat the default. `name` labels the choice ("Grand Central"), `short` the lens
+  ("To Grand Central"), `filter` the "Narrow it down" row; `key` and `minutes` name that hub's profile fields. All hubs
+  share the lens's `tiers`. `lens.hubLabel` ("Trip to") heads the choice. The website remembers the viewer's pick and
+  carries it in the link (`hub=gct`); an app may offer the same choice or show the default only.
 - `lens.filters` (the website's "Narrow it down" rows): `{lens, label, options}` picks tiers of that lens;
   `max: true` is a minutes ceiling; `top: true` (Most common home, on the `homes` lens) has no `options`
   of its own: its choices are the lens's `pick` ids, and a unit matches when its largest share in the
@@ -557,6 +566,8 @@ Keyed by unit code as a string (`"71"`). Fields:
 | `union`, `unionBand` | Toronto only: transit minutes to Union, weekday 8–9 am, and its tier. |
 | `loop`, `loopBand` | Chicago only: transit minutes to the Loop (quickest of five Loop arrival points), weekday 8–9 am, and its tier. Same tier ids as `unionBand`. |
 | `downtown`, `downtownBand` | Dallas only: transit minutes to downtown (quickest of Akard, St. Paul, West End and EBJ Union Station), weekday 8–9 am, median over the ZIP, and its tier. Same tier ids as `unionBand`. Where fewer than half the ZIP's points reach downtown within three hours, `downtown` is null and the band is `over60`. |
+| `penn`, `pennBand`, `gct`, `gctBand` | New York only: transit minutes to Penn Station and to Grand Central (42 St), weekday 8–9 am, median over the community district, and their tiers. Same tier ids as `unionBand`. |
+| `montgomery`, `montgomeryBand`, `missionbay`, `missionbayBand` | San Francisco only (unlisted): transit minutes to Montgomery St station and to 4th & King (Mission Bay), weekday 8–9 am, median over the neighborhood, and their tiers. Same tier ids as `unionBand`. |
 | `homes` | 4 shares (%) of home types, in the order of `card.living.homes.types`. |
 | `built` | 4 shares (%) by period built, in the order of `card.living.built.bands`. |
 | `lang` | Up to 5 `[language, pct]`, largest first. Demographic: card only. |
@@ -576,7 +587,8 @@ Rows, in order (labels from `card.living`):
    homes too); keep it beside the figure.
 2. **`hub`** (when the city's transit-time field is present): its tier label · `hubText` with
    `{minutes}`. The field is the lens in `lens.lenses` that has `minutes` (`union` in Toronto,
-   `loop` in Chicago); its `key` names the tier field.
+   `loop` in Chicago); its `key` names the tier field. With `hubs`, use the picked hub's `minutes`, `key` and
+   `short` (the row's label); the website labels the row with `short` then, not `card.living.hub`.
 3. **Getting to work**: commute tier label · "72% drive · 24% transit · 3% walk or bike".
 4. **Households**: tenure tier label · "35% rent".
    **Tree canopy** (`card.living.canopy`, when `canopy` is present): the `canopy` lens tier label for

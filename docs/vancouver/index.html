@@ -1695,6 +1695,19 @@ function boardHits(it, x, y){
 /* Neighbourhood lenses (tiers from the city's profile data). One shows at a time. */
 const LENSES = {};
 CITY.lens.lenses.forEach(L_ => { LENSES[L_.id] = L_; });
+/* A transit lens with "hubs" lets the viewer pick where the trip ends (New York: Penn Station or Grand Central).
+   Each hub carries its own figures (key, minutes) and words (short, note, filter); the first is the default, and
+   the lens's own fields repeat it for apps and the static pages. The pick is remembered in this browser. */
+const HUB_STORE = 'hub:' + CITY.id;
+const hubLens = CITY.lens.lenses.find(L_ => L_.hubs && L_.hubs.length > 1);
+function useHub(L_, id){
+  const h = L_.hubs.find(x => x.id === id) || L_.hubs[0];
+  ['key', 'minutes', 'short', 'note', 'source'].forEach(k => { if (h[k] != null) L_[k] = h[k]; });
+  L_.hub = h.id;
+  return h;
+}
+const hubOf = L_ => L_.hubs.find(h => h.id === L_.hub) || L_.hubs[0];
+if (hubLens){ let saved = null; try { saved = localStorage.getItem(HUB_STORE); } catch (e) {} useHub(hubLens, saved); }
 const FILTERS = CITY.lens.filters;
 /* A "pick a type" lens (e.g. housing type) shades units by the share of one category the viewer picks:
    d[L_.field] is a list of shares, L_.pick names the categories in the same order, L_.cuts splits a
@@ -1732,7 +1745,7 @@ const matches = d => !!d && FILTERS.every(f => {
 const lensClass = d => { const L_ = LENSES[lens], k = keyOf(L_, d); return 'lens ' + (k ? L_.id + '-' + k : 'none') + (filtOn() && !matches(d) ? ' out' : ''); };
 let lens = FIRST_LENS;
 const TIER_LABEL = {};
-Object.values(LENSES).forEach(L_ => L_.tiers.forEach(([k, label, v]) => { TIER_LABEL[L_.key + ':' + k] = [label, v]; }));
+Object.values(LENSES).forEach(L_ => (L_.hubs ? L_.hubs.map(h => h.key) : [L_.key]).forEach(key => L_.tiers.forEach(([k, label, v]) => { TIER_LABEL[key + ':' + k] = [label, v]; })));
 const tierOf = d => { const L_ = LENSES[lens], k = keyOf(L_, d); if (!k) return '';
   return L_.pick ? pickLabel(L_) + ': ' + TIER_LABEL[L_.key + ':' + k][0] : TIER_LABEL[L_.key + ':' + k][0]; };
 const pickOf = L_ => L_.pick.find(p => p[0] === pick[L_.id]) || L_.pick[0];
@@ -3282,7 +3295,7 @@ CITY.groups.forEach(([title, items]) => {
         Object.entries(LENSES).map(([k, L_]) => '<button type="button" role="radio" data-lens="' + k + '" aria-checked="' + (k === lens) + '">' + L_.short + '</button>').join('') +
         '</div><div class="legend" id="legend"></div>' +
         '<div class="finder"><b>Narrow it down</b><span>Pick what you’re looking for. ' + cap(CITY.units.plural) + ' that don’t fit fade out.</span>' +
-        FILTERS.map(f => '<div class="frow"><small>' + f.label + '</small><div class="chips">' +
+        FILTERS.map(f => '<div class="frow"><small data-flab="' + f.lens + '">' + (hubLens && f.lens === hubLens.id ? hubOf(hubLens).filter || f.label : f.label) + '</small><div class="chips">' +
             f.options.map(([v, t]) => '<button type="button" aria-pressed="false" data-f="' + f.lens + '" data-v="' + v + '">' + t + '</button>').join('') + '</div></div>').join('') +
         '<div class="fres" id="fres" hidden><span id="fcount"></span><button type="button" id="fclear">Clear</button></div><div class="flist" id="flist"></div></div>';
       grp.appendChild(box);
@@ -3449,9 +3462,13 @@ function drawLegend(){
   const L_ = LENSES[lens];
   const picker = L_.pick ? '<div class="chips pick" role="radiogroup" aria-label="' + esc(L_.short) + '">' + L_.pick.map(([v, t]) =>
     '<button type="button" role="radio" data-pick="' + v + '" aria-checked="' + (pick[L_.id] === v) + '">' + esc(t) + '</button>').join('') + '</div>' : '';
-  el.innerHTML = picker + L_.tiers.map(([k, label, v]) => '<div><i style="background:var(' + v + ')"></i>' + label + '</div>').join('') +
+  const hubs = L_.hubs && L_.hubs.length > 1 ? (CITY.lens.hubLabel ? '<small class="pc-lab">' + esc(CITY.lens.hubLabel) + '</small>' : '') +
+    '<div class="chips pick" role="radiogroup" aria-label="' + esc(CITY.lens.hubLabel || L_.short) + '">' + L_.hubs.map(h =>
+    '<button type="button" role="radio" data-hub="' + h.id + '" aria-checked="' + (L_.hub === h.id) + '">' + esc(h.name) + '</button>').join('') + '</div>' : '';
+  el.innerHTML = picker + hubs + L_.tiers.map(([k, label, v]) => '<div><i style="background:var(' + v + ')"></i>' + label + '</div>').join('') +
     '<small>' + (L_.pick ? fill(L_.note, {type: pickLong(L_)}) : L_.note) + ' Source: ' + (L_.source || CITY.lens.source) + '</small>';
   el.querySelectorAll('[data-pick]').forEach(b => b.addEventListener('click', () => setPick(L_.id, b.dataset.pick)));
+  el.querySelectorAll('[data-hub]').forEach(b => b.addEventListener('click', () => { setHub(b.dataset.hub); logEvent('lens_hub', {id: b.dataset.hub}); }));
 }
 function setBoard(id, b){
   const it = LAYERS.find(l => l.id === id); if (!it || !boardOf(it, b)) return;
@@ -3459,6 +3476,20 @@ function setBoard(id, b){
   document.querySelectorAll('[data-layer="' + id + '"][data-board]').forEach(el => el.setAttribute('aria-checked', String(el.dataset.board === b)));
   const n = document.getElementById('brdnote-' + id); if (n) n.textContent = boardOf(it, b)[2] + '. ' + (it.boardNote || '');
   if (layers[id] && layers[id]._pick) layers[id]._pick(b);
+  queueHash();
+}
+// Pick the transit lens's hub: its figures shade the map, the filter, the card's row and the share link.
+function setHub(id, remember = true){
+  if (!hubLens || !hubLens.hubs.some(h => h.id === id)) return;
+  const h = useHub(hubLens, id);
+  if (remember) try { if (id === hubLens.hubs[0].id) localStorage.removeItem(HUB_STORE); else localStorage.setItem(HUB_STORE, id); } catch (e) {}
+  document.querySelectorAll('[data-lens="' + hubLens.id + '"]').forEach(b => { b.textContent = hubLens.short; });
+  document.querySelectorAll('[data-flab="' + hubLens.id + '"]').forEach(b => { const f = FILTERS.find(x => x.lens === hubLens.id); b.textContent = h.filter || (f && f.label) || ''; });
+  if (lens === hubLens.id) drawLegend();
+  const LL = byKind('lens') && layers[byKind('lens').id];
+  if (LL && LL._restyle) LL._restyle();
+  if (filtOn()) applyFilter();
+  try { if (lastInspect) redrawCard(); } catch (e){}
   queueHash();
 }
 function setPick(id, v){
@@ -3703,7 +3734,7 @@ function livingHere(unit){
   const hub = CITY.lens.lenses.find(L_ => L_.minutes);
   return '<div class="live"><dl>' +
     '<dt>Housing</dt><dd>' + tier('cost', d.cost) + '<span>Median home ' + money(d.value) + ' · renters pay $' + d.rent.toLocaleString(CITY.locale) + '/mo</span><span class="caveat">' + esc(T.caveat) + '</span></dd>' +
-    (hub && d[hub.minutes] != null ? '<dt>' + esc(T.hub) + '</dt><dd>' + tier(hub.key, d[hub.key]) + '<span>' + esc(fill(T.hubText, {minutes: d[hub.minutes]})) + '</span></dd>' : '') +
+    (hub && d[hub.minutes] != null ? '<dt>' + esc(hub.hubs ? hub.short : T.hub) + '</dt><dd>' + tier(hub.key, d[hub.key]) + '<span>' + esc(fill(T.hubText, {minutes: d[hub.minutes]})) + '</span></dd>' : '') +
     '<dt>Getting to work</dt><dd>' + tier('commute', d.commute) + '<span>' + d.carPct + '% drive · ' + d.transitPct + '% transit · ' + d.walkBikePct + '% walk or bike</span></dd>' +
     '<dt>Households</dt><dd>' + tier('tenure', d.tenure) + '<span>' + d.renterPct + '% rent</span></dd>' +
     (T.canopy && d.canopy != null ? '<dt>' + esc(T.canopy.label) + '</dt><dd>' + (TIER_LABEL['canopyBand:' + d.canopyBand] ? tier('canopyBand', d.canopyBand) : '') +
@@ -5257,7 +5288,7 @@ function drawPlaceBox(){
 
 
 /* ---------- Shareable links: the view lives in the address bar's #fragment ----------
-   #map=zoom/lat/lng&pin=lat,lng&name=…&view=region&layers=a,b&lens=commute&fit=cost:lower+middle,union:30
+   #map=zoom/lat/lng&pin=lat,lng&name=…&view=region&layers=a,b&lens=commute&hub=gct&fit=cost:lower+middle,union:30
    Anything left out means the starting setting, so old links keep working as defaults change.
    Layers are named by their short ids in city.json; renaming a layer's label doesn't break links.
    The fragment never reaches a server, and replaceState keeps the Back button clean. */
@@ -5290,6 +5321,7 @@ function linkState(){
   const dflt = LAYERS.filter(it => it.on).map(it => it.id).concat(SUBS.filter(s => s.on).map(s => s.id));
   if (on.join() !== dflt.join()) parts.push(['layers', on.length ? on.join(',') : 'none']);
   if (lens !== FIRST_LENS || (LENSES[lens].pick && pick[lens] !== LENSES[lens].pick[0][0])) parts.push(['lens', lens + (LENSES[lens].pick ? ':' + pick[lens] : '')]);
+  if (hubLens && hubLens.hub !== hubLens.hubs[0].id) parts.push(['hub', hubLens.hub]);
   const fit = FILTERS.map(f => f.max ? (filt[f.lens] ? f.lens + ':' + filt[f.lens] : '') : (filt[f.lens].size ? f.lens + ':' + [...filt[f.lens]].join('+') : '')).filter(Boolean);
   if (fit.length) parts.push(['fit', fit.join(',')]);
   const brd = BOARDS.filter(it => state[it.id] && boardPick[it.id] !== it.boards[0][0]).map(it => it.id + ':' + boardPick[it.id]);
@@ -5320,7 +5352,7 @@ function readHash(h){
 // Put the map into the state a link describes. Unknown ids and malformed parts are skipped.
 function applyHash(h){
   const o = readHash(h);
-  if (!['map', 'pin', 'view', 'layers', 'lens', 'fit', 'focus', 'board', 'bus', 'routes', 'chg', 'preset', 'pick', 'party', 'cats'].some(k => k in o)) return false;
+  if (!['map', 'pin', 'view', 'layers', 'lens', 'hub', 'fit', 'focus', 'board', 'bus', 'routes', 'chg', 'preset', 'pick', 'party', 'cats'].some(k => k in o)) return false;
   // Links made before layers were merged name the old one-category layers ("mosques"): each turns on the
   // merged layer with that category picked (its "replaces" map).
   const merged = {}, oldIds = {}, oldPicks = [];   // a replaces value "@group" picks that group instead
@@ -5363,6 +5395,7 @@ function applyHash(h){
   if (PARK) setParkWant(o.park ? o.park.split('+') : []);
   picked.clear(); (o.routes || '').split(',').filter(Boolean).forEach(r => picked.add(r));
   if (TR && (picked.size || pickLayer.getLayers().length)) ensureRoutes().then(drawPicks);
+  if (o.hub && hubLens) setHub(o.hub, false);
   const [lk, lp] = (o.lens || '').split(':');
   if (lk && LENSES[lk] && document.querySelector('[data-lens="' + lk + '"]')){ if (lp) setPick(lk, lp); setLens(lk); }
   if (o.fit){
