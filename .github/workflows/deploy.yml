@@ -48,6 +48,7 @@ on:
       - "Refresh fact sheets"
       - "Refresh venues"
       - "Fetch GO fares"
+      - "Refresh San Francisco data"
     types: [completed]
   workflow_dispatch:
     inputs:

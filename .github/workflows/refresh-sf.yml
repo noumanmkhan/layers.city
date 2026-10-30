@@ -1,0 +1,61 @@
+name: Refresh San Francisco data
+# Keeps San Francisco's slower-changing layers current. Each fetch script writes only a source that came back
+# whole, so a failed source keeps last time's copy (and says so as a warning on the run); then the builds that
+# read them run, and what changed is committed to main. deploy.yml lists this workflow, so its commits go live.
+#   weekly (Mondays): representatives (fetch_representatives.py), garages, permit areas and EV chargers
+#     (fetch_parking.py), street sweeping (fetch_sweeping.py)
+#   monthly (the 6th): parks, schools, libraries, hospitals, colleges and places of worship (fetch_places.py),
+#     hazard zones, soft-story buildings, Slow Streets and ferries (fetch_extras.py)
+# By hand: all of them (workflow_dispatch, "which": weekly, monthly or all).
+on:
+  workflow_dispatch:
+    inputs:
+      which: {description: 'weekly, monthly or all', default: 'all'}
+  schedule:
+    - cron: '17 9 * * 1'
+    - cron: '29 9 6 * *'
+permissions:
+  contents: write
+concurrency: refresh-sf
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q shapely
+      - name: Fetch
+        env:
+          NLR_API_KEY: ${{ secrets.NLR_API_KEY }}   # fetch_parking.py: the AFDC station API
+          WHICH: ${{ inputs.which || (github.event.schedule == '29 9 6 * *' && 'monthly' || 'weekly') }}
+        run: |
+          weekly="fetch_representatives.py fetch_parking.py fetch_sweeping.py"
+          monthly="fetch_places.py fetch_extras.py"
+          case "$WHICH" in weekly) S="$weekly";; monthly) S="$monthly";; *) S="$weekly $monthly";; esac
+          echo "SCRIPTS=$S" >> "$GITHUB_ENV"
+          for s in $S; do
+            echo "== $s"
+            ( set -o pipefail; python3 -u "cities/sf/$s" 2>&1 | tee "cities/sf/raw/${s%.py}.log" ) \
+              || echo "::warning::$s failed: $(tail -2 cities/sf/raw/${s%.py}.log | tr '\n' ' ' | cut -c1-600)"
+          done
+      - name: Build what the fetched files feed
+        run: |
+          cd cities/sf
+          for s in $SCRIPTS; do case $s in
+            fetch_representatives.py) python3 representatives.py ;;
+            fetch_parking.py) python3 parking.py ;;
+            fetch_sweeping.py) python3 sweeping.py ;;
+            fetch_places.py) python3 faith.py && python3 places.py ;;
+            fetch_extras.py) python3 extras.py && python3 places.py ;;   # soft-story counts are in places.py's Nearby
+          esac || echo "::warning::build after $s failed"; done
+          python3 ../../engine/assemble.py sf
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/sf/raw docs/sf/data docs/sf/index.html
+          git commit -m "Refresh San Francisco data ($SCRIPTS)" || echo "no changes"
+          git pull --rebase
+          git push
