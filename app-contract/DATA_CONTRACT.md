@@ -283,7 +283,9 @@ How the website's search does it, for an app that wants to match:
   absent, use `--accent` (Canadian cities are red and white).
 - `drive`: `hub` (`[lat, lon]`) and `hubName` ("Union Station", "State & Madison").
 - `outside`: `beyond` (message when the point is outside the whole region), `regionPill`
-  (template for the region name), `note` (shown on outside cards).
+  (template for the region name), `note` (shown on outside cards), and optionally `muniLabel` (added
+  October 30, 2026; Hyderabad only): what an area beyond the city is called on its card ("Mandal");
+  absent means "Municipality".
   Apps use `appBeyond` and `appNote` instead (added October 21, 2026; every city): the same messages
   without references to the web map's layers. In general, a key starting with `app` is the app's
   wording of the website text beside it; prefer it when present.

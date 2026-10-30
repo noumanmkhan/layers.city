@@ -4048,7 +4048,8 @@ function cardOf(latlng, title, muniName){
     OF.forEach(id => { oh[id] = hit(data.layers[id], x, y); });
     const orows = CITY.card.facts.filter(r => r.layer && oh[r.layer]).map(r => '<dt>' + esc(r.label) + '</dt><dd>' + esc(fill(r.text, oh[r.layer].properties)) + '</dd>').join('');
     const opills = CITY.card.pills.filter(p => p.text && oh[p.layer]).map(p => '<span class="pill"><i style="background:var(' + p.color + ')"></i>' + esc(fill(p.text, oh[p.layer].properties)) + '</span>').join('');
-    const bounds = '<dl class="facts"><dt>Municipality</dt><dd>' + esc(m.name) + '</dd><dt>' + esc((CITY.focus && CITY.focus.noun) || 'Region') + '</dt><dd>' + esc(rp) + '</dd>' + orows + '</dl>';
+    // CITY.outside.muniLabel: what the areas beyond the city are called on the card (Hyderabad's are mandals).
+    const bounds = '<dl class="facts"><dt>' + esc(CITY.outside.muniLabel || 'Municipality') + '</dt><dd>' + esc(m.name) + '</dd><dt>' + esc((CITY.focus && CITY.focus.noun) || 'Region') + '</dt><dd>' + esc(rp) + '</dd>' + orows + '</dl>';
     return {outside: true, x, y, m, heading: title || m.name, boundsSection: OF.length ? bounds : '',
       pills: nearCommunity(x, y, title) + '<span class="pill"><i style="background:var(--land-out-line)"></i>' + esc(m.name) + '</span><span class="pill"><i style="background:var(--muni-label)"></i>' + esc(rp) + '</span>' + opills,
       drive: driveHere(x, y, m),
