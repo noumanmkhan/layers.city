@@ -425,7 +425,9 @@ def muni_name(n):
     n = re.sub(r'\s+(Station\s+)?(North|South|East|West|Out|In)bound$', '', n)
     n = re.sub(r'\s+(BART|Platform.*)$', '', n)
     n = re.sub(r'\s+Station$', '', n)
-    return n.replace('(16th Street)', '(16th St)').replace(' - ', ' – ').strip()
+    n = n.replace('(16th Street)', '(16th St)').replace(' - ', ' – ').strip()
+    # The four Market Street stations Muni shares with BART go by BART's names, so the two read as one station.
+    return {'Montgomery': 'Montgomery Street', 'Powell': 'Powell Street', 'Civic Center': 'Civic Center/UN Plaza'}.get(n, n)
 
 
 mst = stations_of('muni', {rid: l for rid, l in mline_of.items() if l != 'Cable car' and l not in ('F', 'E')},
@@ -435,6 +437,55 @@ SUB = re.compile(r'(?i)^(embarcadero|montgomery|powell|civic center|van ness|chu
 MLORD = ['J', 'K', 'L', 'M', 'N', 'T', 'S']
 write('muni_stations', [{'type': 'Feature', 'properties': {'name': v['name'], 'lines': sorted(v['lines'], key=lambda l: MLORD.index(l) if l in MLORD else 9)},
                          'geometry': {'type': 'Point', 'coordinates': pt_of(v)}} for v in mst.values() if SUB.match(v['name']) or len(v['lines']) >= 3])
+# Every Muni Metro stop, surface ones too, for the fact sheets (the map shows only the stations above).
+write('muni_metro_stops', [{'type': 'Feature', 'properties': {'name': v['name'], 'lines': sorted(v['lines'], key=lambda l: MLORD.index(l) if l in MLORD else 9)},
+                            'geometry': {'type': 'Point', 'coordinates': pt_of(v)}} for v in mst.values()])
+# The order each service calls at its stations, for the fact sheets' stops-and-changes counts
+# (raw/subway_patterns.json, read by engine/profiles/build.py): each of a route's main shapes (10% or more of its
+# trips), with the stations of that line within 80 m of it, in order along it. Coordinates as published.
+def patterns(key, line_of, st):
+    out = []
+    for rid, r in gt[key]['routes'].items():
+        l = line_of.get(rid)
+        if not l or l == 'Cable car': continue
+        top = max(r['counts'].values() or [0])
+        mine = [(pt_of(v), v) for v in st.values() if l in v['lines']]
+        for sid, coords in r['shapes'].items():
+            if r['counts'].get(sid, 0) < 0.1 * top or len(coords) < 2: continue
+            ln = LineString(coords)
+            k = math.cos(math.radians(37.77))
+            near = [(ln.project(Point(p)), p) for p, v in mine if ln.distance(Point(p)) * 111000 < 80]
+            if len(near) > 1: out.append({'line': l, 'stops': [p for _, p in sorted(near)]})
+    return out
+
+
+# Clean lines for the fact sheets' system map (metro_lines.geojson): the map's lines are a union of every shape, in
+# many short pieces; here each line is its main shapes (10% or more of a route's trips), whole, leaving out a shape
+# that mostly runs over one already kept (the other direction, a short turn).
+def clean_lines(key, line_of, ids, names):
+    by = defaultdict(list)
+    for rid, r in gt[key]['routes'].items():
+        l = line_of.get(rid)
+        if not l or l == 'Cable car': continue
+        top = max(r['counts'].values() or [0])
+        by[ids(l)] += [LineString(c) for sid, c in r['shapes'].items() if r['counts'].get(sid, 0) >= 0.1 * top and len(c) > 1]
+    out = []
+    for l, gs in by.items():
+        kept = []
+        for g in sorted(gs, key=lambda g: -g.length):
+            if kept and g.difference(unary_union(kept).buffer(0.0006)).length < 0.1 * g.length: continue
+            kept.append(g)
+        out.append(feat(MultiLineString([g.simplify(0.0001) for g in kept]), {'line': l, 'name': names(l)}))
+    return out
+
+
+write('metro_lines', clean_lines('bart', bline_of, lambda l: {v: k for k, v in BART_NAME.items()}[l], lambda l: 'BART ' + BART_NAME[l] + (' Line' if l != 'beige' else ' connector'))
+     + clean_lines('muni', {rid: l for rid, l in mline_of.items() if l not in ('F', 'E', 'Cable car')}, lambda l: l.lower(),
+                   lambda l: next(f['properties']['name'] for f in mlines if f['properties']['line'] == l.lower())))
+pats = patterns('bart', bline_of, bst) + patterns('muni', {rid: l for rid, l in mline_of.items() if l not in ('F', 'E', 'Cable car')}, mst)
+json.dump({'note': 'Built by cities/sf/build.py from the BART and Muni GTFS shapes', 'patterns': pats},
+          open(os.path.join(HERE, 'raw', 'subway_patterns.json'), 'w'), separators=(',', ':'))
+print('subway patterns:', len(pats), dict(Counter(p['line'] for p in pats)))
 print('Muni lines', [f['properties']['name'] for f in mlines], '· stations kept', sum(1 for v in mst.values() if SUB.match(v['name']) or len(v['lines']) >= 3), 'of', len(mst))
 
 # ---------- Regional trains: Caltrain (GTFS); SMART, ACE, Capitol Corridor, VTA light rail (OpenStreetMap) ----------
