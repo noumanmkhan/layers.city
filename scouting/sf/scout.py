@@ -49,20 +49,26 @@ def save(name, obj):
 
 
 # ---------------------------------------------------------------- 1. the whole DataSF catalogue
-cat, off = [], 0
-while True:
-    d = get(f'https://api.us.socrata.com/api/catalog/v1?domains=data.sfgov.org&limit=100&offset={off}')
-    if not d: break
-    for r in d.get('results', []):
-        res = r['resource']; cl = r.get('classification') or {}
-        cat.append({'id': res['id'], 'name': res['name'], 'type': res.get('type'),
-                    'updated': (res.get('data_updated_at') or res.get('updatedAt') or '')[:10],
-                    'category': cl.get('domain_category'),
-                    'dept': next((m.get('value') for m in cl.get('domain_metadata', []) if 'Department' in (m.get('key') or '') or 'Publishing' in (m.get('key') or '')), None),
-                    'licence': (r.get('metadata') or {}).get('license'),
-                    'desc': (res.get('description') or '')[:200].replace('\n', ' ')})
-    if len(d.get('results', [])) < 100: break
-    off += 100
+cat = []
+# DataSF's own DCAT catalogue (the Socrata discovery API returned only a handful of SF datasets on the first run)
+d = get(f'{SOC}/data.json', timeout=300) or {}
+for r in d.get('dataset', []):
+    m = re.search(r'/views/([a-z0-9]{4}-[a-z0-9]{4})', r.get('identifier', '') or '')
+    if not m: continue
+    cat.append({'id': m.group(1), 'name': r.get('title', ''), 'type': None, 'updated': (r.get('modified') or '')[:10],
+                'category': (r.get('theme') or [None])[0], 'dept': (r.get('publisher') or {}).get('name'),
+                'licence': r.get('license'), 'desc': (r.get('description') or '')[:200].replace('\n', ' ')})
+if len(cat) < 50:      # fall back to the discovery API, paged
+    off = 0
+    while True:
+        d = get(f'https://api.us.socrata.com/api/catalog/v1?domains=data.sfgov.org&search_context=data.sfgov.org&limit=100&offset={off}')
+        if not d or not d.get('results'): break
+        for r in d['results']:
+            res = r['resource']
+            if all(c['id'] != res['id'] for c in cat):
+                cat.append({'id': res['id'], 'name': res['name'], 'type': res.get('type'), 'updated': (res.get('data_updated_at') or '')[:10],
+                            'category': (r.get('classification') or {}).get('domain_category'), 'dept': None, 'licence': None, 'desc': ''})
+        off += 100
 cat.sort(key=lambda x: x['name'].lower()); save('catalog.json', cat)
 note(f'Catalogue: {len(cat)} datasets on data.sfgov.org')
 summary['catalog'] = {'datasets': len(cat), 'categories': Counter(c['category'] for c in cat).most_common(15),
@@ -266,10 +272,14 @@ def read_gtfs(name, z):
         gt[name] = f'unreadable: {e}'; note(f'GTFS {name}: unreadable {e}')
 
 for name, url in [('muni', 'https://gtfs.sfmta.com/transitdata/google_transit.zip'),
+                  ('muni_alt', 'https://www.sfmta.com/reports/gtfs-transit-data'),
                   ('bart', 'https://www.bart.gov/dev/schedules/google_transit.zip'),
                   ('caltrain', 'https://data.trilliumtransit.com/gtfs/caltrain-ca-us/caltrain-ca-us.zip')]:
     z = get(url, binary=True, timeout=300, tries=2)
-    if not z or z[:2] != b'PK': gt[name] = f'download failed ({url})'; note(f'GTFS {name}: download failed'); continue
+    if z and z[:2] != b'PK':   # a page, not a zip: list the zip links it carries
+        gt[name] = {'page': url, 'zip_links': sorted(set(re.findall(r'https?://[^"\'\s>]+\.zip', z.decode('utf-8', 'ignore'))))[:10]}
+        note(f'{name}: page with zip links {gt[name]["zip_links"]}'); continue
+    if not z: gt[name] = f'download failed ({url})'; note(f'GTFS {name}: download failed'); continue
     read_gtfs(name, z)
 if KEY511:
     ops = get(f'https://api.511.org/transit/gtfsoperators?api_key={KEY511}', binary=True, tries=2)
@@ -317,7 +327,7 @@ COUNTIES = {'001': 'Alameda', '013': 'Contra Costa', '041': 'Marin', '055': 'Nap
             '081': 'San Mateo', '085': 'Santa Clara', '095': 'Solano', '097': 'Sonoma'}
 for year in (2024, 2023):
     acs = get(f'https://api.census.gov/data/{year}/acs/acs5?get=NAME,B25003_001E,B25003_003E,B25077_001E,B25064_001E,B08301_001E,B08301_002E,B25024_001E'
-              f'&for=tract:*&in=state:06%20county:{",".join(COUNTIES)}', tries=2)
+              f'&for=tract:*&in=state:06&in=county:{",".join(COUNTIES)}', tries=2)
     if acs:
         hdr = acs[0]; ci = hdr.index('county')
         pr['acs_tracts'] = {'year': year, 'rows': len(acs) - 1, 'header': hdr, 'sample': acs[1:3],
