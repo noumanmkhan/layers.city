@@ -39,8 +39,9 @@ if S['type'] == 'socrata_geo':
     rows = []
     for f in fc['features']:
         r = {k: v for k, v in f['properties'].items() if not k.startswith(':@')}
-        if f.get('geometry'):
-            g = shape(f['geometry']); c = g.representative_point()
+        g = shape(f['geometry']) if f.get('geometry') else None
+        if g is not None and not g.is_empty:   # San Francisco has a landmark record with an empty shape
+            c = g.representative_point()
             r['lon'], r['lat'] = round(c.x, 6), round(c.y, 6)
         rows.append(r)
     fields = sorted({k for r in rows for k in r})

@@ -1,14 +1,28 @@
 {
- "_about": "Skyscrapers layer, 150 m (492 ft) and taller, Toronto's cut-off: about 20 towers, from Salesforce Tower (326 m) down. engine/fetch_skyscrapers.py fetches the Wikipedia list; engine/skyscrapers.py builds docs/sf/data/skyscrapers.geojson. Table names are checked against the fetch log.",
+ "_about": "Skyscrapers layer, 150 m (492 ft) and taller, Toronto's cut-off: about 20 towers, from Salesforce Tower (326 m) down. engine/fetch_skyscrapers.py fetches the Wikipedia list; engine/skyscrapers.py builds docs/sf/data/skyscrapers.geojson. Table names are checked against the fetch log. No tower is under construction in San Francisco (October 2026), so \"uc\" is null; set it to the Wikipedia section when one appears.",
  "wiki": "List of tallest buildings in San Francisco",
  "city": "San Francisco",
  "min": 150,
- "heights": ["ft", "m"],
- "tables": {"built": "Tallest buildings", "uc": "Tallest under construction, approved, or proposed > Under construction", "timeline": "Timeline of tallest buildings"},
+ "heights": [
+  "ft",
+  "m"
+ ],
+ "tables": {
+  "built": "Tallest buildings",
+  "uc": null,
+  "timeline": "Timeline of tallest buildings"
+ },
  "exclude": {},
- "geocode": {"suffix": "San Francisco, CA, USA", "addresses": {}},
+ "geocode": {
+  "suffix": "San Francisco, CA, USA",
+  "addresses": {}
+ },
  "use": {},
- "open": {"_rule": "A tower listed with this year's date is drawn hollow (under construction) unless marked true here: it must be open for occupancy, not just topped out."},
- "aka": {"Transamerica Pyramid": "the Pyramid"},
+ "open": {
+  "_rule": "A tower listed with this year's date is drawn hollow (under construction) unless marked true here: it must be open for occupancy, not just topped out."
+ },
+ "aka": {
+  "Transamerica Pyramid": "the Pyramid"
+ },
  "facts": {}
 }

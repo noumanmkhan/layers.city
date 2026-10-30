@@ -105,6 +105,7 @@ open_cfg = {k: v for k, v in cfg.get('open', {}).items() if not k.startswith('_'
 exclude = cfg.get('exclude', {})
 towers, missing, to_check = [], [], []
 for key, uc_table in (('built', False), ('uc', True)):
+    if not cfg['tables'].get(key): continue   # a city with nothing under construction (San Francisco, October 2026): "uc": null
     for r in rows(table(key)):
         raw_name = r['name']['text']
         if not raw_name or raw_name in exclude:
