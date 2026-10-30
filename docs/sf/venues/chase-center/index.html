@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chase Center · San Francisco venues · Layers.City</title>
+<meta name="description" content="Chase Center, 1 Warriors Way, San Francisco: what&#x27;s on this week, nearest BART and Muni Metro, buses, City parking within a ten-minute walk, and drive and transit from across the Bay Area.">
+<link rel="canonical" href="https://layers.city/sf/venues/chase-center/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Layers.City">
+<meta property="og:url" content="https://layers.city/sf/venues/chase-center/">
+<meta property="og:title" content="Chase Center · San Francisco venues · Layers.City">
+<meta property="og:description" content="Chase Center, 1 Warriors Way, San Francisco: what&#x27;s on this week, nearest BART and Muni Metro, buses, City parking within a ten-minute walk, and drive and transit from across the Bay Area.">
+<meta property="og:image" content="https://layers.city/sf/venues/chase-center/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+:root{--bg:#F7F4F3;--card:#FFFFFF;--ink:#1A1414;--ink-2:#463D3C;--ink-3:#5C5251;--muted:#7A6E6C;--rule:#D8CFCD;--accent:#C8102E;--soft:rgba(200,16,46,.08);
+--land:#F2EEEC;--street:#FFFFFF;--go:#1E6B47;--display:'Archivo',system-ui,sans-serif;--body:'IBM Plex Sans',system-ui,sans-serif}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+a{color:var(--accent)}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:22px 0}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-family:var(--display);font-weight:800;font-size:20px}
+.brand b{color:var(--accent);font-weight:700}.brand svg{width:26px;height:auto}
+.crumbs{font-size:14px;color:var(--ink-3)}.crumbs a{color:var(--ink-2)}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,6.5vw,56px);line-height:1.02;letter-spacing:-.02em;margin:22px 0 10px}
+.kind{margin:0;color:var(--ink-2);font-size:18px}.in{margin:6px 0 0;color:var(--ink-2)}
+.go{display:inline-flex;align-items:center;gap:8px;margin:22px 0 8px;min-height:48px;padding:0 22px;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none;font-weight:500;font-size:17px}
+.go:focus-visible,.brand:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+section{background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:22px 24px;margin:20px 0}
+h2{font-family:var(--display);font-weight:700;font-size:22px;margin:0 0 12px}
+h3{font-family:var(--display);font-weight:700;font-size:18px;margin:16px 0 6px}
+dl{margin:0}dt{font-weight:500;margin-top:14px}dt:first-child{margin-top:0}dd{margin:2px 0 0;color:var(--ink-2)}
+.note{font-size:14px;color:var(--ink-3)}
+.stamp{font-size:14px;color:var(--ink-3);margin:8px 0 0}
+ul.events{list-style:none;margin:0;padding:0}
+ul.events li{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:9px 0;border-top:1px solid var(--rule)}
+ul.events li:first-child{border-top:0}
+ul.events time{flex:0 0 150px;color:var(--ink-2);font-size:15px}ul.events time b{color:var(--ink);font-weight:500}
+ul.events .ev{flex:1 1 220px;font-weight:500}
+ul.events .where{color:var(--ink-3);font-size:15px}
+.tag{display:inline-block;padding:1px 9px;border-radius:999px;font-size:13px;background:var(--soft);color:var(--ink)}
+.status{font-size:13px;color:var(--accent);text-transform:capitalize}
+.src{font-size:14px;white-space:nowrap}
+.empty{color:var(--ink-3);margin:0}
+.ln{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font:800 11px/1 var(--display);color:#fff;vertical-align:-3px;margin-right:2px}
+.rbs{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:2px}.rbs .rb{flex:none}.rb.go{min-height:0;margin:0;padding:0 4px;text-decoration:none}
+.rb{display:inline-grid;place-items:center;box-sizing:border-box;height:19px;min-width:27px;padding:0 4px;border-radius:4px;font:700 11.5px/1 var(--body)}
+.vmap{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--rule)}
+.legend{font-size:13px;color:var(--ink-3);margin:8px 0 0}
+.card{background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:20px 22px;margin:14px 0}
+.card h2{margin:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.card h2 a{color:var(--ink);text-decoration:none}.card h2 a:hover{color:var(--accent)}
+.pinbtn{display:inline-flex;align-items:center;gap:6px;font:500 14px/1 var(--body);color:var(--accent);background:var(--soft);border:0;border-radius:999px;padding:7px 12px 7px 9px;cursor:pointer}
+.pinbtn svg{width:14px;height:17px}.pinbtn[aria-expanded="true"]{background:var(--accent);color:#fff}
+.here{position:relative}
+.pop{margin:12px 0 4px;padding:14px 16px 12px;border:1.5px solid var(--accent);border-radius:12px;background:var(--card);box-shadow:0 10px 30px rgba(26,20,20,.10)}
+.pop .k{font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--accent);text-transform:uppercase;margin:0 0 6px}
+.pop dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0;font-size:15px}.pop dt{font-weight:500;margin:0;color:var(--ink-2)}.pop dd{margin:0}
+.pop .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.pop .go{margin:0;min-height:40px;padding:0 16px;font-size:15px}.pop .alt{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1.5px solid var(--rule);color:var(--ink);text-decoration:none;font-size:15px}
+@media (max-width:560px){.pop dl{grid-template-columns:1fr;gap:2px 0}.pop dt{margin-top:6px}}
+.meta{color:var(--ink-3);font-size:15px;margin:4px 0 10px}
+.card .from{margin:10px 0 0;padding-top:10px;border-top:1px dashed var(--rule);font-size:15px;color:var(--ink-2)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:18px 0 6px;font-size:15px}
+.controls label{display:inline-flex;align-items:center;gap:8px;color:var(--ink-2)}
+.controls select{font:inherit;min-height:40px;padding:6px 10px;border:1.5px solid var(--rule);border-radius:8px;background:var(--card);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.chips button{font:inherit;font-size:15px;min-height:36px;padding:0 14px;border-radius:999px;border:1.5px solid var(--rule);background:var(--card);color:var(--ink);cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hide{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:15px;color:var(--ink-2)}.hide input{width:18px;height:18px;margin:0;accent-color:var(--accent)}
+.tier{margin-top:32px;padding:0;border:0;background:none}.tier h2{font-size:24px}
+.busy{border-color:var(--accent)}.busy ul{margin:0;padding-left:20px}.busy li{margin:4px 0}
+table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;padding:8px 10px 8px 0;border-top:1px solid var(--rule);vertical-align:top}th{font-weight:500;color:var(--ink-2)}tr:first-child th,tr:first-child td{border-top:0}
+td.n{white-space:nowrap}
+footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(--ink-2)}
+[hidden]{display:none!important}
+@media (max-width:560px){td.n{white-space:normal}table{font-size:14px}th,td{padding-right:6px}section,.card{padding:16px}ul.events time{flex-basis:100%}h1{margin-top:12px}.in-card dt{margin-top:10px}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) .pop{box-shadow:0 10px 30px rgba(0,0,0,.45)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}
+:root[data-theme="dark"] .pop{box-shadow:0 10px 30px rgba(0,0,0,.45)}
+/* Line bullets in the map's BART and Muni colours (cities/sf/city.css). BART's lines are colours, not letters, so
+   their bullets are plain dots; Muni Metro's carry the letter. Bus badges in Muni's red, express blue, owl navy. */
+.ln{font-size:10.5px}
+.ln.lYellow,.ln.lOrange,.ln.lRed,.ln.lGreen,.ln.lBlue,.ln.lOakland{font-size:0;width:14px;height:14px}
+.ln.lYellow{background:#E6C800} .ln.lOrange{background:#F9A11B} .ln.lRed{background:#ED1C24} .ln.lGreen{background:#4DB848}
+.ln.lBlue{background:#00AEEF} .ln.lOakland{background:#A89F80}
+.ln.lJ{background:#E08A2E} .ln.lK{background:#4E8FB8} .ln.lL{background:#8E3A8E} .ln.lM{background:#2E8B57} .ln.lN{background:#1D5FA0}
+.ln.lT{background:#C0384F} .ln.lS{background:#7C858C}
+.rb,.rb.night{background:#fff;color:#BA0C2F;box-shadow:inset 0 0 0 1.5px #BA0C2F}
+.rb.exp{background:#1D5FA0;color:#fff;box-shadow:none}
+.rb.night{color:#1C2A4A;box-shadow:inset 0 0 0 1.5px #1C2A4A}
+</style>
+<script src="/stats.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<header><a class="brand" href="/"><svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#fff"/></svg><span>Layers<b>.City</b></span></a>
+<nav class="crumbs"><a href="/sf/">San Francisco map</a> · <a href="/sf/venues/">Venues</a></nav></header>
+<main>
+<h1>Chase Center</h1>
+<p class="kind">1 Warriors Way, San Francisco · about 18,064 seats · sports, concerts · Home of Golden State Warriors and Golden State Valkyries</p>
+<p class="in">In <a href="/sf/mission-bay/">Mission Bay</a> · <a href="/sf/profiles/?n=mission-bay&amp;at=37.768,-122.387">Fact sheet from this spot</a></p>
+<a class="go" href="/sf/#map=16/37.76789/-122.38742&amp;pin=37.76789,-122.38742&amp;name=Chase%20Center">Open Chase Center on the map <span aria-hidden="true">→</span></a>
+<svg class="vmap" viewBox="0 0 600 400" role="img" aria-label="Map of the streets, transit and City parking parking around Chase Center"><rect width="600" height="400" fill="var(--land)"/><path d="M274.8 400.0L272.5 378.8L270.6 322.6L265.3 239.5L261.9 208.7L247.2 11.1L244.2 0.0" fill="none" stroke="var(--street)" stroke-width="4.2" stroke-linecap="round"/><path d="M242.8 0.0L241.9 11.4L267.9 343.1L270.0 400.0" fill="none" stroke="var(--street)" stroke-width="4.2" stroke-linecap="round"/><path d="M123.9 238.7L15.3 247.0" fill="none" stroke="var(--street)" stroke-width="4.2" stroke-linecap="round"/><path d="M329.4 222.5L154.0 236.1" fill="none" stroke="var(--street)" stroke-width="4.2" stroke-linecap="round"/><path d="M99.5 0.0L94.3 5.0" fill="none" stroke="var(--street)" stroke-width="4.2" stroke-linecap="round"/><path d="M98.9 9.3L108.7 0.0" fill="none" stroke="var(--street)" stroke-width="4.2" stroke-linecap="round"/><path d="M59.3 0.0L0.0 58.7" fill="none" stroke="var(--street)" stroke-width="4.2" stroke-linecap="round"/><path d="M123.9 238.7L0.0 113.8" fill="none" stroke="var(--street)" stroke-width="2.6" stroke-linecap="round"/><path d="M154.5 311.3L161.5 400.0" fill="none" stroke="var(--street)" stroke-width="2.6" stroke-linecap="round"/><path d="M186.9 400.0L182.7 345.7L178.3 309.6L170.8 285.4L161.1 266.1L138.6 234.3L114.3 209.8L64.0 170.0L11.9 118.4L9.1 90.7L15.1 71.3L29.1 52.6L89.9 0.0" fill="none" stroke="var(--go)" stroke-width="2.4" stroke-dasharray="7 4"/><path d="M62.6 47.4L71.8 31.5L96.8 7.0" fill="none" stroke="#1D5FA0" stroke-width="5" stroke-linecap="round"/><path d="M96.8 7.0L103.9 0.0" fill="none" stroke="#1D5FA0" stroke-width="5" stroke-linecap="round"/><path d="M103.9 0.0L96.8 7.0" fill="none" stroke="#1D5FA0" stroke-width="5" stroke-linecap="round"/><path d="M244.0 7.6L243.1 6.2L207.3 9.0L197.4 4.7L192.6 0.0" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M247.7 54.3L244.0 7.6" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M244.0 7.6L247.7 54.3" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M247.7 54.3L249.7 81.4" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M249.7 81.4L247.7 54.3" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M256.6 172.9L249.7 81.4" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M256.6 172.9L258.9 200.3" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M258.9 200.3L256.6 172.9" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M258.9 200.3L256.6 172.9" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M261.2 228.3L258.9 200.3" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M266.9 302.7L261.2 228.3" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M261.2 228.3L266.9 302.7" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M266.9 302.7L269.5 339.6" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M269.5 339.6L266.9 302.7" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M270.6 376.5L269.5 339.6" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M272.4 400.0L270.6 376.5" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><path d="M270.6 376.5L272.5 400.0" fill="none" stroke="#C0384F" stroke-width="5" stroke-linecap="round"/><rect x="328.3" y="144.8" width="10" height="10" rx="2" fill="#0B8A44"/><text x="333.3" y="153.20000000000002" text-anchor="middle" font-size="8" font-weight="800" fill="#fff" font-family="var(--display)">P</text><rect x="327.8" y="128.9" width="10" height="10" rx="2" fill="#0B8A44"/><text x="332.8" y="137.3" text-anchor="middle" font-size="8" font-weight="800" fill="#fff" font-family="var(--display)">P</text><circle cx="266.9" cy="303.0" r="4.5" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/><circle cx="257.5" cy="186.2" r="4.5" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/><text x="273.9" y="307.0" font-size="11" font-family="var(--body)" fill="var(--ink)" stroke="var(--land)" stroke-width="3" paint-order="stroke">UCSF Medical Center (Mariposa)</text><text x="264.5" y="190.2" font-size="11" font-family="var(--body)" fill="var(--ink)" stroke="var(--land)" stroke-width="3" paint-order="stroke">UCSF / Chase Center (16th St)</text><path transform="translate(289.0,170.0) scale(.26)" d="M42 94 C42 94 4 56 4 30 A38 38 0 0 1 80 30 C80 56 42 94 42 94 Z" fill="var(--accent)" stroke="#fff" stroke-width="6"/><circle cx="300.0" cy="178.0" r="4" fill="#fff"/><text x="300.0" y="216.0" text-anchor="middle" font-size="13" font-weight="700" font-family="var(--display)" fill="var(--ink)" stroke="var(--land)" stroke-width="4" paint-order="stroke">Chase Center</text></svg>
+<section><h2>What’s here</h2><dl><dt>Part of the city</dt><dd>Downtown</dd><dt>Neighborhood</dt><dd><a href="/sf/mission-bay/">Mission Bay</a></dd><dt>SF Find neighborhood</dt><dd>Mission Bay</dd><dt>Supervisor</dt><dd><a href="https://www.sf.gov/department-district-6">District 6 · Matt Dorsey</a></dd><dt>State Assembly</dt><dd><a href="https://a17.asmdc.org/">District 17 · Matt Haney</a></dd><dt>State Senate</dt><dd><a href="https://sd11.senate.ca.gov/">District 11 · Scott Wiener</a></dd></dl><p class="note" style="margin:12px 0 0">The same rows the map’s What’s here card gives for this address; the map adds collection day, heritage and school wards.</p></section>
+<p class="legend">BART and Muni Metro in their colours, Caltrain and regional rail dashed, City parking in green squares, other venues in grey.</p>
+<section><h2>This week</h2><p class="empty">No listing yet: the events feed hasn’t run. Getting-there facts below don’t depend on it.</p></section>
+<section><h2>Getting there</h2><dl><dt>BART and Muni Metro</dt><dd><span class="ln lT">T</span> UCSF / Chase Center (16th St) · about 3 min on foot<br><span class="ln lT">T</span> UCSF Medical Center (Mariposa) · about 7 min on foot<br><span class="ln lT">T</span> 4th St &amp; King St · about 18 min on foot</dd><dt>Caltrain and regional rail</dt><dd>San Francisco · about 19 min on foot · Caltrain</dd><dt>Muni buses within a 5-minute walk</dt><dd><span class="rbs"><span class="rb exp" title="Bayview Hunters Point Express">15</span></span></dd><dt>From San Francisco (Caltrain)</dt><dd>about 19 min on foot (0.7 mi as the crow flies)</dd><dt>From Embarcadero</dt><dd>1.8 mi as the crow flies; see the origins table below</dd><dt>Nearest Bay Wheels dock</dt><dd>about 2 min on foot</dd></dl></section>
+<section><h2>Parking</h2><dl><dt>City parking within a 10-minute walk</dt><dd>Pier 52 Lot B · lot · 85 spaces · 757 ft<br>Pier 52 Lot · lot · 54 spaces · 928 ft</dd><dt>City parking spaces within that walk</dt><dd>139 in 2 locations</dd><dt>Street parking</dt><dd>Not in a permit-parking area</dd></dl><p class="note" style="margin:12px 0 0">SFMTA’s garages and lots (and the Port’s and Rec &amp; Park’s); figures are capacities, not live availability. Venues’ own lots are described in the notes.</p></section>
+<section><h2>Arriving</h2><p style="margin:0 0 10px">Muni&#x27;s T Third stops at UCSF/Chase Center (16th St); on event days the 78X 16th Street Arena Express runs from 16th St Mission BART from 2.5 hours before an event until an hour after.</p><p style="margin:0 0 10px">A game or event ticket, paper or phone, counts as a Muni fare that day (not on cable cars); Caltrain&#x27;s San Francisco station at 4th and King is a 15 to 20 minute walk, or one stop on the T Third.</p><p style="margin:0 0 10px">Backpacks aren&#x27;t allowed except single-compartment drawstring bags, and other bags must be smaller than 14 x 14 x 6 inches; the accessible entrance is the East Entrance.</p><p class="note">Written from the venue’s own visitor pages; gates and policies change, so check <a href="https://www.chasecenter.com/" rel="noopener">chasecenter.com</a> before you go.</p></section>
+<section><h2>From across the Bay Area</h2><table><tr><th>From</th><th>Transit</th></tr><tr><td class="n">Oakland (downtown)</td><td>BART from 12th Street/Oakland City Center to Embarcadero, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr><tr><td class="n">Berkeley</td><td>BART from Downtown Berkeley to Embarcadero, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr><tr><td class="n">Richmond</td><td>BART from Richmond to Embarcadero, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr><tr><td class="n">Walnut Creek</td><td>BART from Walnut Creek to Embarcadero, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr><tr><td class="n">Dublin / Pleasanton</td><td>BART from Dublin/Pleasanton to Embarcadero, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr><tr><td class="n">Fremont</td><td>BART from Fremont to Embarcadero, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr><tr><td class="n">Daly City</td><td>BART from Daly City to Powell Street, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr><tr><td class="n">San Mateo</td><td>Caltrain from San Mateo to 4th &amp; King, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">Caltrain fare by zone; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr><tr><td class="n">Palo Alto</td><td>Caltrain from Palo Alto to 4th &amp; King, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">Caltrain fare by zone; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr><tr><td class="n">San José</td><td>Caltrain from San Jose Diridon to 4th &amp; King, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">Caltrain fare by zone; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr><tr><td class="n">Marin (Larkspur)</td><td>Golden Gate Ferry from Larkspur Ferry Terminal to Ferry Building, then BART or Muni Metro to UCSF / Chase Center (16th St) and about 3 min on foot<br><span class="note">Golden Gate Ferry fare; with Clipper, up to $2.85 off a Muni connection within two hours</span></td></tr></table><p class="note" style="margin:12px 0 0">Drive times are OSRM’s on empty roads, the same best-case figure as the map’s suburban lens; game nights run far slower. The taxi figure is the SFMTA taxi meter rate ($4.15 plus $3.25/mi, as of 2026-10) on that distance, the only published benchmark; rideshare prices aren’t published and surge after events. The meter’s $4.15 includes the first fifth of a mile, so these taxi figures run about $0.65 high; a taxi from SFO adds a $6.00 pick-up fee, and tolls and tip are extra. With Clipper or a contactless card, a second agency within two hours (BART to Muni, say) costs up to $2.85 less. A Muni day pass is $5.70.</p></section>
+<p class="note"><a href="/sf/venues/">All San Francisco venues</a></p>
+</main>
+<footer>Event listings: Ticketmaster Discovery API, refreshed nightly; each event links to its own Ticketmaster page. Layers.City sells nothing and carries no paid or affiliate links. Transit: BART, SFMTA (Muni) and Caltrain. Parking: SFMTA. Walk and drive times: OpenStreetMap data, OSRM for driving (best case, empty roads).<br><a href="/attributions/">Attributions</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/">All maps</a></footer>
+</div>
+<script>
+(()=>{const t=new Date(),today=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+document.querySelectorAll('li[data-date]').forEach(li=>{if(li.dataset.date<today)li.hidden=true});
+document.querySelectorAll('ul.events').forEach(ul=>{if(![...ul.children].some(li=>!li.hidden)){const p=ul.nextElementSibling;if(p&&p.classList.contains('empty'))p.hidden=false;ul.hidden=true}});})();
+</script>
+</body>
+</html>

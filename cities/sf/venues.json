@@ -1,0 +1,755 @@
+{
+ "_about": "San Francisco's and the Bay Area's big live venues for the Venues pages (engine/venues.py), with the ones outside the city that the region travels to (\"outside\": no City parking or What's here for those). Hand-curated October 30, 2026 from the venues' own pages (and Wikipedia for capacities): capacity is the usual figure and only sorts the list; notes are plain arrival facts. Events come from Ticketmaster's Discovery API (engine/fetch_venue_events.py sf, venue by venue); the Warfield and Frost sell through AXS and Davies, the Opera House and the Orpheum through their companies, so their listings are thin and each says so. Keep this a short list.",
+ "city": "San Francisco",
+ "week": "Monday to Sunday, San Francisco time",
+ "feed": {
+  "_about": "engine/fetch_venue_events.py: venue by venue. drop: words left out when matching the feed's venue names to ours.",
+  "centre": [
+   37.62,
+   -122.15
+  ],
+  "radiusKm": 80,
+  "country": "US",
+  "drop": [
+   "san francisco",
+   "sf",
+   "oakland",
+   "berkeley",
+   "san jose",
+   "santa clara",
+   "mountain view",
+   "stanford",
+   "ca",
+   "california"
+  ],
+  "mode": "venues"
+ },
+ "fares": {
+  "_about": "Flat figures the pages quote. Check them before a release; they go stale. local is the Muni adult fare with Clipper, MuniMobile or a contactless card ($3.00 cash), good for 120 minutes. The taxi figures are the SFMTA meter: $4.15 covers the first fifth of a mile, then $0.65 a fifth ($3.25 a mile); the engine adds the whole $4.15 to the per-mile figure, so its estimate runs about $0.65 high, and oneFare says so. Sources: sfmta.com/getting-around/muni/fares, sfmta.com/getting-around/taxi/taxi-fares, bart.gov.",
+  "asof": "2026-10",
+  "local": 2.85,
+  "taxiDrop": 4.15,
+  "taxiPerMi": 3.25,
+  "taxiExtra": 0,
+  "oneFare": "The meter’s $4.15 includes the first fifth of a mile, so these taxi figures run about $0.65 high; a taxi from SFO adds a $6.00 pick-up fee, and tolls and tip are extra. With Clipper or a contactless card, a second agency within two hours (BART to Muni, say) costs up to $2.85 less. A Muni day pass is $5.70."
+ },
+ "page": {
+  "_about": "How engine/venues.py reads San Francisco: BART and Muni Metro together as the metro (BART's stations and Muni Metro's stations, the drawn lines in their map colours), Caltrain and the other regional trains as rail, SFMTA's garages and lots as City parking, the 41 neighborhoods as units, and the hubs a trip from outside the city arrives at.",
+  "units": "neighbourhoods",
+  "distance": "mi",
+  "lineHints": false,
+  "metro": {
+   "stations": [
+    "bart_stations",
+    "muni_stations"
+   ],
+   "lines": [
+    "bart_lines",
+    "muni_lines"
+   ]
+  },
+  "lineColors": {
+   "yellow": "#E6C800",
+   "orange": "#F9A11B",
+   "red": "#ED1C24",
+   "green": "#4DB848",
+   "blue": "#00AEEF",
+   "beige": "#A89F80",
+   "j": "#E08A2E",
+   "k": "#4E8FB8",
+   "l": "#8E3A8E",
+   "m": "#2E8B57",
+   "n": "#1D5FA0",
+   "t": "#C0384F",
+   "s": "#7C858C",
+   "hist": "#9C7A3C",
+   "cable": "#8C1D18"
+  },
+  "rail": {
+   "stations": "rail_stations",
+   "lines": "rail_lines",
+   "walk": "go",
+   "within": 1.5
+  },
+  "hubs": [
+   {
+    "name": "San Francisco (Caltrain)",
+    "short": "4th & King",
+    "station": "San Francisco",
+    "at": [
+     -122.39491,
+     37.7764
+    ]
+   },
+   {
+    "name": "Embarcadero",
+    "short": "Embarcadero",
+    "station": "Embarcadero",
+    "at": [
+     -122.39704,
+     37.79276
+    ]
+   },
+   {
+    "name": "Ferry Building",
+    "short": "Ferry Building",
+    "at": [
+     -122.39344,
+     37.79561
+    ],
+    "row": false
+   },
+   {
+    "name": "Powell Street",
+    "short": "Powell Street",
+    "station": "Powell Street",
+    "at": [
+     -122.40733,
+     37.78461
+    ],
+    "row": false
+   }
+  ],
+  "parking": {
+   "cat": "gp",
+   "label": "City parking",
+   "note": "SFMTA’s garages and lots (and the Port’s and Rec & Park’s); figures are capacities, not live availability. Venues’ own lots are described in the notes."
+  },
+  "permit": "permit_areas",
+  "here": [
+   {
+    "label": "Part of the city",
+    "file": "sides",
+    "text": "{name}"
+   },
+   {
+    "label": "Neighborhood",
+    "file": "neighbourhoods",
+    "text": "{name}",
+    "page": true
+   },
+   {
+    "label": "SF Find neighborhood",
+    "file": "sffind",
+    "text": "{name}"
+   },
+   {
+    "label": "Supervisor",
+    "file": "supervisors",
+    "text": "District {num}",
+    "rep": [
+     "sup",
+     "num"
+    ]
+   },
+   {
+    "label": "State Assembly",
+    "file": "assembly",
+    "text": "District {num}",
+    "rep": [
+     "assembly",
+     "num"
+    ]
+   },
+   {
+    "label": "State Senate",
+    "file": "senate",
+    "text": "District {num}",
+    "rep": [
+     "senate",
+     "num"
+    ]
+   }
+  ],
+  "words": {
+   "local": "BART or Muni Metro",
+   "localFare": "Muni fare ${fare:.2f}",
+   "railShort": "Caltrain",
+   "subway": "BART and Muni Metro",
+   "rail": "Caltrain and regional rail",
+   "routes": "Muni buses within a 5-minute walk",
+   "atDoor": "Bus at the door",
+   "bikeshare": "Bay Wheels",
+   "region": "the Bay Area",
+   "taxi": "the SFMTA taxi meter rate",
+   "busy": "Busy nights",
+   "legend": "BART and Muni Metro in their colours, Caltrain and regional rail dashed, City parking in green squares, other venues in grey.",
+   "sources": "Transit: BART, SFMTA (Muni) and Caltrain. Parking: SFMTA.",
+   "venueDesc": "what's on this week, nearest BART and Muni Metro, buses, City parking within a ten-minute walk, and drive and transit from across the Bay Area.",
+   "intro": "places most of the Bay Area travels to, and how to get to each: nearest station, buses, City parking within a ten-minute walk, and drive and transit from the East Bay, the Peninsula, the South Bay and Marin.",
+   "listDesc": "from Chase Center and Oracle Park to the Fillmore and Davies Symphony Hall, and how to get to each: nearest BART and Muni, City parking, drive and transit from across the Bay Area.",
+   "other": "Smaller rooms, same facts, same listing.",
+   "metroRide": "BART or Muni Metro"
+  },
+  "busy": false
+ },
+ "origins": [
+  {
+   "name": "Oakland (downtown)",
+   "via": "12th Street/Oakland City Center",
+   "mode": "rail",
+   "hub": "Embarcadero",
+   "at": [
+    -122.27163,
+    37.80348
+   ],
+   "fare": "BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours",
+   "rail": "BART"
+  },
+  {
+   "name": "Berkeley",
+   "via": "Downtown Berkeley",
+   "mode": "rail",
+   "hub": "Embarcadero",
+   "at": [
+    -122.26811,
+    37.87011
+   ],
+   "fare": "BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours",
+   "rail": "BART"
+  },
+  {
+   "name": "Richmond",
+   "via": "Richmond",
+   "mode": "rail",
+   "hub": "Embarcadero",
+   "at": [
+    -122.35305,
+    37.93676
+   ],
+   "fare": "BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours",
+   "rail": "BART"
+  },
+  {
+   "name": "Walnut Creek",
+   "via": "Walnut Creek",
+   "mode": "rail",
+   "hub": "Embarcadero",
+   "at": [
+    -122.06733,
+    37.90579
+   ],
+   "fare": "BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours",
+   "rail": "BART"
+  },
+  {
+   "name": "Dublin / Pleasanton",
+   "via": "Dublin/Pleasanton",
+   "mode": "rail",
+   "hub": "Embarcadero",
+   "at": [
+    -121.89923,
+    37.70165
+   ],
+   "fare": "BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours",
+   "rail": "BART"
+  },
+  {
+   "name": "Fremont",
+   "via": "Fremont",
+   "mode": "rail",
+   "hub": "Embarcadero",
+   "at": [
+    -121.97662,
+    37.55748
+   ],
+   "fare": "BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours",
+   "rail": "BART"
+  },
+  {
+   "name": "Daly City",
+   "via": "Daly City",
+   "mode": "rail",
+   "hub": "Powell Street",
+   "at": [
+    -122.46891,
+    37.70626
+   ],
+   "fare": "BART fare by distance; with Clipper, up to $2.85 off a Muni connection within two hours",
+   "rail": "BART"
+  },
+  {
+   "name": "San Mateo",
+   "via": "San Mateo",
+   "mode": "rail",
+   "rail": "Caltrain",
+   "hub": "San Francisco (Caltrain)",
+   "at": [
+    -122.3239,
+    37.56824
+   ],
+   "fare": "Caltrain fare by zone; with Clipper, up to $2.85 off a Muni connection within two hours"
+  },
+  {
+   "name": "Palo Alto",
+   "via": "Palo Alto",
+   "mode": "rail",
+   "rail": "Caltrain",
+   "hub": "San Francisco (Caltrain)",
+   "at": [
+    -122.16429,
+    37.44322
+   ],
+   "fare": "Caltrain fare by zone; with Clipper, up to $2.85 off a Muni connection within two hours"
+  },
+  {
+   "name": "San José",
+   "via": "San Jose Diridon",
+   "mode": "rail",
+   "rail": "Caltrain",
+   "hub": "San Francisco (Caltrain)",
+   "at": [
+    -121.90285,
+    37.32981
+   ],
+   "fare": "Caltrain fare by zone; with Clipper, up to $2.85 off a Muni connection within two hours"
+  },
+  {
+   "name": "Marin (Larkspur)",
+   "via": "Larkspur Ferry Terminal",
+   "mode": "rail",
+   "rail": "Golden Gate Ferry",
+   "hub": "Ferry Building",
+   "at": [
+    -122.5087,
+    37.9457
+   ],
+   "fare": "Golden Gate Ferry fare; with Clipper, up to $2.85 off a Muni connection within two hours"
+  }
+ ],
+ "venues": [
+  {
+   "slug": "chase-center",
+   "name": "Chase Center",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 18064,
+   "homeOf": [
+    "Golden State Warriors",
+    "Golden State Valkyries"
+   ],
+   "address": "1 Warriors Way, San Francisco",
+   "at": [
+    -122.38742,
+    37.76789
+   ],
+   "site": "https://www.chasecenter.com/",
+   "tm": [
+    "Chase Center",
+    "Chase Center - San Francisco"
+   ],
+   "season": "Indoor and busy all year: Warriors basketball runs from October to April, Valkyries basketball from May to September, with concerts in between.",
+   "notes": [
+    "Muni's T Third stops at UCSF/Chase Center (16th St); on event days the 78X 16th Street Arena Express runs from 16th St Mission BART from 2.5 hours before an event until an hour after.",
+    "A game or event ticket, paper or phone, counts as a Muni fare that day (not on cable cars); Caltrain's San Francisco station at 4th and King is a 15 to 20 minute walk, or one stop on the T Third.",
+    "Backpacks aren't allowed except single-compartment drawstring bags, and other bags must be smaller than 14 x 14 x 6 inches; the accessible entrance is the East Entrance."
+   ]
+  },
+  {
+   "slug": "oracle-park",
+   "name": "Oracle Park",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 41331,
+   "homeOf": [
+    "San Francisco Giants"
+   ],
+   "address": "24 Willie Mays Plaza, San Francisco",
+   "at": [
+    -122.38958,
+    37.77865
+   ],
+   "site": "https://www.mlb.com/giants/ballpark",
+   "tm": [
+    "Oracle Park",
+    "Oracle Park - San Francisco"
+   ],
+   "tickets": "Giants home games are sold by the team through MLB, not Ticketmaster, so they aren’t in this listing; concerts and other events are.",
+   "calendar": "https://www.mlb.com/giants/schedule",
+   "season": "Open-air: baseball runs from late March to September (October in a playoff year), and stadium concerts are in summer; it is quiet from November to February.",
+   "notes": [
+    "Muni's N Judah stops at 2nd & King next to the ballpark and the T Third at 4th & King a block away; Caltrain's San Francisco station at 4th and King is a short walk, and extra Caltrain trains leave about 15 minutes after night games end.",
+    "Golden Gate Ferry runs from Larkspur for every Giants home game, and San Francisco Bay Ferry from Alameda, Oakland and Vallejo for night games; both must be booked ahead.",
+    "The gates are Willie Mays (3rd and King), Lefty O'Doul (by the 3rd Street bridge), 2nd & King and Marina; bags up to 16 x 16 x 8 inches are allowed but backpacks are not, and Lot A at Pier 48 must be reserved."
+   ]
+  },
+  {
+   "slug": "bill-graham-civic",
+   "name": "Bill Graham Civic Auditorium",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 8500,
+   "address": "99 Grove Street, San Francisco",
+   "at": [
+    -122.41733,
+    37.77805
+   ],
+   "site": "https://billgrahamcivic.com/",
+   "tm": [
+    "Bill Graham Civic Auditorium"
+   ],
+   "notes": [
+    "BART stops at Civic Center/UN Plaza and Muni Metro at Civic Center or Van Ness; Muni's 5, 6, 7, 19, 21, 47, 49 and the F streetcar stop nearby.",
+    "The box office is at the front of the building at 99 Grove Street, nearer Larkin Street; large bags are not allowed.",
+    "The venue has no lot of its own; the Civic Center Garage on McAllister between Polk and Larkin charges a flat event rate and parks bikes for free."
+   ]
+  },
+  {
+   "slug": "the-masonic",
+   "name": "The Masonic",
+   "kinds": [
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 3300,
+   "address": "1111 California Street, San Francisco",
+   "at": [
+    -122.41316,
+    37.79132
+   ],
+   "site": "https://www.sfmasonic.com/",
+   "tm": [
+    "The Masonic",
+    "The Masonic - San Francisco"
+   ],
+   "notes": [
+    "The California Street cable car stops at California and Taylor, steps from the front entrance; Muni's 1 California stops at Sacramento and Sproule Lane.",
+    "The building's own garage is open around the clock, entered on California Street beside the main entrance, with lifts up to the lobby; drop-off is the white zone on California Street.",
+    "Bags can be no larger than 12 x 6 x 12 inches."
+   ]
+  },
+  {
+   "slug": "the-fillmore",
+   "name": "The Fillmore",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 1315,
+   "address": "1805 Geary Boulevard, San Francisco",
+   "at": [
+    -122.43317,
+    37.78408
+   ],
+   "site": "https://www.thefillmore.com/",
+   "tm": [
+    "The Fillmore",
+    "The Fillmore - San Francisco"
+   ],
+   "notes": [
+    "Muni's 38 Geary and 22 Fillmore stop nearby and both run all night; the 38 connects to BART downtown.",
+    "The venue has no lot; the Japantown garages at 1610 Geary Boulevard and 1650 Fillmore Street are the nearest.",
+    "Tickets are on phones only, the show room is upstairs (lift on the west side), and bags up to 12 x 6 x 12 inches are searched."
+   ]
+  },
+  {
+   "slug": "the-warfield",
+   "name": "The Warfield",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 2300,
+   "address": "982 Market Street, San Francisco",
+   "at": [
+    -122.4103,
+    37.7828
+   ],
+   "site": "https://www.thewarfieldtheatre.com/",
+   "tm": [
+    "The Warfield"
+   ],
+   "tickets": "The Warfield sells through AXS, not Ticketmaster, so its shows may not be in this listing.",
+   "notes": [
+    "Powell Street is the nearest BART and Muni Metro station, and Muni's 5 Fulton and 21 Hayes stop right outside.",
+    "The box office opens 90 minutes before each show; street parking is limited."
+   ]
+  },
+  {
+   "slug": "davies-symphony-hall",
+   "name": "Davies Symphony Hall",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 2743,
+   "homeOf": [
+    "San Francisco Symphony"
+   ],
+   "address": "201 Van Ness Avenue, San Francisco",
+   "at": [
+    -122.4206,
+    37.77762
+   ],
+   "site": "https://www.sfsymphony.org/",
+   "tm": [
+    "Davies Symphony Hall",
+    "Louise M. Davies Symphony Hall"
+   ],
+   "tickets": "The San Francisco Symphony sells its own tickets, so most concerts here are not in this listing.",
+   "season": "The Symphony's season runs from September to June.",
+   "notes": [
+    "Muni Metro stops at Van Ness and Civic Center, and BART at Civic Center/UN Plaza, a short walk away.",
+    "The main entrance and box office are at 249 Grove Street, between Van Ness and Franklin.",
+    "The Performing Arts Garage is at 360 Grove Street, and the Civic Center Garage at 355 McAllister Street."
+   ]
+  },
+  {
+   "slug": "war-memorial-opera-house",
+   "name": "War Memorial Opera House",
+   "kinds": [
+    "theatre"
+   ],
+   "capacity": 3146,
+   "homeOf": [
+    "San Francisco Opera",
+    "San Francisco Ballet"
+   ],
+   "address": "301 Van Ness Avenue, San Francisco",
+   "at": [
+    -122.42093,
+    37.77862
+   ],
+   "site": "https://www.sfopera.com/",
+   "tm": [
+    "War Memorial Opera House"
+   ],
+   "tickets": "San Francisco Opera and San Francisco Ballet sell their own tickets, so their performances are not in this listing.",
+   "season": "The Opera's season opens in September; the Ballet's Nutcracker runs in December and its repertory season from January to May.",
+   "notes": [
+    "BART and Muni Metro stop at Civic Center, and Muni Metro at Van Ness, a short walk away.",
+    "The main entrance is the front steps on Van Ness Avenue, and the rideshare loading zone is in front at 301 Van Ness.",
+    "The Civic Center Garage and the UC Law SF garage are the nearest parking."
+   ]
+  },
+  {
+   "slug": "orpheum-theatre",
+   "name": "Orpheum Theatre",
+   "kinds": [
+    "theatre"
+   ],
+   "capacity": 2200,
+   "address": "1192 Market Street, San Francisco",
+   "at": [
+    -122.41468,
+    37.77915
+   ],
+   "site": "https://www.broadwaysf.com/",
+   "tm": [
+    "Orpheum Theatre - San Francisco",
+    "Orpheum Theatre"
+   ],
+   "tickets": "BroadwaySF sells its own tickets, so its shows are not in this listing.",
+   "notes": [
+    "The theatre is at Market and Hyde, about a block from the Civic Center/UN Plaza BART and Muni Metro station."
+   ]
+  },
+  {
+   "slug": "levis-stadium",
+   "name": "Levi's Stadium",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 68500,
+   "homeOf": [
+    "San Francisco 49ers"
+   ],
+   "address": "4900 Marie P. DeBartolo Way, Santa Clara",
+   "at": [
+    -121.97,
+    37.4031
+   ],
+   "site": "https://www.levisstadium.com/",
+   "tm": [
+    "Levi's Stadium",
+    "Levi's® Stadium"
+   ],
+   "outside": true,
+   "season": "Football runs from August to early January and stadium concerts are in summer.",
+   "notes": [
+    "VTA light rail's Levi's Stadium Great America station is beside the stadium; on event days VTA adds trains from Mountain View (for Caltrain) and Milpitas (for BART) from two hours before.",
+    "ACE and Capitol Corridor trains stop at Santa Clara-Great America station nearby; extra VTA service runs for about an hour after the event.",
+    "Only clear bags up to 12 x 6 x 12 inches or a 4.5 x 6.5 inch clutch are allowed, there's no bag check, and parking is cashless."
+   ],
+   "transit": {
+    "*": "Caltrain to Mountain View or BART to Milpitas, then VTA light rail to Levi’s Stadium Great America; ACE and Capitol Corridor stop at Santa Clara-Great America"
+   },
+   "arrive": "VTA light rail from Mountain View (Caltrain) or Milpitas (BART)"
+  },
+  {
+   "slug": "oakland-arena",
+   "name": "Oakland Arena",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 19596,
+   "address": "7000 Coliseum Way, Oakland",
+   "at": [
+    -122.20306,
+    37.75028
+   ],
+   "site": "https://www.theoaklandarena.com/",
+   "tm": [
+    "Oakland Arena"
+   ],
+   "outside": true,
+   "notes": [
+    "Coliseum BART station is joined to the arena grounds by a walkway bridge over the tracks.",
+    "Bags must be smaller than 14 x 14 x 6 inches, backpacks of any size are not allowed, and there's no bag check.",
+    "There is on-site parking for every event; rideshare uses the Baldwin Gate, which opens two hours before."
+   ],
+   "transit": {
+    "*": "BART to Coliseum, then the walkway bridge to the arena"
+   },
+   "arrive": "BART to Coliseum and the walkway bridge"
+  },
+  {
+   "slug": "fox-theater-oakland",
+   "name": "Fox Theater",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 2800,
+   "address": "1807 Telegraph Avenue, Oakland",
+   "at": [
+    -122.27013,
+    37.8079
+   ],
+   "site": "https://thefoxoakland.com/",
+   "tm": [
+    "Fox Theater - Oakland",
+    "Fox Theater Oakland"
+   ],
+   "outside": true,
+   "notes": [
+    "19th Street Oakland BART station is about two minutes' walk.",
+    "The venue suggests the Franklin Plaza Garage, entered on 19th Street between Franklin and Broadway; it is cashless inside.",
+    "Small bags and backpacks are allowed; large ones are not."
+   ],
+   "transit": {
+    "*": "BART to 19th Street Oakland, then about 2 min on foot"
+   },
+   "arrive": "BART to 19th Street Oakland"
+  },
+  {
+   "slug": "greek-theatre-berkeley",
+   "name": "Greek Theatre",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 8500,
+   "address": "2001 Gayley Road, Berkeley",
+   "at": [
+    -122.25419,
+    37.87369
+   ],
+   "site": "https://thegreekberkeley.com/",
+   "tm": [
+    "The Greek Theatre-U.C. Berkeley",
+    "Greek Theatre - Berkeley"
+   ],
+   "outside": true,
+   "season": "Open-air: concerts run from spring to autumn.",
+   "notes": [
+    "Downtown Berkeley BART is about a 20-minute walk east across the UC Berkeley campus; AC Transit's 7, 51, 52L and F also serve the area.",
+    "The entrance is on Gayley Road, and the box office is at the North Gate, opening two hours before showtime.",
+    "The Upper and Lower Hearst garages open for concert parking at 5 pm with few public spaces and take cards only; small bags and backpacks are allowed, large backpacks are not."
+   ],
+   "transit": {
+    "*": "BART to Downtown Berkeley, then about 20 min on foot across campus"
+   },
+   "arrive": "BART to Downtown Berkeley and a walk across campus"
+  },
+  {
+   "slug": "sap-center",
+   "name": "SAP Center",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 17435,
+   "homeOf": [
+    "San Jose Sharks"
+   ],
+   "address": "525 West Santa Clara Street, San José",
+   "at": [
+    -121.90111,
+    37.33278
+   ],
+   "site": "https://www.sapcenter.com/",
+   "tm": [
+    "SAP Center",
+    "SAP Center at San Jose"
+   ],
+   "outside": true,
+   "season": "Indoor and busy all year: Sharks hockey runs from October to April.",
+   "notes": [
+    "San Jose Diridon station, across the street, is served by Caltrain, ACE and Capitol Corridor; VTA light rail stops at Diridon and at San Fernando Street & Delmas Avenue.",
+    "The on-site lot (about 1,500 spaces) is entered from Santa Clara or Julian Street and usually opens two hours before; Caltrain permits aren't valid when SAP Center runs the Diridon lots.",
+    "The entrances are North and South; bags up to 20 x 14 x 11 inches are X-rayed, larger ones are not allowed, and there's no bag check."
+   ],
+   "transit": {
+    "*": "Caltrain to San Jose Diridon, across the street; ACE and Capitol Corridor stop there too"
+   },
+   "arrive": "Caltrain to San Jose Diridon, across the street"
+  },
+  {
+   "slug": "shoreline-amphitheatre",
+   "name": "Shoreline Amphitheatre",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 22500,
+   "address": "1 Amphitheatre Parkway, Mountain View",
+   "at": [
+    -122.08073,
+    37.42678
+   ],
+   "site": "https://en.wikipedia.org/wiki/Shoreline_Amphitheatre",
+   "tm": [
+    "Shoreline Amphitheatre"
+   ],
+   "outside": true,
+   "season": "Open-air: concerts run from late spring to autumn.",
+   "notes": [
+    "Only clear plastic, vinyl or PVC totes up to 12 x 6 x 12 inches or a 4.5 x 6.5 inch clutch are allowed; backpacks and coolers are not.",
+    "The venue is cashless, and tailgating in the lots is not allowed."
+   ],
+   "transit": {
+    "*": "Caltrain or VTA light rail to Mountain View, then about 2 miles by taxi or rideshare; there's no rail stop at the amphitheatre"
+   },
+   "arrive": "Caltrain to Mountain View, then a taxi or rideshare"
+  },
+  {
+   "slug": "frost-amphitheater",
+   "name": "Frost Amphitheater",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 8000,
+   "address": "351 Lasuen Street, Stanford",
+   "at": [
+    -122.1661,
+    37.4296
+   ],
+   "site": "https://www.axs.com/venues/125345",
+   "tm": [
+    "Frost Amphitheater"
+   ],
+   "tickets": "Frost sells through AXS, not Ticketmaster, so its shows may not be in this listing.",
+   "outside": true,
+   "season": "Open-air: concerts run in summer and early autumn.",
+   "notes": [
+    "Palo Alto Caltrain station is about a 20-minute walk, and Stanford's free Marguerite shuttle also serves campus.",
+    "On-campus parking is first-come, first-served and often fills; an event pass for the Galvez Lot guarantees a space."
+   ],
+   "transit": {
+    "*": "Caltrain to Palo Alto, then about 20 min on foot or Stanford’s Marguerite shuttle"
+   },
+   "arrive": "Caltrain to Palo Alto, then a walk or the Marguerite shuttle"
+  }
+ ]
+}
