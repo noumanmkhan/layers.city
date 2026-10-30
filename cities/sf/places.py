@@ -205,5 +205,12 @@ if os.path.exists(os.path.join(DATA, 'faith.geojson')):
         p = f['properties']
         G[p['cat']].append(f['geometry']['coordinates'] + [p['name']])
         if p['cat'] == 'church' and p.get('grp'): G['church:' + p['grp']].append(f['geometry']['coordinates'] + [p['name']])
+# Soft-story buildings (the City's Mandatory Soft Story Retrofit Program, raw/extras/soft_story.json from
+# fetch_extras.py): counted only, within the card's radius, with no address or compliance status shown.
+SS = os.path.join(HERE, 'raw', 'extras', 'soft_story.json')
+if os.path.exists(SS):
+    for r in json.load(open(SS))['rows']:
+        c = (r.get('point') or {}).get('coordinates') if isinstance(r.get('point'), dict) else None
+        if c: G['soft'].append([round(float(c[0]), 5), round(float(c[1]), 5)])
 write('nearby.json', {'groups': dict(G)})
 print('nearby:', {k: len(v) for k, v in G.items()})

@@ -25,3 +25,12 @@
 .sub-line.lblue{stroke:var(--l-blue)} .sub-line.lbeige{stroke:var(--l-beige)}
 .sub-line.lj{stroke:var(--l-j)} .sub-line.lk{stroke:var(--l-k)} .sub-line.ll{stroke:var(--l-l)} .sub-line.lm{stroke:var(--l-m)} .sub-line.ln{stroke:var(--l-n)}
 .sub-line.lt{stroke:var(--l-t)} .sub-line.ls{stroke:var(--l-s)} .sub-line.lhist{stroke:var(--l-hist)} .sub-line.lcable{stroke:var(--l-cable);stroke-dasharray:6 4}
+/* Hazard zones (the State's maps): tsunami in sea blue, seismic (liquefaction and landslide) in clay. */
+:root{--tsu:#1F78B4;--seis:#B8682E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--tsu:#5FA8E0;--seis:#E0995E}}
+:root[data-theme="dark"]{--tsu:#5FA8E0;--seis:#E0995E}
+.tsunami{fill:var(--tsu);fill-opacity:.18;stroke:var(--tsu);stroke-width:1.4}.tsunami:hover{fill-opacity:.3}
+.seismic{fill:var(--seis);fill-opacity:.2;stroke:var(--seis);stroke-width:1;stroke-dasharray:4 3}.seismic:hover{fill-opacity:.32}
+.sw.tsunami{background:color-mix(in srgb,var(--tsu) 30%,transparent);box-shadow:inset 0 0 0 1.5px var(--tsu)}
+.sw.seismic{background:color-mix(in srgb,var(--seis) 30%,transparent);border:1.5px dashed var(--seis)}
+.sw.ferry{background:linear-gradient(#1F6FB2 0 34%,#B5382F 0 67%,#2C8C7E 0)}

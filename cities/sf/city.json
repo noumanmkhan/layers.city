@@ -83,7 +83,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Skyscrapers: Wikipedia (CC BY-SA)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA)",
  "example": {
   "at": [
    37.779,
@@ -252,6 +252,26 @@
      "note": "The City’s ten: Japantown, Calle 24, SoMa Pilipinas, the Castro LGBTQ…",
      "label": "{name}",
      "hover": "{name} Cultural District"
+    },
+    {
+     "id": "tsunami",
+     "kind": "patches",
+     "cls": "tsunami",
+     "file": "tsunami",
+     "name": "Tsunami hazard area",
+     "note": "Where the State says to leave in a tsunami warning: the shore, the Embarcadero, Mission Bay and Treasure Island",
+     "label": "",
+     "hover": "Tsunami hazard area"
+    },
+    {
+     "id": "seismic",
+     "kind": "patches",
+     "cls": "seismic",
+     "file": "seismic",
+     "name": "Seismic hazard zones",
+     "note": "Ground the State maps for liquefaction or landslides in an earthquake: filled land by the Bay, and steep hillsides",
+     "label": "",
+     "hover": "Seismic hazard zone (liquefaction or landslide)"
     }
    ]
   ],
@@ -448,6 +468,20 @@
      "note": "Caltrain from 4th & King, SMART, ACE, Capitol Corridor and VTA light rail",
      "on": true,
      "hover": "{name} · {to}"
+    },
+    {
+     "id": "ferry",
+     "kind": "rail",
+     "files": [
+      "ferry_lines",
+      "ferry_stations",
+      "ferry_lines_inner"
+     ],
+     "name": "Ferries",
+     "note": "San Francisco Bay Ferry, Golden Gate Ferry and the Treasure Island Ferry, from the Ferry Building",
+     "on": false,
+     "hover": "{name}",
+     "pane": "transit"
     },
     {
      "id": "hwy",
@@ -1332,6 +1366,18 @@
     "onlyInside": true
    },
    {
+    "label": "Tsunami hazard area",
+    "layer": "tsunami",
+    "text": "Inside: leave in a tsunami warning",
+    "empty": "Outside it"
+   },
+   {
+    "label": "Seismic hazard zone",
+    "layer": "seismic",
+    "text": "Mapped for liquefaction or landslide",
+    "empty": "Not in a mapped zone"
+   },
+   {
     "label": "Permit parking",
     "layer": "permit",
     "text": "Area {name}",
@@ -1568,9 +1614,14 @@
      "school_s",
      "middle or high school",
      "middle or high schools"
+    ],
+    [
+     "soft",
+     "soft-story building (retrofit program)",
+     "soft-story buildings (retrofit program)"
     ]
    ],
-   "note": "Straight-line distances; half a mile is about a 10-minute walk. Rec & Park, the San Francisco Public Library and the State’s school directory. Counts parks, not courts. Schools are SFUSD’s own; most places are assigned by lottery, not distance. Places of worship (OpenStreetMap) show while their layer is on.",
+   "note": "Straight-line distances; half a mile is about a 10-minute walk. Rec & Park, the San Francisco Public Library and the State’s school directory. Counts parks, not courts. Schools are SFUSD’s own; most places are assigned by lottery, not distance. Places of worship (OpenStreetMap) show while their layer is on. Soft-story buildings are the wood-frame apartment buildings over garages or shops the City required to be strengthened; nearly all have been.",
    "sources": "Sources: San Francisco Recreation and Park Department, San Francisco Public Library, California Department of Education, OpenStreetMap (hospitals, colleges and places of worship)."
   }
  },
