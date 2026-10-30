@@ -1,0 +1,41 @@
+name: Fetch Hyderabad data
+# Runs a Hyderabad fetch script and commits what it writes under cities/hyderabad/raw/ back to main.
+# The sandbox can't reach these hosts; Actions can. Pushing a changed fetch script to main runs it there.
+# By hand: pick the script, and optionally which steps (e.g. "pincodes rail") to run.
+on:
+  workflow_dispatch:
+    inputs:
+      script: {description: 'Script in cities/hyderabad/ to run', default: 'fetch.py'}
+      steps: {description: 'Steps to run (blank: all)', default: ''}
+  push:
+    branches: [main]
+    paths: ['cities/hyderabad/fetch*.py', '.github/workflows/fetch-hyderabad.yml']
+permissions:
+  contents: write
+concurrency: fetch-hyderabad
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin && pip install -q shapely
+      - run: |
+          S="${{ inputs.script }}"
+          [ -n "$S" ] || S=$(git diff --name-only HEAD~1 HEAD -- 'cities/hyderabad/fetch*.py' | head -1 | xargs -r basename)
+          [ -n "$S" ] || S=fetch.py
+          mkdir -p cities/hyderabad/raw
+          set -o pipefail; python3 -u "cities/hyderabad/$S" ${{ inputs.steps }} 2>&1 | tee "cities/hyderabad/raw/${S%.py}.log"
+      - if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/hyderabad/raw
+          git commit -m "Fetch Hyderabad data" || echo "no changes"
+          git pull --rebase
+          git push
