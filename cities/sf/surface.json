@@ -1,0 +1,16 @@
+{
+ "_about": "Muni buses (engine/fetch_surface.py, engine/surface.py), trolleybuses included. Muni Metro, the F and E streetcars and the cable cars are drawn by the muni layer, so only buses are kept ('types'). SFMTA's 'current' file sometimes lags its schedule changes (in October 2026 it still ended August 28), so every address is tried and the one that runs latest wins ('preferCurrent'); a feed that has run out is counted on its last full week. Express routes are numbered with an X (1X, 8AX, 30X...); Rapid routes, lettered R (5R, 9R, 14R...), are left to the frequency families; the owl network is numbered 90 to 97 plus the L Owl and N Owl buses.",
+ "gtfs": {
+  "url": "https://muni-gtfs.apps.sfmta.com/data/muni_gtfs-current.zip",
+  "preferCurrent": true,
+  "fallback": [
+   "https://data.sfgov.org/download/dni7-qpv3/application/x-zip-compressed",
+   "https://files.mobilitydatabase.org/mdb-2886/latest.zip"
+  ]
+ },
+ "types": [
+  "bus"
+ ],
+ "skip": [],
+ "expressRoutes": "^\\d+[A-Z]?X$"
+}
