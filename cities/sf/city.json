@@ -83,7 +83,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni: GTFS from BART, Caltrain and SFMTA · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni: GTFS from BART, Caltrain and SFMTA · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA)",
  "example": {
   "at": [
    37.779,
@@ -336,6 +336,49 @@
   [
    "What's changing",
    [
+    {
+     "id": "chg",
+     "kind": "changes",
+     "file": "changes",
+     "lazy": true,
+     "optional": true,
+     "live": true,
+     "staleDays": 9,
+     "name": "New development",
+     "note": "Projects in the Planning Department’s Development Pipeline with 3 or more new homes or 10,000 sq ft of other space",
+     "stages": {
+      "proposed": [
+       "Proposed",
+       "Filed with Planning, or a building permit under review: a proposal, not a decision"
+      ],
+      "approved": [
+       "Approved",
+       "Approved by Planning, or building permit approved or issued; not under construction yet"
+      ],
+      "building": [
+       "Under construction",
+       "Construction started"
+      ],
+      "finished": [
+       "Finished",
+       "Completed in the last two years"
+      ]
+     },
+     "kinds": {
+      "building": "New development",
+      "demolition": "Demolition"
+     },
+     "dates": {
+      "applied": "filed {date}",
+      "decided": "approved {date}",
+      "issued": "permit {date}",
+      "started": "under way since {date}",
+      "finished": "{date}"
+     },
+     "unitsText": "{n} new homes",
+     "alsoText": "Also here",
+     "legend": "From the Planning Department’s Development Pipeline, updated each quarter: every project still under way, at its latest step. Projects with fewer than 3 new homes and under 10,000 sq ft of other space are left out."
+    },
     {
      "id": "events",
      "kind": "events",
@@ -833,6 +876,14 @@
    },
    "hub": "To Montgomery St",
    "hubText": "About {minutes} min by transit, weekday morning"
+  },
+  "changes": {
+   "title": "Changing nearby",
+   "radius": 805,
+   "max": 6,
+   "none": "No projects with 3 or more new homes or 10,000 sq ft of other space proposed, approved or under way within ½ mile.",
+   "more": "And {n} more nearby: turn on New development to see them.",
+   "note": "Proposals are not decisions. Projects within ½ mile with 3 or more new homes or 10,000 sq ft of other space, from the San Francisco Planning Department’s Development Pipeline, as of {date}."
   },
   "reps": {
    "file": "representatives.json",

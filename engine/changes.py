@@ -267,15 +267,19 @@ if os.path.exists(p):
     for r in json.load(open(p))['rows']:
         st = (r.get('current_status') or '').strip()
         if not r.get('latitude'): continue
-        units, sqft = int(num(r.get('proposed_units'))), num(r.get('non_residential_total_gsf'))
+        # New homes, net of any removed (proposed_units counts the whole building, so an ADU in a 28-unit block is 29).
+        units = int(num(r.get('net_pipeline_units')) if r.get('net_pipeline_units') not in (None, '') else num(r.get('proposed_units')) - num(r.get('existing_units')))
+        sqft = num(r.get('non_residential_total_gsf'))
         if units < S.get('minUnits', 3) and sqft < S.get('minSqft', 10000): continue
-        if re.search(r'filed', st, re.I): stage, dl = 'proposed', 'applied'
+        date = (r.get('current_status_date') or '')[:10]
+        if re.match(r'BP\b.*filed', st, re.I) and r.get('approved_date_planning'):   # Planning approved it; building permit under review
+            stage, dl, date = 'approved', 'decided', r['approved_date_planning'][:10]
+        elif re.search(r'filed', st, re.I): stage, dl = 'proposed', 'applied'
         elif re.match(r'PL\b.*approv', st, re.I): stage, dl = 'approved', 'decided'
         elif re.search(r'approv|issued|reinstat', st, re.I): stage, dl = 'approved', 'issued'
         elif re.search(r'construct', st, re.I): stage, dl = 'building', 'started'
         elif re.search(r'complet', st, re.I): stage, dl = 'finished', 'finished'
         else: unknown[st] += 1; continue
-        date = (r.get('current_status_date') or '')[:10]
         if stage == 'proposed' and date < ago(OPEN_Y): continue
         if stage == 'approved' and date < ago(APPR_Y): continue
         if stage == 'finished' and date < ago(WIN): continue
@@ -283,9 +287,9 @@ if os.path.exists(p):
         a = re.sub(r'\s+', ' ', r.get('nameaddr') or '').strip()
         if a.isupper(): a = re.sub(r'\b(\d+)(St|Nd|Rd|Th)\b', lambda m: m.group(1) + m.group(2).lower(), title_case(a))
         d = r.get('description_planning') or r.get('description_dbi') or ('New building' if units else 'Non-residential project')
-        d = d.rstrip('…').strip()
+        d = re.sub(r'\s*\*\*.*$', '', d).rstrip('…').strip() or ('New building' if units else 'Non-residential project')   # "** planner: note" staff notes
         items.append({'k': 'building', 's': stage, 'date': date, 'dl': dl, 'a': a, 'd': short(sentence(d) if d.isupper() else d),
-                      'n': r.get('case_no') or r.get('bpa_no'), 'at': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)],
+                      'n': next((v for v in (r.get('case_no'), r.get('bpa_no')) if v and re.search(r'\d', v)), None), 'at': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)],
                       'units': units if units >= 3 else None, 'status': st})
     print('  pipeline statuses kept:', dict(stat.most_common()), '· unknown, left out:', dict(unknown))
 
