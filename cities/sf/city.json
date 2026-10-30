@@ -83,7 +83,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Skyscrapers: Wikipedia (CC BY-SA)",
  "example": {
   "at": [
    37.779,
@@ -697,6 +697,108 @@
    ]
   ],
   [
+   "Parking & Charging",
+   [
+    {
+     "id": "greenp",
+     "kind": "spots",
+     "mark": "lot",
+     "file": "parking",
+     "cat": "gp",
+     "countKey": "greenp",
+     "lazy": true,
+     "optional": true,
+     "minZoom": 11,
+     "name": "City garages & lots",
+     "note": "Garages and lots run by SFMTA, the Port, Rec & Park and Caltrans: garages filled, lots outlined, bigger for more spaces. From zoom 11.",
+     "countNote": "{n} City garages and lots with {spaces} spaces, from SFMTA’s list. From zoom 11.",
+     "classes": {
+      "g": [
+       "Garages",
+       "Multi-level and underground garages"
+      ],
+      "s": [
+       "Lots",
+       "Open-air lots"
+      ]
+     },
+     "legend": "Bigger squares hold more cars.",
+     "zoomText": "Zoom in to see them.",
+     "typeText": {
+      "g": "City garage",
+      "s": "City parking lot"
+     },
+     "spacesLabel": "Spaces",
+     "spacesText": [
+      "{n} space",
+      "{n} spaces"
+     ],
+     "fine": "From SFMTA’s list of the off-street parking it manages, as of {date}. Rates and hours change: check SFMTA or the Port before you go."
+    },
+    {
+     "id": "permit",
+     "kind": "patches",
+     "cls": "permit",
+     "lcls": "lbl-permit",
+     "file": "permit_areas",
+     "name": "Permit parking areas",
+     "note": "Residential Parking Permit areas A to Z, AA to EE and HV, where residents can buy a permit for the signed blocks; not every street in one is signed",
+     "label": "{name}",
+     "hover": "Permit area {name}"
+    },
+    {
+     "id": "ev",
+     "kind": "spots",
+     "mark": "charger",
+     "file": "parking",
+     "cat": "ev",
+     "countKey": "ev",
+     "lazy": true,
+     "optional": true,
+     "minZoom": 12,
+     "name": "EV chargers",
+     "note": "Public charging: DC fast filled, Level 2 ringed, bigger for more ports. From zoom 12.",
+     "countNote": "{n} public charging sites with {dc} DC fast and {l2} Level 2 ports. From zoom 12.",
+     "classes": {
+      "dc": [
+       "DC fast",
+       "Fast chargers: most of a charge in under an hour"
+      ],
+      "l2": [
+       "Level 2 only",
+       "Slower chargers: hours for a full charge, for a long stop"
+      ]
+     },
+     "legend": "Bigger dots have more ports; grey dashed ones are listed as temporarily unavailable.",
+     "zoomText": "Zoom in to see them.",
+     "typeText": {
+      "dc": "DC fast charging",
+      "l2": "Level 2 charging"
+     },
+     "bothText": "DC fast and Level 2 charging",
+     "dcLabel": "DC fast",
+     "l2Label": "Level 2",
+     "l1Label": "Level 1",
+     "portText": [
+      "{n} port",
+      "{n} ports"
+     ],
+     "kwText": "up to {kw} kW",
+     "addressLabel": "Address",
+     "operatorLabel": "Run by",
+     "networkLabel": "Network",
+     "hoursLabel": "Hours",
+     "h24Text": "24 hours",
+     "priceLabel": "Price",
+     "accessLabel": "Access",
+     "teslaText": "Tesla drivers only",
+     "statusLabel": "Status",
+     "offText": "Temporarily unavailable",
+     "fine": "The U.S. Department of Energy’s Alternative Fuels Data Center as of {date}[; this listing last confirmed {conf}]. Chargers can be busy or out of order: check the network’s app before you go."
+    }
+   ]
+  ],
+  [
    "Representation",
    [
     {
@@ -1192,6 +1294,12 @@
     "layer": "cultural",
     "text": "{name}",
     "onlyInside": true
+   },
+   {
+    "label": "Permit parking",
+    "layer": "permit",
+    "text": "Area {name}",
+    "empty": "Not in a permit area"
    },
    {
     "label": "Supervisor",

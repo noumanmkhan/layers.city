@@ -21,6 +21,7 @@ cp tmp/region_areas.geojson tmp/region_areas.raw.geojson
 npx mapshaper -i tmp/region_areas.raw.geojson -simplify interval=60 keep-shapes -o tmp/region_areas.geojson precision=0.00005 format=geojson -quiet
 [ -f raw/places/osm_worship.json ] && python3 faith.py   # places of worship (fetch_places.py)
 [ -f raw/places/parks.geojson ] && python3 places.py   # parks, sports, schools, libraries, hospitals, colleges, Nearby
+[ -f raw/parking/garages.json ] && python3 parking.py   # garages and lots, permit areas, EV chargers (fetch_parking.py)
 [ -f raw/representatives/ca.csv ] && python3 representatives.py   # current officeholders (fetch_representatives.py)
 python3 ../../engine/regions.py sf
 [ -f raw/skyscrapers/wiki.json ] && python3 ../../engine/skyscrapers.py sf   # towers 150 m+ (fetch-skyscrapers.yml)
