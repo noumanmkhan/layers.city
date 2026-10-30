@@ -95,6 +95,13 @@ elif city == 'nyc':
         p = {'n': (r.get('lpc_name') or '').strip(), 'a': tcase(r.get('address') or ''), 'd': year(r.get('desdate')), 'id': r.get('lpc_lpnumb')}
         feats.append({'type': 'Feature', 'properties': {k: v for k, v in p.items() if v},
                       'geometry': {'type': 'Point', 'coordinates': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)]}})
+elif city == 'sf':
+    # Planning's Article 10 landmarks: parcels (one point each), with the landmark number.
+    for r in R['rows']:
+        if r.get('lat') is None or not (r.get('name') or '').strip(): continue
+        p = {'n': r['name'].strip(), 'a': (r.get('address') or '').strip(), 'd': year(r.get('yeardesignated')),
+             'b': ('Landmark No. ' + str(r['landmarkno']).split('.')[0]) if r.get('landmarkno') else '', 'id': r.get('landmarkno')}
+        feats.append({'type': 'Feature', 'properties': {k: v for k, v in p.items() if v}, 'geometry': {'type': 'Point', 'coordinates': [round(r['lon'], 6), round(r['lat'], 6)]}})
 else:
     F = {k.lower(): k for k in R['fields']}
     g = lambda r, *names: next((r.get(F.get(n, n)) for n in names if r.get(F.get(n, n)) not in (None, '', 'None')), '')
