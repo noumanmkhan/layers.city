@@ -42,7 +42,9 @@ jobs:
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL   # R5 saves a large network file: make room
           sudo swapoff -a; sudo fallocate -l 6G /mnt/swapfile && sudo chmod 600 /mnt/swapfile && sudo mkswap /mnt/swapfile && sudo swapon /mnt/swapfile
           free -h; df -h / /mnt
-      - run: |
+      - env:
+          NLR_API_KEY: ${{ secrets.NLR_API_KEY }}   # fetch_parking.py: the AFDC station API
+        run: |
           S="$SCRIPT"
           if [ -z "$S" ]; then echo "No fetch script changed in the last commit; nothing to fetch."; exit 0; fi
           mkdir -p cities/sf/raw
