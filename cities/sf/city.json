@@ -853,7 +853,11 @@
      "name": "State Assembly",
      "note": "2 Assembly members · 2021 lines",
      "label": "AD {num}",
-     "hover": "Assembly District {num}"
+     "hover": "Assembly District {num}",
+     "party": {
+      "table": "assembly",
+      "key": "num"
+     }
     },
     {
      "id": "senate",
@@ -863,7 +867,11 @@
      "name": "State Senate",
      "note": "1 senator · 2021 lines",
      "label": "SD {num}",
-     "hover": "State Senate District {num}"
+     "hover": "State Senate District {num}",
+     "party": {
+      "table": "senate",
+      "key": "num"
+     }
     },
     {
      "id": "congress",
@@ -1714,5 +1722,35 @@
    -122.4018
   ],
   "hubName": "Montgomery St"
+ },
+ "party": {
+  "label": "Colour by party",
+  "note": "Each district in the colour of its sitting member’s party, from Open States’ list of California legislators. Supervisors run without party labels, and the congressional lines on the map are the new ones whose members take office in January, so neither is coloured.",
+  "vacant": "Vacant",
+  "other": "Other",
+  "parties": [
+   [
+    "Democrat",
+    "blue",
+    [
+     "Democrat",
+     "Democratic"
+    ]
+   ],
+   [
+    "Republican",
+    "red",
+    [
+     "Republican"
+    ]
+   ],
+   [
+    "Independent",
+    "other",
+    [
+     "Independent"
+    ]
+   ]
+  ]
  }
 }
