@@ -1,10 +1,22 @@
-Traceback (most recent call last):
-  File "/home/runner/work/layers.city/layers.city/engine/fetch_heritage_buildings.py", line 44, in <module>
-    r['lon'], r['lat'] = round(c.x, 6), round(c.y, 6)
-                               ^^^
-  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/shapely/geometry/point.py", line 96, in x
-    return shapely.lib.get_x_scalar(self)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-shapely.errors.GEOSException: UnsupportedOperationException: getX called on empty Point
-
-sf: no heritage buildings fetched yet (fetch-heritage-buildings.yml)
+fields: ['address', 'apn', 'designationdocument', 'landmarkno', 'lat', 'lon', 'name', 'photo', 'pimlink', 'yeardesignated']
+rows: 394 · with a point: 392
+  address 378 values, e.g. ['None', 'Golden Gate Park', '800 Chestnut Street', 'The Embarcadero', '951-957 Mission']
+  apn 333 values, e.g. ['None', '1700001', '0196027', '0175010', '0049001']
+  designationdocument 351 values, e.g. ['None', "{'url': 'https://files.sfplanning.org/documents/preservation/LM316.pdf'}", "{'url': 'https://files.sfplanning.org/documents/preservation/LM321.pdf'}", "{'url': 'https://sfplanninggis.org/docs/landmarks_and_districts/LM342.pdf'}", "{'url': 'https://sfplanninggis.org/docs/landmarks_and_districts/LM353.pdf'}"]
+  landmarkno 350 values, e.g. ['0', '316', '65', '321', '342']
+  lat 390 values, e.g. ['37.765888', 'None', '37.796255', '37.803725', '37.781553']
+  lon 387 values, e.g. ['-122.430614', '-122.41289', '-122.42908', 'None', '-122.402247']
+  name 388 values, e.g. ['Sacred Heart Parish Complex', 'None', 'Tanforan Cottage', 'Mint Mall and Hall', 'Duboce Triangle Greek Revival Home']
+  photo 344 values, e.g. ['None', "{'url': 'https://files.sfplanning.org/documents/preservation/316.jpg'}", "{'url': 'https://files.sfplanning.org/documents/preservation/321.jpg'}", "{'url': 'https://sfplanninggis.org/Preservation/Landmarks/Large/342.jpg'}", "{'url': 'https://sfplanninggis.org/Preservation/Landmarks/Large/194.jpg'}"]
+  pimlink 330 values, e.g. ['None', "{'url': 'https://sfplanninggis.org/pim?search=1700/001'}", "{'url': 'https://sfplanninggis.org/pim'}", "{'url': 'https://sfplanninggis.org/pim?search=0196/027'}", "{'url': 'https://sfplanninggis.org/pim?search=0196/030'}"]
+  yeardesignated 57 values, e.g. ['0.0', '2026.0', '1981.0', '1977.0', '1970.0']
+wrote /home/runner/work/layers.city/layers.city/cities/sf/raw/heritage_buildings.json 150 KB
+sf: 391 heritage buildings (391 named, 0 with an architect) · 77 KB
+   {'n': '"History of Medicine in California" Frescoes at UC Hall', 'a': '533 Parnassus Avenue', 'd': '2020', 'b': 'Landmark No. 289', 'id': '289'}
+   {'n': '"Pan American Unity" Mural at City College', 'a': '50 FRIDA KAHLO WY', 'b': 'Landmark No. 0', 'id': '0'}
+   {'n': '"The Allegory of California" Mural', 'a': '155 SANSOME ST', 'd': '2022', 'b': 'Landmark No. 298', 'id': '298'}
+   {'n': '550 Market Street', 'a': '550 MARKET ST', 'b': 'Landmark No. 0', 'id': '0'}
+   {'n': 'A. Borel & Company Building', 'a': '440 Montgomery Street', 'd': '1980', 'b': 'Landmark No. 109', 'id': '109'}
+   {'n': 'Woods Hall', 'a': '101 Webster Street', 'd': '2007', 'b': 'Landmark No. 257', 'id': '257'}
+   {'n': 'Woods Hall Annex', 'a': '218 Buchanan Street', 'd': '2007', 'b': 'Landmark No. 258', 'id': '258'}
+   {'n': 'Yeon Building', 'a': '432 Jackson Street', 'd': '1970', 'b': 'Landmark No. 24', 'id': '24'}
