@@ -8,6 +8,7 @@ mkdir -p tmp ../../docs/sf/data
 python3 build.py
 python3 landmarks.py
 [ -f raw/acs_tracts.json ] && python3 profiles.py   # after build.py: the neighbourhood lens (fetch_acs.py)
+[ -f raw/canopy/canopy.json ] && python3 ../../engine/canopy.py sf   # after profiles: tree canopy per neighborhood
 OUT=../../docs/sf/data
 simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
 npx mapshaper -i tmp/base.geojson -simplify interval=50 keep-shapes -filter-slivers min-area=20000m2 -filter "!this.isNull" -o $OUT/base.geojson precision=0.00005 format=geojson -quiet

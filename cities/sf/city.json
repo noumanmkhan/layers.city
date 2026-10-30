@@ -964,6 +964,12 @@
      "kind": "lens",
      "name": "Neighborhood lens",
      "note": "Housing cost, the trip downtown, getting to work, renters and owners, housing type. Narrow it down to a shortlist."
+    },
+    {
+     "id": "drive",
+     "kind": "suburbs",
+     "name": "Suburban lens",
+     "note": "Typical drive to Montgomery St (the Financial District) with no traffic, town by town. Shows in the regional view."
     }
    ]
   ]
@@ -1148,6 +1154,36 @@
      ]
     ],
     "note": "Share of each neighborhood's occupied homes that are {type}."
+   },
+   {
+    "id": "canopy",
+    "short": "Tree canopy",
+    "key": "canopyBand",
+    "optional": true,
+    "tiers": [
+     [
+      "c1",
+      "Under 5%",
+      "--can-1"
+     ],
+     [
+      "c2",
+      "5–10%",
+      "--can-2"
+     ],
+     [
+      "c3",
+      "10–20%",
+      "--can-3"
+     ],
+     [
+      "c4",
+      "20% or more",
+      "--can-4"
+     ]
+    ],
+    "note": "Share of the land under tree cover, water left out, from ESA WorldCover 2021, a 10 m satellite land-cover map. It misses many street trees, so it reads lower than the City’s own estimates.",
+    "source": "ESA WorldCover 2021 (CC BY 4.0)."
    }
   ],
   "filters": [
@@ -1376,7 +1412,12 @@
     "caveat": "Share of residents, from the 2020–2024 survey."
    },
    "hub": "To Montgomery St",
-   "hubText": "About {minutes} min by transit, weekday morning"
+   "hubText": "About {minutes} min by transit, weekday morning",
+   "canopy": {
+    "label": "Tree canopy",
+    "text": "{pct}% of the land is under trees",
+    "caveat": "Satellite land cover, 2021 (ESA WorldCover, 10 m)."
+   }
   },
   "changes": {
    "title": "Changing nearby",
@@ -1615,5 +1656,12 @@
     "view": "city"
    }
   ]
+ },
+ "drive": {
+  "hub": [
+   37.7894,
+   -122.4018
+  ],
+  "hubName": "Montgomery St"
  }
 }
