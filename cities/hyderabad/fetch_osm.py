@@ -25,6 +25,7 @@ SOURCES = ['https://download.geofabrik.de/asia/india/southern-zone-latest.osm.pb
 PLACE_KINDS = {'city', 'town', 'suburb', 'quarter', 'neighbourhood', 'locality', 'village', 'hamlet'}
 LM_NAMES = {l['osm'] for l in LANDMARKS} | {l['name'] for l in LANDMARKS}
 fab = osmium.geom.WKBFactory()
+BIZ_RX = re.compile(r'(?i)\b(it park|tech ?park|business park|knowledge (city|park)|sez|cyber|info ?city|infocity|mindspace|dlf|sattva|salarpuria|divyasree|rmz|phoenix|wave ?rock|waverock|q city|skyview|dallas cent|tech ?city|hitec|financial district|genome valley|campus|towers?|i-?labs|meenakshi|vamsiram|aurobindo galaxy|knowledge|software|technolog)')
 
 
 def download():
@@ -63,6 +64,20 @@ class Pass1(osmium.SimpleHandler):
     def __init__(self):
         super().__init__()
         self.admin, self.lakes, self.roads, self.places, self.lm, self.routes, self.stations = [], [], [], [], [], [], []
+        self.biz = []
+
+    def biz_candidate(self, kind, oid, t, g):
+        """Named office and commercial sites around the ring road, to pick the business parks from by hand."""
+        n = t.get('name')
+        if not n: return
+        office = t.get('landuse') in ('commercial', 'industrial', 'retail') or 'office' in t or t.get('building') in ('office', 'commercial')
+        if not (office or BIZ_RX.search(n)): return
+        c = g.representative_point() if g.geom_type != 'Point' else g
+        if not CORE.contains(c): return
+        area = g.area * 107 * 111 if g.geom_type != 'Point' else 0
+        if area < 0.01 and not BIZ_RX.search(n): return
+        self.biz.append({'type': kind, 'id': oid, 'name': n, 'lon': round(c.x, 5), 'lat': round(c.y, 5), 'km2': round(area, 3),
+                         'tags': {k: t[k] for k in ('landuse', 'office', 'building', 'operator', 'brand', 'website', 'alt_name', 'industrial') if k in t}})
 
     def node(self, n):
         t = n.tags
@@ -73,16 +88,17 @@ class Pass1(osmium.SimpleHandler):
                                 'tags': {k: t[k] for k in ('name', 'name:en', 'name:te', 'name:ur', 'alt_name', 'place', 'wikidata') if k in t}})
         if t.get('name') in LM_NAMES:
             self.lm.append({'type': 'node', 'id': n.id, 'lon': x, 'lat': y, 'tags': {'name': t['name']}})
+        if 'name' in t and ('office' in t or BIZ_RX.search(t['name'])): self.biz_candidate('node', n.id, t, Point(x, y))
         if t.get('railway') == 'station' and CORE.contains(Point(x, y)):
             self.stations.append({'id': n.id, 'lon': x, 'lat': y, 'tags': {k: v for k, v in [(k, t[k]) for k in ('name', 'name:en', 'station', 'subway', 'train', 'network', 'operator') if k in t]}})
 
     def way(self, w):
         t = w.tags
         hw = t.get('highway')
-        if hw in ('motorway', 'trunk', 'primary', 'secondary'):
+        if hw in ('motorway', 'trunk', 'primary', 'secondary', 'tertiary'):
             try: g = wkb.loads(fab.create_linestring(w), hex=True)
             except Exception: return
-            if hw in ('primary', 'secondary') and (not t.get('name') or not CORE.intersects(g)): return
+            if hw in ('primary', 'secondary', 'tertiary') and not CORE.intersects(g): return   # named or not: gaps break the network
             self.roads.append({'type': 'Feature', 'properties': {'hw': hw, 'name': en(t), 'ref': tag(t, 'ref'), 'nat': tag(t, 'nat_ref'), 'osm': w.id},
                                'geometry': r5(g.simplify(0.00004))})
         if t.get('name') in LM_NAMES:
@@ -97,6 +113,9 @@ class Pass1(osmium.SimpleHandler):
             try:
                 c = wkb.loads(fab.create_multipolygon(a), hex=True).representative_point()
                 self.lm.append({'type': 'area', 'id': a.orig_id(), 'lon': c.x, 'lat': c.y, 'tags': {'name': t['name']}})
+            except Exception: pass
+        if 'name' in t and (t.get('landuse') in ('commercial', 'industrial', 'retail') or 'office' in t or 'building' in t or BIZ_RX.search(t['name'])):
+            try: self.biz_candidate('area', a.orig_id(), t, wkb.loads(fab.create_multipolygon(a), hex=True))
             except Exception: pass
         lvl = t.get('admin_level') if t.get('boundary') == 'administrative' else None
         water = t.get('natural') == 'water' or t.get('landuse') == 'reservoir'
@@ -162,4 +181,5 @@ if __name__ == '__main__':
     save('osm_rail.json', {'routes': routes, 'stops': {str(k): v for k, v in h2.nodes.items()}, 'stations': h.stations})
     save('osm_places.json', {'elements': h.places})
     save('osm_landmarks.json', {'elements': h.lm})
+    save('osm_bizparks.json', {'elements': sorted(h.biz, key=lambda b: -b['km2'])})
     print('source', os.path.basename(src))
