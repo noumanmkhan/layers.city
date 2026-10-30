@@ -33,6 +33,21 @@ os.makedirs(os.path.join(OUT, 'data', 'r'), exist_ok=True)
 
 RAW_R = json.load(open(os.path.join(RAW, 'surface', 'routes.json')))
 RAW_S = json.load(open(os.path.join(RAW, 'surface', 'stops.json')))
+# Stop names as the map writes them (engine/surface.py stop_name, from surface.json "stopNames"): an agency that
+# writes them in capitals ("1 AV/E 14 ST") reads "1 Av/E 14 St". Kept in step with surface.py by hand.
+SN = json.load(open(os.path.join(ROOT, 'cities', city, 'surface.json'))).get('stopNames') or {}
+def stop_name(n):
+    while SN.get('strip'):
+        m_ = re.sub(SN['strip'], '', n.strip()).strip()
+        if m_ == n: break
+        n = m_
+    if SN.get('title') and n.isupper():
+        n = re.sub(r"\b([A-Za-z])([A-Za-z']*)", lambda m_: m_.group(1).upper() + m_.group(2).lower(), n)
+        n = re.sub(r'\b(\d+)(st|nd|rd|th)\b', lambda m_: m_.group(1) + m_.group(2).lower(), n, flags=re.I)
+        for w in SN.get('keep', []): n = re.sub(r'\b' + re.escape(w) + r'\b', w, n, flags=re.I)
+    if SN.get('at'): n = re.sub(r'\s*@\s*', SN['at'], n)
+    return n
+for s_ in RAW_S['stops']: s_[1] = stop_name(s_[1])
 TRANSIT = json.load(open(os.path.join(DATA, 'transit.json')))
 MODES = set(CFG.get('modes', ['bus']))
 NEAR = CFG.get('near', {})
@@ -158,7 +173,16 @@ STATION_NAMES = {n for n, _, _ in stations}
 
 # ---- routes ----
 meta = {r['r']: r for r in TRANSIT['routes']}
+# The map's route list goes by the number riders see (engine/surface.py: surface.json "rename" and "stripZeros"),
+# which can differ from the feed's route id (the MTA's Q06 is the Q6, Muni's LOWL the L Owl): match on that.
+_SC = json.load(open(os.path.join(ROOT, 'cities', city, 'surface.json')))
+def _num(s):
+    s2 = (s.lstrip('0') or s) if _SC.get('stripZeros') else s
+    return _SC.get('rename', {}).get(s, s2)
+for r in RAW_R['routes']:
+    if r['id'] not in meta and _num(r['short']) in meta: meta[r['id']] = meta[_num(r['short'])]
 routes = [r for r in RAW_R['routes'] if r['mode'] in MODES and r['id'] in meta]
+SHORT = {r['id']: r['short'] for r in RAW_R['routes']}   # the schedule (sched.json) goes by the feed's short name
 stops = {s[0]: s for s in RAW_S['stops']}
 
 # Rapid transit (subway, LRT) from raw/surface/rapid_*.json (engine/fetch_surface.py, surface.json "rapid"): each
@@ -176,6 +200,10 @@ def pdir(name):
     if not w: return None
     if w.group(1): return w.group(1).lower()
     return next(v for k, v in PDIRS.items() if k.lower() == w.group(0).lower())
+PL_ = CFG.get('platformLabels')
+PLABELS = None
+if PL_ and os.path.exists(os.path.join(RAW, PL_['raw'])):
+    PLABELS = {'suffix': PL_.get('suffix', ['N', 'S']), 'skip': PL_.get('skip', []), 'labels': json.load(open(os.path.join(RAW, PL_['raw'])))['stations']}
 def dir_label(w): return f'{w.capitalize()}bound' if w in COMPASS else w.capitalize()
 def station_of(name):
     return re.sub(r'\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)\b.*$', '', name).strip()
@@ -208,7 +236,7 @@ if RAPID_MODES and os.path.exists(os.path.join(RAW, 'surface', 'rapid_routes.jso
             if key in seen: seen[key]['trips'] += sh['trips']
             else: seen[key] = dict(sh)
         routes.append(dict(r, shapes=list(seen.values())))
-        rapid_ids.add(r['id'])
+        rapid_ids.add(r['id']); SHORT[r['id']] = r['short']
 
 
 def runs(seq, step):
@@ -346,7 +374,7 @@ route_index = {}
 for r in routes:
     rid = r['id']
     mt = meta[rid]
-    on_route = [s for s in RAW_S['stops'] + STREET_STOPS if rid in s[4]]
+    on_route = [s for s in RAW_S['stops'] + STREET_STOPS if rid in s[4] or r['short'] in s[4]]   # stops list routes by short name
     total = sum(s['trips'] for s in r['shapes']) or 1
     pats = []
     # First every pattern's candidate stops, with which side of the line each is on. Streetcar tracks (and some
@@ -483,6 +511,12 @@ for sid, rs in stop_routes.items():
             heads = {route_index[rid_][5][pk][0] for rid_, v in rs.items() if rid_ in route_index and rid_ in rapid_ids for pk, d in v}
             w = heads.pop() if len(heads) == 1 else None
         side = f'{dir_label(w)} platform' if w else 'Platform'
+        # The agency's own words for a platform's direction, as its signs say them (routes.json "platformLabels":
+        # New York's "Uptown & The Bronx", from the MTA's stations list, keyed by the stop id without its N or S).
+        if PLABELS and sid[-1:] in PLABELS['suffix'] and PLABELS['labels'].get(sid[:-1], {}).get(sid[-1]) not in (None, '', *PLABELS['skip']):
+            lab = PLABELS['labels'][sid[:-1]][sid[-1]]
+            # "Uptown platform"; a place reads as where the trains are bound: "Manhattan-bound platform"
+            side = f'{lab} platform' if re.search(r'(?i)(town|bound)$', lab) else f'{lab}-bound platform'
     else:
         side = SIDE.get(w, '')
     name = s[1]
@@ -518,6 +552,7 @@ if os.path.exists(sp):
         row = {}
         for rid in st[6]:
             v = sc['stops'].get(st[0], {}).get(rid)
+            if v is None: v = sc['stops'].get(st[0], {}).get(SHORT.get(rid, rid))
             if v is None: continue
             for i in v:
                 if i not in remap: remap[i] = len(spans); spans.append(sc['spans'][i])

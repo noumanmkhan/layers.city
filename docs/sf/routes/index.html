@@ -316,9 +316,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const DIR = new Proxy({ north: 'Northbound', south: 'Southbound', east: 'Eastbound', west: 'Westbound' }, { get: (o, k) => o[k] || cap(String(k || '')) });
   // How a rapid line is named: "Line 1", or the city's own (routes.json page "lineNames": {"J": "J Church", "Yellow": "BART Yellow line"}).
   const lineName = l => (RS.lineNames || {})[l] || 'Line ' + l;
-  // "Change for BART, J Church": a group's lines said once by the group's name (routes.json page "lineGroups").
+  // "Change for BART, J Church": a group's lines said once by the group's name (routes.json page "lineGroups");
+  // "Change for 1, 2, 3" with page "changeBare" (New York says its lines by letter and number).
   const changeList = ls => { const out = [];
-    ls.forEach(l => { const g = Object.keys(RS.lineGroups || {}).find(k => RS.lineGroups[k].includes(l)); const n = g || lineName(l); if (!out.includes(n)) out.push(n); });
+    ls.forEach(l => { const g = Object.keys(RS.lineGroups || {}).find(k => RS.lineGroups[k].includes(l)); const n = g || (RS.changeBare ? l : lineName(l)); if (!out.includes(n)) out.push(n); });
     return out.join(', '); };
   // Stop names join their two streets with " at " (TTC) or " & " (routes.json page "at").
   const AT = new RegExp((RS.at || ' at ').replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
