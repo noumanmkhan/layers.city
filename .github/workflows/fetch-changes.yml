@@ -8,7 +8,7 @@ on:
     inputs:
       cities:
         description: 'Cities to fetch (space-separated)'
-        default: 'toronto chicago vancouver nyc'
+        default: 'toronto chicago vancouver nyc sf'
   schedule:
     - cron: '23 8 * * 2'
   push:
@@ -28,7 +28,7 @@ jobs:
           python-version: '3.12'
       - run: pip install -q pyproj shapely
       - run: |
-          for c in ${{ inputs.cities || 'toronto chicago vancouver nyc' }}; do
+          for c in ${{ inputs.cities || 'toronto chicago vancouver nyc sf' }}; do
             mkdir -p cities/$c/raw/changes
             python3 -u engine/fetch_changes.py $c 2>&1 | tee cities/$c/raw/changes/fetch.log || true
             if [ -f engine/changes.py ]; then python3 -u engine/changes.py $c 2>&1 | tee -a cities/$c/raw/changes/fetch.log || true; fi
@@ -36,8 +36,8 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          for c in toronto chicago vancouver nyc; do [ -d cities/$c/raw/changes ] && git add cities/$c/raw/changes; done
-          for c in toronto chicago vancouver nyc; do [ -f docs/$c/data/changes.geojson ] && git add docs/$c/data/changes.geojson; done
+          for c in toronto chicago vancouver nyc sf; do [ -d cities/$c/raw/changes ] && git add cities/$c/raw/changes; done
+          for c in toronto chicago vancouver nyc sf; do [ -f docs/$c/data/changes.geojson ] && git add docs/$c/data/changes.geojson; done
           git commit -m "Update what's changing: development applications and building permits" || echo "no changes"
           git pull --rebase
           git push

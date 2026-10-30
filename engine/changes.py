@@ -2,7 +2,8 @@
 (engine/fetch_changes.py) for the "changes" layer and the card's Changing nearby section.
 
 Big changes only (Vancouver: issued permits only, all "approved"): new buildings that aren't single houses, demolitions of buildings that aren't houses,
-and (Toronto) rezoning, site plan and subdivision applications, (New York) land-use applications that rezone. Each item gets:
+and (Toronto) rezoning, site plan and subdivision applications, (New York) land-use applications that rezone,
+(San Francisco) every project in Planning's Development Pipeline with 3+ homes or 10,000+ sq ft of other space. Each item gets:
   - a kind: rezoning, siteplan, subdivision (applications), building (new building), demolition;
   - a stage: proposed (an application or permit under review), approved (approved or permit issued, work
     not started), building (permit inspections under way: work started), finished (closed or occupancy
@@ -252,6 +253,41 @@ if os.path.exists(p):
         items.append({'k': 'rezoning', 's': stage, 'date': date, 'dl': dl, 'a': a, 'd': short(d), 'n': r['project_id'],
                       'u': 'https://zap.planning.nyc.gov/projects/' + r['project_id'], 'at': r['at'], 'status': ps or st})
     print('  ZAP status counts:', dict(zs.most_common(20)))
+
+# ---------- San Francisco: Planning's Development Pipeline ----------
+p = os.path.join(RAW, 'pipeline.json')
+if os.path.exists(p):
+    # The pipeline lists only projects still under way, each at its latest step: a Planning or building permit
+    # application filed (proposed), Planning approval or a building permit approved or issued (approved), or
+    # construction (building). The date is the date it reached that step. Projects below the config's size
+    # (homes or non-residential square feet) are left out, as are any whose status the build doesn't know.
+    S = B.get('pipeline', {})
+    num = lambda v: float(v) if v not in (None, '') and re.match(r'^-?\d+(\.\d+)?$', str(v).strip()) else 0
+    stat, unknown = collections.Counter(), collections.Counter()
+    for r in json.load(open(p))['rows']:
+        st = (r.get('current_status') or '').strip()
+        if not r.get('latitude'): continue
+        units, sqft = int(num(r.get('proposed_units'))), num(r.get('non_residential_total_gsf'))
+        if units < S.get('minUnits', 3) and sqft < S.get('minSqft', 10000): continue
+        if re.search(r'filed', st, re.I): stage, dl = 'proposed', 'applied'
+        elif re.match(r'PL\b.*approv', st, re.I): stage, dl = 'approved', 'decided'
+        elif re.search(r'approv|issued|reinstat', st, re.I): stage, dl = 'approved', 'issued'
+        elif re.search(r'construct', st, re.I): stage, dl = 'building', 'started'
+        elif re.search(r'complet', st, re.I): stage, dl = 'finished', 'finished'
+        else: unknown[st] += 1; continue
+        date = (r.get('current_status_date') or '')[:10]
+        if stage == 'proposed' and date < ago(OPEN_Y): continue
+        if stage == 'approved' and date < ago(APPR_Y): continue
+        if stage == 'finished' and date < ago(WIN): continue
+        stat[st] += 1
+        a = re.sub(r'\s+', ' ', r.get('nameaddr') or '').strip()
+        if a.isupper(): a = re.sub(r'\b(\d+)(St|Nd|Rd|Th)\b', lambda m: m.group(1) + m.group(2).lower(), title_case(a))
+        d = r.get('description_planning') or r.get('description_dbi') or ('New building' if units else 'Non-residential project')
+        d = d.rstrip('…').strip()
+        items.append({'k': 'building', 's': stage, 'date': date, 'dl': dl, 'a': a, 'd': short(sentence(d) if d.isupper() else d),
+                      'n': r.get('case_no') or r.get('bpa_no'), 'at': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)],
+                      'units': units if units >= 3 else None, 'status': st})
+    print('  pipeline statuses kept:', dict(stat.most_common()), '· unknown, left out:', dict(unknown))
 
 # ---------- one site per place ----------
 def metres(a, b):

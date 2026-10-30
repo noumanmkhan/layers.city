@@ -1,0 +1,15 @@
+{
+ "_about": "What's changing here (engine/fetch_changes.py in fetch-changes.yml, then engine/changes.py). San Francisco: the Planning Department's Development Pipeline (DataSF 6jgi-cpb4, quarterly), every project in the pipeline from a Planning application to construction. Kept: projects with 3 or more homes, or 10,000 sq ft or more of non-residential space.",
+ "sources": {
+  "pipeline": {
+   "type": "socrata_sfpipeline",
+   "url": "https://data.sfgov.org/resource/6jgi-cpb4.json"
+  }
+ },
+ "build": {
+  "years": 2,
+  "open_years": 6,
+  "approved_years": 4,
+  "pipeline": {"minUnits": 3, "minSqft": 10000}
+ }
+}

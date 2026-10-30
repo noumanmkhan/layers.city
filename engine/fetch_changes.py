@@ -23,6 +23,11 @@ Kinds of source:
     `years` years whose typeofwork is in the config's "types". Applicant and contractor names and addresses are
     never requested.
 
+  - "socrata_sfpipeline" (San Francisco): Planning's quarterly Development Pipeline, every project with a
+    Planning or building permit application still in the pipeline (filed, approved, permitted or under
+    construction), with its homes and non-residential floor area and a point. The planner's, sponsor's and
+    contact's fields are never requested.
+
 Writes raw/changes/<source>.json: {fetched, source, rows: [...]}. Prints counts by type and status (and
 how many permits were placed) so the build's filters can be checked against the data.
 
@@ -289,7 +294,17 @@ def socrata_zap(spec):
     return out
 
 
-FN = {'socrata_zap': socrata_zap, 'ckan_devapps': ckan_devapps, 'ckan_permits': ckan_permits, 'socrata_permits': socrata_permits, 'ods_permits': ods_permits, 'socrata_dobnow': socrata_dobnow}
+def socrata_sfpipeline(spec):
+    cols = ['blklot', 'nameaddr', 'current_status', 'current_status_date', 'approved_date_planning', 'existing_units', 'proposed_units',
+            'demo_units', 'net_pipeline_units', 'pipeline_affordable_units', 'case_no', 'bpa_no', 'description_planning', 'description_dbi',
+            'non_residential_total_gsf', 'non_residential_net_gsf', 'nhood41', 'latitude', 'longitude']
+    rows = json.loads(get(spec['url'] + '?' + urllib.parse.urlencode({'$select': ','.join(cols), '$limit': 50000, '$order': 'blklot'})))
+    print('  by status:', dict(collections.Counter(r.get('current_status') for r in rows).most_common()))
+    print('  with coordinates:', sum(1 for r in rows if r.get('latitude')), '· homes 10+:', sum(1 for r in rows if float(r.get('proposed_units') or 0) >= 10))
+    return rows
+
+
+FN = {'socrata_sfpipeline': socrata_sfpipeline, 'socrata_zap': socrata_zap, 'ckan_devapps': ckan_devapps, 'ckan_permits': ckan_permits, 'socrata_permits': socrata_permits, 'ods_permits': ods_permits, 'socrata_dobnow': socrata_dobnow}
 for name, spec in CFG['sources'].items():
     print('==', name, spec['type'])
     try:
