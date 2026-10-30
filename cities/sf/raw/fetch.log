@@ -1,0 +1,42 @@
+== datasf
+   analysis_neighborhoods https://data.sfgov.org/api/geospatial/p5b7-5n3h?method=export&format=GeoJSON Expecting value: line 4 column 5 (char 53)
+   sffind https://data.sfgov.org/api/geospatial/pty2-tcw4?method=export&format=GeoJSON Expecting value: line 4 column 5 (char 53)
+wrote supervisors.geojson 304 KB
+  supervisors 11 features · ['data_as_of', 'data_loaded_at', 'sup_dist', 'sup_dist_name', 'sup_dist_num', 'sup_dist_pad', 'sup_name']
+wrote historic_districts.geojson 1350 KB
+  historic_districts 204 features · ['a10', 'a11', 'cr', 'date_updated', 'dateadop', 'description', 'docname', 'link', 'name_1', 'nr', 'origin', 'pos_1']
+wrote cultural_districts.geojson 96 KB
+  cultural_districts 10 features · ['designation_date', 'district_name']
+== region
+  region_incorporatedplace_clp | fields: ['objectid', 'fipst', 'fipco', 'jurname', 'Shape__Area', 'Shape__Length']
+wrote cities.geojson 3207 KB
+  sample {'objectid': 405, 'fipst': '06', 'fipco': '095', 'jurname': 'Dixon', 'Shape__Area': 0.001923448643537995, 'Shape__Length': 0.3642369574413644}
+  region_county_clp | fields: ['objectid', 'fipst', 'fipco', 'coname', 'Shape__Area', 'Shape__Length']
+wrote bay_counties.geojson 2536 KB
+  sample {'objectid': 28, 'fipst': '06', 'fipco': '001', 'coname': 'Alameda', 'Shape__Area': 0.19690581202121393, 'Shape__Length': 3.927896303116262}
+== census
+  downloaded state.zip 3 MB
+wrote states.geojson 1 features
+  downloaded county.zip 11 MB
+wrote counties.geojson 33 features
+  downloaded sldu.zip 0 MB
+wrote senate.geojson 3 features
+  downloaded sldl.zip 0 MB
+wrote assembly.geojson 4 features
+== congress
+  AB_604_-_California_Congressional_Districts_2027-2032_as_enacted_by_Proposition_50 | fields: ['FID', 'DISTRICT', 'A_POP', 'DEVIATION', 'CVAP', 'HSP_CVAP', 'IND_CVAP', 'BLK_CVAP', 'ASN_CVAP', 'WHT_CVAP', 'CVAP_PCT', 'HSP_CVAP_P', 'IND_CVAP_P', 'BLK_CVAP_P', 'ASN_CVAP_P', 'WHT_CVAP_P']
+wrote congress.geojson 10020 KB
+  sample {'FID': 1, 'DISTRICT': '42', 'A_POP': 760067, 'DEVIATION': 1, 'CVAP': 547320, 'HSP_CVAP': 134603, 'IND_CVAP': 4347, 'BLK_CVAP': 36075, 'ASN_CVAP': 69836, 'WHT_CVAP': 295693, 'CVAP_PCT': 0.720094, 'HSP_CVAP_P': 0.245931, 'IND_CVAP_P': 0.007942, 'BLK_CVAP_P': 0.065912, 'ASN_CVAP_P': 0.127596, 'WHT_CVAP_P': 0.540256}
+== gtfs
+  bart 14 routes Counter({'1': 12, '3': 2}) · 50 stations · 26 shapes · [('Yellow-S', "Antioch to SF Int'l Airport SFO/Millbrae"), ('Yellow-N', "Millbrae/SF Int'l SFO to Antioch"), ('Orange-N', 'Berryessa/North San Jose to Richmond'), ('Orange-S', 'Richmond to Berryessa/North San Jose'), ('Green-S', 'Berryessa/North San Jose to Daly City'), ('Green-N', 'Daly City to Berryessa/North San Jose'), ('Red-S', "Richmond to SF Int'l Airport SFO/Millbrae"), ('Red-N', "Millbrae/SF Int'l Airport SFO to Richmond"), ('Blue-S', 'Dublin/Pleasanton to Daly City'), ('Blue-N', 'Daly City to Dublin/Pleasanton'), ('Grey-N', "Oakland Int'l Airport OAK to Coliseum"), ('Grey-S', "Coliseum to Oakland Int'l Airport OAK"), ('BridgeA', 'Bus Bridge'), ('BridgeB', 'Bus Bridge')]
+  caltrain 5 routes Counter({'2': 5}) · 30 stations · 18 shapes · [('Local Weekday', ''), ('Local Weekend', ''), ('Limited', ''), ('Express', ''), ('South County', 'South Santa Clara County Connector')]
+  muni 10 routes Counter({'0': 7, '5': 3}) · 408 stations · 69 shapes · [('CA', 'CALIFORNIA STREET CABLE CAR'), ('F', 'MARKET & WHARVES'), ('J', 'CHURCH'), ('K', 'INGLESIDE'), ('L', 'TARAVAL'), ('M', 'OCEAN VIEW'), ('N', 'JUDAH'), ('PH', 'POWELL-HYDE CABLE CAR'), ('PM', 'POWELL-MASON CABLE CAR'), ('T', 'THIRD')]
+wrote gtfs_rail.json 1038 KB
+== osm
+wrote osm_places.json 19 KB
+wrote osm_streets.json 3347 KB
+wrote osm_highways.json 9776 KB
+wrote osm_rail.json 8382 KB
+wrote osm_stations.json 119 KB
+wrote osm_landmarks.json 92 KB
+FAILED: ['analysis_neighborhoods', 'sffind']
