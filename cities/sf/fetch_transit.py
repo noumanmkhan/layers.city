@@ -20,7 +20,8 @@ HUBS = [  # (key, name, lon, lat)
     ('montgomery', 'Montgomery Street', -122.4018, 37.7894),   # BART and Muni Metro, Market at Montgomery/New Montgomery
     ('missionbay', '4th & King', -122.3947, 37.7766),         # Caltrain terminal and the T Third, Mission Bay
 ]
-FEEDS = [('muni', ['https://muni-gtfs.apps.sfmta.com/data/muni_gtfs-current.zip'], True),
+# Muni: the City's copy on DataSF first (it carries the fall schedule; SFMTA's "current" file ended August 28, 2026).
+FEEDS = [('muni', ['https://data.sfgov.org/download/dni7-qpv3/application/x-zip-compressed', 'https://muni-gtfs.apps.sfmta.com/data/muni_gtfs-current.zip'], True),
          ('bart', ['https://www.bart.gov/dev/schedules/google_transit.zip'], True),
          ('caltrain', ['https://data.trilliumtransit.com/gtfs/caltrain-ca-us/caltrain-ca-us.zip'], True)]
 OSM = 'https://download.bbbike.org/osm/bbbike/SanFrancisco/SanFrancisco.osm.pbf'
