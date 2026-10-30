@@ -1,0 +1,31 @@
+-rw-r--r-- 1 runner runner 1017584 Oct 30 18:31 bart.zip
+['agency.txt', 'calendar.txt', 'calendar_attributes.txt', 'calendar_dates.txt', 'directions.txt', 'fare_attributes.txt', 'fare_rider_categories.txt', 'fare_rules.txt', 'feed_info.txt', 'realtime_routes.txt', 'rider_categories.txt', 'routes.txt', 'route_attributes.txt', 'shapes.txt', 'stops.txt', 'stop_times.txt', 'transfers.txt', 'trips.txt']
+{'route_id': '1', 'route_short_name': 'Yellow-S', 'route_long_name': "Antioch to SF Int'l Airport SFO/Millbrae", 'route_type': '1', 'route_color': 'FFFF33'}
+{'route_id': '2', 'route_short_name': 'Yellow-N', 'route_long_name': "Millbrae/SF Int'l SFO to Antioch", 'route_type': '1', 'route_color': 'FFFF33'}
+{'route_id': '3', 'route_short_name': 'Orange-N', 'route_long_name': 'Berryessa/North San Jose to Richmond', 'route_type': '1', 'route_color': 'FF9933'}
+{'route_id': '4', 'route_short_name': 'Orange-S', 'route_long_name': 'Richmond to Berryessa/North San Jose', 'route_type': '1', 'route_color': 'FF9933'}
+{'route_id': '5', 'route_short_name': 'Green-S', 'route_long_name': 'Berryessa/North San Jose to Daly City', 'route_type': '1', 'route_color': '339933'}
+{'route_id': '6', 'route_short_name': 'Green-N', 'route_long_name': 'Daly City to Berryessa/North San Jose', 'route_type': '1', 'route_color': '339933'}
+{'route_id': '7', 'route_short_name': 'Red-S', 'route_long_name': "Richmond to SF Int'l Airport SFO/Millbrae", 'route_type': '1', 'route_color': 'FF0000'}
+{'route_id': '8', 'route_short_name': 'Red-N', 'route_long_name': "Millbrae/SF Int'l Airport SFO to Richmond", 'route_type': '1', 'route_color': 'FF0000'}
+{'route_id': '11', 'route_short_name': 'Blue-S', 'route_long_name': 'Dublin/Pleasanton to Daly City', 'route_type': '1', 'route_color': '0099CC'}
+{'route_id': '12', 'route_short_name': 'Blue-N', 'route_long_name': 'Daly City to Dublin/Pleasanton', 'route_type': '1', 'route_color': '0099CC'}
+{'route_id': '19', 'route_short_name': 'Grey-N', 'route_long_name': "Oakland Int'l Airport OAK to Coliseum", 'route_type': '1', 'route_color': 'B0BEC7'}
+{'route_id': '20', 'route_short_name': 'Grey-S', 'route_long_name': "Coliseum to Oakland Int'l Airport OAK", 'route_type': '1', 'route_color': 'B0BEC7'}
+{'route_id': 'BB-A', 'route_short_name': 'BridgeA', 'route_long_name': 'Bus Bridge', 'route_type': '3', 'route_color': '000000'}
+{'route_id': 'BB-B', 'route_short_name': 'BridgeB', 'route_long_name': 'Bus Bridge', 'route_type': '3', 'route_color': '000000'}
+291 [{'stop_id': 'A10-1', 'stop_name': 'Lake Merritt', 'location_type': '0', 'parent_station': 'LAKE', 'platform_code': '1'}, {'stop_id': 'A10-2', 'stop_name': 'Lake Merritt', 'location_type': '0', 'parent_station': 'LAKE', 'platform_code': '2'}, {'stop_id': 'A20-1', 'stop_name': 'Fruitvale', 'location_type': '0', 'parent_station': 'FTVL', 'platform_code': '1'}, {'stop_id': 'A20-2', 'stop_name': 'Fruitvale', 'location_type': '0', 'parent_station': 'FTVL', 'platform_code': '2'}, {'stop_id': 'A30-1', 'stop_name': 'Coliseum', 'location_type': '0', 'parent_station': 'COLS', 'platform_code': '1'}, {'stop_id': 'A30-2', 'stop_name': 'Coliseum', 'location_type': '0', 'parent_station': 'COLS', 'platform_code': '2'}, {'stop_id': 'H10', 'stop_name': 'Coliseum - OAC', 'location_type': '0', 'parent_station': 'COLS', 'platform_code': '3'}, {'stop_id': 'A40-1', 'stop_name': 'San Leandro', 'location_type': '0', 'parent_station': 'SANL', 'platform_code': '1'}]
+['Lake Merritt', 'Lake Merritt', 'Fruitvale', 'Fruitvale', 'Coliseum', 'Coliseum', 'Coliseum - OAC', 'San Leandro', 'San Leandro', 'Bay Fair', 'Bay Fair', 'Hayward', 'Hayward', 'South Hayward', 'South Hayward', 'Union City', 'Union City', 'Fremont', 'Fremont', 'Rockridge', 'Rockridge', 'Orinda', 'Orinda', 'Lafayette', 'Lafayette', 'Walnut Creek', 'Walnut Creek', 'Pleasant Hill / Contra Costa Centre', 'Pleasant Hill / Contra Costa Centre', 'Concord']
+[{'service_id': '2026_08_10-DX-MVS-Weekday-015', 'monday': '1', 'tuesday': '1', 'wednesday': '1', 'thursday': '1', 'friday': '1', 'saturday': '0', 'sunday': '0', 'start_date': '20260810', 'end_date': '20270108'}, {'service_id': '2026_08_10-SA-MVS-Saturday-015', 'monday': '0', 'tuesday': '0', 'wednesday': '0', 'thursday': '0', 'friday': '0', 'saturday': '1', 'sunday': '0', 'start_date': '20260822', 'end_date': '20270109'}, {'service_id': '2026_08_10-SA-MVS-Saturday-085', 'monday': '0', 'tuesday': '0', 'wednesday': '0', 'thursday': '0', 'friday': '0', 'saturday': '1', 'sunday': '0', 'start_date': '20260815', 'end_date': '20260926'}, {'service_id': '2026_08_10-SA-MVS-Saturday-094', 'monday': '0', 'tuesday': '0', 'wednesday': '0', 'thursday': '0', 'friday': '0', 'saturday': '1', 'sunday': '0', 'start_date': '20261114', 'end_date': '20261114'}]
+{'route_id': '5', 'service_id': '2026_08_10-DX-MVS-Weekday-015', 'trip_id': '1965527', 'trip_headsign': 'OAK Airport / SF / Daly City', 'direction_id': '1', 'block_id': '', 'shape_id': '005B_shp', 'trip_load_information': '', 'wheelchair_accessible': '1', 'bikes_allowed': '1'}
+HTTP/2 200 
+date: Fri, 30 Oct 2026 18:31:59 GMT
+content-type: text/html
+server: cloudflare
+vary: Accept-Encoding
+-rw-r--r-- 1 runner runner 38510 Oct 30 18:31 tu.pb
+age 0 tu 82 vehicle 0 routes Counter({'': 82})
+stops [('M50-2', 1793385082, 1793385106, 19), ('M40-2', 1793385207, 1793385231, 0), ('M30-2', 1793385303, 1793385333, 0), ('M20-2', 1793385399, 1793385429, 0), ('M16-2', 1793385495, 1793385531, 0), ('M10-2', 1793385927, 1793385957, 0), ('A10-1', 1793386273, 1793386309, 0), ('A20-1', 1793386526, 1793386544, 0), ('A30-1', 1793386718, 1793386736, 0), ('A40-1', 1793386963, 1793386981, 0), ('A50-1', 1793387189, 1793387225, 0), ('A60-1', 1793387458, 1793387476, 0)]
+trip trip_id: "1965550"
+schedule_relationship: SCHEDULED
+
