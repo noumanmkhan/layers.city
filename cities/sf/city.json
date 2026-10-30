@@ -83,7 +83,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA)",
  "example": {
   "at": [
    37.779,
@@ -184,6 +184,16 @@
      "note": "The Golden Gate Bridge, Coit Tower, the Ferry Building, parks and ballparks"
     },
     {
+     "id": "hospitals",
+     "kind": "places",
+     "under": "landmarks",
+     "file": "institutions",
+     "cat": "hospital",
+     "name": "Hospitals",
+     "place": "Hospital",
+     "note": "General hospitals with an emergency department; long-term care and outpatient campuses left out"
+    },
+    {
      "id": "towers",
      "kind": "towers",
      "under": "landmarks",
@@ -242,6 +252,96 @@
      "note": "The City’s ten: Japantown, Calle 24, SoMa Pilipinas, the Castro LGBTQ…",
      "label": "{name}",
      "hover": "{name} Cultural District"
+    }
+   ]
+  ],
+  [
+   "Outdoors",
+   [
+    {
+     "id": "parks",
+     "kind": "parks",
+     "file": "parks",
+     "lazy": true,
+     "optional": true,
+     "name": "Parks",
+     "place": "Rec & Park property",
+     "note": "Rec & Park properties shaded green; pick a playground or dog play area",
+     "countNote": "{n} Rec & Park properties shaded green; pick a playground or dog play area",
+     "amenities": {
+      "play": [
+       "Playground",
+       "Parks with a children’s play area"
+      ],
+      "dog": [
+       "Dog play area",
+       "Parks with an off-leash dog play area"
+      ]
+     },
+     "legend": "Pick one or more: parks with all of them stay green, the rest fade.",
+     "matchText": "{n} of {total} parks.",
+     "hasLabel": "Has",
+     "fine": "Outlines and amenities from the Recreation and Park Department’s property and facility lists as of {parks}. The Presidio, Ocean Beach and other federal (Golden Gate National Recreation Area) and state land isn’t Rec & Park’s, so it isn’t shaded."
+    },
+    {
+     "id": "sports",
+     "kind": "places",
+     "file": "sports",
+     "icon": "tennis",
+     "minZoom": 12,
+     "narrow": true,
+     "search": false,
+     "hover": "{name}",
+     "cats": [
+      [
+       "pool",
+       "Pools",
+       "Pool"
+      ],
+      [
+       "diamond",
+       "Ball fields",
+       "Ball field"
+      ],
+      [
+       "field",
+       "Sports fields",
+       "Sports field"
+      ],
+      [
+       "tennis",
+       "Tennis",
+       "Tennis courts"
+      ],
+      [
+       "pickleball",
+       "Pickleball",
+       "Pickleball courts"
+      ],
+      [
+       "basketball",
+       "Basketball",
+       "Basketball court"
+      ],
+      [
+       "skatepark",
+       "Skateparks",
+       "Skatepark"
+      ]
+     ],
+     "name": "Sports & rec",
+     "place": "Sports and recreation",
+     "note": "Rec & Park pools, fields and courts; pick a sport below. From zoom 12",
+     "catNote": "Pick one or more; none picked shows them all. Rec & Park’s pools are indoors and open year-round. Tap a pin for what’s there.",
+     "popup": {
+      "rows": [
+       [
+        "has",
+        "Has"
+       ]
+      ],
+      "fine": "From Rec & Park’s facility list as of {asof}. May miss a few."
+     }
     }
    ]
   ],
@@ -512,6 +612,91 @@
    ]
   ],
   [
+   "Education",
+   [
+    {
+     "id": "schools",
+     "kind": "places",
+     "file": "schools",
+     "icon": "elementary",
+     "minZoom": 13,
+     "cats": [
+      [
+       "elementary",
+       "Elementary",
+       "Elementary school"
+      ],
+      [
+       "secondary",
+       "Middle & high",
+       "Middle or high school"
+      ]
+     ],
+     "name": "Schools",
+     "place": "School",
+     "note": "SFUSD’s public schools, by level; from zoom 13. No charter or private schools",
+     "catNote": "Elementary includes K–8 schools. Tap a school for its grades.",
+     "popup": {
+      "rows": [
+       [
+        "g",
+        "Grades"
+       ],
+       [
+        "b",
+        "Type"
+       ],
+       [
+        "a",
+        "Address"
+       ]
+      ],
+      "fine": "From the California Department of Education’s school directory. SFUSD assigns most students by a choice lottery, not by address: check SFUSD’s enrollment pages."
+     }
+    },
+    {
+     "id": "campus",
+     "kind": "places",
+     "file": "institutions",
+     "icon": "university",
+     "cats": [
+      [
+       "university",
+       "Universities",
+       "University"
+      ],
+      [
+       "college",
+       "Community college",
+       "Community college"
+      ]
+     ],
+     "name": "Colleges & universities",
+     "place": "Campus",
+     "note": "Public and nonprofit universities and City College, one point per main campus; no for-profit schools",
+     "aliases": {
+      "UCSF": [
+       "University of California, San Francisco"
+      ],
+      "San Francisco State University": [
+       "SF State",
+       "SFSU"
+      ],
+      "University of San Francisco": [
+       "USF"
+      ],
+      "City College of San Francisco": [
+       "CCSF",
+       "City College"
+      ],
+      "UC Law San Francisco": [
+       "Hastings"
+      ]
+     }
+    }
+   ]
+  ],
+  [
    "Representation",
    [
     {
@@ -553,6 +738,119 @@
      "note": "The new lines voters approved with Proposition 50, used from the November 3, 2026 election",
      "label": "CA-{num}",
      "hover": "Congressional District CA-{num} (2026 lines)"
+    }
+   ]
+  ],
+  [
+   "Community & Faith",
+   [
+    {
+     "id": "community",
+     "kind": "places",
+     "file": "community",
+     "icon": "library",
+     "minZoom": 12,
+     "cats": [
+      [
+       "library",
+       "Libraries",
+       "Library"
+      ],
+      [
+       "cc",
+       "Recreation centers",
+       "Recreation center"
+      ]
+     ],
+     "name": "Libraries & rec centers",
+     "place": "Public place",
+     "note": "San Francisco Public Library branches and Rec & Park recreation centers; from zoom 12"
+    },
+    {
+     "id": "worship",
+     "kind": "places",
+     "file": "faith",
+     "icon": "otherfaith",
+     "cats": [
+      [
+       "church",
+       "Churches",
+       "Church"
+      ],
+      [
+       "synagogue",
+       "Synagogues",
+       "Synagogue"
+      ],
+      [
+       "mosque",
+       "Mosques",
+       "Mosque"
+      ],
+      [
+       "hindu",
+       "Hindu temples",
+       "Hindu temple"
+      ],
+      [
+       "buddhist",
+       "Buddhist temples",
+       "Buddhist temple"
+      ],
+      [
+       "otherfaith",
+       "Other faiths",
+       "Place of worship"
+      ]
+     ],
+     "name": "Places of worship",
+     "place": "Place of worship",
+     "note": "Churches, synagogues, mosques and temples, from OpenStreetMap; pick any mix below",
+     "catNote": "Tap a faith to hide or show it. Other faiths: Jain, Bahá’í, Unitarian and more.",
+     "groups": [
+      [
+       "catholic",
+       "Catholic"
+      ],
+      [
+       "baptist",
+       "Baptist"
+      ],
+      [
+       "evangelical",
+       "Evangelical"
+      ],
+      [
+       "episcopal",
+       "Episcopal"
+      ],
+      [
+       "methodist",
+       "Methodist"
+      ],
+      [
+       "presbyterian",
+       "Presbyterian"
+      ],
+      [
+       "lutheran",
+       "Lutheran"
+      ],
+      [
+       "orthodox",
+       "Orthodox"
+      ],
+      [
+       "other",
+       "Other"
+      ]
+     ],
+     "groupsFor": "church",
+     "groupLabel": "Churches by denomination",
+     "allText": "All",
+     "countText": "{n} churches shown.",
+     "allNote": "Some aren’t listed with a denomination, so they appear only here.",
+     "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal churches."
     }
    ]
   ],
@@ -1051,6 +1349,80 @@
     "bus": "Muni bus route"
    },
    "note": "Muni bus routes with a stop within ¼ mile, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. Muni schedules, week of {week}; Bay Wheels’ station list."
+  },
+  "nearby": {
+   "file": "nearby.json",
+   "radius": 800,
+   "nearest": [
+    [
+     "library",
+     "Library"
+    ],
+    [
+     "cc",
+     "Recreation center"
+    ],
+    [
+     "synagogue",
+     "Synagogue",
+     "worship:synagogue"
+    ],
+    [
+     "mosque",
+     "Mosque",
+     "worship:mosque"
+    ],
+    [
+     "hindu",
+     "Hindu temple",
+     "worship:hindu"
+    ],
+    [
+     "buddhist",
+     "Buddhist temple",
+     "worship:buddhist"
+    ],
+    [
+     "church",
+     "Church",
+     "worship:church"
+    ]
+   ],
+   "within": "Within half a mile",
+   "counts": [
+    [
+     "park",
+     "park",
+     "parks"
+    ],
+    [
+     "playground",
+     "playground",
+     "playgrounds"
+    ],
+    [
+     "dogrun",
+     "dog play area",
+     "dog play areas"
+    ],
+    [
+     "basketball",
+     "park with basketball courts",
+     "parks with basketball courts"
+    ],
+    [
+     "school_e",
+     "elementary school",
+     "elementary schools"
+    ],
+    [
+     "school_s",
+     "middle or high school",
+     "middle or high schools"
+    ]
+   ],
+   "note": "Straight-line distances; half a mile is about a 10-minute walk. Rec & Park, the San Francisco Public Library and the State’s school directory. Counts parks, not courts. Schools are SFUSD’s own; most places are assigned by lottery, not distance. Places of worship (OpenStreetMap) show while their layer is on.",
+   "sources": "Sources: San Francisco Recreation and Park Department, San Francisco Public Library, California Department of Education, OpenStreetMap (hospitals, colleges and places of worship)."
   }
  },
  "presets": {
