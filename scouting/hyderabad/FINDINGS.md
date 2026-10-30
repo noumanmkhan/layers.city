@@ -45,3 +45,14 @@ December 2027). Re-run the workflow then, or when OpenCity updates "Hyderabad - 
   100, Malkajgiri 100); GHMC polls were being aimed at November–December 2026, with no notification yet.
 - Revenue boundaries are frozen for the census: no district, sub-district (mandal) or village changes from
   January 1, 2026 to March 31, 2027. Ward boundaries aren't covered by the freeze.
+
+## Built October 30, 2026: the revenue-track map (unlisted, /hyderabad/)
+The user chose to build the revenue track now and add a revenue/civic picker once civic boundaries are published.
+- Overpass timed out on every query that day; OpenStreetMap now comes from Geofabrik's southern India extract
+  (`cities/hyderabad/fetch_osm.py`), which took three minutes.
+- **Constituencies are not drawn.** Tested against 16 places whose seat is certain: DataMeet's assembly lines were
+  wrong for 6 (Charminar and Mecca Masjid in Goshamahal, Jubilee Hills Road 36 in Sanathnagar, Khairatabad in Jubilee
+  Hills), OpenCity's 2018 map for 3 (KPHB, Sanathnagar, Secunderabad station). Against GHMC's 2022 ward map (each old
+  ward lies inside one seat), the 2018 map splits 59 of 155 wards between seats. Accurate lines would need the
+  ward-to-constituency list for the old GHMC area (union of wards) and the 2008 Delimitation Order's mandal and village
+  lists outside it. `cities/hyderabad/representatives.json` (MLAs, MPs) is ready for when that's done.

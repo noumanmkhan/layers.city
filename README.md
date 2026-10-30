@@ -233,6 +233,25 @@ The fifth city (`cities/nyc/`), listed on the hub on October 19, 2026 beside Tor
 
 It has Toronto's features: boroughs, known-as names, landmarks, skyscrapers from 650 ft, historic districts and individual landmarks, BIDs, the subway (by trunk line), LIRR, Metro-North, NJ Transit and PATH, ferries, highways and main streets, MTA buses with a Transit nearby section, bike lanes and Citi Bike, How addresses work (Fifth Avenue's East and West, Manhattan only), collection days, parks, sports, schools with the zoned elementary, middle and high school on the card, colleges, hospitals, libraries, community centers (NYC Parks recreation centers, NYCHA centers, Beacons in schools), older adult centers and places of worship, halal and kosher grocers, butchers, bakeries and fish markets picked from New York State's registries (no restaurants or chain counters), School zones as a map layer (elementary, middle or high), New development from DOB NOW with rezonings from City Planning's land-use applications (ZAP, placed on their tax lots through PLUTO, applicant names removed), the community district lens from the American Community Survey, tree canopy, *To Penn Station* transit times (r5py on the MTA schedules) and the suburban drive lens, representatives with council members' parties, and where to vote on November 3 with the ballot. Parking & Charging has NYC DOT's 39 municipal garages and fields (spaces and hours, from the City's list, kept by hand) and public EV chargers from the DOE's Alternative Fuels Data Center. New York-only layers: hurricane evacuation zones (and the nearest evacuation center) and the Congestion Relief Zone. What's left is in `cities/nyc/PARKED.md`; sources in `cities/nyc/SOURCES.md`.
 
+## Hyderabad (unlisted)
+
+**Live at:** https://layers.city/hyderabad/ (not on the hub yet)
+
+The sixth city (`cities/hyderabad/`), started October 30, 2026, and the first outside North America. Hyderabad runs on
+two parallel sets of boundaries: the **revenue** track (districts, mandals and villages, where land records,
+registrations and certificates are handled) and the **civic** track (municipal corporations, zones, circles and wards,
+for roads, drains and property tax). The civic one was redrawn twice in three months (300 wards in December 2025, then
+three corporations in February 2026) and is published only as pictures, so this map shows the revenue track, which the
+2027 census has frozen until March 31, 2027.
+
+"The city" is the 35 mandals mostly inside the Outer Ring Road, coloured by the four districts they belong to
+(Hyderabad, Medchal–Malkajgiri, Ranga Reddy, Sangareddy); the regional view shows the other mandals of those districts,
+with a focus picker per district. Also: known-as names (HITEC City, the Old City, Banjara Hills…), landmarks, 2025 PIN
+codes, main streets, the ORR, the PVNR Expressway and the national highways, the Metro's three lines and the MMTS.
+The card says plainly what isn't on the map yet: the municipal corporation, and the MLA and MP, because the open
+constituency maps put well-known places in the wrong seat (checked against the old ward map). A revenue/civic picker
+comes once the civic boundaries are published. Scouting notes: `scouting/hyderabad/FINDINGS.md`.
+
 ## How it's built
 
 - **One engine, one folder per city.** The map page is a shared engine (`engine/`) that knows how to draw kinds of layer: filled areas, official neighbourhoods, representation boundaries, business areas, streets, highways, regional rail and rapid transit. Everything about Toronto lives in `cities/toronto/`: `city.json` holds the layer list, labels, lenses and the rows of the "What's here" card, and `city.css` holds Toronto's colours. Adding a city means adding its data and config, not changing the engine.
@@ -342,7 +361,12 @@ Vancouver:
 - [TransLink GTFS](https://www.translink.ca/about-us/doing-business-with-translink/app-developer-resources) for SkyTrain, SeaBus, the West Coast Express, buses and transit times to Waterfront. Mobi's GBFS feed for bike share stations (no licence stated: re-check before any commercial use).
 - Wikipedia's List of tallest buildings in Vancouver (CC BY-SA); ESA WorldCover 2021 (CC BY 4.0); OSRM for drive times; institutions, places of worship, streets, highways and transit under construction © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL); Nominatim for a few addresses.
 
-`cities/toronto/SOURCES.md`, `cities/chicago/SOURCES.md`, `cities/vancouver/SOURCES.md` and `cities/dallas/SOURCES.md` list the exact queries used to fetch the raw data. The data stays under its original licences.
+Hyderabad:
+
+- Districts and mandals (the Government of Telangana's lines), lakes, roads, the Metro, the MMTS and place names © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL), read from Geofabrik's southern India extract.
+- PIN codes: the Department of Posts' 2025 delivery areas, via [OpenCity](https://data.opencity.in/) (public domain).
+
+`cities/toronto/SOURCES.md`, `cities/chicago/SOURCES.md`, `cities/vancouver/SOURCES.md`, `cities/dallas/SOURCES.md` and `cities/hyderabad/SOURCES.md` list the exact queries used to fetch the raw data. The data stays under its original licences.
 
 ## Licence
 

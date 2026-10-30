@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Hyderabad, unlisted: the revenue-track map (October 30)
+- A new city at /hyderabad/, kept off the hub. The 35 mandals mostly inside the Outer Ring Road are the units, filled by
+  their district; the regional view covers every mandal of the four districts, with a district focus. Known-as names,
+  landmarks, PIN codes, main streets, highways, the Metro and the MMTS. No lens (the profile file is empty and the
+  lens is marked optional), no constituencies and no representatives yet: the card says why.
+- Engine: `outside.muniLabel` names the areas beyond the city on their card ("Mandal"); absent means "Municipality",
+  as before. Contract: the `outside` entry in section 4.
+
 ### Next scheduled bus when nothing is live (October 28)
 - On Where does this line or route go?, a route with no live times because it isn't running (overnight, a
   rush-hour-only route, Lines 5 and 6 before they open) now says when the next one is due from the timetable: "Next
