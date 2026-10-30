@@ -29,7 +29,7 @@ import shapely
 from shapely.geometry import shape, Point, box
 from shapely import clip_by_rect, make_valid
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import settings, units_file, station_keys, Units
+from common import settings, units_file, station_keys, metro_files, Units
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 city = sys.argv[1] if len(sys.argv) > 1 else sys.exit('usage: build.py <city>')
@@ -88,8 +88,9 @@ def layer(name):
 census = opt(CFG.get('census', 'nbhd_profiles.json'), {})
 nearby = opt('nearby.json', {'groups': {}})['groups']
 
-stations = layer('subway_stations')
-subway_lines = layer('subway_lines')
+MST, MLN = metro_files(CFG)
+stations = [x for n in MST for x in layer(n)]
+subway_lines = [x for n in MLN for x in layer(n)]
 streetcars = layer('streetcars')
 HAS = lambda name: os.path.exists(os.path.join(D, name + '.geojson'))
 bikes = layer('bikes')
@@ -152,18 +153,24 @@ def station_graph():
             ks = [at.get((round(x, 5), round(y, 5))) for x, y in p['stops']]
             ks = [k for k in ks if k is not None]
             for a, b in zip(ks, ks[1:]):
-                if a != b and (b, p['line']) not in adj[a]:
-                    adj[a].append((b, p['line'])); adj[b].append((a, p['line']))
+                if a != b and (b, str(p['line']).lower()) not in adj[a]:
+                    adj[a].append((b, str(p['line']).lower())); adj[b].append((a, str(p['line']).lower()))
         for x, y in pat.get('transfers', []):   # free transfers between stations mapped apart
             a, b = at.get(tuple(round(v, 5) for v in x)), at.get(tuple(round(v, 5) for v in y))
             if a is not None and b is not None and (b, WALK) not in adj[a]:
                 adj[a].append((b, WALK)); adj[b].append((a, WALK))
     else:
         for g, m in subway_lines:
-            line = m.get('line')
-            on = sorted((g.project(sg), k) for k, (sg, sm) in enumerate(stations) if line in sm.get('lines', []))
+            line = str(m.get('line')).lower()   # line ids are compared without case ("Yellow" and "yellow")
+            on = sorted((g.project(sg), k) for k, (sg, sm) in enumerate(stations) if line in [str(x).lower() for x in sm.get('lines', [])])
             for (_, a), (_, b) in zip(on, on[1:]):
                 adj[a].append((b, line)); adj[b].append((a, line))
+    # Transfers the settings name (factsheet.json "transfers": [[station, station]], stations by name), for a
+    # passage longer than the 350 m below, or between two agencies' stations of different names.
+    for a_, b_ in CFG.get('transfers', []):
+        for i in [k for k, (_, m) in enumerate(stations) if m['name'] == a_]:
+            for j in [k for k, (_, m) in enumerate(stations) if m['name'] == b_]:
+                if (j, WALK) not in adj[i]: adj[i].append((j, WALK)); adj[j].append((i, WALK))
     # Platforms of one station complex mapped as separate stations (New York's two Fulton Sts): one name within
     # 350 m, or any two within 200 m, are a walk apart (the patterns file can also list transfers).
     for i in range(len(stations)):
@@ -180,7 +187,8 @@ SADJ = station_graph()
 def to_hubs(k):
     """[[stops, changes] or None per hub] from station k, fewest stops with changes weighed in."""
     best = {}
-    heap = [(0, 0, 0, k, l) for l in stations[k][1].get('lines', [])]
+    low = lambda ls: [str(x).lower() for x in ls]   # line ids compared without case, as station_graph() builds them
+    heap = [(0, 0, 0, k, l) for l in low(stations[k][1].get('lines', []))]
     seen = set()
     while heap:
         cost, n, ch, i, line = heapq.heappop(heap)
@@ -189,9 +197,11 @@ def to_hubs(k):
         seen.add((i, line))
         if SNAME[i] not in best:
             best[SNAME[i]] = [n, ch]
+        if stations[i][1]['name'] not in best:   # a hub named plainly is reached at any station of that name
+            best[stations[i][1]['name']] = [n, ch]
         for j, l in SADJ[i]:
             if l == WALK:   # walk to the other platforms and board any of their lines: a change, no stop
-                for l2 in stations[j][1].get('lines', []):
+                for l2 in low(stations[j][1].get('lines', [])):
                     heapq.heappush(heap, (cost + TRANSFER, n, ch + 1, j, l2))
                 continue
             extra = 0 if l == line else TRANSFER
@@ -660,7 +670,7 @@ def build(feat):
 
     glance = [
         [U.area(P.area), 'area'],
-        [str(len(st_names)), 'subway station' if len(st_names) == 1 else 'subway stations'],
+        [str(len(st_names)), lbl('glanceStation', 'subway station') if len(st_names) == 1 else lbl('glanceStations', 'subway stations')],
         [str(len(parks)), 'park' if len(parks) == 1 else 'parks'],
         *([[str(len(shares)), lbl('glanceBikeshare', 'bike share stations')]] if bikeshare else []),
         [str(n_heritage), lbl('glanceHeritage', 'heritage buildings')],

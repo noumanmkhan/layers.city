@@ -23,6 +23,14 @@ def units_file(cfg):
     return cfg.get('units', 'neighbourhoods') + '.geojson'
 
 
+def metro_files(cfg):
+    """The published files of rapid-transit stations and lines a fact sheet counts as "the subway": factsheet.json
+    "metro": {"stations": [...], "lines": [...]}, for a city whose metro is several layers (one per agency); by
+    default the one subway_stations and subway_lines."""
+    m = cfg.get('metro', {})
+    return m.get('stations', ['subway_stations']), m.get('lines', ['subway_lines'])
+
+
 def station_keys(feats):
     """A name for each station that is unique in the city: the station's own name, or, where two stations share
     it (New York has several 86 St), the name with its lines, "86 St (4 5 6)". Fact sheets look stations up by

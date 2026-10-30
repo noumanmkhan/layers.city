@@ -26,7 +26,7 @@ from shapely.geometry import shape, Point
 from shapely.ops import unary_union
 from shapely.prepared import prep
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import settings, units_file, station_keys
+from common import settings, units_file, station_keys, metro_files
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 args = [a for a in sys.argv[1:] if not a.startswith('--')]
@@ -122,7 +122,7 @@ def gj(name):
 
 
 nearby = (load('nearby.json') or {'groups': {}})['groups']
-stations = gj('subway_stations')
+stations = [f for n in metro_files(CFG)[0] for f in gj(n)]
 EXTRAS = os.path.join(ROOT, 'cities', city, 'raw', 'walk_extras.json')
 extras = json.load(open(EXTRAS)) if os.path.exists(EXTRAS) else {'entrances': [], 'parks': []}
 ENTRANCE_M = 300     # an entrance belongs to the nearest station within this distance
