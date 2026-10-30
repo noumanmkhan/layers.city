@@ -46,7 +46,12 @@ const FEEDS = {
     liveAll: true,
   },
   sf: { main: env => env.FIVE11_KEY && `https://api.511.org/transit/tripupdates?api_key=${encodeURIComponent(env.FIVE11_KEY)}&agency=SF`,
-        ttl: 60, keep: 900, idPrefix: '1' },
+        ttl: 60, keep: 900, idPrefix: '1',   // idPrefix: the main feed's stop ids only
+        // BART (no key): its trip updates name trips, not routes, so tripRoutes maps them from the table the Routes
+        // page's build writes. Read only when a BART platform is asked about.
+        rapid: { bart: 'https://api.bart.gov/gtfsrt/tripupdate.aspx' },
+        lineFeed: Object.fromEntries(['Yellow', 'Orange', 'Green', 'Red', 'Blue', 'OAK'].map(l => ['BART-' + l, 'bart'])),
+        tripRoutes: { bart: '/sf/routes/data/bart_trips.json' } },
 };
 const FEED_TTL = 20;      // seconds a feed is cached at the edge, unless it sets its own ttl
 const MAX_STOPS = 24;
@@ -62,9 +67,11 @@ export async function onRequestGet({ request, env }) {
   const rapid = url.searchParams.get('rapid') === '1' && !!feeds.rapid;
 
   // A city with a feed per group of rapid lines: only the feeds for the lines asked for (all when none are named).
-  const lines = [...new Set((url.searchParams.get('lines') || '').split(',').map(s => s.trim()).filter(s => /^\w{1,8}$/.test(s)))].sort();
+  const lines = [...new Set((url.searchParams.get('lines') || '').split(',').map(s => s.trim()).filter(s => /^[\w-]{1,20}$/.test(s)))].sort();
+  // With lines named, only their feeds (a line in no rapid feed, like Muni Metro's in San Francisco's main feed, adds
+  // none); with none named, all of them.
   const rapidFeeds = !rapid ? [] : typeof feeds.rapid === 'object' && feeds.rapid
-    ? [...new Set(lines.length && feeds.lineFeed && lines.every(l => feeds.lineFeed[l]) ? lines.map(l => feeds.lineFeed[l]) : Object.keys(feeds.rapid))]
+    ? [...new Set(lines.length && feeds.lineFeed ? lines.map(l => feeds.lineFeed[l]).filter(Boolean) : Object.keys(feeds.rapid))]
     : ['rapid'];
   // The same question within 15 s gets the same answer from the edge cache, without reading the feed again.
   const key = new Request(`${url.origin}/api/arrivals?city=${city}&stops=${[...stops].sort().join(',')}${rapid ? '&rapid=1&f=' + rapidFeeds.join(',') + (url.searchParams.get('onlyRapid') === '1' ? '&o=1' : '') : ''}`);
@@ -93,16 +100,19 @@ export async function onRequestGet({ request, env }) {
     }
   };
   const now = Math.floor(Date.now() / 1000);
-  // The feed's own stop ids for the ones asked for (511: 1 + the stop_id), and back again.
-  const pre = feeds.idPrefix || '';
-  const feedIds = stops.map(s => pre + s);
   const onlyRapid = rapid && feeds.skipMainForRapid && url.searchParams.get('onlyRapid') === '1';
   const bufs = await Promise.allSettled([feeds.main && !onlyRapid ? get('main') : Promise.reject('main feed not read'), ...rapidFeeds.map(get)]);
   if (bufs.every(b => b.status === 'rejected')) return json({ error: 'The live feed is not responding right now.' }, 503, 10);
   const out = { asof: 0, stops: Object.fromEntries(stops.map(s => [s, []])) };
-  for (const b of bufs) {
+  const names = ['main', ...rapidFeeds];
+  for (let k = 0; k < bufs.length; k++) {
+    const b = bufs[k], which = names[k];
     if (b.status !== 'fulfilled') continue;
-    const o = scan(b.value, feedIds, now, b.value.length > 1500000);
+    // The feed's own stop ids for the ones asked for (511: 1 + the stop_id), and back again.
+    const pre = which === 'main' ? feeds.idPrefix || '' : '';
+    const feedIds = stops.map(s => pre + s);
+    const trips = feeds.tripRoutes && feeds.tripRoutes[which] ? await tripTable(url.origin + feeds.tripRoutes[which], env) : null;
+    const o = scan(b.value, feedIds, now, b.value.length > 1500000, trips);
     out.asof = Math.max(out.asof, o.asof);
     stops.forEach((s, i) => out.stops[s].push(...o.stops[feedIds[i]].map(x => feeds.liveAll ? [x[0], x[1], x[2], 1] : x)));
   }
@@ -110,6 +120,22 @@ export async function onRequestGet({ request, env }) {
   const res = json({ now, asof: out.asof, stops: out.stops }, 200, Math.min(15, ttl));
   await cache.put(key, res.clone());
   return res;
+}
+
+// A trip -> route table (engine/routes/build.py writes it next to the Routes page's data), kept in the isolate's
+// memory for an hour: it changes only with the agency's schedule.
+const tables = new Map();
+async function tripTable(u, env) {
+  const t = tables.get(u);
+  if (t && Date.now() - t.at < 3600e3) return t.trips;
+  try {
+    const req = new Request(u);
+    const r = env && env.ASSETS ? await env.ASSETS.fetch(req) : await fetch(req, { cf: { cacheTtl: 3600 } });
+    if (!r.ok) throw new Error('trips ' + r.status);
+    const trips = (await r.json()).trips || {};
+    tables.set(u, { at: Date.now(), trips });
+    return trips;
+  } catch { return t ? t.trips : null; }
 }
 
 function json(body, status, maxAge) {
@@ -125,7 +151,7 @@ function json(body, status, maxAge) {
  * TripUpdate: 1 trip {4 schedule_relationship, 5 route_id, 6 direction_id}, 2 stop_time_update*, 3 vehicle {1 id}.
  * StopTimeUpdate: 2 arrival {2 time}, 3 departure {2 time}, 4 stop_id, 5 schedule_relationship.
  * Every other field is skipped by its wire type. */
-export function scan(b, stopIds, now, sparse = false) {
+export function scan(b, stopIds, now, sparse = false, tripRoutes = null) {
   const want = new Map(stopIds.map(s => [s, enc(s)]));
   const byLen = new Map();
   for (const [s, e] of want) { if (!byLen.has(e.length)) byLen.set(e.length, []); byLen.get(e.length).push([s, e]); }
@@ -159,7 +185,7 @@ export function scan(b, stopIds, now, sparse = false) {
   function str(start, len) { let s = ''; for (let i = 0; i < len; i++) s += String.fromCharCode(b[start + i]); return s; }
 
   function tripUpdate(end) {
-    let route = '', dir = 0, rel = 0, live = 0;
+    let route = '', trip = '', dir = 0, rel = 0, live = 0;
     const hits = [];
     while (p < end) {
       const k = varint(), f = k >>> 3, wt = k & 7;
@@ -168,6 +194,7 @@ export function scan(b, stopIds, now, sparse = false) {
         while (p < e) {
           const k2 = varint(), f2 = k2 >>> 3, w2 = k2 & 7;
           if (f2 === 5 && w2 === 2) { const l = varint(); route = str(p, l); p += l; }
+          else if (f2 === 1 && w2 === 2 && tripRoutes) { const l = varint(); trip = str(p, l); p += l; }
           else if (f2 === 6 && w2 === 0) dir = varint();
           else if (f2 === 4 && w2 === 0) rel = varint();
           else skip(w2);
@@ -189,6 +216,7 @@ export function scan(b, stopIds, now, sparse = false) {
       } else skip(wt);
     }
     if (rel === 3 || rel === 7) return;   // CANCELED, DELETED
+    if (!route && tripRoutes) route = tripRoutes[trip] || '';   // a feed that names trips only (BART)
     for (const [stop, t] of hits) if (t >= now - 60 && t <= now + AHEAD) stops[stop].push([route, dir, t, live]);
   }
 

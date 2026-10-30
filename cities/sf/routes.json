@@ -1,11 +1,16 @@
 {
- "_about": "Settings for San Francisco's Routes page (engine/routes/: build.py, page.html), at /sf/routes/: pick a stop near you, see where each Muni bus and Muni Metro line from it goes. Muni Metro's lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their stops in order. BART isn't a route here (it's another agency's feed); its stations are connections, with Muni Metro's.",
+ "_about": "Settings for San Francisco's Routes page (engine/routes/: build.py, page.html), at /sf/routes/: pick a stop near you, see where each Muni bus and Muni Metro line from it goes. Muni Metro's lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their stops in order. BART's lines come from BART's own feed (rapidFeeds); its stations and Muni Metro's are the connections.",
  "modes": [
   "bus",
   "tram",
   "cable",
-  "lrt"
+  "lrt",
+  "subway"
  ],
+ "rapidFeeds": [
+  "bart"
+ ],
+ "_rapidFeeds": "BART's lines come from its own feed (surface.json feeds.bart), fetched into raw/surface/bart/.",
  "live": {
   "api": "/api/arrivals?city=sf",
   "source": "511.org (SFMTA GTFS-Realtime)"
@@ -21,6 +26,8 @@
   "Downtn": "inbound"
  },
  "_platformDirs": "Muni names its subway platforms Outbound and Downtown (inbound); Central Subway platforms say Northbound and Southbound.",
+ "platformNumber": "^[A-Z]\\d+-(\\d)$",
+ "_platformNumber": "BART's platforms are numbered in their stop ids (M20-1 is Montgomery Street's Platform 1), as its signs number them.",
  "regions": [
   "sides"
  ],
@@ -80,13 +87,13 @@
   "city": "San Francisco",
   "title": "Where does this line or route go?",
   "short": "Routes from here",
-  "description": "Find the Muni bus, streetcar, cable car and Muni Metro stops nearest you in San Francisco and see where each route goes, with live next-bus and next-train times: the neighborhoods it passes through, the main streets it runs along, its BART and Muni Metro connections and the landmarks on the way.",
-  "lede": "Find the stops near you, then pick a Muni bus, the F streetcar, a cable car or a Muni Metro line to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
+  "description": "Find the Muni bus, streetcar, cable car and Muni Metro stops and BART platforms nearest you in San Francisco and see where each route goes, with live next-bus and next-train times: the neighborhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.",
+  "lede": "Find the stops near you, then pick a Muni bus, the F streetcar, a cable car, a Muni Metro line or BART to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
   "outside": "That spot is outside San Francisco. Try an address in the city.",
   "noMatch": "No match in San Francisco for “{q}”. Try the full street name, like “1 Ferry Building”.",
   "noStops": "No stops within {r} of that spot.",
-  "credits": "Routes, stops and timetable: SFMTA (Muni) GTFS via DataSF · Neighborhoods: City and County of San Francisco (DataSF) · Streets: © OpenStreetMap contributors (ODbL) · Live times: SFMTA via 511.org · BART stations: BART",
+  "credits": "Routes, stops and timetable: SFMTA (Muni) GTFS via DataSF and BART GTFS · Neighborhoods: City and County of San Francisco (DataSF) · Streets: © OpenStreetMap contributors (ODbL) · Live times: SFMTA via 511.org and BART GTFS-Realtime",
   "mapLink": "Open on the map",
   "mi": true,
   "at": " & ",

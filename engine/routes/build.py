@@ -193,7 +193,8 @@ STREET_STOPS = []   # stops of street lines from the rapid files (below)
 # A platform's direction from its name: "Eastbound Platform", or the agency's own words (routes.json "platformDirs":
 # Muni's "Metro Castro Station/Outbound" and ".../Downtown" are outbound and inbound).
 PDIRS = CFG.get('platformDirs', {})
-DIRWORD = re.compile(r'\b(?:(North|South|East|West)bound' + ''.join('|(' + re.escape(k) + ')' for k in PDIRS) + r')\b', re.I)
+# (the agency's own words count only at the end of a name: "Metro Castro Station/Outbound", not BART's "Downtown Berkeley")
+DIRWORD = re.compile(r'\b(?:(North|South|East|West)bound\b' + ''.join('|(' + re.escape(k) + r')\s*$' for k in PDIRS) + r')', re.I)
 COMPASS = ('north', 'south', 'east', 'west')
 def pdir(name):
     w = DIRWORD.search(name)
@@ -208,9 +209,15 @@ def dir_label(w): return f'{w.capitalize()}bound' if w in COMPASS else w.capital
 def station_of(name):
     return re.sub(r'\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)\b.*$', '', name).strip()
 rapid_ids = set()
-if RAPID_MODES and os.path.exists(os.path.join(RAW, 'surface', 'rapid_routes.json')):
-    RR = json.load(open(os.path.join(RAW, 'surface', 'rapid_routes.json')))['routes']
-    RS_ = json.load(open(os.path.join(RAW, 'surface', 'rapid_stops.json')))['stops']
+# Rapid lines from the city's main feed and from any other agency's (routes.json "rapidFeeds": San Francisco's BART,
+# fetched into raw/surface/bart/ by fetch_surface.py), whose route ids are already their own (BART-Yellow).
+RR, RS_ = [], []
+for fd in [''] + CFG.get('rapidFeeds', []):
+    rp = os.path.join(RAW, 'surface', fd, 'rapid_routes.json')
+    if not os.path.exists(rp): continue
+    RR += json.load(open(rp))['routes']
+    RS_ += json.load(open(os.path.join(RAW, 'surface', fd, 'rapid_stops.json')))['stops']
+if RR:
     for s_ in RS_: stops[s_[0]] = s_
     for r in RR:
         if r['mode'] in MODES and r['mode'] not in RAPID_MODES:
@@ -448,8 +455,12 @@ for r in routes:
                 near_st = min(stations, key=lambda x: x[2].distance(q))
                 name = near_st[0] if near_st[2].distance(q) < NEAR.get('platform', 300) else station_of(stops[sid][1])
                 p['calls'].append([d, name])
-            own = r['short']
-            p['stations'] = [[d, n, [l for l in lines if l != own]] for d, n, lines in p['stations'] if [l for l in lines if l != own]]
+            # A line's own system isn't a connection: the line itself, and the lines grouped with it (routes.json page
+            # "lineGroups": on BART's Yellow, Red and Green at Daly City are the same platforms, not a change).
+            own = {r['short']}
+            for grp in (CFG.get('page', {}).get('lineGroups') or {}).values():
+                if r['short'] in grp: own |= set(grp)
+            p['stations'] = [[d, n, [l for l in lines if l not in own]] for d, n, lines in p['stations'] if [l for l in lines if l not in own]]
             p['cross'] = []
             words = [w for _, sid in seq for w in [pdir(stops[sid][1])] if w]
             if words: p['head'] = max(set(words), key=words.count); p['_w'] = 1
@@ -513,6 +524,11 @@ for sid, rs in stop_routes.items():
         side = f'{dir_label(w)} platform' if w else 'Platform'
         # The agency's own words for a platform's direction, as its signs say them (routes.json "platformLabels":
         # New York's "Uptown & The Bronx", from the MTA's stations list, keyed by the stop id without its N or S).
+        # A platform numbered in its stop id (routes.json "platformNumber", a pattern: BART's M20-1 is Montgomery's
+        # Platform 1), as the agency's signs number them, where its lines go different ways.
+        if CFG.get('platformNumber') and side == 'Platform':
+            pn = re.search(CFG['platformNumber'], sid)
+            if pn: side = f'Platform {pn.group(1)}'
         if PLABELS and sid[-1:] in PLABELS['suffix'] and PLABELS['labels'].get(sid[:-1], {}).get(sid[-1]) not in (None, '', *PLABELS['skip']):
             lab = PLABELS['labels'][sid[:-1]][sid[-1]]
             # "Uptown platform"; a place reads as where the trains are bound: "Manhattan-bound platform"
@@ -564,6 +580,15 @@ if os.path.exists(sp):
     SCHED = {'url': 'data/sched/{b}.json', 'n': SCHED_N}
     sizes = sorted(os.path.getsize(os.path.join(sd, f)) for f in os.listdir(sd))
     print(f'sched: {sum(len(p[0]) for p in parts)} stops in {SCHED_N} files, {sizes[0]}-{sizes[-1]} bytes each')
+
+# An agency whose live trip updates name trips, not routes (BART): its trip -> route table, for the arrivals function
+# (functions/api/arrivals.js "tripRoutes"), at data/<feed>_trips.json.
+for fd in CFG.get('rapidFeeds', []):
+    tp = os.path.join(RAW, 'surface', fd, 'trip_routes.json')
+    if os.path.exists(tp):
+        tr = json.load(open(tp))['trips']
+        json.dump({'routes': sorted(set(tr.values())), 'trips': tr}, open(os.path.join(OUT, 'data', fd + '_trips.json'), 'w'), separators=(',', ':'))
+        print(f'{fd}_trips.json: {len(tr)} trips')
 
 # ---- the page ----
 if not os.path.exists(os.path.join(ROOT, 'engine', 'routes', 'page.html')): sys.exit(print(f'{city}: {len(route_index)} routes, {len(out_stops)} stops (no page template yet)'))

@@ -862,8 +862,10 @@ one from Friday to Sunday.
 
 ## 15. Transit: stops near a spot, where each route goes, live arrivals
 
-Toronto as of October 28, 2026 (buses, streetcars, subway and LRT), San Francisco as of October 30 (Muni buses
-and Muni Metro, as `lrt`; live times from 511.org, `/api/arrivals?city=sf`, one feed, so `liveRapid` changes nothing). New York as of October 30 (MTA buses and the subway, live for both: buses from MTA Bus Time, the subway from the MTA's
+Toronto as of October 28, 2026 (buses, streetcars, subway and LRT), San Francisco as of October 30 (Muni buses,
+streetcars (`tram`), cable cars (`cable`, a word of their own: "cable car") and Muni Metro, as `lrt`, and from October
+31 BART, as `subway`, with route ids `BART-Yellow` and so on and platforms headed "Platform 1"; live times from 511.org for Muni and from BART's own feed, `/api/arrivals?city=sf`: send `liveRapid` and
+`&lines=` with the BART routes at the platforms asked for, as for New York). New York as of October 30 (MTA buses and the subway, live for both: buses from MTA Bus Time, the subway from the MTA's
 feeds; add `&lines=<route ids>` with `liveRapid`, the rapid routes at the platforms asked for, so only their feeds
 are read, and `&onlyRapid=1` when every stop asked for is a platform, so the bus feed isn't). It is the data behind
 the website's "Where does this line or route go?" page (`/toronto/routes/`, `/sf/routes/`); an app can rebuild that page natively from it. A
