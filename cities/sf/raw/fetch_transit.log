@@ -1,0 +1,19 @@
+  got https://muni-gtfs.apps.sfmta.com/data/muni_gtfs-current.zip 10203 KB
+   muni.zip 13868 trips in the morning window
+  got https://www.bart.gov/dev/schedules/google_transit.zip 993 KB
+   bart.zip 1594 trips in the morning window
+  got https://data.trilliumtransit.com/gtfs/caltrain-ca-us/caltrain-ca-us.zip 169 KB
+   caltrain.zip 79 trips in the morning window
+  leaving out empty areas.txt from caltrain.zip
+  leaving out empty booking_rules.txt from caltrain.zip
+  leaving out empty frequencies.txt from caltrain.zip
+  leaving out empty location_groups.txt from caltrain.zip
+  leaving out empty runcut.txt from caltrain.zip
+  leaving out empty timetable_stop_order.txt from caltrain.zip
+  leaving out empty timetables.txt from caltrain.zip
+  got https://download.bbbike.org/osm/bbbike/SanFrancisco/SanFrancisco.osm.pbf 32269 KB
+feed ranges [('20260723', '20260828'), ('20260810', '20270110'), ('20260131', '20270131')]
+departure 2026-08-11 08:00:00
+728 origin points, 2 hubs
+montgomery 38 neighborhoods; minutes min/median/max 15 35 56
+missionbay 38 neighborhoods; minutes min/median/max 17 43 66
