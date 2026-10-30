@@ -179,6 +179,7 @@
 
   "lens": {
     "label": "Neighbourhood lens",
+    "hubLabel": "Trip to",
     "file": "nbhd_profiles.json",
     "source": "2021 Census via City of Toronto Neighbourhood Profiles.",
     "lenses": [
@@ -202,7 +203,12 @@
       {"id": "union", "short": "To Union", "key": "unionBand", "minutes": "union", "optional": true,
        "tiers": [["under30", "Under 30 min", "--uni-1"], ["30to45", "30–45 min", "--uni-2"], ["45to60", "45–60 min", "--uni-3"], ["over60", "Over an hour", "--uni-4"]],
        "note": "Typical transit trip to Union Station leaving 8–9 am on a weekday, walking to the stop included (TTC, GO and UP Express schedules). Median across each neighbourhood.",
-       "source": "TTC and Metrolinx schedules, routed with r5py."},
+       "source": "TTC and Metrolinx schedules, routed with r5py.",
+       "hubs": [
+         {"id": "union", "name": "Union", "short": "To Union", "key": "unionBand", "minutes": "union", "filter": "To Union by transit",
+          "note": "Typical transit trip to Union Station leaving 8–9 am on a weekday, walking to the stop included (TTC, GO and UP Express schedules). Median across each neighbourhood."},
+         {"id": "bloor", "name": "Bloor-Yonge", "short": "To Bloor-Yonge", "key": "bloorBand", "minutes": "bloor", "filter": "To Bloor-Yonge by transit",
+          "note": "Typical transit trip to Bloor-Yonge station leaving 8–9 am on a weekday, walking to the stop included (TTC, GO and UP Express schedules). Median across each neighbourhood."}]},
       {"id": "homes", "short": "Housing type", "key": "homesTier", "field": "homes", "pick": [["detached", "Detached", "detached houses"], ["attached", "Semi & row", "semi-detached or row houses"], ["lowrise", "Low-rise", "flats in duplexes and buildings under five storeys"], ["tower", "Towers", "apartments in buildings of five or more storeys"]], "cuts": [10, 30, 60], "tiers": [["t1", "Under 10%", "--hty-1"], ["t2", "10–30%", "--hty-2"], ["t3", "30–60%", "--hty-3"], ["t4", "60% or more", "--hty-4"]], "note": "Share of each neighbourhood's occupied homes that are {type}."}
     ],
     "filters": [

@@ -151,6 +151,13 @@ if os.path.exists(TU):
         m = (tu.get(k) or {}).get('minutes')
         d['union'] = m
         d['unionBand'] = None if m is None else 'under30' if m < 30 else '30to45' if m < 45 else '45to60' if m <= 60 else 'over60'
+TB = os.path.join(HERE, 'raw', 'transit_bloor.json')   # the transit lens's second hub (fetch_transit_union.py with HUB=bloor)
+if os.path.exists(TB):
+    tb = json.load(open(TB))['neighbourhoods']
+    for k, d in data.items():
+        m = (tb.get(k) or {}).get('minutes')
+        d['bloor'] = m
+        d['bloorBand'] = None if m is None else 'under30' if m < 30 else '30to45' if m < 45 else '45to60' if m <= 60 else 'over60'
 
 json.dump(data, open(OUT, 'w'), separators=(',', ':'))
 from collections import Counter

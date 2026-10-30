@@ -10,7 +10,7 @@
 > **October 28, 2026:** section 15 (transit: stops near a spot, routes, live arrivals) and `city.json` `transit`.
 > Additive; schema stays 2.
 > **October 30, 2026:** a transit lens may offer several hubs (`hubs` on the lens, `lens.hubLabel`; section 4 and the
-> Living here rows): New York (Penn Station or Grand Central) and San Francisco (Montgomery St or 4th & King). Additive:
+> Living here rows): Toronto (Union or Bloor-Yonge), New York (Penn Station or Grand Central) and San Francisco (Montgomery St or 4th & King). Additive:
 > the lens's own `key`, `minutes`, `short` and `note` still name the default hub.
 > **October 28, 2026, later:** `transit.sched`, `transit.schedFiles` and the `sched/` files (section 15, "Scheduled times"): the next
 > scheduled departure when there are no live times. Additive.
@@ -564,6 +564,7 @@ Keyed by unit code as a string (`"71"`). Fields:
 | `pop`, `hh` | Optional, since October 19, 2026. The unit's population and private households from the same census or survey, as weights for citywide figures (the site's Compare page). Not shown on the card. |
 | `cost`, `commute`, `tenure` | Tier ids; labels come from `lens.lenses` (match `key`). |
 | `union`, `unionBand` | Toronto only: transit minutes to Union, weekday 8–9 am, and its tier. |
+| `bloor`, `bloorBand` | Toronto only, since October 30, 2026: the same to Bloor-Yonge station, the transit lens's second hub. Same tier ids as `unionBand`. |
 | `loop`, `loopBand` | Chicago only: transit minutes to the Loop (quickest of five Loop arrival points), weekday 8–9 am, and its tier. Same tier ids as `unionBand`. |
 | `downtown`, `downtownBand` | Dallas only: transit minutes to downtown (quickest of Akard, St. Paul, West End and EBJ Union Station), weekday 8–9 am, median over the ZIP, and its tier. Same tier ids as `unionBand`. Where fewer than half the ZIP's points reach downtown within three hours, `downtown` is null and the band is `over60`. |
 | `penn`, `pennBand`, `gct`, `gctBand` | New York only: transit minutes to Penn Station and to Grand Central (42 St), weekday 8–9 am, median over the community district, and their tiers. Same tier ids as `unionBand`. |
