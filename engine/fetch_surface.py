@@ -31,6 +31,9 @@ stops.json never include them.
 distinct day of service over the next ten weeks (and a typical week for days past the feed's end). The Routes page
 uses it for "next bus at 5:42 am" when the live feed has nothing (overnight, rush-hour-only routes).
 
+With "preferCurrent" in the "gtfs" block, every address is tried and the first whose service runs a week past today
+wins (else the one that runs latest). A feed that has already run out is counted on its last full week.
+
 When the agency's file is broken (the City's CKAN zip came back empty for a week in October 2026), "fallback"
 URLs in the "gtfs" block are tried in turn (Toronto: the TTC's own address, then the Mobility Database's copy).
 
@@ -76,6 +79,20 @@ def ok(path):
     try:
         with zipfile.ZipFile(path) as z: return 'stop_times.txt' in z.namelist()
     except Exception: return False
+
+
+def feed_end(path):
+    """The last day a feed has service on (calendar.txt end dates and added calendar_dates)."""
+    end = dt.date.min
+    with zipfile.ZipFile(path) as z:
+        for n, col, add in (('calendar.txt', 'end_date', None), ('calendar_dates.txt', 'date', 'exception_type')):
+            if n not in z.namelist(): continue
+            with z.open(n) as f:
+                for r in csv.DictReader(io.TextIOWrapper(f, encoding='utf-8-sig')):
+                    v = (r.get(col) or '').strip()
+                    if len(v) == 8 and (add is None or r.get(add, '').strip() == '1'):
+                        end = max(end, dt.date(int(v[:4]), int(v[4:6]), int(v[6:])))
+    return end
 
 
 ZIP = os.path.join(WORK, 'gtfs.zip')
@@ -132,7 +149,19 @@ if urls is None:
     merge(parts, ZIP)
     feed_url = ' + '.join(src['urls'])
 else:
-    feed_url = next((u for u in urls + src.get('fallback', []) if download(u, ZIP) and ok(ZIP)), None)
+    if src.get('preferCurrent'):
+        # Try every address and take the first whose service runs at least a week past today; if none does, the one
+        # that runs latest (SFMTA's "current" file sometimes lags its schedule changes).
+        feed_url, best = None, None
+        for i, u in enumerate(urls + src.get('fallback', [])):
+            p = os.path.join(WORK, 'cand%d.zip' % i)
+            if not (download(u, p) and ok(p)): continue
+            end = feed_end(p); print('  service to', end, u)
+            if best is None or end > best[0]: best = (end, u, p)
+            if end >= dt.date.today() + dt.timedelta(days=7): break
+        if best: os.replace(best[2], ZIP); feed_url = best[1]
+    else:
+        feed_url = next((u for u in urls + src.get('fallback', []) if download(u, ZIP) and ok(ZIP)), None)
 if not feed_url: raise SystemExit('No GTFS found')
 
 # The job runs weekly; agencies publish a new feed every few weeks. Same feed as last time: nothing to do,
@@ -163,7 +192,7 @@ def rows(name):
 def mode(t):
     t = int(t or -1)
     if t == 0 or 900 <= t <= 906: return 'tram'
-    if t == 3 or 700 <= t <= 716: return 'bus'
+    if t in (3, 11) or 700 <= t <= 716 or t == 800: return 'bus'   # 11 and 800: trolleybuses (San Francisco's Muni)
     return None
 
 
@@ -199,6 +228,11 @@ def busy(day): return sum(active(s, day) for s in services)
 # whose Wednesday runs noticeably fewer services than usual (a holiday).
 day = max(dt.date.today() + dt.timedelta(days=1), first)
 day += dt.timedelta(days=(7 - day.weekday()) % 7)
+if day + dt.timedelta(days=6) > last and last - first >= dt.timedelta(days=13):
+    # The feed has run out (the agency hasn't posted its next schedule): count its last full week instead, a
+    # stand-in for how often each route runs, rather than a week with no trips at all.
+    day = last - dt.timedelta(days=6); day -= dt.timedelta(days=day.weekday())
+    print('feed ends', last, 'before a week from tomorrow: counting its last full week')
 for _ in range(6):
     if day + dt.timedelta(days=6) > last: break
     wed = day + dt.timedelta(days=2)
