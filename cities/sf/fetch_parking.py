@@ -52,11 +52,13 @@ def rpp():
     rnd = lambda o: [rnd(x) for x in o] if isinstance(o[0], (list, tuple)) else [round(o[0], 5), round(o[1], 5)]
     out = []
     for v, gs in sorted(by.items()):
-        # Lots of one area, with the streets between them: grow 12 m, join, shrink back; drop slivers.
-        g = unary_union([x.buffer(0.00013) for x in gs]).buffer(-0.0001).simplify(0.00004, preserve_topology=True)
-        if g.geom_type == 'MultiPolygon':
-            from shapely.geometry import MultiPolygon
-            g = MultiPolygon([p for p in g.geoms if p.area > 2e-7]) if any(p.area > 2e-7 for p in g.geoms) else g
+        # Lots of one area, with the streets between them: grow about 30 m (San Francisco's streets with their
+        # sidewalks are 20 to 40 m wide), join, shrink back; drop holes smaller than a block and stray slivers.
+        from shapely.geometry import MultiPolygon, Polygon
+        g = unary_union([x.buffer(0.00032) for x in gs]).buffer(-0.00027).simplify(0.00004, preserve_topology=True)
+        polys = [Polygon(q.exterior, [h for h in q.interiors if Polygon(h).area > 1.2e-6]) for q in (g.geoms if g.geom_type == 'MultiPolygon' else [g])]
+        polys = [q for q in polys if q.area > 2e-7] or polys
+        g = MultiPolygon(polys) if len(polys) > 1 else polys[0]
         m = mapping(g)
         out.append({'type': 'Feature', 'properties': {'name': v, 'lots': len(gs)}, 'geometry': {'type': m['type'], 'coordinates': rnd(m['coordinates'])}})
     save(os.path.join(P, 'rpp_areas.geojson'), {'type': 'FeatureCollection', 'fetched': time.strftime('%Y-%m-%d'), 'features': out})
