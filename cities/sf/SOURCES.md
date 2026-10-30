@@ -20,6 +20,7 @@ October 30, 2026 (report in `scouting/sf/out/`; notes in the project's sf-bay-da
 | `engine/fetch_changes.py` | `changes/pipeline.json` | Planning's Development Pipeline (DataSF 6jgi-cpb4, CC0, quarterly) via `changes.json` (fetch-changes.yml, weekly); no planner, sponsor or contact fields |
 | `engine/fetch_skyscrapers.py`, `engine/fetch_heritage_buildings.py` | `skyscrapers/`, `heritage_buildings.json` | Wikipedia's tallest-buildings list (CC BY-SA); Planning's Article 10 landmarks (DataSF 97yj-54sx) |
 | `fetch_places.py` | `places/parks.geojson`, `park_facilities.json`, `schools.json`, `city_facilities.json`, `osm_hospitals.json`, `osm_colleges.json`, `osm_worship.json` | Rec & Park properties (gtr9-ntp6) and facilities (ib5c-xgwu); the State's school directory for SF (7e7j-59qk); City facilities (nc68-ngbr), library branches only; OpenStreetMap hospitals, colleges and places of worship. Built by `places.py` and `faith.py` |
+| `fetch_parking.py` | `parking/garages.json`, `rpp_areas.geojson`, `ev_afdc.json` | SFMTA-managed off-street parking (vqzx-t7c4); RPP eligibility parcels (i886-hxz9), dissolved by area; AFDC nearest-stations API (NLR_API_KEY). Built by `parking.py` |
 
 ## Quirks
 - The Farallon Islands are part of the City and County but left off the map (`build.py` cuts the city to the mainland, Treasure Island and Yerba Buena Island).
