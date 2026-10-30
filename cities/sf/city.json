@@ -82,7 +82,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA) · Street sweeping: San Francisco Public Works (DataSF)",
  "example": {
   "at": [
    37.779,
@@ -129,7 +129,13 @@
   "plural": "neighborhoods"
  },
  "pageLinks": [
-  {"group": "Getting around", "id": "routes", "name": "Where does this line or route go?", "note": "Find the stops near you and see where each Muni bus and Muni Metro line takes you", "href": "/sf/routes/"}
+  {
+   "group": "Getting around",
+   "id": "routes",
+   "name": "Where does this line or route go?",
+   "note": "Find the stops near you and see where each Muni bus and Muni Metro line takes you",
+   "href": "/sf/routes/"
+  }
  ],
  "groups": [
   [
@@ -1445,6 +1451,10 @@
     "empty": "Not in a permit area"
    },
    {
+    "label": "Street sweeping",
+    "sweep": true
+   },
+   {
     "label": "Supervisor",
     "layer": "sup",
     "text": "District {num}"
@@ -1684,6 +1694,15 @@
    ],
    "note": "Straight-line distances; half a mile is about a 10-minute walk. Rec & Park, the San Francisco Public Library and the State’s school directory. Counts parks, not courts. Schools are SFUSD’s own; most places are assigned by lottery, not distance. Places of worship (OpenStreetMap) show while their layer is on. Soft-story buildings are the wood-frame apartment buildings over garages or shops the City required to be strengthened; nearly all have been.",
    "sources": "Sources: San Francisco Recreation and Park Department, San Francisco Public Library, California Department of Education, OpenStreetMap (hospitals, colleges and places of worship)."
+  },
+  "sweep": {
+   "label": "Street sweeping",
+   "dir": "sweeping",
+   "cell": 0.005,
+   "within": 30,
+   "tz": "America/Los_Angeles",
+   "note": "Not on City holidays. Check the street's signs: they rule.",
+   "source": "Public Works"
   }
  },
  "presets": {

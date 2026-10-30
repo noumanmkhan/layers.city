@@ -530,6 +530,18 @@ disagree, the live page is right.
 
 **Pickup row** (`card.pickup`, a Boundaries row placed by `{"label", "pickup": true}` in `card.facts`; Toronto "Collection day" after Address, Chicago "Street sweeping" after Address grid; October 14, 2026): find the feature of `file` containing the spot. None: show `outside` if set (Toronto: not on curbside routes), else no row. Otherwise take its `sched` dates on or after today in `tz`; none left: `after` with `{year}` if set (Toronto), else no row (Chicago, out of season). With `group`, dates within 4 days of each other are one visit ("Oct 30 and Nov 2"). The row: `head` filled with `{day}` (the weekday most of the area's dates fall on) and the feature's properties (Chicago "Ward {w}, section {s}"), then the next `show` visits each as `next` ("{when}: {items}"; `{when}` is "Today", "Tomorrow" or "Thu, Oct 15", `{items}` the `items` labels joined, first letter capitalised), then `note` with `{year}`.
 
+**Street sweeping row** (`card.sweep`, a Boundaries row placed by `{"label", "sweep": true}` in `card.facts`; San
+Francisco, October 31, 2026): `dir` names a folder of squares, `<i>_<j>.json` with i = floor(lon / `cell`) and j =
+floor(lat / `cell`) (`cell` 0.005°, about 450 m); fetch the square holding the spot. Each square is
+`{s: [street names], l: [block limits], f: [[street index, limits index, side, [[weekday 0–6 from Monday, from hour,
+to hour, weeks of the month as bits: 1 = 1st week … 16 = 5th], …], [lon, lat, lon, lat, …]], …]}`; a block side is in
+every square its line comes within about 40 m of, so one square is enough. Take the block side whose line is
+nearest the spot, within `within` metres (none: no row), and the other sides of the same street and limits. The row:
+the street, the limits in brackets, then a line per side, "<side> <days> <hours>[, <weeks>] · next <when>" (days
+with the same hours and weeks together: "Every day", "Weekdays", "Mon–Fri", "Mon, Wed & Fri"; hours "2–6 am",
+"10 am–noon"; weeks omitted when every week, else "1st & 3rd weeks"; the week of the month is ceil(day / 7); `when`
+"today" while today's sweep hasn't ended in `tz`, "tomorrow", or "Tue, Nov 3"), then `note`. Source: `source`.
+
 **Pickup in apps** (added October 21, 2026; Toronto, Chicago, Dallas, New York): `appTitle` (the reminder's title: "Pickup tomorrow", Chicago "Move your car"), `appReminder` (its body, with `{items}` as in `next`; Chicago's has none, a sweep has one item), and where `outside` exists, `appOutsideHead` and `appOutside` (a short tile heading and line, "Private pickup" / "Building or area has its own collection"; the full `outside` stays for a detail view). A reminder goes out the evening before each date in `sched` (for `group`, before each visit's first date). Vancouver has no pickup file: no row, no reminder.
 
 **Road closures** (`card.closures`, section `cls`, before Changing nearby; Toronto and Chicago; October 14, 2026): from the `closures` layer's file whatever the layer's toggle, only when at least one is within `radius` m (Toronto 500, Chicago 805) of the spot; otherwise the section is left out. Hide permits whose `end` is before today in the layer's `tz`. Distance to the nearest point of the line. Nearest first (a `closed` before a `narrowed` at the same distance), at most `max` (4): the layer's `closedText` or `narrowedText` with a red line or amber dots key · `street` · a line of `startsText` (permits starting later), `untilText` (with the year and `longText` when two or more years out), hours (`allDayText` for "24h"), the project `name` and the distance · `extent` when it differs from `street`. More than `max`: `more` with `{n}`. Footer `note` with `{date}` = the file's `asof`. Permit dates, never a reopening forecast.

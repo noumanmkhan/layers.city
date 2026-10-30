@@ -4056,6 +4056,7 @@ function cardOf(latlng, title, muniName){
   const facts = CITY.card.facts.filter(r => !r.onlyInside || hits[r.layer]).map(r => {
     if (r.address) return addressRow(x, y, hits);
     if (r.pickup) return pickupRow(x, y);
+    if (r.sweep) return sweepRow(x, y);
     if (r.heritageBuilding) return heritageRow(r, x, y, title);
     if (r.knownas) return [r.label, near.length ? near.map(a => a[0].properties.name).join(', ') : '—'];
     if (r.boards){ const it = LAYERS.find(l => l.id === r.boards), bh = hits[r.boards] || {};
@@ -4101,6 +4102,62 @@ function coverLine(C, hits){
    one visit ("Oct 27 and 28"). Outside every area: `outside` (or no row); past the last date: `after` (or no
    row). [label, html, true], or null. */
 const PU = CITY.card.pickup || null;
+/* ---------- Street sweeping (card.sweep) ----------
+   The nearest block's schedule, both sides of the street, from squares of about 450 m (docs/<city>/data/<dir>/<i>_<j>.json,
+   cities/sf/sweeping.py) fetched when the card first needs one. Each block side: [street, limits, side,
+   [[weekday 0-6 from Monday, from hour, to hour, weeks of the month as bits (1 = 1st week)], ...], [lon, lat, ...]]. */
+const SW = CITY.card.sweep || null, swTiles = new Map();
+const SWD = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], SWO = ['1st', '2nd', '3rd', '4th', '5th'];
+function swHour(h){ h = ((h % 24) + 24) % 24; return h === 0 ? 'midnight' : h === 12 ? 'noon' : (h % 12) + (h < 12 ? ' am' : ' pm'); }
+function swHours(a, b){   // "2–6 am", "10 am–noon", "11 pm–1 am"
+  const A = swHour(a), B = swHour(b), same = a % 24 < 12 === b % 24 < 12 && ![0, 12].includes(a % 24) && ![0, 12].includes(b % 24);
+  return same ? A.replace(/ [ap]m$/, '') + '–' + B : A + '–' + B;
+}
+function swWeeks(m){ if (m === 31) return 'every week'; const w = SWO.filter((_, i) => m & (1 << i)); return w.join(' & ').replace(/ & (?=.* & )/g, ', ') + ' week' + (w.length > 1 ? 's' : ''); }
+function swNext(sch, tz){   // the next sweep of a side: [date "YYYY-MM-DD", entry], today included while it's still on
+  let now; try { now = new Date(new Date().toLocaleString('en-US', {timeZone: tz})); } catch (e) { now = new Date(); }
+  for (let k = 0; k < 40; k++){
+    const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() + k), wd = (d.getDay() + 6) % 7, wk = Math.ceil(d.getDate() / 7);
+    const e = sch.filter(e => e[0] === wd && e[3] & (1 << (wk - 1)) && (k || now.getHours() < e[2])).sort((a, b) => a[1] - b[1])[0];
+    if (e) return [k, d, e];
+  }
+  return null;
+}
+function swDist(x, y, flat){   // metres from a spot to a block side's line
+  const kx = Math.cos(y * Math.PI / 180) * 111320, ky = 110574;
+  let best = Infinity;
+  for (let i = 0; i + 3 < flat.length; i += 2){
+    const ax = (flat[i] - x) * kx, ay = (flat[i + 1] - y) * ky, bx = (flat[i + 2] - x) * kx, by = (flat[i + 3] - y) * ky;
+    const dx = bx - ax, dy = by - ay, L = dx * dx + dy * dy, t = L ? Math.max(0, Math.min(1, -(ax * dx + ay * dy) / L)) : 0;
+    best = Math.min(best, Math.hypot(ax + t * dx, ay + t * dy));
+  }
+  return best;
+}
+function sweepRow(x, y){
+  if (!SW) return null;
+  const key = Math.floor(x / SW.cell) + '_' + Math.floor(y / SW.cell);
+  if (!swTiles.has(key)){
+    swTiles.set(key, null);
+    get(SW.dir + '/' + key + '.json').then(d => { swTiles.set(key, d); redrawCard(); }).catch(() => swTiles.set(key, {s: [], l: [], f: []}));
+    return null;
+  }
+  const T = swTiles.get(key); if (!T) return null;
+  const near = T.f.map(f => [f, swDist(x, y, f[4])]).filter(a => a[1] <= (SW.within || 30)).sort((a, b) => a[1] - b[1]);
+  if (!near.length) return null;
+  const f0 = near[0][0], block = T.f.filter(f => f[0] === f0[0] && f[1] === f0[1]);
+  const sides = [f0, ...block.filter(f => f !== f0 && f[2] !== f0[2])];
+  const line = f => {
+    // Days with the same hours and weeks said together: "Mon & Thu 9–11 am, every week"
+    const g = new Map(); f[3].forEach(e => { const k = e[1] + '-' + e[2] + '-' + e[3]; if (!g.has(k)) g.set(k, [e, []]); g.get(k)[1].push(SWD[e[0]]); });
+    const days = ds => { const ix = ds.map(d => SWD.indexOf(d)).sort((a, b) => a - b), run = ix.every((v, i) => !i || v === ix[i - 1] + 1);
+      return ix.length === 7 ? 'Every day' : ix.join() === '0,1,2,3,4' ? 'Weekdays' : run && ix.length > 2 ? SWD[ix[0]] + '–' + SWD[ix[ix.length - 1]] : ix.map(i => SWD[i]).join(', ').replace(/, ([^,]*)$/, ' & $1'); };
+    const when = [...g.values()].map(([e, ds]) => days(ds) + ' ' + swHours(e[1], e[2]) + (e[3] === 31 ? '' : ', ' + swWeeks(e[3]))).join('; ');
+    const n = swNext(f[3], SW.tz), next = n ? (n[0] === 0 ? 'today' : n[0] === 1 ? 'tomorrow' : n[1].toLocaleDateString(CITY.locale, {weekday: 'short', month: 'short', day: 'numeric'})) : '';
+    return '<span class="ag-sub"><b>' + esc(f[2]) + '</b> ' + esc(when) + (next ? ' · next ' + esc(next) : '') + '</span>';
+  };
+  return [SW.label, esc(T.s[f0[0]]) + (T.l[f0[1]] ? ' <span class="ag-sub" style="display:inline">(' + esc(T.l[f0[1]]) + ')</span>' : '') + sides.map(line).join('') +
+    (SW.note ? '<span class="ag-sub">' + esc(SW.note) + '</span>' : ''), true];
+}
 function pickupRow(x, y){
   const D = data.pickup; if (!PU || !D) return null;
   const f = D.features.find(f => contains(f.geometry, x, y));
