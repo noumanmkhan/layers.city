@@ -59,5 +59,97 @@
   "C": "cable",
   "CA": "cable"
  },
- "sched": true
+ "sched": true,
+ "feeds": {
+  "bart": {
+   "_about": "BART (for the Routes page only; the map draws BART from its own layer): every line is rapid, each published as two routes (Yellow-N, Yellow-S) that 'merge' joins into one route with two directions, under ids of their own (BART-Yellow) so they can't clash with Muni's route numbers. BART's live trip updates name trips, not routes, so 'tripRoutes' writes trip_routes.json for the arrivals function. The bus bridges (BridgeA, BridgeB) are left out.",
+   "gtfs": {
+    "url": "https://www.bart.gov/dev/schedules/google_transit.zip"
+   },
+   "types": [],
+   "skip": [
+    "BridgeA",
+    "BridgeB"
+   ],
+   "rapid": {
+    "Yellow": "subway",
+    "Orange": "subway",
+    "Green": "subway",
+    "Red": "subway",
+    "Blue": "subway",
+    "Oakland Airport": "subway"
+   },
+   "merge": {
+    "Yellow-S": [
+     "BART-Yellow",
+     "Yellow",
+     "0"
+    ],
+    "Yellow-N": [
+     "BART-Yellow",
+     "Yellow",
+     "1"
+    ],
+    "Orange-S": [
+     "BART-Orange",
+     "Orange",
+     "0"
+    ],
+    "Orange-N": [
+     "BART-Orange",
+     "Orange",
+     "1"
+    ],
+    "Green-S": [
+     "BART-Green",
+     "Green",
+     "0"
+    ],
+    "Green-N": [
+     "BART-Green",
+     "Green",
+     "1"
+    ],
+    "Red-S": [
+     "BART-Red",
+     "Red",
+     "0"
+    ],
+    "Red-N": [
+     "BART-Red",
+     "Red",
+     "1"
+    ],
+    "Blue-S": [
+     "BART-Blue",
+     "Blue",
+     "0"
+    ],
+    "Blue-N": [
+     "BART-Blue",
+     "Blue",
+     "1"
+    ],
+    "Grey-S": [
+     "BART-OAK",
+     "Oakland Airport",
+     "0"
+    ],
+    "Grey-N": [
+     "BART-OAK",
+     "Oakland Airport",
+     "1"
+    ]
+   },
+   "longNames": {
+    "Yellow": "Antioch – SFO/Millbrae",
+    "Orange": "Richmond – Berryessa/North San Jose",
+    "Green": "Berryessa/North San Jose – Daly City",
+    "Red": "Richmond – SFO/Millbrae",
+    "Blue": "Dublin/Pleasanton – Daly City",
+    "Oakland Airport": "Coliseum – Oakland Airport"
+   },
+   "tripRoutes": true
+  }
+ }
 }

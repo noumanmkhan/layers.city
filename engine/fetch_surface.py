@@ -201,10 +201,23 @@ def mode(t):
 
 
 RAPID = CFG.get('rapid', {})   # route number -> mode ("subway", "lrt")
+# "merge": {feed's short name: [route id, short name, direction]}: an agency that publishes each direction of a line
+# as its own route (BART's Yellow-N and Yellow-S) as one route with two directions, under an id of its own (so it
+# can't clash with the city's main agency: BART's route 1 isn't Muni's 1 California). Its long name is the first
+# direction's, up to the first " to " ("Antioch to SF Int'l Airport…" stays as it is; set "longNames" to name it).
+MERGE = CFG.get('merge', {})
+remap = {}   # feed route id -> (route id, direction)
 routes = {}
 for r in rows('routes.txt'):
     m = mode(r.get('route_type'))
     short = r.get('route_short_name') or r['route_id']
+    if short in MERGE:
+        nid, nshort, ndir = MERGE[short]
+        remap[r['route_id']] = (nid, ndir)
+        if nid not in routes:
+            routes[nid] = {'id': nid, 'short': PREFIX + nshort, 'long': CFG.get('longNames', {}).get(nshort, r.get('route_long_name', '')),
+                           'mode': RAPID.get(nshort, CFG.get('mode', m)), 'color': r.get('route_color', ''), 'text': r.get('route_text_color', '')}
+        continue
     if short in RAPID: m = RAPID[short]
     elif not m or m not in TYPES or short in SKIP: continue
     routes[r['route_id']] = {'id': r['route_id'], 'short': PREFIX + short, 'long': r.get('route_long_name', ''), 'mode': CFG.get('mode', m),
@@ -249,12 +262,15 @@ print('feed', first, '-', last, '· week from', day, '· days', {k: str(v) for k
 trips = {}
 SCHED = bool(CFG.get('sched'))
 svc_of = {}   # every trip of a kept route, any day -> (route number, service id): for sched.json
+trip_route = {}   # every trip of a kept route, any day -> route id: for a live feed that names trips only (BART's)
 for r in rows('trips.txt'):
-    if r['route_id'] not in routes: continue
-    if SCHED: svc_of[r['trip_id']] = (routes[r['route_id']]['short'], r['service_id'])
+    rid_, dir_ = remap.get(r['route_id'], (r['route_id'], r.get('direction_id') or '0'))
+    if rid_ not in routes: continue
+    trip_route[r['trip_id']] = rid_
+    if SCHED: svc_of[r['trip_id']] = (routes[rid_]['short'], r['service_id'])
     days = [active(r['service_id'], d) for d in WEEK]
     if not any(days): continue
-    trips[r['trip_id']] = (r['route_id'], r.get('direction_id') or '0', r.get('shape_id', ''), days)
+    trips[r['trip_id']] = (rid_, dir_, r.get('shape_id', ''), days)
 print('trips in the week:', len(trips))
 
 first_dep = {}                     # trip -> (stop_sequence, hour)
@@ -335,6 +351,9 @@ meta = {'format': FORMAT, 'opts': OPTS, 'source': feed_url, 'sha': SHA, 'fetched
         'days': {k: str(v) for k, v in PICK.items()}}
 json.dump(dict(meta, routes=out_routes), open(os.path.join(OUT, 'routes.json'), 'w'), separators=(',', ':'))
 json.dump(dict(meta, stops=list(names.values())), open(os.path.join(OUT, 'stops.json'), 'w'), separators=(',', ':'))
+if CFG.get('tripRoutes'):   # trip id -> route id, for a live feed whose trip updates carry no route (BART's)
+    json.dump(dict(meta, trips=trip_route), open(os.path.join(OUT, 'trip_routes.json'), 'w'), separators=(',', ':'))
+    print('trip_routes.json:', len(trip_route), 'trips')
 if RAPID:
     json.dump(dict(meta, routes=rapid_routes), open(os.path.join(OUT, 'rapid_routes.json'), 'w'), separators=(',', ':'))
     json.dump(dict(meta, stops=list(rapid_names.values())), open(os.path.join(OUT, 'rapid_stops.json'), 'w'), separators=(',', ':'))
