@@ -1,5 +1,5 @@
-  got https://muni-gtfs.apps.sfmta.com/data/muni_gtfs-current.zip 10203 KB
-   muni.zip 13868 trips in the morning window
+  got https://data.sfgov.org/download/dni7-qpv3/application/x-zip-compressed 7968 KB
+   muni.zip 9622 trips in the morning window
   got https://www.bart.gov/dev/schedules/google_transit.zip 993 KB
    bart.zip 1594 trips in the morning window
   got https://data.trilliumtransit.com/gtfs/caltrain-ca-us/caltrain-ca-us.zip 169 KB
@@ -11,9 +11,13 @@
   leaving out empty runcut.txt from caltrain.zip
   leaving out empty timetable_stop_order.txt from caltrain.zip
   leaving out empty timetables.txt from caltrain.zip
-  got https://download.bbbike.org/osm/bbbike/SanFrancisco/SanFrancisco.osm.pbf 32269 KB
-feed ranges [('20260723', '20260828'), ('20260810', '20270110'), ('20260131', '20270131')]
-departure 2026-08-11 08:00:00
+  retry 1 https://download.bbbike.org/osm/bbbike/SanFrancisco/SanFrancisco.osm.pbf <urlopen error [Errno 110] Connection timed out>
+  retry 2 https://download.bbbike.org/osm/bbbike/SanFrancisco/SanFrancisco.osm.pbf <urlopen error [Errno 110] Connection timed out>
+  retry 3 https://download.bbbike.org/osm/bbbike/SanFrancisco/SanFrancisco.osm.pbf <urlopen error [Errno 110] Connection timed out>
+  retry 4 https://download.bbbike.org/osm/bbbike/SanFrancisco/SanFrancisco.osm.pbf <urlopen error [Errno 110] Connection timed out>
+  got https://download.geofabrik.de/north-america/us/california/norcal-latest.osm.pbf 639615 KB
+feed ranges [('20260829', '20270115'), ('20260810', '20270110'), ('20260131', '20270131')]
+departure 2026-11-10 08:00:00
 728 origin points, 2 hubs
 montgomery 38 neighborhoods; minutes min/median/max 15 35 56
-missionbay 38 neighborhoods; minutes min/median/max 17 43 66
+missionbay 38 neighborhoods; minutes min/median/max 17 42 67
