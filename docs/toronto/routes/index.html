@@ -193,10 +193,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .rb.go{background:#1E6B47;color:#fff;box-shadow:none}
 
 
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--m-t0:#40262B;--m-t1:#3B3326;--m-t2:#28362A;--m-t3:#253140;--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp){background:var(--card)} :root:not([data-theme="light"]) .row:hover{background:#262A30} :root:not([data-theme="light"]) .tl li.on{background:#262A30}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--m-t0:#40262B;--m-t1:#3B3326;--m-t2:#28362A;--m-t3:#253140;--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp):not(.cable){background:var(--card)} :root:not([data-theme="light"]) .row:hover{background:#262A30} :root:not([data-theme="light"]) .tl li.on{background:#262A30}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}
 :root[data-theme="dark"] body{--m-t0:#40262B;--m-t1:#3B3326;--m-t2:#28362A;--m-t3:#253140;--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8}
-:root[data-theme="dark"] .rb:not(.tram):not(.exp){background:var(--card)}
+:root[data-theme="dark"] .rb:not(.tram):not(.exp):not(.cable){background:var(--card)}
 :root[data-theme="dark"] .row:hover{background:#262A30}
 :root[data-theme="dark"] .tl li.on{background:#262A30}
 .rb{height:26px;min-width:40px;font-size:14px;box-shadow:inset 0 0 0 2px currentColor}
@@ -318,7 +318,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const clean = n => n.replace(/\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)? ?Platform\b.*$/i, '').replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+/g, ' ').trim();
   const street = n => clean(n).split(AT)[0].replace(/^\d+[A-Z]?\s+/, '');
   const dayRoute = rid => { const f = D.routes[rid][3]; return f.some(x => x !== 'night'); };
-  const routeCls = R => R[2] === 'tram' ? 'tram' : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
+  const routeCls = R => R[2] === 'tram' ? 'tram' : R[2] === 'cable' ? 'cable' : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
   const isRapid = rid => ['subway', 'lrt'].includes(D.routes[rid][2]);
   const badge = (rid, big) => { const R = D.routes[rid];
     return isRapid(rid) ? el('span', { class: `ln lb l${R[0]}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0])
@@ -490,7 +490,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     }
     return next === Infinity ? null : { o: Math.floor(next / 1440), m: next % 1440, day };
   }
-  const WORD = { bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train' };
+  const WORD = { bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train', cable: 'cable car' };
   function clock(m) {
     const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
     return `${h % 12 || 12}:${mm} ${h < 12 ? 'a.m.' : 'p.m.'}`;
