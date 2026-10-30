@@ -1,0 +1,14 @@
+{
+ "_about": "Tree canopy per neighborhood (engine/fetch_canopy.py, engine/canopy.py), from ESA WorldCover 2021 (10 m, CC BY 4.0): tree cells over land cells, water left out. 'cuts' split the lens into four bands. San Francisco is one of the least treed big US cities (about 14% by the City's own estimates), so the cuts sit lower than New York's.",
+ "units": "neighbourhoods",
+ "sources": [
+  {
+   "type": "worldcover"
+  }
+ ],
+ "cuts": [
+  5,
+  10,
+  20
+ ]
+}
