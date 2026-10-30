@@ -4,6 +4,10 @@
   "bus",
   "lrt"
  ],
+ "live": {
+  "api": "/api/arrivals?city=sf",
+  "source": "511.org (SFMTA GTFS-Realtime)"
+ },
  "gridTilt": 0,
  "_gridTilt": "San Francisco's grids disagree (north of Market they run true north, south of Market they're turned 45 degrees), so directions are read from true north.",
  "keepRight": true,
@@ -74,13 +78,13 @@
   "city": "San Francisco",
   "title": "Where does this line or route go?",
   "short": "Routes from here",
-  "description": "Find the Muni bus stops and Muni Metro stops nearest you in San Francisco and see where each route goes: the neighborhoods it passes through, the main streets it runs along, its BART and Muni Metro connections and the landmarks on the way.",
+  "description": "Find the Muni bus stops and Muni Metro stops nearest you in San Francisco and see where each route goes, with live next-bus and next-train times: the neighborhoods it passes through, the main streets it runs along, its BART and Muni Metro connections and the landmarks on the way.",
   "lede": "Find the stops near you, then pick a Muni bus or Muni Metro line to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
   "outside": "That spot is outside San Francisco. Try an address in the city.",
   "noMatch": "No match in San Francisco for “{q}”. Try the full street name, like “1 Ferry Building”.",
   "noStops": "No stops within {r} of that spot.",
-  "credits": "Routes, stops and timetable: SFMTA (Muni) GTFS via DataSF · Neighborhoods: City and County of San Francisco (DataSF) · Streets: © OpenStreetMap contributors (ODbL) · BART stations: BART",
+  "credits": "Routes, stops and timetable: SFMTA (Muni) GTFS via DataSF · Neighborhoods: City and County of San Francisco (DataSF) · Streets: © OpenStreetMap contributors (ODbL) · Live times: SFMTA via 511.org · BART stations: BART",
   "mapLink": "Open on the map",
   "mi": true,
   "at": " & ",

@@ -95,6 +95,23 @@ jobs:
             npx --yes wrangler@4 pages project create "$PROJECT" --production-branch=main
           fi
 
+      # The arrivals function (functions/api/arrivals.js) reads Muni's live times from 511.org with this key. It's
+      # set on the Pages project, for production and previews, before each deploy (a deploy picks up the project's
+      # variables as they are then). Skipped when the repo secret isn't set: San Francisco's page then shows the
+      # timetable only.
+      - name: Hand the 511.org key to the arrivals function
+        env:
+          FIVE11_KEY: ${{ secrets.FIVE11_KEY }}
+        run: |
+          [ -n "$FIVE11_KEY" ] || { echo "No FIVE11_KEY secret: skipped."; exit 0; }
+          python3 -c "import json,os; v={'FIVE11_KEY':{'type':'secret_text','value':os.environ['FIVE11_KEY']}}; print(json.dumps({'deployment_configs':{'production':{'env_vars':v},'preview':{'env_vars':v}}}))" > /tmp/vars.json
+          code=$(curl -sS -o /tmp/patch.json -w '%{http_code}' -X PATCH \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PROJECT" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H 'Content-Type: application/json' --data @/tmp/vars.json)
+          rm -f /tmp/vars.json
+          python3 -c "import json; d=json.load(open('/tmp/patch.json')); print('success' if d.get('success') else d.get('errors'))"
+          [ "$code" = 200 ] || echo "::warning::Couldn't set FIVE11_KEY on the Pages project (HTTP $code)"
+
       - name: Publish docs/
         run: |
           npx --yes wrangler@4 pages deploy docs \

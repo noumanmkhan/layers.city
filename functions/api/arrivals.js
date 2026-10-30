@@ -15,16 +15,25 @@
  * (Toronto: the subway, about 12 KB), and merges its arrivals in; the main feed is read too, since a light rail
  * line may be in either. Only the feeds needed are fetched.
  * No logging, no cookies, nothing about the visitor is kept: the request carries only stop ids.
+ *
+ * San Francisco: Muni's trip updates from 511.org (about 1 MB, every Muni bus, train, streetcar and cable car),
+ * which needs a key (the FIVE11_KEY secret, which deploy.yml copies to the Pages project; it stays here, never in
+ * an answer) and allows 60 requests an hour per key. So its feed is cached for 60 s, and the last good copy is
+ * kept for 15 minutes: when 511 says no (too many requests, or down), the answer is built from that copy, whose
+ * times are still clock times, and says how old it is in asof. 511 writes stop ids as the rider-facing stop code
+ * (1 + the GTFS stop_id: stop 5417 is 15417), so "idPrefix" maps the page's ids to the feed's and back.
  */
 const FEEDS = {
   toronto: { main: 'https://gtfsrt.ttc.ca/trips/update?format=binary', rapid: 'https://gtfsrt.ttc.ca/trips/subway?format=binary' },
+  sf: { main: env => env.FIVE11_KEY && `https://api.511.org/transit/tripupdates?api_key=${encodeURIComponent(env.FIVE11_KEY)}&agency=SF`,
+        ttl: 60, keep: 900, idPrefix: '1' },
 };
-const FEED_TTL = 20;      // seconds the feed is cached at the edge
+const FEED_TTL = 20;      // seconds a feed is cached at the edge, unless it sets its own ttl
 const MAX_STOPS = 24;
 const AHEAD = 90 * 60;    // keep arrivals up to 90 minutes out
 const PER_STOP = 30;
 
-export async function onRequestGet({ request }) {
+export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
   const city = url.searchParams.get('city') || 'toronto';
   const feeds = FEEDS[city];
@@ -38,23 +47,40 @@ export async function onRequestGet({ request }) {
   const hit = await cache.match(key);
   if (hit) return hit;
 
-  const get = async u => {
-    const r = await fetch(u, { cf: { cacheTtl: FEED_TTL, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)' } });
-    if (!r.ok) throw new Error('feed ' + r.status);
-    return new Uint8Array(await r.arrayBuffer());
+  const ttl = feeds.ttl || FEED_TTL;
+  // A feed's last good copy, for a feed that sets "keep" (seconds), under a key of its own that names no secret.
+  const keepKey = which => new Request(`${url.origin}/api/arrivals/__feed/${city}/${which}`);
+  const get = async which => {
+    const u = typeof feeds[which] === 'function' ? feeds[which](env || {}) : feeds[which];
+    try {
+      if (!u) throw new Error('no feed address');
+      const r = await fetch(u, { cf: { cacheTtlByStatus: { '200-299': ttl, '400-599': 60 }, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)' } });
+      if (!r.ok) throw new Error('feed ' + r.status);
+      const buf = await r.arrayBuffer();
+      if (feeds.keep && r.headers.get('cf-cache-status') !== 'HIT')
+        await cache.put(keepKey(which), new Response(buf, { headers: { 'Cache-Control': `public, max-age=${feeds.keep}` } }));
+      return new Uint8Array(buf);
+    } catch (e) {
+      const old = feeds.keep && await cache.match(keepKey(which));
+      if (old) return new Uint8Array(await old.arrayBuffer());
+      throw e;
+    }
   };
   const now = Math.floor(Date.now() / 1000);
-  const bufs = await Promise.allSettled([get(feeds.main), rapid ? get(feeds.rapid) : Promise.reject('not asked')]);
+  // The feed's own stop ids for the ones asked for (511: 1 + the stop_id), and back again.
+  const pre = feeds.idPrefix || '';
+  const feedIds = stops.map(s => pre + s);
+  const bufs = await Promise.allSettled([get('main'), rapid ? get('rapid') : Promise.reject('not asked')]);
   if (bufs.every(b => b.status === 'rejected')) return json({ error: 'The live feed is not responding right now.' }, 503, 10);
   const out = { asof: 0, stops: Object.fromEntries(stops.map(s => [s, []])) };
   for (const b of bufs) {
     if (b.status !== 'fulfilled') continue;
-    const o = scan(b.value, stops, now);
+    const o = scan(b.value, feedIds, now);
     out.asof = Math.max(out.asof, o.asof);
-    for (const s of stops) out.stops[s].push(...o.stops[s]);
+    stops.forEach((s, i) => out.stops[s].push(...o.stops[feedIds[i]]));
   }
   for (const k of Object.keys(out.stops)) out.stops[k] = out.stops[k].sort((a, b) => a[2] - b[2]).slice(0, PER_STOP);
-  const res = json({ now, asof: out.asof, stops: out.stops }, 200, 15);
+  const res = json({ now, asof: out.asof, stops: out.stops }, 200, Math.min(15, ttl));
   await cache.put(key, res.clone());
   return res;
 }
