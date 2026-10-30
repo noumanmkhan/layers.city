@@ -1,0 +1,14 @@
+sf 41 units, bounds -122.515 37.708 -122.357 37.832
+  got https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N36W123_Map.tif 83 MB
+  $ gdalbuildvrt -overwrite /home/runner/work/layers.city/layers.city/cities/sf/tmp/canopy/wc.vrt /home/runner/work/layers.city/layers.city/cities/sf/tmp/canopy/ESA_WorldCover_10m_2021_v200_N36W123_Map.tif
+0...10...20...30...40...50...60...70...80...90...100 - done.
+
+  $ gdalwarp -overwrite -te -122.52495 37.69813 -122.34697999999999 37.84232 -r near -co COMPRESS=DEFLATE /home/runner/work/layers.city/layers.city/cities/sf/tmp/canopy/wc.vrt /home/runner/work/layers.city/layers.city/cities/sf/tmp/canopy/worldcover_clip.tif
+Copying color table from /home/runner/work/layers.city/layers.city/cities/sf/tmp/canopy/wc.vrt to new file.
+Creating output file that is 2136P x 1730L.
+Processing /home/runner/work/layers.city/layers.city/cities/sf/tmp/canopy/wc.vrt [1/1] : 0Using internal nodata values (e.g. 0) for image /home/runner/work/layers.city/layers.city/cities/sf/tmp/canopy/wc.vrt.
+Copying nodata values from source /home/runner/work/layers.city/layers.city/cities/sf/tmp/canopy/wc.vrt to destination /home/runner/work/layers.city/layers.city/cities/sf/tmp/canopy/worldcover_clip.tif.
+...10...20...30...40...50...60...70...80...90...100 - done.
+
+worldcover citywide canopy 17.4 % · units with a value 41
+using worldcover

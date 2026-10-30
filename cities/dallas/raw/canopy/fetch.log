@@ -1,14 +1,14 @@
 dallas 52 units, bounds -96.995 32.619 -96.556 33.017
   got https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N30W099_Map.tif 117 MB
   got https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N33W099_Map.tif 103 MB
-  $ gdalbuildvrt -overwrite /home/runner/work/city-layers/city-layers/cities/dallas/tmp/canopy/wc.vrt /home/runner/work/city-layers/city-layers/cities/dallas/tmp/canopy/ESA_WorldCover_10m_2021_v200_N30W099_Map.tif /home/runner/work/city-layers/city-layers/cities/dallas/tmp/canopy/ESA_WorldCover_10m_2021
+  $ gdalbuildvrt -overwrite /home/runner/work/layers.city/layers.city/cities/dallas/tmp/canopy/wc.vrt /home/runner/work/layers.city/layers.city/cities/dallas/tmp/canopy/ESA_WorldCover_10m_2021_v200_N30W099_Map.tif /home/runner/work/layers.city/layers.city/cities/dallas/tmp/canopy/ESA_WorldCover_10m_2021
 0...10...20...30...40...50...60...70...80...90...100 - done.
 
-  $ gdalwarp -overwrite -te -97.00498 32.608560000000004 -96.54552 33.0265 -r near -co COMPRESS=DEFLATE /home/runner/work/city-layers/city-layers/cities/dallas/tmp/canopy/wc.vrt /home/runner/work/city-layers/city-layers/cities/dallas/tmp/canopy/worldcover_clip.tif
-Copying color table from /home/runner/work/city-layers/city-layers/cities/dallas/tmp/canopy/wc.vrt to new file.
+  $ gdalwarp -overwrite -te -97.00498 32.608560000000004 -96.54552 33.0265 -r near -co COMPRESS=DEFLATE /home/runner/work/layers.city/layers.city/cities/dallas/tmp/canopy/wc.vrt /home/runner/work/layers.city/layers.city/cities/dallas/tmp/canopy/worldcover_clip.tif
+Copying color table from /home/runner/work/layers.city/layers.city/cities/dallas/tmp/canopy/wc.vrt to new file.
 Creating output file that is 5514P x 5015L.
-Processing /home/runner/work/city-layers/city-layers/cities/dallas/tmp/canopy/wc.vrt [1/1] : 0Using internal nodata values (e.g. 0) for image /home/runner/work/city-layers/city-layers/cities/dallas/tmp/canopy/wc.vrt.
-Copying nodata values from source /home/runner/work/city-layers/city-layers/cities/dallas/tmp/canopy/wc.vrt to destination /home/runner/work/city-layers/city-layers/cities/dallas/tmp/canopy/worldcover_clip.tif.
+Processing /home/runner/work/layers.city/layers.city/cities/dallas/tmp/canopy/wc.vrt [1/1] : 0Using internal nodata values (e.g. 0) for image /home/runner/work/layers.city/layers.city/cities/dallas/tmp/canopy/wc.vrt.
+Copying nodata values from source /home/runner/work/layers.city/layers.city/cities/dallas/tmp/canopy/wc.vrt to destination /home/runner/work/layers.city/layers.city/cities/dallas/tmp/canopy/worldcover_clip.tif.
 ...10...20...30...40...50...60...70...80...90...100 - done.
 
 worldcover citywide canopy 39.3 % · units with a value 52
