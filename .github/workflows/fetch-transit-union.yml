@@ -5,7 +5,7 @@ name: Compute transit times to Union
 on:
   workflow_dispatch:
     inputs:
-      hub: {description: 'union, or bloor for Bloor-Yonge (the transit lens\'s second hub)', default: 'union'}
+      hub: {description: 'union, or bloor for Bloor-Yonge (the second hub of the transit lens)', default: 'union'}
   push:
     branches: [fetch-transit-union]
     paths: ['cities/toronto/fetch_transit_union.py', '.github/workflows/fetch-transit-union.yml']
