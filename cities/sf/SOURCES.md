@@ -15,6 +15,10 @@ October 30, 2026 (report in `scouting/sf/out/`; notes in the project's sf-bay-da
 | | `osm_*.json` | OpenStreetMap via Overpass (ODbL): place names, highways across the region, SMART, ACE, Capitol Corridor and VTA light rail route relations and stations, landmark positions |
 | `fetch_streets.py` | `osm_streets.json` | OpenStreetMap trunk, primary, secondary and tertiary roads in the city (tertiary kept only when on `names.py` MAJOR_STREETS) |
 | `fetch_acs.py` | `acs_tracts.json`, `tracts.json` | ACS 5-year table-based summary files (the New York tables) for San Francisco's tracts; TIGERweb tract internal points |
+| `fetch_representatives.py` | `representatives/ca.csv`, `house.xml`, `us_house_2021.geojson` | Open States' California legislators; the House Clerk's member list; Census 2024 cartographic congressional districts (the 2021 lines). Supervisors and the mayor are hand-kept in `representatives.py` |
+| `fetch_closures.py` | `closures/events.json` | SFMTA Temporary Street Closures (DataSF 8x25-yybr): Special Event permits only, with their lines (fetch-closures.yml, daily) |
+| `engine/fetch_changes.py` | `changes/pipeline.json` | Planning's Development Pipeline (DataSF 6jgi-cpb4, CC0, quarterly) via `changes.json` (fetch-changes.yml, weekly); no planner, sponsor or contact fields |
+| `engine/fetch_skyscrapers.py`, `engine/fetch_heritage_buildings.py` | `skyscrapers/`, `heritage_buildings.json` | Wikipedia's tallest-buildings list (CC BY-SA); Planning's Article 10 landmarks (DataSF 97yj-54sx) |
 
 ## Quirks
 - The Farallon Islands are part of the City and County but left off the map (`build.py` cuts the city to the mainland, Treasure Island and Yerba Buena Island).
