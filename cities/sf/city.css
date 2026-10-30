@@ -34,3 +34,8 @@
 .sw.tsunami{background:color-mix(in srgb,var(--tsu) 30%,transparent);box-shadow:inset 0 0 0 1.5px var(--tsu)}
 .sw.seismic{background:color-mix(in srgb,var(--seis) 30%,transparent);border:1.5px dashed var(--seis)}
 .sw.ferry{background:linear-gradient(#1F6FB2 0 34%,#B5382F 0 67%,#2C8C7E 0)}
+/* Tech headquarters, by category. */
+.lm.in-chips{--lm:#2F6FB3} .lm.in-hardware{--lm:#6B5BB5} .lm.in-software{--lm:#1E8C6E} .lm.in-internet{--lm:#C2410C} .lm.in-ai{--lm:#B0287A}
+.sw.in-chips{color:#2F6FB3} .sw.in-hardware{color:#6B5BB5} .sw.in-software{color:#1E8C6E} .sw.in-internet{color:#C2410C} .sw.in-ai{color:#B0287A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lm.in-chips{--lm:#6FA8E8}:root:not([data-theme="light"]) .lm.in-hardware{--lm:#A89AE8}:root:not([data-theme="light"]) .lm.in-software{--lm:#4CC9A4}:root:not([data-theme="light"]) .lm.in-internet{--lm:#F08A4B}:root:not([data-theme="light"]) .lm.in-ai{--lm:#E86AB4}}
+:root[data-theme="dark"] .lm.in-chips{--lm:#6FA8E8}:root[data-theme="dark"] .lm.in-hardware{--lm:#A89AE8}:root[data-theme="dark"] .lm.in-software{--lm:#4CC9A4}:root[data-theme="dark"] .lm.in-internet{--lm:#F08A4B}:root[data-theme="dark"] .lm.in-ai{--lm:#E86AB4}

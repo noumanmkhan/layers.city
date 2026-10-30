@@ -83,7 +83,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA)",
  "example": {
   "at": [
    37.779,
@@ -221,6 +221,57 @@
      "akaText": "Also known as {aka}",
      "moreText": "More on Wikipedia",
      "sourceText": "Source: Wikipedia"
+    },
+    {
+     "id": "tech",
+     "kind": "places",
+     "file": "tech_hq",
+     "icon": "software",
+     "cats": [
+      [
+       "chips",
+       "Chips",
+       "Chip company"
+      ],
+      [
+       "hardware",
+       "Hardware",
+       "Hardware company"
+      ],
+      [
+       "software",
+       "Software",
+       "Software company"
+      ],
+      [
+       "internet",
+       "Internet",
+       "Internet or platform company"
+      ],
+      [
+       "ai",
+       "AI",
+       "AI company"
+      ]
+     ],
+     "name": "Tech headquarters",
+     "place": "Headquarters",
+     "note": "Where the Bay Area’s big tech companies have their headquarters, from Apple and Nvidia to OpenAI; best in the Bay Area view",
+     "catNote": "Public companies in the S&P 500’s tech sectors (and internet platforms it files elsewhere) and private ones valued at $50 billion or more. Headquarters only: offices, campuses and size aren’t shown.",
+     "popup": {
+      "rows": [
+       [
+        "a",
+        "Headquarters"
+       ],
+       [
+        "y",
+        "Founded"
+       ]
+      ],
+      "fine": "Headquarters as each company states it in its SEC filings or on its own pages, as of October 2026; placed with the US Census Bureau’s geocoder (a few with OpenStreetMap)."
+     },
+     "wide": true
     },
     {
      "id": "heritage",
