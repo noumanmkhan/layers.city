@@ -92,8 +92,32 @@ def constituencies():
         save(out, {'type': 'FeatureCollection', 'features': keep})
 
 
+OC = 'https://data.opencity.in/dataset/'
+OC_FILES = [  # OpenCity copies of official maps, to check constituency lines against (DataMeet's are rough in the city)
+    ('oc_ac_hyd_rr.geojson', OC + 'ddf1cb4a-1433-4e8b-aeeb-afb2d5ba5021/resource/76aa80ff-1791-4c19-a773-8f96658825f7/download/3fbc4f52-cde9-48d1-a257-7b4b7470f1a4.kml'),
+    ('oc_ac_telangana.geojson', OC + 'ddf1cb4a-1433-4e8b-aeeb-afb2d5ba5021/resource/ab8095a4-cc07-4a73-8da2-3458baab4600/download/8137a4f0-4d33-48d9-ae93-23b2bf558424.kml'),
+    ('oc_pc_telangana.geojson', OC + 'ddf1cb4a-1433-4e8b-aeeb-afb2d5ba5021/resource/030ea574-826a-468d-935f-3092f4658f1d/download/f809164b-4773-4360-be76-6fc5f8bb39cf.kml'),
+    ('oc_ghmc_wards_2022.geojson', OC + '15cb7d8d-eed1-4aad-8cd7-f281cbf4f94f/resource/14b033e3-3721-4149-8326-cc29420e062e/download/ghmc_wards.kml'),
+]
+
+
+def opencity_maps():
+    for out, url in OC_FILES:
+        p = os.path.join(TMP, os.path.basename(url))
+        open(p, 'wb').write(get(url))
+        g = os.path.join(TMP, out)
+        subprocess.run(['ogr2ogr', '-f', 'GeoJSON', '-t_srs', 'EPSG:4326', '-nlt', 'PROMOTE_TO_MULTI', g, p], check=True)
+        fs = json.load(open(g))['features']
+        print('  %s: %d features · fields %s' % (out, len(fs), sorted(fs[0]['properties']) if fs else []))
+        if fs: print('   sample', {k: v for k, v in fs[0]['properties'].items() if v not in (None, '') and k.lower() != 'description'},
+                     '· description', str(fs[0]['properties'].get('description') or '')[:300])
+        keep = [{'type': 'Feature', 'properties': {k: v for k, v in f['properties'].items() if v not in (None, '')},
+                 'geometry': r5(shape(f['geometry']).buffer(0).simplify(0.00005, preserve_topology=True))} for f in fs if f.get('geometry')]
+        save(out, {'type': 'FeatureCollection', 'features': keep})
+
+
 if __name__ == '__main__':
     only = sys.argv[1:]
-    for label, fn in (('pincodes', pincodes), ('constituencies', constituencies)):
+    for label, fn in (('pincodes', pincodes), ('constituencies', constituencies), ('opencity_maps', opencity_maps)):
         if not only or label in only: step(label, fn)
     print('\nfailed:', FAILED or 'none')
