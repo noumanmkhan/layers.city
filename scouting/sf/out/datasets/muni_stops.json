@@ -3,5 +3,248 @@
  "looked_for": [
   "Muni Stops"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "i28k-bkz6",
+   "Muni Stops",
+   null,
+   "2026-07-09"
+  ]
+ ],
+ "picked": {
+  "id": "i28k-bkz6",
+  "name": "Muni Stops",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "SFMTA",
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-04-11",
+  "view_modified": "2026-07-09",
+  "description": "<strong>A. SUMMARY </strong>\nAll transit stops in the SFMTA system (e.g. Muni bus and transit stops).\n\n<strong>B. METHODOLOGY  </strong>\nStop data is exported from the Trapeze scheduling system and represents the most up to date location of transit stops. \n\n<strong>C. UPDATE FREQUENCY  </strong>\nUpdated by “Sign-up”, when transit system changes are put into effect. Updates range from every 3-6 months.\n\n<strong>D. HOW TO USE THIS DATASET </strong>\nThis dataset is derived from the GTFS data that the SFMTA makes available via <u><a href=\"https://511.org/open-data/transit\">Metropolitan Transit Commission's 511 Open Transit Data Portal</a></u>. GTFS files are the standard way to communicate transit schedules, and include the schedule for trips, stop locations, and route paths. The SFMTA publish"
+ },
+ "count": 3260,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "number",
+   "label": "OBJECTID"
+  },
+  {
+   "name": "stopname",
+   "type": "text",
+   "label": "STOPNAME"
+  },
+  {
+   "name": "trapezestopabbr",
+   "type": "text",
+   "label": "TRAPEZESTOPABBR"
+  },
+  {
+   "name": "rucusstopabbr",
+   "type": "text",
+   "label": "RUCUSSTOPABBR"
+  },
+  {
+   "name": "stopid",
+   "type": "number",
+   "label": "STOPID"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "LATITUDE"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "LONGITUDE"
+  },
+  {
+   "name": "accessibilitymask",
+   "type": "number",
+   "label": "ACCESSIBILITYMASK"
+  },
+  {
+   "name": "atstreet",
+   "type": "text",
+   "label": "ATSTREET"
+  },
+  {
+   "name": "onstreet",
+   "type": "text",
+   "label": "ONSTREET"
+  },
+  {
+   "name": "position",
+   "type": "text",
+   "label": "POSITION"
+  },
+  {
+   "name": "orientation",
+   "type": "text",
+   "label": "ORIENTATION"
+  },
+  {
+   "name": "serviceplanningstoptype",
+   "type": "text",
+   "label": "SERVICEPLANNINGSTOPTYPE"
+  },
+  {
+   "name": "shelter",
+   "type": "number",
+   "label": "SHELTER"
+  },
+  {
+   "name": "insert_timestamp",
+   "type": "text",
+   "label": "INSERT_TIMESTAMP"
+  },
+  {
+   "name": "sde_id",
+   "type": "number",
+   "label": "SDE_ID"
+  },
+  {
+   "name": "signupid",
+   "type": "number",
+   "label": "SIGNUPID"
+  },
+  {
+   "name": "supervisor_district",
+   "type": "text",
+   "label": "SUPERVISOR_DISTRICT"
+  },
+  {
+   "name": "shape",
+   "type": "point",
+   "label": "shape"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": ":@computed_region_qgnn_b9vv",
+   "type": "number",
+   "label": "Current Police Districts"
+  },
+  {
+   "name": ":@computed_region_26cr_cadq",
+   "type": "number",
+   "label": "Current Supervisor Districts"
+  },
+  {
+   "name": ":@computed_region_ajp5_b2md",
+   "type": "number",
+   "label": "Analysis Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_jwn9_ihcz",
+   "type": "number",
+   "label": "Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_6qbp_sg9q",
+   "type": "number",
+   "label": "SF Find Neighborhoods"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "114794",
+   "stopname": "Fulton St&Clayton St NW-FS/BZ",
+   "trapezestopabbr": "FULTCLT0",
+   "rucusstopabbr": "FULTCLTN",
+   "stopid": "4225",
+   "latitude": "37.775407",
+   "longitude": "-122.44977399999999",
+   "accessibilitymask": "1",
+   "atstreet": "CLAYTON ST",
+   "onstreet": "FULTON ST",
+   "position": "FS",
+   "orientation": "NW",
+   "serviceplanningstoptype": "BZ",
+   "insert_timestamp": "1771351240000",
+   "sde_id": "16541728",
+   "signupid": "151",
+   "supervisor_district": "1",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2026-04-08T12:59:47.000",
+   "data_loaded_at": "2026-04-11T10:33:02.000",
+   ":@computed_region_qgnn_b9vv": "7",
+   ":@computed_region_26cr_cadq": "4",
+   ":@computed_region_ajp5_b2md": "18",
+   ":@computed_region_jwn9_ihcz": "12",
+   ":@computed_region_6qbp_sg9q": "12"
+  },
+  {
+   "objectid": "113145",
+   "stopname": "Judah St&19th Ave SW-NS/SI",
+   "trapezestopabbr": "JUDA19A1",
+   "rucusstopabbr": "JUDA19AV",
+   "stopid": "5200",
+   "latitude": "37.761655",
+   "longitude": "-122.477194",
+   "accessibilitymask": "1",
+   "atstreet": "19TH AVE",
+   "onstreet": "JUDAH ST",
+   "position": "NS",
+   "orientation": "SW",
+   "serviceplanningstoptype": "SI",
+   "insert_timestamp": "1771351240000",
+   "sde_id": "16536415",
+   "signupid": "151",
+   "supervisor_district": "4",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2026-04-08T12:59:47.000",
+   "data_loaded_at": "2026-04-11T10:33:02.000",
+   ":@computed_region_qgnn_b9vv": "10",
+   ":@computed_region_26cr_cadq": "7",
+   ":@computed_region_ajp5_b2md": "35",
+   ":@computed_region_jwn9_ihcz": "39",
+   ":@computed_region_6qbp_sg9q": "39"
+  },
+  {
+   "objectid": "112494",
+   "stopname": "Arguello Blvd&Balboa St SW-FS/BZ",
+   "trapezestopabbr": "ARGLBBO0",
+   "rucusstopabbr": "ARGLBBOA",
+   "stopid": "3642",
+   "latitude": "37.777074999999996",
+   "longitude": "-122.458645",
+   "accessibilitymask": "1",
+   "atstreet": "BALBOA ST",
+   "onstreet": "ARGUELLO BLVD",
+   "position": "FS",
+   "orientation": "SW",
+   "serviceplanningstoptype": "BZ",
+   "insert_timestamp": "1771351240000",
+   "sde_id": "16534505",
+   "signupid": "151",
+   "supervisor_district": "1",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2026-04-08T12:59:47.000",
+   "data_loaded_at": "2026-04-11T10:33:02.000",
+   ":@computed_region_qgnn_b9vv": "8",
+   ":@computed_region_26cr_cadq": "4",
+   ":@computed_region_ajp5_b2md": "11",
+   ":@computed_region_jwn9_ihcz": "5",
+   ":@computed_region_6qbp_sg9q": "5"
+  }
+ ]
 }

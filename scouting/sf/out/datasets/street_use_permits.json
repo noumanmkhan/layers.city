@@ -3,5 +3,284 @@
  "looked_for": [
   "Street-Use Permits"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "b6tj-gt35",
+   "Street-Use Permits",
+   null,
+   "2026-10-29"
+  ]
+ ],
+ "picked": {
+  "id": "b6tj-gt35",
+  "name": "Street-Use Permits",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "San Francisco Public Works",
+  "category": "City Infrastructure",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "<strong>Note 1/17/2025:</strong> This dataset has been backfilled to include additional permit status and historical permit data. Please see <u><a href=\"https://data.sfgov.org/d/x8nh-xzn6\">Active Street-Use Permits</a></u> if you are only interested in currently active permits. \n\n<strong>A. SUMMARY</strong>\nAll street space permits received by SF Public Works. This includes permits in all statuses of review by Public Works, including those approved and issued as well as those pending review, closed or withdrawn. The dataset includes permits received since 1996. A street space permit grants permission to temporarily occupy a portion of a public roadway or sidewalk for building construction and other construction related work. Find out more about street space permits <u><a href=\"https://sfpu"
+ },
+ "count": 1234665,
+ "geo": null,
+ "columns": [
+  {
+   "name": "permit_number",
+   "type": "text",
+   "label": "permit_number"
+  },
+  {
+   "name": "cnn",
+   "type": "number",
+   "label": "cnn"
+  },
+  {
+   "name": "unique_identifier",
+   "type": "text",
+   "label": "unique_identifier"
+  },
+  {
+   "name": "streetname",
+   "type": "text",
+   "label": "streetname"
+  },
+  {
+   "name": "cross_street_1",
+   "type": "text",
+   "label": "Cross Street 1"
+  },
+  {
+   "name": "cross_street_2",
+   "type": "text",
+   "label": "Cross Street 2"
+  },
+  {
+   "name": "permit_type",
+   "type": "text",
+   "label": "Permit Type"
+  },
+  {
+   "name": "agent",
+   "type": "text",
+   "label": "Agent"
+  },
+  {
+   "name": "agentphone",
+   "type": "text",
+   "label": "AgentPhone"
+  },
+  {
+   "name": "permit_purpose",
+   "type": "text",
+   "label": "Permit Purpose"
+  },
+  {
+   "name": "approved_date",
+   "type": "calendar_date",
+   "label": "Approved Date"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "Status"
+  },
+  {
+   "name": "permit_zipcode",
+   "type": "text",
+   "label": "permit_zipcode"
+  },
+  {
+   "name": "permit_start_date",
+   "type": "calendar_date",
+   "label": "permit_start_date"
+  },
+  {
+   "name": "permit_end_date",
+   "type": "calendar_date",
+   "label": "permit_end_date"
+  },
+  {
+   "name": "permit_address",
+   "type": "text",
+   "label": "permit_address"
+  },
+  {
+   "name": "contact",
+   "type": "text",
+   "label": "24/7 Contact"
+  },
+  {
+   "name": "inspector",
+   "type": "text",
+   "label": "Inspector"
+  },
+  {
+   "name": "curbrampwork",
+   "type": "checkbox",
+   "label": "CurbRampWork"
+  },
+  {
+   "name": "planchecker",
+   "type": "text",
+   "label": "PlanChecker"
+  },
+  {
+   "name": "x",
+   "type": "number",
+   "label": "X"
+  },
+  {
+   "name": "y",
+   "type": "number",
+   "label": "Y"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "Latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "Longitude"
+  },
+  {
+   "name": "bpa",
+   "type": "text",
+   "label": "bpa"
+  },
+  {
+   "name": "location",
+   "type": "location",
+   "label": "Location"
+  },
+  {
+   "name": "the_geom",
+   "type": "point",
+   "label": "the_geom"
+  },
+  {
+   "name": "analysis_neighborhood",
+   "type": "text",
+   "label": "analysis_neighborhood"
+  },
+  {
+   "name": "supervisor_district",
+   "type": "text",
+   "label": "supervisor_district"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "permit_number": "14B-0109",
+   "cnn": "2799204",
+   "unique_identifier": "14B-0109_2799204",
+   "streetname": "BAY SHORE BLVD",
+   "cross_street_1": "BAY SHORE BLVD",
+   "cross_street_2": "BAY SHORE BLVD",
+   "permit_type": "Banners",
+   "agent": "AAA FLAG & BANNER MFG. CO.",
+   "agentphone": "(415) 431-2950",
+   "permit_purpose": "LitQuake 2014",
+   "approved_date": "2014-09-11T12:19:40.000",
+   "status": "CLOSED",
+   "permit_zipcode": "94124",
+   "contact": "Heather Cann: (415) 431-2950",
+   "planchecker": "Rahul Shah",
+   "x": "6011107.7440000000",
+   "y": "2099631.9980000000",
+   "latitude": "37.74581574536056",
+   "longitude": "-122.4042902974621",
+   "location": {
+    "latitude": "37.74581574536056",
+    "longitude": "-122.4042902974621",
+    "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+   },
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "analysis_neighborhood": "Bernal Heights",
+   "supervisor_district": "9",
+   "data_as_of": "2026-04-30T03:05:30.000",
+   "data_loaded_at": "2026-05-01T05:23:01.000"
+  },
+  {
+   "permit_number": "14B-0056",
+   "cnn": "8750201",
+   "unique_identifier": "14B-0056_8750201",
+   "streetname": "MARKET ST",
+   "cross_street_1": "06TH ST \\ GOLDEN GATE AVE \\ TAYLOR ST",
+   "cross_street_2": "MCALLISTER ST",
+   "permit_type": "Banners",
+   "agent": "SFLGBTPCC INC.",
+   "permit_purpose": "SF Pride Parade & Celebration",
+   "approved_date": "2014-05-20T12:07:35.000",
+   "status": "CLOSED",
+   "permit_zipcode": "94102",
+   "contact": "Refer to Agent",
+   "planchecker": "Rahul Shah",
+   "x": "6009432.3940000000",
+   "y": "2112743.3150000000",
+   "latitude": "37.781722660827256",
+   "longitude": "-122.41100935825355",
+   "location": {
+    "latitude": "37.781722660827256",
+    "longitude": "-122.41100935825355",
+    "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+   },
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "analysis_neighborhood": "Tenderloin",
+   "supervisor_district": "5",
+   "data_as_of": "2026-04-30T03:05:30.000",
+   "data_loaded_at": "2026-05-01T05:23:01.000"
+  },
+  {
+   "permit_number": "14B-0049",
+   "cnn": "9177000",
+   "unique_identifier": "14B-0049_9177000",
+   "streetname": "MISSION ST",
+   "cross_street_1": "AMAZON AVE",
+   "cross_street_2": "GENEVA AVE",
+   "permit_type": "Banners",
+   "agent": "Project Inform",
+   "agentphone": "(415) 615-9255",
+   "permit_purpose": "AIDS Walk San Francisco",
+   "approved_date": "2014-06-20T15:36:03.000",
+   "status": "CLOSED",
+   "permit_zipcode": "94112",
+   "contact": "Refer to Agent",
+   "planchecker": "Rahul Shah",
+   "x": "6000358.5694700000",
+   "y": "2089304.4167100000",
+   "latitude": "37.716852068918115",
+   "longitude": "-122.44071865152607",
+   "location": {
+    "latitude": "37.716852068918115",
+    "longitude": "-122.44071865152607",
+    "human_address": "{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}"
+   },
+   "the_geom": {
+    "geometry_type": "Point"
+   },
+   "analysis_neighborhood": "Excelsior",
+   "supervisor_district": "11",
+   "data_as_of": "2026-04-30T03:05:30.000",
+   "data_loaded_at": "2026-05-01T05:23:01.000"
+  }
+ ]
 }

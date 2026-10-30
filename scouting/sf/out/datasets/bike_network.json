@@ -5,5 +5,301 @@
   "Bikeway Network",
   "MTA Bike Network Linear Features"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "ygmz-vaxd",
+   "MTA Bike Network Linear Features",
+   null,
+   "2026-10-24"
+  ],
+  [
+   "contains",
+   "k6qg-djmi",
+   "SFMTA Bikeway Network Point Features",
+   null,
+   "2026-10-21"
+  ]
+ ],
+ "picked": {
+  "id": "ygmz-vaxd",
+  "name": "MTA Bike Network Linear Features",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "SFMTA",
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-24",
+  "view_modified": "2026-10-24",
+  "description": "<b>A. SUMMARY</b>\nThis dataset is created to show the linear features that make up the bikeway network.\n\n<b>B. METHODOLOGY</b>\nN/A\n\n<b>C. UPDATE FREQUENCY</b>\nQuarterly"
+ },
+ "count": 5484,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "text",
+   "label": "OBJECTID"
+  },
+  {
+   "name": "cnn",
+   "type": "text",
+   "label": "CNN"
+  },
+  {
+   "name": "streetname",
+   "type": "text",
+   "label": "STREETNAME"
+  },
+  {
+   "name": "from_st",
+   "type": "text",
+   "label": "FROM_ST"
+  },
+  {
+   "name": "to_st",
+   "type": "text",
+   "label": "TO_ST"
+  },
+  {
+   "name": "facility_t",
+   "type": "text",
+   "label": "FACILITY_T"
+  },
+  {
+   "name": "direct",
+   "type": "text",
+   "label": "DIRECT"
+  },
+  {
+   "name": "surface_tr",
+   "type": "text",
+   "label": "SURFACE_TR"
+  },
+  {
+   "name": "barrier",
+   "type": "text",
+   "label": "BARRIER"
+  },
+  {
+   "name": "notes",
+   "type": "text",
+   "label": "NOTES"
+  },
+  {
+   "name": "dir",
+   "type": "text",
+   "label": "DIR"
+  },
+  {
+   "name": "double",
+   "type": "number",
+   "label": "DOUBLE"
+  },
+  {
+   "name": "fy",
+   "type": "number",
+   "label": "FY"
+  },
+  {
+   "name": "qtr",
+   "type": "number",
+   "label": "QTR"
+  },
+  {
+   "name": "street_",
+   "type": "text",
+   "label": "STREET_"
+  },
+  {
+   "name": "length",
+   "type": "number",
+   "label": "LENGTH"
+  },
+  {
+   "name": "number_",
+   "type": "text",
+   "label": "NUMBER_"
+  },
+  {
+   "name": "install_yr",
+   "type": "text",
+   "label": "INSTALL_YR"
+  },
+  {
+   "name": "install_mo",
+   "type": "number",
+   "label": "INSTALL_MO"
+  },
+  {
+   "name": "update_yr",
+   "type": "number",
+   "label": "UPDATE_YR"
+  },
+  {
+   "name": "update_mo",
+   "type": "number",
+   "label": "UPDATE_MO"
+  },
+  {
+   "name": "globalid",
+   "type": "text",
+   "label": "GLOBALID"
+  },
+  {
+   "name": "symbology",
+   "type": "text",
+   "label": "SYMBOLOGY"
+  },
+  {
+   "name": "sharrow",
+   "type": "number",
+   "label": "SHARROW"
+  },
+  {
+   "name": "buffered",
+   "type": "text",
+   "label": "BUFFERED"
+  },
+  {
+   "name": "raised",
+   "type": "text",
+   "label": "RAISED"
+  },
+  {
+   "name": "contraflow",
+   "type": "text",
+   "label": "CONTRAFLOW"
+  },
+  {
+   "name": "greenwave",
+   "type": "text",
+   "label": "GREENWAVE"
+  },
+  {
+   "name": "biap",
+   "type": "text",
+   "label": "BIAP"
+  },
+  {
+   "name": "sm_sweeper",
+   "type": "text",
+   "label": "SM_SWEEPER"
+  },
+  {
+   "name": "shape",
+   "type": "line",
+   "label": "shape"
+  },
+  {
+   "name": "recommendation",
+   "type": "text",
+   "label": "RECOMMENDATION"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "1177",
+   "cnn": "3516000",
+   "streetname": "CABRILLO ST",
+   "from_st": "LA PLAYA ST",
+   "to_st": "GREAT HWY",
+   "facility_t": "CLASS I",
+   "direct": "2W",
+   "dir": "E",
+   "double": "1",
+   "fy": "0",
+   "qtr": "0",
+   "street_": "Cabrillo St",
+   "length": "0.083604560000000008",
+   "number_": "202",
+   "install_yr": "0",
+   "update_yr": "0",
+   "symbology": "BIKE PATH",
+   "sharrow": "0",
+   "buffered": "NO",
+   "raised": "NO",
+   "contraflow": "NO",
+   "greenwave": "NO",
+   "biap": "NO",
+   "sm_sweeper": "NO",
+   "shape": {
+    "geometry_type": "LineString"
+   },
+   "recommendation": "1",
+   "data_as_of": "2023-05-19T13:12:03.000",
+   "data_loaded_at": "2026-10-24T10:42:06.040"
+  },
+  {
+   "objectid": "4432",
+   "cnn": "2428000",
+   "streetname": "ARGUELLO BLVD",
+   "from_st": "CABRILLO ST",
+   "to_st": "MC ALLISTER ST",
+   "facility_t": "CLASS II",
+   "direct": "2W",
+   "dir": "S",
+   "double": "1",
+   "fy": "0",
+   "qtr": "0",
+   "street_": "Arguello Blvd",
+   "length": "0.02615929",
+   "number_": "65",
+   "install_yr": "1999",
+   "update_yr": "2016",
+   "update_mo": "10",
+   "symbology": "BIKE LANE",
+   "sharrow": "0",
+   "buffered": "NO",
+   "raised": "NO",
+   "contraflow": "NO",
+   "greenwave": "NO",
+   "biap": "NO",
+   "sm_sweeper": "NO",
+   "shape": {
+    "geometry_type": "LineString"
+   },
+   "recommendation": "1",
+   "data_as_of": "2023-10-27T10:56:34.000",
+   "data_loaded_at": "2026-10-24T10:42:06.040"
+  },
+  {
+   "objectid": "10895",
+   "cnn": "4359000",
+   "streetname": "CONSERVATORY ACCESS RD",
+   "from_st": "JOHN F KENNEDY DR",
+   "to_st": "CONSERVATORY ACCESS RD",
+   "facility_t": "CLASS I",
+   "notes": "Golden Gate Park Access and Safety Program",
+   "dir": "N",
+   "length": "0.09765992",
+   "install_yr": "2022",
+   "install_mo": "4",
+   "update_mo": "0",
+   "symbology": "BIKE PATH",
+   "sharrow": "0",
+   "buffered": "NO",
+   "raised": "NO",
+   "contraflow": "NO",
+   "greenwave": "NO",
+   "biap": "NO",
+   "sm_sweeper": "NO",
+   "shape": {
+    "geometry_type": "LineString"
+   },
+   "recommendation": "0",
+   "data_as_of": "2023-05-19T13:39:50.000",
+   "data_loaded_at": "2026-10-24T10:42:06.040"
+  }
+ ]
 }

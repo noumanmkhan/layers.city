@@ -5,5 +5,291 @@
   "Rec and Park Properties",
   "Park Lands - Recreation and Parks Department"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "gtr9-ntp6",
+   "Recreation and Parks Properties",
+   null,
+   "2026-10-30"
+  ]
+ ],
+ "picked": {
+  "id": "gtr9-ntp6",
+  "name": "Recreation and Parks Properties",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Culture and Recreation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-30",
+  "view_modified": "2026-10-30",
+  "description": "Land owned and/or maintained by the Recreation and Parks Department. Properties are modeled within the Department's Facility Asset Management Software, TMA. Inclusive of parks, golf courses, campgrounds, etc."
+ },
+ "count": 255,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "text",
+   "label": "objectid"
+  },
+  {
+   "name": "property_id",
+   "type": "text",
+   "label": "property_id"
+  },
+  {
+   "name": "property_name",
+   "type": "text",
+   "label": "property_name"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "longitude"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "latitude"
+  },
+  {
+   "name": "acres",
+   "type": "number",
+   "label": "acres"
+  },
+  {
+   "name": "squarefeet",
+   "type": "number",
+   "label": "squarefeet"
+  },
+  {
+   "name": "perimeterlength",
+   "type": "number",
+   "label": "perimeterlength"
+  },
+  {
+   "name": "propertytype",
+   "type": "text",
+   "label": "propertytype"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "address"
+  },
+  {
+   "name": "city",
+   "type": "text",
+   "label": "city"
+  },
+  {
+   "name": "state",
+   "type": "text",
+   "label": "state"
+  },
+  {
+   "name": "zipcode",
+   "type": "text",
+   "label": "zipcode"
+  },
+  {
+   "name": "complex",
+   "type": "text",
+   "label": "complex"
+  },
+  {
+   "name": "psa",
+   "type": "text",
+   "label": "psa"
+  },
+  {
+   "name": "ownership",
+   "type": "text",
+   "label": "ownership"
+  },
+  {
+   "name": "supdist",
+   "type": "text",
+   "label": "supdist"
+  },
+  {
+   "name": "land_id",
+   "type": "text",
+   "label": "land_id"
+  },
+  {
+   "name": "analysis_neighborhood",
+   "type": "text",
+   "label": "analysis_neighborhood"
+  },
+  {
+   "name": "state_senate",
+   "type": "text",
+   "label": "state_senate"
+  },
+  {
+   "name": "mons_neighborhood",
+   "type": "text",
+   "label": "mons_neighborhood"
+  },
+  {
+   "name": "police_district",
+   "type": "text",
+   "label": "police_district"
+  },
+  {
+   "name": "us_congress",
+   "type": "text",
+   "label": "us_congress"
+  },
+  {
+   "name": "realtor_neighborhood",
+   "type": "text",
+   "label": "realtor_neighborhood"
+  },
+  {
+   "name": "state_assembly",
+   "type": "text",
+   "label": "state_assembly"
+  },
+  {
+   "name": "planning_neighborhood",
+   "type": "text",
+   "label": "planning_neighborhood"
+  },
+  {
+   "name": "shape",
+   "type": "multipolygon",
+   "label": "shape"
+  },
+  {
+   "name": "created_date",
+   "type": "calendar_date",
+   "label": "created_date"
+  },
+  {
+   "name": "last_edited_date",
+   "type": "calendar_date",
+   "label": "last_edited_date"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "4029",
+   "property_id": "1",
+   "property_name": "Glen Canyon Park",
+   "longitude": "-122.44268074",
+   "latitude": "37.74017042",
+   "acres": "70.70205415",
+   "squarefeet": "3079793.79774424",
+   "perimeterlength": "15181.75335114",
+   "propertytype": "Regional Park",
+   "address": "70 Elk St",
+   "city": "San Francisco",
+   "state": "CA",
+   "zipcode": "94131",
+   "complex": "Glen Park Complex",
+   "psa": "PSA5",
+   "ownership": "Recreation & Park",
+   "supdist": "8, 7",
+   "land_id": "527",
+   "analysis_neighborhood": "Glen Park, West of Twin Peaks",
+   "state_senate": "11",
+   "mons_neighborhood": "Glen Park, Diamond Heights, Miraloma Park",
+   "police_district": "INGLESIDE",
+   "us_congress": "11",
+   "realtor_neighborhood": "Diamond Heights, Glen Park",
+   "state_assembly": "17",
+   "planning_neighborhood": "Diamond Heights, West of Twin Peaks, Outer Mission, Glen Park",
+   "shape": {
+    "geometry_type": "MultiPolygon"
+   },
+   "created_date": "2025-12-18T09:05:04.000",
+   "last_edited_date": "2026-05-01T03:31:05.000",
+   "data_as_of": "2026-05-01T03:31:05.000",
+   "data_loaded_at": "2026-10-29T20:07:27.581"
+  },
+  {
+   "objectid": "3993",
+   "property_id": "10",
+   "property_name": "Lake Merced Park",
+   "longitude": "-122.49239057",
+   "latitude": "37.7218412",
+   "acres": "608.5808581199999",
+   "squarefeet": "26509888.219014",
+   "perimeterlength": "33389.02886018",
+   "propertytype": "Regional Park",
+   "address": "1 Harding Rd",
+   "city": "San Francisco",
+   "state": "CA",
+   "zipcode": "94132",
+   "complex": "Lake Merced Complex",
+   "psa": "PSA4",
+   "ownership": "PUC/Water Department",
+   "supdist": "7",
+   "land_id": "810",
+   "analysis_neighborhood": "Lakeshore",
+   "state_senate": "11",
+   "mons_neighborhood": "Lakeshore",
+   "police_district": "TARAVAL",
+   "us_congress": "11, 15",
+   "realtor_neighborhood": "Lake Shore",
+   "state_assembly": "19",
+   "planning_neighborhood": "Lakeshore",
+   "shape": {
+    "geometry_type": "MultiPolygon"
+   },
+   "created_date": "2025-12-18T09:04:42.000",
+   "last_edited_date": "2025-12-18T09:04:42.000",
+   "data_as_of": "2025-12-18T09:04:42.000",
+   "data_loaded_at": "2026-10-29T20:07:27.581"
+  },
+  {
+   "objectid": "3868",
+   "property_id": "100",
+   "property_name": "Richmond Playground",
+   "longitude": "-122.4781249",
+   "latitude": "37.78513522",
+   "acres": "0.92841564",
+   "squarefeet": "40441.94691315",
+   "perimeterlength": "839.2092078",
+   "propertytype": "Neighborhood Park or Playground",
+   "address": "149 18th Ave",
+   "city": "San Francisco",
+   "state": "CA",
+   "zipcode": "94121",
+   "complex": "Richmond Complex",
+   "psa": "PSA9",
+   "ownership": "Recreation & Park",
+   "supdist": "1",
+   "land_id": "90",
+   "analysis_neighborhood": "Outer Richmond",
+   "state_senate": "11",
+   "mons_neighborhood": "Lake Street",
+   "police_district": "RICHMOND",
+   "us_congress": "11",
+   "realtor_neighborhood": "Lake Street",
+   "state_assembly": "19",
+   "planning_neighborhood": "Inner Richmond",
+   "shape": {
+    "geometry_type": "MultiPolygon"
+   },
+   "created_date": "2025-12-18T09:04:01.000",
+   "last_edited_date": "2026-10-02T14:52:50.742",
+   "data_as_of": "2026-10-02T14:52:50.742",
+   "data_loaded_at": "2026-10-29T20:07:27.581"
+  }
+ ]
 }

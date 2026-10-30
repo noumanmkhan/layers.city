@@ -3,5 +3,385 @@
  "looked_for": [
   "Parking Meters"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "8vzz-qzz9",
+   "Parking Meters",
+   null,
+   "2026-10-24"
+  ]
+ ],
+ "picked": {
+  "id": "8vzz-qzz9",
+  "name": "Parking Meters",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "SFMTA",
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-24",
+  "view_modified": "2026-10-24",
+  "description": "<strong>A. SUMMARY</strong>\nLocation, cap color and other key attributes of parking meters in San Francisco. Does not include operating schedules or rate schedules.\n\n<strong>B. METHODOLOGY  </strong>\nUpdated via the SFpark data warehouse (Parking Space Inventory) by meter shop staff, with manual updates sourced from SFMTA CAD drawings and MTAB resolutions. \n\n<strong>C. UPDATE FREQUENCY  </strong>\nUpdated weekly.\n\n<strong>D. OTHER CRITICAL INFO   </strong>\nFor active meters only, filter for \"Active_Met\" = 'M\" or \"T\". Meter operating and rate schedules are more complex and available as separate tables. Key field for joining is the Parking Space ID field."
+ },
+ "count": 38775,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "number",
+   "label": "OBJECTID"
+  },
+  {
+   "name": "parking_space_id",
+   "type": "number",
+   "label": "PARKING_SPACE_ID"
+  },
+  {
+   "name": "post_id",
+   "type": "text",
+   "label": "POST_ID"
+  },
+  {
+   "name": "ms_pay_station_id",
+   "type": "text",
+   "label": "MS_PAY_STATION_ID"
+  },
+  {
+   "name": "ms_space_num",
+   "type": "number",
+   "label": "MS_SPACE_NUM"
+  },
+  {
+   "name": "sensor_flag",
+   "type": "text",
+   "label": "SENSOR_FLAG"
+  },
+  {
+   "name": "on_offstreet_type",
+   "type": "text",
+   "label": "ON_OFFSTREET_TYPE"
+  },
+  {
+   "name": "osp_id",
+   "type": "number",
+   "label": "OSP_ID"
+  },
+  {
+   "name": "jurisdiction",
+   "type": "text",
+   "label": "JURISDICTION"
+  },
+  {
+   "name": "pm_district_id",
+   "type": "number",
+   "label": "PM_DISTRICT_ID"
+  },
+  {
+   "name": "blockface_id",
+   "type": "number",
+   "label": "BLOCKFACE_ID"
+  },
+  {
+   "name": "active_meter_flag",
+   "type": "text",
+   "label": "ACTIVE_METER_FLAG"
+  },
+  {
+   "name": "reason_code",
+   "type": "text",
+   "label": "REASON_CODE"
+  },
+  {
+   "name": "smart_meter_flag",
+   "type": "text",
+   "label": "SMART_METER_FLAG"
+  },
+  {
+   "name": "meter_type",
+   "type": "text",
+   "label": "METER_TYPE"
+  },
+  {
+   "name": "meter_vendor",
+   "type": "text",
+   "label": "METER_VENDOR"
+  },
+  {
+   "name": "meter_model",
+   "type": "text",
+   "label": "METER_MODEL"
+  },
+  {
+   "name": "cap_color",
+   "type": "text",
+   "label": "CAP_COLOR"
+  },
+  {
+   "name": "pco_beat",
+   "type": "text",
+   "label": "PCO_BEAT"
+  },
+  {
+   "name": "old_rate_area",
+   "type": "text",
+   "label": "OLD_RATE_AREA"
+  },
+  {
+   "name": "street_id",
+   "type": "number",
+   "label": "STREET_ID"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "STREET_NAME"
+  },
+  {
+   "name": "street_num",
+   "type": "number",
+   "label": "STREET_NUM"
+  },
+  {
+   "name": "parity_digit_position",
+   "type": "text",
+   "label": "PARITY_DIGIT_POSITION"
+  },
+  {
+   "name": "street_seg_ctrln_id",
+   "type": "number",
+   "label": "STREET_SEG_CTRLN_ID"
+  },
+  {
+   "name": "orientation",
+   "type": "number",
+   "label": "ORIENTATION"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "LONGITUDE"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "LATITUDE"
+  },
+  {
+   "name": "legislation_ref",
+   "type": "text",
+   "label": "LEGISLATION_REF"
+  },
+  {
+   "name": "legislation_dt",
+   "type": "text",
+   "label": "LEGISLATION_DT"
+  },
+  {
+   "name": "work_order",
+   "type": "text",
+   "label": "WORK_ORDER"
+  },
+  {
+   "name": "comments",
+   "type": "text",
+   "label": "COMMENTS"
+  },
+  {
+   "name": "collection_route",
+   "type": "text",
+   "label": "COLLECTION_ROUTE"
+  },
+  {
+   "name": "collection_subroute",
+   "type": "text",
+   "label": "COLLECTION_SUBROUTE"
+  },
+  {
+   "name": "pmr_route",
+   "type": "text",
+   "label": "PMR_ROUTE"
+  },
+  {
+   "name": "nfc_key",
+   "type": "text",
+   "label": "NFC_KEY"
+  },
+  {
+   "name": "spt_code",
+   "type": "text",
+   "label": "SPT_CODE"
+  },
+  {
+   "name": "collection_route_desc",
+   "type": "text",
+   "label": "COLLECTION_ROUTE_DESC"
+  },
+  {
+   "name": "collection_subroute_desc",
+   "type": "text",
+   "label": "COLLECTION_SUBROUTE_DESC"
+  },
+  {
+   "name": "shape",
+   "type": "point",
+   "label": "shape"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": "analysis_neighborhood",
+   "type": "text",
+   "label": "analysis_neighborhood"
+  },
+  {
+   "name": "supervisor_district",
+   "type": "text",
+   "label": "supervisor_district"
+  },
+  {
+   "name": ":@computed_region_ajp5_b2md",
+   "type": "number",
+   "label": "Analysis Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_jwn9_ihcz",
+   "type": "number",
+   "label": "Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_6qbp_sg9q",
+   "type": "number",
+   "label": "SF Find Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_qgnn_b9vv",
+   "type": "number",
+   "label": "Current Police Districts"
+  },
+  {
+   "name": ":@computed_region_26cr_cadq",
+   "type": "number",
+   "label": "Current Supervisor Districts"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "20113336",
+   "post_id": "215-15390",
+   "ms_pay_station_id": "-",
+   "ms_space_num": "0",
+   "on_offstreet_type": "ON",
+   "jurisdiction": "SFMTA",
+   "pm_district_id": "4",
+   "blockface_id": "215151",
+   "active_meter_flag": "M",
+   "reason_code": "-",
+   "meter_type": "SS",
+   "meter_vendor": "IPS",
+   "meter_model": "M5",
+   "cap_color": "Grey",
+   "street_id": "215",
+   "street_name": "15TH ST",
+   "street_num": "1539",
+   "street_seg_ctrln_id": "650000",
+   "longitude": "-122.4192383976",
+   "latitude": "37.766662198",
+   "collection_route": "DPT MOS",
+   "collection_subroute": "DPT MOS",
+   "pmr_route": "R-2",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2026-10-24T02:12:16.000",
+   "data_loaded_at": "2026-10-24T10:43:52.000",
+   "analysis_neighborhood": "Mission",
+   "supervisor_district": "9",
+   ":@computed_region_ajp5_b2md": "20",
+   ":@computed_region_jwn9_ihcz": "53",
+   ":@computed_region_6qbp_sg9q": "53",
+   ":@computed_region_qgnn_b9vv": "3",
+   ":@computed_region_26cr_cadq": "2"
+  },
+  {
+   "objectid": "20113632",
+   "post_id": "326-07410",
+   "ms_pay_station_id": "-",
+   "ms_space_num": "0",
+   "on_offstreet_type": "ON",
+   "jurisdiction": "SFMTA",
+   "pm_district_id": "6",
+   "blockface_id": "326071",
+   "active_meter_flag": "M",
+   "reason_code": "-",
+   "meter_type": "SS",
+   "meter_vendor": "IPS",
+   "meter_model": "M5",
+   "cap_color": "Yellow",
+   "street_id": "326",
+   "street_name": "BEACH ST",
+   "street_num": "741",
+   "street_seg_ctrln_id": "2846000",
+   "longitude": "-122.4220033974",
+   "latitude": "37.8063978002",
+   "pmr_route": "F-1",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2026-10-24T02:12:16.000",
+   "data_loaded_at": "2026-10-24T10:43:52.000",
+   "analysis_neighborhood": "Russian Hill",
+   "supervisor_district": "2",
+   ":@computed_region_ajp5_b2md": "32",
+   ":@computed_region_jwn9_ihcz": "98",
+   ":@computed_region_6qbp_sg9q": "98",
+   ":@computed_region_qgnn_b9vv": "6",
+   ":@computed_region_26cr_cadq": "6"
+  },
+  {
+   "objectid": "20114013",
+   "post_id": "440-15360",
+   "ms_pay_station_id": "-",
+   "ms_space_num": "0",
+   "on_offstreet_type": "ON",
+   "jurisdiction": "SFMTA",
+   "pm_district_id": "5",
+   "blockface_id": "440152",
+   "active_meter_flag": "T",
+   "reason_code": "UX",
+   "meter_type": "SS",
+   "meter_vendor": "MacKay",
+   "meter_model": "mkBeacon",
+   "cap_color": "Grey",
+   "street_id": "440",
+   "street_name": "GEARY BLVD",
+   "street_num": "1536",
+   "street_seg_ctrln_id": "6040201",
+   "longitude": "-122.4292271004",
+   "latitude": "37.7849776008",
+   "collection_route": "DPT MOS",
+   "collection_subroute": "DPT MOS",
+   "pmr_route": "C-3",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2026-10-24T02:12:16.000",
+   "data_loaded_at": "2026-10-24T10:43:52.000",
+   "analysis_neighborhood": "Japantown",
+   "supervisor_district": "5",
+   ":@computed_region_ajp5_b2md": "15",
+   ":@computed_region_jwn9_ihcz": "101",
+   ":@computed_region_6qbp_sg9q": "101",
+   ":@computed_region_qgnn_b9vv": "4",
+   ":@computed_region_26cr_cadq": "11"
+  }
+ ]
 }

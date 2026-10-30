@@ -3,5 +3,209 @@
  "looked_for": [
   "Building Permits"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "contains",
+   "3pee-9qhc",
+   "Building Permits Contacts",
+   null,
+   "2026-10-29"
+  ],
+  [
+   "contains",
+   "kvek-u79k",
+   "Building Permits Lookup by Contractor, Subcontractor, Architect, Designer, or Engineer",
+   null,
+   "2025-11-04"
+  ]
+ ],
+ "picked": {
+  "id": "3pee-9qhc",
+  "name": "Building Permits Contacts",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Housing and Buildings",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "<strong>Note: Starting on 12/10/2024 this dataset will only publish new records (rows) that are added and update any existing records that have updated information. New and updated records can be identified by using the data_as_of and data_loaded_at fields. To identify the most recent date when the dataset was last updated, use the maximum data_as_of or data_loaded_at value. </strong>\n\nThis data set pertains to contacts associated with building permits. Data includes application/permit numbers, contact name, address, and license numbers. Data is uploaded weekly by DBI. This data set is intended to be joined to the Building Permits data set. Users can access permit information online through DBI’s Permit Tracking System which is 24/7 at www.sfdbi.org/dbipts."
+ },
+ "count": 1038808,
+ "geo": null,
+ "columns": [
+  {
+   "name": "id",
+   "type": "number",
+   "label": "ID"
+  },
+  {
+   "name": "permit_number",
+   "type": "text",
+   "label": "Permit Number"
+  },
+  {
+   "name": "first_name",
+   "type": "text",
+   "label": "First Name"
+  },
+  {
+   "name": "last_name",
+   "type": "text",
+   "label": "Last Name"
+  },
+  {
+   "name": "role",
+   "type": "text",
+   "label": "Role"
+  },
+  {
+   "name": "agent_address",
+   "type": "text",
+   "label": "Agent Address"
+  },
+  {
+   "name": "agent_address2",
+   "type": "text",
+   "label": "Agent Address2"
+  },
+  {
+   "name": "city",
+   "type": "text",
+   "label": "City"
+  },
+  {
+   "name": "state",
+   "type": "text",
+   "label": "State"
+  },
+  {
+   "name": "agent_zipcode",
+   "type": "text",
+   "label": "Agent Zipcode"
+  },
+  {
+   "name": "firm_name",
+   "type": "text",
+   "label": "Firm Name"
+  },
+  {
+   "name": "firm_address",
+   "type": "text",
+   "label": "Firm Address"
+  },
+  {
+   "name": "firm_city",
+   "type": "text",
+   "label": "Firm City"
+  },
+  {
+   "name": "firm_state",
+   "type": "text",
+   "label": "Firm State"
+  },
+  {
+   "name": "firm_zipcode",
+   "type": "text",
+   "label": "Firm Zipcode"
+  },
+  {
+   "name": "pts_agent_id",
+   "type": "number",
+   "label": "PTS Agent ID"
+  },
+  {
+   "name": "from_date",
+   "type": "calendar_date",
+   "label": "From Date"
+  },
+  {
+   "name": "to_date",
+   "type": "calendar_date",
+   "label": "To Date"
+  },
+  {
+   "name": "license1",
+   "type": "text",
+   "label": "License1"
+  },
+  {
+   "name": "license2",
+   "type": "text",
+   "label": "License2"
+  },
+  {
+   "name": "is_applicant",
+   "type": "text",
+   "label": "Is Applicant"
+  },
+  {
+   "name": "sf_business_license_number",
+   "type": "text",
+   "label": "SF Business License Number"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "id": "423925",
+   "permit_number": "200108015012",
+   "first_name": "Raracahn",
+   "last_name": "Architecture",
+   "role": "authorized agent-others",
+   "agent_address": "132 Buzhanan Dr Sausalito 94",
+   "pts_agent_id": "820077",
+   "from_date": "2001-08-01T10:12:03.000",
+   "is_applicant": "N",
+   "data_as_of": "2025-09-19T09:47:51.000",
+   "data_loaded_at": "2025-09-19T12:39:02.000"
+  },
+  {
+   "id": "423936",
+   "permit_number": "200108015023",
+   "first_name": "Paul",
+   "last_name": "Stricklin",
+   "role": "contractor",
+   "firm_name": "Stricklin Construciton",
+   "firm_address": "3562 18th St",
+   "firm_city": "San Francisco",
+   "firm_state": "CA",
+   "firm_zipcode": "94110-0000",
+   "pts_agent_id": "716478",
+   "from_date": "2001-08-01T11:02:55.000",
+   "license1": "552877",
+   "is_applicant": "N",
+   "sf_business_license_number": "0189987",
+   "data_as_of": "2025-09-19T09:47:51.000",
+   "data_loaded_at": "2025-09-19T12:39:02.000"
+  },
+  {
+   "id": "423952",
+   "permit_number": "200108015036",
+   "first_name": "William Kuk Son",
+   "last_name": "Jo",
+   "role": "contractor",
+   "firm_name": "Excellent Technical  Roofing Co, Inc.",
+   "firm_address": "1340 Donner Av",
+   "firm_city": "San Francisco",
+   "firm_state": "CA",
+   "firm_zipcode": "94124-0000",
+   "pts_agent_id": "736129",
+   "from_date": "2001-08-01T11:49:14.000",
+   "license1": "688334",
+   "is_applicant": "N",
+   "sf_business_license_number": "0430106",
+   "data_as_of": "2025-09-19T09:47:51.000",
+   "data_loaded_at": "2025-09-19T12:39:02.000"
+  }
+ ]
 }

@@ -4,5 +4,146 @@
   "Zoning Map - Zoning Districts",
   "Zoning Districts"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "3i4a-hu95",
+   "Zoning Map - Zoning Districts",
+   null,
+   "2026-10-29"
+  ],
+  [
+   "exact",
+   "xzez-p3nc",
+   "Zoning Map - Zoning Districts",
+   null,
+   "2026-09-15"
+  ],
+  [
+   "contains",
+   "piqy-pimd",
+   "Historic Zoning Districts - 1998",
+   null,
+   "2024-11-12"
+  ],
+  [
+   "contains",
+   "itx2-wzp5",
+   "Historic Zoning Districts - 2000",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "8m6w-8yuk",
+   "Historic Zoning Districts - 2001",
+   null,
+   "2025-02-18"
+  ],
+  [
+   "contains",
+   "3yi7-eyfd",
+   "Historic Zoning Districts - 2002",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "6ru7-zq4y",
+   "Historic Zoning Districts - 2003",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "s3eh-jdwb",
+   "Historic Zoning Districts - 2004",
+   null,
+   "2024-03-13"
+  ]
+ ],
+ "picked": {
+  "id": "3i4a-hu95",
+  "name": "Zoning Map - Zoning Districts",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "City and County of San Francisco Planning Department",
+  "category": "Geographic Locations and Boundaries",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "The Zoning Districts are a component of the Zoning Map which in turn is a key component of the San Francisco Planning Code. More information can be found here: https://sfplanning.org/zoning\n\nThe official zoning map can be found here: https://experience.arcgis.com/experience/573d02b43b7b46e381df04b7f225da95"
+ },
+ "count": 10617,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "zoning_sim",
+   "type": "text",
+   "label": "zoning_sim"
+  },
+  {
+   "name": "districtna",
+   "type": "text",
+   "label": "districtname"
+  },
+  {
+   "name": "url",
+   "type": "text",
+   "label": "url"
+  },
+  {
+   "name": "gen",
+   "type": "text",
+   "label": "gen"
+  },
+  {
+   "name": "zoning",
+   "type": "text",
+   "label": "zoning"
+  },
+  {
+   "name": "codesectio",
+   "type": "text",
+   "label": "codesection"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "zoning_sim": "NCT-3",
+   "districtna": "MODERATE SCALE NEIGHBORHOOD COMMERCIAL TRANSIT DISTRICT",
+   "url": "https://codelibrary.amlegal.com/codes/san_francisco/latest/sf_planning/0-0-0-25360#rid-0-0-0-57664",
+   "gen": "Mixed Use",
+   "zoning": "NCT-3",
+   "codesectio": "752"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "zoning_sim": "RTO-C",
+   "districtna": "RESIDENTIAL TRANSIT ORIENTED DISTRICT - C",
+   "url": "https://codelibrary.amlegal.com/codes/san_francisco/latest/sf_planning/0-0-0-20086",
+   "gen": "Commercial",
+   "zoning": "RTO-C"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "zoning_sim": "RTO-C",
+   "districtna": "RESIDENTIAL TRANSIT ORIENTED DISTRICT - C",
+   "url": "https://codelibrary.amlegal.com/codes/san_francisco/latest/sf_planning/0-0-0-20086",
+   "gen": "Commercial",
+   "zoning": "RTO-C"
+  }
+ ]
 }

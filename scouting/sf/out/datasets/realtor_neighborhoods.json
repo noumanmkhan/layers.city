@@ -4,5 +4,75 @@
   "Realtor Neighborhoods",
   "Neighborhoods - Realtor"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "2kjj-ysvr",
+   "Realtor Neighborhoods",
+   null,
+   "2024-03-13"
+  ]
+ ],
+ "picked": {
+  "id": "2kjj-ysvr",
+  "name": "Realtor Neighborhoods",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "",
+  "licence": null,
+  "rows_updated": "2023-10-18",
+  "view_modified": "2024-03-13",
+  "description": "San Francisco Neighborhoods as designated by the San Francisco Association of Realtors (SFAR) in August 2010."
+ },
+ "count": 92,
+ "geo": null,
+ "columns": [
+  {
+   "name": "sfar_distr",
+   "type": "text",
+   "label": "sfar_distr"
+  },
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "nbrhood",
+   "type": "text",
+   "label": "nbrhood"
+  },
+  {
+   "name": "nid",
+   "type": "text",
+   "label": "nid"
+  }
+ ],
+ "samples": [
+  {
+   "sfar_distr": "District 6 - Central North",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "nbrhood": "Alamo Square",
+   "nid": "6e"
+  },
+  {
+   "sfar_distr": "District 6 - Central North",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "nbrhood": "Anza Vista",
+   "nid": "6a"
+  },
+  {
+   "sfar_distr": "District 4 - Twin Peaks West",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "nbrhood": "Balboa Terrace",
+   "nid": "4a"
+  }
+ ]
 }

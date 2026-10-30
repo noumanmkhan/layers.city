@@ -4,5 +4,121 @@
   "Current Police Districts",
   "Police Districts"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "d4vc-q76h",
+   "Current Police Districts",
+   null,
+   "2026-10-01"
+  ],
+  [
+   "contains",
+   "2dsh-iggd",
+   "Historic Police Districts (circa 2003)",
+   null,
+   "2026-08-12"
+  ],
+  [
+   "contains",
+   "bj3n-hmgf",
+   "Historical Police Districts (2015 - 2026)",
+   null,
+   "2026-10-01"
+  ]
+ ],
+ "picked": {
+  "id": "d4vc-q76h",
+  "name": "Current Police Districts",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Public Safety",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-01",
+  "view_modified": "2026-10-01",
+  "description": "<strong>Note: New San Francisco Police Department Districts went into effect on Oct 1, 2026. The dataset below reflects these new District boundaries. <u><a href=\"https://storymaps.arcgis.com/stories/84702b31fcaa4f36a2b053106f8ba282\">You can read more about the new Districts here. </a></u> </strong>\n\n<strong>A. SUMMARY</strong>\nThis dataset shows the geographic boundaries of the San Francisco Police Department (SFPD) police districts. It can be used to identify which police district serves a particular area of San Francisco.\n\n<u><a href=\"https://www.sanfranciscopolice.org/your-sfpd/sfpd-stations/station-finder\">Use this website to find your closest SF Police Station.</a></u>\n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThe dataset is based on the approved SFPD district boundaries and is"
+ },
+ "count": 10,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "district",
+   "type": "text",
+   "label": "district"
+  },
+  {
+   "name": "company",
+   "type": "text",
+   "label": "company"
+  },
+  {
+   "name": "id",
+   "type": "text",
+   "label": "id"
+  },
+  {
+   "name": "shape_area",
+   "type": "text",
+   "label": "shape_area"
+  },
+  {
+   "name": "shape_leng",
+   "type": "text",
+   "label": "shape_leng"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "district": "MISSION",
+   "company": "D",
+   "id": "3",
+   "shape_area": "80642509.971",
+   "shape_leng": "40368.199",
+   "data_as_of": "2026-10-01T10:33:01.832",
+   "data_loaded_at": "2026-10-01T10:39:09.789"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "district": "TENDERLOIN",
+   "company": "J",
+   "id": "5",
+   "shape_area": "9636381.777",
+   "shape_leng": "13427.925",
+   "data_as_of": "2026-10-01T10:33:01.832",
+   "data_loaded_at": "2026-10-01T10:39:09.789"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "district": "NORTHERN",
+   "company": "E",
+   "id": "4",
+   "shape_area": "79133301.459",
+   "shape_leng": "94929.846",
+   "data_as_of": "2026-10-01T10:33:01.832",
+   "data_loaded_at": "2026-10-01T10:39:09.789"
+  }
+ ]
 }

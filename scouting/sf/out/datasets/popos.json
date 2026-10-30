@@ -4,5 +4,272 @@
   "Privately Owned Public Open Spaces",
   "POPOS"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "65ik-7wqd",
+   "Privately Owned Public Open Spaces",
+   null,
+   "2026-10-29"
+  ]
+ ],
+ "picked": {
+  "id": "65ik-7wqd",
+  "name": "Privately Owned Public Open Spaces",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Culture and Recreation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "Privately-owned public open spaces (POPOS) are publicly accessible spaces in forms of plazas, terraces, atriums, small parks, and even snippets which are provided and maintained by private developers. In San Francisco, POPOS mostly appear in the Downtown office district area. Prior to 1985, developers provided POPOS under three general circumstances: voluntarily, in exchange for a density bonus, or as a condition of approval. The 1985 Downtown Plan created the first systemic requirements for developers to provide publicly accessible open space as a part of projects in C-3 Districts. The goal was to “provide in the downtown quality open space in sufficient quantity and variety to meet the needs of downtown workers, residents and visitors.” (See Planning Code Section 138 for regulations). Si"
+ },
+ "count": 81,
+ "geo": null,
+ "columns": [
+  {
+   "name": "name",
+   "type": "text",
+   "label": "NAME"
+  },
+  {
+   "name": "popos_address",
+   "type": "text",
+   "label": "POPOS_ADDRESS"
+  },
+  {
+   "name": "hours",
+   "type": "text",
+   "label": "HOURS"
+  },
+  {
+   "name": "type",
+   "type": "text",
+   "label": "TYPE"
+  },
+  {
+   "name": "landscaping",
+   "type": "text",
+   "label": "LANDSCAPING"
+  },
+  {
+   "name": "seating_no",
+   "type": "text",
+   "label": "SEATING_No"
+  },
+  {
+   "name": "food_service",
+   "type": "text",
+   "label": "FOOD_SERVICE"
+  },
+  {
+   "name": "art",
+   "type": "text",
+   "label": "Art"
+  },
+  {
+   "name": "restrooms",
+   "type": "text",
+   "label": "RESTROOMS"
+  },
+  {
+   "name": "accessibility",
+   "type": "text",
+   "label": "Accessibility"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "year",
+   "type": "text",
+   "label": "YEAR"
+  },
+  {
+   "name": "source",
+   "type": "text",
+   "label": "SOURCE"
+  },
+  {
+   "name": "food",
+   "type": "text",
+   "label": "Food"
+  },
+  {
+   "name": "seating",
+   "type": "text",
+   "label": "Seating"
+  },
+  {
+   "name": "description",
+   "type": "text",
+   "label": "Description"
+  },
+  {
+   "name": "seating_and_tables",
+   "type": "text",
+   "label": "Seating_and_Tables"
+  },
+  {
+   "name": "hours_type",
+   "type": "text",
+   "label": "Hours_Type"
+  },
+  {
+   "name": "subject_to_downtown_pln",
+   "type": "text",
+   "label": "Subject_To_Downtown_PLN"
+  },
+  {
+   "name": "signage",
+   "type": "text",
+   "label": "Signage"
+  },
+  {
+   "name": "amenities",
+   "type": "text",
+   "label": "Amenities"
+  },
+  {
+   "name": "block_num",
+   "type": "text",
+   "label": "BLOCK_NUM"
+  },
+  {
+   "name": "lot_num",
+   "type": "text",
+   "label": "LOT_NUM"
+  },
+  {
+   "name": "parcel_num",
+   "type": "text",
+   "label": "PARCEL_NUM"
+  },
+  {
+   "name": "restroom",
+   "type": "checkbox",
+   "label": "Restroom"
+  },
+  {
+   "name": "indoor",
+   "type": "checkbox",
+   "label": "Indoor"
+  },
+  {
+   "name": "special_amenities",
+   "type": "checkbox",
+   "label": "Special_Amenities"
+  },
+  {
+   "name": "map_id",
+   "type": "text",
+   "label": "Map ID"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "longitude"
+  },
+  {
+   "name": "point",
+   "type": "point",
+   "label": "point"
+  }
+ ],
+ "samples": [
+  {
+   "name": "135 Main St",
+   "popos_address": "135 Main St",
+   "hours": "Unknown. Security would not disclose hours.",
+   "type": "Indoor Park",
+   "landscaping": "Waterfall on glass, some white noise effect.",
+   "seating_no": "Ample indoor seating: four tables with movable chairs, seven lounge sofas",
+   "food_service": "No",
+   "art": "Yes",
+   "restrooms": "No",
+   "accessibility": "Indirect",
+   "location": "Located in main lobby waiting area, at building's main entrance.",
+   "year": "1982",
+   "seating": "Y",
+   "description": "Interior lobby with seating open business hours only.",
+   "hours_type": "Open Business Hours",
+   "subject_to_downtown_pln": "No",
+   "signage": "None",
+   "block_num": "3717",
+   "lot_num": "012",
+   "parcel_num": "3717012",
+   "indoor": true,
+   "latitude": "37.79142819",
+   "longitude": "-122.39411196",
+   "point": {
+    "geometry_type": "Point"
+   }
+  },
+  {
+   "name": "55 Second St - C",
+   "popos_address": "55 Second St",
+   "hours": "8AM - 6PM, M-F",
+   "type": "Atrium",
+   "landscaping": "A few planters, interesting paving, Art on walls.",
+   "seating_no": "4 benches (8 seats) along walls of gallery space.",
+   "food_service": "No",
+   "art": "Yes",
+   "restrooms": "Yes, through main lobby at reception desk (ID required)",
+   "accessibility": "13080",
+   "location": "Entrance from Stevenson Street",
+   "year": "2002",
+   "seating": "Y",
+   "hours_type": "Open Business Hours",
+   "subject_to_downtown_pln": "Yes",
+   "signage": "Yes",
+   "block_num": "3708",
+   "lot_num": "096",
+   "parcel_num": "3708096",
+   "restroom": true,
+   "indoor": true,
+   "latitude": "37.789",
+   "longitude": "-122.400283",
+   "point": {
+    "geometry_type": "Point"
+   }
+  },
+  {
+   "name": "Millenium Tower Plaza",
+   "popos_address": "301 Mission St",
+   "hours": "8AM - 6PM, M-F",
+   "type": "Atrium, Plaza",
+   "landscaping": "4 trees with lights, 10 medium plants",
+   "seating_no": "41 movable chairs and 24 linear seats",
+   "food_service": "Yes",
+   "art": "Yes",
+   "restrooms": "Yes. No restriction or lock.",
+   "accessibility": "Indirect for Atrium. Unknown for Plaza",
+   "location": "Ground level.",
+   "year": "2005",
+   "food": "Y",
+   "seating": "Y",
+   "description": "This atrium features extensive artwork and is served by a bar/restaurant on the premises. It has various types of seating with tables, and high windows overhead.",
+   "hours_type": "Open Business Hours",
+   "subject_to_downtown_pln": "Yes",
+   "signage": "yes.  Small, non-compliant plaque outside door",
+   "block_num": "3719",
+   "lot_num": "020",
+   "parcel_num": "3719020",
+   "restroom": true,
+   "indoor": true,
+   "latitude": "37.79052",
+   "longitude": "-122.39656",
+   "point": {
+    "geometry_type": "Point"
+   }
+  }
+ ]
 }

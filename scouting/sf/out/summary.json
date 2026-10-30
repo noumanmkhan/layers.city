@@ -1,28 +1,84 @@
 {
  "catalog": {
-  "datasets": 5,
+  "datasets": 712,
   "categories": [
    [
-    "Housing and Buildings",
-    2
+    "City Management and Ethics",
+    164
+   ],
+   [
+    "Transportation",
+    116
    ],
    [
     "Geographic Locations and Boundaries",
-    1
+    76
+   ],
+   [
+    "Housing and Buildings",
+    60
+   ],
+   [
+    "City Infrastructure",
+    54
+   ],
+   [
+    "Health and Social Services",
+    48
    ],
    [
     "Economy and Community",
-    1
+    40
+   ],
+   [
+    "Public Safety",
+    38
+   ],
+   [
+    null,
+    36
+   ],
+   [
+    "",
+    33
    ],
    [
     "Culture and Recreation",
-    1
+    23
+   ],
+   [
+    "Energy and Environment",
+    18
+   ],
+   [
+    "COVID-19",
+    6
    ]
   ],
   "licences": [
    [
-    "Open Data Commons Public Domain Dedication and License",
-    5
+    "http://opendatacommons.org/licenses/pddl/1.0/",
+    560
+   ],
+   [
+    null,
+    119
+   ],
+   [
+    "https://www.usa.gov/government-works",
+    20
+   ],
+   [
+    "http://creativecommons.org/publicdomain/zero/1.0/legalcode",
+    8
+   ],
+   [
+    "http://opendatacommons.org/licenses/by/1.0/",
+    4
+   ],
+   [
+    "http://opendatacommons.org/licenses/odbl/1.0/",
+    1
    ]
   ]
  },
@@ -48,9 +104,27 @@
    "2023-10-17",
    "Public Domain U.S. Government"
   ],
-  "realtor_neighborhoods": null,
-  "supervisor_districts": null,
-  "precincts": null,
+  "realtor_neighborhoods": [
+   "2kjj-ysvr",
+   "Realtor Neighborhoods",
+   92,
+   "2023-10-18",
+   null
+  ],
+  "supervisor_districts": [
+   "f2zs-jevy",
+   "Supervisor Districts (2022)",
+   11,
+   "2025-01-09",
+   "Creative Commons 1.0 Universal (Public Domain Dedication)"
+  ],
+  "precincts": [
+   "msvd-8edx",
+   "1992 Election Precincts",
+   713,
+   "2016-10-05",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
   "polling_places": null,
   "zip_codes": [
    "srq6-hmpi",
@@ -60,7 +134,13 @@
    "Open Data Commons Public Domain Dedication and License"
   ],
   "city_boundary": null,
-  "shoreline": null,
+  "shoreline": [
+   "6rf8-dnst",
+   "Census 2020: Block Groups for San Francisco Clipped to the Shoreline",
+   679,
+   "2022-07-25",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
   "historic_districts": [
    "63x5-g3m4",
    "Historic Districts",
@@ -76,25 +156,97 @@
    "Public Domain U.S. Government"
   ],
   "cbds": null,
-  "cultural_districts": null,
-  "rec_park_properties": null,
-  "rec_park_facilities": null,
+  "cultural_districts": [
+   "5xmc-5bjj",
+   "Cultural Districts",
+   10,
+   "2026-10-29",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "rec_park_properties": [
+   "gtr9-ntp6",
+   "Recreation and Parks Properties",
+   255,
+   "2026-10-30",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "rec_park_facilities": [
+   "ib5c-xgwu",
+   "Recreation and Parks Facilities",
+   2678,
+   "2026-10-30",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
   "playgrounds": null,
   "dog_play_areas": null,
   "pools": null,
   "public_restrooms": null,
-  "popos": null,
+  "popos": [
+   "65ik-7wqd",
+   "Privately Owned Public Open Spaces",
+   81,
+   "2026-10-29",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
   "libraries": null,
-  "city_facilities": null,
-  "schools": null,
+  "city_facilities": [
+   "nc68-ngbr",
+   "City Facilities",
+   1734,
+   "2026-10-29",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "schools": [
+   "7e7j-59qk",
+   "Schools",
+   235,
+   "2026-02-06",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
   "sfusd_attendance": null,
   "hospitals": null,
-  "street_centerline": null,
-  "bike_network": null,
-  "bike_parking": null,
-  "slow_streets": null,
-  "muni_stops": null,
-  "muni_routes": null,
+  "street_centerline": [
+   "3psu-pn9h",
+   "Streets – Active and Retired",
+   17176,
+   "2026-10-29",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "bike_network": [
+   "ygmz-vaxd",
+   "MTA Bike Network Linear Features",
+   5484,
+   "2026-10-24",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "bike_parking": [
+   "hn4j-6fx5",
+   "Bicycle Parking Racks",
+   6035,
+   "2024-06-17",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "slow_streets": [
+   "hkz3-itiu",
+   "Slow Streets",
+   240,
+   "2024-01-18",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "muni_stops": [
+   "i28k-bkz6",
+   "Muni Stops",
+   3260,
+   "2026-04-11",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "muni_routes": [
+   "9exe-acju",
+   "Muni Simple Routes",
+   135,
+   "2026-04-11",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
   "street_closures": [
    "8x25-yybr",
    "Temporary Street Closures",
@@ -102,7 +254,13 @@
    "2026-10-29",
    "Open Data Commons Public Domain Dedication and License"
   ],
-  "closure_intersections": null,
+  "closure_intersections": [
+   "7p5y-sxmu",
+   "Temp Street Closure Intersections",
+   6388,
+   "2026-10-29",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
   "closures_wzdx": [
    "4ftp-yz2f",
    "Temporary Street Closures in the Work Zone Data Exchange (WZDx) Format",
@@ -110,10 +268,34 @@
    "2022-03-22",
    "Creative Commons 1.0 Universal (Public Domain Dedication)"
   ],
-  "street_use_permits": null,
-  "building_permits": null,
-  "dev_pipeline": null,
-  "planning_projects": null,
+  "street_use_permits": [
+   "b6tj-gt35",
+   "Street-Use Permits",
+   1234665,
+   "2026-10-29",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "building_permits": [
+   "3pee-9qhc",
+   "Building Permits Contacts",
+   1038808,
+   "2026-10-29",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "dev_pipeline": [
+   "6jgi-cpb4",
+   "San Francisco Development Pipeline",
+   1917,
+   "2026-08-28",
+   "Creative Commons 1.0 Universal (Public Domain Dedication)"
+  ],
+  "planning_projects": [
+   "qvu5-m3a2",
+   "Planning Department Records - Projects",
+   54680,
+   "2026-10-29",
+   "Public Domain U.S. Government"
+  ],
   "offstreet_parking": [
    "vqzx-t7c4",
    "SFMTA Managed Off-street Parking",
@@ -129,7 +311,13 @@
    "Open Data Commons Public Domain Dedication and License"
   ],
   "rpp_areas": null,
-  "rpp_parcels": null,
+  "rpp_parcels": [
+   "i886-hxz9",
+   "Residential Parking Permit Eligibility Parcels",
+   83489,
+   "2024-01-15",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
   "street_sweeping": [
    "yhqp-riqs",
    "Street Sweeping Schedule",
@@ -137,7 +325,13 @@
    "2026-05-14",
    "Open Data Commons Public Domain Dedication and License"
   ],
-  "parking_meters": null,
+  "parking_meters": [
+   "8vzz-qzz9",
+   "Parking Meters",
+   38775,
+   "2026-10-24",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
   "ev_chargers": null,
   "beach_water": [
    "v3fv-x3ux",
@@ -146,14 +340,62 @@
    "2026-10-29",
    "Open Data Commons Public Domain Dedication and License"
   ],
-  "tsunami": null,
-  "liquefaction": null,
-  "soft_story": null,
-  "police_districts": null,
-  "tree_inventory": null,
-  "zoning": null,
-  "height_districts": null,
-  "address_points": null,
+  "tsunami": [
+   "7p2k-c3z6",
+   "Tsunami Inundation Hazard Zone (2021 Update)",
+   1,
+   "2021-08-03",
+   "Public Domain"
+  ],
+  "liquefaction": [
+   "re79-p8j5",
+   "San Francisco Seismic Hazard Zones",
+   350,
+   "2023-10-17",
+   null
+  ],
+  "soft_story": [
+   "beah-shgi",
+   "Soft-Story Properties",
+   4958,
+   "2026-10-07",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "police_districts": [
+   "d4vc-q76h",
+   "Current Police Districts",
+   10,
+   "2026-10-01",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "tree_inventory": [
+   "uzd4-f6yf",
+   "[ARCHIVED] Street Tree List",
+   198436,
+   "2026-09-07",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "zoning": [
+   "3i4a-hu95",
+   "Zoning Map - Zoning Districts",
+   10617,
+   "2026-10-29",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
+  "height_districts": [
+   "h9wh-cg3m",
+   "Zoning Map - Height and Bulk Districts",
+   5292,
+   "2026-10-29",
+   "Public Domain U.S. Government"
+  ],
+  "address_points": [
+   "3mea-di5p",
+   "San Francisco Addresses - Enterprise Addressing System",
+   224439,
+   "2026-10-30",
+   "Open Data Commons Public Domain Dedication and License"
+  ],
   "recology": null
  },
  "arcgis": {
@@ -175,6 +417,12 @@
  },
  "gtfs": {
   "muni": "download failed (https://gtfs.sfmta.com/transitdata/google_transit.zip)",
+  "muni_alt": {
+   "mb": null,
+   "routes": null,
+   "stops": null,
+   "calendar_span": null
+  },
   "bart": {
    "mb": 1.0,
    "routes": 14,

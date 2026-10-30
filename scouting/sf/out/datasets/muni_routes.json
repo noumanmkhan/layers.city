@@ -4,5 +4,152 @@
   "Muni Simple Routes",
   "Muni Routes"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "9exe-acju",
+   "Muni Simple Routes",
+   null,
+   "2026-04-11"
+  ]
+ ],
+ "picked": {
+  "id": "9exe-acju",
+  "name": "Muni Simple Routes",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "SFMTA",
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-04-11",
+  "view_modified": "2026-04-11",
+  "description": "<strong>A. SUMMARY </strong>\nCurrent Muni routes for simple cartographic and spatial analyses.\n\n<strong>B. METHODOLOGY </strong> \nRoute data is exported from the Trapeze scheduling system and filtered only for full length patterns.  \n\n<strong>C. UPDATE FREQUENCY   </strong>\nUpdated by “Sign-up”, when transit system changes are put into effect. Updates range from every 3-6 months. \n\n<strong>D. OTHER CRITICAL INFO   </strong>\nInbound and Outbound route lines are included and represented with separate polylines for each route. Route numbers 59, 60, 61 are all Cable Car routes.\n\nTo identify stops on a route one can use the agency website to compile a list of stops per mode. E.g. sfmta.com/n will give a list of all N stops."
+ },
+ "count": 135,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "text",
+   "label": "objectid"
+  },
+  {
+   "name": "pattern",
+   "type": "text",
+   "label": "PATTERN"
+  },
+  {
+   "name": "patternid",
+   "type": "text",
+   "label": "PATTERNID"
+  },
+  {
+   "name": "route_name",
+   "type": "text",
+   "label": "ROUTE_NAME"
+  },
+  {
+   "name": "direction",
+   "type": "text",
+   "label": "DIRECTION"
+  },
+  {
+   "name": "pattern_type",
+   "type": "text",
+   "label": "PATTERN_TYPE"
+  },
+  {
+   "name": "sub_type",
+   "type": "text",
+   "label": "SUB_TYPE"
+  },
+  {
+   "name": "pattern_version",
+   "type": "text",
+   "label": "PATTERN_VERSION"
+  },
+  {
+   "name": "lineabbr",
+   "type": "text",
+   "label": "LINEABBR"
+  },
+  {
+   "name": "signid",
+   "type": "number",
+   "label": "SIGNID"
+  },
+  {
+   "name": "service_ca",
+   "type": "text",
+   "label": "SERVICE_CA"
+  },
+  {
+   "name": "shape",
+   "type": "multiline",
+   "label": "shape"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "15346",
+   "pattern": "1    I F00",
+   "patternid": "224334",
+   "route_name": "1",
+   "direction": "I",
+   "pattern_type": "F",
+   "sub_type": "0",
+   "pattern_version": "0",
+   "lineabbr": "001",
+   "signid": "151",
+   "shape": {
+    "geometry_type": "MultiLineString"
+   },
+   "data_as_of": "2026-04-08T12:59:44.000",
+   "data_loaded_at": "2026-04-11T10:32:20.346"
+  },
+  {
+   "objectid": "15347",
+   "pattern": "1    O F00",
+   "patternid": "224330",
+   "route_name": "1",
+   "direction": "O",
+   "pattern_type": "F",
+   "sub_type": "0",
+   "pattern_version": "0",
+   "lineabbr": "001",
+   "signid": "151",
+   "shape": {
+    "geometry_type": "MultiLineString"
+   },
+   "data_as_of": "2026-04-08T12:59:44.000",
+   "data_loaded_at": "2026-04-11T10:32:20.346"
+  },
+  {
+   "objectid": "15348",
+   "pattern": "1X   I F00",
+   "patternid": "224337",
+   "route_name": "1X",
+   "direction": "I",
+   "pattern_type": "F",
+   "sub_type": "0",
+   "pattern_version": "0",
+   "lineabbr": "001X",
+   "signid": "151",
+   "shape": {
+    "geometry_type": "MultiLineString"
+   },
+   "data_as_of": "2026-04-08T12:59:44.000",
+   "data_loaded_at": "2026-04-11T10:32:20.346"
+  }
+ ]
 }

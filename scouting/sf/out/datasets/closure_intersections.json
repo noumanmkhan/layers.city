@@ -3,5 +3,288 @@
  "looked_for": [
   "Temp Street Closure Intersections"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "7p5y-sxmu",
+   "Temp Street Closure Intersections",
+   null,
+   "2026-10-29"
+  ]
+ ],
+ "picked": {
+  "id": "7p5y-sxmu",
+  "name": "Temp Street Closure Intersections",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "<strong>A. SUMMARY</strong>\nThis dataset contains a list of intersections impacted by upcoming and current street closures occurring as a result of the Shared Spaces program, certain special events, and some construction work. This dataset only includes street closures permitted by the San Francisco Municipal Transportation Agency (SFMTA). It doesn’t include street closures managed by other City departments such as Public Works or the Police Department.\n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThe data is exported from the Street Closure Salesforce database which is maintained by the SFMTA ISCOTT unit and converted to the geometry of streets and intersections based on closed street extent descriptions.\n\n<strong>C. UPDATE PROCESS</strong>\nDatabase is updated constantly. This report i"
+ },
+ "count": 6388,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "number",
+   "label": "objectid"
+  },
+  {
+   "name": "case_num",
+   "type": "text",
+   "label": "case_num"
+  },
+  {
+   "name": "case_name",
+   "type": "text",
+   "label": "case_name"
+  },
+  {
+   "name": "type",
+   "type": "text",
+   "label": "type"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "status"
+  },
+  {
+   "name": "start_date",
+   "type": "calendar_date",
+   "label": "start_date"
+  },
+  {
+   "name": "start_time",
+   "type": "text",
+   "label": "start_time"
+  },
+  {
+   "name": "start_dt",
+   "type": "calendar_date",
+   "label": "start_dt"
+  },
+  {
+   "name": "end_date",
+   "type": "calendar_date",
+   "label": "end_date"
+  },
+  {
+   "name": "end_time",
+   "type": "text",
+   "label": "end_time"
+  },
+  {
+   "name": "end_dt",
+   "type": "calendar_date",
+   "label": "end_dt"
+  },
+  {
+   "name": "loc_desc",
+   "type": "text",
+   "label": "loc_desc"
+  },
+  {
+   "name": "cnn",
+   "type": "text",
+   "label": "cnn"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "street"
+  },
+  {
+   "name": "x_street",
+   "type": "text",
+   "label": "x_street"
+  },
+  {
+   "name": "is_open",
+   "type": "text",
+   "label": "is_open"
+  },
+  {
+   "name": "direction",
+   "type": "text",
+   "label": "direction"
+  },
+  {
+   "name": "veh_imp",
+   "type": "text",
+   "label": "veh_imp"
+  },
+  {
+   "name": "info",
+   "type": "text",
+   "label": "info"
+  },
+  {
+   "name": "start_utc",
+   "type": "calendar_date",
+   "label": "start_utc"
+  },
+  {
+   "name": "end_utc",
+   "type": "calendar_date",
+   "label": "end_utc"
+  },
+  {
+   "name": "shape",
+   "type": "point",
+   "label": "shape"
+  },
+  {
+   "name": "created_date",
+   "type": "calendar_date",
+   "label": "created_date"
+  },
+  {
+   "name": "last_edited_date",
+   "type": "calendar_date",
+   "label": "last_edited_date"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": ":@computed_region_6qbp_sg9q",
+   "type": "number",
+   "label": "SF Find Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_qgnn_b9vv",
+   "type": "number",
+   "label": "Current Police Districts"
+  },
+  {
+   "name": ":@computed_region_26cr_cadq",
+   "type": "number",
+   "label": "Current Supervisor Districts"
+  },
+  {
+   "name": ":@computed_region_ajp5_b2md",
+   "type": "number",
+   "label": "Analysis Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_jwn9_ihcz",
+   "type": "number",
+   "label": "Neighborhoods"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "47670342",
+   "case_num": "263323",
+   "case_name": "J FLORES",
+   "type": "Special Traffic Permit",
+   "status": "Permitted",
+   "start_date": "2026-10-19T00:00:00.000",
+   "start_time": "00:00:00",
+   "start_dt": "2026-10-19T00:00:00.000",
+   "end_date": "2026-11-03T00:00:00.000",
+   "end_time": "23:59:00",
+   "end_dt": "2026-11-03T23:59:00.000",
+   "loc_desc": "18TH ST and YORK ST",
+   "cnn": "24011000",
+   "street": "18TH ST",
+   "x_street": "YORK ST",
+   "is_open": "No",
+   "veh_imp": "NA",
+   "info": "no detail available",
+   "start_utc": "2026-10-19T08:00:00.000",
+   "end_utc": "2026-11-04T07:59:00.000",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "created_date": "2026-10-29T00:01:07.000",
+   "last_edited_date": "2026-10-29T00:01:07.000",
+   "data_as_of": "2026-10-29T00:01:07.000",
+   "data_loaded_at": "2026-10-29T13:05:44.533",
+   ":@computed_region_6qbp_sg9q": "53",
+   ":@computed_region_qgnn_b9vv": "3",
+   ":@computed_region_26cr_cadq": "9",
+   ":@computed_region_ajp5_b2md": "20",
+   ":@computed_region_jwn9_ihcz": "53"
+  },
+  {
+   "objectid": "47670397",
+   "case_num": "263366",
+   "case_name": "CABLECOM",
+   "type": "Special Traffic Permit",
+   "status": "Permitted",
+   "start_date": "2026-11-18T00:00:00.000",
+   "start_time": "00:00:00",
+   "start_dt": "2026-11-18T00:00:00.000",
+   "end_date": "2026-11-20T00:00:00.000",
+   "end_time": "23:59:00",
+   "end_dt": "2026-11-20T23:59:00.000",
+   "loc_desc": "MISSION ST between BOSWORTH ST and SAINT MARYS AVE",
+   "cnn": "21826000",
+   "street": "MISSION ST",
+   "x_street": "SAINT MARYS AVE",
+   "is_open": "Yes",
+   "veh_imp": "NA",
+   "info": "no detail available",
+   "start_utc": "2026-11-18T08:00:00.000",
+   "end_utc": "2026-11-21T07:59:00.000",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "created_date": "2026-10-29T00:01:07.000",
+   "last_edited_date": "2026-10-29T00:01:07.000",
+   "data_as_of": "2026-10-29T00:01:07.000",
+   "data_loaded_at": "2026-10-29T13:05:44.533",
+   ":@computed_region_6qbp_sg9q": "93",
+   ":@computed_region_qgnn_b9vv": "9",
+   ":@computed_region_26cr_cadq": "2",
+   ":@computed_region_ajp5_b2md": "2",
+   ":@computed_region_jwn9_ihcz": "93"
+  },
+  {
+   "objectid": "47670610",
+   "case_num": "263512",
+   "case_name": "Blackrock Concrete",
+   "type": "Special Traffic Permit",
+   "status": "Permitted",
+   "start_date": "2026-11-04T00:00:00.000",
+   "start_time": "00:00:00",
+   "start_dt": "2026-11-04T00:00:00.000",
+   "end_date": "2026-11-04T00:00:00.000",
+   "end_time": "23:59:00",
+   "end_dt": "2026-11-04T23:59:00.000",
+   "loc_desc": "HAYES ST between LARKIN ST and POLK ST",
+   "cnn": "24436000",
+   "street": "POLK ST",
+   "x_street": "HAYES ST",
+   "is_open": "Yes",
+   "veh_imp": "NA",
+   "info": "no detail available",
+   "start_utc": "2026-11-04T08:00:00.000",
+   "end_utc": "2026-11-05T07:59:00.000",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "created_date": "2026-10-29T00:01:07.000",
+   "last_edited_date": "2026-10-29T00:01:07.000",
+   "data_as_of": "2026-10-29T00:01:07.000",
+   "data_loaded_at": "2026-10-29T13:05:44.533",
+   ":@computed_region_6qbp_sg9q": "21",
+   ":@computed_region_qgnn_b9vv": "4",
+   ":@computed_region_26cr_cadq": "10",
+   ":@computed_region_ajp5_b2md": "36",
+   ":@computed_region_jwn9_ihcz": "21"
+  }
+ ]
 }

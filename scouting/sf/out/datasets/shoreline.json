@@ -4,5 +4,177 @@
   "Shoreline",
   "San Francisco Shoreline"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "contains",
+   "6rf8-dnst",
+   "Census 2020: Block Groups for San Francisco Clipped to the Shoreline",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "e2st-aufe",
+   "Census 2020: Blocks for San Francisco Clipped to the Shoreline",
+   null,
+   "2024-11-12"
+  ],
+  [
+   "contains",
+   "txuc-3kzm",
+   "SF Shoreline and Islands",
+   null,
+   "2024-03-13"
+  ]
+ ],
+ "picked": {
+  "id": "6rf8-dnst",
+  "name": "Census 2020: Block Groups for San Francisco Clipped to the Shoreline",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "United State Census Bureau",
+  "category": "Geographic Locations and Boundaries",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2022-07-25",
+  "view_modified": "2024-03-13",
+  "description": "<strong>A. SUMMARY</strong>\nCensus blocks with Pacific Ocean and San Francisco Bay water clipped out. Census Block groups are the next level above census blocks in the geographic hierarchy. Block groups are a combination of census blocks that is a subdivision of a census tract.A block group consists of all census blocks whose numbers begin with the same digit in a given census tract; for example, block group 3 includes all census blocks numbered in the 300s. More information on the census tracts can be found <u><a href=\"https://www.census.gov/programs-surveys/geography/about/glossary.html#:~:text=Block%20Groups%20(BGs)%20are%20statistical,data%20and%20control%20block%20numbering.\">here</a></u>.\n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThe boundaries are uploaded from TIGER/Line shap"
+ },
+ "count": 679,
+ "geo": null,
+ "columns": [
+  {
+   "name": "statefp",
+   "type": "text",
+   "label": "STATEFP"
+  },
+  {
+   "name": "countyfp",
+   "type": "text",
+   "label": "COUNTYFP"
+  },
+  {
+   "name": "tractce",
+   "type": "text",
+   "label": "TRACTCE"
+  },
+  {
+   "name": "blkgrpce",
+   "type": "text",
+   "label": "BLKGRPCE"
+  },
+  {
+   "name": "geoid",
+   "type": "text",
+   "label": "GEOID"
+  },
+  {
+   "name": "namelsad",
+   "type": "text",
+   "label": "NAMELSAD"
+  },
+  {
+   "name": "mtfcc",
+   "type": "text",
+   "label": "MTFCC"
+  },
+  {
+   "name": "funcstat",
+   "type": "text",
+   "label": "FUNCSTAT"
+  },
+  {
+   "name": "aland",
+   "type": "number",
+   "label": "ALAND"
+  },
+  {
+   "name": "awater",
+   "type": "number",
+   "label": "AWATER"
+  },
+  {
+   "name": "intptlat",
+   "type": "number",
+   "label": "INTPTLAT"
+  },
+  {
+   "name": "intptlon",
+   "type": "number",
+   "label": "INTPTLON"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": "multipolygon",
+   "type": "multipolygon",
+   "label": "multipolygon"
+  }
+ ],
+ "samples": [
+  {
+   "statefp": "6",
+   "countyfp": "75",
+   "tractce": "12502",
+   "blkgrpce": "4",
+   "geoid": "60750125024",
+   "namelsad": "Block Group 4",
+   "mtfcc": "G5030",
+   "funcstat": "S",
+   "aland": "15326.0",
+   "awater": "0.0",
+   "intptlat": "37.7833638",
+   "intptlon": "-122.4133260",
+   "data_as_of": "2022-07-21T22:57:39.878",
+   "data_loaded_at": "2022-07-25T14:01:00.000",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "statefp": "6",
+   "countyfp": "75",
+   "tractce": "17801",
+   "blkgrpce": "2",
+   "geoid": "60750178012",
+   "namelsad": "Block Group 2",
+   "mtfcc": "G5030",
+   "funcstat": "S",
+   "aland": "53403.0",
+   "awater": "0.0",
+   "intptlat": "37.7805281",
+   "intptlon": "-122.4015013",
+   "data_as_of": "2022-07-21T22:57:39.878",
+   "data_loaded_at": "2022-07-25T14:01:00.000",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "statefp": "6",
+   "countyfp": "75",
+   "tractce": "15802",
+   "blkgrpce": "2",
+   "geoid": "60750158022",
+   "namelsad": "Block Group 2",
+   "mtfcc": "G5030",
+   "funcstat": "S",
+   "aland": "93047.0",
+   "awater": "0.0",
+   "intptlat": "37.7775139",
+   "intptlon": "-122.4380313",
+   "data_as_of": "2022-07-21T22:57:39.878",
+   "data_loaded_at": "2022-07-25T14:01:00.000",
+   "multipolygon": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
 }

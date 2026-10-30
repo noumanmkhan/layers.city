@@ -4,5 +4,281 @@
   "Addresses - Enterprise Addressing System",
   "Addresses with Units - Enterprise Addressing System"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "contains",
+   "3mea-di5p",
+   "San Francisco Addresses - Enterprise Addressing System",
+   null,
+   "2026-10-30"
+  ],
+  [
+   "contains",
+   "ramy-di5m",
+   "San Francisco Addresses with Units - Enterprise Addressing System",
+   null,
+   "2026-10-30"
+  ]
+ ],
+ "picked": {
+  "id": "3mea-di5p",
+  "name": "San Francisco Addresses - Enterprise Addressing System",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "City and County of San Francisco",
+  "category": "Geographic Locations and Boundaries",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-30",
+  "view_modified": "2026-10-30",
+  "description": "<strong>SUMMARY</strong>\nActive base addresses from San Francisco's Enterprise Addressing System (EAS). This dataset does not include sub-addresses, such as units, and does not include a block/lot value for each record. For units and block/lot values, see the <a href=\"https://data.sfgov.org/d/ramy-di5m\">Addresses with Units - Enterprise Addressing System</a> dataset.\n\n<strong>HOW THE DATASET IS CREATED</strong>\nThis dataset is an extract from the Enterprise Addressing System, maintained by San Francisco's Department of Technology.\n\n<strong>UPDATE PROCESS</strong>\nThis dataset updates nightly. \n\n<strong>RELATED DATASETS</strong>\n<li><a href=\"https://data.sfgov.org/d/ramy-di5m\">Addresses with Units - Enterprise Addressing System</a>"
+ },
+ "count": 224439,
+ "geo": null,
+ "columns": [
+  {
+   "name": "eas_baseid",
+   "type": "number",
+   "label": "EAS BaseID"
+  },
+  {
+   "name": "eas_address_id",
+   "type": "number",
+   "label": "EAS AddressID"
+  },
+  {
+   "name": "address_number",
+   "type": "number",
+   "label": "Address Number"
+  },
+  {
+   "name": "address_number_suffix",
+   "type": "text",
+   "label": "Address Number Suffix"
+  },
+  {
+   "name": "street_name",
+   "type": "text",
+   "label": "Street Name"
+  },
+  {
+   "name": "street_type",
+   "type": "text",
+   "label": "Street Type"
+  },
+  {
+   "name": "cnn",
+   "type": "number",
+   "label": "CNN"
+  },
+  {
+   "name": "street_full_street_name",
+   "type": "text",
+   "label": "Street Full Name"
+  },
+  {
+   "name": "parcel_number",
+   "type": "text",
+   "label": "Parcel Number"
+  },
+  {
+   "name": "zip_code",
+   "type": "number",
+   "label": "ZIP Code"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "Address"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "Longitude"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "Latitude"
+  },
+  {
+   "name": "point",
+   "type": "point",
+   "label": "point"
+  },
+  {
+   "name": "supdist",
+   "type": "text",
+   "label": "supdist"
+  },
+  {
+   "name": "numbertext",
+   "type": "text",
+   "label": "numbertext"
+  },
+  {
+   "name": "supervisor",
+   "type": "number",
+   "label": "supervisor"
+  },
+  {
+   "name": "supdistpad",
+   "type": "text",
+   "label": "supdistpad"
+  },
+  {
+   "name": "supname",
+   "type": "text",
+   "label": "supname"
+  },
+  {
+   "name": "nhood",
+   "type": "text",
+   "label": "nhood"
+  },
+  {
+   "name": "complete_landmark_name",
+   "type": "text",
+   "label": "complete_landmark_name"
+  },
+  {
+   "name": "landmark_aliases",
+   "type": "text",
+   "label": "landmark_aliases"
+  },
+  {
+   "name": "direct_source",
+   "type": "text",
+   "label": "direct_source"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_updated_at",
+   "type": "calendar_date",
+   "label": "data_updated_at"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": ":@computed_region_ajp5_b2md",
+   "type": "number",
+   "label": "Analysis Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_6qbp_sg9q",
+   "type": "number",
+   "label": "SF Find Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_qgnn_b9vv",
+   "type": "number",
+   "label": "Current Police Districts"
+  },
+  {
+   "name": ":@computed_region_26cr_cadq",
+   "type": "number",
+   "label": "Current Supervisor Districts"
+  }
+ ],
+ "samples": [
+  {
+   "eas_baseid": "362874",
+   "eas_address_id": "579430",
+   "address_number": "77",
+   "street_name": "HILL",
+   "street_type": "ST",
+   "cnn": "6920000",
+   "street_full_street_name": "HILL ST",
+   "parcel_number": "3617035",
+   "zip_code": "94110",
+   "address": "77 HILL ST",
+   "longitude": "-122.4226887935738",
+   "latitude": "37.75577193550929",
+   "point": {
+    "geometry_type": "Point"
+   },
+   "supdist": "SUPERVISORIAL DISTRICT 9",
+   "numbertext": "NINE",
+   "supervisor": "9",
+   "supdistpad": "09",
+   "supname": "Jackie Fielder",
+   "nhood": "Mission",
+   "direct_source": "SF DBI",
+   "data_as_of": "2026-10-29T18:02:56.000",
+   "data_updated_at": "1970-01-01T00:00:00.000",
+   "data_loaded_at": "2026-10-29T20:12:04.277",
+   ":@computed_region_ajp5_b2md": "20",
+   ":@computed_region_6qbp_sg9q": "52",
+   ":@computed_region_qgnn_b9vv": "3",
+   ":@computed_region_26cr_cadq": "5"
+  },
+  {
+   "eas_baseid": "492799",
+   "eas_address_id": "745535",
+   "address_number": "310",
+   "street_name": "08TH",
+   "street_type": "AVE",
+   "cnn": "389000",
+   "street_full_street_name": "08TH AVE",
+   "parcel_number": "1439038",
+   "zip_code": "94118",
+   "address": "310 08TH AVE",
+   "longitude": "-122.46635374853649",
+   "latitude": "37.78261156572245",
+   "point": {
+    "geometry_type": "Point"
+   },
+   "supdist": "SUPERVISORIAL DISTRICT 1",
+   "numbertext": "ONE",
+   "supervisor": "1",
+   "supdistpad": "01",
+   "supname": "Connie Chan",
+   "nhood": "Inner Richmond",
+   "direct_source": "SF DBI",
+   "data_as_of": "2026-10-29T18:02:56.000",
+   "data_updated_at": "2018-12-31T13:38:45.186",
+   "data_loaded_at": "2026-10-29T20:12:04.277",
+   ":@computed_region_ajp5_b2md": "11",
+   ":@computed_region_6qbp_sg9q": "5",
+   ":@computed_region_qgnn_b9vv": "8",
+   ":@computed_region_26cr_cadq": "4"
+  },
+  {
+   "eas_baseid": "299471",
+   "eas_address_id": "514360",
+   "address_number": "127",
+   "street_name": "CARL",
+   "street_type": "ST",
+   "cnn": "3695000",
+   "street_full_street_name": "CARL ST",
+   "parcel_number": "1272022",
+   "zip_code": "94117",
+   "address": "127 CARL ST",
+   "longitude": "-122.45066382321968",
+   "latitude": "37.76542245334966",
+   "point": {
+    "geometry_type": "Point"
+   },
+   "supdist": "SUPERVISORIAL DISTRICT 8",
+   "numbertext": "EIGHT",
+   "supervisor": "8",
+   "supdistpad": "08",
+   "supname": "Rafael Mandelman",
+   "nhood": "Haight Ashbury",
+   "direct_source": "SF DBI",
+   "data_as_of": "2026-10-29T18:02:56.000",
+   "data_updated_at": "1970-01-01T00:00:00.000",
+   "data_loaded_at": "2026-10-29T20:12:04.277",
+   ":@computed_region_ajp5_b2md": "3",
+   ":@computed_region_6qbp_sg9q": "29",
+   ":@computed_region_qgnn_b9vv": "7",
+   ":@computed_region_26cr_cadq": "11"
+  }
+ ]
 }

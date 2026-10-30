@@ -6,5 +6,343 @@
   "Street Centerlines",
   "Streets"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "3psu-pn9h",
+   "Streets – Active and Retired",
+   null,
+   "2026-10-29"
+  ],
+  [
+   "contains",
+   "3wks-ifmi",
+   "Arterial Streets of San Francisco",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "s4xw-pbpb",
+   "Bicycle Green Wave Streets",
+   null,
+   "2025-09-02"
+  ],
+  [
+   "contains",
+   "pu5n-qu5c",
+   "List of Streets and Intersections",
+   null,
+   "2026-10-29"
+  ],
+  [
+   "contains",
+   "5s76-j52p",
+   "Miles Of Streets",
+   null,
+   "2026-09-25"
+  ],
+  [
+   "contains",
+   "hkz3-itiu",
+   "Slow Streets",
+   null,
+   "2025-05-23"
+  ],
+  [
+   "contains",
+   "5aye-4rtt",
+   "Streets Data - Pavement Condition Index (PCI) Scores",
+   null,
+   "2026-10-29"
+  ],
+  [
+   "contains",
+   "78va-8dhi",
+   "Streets Data -Historical Pavement Condition Index (PCI) Scores",
+   null,
+   "2026-10-29"
+  ]
+ ],
+ "picked": {
+  "id": "3psu-pn9h",
+  "name": "Streets – Active and Retired",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "City and County of San Francisco",
+  "category": "Geographic Locations and Boundaries",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "<strong>A. SUMMARY</strong>\nA list of street centerlines, including both active and retired streets. These centerlines are identified by their Centerline Network Number (\"CNN\"). \n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThis data is extracted from the Department of Public Works Basemap. Supervisor District and Analysis Neighborhood are added during the loading process. These boundaries utilize the centroid (middle) of the line to determine the district or neighborhood.\n\n<strong>C. UPDATE PROCESS</strong>\nThis dataset refreshes daily, though the data may not change every day.\n\n<strong>D. HOW TO USE THIS DATASET</strong>\nNote 1: The Class Code field is used for symbolization:\n1 = Freeway\n2 = Major street/Highway\n3 = Arterial street\n4 = Collector Street\n5 = Residential Street\n6 = Freew"
+ },
+ "count": 17176,
+ "geo": null,
+ "columns": [
+  {
+   "name": "cnn",
+   "type": "number",
+   "label": "cnn"
+  },
+  {
+   "name": "lf_fadd",
+   "type": "number",
+   "label": "lf_fadd"
+  },
+  {
+   "name": "lf_toadd",
+   "type": "number",
+   "label": "lf_toadd"
+  },
+  {
+   "name": "rt_fadd",
+   "type": "number",
+   "label": "rt_fadd"
+  },
+  {
+   "name": "rt_toadd",
+   "type": "number",
+   "label": "rt_toadd"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "street"
+  },
+  {
+   "name": "st_type",
+   "type": "text",
+   "label": "st_type"
+  },
+  {
+   "name": "f_st",
+   "type": "text",
+   "label": "f_st"
+  },
+  {
+   "name": "t_st",
+   "type": "text",
+   "label": "t_st"
+  },
+  {
+   "name": "f_node_cnn",
+   "type": "number",
+   "label": "f_node_cnn"
+  },
+  {
+   "name": "t_node_cnn",
+   "type": "number",
+   "label": "t_node_cnn"
+  },
+  {
+   "name": "accepted",
+   "type": "checkbox",
+   "label": "accepted"
+  },
+  {
+   "name": "active",
+   "type": "checkbox",
+   "label": "active"
+  },
+  {
+   "name": "classcode",
+   "type": "number",
+   "label": "classcode"
+  },
+  {
+   "name": "date_added",
+   "type": "calendar_date",
+   "label": "date_added"
+  },
+  {
+   "name": "date_altered",
+   "type": "calendar_date",
+   "label": "date_altered"
+  },
+  {
+   "name": "date_dropped",
+   "type": "calendar_date",
+   "label": "date_dropped"
+  },
+  {
+   "name": "gds_chg_id_add",
+   "type": "text",
+   "label": "gds_chg_id_add"
+  },
+  {
+   "name": "gds_chg_id_altered",
+   "type": "text",
+   "label": "gds_chg_id_altered"
+  },
+  {
+   "name": "gds_chg_id_dropped",
+   "type": "text",
+   "label": "gds_chg_id_dropped"
+  },
+  {
+   "name": "jurisdiction",
+   "type": "text",
+   "label": "jurisdiction"
+  },
+  {
+   "name": "layer",
+   "type": "text",
+   "label": "layer"
+  },
+  {
+   "name": "nhood",
+   "type": "text",
+   "label": "nhood"
+  },
+  {
+   "name": "oneway",
+   "type": "text",
+   "label": "oneway"
+  },
+  {
+   "name": "street_gc",
+   "type": "text",
+   "label": "street_gc"
+  },
+  {
+   "name": "streetname",
+   "type": "text",
+   "label": "streetname"
+  },
+  {
+   "name": "streetname_gc",
+   "type": "text",
+   "label": "streetname_gc"
+  },
+  {
+   "name": "zip_code",
+   "type": "number",
+   "label": "zip_code"
+  },
+  {
+   "name": "analysis_neighborhood",
+   "type": "text",
+   "label": "analysis_neighborhood"
+  },
+  {
+   "name": "supervisor_district",
+   "type": "text",
+   "label": "supervisor_district"
+  },
+  {
+   "name": "line",
+   "type": "line",
+   "label": "line"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "cnn": "15145000",
+   "lf_fadd": "0.0",
+   "lf_toadd": "0.0",
+   "rt_fadd": "0.0",
+   "rt_toadd": "0.0",
+   "street": "CROWN",
+   "st_type": "CT",
+   "f_st": "RACCOON DR",
+   "t_st": "END: EAST",
+   "f_node_cnn": "26132000.0",
+   "t_node_cnn": "54223000.0",
+   "accepted": false,
+   "active": true,
+   "classcode": "0",
+   "date_added": "2008-10-09T00:00:00.000",
+   "gds_chg_id_add": "2008-013",
+   "layer": "PRIVATE",
+   "nhood": "Twin Peaks",
+   "oneway": "B",
+   "street_gc": "CROWN",
+   "streetname": "CROWN CT",
+   "streetname_gc": "CROWN CT",
+   "zip_code": "94114",
+   "analysis_neighborhood": "Castro/Upper Market",
+   "supervisor_district": "8",
+   "line": {
+    "geometry_type": "LineString"
+   },
+   "data_as_of": "2026-10-29T03:53:00.000",
+   "data_loaded_at": "2026-10-29T10:26:44.518"
+  },
+  {
+   "cnn": "11305001",
+   "lf_fadd": "1.0",
+   "lf_toadd": "37.0",
+   "rt_fadd": "2.0",
+   "rt_toadd": "36.0",
+   "street": "SAINT GERMAIN",
+   "st_type": "AVE",
+   "f_st": "TWIN PEAKS BLVD",
+   "t_st": "MID BLOCK",
+   "f_node_cnn": "26255000.0",
+   "t_node_cnn": "54224000.0",
+   "accepted": true,
+   "active": true,
+   "classcode": "0",
+   "date_added": "2008-11-05T00:00:00.000",
+   "gds_chg_id_add": "2008-015",
+   "jurisdiction": "DPW",
+   "layer": "UPROW",
+   "nhood": "Clarendon Heights",
+   "oneway": "B",
+   "street_gc": "SAINT GERMAIN",
+   "streetname": "SAINT GERMAIN AVE",
+   "streetname_gc": "SAINT GERMAIN AVE",
+   "zip_code": "94114",
+   "analysis_neighborhood": "Twin Peaks",
+   "supervisor_district": "7",
+   "line": {
+    "geometry_type": "LineString"
+   },
+   "data_as_of": "2026-10-29T03:53:00.000",
+   "data_loaded_at": "2026-10-29T10:26:44.518"
+  },
+  {
+   "cnn": "11305002",
+   "lf_fadd": "39.0",
+   "lf_toadd": "99.0",
+   "rt_fadd": "38.0",
+   "rt_toadd": "98.0",
+   "street": "SAINT GERMAIN",
+   "st_type": "AVE",
+   "f_st": "MID BLOCK",
+   "t_st": "GLENBROOK AVE",
+   "f_node_cnn": "54224000.0",
+   "t_node_cnn": "26247000.0",
+   "accepted": true,
+   "active": true,
+   "classcode": "5",
+   "date_added": "2008-11-05T00:00:00.000",
+   "gds_chg_id_add": "2008-015",
+   "jurisdiction": "DPW",
+   "layer": "STREETS",
+   "nhood": "Clarendon Heights",
+   "oneway": "B",
+   "street_gc": "SAINT GERMAIN",
+   "streetname": "SAINT GERMAIN AVE",
+   "streetname_gc": "SAINT GERMAIN AVE",
+   "zip_code": "94114",
+   "analysis_neighborhood": "Twin Peaks",
+   "supervisor_district": "7",
+   "line": {
+    "geometry_type": "LineString"
+   },
+   "data_as_of": "2026-10-29T03:53:00.000",
+   "data_loaded_at": "2026-10-29T10:26:44.518"
+  }
+ ]
 }

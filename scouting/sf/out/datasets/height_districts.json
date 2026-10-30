@@ -4,5 +4,67 @@
   "Zoning Map - Height and Bulk Districts",
   "Height and Bulk Districts"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "h9wh-cg3m",
+   "Zoning Map - Height and Bulk Districts",
+   null,
+   "2026-10-29"
+  ]
+ ],
+ "picked": {
+  "id": "h9wh-cg3m",
+  "name": "Zoning Map - Height and Bulk Districts",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "City and County of San Francisco Planning Department",
+  "category": "Geographic Locations and Boundaries",
+  "licence": "Public Domain U.S. Government",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "The Height and Bulk Districts are a component of the Zoning Map which in turn is a key component of the San Francisco Planning Code. The official San Francisco zoning map is here:\nhttps://experience.arcgis.com/experience/573d02b43b7b46e381df04b7f225da95"
+ },
+ "count": 5292,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "height",
+   "type": "text",
+   "label": "height"
+  },
+  {
+   "name": "gen_hght",
+   "type": "number",
+   "label": "gen_hght"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "height": "200-S",
+   "gen_hght": "200"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "height": "555-X",
+   "gen_hght": "555"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "height": "65-J",
+   "gen_hght": "65"
+  }
+ ]
 }

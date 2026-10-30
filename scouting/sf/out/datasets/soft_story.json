@@ -4,5 +4,153 @@
   "Soft-Story Properties",
   "Soft Story Properties"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "beah-shgi",
+   "Soft-Story Properties",
+   null,
+   "2026-10-07"
+  ]
+ ],
+ "picked": {
+  "id": "beah-shgi",
+  "name": "Soft-Story Properties",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Housing and Buildings",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-07",
+  "view_modified": "2026-10-07",
+  "description": "The Mandatory Soft Story Program provides a weekly update on the status of properties identified as soft story.\n\nThe dataset represents the different Compliance Tiers for the Mandatory Soft Story Program and the current status of these properties. For more information on the Compliance Tiers, please contact the Soft Story Program.\n\nTier I. Buildings that contain a Group A, E, R- 2.1, R-3.1 or R-4 occupancy on any story\n\nTier II. Buildings containing 15 or more dwelling units, except for buildings assigned to Tier I or Tier IV\n\nTier III. Building not falling within the definition of another tier.\n\nTier IV. Buildings that contain a Group B or M occupancy on the first story or in a basement or underfloor area that has any portion extending above grade, and buildings that are in mapped liquefa"
+ },
+ "count": 4958,
+ "geo": null,
+ "columns": [
+  {
+   "name": "block",
+   "type": "text",
+   "label": "block"
+  },
+  {
+   "name": "lot",
+   "type": "text",
+   "label": "lot"
+  },
+  {
+   "name": "parcel_number",
+   "type": "text",
+   "label": "parcel_number"
+  },
+  {
+   "name": "property_address",
+   "type": "text",
+   "label": "property_address"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "address"
+  },
+  {
+   "name": "tier",
+   "type": "number",
+   "label": "tier"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "status"
+  },
+  {
+   "name": "bos_district",
+   "type": "number",
+   "label": "bos_district"
+  },
+  {
+   "name": "point",
+   "type": "point",
+   "label": "point"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": ":@computed_region_qgnn_b9vv",
+   "type": "number",
+   "label": "Current Police Districts"
+  },
+  {
+   "name": ":@computed_region_26cr_cadq",
+   "type": "number",
+   "label": "Current Supervisor Districts"
+  },
+  {
+   "name": ":@computed_region_ajp5_b2md",
+   "type": "number",
+   "label": "Analysis Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_jwn9_ihcz",
+   "type": "number",
+   "label": "Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_6qbp_sg9q",
+   "type": "number",
+   "label": "SF Find Neighborhoods"
+  }
+ ],
+ "samples": [
+  {
+   "block": "1702",
+   "lot": "43",
+   "parcel_number": "170243",
+   "property_address": "1230 LA PLAYA *",
+   "address": "1230 LA PLAYA *, SAN FRANCISCO CA",
+   "tier": "3",
+   "status": "Work Complete, CFC Issued",
+   "data_as_of": "2026-10-07T01:03:51.476",
+   "data_loaded_at": "2026-10-07T01:05:53.822"
+  },
+  {
+   "block": "1213",
+   "lot": "10",
+   "parcel_number": "121310",
+   "property_address": "2267 HAYES ST",
+   "address": "2267 HAYES ST, SAN FRANCISCO CA",
+   "tier": "3",
+   "status": "Work Complete, CFC Issued",
+   "data_as_of": "2026-10-07T01:03:51.476",
+   "data_loaded_at": "2026-10-07T01:05:53.822"
+  },
+  {
+   "block": "1829",
+   "lot": "001",
+   "parcel_number": "1829001",
+   "property_address": "1401 24TH AV",
+   "address": "1401 24TH AV, SAN FRANCISCO CA",
+   "tier": "3",
+   "status": "Work Complete, CFC Issued",
+   "bos_district": "4",
+   "point": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2026-10-07T01:03:51.476",
+   "data_loaded_at": "2026-10-07T01:05:53.822",
+   ":@computed_region_qgnn_b9vv": "10",
+   ":@computed_region_26cr_cadq": "7",
+   ":@computed_region_ajp5_b2md": "35",
+   ":@computed_region_jwn9_ihcz": "39",
+   ":@computed_region_6qbp_sg9q": "39"
+  }
+ ]
 }

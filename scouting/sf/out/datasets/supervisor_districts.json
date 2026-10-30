@@ -5,5 +5,135 @@
   "Current Supervisor Districts",
   "Supervisor Districts"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "f2zs-jevy",
+   "Supervisor Districts (2022)",
+   null,
+   "2025-01-09"
+  ],
+  [
+   "exact",
+   "cqbw-m5m3",
+   "Current Supervisor Districts",
+   null,
+   "2025-12-02"
+  ],
+  [
+   "contains",
+   "hcgx-vtsb",
+   "Current Supervisor Districts (trimmed to remove water and other non-populated City territories)",
+   null,
+   "2025-12-02"
+  ],
+  [
+   "contains",
+   "qdm2-fi8r",
+   "Supervisor Districts (2002)",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "keex-zmn4",
+   "Supervisor Districts (2012)",
+   null,
+   "2025-01-09"
+  ]
+ ],
+ "picked": {
+  "id": "f2zs-jevy",
+  "name": "Supervisor Districts (2022)",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Geographic Locations and Boundaries",
+  "licence": "Creative Commons 1.0 Universal (Public Domain Dedication)",
+  "rows_updated": "2025-01-09",
+  "view_modified": "2025-01-09",
+  "description": "<strong>A. SUMMARY</strong>\nThis dataset contains San Francisco Board of Supervisor district boundaries approved by the <u><a href=\"https://sf.gov/public-body/2020-census-redistricting-task-force\">San Francisco Redistricting Task Force</a></u> in April 2022 following redistricting based on the 2020 Decennial Census. \n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThe dataset was created from the <u><a href=\"https://sfgov.maps.arcgis.com/apps/webappviewer/index.html?id=57159538a9a3422a9d22ef75d66565b6\">final map</a></u> submitted by the San Francisco Redistricting Task Force. Boundaries in this map were decided using data from the 2020 Census on the number of people living in each census block in the City and County. This data includes the number of individuals incarcerated in facilities u"
+ },
+ "count": 11,
+ "geo": null,
+ "columns": [
+  {
+   "name": "sup_name",
+   "type": "text",
+   "label": "sup_name"
+  },
+  {
+   "name": "sup_dist",
+   "type": "text",
+   "label": "sup_dist"
+  },
+  {
+   "name": "sup_dist_name",
+   "type": "text",
+   "label": "sup_dist_name"
+  },
+  {
+   "name": "sup_dist_num",
+   "type": "number",
+   "label": "sup_dist_num"
+  },
+  {
+   "name": "sup_dist_pad",
+   "type": "text",
+   "label": "sup_dist_pad"
+  },
+  {
+   "name": "polygon",
+   "type": "multipolygon",
+   "label": "polygon"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "sup_name": "Connie Chan",
+   "sup_dist": "1",
+   "sup_dist_name": "SUPERVISORIAL DISTRICT 1",
+   "sup_dist_num": "1.0",
+   "sup_dist_pad": "01",
+   "polygon": {
+    "geometry_type": "MultiPolygon"
+   },
+   "data_as_of": "2025-01-08T18:30:00.000",
+   "data_loaded_at": "2025-01-08T18:30:00.000"
+  },
+  {
+   "sup_name": "Stephen Sherrill",
+   "sup_dist": "2",
+   "sup_dist_name": "SUPERVISORIAL DISTRICT 2",
+   "sup_dist_num": "2.0",
+   "sup_dist_pad": "02",
+   "polygon": {
+    "geometry_type": "MultiPolygon"
+   },
+   "data_as_of": "2025-01-08T18:30:00.000",
+   "data_loaded_at": "2025-01-08T18:30:00.000"
+  },
+  {
+   "sup_name": "Danny Sauter",
+   "sup_dist": "3",
+   "sup_dist_name": "SUPERVISORIAL DISTRICT 3",
+   "sup_dist_num": "3.0",
+   "sup_dist_pad": "03",
+   "polygon": {
+    "geometry_type": "MultiPolygon"
+   },
+   "data_as_of": "2025-01-08T18:30:00.000",
+   "data_loaded_at": "2025-01-08T18:30:00.000"
+  }
+ ]
 }

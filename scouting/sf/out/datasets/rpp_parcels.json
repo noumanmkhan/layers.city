@@ -3,5 +3,213 @@
  "looked_for": [
   "Residential Parking Permit Eligibility Parcels"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "i886-hxz9",
+   "Residential Parking Permit Eligibility Parcels",
+   null,
+   "2025-05-23"
+  ]
+ ],
+ "picked": {
+  "id": "i886-hxz9",
+  "name": "Residential Parking Permit Eligibility Parcels",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "SFMTA",
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2024-01-15",
+  "view_modified": "2025-05-23",
+  "description": "A. SUMMARY \nEligibility for residential parking permits by parcel (indicates which RPP area),\n\nB. METHODOLOGY  \nManual updates based on MTAB resolutions; reconciled with eTIMs RPP database for edits made in 2014 and beyond.\n\nC. UPDATE FREQUENCY  \nUpdated monthly or quarterly based on MTAB resolutions. \n\nD. OTHER CRITICAL INFO  \nSpot checks reveal some inconsistencies between this feature class and the authoritative eTIMs RPP database for features edited prior to 2014. This is in need of attention."
+ },
+ "count": 83489,
+ "geo": null,
+ "columns": [
+  {
+   "name": "mapblklot",
+   "type": "text",
+   "label": "MAPBLKLOT"
+  },
+  {
+   "name": "blklot",
+   "type": "text",
+   "label": "BLKLOT"
+  },
+  {
+   "name": "block_num",
+   "type": "text",
+   "label": "BLOCK_NUM"
+  },
+  {
+   "name": "lot_num",
+   "type": "text",
+   "label": "LOT_NUM"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "ADDRESS"
+  },
+  {
+   "name": "labelfield",
+   "type": "text",
+   "label": "LABELFIELD"
+  },
+  {
+   "name": "source",
+   "type": "text",
+   "label": "SOURCE"
+  },
+  {
+   "name": "lowaddress",
+   "type": "text",
+   "label": "LOWADDRESS"
+  },
+  {
+   "name": "highaddres",
+   "type": "text",
+   "label": "HIGHADDRES"
+  },
+  {
+   "name": "streetname",
+   "type": "text",
+   "label": "STREETNAME"
+  },
+  {
+   "name": "streettype",
+   "type": "text",
+   "label": "STREETTYPE"
+  },
+  {
+   "name": "x",
+   "type": "text",
+   "label": "X"
+  },
+  {
+   "name": "y",
+   "type": "text",
+   "label": "Y"
+  },
+  {
+   "name": "modified",
+   "type": "text",
+   "label": "MODIFIED"
+  },
+  {
+   "name": "editor",
+   "type": "text",
+   "label": "EDITOR"
+  },
+  {
+   "name": "rppeligib",
+   "type": "text",
+   "label": "RPPELIGIB"
+  },
+  {
+   "name": "conflict",
+   "type": "text",
+   "label": "CONFLICT"
+  },
+  {
+   "name": "shape_leng",
+   "type": "text",
+   "label": "SHAPE_LENG"
+  },
+  {
+   "name": "created_user",
+   "type": "text",
+   "label": "CREATED_USER"
+  },
+  {
+   "name": "created_date",
+   "type": "text",
+   "label": "CREATED_DATE"
+  },
+  {
+   "name": "last_edited_user",
+   "type": "text",
+   "label": "LAST_EDITED_USER"
+  },
+  {
+   "name": "last_edited_date",
+   "type": "text",
+   "label": "LAST_EDITED_DATE"
+  },
+  {
+   "name": "globalid",
+   "type": "text",
+   "label": "GLOBALID"
+  },
+  {
+   "name": "from_st",
+   "type": "text",
+   "label": "FROM_ST"
+  },
+  {
+   "name": "to_st",
+   "type": "text",
+   "label": "TO_ST"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "STREET"
+  },
+  {
+   "name": "st_type",
+   "type": "text",
+   "label": "ST_TYPE"
+  },
+  {
+   "name": "shape",
+   "type": "multipolygon",
+   "label": "shape"
+  }
+ ],
+ "samples": [
+  {
+   "mapblklot": "1222047",
+   "blklot": "1222047",
+   "block_num": "1222",
+   "lot_num": "047",
+   "rppeligib": "Q",
+   "created_user": "RAYNELLCOOPER",
+   "created_date": "20181116190110",
+   "last_edited_user": "RAYNELLCOOPER",
+   "last_edited_date": "20190729204050",
+   "shape": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "mapblklot": "1222022",
+   "blklot": "1222022",
+   "block_num": "1222",
+   "lot_num": "022",
+   "rppeligib": "Q",
+   "created_user": "RAYNELLCOOPER",
+   "created_date": "20181116190110",
+   "last_edited_user": "RAYNELLCOOPER",
+   "last_edited_date": "20190729204053",
+   "shape": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "mapblklot": "1222024",
+   "blklot": "1222024",
+   "block_num": "1222",
+   "lot_num": "024",
+   "rppeligib": "Q",
+   "created_user": "RAYNELLCOOPER",
+   "created_date": "20181116190110",
+   "last_edited_user": "RAYNELLCOOPER",
+   "last_edited_date": "20190729204045",
+   "shape": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
 }

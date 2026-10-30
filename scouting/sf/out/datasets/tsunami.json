@@ -5,5 +5,108 @@
   "Tsunami Inundation",
   "Tsunami Hazard Area"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "contains",
+   "7p2k-c3z6",
+   "Tsunami Inundation Hazard Zone (2021 Update)",
+   null,
+   "2024-12-17"
+  ],
+  [
+   "contains",
+   "q7uq-hghg",
+   "Tsunami Inundation Hazard Zone (Outdated, 2015)",
+   null,
+   "2025-07-30"
+  ]
+ ],
+ "picked": {
+  "id": "7p2k-c3z6",
+  "name": "Tsunami Inundation Hazard Zone (2021 Update)",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "Californaia Geological Survey",
+  "category": "Energy and Environment",
+  "licence": "Public Domain",
+  "rows_updated": "2021-08-03",
+  "view_modified": "2024-12-17",
+  "description": "California Tsunami Hazard Area Maps and data are prepared to assist cities and counties in identifying their tsunami hazard for tsunami response planning. The maps and data are compiled with the best currently available scientific information and represent areas that could be exposed to tsunami hazards during a tsunami event. They are primarily based on inundation limits corresponding to a 975-year average return period tsunami event model. These limits have been extended to reflect potential local tsunami sources not considered in probabilistic analysis and are also modified to reflect the practical need to define limits that coincide with geographic features or city streets.\n\nState of California, 2021, Tsunami Hazard Area Map, County name County; produced by the California Geological Sur"
+ },
+ "count": 1,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "objectid",
+   "type": "number",
+   "label": "OBJECTID"
+  },
+  {
+   "name": "evacuate",
+   "type": "text",
+   "label": "Evacuate"
+  },
+  {
+   "name": "county",
+   "type": "text",
+   "label": "County"
+  },
+  {
+   "name": "gis_link",
+   "type": "text",
+   "label": "GIS_Link"
+  },
+  {
+   "name": "kmz_link",
+   "type": "text",
+   "label": "KMZ_Link"
+  },
+  {
+   "name": "map_link",
+   "type": "text",
+   "label": "Map_Link"
+  },
+  {
+   "name": "label",
+   "type": "text",
+   "label": "Label"
+  },
+  {
+   "name": "shape_leng",
+   "type": "number",
+   "label": "Shape_Leng"
+  },
+  {
+   "name": "shape_le_1",
+   "type": "number",
+   "label": "Shape_Le_1"
+  },
+  {
+   "name": "shape_area",
+   "type": "number",
+   "label": "Shape_Area"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "objectid": "24",
+   "evacuate": "Yes, Tsunami Hazard Area",
+   "county": "San Francisco",
+   "gis_link": "https://www.conservation.ca.gov/cgs/Documents/SHP/Tsunami/HazardArea/GIS/CGS_Tsunami_Hazard_Area_for_Emergency_Planning.zip",
+   "kmz_link": "https://www.conservation.ca.gov/cgs/Documents/SHP/Tsunami/HazardArea/KMZ/San_Francisco_Tsunami_Hazard_Area_Map.kmz",
+   "map_link": "https://www.conservation.ca.gov/cgs/Documents/SHP/Tsunami/HazardArea/Maps/Tsunami_Hazard_Area_Map_San_Francisco_County_a11y.pdf",
+   "label": "Tsunami Hazard Area",
+   "shape_leng": "311900.909861",
+   "shape_le_1": "311900.909861",
+   "shape_area": "1947680970.69"
+  }
+ ]
 }

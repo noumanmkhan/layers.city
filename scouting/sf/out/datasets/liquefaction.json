@@ -4,5 +4,59 @@
   "Liquefaction Zones",
   "Seismic Hazard Zones"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "contains",
+   "re79-p8j5",
+   "San Francisco Seismic Hazard Zones",
+   null,
+   "2025-01-07"
+  ]
+ ],
+ "picked": {
+  "id": "re79-p8j5",
+  "name": "San Francisco Seismic Hazard Zones",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": null,
+  "licence": null,
+  "rows_updated": "2023-10-17",
+  "view_modified": "2025-01-07",
+  "description": "This is a digital Seismic Hazard Zone Map presenting areas where liquefaction and landslides may occur during a strong earthquake. Three types of geological hazards, referred to as seismic hazard zones, may be featured on the map: 1) liquefaction, 2) earthquake-induced landslides, and 3) overlapping liquefaction and earthquake-induced landslides. Developers of properties falling within any of the three zones may be required to investigate the potential hazard and mitigate its threat during the local permitting process."
+ },
+ "count": 350,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "id",
+   "type": "number",
+   "label": "ID"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "id": "308"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "id": "309"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "id": "310"
+  }
+ ]
 }

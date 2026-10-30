@@ -4,5 +4,232 @@
   "Bicycle Parking (Public)",
   "Bicycle Parking"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "contains",
+   "hn4j-6fx5",
+   "Bicycle Parking Racks",
+   null,
+   "2025-05-23"
+  ]
+ ],
+ "picked": {
+  "id": "hn4j-6fx5",
+  "name": "Bicycle Parking Racks",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "SFMTA",
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2024-06-17",
+  "view_modified": "2025-05-23",
+  "description": "A. SUMMARY This dataset contains the locations of bicycle parking racks installed by the SFMTA. The data includes locations that are installed on sidewalks, in on-street bicycle corrals, in city-owned garages, and in parklets. This dataset does not include racks installed on private property or in privately owned garages.\n\nB. METHODOLOGY Locations are associated to an address so they may not reflect there actual placement along the sidewalk. Racks are installed in front of addresses along the sidewalk according to the SFMTA Bicycle Parking: Standards, Guidelines, Recommendations.https://www.sfmta.com/sites/default/files/pdfs/Bicycle_Parking_Guidelines.pdf\n\nC. UPDATE FREQUENCY  The dataset is updated quarterly as racks are continuously installed upon request from the public, businesses, and"
+ },
+ "count": 6035,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "text",
+   "label": "OBJECTID"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "ADDRESS"
+  },
+  {
+   "name": "location",
+   "type": "text",
+   "label": "LOCATION"
+  },
+  {
+   "name": "street",
+   "type": "text",
+   "label": "STREET"
+  },
+  {
+   "name": "placement",
+   "type": "text",
+   "label": "PLACEMENT"
+  },
+  {
+   "name": "racks",
+   "type": "number",
+   "label": "RACKS"
+  },
+  {
+   "name": "spaces",
+   "type": "number",
+   "label": "SPACES"
+  },
+  {
+   "name": "globalid",
+   "type": "text",
+   "label": "GLOBALID"
+  },
+  {
+   "name": "install_yr",
+   "type": "number",
+   "label": "INSTALL_YR"
+  },
+  {
+   "name": "install_mo",
+   "type": "number",
+   "label": "INSTALL_MO"
+  },
+  {
+   "name": "lat",
+   "type": "number",
+   "label": "LAT"
+  },
+  {
+   "name": "lon",
+   "type": "number",
+   "label": "LON"
+  },
+  {
+   "name": "shape",
+   "type": "point",
+   "label": "shape"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": "analysis_neighborhood",
+   "type": "text",
+   "label": "analysis_neighborhood"
+  },
+  {
+   "name": "supervisor_district",
+   "type": "text",
+   "label": "supervisor_district"
+  },
+  {
+   "name": ":@computed_region_6qbp_sg9q",
+   "type": "number",
+   "label": "SF Find Neighborhoods 2"
+  },
+  {
+   "name": ":@computed_region_qgnn_b9vv",
+   "type": "number",
+   "label": "Current Police Districts 2"
+  },
+  {
+   "name": ":@computed_region_26cr_cadq",
+   "type": "number",
+   "label": "Current Supervisor Districts 2"
+  },
+  {
+   "name": ":@computed_region_ajp5_b2md",
+   "type": "number",
+   "label": "Analysis Neighborhoods 2"
+  },
+  {
+   "name": ":@computed_region_696y_nzzn",
+   "type": "number",
+   "label": "Analysis Neighborhoods - 2010 census tracts assigned to neighborhoods 2"
+  },
+  {
+   "name": ":@computed_region_9jxd_iqea",
+   "type": "number",
+   "label": "CBD, BID and GBD Boundaries as of 2017 2"
+  },
+  {
+   "name": ":@computed_region_h4ep_8xdi",
+   "type": "number",
+   "label": "Central Market/Tenderloin Boundary Polygon - Updated 2"
+  },
+  {
+   "name": ":@computed_region_jwn9_ihcz",
+   "type": "number",
+   "label": "Neighborhoods"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "12183",
+   "address": "Belden Street",
+   "location": "Belden Place",
+   "street": "BUSH",
+   "placement": "SIDEWALK",
+   "racks": "2",
+   "spaces": "4",
+   "install_yr": "2017",
+   "install_mo": "1",
+   "lat": "37.790909",
+   "lon": "-122.40374299999999",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2020-01-29T12:38:25.000",
+   "data_loaded_at": "2024-06-17T10:17:16.000",
+   "analysis_neighborhood": "Financial District/South Beach",
+   "supervisor_district": "3",
+   ":@computed_region_6qbp_sg9q": "108",
+   ":@computed_region_qgnn_b9vv": "6",
+   ":@computed_region_26cr_cadq": "3",
+   ":@computed_region_ajp5_b2md": "8",
+   ":@computed_region_696y_nzzn": "43",
+   ":@computed_region_jwn9_ihcz": "108"
+  },
+  {
+   "objectid": "20813",
+   "address": "1984 Mission Street",
+   "location": "H&R block",
+   "street": "Mission Street",
+   "placement": "SIDEWALK",
+   "racks": "1",
+   "spaces": "2",
+   "install_yr": "2023",
+   "install_mo": "11",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2023-11-13T15:31:03.000",
+   "data_loaded_at": "2024-06-17T10:17:16.000",
+   "analysis_neighborhood": "Mission",
+   "supervisor_district": "9",
+   ":@computed_region_6qbp_sg9q": "53",
+   ":@computed_region_qgnn_b9vv": "3",
+   ":@computed_region_26cr_cadq": "2",
+   ":@computed_region_ajp5_b2md": "20",
+   ":@computed_region_696y_nzzn": "89",
+   ":@computed_region_jwn9_ihcz": "53"
+  },
+  {
+   "objectid": "11638",
+   "address": "2762 FOLSOM ST",
+   "location": "Inglesia Zion",
+   "street": "FOLSOM",
+   "placement": "SIDEWALK",
+   "racks": "2",
+   "spaces": "4",
+   "install_yr": "2011",
+   "install_mo": "3",
+   "lat": "37.753068",
+   "lon": "-122.414474",
+   "shape": {
+    "geometry_type": "Point"
+   },
+   "data_as_of": "2020-01-29T12:38:25.000",
+   "data_loaded_at": "2024-06-17T10:17:16.000",
+   "analysis_neighborhood": "Mission",
+   "supervisor_district": "9",
+   ":@computed_region_6qbp_sg9q": "53",
+   ":@computed_region_qgnn_b9vv": "3",
+   ":@computed_region_26cr_cadq": "2",
+   ":@computed_region_ajp5_b2md": "20",
+   ":@computed_region_696y_nzzn": "166",
+   ":@computed_region_jwn9_ihcz": "53"
+  }
+ ]
 }

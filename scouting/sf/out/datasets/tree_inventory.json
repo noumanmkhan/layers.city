@@ -3,5 +3,223 @@
  "looked_for": [
   "Street Tree List"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "contains",
+   "uzd4-f6yf",
+   "[ARCHIVED] Street Tree List",
+   null,
+   "2026-09-09"
+  ]
+ ],
+ "picked": {
+  "id": "uzd4-f6yf",
+  "name": "[ARCHIVED] Street Tree List",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "San Francisco Public Works",
+  "category": "City Infrastructure",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-09-07",
+  "view_modified": "2026-09-09",
+  "description": "List of DPW maintained street trees including: Planting date, species, and location\n\n<strong>Notice: Dataset archived due to system migration (December 2024)</strong>\nThis dataset has been archived following our migration to a new asset management system in December 2024. A replacement dataset with an updated schema is now available and should be used for all current analyses, reporting, and downloads. You can view the new version of the dataset here:\n<u><a href=\"https://data.sf.gov/City-Infrastructure/San-Francisco-Street-Tree-Inventory/tkzw-k3nq\">San Francisco Street Tree Inventory</a></u>\n\n<strong>Known data issue in this dataset:</strong>\nThis archived dataset contains more rows than expected due to historical tree removals and duplicate records that were not removed from the legacy fe"
+ },
+ "count": 198436,
+ "geo": null,
+ "columns": [
+  {
+   "name": "treeid",
+   "type": "number",
+   "label": "TreeID"
+  },
+  {
+   "name": "qlegalstatus",
+   "type": "text",
+   "label": "qLegalStatus"
+  },
+  {
+   "name": "qspecies",
+   "type": "text",
+   "label": "qSpecies"
+  },
+  {
+   "name": "qaddress",
+   "type": "text",
+   "label": "qAddress"
+  },
+  {
+   "name": "siteorder",
+   "type": "number",
+   "label": "SiteOrder"
+  },
+  {
+   "name": "qsiteinfo",
+   "type": "text",
+   "label": "qSiteInfo"
+  },
+  {
+   "name": "planttype",
+   "type": "text",
+   "label": "PlantType"
+  },
+  {
+   "name": "qcaretaker",
+   "type": "text",
+   "label": "qCaretaker"
+  },
+  {
+   "name": "qcareassistant",
+   "type": "text",
+   "label": "qCareAssistant"
+  },
+  {
+   "name": "plantdate",
+   "type": "calendar_date",
+   "label": "PlantDate"
+  },
+  {
+   "name": "dbh",
+   "type": "number",
+   "label": "DBH"
+  },
+  {
+   "name": "plotsize",
+   "type": "text",
+   "label": "PlotSize"
+  },
+  {
+   "name": "permitnotes",
+   "type": "text",
+   "label": "PermitNotes"
+  },
+  {
+   "name": "xcoord",
+   "type": "number",
+   "label": "XCoord"
+  },
+  {
+   "name": "ycoord",
+   "type": "number",
+   "label": "YCoord"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "Latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "Longitude"
+  },
+  {
+   "name": "location",
+   "type": "location",
+   "label": "Location"
+  },
+  {
+   "name": ":@computed_region_yftq_j783",
+   "type": "number",
+   "label": "Fire Prevention Districts"
+  },
+  {
+   "name": ":@computed_region_p5aj_wyqh",
+   "type": "number",
+   "label": "Police Districts"
+  },
+  {
+   "name": ":@computed_region_rxqg_mtj9",
+   "type": "number",
+   "label": "Supervisor Districts"
+  },
+  {
+   "name": ":@computed_region_bh8s_q3mv",
+   "type": "number",
+   "label": "Zip Codes"
+  },
+  {
+   "name": ":@computed_region_fyvs_ahh9",
+   "type": "number",
+   "label": "Neighborhoods (old)"
+  },
+  {
+   "name": ":@computed_region_ajp5_b2md",
+   "type": "number",
+   "label": "Analysis Neighborhoods"
+  }
+ ],
+ "samples": [
+  {
+   ":@computed_region_rxqg_mtj9": "11",
+   "xcoord": "5999163.5213",
+   "siteorder": "4",
+   "location": "POINT (-122.44640232649878 37.77609111946836)",
+   ":@computed_region_ajp5_b2md": "18",
+   "qlegalstatus": "DPW Maintained",
+   ":@computed_region_yftq_j783": "15",
+   "ycoord": "2110903.9816",
+   ":@computed_region_bh8s_q3mv": "29492",
+   "planttype": "Tree",
+   "qaddress": "590 Masonic Ave",
+   "latitude": "37.77609111946836",
+   "qcaretaker": "Private",
+   "qsiteinfo": "Sidewalk: Curb side : Cutout",
+   ":@computed_region_fyvs_ahh9": "16",
+   "longitude": "-122.44640232649878",
+   ":@computed_region_p5aj_wyqh": "5",
+   "qspecies": "Fraxinus uhdei :: Shamel Ash: Evergreen Ash",
+   "plotsize": "Width 0ft",
+   "treeid": "272733"
+  },
+  {
+   ":@computed_region_rxqg_mtj9": "2",
+   "xcoord": "5998426.00628",
+   "siteorder": "19",
+   "location": "POINT (-122.44898621924413 37.777292905068855)",
+   "plantdate": "2024-03-08T00:00:00.000",
+   ":@computed_region_ajp5_b2md": "18",
+   "qlegalstatus": "DPW Maintained",
+   ":@computed_region_yftq_j783": "15",
+   "ycoord": "2111357.02356",
+   ":@computed_region_bh8s_q3mv": "29492",
+   "planttype": "Tree",
+   "dbh": "3",
+   "qaddress": "2201 Golden Gate Ave",
+   "latitude": "37.777292905068855",
+   "qcaretaker": "Private",
+   "permitnotes": "Permit Number 793181",
+   "qsiteinfo": "Sidewalk: Property side : Yard",
+   ":@computed_region_fyvs_ahh9": "16",
+   "longitude": "-122.44898621924413",
+   ":@computed_region_p5aj_wyqh": "6",
+   "qspecies": "Cupressocyparis leylandii :: Leyland Cypress",
+   "plotsize": "Width 7ft",
+   "treeid": "250594"
+  },
+  {
+   ":@computed_region_rxqg_mtj9": "6",
+   "xcoord": "5993506",
+   "siteorder": "1",
+   "location": "POINT (-122.46432568478278 37.71347914883135)",
+   "plantdate": "2024-03-08T00:00:00.000",
+   ":@computed_region_ajp5_b2md": "24",
+   "qlegalstatus": "Section 806 (d)",
+   ":@computed_region_yftq_j783": "9",
+   "ycoord": "2088219",
+   ":@computed_region_bh8s_q3mv": "64",
+   "planttype": "Tree",
+   "dbh": "3",
+   "qaddress": "352 Head St",
+   "latitude": "37.71347914883135",
+   "qcaretaker": "Private",
+   "permitnotes": "Permit Number 795095",
+   "qsiteinfo": "Sidewalk: Curb side : Cutout",
+   ":@computed_region_fyvs_ahh9": "24",
+   "longitude": "-122.46432568478278",
+   ":@computed_region_p5aj_wyqh": "8",
+   "qspecies": "Magnolia grandiflora :: Southern Magnolia",
+   "plotsize": "3x3",
+   "treeid": "272723"
+  }
+ ]
 }

@@ -5,5 +5,258 @@
   "Facilities",
   "City-owned and leased facilities"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "nc68-ngbr",
+   "City Facilities",
+   null,
+   "2026-10-29"
+  ],
+  [
+   "contains",
+   "aa26-h926",
+   "Existing Commercial Wireless Telecommunication Services Facilities in San Francisco",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "ewnu-9y3h",
+   "Proposed Commercial Wireless Telecommunication Services Facilities in San Francisco",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "ib5c-xgwu",
+   "Recreation and Parks Facilities",
+   null,
+   "2026-10-30"
+  ]
+ ],
+ "picked": {
+  "id": "nc68-ngbr",
+  "name": "City Facilities",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "City and County of San Francisco",
+  "category": "City Infrastructure",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "City-owned and leased facilities maintained in the City's Facility System of Record (FSR). Does not include the following agencies which are not part of the City and County of San Francisco: SFHA, OCII and City College.\nThis dataset was developed through a process involving some of the primary stewards for the facility data and their stakeholders. It is meant to be a living reference and will be maintained and updated through established workflows and processes over time.  You can access the attached User Guide for more detail by clicking the red About button and scrolling to attachments."
+ },
+ "count": 1734,
+ "geo": null,
+ "columns": [
+  {
+   "name": "facility_id",
+   "type": "number",
+   "label": "facility_id"
+  },
+  {
+   "name": "common_name",
+   "type": "text",
+   "label": "common_name"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "address"
+  },
+  {
+   "name": "city",
+   "type": "text",
+   "label": "city"
+  },
+  {
+   "name": "zip_code",
+   "type": "text",
+   "label": "zip_code"
+  },
+  {
+   "name": "block_lot",
+   "type": "text",
+   "label": "block_lot"
+  },
+  {
+   "name": "owned_leased",
+   "type": "text",
+   "label": "owned_leased"
+  },
+  {
+   "name": "dept_id",
+   "type": "number",
+   "label": "dept_id_for_jurisdiction"
+  },
+  {
+   "name": "department_name",
+   "type": "text",
+   "label": "jurisdiction"
+  },
+  {
+   "name": "gross_sq_ft",
+   "type": "number",
+   "label": "gross_sq_ft"
+  },
+  {
+   "name": "longitude",
+   "type": "text",
+   "label": "longitude"
+  },
+  {
+   "name": "latitude",
+   "type": "text",
+   "label": "latitude"
+  },
+  {
+   "name": "supervisor_district",
+   "type": "number",
+   "label": "supervisor_district"
+  },
+  {
+   "name": "city_tenants",
+   "type": "text",
+   "label": "city_tenants"
+  },
+  {
+   "name": "land_id",
+   "type": "number",
+   "label": "land_id"
+  },
+  {
+   "name": "geom",
+   "type": "point",
+   "label": "geom"
+  },
+  {
+   "name": "data_last_updated",
+   "type": "calendar_date",
+   "label": "data_last_updated"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  },
+  {
+   "name": ":@computed_region_ajp5_b2md",
+   "type": "number",
+   "label": "Analysis Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_f58d_8dbm",
+   "type": "number",
+   "label": "DELETE - Neighborhoods_from_fyvs_ahh9"
+  },
+  {
+   "name": ":@computed_region_rxqg_mtj9",
+   "type": "number",
+   "label": "DELETE - Supervisor Districts"
+  },
+  {
+   "name": ":@computed_region_jx4q_fizf",
+   "type": "number",
+   "label": "DELETE - Current Police Districts"
+  },
+  {
+   "name": ":@computed_region_yftq_j783",
+   "type": "number",
+   "label": "DELETE - Fire Prevention Districts"
+  },
+  {
+   "name": ":@computed_region_bh8s_q3mv",
+   "type": "number",
+   "label": "DELETE - Zip Codes"
+  },
+  {
+   "name": ":@computed_region_jwn9_ihcz",
+   "type": "number",
+   "label": "Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_6qbp_sg9q",
+   "type": "number",
+   "label": "SF Find Neighborhoods"
+  },
+  {
+   "name": ":@computed_region_qgnn_b9vv",
+   "type": "number",
+   "label": "Current Police Districts"
+  },
+  {
+   "name": ":@computed_region_26cr_cadq",
+   "type": "number",
+   "label": "Current Supervisor Districts"
+  }
+ ],
+ "samples": [
+  {
+   "facility_id": "2090.0",
+   "common_name": "Valve House",
+   "address": "CALAVERAS  ALAMEDA",
+   "city": "Sunol",
+   "zip_code": "94586",
+   "owned_leased": "Own",
+   "dept_id": "47",
+   "department_name": "Public Utilities Commission",
+   "longitude": "-121.81996496399995",
+   "latitude": "37.495972332000065",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "data_last_updated": "2026-05-14T23:57:33.000",
+   "data_as_of": "2026-10-26T17:37:00.000",
+   "data_loaded_at": "2026-10-29T10:26:03.000"
+  },
+  {
+   "facility_id": "970.0",
+   "common_name": "Kelloch/Velasco Maintenance Shed",
+   "address": "100 VELASCO AVE",
+   "city": "San Francisco",
+   "zip_code": "94134",
+   "block_lot": "6361002",
+   "owned_leased": "Own",
+   "dept_id": "49",
+   "department_name": "Recreation And Parks",
+   "gross_sq_ft": "48.0",
+   "longitude": "-122.41295723899998",
+   "latitude": "37.70825467000003",
+   "land_id": "21.0",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "data_last_updated": "2026-05-14T23:57:33.000",
+   "data_as_of": "2026-10-26T17:37:00.000",
+   "data_loaded_at": "2026-10-29T10:26:03.000",
+   ":@computed_region_bh8s_q3mv": "28588"
+  },
+  {
+   "facility_id": "3163.0",
+   "common_name": "SHARP PARK GARDENERS SHED",
+   "address": "2600 FRANCISCO BLVD",
+   "city": "Pacifica",
+   "zip_code": "94044",
+   "block_lot": "016392120",
+   "owned_leased": "Own",
+   "dept_id": "49",
+   "department_name": "Recreation And Parks",
+   "longitude": "-122.48846401099996",
+   "latitude": "37.62531098900007",
+   "land_id": "25.0",
+   "geom": {
+    "geometry_type": "Point"
+   },
+   "data_last_updated": "2026-05-14T23:57:33.000",
+   "data_as_of": "2026-10-26T17:37:00.000",
+   "data_loaded_at": "2026-10-29T10:26:03.000",
+   ":@computed_region_bh8s_q3mv": "28604"
+  }
+ ]
 }

@@ -3,5 +3,227 @@
  "looked_for": [
   "Slow Streets"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "hkz3-itiu",
+   "Slow Streets",
+   null,
+   "2025-05-23"
+  ]
+ ],
+ "picked": {
+  "id": "hkz3-itiu",
+  "name": "Slow Streets",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "SFMTA",
+  "category": "Transportation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2024-01-18",
+  "view_modified": "2025-05-23",
+  "description": "<strong>A. SUMMARY</strong>\nThis data shows the locations of slow streets designated as part of the SFMTA response to sheltering in place and supporting essential movement throughout San Francisco.\n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThe data was created using the city's centerline (CNN) shapefile. Using the Slow Street extents, polylines from the CNN data were queried out. Additional fields were added to give the segments various attributes related to the Slow Streets program.\n\n<strong>C. UPDATE PROCESS</strong>\nAs-needed.\n\n<strong>D. HOW TO USE THIS DATASET</strong>\nThis data is mainly used to show the extent of Slow Streets implemented as part of the SFMTA's Slow Streets program. Each record is a block of Slow Street."
+ },
+ "count": 240,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "number",
+   "label": "objectid"
+  },
+  {
+   "name": "shape",
+   "type": "line",
+   "label": "shape"
+  },
+  {
+   "name": "classcode",
+   "type": "number",
+   "label": "classcode"
+  },
+  {
+   "name": "cnn",
+   "type": "number",
+   "label": "cnn"
+  },
+  {
+   "name": "f_node_cnn",
+   "type": "number",
+   "label": "f_node_cnn"
+  },
+  {
+   "name": "f_st",
+   "type": "text",
+   "label": "f_st"
+  },
+  {
+   "name": "nhood",
+   "type": "text",
+   "label": "nhood"
+  },
+  {
+   "name": "oneway",
+   "type": "text",
+   "label": "oneway"
+  },
+  {
+   "name": "st_type",
+   "type": "text",
+   "label": "st_type"
+  },
+  {
+   "name": "streetname",
+   "type": "text",
+   "label": "streetname"
+  },
+  {
+   "name": "t_st",
+   "type": "text",
+   "label": "t_st"
+  },
+  {
+   "name": "zip_code",
+   "type": "text",
+   "label": "zip_code"
+  },
+  {
+   "name": "slw_st",
+   "type": "number",
+   "label": "slw_st"
+  },
+  {
+   "name": "length",
+   "type": "number",
+   "label": "length"
+  },
+  {
+   "name": "extents",
+   "type": "text",
+   "label": "extents"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "status"
+  },
+  {
+   "name": "phase",
+   "type": "number",
+   "label": "phase"
+  },
+  {
+   "name": "install_date",
+   "type": "calendar_date",
+   "label": "install_date"
+  },
+  {
+   "name": "agency",
+   "type": "text",
+   "label": "agency"
+  },
+  {
+   "name": "type",
+   "type": "text",
+   "label": "type"
+  },
+  {
+   "name": "supervisor_district",
+   "type": "text",
+   "label": "supervisor_district"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "1291",
+   "shape": {
+    "geometry_type": "LineString"
+   },
+   "classcode": "5",
+   "cnn": "3495000",
+   "f_node_cnn": "27528000",
+   "f_st": "28TH AVE",
+   "nhood": "Outer Richmond",
+   "oneway": "B",
+   "st_type": "ST",
+   "streetname": "CABRILLO ST",
+   "t_st": "29TH AVE",
+   "zip_code": "94121",
+   "slw_st": "1",
+   "length": "0.05879311",
+   "extents": "23rd Ave to 45th Ave",
+   "status": "Implemented",
+   "phase": "3",
+   "install_date": "2020-10-20T17:00:00.000",
+   "agency": "MTA",
+   "type": "Non-local access",
+   "supervisor_district": "1",
+   "data_as_of": "2023-04-28T14:29:50.000",
+   "data_loaded_at": "2024-01-18T15:33:32.817"
+  },
+  {
+   "objectid": "1286",
+   "shape": {
+    "geometry_type": "LineString"
+   },
+   "classcode": "5",
+   "cnn": "3501000",
+   "f_node_cnn": "27825000",
+   "f_st": "34TH AVE",
+   "nhood": "Outer Richmond",
+   "oneway": "B",
+   "st_type": "ST",
+   "streetname": "CABRILLO ST",
+   "t_st": "35TH AVE",
+   "zip_code": "94121",
+   "slw_st": "1",
+   "length": "0.05871917",
+   "extents": "23rd Ave to 45th Ave",
+   "status": "Implemented",
+   "phase": "3",
+   "install_date": "2020-10-20T17:00:00.000",
+   "agency": "MTA",
+   "type": "Non-local access",
+   "supervisor_district": "1",
+   "data_as_of": "2023-04-28T14:29:50.000",
+   "data_loaded_at": "2024-01-18T15:33:32.817"
+  },
+  {
+   "objectid": "438",
+   "shape": {
+    "geometry_type": "LineString"
+   },
+   "classcode": "5",
+   "cnn": "8011000",
+   "f_node_cnn": "27584000",
+   "f_st": "03RD AVE",
+   "nhood": "Presidio Heights",
+   "oneway": "B",
+   "st_type": "ST",
+   "streetname": "LAKE ST",
+   "t_st": "04TH AVE",
+   "zip_code": "94118",
+   "slw_st": "1",
+   "length": "0.058972",
+   "extents": "28th Avenue to Arguello Boulevard",
+   "status": "Implemented",
+   "phase": "1",
+   "install_date": "2020-04-30T17:00:00.000",
+   "agency": "MTA",
+   "type": "Non-local access",
+   "supervisor_district": "1",
+   "data_as_of": "2021-11-23T16:11:01.000",
+   "data_loaded_at": "2024-01-18T15:33:32.817"
+  }
+ ]
 }

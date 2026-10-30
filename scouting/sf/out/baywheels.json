@@ -61,6 +61,29 @@
  "capacity_total": 14278,
  "sample": [
   {
+   "station_id": "6994e1e6-bb3c-4309-8207-52e6004a7302",
+   "name": "Newbury Park Dr at King Rd",
+   "short_name": "SJ-H17",
+   "lon": -121.86796635389327,
+   "lat": 37.3655356585599,
+   "region_id": "5",
+   "capacity": 23,
+   "rental_uris": {
+    "android": "https://sfo.lft.to/lastmile_qr_scan",
+    "ios": "https://sfo.lft.to/lastmile_qr_scan"
+   },
+   "rental_methods": [
+    "KEY",
+    "CREDITCARD"
+   ],
+   "has_kiosk": true,
+   "station_type": "classic",
+   "external_id": "6994e1e6-bb3c-4309-8207-52e6004a7302",
+   "electric_bike_surcharge_waiver": false,
+   "eightd_station_services": [],
+   "eightd_has_key_dispenser": false
+  },
+  {
    "station_id": "0d730ac1-7ce6-45cf-aca6-b412ea46709d",
    "name": "Mission St at 1st St",
    "short_name": "SJ-H10",
@@ -79,29 +102,6 @@
    "has_kiosk": true,
    "station_type": "classic",
    "external_id": "0d730ac1-7ce6-45cf-aca6-b412ea46709d",
-   "electric_bike_surcharge_waiver": false,
-   "eightd_station_services": [],
-   "eightd_has_key_dispenser": false
-  },
-  {
-   "station_id": "ab8cc22e-0f34-4476-bf81-293cbbb2e69c",
-   "name": "Kerley Dr at Rosemary St",
-   "short_name": "SJ-F10",
-   "lon": -121.90683424472809,
-   "lat": 37.360854155253826,
-   "region_id": "5",
-   "capacity": 27,
-   "rental_uris": {
-    "android": "https://sfo.lft.to/lastmile_qr_scan",
-    "ios": "https://sfo.lft.to/lastmile_qr_scan"
-   },
-   "rental_methods": [
-    "KEY",
-    "CREDITCARD"
-   ],
-   "has_kiosk": true,
-   "station_type": "classic",
-   "external_id": "ab8cc22e-0f34-4476-bf81-293cbbb2e69c",
    "electric_bike_surcharge_waiver": false,
    "eightd_station_services": [],
    "eightd_has_key_dispenser": false

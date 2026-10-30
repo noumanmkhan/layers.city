@@ -5,5 +5,525 @@
   "Development Pipeline",
   "Housing Pipeline"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "contains",
+   "6jgi-cpb4",
+   "San Francisco Development Pipeline",
+   null,
+   "2026-08-28"
+  ],
+  [
+   "contains",
+   "aaxw-2cb8",
+   "Mayor's Office of Housing and Community Development Affordable Housing Pipeline",
+   null,
+   "2026-05-21"
+  ]
+ ],
+ "picked": {
+  "id": "6jgi-cpb4",
+  "name": "San Francisco Development Pipeline",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "City and County of San Francisco, City Planning Department",
+  "category": "Housing and Buildings",
+  "licence": "Creative Commons 1.0 Universal (Public Domain Dedication)",
+  "rows_updated": "2026-08-28",
+  "view_modified": "2026-08-28",
+  "description": "<strong>A. SUMMARY</strong>\nSnapshot of San Francisco's Development Pipeline as of the end of 2026 Q2. Tracking of construction and entitlement activity based on data from Department of Building Inspection's Permit Tracking System and the Planning Department's Project & Permit Tracking System, processed quarterly. For more information, please see http://sfplanning.org/pipeline-report\n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThe dataset is created by combining projects data from the City Planning Department and permit data from the Building Inspection Department to create a quarterly snapshot that shows when a project is filed to construction.\n\n<strong>C. Previously Published Quarterly Pipeline Datasets</strong>\n As of the end of 2024 Q3, this page serves as the latest snapshot of Sa"
+ },
+ "count": 1917,
+ "geo": null,
+ "columns": [
+  {
+   "name": "blklot",
+   "type": "text",
+   "label": "BLKLOT"
+  },
+  {
+   "name": "nameaddr",
+   "type": "text",
+   "label": "NAMEADDR"
+  },
+  {
+   "name": "approved_date_planning",
+   "type": "calendar_date",
+   "label": "approved date planning"
+  },
+  {
+   "name": "has_approved_entitlement",
+   "type": "checkbox",
+   "label": "has approved entitlement"
+  },
+  {
+   "name": "current_status",
+   "type": "text",
+   "label": "current status"
+  },
+  {
+   "name": "current_status_date",
+   "type": "calendar_date",
+   "label": "current status date"
+  },
+  {
+   "name": "new_pipeline_units",
+   "type": "number",
+   "label": "new pipeline units"
+  },
+  {
+   "name": "existing_units",
+   "type": "number",
+   "label": "existing units"
+  },
+  {
+   "name": "proposed_units",
+   "type": "number",
+   "label": "proposed units"
+  },
+  {
+   "name": "demo_units",
+   "type": "number",
+   "label": "demo units"
+  },
+  {
+   "name": "net_pipeline_units",
+   "type": "number",
+   "label": "net pipeline units"
+  },
+  {
+   "name": "completed_new_units",
+   "type": "number",
+   "label": "completed new units"
+  },
+  {
+   "name": "pipeline_affordable_units",
+   "type": "number",
+   "label": "pipeline affordable units"
+  },
+  {
+   "name": "aff_estimation_type",
+   "type": "text",
+   "label": "Aff Estimation Type"
+  },
+  {
+   "name": "bmr_units_ex_low",
+   "type": "number",
+   "label": "bmr units ex low"
+  },
+  {
+   "name": "bmr_units_very_low",
+   "type": "number",
+   "label": "bmr units very low"
+  },
+  {
+   "name": "bmr_units_low",
+   "type": "number",
+   "label": "bmr units low"
+  },
+  {
+   "name": "bmr_units_moderate",
+   "type": "number",
+   "label": "bmr units moderate"
+  },
+  {
+   "name": "affordability_type",
+   "type": "text",
+   "label": "affordability type"
+  },
+  {
+   "name": "tenure_type",
+   "type": "text",
+   "label": "tenure type"
+  },
+  {
+   "name": "case_no",
+   "type": "text",
+   "label": "case no"
+  },
+  {
+   "name": "bpa_no",
+   "type": "text",
+   "label": "BPA no"
+  },
+  {
+   "name": "bpa_form_no",
+   "type": "number",
+   "label": "BPA form no"
+  },
+  {
+   "name": "is_site_permit",
+   "type": "checkbox",
+   "label": "is site permit"
+  },
+  {
+   "name": "description_planning",
+   "type": "text",
+   "label": "description Planning"
+  },
+  {
+   "name": "description_dbi",
+   "type": "text",
+   "label": "description DBI"
+  },
+  {
+   "name": "non_residential_total_gsf",
+   "type": "number",
+   "label": "non residential total GSF"
+  },
+  {
+   "name": "non_residential_net_gsf",
+   "type": "number",
+   "label": "non residential net GSF"
+  },
+  {
+   "name": "cie_exist",
+   "type": "number",
+   "label": "CIE EXIST"
+  },
+  {
+   "name": "cie",
+   "type": "number",
+   "label": "CIE"
+  },
+  {
+   "name": "cienet",
+   "type": "number",
+   "label": "CIENET"
+  },
+  {
+   "name": "med_exist",
+   "type": "number",
+   "label": "MED EXIST"
+  },
+  {
+   "name": "med",
+   "type": "number",
+   "label": "MED"
+  },
+  {
+   "name": "mednet",
+   "type": "number",
+   "label": "MEDNET"
+  },
+  {
+   "name": "mips_exist",
+   "type": "number",
+   "label": "MIPS EXIST"
+  },
+  {
+   "name": "mips",
+   "type": "number",
+   "label": "MIPS"
+  },
+  {
+   "name": "mipsnet",
+   "type": "number",
+   "label": "MIPSNET"
+  },
+  {
+   "name": "pdr_exist",
+   "type": "number",
+   "label": "PDR EXIST"
+  },
+  {
+   "name": "pdr",
+   "type": "number",
+   "label": "PDR"
+  },
+  {
+   "name": "pdrnet",
+   "type": "number",
+   "label": "PDRNET"
+  },
+  {
+   "name": "ret_exist",
+   "type": "number",
+   "label": "RET EXIST"
+  },
+  {
+   "name": "ret",
+   "type": "number",
+   "label": "RET"
+  },
+  {
+   "name": "retnet",
+   "type": "number",
+   "label": "RETNET"
+  },
+  {
+   "name": "visit_exist",
+   "type": "number",
+   "label": "VISIT EXIST"
+  },
+  {
+   "name": "visit",
+   "type": "number",
+   "label": "VISIT"
+  },
+  {
+   "name": "visitnet",
+   "type": "number",
+   "label": "VISITNET"
+  },
+  {
+   "name": "planner",
+   "type": "text",
+   "label": "PLANNER"
+  },
+  {
+   "name": "sponsor",
+   "type": "text",
+   "label": "SPONSOR"
+  },
+  {
+   "name": "contact",
+   "type": "text",
+   "label": "CONTACT"
+  },
+  {
+   "name": "contactph",
+   "type": "text",
+   "label": "CONTACTPH"
+  },
+  {
+   "name": "da",
+   "type": "text",
+   "label": "DA"
+  },
+  {
+   "name": "legalization",
+   "type": "checkbox",
+   "label": "LEGALIZATION"
+  },
+  {
+   "name": "adu",
+   "type": "checkbox",
+   "label": "ADU"
+  },
+  {
+   "name": "state_density",
+   "type": "checkbox",
+   "label": "state density"
+  },
+  {
+   "name": "planning_district",
+   "type": "text",
+   "label": "planning district"
+  },
+  {
+   "name": "sd22",
+   "type": "number",
+   "label": "SD22"
+  },
+  {
+   "name": "nhood37",
+   "type": "text",
+   "label": "NHOOD37"
+  },
+  {
+   "name": "nhood41",
+   "type": "text",
+   "label": "NHOOD41"
+  },
+  {
+   "name": "zoning_district",
+   "type": "text",
+   "label": "zoning district"
+  },
+  {
+   "name": "height_district",
+   "type": "text",
+   "label": "height district"
+  },
+  {
+   "name": "pda",
+   "type": "text",
+   "label": "PDA"
+  },
+  {
+   "name": "sud",
+   "type": "text",
+   "label": "SUD"
+  },
+  {
+   "name": "planning_area",
+   "type": "text",
+   "label": "planning area"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "longitude"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "latitude"
+  },
+  {
+   "name": "latlong",
+   "type": "point",
+   "label": "LatLong"
+  }
+ ],
+ "samples": [
+  {
+   "blklot": "1071004",
+   "nameaddr": "2690 Geary Blvd",
+   "current_status": "PL Approved",
+   "current_status_date": "2025-11-04T00:00:00.000",
+   "new_pipeline_units": "0",
+   "existing_units": "0",
+   "proposed_units": "0",
+   "demo_units": "0",
+   "net_pipeline_units": "0",
+   "completed_new_units": "0",
+   "pipeline_affordable_units": "0",
+   "bmr_units_ex_low": "0",
+   "bmr_units_very_low": "0",
+   "bmr_units_low": "0",
+   "bmr_units_moderate": "0",
+   "case_no": "2025-007735PRJ",
+   "description_planning": "Interior remodel of existing space to become new Public Storage regional office space",
+   "non_residential_total_gsf": "0",
+   "non_residential_net_gsf": "-2295",
+   "cie_exist": "0",
+   "cie": "0",
+   "cienet": "0",
+   "med_exist": "0",
+   "med": "0",
+   "mednet": "0",
+   "mips_exist": "2295",
+   "mips": "0",
+   "mipsnet": "-2295",
+   "pdr_exist": "0",
+   "pdr": "0",
+   "pdrnet": "0",
+   "ret_exist": "0",
+   "ret": "0",
+   "retnet": "0",
+   "visit_exist": "0",
+   "visit": "0",
+   "visitnet": "0",
+   "planning_district": "1 - Richmond",
+   "sd22": "2",
+   "nhood37": "Jordan Park/Laurel Heights",
+   "nhood41": "Presidio Heights",
+   "zoning_district": "NCD-GEARY BOULEVARD",
+   "height_district": "80-D",
+   "pda": "Central City Neighborhoods",
+   "sud": "Family and Senior Housing Opportunity SUD",
+   "longitude": "-122.447814158247",
+   "latitude": "37.782797071006",
+   "latlong": {
+    "geometry_type": "Point"
+   }
+  },
+  {
+   "blklot": "4062007",
+   "nameaddr": "700 INDIANA ST",
+   "current_status": "PL Approved",
+   "current_status_date": "2024-06-13T00:00:00.000",
+   "new_pipeline_units": "0",
+   "existing_units": "0",
+   "proposed_units": "0",
+   "demo_units": "0",
+   "net_pipeline_units": "0",
+   "completed_new_units": "0",
+   "pipeline_affordable_units": "0",
+   "bmr_units_ex_low": "0",
+   "bmr_units_very_low": "0",
+   "bmr_units_low": "0",
+   "bmr_units_moderate": "0",
+   "case_no": "2023-001074PRJ",
+   "description_planning": "The proposal is request for a Large Project Authorization, pursuant to Planning Code Section 329 and 838 to allow a project greater than 25,000 square feet of floor area with exceptions to allow for reduced rear yard and modification to horizontal mass reduction requirement for large lots (270.1). T…",
+   "non_residential_total_gsf": "0",
+   "non_residential_net_gsf": "-15000",
+   "cie_exist": "0",
+   "cie": "0",
+   "cienet": "0",
+   "med_exist": "0",
+   "med": "0",
+   "mednet": "0",
+   "mips_exist": "0",
+   "mips": "0",
+   "mipsnet": "0",
+   "pdr_exist": "15000",
+   "pdr": "0",
+   "pdrnet": "-15000",
+   "ret_exist": "0",
+   "ret": "0",
+   "retnet": "0",
+   "visit_exist": "0",
+   "visit": "0",
+   "visitnet": "0",
+   "planning_district": "9 - South of Market",
+   "sd22": "10",
+   "nhood37": "Potrero Hill",
+   "nhood41": "Potrero Hill",
+   "zoning_district": "UMU",
+   "height_district": "58-X",
+   "pda": "Eastern Neighborhoods",
+   "planning_area": "Central Waterfront (EN); Dogpatch Public Realm Plan",
+   "longitude": "-122.391760285101",
+   "latitude": "37.7609439505953",
+   "latlong": {
+    "geometry_type": "Point"
+   }
+  },
+  {
+   "blklot": "4807017",
+   "nameaddr": "1229 Underwood Avenue",
+   "current_status": "PL Filed",
+   "current_status_date": "2022-06-30T00:00:00.000",
+   "new_pipeline_units": "0",
+   "existing_units": "0",
+   "proposed_units": "0",
+   "demo_units": "0",
+   "net_pipeline_units": "0",
+   "completed_new_units": "0",
+   "pipeline_affordable_units": "0",
+   "bmr_units_ex_low": "0",
+   "bmr_units_very_low": "0",
+   "bmr_units_low": "0",
+   "bmr_units_moderate": "0",
+   "case_no": "2022-006327PRJ",
+   "description_planning": "Demolition of an unwarranted building per 2020-00699ENF",
+   "non_residential_total_gsf": "0",
+   "non_residential_net_gsf": "-1443",
+   "cie_exist": "0",
+   "cie": "0",
+   "cienet": "0",
+   "med_exist": "0",
+   "med": "0",
+   "mednet": "0",
+   "mips_exist": "0",
+   "mips": "0",
+   "mipsnet": "0",
+   "pdr_exist": "1443",
+   "pdr": "0",
+   "pdrnet": "-1443",
+   "ret_exist": "0",
+   "ret": "0",
+   "retnet": "0",
+   "visit_exist": "0",
+   "visit": "0",
+   "visitnet": "0",
+   "planning_district": "10 - South Bayshore",
+   "sd22": "10",
+   "nhood37": "Bayview",
+   "nhood41": "Bayview Hunters Point",
+   "zoning_district": "PDR-2",
+   "height_district": "40-X",
+   "pda": "Bayview/Southeast Neighborhoods",
+   "sud": "Priority Equity Geographies SUD",
+   "planning_area": "Bayview Hunters Point",
+   "longitude": "-122.385174681875",
+   "latitude": "37.7263017449176",
+   "latlong": {
+    "geometry_type": "Point"
+   }
+  }
+ ]
 }

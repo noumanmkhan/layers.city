@@ -4,5 +4,717 @@
   "Planning Department Records - Projects",
   "Planning Records - Projects"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "qvu5-m3a2",
+   "Planning Department Records - Projects",
+   null,
+   "2026-10-29"
+  ]
+ ],
+ "picked": {
+  "id": "qvu5-m3a2",
+  "name": "Planning Department Records - Projects",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "City and County of San Francisco Planning Department",
+  "category": "Economy and Community",
+  "licence": "Public Domain U.S. Government",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "A. SUMMARY\nThis dataset is a list of projects and project data captured by PRJ records from the Planning Department's Accela database.   Supplemental applications required by the Planning Department to review development projects are captured as related child records (CHILD_ID column) with the PRJ record serving as the parent record.  The dataset for related child records and other Planning records can be found at <a href=\"https://data.sfgov.org/Economy-and-Community/Planning-Department-Non-Projects/y673-d69b/about_data\">https://data.sfgov.org/Economy-and-Community/Planning-Department-Non-Projects/y673-d69b/about_data</a>.\n\nB. HOW THE DATASET IS CREATED\nRecords have been exported from the Planning Department's Accela permitting system.\n\nC. UPDATE PROCESS\nUpdated nightly\n\nD. HOW TO USE THIS"
+ },
+ "count": 54680,
+ "geo": null,
+ "columns": [
+  {
+   "name": "record_id",
+   "type": "text",
+   "label": "RECORD_ID"
+  },
+  {
+   "name": "record_type",
+   "type": "text",
+   "label": "RECORD_TYPE"
+  },
+  {
+   "name": "project_name",
+   "type": "text",
+   "label": "PROJECT_NAME"
+  },
+  {
+   "name": "description",
+   "type": "text",
+   "label": "DESCRIPTION"
+  },
+  {
+   "name": "record_status",
+   "type": "text",
+   "label": "RECORD_STATUS"
+  },
+  {
+   "name": "project_address",
+   "type": "text",
+   "label": "PROJECT_ADDRESS"
+  },
+  {
+   "name": "block",
+   "type": "text",
+   "label": "BLOCK"
+  },
+  {
+   "name": "lot",
+   "type": "text",
+   "label": "LOT"
+  },
+  {
+   "name": "child_id",
+   "type": "text",
+   "label": "CHILD_ID"
+  },
+  {
+   "name": "open_date",
+   "type": "calendar_date",
+   "label": "OPEN_DATE"
+  },
+  {
+   "name": "close_date",
+   "type": "calendar_date",
+   "label": "CLOSE_DATE"
+  },
+  {
+   "name": "building_permits",
+   "type": "text",
+   "label": "BUILDING_PERMITS"
+  },
+  {
+   "name": "applicant",
+   "type": "text",
+   "label": "APPLICANT"
+  },
+  {
+   "name": "applicant_org",
+   "type": "text",
+   "label": "APPLICANT_ORG"
+  },
+  {
+   "name": "assigned_to_planner",
+   "type": "text",
+   "label": "ASSIGNED_TO_PLANNER"
+  },
+  {
+   "name": "project_decision",
+   "type": "text",
+   "label": "PROJECT_DECISION"
+  },
+  {
+   "name": "project_decision_date",
+   "type": "calendar_date",
+   "label": "PROJECT_DECISION_DATE"
+  },
+  {
+   "name": "environmental_document_type",
+   "type": "text",
+   "label": "ENVIRONMENTAL_DOCUMENT_TYPE"
+  },
+  {
+   "name": "environmental_document_date",
+   "type": "text",
+   "label": "ENVIRONMENTAL_DOCUMENT_DATE"
+  },
+  {
+   "name": "number_of_units_net",
+   "type": "number",
+   "label": "NUMBER_OF_UNITS_NET"
+  },
+  {
+   "name": "number_of_market_rate_units",
+   "type": "number",
+   "label": "NUMBER_OF_MARKET_RATE_UNITS_NET"
+  },
+  {
+   "name": "number_of_affordable_units",
+   "type": "number",
+   "label": "NUMBER_OF_AFFORDABLE_UNITS_NET"
+  },
+  {
+   "name": "number_of_units_exist",
+   "type": "number",
+   "label": "NUMBER_OF_UNITS_EXIST"
+  },
+  {
+   "name": "number_market_rate_units",
+   "type": "number",
+   "label": "NUMBER_MARKET_RATE_UNITS_EXIST"
+  },
+  {
+   "name": "number_affordable_units_exist",
+   "type": "number",
+   "label": "NUMBER_AFFORDABLE_UNITS_EXIST"
+  },
+  {
+   "name": "number_of_units_prop",
+   "type": "number",
+   "label": "NUMBER_OF_UNITS_PROP"
+  },
+  {
+   "name": "number_market_rate_units_1",
+   "type": "number",
+   "label": "NUMBER_MARKET_RATE_UNITS_PROP"
+  },
+  {
+   "name": "number_affordable_units_prop",
+   "type": "number",
+   "label": "NUMBER_AFFORDABLE_UNITS_PROP"
+  },
+  {
+   "name": "change_of_use",
+   "type": "text",
+   "label": "CHANGE_OF_USE"
+  },
+  {
+   "name": "additions",
+   "type": "text",
+   "label": "ADDITIONS"
+  },
+  {
+   "name": "new_construction",
+   "type": "text",
+   "label": "NEW_CONSTRUCTION"
+  },
+  {
+   "name": "leg_zone_change",
+   "type": "text",
+   "label": "LEG_ZONE_CHANGE"
+  },
+  {
+   "name": "demolition",
+   "type": "text",
+   "label": "DEMOLITION"
+  },
+  {
+   "name": "lot_line_adjust",
+   "type": "text",
+   "label": "LOT_LINE_ADJUST"
+  },
+  {
+   "name": "facade_alt",
+   "type": "text",
+   "label": "FACADE_ALT"
+  },
+  {
+   "name": "row_improve",
+   "type": "text",
+   "label": "ROW_IMPROVE"
+  },
+  {
+   "name": "other_prj_desc",
+   "type": "text",
+   "label": "OTHER_PRJ_DESC"
+  },
+  {
+   "name": "formula_retail",
+   "type": "text",
+   "label": "FORMULA_RETAIL"
+  },
+  {
+   "name": "cannabis",
+   "type": "text",
+   "label": "CANNABIS"
+  },
+  {
+   "name": "massage",
+   "type": "text",
+   "label": "MASSAGE"
+  },
+  {
+   "name": "tobacco",
+   "type": "text",
+   "label": "TOBACCO"
+  },
+  {
+   "name": "financial",
+   "type": "text",
+   "label": "FINANCIAL"
+  },
+  {
+   "name": "other_non_res_desc",
+   "type": "text",
+   "label": "OTHER_NON_RES_DESC"
+  },
+  {
+   "name": "special_needs",
+   "type": "text",
+   "label": "SPECIAL_NEEDS"
+  },
+  {
+   "name": "senior",
+   "type": "text",
+   "label": "SENIOR"
+  },
+  {
+   "name": "affordable_units",
+   "type": "text",
+   "label": "AFFORDABLE_UNITS"
+  },
+  {
+   "name": "student",
+   "type": "text",
+   "label": "STUDENT"
+  },
+  {
+   "name": "inclusionary",
+   "type": "text",
+   "label": "INCLUSIONARY"
+  },
+  {
+   "name": "adu",
+   "type": "text",
+   "label": "ADU"
+  },
+  {
+   "name": "legalization",
+   "type": "text",
+   "label": "LEGALIZATION"
+  },
+  {
+   "name": "sb35",
+   "type": "text",
+   "label": "SB35"
+  },
+  {
+   "name": "ab2162",
+   "type": "text",
+   "label": "AB2162"
+  },
+  {
+   "name": "housing_sustainability_dist",
+   "type": "text",
+   "label": "HOUSING_SUSTAINABILITY_DIST"
+  },
+  {
+   "name": "rental_units",
+   "type": "text",
+   "label": "RENTAL_UNITS"
+  },
+  {
+   "name": "ownership_units",
+   "type": "text",
+   "label": "OWNERSHIP_UNITS"
+  },
+  {
+   "name": "unkown_units",
+   "type": "text",
+   "label": "UNKOWN_UNITS"
+  },
+  {
+   "name": "sb330",
+   "type": "text",
+   "label": "SB330"
+  },
+  {
+   "name": "homesf",
+   "type": "text",
+   "label": "HOMESF"
+  },
+  {
+   "name": "state_density_bonus_analyzed",
+   "type": "text",
+   "label": "STATE_DENSITY_BONUS_ANALYZED"
+  },
+  {
+   "name": "state_density_bonus_individual",
+   "type": "text",
+   "label": "STATE_DENSITY_BONUS_INDIVIDUAL"
+  },
+  {
+   "name": "ahbp_100_percent_affordable",
+   "type": "text",
+   "label": "AHBP_100_PERCENT_AFFORDABLE"
+  },
+  {
+   "name": "environmental_review_type",
+   "type": "text",
+   "label": "ENVIRONMENTAL_REVIEW_TYPE"
+  },
+  {
+   "name": "residential_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_EXIST"
+  },
+  {
+   "name": "parking_spaces_exist",
+   "type": "number",
+   "label": "PARKING_SPACES_EXIST"
+  },
+  {
+   "name": "car_share_spaces_exist",
+   "type": "number",
+   "label": "CAR_SHARE_SPACES_EXIST"
+  },
+  {
+   "name": "parking_gsf_exist",
+   "type": "number",
+   "label": "PARKING_GSF_EXIST"
+  },
+  {
+   "name": "retail_commercial_exist",
+   "type": "number",
+   "label": "RETAIL_COMMERCIAL_EXIST"
+  },
+  {
+   "name": "office_exist",
+   "type": "number",
+   "label": "OFFICE_EXIST"
+  },
+  {
+   "name": "industrial_pdr_exist",
+   "type": "number",
+   "label": "INDUSTRIAL_PDR_EXIST"
+  },
+  {
+   "name": "medical_exist",
+   "type": "number",
+   "label": "MEDICAL_EXIST"
+  },
+  {
+   "name": "visitor_exist",
+   "type": "number",
+   "label": "VISITOR_EXIST"
+  },
+  {
+   "name": "cie_exist",
+   "type": "number",
+   "label": "CIE_EXIST"
+  },
+  {
+   "name": "residential_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_PROP"
+  },
+  {
+   "name": "parking_spaces_prop",
+   "type": "number",
+   "label": "PARKING_SPACES_PROP"
+  },
+  {
+   "name": "car_share_spaces_prop",
+   "type": "number",
+   "label": "CAR_SHARE_SPACES_PROP"
+  },
+  {
+   "name": "parking_gsf_prop",
+   "type": "number",
+   "label": "PARKING_GSF_PROP"
+  },
+  {
+   "name": "retail_commercial_prop",
+   "type": "number",
+   "label": "RETAIL_COMMERCIAL_PROP"
+  },
+  {
+   "name": "office_prop",
+   "type": "number",
+   "label": "OFFICE_PROP"
+  },
+  {
+   "name": "industrial_pdr_prop",
+   "type": "number",
+   "label": "INDUSTRIAL_PDR_PROP"
+  },
+  {
+   "name": "medical_prop",
+   "type": "number",
+   "label": "MEDICAL_PROP"
+  },
+  {
+   "name": "visitor_prop",
+   "type": "number",
+   "label": "VISITOR_PROP"
+  },
+  {
+   "name": "cie_prop",
+   "type": "number",
+   "label": "CIE_PROP"
+  },
+  {
+   "name": "residential_studio_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_STUDIO_EXIST"
+  },
+  {
+   "name": "residential_1br_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_1BR_EXIST"
+  },
+  {
+   "name": "residential_2br_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_2BR_EXIST"
+  },
+  {
+   "name": "residential_3br_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_3BR_EXIST"
+  },
+  {
+   "name": "residential_adu_studio_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_ADU_STUDIO_EXIST"
+  },
+  {
+   "name": "residential_adu_1br_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_ADU_1BR_EXIST"
+  },
+  {
+   "name": "residential_adu_2br_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_ADU_2BR_EXIST"
+  },
+  {
+   "name": "residential_adu_3br_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_ADU_3BR_EXIST"
+  },
+  {
+   "name": "residential_gh_rooms_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_GH_ROOMS_EXIST"
+  },
+  {
+   "name": "residential_gh_beds_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_GH_BEDS_EXIST"
+  },
+  {
+   "name": "residential_sro_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_SRO_EXIST"
+  },
+  {
+   "name": "residential_micro_exist",
+   "type": "number",
+   "label": "RESIDENTIAL_MICRO_EXIST"
+  },
+  {
+   "name": "residential_studio_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_STUDIO_PROP"
+  },
+  {
+   "name": "residential_1br_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_1BR_PROP"
+  },
+  {
+   "name": "residential_2br_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_2BR_PROP"
+  },
+  {
+   "name": "residential_3br_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_3BR_PROP"
+  },
+  {
+   "name": "residential_adu_studio_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_ADU_STUDIO_PROP"
+  },
+  {
+   "name": "residential_adu_1br_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_ADU_1BR_PROP"
+  },
+  {
+   "name": "residential_adu_2br_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_ADU_2BR_PROP"
+  },
+  {
+   "name": "residential_adu_3br_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_ADU_3BR_PROP"
+  },
+  {
+   "name": "residential_gh_rooms_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_GH_ROOMS_PROP"
+  },
+  {
+   "name": "residential_gh_beds_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_GH_BEDS_PROP"
+  },
+  {
+   "name": "residential_sro_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_SRO_PROP"
+  },
+  {
+   "name": "residential_micro_prop",
+   "type": "number",
+   "label": "RESIDENTIAL_MICRO_PROP"
+  },
+  {
+   "name": "pim_link",
+   "type": "url",
+   "label": "PIM_LINK"
+  }
+ ],
+ "samples": [
+  {
+   "record_id": "2025-012220PRJ",
+   "record_type": "PRJ",
+   "project_name": "21 5TH AVENUE",
+   "description": "A horizontal addition and renovations are proposed to the existing three-story, single-family residence. Excavation of approximately 219 cubic yards at the first floor and foundation replacement as required.",
+   "record_status": "Closed - Approval Ltr Issued",
+   "project_address": "21 05TH AVE 94118",
+   "block": "1353",
+   "lot": "003",
+   "child_id": "2025-012220ENV",
+   "open_date": "2025-12-31T00:00:00.000",
+   "close_date": "2026-04-01T00:00:00.000",
+   "building_permits": "202604229887, 202610139344",
+   "applicant": "Kelly, Chris",
+   "applicant_org": "Huang Iboshi Architecture Inc.",
+   "assigned_to_planner": "Jeffrey Horn",
+   "project_decision": "Approved",
+   "environmental_document_type": "Exemption",
+   "environmental_document_date": "03/27/2026",
+   "number_of_units_net": "0.0",
+   "number_of_market_rate_units": "0",
+   "number_of_affordable_units": "0",
+   "number_of_units_exist": "1",
+   "number_market_rate_units": "1",
+   "number_affordable_units_exist": "0",
+   "number_of_units_prop": "1",
+   "number_market_rate_units_1": "1",
+   "number_affordable_units_prop": "0",
+   "additions": "CHECKED",
+   "residential_exist": "4338",
+   "parking_spaces_exist": "1",
+   "residential_prop": "5421",
+   "parking_spaces_prop": "1",
+   "residential_3br_exist": "1",
+   "residential_3br_prop": "1",
+   "pim_link": {
+    "url": "https://sfplanninggis.org/pim?search=2025-012220PRJ"
+   }
+  },
+  {
+   "record_id": "2025-012232PRJ",
+   "record_type": "PRJ",
+   "project_name": "50 QUINT ST",
+   "description": "The project proposes change in use of 12,188 GSF from warehouse to light manufacturing (private fleet servicing repair) with accessory office. Interior improvements will include installation of 8 two-point service lift bays and 7 flat service bays. No exterior alterations proposed to the existing bu…",
+   "record_status": "Under Review",
+   "project_address": "50 QUINT ST 94124",
+   "block": "5201",
+   "lot": "001",
+   "child_id": "2025-012232ENV",
+   "open_date": "2025-12-31T00:00:00.000",
+   "applicant_org": "Workshop1",
+   "assigned_to_planner": "Gabriela Pantoja",
+   "environmental_document_type": "Exemption",
+   "number_of_units_net": "0.0",
+   "number_of_market_rate_units": "0",
+   "number_of_affordable_units": "0",
+   "number_of_units_exist": "0",
+   "number_market_rate_units": "0",
+   "number_affordable_units_exist": "0",
+   "number_of_units_prop": "0",
+   "number_market_rate_units_1": "0",
+   "number_affordable_units_prop": "0",
+   "change_of_use": "CHECKED",
+   "parking_spaces_exist": "63",
+   "parking_gsf_exist": "63360",
+   "industrial_pdr_exist": "12188",
+   "parking_spaces_prop": "118",
+   "parking_gsf_prop": "63360",
+   "industrial_pdr_prop": "12188",
+   "pim_link": {
+    "url": "https://sfplanninggis.org/pim?search=2025-012232PRJ"
+   }
+  },
+  {
+   "record_id": "2025-012244PRJ",
+   "record_type": "PRJ",
+   "project_name": "212 CASTRO ST",
+   "description": "Interior remodel utilizing existing Kitchen & Laundry space to create an upgraded kitchen with appliances in the same locations, and new primary bath and laundry closet out of the old Laundry and mechanical space.  Includes relocating an interior wall and three new windows at existing locations.",
+   "record_status": "Closed - Approval Ltr Issued",
+   "project_address": "212 CASTRO ST 94114",
+   "block": "2613",
+   "lot": "032",
+   "open_date": "2025-12-31T00:00:00.000",
+   "close_date": "2026-02-11T00:00:00.000",
+   "building_permits": "202602206267",
+   "applicant_org": "J.Kebschull Interiors, Inc.",
+   "assigned_to_planner": "Elizabeth Gordon Jonckheer",
+   "project_decision": "Approved",
+   "project_decision_date": "2026-02-11T00:00:00.000",
+   "environmental_document_type": "Exemption",
+   "environmental_document_date": "02/11/2026",
+   "number_of_units_net": "0.0",
+   "number_of_market_rate_units": "0",
+   "number_of_affordable_units": "0",
+   "number_of_units_exist": "2",
+   "number_market_rate_units": "2",
+   "number_affordable_units_exist": "0",
+   "number_of_units_prop": "2",
+   "number_market_rate_units_1": "2",
+   "number_affordable_units_prop": "0",
+   "demolition": "CHECKED",
+   "other_prj_desc": "CHECKED",
+   "senior": "UNCHECKED",
+   "affordable_units": "UNCHECKED",
+   "student": "UNCHECKED",
+   "inclusionary": "UNCHECKED",
+   "adu": "UNCHECKED",
+   "legalization": "UNCHECKED",
+   "rental_units": "UNCHECKED",
+   "ownership_units": "UNCHECKED",
+   "unkown_units": "UNCHECKED",
+   "residential_exist": "1599",
+   "parking_spaces_exist": "2",
+   "car_share_spaces_exist": "0",
+   "parking_gsf_exist": "0",
+   "retail_commercial_exist": "0",
+   "office_exist": "0",
+   "industrial_pdr_exist": "0",
+   "medical_exist": "0",
+   "visitor_exist": "0",
+   "cie_exist": "0",
+   "residential_prop": "1599",
+   "parking_spaces_prop": "2",
+   "car_share_spaces_prop": "0",
+   "parking_gsf_prop": "0",
+   "retail_commercial_prop": "0",
+   "office_prop": "0",
+   "industrial_pdr_prop": "0",
+   "medical_prop": "0",
+   "visitor_prop": "0",
+   "cie_prop": "0",
+   "residential_studio_exist": "0",
+   "residential_1br_exist": "0",
+   "residential_2br_exist": "2",
+   "residential_3br_exist": "0",
+   "residential_gh_rooms_exist": "0",
+   "residential_gh_beds_exist": "0",
+   "residential_sro_exist": "0",
+   "residential_micro_exist": "0",
+   "residential_studio_prop": "0",
+   "residential_1br_prop": "0",
+   "residential_2br_prop": "2",
+   "residential_3br_prop": "0",
+   "residential_gh_rooms_prop": "0",
+   "residential_gh_beds_prop": "0",
+   "residential_sro_prop": "0",
+   "residential_micro_prop": "0",
+   "pim_link": {
+    "url": "https://sfplanninggis.org/pim?search=2025-012244PRJ"
+   }
+  }
+ ]
 }

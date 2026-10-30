@@ -3,5 +3,67 @@
  "looked_for": [
   "Cultural Districts"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "5xmc-5bjj",
+   "Cultural Districts",
+   null,
+   "2026-10-29"
+  ]
+ ],
+ "picked": {
+  "id": "5xmc-5bjj",
+  "name": "Cultural Districts",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": "Planning Department",
+  "category": "Culture and Recreation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-29",
+  "view_modified": "2026-10-29",
+  "description": "<strong>A. SUMMARY</strong>\nThe San Francisco Board of Supervisors has recognized several cultural districts that are distinguished by unique social and historical associations and living traditions. While they have physical boundaries, the districts are primarily identified by the activities that occur within them, including commerce, services, arts, events, and social practices. While a cultural heritage district does not currently hold any regulatory controls, the recognition has spurred community efforts facilitated by the Planning Department and the Mayor's Office of Economic and Workforce Development to develop strategies for sustaining the living culture of these places\n\nMore information: https://sfplanning.org/cultural-heritage"
+ },
+ "count": 10,
+ "geo": null,
+ "columns": [
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  },
+  {
+   "name": "district_name",
+   "type": "text",
+   "label": "district_name"
+  },
+  {
+   "name": "designation_date",
+   "type": "calendar_date",
+   "label": "designation_date"
+  }
+ ],
+ "samples": [
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "district_name": "Transgender Cultural District",
+   "designation_date": "2017-01-01T00:00:00.000"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "district_name": "SoMa Pilipinas Filipino Cultural District",
+   "designation_date": "2016-01-01T00:00:00.000"
+  },
+  {
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   },
+   "district_name": "Castro LGBTQ Cultural District",
+   "designation_date": "2019-07-12T00:00:00.000"
+  }
+ ]
 }

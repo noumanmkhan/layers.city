@@ -5,5 +5,80 @@
   "Precincts",
   "San Francisco Election Precincts"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "contains",
+   "msvd-8edx",
+   "1992 Election Precincts",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "2iky-e78c",
+   "2002 Election Precincts",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "d6x4-hefw",
+   "Election Precincts - Current, Defined 2022",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "bsfq-aeyw",
+   "Election Precincts - Historical, Defined 2012",
+   null,
+   "2024-03-13"
+  ]
+ ],
+ "picked": {
+  "id": "msvd-8edx",
+  "name": "1992 Election Precincts",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "City Management and Ethics",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2016-10-05",
+  "view_modified": "2024-03-13",
+  "description": "Voting Precincts as determined by the Department of Elections. Defined in 1992. Based on Census 1990 geography with some exceptions. Precincts are components of other Election districts."
+ },
+ "count": 713,
+ "geo": null,
+ "columns": [
+  {
+   "name": "precname",
+   "type": "text",
+   "label": "precname"
+  },
+  {
+   "name": "the_geom",
+   "type": "multipolygon",
+   "label": "the_geom"
+  }
+ ],
+ "samples": [
+  {
+   "precname": "2001",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "precname": "2002",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  },
+  {
+   "precname": "2003",
+   "the_geom": {
+    "geometry_type": "MultiPolygon"
+   }
+  }
+ ]
 }

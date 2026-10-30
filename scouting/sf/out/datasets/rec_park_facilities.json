@@ -5,5 +5,311 @@
   "Rec Park Facilities",
   "Park Facilities"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "ib5c-xgwu",
+   "Recreation and Parks Facilities",
+   null,
+   "2026-10-30"
+  ]
+ ],
+ "picked": {
+  "id": "ib5c-xgwu",
+  "name": "Recreation and Parks Facilities",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Culture and Recreation",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-10-30",
+  "view_modified": "2026-10-30",
+  "description": "Facilities maintained by the Recreation and Parks Department. A facility in this dataset represents a structural or physical amenity within a property's boundaries."
+ },
+ "count": 2678,
+ "geo": null,
+ "columns": [
+  {
+   "name": "objectid",
+   "type": "text",
+   "label": "objectid"
+  },
+  {
+   "name": "facility_name",
+   "type": "text",
+   "label": "facility_name"
+  },
+  {
+   "name": "facility_id",
+   "type": "text",
+   "label": "facility_id"
+  },
+  {
+   "name": "squarefeet",
+   "type": "number",
+   "label": "squarefeet"
+  },
+  {
+   "name": "perimeterlength",
+   "type": "number",
+   "label": "perimeterlength"
+  },
+  {
+   "name": "acres",
+   "type": "number",
+   "label": "acres"
+  },
+  {
+   "name": "longitude",
+   "type": "number",
+   "label": "longitude"
+  },
+  {
+   "name": "latitude",
+   "type": "number",
+   "label": "latitude"
+  },
+  {
+   "name": "address",
+   "type": "text",
+   "label": "address"
+  },
+  {
+   "name": "city",
+   "type": "text",
+   "label": "city"
+  },
+  {
+   "name": "state",
+   "type": "text",
+   "label": "state"
+  },
+  {
+   "name": "zipcode",
+   "type": "text",
+   "label": "zipcode"
+  },
+  {
+   "name": "facility_type",
+   "type": "text",
+   "label": "facility_type"
+  },
+  {
+   "name": "property_id",
+   "type": "text",
+   "label": "property_id"
+  },
+  {
+   "name": "property_name",
+   "type": "text",
+   "label": "property_name"
+  },
+  {
+   "name": "floors",
+   "type": "text",
+   "label": "floors"
+  },
+  {
+   "name": "complex",
+   "type": "text",
+   "label": "complex"
+  },
+  {
+   "name": "ownership",
+   "type": "text",
+   "label": "ownership"
+  },
+  {
+   "name": "supdist",
+   "type": "text",
+   "label": "supdist"
+  },
+  {
+   "name": "land_id",
+   "type": "text",
+   "label": "land_id"
+  },
+  {
+   "name": "psa",
+   "type": "text",
+   "label": "psa"
+  },
+  {
+   "name": "analysis_neighborhood",
+   "type": "text",
+   "label": "analysis_neighborhood"
+  },
+  {
+   "name": "state_senate",
+   "type": "text",
+   "label": "state_senate"
+  },
+  {
+   "name": "mons_neighborhood",
+   "type": "text",
+   "label": "mons_neighborhood"
+  },
+  {
+   "name": "police_district",
+   "type": "text",
+   "label": "police_district"
+  },
+  {
+   "name": "us_congress",
+   "type": "text",
+   "label": "us_congress"
+  },
+  {
+   "name": "realtor_neighborhood",
+   "type": "text",
+   "label": "realtor_neighborhood"
+  },
+  {
+   "name": "state_assembly",
+   "type": "text",
+   "label": "state_assembly"
+  },
+  {
+   "name": "planning_neighborhood",
+   "type": "text",
+   "label": "planning_neighborhood"
+  },
+  {
+   "name": "shape",
+   "type": "multipolygon",
+   "label": "shape"
+  },
+  {
+   "name": "created_date",
+   "type": "calendar_date",
+   "label": "created_date"
+  },
+  {
+   "name": "last_edited_date",
+   "type": "calendar_date",
+   "label": "last_edited_date"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "objectid": "135",
+   "facility_name": "Tennis Courts",
+   "facility_id": "626",
+   "squarefeet": "14570.83432378",
+   "perimeterlength": "604.18217512",
+   "acres": "0.33450032874",
+   "longitude": "-122.44019699",
+   "latitude": "37.73665135",
+   "address": "70 Elk St",
+   "city": "San Francisco",
+   "state": "CA",
+   "zipcode": "94131",
+   "facility_type": "Tennis Court",
+   "property_id": "1",
+   "property_name": "Glen Canyon Park",
+   "complex": "Glen Park Complex",
+   "ownership": "Recreation & Park",
+   "supdist": "8, 7",
+   "land_id": "527",
+   "psa": "PSA5",
+   "analysis_neighborhood": "Glen Park, West of Twin Peaks",
+   "state_senate": "11",
+   "mons_neighborhood": "Glen Park, Diamond Heights, Miraloma Park",
+   "police_district": "INGLESIDE",
+   "us_congress": "11",
+   "realtor_neighborhood": "Diamond Heights, Glen Park",
+   "state_assembly": "17",
+   "planning_neighborhood": "Diamond Heights, West of Twin Peaks, Outer Mission, Glen Park",
+   "shape": {
+    "geometry_type": "MultiPolygon"
+   },
+   "created_date": "2015-09-09T22:03:12.000",
+   "last_edited_date": "2025-12-08T19:45:05.000",
+   "data_as_of": "2025-12-08T19:45:05.000",
+   "data_loaded_at": "2026-10-29T20:08:08.961"
+  },
+  {
+   "objectid": "13925",
+   "facility_name": "Landscaped Areas",
+   "facility_id": "11787",
+   "squarefeet": "36406.94980457",
+   "perimeterlength": "1103.06359447",
+   "acres": "0.8357885629",
+   "longitude": "-122.44007377",
+   "latitude": "37.737003",
+   "address": "70 Elk St",
+   "city": "San Francisco",
+   "state": "CA",
+   "zipcode": "94131",
+   "facility_type": "Landscaped Area",
+   "property_id": "1",
+   "property_name": "Glen Canyon Park",
+   "complex": "Glen Park Complex",
+   "ownership": "Recreation & Park",
+   "supdist": "8, 7",
+   "land_id": "527",
+   "psa": "PSA5",
+   "analysis_neighborhood": "Glen Park, West of Twin Peaks",
+   "state_senate": "11",
+   "mons_neighborhood": "Glen Park, Diamond Heights, Miraloma Park",
+   "police_district": "INGLESIDE",
+   "us_congress": "11",
+   "realtor_neighborhood": "Diamond Heights, Glen Park",
+   "state_assembly": "17",
+   "planning_neighborhood": "Diamond Heights, West of Twin Peaks, Outer Mission, Glen Park",
+   "shape": {
+    "geometry_type": "MultiPolygon"
+   },
+   "created_date": "2025-06-23T16:26:59.000",
+   "last_edited_date": "2026-06-23T15:51:01.000",
+   "data_as_of": "2026-06-23T15:51:01.000",
+   "data_loaded_at": "2026-10-29T20:08:08.961"
+  },
+  {
+   "objectid": "13941",
+   "facility_name": "Glen Park Children's Play Areas",
+   "facility_id": "461",
+   "squarefeet": "7215.87898972",
+   "perimeterlength": "404.75410493",
+   "acres": "0.16565378765",
+   "longitude": "-122.44052675",
+   "latitude": "37.73666812",
+   "city": "San Francisco",
+   "state": "CA",
+   "zipcode": "94131",
+   "facility_type": "Children's Play Area",
+   "property_id": "1",
+   "property_name": "Glen Canyon Park",
+   "complex": "Glen Park Complex",
+   "ownership": "Recreation & Park",
+   "supdist": "8, 7",
+   "land_id": "527",
+   "psa": "PSA5",
+   "analysis_neighborhood": "Glen Park, West of Twin Peaks",
+   "state_senate": "11",
+   "mons_neighborhood": "Glen Park, Diamond Heights, Miraloma Park",
+   "police_district": "INGLESIDE",
+   "us_congress": "11",
+   "realtor_neighborhood": "Diamond Heights, Glen Park",
+   "state_assembly": "17",
+   "planning_neighborhood": "Diamond Heights, West of Twin Peaks, Outer Mission, Glen Park",
+   "shape": {
+    "geometry_type": "MultiPolygon"
+   },
+   "created_date": "2025-06-23T16:31:03.000",
+   "last_edited_date": "2026-03-23T21:06:30.000",
+   "data_as_of": "2026-03-23T21:06:30.000",
+   "data_loaded_at": "2026-10-29T20:08:08.961"
+  }
+ ]
 }

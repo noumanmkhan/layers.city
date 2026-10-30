@@ -6,5 +6,271 @@
   "SFUSD Schools",
   "Public Schools"
  ],
- "candidates": []
+ "candidates": [
+  [
+   "exact",
+   "7e7j-59qk",
+   "Schools",
+   null,
+   "2026-02-06"
+  ],
+  [
+   "contains",
+   "jmdm-q43s",
+   "Crossing Guard Program - Schools",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "bhj2-gxup",
+   "Safer Routes Program - Schools",
+   null,
+   "2024-03-13"
+  ],
+  [
+   "contains",
+   "tpp3-epx2",
+   "Schools (Deprecated)",
+   null,
+   "2026-02-10"
+  ],
+  [
+   "contains",
+   "6adp-a5yv",
+   "Schools_College",
+   null,
+   "2024-03-13"
+  ]
+ ],
+ "picked": {
+  "id": "7e7j-59qk",
+  "name": "Schools",
+  "type": null,
+  "viewType": "tabular",
+  "attribution": null,
+  "category": "Economy and Community",
+  "licence": "Open Data Commons Public Domain Dedication and License",
+  "rows_updated": "2026-02-06",
+  "view_modified": "2026-02-06",
+  "description": "<strong>A. SUMMARY</strong>\nThis dataset is a list of all schools in San Francisco from the California Department of Education. The dataset contains additional information such as type of school and location.\n\n<strong>B. HOW THE DATASET IS CREATED</strong>\nThis dataset was downloaded from the California Department of Education website (https://www.cde.ca.gov/). It only includes schools in San Francisco that are Open as of February 2026.\n\n<strong>C. UPDATE PROCESS</strong>\nThis dataset will update on an as-needed basis.\n\n<strong>D. HOW TO USE THIS DATASET</strong>\nThis dataset can be used to analyze the quantity and type of schools in San Francisco.\n\n<strong>E. RELATED DATASETS</strong>\n- <u><a href=\"https://data.sfgov.org/Geographic-Locations-and-Boundaries/SFUSD-School-Attendance-Areas-20"
+ },
+ "count": 235,
+ "geo": null,
+ "columns": [
+  {
+   "name": "record_type",
+   "type": "text",
+   "label": "record_type"
+  },
+  {
+   "name": "cds_code",
+   "type": "number",
+   "label": "cds_code"
+  },
+  {
+   "name": "district",
+   "type": "text",
+   "label": "district"
+  },
+  {
+   "name": "school",
+   "type": "text",
+   "label": "school"
+  },
+  {
+   "name": "status",
+   "type": "text",
+   "label": "status"
+  },
+  {
+   "name": "open_date",
+   "type": "calendar_date",
+   "label": "open_date"
+  },
+  {
+   "name": "charter_yesno",
+   "type": "checkbox",
+   "label": "charter_yesno"
+  },
+  {
+   "name": "educational_program_type",
+   "type": "text",
+   "label": "educational_program_type"
+  },
+  {
+   "name": "entity_type",
+   "type": "text",
+   "label": "entity_type"
+  },
+  {
+   "name": "low_grade",
+   "type": "text",
+   "label": "low_grade"
+  },
+  {
+   "name": "high_grade",
+   "type": "text",
+   "label": "high_grade"
+  },
+  {
+   "name": "public_yesno",
+   "type": "checkbox",
+   "label": "public_yesno"
+  },
+  {
+   "name": "website",
+   "type": "text",
+   "label": "website"
+  },
+  {
+   "name": "latitude",
+   "type": "text",
+   "label": "latitude"
+  },
+  {
+   "name": "longitude",
+   "type": "text",
+   "label": "longitude"
+  },
+  {
+   "name": "street_address",
+   "type": "text",
+   "label": "street_address"
+  },
+  {
+   "name": "street_city",
+   "type": "text",
+   "label": "street_city"
+  },
+  {
+   "name": "street_state",
+   "type": "text",
+   "label": "street_state"
+  },
+  {
+   "name": "street_zip",
+   "type": "text",
+   "label": "street_zip"
+  },
+  {
+   "name": "phone",
+   "type": "text",
+   "label": "phone"
+  },
+  {
+   "name": "point",
+   "type": "point",
+   "label": "point"
+  },
+  {
+   "name": "analysis_neighborhood",
+   "type": "text",
+   "label": "analysis_neighborhood"
+  },
+  {
+   "name": "supervisor_district",
+   "type": "number",
+   "label": "supervisor_district"
+  },
+  {
+   "name": "data_as_of",
+   "type": "calendar_date",
+   "label": "data_as_of"
+  },
+  {
+   "name": "data_loaded_at",
+   "type": "calendar_date",
+   "label": "data_loaded_at"
+  }
+ ],
+ "samples": [
+  {
+   "record_type": "School",
+   "cds_code": "38684780119958",
+   "district": "San Francisco Unified",
+   "school": "Academy (The)- SF @McAteer",
+   "status": "Active",
+   "open_date": "2009-08-24T00:00:00.000",
+   "charter_yesno": false,
+   "educational_program_type": "Alternative School of Choice",
+   "entity_type": "Alternative Schools of Choice",
+   "low_grade": "9",
+   "high_grade": "12",
+   "public_yesno": true,
+   "website": "www.sotacad.org/",
+   "latitude": "37.745874",
+   "longitude": "-122.449984",
+   "street_address": "555 Portola Dr.",
+   "street_city": "San Francisco",
+   "street_state": "CA",
+   "street_zip": "94131-1616",
+   "phone": "(415) 695-5700",
+   "point": {
+    "geometry_type": "Point"
+   },
+   "analysis_neighborhood": "Glen Park",
+   "supervisor_district": "8",
+   "data_as_of": "2026-02-03T14:02:06.000",
+   "data_loaded_at": "2026-02-06T14:16:51.925"
+  },
+  {
+   "record_type": "School",
+   "cds_code": "38684786930572",
+   "district": "San Francisco Unified",
+   "school": "Adda Clevenger School",
+   "status": "Active",
+   "open_date": "1980-07-01T00:00:00.000",
+   "charter_yesno": false,
+   "educational_program_type": "No Data",
+   "entity_type": "Elementary School (Private)",
+   "low_grade": "K",
+   "high_grade": "8",
+   "public_yesno": false,
+   "website": "www.addaclevenger.org",
+   "latitude": "37.753680",
+   "longitude": "-122.424159",
+   "street_address": "180 Fair Oaks St.",
+   "street_city": "San Francisco",
+   "street_state": "CA",
+   "street_zip": "94110-2927",
+   "phone": "(415) 824-2240",
+   "point": {
+    "geometry_type": "Point"
+   },
+   "analysis_neighborhood": "Mission",
+   "supervisor_district": "8",
+   "data_as_of": "2026-02-03T14:02:06.000",
+   "data_loaded_at": "2026-02-06T14:16:51.925"
+  },
+  {
+   "record_type": "School",
+   "cds_code": "38684786040695",
+   "district": "San Francisco Unified",
+   "school": "Alamo Elementary",
+   "status": "Active",
+   "open_date": "1980-07-01T00:00:00.000",
+   "charter_yesno": false,
+   "educational_program_type": "Traditional",
+   "entity_type": "Elementary Schools (Public)",
+   "low_grade": "K",
+   "high_grade": "5",
+   "public_yesno": true,
+   "website": "No Data",
+   "latitude": "37.783124",
+   "longitude": "-122.482191",
+   "street_address": "250 23rd Ave.",
+   "street_city": "San Francisco",
+   "street_state": "CA",
+   "street_zip": "94121-2009",
+   "phone": "(415) 750-8456",
+   "point": {
+    "geometry_type": "Point"
+   },
+   "analysis_neighborhood": "Outer Richmond",
+   "supervisor_district": "1",
+   "data_as_of": "2026-02-03T14:02:06.000",
+   "data_loaded_at": "2026-02-06T14:16:51.925"
+  }
+ ]
 }
