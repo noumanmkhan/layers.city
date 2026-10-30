@@ -24,7 +24,9 @@ os.makedirs(os.path.join(RAW, P), exist_ok=True)
 
 def garages():
     rows = json.loads(get(f'{SOC}/resource/vqzx-t7c4.json?$limit=5000', tries=3))
-    rows = [{k: v for k, v in r.items() if k not in ('shape',) and not k.startswith(':@')} for r in rows]
+    # The shape is the facility's point: kept as xy for the lots with no entrance position.
+    rows = [dict({k: v for k, v in r.items() if k != 'shape' and not k.startswith(':@')},
+                 **({'xy': r['shape']['coordinates']} if isinstance(r.get('shape'), dict) and r['shape'].get('type') == 'Point' else {})) for r in rows]
     if not rows: raise RuntimeError('no rows')
     save(os.path.join(P, 'garages.json'), {'fetched': time.strftime('%Y-%m-%d'), 'rows': rows})
     print('  garages', len(rows), Counter(r.get('owner') for r in rows), Counter(r.get('facility_type') for r in rows))
