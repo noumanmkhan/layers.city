@@ -2,7 +2,7 @@
 
 Usage:  python3 engine/venues.py <city>            (refresh-venues.yml runs it nightly after the events fetch)
 Reads:  cities/<city>/venues.json                  the curated venues, regional origins and fare figures, and
-                                                   "page": which of the map's files are the subway, regional
+                                                   "page": which of the map's files are the subway ("metro"), regional
                                                    rail, streetcars, parking and boundaries, and the city's
                                                    own words for them (the engine names no city)
         cities/<city>/factsheet.css                line bullets and route badges in the city's colours
@@ -86,8 +86,13 @@ walk_min = lambda d: max(1, round(d * 1.3 / 4.8 * 60))
 fmt_km = ((lambda d: f'{d / 1.609344 * 5280:,.0f} ft' if d < 0.4 else f'{d / 1.609344:.1f} mi') if MI else
           (lambda d: f'{d * 1000:.0f} m' if d < 1 else f'{d:.1f} km'))
 
-stations = [(f['geometry']['coordinates'], f['properties']) for f in gj('subway_stations')]
-subway_lines = gj('subway_lines')
+# "page" "metro": {"stations": [...], "lines": [...]} for a city whose rapid transit is several layers (one per
+# agency), and "lineColors" for lines whose files carry no colour; by default the one subway_stations and subway_lines.
+MET = PG.get('metro', {})
+stations = [(f['geometry']['coordinates'], f['properties']) for n in MET.get('stations', ['subway_stations']) for f in gj(n)]
+subway_lines = [f for n in MET.get('lines', ['subway_lines']) for f in gj(n)]
+for f in subway_lines:
+    if not f['properties'].get('color'): f['properties']['color'] = PG.get('lineColors', {}).get(f['properties'].get('line'))
 streetcars = gj(PG['trams']) if PG.get('trams') else []
 go_lines = gj(RAIL['lines']) if RAIL.get('lines') else []
 go_stations = [(f['geometry']['coordinates'], f['properties']) for f in gj(RAIL['stations'])] if RAIL.get('stations') else []
