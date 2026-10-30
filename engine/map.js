@@ -128,7 +128,7 @@ const get = f => fetch(DATA + (f.includes('.') ? f : f + '.geojson')).then(r => 
 
 function zoomClasses(){
   const z = map.getZoom(), el = map.getContainer();
-  [10,11,12,13,14,15,16].forEach(t => el.classList.toggle('z'+t, z >= t - .01));
+  [9,10,11,12,13,14,15,16].forEach(t => el.classList.toggle('z'+t, z >= t - .01));
 }
 map.on('zoomend', zoomClasses); zoomClasses();
 
@@ -392,13 +392,14 @@ const KINDS = {
   // Icons from zoom 11, names from 14. Describe only: name and what it is, nothing ranked.
   // A layer with "groups" (e.g. churches by family) shows one group at a time, picked with chips in the panel;
   // with "groupsFor", the groups narrow only that category (churches among all places of worship).
-  // "minZoom" (12-14) holds a busy layer's icons back until that zoom. With "popup", a tap opens the place's details
+  // "minZoom" (12-14) holds a busy layer's icons back until that zoom; "wide" (a few places spread over the region,
+  // such as headquarters) shows the icons from zoom 9 and names from 11 instead. With "popup", a tap opens the place's details
   // (placePopup) instead of the What's here card.
   // A place may be in several categories (p.cats, e.g. a park with tennis courts and a pool): it shows while any of
   // them is picked, its pin taking the first picked one's glyph and colour.
   places: (it, fc) => {
     const g = L.layerGroup(), marks = [], cats = placeCats(it);
-    const icon = (p, c) => L.divIcon({className:'', iconSize:[0, 0], html:'<span class="lm inst in-' + c + (p.ed ? ' ed' : '') + (it.minZoom ? ' mz' + it.minZoom : '') + '"><i>' + svg(GLYPH[c] || GLYPH.culture) + '</i><b>' + esc(p.name) + '</b></span>'});
+    const icon = (p, c) => L.divIcon({className:'', iconSize:[0, 0], html:'<span class="lm inst in-' + c + (p.ed ? ' ed' : '') + (it.minZoom ? ' mz' + it.minZoom : '') + (it.wide ? ' wide' : '') + '"><i>' + svg(GLYPH[c] || GLYPH.culture) + '</i><b>' + esc(p.name) + '</b></span>'});
     fc.features.filter(f => featCats(f.properties).some(c => cats.includes(c))).forEach(f => {
       const p = f.properties;
       const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true, icon: icon(p, p.cat)});
