@@ -1752,5 +1752,115 @@
     ]
    ]
   ]
+ },
+ "tour": {
+  "invite": "New to San Francisco? Take a one-minute tour.",
+  "start": "Take the tour",
+  "stepText": "Tour · {n} of {of}",
+  "next": "Next",
+  "back": "Back",
+  "done": "Done",
+  "closeText": "Close the tour",
+  "dismissText": "No thanks",
+  "steps": [
+   {
+    "title": "A city that is also a county",
+    "layers": [
+     "sides",
+     "hwy"
+    ],
+    "hi": [
+     "sides"
+    ],
+    "view": "city",
+    "text": "San Francisco is one government, the City and County, run by a mayor and an 11-member Board of Supervisors. The colours here are a rough guide to how locals split the city: Downtown, the Northside, the West Side, Central and the Southeast."
+   },
+   {
+    "title": "Neighborhoods and the names people say",
+    "layers": [
+     "nb",
+     "knownas",
+     "streets"
+    ],
+    "hi": [
+     "nb",
+     "knownas"
+    ],
+    "view": [
+     [
+      37.74,
+      -122.47
+     ],
+     [
+      37.81,
+      -122.38
+     ]
+    ],
+    "text": "The City reports its figures by 41 Analysis Neighborhoods. The names in italics are what people actually say: SoMa, the Tenderloin, NoPa, Cow Hollow."
+   },
+   {
+    "title": "Getting around",
+    "layers": [
+     "bart",
+     "muni",
+     "rail",
+     "ferry",
+     "hwy"
+    ],
+    "hi": [
+     "bart",
+     "muni",
+     "rail",
+     "ferry"
+    ],
+    "scope": "outer",
+    "view": [
+     [
+      37.3,
+      -122.6
+     ],
+     [
+      38.1,
+      -121.8
+     ]
+    ],
+    "text": "BART and Muni Metro share the tunnel under Market Street. BART crosses the Bay to Oakland and the East Bay, Caltrain runs down the Peninsula to San José from 4th & King, and ferries leave the Ferry Building for Marin, Alameda, Oakland and Vallejo."
+   },
+   {
+    "title": "Nine counties",
+    "layers": [
+     "drive",
+     "hwy"
+    ],
+    "hi": [
+     "drive"
+    ],
+    "scope": "outer",
+    "view": [
+     [
+      36.9,
+      -123.2
+     ],
+     [
+      38.6,
+      -121.3
+     ]
+    ],
+    "text": "The Bay Area is nine counties and 101 cities and towns, from Santa Rosa to San José. The suburban lens shows the typical drive to downtown San Francisco with no traffic, town by town."
+   },
+   {
+    "title": "Tap anywhere",
+    "layers": [
+     "nb",
+     "knownas",
+     "streets",
+     "bart",
+     "muni"
+    ],
+    "pin": {},
+    "view": "city",
+    "text": "Tap any spot or search an address, and the card shows the neighborhood it’s in, what living there is like, the transit nearby, and its supervisor, state and congressional districts."
+   }
+  ]
  }
 }
