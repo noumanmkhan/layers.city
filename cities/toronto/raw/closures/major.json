@@ -1,5 +1,5 @@
 {
-"fetched": "2026-10-29T06:51",
+"fetched": "2026-10-30T05:02",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
 {
@@ -9,7 +9,7 @@
 "kind": "closed",
 "both": true,
 "start": "2026-10-19T21:00",
-"end": "2026-10-30T05:00",
+"end": "2026-11-02T05:00",
 "hours": "21:00\u201305:00",
 "days": "weekdays",
 "who": "PTR Paving Inc.",
@@ -57,7 +57,7 @@
 "kind": "closed",
 "both": false,
 "start": "2026-10-22T21:00",
-"end": "2026-10-30T05:00",
+"end": "2026-11-02T05:00",
 "hours": "21:00\u201305:00",
 "days": "weekdays",
 "who": "PTR Paving Inc.",
@@ -383,13 +383,445 @@
 ]
 },
 {
+"id": "Tor-RD52026-6447-5",
+"street": "Don Valley S Lawrence Ramp",
+"extent": "Don Valley S Lawrence Ramp 18 m Northeast of Lawrence Ave E to 65 m South of Don Valley Parkway S",
+"kind": "closed",
+"both": false,
+"start": "2026-10-19T21:00",
+"end": "2026-11-02T05:00",
+"hours": "21:00\u201305:00",
+"days": "weekdays",
+"who": "PTR Paving Inc.",
+"desc": "INTERIM REPAIRS ON THE ROADWAYS INCLUDING LOCALIZE CURBS SIDEWALK REPIARS AT VARIOUS LOCATIONS WITHIN THE NORTH YORK DISTRICT.",
+"roadClass": "Expressway Ramp",
+"coords": [
+[
+-79.33453,
+43.73904
+],
+[
+-79.33445,
+43.73909
+],
+[
+-79.33443,
+43.7391
+],
+[
+-79.33441,
+43.73911
+],
+[
+-79.33439,
+43.73912
+],
+[
+-79.33437,
+43.73913
+],
+[
+-79.33435,
+43.73914
+],
+[
+-79.33433,
+43.73915
+],
+[
+-79.33431,
+43.73916
+],
+[
+-79.33429,
+43.73918
+],
+[
+-79.33428,
+43.73919
+],
+[
+-79.33426,
+43.7392
+],
+[
+-79.33425,
+43.73922
+],
+[
+-79.33423,
+43.73923
+],
+[
+-79.33422,
+43.73925
+],
+[
+-79.3342,
+43.73926
+],
+[
+-79.33419,
+43.73928
+],
+[
+-79.33418,
+43.73929
+],
+[
+-79.33417,
+43.73931
+],
+[
+-79.33416,
+43.73933
+],
+[
+-79.33415,
+43.73934
+],
+[
+-79.33414,
+43.73936
+],
+[
+-79.33413,
+43.73938
+],
+[
+-79.33412,
+43.73939
+],
+[
+-79.33411,
+43.73941
+],
+[
+-79.33411,
+43.73943
+],
+[
+-79.3341,
+43.73945
+],
+[
+-79.3341,
+43.73946
+],
+[
+-79.33409,
+43.73949
+],
+[
+-79.33408,
+43.73952
+],
+[
+-79.33408,
+43.73954
+],
+[
+-79.33407,
+43.73957
+],
+[
+-79.33407,
+43.7396
+],
+[
+-79.33406,
+43.73962
+],
+[
+-79.33406,
+43.73965
+],
+[
+-79.33406,
+43.73968
+],
+[
+-79.33406,
+43.7397
+],
+[
+-79.33406,
+43.73973
+],
+[
+-79.33406,
+43.73976
+],
+[
+-79.33406,
+43.73978
+],
+[
+-79.33407,
+43.73981
+],
+[
+-79.33407,
+43.73984
+],
+[
+-79.33407,
+43.73986
+],
+[
+-79.33407,
+43.73988
+],
+[
+-79.33406,
+43.73989
+],
+[
+-79.33406,
+43.7399
+],
+[
+-79.33406,
+43.73991
+],
+[
+-79.33406,
+43.73992
+],
+[
+-79.33405,
+43.73994
+],
+[
+-79.33405,
+43.73994
+],
+[
+-79.33404,
+43.73996
+],
+[
+-79.33404,
+43.73998
+],
+[
+-79.33403,
+43.74
+],
+[
+-79.33402,
+43.74002
+],
+[
+-79.33401,
+43.74004
+],
+[
+-79.334,
+43.74006
+],
+[
+-79.33399,
+43.74008
+],
+[
+-79.33397,
+43.7401
+],
+[
+-79.33396,
+43.74012
+],
+[
+-79.33395,
+43.74014
+],
+[
+-79.33393,
+43.74015
+],
+[
+-79.33392,
+43.74017
+],
+[
+-79.3339,
+43.74019
+],
+[
+-79.33388,
+43.74021
+],
+[
+-79.33387,
+43.74022
+],
+[
+-79.33385,
+43.74024
+],
+[
+-79.33383,
+43.74025
+],
+[
+-79.33381,
+43.74027
+],
+[
+-79.33379,
+43.74029
+],
+[
+-79.33377,
+43.7403
+],
+[
+-79.33375,
+43.74031
+],
+[
+-79.33373,
+43.74033
+],
+[
+-79.3337,
+43.74034
+],
+[
+-79.33368,
+43.74036
+],
+[
+-79.33366,
+43.74037
+],
+[
+-79.33363,
+43.74038
+],
+[
+-79.33359,
+43.7404
+],
+[
+-79.33354,
+43.74041
+],
+[
+-79.3335,
+43.74043
+],
+[
+-79.33345,
+43.74044
+],
+[
+-79.33341,
+43.74046
+],
+[
+-79.33336,
+43.74047
+],
+[
+-79.33331,
+43.74049
+],
+[
+-79.33327,
+43.7405
+],
+[
+-79.33322,
+43.74051
+],
+[
+-79.33317,
+43.74052
+],
+[
+-79.33316,
+43.74053
+],
+[
+-79.33312,
+43.74053
+],
+[
+-79.33309,
+43.74054
+],
+[
+-79.33308,
+43.74055
+],
+[
+-79.33271,
+43.74064
+],
+[
+-79.33248,
+43.74082
+],
+[
+-79.33247,
+43.74083
+],
+[
+-79.33246,
+43.74084
+],
+[
+-79.33246,
+43.74084
+],
+[
+-79.33245,
+43.74085
+],
+[
+-79.33244,
+43.74086
+],
+[
+-79.33243,
+43.74087
+],
+[
+-79.33242,
+43.74089
+],
+[
+-79.33242,
+43.74089
+],
+[
+-79.33241,
+43.7409
+],
+[
+-79.33241,
+43.74091
+],
+[
+-79.3324,
+43.74093
+],
+[
+-79.33239,
+43.74094
+]
+]
+},
+{
 "id": "Tor-RD52026-6447-7",
 "street": "Lawrence E Dvp N Ramp",
 "extent": "Lawrence E Dvp N Ramp 38 m South of Don Valley Parkway N to 146 m Southeast of Don Valley Parkway N",
 "kind": "closed",
 "both": true,
 "start": "2026-10-19T21:00",
-"end": "2026-10-30T05:00",
+"end": "2026-11-02T05:00",
 "hours": "21:00\u201305:00",
 "days": "weekdays",
 "who": "PTR Paving Inc.",
@@ -777,7 +1209,7 @@
 "kind": "closed",
 "both": true,
 "start": "2026-10-19T21:00",
-"end": "2026-10-30T05:00",
+"end": "2026-11-02T05:00",
 "hours": "21:00\u201305:00",
 "days": "weekdays",
 "who": "PTR Paving Inc.",
@@ -945,7 +1377,7 @@
 "kind": "closed",
 "both": true,
 "start": "2026-10-19T21:00",
-"end": "2026-10-30T05:00",
+"end": "2026-11-02T05:00",
 "hours": "21:00\u201305:00",
 "days": "weekdays",
 "who": "PTR Paving Inc.",
@@ -1387,78 +1819,6 @@
 ]
 },
 {
-"id": "Tor-RD032026-157-3",
-"street": "College St",
-"extent": "College St 6 m West of Carlton St to 11 m East of Bay St",
-"kind": "closed",
-"both": true,
-"start": "2026-10-28T07:00",
-"end": "2026-10-30T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Toronto Transit Commission",
-"desc": "The Overhead crew will work on the curblane on both eastbound and westbound on College St and Carlton St between McCaul and Parliament between July 26 and Dec 31, 2026. This will be a rolling operation. Scope of Work In support of TTC's ongoing system-wide overhead infrastructure modernization program, the following work is planned during the College Street streetcar service closure: * Installation of the auto-tensioning system. * Adjustment of the contact wire stagger to meet TTC Engineering's full pantograph standards. * Installation of new section breaks and removal of redundant section break infrastructure. * Testing and commissioning of the upgraded Track and OCS infrastructure before the restoration of regular streetcar service.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.38318,
-43.66136
-],
-[
--79.38371,
-43.66125
-],
-[
--79.38371,
-43.66125
-],
-[
--79.38572,
-43.66084
-]
-]
-},
-{
-"id": "Tor-RD032026-157-4",
-"street": "College St",
-"extent": "College St 13 m West of Bay St to 17 m East of University Ave",
-"kind": "closed",
-"both": true,
-"start": "2026-10-30T07:00",
-"end": "2026-11-11T05:00",
-"hours": "24h",
-"days": "daily",
-"who": "Toronto Transit Commission",
-"desc": "The Overhead crew will work on the curblane on both eastbound and westbound on College St and Carlton St between McCaul and Parliament between July 26 and Dec 31, 2026. This will be a rolling operation. Scope of Work In support of TTC's ongoing system-wide overhead infrastructure modernization program, the following work is planned during the College Street streetcar service closure: * Installation of the auto-tensioning system. * Adjustment of the contact wire stagger to meet TTC Engineering's full pantograph standards. * Installation of new section breaks and removal of redundant section break infrastructure. * Testing and commissioning of the upgraded Track and OCS infrastructure before the restoration of regular streetcar service.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.38601,
-43.66079
-],
-[
--79.38666,
-43.66068
-],
-[
--79.38666,
-43.66068
-],
-[
--79.38741,
-43.66052
-],
-[
--79.38741,
-43.66052
-],
-[
--79.39029,
-43.6599
-]
-]
-},
-{
 "id": "Tor-RD52026-6079-4-2",
 "street": "Eastern Av E Dvp N Ramp",
 "extent": "Eastern Av E Dvp N Ramp at Eastern Ave Diversion to 116 m East of Eastern Ave Diversion",
@@ -1543,6 +1903,154 @@
 ]
 },
 {
+"id": "Tor-RD52026-6691-1",
+"street": "Dvp S Eastern Av W Ramp",
+"extent": "Dvp S Eastern Av W Ramp 45 m North of Queen St E to 4 m South of Don River",
+"kind": "closed",
+"both": false,
+"start": "2026-11-03T22:30",
+"end": "2026-11-04T05:30",
+"hours": "22:30\u201305:30",
+"days": "daily",
+"who": "Soncin Construction",
+"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, bearing replacement etc.",
+"roadClass": "Expressway Ramp",
+"coords": [
+[
+-79.35412,
+43.65834
+],
+[
+-79.35407,
+43.65823
+],
+[
+-79.35392,
+43.65796
+],
+[
+-79.35392,
+43.65796
+],
+[
+-79.35378,
+43.65776
+],
+[
+-79.35358,
+43.65753
+],
+[
+-79.35346,
+43.65738
+],
+[
+-79.35343,
+43.65734
+],
+[
+-79.35339,
+43.65727
+],
+[
+-79.35336,
+43.65721
+],
+[
+-79.35335,
+43.65715
+],
+[
+-79.35334,
+43.65704
+],
+[
+-79.35338,
+43.65693
+],
+[
+-79.35338,
+43.65693
+],
+[
+-79.35339,
+43.65689
+]
+]
+},
+{
+"id": "Tor-RD032026-157-3",
+"street": "College St",
+"extent": "College St 6 m West of Carlton St to 11 m East of Bay St",
+"kind": "closed",
+"both": true,
+"start": "2026-10-28T07:00",
+"end": "2026-10-30T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Toronto Transit Commission",
+"desc": "The Overhead crew will work on the curblane on both eastbound and westbound on College St and Carlton St between McCaul and Parliament between July 26 and Dec 31, 2026. This will be a rolling operation. Scope of Work In support of TTC's ongoing system-wide overhead infrastructure modernization program, the following work is planned during the College Street streetcar service closure: * Installation of the auto-tensioning system. * Adjustment of the contact wire stagger to meet TTC Engineering's full pantograph standards. * Installation of new section breaks and removal of redundant section break infrastructure. * Testing and commissioning of the upgraded Track and OCS infrastructure before the restoration of regular streetcar service.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.38318,
+43.66136
+],
+[
+-79.38371,
+43.66125
+],
+[
+-79.38371,
+43.66125
+],
+[
+-79.38572,
+43.66084
+]
+]
+},
+{
+"id": "Tor-RD032026-157-4",
+"street": "College St",
+"extent": "College St 13 m West of Bay St to 17 m East of University Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-30T07:00",
+"end": "2026-11-11T05:00",
+"hours": "24h",
+"days": "daily",
+"who": "Toronto Transit Commission",
+"desc": "The Overhead crew will work on the curblane on both eastbound and westbound on College St and Carlton St between McCaul and Parliament between July 26 and Dec 31, 2026. This will be a rolling operation. Scope of Work In support of TTC's ongoing system-wide overhead infrastructure modernization program, the following work is planned during the College Street streetcar service closure: * Installation of the auto-tensioning system. * Adjustment of the contact wire stagger to meet TTC Engineering's full pantograph standards. * Installation of new section breaks and removal of redundant section break infrastructure. * Testing and commissioning of the upgraded Track and OCS infrastructure before the restoration of regular streetcar service.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.38601,
+43.66079
+],
+[
+-79.38666,
+43.66068
+],
+[
+-79.38666,
+43.66068
+],
+[
+-79.38741,
+43.66052
+],
+[
+-79.38741,
+43.66052
+],
+[
+-79.39029,
+43.6599
+]
+]
+},
+{
 "id": "Tor-RD1S2026-1246",
 "street": "Richmond St W",
 "extent": "Richmond St W 81 m West of Peter St to 3 m West of Peter St",
@@ -1563,174 +2071,6 @@
 [
 -79.39332,
 43.64838
-]
-]
-},
-{
-"id": "Tor-RD52026-6693-3",
-"street": "Eastern Ave Diversion",
-"extent": "Eastern Ave Diversion at Eastern Ave to 34 m East of Broadview S Eastern W Ramp",
-"kind": "closed",
-"both": true,
-"start": "2026-11-03T21:00",
-"end": "2026-11-04T05:30",
-"hours": "21:00\u201305:30",
-"days": "daily",
-"who": "Soncin Construction",
-"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, etc.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.3574,
-43.65452
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35606,
-43.65517
-],
-[
--79.35585,
-43.65536
-],
-[
--79.35585,
-43.65536
-],
-[
--79.35497,
-43.65572
-],
-[
--79.35497,
-43.65572
-],
-[
--79.35422,
-43.65606
-],
-[
--79.35422,
-43.65606
-],
-[
--79.35343,
-43.65637
-],
-[
--79.35343,
-43.65637
-],
-[
--79.35327,
-43.65644
-],
-[
--79.35327,
-43.65644
-],
-[
--79.35322,
-43.65646
-],
-[
--79.35317,
-43.65648
-],
-[
--79.35314,
-43.6565
-],
-[
--79.35314,
-43.6565
-],
-[
--79.35294,
-43.65657
-],
-[
--79.35294,
-43.65657
-],
-[
--79.35255,
-43.65669
-],
-[
--79.35255,
-43.65669
-],
-[
--79.3525,
-43.6567
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35211,
-43.65681
-],
-[
--79.35177,
-43.65687
-],
-[
--79.35153,
-43.65691
-],
-[
--79.35153,
-43.65691
-],
-[
--79.35116,
-43.65697
-],
-[
--79.35089,
-43.65699
-],
-[
--79.35061,
-43.657
-],
-[
--79.35032,
-43.65698
-],
-[
--79.35007,
-43.65695
-],
-[
--79.34986,
-43.65691
-],
-[
--79.34986,
-43.65691
-],
-[
--79.34947,
-43.65681
 ]
 ]
 },
@@ -1915,6 +2255,174 @@
 [
 -79.35389,
 43.65611
+]
+]
+},
+{
+"id": "Tor-RD52026-6693-3",
+"street": "Eastern Ave Diversion",
+"extent": "Eastern Ave Diversion at Eastern Ave to 34 m East of Broadview S Eastern W Ramp",
+"kind": "closed",
+"both": true,
+"start": "2026-11-03T21:00",
+"end": "2026-11-04T05:30",
+"hours": "21:00\u201305:30",
+"days": "daily",
+"who": "Soncin Construction",
+"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, etc.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.3574,
+43.65452
+],
+[
+-79.35697,
+43.65474
+],
+[
+-79.35697,
+43.65474
+],
+[
+-79.35606,
+43.65517
+],
+[
+-79.35585,
+43.65536
+],
+[
+-79.35585,
+43.65536
+],
+[
+-79.35497,
+43.65572
+],
+[
+-79.35497,
+43.65572
+],
+[
+-79.35422,
+43.65606
+],
+[
+-79.35422,
+43.65606
+],
+[
+-79.35343,
+43.65637
+],
+[
+-79.35343,
+43.65637
+],
+[
+-79.35327,
+43.65644
+],
+[
+-79.35327,
+43.65644
+],
+[
+-79.35322,
+43.65646
+],
+[
+-79.35317,
+43.65648
+],
+[
+-79.35314,
+43.6565
+],
+[
+-79.35314,
+43.6565
+],
+[
+-79.35294,
+43.65657
+],
+[
+-79.35294,
+43.65657
+],
+[
+-79.35255,
+43.65669
+],
+[
+-79.35255,
+43.65669
+],
+[
+-79.3525,
+43.6567
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35211,
+43.65681
+],
+[
+-79.35177,
+43.65687
+],
+[
+-79.35153,
+43.65691
+],
+[
+-79.35153,
+43.65691
+],
+[
+-79.35116,
+43.65697
+],
+[
+-79.35089,
+43.65699
+],
+[
+-79.35061,
+43.657
+],
+[
+-79.35032,
+43.65698
+],
+[
+-79.35007,
+43.65695
+],
+[
+-79.34986,
+43.65691
+],
+[
+-79.34986,
+43.65691
+],
+[
+-79.34947,
+43.65681
 ]
 ]
 },
@@ -2347,174 +2855,6 @@
 ]
 },
 {
-"id": "Tor-RD52026-6469-3",
-"street": "Eastern Ave Diversion",
-"extent": "Eastern Ave Diversion at Eastern Ave to 34 m East of Broadview S Eastern W Ramp",
-"kind": "closed",
-"both": true,
-"start": "2026-11-04T22:30",
-"end": "2026-11-05T05:30",
-"hours": "22:30\u201305:30",
-"days": "daily",
-"who": "Soncin Construction",
-"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, etc.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.3574,
-43.65452
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35606,
-43.65517
-],
-[
--79.35585,
-43.65536
-],
-[
--79.35585,
-43.65536
-],
-[
--79.35497,
-43.65572
-],
-[
--79.35497,
-43.65572
-],
-[
--79.35422,
-43.65606
-],
-[
--79.35422,
-43.65606
-],
-[
--79.35343,
-43.65637
-],
-[
--79.35343,
-43.65637
-],
-[
--79.35327,
-43.65644
-],
-[
--79.35327,
-43.65644
-],
-[
--79.35322,
-43.65646
-],
-[
--79.35317,
-43.65648
-],
-[
--79.35314,
-43.6565
-],
-[
--79.35314,
-43.6565
-],
-[
--79.35294,
-43.65657
-],
-[
--79.35294,
-43.65657
-],
-[
--79.35255,
-43.65669
-],
-[
--79.35255,
-43.65669
-],
-[
--79.3525,
-43.6567
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35211,
-43.65681
-],
-[
--79.35177,
-43.65687
-],
-[
--79.35153,
-43.65691
-],
-[
--79.35153,
-43.65691
-],
-[
--79.35116,
-43.65697
-],
-[
--79.35089,
-43.65699
-],
-[
--79.35061,
-43.657
-],
-[
--79.35032,
-43.65698
-],
-[
--79.35007,
-43.65695
-],
-[
--79.34986,
-43.65691
-],
-[
--79.34986,
-43.65691
-],
-[
--79.34947,
-43.65681
-]
-]
-},
-{
 "id": "Tor-RD52026-6469-1",
 "street": "Adelaide St E",
 "extent": "Adelaide St E 6 m Northeast of Parliament St to 47 m Southwest of Bayview Ave",
@@ -2695,6 +3035,174 @@
 [
 -79.35389,
 43.65611
+]
+]
+},
+{
+"id": "Tor-RD52026-6469-3",
+"street": "Eastern Ave Diversion",
+"extent": "Eastern Ave Diversion at Eastern Ave to 34 m East of Broadview S Eastern W Ramp",
+"kind": "closed",
+"both": true,
+"start": "2026-11-04T22:30",
+"end": "2026-11-05T05:30",
+"hours": "22:30\u201305:30",
+"days": "daily",
+"who": "Soncin Construction",
+"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, etc.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.3574,
+43.65452
+],
+[
+-79.35697,
+43.65474
+],
+[
+-79.35697,
+43.65474
+],
+[
+-79.35606,
+43.65517
+],
+[
+-79.35585,
+43.65536
+],
+[
+-79.35585,
+43.65536
+],
+[
+-79.35497,
+43.65572
+],
+[
+-79.35497,
+43.65572
+],
+[
+-79.35422,
+43.65606
+],
+[
+-79.35422,
+43.65606
+],
+[
+-79.35343,
+43.65637
+],
+[
+-79.35343,
+43.65637
+],
+[
+-79.35327,
+43.65644
+],
+[
+-79.35327,
+43.65644
+],
+[
+-79.35322,
+43.65646
+],
+[
+-79.35317,
+43.65648
+],
+[
+-79.35314,
+43.6565
+],
+[
+-79.35314,
+43.6565
+],
+[
+-79.35294,
+43.65657
+],
+[
+-79.35294,
+43.65657
+],
+[
+-79.35255,
+43.65669
+],
+[
+-79.35255,
+43.65669
+],
+[
+-79.3525,
+43.6567
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35211,
+43.65681
+],
+[
+-79.35177,
+43.65687
+],
+[
+-79.35153,
+43.65691
+],
+[
+-79.35153,
+43.65691
+],
+[
+-79.35116,
+43.65697
+],
+[
+-79.35089,
+43.65699
+],
+[
+-79.35061,
+43.657
+],
+[
+-79.35032,
+43.65698
+],
+[
+-79.35007,
+43.65695
+],
+[
+-79.34986,
+43.65691
+],
+[
+-79.34986,
+43.65691
+],
+[
+-79.34947,
+43.65681
 ]
 ]
 },

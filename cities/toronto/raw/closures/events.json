@@ -1,11 +1,11 @@
 {
-"fetched": "2026-10-29T06:51",
+"fetched": "2026-10-30T05:02",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
 {
-"id": "12335678-15",
-"street": "Alexander St",
-"extent": "Eastbound and Westbound Alexander St West of Church St to Alexander Pl",
+"id": "12335678-22",
+"street": "Monteith St",
+"extent": "Westbound and Eastbound Monteith St from end of road to Church St",
 "kind": "closed",
 "both": false,
 "start": "2026-10-31T17:00",
@@ -17,256 +17,8 @@
 "roadClass": "Local Road",
 "coords": [
 [
--79.380111,
-43.663697
-],
-[
--79.379649,
-43.663788
-]
-]
-},
-{
-"id": "12335678-16",
-"street": "Maitland St",
-"extent": "Westbound and Eastbound Maitland St at Alexander Pl to Donna Shaw Lane",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.379877,
-43.664785
-],
-[
--79.380521,
-43.664647
-]
-]
-},
-{
-"id": "12335678-18",
-"street": "Wellesley St E",
-"extent": "Westbound and Eastbound Wellesley St E at Dapper Lane to east of Church St",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.381399,
-43.665626
-],
-[
--79.380959,
-43.665723
-]
-]
-},
-{
-"id": "12335678-17",
-"street": "Maitland St",
-"extent": "Westbound and Eastbound Maitland St at Alexander Pl to Donna Shaw Lane",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.380521,
-43.664647
-],
-[
--79.380942,
-43.664555
-]
-]
-},
-{
-"id": "12335678-14",
-"street": "Alexander St",
-"extent": "Eastbound and Westbound Alexander St West of Church St to Alexander Pl",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.38032,
-43.663651
-],
-[
--79.380111,
-43.663697
-]
-]
-},
-{
-"id": "12335678-13",
-"street": "Wood St",
-"extent": "Eastbound and Westbound Wood St at School Lane to west of Church St",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.379755,
-43.662826
-],
-[
--79.379979,
-43.662778
-]
-]
-},
-{
-"id": "12335678-11",
-"street": "Wood St",
-"extent": "Eastbound and Westbound Wood St at School Lane to west of Church St",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.378909,
-43.662988
-],
-[
--79.378972,
-43.662975
-]
-]
-},
-{
-"id": "12335678-10",
-"street": "Church St",
-"extent": "Northbound and Southbound Church St at Carlton St to Gloucester St",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.381414,
-43.666832
-],
-[
--79.381638,
-43.667373
-]
-]
-},
-{
-"id": "12335678-12",
-"street": "Wood St",
-"extent": "Eastbound and Westbound Wood St at School Lane to west of Church St",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.378972,
-43.662975
-],
-[
--79.379542,
-43.662855
-],
-[
--79.379755,
-43.662826
-]
-]
-},
-{
-"id": "12335678-5",
-"street": "Church St",
-"extent": "Northbound and Southbound Church St at Carlton St to Gloucester St",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.380959,
-43.665723
-],
-[
--79.38111,
-43.666088
-],
-[
--79.381115,
-43.6661
-]
-]
-},
-{
-"id": "12335678-9",
-"street": "Church St",
-"extent": "Northbound and Southbound Church St at Carlton St to Gloucester St",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.381363,
-43.666703
+-79.380107,
+43.66711
 ],
 [
 -79.381414,
@@ -295,54 +47,6 @@
 [
 -79.380107,
 43.66711
-]
-]
-},
-{
-"id": "12335678-23",
-"street": "Church St",
-"extent": "Westbound and Eastbound Monteith St from end of road to Church St",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.381414,
-43.666832
-],
-[
--79.381417,
-43.666841
-]
-]
-},
-{
-"id": "12335678-22",
-"street": "Monteith St",
-"extent": "Westbound and Eastbound Monteith St from end of road to Church St",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.380107,
-43.66711
-],
-[
--79.381414,
-43.666832
 ]
 ]
 },
@@ -471,6 +175,82 @@
 ]
 },
 {
+"id": "12335678-11",
+"street": "Wood St",
+"extent": "Eastbound and Westbound Wood St at School Lane to west of Church St",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.378909,
+43.662988
+],
+[
+-79.378972,
+43.662975
+]
+]
+},
+{
+"id": "12335678-24",
+"street": "Dundonald St",
+"extent": "Westbound and Eastbound Dundonald St from Church St to west of Church St",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.38138,
+43.666699
+],
+[
+-79.382056,
+43.666556
+],
+[
+-79.382086,
+43.666544
+]
+]
+},
+{
+"id": "12335678-23",
+"street": "Church St",
+"extent": "Westbound and Eastbound Monteith St from end of road to Church St",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.381414,
+43.666832
+],
+[
+-79.381417,
+43.666841
+]
+]
+},
+{
 "id": "12335678-1",
 "street": "Church St",
 "extent": "Northbound and Southbound Church St at Carlton St to Gloucester St",
@@ -491,6 +271,254 @@
 [
 -79.379755,
 43.662826
+]
+]
+},
+{
+"id": "12335678-18",
+"street": "Wellesley St E",
+"extent": "Westbound and Eastbound Wellesley St E at Dapper Lane to east of Church St",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.381399,
+43.665626
+],
+[
+-79.380959,
+43.665723
+]
+]
+},
+{
+"id": "12335678-16",
+"street": "Maitland St",
+"extent": "Westbound and Eastbound Maitland St at Alexander Pl to Donna Shaw Lane",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.379877,
+43.664785
+],
+[
+-79.380521,
+43.664647
+]
+]
+},
+{
+"id": "12335678-15",
+"street": "Alexander St",
+"extent": "Eastbound and Westbound Alexander St West of Church St to Alexander Pl",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.380111,
+43.663697
+],
+[
+-79.379649,
+43.663788
+]
+]
+},
+{
+"id": "12335678-17",
+"street": "Maitland St",
+"extent": "Westbound and Eastbound Maitland St at Alexander Pl to Donna Shaw Lane",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.380521,
+43.664647
+],
+[
+-79.380942,
+43.664555
+]
+]
+},
+{
+"id": "12335678-14",
+"street": "Alexander St",
+"extent": "Eastbound and Westbound Alexander St West of Church St to Alexander Pl",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.38032,
+43.663651
+],
+[
+-79.380111,
+43.663697
+]
+]
+},
+{
+"id": "12335678-13",
+"street": "Wood St",
+"extent": "Eastbound and Westbound Wood St at School Lane to west of Church St",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.379755,
+43.662826
+],
+[
+-79.379979,
+43.662778
+]
+]
+},
+{
+"id": "12335678-10",
+"street": "Church St",
+"extent": "Northbound and Southbound Church St at Carlton St to Gloucester St",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.381414,
+43.666832
+],
+[
+-79.381638,
+43.667373
+]
+]
+},
+{
+"id": "12335678-12",
+"street": "Wood St",
+"extent": "Eastbound and Westbound Wood St at School Lane to west of Church St",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.378972,
+43.662975
+],
+[
+-79.379542,
+43.662855
+],
+[
+-79.379755,
+43.662826
+]
+]
+},
+{
+"id": "12335678-5",
+"street": "Church St",
+"extent": "Northbound and Southbound Church St at Carlton St to Gloucester St",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.380959,
+43.665723
+],
+[
+-79.38111,
+43.666088
+],
+[
+-79.381115,
+43.6661
+]
+]
+},
+{
+"id": "12335678-9",
+"street": "Church St",
+"extent": "Northbound and Southbound Church St at Carlton St to Gloucester St",
+"kind": "closed",
+"both": false,
+"start": "2026-10-31T17:00",
+"end": "2026-11-01T07:00",
+"hours": "24h",
+"days": "daily",
+"who": "Church Wellesley Village BIA",
+"desc": "Roads temporarily closed for the Halloween on Church St event.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.381363,
+43.666703
+],
+[
+-79.381414,
+43.666832
 ]
 ]
 },
@@ -567,82 +595,6 @@
 ]
 },
 {
-"id": "12335678-24",
-"street": "Dundonald St",
-"extent": "Westbound and Eastbound Dundonald St from Church St to west of Church St",
-"kind": "closed",
-"both": false,
-"start": "2026-10-31T17:00",
-"end": "2026-11-01T07:00",
-"hours": "24h",
-"days": "daily",
-"who": "Church Wellesley Village BIA",
-"desc": "Roads temporarily closed for the Halloween on Church St event.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.38138,
-43.666699
-],
-[
--79.382056,
-43.666556
-],
-[
--79.382086,
-43.666544
-]
-]
-},
-{
-"id": "12293058-3",
-"street": "Wyndham St",
-"extent": "Westbound and Eastbound Wyndham St from St. Clarens Ave to Brock Ave",
-"kind": "closed",
-"both": true,
-"start": "2026-10-31T17:30",
-"end": "2026-10-31T21:30",
-"hours": "24h",
-"days": "daily",
-"who": "City of Toronto",
-"desc": "Road is temporarily closed for the Wyndham Street Halloween Eve Trick or Treat Block Party",
-"roadClass": "Local Road",
-"coords": [
-[
--79.435693,
-43.647662
-],
-[
--79.436579,
-43.6475
-]
-]
-},
-{
-"id": "12293058-4",
-"street": "Wyndham St",
-"extent": "Westbound and Eastbound Wyndham St from St. Clarens Ave to Brock Ave",
-"kind": "closed",
-"both": true,
-"start": "2026-10-31T17:30",
-"end": "2026-10-31T21:30",
-"hours": "24h",
-"days": "daily",
-"who": "City of Toronto",
-"desc": "Road is temporarily closed for the Wyndham Street Halloween Eve Trick or Treat Block Party",
-"roadClass": "Local Road",
-"coords": [
-[
--79.436579,
-43.6475
-],
-[
--79.436775,
-43.647467
-]
-]
-},
-{
 "id": "12293058-5",
 "street": "Wyndham St",
 "extent": "Westbound and Eastbound Wyndham St from St. Clarens Ave to Brock Ave",
@@ -695,6 +647,30 @@
 ]
 },
 {
+"id": "12293058-3",
+"street": "Wyndham St",
+"extent": "Westbound and Eastbound Wyndham St from St. Clarens Ave to Brock Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-31T17:30",
+"end": "2026-10-31T21:30",
+"hours": "24h",
+"days": "daily",
+"who": "City of Toronto",
+"desc": "Road is temporarily closed for the Wyndham Street Halloween Eve Trick or Treat Block Party",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.435693,
+43.647662
+],
+[
+-79.436579,
+43.6475
+]
+]
+},
+{
 "id": "12293058-1",
 "street": "Brock Ave",
 "extent": "Westbound and Eastbound Wyndham St from St. Clarens Ave to Brock Ave",
@@ -715,6 +691,30 @@
 [
 -79.434831,
 43.647842
+]
+]
+},
+{
+"id": "12293058-4",
+"street": "Wyndham St",
+"extent": "Westbound and Eastbound Wyndham St from St. Clarens Ave to Brock Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-10-31T17:30",
+"end": "2026-10-31T21:30",
+"hours": "24h",
+"days": "daily",
+"who": "City of Toronto",
+"desc": "Road is temporarily closed for the Wyndham Street Halloween Eve Trick or Treat Block Party",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.436579,
+43.6475
+],
+[
+-79.436775,
+43.647467
 ]
 ]
 }
