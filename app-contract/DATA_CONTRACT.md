@@ -851,8 +851,9 @@ one from Friday to Sunday.
 ## 15. Transit: stops near a spot, where each route goes, live arrivals
 
 Toronto as of October 28, 2026 (buses, streetcars, subway and LRT), San Francisco as of October 30 (Muni buses
-and Muni Metro, as `lrt`; live times from 511.org, `/api/arrivals?city=sf`, one feed, so `liveRapid` changes nothing). New York as of October 30 (MTA buses and the subway; live times for the subway only, so `liveNone` has `bus`;
-add `&lines=<route ids>` with `liveRapid`, the rapid routes at the platforms asked for, so only their feeds are read). It is the data behind
+and Muni Metro, as `lrt`; live times from 511.org, `/api/arrivals?city=sf`, one feed, so `liveRapid` changes nothing). New York as of October 30 (MTA buses and the subway, live for both: buses from MTA Bus Time, the subway from the MTA's
+feeds; add `&lines=<route ids>` with `liveRapid`, the rapid routes at the platforms asked for, so only their feeds
+are read, and `&onlyRapid=1` when every stop asked for is a platform, so the bus feed isn't). It is the data behind
 the website's "Where does this line or route go?" page (`/toronto/routes/`, `/sf/routes/`); an app can rebuild that page natively from it. A
 city without `transit` in its `city.json` has none of this: hide the feature.
 

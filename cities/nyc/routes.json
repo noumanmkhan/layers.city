@@ -6,10 +6,7 @@
  ],
  "live": {
   "api": "/api/arrivals?city=nyc",
-  "source": "MTA GTFS-Realtime (subway)",
-  "none": {
-   "bus": "live bus times aren’t connected yet (they need an MTA Bus Time key)"
-  }
+  "source": "MTA Bus Time and MTA subway GTFS-Realtime"
  },
  "gridTilt": 29,
  "_gridTilt": "Manhattan's street grid is turned about 29 degrees east of north, so the avenues read north-south and the streets east-west.",
@@ -77,13 +74,13 @@
   "city": "New York City",
   "title": "Where does this line or route go?",
   "short": "Routes from here",
-  "description": "Find the bus stops and subway platforms nearest you in New York City and see where each route goes, with live next-train times: the neighborhoods it passes through, the main streets it runs along, its subway connections and the landmarks on the way.",
+  "description": "Find the bus stops and subway platforms nearest you in New York City and see where each route goes, with live next-bus and next-train times: the neighborhoods it passes through, the main streets it runs along, its subway connections and the landmarks on the way.",
   "lede": "Find the stops and stations near you, then pick a bus or subway line to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
   "outside": "That spot is outside New York City. Try an address in the five boroughs.",
   "noMatch": "No match in New York City for “{q}”. Try the full street name, like “350 Fifth Avenue”.",
   "noStops": "No stops or stations within {r} of that spot.",
-  "credits": "Routes, stops and timetable: MTA (New York City Transit and MTA Bus) GTFS · Neighborhoods: NYC Department of City Planning · Streets: © OpenStreetMap contributors (ODbL) · Live times: MTA subway GTFS-Realtime",
+  "credits": "Routes, stops and timetable: MTA (New York City Transit and MTA Bus) GTFS · Neighborhoods: NYC Department of City Planning · Streets: © OpenStreetMap contributors (ODbL) · Live times: MTA Bus Time and MTA subway GTFS-Realtime",
   "mapLink": "Open on the map",
   "mi": true,
   "connectWith": "the subway",
