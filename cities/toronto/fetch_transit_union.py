@@ -60,10 +60,13 @@ pkg = json.load(urllib.request.urlopen(urllib.request.Request(TTC_CKAN, headers=
 for r in pkg['resources']:
     print('  ttc resource:', r.get('name'), r.get('format'), r.get('url'))
 zips = [r for r in pkg['resources'] if (r.get('format') or '').lower() == 'zip' or (r.get('url') or '').lower().endswith('.zip')]
-for r in zips:
-    p = download(r['url'], os.path.join(WORK, 'ttc.zip'))
+# The City's zip has at times been empty (22 bytes, October 2026): fall back to the archived copies the bus layer
+# uses (surface.json gtfs.fallback).
+FALLBACK = json.load(open(os.path.join(HERE, 'surface.json')))['gtfs'].get('fallback', [])
+for u in [r['url'] for r in zips] + FALLBACK:
+    p = download(u, os.path.join(WORK, 'ttc.zip'))
     if p and gtfs_ok(p):
-        feeds.append(p); log.append('TTC: ' + r['url']); break
+        feeds.append(p); log.append('TTC: ' + u); break
 else:
     raise SystemExit('No TTC GTFS found')
 for name, urls in (('go', GO), ('up', UP)):
