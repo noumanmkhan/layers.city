@@ -1,0 +1,27 @@
+/* San Francisco's own colours: the five parts of the city, BART's line colours, our own palette for Muni Metro,
+   the streetcars and cable cars, and the regional-rail swatch. Everything else comes from the engine. */
+:root{
+  --s-downtown:#EE6E73; --s-north:#7DAFE0; --s-west:#95CA7E; --s-central:#F2CE5E; --s-southeast:#B9A5E6;
+  --l-yellow:#E6C800; --l-orange:#F9A11B; --l-red:#ED1C24; --l-green:#4DB848; --l-blue:#00AEEF; --l-beige:#A89F80;
+  --l-j:#E08A2E; --l-k:#4E8FB8; --l-l:#8E3A8E; --l-m:#2E8B57; --l-n:#1D5FA0; --l-t:#C0384F; --l-s:#7C858C; --l-hist:#9C7A3C; --l-cable:#8C1D18;
+  /* US cities: red, white and blue. Panel toggles take the flag's blue; pins and buttons stay red. */
+  --accent-2:#1C4A94;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --s-downtown:#C2484E; --s-north:#4C7FB5; --s-west:#5E9A48; --s-central:#B8962E; --s-southeast:#7D68B8;
+  --l-beige:#C2B996; --l-n:#4D8FD9; --l-l:#B868B8; --l-s:#A3ABB2; --l-cable:#D0504A; --l-hist:#C9A45F; --accent-2:#4F84E8;
+}}
+:root[data-theme="dark"]{
+  --s-downtown:#C2484E; --s-north:#4C7FB5; --s-west:#5E9A48; --s-central:#B8962E; --s-southeast:#7D68B8;
+  --l-beige:#C2B996; --l-n:#4D8FD9; --l-l:#B868B8; --l-s:#A3ABB2; --l-cable:#D0504A; --l-hist:#C9A45F; --accent-2:#4F84E8;
+}
+.sw.sides{background:conic-gradient(var(--s-downtown) 0 20%,var(--s-north) 0 40%,var(--s-west) 0 60%,var(--s-central) 0 80%,var(--s-southeast) 0)}
+.sw.bart{background:linear-gradient(var(--l-yellow) 0 20%,var(--l-orange) 0 40%,var(--l-red) 0 60%,var(--l-green) 0 80%,var(--l-blue) 0)}
+.sw.muni{background:linear-gradient(var(--l-n) 0 25%,var(--l-t) 0 50%,var(--l-hist) 0 75%,var(--l-cable) 0)}
+.sw.rail{background:linear-gradient(#E31837 0 33%,#0E5B39 0 66%,#00577C 0)}
+.fill-major.downtown{fill:var(--s-downtown)} .fill-major.northside{fill:var(--s-north)} .fill-major.west-side{fill:var(--s-west)}
+.fill-major.central{fill:var(--s-central)} .fill-major.southeast{fill:var(--s-southeast)}
+.sub-line.lyellow{stroke:var(--l-yellow)} .sub-line.lorange{stroke:var(--l-orange)} .sub-line.lred{stroke:var(--l-red)} .sub-line.lgreen{stroke:var(--l-green)}
+.sub-line.lblue{stroke:var(--l-blue)} .sub-line.lbeige{stroke:var(--l-beige)}
+.sub-line.lj{stroke:var(--l-j)} .sub-line.lk{stroke:var(--l-k)} .sub-line.ll{stroke:var(--l-l)} .sub-line.lm{stroke:var(--l-m)} .sub-line.ln{stroke:var(--l-n)}
+.sub-line.lt{stroke:var(--l-t)} .sub-line.ls{stroke:var(--l-s)} .sub-line.lhist{stroke:var(--l-hist)} .sub-line.lcable{stroke:var(--l-cable);stroke-dasharray:6 4}

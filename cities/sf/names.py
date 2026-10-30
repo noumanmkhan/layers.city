@@ -106,7 +106,7 @@ LANDMARKS = [
 
 # Main streets drawn heavier (OpenStreetMap's other primary and secondary roads are drawn as minor). street_key() forms.
 MAJOR_STREETS = {
-    'Market St', 'Mission St', 'Van Ness Ave', 'Geary Blvd', 'Geary St', 'Lombard St', 'Columbus Ave', 'Embarcadero', 'The Embarcadero',
+    'Market St', 'Mission St', 'Van Ness Ave', 'Geary Blvd', 'Geary St', 'Lombard St', 'Columbus Ave', 'The Embarcadero',
     'California St', 'Divisadero St', 'Fillmore St', 'Masonic Ave', 'Park Presidio Blvd', '19th Ave', 'Sunset Blvd', 'Great Hwy',
     'Lincoln Way', 'Fulton St', 'Fell St', 'Oak St', 'Octavia Blvd', 'Franklin St', 'Gough St', 'Bush St', 'Pine St', 'Broadway',
     'Stockton St', 'Kearny St', '3rd St', '4th St', '16th St', '24th St', 'Cesar Chavez St', 'Potrero Ave', 'Folsom St', 'Howard St',

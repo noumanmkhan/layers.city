@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Rebuild docs/sf/data/* and docs/sf/index.html from the inputs in cities/sf/raw/.
+# Needs: python3 with shapely; node (npm install at the repo root brings mapshaper + leaflet).
+set -euo pipefail
+cd "$(dirname "$0")"
+[ -d ../../node_modules ] || (cd ../.. && npm install --silent)
+mkdir -p tmp ../../docs/sf/data
+python3 build.py
+python3 landmarks.py
+[ -f raw/acs_tracts.json ] && python3 profiles.py   # after build.py: the neighbourhood lens (fetch_acs.py)
+OUT=../../docs/sf/data
+simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
+npx mapshaper -i tmp/base.geojson -simplify interval=50 keep-shapes -filter-slivers min-area=20000m2 -filter "!this.isNull" -o $OUT/base.geojson precision=0.00005 format=geojson -quiet
+simplify sides 6; simplify neighbourhoods 5; simplify sffind 4; simplify supervisors 6; simplify assembly 6; simplify senate 8; simplify congress 8
+simplify heritage 3; simplify cultural 4
+for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval=5 -o $OUT/$f.geojson precision=0.00001 -quiet; done
+npx mapshaper -i tmp/region_highways.geojson -simplify interval=20 -o $OUT/region_highways.geojson precision=0.00001 -quiet
+for f in rail_lines rail_lines_inner; do npx mapshaper -i tmp/$f.geojson -simplify interval=15 -o $OUT/$f.geojson precision=0.00001 -quiet; done
+for f in bart_lines muni_lines; do npx mapshaper -i tmp/$f.geojson -simplify interval=4 -o $OUT/$f.geojson precision=0.00001 -quiet; done
+cp tmp/region_areas.geojson tmp/region_areas.raw.geojson
+npx mapshaper -i tmp/region_areas.raw.geojson -simplify interval=60 keep-shapes -o tmp/region_areas.geojson precision=0.00005 format=geojson -quiet
+python3 ../../engine/regions.py sf
+[ -f raw/skyscrapers/wiki.json ] && python3 ../../engine/skyscrapers.py sf   # towers 150 m+ (fetch-skyscrapers.yml)
+python3 ../../engine/assemble.py sf
+echo "Done. Preview: cd docs && python3 -m http.server 8000"
