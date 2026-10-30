@@ -14,4 +14,18 @@
   wrote assembly.geojson 160 KB
   wrote loksabha.geojson 50 KB
 
+== opencity_maps
+  oc_ac_hyd_rr.geojson: 29 features · fields ['ASSEMBLY_N', 'Ass_Name', 'DNAME1', 'FID', 'F_06', 'F_SC', 'F_ST', 'M_06', 'M_SC', 'M_ST', 'No_HH', 'P_06', 'P_SC', 'P_ST', 'Parlament', 'Shape_Area', 'Shape_Leng', 'TOT_F', 'TOT_M', 'TOT_P', 'extrude', 'tessellate', 'visibility']
+   sample {'tessellate': -1, 'extrude': 0, 'visibility': -1, 'FID': 8.0, 'DNAME1': 'HYDERABAD', 'ASSEMBLY_N': 'Khairatabad', 'Shape_Leng': 0.284026759647, 'Shape_Area': 0.00233899104958, 'No_HH': 0.0, 'TOT_P': 0.0, 'TOT_M': 0.0, 'TOT_F': 0.0, 'P_06': 0.0, 'M_06': 0.0, 'F_06': 0.0, 'P_SC': 0.0, 'M_SC': 0.0, 'F_SC': 0.0, 'P_ST': 0.0, 'M_ST': 0.0, 'F_ST': 0.0, 'Parlament': 'SECUNDERABAD', 'Ass_Name': 'Khairatabad Assembly'} · description 
+  wrote oc_ac_hyd_rr.geojson 282 KB
+  oc_ac_telangana.geojson: 119 features · fields ['ASSEMBLY_N', 'Ass_Name', 'DNAME1', 'FID', 'F_06', 'F_SC', 'F_ST', 'M_06', 'M_SC', 'M_ST', 'No_HH', 'P_06', 'P_SC', 'P_ST', 'Parlament', 'Shape_Area', 'Shape_Leng', 'TOT_F', 'TOT_M', 'TOT_P', 'extrude', 'tessellate', 'visibility']
+   sample {'tessellate': -1, 'extrude': 0, 'visibility': -1, 'FID': 0.0, 'DNAME1': 'ADILABAD', 'ASSEMBLY_N': 'Bellampalle (Sc)', 'Shape_Leng': 3.23736760617, 'Shape_Area': 0.12510865703, 'No_HH': 55436.0, 'TOT_P': 0.0, 'TOT_M': 0.0, 'TOT_F': 0.0, 'P_06': 20783.0, 'M_06': 0.0, 'F_06': 9911.0, 'P_SC': 0.0, 'M_SC': 28214.0, 'F_SC': 0.0, 'P_ST': 0.0, 'M_ST': 10960.0, 'F_ST': 0.0, 'Parlament': 'PEDDAPALLE (SC)', 'Ass_Name': 'Bellampalle (Sc) Assembly'} · description 
+  wrote oc_ac_telangana.geojson 2382 KB
+  oc_pc_telangana.geojson: 17 features · fields ['extrude', 'objectid', 'pc_id', 'pc_name', 'pc_no', 'st_area(shape)', 'st_code', 'st_length(shape)', 'st_name', 'status', 'tessellate', 'visibility']
+   sample {'tessellate': -1, 'extrude': 0, 'visibility': -1, 'objectid': 387, 'pc_id': 2801, 'st_code': '36', 'st_name': 'TELANGANA', 'pc_no': 1, 'pc_name': 'ADILABAD(ST)', 'st_area(shape)': 14221125328.3203, 'st_length(shape)': 953541.906070001} · description 
+  wrote oc_pc_telangana.geojson 720 KB
+  oc_ghmc_wards_2022.geojson: 155 features · fields ['AREA_IN_SQ', 'CIRCLE', 'OBJECTID', 'Shape_Area', 'Shape_Length', 'ZONE', 'extrude', 'tessellate', 'visibility', 'ward']
+   sample {'tessellate': -1, 'extrude': 0, 'visibility': -1, 'OBJECTID': 1.0, 'AREA_IN_SQ': '2599171.20578681', 'ward': '127-RANGAREDDY NAGAR', 'CIRCLE': '25-QUTUBULLAPUR', 'ZONE': 'KUKATPALLY ZONE', 'Shape_Length': 0.0723354304745478, 'Shape_Area': 0.00022014302706425} · description 
+  wrote oc_ghmc_wards_2022.geojson 297 KB
+
 failed: none
