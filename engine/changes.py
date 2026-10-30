@@ -210,7 +210,8 @@ if os.path.exists(p):
         stories = num(r.get('proposed_no_of_stories'))
         if kind == 'building' and stories and stories > 1 and 'stor' not in desc.lower(): desc = '%d-story building. %s' % (stories, desc)
         items.append({'k': kind, 's': stage, 'date': date[:10], 'dl': dl, 'a': ORD(address(r.get('house_no'), r.get('street_name'))),
-                      'd': short(sentence(desc) if sum(c.isupper() for c in desc) > 0.6 * sum(c.isalpha() for c in desc) else desc),   # mostly capitals 'n': (r.get('job_filing_number') or '').split('-')[0],
+                      'd': short(sentence(desc) if sum(c.isupper() for c in desc) > 0.6 * sum(c.isalpha() for c in desc) else desc),   # mostly capitals
+                      'n': (r.get('job_filing_number') or '').split('-')[0],
                       'at': [round(float(r['longitude']), 6), round(float(r['latitude']), 6)],
                       'units': new_u if kind == 'building' and new_u and new_u > 2 else None, 'status': st})
 
