@@ -159,10 +159,19 @@ for d in data.values():
     d['commute'] = 'car' if d['carPct'] >= 50 else 'mixed' if d['carPct'] >= 25 else 'transit'
     d['tenure'] = 'owners' if d['renterPct'] < 35 else 'mix' if d['renterPct'] <= 60 else 'renters'
 
+TL = os.path.join(RAW, 'transit_downtown.json')   # fetch_transit.py: minutes to each hub the viewer can pick
+if os.path.exists(TL):
+    tl = json.load(open(TL))['areas']
+    for k, d in data.items():
+        for hub in ('montgomery', 'missionbay'):
+            m = (tl.get(k) or {}).get(hub)
+            d[hub] = m
+            d[hub + 'Band'] = None if m is None else 'under30' if m < 30 else '30to45' if m < 45 else '45to60' if m <= 60 else 'over60'
+
 json.dump(data, open(OUT, 'w'), separators=(',', ':'))
 for k in list(data)[:3]:
     print('example', k, data[k]['name'], data[k]['homes'], data[k]['built'], data[k]['lang'], data[k]['ages'], data[k]['recent'], data[k]['recentSince'])
 print('languages ever in a top 3:', sorted({l[0] for d in data.values() for l in d.get('lang', [])[:3]}))
 print('profiles:', len(data), 'neighbourhoods from', sum(placed.values()), 'tracts, ACS', acs['year'], ';',
       dict(Counter(d['cost'] for d in data.values())), dict(Counter(d['commute'] for d in data.values())),
-      dict(Counter(d['tenure'] for d in data.values())))
+      dict(Counter(d['tenure'] for d in data.values())), dict(Counter(d.get('montgomeryBand') for d in data.values())), dict(Counter(d.get('missionbayBand') for d in data.values())))

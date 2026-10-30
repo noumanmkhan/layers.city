@@ -122,7 +122,8 @@
    "Northside": "on the Northside",
    "Southeast": "in the Southeast"
   },
-  "city": "in San Francisco"
+  "city": "in San Francisco",
+  "hub": "Montgomery Street"
  },
  "units": {
   "singular": "Neighborhood",
@@ -340,7 +341,9 @@
    [
     {
      "id": "lens",
-     "kind": "lens"
+     "kind": "lens",
+     "name": "Neighborhood lens",
+     "note": "Housing cost, the trip downtown, getting to work, renters and owners, housing type. Narrow it down to a shortlist."
     }
    ]
   ]
@@ -372,6 +375,57 @@
      ]
     ],
     "note": "Median home value and rent, weighted by owners and renters, ranked into thirds across San Francisco's 38 residential Analysis Neighborhoods. Survey estimates for 2020–2024, not current prices."
+   },
+   {
+    "id": "downtown",
+    "short": "To Montgomery St",
+    "key": "montgomeryBand",
+    "minutes": "montgomery",
+    "optional": true,
+    "tiers": [
+     [
+      "under30",
+      "Under 30 min",
+      "--uni-1"
+     ],
+     [
+      "30to45",
+      "30–45 min",
+      "--uni-2"
+     ],
+     [
+      "45to60",
+      "45–60 min",
+      "--uni-3"
+     ],
+     [
+      "over60",
+      "Over an hour",
+      "--uni-4"
+     ]
+    ],
+    "note": "Typical transit trip to Montgomery Street station in the Financial District leaving 8–9 am on a weekday, walking to the stop included (Muni buses, Metro, streetcars and cable cars, BART and Caltrain). Median across each neighborhood.",
+    "source": "Muni, BART and Caltrain schedules, routed with r5py.",
+    "hubs": [
+     {
+      "id": "montgomery",
+      "name": "Montgomery St",
+      "short": "To Montgomery St",
+      "key": "montgomeryBand",
+      "minutes": "montgomery",
+      "note": "Typical transit trip to Montgomery Street station in the Financial District leaving 8–9 am on a weekday, walking to the stop included (Muni buses, Metro, streetcars and cable cars, BART and Caltrain). Median across each neighborhood.",
+      "filter": "To Montgomery St by transit"
+     },
+     {
+      "id": "missionbay",
+      "name": "4th & King",
+      "short": "To 4th & King",
+      "key": "missionbayBand",
+      "minutes": "missionbay",
+      "note": "Typical transit trip to 4th & King in Mission Bay (the Caltrain terminal and the T Third) leaving 8–9 am on a weekday, walking to the stop included (Muni buses, Metro, streetcars and cable cars, BART and Caltrain). Median across each neighborhood.",
+      "filter": "To 4th & King by transit"
+     }
+    ]
    },
    {
     "id": "commute",
@@ -496,6 +550,25 @@
     ]
    },
    {
+    "lens": "downtown",
+    "label": "To Montgomery St by transit",
+    "max": true,
+    "options": [
+     [
+      30,
+      "Up to 30 min"
+     ],
+     [
+      45,
+      "45 min"
+     ],
+     [
+      60,
+      "60 min"
+     ]
+    ]
+   },
+   {
     "lens": "commute",
     "label": "Getting to work",
     "options": [
@@ -536,7 +609,8 @@
     "label": "Most common home",
     "top": true
    }
-  ]
+  ],
+  "hubLabel": "Trip to"
  },
  "card": {
   "report": {
@@ -620,7 +694,7 @@
   ],
   "living": {
    "caveat": "Survey estimates for 2020–2024, not current prices, for the whole neighborhood. Rent is what renting households pay, utilities included, counting rent-controlled and subsidized homes, so it sits well below what a new lease costs. Use them to compare neighborhoods, not to budget.",
-   "footer": "American Community Survey 2020–2024, {name}. Tiers compare San Francisco's 38 residential Analysis Neighborhoods.",
+   "footer": "American Community Survey 2020–2024 and Muni, BART and Caltrain schedules, {name}. Tiers compare San Francisco's 38 residential Analysis Neighborhoods.",
    "homes": {
     "label": "Home types",
     "types": [
@@ -670,7 +744,9 @@
     "label": "Recent immigrants",
     "text": "{pct}% born abroad, came to the US {since}",
     "caveat": "Share of residents, from the 2020–2024 survey."
-   }
+   },
+   "hub": "To Montgomery St",
+   "hubText": "About {minutes} min by transit, weekday morning"
   },
   "reps": {
    "file": "representatives.json",
@@ -714,7 +790,7 @@
    {
     "id": "local",
     "name": "Know your city",
-    "note": "Every neighborhood coloured by housing cost. Try the other lenses below.",
+    "note": "Every neighborhood coloured by its transit trip downtown. Pick the hub, or try the other lenses below.",
     "layers": [
      "nb",
      "lens",
@@ -723,7 +799,7 @@
      "bart",
      "muni"
     ],
-    "lens": "cost",
+    "lens": "downtown",
     "view": "city"
    },
    {
