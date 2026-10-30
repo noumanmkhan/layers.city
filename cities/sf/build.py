@@ -417,8 +417,19 @@ for rid, r in gt['muni']['routes'].items():
     mlines.append(feat(m, {'line': lid, 'name': name}))
 MORD = ['cable', 'hist', 's', 'e', 'f', 'j', 'k', 'l', 'm', 'n', 't']
 dump('muni_lines', sorted(mlines, key=lambda f: MORD.index(f['properties']['line']) if f['properties']['line'] in MORD else 5))
+def muni_name(n):
+    """One name per Muni Metro station, as riders say it: the GTFS names each platform ("Metro Montgomery
+    Station/Outbound", "Yerba Buena/Moscone Station Northbound", "Balboa Park BART/Mezzanine Level")."""
+    n = re.sub(r'^Metro\s+', '', n.strip())
+    n = re.sub(r'/(Outbound|Outbd|Inbound|Downtown|Downtn|Mezzanine Level)$', '', n)
+    n = re.sub(r'\s+(Station\s+)?(North|South|East|West|Out|In)bound$', '', n)
+    n = re.sub(r'\s+(BART|Platform.*)$', '', n)
+    n = re.sub(r'\s+Station$', '', n)
+    return n.replace('(16th Street)', '(16th St)').replace(' - ', ' – ').strip()
+
+
 mst = stations_of('muni', {rid: l for rid, l in mline_of.items() if l != 'Cable car' and l not in ('F', 'E')},
-                  lambda n: re.sub(r'\s+(Station|Inbound|Outbound|Platform.*|Metro.*)$', '', n).strip(), 0.25)
+                  lambda n: muni_name(n), 0.25)
 # Surface stops of the Metro lines are many: keep the subway stations and the named surface hubs only.
 SUB = re.compile(r'(?i)^(embarcadero|montgomery|powell|civic center|van ness|church|castro|forest hill|west portal|chinatown|union square|yerba buena|4th|st\.? francis|sunnydale|balboa park|ucsf|chase center|ocean beach|stonestown|sf state)')
 MLORD = ['J', 'K', 'L', 'M', 'N', 'T', 'S']
