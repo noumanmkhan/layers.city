@@ -86,6 +86,8 @@ if os.path.isfile(rcfg_p) and os.path.isfile(os.path.join(ROOT, 'docs', city, 'r
         'regionsWithThe': rc.get('regionsWithThe', []), 'knownWithThe': rc.get('knownWithThe'), 'known': rc.get('known'),
         'title': rc['page'].get('title'), 'credits': rc['page'].get('credits'),
         'badges': {k: v for k, v in (rc.get('badges') or {}).items() if not k.startswith('_')},
+        # The city's own wording (DATA_CONTRACT.md section 15, "City wording"); absent keys keep Toronto's defaults.
+        'words': {k: rc['page'][k] for k in ('lineNames', 'lineGroups', 'at', 'connectWith', 'connectionsLabel', 'mi') if k in rc['page']},
     }
 cfg_out = os.path.join(ROOT, 'docs', city, 'data', 'city.json')
 os.makedirs(os.path.dirname(cfg_out), exist_ok=True)

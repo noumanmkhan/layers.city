@@ -270,8 +270,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 
   const hoods = once(() => getJSON('../data/' + (RS.units || 'neighbourhoods') + '.geojson'));
   const cityCfg = once(() => getJSON('../data/city.json'));
-  const basemap = once(() => Promise.all(['base', 'streets', 'subway_lines', 'neighbourhoods', RS.known || 'cultural']
-    .map(n => getJSON('../data/' + n + '.geojson').catch(() => ({ features: [] })))));
+  // The rapid lines drawn under a route: one file or several (one per agency), routes.json page "lineFiles".
+  const gjOrNone = n => getJSON('../data/' + n + '.geojson').catch(() => ({ features: [] }));
+  const basemap = once(() => Promise.all([gjOrNone('base'), gjOrNone('streets'),
+    Promise.all((RS.lineFiles || ['subway_lines']).map(gjOrNone)).then(fs => ({ features: fs.flatMap(f => f.features) })),
+    gjOrNone(RS.units || 'neighbourhoods'), gjOrNone(RS.known || 'cultural')]));
   const routeFile = {};
   const route = rid => (routeFile[rid] ||= getJSON('data/r/' + encodeURIComponent(rid) + '.json'));
 
@@ -283,20 +286,35 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   // ---- words and badges ----
   const kmBetween = (lon1, lat1, lon2, lat2) =>
     Math.hypot((lon1 - lon2) * 111.32 * Math.cos(lat1 * Math.PI / 180), (lat1 - lat2) * 110.574);
-  const fmtM = m => m < 1000 ? `${Math.round(m / 10) * 10} m` : `${(m / 1000).toFixed(1)} km`;
+  // Metres, or feet and miles where the city measures in them (routes.json page "mi").
+  const fmtM = m => RS.mi ? (m < 160 ? `${Math.max(50, Math.round(m * 3.281 / 50) * 50)} ft` : `${(m / 1609.34).toFixed(1)} mi`)
+    : m < 1000 ? `${Math.round(m / 10) * 10} m` : `${(m / 1000).toFixed(1)} km`;
   const walkMin = km => Math.max(1, Math.round(km * 1000 / 80));
   const cap = s => s ? s[0].toUpperCase() + s.slice(1) : s;
-  const DIR = { north: 'Northbound', south: 'Southbound', east: 'Eastbound', west: 'Westbound' };
+  const DIR = new Proxy({ north: 'Northbound', south: 'Southbound', east: 'Eastbound', west: 'Westbound' }, { get: (o, k) => o[k] || cap(String(k || '')) });
+  // How a rapid line is named: "Line 1", or the city's own (routes.json page "lineNames": {"J": "J Church", "Yellow": "BART Yellow line"}).
+  const lineName = l => (RS.lineNames || {})[l] || 'Line ' + l;
+  // "Change for BART, J Church": a group's lines said once by the group's name (routes.json page "lineGroups").
+  const changeList = ls => { const out = [];
+    ls.forEach(l => { const g = Object.keys(RS.lineGroups || {}).find(k => RS.lineGroups[k].includes(l)); const n = g || lineName(l); if (!out.includes(n)) out.push(n); });
+    return out.join(', '); };
+  // Stop names join their two streets with " at " (TTC) or " & " (routes.json page "at").
+  const AT = new RegExp((RS.at || ' at ').replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   // TTC stop names repeat the side ("North Side", "(East)"): the card says it once, from the geometry.
   const clean = n => n.replace(/\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)? ?Platform\b.*$/i, '').replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+/g, ' ').trim();
-  const street = n => clean(n).split(/ at /)[0].replace(/^\d+[A-Z]?\s+/, '');
+  const street = n => clean(n).split(AT)[0].replace(/^\d+[A-Z]?\s+/, '');
   const dayRoute = rid => { const f = D.routes[rid][3]; return f.some(x => x !== 'night'); };
   const routeCls = R => R[2] === 'tram' ? 'tram' : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
   const isRapid = rid => ['subway', 'lrt'].includes(D.routes[rid][2]);
   const badge = (rid, big) => { const R = D.routes[rid];
     return isRapid(rid) ? el('span', { class: `ln lb l${R[0]}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0])
       : el('span', { class: `rb ${routeCls(R)}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0]); };
-  const bullets = lines => el('span', { class: 'lns' }, lines.map(l => el('span', { class: 'ln l' + l, title: 'Line ' + l }, l)));
+  // A group's lines (BART's colours) as one bullet with the group's name (routes.json page "lineGroups").
+  const grouped = lines => { const out = [];
+    lines.forEach(l => { const g = Object.keys(RS.lineGroups || {}).find(k => RS.lineGroups[k].includes(l)); const v = g ? '#' + g : l; if (!out.includes(v)) out.push(v); });
+    return out; };
+  const bullets = lines => el('span', { class: 'lns' }, grouped(lines).map(l => l[0] === '#'
+    ? el('span', { class: 'ln grp l' + l.slice(1), title: l.slice(1) }, l.slice(1)) : el('span', { class: 'ln l' + l, title: lineName(l) }, l)));
   const stnEl = (name, lines) => el('span', { class: 'stn' }, lines && lines.length ? [bullets(lines), name] : [name]);
   // The number on the stop's pole (riders text it or type it into a trip planner), and walking directions to
   // that exact stop in the phone's own maps app: Apple Maps first on Apple devices, Google Maps first elsewhere.
@@ -644,8 +662,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     p1.push(...regPhrase, '. ');
     const parts = [];
     if (serve.length) parts.push(['serves ', ...listOf(serve.slice(0, 5).map(n => knownSet.has(n) ? ka(n) : n))]);
-    along.forEach(l => parts.push(['follows ', el('span', { class: 'stn' }, [bullets([l]), `Line ${l}`]), `, with ${perLine[l]} of its stations along the way`]));
-    if (conn.length) parts.push([along.length ? 'meets other lines at ' : 'connects with the subway at ', ...listOf(conn.map(c => el('span', {}, c)))]);
+    // A rapid line sharing its tunnel with others (the K under Market Street with the J, L, M and N) doesn't "follow" them.
+    if (!P.calls) along.forEach(l => parts.push(['follows ', el('span', { class: 'stn' }, [bullets([l]), lineName(l)]), `, with ${perLine[l]} of its stations along the way`]));
+    if (conn.length) parts.push([along.length ? 'meets other lines at ' : `connects with ${RS.connectWith || 'the subway'} at `, ...listOf(conn.map(c => el('span', {}, c)))]);
     if (sights.length) parts.push(['passes ', listOf(sights).join('')]);
     // The clauses take a comma before their "and", since the lists inside them have their own.
     const clauses = [];
@@ -657,7 +676,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const onMain = n => [...lens.keys()].some(k => norm(k) === norm(n) && lens.get(k) >= Math.max(700, L * 0.1));
     const short = (d, name) => {
       const t = stnAt(d, name); if (t) return t[1];
-      const [a, b] = clean(name).split(/ at /);
+      const [a, b] = clean(name).split(AT);
       return (b && onMain(a) ? b : a).replace(/^\d+[A-Z]?\s+/, '');
     };
     const longest = [...lens.entries()].sort((a, b) => b[1] - a[1])[0];
@@ -736,7 +755,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const others = [...new Set(doc.patterns.filter(q => q.k !== k && q.head === P.head && q.stops.some(x => x[1] === sid)).map(q => clean(q.to)))].filter(t => t !== clean(P.to));
     const known = (await basemap())[4];
     const whole = rd.loop != null ? doc.patterns[rd.loop] : P;   // through a loop: describe the trip it carries on as
-    const sum = summary(whole, doc, known, rapid ? `Line ${R[0]} towards ${clean(whole.to)}` : `The ${R[0]} ${DIR[whole.head].toLowerCase()}`, R[2] === 'subway' ? 'runs under' : 'runs along', rapid ? 1500 : 0);
+    const sum = summary(whole, doc, known, rapid ? `${RS.lineNames && RS.lineNames[R[0]] ? 'The ' + lineName(R[0]) : lineName(R[0])} towards ${clean(whole.to)}` : `The ${R[0]} ${DIR[whole.head].toLowerCase()}`, R[2] === 'subway' ? 'runs under' : 'runs along', rapid ? 1500 : 0);
     // On a phone the paragraph opens at its first sentence, with "More" for the rest.
     const more = el('button', { type: 'button', class: 'more', 'aria-expanded': 'false' }, 'More');
     const wide = el('div', { class: 'fact wide clamp' }, [
@@ -747,7 +766,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     more.addEventListener('click', () => { const open = wide.classList.toggle('clamp'); more.setAttribute('aria-expanded', String(!open)); more.textContent = open ? 'More' : 'Less'; });
     $('facts').replaceChildren(
       wide,
-      fact('Subway connections', stns.length ? stns.map(t => stnEl(t[1], t[2])) : [el('span', {}, 'None on this route'), el('small', {}, 'from here')]),
+      fact(RS.connectionsLabel || 'Subway connections', stns.length ? stns.map(t => stnEl(t[1], t[2])) : [el('span', {}, 'None on this route'), el('small', {}, 'from here')]),
       fact('Ends at', [clean(P.to), el('small', {}, endHood ? `in ${endHood}` : '')]),
       fact('The ride', [`${ahead} stops · ${fmtM(lastD - d0)}`, el('small', {}, R[4] ? `About every ${R[4]} min, weekday middays` : 'Check the schedule: not frequent')]),
     );
@@ -762,7 +781,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     P.streets.forEach(x => { if (x[1] > d0 + 150 && !bridges.has(x[2])) { const a = Math.max(x[0], d0); push2(a, 'street', `${R[2] === 'subway' ? 'Under' : 'Along'} ${x[2]}`, fmtM(Math.min(x[1], lastD) - a)); } });
     const h0 = at(P.hoods, d0);
     P.hoods.forEach(h => { if (h[1] > d0 + 150 && h[0] > d0 + 20 && JSON.stringify(h[2]) !== JSON.stringify(h0)) push2(Math.max(h[0], d0), 'hood', cap(hoodName(h[2]))); });
-    P.stations.forEach(t => { if (t[0] >= d0 - 100) push2(Math.max(t[0], d0), 'stn', t[1], 'Change for ' + t[2].map(l => 'Line ' + l).join(', '), t[2]); });
+    P.stations.forEach(t => { if (t[0] >= d0 - 100) push2(Math.max(t[0], d0), 'stn', t[1], 'Change for ' + changeList(t[2]), t[2]); });
     // A subway or LRT line stops at every station: each is a step, except where the list already has it.
     (P.calls || []).forEach(c => { if (c[0] > d0 + 50 && c[0] < lastD - 50 && !P.stations.some(t => Math.abs(t[0] - c[0]) < 300)) push2(c[0], 'call', c[1]); });
     P.pois.forEach(p => { if (p[0] > d0 + 50) p[2] === 'Bridge' ? push2(p[0], 'poi', `Over the ${p[1]}`, 'Bridge') : push2(p[0], 'poi', p[1], p[2]); });
@@ -845,7 +864,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const tint = n => order.includes(n) ? `var(--m-t${order.indexOf(n) % 4})` : 'none';
     nb.features.forEach(f => rings(f.geometry).forEach(r => { if (near(r)) svg.append(el('path', { d: pathOf(r, true), fill: tint(f.properties.name), stroke: 'var(--m-hoodline)', 'stroke-width': order.includes(f.properties.name) ? 1.6 : 1 })); }));
     streets.features.forEach(f => linesOf(f.geometry).forEach(c => { if (near(c)) svg.append(el('path', { d: pathOf(c), fill: 'none', stroke: f.properties.cls === 'major' ? 'var(--m-major)' : 'var(--m-minor)', 'stroke-width': f.properties.cls === 'major' ? 2.2 : 1.4, 'stroke-linecap': 'round' })); }));
-    subway.features.forEach(f => linesOf(f.geometry).forEach(c => { if (near(c)) svg.append(el('path', { d: pathOf(c), fill: 'none', stroke: f.properties.color || '#333', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-opacity': .9 })); }));
+    subway.features.forEach(f => linesOf(f.geometry).forEach(c => { if (near(c)) svg.append(el('path', { d: pathOf(c), fill: 'none', stroke: f.properties.color || (RS.lineColors || {})[String(f.properties.line || '').toLowerCase()] || '#333', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-opacity': .9 })); }));
     // The route: behind you faded, ahead in red with a white casing.
     const behind = P.line.filter(p => p[2] <= d0 + 1);
     if (behind.length > 1) svg.append(el('path', { d: pathOf(behind), fill: 'none', stroke: '#C8102E', 'stroke-opacity': .28, 'stroke-width': 4, 'stroke-dasharray': '2 7', 'stroke-linecap': 'round' }));
@@ -919,8 +938,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     $('map').replaceChildren(svg);
     $('key').replaceChildren(
       el('span', {}, [el('i', { style: 'background:#C8102E' }), 'The route ahead']),
-      el('span', {}, [el('i', { style: 'background:var(--m-t0);height:10px;border:1px solid var(--m-hoodline)' }), el('i', { style: 'background:var(--m-t1);height:10px;border:1px solid var(--m-hoodline);margin-left:-4px' }), 'Neighbourhoods it passes']),
-      el('span', { style: 'font-style:italic;color:var(--accent)' }, 'Greektown: the names people use'),
+      el('span', {}, [el('i', { style: 'background:var(--m-t0);height:10px;border:1px solid var(--m-hoodline)' }), el('i', { style: 'background:var(--m-t1);height:10px;border:1px solid var(--m-hoodline);margin-left:-4px' }), (RS.legendUnits || 'Neighbourhoods it passes')]),
+      el('span', { style: 'font-style:italic;color:var(--accent)' }, (RS.legendKnown || 'Greektown: the names people use')),
     );
   }
   function mark(P, d) {

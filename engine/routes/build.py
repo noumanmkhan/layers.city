@@ -87,9 +87,17 @@ def region(p):
 # ---- streets: every named segment of the classes buses run along, with its name tidied ----
 ST = CFG['streets']
 raw_streets = json.load(open(os.path.join(RAW, ST['raw'])))
+if ST.get('osm'):   # OpenStreetMap ways from Overpass ("out tags geom"): the class is the way's highway tag
+    by_cls = {}
+    for e in raw_streets['elements']:
+        t = e.get('tags', {})
+        if e.get('type') != 'way' or len(e.get('geometry') or []) < 2: continue
+        by_cls.setdefault(t.get('highway'), []).append({'properties': {ST['name']: t.get('name')},
+            'geometry': {'type': 'LineString', 'coordinates': [[p['lon'], p['lat']] for p in e['geometry']]}})
+    raw_streets = {c: {'features': fs} for c, fs in by_cls.items()}
 streets = []   # (name, is_cross_class, geometry)
 for cls in ST['along']:
-    for f in raw_streets[cls]['features']:
+    for f in raw_streets.get(cls, {'features': []})['features']:
         n = (f['properties'].get(ST['name']) or '').strip()
         if not n or 'ramp' in n.lower() or not f.get('geometry'): continue
         streets.append((FIX.get(n, n), cls in ST['cross'], proj(shape(f['geometry']))))
@@ -136,8 +144,16 @@ for x in CFG.get('extras', []):
 known = [(f['properties']['name'], proj(shape(f['geometry']))) for f in layer(CFG['known'])] if CFG.get('known') else []
 
 SC = CFG['stations']
-stations = [(f['properties']['name'] + SC.get('suffix', ''), f['properties'].get('lines', []), proj(shape(f['geometry'])))
-            for f in layer(SC['file'])]
+# One file, or several (a city with two rapid agencies: BART's stations and Muni Metro's). A station of the same
+# name in two files within 300 m is one station with both sets of lines (Montgomery Street: BART and Muni).
+stations = []
+for fn in SC.get('files') or [SC['file']]:
+    for f in layer(fn):
+        if SC.get('skip') and re.search(SC['skip'], f['properties']['name']): continue   # a file's street stops, not stations
+        n, lines, g = f['properties']['name'] + SC.get('suffix', ''), list(f['properties'].get('lines', [])), proj(shape(f['geometry']))
+        same = next((x for x in stations if x[0] == n and x[2].distance(g) < 300), None)
+        if same: same[1].extend(l for l in lines if l not in same[1])
+        else: stations.append((n, lines, g))
 STATION_NAMES = {n for n, _, _ in stations}
 
 # ---- routes ----
@@ -149,7 +165,17 @@ stops = {s[0]: s for s in RAW_S['stops']}
 # shape lists its platforms in order, so they're placed exactly rather than matched to the line by distance. The
 # map's transit.json doesn't list these lines, so their entry (name, frequency) is made here from the schedule.
 RAPID_MODES = {'subway', 'lrt'} & MODES
-DIRWORD = re.compile(r'\b(North|South|East|West)bound\b', re.I)
+# A platform's direction from its name: "Eastbound Platform", or the agency's own words (routes.json "platformDirs":
+# Muni's "Metro Castro Station/Outbound" and ".../Downtown" are outbound and inbound).
+PDIRS = CFG.get('platformDirs', {})
+DIRWORD = re.compile(r'\b(?:(North|South|East|West)bound' + ''.join('|(' + re.escape(k) + ')' for k in PDIRS) + r')\b', re.I)
+COMPASS = ('north', 'south', 'east', 'west')
+def pdir(name):
+    w = DIRWORD.search(name)
+    if not w: return None
+    if w.group(1): return w.group(1).lower()
+    return next(v for k, v in PDIRS.items() if k.lower() == w.group(0).lower())
+def dir_label(w): return f'{w.capitalize()}bound' if w in COMPASS else w.capitalize()
 def station_of(name):
     return re.sub(r'\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)\b.*$', '', name).strip()
 rapid_ids = set()
@@ -161,7 +187,7 @@ if RAPID_MODES and os.path.exists(os.path.join(RAW, 'surface', 'rapid_routes.jso
         if r['mode'] not in RAPID_MODES: continue
         ds_ = [v for v in r.get('wk', {}).values() if sum(v[10:15])]
         n_ = max((sum(v[10:15]) for v in ds_), default=0)
-        meta[r['id']] = {'r': r['short'], 'n': r['long'], 'm': r['mode'], 'f': ['freq'], 'h': round(300 / n_) if n_ >= 5 else None}
+        meta[r['id']] = {'r': r['short'], 'n': r['long'].title() if r['long'].isupper() else r['long'], 'm': r['mode'], 'f': ['freq'], 'h': round(300 / n_) if n_ >= 5 else None}
         # The same platforms in the same order are one pattern, however many shapes the schedule draws for it.
         seen = {}
         for sh in sorted(r['shapes'], key=lambda x: -x['trips']):
@@ -301,6 +327,7 @@ def side_of(line, p):
 
 
 stop_routes = {}    # stop id -> {route id: set of dirs}
+LAST_STOPS = set()  # stops where a pattern ends
 stop_side = {}      # stop id -> {direction word: count}
 route_index = {}
 for r in routes:
@@ -378,22 +405,31 @@ for r in routes:
             for d, sid in seq:
                 q = Point(*m(stops[sid][2], stops[sid][3]))
                 near_st = min(stations, key=lambda x: x[2].distance(q))
-                name = near_st[0] if near_st[2].distance(q) < 300 else station_of(stops[sid][1])
+                name = near_st[0] if near_st[2].distance(q) < NEAR.get('platform', 300) else station_of(stops[sid][1])
                 p['calls'].append([d, name])
             own = r['short']
             p['stations'] = [[d, n, [l for l in lines if l != own]] for d, n, lines in p['stations'] if [l for l in lines if l != own]]
             p['cross'] = []
-            words = [w.group(1).lower() for _, sid in seq for w in [DIRWORD.search(stops[sid][1])] if w]
-            if words: p['head'] = max(set(words), key=words.count)
+            words = [w for _, sid in seq for w in [pdir(stops[sid][1])] if w]
+            if words: p['head'] = max(set(words), key=words.count); p['_w'] = 1
         pats.append(p)
+        LAST_STOPS.add(seq[-1][1])
         for d, sid in seq:
             stop_routes.setdefault(sid, {}).setdefault(rid, []).append([p['k'], d])
     if not pats: continue
+    # A rapid pattern whose platforms carry no direction word (the J's short run on Church St) takes the word of
+    # the line's pattern in the same direction that has one (outbound, not "south").
+    for p in pats:
+        if r['id'] in rapid_ids and not p.get('_w'):
+            q = next((q for q in pats if q.get('_w') and q['dir'] == p['dir']), None)
+            if q: p['head'] = q['head']
+    for p in pats: p.pop('_w', None)
     # Loops: a pattern that ends away from a station, where a pattern the other way starts (the same stop or
     # within ~150 m), carries on as that pattern: the 88 ends its eastbound trip inside Thorncliffe Park and
     # leaves again westbound for St Clair. The page lets a rider near the end of the first ride on through.
     for p in pats:
         if p['to'] in STATION_NAMES: continue   # ends at a station: everyone gets off there
+        if r['id'] in rapid_ids: continue        # a train's last stop is the end of the ride (the N at Ocean Beach)
         e = stops[p['stops'][-1][1]]
         best = None
         for q in pats:
@@ -419,21 +455,28 @@ for sid, rs in stop_routes.items():
     sides = stop_side.get(sid, {})
     w = max(sides, key=sides.get) if sides else None
     # [id, name, lon, lat, side, travel direction, {route: [[pattern, d]...]}, code on the pole ('' if none)]
-    plat = any(k in rapid_ids for k in rs)
+    # A platform: a stop only rapid lines use, or one at a station. A street stop a bus shares with a Muni Metro
+    # line (Ocean Ave & Lee St: the K and the 29) is a bus stop, with its side of the street.
+    plat = any(k in rapid_ids for k in rs) and (all(k in rapid_ids for k in rs) or pdir(s[1]) is not None or
+           min(x[2].distance(Point(*m(s[2], s[3]))) for x in stations) < NEAR.get('platform', 300))
     if plat:   # a platform: its direction from its own name (Eastbound Platform), or the line it starts
-        wm = DIRWORD.search(s[1])
-        w = wm.group(1).lower() if wm else None
+        w = wm = pdir(s[1])
         if not wm:   # a terminal's platform ("Kennedy Station - Subway Platform"): the way the line leaves it
             k0 = next(((rid_, pk) for rid_, v in rs.items() for pk, d in v if d < 50), None)
             w = route_index[k0[0]][5][k0[1]][0] if k0 and k0[0] in route_index else None
-        side = f'{wm.group(1).capitalize()}bound platform' if wm else (f'{w.capitalize()}bound platform' if w else 'Platform')
+        if not w and sid not in LAST_STOPS:
+            # A stop along a line with no word in its name (a Muni Metro stop on Judah St, Glen Park's platform):
+            # its patterns' way, if they agree. Not where a pattern ends: a terminal's arrival platform has no way.
+            heads = {route_index[rid_][5][pk][0] for rid_, v in rs.items() if rid_ in route_index and rid_ in rapid_ids for pk, d in v}
+            w = heads.pop() if len(heads) == 1 else None
+        side = f'{dir_label(w)} platform' if w else 'Platform'
     else:
         side = SIDE.get(w, '')
     name = s[1]
     if plat:   # a platform goes by its station's name on the map (Bloor-Yonge, not "Bloor" and "Yonge" for its two lines)
         q = Point(*m(s[2], s[3]))
         st = min(stations, key=lambda x: x[2].distance(q))
-        if st[2].distance(q) < 300: name = st[0] + (f' - {wm.group(1).capitalize()}bound Platform' if wm else ' - Platform')
+        if st[2].distance(q) < NEAR.get('platform', 300): name = st[0] + (f' - {dir_label(wm)} Platform' if wm else ' - Platform')
     # [id, name, lon, lat, side, travel direction, {route: [[pattern, d]...]}, code on the pole ('' if none), platform 1/0]
     out_stops.append([sid, name, s[2], s[3], side, w or '', {k: sorted(v) for k, v in rs.items()}, s[5] if len(s) > 5 and not plat else '', 1 if plat else 0])
 json.dump({'asof': TRANSIT.get('asof'), 'week': TRANSIT.get('week'), 'routes': route_index, 'stops': out_stops},
