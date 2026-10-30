@@ -17,7 +17,7 @@ on:
         default: false
       cities:
         description: 'Cities, space-separated'
-        default: 'toronto nyc'
+        default: 'toronto nyc sf'
   schedule:
     - cron: '17 7 9 * *'
   workflow_run:
@@ -27,6 +27,7 @@ on:
       - "Fetch New York City parking"
       - "Fetch bike lanes"
       - "Fetch New York City data"
+      - "Fetch San Francisco data"
     types: [completed]
 permissions:
   contents: write
@@ -37,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 330
     env:
-      CITIES: ${{ inputs.cities || 'toronto nyc' }}
+      CITIES: ${{ inputs.cities || 'toronto nyc sf' }}
       FULL: ${{ github.event_name == 'schedule' || inputs.full == true }}
     steps:
       - uses: actions/checkout@v4

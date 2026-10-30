@@ -102,7 +102,7 @@ for r in FAC:
     if 'Recreation Center' not in n and 'Rec Center' not in n: n += ' Recreation Center'
     if n in seen: continue
     seen.add(n)
-    comm.append({'type': 'Feature', 'properties': {'name': n, 'cat': 'cc', 'sub': 'Recreation center · Rec & Park'}, 'geometry': pt(r['longitude'], r['latitude'])})
+    comm.append({'type': 'Feature', 'properties': {'name': n, 'cat': 'centre', 'sub': 'Recreation center · Rec & Park'}, 'geometry': pt(r['longitude'], r['latitude'])})
 write('community.geojson', fc(comm, count=dict(Counter(f['properties']['cat'] for f in comm))))
 print('community:', dict(Counter(f['properties']['cat'] for f in comm)))
 

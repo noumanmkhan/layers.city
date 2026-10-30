@@ -1,0 +1,265 @@
+{
+ "_about": "Settings for the fact sheets (engine/profiles/: build.py, walk_grid.py, fetch_walk.py, fetch_drive.py, page.html): one per Analysis Neighborhood. 'The subway' here is BART and Muni Metro together (metro: BART's stations and every Muni Metro stop, surface stops included, from muni_metro_stops.geojson, which only the fact sheets read); stops and changes to the hubs are counted along each drawn line, with a change wherever two stations sit within 200 m (Montgomery's BART and Muni platforms). factsheet.css colours the line bullets in the map's own BART and Muni palette. 'transfers' adds the passage between Union Square/Market St (the T Third) and Powell Street, about 300 m. Lines come from metro_lines.geojson, each line's main GTFS shapes whole (the map's own line files are in short pieces).",
+ "units": "neighbourhoods",
+ "census": "nb_profiles.json",
+ "distance": "mi",
+ "metro": {
+  "stations": [
+   "bart_stations",
+   "muni_metro_stops"
+  ],
+  "lines": [
+   "metro_lines"
+  ]
+ },
+ "hubs": [
+  "Montgomery Street",
+  "Powell Street",
+  "Civic Center/UN Plaza",
+  "4th St & King St",
+  "12th Street/Oakland City Center"
+ ],
+ "hub": {
+  "name": "Montgomery St",
+  "field": "montgomery"
+ },
+ "rail": {
+  "file": "rail_stations",
+  "in": "Caltrain and regional rail stations",
+  "nearest": "Nearest Caltrain station",
+  "within": 2
+ },
+ "regionHighways": "region_highways",
+ "arterials": {
+  "layers": {
+   "streets": "major"
+  }
+ },
+ "lineColors": {
+  "yellow": "#E6C800",
+  "orange": "#F9A11B",
+  "red": "#ED1C24",
+  "green": "#4DB848",
+  "blue": "#00AEEF",
+  "beige": "#A89F80",
+  "j": "#E08A2E",
+  "k": "#4E8FB8",
+  "l": "#8E3A8E",
+  "m": "#2E8B57",
+  "n": "#1D5FA0",
+  "t": "#C0384F",
+  "s": "#7C858C",
+  "hist": "#9C7A3C",
+  "cable": "#8C1D18"
+ },
+ "drive": {
+  "rampRadius": 3,
+  "keepStation": true,
+  "destinations": [
+   [
+    "Montgomery St",
+    -122.4018,
+    37.7894
+   ],
+   [
+    "SFO",
+    -122.379,
+    37.6213
+   ],
+   [
+    "Oakland Airport",
+    -122.2197,
+    37.7126
+   ],
+   [
+    "Downtown Oakland",
+    -122.2711,
+    37.8044
+   ],
+   [
+    "Downtown San José",
+    -121.8863,
+    37.3382
+   ]
+  ]
+ },
+ "walk": {
+  "tiles": [
+   3,
+   3
+  ]
+ },
+ "stationLabels": 14,
+ "hubBullets": false,
+ "transferStops": 4,
+ "lineOrder": [
+  "yellow",
+  "orange",
+  "red",
+  "green",
+  "blue",
+  "beige",
+  "j",
+  "k",
+  "l",
+  "m",
+  "n",
+  "t",
+  "s",
+  "hist",
+  "cable"
+ ],
+ "labels": {
+  "subwayStations": "BART stations and Muni Metro stops",
+  "nearestSubway": "Nearest BART or Muni Metro",
+  "bikeshare": "Bay Wheels stations",
+  "bikeLanes": "Bike lanes and paths",
+  "nature": [
+   [
+    "Parks",
+    "park"
+   ],
+   [
+    "Playgrounds",
+    "playground"
+   ],
+   [
+    "Dog play areas",
+    "dogrun"
+   ],
+   [
+    "Pools",
+    "pool"
+   ]
+  ],
+  "libraries": "Libraries",
+  "centres": "Recreation centers",
+  "heritage": "City landmarks (Article 10)",
+  "walkBike": "Commute on foot or by bike (ACS 2020–24)",
+  "glanceBikeshare": "Bay Wheels stations",
+  "glanceHeritage": "City landmarks",
+  "subwaySection": "BART and Muni Metro",
+  "busSection": "Muni buses",
+  "railSection": "Caltrain, cycling and driving",
+  "overnight": "Owl buses",
+  "parkingLots": "City garages and lots",
+  "parkingNearest": "Nearest City garage or lot",
+  "mainRoads": "Longest main streets",
+  "roads": [
+   [
+    "major",
+    "Main streets"
+   ]
+  ],
+  "glanceStation": "BART or Muni Metro stop",
+  "glanceStations": "BART and Muni Metro stops"
+ },
+ "page": {
+  "city": "San Francisco",
+  "kind": "SAN FRANCISCO",
+  "description": "Printable one-page fact sheets for each of San Francisco’s 41 Analysis Neighborhoods: BART and Muni Metro, buses, freeways, drive times, City parking, EV charging, parks, libraries and Bay Wheels. Drop a pin for walk and drive times from any spot.",
+  "unit": "neighborhood",
+  "Unit": "Neighborhood",
+  "boundary": "San Francisco Analysis Neighborhood boundary (DataSF)",
+  "pinned": "Pinned spot (rounded to about 300 ft) in {name}",
+  "outside": "That spot is outside San Francisco. Try a spot inside the city.",
+  "noMatch": "No match in San Francisco for “{q}”. Try the full street address, like “1 Dr Carlton B Goodlett Pl”.",
+  "placeholder": "Search an address, like 1 Dr Carlton B Goodlett Pl",
+  "credits": "Boundaries: DataSF · Transit: BART, SFMTA and Caltrain GTFS · Bay Wheels: Lyft · Parks: San Francisco Recreation and Park Department · Census figures: ACS 2020–24",
+  "creditsPin": " · Walks along streets and paths at 3 mph from the 500 ft square around the pin: © OpenStreetMap contributors · Drive times are free-flow",
+  "creditsTransit": " · Stops and changes counted along each drawn line · Door to door: typical weekday-morning trip",
+  "creditsDriving": " · Freeways and ramps: © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads, no tolls or traffic); distances straight-line · City parking: SFMTA · EV charging: U.S. DOE Alternative Fuels Data Center",
+  "sysNote": "BART and Muni Metro, simplified. Stops and changes are counted along each line.",
+  "sysLabel": "BART and Muni Metro with this neighborhood highlighted",
+  "nearestStop": "Nearest bus stop",
+  "nearestDock": "Nearest Bay Wheels dock",
+  "parkingNearest": "Nearest City garage or lot",
+  "legendTransit": [
+   [
+    "line",
+    "#ED1C24",
+    "BART"
+   ],
+   [
+    "line",
+    "#1D5FA0",
+    "Muni Metro"
+   ],
+   [
+    "line",
+    "var(--bus)",
+    "Frequent bus"
+   ],
+   [
+    "thin",
+    "var(--bus)",
+    "Other daytime bus"
+   ],
+   [
+    "line",
+    "var(--bike)",
+    "Bike lane or path"
+   ]
+  ],
+  "legendDriving": [
+   [
+    "hwy",
+    "#F7C548",
+    "Freeway"
+   ],
+   [
+    "road",
+    "#FFFFFF",
+    "Main street"
+   ],
+   [
+    "ramp",
+    "#fff",
+    "On-ramp"
+   ],
+   [
+    "gp",
+    "#0B8A44",
+    "City garage"
+   ],
+   [
+    "gps",
+    "#fff",
+    "City lot"
+   ],
+   [
+    "dot",
+    "#0A86B0",
+    "EV charging"
+   ]
+  ],
+  "legendOverview": [
+   [
+    "line",
+    "#ED1C24",
+    "BART"
+   ],
+   [
+    "line",
+    "#1D5FA0",
+    "Muni Metro"
+   ],
+   [
+    "line",
+    "var(--bike)",
+    "Bike lane or path"
+   ],
+   [
+    "dot",
+    "var(--park)",
+    "Park"
+   ]
+  ]
+ },
+ "transfers": [
+  [
+   "Union Square/Market St",
+   "Powell Street"
+  ]
+ ]
+}

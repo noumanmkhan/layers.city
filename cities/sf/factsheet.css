@@ -1,0 +1,11 @@
+/* Line bullets in the map's BART and Muni colours (cities/sf/city.css). BART's lines are colours, not letters, so
+   their bullets are plain dots; Muni Metro's carry the letter. Bus badges in Muni's red, express blue, owl navy. */
+.ln{font-size:10.5px}
+.ln.lYellow,.ln.lOrange,.ln.lRed,.ln.lGreen,.ln.lBlue,.ln.lOakland{font-size:0;width:14px;height:14px}
+.ln.lYellow{background:#E6C800} .ln.lOrange{background:#F9A11B} .ln.lRed{background:#ED1C24} .ln.lGreen{background:#4DB848}
+.ln.lBlue{background:#00AEEF} .ln.lOakland{background:#A89F80}
+.ln.lJ{background:#E08A2E} .ln.lK{background:#4E8FB8} .ln.lL{background:#8E3A8E} .ln.lM{background:#2E8B57} .ln.lN{background:#1D5FA0}
+.ln.lT{background:#C0384F} .ln.lS{background:#7C858C}
+.rb,.rb.night{background:#fff;color:#BA0C2F;box-shadow:inset 0 0 0 1.5px #BA0C2F}
+.rb.exp{background:#1D5FA0;color:#fff;box-shadow:none}
+.rb.night{color:#1C2A4A;box-shadow:inset 0 0 0 1.5px #1C2A4A}
