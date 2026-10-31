@@ -1822,18 +1822,44 @@
     "hint": "Enter your address to find your districts."
    },
    {
+    "id": "newcomer",
+    "name": "Where to live",
+    "note": "Housing cost by neighborhood, with BART, Muni Metro and frequent buses. Tap a spot for transit nearby and what's changing.",
+    "layers": [
+     "nb",
+     "lens",
+     "knownas",
+     "streets",
+     "bart",
+     "muni",
+     "stnNames",
+     "bus"
+    ],
+    "lens": "cost",
+    "bus": [
+     "freq"
+    ],
+    "view": "city"
+   },
+   {
     "id": "transit",
     "name": "Getting around",
-    "note": "BART, Muni Metro, the cable cars, Caltrain and the region's other trains.",
+    "note": "BART, Muni Metro, the cable cars, frequent and express Muni buses, Caltrain, the region's other trains and the Bay ferries.",
     "layers": [
      "streets",
      "bart",
      "muni",
      "stnNames",
+     "bus",
      "rail",
+     "ferry",
      "hwy"
     ],
-    "view": "city"
+    "view": "city",
+    "bus": [
+     "freq",
+     "exp"
+    ]
    }
   ]
  },

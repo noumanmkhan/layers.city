@@ -2,6 +2,10 @@
 
 ## Since 1.1
 
+### San Francisco: Where to live, and buses and ferries in Getting around (October 31)
+- San Francisco gets the fifth View the other cities have: *Where to live*, housing cost by neighborhood with BART,
+  Muni Metro and frequent buses. *Getting around* now also shows frequent and express Muni buses and the Bay ferries.
+
 ### San Francisco on Compare (October 31)
 - San Francisco joins the Compare page, city vs city and neighborhood vs neighborhood, from its 38 residential
   Analysis Neighborhoods (ACS 2020–2024) with transit minutes to Montgomery St. Its default neighborhood is Noe
