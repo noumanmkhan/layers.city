@@ -85,6 +85,21 @@ def latest_year_resource(res, fmt_ok=('ZIP', 'CSV')):
     return best
 
 
+def decode(raw):
+    """CSV bytes to text: UTF-8 (with or without a BOM), UTF-16, else Latin-1; leading blank lines dropped."""
+    if raw[:2] in (b'\xff\xfe', b'\xfe\xff'):
+        text = raw.decode('utf-16')
+    elif raw[:3] == b'\xef\xbb\xbf':
+        text = raw[3:].decode('utf-8', errors='replace')
+    else:
+        try:
+            text = raw.decode('utf-8')
+        except UnicodeDecodeError:
+            text = raw.decode('latin-1')
+    text = text.replace('\x00', '')
+    return text.lstrip('\r\n')
+
+
 def csv_rows(blob):
     """Rows from a zip of CSVs or a bare CSV."""
     if blob[:2] == b'PK':
@@ -92,12 +107,11 @@ def csv_rows(blob):
         for n in z.namelist():
             if not n.lower().endswith('.csv'):
                 continue
-            print('    reading', n, flush=True)
             raw = z.read(n)
-            text = raw.decode('utf-8-sig', errors='replace') if raw[:3] == b'\xef\xbb\xbf' else raw.decode('latin-1')
-            yield from csv.DictReader(io.StringIO(text))
+            print('    reading', n, len(raw), 'bytes, starts', repr(raw[:120]), flush=True)
+            yield from csv.DictReader(io.StringIO(decode(raw)))
     else:
-        yield from csv.DictReader(io.StringIO(blob.decode('utf-8-sig', errors='replace')))
+        yield from csv.DictReader(io.StringIO(decode(blob)))
 
 
 def part_osm():
@@ -225,6 +239,7 @@ def part_tickets():
     n = 0
     cols = None
     for row in csv_rows(blob):
+        row = {(k or '').strip().lower(): v for k, v in row.items()}
         if cols is None:
             cols = list(row.keys())
             print('  columns:', cols, flush=True)
