@@ -22,6 +22,7 @@ for f in rail_lines rail_lines_inner; do npx mapshaper -i tmp/$f.geojson -simpli
 for f in bart_lines muni_lines; do npx mapshaper -i tmp/$f.geojson -simplify interval=4 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 cp tmp/region_areas.geojson tmp/region_areas.raw.geojson
 npx mapshaper -i tmp/region_areas.raw.geojson -simplify interval=60 keep-shapes -o tmp/region_areas.geojson precision=0.00005 format=geojson -quiet
+[ -f raw/construction/osm.json ] && python3 ../../engine/construction.py sf   # after streets: lines being built (fetch-construction.yml)
 [ -f raw/places/osm_worship.json ] && python3 faith.py   # places of worship (fetch_places.py)
 [ -f raw/places/parks.geojson ] && python3 places.py   # parks, sports, schools, libraries, hospitals, colleges, Nearby
 [ -f raw/tech_geocoded.json ] && python3 tech.py   # tech headquarters (fetch_tech.py)

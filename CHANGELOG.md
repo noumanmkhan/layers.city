@@ -2,6 +2,12 @@
 
 ## Since 1.1
 
+### San Francisco: transit under construction (October 31)
+- VTA's Eastridge to BART Regional Connector (the Orange Line light rail extended 2.4 miles along Capitol
+  Expressway to Eastridge, with a Story Road station; opens 2029) in the Bay Area view, as Toronto shows the Hazel
+  McCallion Line. BART Silicon Valley Phase II is being built but has no track in OpenStreetMap yet, and The Portal
+  isn't under construction, so both are left off (`cities/sf/construction.json`).
+
 ### San Francisco: regional buses (October 31)
 - A *Regional buses* layer under Regional trains: AC Transit's Transbay lines, Golden Gate Transit and SamTrans, from
   OpenStreetMap like Chicago's Pace (no timetables). In the city view, only the routes that stop in San Francisco.

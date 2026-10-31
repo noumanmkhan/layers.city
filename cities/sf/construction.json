@@ -1,0 +1,13 @@
+{
+  "_about": "Transit under construction (engine/construction.py). Lines are drawn from OpenStreetMap ways whose name matches 'match' (fetched by engine/fetch_construction.py). Stations are placed at 'at' [lon, lat], snapped to the line. Only facts the owner has published go in 'opens'. Checked October 31, 2026: BART Silicon Valley Phase II is under way (the tunnel launch structure at Newhall Yard) but has no track in OpenStreetMap yet, so it's left off until it does; The Portal (Caltrain's downtown extension to the Salesforce Transit Center) is funded but not yet being built.",
+  "lat0": 37.6,
+  "lines": [
+    {"id": "ebrc", "name": "Eastridge to BART Regional Connector", "short": "Orange Line to Eastridge", "mode": "light_rail", "color": "#E87722",
+     "owner": "Santa Clara Valley Transportation Authority (VTA)", "opens": "2029 (VTA)", "length": "2.4 miles, 2 stations",
+     "about": "Extends VTA's Orange Line light rail from Alum Rock Transit Center to Eastridge Transit Center in East San Jose, on a guideway above the middle of Capitol Expressway, with a station at Story Road. Building began in May 2024.",
+     "link": "https://www.vta.org/projects/eastridge-bart-regional-connector",
+     "match": "^Alum Rock.Eastridge Corridor$",
+     "stations": [{"name": "Story Road", "at": [-121.82628, 37.34967]}, {"name": "Eastridge Transit Center", "at": [-121.81044, 37.32738]}]}
+  ],
+  "existing": []
+}
