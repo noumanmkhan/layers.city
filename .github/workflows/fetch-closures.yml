@@ -50,7 +50,9 @@ jobs:
           for c in toronto chicago nyc sf; do
             mkdir -p cities/$c/raw/closures
             [ -f cities/$c/fetch_marathon.py ] && ( python3 -u cities/$c/fetch_marathon.py 2>&1 | tee cities/$c/raw/closures/marathon.log || true )   # New York: the City's marathon notice, once posted
-            ( python3 -u cities/$c/fetch_closures.py && { [ ! -f cities/$c/construction.json ] || python3 -u engine/closures.py $c; } && python3 -u engine/events.py $c )   # San Francisco has special events only (no construction.json) 2>&1 | tee cities/$c/raw/closures/fetch.log || true
+            # Construction closures only where construction.json has a "closures" block (San Francisco: special events only).
+            cl=$(python3 -c "import json; print(1 if 'closures' in json.load(open('cities/$c/construction.json')) else '')" 2>/dev/null || true)
+            ( python3 -u cities/$c/fetch_closures.py && { [ -z "$cl" ] || python3 -u engine/closures.py $c; } && python3 -u engine/events.py $c ) 2>&1 | tee cities/$c/raw/closures/fetch.log || true
           done
           # The weekend brief for the iOS app (engine/weekend.py): Toronto's planned subway closures first.
           ( python3 -u cities/toronto/fetch_subway_alerts.py 2>&1 | tee -a cities/toronto/raw/closures/fetch.log ) || true
