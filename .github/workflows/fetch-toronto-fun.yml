@@ -1,0 +1,37 @@
+name: Fetch Toronto fun maps
+# Downloads the inputs for the Fun maps page (OpenStreetMap shops, 311 requests, parking tickets, street names)
+# into cities/toronto/raw/fun/, boiled down to small summaries, then rebuilds docs/toronto/fun/, which deploy.yml
+# publishes. These maps change slowly, so it runs quarterly, when its scripts change on main, or by hand.
+on:
+  workflow_dispatch:
+    inputs:
+      parts: {description: 'Parts to fetch (osm 311 suffixes tickets); empty = all', default: ''}
+  schedule:
+    - cron: '41 7 2 1,4,7,10 *'
+  push:
+    branches: [main]
+    paths: ['cities/toronto/fetch_fun.py', '.github/workflows/fetch-toronto-fun.yml']
+permissions:
+  contents: write
+concurrency: fetch-toronto-fun
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install shapely
+      - run: mkdir -p cities/toronto/raw/fun && python3 -u cities/toronto/fetch_fun.py ${{ inputs.parts }} 2>&1 | tee cities/toronto/raw/fun/fetch.log
+      - run: |
+          if [ -f engine/fun/build.py ]; then python3 engine/fun/build.py toronto; fi
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/fun
+          [ -d docs/toronto/fun ] && git add docs/toronto/fun
+          git commit -m "Fetch Toronto fun maps inputs" || echo "no changes"
+          git pull --rebase
+          git push
