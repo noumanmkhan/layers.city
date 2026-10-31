@@ -82,7 +82,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, Community Benefit Districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA) · Street sweeping: San Francisco Public Works (DataSF) · Addresses: City and County of San Francisco, Enterprise Addressing System (DataSF)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, Community Benefit Districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, AC Transit, Golden Gate Transit & SamTrans bus routes, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA) · Street sweeping: San Francisco Public Works (DataSF) · Addresses: City and County of San Francisco, Enterprise Addressing System (DataSF)",
  "example": {
   "at": [
    37.779,
@@ -548,6 +548,17 @@
      "note": "Caltrain from 4th & King, SMART, ACE, Capitol Corridor and VTA light rail",
      "on": true,
      "hover": "{name} · {to}"
+    },
+    {
+     "id": "regbus",
+     "kind": "regional",
+     "mode": "regional",
+     "under": "rail",
+     "file": "transit_routes",
+     "lazy": true,
+     "stopZoom": 12,
+     "name": "Regional buses",
+     "note": "AC Transit Transbay, Golden Gate Transit and SamTrans; in the city view, the ones that stop in San Francisco. Routes and stops from OpenStreetMap, without timetables. Stops from zoom 12"
     },
     {
      "id": "ferry",
@@ -1642,6 +1653,11 @@
      "bus",
      "Muni buses",
      false
+    ],
+    [
+     "regional",
+     "Regional buses",
+     false
     ]
    ],
    "night": "Owl",
@@ -1658,9 +1674,10 @@
    "nightOnly": "Owl service only",
    "routeClasses": [],
    "kinds": {
-    "bus": "Muni bus route"
+    "bus": "Muni bus route",
+    "regional": "Regional bus route"
    },
-   "note": "Muni bus routes with a stop within ¼ mile, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. Muni schedules, week of {week}; Bay Wheels’ station list."
+   "note": "Muni and regional bus routes with a stop within ¼ mile, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. Muni schedules, week of {week}; AC Transit, Golden Gate Transit and SamTrans routes from OpenStreetMap, without timetables; Bay Wheels’ station list."
   },
   "nearby": {
    "file": "nearby.json",
@@ -1854,7 +1871,7 @@
    {
     "id": "transit",
     "name": "Getting around",
-    "note": "BART, Muni Metro, the cable cars, frequent and express Muni buses, Caltrain, the region's other trains and the Bay ferries.",
+    "note": "BART, Muni Metro, the cable cars, frequent and express Muni buses, Caltrain, the regional buses, the region's other trains and the Bay ferries.",
     "layers": [
      "streets",
      "bart",
@@ -1862,6 +1879,7 @@
      "stnNames",
      "bus",
      "rail",
+     "regbus",
      "ferry",
      "hwy"
     ],

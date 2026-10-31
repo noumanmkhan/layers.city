@@ -2,6 +2,12 @@
 
 ## Since 1.1
 
+### San Francisco: regional buses (October 31)
+- A *Regional buses* layer under Regional trains: AC Transit's Transbay lines, Golden Gate Transit and SamTrans, from
+  OpenStreetMap like Chicago's Pace (no timetables). In the city view, only the routes that stop in San Francisco.
+  They also join the card's Transit nearby and the Getting around View.
+- Data: three OSM feeds in `cities/sf/surface.json`, fetched weekly with the other routes.
+
 ### San Francisco: collector streets (October 31)
 - The tier below the main streets (Haight, Sutter, Sacramento, 18th St, Arguello…), 136 streets from OpenStreetMap's
   tertiary roads, under Main streets, from zoom 13, as in Toronto, Chicago, Vancouver, Dallas and New York.
