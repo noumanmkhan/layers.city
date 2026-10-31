@@ -6,6 +6,8 @@ Writes into docs/sf/data/:
   ferry_lines.geojson, ferry_lines_inner.geojson, ferry_stations.geojson
                          the Bay's commuter ferries (San Francisco Bay Ferry, Golden Gate Ferry, the Treasure Island
                          Ferry), drawn from OpenStreetMap's ferry routes; seasonal ballpark and arena runs left out
+  cbds.geojson           the City's Community Benefit Districts (its business improvement districts), with the year
+                         each was set up and whether it's a CBD or a BID (patches layer and card row)
 Slow Streets go into the bike network (bikes.json "extra"), and soft-story buildings into the card's Nearby counts
 (places.py), not here."""
 import json, os, re
@@ -42,6 +44,27 @@ print('tsunami: %.1f km² of the city' % (ts.intersection(city).area * 111 * 88)
 se = unary_union([shape(f['geometry']).buffer(0) for f in load('seismic.geojson')['features'] if f.get('geometry')]).intersection(city.buffer(0.002))
 write('seismic', [poly_feat(se, {'name': 'Seismic hazard zone'})])
 print('seismic: %d shapes joined, %.1f km²' % (len(load('seismic.geojson')['features']), se.intersection(city).area * 111 * 88))
+
+# ---------- Community Benefit Districts ----------
+# The City's file names some districts by their nonprofit or a long form; the card wants the place. Union Square is
+# the one district set up as a BID (1999), under the older law; the rest are CBDs.
+CBD_NAMES = {'Noe Valley Association': 'Noe Valley', 'Union Square Business Improvement District': 'Union Square',
+             'East Cut (Greater Rincon Hill)': 'The East Cut', 'Castro/Upper Market': 'Castro/Upper Market'}
+cbds = []
+for f in load('cbds.geojson')['features']:
+    p = f['properties']
+    n = (p.get('community_benefit_district') or '').strip()
+    if not n or not f.get('geometry'): continue
+    kind = 'BID' if 'Business Improvement District' in n else 'CBD'
+    n = re.sub(r'\s+(Community Benefit District|CBD)$', '', CBD_NAMES.get(n, n))
+    g = shape(f['geometry']).buffer(0).intersection(city)
+    if g.is_empty: continue
+    since = re.match(r'\d{4}', str(p.get('established') or ''))
+    props = {'name': n, 'kind': kind}
+    if since: props['since'] = since.group(0)
+    cbds.append(poly_feat(g, props))
+write('cbds', sorted(cbds, key=lambda f: f['properties']['name']))
+print('CBDs:', len(cbds), [(f['properties']['name'], f['properties'].get('since')) for f in sorted(cbds, key=lambda f: f['properties']['name'])])
 
 # ---------- Bay ferries ----------
 KEEP = {'San Francisco Bay Ferry': ('ferry-sfbf', '#1F6FB2'), 'Golden Gate Ferry': ('ferry-ggf', '#B5382F'), 'Treasure Island Ferry': ('ferry-ti', '#2C8C7E')}

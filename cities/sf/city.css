@@ -39,3 +39,10 @@
 .sw.in-chips{color:#2F6FB3} .sw.in-hardware{color:#6B5BB5} .sw.in-software{color:#1E8C6E} .sw.in-internet{color:#C2410C} .sw.in-ai{color:#B0287A}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lm.in-chips{--lm:#6FA8E8}:root:not([data-theme="light"]) .lm.in-hardware{--lm:#A89AE8}:root:not([data-theme="light"]) .lm.in-software{--lm:#4CC9A4}:root:not([data-theme="light"]) .lm.in-internet{--lm:#F08A4B}:root:not([data-theme="light"]) .lm.in-ai{--lm:#E86AB4}}
 :root[data-theme="dark"] .lm.in-chips{--lm:#6FA8E8}:root[data-theme="dark"] .lm.in-hardware{--lm:#A89AE8}:root[data-theme="dark"] .lm.in-software{--lm:#4CC9A4}:root[data-theme="dark"] .lm.in-internet{--lm:#F08A4B}:root[data-theme="dark"] .lm.in-ai{--lm:#E86AB4}
+/* Cultural districts in plum, so they read apart from the Community Benefit Districts (the engine's orange BIA patches). */
+:root{--sfcult:#8E3A8E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sfcult:#D68AD6}}
+:root[data-theme="dark"]{--sfcult:#D68AD6}
+.sfcult{fill:var(--sfcult);fill-opacity:.4;stroke:var(--sfcult);stroke-width:1.2}.sfcult:hover{fill-opacity:.65}
+.lbl-sfcult{font-size:10px;font-weight:600;color:var(--sfcult)!important}
+.sw.cultural.k-patches{background:color-mix(in srgb,var(--sfcult) 45%,var(--city))}

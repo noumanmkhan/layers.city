@@ -82,7 +82,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA) · Street sweeping: San Francisco Public Works (DataSF) · Addresses: City and County of San Francisco, Enterprise Addressing System (DataSF)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, Community Benefit Districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA) · Street sweeping: San Francisco Public Works (DataSF) · Addresses: City and County of San Francisco, Enterprise Addressing System (DataSF)",
  "example": {
   "at": [
    37.779,
@@ -314,8 +314,19 @@
      "hcdText": "Also in (historic district)"
     },
     {
+     "id": "cbd",
+     "kind": "patches",
+     "file": "cbds",
+     "name": "Community Benefit Districts",
+     "note": "The City’s business improvement districts: Union Square, Downtown, the Castro, Noe Valley…",
+     "label": "{name}",
+     "hover": "{name} {kind}"
+    },
+    {
      "id": "cultural",
      "kind": "patches",
+     "cls": "sfcult",
+     "lcls": "lbl-sfcult",
      "file": "cultural",
      "name": "Cultural districts",
      "note": "The City’s ten: Japantown, Calle 24, SoMa Pilipinas, the Castro LGBTQ…",
@@ -1399,6 +1410,11 @@
     "knownas": 2
    },
    {
+    "layer": "cbd",
+    "text": "{name} {kind}",
+    "color": "--bia"
+   },
+   {
     "layer": "sup",
     "text": "Votes in Supervisor District {num}",
     "color": "--ward"
@@ -1445,6 +1461,12 @@
     "layer": "cultural",
     "text": "{name}",
     "onlyInside": true
+   },
+   {
+    "label": "Benefit district",
+    "layer": "cbd",
+    "text": "{name} {kind}[ (since {since})]",
+    "empty": "None"
    },
    {
     "label": "Tsunami hazard area",

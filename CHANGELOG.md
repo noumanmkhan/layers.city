@@ -2,6 +2,13 @@
 
 ## Since 1.1
 
+### San Francisco: Community Benefit Districts (October 31)
+- San Francisco's version of Toronto's BIAs and New York's BIDs: 16 districts where property owners pay for cleaning,
+  safety and upkeep on a commercial strip (Union Square, Downtown, Yerba Buena, the Castro, Noe Valley, Japantown…).
+  A toggle in Places, a "Benefit district" row on the card ("Union Square BID (since 1999)") and a pill.
+- Cultural districts are now plum instead of the shared orange, so the two layers read apart when both are on.
+- Data: OEWD's file on DataSF (c28a-f6gs), fetched monthly with the hazard zones (`fetch_extras.py`, `extras.py`).
+
 ### Hyderabad: fuller streets, the whole ring road, business parks (October 30)
 - Main streets now take every primary and secondary road around the ring road, named or not, so they no longer stop
   and start; tertiary roads are a new Collector streets layer. 341 main streets and 371 collectors.
