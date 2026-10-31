@@ -18,3 +18,4 @@ the neighborhood lens (ACS). Toronto parity, in Toronto's order:
 10. Done October 31: Routes page with Muni (buses, streetcars, cable cars, Muni Metro) and BART, live times from 511.org and BART; street sweeping on the card; refresh-sf.yml keeps representatives, parking and sweeping weekly, places and hazard layers monthly.
 11. Done October 31: neighborhood badges (16, cities/sf/badges/) and the Address row (card.address.origins).
 12. Done October 31: Community Benefit Districts (16, DataSF c28a-f6gs, which the scout missed: its title is "Community Benefits Districts"), a Benefit district card row and pill, fetched monthly with the extras. Cultural districts got their own colour so the two layers read apart.
+13. Done October 31: on Compare; a Where to live View (and buses and ferries in Getting around); collector streets (collectors.py, OSM tertiary roads not on MAJOR_STREETS).

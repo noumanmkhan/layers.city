@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### San Francisco: collector streets (October 31)
+- The tier below the main streets (Haight, Sutter, Sacramento, 18th St, Arguello…), 136 streets from OpenStreetMap's
+  tertiary roads, under Main streets, from zoom 13, as in Toronto, Chicago, Vancouver, Dallas and New York.
+  `cities/sf/collectors.py`, from the main-streets fetch; no new download.
+
 ### San Francisco: Where to live, and buses and ferries in Getting around (October 31)
 - San Francisco gets the fifth View the other cities have: *Where to live*, housing cost by neighborhood with BART,
   Muni Metro and frequent buses. *Getting around* now also shows frequent and express Muni buses and the Bay ferries.

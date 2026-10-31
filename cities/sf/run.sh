@@ -15,6 +15,8 @@ npx mapshaper -i tmp/base.geojson -simplify interval=50 keep-shapes -filter-sliv
 simplify sides 6; simplify neighbourhoods 5; simplify sffind 4; simplify supervisors 6; simplify assembly 6; simplify senate 8; simplify congress 8
 simplify heritage 3; simplify cultural 4
 for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval=5 -o $OUT/$f.geojson precision=0.00001 -quiet; done
+python3 collectors.py          # after streets and base are simplified: the tier below the main streets (fetch_streets.py)
+npx mapshaper -i tmp/collectors.geojson -simplify interval=5 -o $OUT/collectors.geojson precision=0.00001 -quiet
 npx mapshaper -i tmp/region_highways.geojson -simplify interval=20 -o $OUT/region_highways.geojson precision=0.00001 -quiet
 for f in rail_lines rail_lines_inner; do npx mapshaper -i tmp/$f.geojson -simplify interval=15 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 for f in bart_lines muni_lines; do npx mapshaper -i tmp/$f.geojson -simplify interval=4 -o $OUT/$f.geojson precision=0.00001 -quiet; done
