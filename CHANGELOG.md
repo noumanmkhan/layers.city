@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### Toronto: Fun maps (October 31)
+- A new page, layers.city/toronto/fun/, linked from the hub: neighbourhood maps made for sharing. Head-to-heads (Tim Hortons vs
+  Starbucks, liquor vs cannabis, gas vs EV chargers, shawarma vs pizza, bubble tea vs coffee, indie vs chain coffee, tennis vs
+  pickleball, pools vs rinks, laundromats vs dry cleaners, bookstores vs vape shops, bike shops vs car washes, Dollarama vs
+  Shoppers, Bike Share vs Green P), each ward's 311 signature, street-name endings and parking tickets. Hover or tap for counts;
+  each map has its own link.
+- Data: `cities/toronto/fetch_fun.py` (OpenStreetMap via Overpass; Toronto Open Data 311 requests, parking tickets, address
+  points and centreline), quarterly in *Fetch Toronto fun maps*; `engine/fun/build.py` and `page.html`; `cities/toronto/fun.json`.
+
 ### San Francisco: where to vote on November 3 (October 31)
 - The card's where-to-vote box for San Francisco: each of the 514 precincts with its polling place from the Department
   of Elections' list (501 sites, with the cross streets it gives), or, for the 13 mail-ballot precincts, how to vote

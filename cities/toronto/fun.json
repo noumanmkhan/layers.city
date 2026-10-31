@@ -1,0 +1,445 @@
+{
+  "page": {
+    "title": "Fun maps",
+    "city": "Toronto",
+    "description": "Toronto's neighbourhoods in silly-but-true maps: Tim Hortons vs Starbucks, LCBO vs cannabis, gas vs EV, what each ward calls 311 about, and more.",
+    "lede": "The same 158 neighbourhoods as the map, counted in less serious ways. Each map is a head-to-head or a signature: what a neighbourhood has more of than the rest of the city.",
+    "unitName": "neighbourhood",
+    "unitPlural": "neighbourhoods",
+    "credits": "Shops and restaurants © OpenStreetMap contributors (ODbL). 311 requests, parking tickets, street names, rec facilities and EV chargers: City of Toronto Open Data, NRCan/AFDC. Counts are only as complete as their sources.",
+    "refresh": "Refreshed every three months."
+  },
+  "osm": "raw/fun/osm_places.json",
+  "maps": [
+    {
+      "id": "tims-vs-starbucks",
+      "type": "pair",
+      "title": "Tim Hortons vs Starbucks",
+      "a": {
+        "label": "Tim Hortons",
+        "brand": true,
+        "short": "Tim's",
+        "colour": "#C8102E",
+        "osm": [
+          {
+            "brand": "^Tim Hortons$"
+          },
+          {
+            "name": "^Tim Hortons"
+          }
+        ]
+      },
+      "b": {
+        "label": "Starbucks",
+        "brand": true,
+        "colour": "#00704A",
+        "osm": [
+          {
+            "brand": "^Starbucks$"
+          },
+          {
+            "name": "^Starbucks"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lcbo-vs-cannabis",
+      "type": "pair",
+      "title": "Liquor stores vs cannabis stores",
+      "a": {
+        "label": "Liquor, beer and wine stores",
+        "short": "Liquor",
+        "colour": "#7A1F5C",
+        "osm": [
+          {
+            "shop": "^(alcohol|wine)$"
+          }
+        ]
+      },
+      "b": {
+        "label": "Cannabis stores",
+        "short": "Cannabis",
+        "colour": "#3F8F3A",
+        "osm": [
+          {
+            "shop": "^cannabis$"
+          }
+        ]
+      },
+      "note": "Liquor counts the LCBO, the Beer Store, Wine Rack and independents; grocery-store beer aisles aren't mapped."
+    },
+    {
+      "id": "gas-vs-ev",
+      "type": "pair",
+      "title": "Gas stations vs EV chargers",
+      "a": {
+        "label": "Gas stations",
+        "colour": "#D9822B",
+        "osm": [
+          {
+            "amenity": "^fuel$"
+          }
+        ]
+      },
+      "b": {
+        "label": "Public EV charging sites",
+        "short": "EV chargers",
+        "colour": "#1F6FB5",
+        "layer": "parking.geojson",
+        "where": {
+          "c": "ev"
+        }
+      },
+      "note": "EV counts are charging sites (not plugs) open to the public, the same list as the map's Parking layer."
+    },
+    {
+      "id": "shawarma-vs-pizza",
+      "type": "pair",
+      "title": "Shawarma vs pizza",
+      "mode": "relative",
+      "a": {
+        "label": "Shawarma",
+        "colour": "#B5651D",
+        "osm": [
+          {
+            "cuisine": "shawarma"
+          },
+          {
+            "name": "shawarma|shawerma|shawarmaa"
+          }
+        ],
+        "one": "shawarma spot",
+        "many": "shawarma spots"
+      },
+      "b": {
+        "label": "Pizza",
+        "colour": "#C8102E",
+        "osm": [
+          {
+            "cuisine": "pizza"
+          },
+          {
+            "name": "pizza|pizzeria"
+          }
+        ],
+        "one": "pizza place",
+        "many": "pizza places"
+      }
+    },
+    {
+      "id": "bubble-tea-vs-coffee",
+      "type": "pair",
+      "title": "Bubble tea vs coffee shops",
+      "mode": "relative",
+      "a": {
+        "label": "Bubble tea",
+        "colour": "#8E5BB5",
+        "osm": [
+          {
+            "cuisine": "bubble_tea"
+          },
+          {
+            "name": "bubble tea|boba|chatime|coco fresh|gong cha|presotea|the alley|kung fu tea|yi fang|ten ren|xing fu tang"
+          }
+        ],
+        "one": "bubble tea shop",
+        "many": "bubble tea shops"
+      },
+      "b": {
+        "label": "Coffee shops",
+        "colour": "#6B4423",
+        "osm": [
+          {
+            "amenity": "^cafe$"
+          }
+        ],
+        "except": [
+          {
+            "cuisine": "bubble_tea"
+          },
+          {
+            "name": "bubble tea|boba|chatime|coco fresh|gong cha|presotea|the alley|kung fu tea|yi fang|ten ren|xing fu tang"
+          }
+        ],
+        "one": "coffee shop",
+        "many": "coffee shops"
+      }
+    },
+    {
+      "id": "indie-vs-chain-coffee",
+      "type": "pair",
+      "title": "Independent vs chain coffee",
+      "a": {
+        "label": "Independent cafés",
+        "short": "Indie",
+        "colour": "#2E7D6B",
+        "osm": [
+          {
+            "amenity": "^cafe$"
+          }
+        ],
+        "except": [
+          {
+            "brand": "."
+          },
+          {
+            "name": "^(tim hortons|starbucks|second cup|mcdonald|balzac|aroma|pilot coffee|blenz|coffee time|country style|timothy|the coffee bean|nespresso|bridgehead)"
+          }
+        ]
+      },
+      "b": {
+        "label": "Chain cafés",
+        "short": "Chain",
+        "colour": "#555555",
+        "osm": [
+          {
+            "amenity": "^cafe$",
+            "brand": "."
+          },
+          {
+            "amenity": "^cafe$",
+            "name": "^(tim hortons|starbucks|second cup|balzac|aroma|coffee time|country style|timothy|the coffee bean|blenz|bridgehead)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tennis-vs-pickleball",
+      "type": "pair",
+      "title": "Tennis vs pickleball",
+      "a": {
+        "label": "Parks with tennis courts",
+        "short": "Tennis",
+        "colour": "#7FA51F",
+        "layer": "sports.geojson",
+        "has": "tennis"
+      },
+      "b": {
+        "label": "Parks with pickleball courts",
+        "short": "Pickleball",
+        "colour": "#1F8FA5",
+        "layer": "sports.geojson",
+        "has": "pickleball"
+      },
+      "note": "Counts City parks and community centres, not courts. Many have both."
+    },
+    {
+      "id": "pools-vs-rinks",
+      "type": "pair",
+      "title": "Pools vs ice rinks",
+      "a": {
+        "label": "Pools",
+        "colour": "#2B8CD6",
+        "layer": "sports.geojson",
+        "has": "pool"
+      },
+      "b": {
+        "label": "Ice rinks",
+        "colour": "#7AA7C7",
+        "layer": "sports.geojson",
+        "has": "rink"
+      },
+      "note": "City pools and rinks, indoor and outdoor, counted by location."
+    },
+    {
+      "id": "laundromats-vs-dry-cleaners",
+      "type": "pair",
+      "title": "Laundromats vs dry cleaners",
+      "a": {
+        "label": "Laundromats",
+        "colour": "#3B7EA1",
+        "osm": [
+          {
+            "shop": "^laundry$"
+          }
+        ]
+      },
+      "b": {
+        "label": "Dry cleaners",
+        "colour": "#A1683B",
+        "osm": [
+          {
+            "shop": "^dry_cleaning$"
+          }
+        ]
+      }
+    },
+    {
+      "id": "books-vs-vapes",
+      "type": "pair",
+      "title": "Bookstores vs vape shops",
+      "a": {
+        "label": "Bookstores",
+        "colour": "#8B2E2E",
+        "osm": [
+          {
+            "shop": "^books$"
+          }
+        ]
+      },
+      "b": {
+        "label": "Vape shops",
+        "colour": "#5C5C8A",
+        "osm": [
+          {
+            "shop": "^e-cigarette$"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bike-shops-vs-car-washes",
+      "type": "pair",
+      "title": "Bike shops vs car washes",
+      "a": {
+        "label": "Bike shops",
+        "colour": "#2E8B57",
+        "osm": [
+          {
+            "shop": "^bicycle$"
+          }
+        ]
+      },
+      "b": {
+        "label": "Car washes",
+        "colour": "#4A6FA5",
+        "osm": [
+          {
+            "amenity": "^car_wash$"
+          }
+        ]
+      }
+    },
+    {
+      "id": "dollarama-vs-shoppers",
+      "type": "pair",
+      "title": "Dollarama vs Shoppers Drug Mart",
+      "a": {
+        "label": "Dollarama",
+        "brand": true,
+        "colour": "#2E7D32",
+        "osm": [
+          {
+            "brand": "^Dollarama$"
+          },
+          {
+            "name": "^Dollarama"
+          }
+        ]
+      },
+      "b": {
+        "label": "Shoppers Drug Mart",
+        "brand": true,
+        "short": "Shoppers",
+        "colour": "#C8102E",
+        "osm": [
+          {
+            "brand": "^Shoppers Drug Mart$"
+          },
+          {
+            "name": "^Shoppers Drug Mart"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bikeshare-vs-green-p",
+      "type": "pair",
+      "title": "Bike Share docks vs Green P lots",
+      "a": {
+        "label": "Bike Share stations",
+        "brand": true,
+        "short": "Bike Share",
+        "colour": "#1F6FB5",
+        "layer": "bikeshare.geojson"
+      },
+      "b": {
+        "label": "Green P lots and garages",
+        "brand": true,
+        "short": "Green P",
+        "colour": "#0F7A3A",
+        "layer": "parking.geojson",
+        "where": {
+          "c": "gp"
+        }
+      }
+    },
+    {
+      "id": "311-signature",
+      "type": "signature311",
+      "title": "What each ward calls 311 about",
+      "minTypeTotal": 1500,
+      "minAreaCount": 60,
+      "note": "Each ward is coloured by the kind of 311 call it makes far more often than the city as a whole, not its most common one (that's a broken bin lid almost everywhere). Hover or tap for the single most over-represented request. The City publishes 311 requests by ward, not by neighbourhood.",
+      "themes": [
+        [
+          "Noise",
+          "noise|amplified|sound"
+        ],
+        [
+          "Wildlife",
+          "wildlife|animal|dog |dogs|raccoon|coyote|bird|rodent|pest"
+        ],
+        [
+          "Snow and ice",
+          "snow|plow|salting|icy|windrow"
+        ],
+        [
+          "Illegal dumping",
+          "dumping"
+        ],
+        [
+          "Graffiti and posters",
+          "graffiti|poster"
+        ],
+        [
+          "Parking",
+          "parking"
+        ],
+        [
+          "Bins and garbage",
+          "bin|garbage|recycl|organic|yard waste|furniture|not picked up|collection|waste set out|hazardous waste|solid waste|oversized|litter"
+        ],
+        [
+          "Trees",
+          "tree|pruning|stump"
+        ],
+        [
+          "Water and sewer",
+          "water|sewer|catch basin|flood|hydrant|drain"
+        ],
+        [
+          "Roads and sidewalks",
+          "road|pothole|sidewalk|curb|pavement|street furniture|sign|signal|debris|boulevard|street light"
+        ],
+        [
+          "Property and bylaws",
+          "property|grass|zoning|encroachment|contractor|fence|pool|sign permit"
+        ]
+      ]
+    },
+    {
+      "id": "parking-tickets",
+      "type": "tickets",
+      "title": "Parking tickets",
+      "note": "Tickets are placed by matching the ticket's address to the City's address points; a ticket written at an intersection or a vague spot isn't counted."
+    },
+    {
+      "id": "street-suffixes",
+      "type": "suffix",
+      "title": "Avenue, Crescent or Gardens?",
+      "minNames": 3,
+      "ignore": [
+        "Other"
+      ],
+      "note": "Each neighbourhood's street ending that's most over-represented compared with the city, counted by distinct street name. Grid neighbourhoods lean Avenue; postwar suburbs lean Crescent, Court and Drive.",
+      "maxCats": 10,
+      "standouts": [
+        "Crescent",
+        "Court",
+        "Gardens"
+      ]
+    }
+  ]
+}
