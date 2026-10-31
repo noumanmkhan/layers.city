@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### San Francisco on Compare (October 31)
+- San Francisco joins the Compare page, city vs city and neighborhood vs neighborhood, from its 38 residential
+  Analysis Neighborhoods (ACS 2020–2024) with transit minutes to Montgomery St. Its default neighborhood is Noe
+  Valley, paired with New York.
+
 ### San Francisco: Community Benefit Districts (October 31)
 - San Francisco's version of Toronto's BIAs and New York's BIDs: 16 districts where property owners pay for cleaning,
   safety and upkeep on a commercial strip (Union Square, Downtown, Yerba Buena, the Castro, Noe Valley, Japantown…).

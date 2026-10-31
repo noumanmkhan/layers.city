@@ -31,6 +31,7 @@ CITIES = [
     ('chicago',   'ca_profiles',   'loop',       'USD'),
     ('nyc',       'cd_profiles',   'penn',       'USD'),
     ('dallas',    'zip_profiles',  'downtown',   'USD'),
+    ('sf',        'nb_profiles',   'montgomery', 'USD'),
 ]
 
 def pairs(rows, key, wkey):

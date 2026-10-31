@@ -5,14 +5,14 @@
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Compare cities and neighbourhoods · Layers.City</title>
-<meta name="description" content="Compare Toronto, New York, Chicago, Vancouver and Dallas side by side, or pick a neighbourhood and find the places most like it in another city: housing, getting around, home types and more.">
+<meta name="description" content="Compare Toronto, New York, San Francisco, Chicago, Vancouver and Dallas side by side, or pick a neighbourhood and find the places most like it in another city: housing, getting around, home types and more.">
 <link rel="canonical" href="https://layers.city/compare/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://layers.city/compare/">
 <meta property="og:site_name" content="Layers.City">
 <meta property="og:title" content="Compare cities and neighbourhoods">
-<meta property="og:description" content="Five cities side by side, or a neighbourhood and the places most like it in another city.">
+<meta property="og:description" content="Six cities side by side, or a neighbourhood and the places most like it in another city.">
 <meta property="og:image" content="https://layers.city/og-layers.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -278,7 +278,7 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
     (n >= 1000000 ? '$' + (n/1000000).toFixed(n % 1000000 ? 2 : 0).replace(/0$/, '') + 'M' : n >= 10000 ? '$' + Math.round(n/1000) + 'k' : '$' + fmt.format(n)) + ' ' + cur;
   const NA = '<div class="na">Not available yet</div>';
   const LETTER = ['A', 'B', 'C'];
-  const DEFAULT_UNIT = {toronto:'Rosedale-Moore Park', nyc:"Chelsea & Hell's Kitchen", chicago:'Lincoln Park', vancouver:'Kitsilano', dallas:'ZIP 75206'};
+  const DEFAULT_UNIT = {toronto:'Rosedale-Moore Park', nyc:"Chelsea & Hell's Kitchen", chicago:'Lincoln Park', vancouver:'Kitsilano', dallas:'ZIP 75206', sf:'Noe Valley'};
   const wide = matchMedia('(min-width:760px)');
 
   // ---- State, from the URL: ?mode=nbhd&a=toronto:98&b=nyc:104&c=chicago:7&view=typical
@@ -287,7 +287,7 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
   let view = q.get('view') === 'typical' ? 'typical' : 'city';
   // A place B or C given without a unit opens on the closest match to place A; a link that names only place A
   // (the map card's "Places like … in other cities") gets a partner city to match in.
-  const PARTNER = {toronto:'nyc', nyc:'toronto', chicago:'toronto', vancouver:'toronto', dallas:'chicago'};
+  const PARTNER = {toronto:'nyc', nyc:'toronto', chicago:'toronto', vancouver:'toronto', dallas:'chicago', sf:'nyc'};
   let cols = ['a', 'b', 'c'].map(k => q.get(k)).filter(Boolean).map(v => { const [city, unit] = v.split(':'); return {city, unit}; })
     .filter(c => byId[c.city]);
   if (cols.length === 1) cols.push({city: byId[PARTNER[cols[0].city]] ? PARTNER[cols[0].city] : cities.find(c => c.id !== cols[0].city).id});
@@ -433,7 +433,7 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
     {label:'LANGUAGE AT HOME', cell: m => m.english == null ? NA : `
       <div class="big">${m.english}%<small>ENGLISH</small></div>
       ${m.langs.length ? `<div class="sub">${m.langNote}</div><div class="chips">${m.langs.map(([l, n]) => `<span class="chip"><b>${esc(l)}</b> · ${n}</span>`).join('')}</div>` : ''}`,
-      note: () => 'The language each person speaks most often at home. Canada names languages; the US survey groups them, which is why Chicago, New York and Dallas show categories.'},
+      note: () => 'The language each person speaks most often at home. Canada names languages; the US survey groups them, which is why Chicago, New York, San Francisco and Dallas show categories.'},
 
     {label:'RECENT IMMIGRANTS', cell: m => m.recent == null ? NA : `
       <div class="big">${m.recent}%</div>
@@ -536,7 +536,7 @@ select.unit{font-family:var(--body);font-weight:500;font-size:17px;min-height:48
       : 'Pick a place in one city, then another city: it opens on the place <b>most like the first</b>, with two runners-up to try. The track under a figure shows where each place sits among its own city’s.';
     document.getElementById('foot').innerHTML = mode === 'city'
       ? `Every figure is built from each city’s neighbourhoods as the map draws them. Whole city weights each by its residents or households; typical neighbourhood counts each once. Sources and years are under “At a glance”; see <a href="/attributions/">Attributions</a>.`
-      : `Each city is divided its own way (Toronto’s 158 neighbourhoods, Chicago’s 77 community areas, New York’s 59 community districts, Dallas’s ZIP codes), so a place here can be much bigger in one city than another. Tracks and “most like” suggestions use housing, commuting, building age and type, time to downtown and tree canopy, each as a place’s position in its own city; never ages, languages or who lives there. A match means alike in prices for its city, how people get around and what the streets are built of, not identical. See <a href="/attributions/">Attributions</a>.`;
+      : `Each city is divided its own way (Toronto’s 158 neighbourhoods, Chicago’s 77 community areas, New York’s 59 community districts, San Francisco’s 38 residential neighborhoods, Dallas’s ZIP codes), so a place here can be much bigger in one city than another. Tracks and “most like” suggestions use housing, commuting, building age and type, time to downtown and tree canopy, each as a place’s position in its own city; never ages, languages or who lives there. A match means alike in prices for its city, how people get around and what the streets are built of, not identical. See <a href="/attributions/">Attributions</a>.`;
     document.title = models.map(m => m.title).join(' vs ') + ' · Compare · Layers.City';
 
     const u = new URL(location); u.search = '';
