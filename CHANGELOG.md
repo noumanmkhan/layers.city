@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### San Francisco: where to vote on November 3 (October 31)
+- The card's where-to-vote box for San Francisco: each of the 514 precincts with its polling place from the Department
+  of Elections' list (501 sites, with the cross streets it gives), or, for the 13 mail-ballot precincts, how to vote
+  without one. Until November 2 it leads with the City Hall Voting Center, where anyone can vote early. The election
+  banner names the November 3 ballot.
+- Engine: `card.vote.precinctLead` words the precinct-only box's lead line (default `lead`, as before).
+- Data: `cities/sf/fetch_voting.py` (the list, the 2022 precincts, the Census geocoder), `cities/sf/voting.py`.
+
 ### San Francisco: transit under construction (October 31)
 - VTA's Eastridge to BART Regional Connector (the Orange Line light rail extended 2.4 miles along Capitol
   Expressway to Eastridge, with a Story Road station; opens 2029) in the Bay Area view, as Toronto shows the Hazel

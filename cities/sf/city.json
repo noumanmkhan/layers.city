@@ -82,7 +82,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, Community Benefit Districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, AC Transit, Golden Gate Transit & SamTrans bus routes, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA) · Street sweeping: San Francisco Public Works (DataSF) · Addresses: City and County of San Francisco, Enterprise Addressing System (DataSF)",
+ "attribution": "Neighborhoods, supervisor districts, historic and cultural districts, Community Benefit Districts, landmark buildings, Development Pipeline, special-event street closures: City and County of San Francisco (DataSF) · Cities and counties of the Bay Area: MTC/ABAG · State Senate and Assembly districts, counties beyond the region & ACS figures: U.S. Census Bureau · Congressional districts (Proposition 50, AB 604): California Department of Technology · BART, Caltrain & Muni (rail and buses): GTFS from BART, Caltrain and SFMTA · Bike network: SFMTA · Bay Wheels stations: Lyft (GBFS) · SMART, ACE, Capitol Corridor & VTA lines, AC Transit, Golden Gate Transit & SamTrans bus routes, streets, highways & address search: © OpenStreetMap contributors via Nominatim · Parks, recreation centers & libraries: City and County of San Francisco (DataSF) · Schools: California Department of Education · Hospitals, colleges & places of worship: © OpenStreetMap contributors · Garages, lots & permit areas: SFMTA (DataSF) · EV chargers: U.S. Department of Energy (AFDC) · Tsunami and seismic hazard zones: California Geological Survey (DataSF) · Soft-story buildings: Department of Building Inspection (DataSF) · Ferries: © OpenStreetMap contributors · Tech headquarters: companies’ SEC filings, placed by the U.S. Census Bureau geocoder and © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA) · Street sweeping: San Francisco Public Works (DataSF) · Addresses: City and County of San Francisco, Enterprise Addressing System (DataSF) · Polling places: San Francisco Department of Elections; precincts: DataSF; placed with the U.S. Census Bureau geocoder",
  "example": {
   "at": [
    37.779,
@@ -1603,6 +1603,34 @@
     "caveat": "Satellite land cover, 2021 (ESA WorldCover, 10 m)."
    }
   },
+  "vote": {
+   "file": "voting",
+   "date": "2026-11-03",
+   "tz": "America/Los_Angeles",
+   "closes": "2026-11-03T20:00:00-08:00",
+   "title": "Election day · {date}",
+   "today": "Election day is today",
+   "hours": "7 a.m. to 8 p.m.",
+   "lead": "People living here vote at",
+   "show": "Show on map",
+   "early": {
+    "from": "2026-10-05",
+    "to": "2026-11-02",
+    "title": "Early voting · {from} to {to}",
+    "soon": "Early voting starts {from}",
+    "hours": "8 a.m. to 5 p.m. weekdays, 10 a.m. to 4 p.m. the last two weekends"
+   },
+   "earlyLead": "Anyone in San Francisco can vote early at",
+   "assignedDay": "On election day ({date}), people living here vote at {n}, {a}.",
+   "precinct": "No polling place",
+   "precinctSub": "Return your ballot by mail or at a drop box, or vote in person at the City Hall Voting Center.",
+   "link": [
+    "Check your polling place",
+    "https://www.sf.gov/vote-in-person"
+   ],
+   "note": "Precinct {precinct} · San Francisco Department of Elections polling place list, as of {asof}. Sites can change: the Voter Portal and your Voter Information Pamphlet have the final word.",
+   "precinctLead": "Precinct {precinct} votes by mail"
+  },
   "changes": {
    "title": "Changing nearby",
    "radius": 805,
@@ -1898,6 +1926,13 @@
      "freq",
      "exp"
     ]
+   }
+  ],
+  "elections": [
+   {
+    "date": "2026-11-03",
+    "lead": "sup",
+    "label": "Governor, State Legislature, Congress and local measures, November 3"
    }
   ]
  },

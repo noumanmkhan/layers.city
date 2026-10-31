@@ -4610,7 +4610,7 @@ function voteBox(x, y){
       '<p class="vote-acts"><button type="button" class="vote-go">' + esc(VOTE.show) + '</button>' + dirBtn(v.y, v.x, v.n || v.a, true) + link + '</p>';
   } else {
     // Only the precinct is known (no published polling place list): name it and link to the official lookup.
-    body = '<p class="vote-lead">' + esc(VOTE.lead) + '</p><p class="vote-pl"><b>' + esc(fill(VOTE.precinct, ctx)) + '</b>' +
+    body = '<p class="vote-lead">' + esc(fill(VOTE.precinctLead || VOTE.lead, ctx)) + '</p><p class="vote-pl"><b>' + esc(fill(VOTE.precinct, ctx)) + '</b>' +
       (VOTE.precinctSub ? '<span>' + esc(fill(VOTE.precinctSub, ctx)) + '</span>' : '') + '</p>' +
       '<p class="vote-acts vote-acts-solo">' + link + '</p>';
   }
