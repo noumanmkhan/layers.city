@@ -10,9 +10,10 @@ wrote extras/soft_story.json 1749 KB
 == slow_streets
   slow streets 240 Counter({'Implemented': 222, 'Planned': 18})
   kept 222 implemented segments
+== cbds
+wrote extras/cbds.geojson 68 KB
+  CBDs 16 ['Castro/Upper Market', 'Civic Center', 'Discover Polk', 'Downtown', 'East Cut (Greater Rincon Hill)', 'Excelsior', "Fisherman's Wharf", 'Japantown', 'Lower Polk', 'Mid Market', 'Noe Valley Association', 'Ocean Avenue', 'SoMa West', 'Tenderloin', 'Union Square Business Improvement District', 'Yerba Buena']
 == ferries
 wrote extras/osm_ferries.json 160 KB
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
-  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-wrote extras/osm_ferry_terminals.json 11 KB
+wrote extras/osm_ferry_terminals.json 12 KB
 FAILED: none
