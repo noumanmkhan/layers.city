@@ -1,5 +1,4 @@
 == osm
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
   17662 OSM places
   wrote osm_places.json 1192825 bytes
 == 311
@@ -23,7 +22,7 @@
     311-service-requests-2010 | ZIP | 2019-07-23T16:29:45.715180
     311-service-requests-readme | XLSX | 2019-07-23T16:30:17.086581
   using 311 Service Requests 2025 (2025)
-    reading SR2025.csv
+    reading SR2025.csv 75033804 bytes, starts b'Creation Date,Status,First 3 Chars of Postal Code,Intersection Street 1,Intersection Street 2,Ward,Service Request Type,'
   columns: ['Creation Date', 'Status', 'First 3 Chars of Postal Code', 'Intersection Street 1', 'Intersection Street 2', 'Ward', 'Service Request Type', 'Division', 'Section']
   500269 requests, 25 wards, 100 postal prefixes
   wrote sr311.json 1435808 bytes
@@ -65,9 +64,9 @@ parking-tickets: 19 resources
     parking-tickets-2008 | ZIP | 2015-02-03T17:14:04
     parking-ticket-data-readme | XLS | 2019-07-23T17:51:57.153365
   using parking-tickets-2025 (2025)
-    reading Parking_Tags_Data_2025.csv
-  columns: [None]
-  0 tickets at 0 addresses
+    reading Parking_Tags_Data_2025.csv 199272892 bytes, starts b'\n"TAG_NUMBER_MASKED","DATE_OF_INFRACTION","INFRACTION_CODE","INFRACTION_DESCRIPTION","SET_FINE_AMOUNT","TIME_OF_INFRACTI'
+  columns: ['tag_number_masked', 'date_of_infraction', 'infraction_code', 'infraction_description', 'set_fine_amount', 'time_of_infraction', 'location1', 'location2', 'location3', 'location4', 'province']
+  2050933 tickets at 195730 addresses
 address-points-municipal-toronto-one-address-repository: 10 resources
     Address Points | GeoJSON | 2023-10-05T15:04:29.611732
     Address Points - 4326.csv | CSV | 2026-10-30T11:39:55.371102
@@ -81,6 +80,6 @@ address-points-municipal-toronto-one-address-repository: 10 resources
     readme-address-feature-codes | TXT | 2019-07-23T16:30:55.648995
   address points from Address Points - 4326.csv CSV
   522241 address points
-  geocoded 0 addresses holding 0 of 0 tickets (0%)
-  wrote tickets.json 83 bytes
+  geocoded 162643 addresses holding 1800155 of 2050933 tickets (88%)
+  wrote tickets.json 36485 bytes
 failed parts: none
