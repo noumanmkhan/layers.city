@@ -9,6 +9,8 @@ into raw/slow_streets.geojson for the bike lanes build). Runs in GitHub Actions 
   three or more stories and five or more homes over a soft first floor, with tier and status.
 - slow_streets.geojson (raw/): SFMTA's Slow Streets (DataSF hkz3-itiu), implemented ones, in the bike network's
   fields (bikes.json "extra").
+- cbds.geojson: the City's Community Benefit Districts (DataSF c28a-f6gs, OEWD): San Francisco's business improvement
+  districts, with the year each was set up and its annual report link. Reviewed yearly by the City.
 - osm_ferries.json: OpenStreetMap ferry routes and terminals across the Bay (ODbL): San Francisco Bay Ferry, Golden
   Gate Ferry, the Angel Island and Alcatraz boats."""
 import json, os, sys, time, urllib.parse
@@ -66,11 +68,16 @@ def slow_streets():
     print('  kept', len(feats), 'implemented segments')
 
 
+def cbds():
+    d = geo('c28a-f6gs'); save(os.path.join(P, 'cbds.geojson'), d)
+    print('  CBDs', len(d['features']), sorted(f['properties'].get('community_benefit_district') or '?' for f in d['features']))
+
+
 def ferries():
     overpass(f'[out:json][timeout:300];(relation["route"="ferry"]{b(REGION)};way["route"="ferry"]{b(REGION)};);out geom;', os.path.join(P, 'osm_ferries.json'))
     overpass(f'[out:json][timeout:300];(nwr["amenity"="ferry_terminal"]{b(REGION)};);out tags center;', os.path.join(P, 'osm_ferry_terminals.json'))
 
 
-for label, fn in [('tsunami', tsunami), ('seismic', seismic), ('soft_story', soft_story), ('slow_streets', slow_streets), ('ferries', ferries)]:
+for label, fn in [('tsunami', tsunami), ('seismic', seismic), ('soft_story', soft_story), ('slow_streets', slow_streets), ('cbds', cbds), ('ferries', ferries)]:
     print('==', label); step(label, fn); time.sleep(1)
 print('FAILED:', FAILED or 'none')
