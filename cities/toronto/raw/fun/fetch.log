@@ -1,0 +1,86 @@
+== osm
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  17662 OSM places
+  wrote osm_places.json 1192825 bytes
+== 311
+311-service-requests-customer-initiated: 18 resources
+    311 Service Requests 2026 | ZIP | 2026-10-08T20:00:18
+    311 Service Requests 2025 | ZIP | 2026-01-08T21:00:18
+    311 Service Requests 2024 | ZIP | 2025-01-08T21:00:16
+    311 Service Requests 2023 | ZIP | 2024-01-08T21:00:18
+    311 Service Requests 2022 | ZIP | 2023-02-08T21:00:13
+    311 Service Requests 2021 | ZIP | 2025-10-16T19:31:44.253472
+    311 service requests 2020 | ZIP | 2025-10-16T19:31:32.143472
+    311-service-requests-2019 | ZIP | 2019-07-23T16:30:13.999061
+    311-service-requests-2018 | ZIP | 2019-07-23T16:30:12.172484
+    311-service-requests-2017 | ZIP | 2019-07-23T16:30:08.635236
+    311-service-requests-2016 | ZIP | 2019-07-23T16:30:05.287481
+    311-service-requests-2015 | ZIP | 2019-07-23T16:30:01.847306
+    311-service-requests-2014 | ZIP | 2019-07-23T16:29:58.395105
+    311-service-requests-2013 | ZIP | 2019-07-23T16:29:54.800765
+    311-service-requests-2012 | ZIP | 2019-07-23T16:29:51.559719
+    311-service-requests-2011 | ZIP | 2019-07-23T16:29:48.613739
+    311-service-requests-2010 | ZIP | 2019-07-23T16:29:45.715180
+    311-service-requests-readme | XLSX | 2019-07-23T16:30:17.086581
+  using 311 Service Requests 2025 (2025)
+    reading SR2025.csv
+  columns: ['Creation Date', 'Status', 'First 3 Chars of Postal Code', 'Intersection Street 1', 'Intersection Street 2', 'Ward', 'Service Request Type', 'Division', 'Section']
+  500269 requests, 25 wards, 100 postal prefixes
+  wrote sr311.json 1435808 bytes
+== suffixes
+toronto-centreline-tcl: 9 resources
+    Centreline - Version 2 | GeoJSON | 2022-06-15T17:13:23.649248
+    Centreline - Version 2 - 4326.zip | SHP | 2026-10-30T18:15:36.387017
+    Centreline - Version 2 - 2952.zip | SHP | 2026-10-30T18:15:41.665306
+    Centreline - Version 2 - 4326.csv | CSV | 2026-10-30T18:15:34.532352
+    Centreline - Version 2 - 2952.csv | CSV | 2026-10-30T18:15:40.325341
+    Centreline - Version 2 - 4326.geojson | GeoJSON | 2026-10-30T18:15:39.003934
+    Centreline - Version 2 - 2952.geojson | GeoJSON | 2025-03-19T18:17:22.769234
+    Centreline - Version 2 - 4326.gpkg | gpkg | 2026-10-30T18:15:37.716798
+    Centreline - Version 2 - 2952.gpkg | gpkg | 2026-10-30T18:15:43.010008
+  centreline from Centreline - Version 2 - 4326.geojson
+  64395 segments; properties: ['_id', 'CENTRELINE_ID', 'LINEAR_NAME_ID', 'LINEAR_NAME_FULL', 'LINEAR_NAME_FULL_LEGAL', 'ADDRESS_L', 'ADDRESS_R', 'PARITY_L', 'PARITY_R', 'LO_NUM_L', 'HI_NUM_L', 'LO_NUM_R', 'HI_NUM_R', 'BEGIN_ADDR_POINT_ID_L', 'END_ADDR_POINT_ID_L', 'BEGIN_ADDR_POINT_ID_R', 'END_ADDR_POINT_ID_R', 'BEGIN_ADDR_L', 'END_ADDR_L', 'BEGIN_ADDR_R', 'END_ADDR_R', 'LOW_NUM_ODD', 'HIGH_NUM_ODD', 'LOW_NUM_EVEN', 'HIGH_NUM_EVEN', 'LINEAR_NAME', 'LINEAR_NAME_TYPE', 'LINEAR_NAME_DIR', 'LINEAR_NAME_DESC', 'LINEAR_NAME_LABEL', 'FROM_INTERSECTION_ID', 'TO_INTERSECTION_ID', 'ONEWAY_DIR_CODE', 'ONEWAY_DIR_CODE_DESC', 'FEATURE_CODE', 'FEATURE_CODE_DESC', 'JURISDICTION', 'CENTRELINE_STATUS', 'OBJECTID', 'MI_PRINX']
+  road classes: {'Trail': 11658, 'River': 737, 'Expressway Ramp': 1135, 'Major Shoreline': 229, 'Local': 24839, 'Laneway': 4147, 'Major Arterial': 5836, 'Collector': 6358, 'Hydro Line': 593, 'Geostatistical line': 32, 'Walkway': 369, 'Other': 2099, 'Major Railway': 523, 'Minor Arterial': 3547, 'Creek/Tributary': 125, 'Pending': 649, 'Expressway': 1189, 'Major Arterial Ramp': 174, 'Busway': 27, 'Access Road': 57, 'Ferry Route': 16, 'Minor Railway': 31, 'Collector Ramp': 16, 'Other Ramp': 6, 'Minor Arterial Ramp': 1, 'Minor Shoreline (Land locked)': 2}
+  city-wide distinct names by suffix: {'Avenue': 2057, 'Road': 1515, 'Drive': 1410, 'Crescent': 1122, 'Street': 824, 'Court': 742, 'Boulevard': 322, 'Place': 314, 'Gate': 122, 'Square': 85, 'Lane': 75, 'Trail': 63, 'Gardens': 60, 'Terrace': 59, 'Other': 58, 'Circle': 46, 'Way': 35, 'Grove': 31, 'Parkway': 11, 'Heights': 11, 'Park': 8, 'Hill': 7, 'Wood': 7, 'Circuit': 6, 'Line': 3, 'Quay': 3, 'Mews': 3, 'Walk': 3, 'Mall': 2, 'View': 2, 'Path': 2, 'Wynd': 1, 'Esplanade': 1, 'Green': 1, 'Vale': 1}
+  wrote suffixes.json 87657 bytes
+== tickets
+parking-tickets: 19 resources
+    parking-tickets-2025 | ZIP | 2026-05-13T12:25:56.033077
+    parking-tickets-2024 | ZIP | 2025-03-13T18:16:02.471799
+    parking-tickets-2023 | ZIP | 2025-03-13T18:16:15.723957
+    parking-tickets-2022 | ZIP | 2023-03-06T19:39:44
+    parking-tickets-2021 | ZIP | 2022-11-03T17:49:00
+    parking-tickets-2020 | ZIP | 2021-02-23T19:13:14.053970
+    parking-tickets-2019 | ZIP | 2021-02-23T19:10:19.112627
+    parking-tickets-2018 | ZIP | 2019-01-31T14:33:13
+    parking-tickets-2017 | ZIP | 2018-10-04T20:16:07
+    parking-tickets-2016 | ZIP | 2017-03-01T14:02:23
+    parking-tickets-2015 | ZIP | 2016-03-08T17:06:38
+    parking-tickets-2014 | ZIP | 2015-02-03T19:10:02
+    parking-tickets-2013 | ZIP | 2015-02-25T19:38:48
+    parking-tickets-2012 | ZIP | 2015-02-03T17:13:20
+    parking-tickets-2011 | ZIP | 2015-02-03T17:13:46
+    parking-tickets-2010 | ZIP | 2015-02-03T17:14:00
+    parking-tickets-2009 | ZIP | 2015-02-03T17:14:00
+    parking-tickets-2008 | ZIP | 2015-02-03T17:14:04
+    parking-ticket-data-readme | XLS | 2019-07-23T17:51:57.153365
+  using parking-tickets-2025 (2025)
+    reading Parking_Tags_Data_2025.csv
+  columns: [None]
+  0 tickets at 0 addresses
+address-points-municipal-toronto-one-address-repository: 10 resources
+    Address Points | GeoJSON | 2023-10-05T15:04:29.611732
+    Address Points - 4326.csv | CSV | 2026-10-30T11:39:55.371102
+    Address Points - 4326.zip | SHP | 2026-10-30T11:39:59.729106
+    Address Points - 4326.gpkg | gpkg | 2026-10-30T11:40:06.549632
+    Address Points - 4326.geojson | GeoJSON | 2026-10-30T11:40:09.391218
+    Address Points - 2952.csv | CSV | 2026-10-30T11:40:13.688490
+    Address Points - 2952.zip | SHP | 2026-10-30T11:40:17.608637
+    Address Points - 2952.gpkg | gpkg | 2026-10-30T11:40:24.389526
+    Address Points - 2952.geojson | GeoJSON | 2025-01-21T11:51:58.521497
+    readme-address-feature-codes | TXT | 2019-07-23T16:30:55.648995
+  address points from Address Points - 4326.csv CSV
+  522241 address points
+  geocoded 0 addresses holding 0 of 0 tickets (0%)
+  wrote tickets.json 83 bytes
+failed parts: none
