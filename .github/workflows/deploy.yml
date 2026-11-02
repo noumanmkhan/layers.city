@@ -50,6 +50,7 @@ on:
       - "Fetch GO fares"
       - "Refresh San Francisco data"
       - "Fetch Toronto fun maps"
+      - "Fetch New York City fun maps"
     types: [completed]
   workflow_dispatch:
     inputs:

@@ -1,0 +1,33 @@
+name: Fetch New York City fun maps
+# Film permits (cities/nyc/fetch_fun.py, NYC Open Data) into cities/nyc/raw/fun/, boiled down to per-district counts and
+# the most-named streets, then rebuilds docs/nyc/fun/, which deploy.yml publishes. Monthly, when its script changes on
+# main, or by hand.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 8 3 * *'
+  push:
+    branches: [main]
+    paths: ['cities/nyc/fetch_fun.py', '.github/workflows/fetch-nyc-fun.yml']
+permissions:
+  contents: write
+concurrency: fetch-nyc-fun
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q shapely
+      - run: mkdir -p cities/nyc/raw/fun && python3 -u cities/nyc/fetch_fun.py 2>&1 | tee cities/nyc/raw/fun/fetch.log
+      - run: python3 engine/fun/build.py nyc
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/nyc/raw/fun docs/nyc/fun
+          git commit -m "Fetch New York City fun maps inputs" || { echo "no changes"; exit 0; }
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 10; done
+          exit 1

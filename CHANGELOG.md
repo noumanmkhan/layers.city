@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### New York: Fun maps, where New York gets filmed (November 2)
+- A new page, layers.city/nyc/fun/, linked from the hub card and the map's Places group: a year of shooting permits per
+  community district (split evenly across a permit's districts), the 25 streets most often held for parking, permits by kind
+  and the busiest month.
+- Data: `cities/nyc/fetch_fun.py` (NYC Open Data Film Permits, DOT centerline), monthly in *Fetch New York City fun maps*.
+- Engine: `engine/fun/build.py` reads its outlines from `fun.json` "units" and has a `permits` map type. Tapping a second
+  area on any Fun map now outlines the right one (it could outline a different area before).
+
 ### Toronto: Fun maps (October 31)
 - A new page, layers.city/toronto/fun/, linked from the hub: neighbourhood maps made for sharing. Head-to-heads (Tim Hortons vs
   Starbucks, liquor vs cannabis, gas vs EV chargers, shawarma vs pizza, bubble tea vs coffee, indie vs chain coffee, tennis vs

@@ -1,0 +1,47 @@
+{
+  "page": {
+    "title": "Fun maps",
+    "city": "New York City",
+    "description": "Where New York gets filmed: a year of the City's shooting permits counted by community district, with the streets most often held for production parking.",
+    "lede": "The same community districts as the map, counted in less serious ways. First up: where the cameras (and their trucks) go.",
+    "unitName": "community district",
+    "unitPlural": "community districts",
+    "credits": "Film permits: NYC Mayor's Office of Media and Entertainment, via NYC Open Data. Street lines: NYC DOT centerline, via NYC Open Data.",
+    "refresh": "Refreshed monthly."
+  },
+  "units": {
+    "nb": {
+      "file": "districts.geojson",
+      "key": "code",
+      "label": "name",
+      "one": "district"
+    }
+  },
+  "maps": [
+    {
+      "id": "film-permits",
+      "type": "permits",
+      "title": "Where New York gets filmed",
+      "file": "film_permits.json",
+      "colour": "#6A1B9A",
+      "streetColour": "#FFB300",
+      "streetWord": "held parking",
+      "one": "shooting permit",
+      "many": "shooting permits",
+      "standAreas": "Most permits",
+      "standStreets": "Most-held streets",
+      "categories": {
+        "Television": "TV",
+        "Film": "film",
+        "Commercial": "commercials",
+        "Still Photography": "still photography",
+        "WEB": "web",
+        "Student": "student films",
+        "Documentary": "documentaries",
+        "Music Video": "music videos",
+        "Theater": "theater"
+      },
+      "note": "Counts permits, not shooting days, and only shoots that take over public space: work inside studios or on private property generally won't appear. A permit covering several areas is split evenly among them. The streets are where parking was held, which can mean trucks and base camps rather than the camera. Parks and airports with their own permits are drawn separately from the 59 districts."
+    }
+  ]
+}
