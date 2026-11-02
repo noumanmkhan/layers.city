@@ -41,6 +41,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .fm path{stroke:#FFFFFF;stroke-width:1.1;stroke-linejoin:round;cursor:pointer}
 .fm path.on{stroke:var(--ink);stroke-width:2.4}
 .fm .n{fill:#ECE7E5}
+.fm path.case,.fm path.st,.fm path.hit{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fm path.case{stroke:#1A1414;stroke-width:6.5;pointer-events:none}
+.fm path.st{stroke-width:3.5;pointer-events:none}
+.fm path.hit{stroke:transparent;stroke-width:26}
+.fm:only-child{grid-column:1/-1;max-width:720px}
 .key{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted)}
 .key span{display:inline-flex;align-items:center;gap:6px}
 .key i{display:inline-block;width:12px;height:12px;border-radius:3px;flex:none}
@@ -132,14 +137,16 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const tip = $('tip');
 
   F.maps.forEach(m => {
-    $('nav').append(el('a', {class: 'chip', href: '#' + m.id}, m.title));
+    if (F.maps.length > 1) $('nav').append(el('a', {class: 'chip', href: '#' + m.id}, m.title));
     const sh = F.shapes[m.unit];
-    const pick = el('p', {class: 'pick'}, el('span', {class: 'hint'}, 'Tap a ' + (m.unit === 'wd' ? 'ward' : 'neighbourhood') + ' for its numbers.'));
+    const pick = el('p', {class: 'pick'}, el('span', {class: 'hint'}, 'Tap a ' + sh.one + ' for its numbers.'));
     const svg = el('svg', {viewBox: `0 0 ${F.w} ${F.h}`, role: 'img', 'aria-label': m.title + ' map. ' + m.line});
+    const areas = el('g'), paths = [];
+    svg.append(areas);
     let on = null;
     const show = i => {
       if (on) on.classList.remove('on');
-      on = svg.children[i]; on.classList.add('on'); svg.append(on);   // to the front, so its outline shows
+      on = paths[i]; on.classList.add('on'); areas.append(on);   // to the front, so its outline shows
       pick.replaceChildren(el('b', {}, sh.names[i] + ': '), m.tips[i]);
     };
     sh.d.forEach((d, i) => {
@@ -152,6 +159,23 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
         tip.hidden = false;
         const x = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8);
         tip.style.left = x + 'px'; tip.style.top = (e.clientY + 16) + 'px';
+      });
+      p.addEventListener('pointerleave', () => { tip.hidden = true; });
+      paths.push(p);
+      areas.append(p);
+    });
+    // Streets drawn over the areas: a dark casing and the legend's colour, with a wide invisible line to tap.
+    const stColour = (m.legend.find(l => l.street) || {}).c;
+    (m.streets || []).forEach(s => svg.append(el('path', {d: s.d, class: 'case'})));
+    (m.streets || []).forEach(s => svg.append(el('path', {d: s.d, class: 'st', style: 'stroke:' + stColour})));
+    (m.streets || []).forEach(s => {
+      const p = el('path', {d: s.d, class: 'hit'});
+      p.addEventListener('click', () => pick.replaceChildren(el('b', {}, s.name + ': '), s.tip));
+      p.addEventListener('pointermove', e => {
+        if (e.pointerType !== 'mouse') return;
+        tip.replaceChildren(el('b', {}, s.name), s.tip);
+        tip.hidden = false;
+        tip.style.left = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8) + 'px'; tip.style.top = (e.clientY + 16) + 'px';
       });
       p.addEventListener('pointerleave', () => { tip.hidden = true; });
       svg.append(p);

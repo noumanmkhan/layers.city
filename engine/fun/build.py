@@ -9,11 +9,15 @@ Each map in fun.json is one of:
   signature311  each ward's most over-represented 311 request type (raw/fun/sr311.json).
   tickets       parking tickets and fines per neighbourhood (raw/fun/tickets.json).
   suffix        each neighbourhood's most over-represented street ending (raw/fun/suffixes.json).
+  permits       permits per area with the busiest streets drawn on top (raw/fun/<file>).
 A map whose input file is missing is left out, so the page builds with whatever has been fetched.
+
+fun.json "units" names the published outlines: "nb" (required, the page's main unit) and "wd" (a coarser one, for maps
+published only at that level), each {file, key, label, one}.
 
 The page draws every map from one shared set of outlines (projected here, simplified) and a short list of
 class indexes per map, so adding a map costs a few hundred bytes. The engine names no city."""
-import json, math, os, re, sys
+import calendar, json, math, os, re, sys
 from collections import Counter
 
 from shapely.geometry import shape, Point
@@ -38,15 +42,16 @@ def load(p):
 
 
 # ---- outlines -------------------------------------------------------------------------------------------------
-def outlines(fname, key):
-    feats = load(os.path.join(DATA, fname))['features']
+def outlines(unit):
+    feats = load(os.path.join(DATA, unit['file']))['features']
     shp = [shape(f['geometry']) for f in feats]
-    return [f['properties'][key] for f in feats], shp
+    return [f['properties'][unit['key']] for f in feats], [f['properties'][unit['label']] for f in feats], shp
 
 
-nb_names, nb_shapes = outlines('neighbourhoods.geojson', 'name')
-wd_names, wd_shapes = outlines('wards.geojson', 'num')
-wd_label = {f['properties']['num']: f['properties']['name'] for f in load(os.path.join(DATA, 'wards.geojson'))['features']}
+units = cfg['units']
+nb_keys, nb_names, nb_shapes = outlines(units['nb'])
+wd_names, wd_labels, wd_shapes = outlines(units['wd']) if 'wd' in units else ([], [], [])
+wd_label = dict(zip(wd_names, wd_labels))
 minx, miny, maxx, maxy = (min(s.bounds[i] for s in nb_shapes) if i < 2 else max(s.bounds[i] for s in nb_shapes) for i in range(4))
 KX = math.cos(math.radians((miny + maxy) / 2))
 SCALE = W / ((maxx - minx) * KX)
@@ -375,7 +380,54 @@ def tickets_map(m):
             'asof': str(d['year'])}
 
 
-BUILD = {'pair': pair_map, 'signature311': sig311_map, 'tickets': tickets_map, 'suffix': suffix_map}
+def project_line(coords):
+    return 'M' + 'L'.join(f'{round((x - minx) * KX * SCALE, 1):g} {round((maxy - y) * SCALE, 1):g}' for x, y in coords)
+
+
+def permits_map(m):
+    d = load(os.path.join(CITY, 'raw', 'fun', m['file']))
+    if not d:
+        return None
+    by = d['by_unit']
+    counts = sorted(v['n'] for v in by.values() if v['n'] > 0)
+    # Quintile breaks over the areas that have any, so each colour holds about a fifth of them.
+    br = [round(counts[int(len(counts) * q)]) for q in (.2, .4, .6, .8)]
+    ramp = [mix(m['colour'], t) for t in (.82, .62, .42, .2, 0)]
+    legend = [{'c': ramp[0], 'l': f'Under {br[0]:,}'}] + \
+             [{'c': ramp[i + 1], 'l': f'{br[i]:,}–{br[i + 1]:,}'} for i in range(3)] + \
+             [{'c': ramp[4], 'l': f'Over {br[3]:,}'}, {'c': NONE, 'l': 'None', 'n': 1}]
+    one, many = m['one'], m['many']
+    label = m.get('categories', {})
+    def cat_name(c):
+        return label.get(c, c.lower())
+    v, tips = [], []
+    for key in nb_keys:
+        x = by.get(str(key))
+        if not x or x['n'] <= 0:
+            v.append(5)
+            tips.append(f'No {many}')
+            continue
+        v.append(sum(x['n'] >= b for b in br))
+        top = max(x['cats'].items(), key=lambda kv: kv[1])[0]
+        n = round(x['n'])
+        tips.append(f'About {plural(max(n, 1), one, many)}, most often {cat_name(top)}')
+    ranked = sorted((k for k in nb_keys if str(k) in by), key=lambda k: -by[str(k)]['n'])
+    name = dict(zip(nb_keys, nb_names))
+    lead = by[str(ranked[0])]['n']
+    busiest = max(d['months'].items(), key=lambda kv: kv[1])
+    month = calendar.month_name[int(busiest[0][5:7])] + ' ' + busiest[0][:4]
+    streets = d['streets']
+    legend.append({'c': m['streetColour'], 'l': f'Top {len(streets)} streets for {m["streetWord"]}', 'street': 1})
+    cats = list(d['cats'].items())
+    return {'unit': 'nb', 'legend': legend, 'v': v, 'tips': tips,
+            'line': f'{d["permits"]:,} {many} from {d["first"]} to {d["last"]}. {name[ranked[0]]} had about {round(100 * lead / d["permits"])}% of them.',
+            'total': 'By kind: ' + ', '.join(f'{cat_name(c)} {n:,}' for c, n in cats[:m.get('maxCats', 5)]) + f'. Busiest month: {month} ({busiest[1]:,}).',
+            'stand': [{'k': m['standAreas'], 'v': ', '.join(f'{name[k]} ({round(by[str(k)]["n"]):,})' for k in ranked[:3])},
+                      {'k': m['standStreets'], 'v': ', '.join(f'{s["name"]}, {s["from"]} to {s["to"]} ({s["n"]:,})' for s in streets[:3])}],
+            'streets': [{'d': project_line(s['coords']), 'name': s['name'], 'tip': f'{s["from"]} to {s["to"]}: {plural(s["n"], one, many)}'} for s in streets]}
+
+
+BUILD = {'pair': pair_map, 'signature311': sig311_map, 'tickets': tickets_map, 'suffix': suffix_map, 'permits': permits_map}
 maps = []
 for m in cfg['maps']:
     out = BUILD[m['type']](m)
@@ -386,13 +438,14 @@ for m in cfg['maps']:
     maps.append(out)
     print('  map:', m['id'], '-', out['line'])
 
-shapes = {'nb': {'d': [project_path(s) for s in nb_shapes], 'names': nb_names},
-          'wd': {'d': [project_path(s) for s in wd_shapes], 'names': [wd_label[n] for n in wd_names]}}
+shapes = {'nb': {'d': [project_path(s) for s in nb_shapes], 'names': nb_names, 'one': units['nb']['one']}}
+if wd_names:
+    shapes['wd'] = {'d': [project_path(s) for s in wd_shapes], 'names': wd_labels, 'one': units['wd']['one']}
 asof = (osm or {}).get('asof', '')
 payload = {'w': W, 'h': H, 'shapes': shapes, 'maps': maps, 'asof': asof}
 
 tpl = open(os.path.join(ROOT, 'engine', 'fun', 'page.html'), encoding='utf-8').read()
-DARK = ['.fm .n{fill:#2E3238}', '.fm path{stroke:#15171B}']
+DARK = ['.fm .n{fill:#2E3238}', '.fm g path{stroke:#15171B}']
 html = (tpl.replace('{{FUN}}', json.dumps(payload, ensure_ascii=False, separators=(',', ':')))
         .replace('{{title}}', page['title']).replace('{{city}}', page['city'])
         .replace('{{description}}', page['description']).replace('{{lede}}', page['lede'])

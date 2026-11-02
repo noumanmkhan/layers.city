@@ -9,6 +9,10 @@
     "credits": "Shops and restaurants © OpenStreetMap contributors (ODbL). 311 requests, parking tickets, street names, rec facilities and EV chargers: City of Toronto Open Data, NRCan/AFDC. Counts are only as complete as their sources.",
     "refresh": "Refreshed every three months."
   },
+  "units": {
+    "nb": {"file": "neighbourhoods.geojson", "key": "name", "label": "name", "one": "neighbourhood"},
+    "wd": {"file": "wards.geojson", "key": "num", "label": "name", "one": "ward"}
+  },
   "osm": "raw/fun/osm_places.json",
   "maps": [
     {
