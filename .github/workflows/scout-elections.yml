@@ -1,0 +1,32 @@
+name: Scout election agencies
+# One-off check for an election watcher: which election agencies behind the site's cities publish a feed or news
+# page a weekly job could watch, and whether they publish voting places as data (scouting/elections/scout.py).
+# Writes scouting/elections/out/ and commits it to main. Doesn't touch the site. Runs when scout.py changes on
+# main, or by hand.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scouting/elections/scout.py']
+permissions:
+  contents: write
+concurrency: scout-elections
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          mkdir -p scouting/elections/out
+          python3 -u scouting/elections/scout.py 2>&1 | tee scouting/elections/out/scout.log || true
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add scouting/elections/out
+          git commit -m "Election agency scouting report" || echo "no changes"
+          git pull --rebase
+          git push
