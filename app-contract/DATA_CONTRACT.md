@@ -16,6 +16,8 @@
 > scheduled departure when there are no live times. Additive.
 > **November 3, 2026, on dev:** `happening.json` (Toronto) and `card.nearby.happening`: events from the City's
 > Festivals & Events Calendar for "Happening nearby" (section 16). Additive; schema stays 2.
+> **November 3, 2026, later, on dev:** `happening.json` also carries Toronto Public Library branch programs: `src`
+> on each event (`city` or `library`) and `sources` on the file. Additive.
 
 This is everything an app needs to rebuild the map's "What's here" card from the published
 data, without reading the website's code. The website (this repo) is the only producer; an app is
@@ -1099,16 +1101,19 @@ different colour in turn, with their names, and the known-as names near the rout
 
 ## 16. Happening nearby
 
-`happening.json` (Toronto as of November 3, 2026, on dev; a city without `card.nearby.happening` has none: show
+`happening.json` (Toronto as of November 3, 2026; a city without `card.nearby.happening` has none: show
 nothing). Written daily, early morning city time, by `cities/toronto/fetch_happening.py` (*Fetch Toronto events*)
-from the City of Toronto Festivals & Events Calendar (Toronto Open Data "Festivals & Events", JSON feed, Open
-Government Licence – Toronto, commercial use allowed with the attribution in `licence`).
+from the City of Toronto Festivals & Events Calendar (Toronto Open Data "Festivals & Events", JSON feed) and,
+since November 3, 2026 on dev, Toronto Public Library's programs at its branches (Toronto Open Data "Library
+Branch Programs and Events Feed"). Both are under the Open Government Licence – Toronto: commercial use allowed
+with the attribution in `licence`.
 
 ```
 {version: 1, city, tz, asof,
  from: "2026-11-03", to: "2026-11-17",               city dates: today through 14 days on
  source, licence,                                   display text; show `card.nearby.happening.source` beside the list
- events: [{id, title, venue, address, lat, lng, free, category, url,
+ sources: ["city", "library"],                      which feeds made it in today (the library's may be missing)
+ events: [{id, title, venue, address, lat, lng, free, category, url, src,
            times: [[start, end], …]}]}               sorted by first time, then title
 ```
 
@@ -1124,6 +1129,12 @@ Government Licence – Toronto, commercial use allowed with the attribution in `
   and weekly exhibits list each day they're open. An occurrence may end after midnight (end on the next date).
 - Not usable: descriptions, images, prices and contacts are left out (organizer-submitted). The feed's
   `event_dates` list is capped at 20 entries and isn't used.
+- `src`: `city` (the Festivals & Events Calendar) or `library` (Toronto Public Library). A library item is one
+  program at one branch, with each of its times in the window (a weekly club is one item); `id` starts `tpl-`,
+  `venue` is "<branch> branch", `address` is null, `lat`/`lng` are the branch's, `free` is null (the feed doesn't
+  say), `category` is the first of the library's types ("Crafts & Hobbies", "Reading Programs & Storytimes"), and
+  `url` is the program's page on the library's events site. Closed branches and unmatched names are left out.
+  Library items far outnumber the City's (about 1,200 of 1,350); treat both the same.
 
 `card.nearby.happening`: `{file, radius: 1000, max: 3, days: 14, title: "Happening nearby", today: "Today",
 free: "Free", source}`. How the website (and the app) builds the list for a spot:

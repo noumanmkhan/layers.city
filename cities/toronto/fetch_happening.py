@@ -15,7 +15,15 @@ occurrences; `event_dates` is capped at 20 entries, so it isn't used for the sch
   are a bare date.
 No descriptions, images, prices or contacts: organizer-submitted, and not needed for a glance.
 
-Usage: python3 cities/toronto/fetch_happening.py [--feed FILE] [--today YYYY-MM-DD]
+Also Toronto Public Library's programs and events at its branches (Open Data "Library Branch Programs and
+Events Feed", same licence): one record per occurrence, kept as one item per program and branch (a weekly
+club is one item with each of its times). The feed names the branch only, so the place is the branch's
+GPS from raw/nearby/tpl_branches.json (fetch_nearby.py), matched by name; closed branches ("… - Closed"),
+"None" and names that don't match are dropped. Category: the first of `EventTypes`. Free: null (the feed
+doesn't say). Link: the program's page on the library's events site. Ended occurrences are left out. If the
+library feed can't be read, the file is written with the City's events alone and `sources` says so.
+
+Usage: python3 cities/toronto/fetch_happening.py [--feed FILE] [--library FILE] [--today YYYY-MM-DD]
 """
 import json, os, sys, urllib.parse, urllib.request
 from datetime import date, datetime, timedelta
@@ -25,6 +33,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 URL = ('https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/9201059e-43ed-4369-885e-0b867652feac/'
        'resource/8900fdb2-7f6c-4f50-8581-b463311ff05d/download/file.json')
 PAGE = 'https://www.toronto.ca/explore-enjoy/festivals-events/festivals-events-calendar/'
+TPL_URL = ('https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/fb343332-03cd-40b9-a1c8-c03a4a85ca1e/'
+           'resource/aa5e1425-77f4-4cb4-a8ea-eb5ce7d4f34c/download/tpl-events-feed.json')
+TPL_PAGE = 'https://tpl.bibliocommons.com/events/'
+BRANCHES = os.path.join(HERE, 'raw', 'nearby', 'tpl_branches.json')
 TZ = ZoneInfo('America/Toronto')
 DAYS = 14
 OUT = os.path.join(HERE, '..', '..', 'docs', 'toronto', 'data', 'happening.json')
@@ -140,6 +152,61 @@ for r in recs:
         if when not in e['times']:
             e['times'].append(when)
 
+for e in events.values():
+    e['src'] = 'city'
+sources = ['city']
+
+
+def branch_key(name):
+    """"Daniel G. Hill (formely Jane/Dundas)" and "Dufferin/St.Clair" -> "danielghill", "dufferinstclair"."""
+    return ''.join(c for c in name.split(' (')[0].lower() if c.isalnum())
+
+
+try:
+    if '--library' in args:
+        lib = json.load(open(args['--library']))
+    else:
+        req = urllib.request.Request(TPL_URL, headers={'User-Agent': 'layers.city data fetch'})
+        with urllib.request.urlopen(req, timeout=120) as r:
+            lib = json.load(r)
+    lib = lib if isinstance(lib, list) else next(iter(lib.values()))
+    branches = {}
+    for b in json.load(open(BRANCHES)):
+        try:
+            branches[branch_key(b['BranchName'])] = (float(b['Lat']), float(b['Long']), b['BranchName'].split(' (')[0].strip())
+        except (TypeError, ValueError, KeyError):
+            continue    # bookmobiles have no place
+    kept, unplaced = 0, set()
+    for r in lib:
+        loc, title, start = (r.get('LocationName') or '').strip(), (r.get('Title') or '').strip(), r.get('StartTime') or ''
+        if r.get('Status') == 'ENDED' or not title or not today.isoformat() <= start[:10] <= last.isoformat():
+            continue
+        b = None if loc.endswith('- Closed') else branches.get(branch_key(loc))
+        if not b:
+            unplaced.add(loc)
+            continue
+        key = ('tpl', title, b[2])
+        e = events.get(key)
+        if not e:
+            e = events[key] = {
+                'id': 'tpl-' + r['EventID'], 'title': title, 'venue': b[2] + ' branch', 'address': None,
+                'lat': round(b[0], 5), 'lng': round(b[1], 5), 'free': None,
+                'category': (r.get('EventTypes') or '').split(', ')[0] or None,
+                'url': TPL_PAGE + urllib.parse.quote(r['EventID']), 'times': [], 'src': 'library',
+            }
+        end = r.get('EndTime') or ''
+        if start[11:16] == '00:00' and end[:16] <= start[:16]:
+            when = [start[:10], None]    # midnight to midnight: all day
+        else:
+            when = [start[:16], end[:16] if len(end) >= 16 and end[:16] > start[:16] else None]
+        if when not in e['times']:
+            e['times'].append(when)
+            kept += 1
+    sources.append('library')
+    print(f'library: {kept} times kept; not placed: {sorted(unplaced)}')
+except Exception as ex:    # the City's events still go out
+    print(f'library feed failed, City events only: {ex!r}')
+
 items = sorted(events.values(), key=lambda e: (min(t[0] for t in e['times']), e['title']))
 for e in items:
     e['times'].sort()
@@ -150,7 +217,8 @@ out = {
     'asof': now.strftime('%Y-%m-%dT%H:%M'),
     'from': today.isoformat(),
     'to': last.isoformat(),
-    'source': 'City of Toronto Festivals & Events Calendar',
+    'source': 'City of Toronto Festivals & Events Calendar' + (' and Toronto Public Library' if 'library' in sources else ''),
+    'sources': sources,
     'licence': 'Contains information licensed under the Open Government Licence – Toronto.',
     'events': items,
 }
