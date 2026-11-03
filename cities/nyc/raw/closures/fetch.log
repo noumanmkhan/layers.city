@@ -1,8 +1,8 @@
-nyc closures: 59 rows -> 59 segments; ['Arlington Ave', 'Ave I', 'Ave J', 'Ave N', 'Broadway', 'De Reimer Ave', 'E 108th St', 'E 109th St', 'E 110th St', 'E 2nd St', 'E 47th St', 'E 48th St', 'Keap St', 'Mc Donald Ave', 'Melrose St', 'Park Ave', 'Rockaway Freeway', 'Rodney St', 'S 5th St', 'Van Sinderen Ave']
+nyc closures: 60 rows -> 60 segments; ['Arlington Ave', 'Ave I', 'Ave J', 'Ave N', 'Broadway', 'De Reimer Ave', 'E 108th St', 'E 109th St', 'E 110th St', 'E 2nd St', 'E 47th St', 'E 48th St', 'Joralemon St', 'Keap St', 'Mc Donald Ave', 'Melrose St', 'Park Ave', 'Rockaway Freeway', 'Rodney St', 'S 5th St']
 centerline: 15051 segments on 619 streets; sample names ['104 AVE', '104 RD', '104 ST', '111 AVE', '111 RD', '111 ST', '115 AVE', '115 CT', '115 DR', '115 RD', '115 ST', '115 TER']
-nyc events: 49 permits -> 58 closures placed; 30 chunks not placed
-   not placed: Uptown Farmstand | EAST 115 STREET between PARK AVENUE and PARK AVENUE | no stretch between PARK AVE and PARK AVE
+nyc events: 48 permits -> 58 closures placed; 30 chunks not placed
    not placed: Religious Procession | COMMONWEALTH BOULEVARD between 247 STREET and HILLSIDE AVENUE | no stretch between 247 ST and HILLSIDE AVE
+   not placed: Uptown Farmstand | EAST 115 STREET between PARK AVENUE and PARK AVENUE | no stretch between PARK AVE and PARK AVE
    not placed: Stone Street Pedestrian Mall | STONE STREET between BROAD STREET and HANOVER SQUARE | no stretch between BROAD ST and HANOVER SQ
    not placed: 2026 New York City Veterans Day Parade | WEST   24 STREET between 7 AVENUE and 6 AVENUE | no stretch between 7 AVE and 6 AVE
    not placed: 2026 New York City Veterans Day Parade | WEST   24 STREET between 6 AVENUE and 5 AVENUE | no stretch between 6 AVE and 5 AVE
@@ -13,9 +13,9 @@ nyc events: 49 permits -> 58 closures placed; 30 chunks not placed
    not placed: 2026 New York City Veterans Day Parade | Madison Square Park: 5th Ave Sidewalks Madison Square Park between Fifth Avenue Sidewalks and and  and | no centerline for MADISON SQUARE PARK 5 AVE SIDEWALKS MADISON SQUARE PARK
    not placed: 2026 New York City Veterans Day Parade | AVENUE OF AMERICAS between WEST   23 STREET and WEST   27 STREET | no centerline for AVE OF AMERICAS
    not placed: 2026 New York City Veterans Day Parade | WEST   45 STREET between 6 AVENUE and 5 AVENUE | no stretch between 6 AVE and 5 AVE
+   not placed: Nassau Summer/Fall Street Closures | NASSAU AVENUE between BANKERS ANCHOR PLAZA and LORIMER STREET | no stretch between BANKERS ANCHOR PLZ and LORIMER ST
    not placed: Breathe Deep NYC | WATER STREET between WHITEHALL STREET and FULTON STREET | no stretch between WHITEHALL ST and FULTON ST
    not placed: Uptown Farmstand | EAST 115 STREET between PARK AVENUE and PARK AVENUE | no stretch between PARK AVE and PARK AVE
-   not placed: Nassau Summer/Fall Street Closures | NASSAU AVENUE between BANKERS ANCHOR PLAZA and LORIMER STREET | no stretch between BANKERS ANCHOR PLZ and LORIMER ST
    not placed: 2026 Brooklyn Veterans Appreciation Parade | EASTERN PARKWAY between NOSTRAND AVENUE and ROGERS AVENUE | no stretch between NOSTRAND AVE and ROGERS AVE
    not placed: Bronx Veterans Day Parade | ELLSWORTH AV between RANDALL AV and THROGS NECK EXWY SERVICE RD | no stretch between RANDALL AVE and THROGS NECK EXWY SERVICE RD
    not placed: Bronx Veterans Day Parade | THROGS NECK EXWY between ELLSWORTH AV and MEAGHER AV | no centerline for THROGS NECK EXWY
@@ -31,5 +31,5 @@ nyc events: 49 permits -> 58 closures placed; 30 chunks not placed
    not placed: Walk to End Alzheimers - Brooklyn | COLUMBIA HEIGHTS between BROOKLYN HEIGHTS PROMENADE and MIDDAGH STREET | no centerline for COLUMBIA HEIGHTS
    not placed: Walk to End Alzheimers - Brooklyn | MIDDAGH STREET between COLUMBIA HEIGHTS and CADMAN PLAZA WEST | no stretch between COLUMBIA HEIGHTS and CADMAN PLZ W
    not placed: Down to Earth Park Slope Farmers Market | 4TH STREET between FIFTH AVENUE and DEAD END | no stretch between 5 AVE and DEAD END
-nyc closures: 49 kept of 59 · dropped {'dates': 0, 'existing line': 0, 'local lane work': 0} · by project {'Other MTA work': 40, 'Second Avenue Subway, Phase 2': 9} · closed 49 · on arterials 9
+nyc closures: 49 kept of 60 · dropped {'dates': 0, 'existing line': 0, 'local lane work': 0} · by project {'Other MTA work': 40, 'Second Avenue Subway, Phase 2': 9} · closed 49 · on arterials 9
 nyc: 58 special-event closures in 21 events: Stone Street Pedestrian Mall (1, 2026-03-12T11:00 to 2026-11-08T22:00); HHFM East Harlem Market (1, 2026-11-05T08:00 to 2026-11-05T15:00); East 4th Street Open Street (1, 2026-11-05T16:00 to 2026-11-05T21:00); House Party 2026 (1, 2026-11-05T19:00 to 2026-11-05T22:00); Witness for Life (3, 2026-11-07T08:45 to 2026-11-07T11:00); Breathe Deep NYC (3, 2026-11-07T09:00 to 2026-11-07T12:00); NYC Halal Fest (1, 2026-11-07T10:00 to 2026-11-07T18:00); 8TH ANNUAL VETERANS APPRECIATION PARADE AND RESOURCE FAIR (4, 2026-11-07T11:00 to 2026-11-07T16:00); 76th Mahan Nagar Kirtan (2, 2026-11-07T12:00 to 2026-11-07T17:00); 2026 Brooklyn Veterans Appreciation Parade (1, 2026-11-07T12:00 to 2026-11-07T14:00); Walk to End Alzheimers - Brooklyn (3, 2026-11-08T11:00 to 2026-11-08T12:30); Bronx Veterans Day Parade (3, 2026-11-08T12:00 to 2026-11-08T14:00); Queens Veterans Parade (3, 2026-11-08T12:00 to 2026-11-08T15:00); Master Huaguang Birthday Memorial Procession (6, 2026-11-08T12:30 to 2026-11-08T14:30); LADY OF HAVEN FATIMA SAW (1, 2026-11-08T15:00 to 2026-11-08T18:00); Veterans Day Parade (5, 2026-11-11T10:30 to 2026-11-11T12:00); 2026 New York City Veterans Day Parade (12, 2026-11-11T12:30 to 2026-11-11T16:00); HHFM East Harlem Market (1, 2026-11-12T08:00 to 2026-11-12T15:00); Cristo del Consuelo Procession (3, 2026-11-14T10:00 to 2026-11-14T11:00); Religious Procession (2, 2026-11-14T12:00 to 2026-11-14T16:00); East Coast Car Association Toys For Tots (1, 2026-11-15T12:30 to 2026-11-15T14:00)
