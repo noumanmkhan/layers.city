@@ -2,6 +2,21 @@
 
 ## Since 1.1
 
+### Hub redesign: one table for every city (November 3)
+- The home page swaps its six city cards for one table: cities down the side, their pages across the top (Guide,
+  Fact sheets, Transit, Venues, Events, Fun maps). A ring stop opens that page; the Guide column shows how many places
+  it covers. Chicago, Vancouver and Dallas run on as a dashed "Under construction" track after their Guide instead of
+  an In development badge. On phones a six-button city picker shows one city's pages as a line of stops.
+- Compare, the iPhone app and what refreshes sit in three tiles below; print maps shrink to a Coming soon strip.
+  The page is about a third as tall: 1,150 px on a laptop (was 3,800) and 2,050 px on a phone (was 7,300).
+- The cities appear twice in `docs/index.html` (the table, and the phone picker): change both.
+
+### Privacy, Terms and Attributions: one fine-print layout (November 3)
+- The three pages share the hub's header and footer and a side rail listing all three with their dates, plus this
+  page's sections (the one being read is marked as you scroll). "In short" becomes numbered points; sections are
+  numbered (§1, §2…) on the page instead of sitting in cards. Phones get the three policies as a switcher at the top.
+  Wording unchanged.
+
 ### Privacy, Attributions and Terms in the Layers.City theme (November 3)
 - The three pages still wore the green "Nouman Khan · Maps" theme from before the rebrand. They now use the
   Layers.City red, the pin logo with "By Nouman Khan" in the header, and the Layers.City favicon, tab titles and
