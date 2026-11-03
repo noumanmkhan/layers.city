@@ -2,6 +2,10 @@
 
 ## Since 1.1
 
+### Hub: the iPhone app is on the App Store (November 3)
+- The hub's iOS app card now says Now on the App Store (was In development) and links straight to the App Store listing,
+  free in the US and Canada; the app's own page moves to an About row under it.
+
 ### Toronto: library programs are marked Free (November 3)
 - Toronto Public Library's programs now carry the Free tag on the Events page, the map's Happening nearby and the app
   (`happening.json` `free: true`; the library's feed doesn't say, but its programs are free to attend). On the Events page
