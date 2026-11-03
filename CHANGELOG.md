@@ -2,7 +2,7 @@
 
 ## Since 1.1
 
-### Toronto: Events page (November 3, on dev)
+### Toronto: Events page (November 3)
 - A new page, layers.city/toronto/events/: everything on the City's Festivals & Events Calendar and Toronto Public Library's
   branch programs for the next 30 days, as Today, This weekend, Next 7 days and Later this month. Each event: time, title
   (linking to its own page at the source), venue, neighbourhood, a Free tag, its category and "Show on map". Filters for free
