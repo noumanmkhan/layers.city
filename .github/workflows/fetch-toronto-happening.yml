@@ -1,0 +1,33 @@
+name: Fetch Toronto events
+# Downloads the City of Toronto Festivals & Events Calendar (Toronto Open Data, about 240 MB of JSON) and
+# writes docs/toronto/data/happening.json: today through the next 14 days, for "Happening nearby" on the
+# card's Nearby section and in the iOS app (cities/toronto/fetch_happening.py). Daily, early in the morning
+# Toronto time, so "today" is the new day. Scheduled runs only run from the copy of this file on main;
+# deploy.yml lists this workflow, so a run that commits goes live.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 9 * * *'        # 05:37 Toronto in summer, 04:37 in winter
+  push:
+    branches: [main]
+    paths: ['cities/toronto/fetch_happening.py', '.github/workflows/fetch-toronto-happening.yml']
+permissions:
+  contents: write
+concurrency: fetch-toronto-happening
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 -u cities/toronto/fetch_happening.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add docs/toronto/data/happening.json
+          git commit -m "Fetch Toronto events (Festivals & Events Calendar)" || echo "no changes"
+          git pull --rebase
+          git push

@@ -14,6 +14,8 @@
 > the lens's own `key`, `minutes`, `short` and `note` still name the default hub.
 > **October 28, 2026, later:** `transit.sched`, `transit.schedFiles` and the `sched/` files (section 15, "Scheduled times"): the next
 > scheduled departure when there are no live times. Additive.
+> **November 3, 2026, on dev:** `happening.json` (Toronto) and `card.nearby.happening`: events from the City's
+> Festivals & Events Calendar for "Happening nearby" (section 16). Additive; schema stays 2.
 
 This is everything an app needs to rebuild the map's "What's here" card from the published
 data, without reading the website's code. The website (this repo) is the only producer; an app is
@@ -71,6 +73,7 @@ All coordinates are WGS84. GeoJSON positions are `[longitude, latitude]`; most o
 | `region_areas.geojson` | Region/county outlines for the regional view. Not needed for the card. |
 | `community.geojson` | Every city (on dev; October 18, 2026). Public libraries and community centres (points) for the `community` `places` layer, written by `engine/community.py` from the same points as `nearby.json`'s `library` and `centre` groups. `properties`: `name`, `cat` (`library`, `centre`). Top level `count` {`library`, `centre`}. Additive. A `places` layer may also set `minZoom` (12–14): the web map shows its icons from that zoom. |
 | `nearby.json` | Points for the card's Nearby section: `{groups: {key: [[lon, lat, name?], …]}}`. Keys and labels come from `card.nearby` (section 5). Named kinds (`library`, `centre`, `er`, and in Toronto `mosque`, `gurdwara`, `synagogue`, `hindu`, `buddhist`, `church`, `halal`, `kosher`) carry a name; counted kinds (`park`, `playground`, …) are bare points. |
+| `happening.json` | Toronto (November 3, 2026, on dev): events from the City of Toronto Festivals & Events Calendar, today through the next 14 days, for "Happening nearby". Named by `card.nearby.happening.file`. Section 16. |
 | `attendance.geojson` | Chicago only: CPS attendance areas for the card's Schools section. One polygon per school and grade range, all levels in one file. `properties`: `level` (`es` elementary, `ms` middle, `hs` high), `grades` ("K–8", "7–8", "9–12"), `name` (the school's full name), `url` (its CPS profile page, may be empty), `x`, `y` (the building, lon/lat; absent when unknown, then `addr` may name the street). Top-level `year` ("2025–26"). **New York** (`cities/nyc/zones.py`, DOE school zones): the same fields, plus optional `note` (the DOE's remark on a shared or split zone, shown as a second subline); `name` may join a shared zone's schools with " or ", or say there is no zoned school (most middle and high school areas: choice by application); high schools have no `x`, `y`; since October 19, 2026 each feature also has `board` (the same value as `level`), so the web map's School zones layer (`zones`, kind `boards`, `file` `attendance`) can draw one level at a time (additive). Areas of one level don't overlap. Describe only: no ratings, scores or enrolment. |
 | `voting.geojson` | Only around an election (Toronto, and Chicago in precinct-only form): the voting subdivisions with each one's election-day voting place, for the card's where-to-vote box (`card.vote`, section 5). Built by `cities/toronto/voting.py` from the City's voting subdivisions and voting places (fetched daily in October by `fetch-voting.yml`). One polygon per subdivision; they don't overlap. `properties`: `c` code (ward, 2 digits, + subdivision, 3), `w` ward number, `a` the place's address, `x`, `y` the place (lon/lat), and when known `n` building name, `e` preferred entrance (left out when just "Main Doors"), `ae` accessible entrance when different, `vat` true where a Voter Assist Terminal is set up. Top-level `asof` (the City's last edit) and `election` (date). Advance voting places are not included. Chicago's file has no polling places (the Board publishes none by precinct): each feature is a precinct with `c`, `w`, `p` (precinct number) and, since October 20, `k: "chicago"`; the top level carries Chicago's vote centers in the same `centers` / `counts` format as Dallas's (the county key is "chicago"; any Chicago voter can use any of them), and `asof` is the date the site list was fetched (before October 20, the date the precinct layout was approved). Built by `cities/chicago/voting.py` from `fetch_vote_centers.py` (daily to election day in *Fetch Chicago voting places*). Dallas's file covers four counties: Dallas, Tarrant and Collin as one feature each (`k`: county key), Denton as its precincts (`k`, `c`, and the polling place's `n`, `a`, `r` room, `x`, `y`); top level `centers` [[x, y, name, room, address, county key, kind (1 election day, 2 early voting, 3 both)], …], `counts` {county: {ed, ev}}, `asof`, `election`. Built by `cities/dallas/voting.py` from `fetch_voting.py` (daily until election day in *Fetch Dallas voting places*). **New York** (`cities/nyc/voting.py`): one feature per election district, `c` "AD-ED" ("75-014"), `s` (election day site) and `e` (its assigned early voting site) as indexes into a top-level `sites` list of `[name, address, x, y]` (no x, y when a site couldn't be placed). Readers expand them to `n`/`a`/`x`/`y` and `en`/`ea`/`ex`/`ey`, as the site does on load; `card.vote.earlyLead` and `assignedDay` word the early-voting box. **San Francisco** (`cities/sf/voting.py`, October 31, 2026) uses New York's shape: one feature per 2022 precinct, `c` and `p` the precinct number, `s` its polling place and `e` 0 (the City Hall Voting Center, `sites[0]`, where anyone can vote early); a mail-ballot precinct has no `s` and the card shows `card.vote.precinctLead` (new, optional, any city: the lead line of the precinct-only box, defaulting to `lead`). Site addresses carry the Department's cross-street note in brackets. Additive. |
 | `skyscrapers.geojson` | Buildings 150 m and taller (points) for the `towers` layer, from each city's Wikipedia list (CC BY-SA 4.0; credit "Wikipedia"), built by `engine/skyscrapers.py`. Sorted tallest first. `properties`: `name`, `h` (height in metres, architectural: spires count, antennas don't), `ft` (feet), `floors` (may be null), `year` (completed, or expected when `uc`; null when unknown), `use` (`res`, `com` office or hotel, `mix`), `purpose` (display word: "Residential", "Office", "Hotel", "Mixed-use"), `uc` (true until open for occupancy, including topped-out towers), `super` (true at 300 m+), `rank` (by height in the city among towers built or topped out; a tower still under construction gets the rank it will have), `facts` (1–3 short sentences, most telling first), and optionally `aka` (a former or popular name), `address`, `wiki` (English Wikipedia article title). Top-level `source`. |
@@ -432,6 +435,7 @@ first matching feature in file order wins.
    shown. `sources` (added October 20, 2026; every city): one line naming the section's sources, with no
    reference to map layers, for apps whose footer can't use `note` (which mentions the web map's layers). Counts only: never a score, ranking or "best". The website shows this section between
    Schools and Representatives.
+   With `card.nearby.happening` (Toronto), the section ends with "Happening nearby" (section 16).
    **Schools** (`card.schools`, Chicago and New York): load `card.schools.file` (`attendance.geojson`). For
    each `[level, label]` in `levels`, the feature of that `level` containing the coordinate: row
    `label`, value its `name` (linked to `url` when set), subline `sub` filled with `{grades}` and
@@ -1092,3 +1096,43 @@ weekday middays".
 neighbourhoods, main streets and subway lines (sections 3 and 11), with the stop, the end, stations (every
 call, for a line) and landmarks marked at their `d` along `line`. Tint the neighbourhoods it passes, each a
 different colour in turn, with their names, and the known-as names near the route.
+
+## 16. Happening nearby
+
+`happening.json` (Toronto as of November 3, 2026, on dev; a city without `card.nearby.happening` has none: show
+nothing). Written daily, early morning city time, by `cities/toronto/fetch_happening.py` (*Fetch Toronto events*)
+from the City of Toronto Festivals & Events Calendar (Toronto Open Data "Festivals & Events", JSON feed, Open
+Government Licence – Toronto, commercial use allowed with the attribution in `licence`).
+
+```
+{version: 1, city, tz, asof,
+ from: "2026-11-03", to: "2026-11-17",               city dates: today through 14 days on
+ source, licence,                                   display text; show `card.nearby.happening.source` beside the list
+ events: [{id, title, venue, address, lat, lng, free, category, url,
+           times: [[start, end], …]}]}               sorted by first time, then title
+```
+
+- One item per event per place. `id` is the calendar's submission id (with `-1`, `-2` for an event's second and
+  later places). `venue` and `address` are the organizer's words and may be null; `address` is sometimes
+  coordinates as text. `lat`/`lng` are the calendar's own GPS for that place: events with no address on the map
+  (city-wide, virtual, a boundary or a route, or an address without GPS) are left out, never placed by guess.
+- `free`: true, false or null (not said). `category`: the first of the calendar's categories ("Arts/Exhibits",
+  "Live Performances", …), display only. `url`: the event's page on the City's calendar (open it in a browser
+  sheet; there is no detail screen).
+- `times`: every occurrence in the window, in city time. A timed one is `["2026-11-03T10:00", "2026-11-03T17:00"]`;
+  `end` is null when the organizer gave none (about one in five). An all-day one is `["2026-11-03", null]`. Daily
+  and weekly exhibits list each day they're open. An occurrence may end after midnight (end on the next date).
+- Not usable: descriptions, images, prices and contacts are left out (organizer-submitted). The feed's
+  `event_dates` list is capped at 20 entries and isn't used.
+
+`card.nearby.happening`: `{file, radius: 1000, max: 3, days: 14, title: "Happening nearby", today: "Today",
+free: "Free", source}`. How the website (and the app) builds the list for a spot:
+1. For each event, its next time that hasn't ended: an all-day date from today on; a timed one whose `end` is
+   after now, or, with no `end`, whose start is less than two hours ago.
+2. Keep events with such a time within `radius` metres (straight line) of the spot.
+3. Sort soonest first, where one that has already started (or is all day today) counts as now, then nearest.
+4. Show at most `max`: when, title (linking to `url`), venue · distance ("600 m away", as Nearby), and a
+   `free` tag when `free` is true. When: `today` and the start time ("Today 2 p.m.", in the city's locale) for
+   today, `today` alone when all day; the short weekday ("Sat") within six days; else the date ("Nov 14").
+5. None: no heading and no rows (no empty state). Then the `source` line.
+

@@ -2205,7 +2205,40 @@ function nearby(x, y){
     const n = (G[key] || []).filter(p => metres([x, y], p) <= N.radius).length;
     return n + ' ' + (n === 1 ? one : many);
   });
-  return '<div class="live"><dl>' + rows + '<dt>' + esc(N.within) + '</dt><dd>' + esc(counts.join(' · ')) + '</dd></dl><p>' + esc(N.note) + '</p></div>';
+  return '<div class="live"><dl>' + rows + '<dt>' + esc(N.within) + '</dt><dd>' + esc(counts.join(' · ')) + '</dd></dl>' + happeningHere(x, y) + '<p>' + esc(N.note) + '</p></div>';
+}
+/* Happening nearby (card.nearby.happening, inside the Nearby section): events from the city's calendar
+   (happening.json) within the radius that haven't ended, soonest first (one on now counts as now), then
+   nearest; at most `max`, each linking out to the calendar's own page. Nothing when none is near. */
+const HN = CITY.card.nearby && CITY.card.nearby.happening;
+// An event's next time that hasn't ended: [start, end]. A time without an end counts as over two hours after
+// it starts; a bare date (all day) at the end of that day.
+function hnNext(e, now){
+  return e.times.find(([s, t]) => {
+    if (s.length === 10) return s >= now.slice(0, 10);
+    if (t) return t > now;
+    const d = new Date(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10), +s.slice(11, 13) + 2, +s.slice(14, 16));
+    return d.toLocaleString('sv-SE').replace(' ', 'T').slice(0, 16) > now;
+  });
+}
+// "Today 2 p.m." (or "Today" all day), else the weekday ("Sat") within the week, else "Nov 14".
+function hnWhen(s, now){
+  const today = now.slice(0, 10), day = s.slice(0, 10);
+  if (day === today) return HN.today + (s.length > 10 ? ' ' + new Date(2000, 0, 1, +s.slice(11, 13), +s.slice(14, 16))
+    .toLocaleTimeString(CITY.locale, {hour: 'numeric', minute: s.slice(14, 16) === '00' ? undefined : '2-digit'}) : '');
+  const d = new Date(+day.slice(0, 4), +day.slice(5, 7) - 1, +day.slice(8, 10)), t = new Date(+today.slice(0, 4), +today.slice(5, 7) - 1, +today.slice(8, 10));
+  return (d - t) / 864e5 < 7 ? d.toLocaleDateString(CITY.locale, {weekday: 'short'}) : d.toLocaleDateString(CITY.locale, {month: 'short', day: 'numeric'});
+}
+function happeningHere(x, y){
+  const D = data.happening; if (!HN || !D || !D.events) return '';
+  const now = cityNow(D.tz);
+  const near = D.events.map(e => [e, metres([x, y], [e.lng, e.lat]), hnNext(e, now)]).filter(a => a[2] && a[1] <= HN.radius)
+    .map(a => { const s = a[2][0]; return [...a, s < now || s === now.slice(0, 10) ? now : s]; })
+    .sort((a, b) => (a[3] < b[3] ? -1 : a[3] > b[3] ? 1 : a[1] - b[1]));
+  if (!near.length) return '';
+  const rows = near.slice(0, HN.max || 3).map(([e, d, t]) => '<dt>' + esc(hnWhen(t[0], now)) + '</dt><dd><a class="hn-t" href="' + esc(e.url) + '" target="_blank" rel="noopener">' + esc(e.title) + '</a>' +
+    '<span>' + esc([e.venue, dist(d) + ' away'].filter(Boolean).join(' · ')) + (e.free ? ' <b class="hn-free">' + esc(HN.free) + '</b>' : '') + '</span></dd>').join('');
+  return '<h4 class="hn-h">' + esc(HN.title) + '</h4><dl class="hn">' + rows + '</dl><p>' + esc(HN.source) + '</p>';
 }
 /* Schools (card only, nothing drawn on the map): the school whose attendance area holds the spot, for
    each level the city config lists (e.g. elementary, middle, high), with its grades and the straight-line
@@ -4144,6 +4177,8 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
   }).catch(() => { data.transit = null; });
   // Bike share stations: fetched after the map is up for the Transit nearby row (TR.bikeshare).
   if (TR && TR.bikeshare && DOCK) ensureDocks().then(d => { if (d) redrawCard(); });
+  // Happening nearby: the city's events calendar, fetched after the map is up for the Nearby section.
+  if (HN) get(HN.file).then(d => { data.happening = d; redrawCard(); }).catch(() => { data.happening = null; });
   // What's changing: fetched after the map is up for the card's Changing nearby section.
   if (CC && CHG) ensureChanges().then(() => redrawCard());
   // Attendance areas are big: fetched after the map is up, then the open card is redrawn with them.
