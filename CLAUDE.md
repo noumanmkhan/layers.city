@@ -57,6 +57,11 @@ the landing page, stop and say so; don't change this repo.
   on this weekend, for the iOS app only (no web page yet). Built for every city that has inputs (planned subway closures
   from the TTC's GTFS-RT alerts via `cities/toronto/fetch_subway_alerts.py`, `events.geojson`, `raw/closures/major.json`, the Venues listing) at the
   end of *Fetch transit closures* and *Refresh venues*. Contract section 14.
+- **Events** (`engine/events_page.py`, `cities/<city>/events_page.json`, page at `docs/<city>/events/`; Toronto November 3,
+  2026, on dev): the next 30 days of the City's Festivals & Events Calendar and the library's branch programs, with filters
+  and "Near me" (the position stays in the browser). The page renders in the browser from `docs/<city>/events/events.json`,
+  which `fetch_happening.py` writes daily with happening.json (placeless events kept, each placed one's neighbourhood), so
+  the HTML is rebuilt only when its words or chrome change: `python3 engine/events_page.py <city>`.
 - To let the user try an experiment on dev on a phone: run the "Deploy to Cloudflare Pages" workflow by
   hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev. The branch is the
   workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.

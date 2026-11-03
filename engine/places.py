@@ -349,6 +349,7 @@ for c in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
     if os.path.exists(os.path.join(base, 'profiles', 'index.html')): urls.append(f'{SITE}/{c}/profiles/')
     if os.path.exists(os.path.join(base, 'routes', 'index.html')): urls.append(f'{SITE}/{c}/routes/')   # engine/routes/build.py
     if os.path.exists(os.path.join(base, 'fun', 'index.html')): urls.append(f'{SITE}/{c}/fun/')   # engine/fun/build.py
+    if os.path.exists(os.path.join(base, 'events', 'index.html')): urls.append(f'{SITE}/{c}/events/')   # engine/events_page.py
     vd = os.path.join(base, 'venues')                   # engine/venues.py: the list, then a page per venue
     if os.path.exists(os.path.join(vd, 'index.html')):
         urls.append(f'{SITE}/{c}/venues/')

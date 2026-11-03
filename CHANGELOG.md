@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Toronto: Events page (November 3, on dev)
+- A new page, layers.city/toronto/events/: everything on the City's Festivals & Events Calendar and Toronto Public Library's
+  branch programs for the next 30 days, as Today, This weekend, Next 7 days and Later this month. Each event: time, title
+  (linking to its own page at the source), venue, neighbourhood, a Free tag, its category and "Show on map". Filters for free
+  only, category and neighbourhood live in the address, so a view can be bookmarked. "Near me" sorts by distance; the
+  location stays in the browser.
+- Data: `cities/toronto/fetch_happening.py` also writes `docs/toronto/events/events.json` (30 days, with the citywide, online,
+  boundary and route events the card leaves out, and each place's neighbourhood). `happening.json` is unchanged.
+- Engine: `engine/events_page.py` and `cities/toronto/events_page.json`. Linked from the hub's Toronto card, the sitemap and,
+  through `card.nearby.happening.all`, a "See all events" link under Happening nearby on the map's card.
+
 ### New York: Fun maps, where New York gets filmed (November 2)
 - A new page, layers.city/nyc/fun/, linked from the hub card and the map's Places group: a year of shooting permits per
   community district (split evenly across a permit's districts), the 25 streets most often held for parking, permits by kind

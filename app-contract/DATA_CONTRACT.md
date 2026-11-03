@@ -1137,7 +1137,10 @@ with the attribution in `licence`.
   Library items far outnumber the City's (about 1,200 of 1,350); treat both the same.
 
 `card.nearby.happening`: `{file, radius: 1000, max: 3, days: 14, title: "Happening nearby", today: "Today",
-free: "Free", source}`. How the website (and the app) builds the list for a spot:
+free: "Free", all, source}`. `all` (Toronto, November 3, 2026, on dev; optional): `{label: "See all events", href:
+"/toronto/events/"}`, the website's Events page, linked under the list (the app may open it in a browser sheet as
+`https://layers.city` + `href`). The page reads its own file, `/toronto/events/events.json` (30 days, events with no
+place included): it's the page's, not part of this contract. How the website (and the app) builds the list for a spot:
 1. For each event, its next time that hasn't ended: an all-day date from today on; a timed one whose `end` is
    after now, or, with no `end`, whose start is less than two hours ago.
 2. Keep events with such a time within `radius` metres (straight line) of the spot.

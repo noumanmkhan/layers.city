@@ -2209,7 +2209,8 @@ function nearby(x, y){
 }
 /* Happening nearby (card.nearby.happening, inside the Nearby section): events from the city's calendar
    (happening.json) within the radius that haven't ended, soonest first (one on now counts as now), then
-   nearest; at most `max`, each linking out to the calendar's own page. Nothing when none is near. */
+   nearest; at most `max`, each linking out to the calendar's own page. Nothing when none is near. With
+   `all` ({label, href}), the list ends with a link to the city's Events page. */
 const HN = CITY.card.nearby && CITY.card.nearby.happening;
 // An event's next time that hasn't ended: [start, end]. A time without an end counts as over two hours after
 // it starts; a bare date (all day) at the end of that day.
@@ -2238,7 +2239,8 @@ function happeningHere(x, y){
   if (!near.length) return '';
   const rows = near.slice(0, HN.max || 3).map(([e, d, t]) => '<dt>' + esc(hnWhen(t[0], now)) + '</dt><dd><a class="hn-t" href="' + esc(e.url) + '" target="_blank" rel="noopener">' + esc(e.title) + '</a>' +
     '<span>' + esc([e.venue, dist(d) + ' away'].filter(Boolean).join(' · ')) + (e.free ? ' <b class="hn-free">' + esc(HN.free) + '</b>' : '') + '</span></dd>').join('');
-  return '<h4 class="hn-h">' + esc(HN.title) + '</h4><dl class="hn">' + rows + '</dl><p>' + esc(HN.source) + '</p>';
+  return '<h4 class="hn-h">' + esc(HN.title) + '</h4><dl class="hn">' + rows + '</dl>' +
+    (HN.all ? '<a class="hn-all" href="' + esc(HN.all.href) + '">' + esc(HN.all.label) + ' <span aria-hidden="true">→</span></a>' : '') + '<p>' + esc(HN.source) + '</p>';
 }
 /* Schools (card only, nothing drawn on the map): the school whose attendance area holds the spot, for
    each level the city config lists (e.g. elementary, middle, high), with its grades and the straight-line
