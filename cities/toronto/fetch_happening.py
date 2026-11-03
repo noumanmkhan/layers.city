@@ -3,13 +3,19 @@ Open Government Licence – Toronto) and write docs/toronto/data/happening.json:
 calendar from today through the next 14 days, for "Happening nearby" on the card's Nearby section and
 in the iOS app (contract, Happening nearby). Run daily from GitHub Actions (*Fetch Toronto events*).
 
+Also docs/toronto/events/events.json, for the Events page (engine/events_page.py): the same items over 30 days,
+plus the City's events with no address on the map (city-wide or virtual, a boundary, a route, an address
+without GPS), which keep the organizer's place name, `lat`/`lng` null and `area` saying which. Each placed item
+carries `hood`, the neighbourhood its GPS falls in (docs/toronto/data/neighbourhoods.geojson), or null.
+
 The feed is one record per occurrence (`calendar_date`), with `submission_id` shared by an event's
 occurrences; `event_dates` is capped at 20 entries, so it isn't used for the schedule. What's kept:
 - Title (`event_name`), category (the first `event_category`), free (`free_event` "Yes"/"No", else null)
   and the City's own page for the event (the calendar's `?event_id=` detail link).
 - Places: each `event_locations` entry of type "Address" with GPS. City-Wide/Virtual, Boundary and
-  Route entries, and addresses without GPS, are dropped rather than guessed; an event with none is
-  dropped. An event at several addresses gives one item per address.
+  Route entries, and addresses without GPS, are never placed by guess; an event with none is left out
+  of happening.json (the Events page keeps it, placeless). An event at several addresses gives one item
+  per address.
 - Times: each occurrence's local start, and its end that day from the location's schedule (the
   weekday's hours for weekly events, the dated entry for "Multiple"), else null. All-day occurrences
   are a bare date.
@@ -38,13 +44,18 @@ TPL_URL = ('https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/fb343332-03c
 TPL_PAGE = 'https://tpl.bibliocommons.com/events/'
 BRANCHES = os.path.join(HERE, 'raw', 'nearby', 'tpl_branches.json')
 TZ = ZoneInfo('America/Toronto')
-DAYS = 14
+DAYS = 14          # happening.json (the card and the app)
+PAGE_DAYS = 30     # the Events page
 OUT = os.path.join(HERE, '..', '..', 'docs', 'toronto', 'data', 'happening.json')
+PAGE_OUT = os.path.join(HERE, '..', '..', 'docs', 'toronto', 'events', 'events.json')
+HOODS = os.path.join(HERE, '..', '..', 'docs', 'toronto', 'data', 'neighbourhoods.geojson')
+AREA = {'City-Wide/Virtual': 'citywide', 'Boundary': 'boundary', 'Route': 'route', 'Address': 'address'}
 
 args = dict(zip(sys.argv[1::2], sys.argv[2::2]))
 now = datetime.now(TZ)
 today = date.fromisoformat(args['--today']) if '--today' in args else now.date()
-last = today + timedelta(days=DAYS)
+last = today + timedelta(days=PAGE_DAYS)
+last14 = today + timedelta(days=DAYS)
 
 if '--feed' in args:
     feed = json.load(open(args['--feed']))
@@ -125,8 +136,14 @@ for r in recs:
             sched = []
         places.append((loc, lat, lng, sched))
     if not places:
+        # No place on the map: kept for the Events page only, under the first location's name.
         dropped_place.add(r['submission_id'])
-        continue
+        loc = (r.get('event_locations') or [{}])[0]
+        try:
+            sched = json.loads(loc.get('location_dates') or '[]')
+        except ValueError:
+            sched = []
+        places = [(loc, None, None, sched)]
     for n, (loc, lat, lng, sched) in enumerate(places):
         key = (r['submission_id'], n)
         e = events.get(key)
@@ -137,13 +154,21 @@ for r in recs:
                 'title': r['event_name'].strip(),
                 'venue': (loc.get('location_name') or '').strip() or None,
                 'address': (loc.get('location_address') or '').strip() or None,
-                'lat': round(lat, 5), 'lng': round(lng, 5),
+                'lat': None if lat is None else round(lat, 5), 'lng': None if lng is None else round(lng, 5),
                 'free': free,
                 'category': (r.get('event_category') or [None])[0],
                 'url': PAGE + '?' + urllib.parse.urlencode({'event_id': r['id'], 'event_name': r['event_name'].strip()},
                                                           quote_via=urllib.parse.quote),
                 'times': [],
             }
+            if lat is None:
+                e['area'] = AREA.get(loc.get('location_type'), 'citywide')
+            e['_late'] = start.date() > last14
+        if e['_late'] and start.date() <= last14:
+            # The link is the first listed occurrence's; within 14 days if there is one, as happening.json had it.
+            e['url'] = PAGE + '?' + urllib.parse.urlencode({'event_id': r['id'], 'event_name': r['event_name'].strip()},
+                                                          quote_via=urllib.parse.quote)
+            e['_late'] = False
         if all_day(sched):
             when = [start.date().isoformat(), None]
         else:
@@ -193,7 +218,10 @@ try:
                 'lat': round(b[0], 5), 'lng': round(b[1], 5), 'free': None,
                 'category': (r.get('EventTypes') or '').split(', ')[0] or None,
                 'url': TPL_PAGE + urllib.parse.quote(r['EventID']), 'times': [], 'src': 'library',
+                '_late': start[:10] > last14.isoformat(),
             }
+        if e['_late'] and start[:10] <= last14.isoformat():
+            e['id'], e['url'], e['_late'] = 'tpl-' + r['EventID'], TPL_PAGE + urllib.parse.quote(r['EventID']), False
         end = r.get('EndTime') or ''
         if start[11:16] == '00:00' and end[:16] <= start[:16]:
             when = [start[:10], None]    # midnight to midnight: all day
@@ -210,21 +238,78 @@ except Exception as ex:    # the City's events still go out
 items = sorted(events.values(), key=lambda e: (min(t[0] for t in e['times']), e['title']))
 for e in items:
     e['times'].sort()
-out = {
+    e.pop('_late', None)
+
+
+def ring_has(ring, x, y):
+    inside = False
+    for (x1, y1), (x2, y2) in zip(ring, ring[1:] + ring[:1]):
+        if (y1 > y) != (y2 > y) and x < x1 + (y - y1) * (x2 - x1) / (y2 - y1):
+            inside = not inside
+    return inside
+
+
+def hoods():
+    """[(name, bbox, polygons)] from the map's neighbourhoods, each polygon [outer, *holes]."""
+    out = []
+    try:
+        feats = json.load(open(HOODS))['features']
+    except (OSError, ValueError, KeyError):
+        return out
+    for f in feats:
+        g = f['geometry']
+        polys = g['coordinates'] if g['type'] == 'MultiPolygon' else [g['coordinates']]
+        xs = [c[0] for p in polys for c in p[0]]; ys = [c[1] for p in polys for c in p[0]]
+        out.append((f['properties']['name'], (min(xs), min(ys), max(xs), max(ys)), polys))
+    return out
+
+
+HOOD_LIST = hoods()
+
+
+def hood_of(lng, lat):
+    for name, (x0, y0, x1, y1), polys in HOOD_LIST:
+        if x0 <= lng <= x1 and y0 <= lat <= y1:
+            for p in polys:
+                if ring_has(p[0], lng, lat) and not any(ring_has(h, lng, lat) for h in p[1:]):
+                    return name
+    return None
+
+
+head = {
     'version': 1,
     'city': 'toronto',
     'tz': 'America/Toronto',
     'asof': now.strftime('%Y-%m-%dT%H:%M'),
     'from': today.isoformat(),
-    'to': last.isoformat(),
+}
+tail = {
     'source': 'City of Toronto Festivals & Events Calendar' + (' and Toronto Public Library' if 'library' in sources else ''),
     'sources': sources,
     'licence': 'Contains information licensed under the Open Government Licence – Toronto.',
-    'events': items,
 }
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, 'w') as f:
-    json.dump(out, f, ensure_ascii=False, separators=(',', ':'))
-    f.write('\n')
-print(f'{len(items)} events at {len({(e["lat"], e["lng"]) for e in items})} places, {today} to {last}; '
-      f'{len(dropped_place)} dropped with no address on the map')
+
+
+def write(path, doc):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w') as f:
+        json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))
+        f.write('\n')
+
+
+# happening.json: placed events only, through 14 days (contract section 16).
+near = []
+for e in items:
+    times = [t for t in e['times'] if t[0][:10] <= last14.isoformat()]
+    if e['lat'] is not None and times:
+        near.append({**e, 'times': times})
+write(OUT, {**head, 'to': last14.isoformat(), **tail, 'events': near})
+print(f'{len(near)} events at {len({(e["lat"], e["lng"]) for e in near})} places, {today} to {last14}; '
+      f'{len(dropped_place)} with no address on the map')
+
+# The Events page: everything through 30 days, with each placed item's neighbourhood.
+for e in items:
+    e['hood'] = hood_of(e['lng'], e['lat']) if e['lat'] is not None else None
+write(PAGE_OUT, {**head, 'to': last.isoformat(), **tail, 'events': items})
+print(f'Events page: {len(items)} events ({sum(e["lat"] is None for e in items)} placeless, '
+      f'{sum(1 for e in items if e["lat"] is not None and not e["hood"])} outside every neighbourhood), {today} to {last}')
