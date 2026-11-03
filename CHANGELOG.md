@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### Privacy, Attributions and Terms in the Layers.City theme (November 3)
+- The three pages still wore the green "Nouman Khan · Maps" theme from before the rebrand. They now use the
+  Layers.City red, the pin logo with "By Nouman Khan" in the header, and the Layers.City favicon, tab titles and
+  share image, like the hub, About and app pages. Wording unchanged.
+
 ### Hub: the iPhone app is on the App Store (November 3)
 - The hub's iOS app card now says Now on the App Store (was In development) and links straight to the App Store listing,
   free in the US and Canada; the app's own page moves to an About row under it.
