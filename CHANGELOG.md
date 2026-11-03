@@ -10,6 +10,8 @@
 ### Hub: the iPhone app is on the App Store (November 3)
 - The hub's iOS app card now says Now on the App Store (was In development) and links straight to the App Store listing,
   free in the US and Canada; the app's own page moves to an About row under it.
+- The hub header now carries Apple's official "Download on the App Store" badge (`docs/badges/`, used unmodified),
+  linking to the listing: beside the email and Instagram pills on wide screens, on its own line on phones.
 - The app page (layers.city/app/) now says On the App Store, with a Download on the App Store button; its TestFlight
   Testing section is replaced by Get the app.
 
