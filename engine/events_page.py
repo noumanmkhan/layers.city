@@ -112,7 +112,7 @@ ul.events .acts{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;marg
 .tag{display:inline-block;padding:1px 9px;border-radius:999px;font-size:13px;background:var(--soft);color:var(--ink)}
 .tag.free{background:var(--go);color:#fff;font-weight:500}
 .maplink{display:inline-flex;align-items:center;gap:4px;color:var(--accent);text-decoration:none}.maplink:hover{text-decoration:underline}.maplink svg{width:11px;height:14px}
-.away{color:var(--ink-2);font-weight:500}
+.away{color:var(--ink-2);font-weight:500}.src{color:var(--ink-3)}
 .empty{color:var(--ink-3);margin:6px 0 0}
 .showall{font:inherit;font-size:15px;margin:12px 0 0;min-height:40px;padding:0 16px;border-radius:999px;border:1.5px solid var(--rule);background:var(--card);color:var(--ink);cursor:pointer}
 .controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:22px 0 6px;font-size:15px}
@@ -139,7 +139,7 @@ NEAR_PIN = SMALL_PIN.replace('var(--card)', 'var(--accent)')
 
 # What the script needs, as data: the listing, the map's address, and the words.
 JS_CFG = {'file': P['file'], 'map': f'/{city}/', 'locale': cfg.get('locale', 'en-CA'), 'placeless': W['placeless'],
-          'unit': 'mi' if cfg.get('units') == 'imperial' else 'km', 'pin': SMALL_PIN}
+          'unit': 'mi' if cfg.get('units') == 'imperial' else 'km', 'pin': SMALL_PIN, 'srcs': W.get('sources', {})}
 
 SCRIPT = """<script>
 (()=>{const C=__CFG__,$=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
@@ -170,12 +170,12 @@ function when(t,today,one){const[s,e]=t,d=s.slice(0,10);
   const day=one?'':'<b>'+esc(d===today?'Today':d===dayAdd(today,1)?'Tomorrow':dateFmt(d,{weekday:'short',month:'short',day:'numeric'}))+'</b>';
   return day+(s.length===10?'All day':esc(clock(s)+(e&&e.slice(0,10)===d?'–'+clock(e):'')))}
 function row(e,t,rest,today,one){
-  const where=e.lat==null?[e.venue,C.placeless]:[e.venue,e.hood];
+  const where=e.lat==null?[e.venue,C.placeless]:[e.venue,e.hood],src=C.srcs[e.src];
   const more=rest.length?'<span class="more">'+(rest.length===1?'Also '+esc(dateFmt(rest[0][0].slice(0,10),{weekday:'short',month:'short',day:'numeric'})):esc('+ '+rest.length+' more dates to '+dateFmt(rest[rest.length-1][0].slice(0,10),{month:'short',day:'numeric'})))+'</span>':'';
   const map=e.lat==null?'':'<a class="maplink" href="'+esc(C.map+'#map=17/'+e.lat+'/'+e.lng+'&pin='+e.lat+','+e.lng+'&name='+encodeURIComponent(e.venue||e.title))+'">'+C.pin+'Show on map</a>';
   return'<li><time>'+when(t,today,one)+'</time><div class="ev"><a class="t" href="'+esc(e.url)+'" target="_blank" rel="noopener">'+esc(e.title)+'</a>'+
     '<span class="where">'+esc(where.filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join(' · '))+'</span>'+more+
-    '<span class="acts">'+(e.free?'<span class="tag free">Free</span>':'')+(e.category?'<span class="tag">'+esc(e.category)+'</span>':'')+
+    '<span class="acts">'+(e.free?'<span class="tag free">Free</span>':'')+(src?'<span class="src">'+esc(src)+'</span>':'')+(e.category?'<span class="tag">'+esc(e.category)+'</span>':'')+
     (me&&e.lat!=null?'<span class="away">'+esc(away(km(me,[e.lat,e.lng])))+'</span>':'')+map+'</span></div></li>'}
 function render(){if(!D)return;const now=cityNow(D.tz),today=now.slice(0,10),f=freeEl.checked,cat=catEl.value,hood=hoodEl.value;
   const keep=D.events.filter(e=>(!f||e.free===true)&&(!cat||e.category===cat)&&(!hood||(hood==='-'?e.lat==null:e.hood===hood)))

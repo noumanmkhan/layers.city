@@ -54,7 +54,7 @@ ul.events .acts{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;marg
 .tag{display:inline-block;padding:1px 9px;border-radius:999px;font-size:13px;background:var(--soft);color:var(--ink)}
 .tag.free{background:var(--go);color:#fff;font-weight:500}
 .maplink{display:inline-flex;align-items:center;gap:4px;color:var(--accent);text-decoration:none}.maplink:hover{text-decoration:underline}.maplink svg{width:11px;height:14px}
-.away{color:var(--ink-2);font-weight:500}
+.away{color:var(--ink-2);font-weight:500}.src{color:var(--ink-3)}
 .empty{color:var(--ink-3);margin:6px 0 0}
 .showall{font:inherit;font-size:15px;margin:12px 0 0;min-height:40px;padding:0 16px;border-radius:999px;border:1.5px solid var(--rule);background:var(--card);color:var(--ink);cursor:pointer}
 .controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:22px 0 6px;font-size:15px}
@@ -86,7 +86,7 @@ footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(
 <button type="button" class="reset" id="reset" hidden>Clear filters</button>
 </div>
 <p class="status" id="status" aria-live="polite"></p><div id="sections"><section><p class="empty">Loading the listing…</p></section></div><noscript><section><p class="empty">This page needs JavaScript to show the listing.</p></section></noscript><script>
-(()=>{const C={"file": "events.json", "map": "/toronto/", "locale": "en-CA", "placeless": "Citywide or online", "unit": "km", "pin": "<svg viewBox=\"18 6 84 108\" aria-hidden=\"true\"><path d=\"M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z\" fill=\"currentColor\"/><circle cx=\"60\" cy=\"48\" r=\"14\" fill=\"var(--card)\"/></svg>"},$=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+(()=>{const C={"file": "events.json", "map": "/toronto/", "locale": "en-CA", "placeless": "Citywide or online", "unit": "km", "pin": "<svg viewBox=\"18 6 84 108\" aria-hidden=\"true\"><path d=\"M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z\" fill=\"currentColor\"/><circle cx=\"60\" cy=\"48\" r=\"14\" fill=\"var(--card)\"/></svg>", "srcs": {"library": "Library program"}},$=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
 const freeEl=$('free'),catEl=$('cat'),hoodEl=$('hood'),nearEl=$('near'),statusEl=$('status'),out=$('sections');
 let D=null,me=null;const shown={};   // me: the visitor's position, kept here only, never stored or sent
 // City-time clock: "YYYY-MM-DDTHH:MM".
@@ -114,12 +114,12 @@ function when(t,today,one){const[s,e]=t,d=s.slice(0,10);
   const day=one?'':'<b>'+esc(d===today?'Today':d===dayAdd(today,1)?'Tomorrow':dateFmt(d,{weekday:'short',month:'short',day:'numeric'}))+'</b>';
   return day+(s.length===10?'All day':esc(clock(s)+(e&&e.slice(0,10)===d?'–'+clock(e):'')))}
 function row(e,t,rest,today,one){
-  const where=e.lat==null?[e.venue,C.placeless]:[e.venue,e.hood];
+  const where=e.lat==null?[e.venue,C.placeless]:[e.venue,e.hood],src=C.srcs[e.src];
   const more=rest.length?'<span class="more">'+(rest.length===1?'Also '+esc(dateFmt(rest[0][0].slice(0,10),{weekday:'short',month:'short',day:'numeric'})):esc('+ '+rest.length+' more dates to '+dateFmt(rest[rest.length-1][0].slice(0,10),{month:'short',day:'numeric'})))+'</span>':'';
   const map=e.lat==null?'':'<a class="maplink" href="'+esc(C.map+'#map=17/'+e.lat+'/'+e.lng+'&pin='+e.lat+','+e.lng+'&name='+encodeURIComponent(e.venue||e.title))+'">'+C.pin+'Show on map</a>';
   return'<li><time>'+when(t,today,one)+'</time><div class="ev"><a class="t" href="'+esc(e.url)+'" target="_blank" rel="noopener">'+esc(e.title)+'</a>'+
     '<span class="where">'+esc(where.filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join(' · '))+'</span>'+more+
-    '<span class="acts">'+(e.free?'<span class="tag free">Free</span>':'')+(e.category?'<span class="tag">'+esc(e.category)+'</span>':'')+
+    '<span class="acts">'+(e.free?'<span class="tag free">Free</span>':'')+(src?'<span class="src">'+esc(src)+'</span>':'')+(e.category?'<span class="tag">'+esc(e.category)+'</span>':'')+
     (me&&e.lat!=null?'<span class="away">'+esc(away(km(me,[e.lat,e.lng])))+'</span>':'')+map+'</span></div></li>'}
 function render(){if(!D)return;const now=cityNow(D.tz),today=now.slice(0,10),f=freeEl.checked,cat=catEl.value,hood=hoodEl.value;
   const keep=D.events.filter(e=>(!f||e.free===true)&&(!cat||e.category===cat)&&(!hood||(hood==='-'?e.lat==null:e.hood===hood)))

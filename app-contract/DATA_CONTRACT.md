@@ -14,6 +14,8 @@
 > the lens's own `key`, `minutes`, `short` and `note` still name the default hub.
 > **October 28, 2026, later:** `transit.sched`, `transit.schedFiles` and the `sched/` files (section 15, "Scheduled times"): the next
 > scheduled departure when there are no live times. Additive.
+> **November 3, 2026, later:** library items in `happening.json` now have `free: true` (they were null): the library's
+> programs are free to attend. Same field and type; no schema change.
 > **November 3, 2026, on dev:** `happening.json` (Toronto) and `card.nearby.happening`: events from the City's
 > Festivals & Events Calendar for "Happening nearby" (section 16). Additive; schema stays 2.
 > **November 3, 2026, later, on dev:** `happening.json` also carries Toronto Public Library branch programs: `src`
@@ -1131,8 +1133,9 @@ with the attribution in `licence`.
   `event_dates` list is capped at 20 entries and isn't used.
 - `src`: `city` (the Festivals & Events Calendar) or `library` (Toronto Public Library). A library item is one
   program at one branch, with each of its times in the window (a weekly club is one item); `id` starts `tpl-`,
-  `venue` is "<branch> branch", `address` is null, `lat`/`lng` are the branch's, `free` is null (the feed doesn't
-  say), `category` is the first of the library's types ("Crafts & Hobbies", "Reading Programs & Storytimes"), and
+  `venue` is "<branch> branch", `address` is null, `lat`/`lng` are the branch's, `free` is true (since November 3,
+  2026: the feed doesn't say, but the library's programs are free to attend, some with registration; it was null
+  before), `category` is the first of the library's types ("Crafts & Hobbies", "Reading Programs & Storytimes"), and
   `url` is the program's page on the library's events site. Closed branches and unmatched names are left out.
   Library items far outnumber the City's (about 1,200 of 1,350); treat both the same.
 

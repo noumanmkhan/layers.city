@@ -25,8 +25,8 @@ Also Toronto Public Library's programs and events at its branches (Open Data "Li
 Events Feed", same licence): one record per occurrence, kept as one item per program and branch (a weekly
 club is one item with each of its times). The feed names the branch only, so the place is the branch's
 GPS from raw/nearby/tpl_branches.json (fetch_nearby.py), matched by name; closed branches ("… - Closed"),
-"None" and names that don't match are dropped. Category: the first of `EventTypes`. Free: null (the feed
-doesn't say). Link: the program's page on the library's events site. Ended occurrences are left out. If the
+"None" and names that don't match are dropped. Category: the first of `EventTypes`. Free: true (the feed
+doesn't say, but the library's programs are free to attend; some need registration). Link: the program's page on the library's events site. Ended occurrences are left out. If the
 library feed can't be read, the file is written with the City's events alone and `sources` says so.
 
 Usage: python3 cities/toronto/fetch_happening.py [--feed FILE] [--library FILE] [--today YYYY-MM-DD]
@@ -215,7 +215,7 @@ try:
         if not e:
             e = events[key] = {
                 'id': 'tpl-' + r['EventID'], 'title': title, 'venue': b[2] + ' branch', 'address': None,
-                'lat': round(b[0], 5), 'lng': round(b[1], 5), 'free': None,
+                'lat': round(b[0], 5), 'lng': round(b[1], 5), 'free': True,
                 'category': (r.get('EventTypes') or '').split(', ')[0] or None,
                 'url': TPL_PAGE + urllib.parse.quote(r['EventID']), 'times': [], 'src': 'library',
                 '_late': start[:10] > last14.isoformat(),

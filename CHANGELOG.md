@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### Toronto: library programs are marked Free (November 3)
+- Toronto Public Library's programs now carry the Free tag on the Events page, the map's Happening nearby and the app
+  (`happening.json` `free: true`; the library's feed doesn't say, but its programs are free to attend). On the Events page
+  they're labelled "Library program", and "Free only" now keeps them.
+
 ### Toronto: Events page (November 3)
 - A new page, layers.city/toronto/events/: everything on the City's Festivals & Events Calendar and Toronto Public Library's
   branch programs for the next 30 days, as Today, This weekend, Next 7 days and Later this month. Each event: time, title
