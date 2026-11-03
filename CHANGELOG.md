@@ -5,6 +5,8 @@
 ### Hub: the iPhone app is on the App Store (November 3)
 - The hub's iOS app card now says Now on the App Store (was In development) and links straight to the App Store listing,
   free in the US and Canada; the app's own page moves to an About row under it.
+- The app page (layers.city/app/) now says On the App Store, with a Download on the App Store button; its TestFlight
+  Testing section is replaced by Get the app.
 
 ### Toronto: library programs are marked Free (November 3)
 - Toronto Public Library's programs now carry the Free tag on the Events page, the map's Happening nearby and the app

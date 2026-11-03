@@ -5,14 +5,14 @@
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Layers.City for iPhone · Layers.City</title>
-<meta name="description" content="The Layers.City iPhone app: your neighbourhood, pickup days, closures and this weekend, on your lock screen. What it does, testing, and support.">
+<meta name="description" content="The Layers.City iPhone app: your neighbourhood, pickup days, closures and this weekend, on your lock screen. Free on the App Store in the US and Canada. What it does, and support.">
 <link rel="canonical" href="https://layers.city/app/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://layers.city/app/">
 <meta property="og:site_name" content="Layers.City">
 <meta property="og:title" content="Layers.City for iPhone">
-<meta property="og:description" content="The Layers.City iPhone app: your neighbourhood, pickup days, closures and this weekend, on your lock screen. What it does, testing, and support.">
+<meta property="og:description" content="The Layers.City iPhone app: your neighbourhood, pickup days, closures and this weekend, on your lock screen. Free on the App Store in the US and Canada. What it does, and support.">
 <meta property="og:image" content="https://layers.city/og-layers.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -114,6 +114,7 @@ main.doc{padding-top:56px;gap:40px}
 .toc{display:flex;flex-wrap:wrap;gap:10px}
 .toc a{display:flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--rule)}
 .toc a:hover{border-color:var(--ink)}
+.get{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px}.store{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;font-weight:500;font-size:16px;background:var(--accent);color:#fff}.store:hover{filter:brightness(1.08)}.store:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.where{font-family:var(--mono);font-size:13px;color:var(--ink-3)}
 .status{align-self:flex-start;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:5px 12px}
 .policy{background:var(--card);border:1.5px solid var(--rule);border-radius:14px;padding:32px;max-width:860px;scroll-margin-top:24px}
 .policy h2{margin:0 0 6px;font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em}
@@ -154,12 +155,19 @@ main.doc{padding-top:56px;gap:40px}
 
   <main class="wrap doc">
     <section class="hero">
-      <span class="status">IN BETA</span>
+      <span class="status">ON THE APP STORE</span>
       <h1>Layers.City for iPhone</h1>
       <p class="lede">Know where you are and what’s going on around you, without opening anything. A lock screen widget, a few well-timed reminders, and a home screen of big numbers for the neighbourhood you’re in, in Toronto, Chicago, Vancouver, Dallas and New York.</p>
+      <div class="get">
+        <a class="store" href="https://apps.apple.com/ca/app/layers-city/id6825213728">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12"/><path d="m6 11 6 6 6-6"/><path d="M5 20h14"/></svg>
+          Download on the App Store
+        </a>
+        <span class="where">Free · iPhone · US and Canada</span>
+      </div>
       <nav class="toc" aria-label="On this page">
         <a href="#about">What it does</a>
-        <a href="#testing">Testing</a>
+        <a href="#get">Get the app</a>
         <a href="#support">Support</a>
       </nav>
     </section>
@@ -177,10 +185,10 @@ main.doc{padding-top:56px;gap:40px}
       <p>Layers.City is an independent project by Nouman Khan. It isn’t affiliated with any city government or transit agency.</p>
     </section>
 
-    <section class="policy" id="testing" aria-labelledby="testing-h">
-      <h2 id="testing-h">Testing</h2>
-      <p>The app is in beta through Apple’s TestFlight, ahead of its App Store release. Testers install the free TestFlight app from the App Store, then open their invitation link to install Layers.City.</p>
-      <p>Testing is by invitation for now. If you know one of the cities well and would like to help, email me and say which one.</p>
+    <section class="policy" id="get" aria-labelledby="get-h">
+      <h2 id="get-h">Get the app</h2>
+      <p>Layers.City is free on the <a href="https://apps.apple.com/ca/app/layers-city/id6825213728">App Store</a> for iPhone, in the United States and Canada. No accounts and no ads.</p>
+      <p>It’s only offered where its cities are: outside them it has nothing to describe. If you’d like your city next, email me and say which one.</p>
     </section>
 
     <section class="policy" id="support" aria-labelledby="support-h">
@@ -190,7 +198,7 @@ main.doc{padding-top:56px;gap:40px}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
         go@layers.city
       </a>
-      <p>It helps to include your iPhone model and iOS version, the city, and what you tapped. A screenshot is ideal. Testers can also send feedback from inside TestFlight, which attaches these details automatically.</p>
+      <p>It helps to include your iPhone model and iOS version, the city, and what you tapped. A screenshot is ideal.</p>
 
       <h3>Adding the widget</h3>
       <p>Lock screen: touch and hold the lock screen, tap Customize, then Lock Screen, tap the area under the clock and choose Layers.City. Home screen: touch and hold an empty part of the home screen, tap Edit, then Add Widget, and choose Layers.City.</p>
