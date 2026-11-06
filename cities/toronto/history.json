@@ -1,0 +1,296 @@
+{
+  "_about": "Pape Avenue south of Gerrard is not in streets.geojson, so the relief lines use points on its line extended south (crossings with Gerrard, Queen and Eastern computed from it). Transit history timeline page (engine/history/build.py), at docs/toronto/ttc-history/. Each line has a geometry recipe and a dated list of events. Geometry recipes: {\"line\": id, \"from\": station, \"to\": station} cuts a published subway_lines.geojson line between two stations; {\"build\": id} is a line from construction.geojson; {\"along\": [streets], \"from\": pt, \"to\": pt} follows the named streets in streets.geojson; {\"path\": [pt, ...]} joins points with straight lines; {\"parts\": [...]} chains recipes. A pt is a station name in subway_stations.geojson, \"build:<id>:<name>\" (a construction.geojson station), {\"x\": [street, street]} (where two streets meet; \"near\" picks one crossing) or [lon, lat]. Stages: proposed, approved, building, open, closed, cancelled, dormant, superseded. Every event names its sources (keys of \"sources\"). Facts only: route, stations, dates, who and what happened, in our own words. No scanned plan maps are published.",
+  "path": "ttc-history",
+  "unlisted": true,
+  "page": {
+    "city": "Toronto",
+    "title": "The subway Toronto built, and the one it almost did",
+    "short": "Transit history",
+    "description": "Every subway and LRT line Toronto opened, closed, cancelled or is still building, on one map with a timeline from 1946 to today.",
+    "lede": "Drag the timeline to watch the network grow, and to see the lines that were promised, dug, cancelled or replaced along the way. Tap any line for its history and sources.",
+    "note": "Unbuilt lines are traced by hand from published route descriptions and station lists, so they show where a line would have run, not its exact alignment. Built lines and lines under construction are drawn from the same data as the map.",
+    "credits": "Built lines: TTC GTFS (City of Toronto Open Data) and OpenStreetMap contributors (ODbL). Streets and former municipalities: City of Toronto Open Data. Dates and routes: the sources listed on each line.",
+    "start": 1946,
+    "future": "Future"
+  },
+  "sources": {
+    "w-l1": {"t": "Line 1 Yonge–University (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Line_1_Yonge%E2%80%93University"},
+    "w-l2": {"t": "Line 2 Bloor–Danforth (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Line_2_Bloor%E2%80%93Danforth"},
+    "w-l3": {"t": "Line 3 Scarborough (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Line_3_Scarborough"},
+    "w-l4": {"t": "Line 4 Sheppard (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Line_4_Sheppard"},
+    "w-l5": {"t": "Line 5 Eglinton (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Line_5_Eglinton"},
+    "w-l6": {"t": "Line 6 Finch West (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Line_6_Finch_West"},
+    "tt-l5": {"t": "Transit Toronto: Line 5 Eglinton", "u": "https://transittoronto.ca/streetcar/4124.shtml"},
+    "ec-subway": {"t": "Toronto subway (The Canadian Encyclopedia)", "u": "https://encyclopediecanadienne.ca/article/toronto-subway/"},
+    "tt-queen": {"t": "Transit Toronto: the Queen subway", "u": "https://transittoronto.ca/subway/5104.shtml"},
+    "tt-lost": {"t": "Transit Toronto: Toronto's lost subway stations", "u": "https://transittoronto.ca/subway/5006.shtml"},
+    "w-queen": {"t": "Queen subway line (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Queen_subway_line"},
+    "jb-interline": {"t": "Past pieces of Toronto: subway interlining (1966 press)", "u": "https://jbwarehouse.blogspot.com/2013/03/past-pieces-of-toronto-subway.html"},
+    "w-n2011": {"t": "Network 2011 (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Network_2011"},
+    "tt-n2011": {"t": "Transit Toronto: Network 2011", "u": "https://transittoronto.ca/subway/5111.shtml"},
+    "tt-drl": {"t": "Transit Toronto: a history of the Downtown Relief Line", "u": "https://transittoronto.ca/subway/5113.shtml"},
+    "w-egw": {"t": "Eglinton West line (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Eglinton_West_line"},
+    "tt-egw": {"t": "Transit Toronto: the Eglinton West subway", "u": "https://transittoronto.ca/subway/5112.shtml"},
+    "w-tc": {"t": "Transit City (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Transit_City"},
+    "tt-tc": {"t": "Transit Toronto: Transit City", "u": "https://transittoronto.ca/streetcar/4121.shtml"},
+    "w-shepe": {"t": "Sheppard East LRT (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Sheppard_East_LRT"},
+    "w-donmills": {"t": "Don Mills LRT (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Don_Mills_LRT"},
+    "w-jane": {"t": "Jane LRT (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Jane_LRT"},
+    "w-sse": {"t": "Scarborough Subway Extension (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Scarborough_Subway_Extension"},
+    "w-ol": {"t": "Ontario Line (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Ontario_Line"},
+    "mx-ol": {"t": "Metrolinx: Ontario Line", "u": "https://www.metrolinx.com/en/projects-and-programs/ontario-line"},
+    "mx-sse": {"t": "Metrolinx: Scarborough Subway Extension", "u": "https://www.metrolinx.com/en/projects-and-programs/scarborough-subway-extension"},
+    "mx-egw": {"t": "Metrolinx: Eglinton Crosstown West Extension", "u": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension"},
+    "w-ynse": {"t": "Yonge North subway extension (Wikipedia)", "u": "https://en.wikipedia.org/wiki/Yonge_North_subway_extension"},
+    "ca-ynse": {"t": "Government of Canada: Yonge North groundbreaking (July 2026)", "u": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/07/canada-and-ontario-celebrate-another-milestone-for-the-yonge-north-subway-extension.html"},
+    "to-ynse": {"t": "City of Toronto: Yonge North Subway Extension", "u": "https://www.toronto.ca/city-government/accountability-operations-customer-service/city-administration/city-managers-office/key-initiatives/transit-in-toronto/transit-expansion/yonge-north-subway-extension"},
+    "munro-2019": {"t": "Steve Munro: Ontario announces Toronto subway plan (2019)", "u": "https://stevemunro.ca/2019/04/10/ontario-announces-toronto-subway-plan/"},
+    "globe-rl": {"t": "The Globe and Mail: Queen Street route proposed for the relief line (2016)", "u": "https://www.theglobeandmail.com/news/toronto/queen-street-route-proposed-for-new-toronto-subway/article28460818/"},
+    "to-shep": {"t": "City of Toronto Archives: the Sheppard subway", "u": "https://www.toronto.ca/explore-enjoy/history-art-culture/online-exhibits/web-exhibits-transportation/the-ttc-100-years-of-moving-toronto/sheppard-subway/"}
+  },
+  "lines": [
+    {"id": "l1-1954", "name": "Yonge subway", "now": "Line 1", "group": "built", "mode": "subway", "colour": "#F2B705",
+     "geom": {"line": "1", "from": "Union", "to": "Eglinton"},
+     "events": [
+       {"d": "1946-01-01", "s": "approved", "t": "Toronto voters approve a subway under Yonge Street, together with a streetcar tunnel under Queen.", "src": ["tt-queen"]},
+       {"d": "1949-09-08", "s": "building", "t": "Construction starts.", "src": ["ec-subway"]},
+       {"d": "1954-03-30", "s": "open", "t": "Canada's first subway opens, Union to Eglinton, with 12 stations.", "src": ["w-l1"]}
+     ]},
+    {"id": "l1-1963", "name": "University subway", "now": "Line 1", "group": "built", "mode": "subway", "colour": "#F2B705",
+     "geom": {"line": "1", "from": "Union", "to": "St George"},
+     "events": [{"d": "1963-02-28", "s": "open", "t": "Opens from Union up University Avenue to St George.", "src": ["w-l1"]}]},
+    {"id": "l1-1973", "name": "Yonge extension to York Mills", "now": "Line 1", "group": "built", "mode": "subway", "colour": "#F2B705",
+     "geom": {"line": "1", "from": "Eglinton", "to": "York Mills"},
+     "events": [{"d": "1973-03-31", "s": "open", "t": "Line 1 reaches York Mills.", "src": ["w-l1"]}]},
+    {"id": "l1-1974", "name": "Yonge extension to Finch", "now": "Line 1", "group": "built", "mode": "subway", "colour": "#F2B705",
+     "geom": {"line": "1", "from": "York Mills", "to": "Finch"},
+     "events": [{"d": "1974-03-29", "s": "open", "t": "Line 1 reaches Finch, still its northern end on Yonge.", "src": ["w-l1"]}]},
+    {"id": "l1-1978", "name": "Spadina subway", "now": "Line 1", "group": "built", "mode": "subway", "colour": "#F2B705",
+     "geom": {"line": "1", "from": "St George", "to": "Wilson"},
+     "events": [{"d": "1978-01-28", "s": "open", "t": "Opens from St George to Wilson, mostly in the Allen Road median.", "src": ["w-l1"]}]},
+    {"id": "l1-1996", "name": "Spadina extension to Downsview", "now": "Line 1", "group": "built", "mode": "subway", "colour": "#F2B705",
+     "geom": {"line": "1", "from": "Wilson", "to": "Sheppard West"},
+     "events": [{"d": "1996-03-31", "s": "open", "t": "One station north to Downsview, renamed Sheppard West in 2017.", "src": ["w-l1"]}]},
+    {"id": "l1-2017", "name": "Spadina extension to Vaughan", "now": "Line 1", "group": "built", "mode": "subway", "colour": "#F2B705",
+     "geom": {"line": "1", "from": "Sheppard West", "to": "Vaughan Metropolitan Centre"},
+     "events": [
+       {"d": "1993", "s": "proposed", "t": "Ontario's 1993 transit program includes extending the Spadina line to York University.", "src": ["w-n2011"]},
+       {"d": "2017-12-17", "s": "open", "t": "Opens through York University to Vaughan, the first subway outside Toronto.", "src": ["w-l1"]}
+     ]},
+    {"id": "l2-1966", "name": "Bloor–Danforth subway", "now": "Line 2", "group": "built", "mode": "subway", "colour": "#2E9E4F",
+     "geom": {"line": "2", "from": "Keele", "to": "Woodbine"},
+     "events": [{"d": "1966-02-26", "s": "open", "t": "Opens from Keele to Woodbine, with the Prince Edward Viaduct carrying it over the Don Valley.", "src": ["w-l2"]}]},
+    {"id": "l2-1968w", "name": "Bloor extension to Islington", "now": "Line 2", "group": "built", "mode": "subway", "colour": "#2E9E4F",
+     "geom": {"line": "2", "from": "Islington", "to": "Keele"},
+     "events": [{"d": "1968-05-11", "s": "open", "t": "Line 2 reaches Islington, the same day it reaches Warden.", "src": ["w-l2"]}]},
+    {"id": "l2-1968e", "name": "Danforth extension to Warden", "now": "Line 2", "group": "built", "mode": "subway", "colour": "#2E9E4F",
+     "geom": {"line": "2", "from": "Woodbine", "to": "Warden"},
+     "events": [{"d": "1968-05-11", "s": "open", "t": "Line 2 reaches Warden, the same day it reaches Islington.", "src": ["w-l2"]}]},
+    {"id": "l2-1980w", "name": "Bloor extension to Kipling", "now": "Line 2", "group": "built", "mode": "subway", "colour": "#2E9E4F",
+     "geom": {"line": "2", "from": "Kipling", "to": "Islington"},
+     "events": [{"d": "1980-11-21", "s": "open", "t": "Line 2 reaches its western end at Kipling.", "src": ["w-l2"]}]},
+    {"id": "l2-1980e", "name": "Danforth extension to Kennedy", "now": "Line 2", "group": "built", "mode": "subway", "colour": "#2E9E4F",
+     "geom": {"line": "2", "from": "Warden", "to": "Kennedy"},
+     "events": [{"d": "1980-11-21", "s": "open", "t": "Line 2 reaches Kennedy, still its eastern end.", "src": ["w-l2"]}]},
+    {"id": "l3", "name": "Scarborough RT", "now": "Line 3 (closed)", "group": "built", "mode": "rt", "colour": "#2B8BD0",
+     "approx": true,
+     "geom": {"path": ["Kennedy", [-79.2702, 43.7503], [-79.2765, 43.7670], [-79.2719, 43.7704], [-79.2578, 43.7744], [-79.2516, 43.7749]]},
+     "stations": [
+       {"n": "Kennedy", "at": "Kennedy"}, {"n": "Lawrence East", "at": [-79.2702, 43.7503]}, {"n": "Ellesmere", "at": [-79.2765, 43.7670]},
+       {"n": "Midland", "at": [-79.2719, 43.7704]}, {"n": "Scarborough Centre", "at": [-79.2578, 43.7744]}, {"n": "McCowan", "at": [-79.2516, 43.7749]}
+     ],
+     "events": [
+       {"d": "1985-03-22", "s": "open", "t": "Opens from Kennedy to McCowan with small automated trains, the only piece built of Ontario's 1970s plan for a new kind of medium-capacity transit.", "src": ["w-l3"]},
+       {"d": "2007-03-16", "s": "open", "t": "Transit City proposes rebuilding it as light rail and extending it.", "src": ["w-tc"]},
+       {"d": "2013-10-08", "s": "open", "t": "Council picks a subway extension of Line 2 to replace it.", "src": ["w-sse"]},
+       {"d": "2023-07-24", "s": "closed", "t": "A train derails south of Ellesmere. The line never reopens; it had been due to close that November.", "src": ["w-l3"]}
+     ]},
+    {"id": "l4", "name": "Sheppard subway", "now": "Line 4", "group": "built", "mode": "subway", "colour": "#9B4F96",
+     "geom": {"line": "4", "from": "Sheppard-Yonge", "to": "Don Mills"},
+     "events": [
+       {"d": "1985-05", "s": "proposed", "t": "Network 2011 makes a Sheppard subway, Yonge to Victoria Park, its top priority.", "src": ["w-l4", "tt-n2011"]},
+       {"d": "1993", "s": "approved", "t": "Ontario funds a shorter line, Yonge to Don Mills.", "src": ["w-l4", "w-n2011"]},
+       {"d": "2002-11-22", "s": "open", "t": "Opens from Sheppard–Yonge to Don Mills.", "src": ["w-l4"]}
+     ]},
+    {"id": "l5", "name": "Eglinton Crosstown", "now": "Line 5", "group": "built", "mode": "lrt", "colour": "#E8792B",
+     "geom": {"line": "5", "from": "Mount Dennis", "to": "Kennedy"},
+     "events": [
+       {"d": "2007-03-16", "s": "proposed", "t": "Transit City proposes light rail across Eglinton from Kennedy to Pearson Airport.", "src": ["w-tc", "w-l5"]},
+       {"d": "2010-12-01", "s": "cancelled", "t": "On his first day in office, Mayor Rob Ford declares Transit City over.", "src": ["w-l5", "w-tc"]},
+       {"d": "2011-10", "s": "building", "t": "Tunnelling begins, on Ford's version of the line, fully underground.", "src": ["w-l5"]},
+       {"d": "2012-02-08", "s": "building", "t": "Council votes 25–18 to restore the original plan, with the eastern part on the surface.", "src": ["w-l5"]},
+       {"d": "2026-02-08", "s": "open", "t": "Opens from Mount Dennis to Kennedy after 15 years of construction.", "src": ["w-l5", "tt-l5"]}
+     ]},
+    {"id": "l5-west", "name": "Eglinton Crosstown West extension", "now": "Line 5", "group": "building", "mode": "lrt", "colour": "#E8792B",
+     "geom": {"build": "eglwest"},
+     "events": [
+       {"d": "2007-03-16", "s": "proposed", "t": "Part of Transit City's Eglinton line, which was to reach Pearson Airport.", "src": ["w-l5"]},
+       {"d": "2019-04-10", "s": "approved", "t": "Ontario commits to extending Line 5 west toward the airport.", "src": ["munro-2019"]},
+       {"d": "2021-07", "s": "building", "t": "Construction starts; tunnelling begins in April 2022.", "src": ["w-l5"]},
+       {"d": "2031", "s": "open", "future": true, "t": "Planned opening to Renforth. The airport section is still only proposed.", "src": ["w-l5", "mx-egw"]}
+     ]},
+    {"id": "l6", "name": "Finch West LRT", "now": "Line 6", "group": "built", "mode": "lrt", "colour": "#6F6F78",
+     "geom": {"line": "6", "from": "Humber College", "to": "Finch West"},
+     "events": [
+       {"d": "2007-03-16", "s": "proposed", "t": "Transit City proposes light rail on Finch from Humber College to Finch station on Yonge.", "src": ["w-l6"]},
+       {"d": "2010-12-01", "s": "cancelled", "t": "Cancelled with the rest of Transit City.", "src": ["w-l6"]},
+       {"d": "2012-02", "s": "approved", "t": "Council votes to bring it back, from Humber College to Keele.", "src": ["w-l6"]},
+       {"d": "2019", "s": "building", "t": "Main construction starts.", "src": ["w-l6"]},
+       {"d": "2025-12-07", "s": "open", "t": "Opens from Humber College to Finch West.", "src": ["w-l6", "tt-l5"]}
+     ]},
+    {"id": "l6-east", "name": "Finch LRT, Keele to Yonge", "group": "unbuilt", "mode": "lrt", "colour": "#6F6F78",
+     "geom": {"along": ["Finch Ave W"], "from": "Finch West", "to": "Finch"},
+     "events": [
+       {"d": "2007-03-16", "s": "proposed", "t": "The eastern end of Transit City's Finch line, to Finch station on Yonge.", "src": ["w-l6"]},
+       {"d": "2010-03", "s": "cancelled", "t": "Ontario cuts this section to save money; it has never been funded since.", "src": ["w-l6"]}
+     ]},
+    {"id": "ontario", "name": "Ontario Line", "now": "Line 3 (planned)", "group": "building", "mode": "subway", "colour": "#1F8FB8",
+     "geom": {"build": "ontario"},
+     "events": [
+       {"d": "2019-04-10", "s": "approved", "t": "Ontario announces it in place of the City's Relief Line: Exhibition through downtown to Eglinton and Don Mills.", "src": ["w-ol", "munro-2019"]},
+       {"d": "2022-03-27", "s": "building", "t": "Groundbreaking at Exhibition Place; tunnelling starts in April 2026.", "src": ["w-ol"]},
+       {"d": "2032", "s": "open", "future": true, "t": "Metrolinx expects it to open in the early 2030s.", "src": ["w-ol", "mx-ol"]}
+     ]},
+    {"id": "l2-east", "name": "Scarborough subway extension", "now": "Line 2", "group": "building", "mode": "subway", "colour": "#2E9E4F",
+     "geom": {"build": "l2east"},
+     "events": [
+       {"d": "2013-10-08", "s": "approved", "t": "Council votes 24–20 for a three-stop subway to replace the Scarborough RT.", "src": ["w-sse"]},
+       {"d": "2016-01-20", "s": "approved", "t": "City staff propose cutting it to one stop, at Scarborough Town Centre.", "src": ["w-sse"]},
+       {"d": "2019-04-10", "s": "approved", "t": "Ontario goes back to three stops, now to Sheppard and McCowan.", "src": ["w-sse", "munro-2019"]},
+       {"d": "2021-06-23", "s": "building", "t": "Construction starts.", "src": ["w-sse"]},
+       {"d": "2030", "s": "open", "future": true, "t": "The public target for opening; internal documents reported in 2026 point to later.", "src": ["w-sse", "mx-sse"]}
+     ]},
+    {"id": "ynse", "name": "Yonge North subway extension", "now": "Line 1", "group": "building", "mode": "subway", "colour": "#F2B705",
+     "approx": true,
+     "geom": {"parts": [{"along": ["Yonge St"], "from": "Finch", "to": {"x": ["Yonge St", "Steeles Ave W"]}},
+                        {"path": [{"x": ["Yonge St", "Steeles Ave W"]}, [-79.4228, 43.8105], [-79.4252, 43.8265], [-79.4235, 43.8410], [-79.4262, 43.8460]]}]},
+     "stations": [
+       {"n": "Steeles", "at": {"x": ["Yonge St", "Steeles Ave W"]}}, {"n": "Clark", "at": [-79.4228, 43.8105]}, {"n": "Royal Orchard", "at": [-79.4252, 43.8265]},
+       {"n": "Bridge", "at": [-79.4235, 43.8410]}, {"n": "High Tech", "at": [-79.4262, 43.8460]}
+     ],
+     "events": [
+       {"d": "2006", "s": "proposed", "t": "Environmental assessment begins for extending Line 1 from Finch into York Region.", "src": ["w-ynse"]},
+       {"d": "2019-04-10", "s": "approved", "t": "Part of Ontario's 2019 subway plan: about 8 km, five stations, to Richmond Hill.", "src": ["munro-2019", "to-ynse"]},
+       {"d": "2026-07-23", "s": "building", "t": "Groundbreaking; tunnel boring machines are being assembled by October 2026.", "src": ["ca-ynse", "w-ynse"]}
+     ]},
+    {"id": "queen-1946", "name": "Queen streetcar subway", "group": "unbuilt", "mode": "subway", "colour": "#B5651D",
+     "approx": true,
+     "geom": {"along": ["Queen St W", "Queen St E"], "from": [-79.4087, 43.6457], "to": {"x": ["Queen St E", "Church St"]}},
+     "events": [
+       {"d": "1946-01-01", "s": "approved", "t": "Voters approve a streetcar tunnel under Queen from Church to University, then an open cut toward Niagara, along with the Yonge subway.", "src": ["tt-queen", "tt-lost"]},
+       {"d": "1954-03-30", "s": "approved", "t": "A streetcar platform, Lower Queen, is roughed in beneath Queen station on the new Yonge line.", "src": ["tt-lost"]},
+       {"d": "1958", "s": "cancelled", "t": "In the late 1950s the TTC picks Bloor–Danforth as the east–west line instead. Queen stays in plans into the 1970s; Lower Queen never opens.", "src": ["tt-lost", "w-queen"]}
+     ]},
+    {"id": "sheppard-w-1985", "name": "Sheppard subway, Downsview to Yonge", "group": "unbuilt", "mode": "subway", "colour": "#9B4F96",
+     "approx": true,
+     "geom": {"along": ["Sheppard Ave W"], "from": "Sheppard West", "to": "Sheppard-Yonge"},
+     "events": [
+       {"d": "1985-05", "s": "proposed", "t": "Network 2011's Sheppard line runs from the Spadina line at Downsview across to Scarborough Centre.", "src": ["tt-drl", "w-n2011"]},
+       {"d": "1993", "s": "cancelled", "t": "Ontario's 1993 program funds only Yonge to Don Mills.", "src": ["w-n2011"]},
+       {"d": "2011", "s": "proposed", "t": "Mayor Rob Ford proposes extending Line 4 west to Sheppard West, with the province's backing.", "src": ["w-l4"]},
+       {"d": "2012-02", "s": "cancelled", "t": "Council chooses light rail on Sheppard East instead, and the subway extensions are dropped.", "src": ["w-l4"]}
+     ]},
+    {"id": "sheppard-e-1985", "name": "Sheppard subway to Scarborough Centre", "group": "unbuilt", "mode": "subway", "colour": "#9B4F96",
+     "approx": true,
+     "geom": {"parts": [{"along": ["Sheppard Ave E"], "from": "Don Mills", "to": {"x": ["Sheppard Ave E", "McCowan Rd"]}},
+                        {"along": ["McCowan Rd"], "from": {"x": ["Sheppard Ave E", "McCowan Rd"]}, "to": [-79.2516, 43.7749]}]},
+     "events": [
+       {"d": "1985-05", "s": "proposed", "t": "Network 2011's Sheppard line continues east to Scarborough Centre.", "src": ["tt-drl", "w-n2011"]},
+       {"d": "1993", "s": "cancelled", "t": "The line that gets funded stops at Don Mills.", "src": ["w-n2011"]},
+       {"d": "2011", "s": "proposed", "t": "Rob Ford proposes a subway to Scarborough Centre in place of the Sheppard East LRT.", "src": ["w-l4"]},
+       {"d": "2012-02", "s": "cancelled", "t": "Council votes 24–19 for the LRT instead.", "src": ["w-l4"]}
+     ]},
+    {"id": "sheppard-e-2019", "name": "Line 4 extension to McCowan", "group": "unbuilt", "mode": "subway", "colour": "#9B4F96",
+     "approx": true,
+     "geom": {"along": ["Sheppard Ave E"], "from": "Don Mills", "to": {"x": ["Sheppard Ave E", "McCowan Rd"]}},
+     "events": [
+       {"d": "2019-04-10", "s": "proposed", "t": "Ontario backs extending Line 4 east to McCowan, to meet the Scarborough subway. No funding is committed.", "src": ["w-l4", "munro-2019"]},
+       {"d": "2023", "s": "proposed", "t": "The province orders a business case; Metrolinx consults in 2023 and 2024. Still unfunded.", "src": ["w-l4"]}
+     ]},
+    {"id": "drl-1985", "name": "Downtown Relief Line", "group": "unbuilt", "mode": "subway", "colour": "#C2185B",
+     "approx": true,
+     "geom": {"parts": [{"path": ["Pape", [-79.3404, 43.6681], [-79.3377, 43.6616], [-79.3366, 43.6589]]},
+                        {"along": ["Eastern Ave"], "from": [-79.3366, 43.6589], "to": [-79.3613, 43.6519]},
+                        {"along": ["Front St E", "Front St W"], "from": [-79.3613, 43.6519], "to": "Union"}]},
+     "stations": [
+       {"n": "Pape", "at": "Pape"}, {"n": "Gerrard (optional)", "at": [-79.3404, 43.6681]},
+       {"n": "Queen East", "at": [-79.3377, 43.6616]}, {"n": "St Lawrence", "at": {"x": ["Front St E", "Sherbourne St"]}}, {"n": "Union", "at": "Union"}
+     ],
+     "events": [
+       {"d": "1985-05", "s": "proposed", "t": "Network 2011's second priority: a line from Pape station south and west to Union, to take pressure off Yonge, due by 1998.", "src": ["tt-drl", "w-n2011"]},
+       {"d": "1990-04", "s": "cancelled", "t": "Ontario's Let's Move plan leaves it out, and the early-1990s recession cuts downtown ridership.", "src": ["w-n2011", "tt-drl"]}
+     ]},
+    {"id": "rls-2016", "name": "Relief Line South", "group": "unbuilt", "mode": "subway", "colour": "#C2185B",
+     "approx": true,
+     "geom": {"parts": [{"path": ["Pape", [-79.3404, 43.6681], [-79.3377, 43.6616]]},
+                        {"along": ["Queen St E", "Queen St W"], "from": [-79.3377, 43.6616], "to": "Osgoode"}]},
+     "stations": [
+       {"n": "Pape", "at": "Pape"}, {"n": "Queen", "at": "Queen"}, {"n": "Osgoode", "at": "Osgoode"}
+     ],
+     "events": [
+       {"d": "2016-02", "s": "proposed", "t": "City planners recommend a route from Pape station down to Queen and west to Osgoode.", "src": ["globe-rl", "w-queen"]},
+       {"d": "2018-08", "s": "approved", "t": "The province approves the line's environmental assessment.", "src": ["w-ol"]},
+       {"d": "2019-04-10", "s": "superseded", "t": "Ontario replaces it with the longer Ontario Line.", "src": ["w-ol", "munro-2019"]}
+     ]},
+    {"id": "egw-1994", "name": "Eglinton West subway", "group": "unbuilt", "mode": "subway", "colour": "#7A4A9E",
+     "approx": true,
+     "geom": {"along": ["Eglinton Ave W"], "from": "Cedarvale", "to": {"x": ["Eglinton Ave W", "Black Creek Dr"]}},
+     "stations": [
+       {"n": "Eglinton West–Allen", "at": "Cedarvale"}, {"n": "Dufferin North", "at": {"x": ["Eglinton Ave W", "Dufferin St"]}},
+       {"n": "Keele North", "at": {"x": ["Eglinton Ave W", "Keele St"]}}, {"n": "York Centre", "at": {"x": ["Eglinton Ave W", "Black Creek Dr"]}}
+     ],
+     "events": [
+       {"d": "1985-05", "s": "proposed", "t": "Network 2011 proposes Eglinton West rapid transit, at first as a busway toward the airport.", "src": ["w-egw", "tt-egw"]},
+       {"d": "1986", "s": "proposed", "t": "Metro Council adopts the Eglinton West corridor as a subway.", "src": ["w-egw"]},
+       {"d": "1993", "s": "approved", "t": "Ontario funds a first section, Eglinton West station to Black Creek Drive.", "src": ["w-n2011", "w-egw"]},
+       {"d": "1994-08-25", "s": "building", "t": "Groundbreaking at Eglinton and Black Creek; a tunnel section is dug.", "src": ["w-egw"]},
+       {"d": "1995-07", "s": "cancelled", "t": "The new Harris government cancels it after the June election, and the dig is filled back in.", "src": ["w-egw", "tt-egw"]}
+     ]},
+    {"id": "shep-e-lrt", "name": "Sheppard East LRT", "group": "unbuilt", "mode": "lrt", "colour": "#9B4F96",
+     "approx": true,
+     "geom": {"along": ["Sheppard Ave E"], "from": "Don Mills", "to": {"x": ["Sheppard Ave E", "Morningside Ave"]}},
+     "events": [
+       {"d": "2007-03-16", "s": "proposed", "t": "Transit City's first line: light rail on Sheppard from Don Mills east past Morningside.", "src": ["w-tc", "w-shepe"]},
+       {"d": "2009-12", "s": "building", "t": "Construction starts at Sheppard and Agincourt GO.", "src": ["w-tc"]},
+       {"d": "2010-12-01", "s": "cancelled", "t": "Rob Ford halts it with the rest of Transit City.", "src": ["w-tc", "w-shepe"]},
+       {"d": "2012-02", "s": "approved", "t": "Council revives it.", "src": ["w-tc"]},
+       {"d": "2017", "s": "dormant", "t": "Shelved indefinitely; the province later backs a subway extension instead.", "src": ["w-tc"]}
+     ]},
+    {"id": "eg-east", "name": "Scarborough–Malvern LRT (Eglinton East LRT)", "group": "unbuilt", "mode": "lrt", "colour": "#E8792B",
+     "approx": true,
+     "geom": {"parts": [{"along": ["Eglinton Ave E"], "from": "Kennedy", "to": {"x": ["Eglinton Ave E", "Kingston Rd"]}},
+                        {"along": ["Kingston Rd"], "from": {"x": ["Eglinton Ave E", "Kingston Rd"]}, "to": {"x": ["Kingston Rd", "Morningside Ave"]}},
+                        {"along": ["Morningside Ave"], "from": {"x": ["Kingston Rd", "Morningside Ave"]}, "to": {"x": ["Morningside Ave", "Sheppard Ave E"]}}]},
+     "events": [
+       {"d": "2007-03-16", "s": "proposed", "t": "Transit City proposes light rail from Kennedy along Eglinton, Kingston Road and Morningside toward Malvern.", "src": ["w-tc"]},
+       {"d": "2010-12-01", "s": "cancelled", "t": "Cancelled with the rest of Transit City.", "src": ["w-tc"]},
+       {"d": "2016", "s": "proposed", "t": "Revived and renamed the Eglinton East LRT. Still at the proposal stage.", "src": ["w-tc"]}
+     ]},
+    {"id": "jane-lrt", "name": "Jane LRT", "group": "unbuilt", "mode": "lrt", "colour": "#00838F",
+     "approx": true,
+     "geom": {"along": ["Jane St"], "from": {"x": ["Jane St", "Bloor St W"]}, "to": {"x": ["Jane St", "Steeles Ave W"]}},
+     "events": [
+       {"d": "2007-03-16", "s": "proposed", "t": "Transit City proposes light rail the length of Jane Street.", "src": ["w-tc", "w-jane"]},
+       {"d": "2010-12-01", "s": "cancelled", "t": "Cancelled with the rest of Transit City; a 2013 City report lists it as a future project.", "src": ["w-jane"]}
+     ]},
+    {"id": "donmills-lrt", "name": "Don Mills LRT", "group": "unbuilt", "mode": "lrt", "colour": "#5C6BC0",
+     "approx": true,
+     "geom": {"parts": [{"along": ["Pape Ave"], "from": "Pape", "to": {"x": ["Pape Ave", "Leaside Bdge"]}},
+                        {"along": ["Leaside Bdge"], "from": {"x": ["Pape Ave", "Leaside Bdge"]}, "to": {"x": ["Leaside Bdge", "Overlea Blvd"]}},
+                        {"along": ["Overlea Blvd"], "from": {"x": ["Leaside Bdge", "Overlea Blvd"]}, "to": {"x": ["Overlea Blvd", "Don Mills Rd"]}},
+                        {"along": ["Don Mills Rd"], "from": {"x": ["Overlea Blvd", "Don Mills Rd"]}, "to": {"x": ["Don Mills Rd", "Steeles Ave E"]}}]},
+     "events": [
+       {"d": "2007-03-16", "s": "proposed", "t": "Transit City proposes light rail from Pape station, in a tunnel under Pape, over the Leaside Bridge and up Don Mills Road to Steeles.", "src": ["w-tc", "w-donmills"]},
+       {"d": "2010-12-01", "s": "cancelled", "t": "Cancelled with the rest of Transit City. Its southern part is now roughly the Ontario Line's route.", "src": ["w-donmills", "w-tc"]}
+     ]}
+  ],
+  "ghosts": [
+    {"n": "Lower Bay", "at": "Bay", "events": [
+      {"d": "1966-02-26", "s": "open", "t": "Opens with Line 2: trains run through between Yonge, University and Bloor–Danforth without a transfer.", "src": ["w-l2", "jb-interline"]},
+      {"d": "1966-09-05", "s": "closed", "t": "Separate lines start as a six-month trial and stay. The platform is now used for film shoots and tests.", "src": ["jb-interline", "tt-lost"]}
+    ]},
+    {"n": "Lower Queen", "at": "Queen", "events": [
+      {"d": "1954-03-30", "s": "dormant", "t": "Roughed in for the Queen streetcar subway, which was never built. Never opened.", "src": ["tt-lost"]}
+    ]}
+  ]
+}

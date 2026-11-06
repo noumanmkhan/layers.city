@@ -53,4 +53,5 @@ python3 ../../engine/addresses.py toronto   # after streets and collectors: how 
 python3 ../../engine/badges.py toronto    # neighbourhood badges: drawings in badges/, the rest as fitted names
 python3 ../../engine/assemble.py toronto
 python3 ../../engine/places.py toronto   # a static page per place for search and link previews, plus the site's sitemap.xml
+[ -f history.json ] && python3 ../../engine/history/build.py toronto   # after the published layers: the transit history page (ttc-history/)
 echo "Done. Preview: cd docs && python3 -m http.server 8000"
