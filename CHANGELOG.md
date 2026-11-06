@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### Transit history page, unlisted (November 7)
+- New page at layers.city/toronto/ttc-history/: every subway and LRT line on one map, with a timeline from the 1946
+  Queen streetcar subway vote to lines under construction and a Future stop. Each line moves through proposed,
+  approved, under construction, open, closed, cancelled, shelved or replaced; plans that died stay as dotted ghosts
+  (a toggle hides them). Tap a line for its dated history with sources; Lower Bay and Lower Queen are marked.
+- 32 lines: the built network by opening segment, Line 3, Lines 5 and 6, four lines under construction, and unbuilt
+  plans (Queen 1946, Network 2011's Sheppard and Downtown Relief Line, the 1994 Eglinton West dig, Relief Line South,
+  Transit City's cancelled LRTs, Line 4 east). Unlisted: noindex, no links, not in the sitemap.
+
 ### Hub redesign: one table for every city (November 3)
 - The home page swaps its six city cards for one table: cities down the side, their pages across the top (Guide,
   Fact sheets, Transit, Venues, Events, Fun maps). A ring stop opens that page; the Guide column shows how many places

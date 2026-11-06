@@ -62,6 +62,14 @@ the landing page, stop and say so; don't change this repo.
   and "Near me" (the position stays in the browser). The page renders in the browser from `docs/<city>/events/events.json`,
   which `fetch_happening.py` writes daily with happening.json (placeless events kept, each placed one's neighbourhood), so
   the HTML is rebuilt only when its words or chrome change: `python3 engine/events_page.py <city>`.
+- **Transit history** (`engine/history/build.py` and `page.html`, `cities/<city>/history.json`, page at
+  `docs/toronto/ttc-history/`; November 7, 2026, **unlisted**: `"unlisted": true` writes a noindex tag, and nothing links
+  to it or lists it in the sitemap until the user says so). One SVG map (land, former municipalities, main streets) with
+  every subway and LRT line Toronto opened, closed, cancelled or is building, and a timeline that sets each line's stage
+  by year. Lines are geometry recipes plus dated, sourced events in history.json (its "_about" explains both); built
+  lines are cut from the published subway layers, unbuilt ones traced along streets.geojson. Facts only, in our own
+  words, never anyone's scanned plan maps; our own style, not the TTC map's. run.sh rebuilds it; by hand:
+  `python3 engine/history/build.py toronto`. Research notes: the project's claude/transit-history-scouting.md.
 - To let the user try an experiment on dev on a phone: run the "Deploy to Cloudflare Pages" workflow by
   hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev. The branch is the
   workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.
