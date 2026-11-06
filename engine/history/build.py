@@ -21,7 +21,7 @@ CITY = os.path.join(ROOT, 'cities', city)
 DATA = os.path.join(ROOT, 'docs', city, 'data')
 cfg = json.load(open(os.path.join(CITY, 'history.json'), encoding='utf-8'))
 OUT = os.path.join(ROOT, 'docs', city, cfg['path'])
-STAGES = {'proposed', 'approved', 'building', 'open', 'closed', 'cancelled', 'dormant', 'superseded'}
+STAGES = {'floated', 'proposed', 'approved', 'building', 'open', 'closed', 'cancelled', 'dormant', 'superseded'}
 W = 1000
 
 
@@ -110,7 +110,7 @@ def resolve(pt):
     return stations[pt]
 
 
-def along(names, a, b):
+def along(names, a, b, offset=0):
     """The named streets' centrelines between two points, in order. Takes every vertex near the straight line
     from a to b and sorts them along it, which suits arterials (straight, or gently curving)."""
     A, B = resolve(a), resolve(b)
@@ -131,8 +131,11 @@ def along(names, a, b):
                         if perp < band:
                             pts.append((t, (x, y)))
     pts.sort()
-    line = LineString([A] + [p for _, p in pts] + [B])
-    return line.simplify(0.00022)
+    line = LineString([A] + [p for _, p in pts] + [B]).simplify(0.00022)
+    if offset:   # a corridor beside the street (a hydro line, say): metres to the left of the direction of travel
+        sx = LineString([(x * KX, y) for x, y in line.coords]).offset_curve(offset / M_PER_DEG)
+        line = LineString([(x / KX, y) for x, y in sx.coords])
+    return line
 
 
 def cut(lid, a, b):
@@ -158,7 +161,7 @@ def geometry(spec):
     if 'build' in spec:
         return build_lines[spec['build']], None
     if 'along' in spec:
-        return along(spec['along'], spec['from'], spec['to']), None
+        return along(spec['along'], spec['from'], spec['to'], spec.get('offset', 0)), None
     if 'path' in spec:
         return LineString([resolve(p) for p in spec['path']]), None
     sys.exit(f'history.json: unknown geometry recipe {spec}')
@@ -268,9 +271,11 @@ def nice_date(d):
     return parts[0]
 
 
+# How far a plan got before it died: the furthest stage it reached (stages after death don't lower it).
+REACH = {'floated': 1, 'proposed': 2, 'approved': 3, 'building': 4, 'open': 5, 'closed': 5}
 today = date.today()
 out = {'lines': [], 'ghosts': [], 'sources': cfg['sources'], 'start': cfg['page']['start'], 'now': today.year,
-       'future': cfg['page']['future']}
+       'future': cfg['page']['future'], 'later': cfg['page'].get('later')}
 for item in out_lines:
     ln, g = item['ln'], item['g']
     xs = [xy(c) for seg in getattr(g, 'geoms', [g]) for c in seg.coords]
@@ -279,12 +284,13 @@ for item in out_lines:
         'c': ln['colour'], 'approx': bool(ln.get('approx')), 'd': path_lines(g), 'km': round(length_km(g), 1),
         'bb': [min(p[0] for p in xs), min(p[1] for p in xs), max(p[0] for p in xs), max(p[1] for p in xs)],
         'st': [[*xy(p), n] for p, n in item['sts']],
+        'r': max(REACH.get(e['s'], 0) for e in ln['events'] if not e.get('future')),
         'ev': [{'y': year_of(e['d']), 'd': nice_date(e['d']), 's': e['s'], 't': e['t'], 'src': e['src'],
                 'f': bool(e.get('future'))} for e in sorted(ln['events'], key=lambda e: str(e['d']))],
     })
 for gh in cfg.get('ghosts', []):
     out['ghosts'].append({'n': gh['n'], 'p': xy(resolve(gh['at'])),
-                          'ev': [{'y': year_of(e['d']), 'd': nice_date(e['d']), 's': e['s'], 't': e['t'], 'src': e['src']}
+        'ev': [{'y': year_of(e['d']), 'd': nice_date(e['d']), 's': e['s'], 't': e['t'], 'src': e['src']}
                                  for e in gh['events']]})
 
 page = cfg['page']

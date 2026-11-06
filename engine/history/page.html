@@ -50,6 +50,7 @@ h3{margin:0;font-family:var(--display);font-weight:800;font-size:22px;line-heigh
 .ln .hit{stroke:transparent;stroke-width:22;cursor:pointer}
 .ln.s-proposed .main{stroke-dasharray:7 6;stroke-width:2.8}
 .ln.s-approved .main{stroke-dasharray:11 5;stroke-width:3.4}
+.ln.s-floated .main{stroke-dasharray:3 6;stroke-width:2.4;opacity:.85}
 .ln.s-building .case{stroke-width:7}
 .ln.s-building .main{stroke-dasharray:12 6;stroke-width:4.4}
 .ln.s-open .case{stroke-width:7.6}
@@ -61,7 +62,7 @@ h3{margin:0;font-family:var(--display);font-weight:800;font-size:22px;line-heigh
 .ln.sel.ghost .main,.ln.sel.s-proposed .main,.ln.sel.s-approved .main{stroke-width:4.5}
 .lines.dim .ln:not(.sel){opacity:.38}
 .ln circle{stroke:var(--case);fill:#fff;vector-effect:non-scaling-stroke;stroke-width:1.4}
-.ln.s-proposed circle,.ln.s-approved circle,.ln.s-building circle{fill:var(--land)}
+.ln.s-floated circle,.ln.s-proposed circle,.ln.s-approved circle,.ln.s-building circle{fill:var(--land)}
 .ln.ghost circle,.ln.s-closed circle{stroke:var(--ghost)}
 .ln .sts{display:none}
 .ln.s-open .sts,.ln.s-building .sts,.ln.s-closed .sts,.ln.sel .sts{display:inline}
@@ -131,6 +132,16 @@ svg.zoomed .gh text{display:inline}
 .idx button:hover,.idx button[aria-current="true"]{background:var(--bg)}
 .idx .yrs{font:500 11.5px var(--mono);color:var(--muted)}
 .small{font-size:12.5px;color:var(--muted);margin:14px 0 0;max-width:760px}
+.reach{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:0 16px 14px}
+.reach .lbl{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:2px}
+.reach .chip{min-height:32px;padding:4px 11px;font-size:13px}
+.reach .chip .n{font:500 11px var(--mono);color:var(--muted)}
+.got{display:inline-block;font:500 11px var(--mono);letter-spacing:.06em;color:var(--accent);margin-left:2px}
+.later{margin-top:18px;padding:18px}
+.later ul{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px}
+.later li b{display:block;font-weight:500}
+.later li span{color:var(--muted);font-size:14px}
+@media (max-width:860px){.later ul{grid-template-columns:minmax(0,1fr)}}
 .tip{position:fixed;z-index:10;pointer-events:none;background:var(--ink);color:var(--bg);font-size:13px;line-height:1.35;padding:6px 10px;border-radius:8px;max-width:260px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 .tip b{display:block;font-weight:500}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;font-size:12px;color:var(--muted);margin-top:30px;border-top:1px solid var(--rule);padding-top:14px}
@@ -147,11 +158,13 @@ svg.zoomed .gh text{display:inline}
   .ctl .step{display:none}
   .ctl{padding-bottom:24px}
   .bar{padding:10px 12px 12px}
+  .reach{padding:0 12px 12px}
   .panel,.idx{padding:14px}
   .ln.s-open .main{stroke-width:3.6}.ln.s-open .case{stroke-width:6}
   .ln.s-building .main{stroke-width:3.4}.ln.s-building .case{stroke-width:5.6}
 }
 @media (hover:none){.tip{display:none}}
+@media (max-width:520px){svg:not(.zoomed) .ln.sel text{display:none}}   /* station names crowd the whole-city view on a phone: zoom in for them */
 @media (prefers-reduced-motion:reduce){.yr{transition:none}}
 /* Site header: the same as the maps hub (docs/index.html). */
 .site{max-width:1120px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
@@ -223,6 +236,7 @@ svg.zoomed .gh text{display:inline}
       <div class="key" id="key"></div>
       <button type="button" class="chip" id="ghosts" aria-pressed="true">Show plans that died</button>
     </div>
+    <div class="reach" id="reach" role="group" aria-label="Plans never built, by how far they got"><span class="lbl">Never built, by how far it got</span></div>
   </section>
 
   <div class="cols">
@@ -237,6 +251,7 @@ svg.zoomed .gh text{display:inline}
     <h2 id="idx-h">Every line on this page</h2>
     <div class="groups" id="idx"></div>
   </section>
+  <section class="card later" id="later" aria-labelledby="later-h" hidden></section>
   <p class="small">{{note}}</p>
   <footer class="foot"><span>{{credits}}</span></footer>
 </main>
@@ -255,11 +270,19 @@ svg.zoomed .gh text{display:inline}
     return n;
   };
   const FUT = H.now + 1;                      // the slider's last stop: lines under construction as planned
-  const LABEL = {proposed: 'Proposed', approved: 'Approved', building: 'Under construction', open: 'Open', closed: 'Closed',
+  const LABEL = {floated: 'Floated', proposed: 'Proposed', approved: 'Approved', building: 'Under construction', open: 'Open', closed: 'Closed',
                  cancelled: 'Cancelled', dormant: 'Shelved', superseded: 'Replaced', none: 'Not yet proposed'};
   const DEAD = new Set(['cancelled', 'dormant', 'superseded']);
   const GROUPS = [['built', 'Built'], ['building', 'Under construction'], ['unbuilt', 'Never built (so far)']];
   const byId = Object.fromEntries(H.lines.map(l => [l.id, l]));
+  // How far a plan got (the furthest stage it reached), for lines never built. Built and building lines always show.
+  const REACH = [[1, 'floated', 'Floated', 'Pitched, but never adopted by anyone who could build it'],
+                 [2, 'adopted', 'Adopted', 'Put forward by the TTC, the City, Metrolinx or Ontario, or voted into a plan'],
+                 [3, 'funded', 'Funded', 'Money committed, or its environmental assessment approved'],
+                 [4, 'dug', 'Dug', 'Construction started before it was stopped']];
+  const GOT = {1: 'Got as far as: floated', 2: 'Got as far as: adopted into a plan', 3: 'Got as far as: funded or approved', 4: 'Got as far as: construction'};
+  let reachOn = new Set([2, 3, 4]);
+  const shown = l => l.group !== 'unbuilt' || reachOn.has(l.r);
   const yearName = y => y >= FUT ? H.future : String(y);
 
   // The stage of a line (or ghost station) in year y: its last event up to then. Planned openings count only
@@ -425,7 +448,7 @@ svg.zoomed .gh text{display:inline}
       const s = stageOf(l, year), g = nodes[l.id];
       const dead = DEAD.has(s);
       g.setAttribute('class', 'ln s-' + s + (dead ? ' ghost' : '') + (sel === l.id ? ' sel' : ''));
-      g.style.display = (s === 'none' || (dead && !showGhosts && sel !== l.id)) ? 'none' : '';
+      g.style.display = (s === 'none' || (sel !== l.id && ((dead && !showGhosts) || !shown(l)))) ? 'none' : '';
       if (s === 'open') { km += l.km; l.st.forEach(st => names.add(st[2])); }
     });
     linesG.classList.toggle('dim', !!sel && stageOf(byId[sel], year) !== 'none');
@@ -434,6 +457,7 @@ svg.zoomed .gh text{display:inline}
     renderYear(); renderCard(); renderIndex();
     const q = new URLSearchParams(location.search);
     q.set('y', year >= FUT ? 'future' : year); if (sel) q.set('line', sel); else q.delete('line');
+    const got = [...reachOn].sort().join(''); if (got === '234') q.delete('got'); else q.set('got', got || '0');
     history.replaceState(null, '', location.pathname + '?' + q.toString());
   };
 
@@ -441,7 +465,7 @@ svg.zoomed .gh text{display:inline}
   const renderYear = () => {
     const rows = [];
     H.lines.forEach(l => l.ev.forEach(e => {
-      if ((year >= FUT ? e.f : (!e.f && e.y === year))) rows.push({l, e});
+      if (shown(l) && (year >= FUT ? e.f : (!e.f && e.y === year))) rows.push({l, e});
     }));
     H.ghosts.forEach(g => g.ev.forEach(e => { if (year < FUT && e.y === year) rows.push({g, e}); }));
     rows.sort((a, b) => (a.e.d.length > 4 ? 0 : 1) - (b.e.d.length > 4 ? 0 : 1));
@@ -479,6 +503,7 @@ svg.zoomed .gh text{display:inline}
     const bits = [l.now, l.km ? l.km + ' km' : null, l.mode === 'lrt' ? 'Light rail' : (l.mode === 'rt' ? 'Light metro' : 'Subway')].filter(Boolean);
     card.replaceChildren(close,
       el('div', {class: 'head'}, [el('h3', {}, l.name), year < FUT ? el('span', {class: 'stage'}, LABEL[s] + ' in ' + year) : null]),
+      l.group === 'unbuilt' ? el('div', {class: 'got'}, GOT[l.r]) : null,
       el('p', {class: 'sub'}, bits.join(' · ') + (l.approx ? '. Route drawn by hand from published descriptions: approximate.' : '')),
       el('ol', {class: 'hist'}, l.ev.map(e => el('li', {class: (e === now ? 'now' : '') + ((e.f ? year < FUT : e.y > year) ? ' later' : '')}, [
         el('div', {class: 'when'}, e.d + ' · ' + (e.f ? 'Planned opening' : LABEL[e.s])),
@@ -552,9 +577,32 @@ svg.zoomed .gh text{display:inline}
     render();
   });
 
+  // The "how far it got" chips: one per level that has lines, with a count.
+  REACH.forEach(([n, , name, help]) => {
+    const count = H.lines.filter(l => l.group === 'unbuilt' && l.r === n).length;
+    if (!count) return;
+    const b = el('button', {type: 'button', class: 'chip', 'aria-pressed': reachOn.has(n), title: help, 'data-r': n}, [name, el('span', {class: 'n'}, String(count))]);
+    b.addEventListener('click', () => {
+      reachOn.has(n) ? reachOn.delete(n) : reachOn.add(n);
+      b.setAttribute('aria-pressed', reachOn.has(n));
+      if (sel && !shown(byId[sel])) sel = null;
+      render();
+    });
+    $('reach').append(b);
+  });
+  if (H.later) {
+    $('later').hidden = false;
+    $('later').append(el('h2', {id: 'later-h'}, H.later.title), el('p', {class: 'sub'}, H.later.lede),
+      el('ul', {}, H.later.items.map(([t, d]) => el('li', {}, [el('b', {}, t), el('span', {}, d)]))));
+  }
+
   const q = new URLSearchParams(location.search);
   if (q.get('y') === 'future') year = FUT;
   else if (+q.get('y') >= H.start && +q.get('y') <= H.now) year = +q.get('y');
+  if (/^[0-4]+$/.test(q.get('got') || '')) {
+    reachOn = new Set([...q.get('got')].map(Number).filter(Boolean));
+    $('reach').querySelectorAll('[data-r]').forEach(b => b.setAttribute('aria-pressed', reachOn.has(+b.dataset.r)));
+  }
   if (q.get('line') && byId[q.get('line')]) sel = q.get('line');
   if (sel) linesG.append(nodes[sel]);
   render();

@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Transit history: how far each plan got, five more plans, what's not on it yet (November 7)
+- Unbuilt lines are tagged by the furthest stage they reached: Floated (pitched, never adopted), Adopted (put forward
+  by the TTC, the City, Metrolinx or Ontario, or voted into a plan), Funded (money committed or its assessment approved)
+  or Dug (construction started). Chips under the legend filter them, with counts; the card says "Got as far as".
+  New stage `floated` in history.json; the filter is kept in the link (`got=`).
+- Five more plans: the Yonge–Spadina loop (1989–2000), Bloor subway to Sherway Gardens (Let's Move, 1990),
+  the Scarborough RT extension and LRT (1990–2013), the Finch LRT east to Don Mills (2009) and Network 2011's
+  Eglinton West busway to Renforth. New `offset` recipe draws a corridor beside a street (the loop's hydro corridor).
+- A "Not on this map yet" section lists the plans still to come (1910–12 streetcar subways, the 1960s Queen subway,
+  GO-Urban, Downtown Rapid Transit, OneCity, GO and streetcars). A selected line can now be let go of.
+
 ### Transit history page, unlisted (November 7)
 - New page at layers.city/toronto/ttc-history/: every subway and LRT line on one map, with a timeline from the 1946
   Queen streetcar subway vote to lines under construction and a Future stop. Each line moves through proposed,
