@@ -303,7 +303,7 @@ svg.zoomed .gh text{display:inline}
     });
     const hit = el('path', {d: l.d, class: 'hit'});
     const g = el('g', {class: 'ln'}, [el('path', {d: l.d, class: 'case'}), el('path', {d: l.d, class: 'main', stroke: l.c}), sts, hit]);
-    hit.addEventListener('click', ev => { ev.stopPropagation(); select(l.id); });
+    hit.addEventListener('click', ev => { ev.stopPropagation(); if (!moved) select(sel === l.id ? null : l.id); });   // tap again to let go
     hit.addEventListener('pointermove', e => showTip(e, [el('b', {}, l.name), LABEL[stageOf(l, year)] + ' in ' + yearName(year)]));
     hit.addEventListener('pointerleave', () => { tip.hidden = true; });
     nodes[l.id] = g;
@@ -353,8 +353,9 @@ svg.zoomed .gh text{display:inline}
   }, {passive: false});
   const ptrs = new Map();
   let moved = false, pinch = null;
+  const start = new Map();
   svg.addEventListener('pointerdown', e => {
-    ptrs.set(e.pointerId, [e.clientX, e.clientY]); moved = false;
+    ptrs.set(e.pointerId, [e.clientX, e.clientY]); start.set(e.pointerId, [e.clientX, e.clientY]); moved = false;
     if (ptrs.size === 2) {
       const [a, b] = [...ptrs.values()];
       pinch = {d: Math.hypot(a[0] - b[0], a[1] - b[1]), w: vb.w, c: toSvg((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)};
@@ -376,8 +377,9 @@ svg.zoomed .gh text{display:inline}
       moved = true; applyVB();
     } else if (ptrs.size === 1) {
       const dx = e.clientX - prev[0], dy = e.clientY - prev[1];
-      if (Math.abs(dx) + Math.abs(dy) > 1) moved = true;
-      if (!moved) return;
+      const st = start.get(e.pointerId);
+      if (!moved && st && Math.hypot(e.clientX - st[0], e.clientY - st[1]) < 8) return;   // a tap wobbles; it isn't a drag
+      moved = true;
       svg.classList.add('drag');
       vb.x -= dx / r.width * vb.w; vb.y -= dy / r.height * vb.h;
       applyVB();
@@ -467,7 +469,7 @@ svg.zoomed .gh text{display:inline}
     const card = $('card');
     if (!sel) {
       card.replaceChildren(el('h2', {}, 'Pick a line'),
-        el('p', {class: 'sub'}, 'Tap a line on the map, an entry on the left or a name below for its whole story and sources.'));
+        el('p', {class: 'sub'}, 'Tap a line on the map, an entry on the left or a name below for its whole story and sources. Tap it again, or anywhere else on the map, to let go.'));
       return;
     }
     const l = byId[sel], s = stageOf(l, year);
@@ -476,7 +478,7 @@ svg.zoomed .gh text{display:inline}
     const now = l.ev.filter(e => e.f ? year >= FUT : e.y <= year).pop();
     const bits = [l.now, l.km ? l.km + ' km' : null, l.mode === 'lrt' ? 'Light rail' : (l.mode === 'rt' ? 'Light metro' : 'Subway')].filter(Boolean);
     card.replaceChildren(close,
-      el('div', {class: 'head'}, [el('h3', {}, l.name), el('span', {class: 'stage'}, LABEL[s] + ' in ' + yearName(year))]),
+      el('div', {class: 'head'}, [el('h3', {}, l.name), year < FUT ? el('span', {class: 'stage'}, LABEL[s] + ' in ' + year) : null]),
       el('p', {class: 'sub'}, bits.join(' · ') + (l.approx ? '. Route drawn by hand from published descriptions: approximate.' : '')),
       el('ol', {class: 'hist'}, l.ev.map(e => el('li', {class: (e === now ? 'now' : '') + ((e.f ? year < FUT : e.y > year) ? ' later' : '')}, [
         el('div', {class: 'when'}, e.d + ' · ' + (e.f ? 'Planned opening' : LABEL[e.s])),
@@ -494,7 +496,10 @@ svg.zoomed .gh text{display:inline}
   const renderIndex = () => {
     $('idx').replaceChildren(...GROUPS.map(([g, t]) => el('div', {}, [el('h4', {}, t), el('ul', {}, H.lines.filter(l => l.group === g).map(l => {
       const b = el('button', {type: 'button', 'aria-current': sel === l.id ? 'true' : null}, [swatch(g === 'built' ? 's-open' : g === 'building' ? 's-building' : 's-approved', l.c), el('span', {}, l.name), el('span', {class: 'yrs'}, span_(l))]);
-      b.addEventListener('click', () => { select(l.id, true); $('mapbox').scrollIntoView({behavior: 'smooth', block: 'start'}); });
+      b.addEventListener('click', () => {
+        if (sel === l.id) return select(null);   // tap the selected name again to let go
+        select(l.id, true); $('mapbox').scrollIntoView({behavior: 'smooth', block: 'start'});
+      });
       return el('li', {}, b);
     }))])));
   };
@@ -540,6 +545,7 @@ svg.zoomed .gh text{display:inline}
       if (year >= FUT) stop();
     }, 1300);
   });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && sel) select(null); });
   $('ghosts').addEventListener('click', () => {
     showGhosts = !showGhosts;
     $('ghosts').setAttribute('aria-pressed', showGhosts);
