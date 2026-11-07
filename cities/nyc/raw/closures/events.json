@@ -1,7 +1,61 @@
 {
-"fetched": "2026-11-05",
+"fetched": "2026-11-07",
 "source": "https://data.cityofnewyork.us/resource/tvpp-9vvx.json",
 "permits": [
+{
+"id": "984081-1",
+"street": "St Felix St",
+"extent": "Fulton St to Lafayette Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-07T11:00",
+"end": "2026-11-07T17:00",
+"who": "Playback Festival",
+"desc": "Street closed for the Playback Festival: street event.",
+"coords": [
+[
+-73.977499,
+40.687543
+],
+[
+-73.97744,
+40.687282
+],
+[
+-73.977362,
+40.686916
+]
+]
+},
+{
+"id": "984081-2",
+"street": "Lafayette Ave",
+"extent": "Fulton St to St Felix St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-07T11:00",
+"end": "2026-11-07T17:00",
+"who": "Playback Festival",
+"desc": "Street closed for the Playback Festival: street event.",
+"coords": [
+[
+-73.976207,
+40.687034
+],
+[
+-73.976548,
+40.687005
+],
+[
+-73.976831,
+40.686974
+],
+[
+-73.977362,
+40.686916
+]
+]
+},
 {
 "id": "983260-1",
 "street": "Prince St",
@@ -181,23 +235,73 @@
 ]
 },
 {
-"id": "936849-1",
-"street": "E 4th St",
-"extent": "Bowery to Second Ave",
+"id": "983982-1",
+"street": "Washington Ave",
+"extent": "Gates Ave to Fulton St",
 "kind": "closed",
 "both": true,
-"start": "2026-11-05T16:00",
-"end": "2026-11-05T21:00",
-"who": "East 4th Street Open Street",
-"desc": "Street closed for the East 4th Street Open Street: open street partner event.",
+"start": "2026-11-14T12:00",
+"end": "2026-11-14T13:00",
+"who": "Co-Naming: Rev. Clinton M. Miller Way",
+"desc": "Street closed for the Co-Naming: Rev. Clinton M. Miller Way: street event.",
 "coords": [
 [
--73.991553,
-40.727103
+-73.965084,
+40.684554
 ],
 [
--73.98943,
-40.726196
+-73.96478,
+40.683048
+]
+]
+},
+{
+"id": "980493-1",
+"street": "W 67th St",
+"extent": "Amsterdam Ave to Broadway",
+"kind": "closed",
+"both": true,
+"start": "2026-11-13T10:00",
+"end": "2026-11-13T11:30",
+"who": "Turkey Fest",
+"desc": "Street closed for the Turkey Fest: street event.",
+"coords": [
+[
+-73.983973,
+40.775438
+],
+[
+-73.982311,
+40.774732
+],
+[
+-73.982202,
+40.774688
+],
+[
+-73.982085,
+40.774641
+]
+]
+},
+{
+"id": "967191-1",
+"street": "E 54th St",
+"extent": "First Ave to Second Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-07T10:00",
+"end": "2026-11-07T18:00",
+"who": "2026 Rock the Block Fall Fest",
+"desc": "Street closed for the 2026 Rock the Block Fall Fest: single block festival.",
+"coords": [
+[
+-73.964327,
+40.75639
+],
+[
+-73.966703,
+40.757389
 ]
 ]
 },
@@ -265,6 +369,27 @@
 [
 -73.971714,
 40.750502
+]
+]
+},
+{
+"id": "971221-1",
+"street": "Lafayette Ave",
+"extent": "Saint Felix St to Ashland Pl",
+"kind": "closed",
+"both": true,
+"start": "2026-11-07T10:00",
+"end": "2026-11-07T18:00",
+"who": "Playback Festival",
+"desc": "Street closed for the Playback Festival: single block festival.",
+"coords": [
+[
+-73.977362,
+40.686916
+],
+[
+-73.978199,
+40.686827
 ]
 ]
 },
@@ -472,47 +597,250 @@
 ]
 },
 {
-"id": "914367-1",
-"street": "E 104th St",
-"extent": "Third Ave to Second Ave",
+"id": "983308-1",
+"street": "Ave B",
+"extent": "E 9th St to E 8th St",
 "kind": "closed",
 "both": true,
-"start": "2026-11-05T08:00",
-"end": "2026-11-05T15:00",
-"who": "HHFM East Harlem Market",
-"desc": "Street closed for the HHFM East Harlem Market: farmers market.",
+"start": "2026-11-07T13:00",
+"end": "2026-11-07T16:00",
+"who": "Sustainability Fair on Ave B Open Street",
+"desc": "Street closed for the Sustainability Fair on Ave B Open Street: open street partner event.",
 "coords": [
 [
--73.945635,
-40.790261
+-73.980334,
+40.726289
 ],
 [
--73.945216,
-40.790084
+-73.980529,
+40.726012
 ],
 [
--73.945103,
-40.790037
+-73.980609,
+40.725899
 ],
 [
--73.944647,
-40.789844
+-73.980759,
+40.725686
+]
+]
+},
+{
+"id": "958042-2",
+"street": "W 167th St",
+"extent": "Sedgwick Ave to W 168th St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-21T09:00",
+"end": "2026-11-21T15:00",
+"who": "NYC Public Schools- Heroes of Highbridge 2 Mile Walk/Run",
+"desc": "Street closed for the NYC Public Schools- Heroes of Highbridge 2 Mile Walk/Run: athletic race / tour.",
+"coords": [
+[
+-73.928661,
+40.83981
 ],
 [
--73.944542,
-40.7898
+-73.928348,
+40.839192
 ],
 [
--73.944322,
-40.789707
+-73.928139,
+40.838779
+]
+]
+},
+{
+"id": "958042-3",
+"street": "Sedgwick Ave",
+"extent": "Depot Pl to W 167th St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-21T09:00",
+"end": "2026-11-21T15:00",
+"who": "NYC Public Schools- Heroes of Highbridge 2 Mile Walk/Run",
+"desc": "Street closed for the NYC Public Schools- Heroes of Highbridge 2 Mile Walk/Run: athletic race / tour.",
+"coords": [
+[
+-73.92804,
+40.841269
 ],
 [
--73.944228,
-40.789667
+-73.928208,
+40.84099
 ],
 [
--73.943397,
-40.789317
+-73.928355,
+40.840703
+],
+[
+-73.928479,
+40.84041
+],
+[
+-73.928581,
+40.840112
+],
+[
+-73.928661,
+40.83981
+]
+]
+},
+{
+"id": "958042-4",
+"street": "Depot Pl",
+"extent": "Sedgwick Ave to Exterior St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-21T09:00",
+"end": "2026-11-21T15:00",
+"who": "NYC Public Schools- Heroes of Highbridge 2 Mile Walk/Run",
+"desc": "Street closed for the NYC Public Schools- Heroes of Highbridge 2 Mile Walk/Run: athletic race / tour.",
+"coords": [
+[
+-73.92804,
+40.841269
+],
+[
+-73.928199,
+40.841312
+],
+[
+-73.928374,
+40.841358
+],
+[
+-73.928436,
+40.841373
+],
+[
+-73.928492,
+40.841387
+],
+[
+-73.928581,
+40.84141
+],
+[
+-73.928666,
+40.841432
+],
+[
+-73.928692,
+40.841518
+],
+[
+-73.928692,
+40.841518
+],
+[
+-73.928692,
+40.841518
+],
+[
+-73.928726,
+40.84158
+],
+[
+-73.928739,
+40.841602
+],
+[
+-73.928739,
+40.841602
+],
+[
+-73.928739,
+40.841602
+],
+[
+-73.928807,
+40.841681
+],
+[
+-73.928807,
+40.841681
+],
+[
+-73.928894,
+40.841749
+],
+[
+-73.928894,
+40.841749
+],
+[
+-73.928895,
+40.841749
+],
+[
+-73.928996,
+40.841803
+],
+[
+-73.928996,
+40.841803
+],
+[
+-73.928996,
+40.841803
+],
+[
+-73.929105,
+40.841841
+],
+[
+-73.929106,
+40.841841
+],
+[
+-73.929106,
+40.841841
+],
+[
+-73.929218,
+40.841864
+],
+[
+-73.929303,
+40.841867
+],
+[
+-73.929304,
+40.841867
+],
+[
+-73.929304,
+40.841867
+],
+[
+-73.92939,
+40.841858
+],
+[
+-73.929391,
+40.841858
+],
+[
+-73.929391,
+40.841858
+],
+[
+-73.929473,
+40.841835
+],
+[
+-73.929473,
+40.841835
+],
+[
+-73.929474,
+40.841835
+],
+[
+-73.929547,
+40.841801
 ]
 ]
 },
@@ -691,23 +1019,246 @@
 ]
 },
 {
-"id": "971693-1",
-"street": "Lincoln Pl",
-"extent": "7th Ave to 6th Ave",
+"id": "966113-1",
+"street": "Parsons Blvd",
+"extent": "88th Ave to 89th Ave",
 "kind": "closed",
 "both": true,
-"start": "2026-11-05T19:00",
-"end": "2026-11-05T22:00",
-"who": "House Party 2026",
-"desc": "Street closed for the House Party 2026: street event.",
+"start": "2026-11-21T16:15",
+"end": "2026-11-21T17:30",
+"who": "Parish Feast 2026",
+"desc": "Street closed for the Parish Feast 2026: parade.",
 "coords": [
 [
--73.974598,
-40.67574
+-73.802229,
+40.706758
 ],
 [
--73.977104,
-40.676715
+-73.801658,
+40.70577
+]
+]
+},
+{
+"id": "985430-1",
+"street": "Vesey St",
+"extent": "N End Way to N End Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-07T12:30",
+"end": "2026-11-07T14:00",
+"who": "Kapoor Wedding Baraat",
+"desc": "Street closed for the Kapoor Wedding Baraat: parade.",
+"coords": [
+[
+-74.015141,
+40.714309
+],
+[
+-74.0162,
+40.714775
+]
+]
+},
+{
+"id": "987365-1",
+"street": "Weirfield St",
+"extent": "Wilson Ave to Knickerbocker Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-11T20:15",
+"end": "2026-11-11T21:15",
+"who": "Saint Martin of Tours Celebration",
+"desc": "Street closed for the Saint Martin of Tours Celebration: religious event.",
+"coords": [
+[
+-73.9103,
+40.691938
+],
+[
+-73.908854,
+40.693413
+]
+]
+},
+{
+"id": "987365-2",
+"street": "Knickerbocker Ave",
+"extent": "Weirfield St to Palmetto St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-11T20:15",
+"end": "2026-11-11T21:15",
+"who": "Saint Martin of Tours Celebration",
+"desc": "Street closed for the Saint Martin of Tours Celebration: religious event.",
+"coords": [
+[
+-73.908854,
+40.693413
+],
+[
+-73.909606,
+40.69384
+],
+[
+-73.910358,
+40.694268
+],
+[
+-73.911109,
+40.694695
+],
+[
+-73.911861,
+40.695124
+],
+[
+-73.912609,
+40.695549
+],
+[
+-73.913362,
+40.695979
+],
+[
+-73.914115,
+40.696406
+]
+]
+},
+{
+"id": "987365-3",
+"street": "Palmetto St",
+"extent": "Knickerbocker Ave to Irving Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-11T20:15",
+"end": "2026-11-11T21:15",
+"who": "Saint Martin of Tours Celebration",
+"desc": "Street closed for the Saint Martin of Tours Celebration: religious event.",
+"coords": [
+[
+-73.914115,
+40.696406
+],
+[
+-73.912557,
+40.69799
+]
+]
+},
+{
+"id": "987365-4",
+"street": "Irving Ave",
+"extent": "Palmetto St to Schaefer St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-11T20:15",
+"end": "2026-11-11T21:15",
+"who": "Saint Martin of Tours Celebration",
+"desc": "Street closed for the Saint Martin of Tours Celebration: religious event.",
+"coords": [
+[
+-73.912557,
+40.69799
+],
+[
+-73.911807,
+40.697563
+],
+[
+-73.91105,
+40.697135
+],
+[
+-73.910304,
+40.696708
+],
+[
+-73.909552,
+40.69628
+],
+[
+-73.9088,
+40.695853
+],
+[
+-73.908049,
+40.695424
+],
+[
+-73.907296,
+40.694996
+],
+[
+-73.906547,
+40.694568
+],
+[
+-73.905797,
+40.694135
+],
+[
+-73.905044,
+40.693712
+],
+[
+-73.904289,
+40.693286
+]
+]
+},
+{
+"id": "987365-5",
+"street": "Schaefer St",
+"extent": "Irving Ave to Knickerbocker Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-11T20:15",
+"end": "2026-11-11T21:15",
+"who": "Saint Martin of Tours Celebration",
+"desc": "Street closed for the Saint Martin of Tours Celebration: religious event.",
+"coords": [
+[
+-73.904289,
+40.693286
+],
+[
+-73.905848,
+40.6917
+]
+]
+},
+{
+"id": "987365-6",
+"street": "Knickerbocker Ave",
+"extent": "Schaefer St to Weirfield St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-11T20:15",
+"end": "2026-11-11T21:15",
+"who": "Saint Martin of Tours Celebration",
+"desc": "Street closed for the Saint Martin of Tours Celebration: religious event.",
+"coords": [
+[
+-73.905848,
+40.6917
+],
+[
+-73.9066,
+40.692128
+],
+[
+-73.907349,
+40.692557
+],
+[
+-73.908102,
+40.692985
+],
+[
+-73.908854,
+40.693413
 ]
 ]
 },
@@ -966,6 +1517,254 @@
 [
 -74.010071,
 40.704554
+]
+]
+},
+{
+"id": "932300-1",
+"street": "E 17th St",
+"extent": "Broadway to Park Ave S",
+"kind": "closed",
+"both": true,
+"start": "2026-11-08T10:00",
+"end": "2026-11-08T18:00",
+"who": "UNION SQUARE PARTNERSHIP FALL BLOCK PARTY",
+"desc": "Street closed for the UNION SQUARE PARTNERSHIP FALL BLOCK PARTY: single block festival.",
+"coords": [
+[
+-73.990332,
+40.73714
+],
+[
+-73.989081,
+40.7366
+]
+]
+},
+{
+"id": "981782-1",
+"street": "Underhill Ave",
+"extent": "Story Ave to Lafayette Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-10T10:00",
+"end": "2026-11-10T13:30",
+"who": "Soccer Streets Underhill Avenue Soundview Academy",
+"desc": "Street closed for the Soccer Streets Underhill Avenue Soundview Academy: street event.",
+"coords": [
+[
+-73.860702,
+40.823959
+],
+[
+-73.8602,
+40.821764
+]
+]
+},
+{
+"id": "970679-1",
+"street": "Springfield Blvd",
+"extent": "56th Ave to 46th Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-22T08:00",
+"end": "2026-11-22T11:00",
+"who": "QCC Athletics Turkey Trot",
+"desc": "Street closed for the QCC Athletics Turkey Trot: athletic race / tour.",
+"coords": [
+[
+-73.759064,
+40.752217
+],
+[
+-73.759441,
+40.752411
+],
+[
+-73.759533,
+40.752453
+],
+[
+-73.759533,
+40.752453
+],
+[
+-73.759533,
+40.752453
+],
+[
+-73.759686,
+40.752545
+],
+[
+-73.759686,
+40.752545
+],
+[
+-73.759686,
+40.752545
+],
+[
+-73.759825,
+40.75265
+],
+[
+-73.759826,
+40.75265
+],
+[
+-73.759826,
+40.75265
+],
+[
+-73.759947,
+40.752768
+],
+[
+-73.759948,
+40.752768
+],
+[
+-73.759948,
+40.752768
+],
+[
+-73.76005,
+40.752896
+],
+[
+-73.76005,
+40.752896
+],
+[
+-73.76005,
+40.752896
+],
+[
+-73.760131,
+40.75303
+],
+[
+-73.760131,
+40.75303
+],
+[
+-73.760131,
+40.75303
+],
+[
+-73.760189,
+40.753169
+],
+[
+-73.760487,
+40.753848
+],
+[
+-73.760803,
+40.754556
+],
+[
+-73.760902,
+40.754693
+],
+[
+-73.761017,
+40.754824
+],
+[
+-73.761147,
+40.754947
+],
+[
+-73.761291,
+40.75506
+],
+[
+-73.761446,
+40.755163
+],
+[
+-73.761568,
+40.755241
+],
+[
+-73.761678,
+40.755332
+],
+[
+-73.761771,
+40.755434
+],
+[
+-73.761845,
+40.755546
+],
+[
+-73.761897,
+40.755662
+],
+[
+-73.761928,
+40.755781
+],
+[
+-73.761857,
+40.756525
+],
+[
+-73.761768,
+40.757287
+],
+[
+-73.761999,
+40.75811
+],
+[
+-73.762396,
+40.759505
+]
+]
+},
+{
+"id": "970679-2",
+"street": "Cloverdale Blvd",
+"extent": "46th Ave to 56th Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-22T08:00",
+"end": "2026-11-22T11:00",
+"who": "QCC Athletics Turkey Trot",
+"desc": "Street closed for the QCC Athletics Turkey Trot: athletic race / tour.",
+"coords": [
+[
+-73.758003,
+40.760388
+],
+[
+-73.756822,
+40.759743
+],
+[
+-73.756257,
+40.758439
+],
+[
+-73.755838,
+40.75775
+],
+[
+-73.75534,
+40.75707
+],
+[
+-73.754378,
+40.755407
+],
+[
+-73.753694,
+40.75474
 ]
 ]
 },
@@ -1624,6 +2423,27 @@
 [
 -73.96742,
 40.673057
+]
+]
+},
+{
+"id": "970977-1",
+"street": "W 175th St",
+"extent": "St Nicholas Ave to Audubon Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-22T10:00",
+"end": "2026-11-22T14:30",
+"who": "THANKSGIVING TURKEY GIVEAWAY",
+"desc": "Street closed for the THANKSGIVING TURKEY GIVEAWAY: street event.",
+"coords": [
+[
+-73.936572,
+40.845442
+],
+[
+-73.935182,
+40.844855
 ]
 ]
 },
