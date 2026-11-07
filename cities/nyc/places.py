@@ -6,7 +6,8 @@ Writes into docs/nyc/data/:
   schools.geojson       NYC Public Schools, elementary (with K-8) and middle and high, from the Facilities Database
   parks.geojson         NYC Parks properties that are parks, with amenities: playground, spray shower, dog run
   sports.geojson        NYC Parks athletic facilities, pools and skateparks, one point per park with its sports
-  nearby.json           the points the card counts and names within its radius
+  nearby.json           the points the card counts and names within its radius (er: New York State's certified
+                        emergency departments, raw/institutions/nys_ed.json)
 Rules, as the other cities': describe only, never rank; public and nonprofit institutions; one point per place.
 
 Hospitals: the Facilities Database's general hospitals (types HOSPITAL and ACUTE CARE HOSPITAL), one per name;
@@ -261,6 +262,19 @@ print('sports:', len(sports), {c: sum(1 for f in sports if c in f['properties'][
 
 # ---------- Nearby points for the card ----------
 G = defaultdict(list)
+# Emergency departments for the card's nearest-ER row: every hospital site New York State certifies for an emergency
+# department (raw/institutions/nys_ed.json from fetch_er.py), campus by campus. A site the State file doesn't place
+# takes its hospital's position in the Facilities Database.
+ED = os.path.join(HERE, 'raw', 'institutions', 'nys_ed.json')
+if os.path.exists(ED):
+    fac_at = {re.sub(r'\W+', '', r['facname']).upper(): r for r in fac if r.get('factype') in ('HOSPITAL', 'ACUTE CARE HOSPITAL') and r.get('latitude')}
+    for e in json.load(open(ED))['sites']:
+        at = (e['lon'], e['lat']) if e.get('lat') else None
+        if not at:
+            r = fac_at.get(re.sub(r'\W+', '', e['name']).upper())
+            at = (float(r['longitude']), float(r['latitude'])) if r else None
+        if at:
+            G['er'].append([round(at[0], 5), round(at[1], 5), e['name']])
 for f in comm: G[f['properties']['cat']].append(f['geometry']['coordinates'] + [f['properties']['name']])
 for f in sports:
     for c in ('pool', 'tennis', 'basketball'):

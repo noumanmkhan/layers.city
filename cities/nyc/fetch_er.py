@@ -38,14 +38,15 @@ for i in range(0, len(ids), 50):
         info[r['fac_id']] = r
 sites = []
 for fid in ids:
-    r = info.get(fid)
-    if not r or not r.get('latitude'):
-        print('no location for', fid, next((c['primary_nam'] for c in cert if c['fac_id'] == fid), ''))
-        continue
-    sites.append({'id': fid, 'name': r['facility_name'], 'address': r.get('address1'), 'zip': r.get('fac_zip'),
+    r = info.get(fid) or {}
+    name = r.get('facility_name') or next((c['primary_nam'] for c in cert if c['fac_id'] == fid), '')
+    if not r.get('latitude'):
+        print('no location for', fid, name, '(places.py places it from the Facilities Database)')
+    sites.append({'id': fid, 'name': name, 'address': r.get('address1'), 'zip': r.get('fac_zip'),
                   'county': r.get('county'), 'type': r.get('description'), 'operator': r.get('operator_name'),
-                  'lat': round(float(r['latitude']), 6), 'lon': round(float(r['longitude']), 6)})
+                  'lat': round(float(r['latitude']), 6) if r.get('latitude') else None,
+                  'lon': round(float(r['longitude']), 6) if r.get('longitude') else None})
 json.dump({'asof': time.strftime('%Y-%m-%d'), 'source': 'New York State Department of Health, Health Data NY '
            '(Health Facility Certification Information; Health Facility General Information)', 'sites': sites},
           open(os.path.join(OUT, 'nys_ed.json'), 'w'), indent=1, ensure_ascii=False)
-print(f'{len(sites)} emergency departments placed:', [s['name'] for s in sites])
+print(f'{len(sites)} emergency departments:', [s['name'] for s in sites])

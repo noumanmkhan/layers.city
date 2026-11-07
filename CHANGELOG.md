@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### New York: nearest emergency department on the card, and the evacuation center row back (November 7)
+- The card's Nearby section names the nearest emergency department: every hospital site New York State's Department of
+  Health certifies for one (50 in the five boroughs, campus by campus), via Health Data NY.
+- The nearest evacuation center row had dropped out of the published file in an earlier rebuild; it's back.
+
 ### San Francisco and Chicago: Fun maps (November 7)
 - layers.city/sf/fun/: hometown coffee vs Starbucks, burritos vs dumplings, tennis vs pickleball, gas vs EV, bubble
   tea vs coffee, each neighborhood's 311 signature (DataSF 311 Cases) and parking tickets (SFMTA citations).
