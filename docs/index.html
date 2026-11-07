@@ -297,10 +297,12 @@ a.tile:hover{border-color:var(--ink)}
             <td><span class="none" role="img" aria-label="Not in SF yet"></span></td>
             <td><span class="none" role="img" aria-label="Not in SF yet"></span></td>
           </tr>
-          <tr class="dev">
-            <th scope="row"><a class="city" href="/chicago/"><img src="/thumbs/chicago.svg" alt="" width="60" height="45"><span><span class="n">Chicago</span><span class="s">MAP · 2 PAGES</span></span></a></th>
+          <tr>
+            <th scope="row"><a class="city" href="/chicago/"><img src="/thumbs/chicago.svg" alt="" width="60" height="45"><span><span class="n">Chicago</span><span class="s">FULL MAP · 5 PAGES</span></span></a></th>
             <td class="g"><a class="count" href="/chicago/community-areas/" aria-label="Chicago guide: 77 community areas">77</a></td>
-            <td class="track" colspan="3"><span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21V10l6-5 6 5v11"/><path d="M10 21v-5h4v5"/></svg>Under construction</span></td>
+            <td><a class="stop" href="/chicago/profiles/" aria-label="Chicago: fact sheets"><i></i></a></td>
+            <td><a class="stop" href="/chicago/routes/" aria-label="Chicago: transit"><i></i></a></td>
+            <td><a class="stop" href="/chicago/venues/" aria-label="Chicago: venues"><i></i></a></td>
             <td><a class="stop" href="/chicago/events/" aria-label="Chicago: events"><i></i></a></td>
             <td><span class="none" role="img" aria-label="Not in Chicago yet"></span></td>
           </tr>
@@ -328,7 +330,7 @@ a.tile:hover{border-color:var(--ink)}
         <button type="button" role="tab" id="t-toronto" aria-controls="p-toronto" aria-selected="true">Toronto</button>
         <button type="button" role="tab" id="t-nyc" aria-controls="p-nyc" aria-selected="false">New York</button>
         <button type="button" role="tab" id="t-sf" aria-controls="p-sf" aria-selected="false">SF</button>
-        <button type="button" role="tab" id="t-chicago" aria-controls="p-chicago" aria-selected="false" class="dev">Chicago</button>
+        <button type="button" role="tab" id="t-chicago" aria-controls="p-chicago" aria-selected="false">Chicago</button>
         <button type="button" role="tab" id="t-vancouver" aria-controls="p-vancouver" aria-selected="false" class="dev">Vancouver</button>
         <button type="button" role="tab" id="t-dallas" aria-controls="p-dallas" aria-selected="false" class="dev">Dallas</button>
       </div>
@@ -368,14 +370,16 @@ a.tile:hover{border-color:var(--ink)}
             <a href="/sf/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
         </div>
       </div>
-      <div class="panel dev" id="p-chicago" role="tabpanel" aria-labelledby="t-chicago" hidden>
-        <div class="ph"><img src="/thumbs/chicago.svg" alt="Outline of the City of Chicago" width="84" height="63"><div><span class="s">MAP · 2 PAGES</span><h2>Chicago</h2></div></div>
+      <div class="panel" id="p-chicago" role="tabpanel" aria-labelledby="t-chicago" hidden>
+        <div class="ph"><img src="/thumbs/chicago.svg" alt="Outline of the City of Chicago" width="84" height="63"><div><span class="s">FULL MAP · 5 PAGES</span><h2>Chicago</h2></div></div>
         <p>Community areas, wards, the ‘L’ and Metra, and the names people use, like Wicker Park.</p>
         <a class="btn" href="/chicago/">Open the Chicago map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
         <div class="line">
             <a href="/chicago/community-areas/"><i></i><span><b>Guide</b><small>77 community areas</small></span></a>
+            <a href="/chicago/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
+            <a href="/chicago/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
+            <a href="/chicago/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
             <a href="/chicago/events/"><i></i><span><b>Events</b><small>Today, this weekend, this month</small></span></a>
-            <div class="under"><span class="lbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21V10l6-5 6 5v11"/><path d="M10 21v-5h4v5"/></svg>Under construction</span><span>Fact sheets, transit, venues and fun maps are on the way.</span></div>
         </div>
       </div>
       <div class="panel dev" id="p-vancouver" role="tabpanel" aria-labelledby="t-vancouver" hidden>

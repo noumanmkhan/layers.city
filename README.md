@@ -208,6 +208,7 @@ The second city runs on the same engine with its own data and config (`cities/ch
 | Street closures | Daily | From the Red Line Extension and<br>the Red/Purple rebuild |
 | Special events | Daily | Street closures for parades, races,<br>festivals and block parties, by the day |
 | Happening nearby | Daily | Library programs and Park District<br>events near the spot, on the card |
+| Fact sheets | Monthly | `/chicago/profiles/`: one printable page per community area:<br>the 'L', buses, Metra, drive times, parks, walk times from a pin |
 | Venues | Nightly | `/chicago/venues/`: 16 venues, this fortnight's<br>events, 'L', Metra and drives from Chicagoland |
 | Where does this line or route go? | Weekly | `/chicago/routes/`: CTA buses and the 'L'<br>from any stop, next scheduled departures |
 

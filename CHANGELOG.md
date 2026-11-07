@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### Chicago: Fact sheets, and a full row on the hub (November 7)
+- layers.city/chicago/profiles/: a printable page for each of the 77 community areas: the 'L' (hubs Clark/Lake, Jackson,
+  Roosevelt, Fullerton, Howard), CTA buses, Metra, expressways and ramps, drive times to the Loop, O'Hare, Midway,
+  Evanston and Oak Brook, parks, libraries, landmarks, and walk times from any pin. No parking rows yet (no City
+  parking or EV layer). Linked from each Guide page and the hub.
+- refresh-fact-sheets.yml: a push that changes a city's factsheet.json does a full run (walk network, walk and drive
+  times) for that city; Chicago joins the monthly run.
+- The hub's Chicago row is a full row now: Guide, Fact sheets, Transit, Venues and Events (Fun maps still to come).
+
 ### Chicago: Venues pages, and State/Lake off the map (November 7)
 - layers.city/chicago/venues/: 16 venues (Soldier Field, Wrigley, Rate Field, United Center, the Salt Shed, the
   theatres and halls, and Allstate Arena, Credit Union 1 Amphitheatre and Ravinia outside the city) with this
