@@ -8,7 +8,7 @@ on:
       script: {description: 'Script in cities/dallas/ to run', default: 'fetch.py'}
   push:
     branches: [main]
-    paths: ['cities/dallas/fetch*.py', '!cities/dallas/fetch_fun.py', '!cities/dallas/fetch_parking.py', '.github/workflows/fetch-dallas.yml']   # those two have their own jobs
+    paths: ['cities/dallas/fetch*.py', '!cities/dallas/fetch_fun.py', '!cities/dallas/fetch_parking.py', '!cities/dallas/fetch_happening.py', '.github/workflows/fetch-dallas.yml']   # those have their own jobs
 permissions:
   contents: write
 jobs:
@@ -26,7 +26,7 @@ jobs:
       # A manual run names its script; a push runs whichever fetch script its last commit changed (none: nothing to do).
       - run: |
           S="${{ inputs.script }}"
-          [ -n "$S" ] || S=$(git diff --name-only HEAD~1 HEAD -- 'cities/dallas/fetch*.py' | grep -v -e fetch_fun -e fetch_parking | head -1 | xargs -r basename)
+          [ -n "$S" ] || S=$(git diff --name-only HEAD~1 HEAD -- 'cities/dallas/fetch*.py' | grep -v -e fetch_fun -e fetch_parking -e fetch_happening | head -1 | xargs -r basename)
           if [ -z "$S" ]; then echo "No fetch script changed in the last commit; nothing to fetch."; exit 0; fi
           echo "SCRIPT=$S" >> "$GITHUB_ENV"
           mkdir -p cities/dallas/raw

@@ -141,7 +141,8 @@ def place(loc):
     return venue, address, (at[0] if at else None), (at[1] if at else None)
 
 
-events, seen_cals = {}, []
+from collections import Counter
+events, seen_cals, unplaced = {}, [], Counter()
 for cat, label in CALENDARS.items():
     text = get(FEED.format(cat))
     if not text or 'BEGIN:VCALENDAR' not in text:
@@ -159,12 +160,14 @@ for cat, label in CALENDARS.items():
             continue
         if start[:10] < today.isoformat():
             start = today.isoformat()
-        venue, address, lat, lng = place(unescape(ev.get('LOCATION', ('', ''))[0]))
+        raw_loc = unescape(ev.get('LOCATION', ('', ''))[0])
+        venue, address, lat, lng = place(raw_loc)
         uid = re.sub(r'\D', '', ev.get('UID', ('', ''))[0]) or None
         item = {'id': 'dpr-' + (uid or title), 'title': title, 'venue': venue, 'address': address, 'lat': lat, 'lng': lng,
                 'free': None, 'category': label, 'url': PAGE.format(uid) if uid else 'https://www.dallasparks.org/Calendar.aspx', 'src': 'parks'}
         if lat is None:
             item['area'] = 'unplaced'
+            unplaced[raw_loc] += 1
         e = events.setdefault((title, venue or address), dict(item, times=[]))
         t = [start[:10], None] if len(start) == 10 else [start, end if end and len(end) == 16 and end > start else None]
         if t not in e['times']:
@@ -173,6 +176,7 @@ for cat, label in CALENDARS.items():
     print(f'calendar {cat} ({label}): {kept} times kept')
 if not seen_cals:
     sys.exit('no calendar could be read; the last files stay up')
+print('not placed:', unplaced.most_common(25))
 os.makedirs(os.path.dirname(CACHE), exist_ok=True)
 json.dump(cache, open(CACHE, 'w'), indent=0, sort_keys=True)
 
