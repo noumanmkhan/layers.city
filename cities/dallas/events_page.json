@@ -1,0 +1,19 @@
+{
+  "_about": "The Events page at /dallas/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the ZIP filter and card outline come from. Its one source, Dallas Park and Recreation's calendars, is used under the non-commercial rule (NONCOMMERCIAL.md). 'words' are the page's own text; the engine names no city or source.",
+  "file": "events.json",
+  "units": "zips",
+  "words": {
+    "title": "What’s on in Dallas parks",
+    "intro": "Dallas Park and Recreation’s public events for the next 30 days, from its own calendars: Fair Park, Old City Park, recreation centers, outdoor programs and more. Some take place outside the city, at parks the City runs.",
+    "listing": "A listing, not a guide: the facts and a link to each event’s page, nothing else. The library publishes no feed, so its programs aren’t here.",
+    "desc": "What’s on in Dallas parks today, this weekend and this month: Dallas Park and Recreation’s public events, by ZIP code.",
+    "card": "Today, this weekend, the next 30 days",
+    "hub": "Parks events: today, this weekend",
+    "hoodLabel": "ZIP code",
+    "placeless": "Place to be confirmed",
+    "sources": {
+      "parks": "Dallas Park and Recreation"
+    },
+    "source": "Events from Dallas Park and Recreation’s calendars (dallasparks.org)."
+  }
+}

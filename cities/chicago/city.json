@@ -22,7 +22,7 @@
     {"name": "Lake Michigan", "at": [41.97, -87.57], "cls": "lake-near"},
     {"name": "Lake Michigan", "at": [42.40, -87.55], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Election precincts & vote centers: Chicago Board of Election Commissioners · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Pace routes & places of worship: © OpenStreetMap contributors · Halal shops: Halal Monitoring Services · Kosher shops: cRc · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Heritage buildings: City of Chicago Individual Landmarks · Changes: City of Chicago building permits · Street sweeping: City of Chicago Streets and Sanitation · Bike lanes: CDOT Bike Routes via the Data Portal · Divvy stations: Lyft (Divvy Data License Agreement) · EV chargers: U.S. DOE Alternative Fuels Data Center",
+  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Election precincts & vote centers: Chicago Board of Election Commissioners · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Pace routes: Pace GTFS (non-commercial use) · Places of worship: © OpenStreetMap contributors · Halal shops: Halal Monitoring Services · Kosher shops: cRc · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Heritage buildings: City of Chicago Individual Landmarks · Changes: City of Chicago building permits · Street sweeping: City of Chicago Streets and Sanitation · Bike lanes: CDOT Bike Routes via the Data Portal · Divvy stations: Lyft (Divvy Data License Agreement) · EV chargers: U.S. DOE Alternative Fuels Data Center",
   "example": {"at": [41.8763, -87.6282], "name": "Harold Washington Library (example)"},
 
   "search": {
@@ -76,7 +76,7 @@
       {"id": "metra", "kind": "rail", "files": ["metra_lines", "metra_stations", "metra_lines_inner"], "name": "Metra trains", "note": "11 commuter lines from four downtown stations", "on": true,
        "hover": "{name} · downtown – {to}"},
       {"id": "pace", "kind": "regional", "mode": "pace", "under": "metra", "file": "transit_routes", "lazy": true, "stopZoom": 12, "name": "Pace buses",
-       "note": "Suburban routes across Chicagoland; in the city view, the ones that stop in Chicago. Routes and stops from OpenStreetMap, without timetables. Stops from zoom 12"},
+       "note": "Suburban routes across Chicagoland; in the city view, the ones that stop in Chicago. From Pace’s schedules. Stops from zoom 12"},
       {"id": "hwy", "kind": "highways", "files": ["highways", "region_highways", "region_shields"], "name": "Expressways", "note": "Kennedy, Dan Ryan, Eisenhower, Stevenson, Lake Shore Drive", "on": true,
        "shields": {"LSD": "Lake Shore Dr"}, "tollShield": "Toll"},
       {"id": "streets", "kind": "streets", "file": "streets", "name": "Main streets", "note": "The mile grid and the diagonals: Ashland, Western, Milwaukee…", "on": true},
@@ -255,7 +255,7 @@
       "night": "Overnight", "stop": "Nearest stop", "none": "No stop within ¼ mile",
       "every": "about every {h} min on weekday middays", "nightOnly": "overnight only", "routeClasses": [["^X", "xr"], ["^J", "jump"]],
       "kinds": {"bus": "Bus route", "pace": "Pace bus route"},
-      "note": "Routes with a stop within ¼ mile, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. CTA schedules, week of {week}; Pace routes from OpenStreetMap, without timetables."
+      "note": "Routes with a stop within ¼ mile, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. CTA and Pace schedules, week of {week}."
     },
     "nearby": {
       "file": "nearby.json", "radius": 805,
