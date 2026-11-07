@@ -52,6 +52,12 @@ TRANSIT = json.load(open(os.path.join(DATA, 'transit.json')))
 MODES = set(CFG.get('modes', ['bus']))
 NEAR = CFG.get('near', {})
 FIX = CFG.get('nameFix', {})
+# "nameRules": [[pattern, replacement], ...] applied in order to every street name (Chicago: OpenStreetMap's
+# "North Clark Street" becomes "Clark St", as the map writes it). Then "nameFix" for single names.
+RULES = [(re.compile(a), b) for a, b in CFG.get('nameRules', [])]
+def street_name(n):
+    for rx, b in RULES: n = rx.sub(b, n).strip()
+    return FIX.get(n, n)
 BRIDGES = set(CFG.get('bridges', []))
 
 # ---- a flat metric projection around the city (plenty for distances of a few km) ----
@@ -115,7 +121,7 @@ for cls in ST['along']:
     for f in raw_streets.get(cls, {'features': []})['features']:
         n = (f['properties'].get(ST['name']) or '').strip()
         if not n or 'ramp' in n.lower() or not f.get('geometry'): continue
-        streets.append((FIX.get(n, n), cls in ST['cross'], proj(shape(f['geometry']))))
+        streets.append((street_name(n), cls in ST['cross'], proj(shape(f['geometry']))))
 S_TREE = STRtree([g for *_, g in streets])
 CROSS = [s for s in streets if s[1]]
 C_TREE = STRtree([g for *_, g in CROSS])
@@ -205,6 +211,10 @@ PL_ = CFG.get('platformLabels')
 PLABELS = None
 if PL_ and os.path.exists(os.path.join(RAW, PL_['raw'])):
     PLABELS = {'suffix': PL_.get('suffix', ['N', 'S']), 'skip': PL_.get('skip', []), 'labels': json.load(open(os.path.join(RAW, PL_['raw'])))['stations']}
+# The agency's words for each platform by stop id (routes.json "platformNames": {"raw": file}, the file's "stops":
+# {stop id: words}): Chicago's "O'Hare-bound" or "Inner Loop", from the CTA's list of 'L' stops.
+PN_ = CFG.get('platformNames')
+PNAMES = json.load(open(os.path.join(RAW, PN_['raw'])))['stops'] if PN_ and os.path.exists(os.path.join(RAW, PN_['raw'])) else {}
 def dir_label(w): return f'{w.capitalize()}bound' if w in COMPASS else w.capitalize()
 def station_of(name):
     return re.sub(r'\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)\b.*$', '', name).strip()
@@ -533,6 +543,8 @@ for sid, rs in stop_routes.items():
             lab = PLABELS['labels'][sid[:-1]][sid[-1]]
             # "Uptown platform"; a place reads as where the trains are bound: "Manhattan-bound platform"
             side = f'{lab} platform' if re.search(r'(?i)(town|bound)$', lab) else f'{lab}-bound platform'
+        if PNAMES.get(sid):   # "O'Hare-bound platform", "Inner Loop platform"
+            side = f'{PNAMES[sid]} platform'
     else:
         side = SIDE.get(w, '')
     name = s[1]
@@ -602,6 +614,8 @@ css_p = os.path.join(ROOT, 'cities', city, 'factsheet.css')
 page = dict(CFG['page'])
 cfg_out = {k: v for k, v in page.items()}
 cfg_out['known'] = CFG.get('known')
+cfg_out.setdefault('units', CFG.get('units'))
+cfg_out['platformWords'] = bool(PNAMES)   # page.html heads a platform with the agency's words   # the place file the page outlines (community_areas, ntas); page.html falls back to neighbourhoods
 cfg_out['live'] = CFG.get('live')   # live arrivals: {api}, served by functions/api/arrivals.js
 cfg_out['sched'] = SCHED   # scheduled times, when there are no live ones: {url, n}
 cfg_out['the'] = CFG.get('regionsWithThe', [])
