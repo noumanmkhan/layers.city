@@ -778,7 +778,7 @@ for v in venues:
     here = [] if v.get('outside') else whats_here(v['at'])
     here_rows = ''.join(f'<dt>{esc(l)}</dt><dd>' + (f'<a href="{esc(u)}">{esc(t)}</a>' if u else esc(t)) + '</dd>' for l, t, u in here)
     pop = (f'<div class="pop" id="pop-{v["slug"]}" hidden><p class="k">What’s here</p><dl>{here_rows}'
-           + (f'<dt>Nearest {word("subway", "Subway").lower()}</dt><dd>{esc(f["subway"][0][0])} · about {f["subway"][0][2]} min on foot</dd>' if f['subway'] else '')
+           + (f'<dt>{esc(word("nearestSubway", "Nearest " + word("subway", "Subway").lower()))}</dt><dd>{esc(f["subway"][0][0])} · about {f["subway"][0][2]} min on foot</dd>' if f['subway'] else '')
            + (f'<dt>{esc(PARK.get("label", ""))} nearby</dt><dd>{len(f["greenp"])} within a 10-min walk · {sum(c or 0 for _, c, _, _ in f["greenp"]):,} spaces</dd>' if f['greenp'] else '')
            + f'</dl><div class="acts"><a class="go" href="{esc(map_link)}">Open on the map <span aria-hidden="true">→</span></a>'
              f'<a class="alt" href="/{city}/venues/{v["slug"]}/">Venue page</a></div></div>')

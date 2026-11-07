@@ -1,0 +1,627 @@
+{
+ "_about": "Dallas's big live venues for the Venues pages (engine/venues.py), with four outside the city that the region travels to (AT&T Stadium and Globe Life Field in Arlington, Ariat Arena in Fort Worth, the Pavilion at Toyota Music Factory in Irving; \"outside\": no map, City parking or What's here for those). Hand-curated: capacity is the venue's usual figure and is only used to sort and to say 'about'; notes are plain arrival facts written from the venue's own pages (or the team's). tm names are guesses until fetch_venue_events.py learns the ids; venues that sell through AXS, Prekindle or their own box office have an empty tm and a tickets line. Sources per fact were checked on November 7, 2026 (draft notes: scouting/venues_dallas.md).",
+ "city": "Dallas",
+ "week": "Monday to Sunday, Dallas time",
+ "feed": {
+  "_about": "engine/fetch_venue_events.py: venue by venue (ids found once near each venue's point and saved in raw/venue_tm_ids.json). The centre is just west of downtown so that Arlington, Irving, Grand Prairie, Frisco and Fort Worth's Cultural District are all inside 60 km. drop: words left out when matching the feed's venue names to ours.",
+  "centre": [
+   32.79,
+   -96.85
+  ],
+  "radiusKm": 60,
+  "country": "US",
+  "drop": [
+   "dallas",
+   "tx",
+   "texas",
+   "arlington",
+   "irving",
+   "fort worth",
+   "grand prairie",
+   "frisco",
+   "the"
+  ],
+  "mode": "venues"
+ },
+ "fares": {
+  "_about": "Flat figures the pages quote. Check them before a release; they go stale. local is DART's 3-Hour Pass ($3.00, adult), the base fare since March 1, 2025, with GoPass, a GoPass Tap card or a contactless bank card; it covers DART buses, light rail, the Silver Line and the TRE between EBJ Union Station and CentrePort/DFW Airport. The TRE west of CentrePort (Tarrant County) and DCTA's A-train need a Regional pass (Regional Day Pass $9.00 since March 1, 2026). The taxi figures are the City of Dallas meter for hailable vehicles: $3.00 at the start, then $0.70 a quarter mile ($2.80 a mile); the fuel surcharge changes each quarter with Texas gas prices, so it is left out (taxiExtra 0) and oneFare says so. Sources: dart.org/fareupdates; dart.org 2025 fare restructure page; DART release on regional fares (March 1, 2026); trinityrailwayexpress.org/fares-passes; KERA October 24, 2025 (Silver Line fares); Dallas City Code, transportation for hire, rates of fare (codelibrary.amlegal.com).",
+  "asof": "2026-11",
+  "local": 3.0,
+  "taxiDrop": 3.0,
+  "taxiPerMi": 2.8,
+  "taxiExtra": 0,
+  "oneFare": "A DART 3-Hour Pass covers buses, light rail, the Silver Line and the TRE as far west as CentrePort; a local Day Pass is $6, and riders who tap a GoPass Tap card or a contactless card never pay more than $6 in a day. The TRE west of CentrePort (Fort Worth and the rest of Tarrant County) and DCTA's A-train need a Regional Day Pass ($9). Dallas taxis add $2 for each extra passenger and a fuel surcharge the City sets each quarter; trips between downtown and DFW Airport ($55) or Love Field ($26) are flat fares; tolls and tip are extra."
+ },
+ "page": {
+  "_about": "How engine/venues.py reads Dallas: DART light rail (dart_stations, dart_lines) as the subway, the Silver Line and TRE (rail_stations, rail_lines) as regional rail, ZIP codes as the units, and the two downtown stations a trip from the suburbs arrives at. No City parking layer is published for Dallas, so no parking section; the venues' own lots are in their notes. lineHints: name the DART lines that run from a hub or origin to the venue's station. lineColors: dart_lines carry no colour, keyed by their lowercase line ids.",
+  "units": "zips",
+  "distance": "mi",
+  "lineHints": true,
+  "metro": {
+   "stations": [
+    "dart_stations"
+   ],
+   "lines": [
+    "dart_lines"
+   ]
+  },
+  "lineColors": {
+   "red": "#CE0E2D",
+   "blue": "#0064A8",
+   "green": "#009B3A",
+   "orange": "#F7931D"
+  },
+  "rail": {
+   "stations": "rail_stations",
+   "lines": "rail_lines",
+   "walk": "go",
+   "within": 2
+  },
+  "hubs": [
+   {
+    "name": "EBJ Union Station",
+    "short": "Union Station",
+    "station": "EBJ Union Station",
+    "at": [
+     -96.8082,
+     32.77621
+    ]
+   },
+   {
+    "name": "Akard",
+    "short": "Akard",
+    "station": "Akard",
+    "at": [
+     -96.80063,
+     32.78189
+    ]
+   }
+  ],
+  "here": [
+   {
+    "label": "Area",
+    "file": "sides",
+    "text": "{name}"
+   },
+   {
+    "label": "ZIP code",
+    "file": "zips",
+    "text": "{name}",
+    "page": true
+   },
+   {
+    "label": "Improvement district",
+    "file": "pids",
+    "text": "{name}",
+    "empty": "None"
+   },
+   {
+    "label": "City council",
+    "file": "council",
+    "text": "District {num}",
+    "rep": [
+     "council",
+     "num"
+    ]
+   },
+   {
+    "label": "Texas House",
+    "file": "tx_house",
+    "text": "District {num}",
+    "rep": [
+     "house",
+     "num"
+    ]
+   },
+   {
+    "label": "Texas Senate",
+    "file": "tx_senate",
+    "text": "District {num}",
+    "rep": [
+     "senate",
+     "num"
+    ]
+   },
+   {
+    "label": "U.S. House",
+    "file": "us_house",
+    "text": "TX-{num}"
+   }
+  ],
+  "words": {
+   "local": "DART rail",
+   "localFare": "DART fare ${fare:.2f}",
+   "metroRide": "DART rail",
+   "railShort": "TRE",
+   "subway": "DART light rail",
+   "rail": "Silver Line and TRE",
+   "routes": "DART buses within a 5-minute walk",
+   "atDoor": "Bus at the door",
+   "region": "Dallas–Fort Worth",
+   "taxi": "the City of Dallas taxi meter rate",
+   "busy": "Busy nights",
+   "legend": "DART light rail lines in their colours, the Silver Line and TRE dashed, other venues in grey.",
+   "sources": "Transit: DART, the Trinity Railway Express and Trinity Metro. Venues’ own visitor pages for arrival notes.",
+   "venueDesc": "what's on this week, the nearest DART station, the Silver Line and TRE, DART buses, and drive and transit from across Dallas–Fort Worth.",
+   "intro": "places most of Dallas–Fort Worth travels to, and how to get to each: nearest DART station, the TRE, DART buses, and drive and transit from the suburbs, Fort Worth and DFW Airport.",
+   "listDesc": "from the American Airlines Center and the Cotton Bowl to the Majestic and the Meyerson, and how to get to each: nearest DART station, the TRE, drive and transit from across Dallas–Fort Worth.",
+   "other": "Smaller rooms, same facts, same listing.",
+   "hereNote": "The same rows the map’s What’s here card gives for this address; the map adds collection day, school district, county and more.",
+   "nearestSubway": "Nearest DART rail station"
+  },
+  "busy": true
+ },
+ "origins": [
+  {
+   "name": "Downtown Dallas",
+   "via": "Akard",
+   "mode": "local",
+   "at": [
+    -96.80063,
+    32.78189
+   ]
+  },
+  {
+   "name": "Plano",
+   "via": "Downtown Plano",
+   "mode": "local",
+   "at": [
+    -96.7009,
+    33.02086
+   ]
+  },
+  {
+   "name": "Frisco",
+   "via": "Parker Road",
+   "mode": "local",
+   "at": [
+    -96.82167,
+    33.14167
+   ],
+   "fare": "No DART service in Frisco: drive to Parker Road in Plano, then the DART fare ($3.00)"
+  },
+  {
+   "name": "Garland",
+   "via": "Downtown Garland",
+   "mode": "local",
+   "at": [
+    -96.63537,
+    32.91632
+   ]
+  },
+  {
+   "name": "Las Colinas (Irving)",
+   "via": "Las Colinas Urban Center",
+   "mode": "local",
+   "at": [
+    -96.93357,
+    32.86857
+   ]
+  },
+  {
+   "name": "DFW Airport",
+   "via": "DFW Airport",
+   "mode": "local",
+   "at": [
+    -97.0395,
+    32.90739
+   ]
+  },
+  {
+   "name": "Fort Worth (downtown)",
+   "via": "Fort Worth Central",
+   "mode": "rail",
+   "rail": "TRE",
+   "hub": "EBJ Union Station",
+   "at": [
+    -97.3254,
+    32.7518
+   ],
+   "fare": "Regional Day Pass $9.00 (TRE and DART)"
+  },
+  {
+   "name": "Arlington",
+   "via": "Centreport",
+   "mode": "rail",
+   "rail": "TRE",
+   "hub": "EBJ Union Station",
+   "at": [
+    -97.112867,
+    32.702267
+   ],
+   "fare": "Arlington’s on-demand Via van to CentrePort ($3, not on Sundays), then the DART fare ($3.00)"
+  },
+  {
+   "name": "Denton",
+   "via": "Trinity Mills",
+   "mode": "local",
+   "at": [
+    -97.126351,
+    33.214
+   ],
+   "fare": "DCTA A-train from Denton to Trinity Mills, then DART: Regional Day Pass $9.00"
+  }
+ ],
+ "venues": [
+  {
+   "slug": "american-airlines-center",
+   "name": "American Airlines Center",
+   "kinds": [
+    "sports",
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 19200,
+   "homeOf": [
+    "Dallas Mavericks",
+    "Dallas Stars"
+   ],
+   "address": "2500 Victory Avenue",
+   "at": [
+    -96.81028,
+    32.79056
+   ],
+   "site": "https://www.americanairlinescenter.com/plan-your-visit/arena-faq",
+   "tm": [
+    "American Airlines Center"
+   ],
+   "season": "The Stars and Mavericks play from October to April (later in a playoff year), and concerts and shows run all year.",
+   "notes": [
+    "The West Entry, on Victory Avenue between Nowitzki Way and All Star Way, faces Victory Station: DART's Green and Orange Lines stop there every day, and TRE trains use platforms 3 and 4 (no Sunday TRE service unless announced). From the Red and Blue Lines, change at West End.",
+    "Only wallets, wristlets and clutches up to 4.5 x 6.5 inches are allowed at every entrance; purses up to 14 x 6 x 14 inches only at the X-ray entrances, and no backpacks or large totes. The arena is cashless.",
+    "Parking is in the Victory Park garages (Fifth Third, Commons, Lexus and D) and lots, most within two blocks; most open two hours before the event and the Lexus Garage at noon, with no in-and-out. Rideshares drop off and pick up on the north side of the arena, on All-Star Way and Nowitzki Way."
+   ],
+   "arrive": "DART Green or Orange Line, or the TRE, to Victory Station at the West Entry"
+  },
+  {
+   "slug": "cotton-bowl",
+   "name": "Cotton Bowl Stadium",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 92100,
+   "homeOf": [
+    "Dallas Trinity FC"
+   ],
+   "address": "3809 Grand Avenue (Fair Park)",
+   "at": [
+    -96.75972,
+    32.77944
+   ],
+   "site": "https://www.fairparkdallas.com/parking",
+   "tm": [
+    "Cotton Bowl Stadium",
+    "Cotton Bowl"
+   ],
+   "season": "Open-air: the State Fair of Texas each autumn brings the Red River Rivalry (Texas against Oklahoma) and the State Fair Classic; Dallas Trinity FC play women's soccer here through much of the year.",
+   "notes": [
+    "Inside Fair Park. DART's Green Line stops at Fair Park Station (Parry and Exposition Avenues) and at MLK, Jr. on Martin Luther King Jr. Boulevard; there is no public parking at the stations. The park's main entrance is Gates 5 and 6 on Robert B. Cullum Boulevard.",
+    "Fair Park has more than 14,000 spaces inside the grounds, priced by event, and private lots just outside; no overnight parking. Rideshares drop off and pick up at the park's gates (details vary by event).",
+    "For stadium events only clear totes, one-gallon clear bags and small clutches are allowed, and coolers and hard-sided bags are not; each event can set its own limits."
+   ],
+   "arrive": "DART Green Line to Fair Park"
+  },
+  {
+   "slug": "dos-equis-pavilion",
+   "name": "Dos Equis Pavilion",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 20000,
+   "address": "1818 First Avenue (Fair Park)",
+   "at": [
+    -96.75655,
+    32.77503
+   ],
+   "site": "https://dosequispavilion.com/visit",
+   "tm": [
+    "Dos Equis Pavilion"
+   ],
+   "season": "Open-air amphitheatre: concerts run from about spring to autumn; it is mostly quiet in winter.",
+   "notes": [
+    "In Fair Park, on DART's Green Line (Fair Park and MLK, Jr. stations); there are bike racks at both stations and at the pavilion.",
+    "Parking is paid, one pass per vehicle, bought online ahead or at the venue on show day, card or phone only (no cash); general parking uses Gates 11 and 12. Rideshares drop off and pick up at Gate 6 or on Pennsylvania Avenue.",
+    "Clutches, wristlets or belt bags up to 6 x 9 inches and clear totes up to 12 x 6 x 12 inches are allowed; every bag is searched and there is no re-entry."
+   ],
+   "arrive": "DART Green Line to Fair Park or MLK, Jr."
+  },
+  {
+   "slug": "music-hall-at-fair-park",
+   "name": "Music Hall at Fair Park",
+   "kinds": [
+    "theatre",
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 3420,
+   "homeOf": [
+    "Broadway Dallas"
+   ],
+   "address": "909 First Avenue (Fair Park)",
+   "at": [
+    -96.76599,
+    32.78039
+   ],
+   "site": "https://broadwaydallas.org/?p=17283",
+   "tm": [
+    "Music Hall at Fair Park",
+    "Music Hall At Fair Park"
+   ],
+   "notes": [
+    "Inside Fair Park, a short walk from Fair Park Station on DART's Green Line.",
+    "Drivers enter at Gate 5 (Robert B. Cullum Boulevard and Grand Avenue); Gate 4 at First and Parry Avenues is closed. General parking is included with Broadway Dallas series tickets and paid on arrival for other events; valet is at the circular drive and can't be booked ahead.",
+    "Accessible spaces next to the hall are first come: enter at Gate 5, turn left on Second Avenue, then right into the upper lot."
+   ]
+  },
+  {
+   "slug": "the-bomb-factory",
+   "name": "The Bomb Factory",
+   "kinds": [
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 4300,
+   "address": "2713 Canton Street (Deep Ellum)",
+   "at": [
+    -96.78375,
+    32.78239
+   ],
+   "site": "https://www.thebombfactory.com/faqs",
+   "tm": [],
+   "tickets": "Sells through AXS, its only ticketing partner, not Ticketmaster, so its shows aren’t in this listing.",
+   "calendar": "https://www.thebombfactory.com/",
+   "notes": [
+    "Called The Factory in Deep Ellum from 2021 until March 2025. On Canton Street between Henry and Crowdus; DART's Deep Ellum and Baylor University Medical Center stations are 5 to 10 minutes on foot. The Studio at the Bomb Factory is next door at 2727 Canton.",
+    "Small bags up to 4 x 6 inches, clear bags up to 12 x 12 inches or a one-gallon clear bag are allowed. There are no ATMs inside.",
+    "Limited garage parking is at The Stack, off the 2700 block of Commerce Street behind the venue. The box office and will call window, on Canton near Henry, opens about 30 minutes before doors."
+   ]
+  },
+  {
+   "slug": "winspear-opera-house",
+   "name": "Winspear Opera House",
+   "kinds": [
+    "theatre",
+    "concerts"
+   ],
+   "capacity": 2200,
+   "homeOf": [
+    "The Dallas Opera",
+    "Texas Ballet Theater"
+   ],
+   "address": "2403 Flora Street",
+   "at": [
+    -96.79801,
+    32.79095
+   ],
+   "site": "https://attpac.org/visit/parking",
+   "tm": [],
+   "tickets": "The AT&T Performing Arts Center sells through its own box office and tickets.attpac.org rather than Ticketmaster, so its shows aren’t in this listing.",
+   "calendar": "https://www.attpac.org/",
+   "notes": [
+    "In the Arts District. Lexus Red Parking is under the opera house, entered from the north end of Jack Evans Street; it can be bought ahead until two hours before curtain or paid at the gate (cash or card), and attendants are there from 2.5 hours before.",
+    "Drop-offs are on Flora Street. The lobby usually opens 90 minutes before curtain and the hall about 30 minutes before."
+   ]
+  },
+  {
+   "slug": "meyerson-symphony-center",
+   "name": "Morton H. Meyerson Symphony Center",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 2062,
+   "homeOf": [
+    "Dallas Symphony Orchestra"
+   ],
+   "address": "2301 Flora Street",
+   "at": [
+    -96.79864,
+    32.78977
+   ],
+   "site": "https://dallassymphony.org/plan-your-visit/directions-parking/",
+   "tm": [],
+   "tickets": "Dallas Symphony concerts sell through the DSO’s own box office (dallassymphony.org, 214-849-4376) rather than Ticketmaster, so they aren’t in this listing.",
+   "calendar": "https://www.dallassymphony.org/",
+   "notes": [
+    "DART's Pearl/Arts District station (Pearl and Bryan; Red, Blue, Green and Orange Lines) is about three blocks away, and buses stop at Pearl and Ross, about a block away.",
+    "DSO parking is on levels 5 to 7 of the underground HALL Arts garage, and valet is on Flora Street at the main entrance; DSO prepaid vouchers work at HALL Arts, the valet and the 1900 Pearl garage.",
+    "Drop off at the Flora Street entrance or the HALL Arts Valet Circle; from the garage, the Crockett elevators lead to the Symphony Walkway and the hall's lower entrance."
+   ]
+  },
+  {
+   "slug": "majestic-theatre",
+   "name": "Majestic Theatre",
+   "kinds": [
+    "concerts",
+    "comedy",
+    "theatre"
+   ],
+   "capacity": 1704,
+   "address": "1925 Elm Street",
+   "at": [
+    -96.79499,
+    32.78273
+   ],
+   "site": "https://attpac.org/visit/venues/majestic-theatre",
+   "tm": [
+    "Majestic Theatre",
+    "Majestic Theatre Dallas"
+   ],
+   "notes": [
+    "On Elm Street downtown; the theatre is the City of Dallas's, run by its arts office. It has no parking of its own: metered street parking, the Elm Street Garage at 2000 Elm and a surface lot at 2009 Elm are nearby, and some lots take cash only."
+   ]
+  },
+  {
+   "slug": "house-of-blues-dallas",
+   "name": "House of Blues Dallas",
+   "kinds": [
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 1600,
+   "address": "2200 North Lamar Street",
+   "at": [
+    -96.80809,
+    32.78533
+   ],
+   "site": "https://dallas.houseofblues.com/faq",
+   "tm": [
+    "House of Blues Dallas",
+    "House of Blues - Dallas"
+   ],
+   "tier": "other",
+   "notes": [
+    "Public lots are directly behind the club and can be booked ahead on ParkWhiz.",
+    "Bags up to 12 x 6 x 12 inches are allowed, and bags that aren't clear get an extra search. Bars and the box office take cards and phones only (cash can be turned into a card inside); the box office opens on show days only, two hours before doors."
+   ]
+  },
+  {
+   "slug": "granada-theater",
+   "name": "Granada Theater",
+   "kinds": [
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 1100,
+   "address": "3524 Greenville Avenue (Lower Greenville)",
+   "at": [
+    -96.77002,
+    32.8307
+   ],
+   "site": "https://www.granadatheater.com/faqs",
+   "tm": [],
+   "tickets": "Sells through its own site (with Prekindle) and the box office rather than Ticketmaster, so its shows aren’t in this listing.",
+   "calendar": "https://www.granadatheater.com/",
+   "tier": "other",
+   "notes": [
+    "On Lower Greenville. A paid, cash-only lot is directly behind the theatre, and street parking is allowed where signs permit.",
+    "Backpacks and oversized bags aren't allowed and purses may be searched. The box office sells tickets on show nights unless the show is sold out."
+   ]
+  },
+  {
+   "slug": "att-stadium",
+   "name": "AT&T Stadium",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 80000,
+   "homeOf": [
+    "Dallas Cowboys"
+   ],
+   "address": "1 AT&T Way, Arlington, TX",
+   "at": [
+    -97.09278,
+    32.74778
+   ],
+   "site": "https://attstadium.com/stadium-info",
+   "tm": [
+    "AT&T Stadium"
+   ],
+   "outside": true,
+   "season": "The Cowboys play from August to early January; college football, concerts and other big events fill the rest of the year.",
+   "notes": [
+    "In Arlington's Entertainment District, beside Globe Life Field. Arlington has no fixed bus or rail line: the City's on-demand Via vans (Monday to Saturday, until 9 pm; none on Sundays) reach the district, including from the TRE's CentrePort/DFW Airport station.",
+    "Only clear bags up to 12 x 6 x 12 inches, a one-gallon clear freezer bag or a small clutch up to 4.5 x 6.5 inches are allowed; at Cowboys games other bags can be checked for a fee in Silver Lot 5 and Blue Lot 9. Food, drink, parking and shops are all cashless.",
+    "Rideshares use Lot 15; taxis wait at the far west end of the Miller Lite House, off North Collins Street and Cowboys Way."
+   ],
+   "transit": {
+    "*": "No fixed bus or rail line reaches Arlington: the TRE to CentrePort/DFW Airport, then Arlington’s on-demand Via van (not on Sundays), or drive"
+   },
+   "arrive": "By car or rideshare (Lot 15); Arlington’s Via vans from the TRE’s CentrePort station, not on Sundays"
+  },
+  {
+   "slug": "globe-life-field",
+   "name": "Globe Life Field",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 40300,
+   "homeOf": [
+    "Texas Rangers"
+   ],
+   "address": "734 Stadium Drive, Arlington, TX",
+   "at": [
+    -97.08417,
+    32.7475
+   ],
+   "site": "https://globelifefield.com/a-to-z-guide/",
+   "tm": [
+    "Globe Life Field"
+   ],
+   "tickets": "Rangers home games are sold by the team (rangers.com, 972-RANGERS and the ballpark’s box office), not Ticketmaster, so they aren’t in this listing; concerts may be.",
+   "calendar": "https://www.mlb.com/rangers/schedule",
+   "outside": true,
+   "season": "Baseball runs from late March to September (October in a playoff year); concerts and other events fill the off-season.",
+   "notes": [
+    "In Arlington's Entertainment District, beside AT&T Stadium; the same Via vans serve it. On game days a free trolley runs from participating hotels, from about 2.5 hours before, stopping on Nolan Ryan Expressway between Randol Mill Road and Road to Six Flags. Rideshares pick up on Chapmans Cutoff, south of Randol Mill Road, between the C and W lots.",
+    "Lots open 2 hours before afternoon games and 2.5 hours before night games; general lots are cashless, passes can be bought ahead in the MLB Ballpark app or online, and there is no in-and-out.",
+    "One bag per person up to 16 x 16 x 8 inches, and no backpacks (clear ones included) or coolers. Gates open 1.5 hours before afternoon games and 2 hours before night games; the ballpark is cashless."
+   ],
+   "transit": {
+    "*": "No fixed bus or rail line reaches Arlington: the TRE to CentrePort/DFW Airport, then Arlington’s on-demand Via van (not on Sundays), or drive"
+   },
+   "arrive": "By car (cashless lots, passes ahead in the MLB Ballpark app); Arlington’s Via vans from the TRE’s CentrePort station, not on Sundays"
+  },
+  {
+   "slug": "ariat-arena",
+   "name": "Ariat Arena",
+   "kinds": [
+    "sports",
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 14000,
+   "homeOf": [
+    "Fort Worth Stock Show & Rodeo"
+   ],
+   "address": "1911 Montgomery Street, Fort Worth, TX",
+   "at": [
+    -97.36994,
+    32.74089
+   ],
+   "site": "https://ariatarena.com/event-policies-and-faqs/",
+   "tm": [
+    "Ariat Arena",
+    "Dickies Arena"
+   ],
+   "outside": true,
+   "notes": [
+    "Dickies Arena until October 2026. In Fort Worth's Cultural District, beside the Will Rogers Memorial Center; by transit, take the TRE to Fort Worth Central Station, then Trinity Metro's Route 2 to the Cultural District.",
+    "Parking can be bought ahead on Ticketmaster: the Chevrolet Garage by the South Entrance, the Yellow Lots across Trail Drive and the Montgomery Lot by the West Entrance. Rideshares use the lot at Harley Avenue and Montgomery Street (Secretariat Drive during the Stock Show & Rodeo).",
+    "Bags up to 12 x 6 x 12 inches are allowed. The box office is open Tuesday to Friday, 10 am to 6 pm, and on event days."
+   ],
+   "transit": {
+    "*": "TRE to Fort Worth Central, then Trinity Metro Route 2 to the Cultural District"
+   },
+   "transitFare": "Regional Day Pass $9.00 (TRE and Trinity Metro)",
+   "arrive": "TRE to Fort Worth Central, then Trinity Metro Route 2; or drive (parking sold ahead on Ticketmaster)"
+  },
+  {
+   "slug": "pavilion-toyota-music-factory",
+   "name": "The Pavilion at Toyota Music Factory",
+   "kinds": [
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 8000,
+   "address": "316 West Las Colinas Boulevard, Irving, TX",
+   "at": [
+    -96.94493,
+    32.87374
+   ],
+   "site": "https://toyotamusicfactory.com/parking",
+   "tm": [
+    "The Pavilion at Toyota Music Factory",
+    "Pavilion at Toyota Music Factory"
+   ],
+   "outside": true,
+   "notes": [
+    "In Las Colinas, by Highway 114, on DART's Orange Line; Irving's visitor bureau points riders to Las Colinas Urban Center station.",
+    "On show nights the Urban Towers Garage (222 W. Las Colinas Blvd., just south) is the preferred event parking after 5 pm, along with the Toyota Music Factory Garage; parking can be reserved online, and event valet is in front of the Toyota Lounge."
+   ],
+   "arrive": "DART Orange Line to Irving Convention Center or Las Colinas Urban Center"
+  }
+ ]
+}

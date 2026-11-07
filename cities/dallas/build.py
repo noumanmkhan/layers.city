@@ -361,6 +361,12 @@ def stn_case(n):
     n = re.sub(r"\b([A-Za-z])([A-Za-z']*)", lambda m: m.group(1).upper() + m.group(2).lower(), n)
     n = re.sub(r'\b(\d+)(st|nd|rd|th)\b', lambda m: m.group(1) + m.group(2).lower(), n, flags=re.I)
     return STN_FIX.get(n, n)
+# Lines a station is served by come from every trip that stops there, so turnbacks and event shuttles add lines that
+# don't run there in regular service. LINE_FIX pins those to DART's own station pages (Fair Park, Deep Ellum and
+# Baylor: Green Line only). CLOSED stations are left off (Convention Center: closed January 5, 2026 for the convention
+# center's rebuild, about three years; use EBJ Union Station).
+LINE_FIX = {'Fair Park': ['green'], 'Deep Ellum': ['green'], 'Baylor': ['green']}
+CLOSED = {'Convention Center'}
 stations, rstations, seen = [], [], {}
 LORD = ['Red', 'Blue', 'Green', 'Orange', 'Silver', 'TRE']
 for s in dart['stations']:
@@ -374,6 +380,8 @@ for s in dart['stations']:
     st = seen.setdefault(key, {'name': name, 'pts': [], 'lines': set()})
     st['pts'].append((s['lon'], s['lat'])); st['lines'] |= set(ls)
 for st in seen.values():
+    if st['name'] in CLOSED: continue
+    if st['name'] in LINE_FIX: st['lines'] = set(LINE_FIX[st['name']]) | (st['lines'] - set(ORDER))
     x = round(sum(p[0] for p in st['pts']) / len(st['pts']), 5); y = round(sum(p[1] for p in st['pts']) / len(st['pts']), 5)
     lr = [l for l in st['lines'] if l in ORDER]
     names_ = sorted([('TRE' if l == 'tre' else l.title()) for l in st['lines']], key=lambda l: LORD.index(l))
