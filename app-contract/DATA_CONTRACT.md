@@ -880,6 +880,8 @@ one from Friday to Sunday.
 
 ## 15. Transit: stops near a spot, where each route goes, live arrivals
 
+Vancouver and Dallas as of November 7, 2026 (scheduled times only, no `live`): Vancouver's TransLink buses and SkyTrain as `subway` (route ids are TransLink's: `30053` Expo, `30052` Millennium, `13686` Canada, short names `Expo`, `Millennium`, `Canada`); Dallas's DART buses and light rail as `lrt` (`27513` Red, `27510` Blue, `27511` Green, `27512` Orange). Same files and fields as the cities below; additive. Chicago, Vancouver and Dallas have no live feed, so an app should say "from the timetable" without promising live times.
+
 Toronto as of October 28, 2026 (buses, streetcars, subway and LRT), San Francisco as of October 30 (Muni buses,
 streetcars (`tram`), cable cars (`cable`, a word of their own: "cable car") and Muni Metro, as `lrt`, and from October
 31 BART, as `subway`, with route ids `BART-Yellow` and so on and platforms headed "Platform 1"; live times from 511.org for Muni and from BART's own feed, `/api/arrivals?city=sf`: send `liveRapid` and
