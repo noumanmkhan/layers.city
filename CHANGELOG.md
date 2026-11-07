@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### Transit history is public, with its own card on the hub (November 7)
+- layers.city/toronto/ttc-history/ drops its noindex tag and joins the sitemap. The hub gets a wide feature card for it
+  between the city table and the Compare / app / refresh tiles (it isn't a column of the table), with a small drawn
+  sketch of solid and dotted lines; on phones the sketch sits on top.
+
 ### Transit history: how far each plan got, five more plans, what's not on it yet (November 7)
 - Unbuilt lines are tagged by the furthest stage they reached: Floated (pitched, never adopted), Adopted (put forward
   by the TTC, the City, Metrolinx or Ontario, or voted into a plan), Funded (money committed or its assessment approved)

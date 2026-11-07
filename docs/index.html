@@ -54,7 +54,7 @@ a{color:inherit;text-decoration:none}
 a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .page{min-height:100vh;display:flex;flex-direction:column}
-.top,main,.more,.prints,.foot{width:min(1280px,100% - 2*var(--gut));margin-left:auto;margin-right:auto}
+.top,main,.feat,.more,.prints,.foot{width:min(1280px,100% - 2*var(--gut));margin-left:auto;margin-right:auto}
 
 /* Header */
 .top{display:flex;align-items:center;gap:20px 28px;padding:22px 0;flex-wrap:wrap}
@@ -155,6 +155,21 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(40px,4.6v
 .under::after{content:"";position:absolute;left:14px;top:64px;width:14px;height:2px;background:var(--track)}
 .under .lbl{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
 
+/* Feature card: a standalone page that isn't one of a city's columns (the transit history) */
+.feat{margin-top:48px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:stretch;background:var(--card);border:1.5px solid var(--rule);border-radius:16px;overflow:hidden;color:inherit;text-decoration:none}
+a.feat:hover{border-color:var(--ink)}
+.feat .txt{display:flex;flex-direction:column;gap:14px;padding:30px 32px}
+.feat .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--accent)}
+.feat h2{margin:0;font-family:var(--display);font-weight:800;font-size:32px;line-height:1.05;letter-spacing:-.015em;max-width:520px}
+.feat p{margin:0;font-size:15.5px;line-height:1.55;color:var(--ink-2);max-width:540px}
+.feat .go{margin-top:auto;display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:500}
+.feat .art{background:var(--muted);border-left:1.5px solid var(--rule);display:flex;align-items:center;justify-content:center;padding:18px}
+.feat .art svg{width:100%;max-width:420px;height:auto}
+.feat .art .yr{font-family:var(--display);font-weight:800;font-size:30px;fill:var(--ink)}
+.feat .art .ghost{stroke:var(--track);stroke-dasharray:1 7;stroke-width:4;stroke-linecap:round;fill:none}
+.feat .art .built{stroke-width:7;stroke-linecap:round;fill:none}
+.feat .art .case{stroke:var(--ink);stroke-width:11;stroke-linecap:round;fill:none}
+
 /* Below the fold */
 .more{padding-top:48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
 .tile{display:flex;flex-direction:column;gap:14px;padding:26px 28px;background:var(--card);border:1.5px solid var(--rule);border-radius:16px}
@@ -201,6 +216,11 @@ a.tile:hover{border-color:var(--ink)}
   .ix{display:none}
   .picker{display:block}
   .more{padding-top:20px;grid-template-columns:minmax(0,1fr);gap:12px}
+  .feat{margin-top:20px;grid-template-columns:minmax(0,1fr)}
+  .feat .txt{padding:18px 16px;gap:10px}
+  .feat h2{font-size:22px}
+  .feat .art{border-left:0;border-top:1.5px solid var(--rule);padding:12px;order:-1}
+  .feat .art svg{max-width:320px}
   .tile{padding:18px 16px;gap:10px}
   .tile h2{font-size:20px}
   .prints{margin-top:12px;padding:16px}
@@ -376,6 +396,27 @@ a.tile:hover{border-color:var(--ink)}
       </div>
     </section>
   </main>
+
+  <!-- Transit history (/toronto/ttc-history/, engine/history/build.py): its own card, not a column of the city table. -->
+  <a class="feat" href="/toronto/ttc-history/">
+    <div class="txt">
+      <span class="k">TORONTO · TRANSIT HISTORY · 1946 TO TODAY</span>
+      <h2>The subway Toronto built, and the one it almost did</h2>
+      <p>Every subway and light rail line on one timeline map: what opened, what's being built, and the plans that were promised, funded or even dug before they died. Each one dated and sourced.</p>
+      <span class="go">Open the timeline <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+    </div>
+    <div class="art" aria-hidden="true">
+      <svg viewBox="0 0 420 220">
+        <path class="ghost" d="M60 60 L230 40 L370 30"/>
+        <path class="ghost" d="M150 190 L300 168"/>
+        <path class="ghost" d="M40 120 L150 108"/>
+        <path class="case" d="M150 108 L330 86"/><path class="built" stroke="#2E9E4F" d="M150 108 L330 86"/>
+        <path class="case" d="M230 40 L240 150 L252 168"/><path class="built" stroke="#F2B705" d="M230 40 L240 150 L252 168"/>
+        <path class="case" d="M330 86 L360 50"/><path class="built" stroke="#2B8BD0" d="M330 86 L360 50"/>
+        <text class="yr" x="22" y="206">1985</text>
+      </svg>
+    </div>
+  </a>
 
   <section class="more" aria-label="More from Layers.City">
     <a class="tile" href="/compare/">

@@ -63,8 +63,8 @@ the landing page, stop and say so; don't change this repo.
   which `fetch_happening.py` writes daily with happening.json (placeless events kept, each placed one's neighbourhood), so
   the HTML is rebuilt only when its words or chrome change: `python3 engine/events_page.py <city>`.
 - **Transit history** (`engine/history/build.py` and `page.html`, `cities/<city>/history.json`, page at
-  `docs/toronto/ttc-history/`; November 7, 2026, **unlisted**: `"unlisted": true` writes a noindex tag, and nothing links
-  to it or lists it in the sitemap until the user says so). One SVG map (land, former municipalities, main streets) with
+  `docs/toronto/ttc-history/`; November 7, 2026, public the same day: its own feature card on the hub, below the city
+  table, and in the sitemap (places.py). `"unlisted": true` in history.json would write a noindex tag and keep it out of the sitemap). One SVG map (land, former municipalities, main streets) with
   every subway and LRT line Toronto opened, closed, cancelled or is building, and a timeline that sets each line's stage
   by year. Lines are geometry recipes plus dated, sourced events in history.json (its "_about" explains both); built
   lines are cut from the published subway layers, unbuilt ones traced along streets.geojson. Facts only, in our own

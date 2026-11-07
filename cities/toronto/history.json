@@ -1,7 +1,7 @@
 {
  "_about": "Pape Avenue south of Gerrard is not in streets.geojson, so the relief lines use points on its line extended south (crossings with Gerrard, Queen and Eastern computed from it). Transit history timeline page (engine/history/build.py), at docs/toronto/ttc-history/. Each line has a geometry recipe and a dated list of events. Geometry recipes: {\"line\": id, \"from\": station, \"to\": station} cuts a published subway_lines.geojson line between two stations; {\"build\": id} is a line from construction.geojson; {\"along\": [streets], \"from\": pt, \"to\": pt} follows the named streets in streets.geojson; {\"path\": [pt, ...]} joins points with straight lines; {\"parts\": [...]} chains recipes. A pt is a station name in subway_stations.geojson, \"build:<id>:<name>\" (a construction.geojson station), {\"x\": [street, street]} (where two streets meet; \"near\" picks one crossing) or [lon, lat]. Stages: floated (pitched, never adopted by a body that could build it), proposed (put forward by the TTC, the City or Metro, Metrolinx or the province, or voted into a plan), approved (funded, or its environmental assessment approved), building, building, open, closed, cancelled, dormant, superseded. Every event names its sources (keys of \"sources\"). Facts only: route, stations, dates, who and what happened, in our own words. No scanned plan maps are published.",
  "path": "ttc-history",
- "unlisted": true,
+ "unlisted": false,
  "page": {
   "city": "Toronto",
   "title": "The subway Toronto built, and the one it almost did",

@@ -350,6 +350,10 @@ for c in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
     if os.path.exists(os.path.join(base, 'routes', 'index.html')): urls.append(f'{SITE}/{c}/routes/')   # engine/routes/build.py
     if os.path.exists(os.path.join(base, 'fun', 'index.html')): urls.append(f'{SITE}/{c}/fun/')   # engine/fun/build.py
     if os.path.exists(os.path.join(base, 'events', 'index.html')): urls.append(f'{SITE}/{c}/events/')   # engine/events_page.py
+    hp = os.path.join(ROOT, 'cities', c, 'history.json')   # engine/history/build.py, once it isn't unlisted
+    if os.path.exists(hp) and not json.load(open(hp)).get('unlisted'):
+        hpath = json.load(open(hp))['path']
+        if os.path.exists(os.path.join(base, hpath, 'index.html')): urls.append(f'{SITE}/{c}/{hpath}/')
     vd = os.path.join(base, 'venues')                   # engine/venues.py: the list, then a page per venue
     if os.path.exists(os.path.join(vd, 'index.html')):
         urls.append(f'{SITE}/{c}/venues/')
