@@ -17,6 +17,11 @@
   banner and view; Christkindlmarket, the Christmas tree lighting and the Turkey Trots are named.
 - *Fetch Toronto events* becomes *Fetch events* (`fetch-happening.yml`), running every city's fetch_happening.py.
 
+### Hub: no gap under the city table (November 7)
+- `main` no longer stretches to fill the screen (it pushed the cards below the table down by up to a screen's height,
+  now that they sit outside it); the footer keeps to the bottom of tall screens with `margin-top:auto` instead.
+  The cards below the table are 24 px apart throughout.
+
 ### Transit history is public, with its own card on the hub (November 7)
 - layers.city/toronto/ttc-history/ drops its noindex tag and joins the sitemap. The hub gets a wide feature card for it
   between the city table and the Compare / app / refresh tiles (it isn't a column of the table), with a small drawn
