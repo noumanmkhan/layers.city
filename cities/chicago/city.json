@@ -53,6 +53,7 @@
   "groups": [
     ["Places", [
       {"id": "ca", "kind": "units", "file": "community_areas", "name": "Community areas", "note": "The City’s 77 official community areas", "on": true, "hover": "{name} · #{code}"},
+      {"id": "badges", "kind": "badges", "under": "ca", "file": "badges.json", "lazy": true, "name": "Community area badges", "on": true, "note": "A drawing of what a few places are known for"},
       {"id": "knownas", "kind": "knownas", "file": "knownas", "name": "Known-as names", "note": "Wicker Park, Gold Coast, Pilsen, Wrigleyville…", "on": true},
       {"id": "sides", "kind": "fill", "size": "major", "file": "sides", "name": "The sides", "place": "Side of the city", "note": "Far North Side to Far Southeast Side: how Chicagoans place a neighbourhood", "on": true,
        "colors": {"Far North Side": "--s-farnorth", "Northwest Side": "--s-northwest", "North Side": "--s-north", "Central": "--s-central", "West Side": "--s-west",

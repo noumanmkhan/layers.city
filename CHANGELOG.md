@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Chicago: community area badges and Divvy stations (November 7)
+- Community area badges: 15 one-colour drawings laid on the map like a watermark, as in the other cities: the Water
+  Tower, the 'L' over the Loop, the Field Museum, both conservatories, Pullman's clock tower, the Museum of Science and
+  Industry, the Logan Square monument, the Chinatown Gate, Union Station, a Lake View ballpark, the South Shore
+  Cultural Center, O'Hare's tower, Montrose Harbor and St. Adalbert. Public buildings and landscape only.
+- Bike share stations: Divvy under Bike lanes, and the nearest station in Transit nearby, as with Citi Bike and Bay
+  Wheels (Divvy Data License Agreement: no standalone redistribution, no logo, no implied endorsement).
+
 ### New York: nearest emergency department on the card, and the evacuation center row back (November 7)
 - The card's Nearby section names the nearest emergency department: every hospital site New York State's Department of
   Health certifies for one (50 in the five boroughs, campus by campus), via Health Data NY.
