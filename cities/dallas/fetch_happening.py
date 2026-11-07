@@ -117,19 +117,39 @@ def census(address):
 
 
 def place(loc):
-    """Free-text LOCATION -> (venue, address, lat, lng)."""
-    loc = re.sub(r'\s+', ' ', loc).strip(' ,')
-    parts = [p.strip() for p in loc.split(',') if p.strip()]
-    venue = parts[0] if parts else None
+    """Free-text LOCATION -> (venue, address, lat, lng). The City writes "Name - street  City TX ZIP", sometimes with
+    HTML or a second name in brackets ("City Park (Old City Park) - 1515 S. Harwood St."); older entries use commas."""
+    loc = re.sub(r'</p>\s*<p>', ', ', loc)
+    loc = re.sub(r'<[^>]+>', ' ', loc)
+    loc = re.sub(r'\s+', ' ', loc).strip(' ,-')
+    if ' - ' in f' {loc} ':
+        venue, _, address = (' ' + loc).partition(' - ')
+        venue = venue.strip(' ,') or None
+    else:
+        parts = [p.strip() for p in loc.split(',') if p.strip()]
+        venue, address = (parts[0], ', '.join(parts[1:])) if parts else (None, '')
+    if venue and re.search(r'\bTX\b\s*\d{5}$', venue) and not re.search(r'\d+\s+\w', venue.split(' TX')[0]):
+        venue = None                             # "Dallas TX 75201": a city and ZIP, no place
     if venue and re.match(r'^\d+\s', venue):     # the address came first: no place name
-        venue = None
-    address = ', '.join(parts[1:] if venue else parts) or None
-    if address and not re.search(r'\d', address):   # a second name, not an address
+        venue, address = None, loc
+    address = re.sub(r'\s*\([^)]*\)', '', address or '').strip(' ,')
+    if address and not re.search(r'\d', address.split(' TX ')[0]):   # no street number: a city and ZIP only
         address = None
-    hit = named.get(norm(venue)) if venue else None
-    if not hit and venue and len(norm(venue)) >= 6:   # "Cotton Bowl Stadium" is the landmark "Cotton Bowl"
-        k = norm(venue)
-        hit = next((v for n, v in sorted(named.items(), key=lambda kv: -len(kv[0])) if len(n) >= 6 and (n in k or k in n)), None)
+    hit = None
+    if venue:
+        names = [venue, re.sub(r'\s*\(.*?\)', '', venue)] + re.findall(r'\(([^)]*)\)', venue)
+        for n in names:
+            hit = named.get(norm(n))
+            if hit:
+                break
+        if not hit:   # "Cotton Bowl Stadium" is the landmark "Cotton Bowl"
+            for n in names:
+                k = norm(n)
+                if len(k) >= 6:
+                    hit = next((v for m, v in sorted(named.items(), key=lambda kv: -len(kv[0])) if len(m) >= 6 and (m in k or k in m)), None)
+                if hit:
+                    break
+        venue = re.sub(r'\s*\(.*?\)', '', venue).strip() or venue
     if hit:
         return venue, address, hit[0], hit[1]
     key = (address or loc).lower()
