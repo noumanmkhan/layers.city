@@ -4,6 +4,8 @@ name: Fetch events
 # Events page at /<city>/events/ (docs/<city>/events/events.json: 30 days, placeless events included).
 #   Toronto: the City's Festivals & Events Calendar (about 240 MB of JSON) and Toronto Public Library programs.
 #   Chicago: Chicago Public Library programs and Chicago Park District events (City of Chicago Data Portal).
+#   New York: NYC Parks public events (NYC Open Data; 14 days ahead, so its page covers 14 days).
+#   San Francisco: SF Public Library programs for children, teens and families (Our415 on DataSF, PDDL).
 # Early in the morning in both cities, so "today" is the new day. Each city on its own, so one failing keeps the
 # others' update (and yesterday's file stays up). Scheduled runs only run from the copy of this file on main;
 # deploy.yml lists this workflow, so a run that commits goes live. (Was "Fetch Toronto events" until Nov 7, 2026.)
