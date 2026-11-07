@@ -7,6 +7,7 @@ name: Fetch events
 #   New York: NYC Parks public events (NYC Open Data; 14 days ahead, so its page covers 14 days).
 #   San Francisco: SF Public Library programs for children, teens and families (Our415 on DataSF, PDDL).
 #   Dallas: Dallas Park and Recreation's calendars (iCal; non-commercial terms, NONCOMMERCIAL.md).
+#   Vancouver: the City's calendar of events (Trumba feed; non-commercial terms), card only, no Events page.
 # Early in the morning in both cities, so "today" is the new day. Each city on its own, so one failing keeps the
 # others' update (and yesterday's file stays up). Scheduled runs only run from the copy of this file on main;
 # deploy.yml lists this workflow, so a run that commits goes live. (Was "Fetch Toronto events" until Nov 7, 2026.)
