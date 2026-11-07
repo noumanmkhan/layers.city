@@ -1,0 +1,12 @@
+/* Line bullets in the CTA's own 'L' colours (cities/chicago/city.css). The 'L' lines are colours, not letters, so
+   their bullets are plain dots, as on the CTA's map. Bus badges in the CTA's route styles: local routes dark grey,
+   X routes green outlined, Owl (overnight) blue outlined. */
+.ln{font-size:10.5px}
+.ln.lRed,.ln.lBlue,.ln.lBrown,.ln.lGreen,.ln.lOrange,.ln.lPink,.ln.lPurple,.ln.lYellow{font-size:0;width:14px;height:14px}
+.ln.lRed{background:#C60C30} .ln.lBlue{background:#00A1DE} .ln.lBrown{background:#62361B} .ln.lGreen{background:#009B3A}
+.ln.lOrange{background:#F9461C} .ln.lPink{background:#E27EA6} .ln.lPurple{background:#522398} .ln.lYellow{background:#F9E300}
+.rb{background:#45484D;color:#fff;box-shadow:none}
+.rb.exp{background:#fff;color:#00843D;box-shadow:inset 0 0 0 1.5px #00843D}
+.rb.night{background:#fff;color:#1F5BA8;box-shadow:inset 0 0 0 1.5px #1F5BA8}
+/* The Routes page's 'L' line badges: plain coloured dots, as on the fact sheets (the page's .ln.lb sizes them). */
+.ln.lb.lRed,.ln.lb.lBlue,.ln.lb.lBrown,.ln.lb.lGreen,.ln.lb.lOrange,.ln.lb.lPink,.ln.lb.lPurple,.ln.lb.lYellow{font-size:0}

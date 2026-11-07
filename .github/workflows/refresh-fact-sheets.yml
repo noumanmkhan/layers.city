@@ -6,6 +6,8 @@ name: Refresh fact sheets
 # - Full: monthly, or by hand with "full", also re-fetches what the sheets alone use, from OpenStreetMap and
 #   OSRM: the walking network and walk-time grid (fetch_walk.py, walk_grid.py), highway ramps and drive times
 #   (fetch_drive.py). A step that can't reach its server keeps last month's file, and the rebuild still runs.
+# - New or changed settings: a push to main that changes cities/<city>/factsheet.json does a full run for that city
+#   only (how a new city's sheets get their walk and drive times; November 7, 2026, for Chicago).
 # Scheduled and workflow_run jobs only run from the copy of this file on main. deploy.yml lists this workflow,
 # so a refresh that commits goes live.
 on:
@@ -17,7 +19,10 @@ on:
         default: false
       cities:
         description: 'Cities, space-separated'
-        default: 'toronto nyc sf'
+        default: 'toronto nyc sf chicago'
+  push:
+    branches: [main]
+    paths: ['cities/*/factsheet.json']
   schedule:
     - cron: '17 7 9 * *'
   workflow_run:
@@ -38,12 +43,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 330
     env:
-      CITIES: ${{ inputs.cities || 'toronto nyc sf' }}
-      FULL: ${{ github.event_name == 'schedule' || inputs.full == true }}
+      CITIES: ${{ inputs.cities || 'toronto nyc sf chicago' }}
+      FULL: ${{ github.event_name == 'schedule' || github.event_name == 'push' || inputs.full == true }}
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 2
+      - name: Cities whose settings this push changed (push runs)
+        if: github.event_name == 'push'
+        run: |
+          c=$(git diff --name-only HEAD~1 HEAD -- 'cities/*/factsheet.json' | cut -d/ -f2 | sort -u | tr '\n' ' ')
+          echo "CITIES=${c:-none}" >> "$GITHUB_ENV"; echo "Full run for: $c"
       - name: Check fact sheets exist on this branch
         id: have
         run: |

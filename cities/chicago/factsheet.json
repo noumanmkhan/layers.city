@@ -1,0 +1,220 @@
+{
+ "_about": "Settings for the fact sheets (engine/profiles/: build.py, walk_grid.py, fetch_walk.py, fetch_drive.py, page.html): one per community area. 'The subway' here is the CTA 'L' (cta_stations, cta_lines); stops and changes to the hubs are counted along each drawn line, with a change wherever two stations sit within 200 m (Jackson's Red and Blue platforms, Lake and State/Lake). The headline transit time is the map's own To the Loop (ca_profiles.json 'loop'). Metra is the regional rail. No parking rows: Chicago's map has no City parking or EV file yet. factsheet.css colours the line bullets in the CTA's colours and bus badges in its route styles.",
+ "units": "community_areas",
+ "census": "ca_profiles.json",
+ "distance": "mi",
+ "metro": {
+  "stations": [
+   "cta_stations"
+  ],
+  "lines": [
+   "cta_lines"
+  ]
+ },
+ "hubs": [
+  "Clark/Lake",
+  "Jackson",
+  "Roosevelt",
+  "Fullerton",
+  "Howard"
+ ],
+ "hub": {
+  "name": "the Loop",
+  "field": "loop"
+ },
+ "rail": {
+  "file": "metra_stations",
+  "in": "Metra stations",
+  "nearest": "Nearest Metra station",
+  "within": 2
+ },
+ "regionHighways": "region_highways",
+ "arterials": {
+  "layers": {
+   "streets": "major",
+   "collectors": "collector"
+  }
+ },
+ "lineColors": {
+  "red": "#C60C30",
+  "blue": "#00A1DE",
+  "brown": "#62361B",
+  "green": "#009B3A",
+  "orange": "#F9461C",
+  "pink": "#E27EA6",
+  "purple": "#522398",
+  "yellow": "#F9E300"
+ },
+ "drive": {
+  "rampRadius": 3,
+  "keepStation": true,
+  "destinations": [
+   [
+    "The Loop",
+    -87.6278,
+    41.882
+   ],
+   [
+    "O'Hare Airport",
+    -87.9073,
+    41.9742
+   ],
+   [
+    "Midway Airport",
+    -87.7524,
+    41.7868
+   ],
+   [
+    "Downtown Evanston",
+    -87.6815,
+    42.0464
+   ],
+   [
+    "Oak Brook",
+    -87.9539,
+    41.85
+   ]
+  ]
+ },
+ "walk": {
+  "tiles": [
+   5,
+   5
+  ]
+ },
+ "stationLabels": 14,
+ "hubBullets": false,
+ "transferStops": 4,
+ "lineOrder": [
+  "red",
+  "blue",
+  "brown",
+  "green",
+  "orange",
+  "pink",
+  "purple",
+  "yellow"
+ ],
+ "labels": {
+  "subwayStations": "'L' stations",
+  "nearestSubway": "Nearest 'L' station",
+  "bikeshare": "Divvy stations",
+  "bikeLanes": "Bike lanes",
+  "nature": [
+   [
+    "Parks",
+    "park"
+   ],
+   [
+    "Playgrounds",
+    "playground"
+   ],
+   [
+    "Tennis court locations",
+    "tennis"
+   ]
+  ],
+  "libraries": "Libraries",
+  "centres": "Community centers",
+  "heritage": "Chicago Landmarks",
+  "walkBike": "Commute on foot or by bike (ACS 2020–24)",
+  "glanceBikeshare": "Divvy stations",
+  "glanceHeritage": "Chicago Landmarks",
+  "subwaySection": "The 'L'",
+  "busSection": "CTA buses",
+  "railSection": "Metra, cycling and driving",
+  "overnight": "Owl buses",
+  "parkingLots": "City parking",
+  "parkingNearest": "Nearest City parking",
+  "mainRoads": "Longest main streets",
+  "roads": [
+   [
+    "major",
+    "Main streets"
+   ],
+   [
+    "collector",
+    "Collector streets"
+   ]
+  ],
+  "glanceStation": "'L' station",
+  "glanceStations": "'L' stations"
+ },
+ "page": {
+  "city": "Chicago",
+  "kind": "CHICAGO",
+  "description": "Printable one-page fact sheets for each of Chicago’s 77 community areas: the ’L’, buses, Metra, expressways, drive times, parks, libraries and bike lanes. Drop a pin for walk and drive times from any spot.",
+  "unit": "community area",
+  "Unit": "Community area",
+  "boundary": "Chicago community area boundary (City of Chicago Data Portal)",
+  "pinned": "Pinned spot (rounded to about 300 ft) in {name}",
+  "outside": "That spot is outside Chicago. Try a spot inside the city.",
+  "noMatch": "No match in Chicago for “{q}”. Try the full street address, like “121 N LaSalle St”.",
+  "placeholder": "Search an address, like 121 N LaSalle St",
+  "credits": "Boundaries: City of Chicago Data Portal · Transit: CTA and Metra GTFS · Bike lanes: CDOT · Parks: OpenStreetMap · Census figures: ACS 2020–24",
+  "creditsPin": " · Walks along streets and paths at 3 mph from the 500 ft square around the pin: © OpenStreetMap contributors · Drive times are free-flow",
+  "creditsTransit": " · Stops and changes counted along each drawn line · To the Loop: typical weekday-morning trip, door to door",
+  "creditsDriving": " · Expressways and ramps: © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads, no tolls or traffic); distances straight-line",
+  "sysNote": "The ’L’, simplified. Stops and changes are counted along each line.",
+  "sysLabel": "The CTA ’L’ with this community area highlighted",
+  "nearestStop": "Nearest bus stop",
+  "nearestDock": "Nearest Divvy dock",
+  "parkingNearest": "Nearest City parking",
+  "legendTransit": [
+   [
+    "line",
+    "#C60C30",
+    "The ’L’"
+   ],
+   [
+    "line",
+    "var(--bus)",
+    "Frequent bus"
+   ],
+   [
+    "thin",
+    "var(--bus)",
+    "Other daytime bus"
+   ],
+   [
+    "line",
+    "var(--bike)",
+    "Bike lane"
+   ]
+  ],
+  "legendDriving": [
+   [
+    "hwy",
+    "#F7C548",
+    "Expressway"
+   ],
+   [
+    "road",
+    "#FFFFFF",
+    "Main street"
+   ],
+   [
+    "ramp",
+    "#fff",
+    "On-ramp"
+   ]
+  ],
+  "legendOverview": [
+   [
+    "line",
+    "#C60C30",
+    "The ’L’"
+   ],
+   [
+    "line",
+    "var(--bike)",
+    "Bike lane"
+   ],
+   [
+    "dot",
+    "var(--park)",
+    "Park"
+   ]
+  ]
+ }
+}
