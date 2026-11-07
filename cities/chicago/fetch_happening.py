@@ -37,12 +37,21 @@ last, last14 = today + timedelta(days=PAGE_DAYS), today + timedelta(days=DAYS)
 
 
 def socrata(rid, where, order):
+    import time
     rows, off = [], 0
     while True:
         q = urllib.parse.urlencode({'$where': where, '$order': order, '$limit': 5000, '$offset': off})
         req = urllib.request.Request(API + rid + '.json?' + q, headers={'User-Agent': 'layers.city data fetch'})
-        with urllib.request.urlopen(req, timeout=180) as r:
-            page = json.load(r)
+        for attempt in range(3):            # the portal times out now and then
+            try:
+                with urllib.request.urlopen(req, timeout=180) as r:
+                    page = json.load(r)
+                break
+            except Exception as ex:
+                print(f'{rid}: try {attempt + 1} failed: {ex!r}')
+                if attempt == 2:
+                    raise
+                time.sleep(20)
         rows += page
         if len(page) < 5000:
             return rows
@@ -139,6 +148,24 @@ except Exception as ex:
 
 if not sources:
     sys.exit('no source could be read; the last files stay up')
+
+# A source that couldn't be read today keeps yesterday's items (still in the window), so one bad fetch doesn't empty
+# half the page; `sources` lists only what was read today.
+try:
+    prev = json.load(open(PAGE_OUT))['events']
+except (OSError, ValueError, KeyError):
+    prev = []
+for src in ('library', 'parks'):
+    if src in sources:
+        continue
+    kept = 0
+    for e in prev:
+        if e.get('src') == src:
+            times = [t for t in e['times'] if t[0][:10] >= today.isoformat()]
+            if times:
+                e = dict(e, times=times, _late=min(t[0] for t in times)[:10] > last14.isoformat()); e.pop('hood', None)
+                events[(src, e['id'])] = e; kept += 1
+    print(f'{src}: kept {kept} items from the last listing')
 
 items = sorted(events.values(), key=lambda e: (min(t[0] for t in e['times']), e['title']))
 for e in items:
