@@ -203,6 +203,9 @@ The second city runs on the same engine with its own data and config (`cities/ch
 | The 'L' | 8 lines, 144 stations | CTA rapid transit |
 | Bus routes | 124 routes,<br>by family | All, frequent, express, regular<br>or overnight; any route on demand |
 | Bike lanes | 1,008 segments | Protected, painted, shared<br>(any mix); CDOT's Bike Routes |
+| Parks | 750 parks | Named parks and nature areas shaded green;<br>playground and dog-friendly chips. From OpenStreetMap |
+| Sports & rec | 283 parks | Pools, ball fields, soccer, tennis, pickleball,<br>basketball, skateparks. From OpenStreetMap |
+| Schools | Every CPS school | District, charter, contract and options schools;<br>grades and website. CPS school profiles 2024–25 |
 | Community & Faith | 3 toggles | Libraries and community centers; places of worship<br>(churches by family); halal and kosher shops |
 | Transit under construction | 1 line | Red Line Extension, 95th to 130th Street |
 | Street closures | Daily | From the Red Line Extension and<br>the Red/Purple rebuild |

@@ -8,6 +8,9 @@ centre    Publicly run community centres open to everyone (rule agreed October 1
           Community Service Centers. Beach houses, visitor and nature centres are left out. OSM's
           community_centre tag is no longer used: it mixes in churches, clubs and advocacy groups.
 er        Hospitals with an emergency department, from the institutions layer.
+school_e, school_s, dogrun, basketball
+          From the Schools, Parks and Sports & rec layers (places.py): CPS schools by level, parks with a dog area,
+          parks with basketball courts.
 park, playground, tennis
           From OpenStreetMap, inside the city: named parks; playgrounds; tennis courts, merged so
           courts within 80 m of each other count as one place. Anything tagged private, customers-
@@ -83,6 +86,20 @@ for c in courts:   # one point per group of courts
     if not any(metres(c, t) < 80 for t in groups['tennis']): groups['tennis'].append(c)
 for f in json.load(open(os.path.join(DATA, 'institutions.geojson')))['features']:
     if f['properties'].get('ed'): groups['er'].append(f['geometry']['coordinates'] + [f['properties']['name']])
+
+# Schools, dog areas and basketball courts from the Schools, Parks and Sports & rec layers (places.py, run first).
+def feats(n):
+    p_ = os.path.join(DATA, n + '.geojson')
+    return json.load(open(p_))['features'] if os.path.exists(p_) else []
+for f in feats('schools'):
+    groups.setdefault('school_e' if f['properties']['cat'] == 'elementary' else 'school_s', []).append(f['geometry']['coordinates'] + [f['properties']['name']])
+for f in feats('parks'):
+    if 'dog' in f['properties'].get('a', []):
+        c = shape(f['geometry']).representative_point()
+        groups.setdefault('dogrun', []).append([round(c.x, 5), round(c.y, 5), f['properties']['n']])
+for f in feats('sports'):
+    if 'basketball' in f['properties']['cats']:
+        groups.setdefault('basketball', []).append(f['geometry']['coordinates'] + [f['properties']['name']])
 
 fp = os.path.join(DATA, 'faith.geojson')
 for f in (json.load(open(fp))['features'] if os.path.exists(fp) else []):

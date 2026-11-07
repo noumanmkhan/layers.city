@@ -26,6 +26,7 @@ for f in metra_lines metra_lines_inner; do npx mapshaper -i tmp/$f.geojson -simp
 npx mapshaper -i tmp/cta_lines.geojson -simplify interval=5 -o $OUT/cta_lines.geojson precision=0.00001 -quiet
 python3 attendance.py         # CPS attendance areas for the card's Schools section
 [ -f raw/faith/worship_osm.json ] && python3 faith.py   # places of worship and halal/kosher shops: points, written straight to docs
+python3 places.py             # schools (CPS), parks and sports & rec (OSM): before nearby
 python3 nearby.py             # after faith, and after sides are simplified and institutions written: the card's Nearby points
 [ -d raw/representatives ] && python3 representatives.py   # after the boundaries above: it matches them
 [ -f raw/drive_times.json ] && python3 ../../engine/drive.py build chicago   # after base is simplified: adds drive times to it

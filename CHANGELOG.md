@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### Chicago: Parks, Sports & rec and Schools (November 7)
+- New Outdoors group on the Chicago map: *Parks* (750 named parks and nature areas, shaded green, with Playground and
+  Dog-friendly chips) and *Sports & rec* (283 parks with pools, ball fields, soccer fields, tennis, pickleball,
+  basketball or skateparks), both from OpenStreetMap, because the Park District's own files on the Data Portal date
+  from 2016.
+- *Schools* in the Education group: every CPS school from the 2024–25 school profiles, with grades, the kind of school
+  and its website; the card still names the assigned schools from the attendance areas.
+- The card's Nearby section counts elementary and middle or high schools, parks with basketball courts and dog areas.
+
 ### Chicago: EV chargers (November 7)
 - New Parking & Charging group on the Chicago map with an EV chargers layer: 289 public charging sites (992 Level 2 and
   429 DC fast ports, 57 fast sites), from the U.S. DOE's Alternative Fuels Data Center, monthly (*Fetch Chicago parking*).
