@@ -54,7 +54,7 @@ a{color:inherit;text-decoration:none}
 a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .page{min-height:100vh;display:flex;flex-direction:column}
-.top,main,.feat,.more,.prints,.foot{width:min(1280px,100% - 2*var(--gut));margin-left:auto;margin-right:auto}
+.top,main,.feats,.more,.prints,.foot{width:min(1280px,100% - 2*var(--gut));margin-left:auto;margin-right:auto}
 
 /* Header */
 .top{display:flex;align-items:center;gap:20px 28px;padding:22px 0;flex-wrap:wrap}
@@ -156,19 +156,21 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(40px,4.6v
 .under .lbl{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
 
 /* Feature card: a standalone page that isn't one of a city's columns (the transit history) */
-.feat{margin-top:48px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:stretch;background:var(--card);border:1.5px solid var(--rule);border-radius:16px;overflow:hidden;color:inherit;text-decoration:none}
+.feats{margin-top:48px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.feat{display:flex;flex-direction:column;background:var(--card);border:1.5px solid var(--rule);border-radius:16px;overflow:hidden;color:inherit;text-decoration:none}
 a.feat:hover{border-color:var(--ink)}
-.feat .txt{display:flex;flex-direction:column;gap:14px;padding:30px 32px}
+.feat .txt{flex:1;display:flex;flex-direction:column;gap:12px;padding:24px 28px 26px}
 .feat .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--accent)}
-.feat h2{margin:0;font-family:var(--display);font-weight:800;font-size:32px;line-height:1.05;letter-spacing:-.015em;max-width:520px}
-.feat p{margin:0;font-size:15.5px;line-height:1.55;color:var(--ink-2);max-width:540px}
+.feat h2{margin:0;font-family:var(--display);font-weight:800;font-size:28px;line-height:1.08;letter-spacing:-.015em}
+.feat p{margin:0;font-size:15.5px;line-height:1.55;color:var(--ink-2)}
 .feat .go{margin-top:auto;display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-weight:500}
-.feat .art{background:var(--muted);border-left:1.5px solid var(--rule);display:flex;align-items:center;justify-content:center;padding:18px}
-.feat .art svg{width:100%;max-width:420px;height:auto}
+.feat .art{background:var(--muted);border-bottom:1.5px solid var(--rule);display:flex;align-items:center;justify-content:center;padding:14px 18px;height:180px}
+.feat .art svg{width:100%;max-width:420px;height:100%}
 .feat .art .yr{font-family:var(--display);font-weight:800;font-size:30px;fill:var(--ink)}
 .feat .art .ghost{stroke:var(--track);stroke-dasharray:1 7;stroke-width:4;stroke-linecap:round;fill:none}
 .feat .art .built{stroke-width:7;stroke-linecap:round;fill:none}
 .feat .art .case{stroke:var(--ink);stroke-width:11;stroke-linecap:round;fill:none}
+.feat .art .el{stroke:#8a7d78;stroke-width:6;stroke-linecap:round;fill:none}
 
 /* Below the fold */
 .more{padding-top:24px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
@@ -216,11 +218,10 @@ a.tile:hover{border-color:var(--ink)}
   .ix{display:none}
   .picker{display:block}
   .more{padding-top:20px;grid-template-columns:minmax(0,1fr);gap:12px}
-  .feat{margin-top:20px;grid-template-columns:minmax(0,1fr)}
-  .feat .txt{padding:18px 16px;gap:10px}
-  .feat h2{font-size:22px}
-  .feat .art{border-left:0;border-top:1.5px solid var(--rule);padding:12px;order:-1}
-  .feat .art svg{max-width:320px}
+  .feats{margin-top:20px;grid-template-columns:minmax(0,1fr);gap:12px}
+  .feat .txt{padding:16px 16px 18px;gap:10px}
+  .feat h2{font-size:21px}
+  .feat .art{height:130px;padding:10px}
   .tile{padding:18px 16px;gap:10px}
   .tile h2{font-size:20px}
   .prints{margin-top:12px;margin-bottom:24px;padding:16px}
@@ -423,26 +424,48 @@ a.tile:hover{border-color:var(--ink)}
     </section>
   </main>
 
-  <!-- Transit history (/toronto/ttc-history/, engine/history/build.py): its own card, not a column of the city table. -->
-  <a class="feat" href="/toronto/ttc-history/">
-    <div class="txt">
-      <span class="k">TORONTO · TRANSIT HISTORY · 1946 TO TODAY</span>
-      <h2>The subway Toronto built, and the one it almost did</h2>
-      <p>Every subway and light rail line on one timeline map: what opened, what's being built, and the plans that were promised, funded or even dug before they died. Each one dated and sourced.</p>
-      <span class="go">Open the timeline <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
-    </div>
-    <div class="art" aria-hidden="true">
-      <svg viewBox="0 0 420 220">
-        <path class="ghost" d="M60 60 L230 40 L370 30"/>
-        <path class="ghost" d="M150 190 L300 168"/>
-        <path class="ghost" d="M40 120 L150 108"/>
-        <path class="case" d="M150 108 L330 86"/><path class="built" stroke="#2E9E4F" d="M150 108 L330 86"/>
-        <path class="case" d="M230 40 L240 150 L252 168"/><path class="built" stroke="#F2B705" d="M230 40 L240 150 L252 168"/>
-        <path class="case" d="M330 86 L360 50"/><path class="built" stroke="#2B8BD0" d="M330 86 L360 50"/>
-        <text class="yr" x="22" y="206">1985</text>
-      </svg>
-    </div>
-  </a>
+  <!-- Transit history pages (engine/history/build.py): their own row of cards, not columns of the city table. -->
+  <section class="feats" aria-label="Transit history">
+    <a class="feat" href="/toronto/ttc-history/">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet">
+          <path class="ghost" d="M60 60 L230 40 L370 30"/>
+          <path class="ghost" d="M150 190 L300 168"/>
+          <path class="ghost" d="M40 120 L150 108"/>
+          <path class="case" d="M150 108 L330 86"/><path class="built" stroke="#00923F" d="M150 108 L330 86"/>
+          <path class="case" d="M230 40 L240 150 L252 168"/><path class="built" stroke="#F8C302" d="M230 40 L240 150 L252 168"/>
+          <path class="case" d="M330 86 L360 50"/><path class="built" stroke="#0082C9" d="M330 86 L360 50"/>
+          <text class="yr" x="22" y="206">1985</text>
+        </svg>
+      </div>
+      <div class="txt">
+        <span class="k">TORONTO · 1946 TO TODAY</span>
+        <h2>The subway Toronto built, and the one it almost did</h2>
+        <p>Every subway and light rail line on one timeline map: what opened, what's being built, and the plans that were promised, funded or even dug before they died. Each one dated and sourced.</p>
+        <span class="go">Open the timeline <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </div>
+    </a>
+    <a class="feat" href="/nyc/mta-history/">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet">
+          <path class="el" d="M150 200 L215 30"/>
+          <path class="el" d="M180 205 L250 35"/>
+          <path class="case" d="M168 190 L232 28"/><path class="built" stroke="#EE352E" d="M168 190 L232 28"/>
+          <path class="case" d="M195 196 L262 38"/><path class="built" stroke="#00933C" d="M195 196 L262 38"/>
+          <path class="case" d="M140 182 L205 24"/><path class="built" stroke="#0039A6" d="M140 182 L205 24"/>
+          <path class="case" d="M225 120 L320 96 L388 70"/><path class="built" stroke="#B933AD" d="M225 120 L320 96 L388 70"/>
+          <path class="case" d="M200 170 L300 196"/><path class="built" stroke="#FCCC0A" d="M200 170 L300 196"/>
+          <text class="yr" x="22" y="206">1904</text>
+        </svg>
+      </div>
+      <div class="txt">
+        <span class="k">NEW YORK · 1868 TO TODAY</span>
+        <h2>Three companies, one subway</h2>
+        <p>The els, the IRT, BMT and IND, and the century-long wait for Second Avenue, on one timeline map. Switch to colour by company to see why some trains are numbers and others letters.</p>
+        <span class="go">Open the timeline <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </div>
+    </a>
+  </section>
 
   <section class="more" aria-label="More from Layers.City">
     <a class="tile" href="/compare/">

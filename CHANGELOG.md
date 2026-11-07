@@ -2,6 +2,10 @@
 
 ## Since 1.1
 
+### New York subway history is public; the hub shows both history pages in one row (November 7)
+- layers.city/nyc/mta-history/ drops its noindex tag and joins the sitemap. The hub's wide Toronto history card becomes a
+  row of two cards (Toronto, New York), each a small drawn sketch over its title; stacked on phones.
+
 ### Transit history maps: route badges in official colours (November 7)
 - Built lines carry today's route badges: circles with the route number or letter in the agency's colours (MTA Pantone set:
   1 2 3 #EE352E … N Q R W #FCCC0A with black text; TTC line colours, Line 1 #F8C302 with black text), centred on each

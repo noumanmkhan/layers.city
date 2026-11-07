@@ -70,7 +70,8 @@ the landing page, stop and say so; don't change this repo.
   lines are cut from the published subway layers, unbuilt ones traced along streets.geojson. Facts only, in our own
   words, never anyone's scanned plan maps; our own style, not the TTC map's. run.sh rebuilds it; by hand:
   `python3 engine/history/build.py toronto`. Research notes: the project's claude/transit-history-scouting.md.
-  New York (`cities/nyc/history.json`, page `docs/nyc/mta-history/`, November 7, **unlisted**): 123 segments from three
+  New York (`cities/nyc/history.json`, page `docs/nyc/mta-history/`, November 7, public the same evening; the hub shows
+  both history pages as a row of two cards, `.feats`, below the city table): 123 segments from three
   sourced research passes (IRT, BMT, IND; researchers' doubts kept in each line's `_notes`). Engine additions it uses:
   `{"route": id, "from", "to"}` cuts the agency's GTFS shape (`raw/surface/rapid_routes.json`); station names can take
   `|<line>` where they repeat; `colourBy` adds a "colour by" switch (today's route colours vs the company that built it, `op`);

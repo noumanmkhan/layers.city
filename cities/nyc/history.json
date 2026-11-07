@@ -1,7 +1,7 @@
 {
  "_about": "NYC subway history page (engine/history/build.py), at docs/nyc/mta-history/. Built from three research passes (IRT, BMT, IND) on November 7, 2026, each date taken from a source read that day; see cities/toronto/history.json _about for the recipes and stages. op is the company that ran the line before the 1940 unification (IRT, BMT incl. the BRT before 1923, IND); colour is today's route colour from the MTA's GTFS, or a neutral brown for lines with no route today. _notes keep the researchers' doubts and source conflicts.",
  "path": "mta-history",
- "unlisted": true,
+ "unlisted": false,
  "colourBy": {
   "default": "route",
   "modes": [
