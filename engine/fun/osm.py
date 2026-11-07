@@ -1,6 +1,7 @@
 """OpenStreetMap shops and amenities for a city's Fun maps (the `pair` maps' OSM sides), shared by the cities'
 fetch_fun.py scripts: one Overpass query over a bounding box, written as osm_places.json, one row per place,
-[lon, lat, amenity, shop, leisure, brand, name, cuisine]. ODbL. Toronto's fetch_fun.py has its own copy of this
+[lon, lat, amenity, shop, leisure, brand, name, cuisine, sport]. ODbL. Tennis and pickleball courts (leisure=pitch with
+that sport) come too, for a city without a published sports layer. Toronto's fetch_fun.py has its own copy of this
 query (it came first); the tags here are the same, plus supermarkets. The engine names no city.
 
 Usage (from a city's fetch_fun.py): from fun.osm import places; places((s, w, n, e), out_path)"""
@@ -8,7 +9,7 @@ import json, time, urllib.parse, urllib.request
 
 UA = {'User-Agent': 'layers.city pipeline (go@layers.city)'}
 HOSTS = ('https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter')
-COLS = ['lon', 'lat', 'amenity', 'shop', 'leisure', 'brand', 'name', 'cuisine']
+COLS = ['lon', 'lat', 'amenity', 'shop', 'leisure', 'brand', 'name', 'cuisine', 'sport']
 
 
 def places(bbox, out_path):
@@ -19,6 +20,7 @@ def places(bbox, out_path):
   nwr["amenity"~"^(cafe|fast_food|restaurant|fuel|pharmacy|bar|pub|car_wash|ice_cream|library|bank)$"]({bb});
   nwr["shop"~"^(alcohol|cannabis|laundry|dry_cleaning|books|e-cigarette|bicycle|variety_store|convenience|bakery|tea|beverages|wine|car|supermarket)$"]({bb});
   nwr["leisure"="fitness_centre"]({bb});
+  nwr["leisure"="pitch"]["sport"~"tennis|pickleball"]({bb});
 );
 out center tags;"""
     blob = None

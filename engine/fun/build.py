@@ -13,7 +13,7 @@ Each map in fun.json is one of:
 A map whose input file is missing is left out, so the page builds with whatever has been fetched.
 
 fun.json "units" names the published outlines: "nb" (required, the page's main unit) and "wd" (a coarser one, for maps
-published only at that level), each {file, key, label, one, optional many}.
+published only at that level), each {file, key, label, one, optional many, optional labelFormat ("District {}")}.
 
 The page draws every map from one shared set of outlines (projected here, simplified) and a short list of
 class indexes per map, so adding a map costs a few hundred bytes. The engine names no city."""
@@ -51,7 +51,7 @@ def outlines(unit):
 units = cfg['units']
 nb_keys, nb_names, nb_shapes = outlines(units['nb'])
 wd_names, wd_labels, wd_shapes = outlines(units['wd']) if 'wd' in units else ([], [], [])
-wd_label = dict(zip(wd_names, wd_labels))
+wd_label = {k: units['wd'].get('labelFormat', '{}').format(l) for k, l in zip(wd_names, wd_labels)}   # "District {}" for numbered areas
 minx, miny, maxx, maxy = (min(s.bounds[i] for s in nb_shapes) if i < 2 else max(s.bounds[i] for s in nb_shapes) for i in range(4))
 KX = math.cos(math.radians((miny + maxy) / 2))
 SCALE = W / ((maxx - minx) * KX)

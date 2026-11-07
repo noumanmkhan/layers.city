@@ -1,0 +1,315 @@
+{
+  "page": {
+    "title": "Fun maps",
+    "city": "Vancouver",
+    "description": "Vancouver’s local areas in silly-but-true maps: Tim Hortons vs Starbucks, hometown coffee, sushi vs pho, BC Liquor vs private stores, what each area calls 3-1-1 about, and more.",
+    "lede": "The same local areas as the map, the UEL and Stanley Park included, counted in less serious ways. Each map is a head-to-head or a signature: what an area has more of than the rest of the city.",
+    "unitName": "local area",
+    "unitPlural": "local areas",
+    "credits": "Shops, restaurants and courts © OpenStreetMap contributors (ODbL). 3-1-1 requests: City of Vancouver Open Data (Open Government Licence – Vancouver). EV chargers: Natural Resources Canada via the U.S. DOE Alternative Fuels Data Center. Counts are only as complete as their sources.",
+    "refresh": "Refreshed every three months."
+  },
+  "units": {
+    "nb": {
+      "file": "local_areas.geojson",
+      "key": "name",
+      "label": "name",
+      "one": "local area"
+    },
+    "wd": {
+      "file": "local_areas.geojson",
+      "key": "code",
+      "label": "name",
+      "one": "local area"
+    }
+  },
+  "maps": [
+    {
+      "id": "tims-vs-starbucks",
+      "type": "pair",
+      "title": "Tim Hortons vs Starbucks",
+      "a": {
+        "label": "Tim Hortons",
+        "brand": true,
+        "short": "Tim's",
+        "colour": "#C8102E",
+        "osm": [
+          {
+            "brand": "^Tim Hortons$"
+          },
+          {
+            "name": "^Tim Hortons"
+          }
+        ]
+      },
+      "b": {
+        "label": "Starbucks",
+        "brand": true,
+        "colour": "#00704A",
+        "osm": [
+          {
+            "brand": "^Starbucks$"
+          },
+          {
+            "name": "^Starbucks"
+          }
+        ]
+      }
+    },
+    {
+      "id": "hometown-coffee-vs-starbucks",
+      "type": "pair",
+      "title": "Hometown coffee vs Starbucks",
+      "a": {
+        "label": "Vancouver coffee chains",
+        "short": "Hometown",
+        "colour": "#6B4423",
+        "osm": [
+          {
+            "brand": "^(JJ Bean|Blenz( Coffee)?|49th Parallel.*|Caff[eè] Artigiano|Bean Around the World|Matchstick.*|Elysian.*|Prado.*)$"
+          },
+          {
+            "amenity": "^cafe$",
+            "name": "^(jj bean|blenz|49th parallel|caff[eè] artigiano|bean around the world|matchstick|elysian|prado caf|revolver)"
+          }
+        ]
+      },
+      "b": {
+        "label": "Starbucks",
+        "brand": true,
+        "colour": "#00704A",
+        "osm": [
+          {
+            "brand": "^Starbucks$"
+          },
+          {
+            "name": "^Starbucks"
+          }
+        ]
+      },
+      "note": "Hometown counts coffee chains and roasters started in Vancouver: JJ Bean, Blenz, 49th Parallel, Caffè Artigiano, Bean Around the World, Matchstick, Elysian, Prado and Revolver."
+    },
+    {
+      "id": "sushi-vs-pho",
+      "type": "pair",
+      "title": "Sushi vs pho",
+      "mode": "relative",
+      "a": {
+        "label": "Sushi restaurants",
+        "short": "Sushi",
+        "colour": "#E0603A",
+        "one": "sushi restaurant",
+        "many": "sushi restaurants",
+        "osm": [
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "cuisine": "sushi"
+          },
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "name": "sushi"
+          }
+        ]
+      },
+      "b": {
+        "label": "Pho and Vietnamese",
+        "short": "Pho",
+        "colour": "#2E7D6B",
+        "one": "pho shop",
+        "many": "pho shops",
+        "osm": [
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "cuisine": "vietnamese|pho"
+          },
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "name": "\\bph[oở]\\b"
+          }
+        ]
+      },
+      "note": "Sushi counts places mapped as sushi or named for it; pho counts Vietnamese restaurants, most of which serve it."
+    },
+    {
+      "id": "bcl-vs-private-liquor",
+      "type": "pair",
+      "title": "BC Liquor vs private liquor stores",
+      "a": {
+        "label": "BC Liquor Stores",
+        "brand": true,
+        "short": "BC Liquor",
+        "colour": "#00558C",
+        "osm": [
+          {
+            "shop": "^(alcohol|wine)$",
+            "brand": "^BC Liquor"
+          },
+          {
+            "shop": "^(alcohol|wine)$",
+            "name": "^BC Liquor"
+          }
+        ]
+      },
+      "b": {
+        "label": "Private liquor stores",
+        "short": "Private",
+        "colour": "#7A1F5C",
+        "osm": [
+          {
+            "shop": "^(alcohol|wine)$"
+          }
+        ],
+        "except": [
+          {
+            "brand": "^BC Liquor"
+          },
+          {
+            "name": "^BC Liquor"
+          }
+        ]
+      },
+      "note": "BC Liquor is the Province’s own chain; private counts licensed liquor stores, cold beer and wine stores and wine shops."
+    },
+    {
+      "id": "bubble-tea-vs-coffee",
+      "type": "pair",
+      "title": "Bubble tea vs coffee shops",
+      "mode": "relative",
+      "a": {
+        "label": "Bubble tea",
+        "colour": "#8E5BB5",
+        "osm": [
+          {
+            "cuisine": "bubble_tea"
+          },
+          {
+            "name": "bubble tea|boba|chatime|^coco\\b|presotea|the alley|xing fu tang|yi fang|gong cha|sharetea|truedan|tiger sugar|chicha san chen"
+          }
+        ],
+        "one": "bubble tea shop",
+        "many": "bubble tea shops"
+      },
+      "b": {
+        "label": "Coffee shops",
+        "colour": "#6B4423",
+        "osm": [
+          {
+            "amenity": "^cafe$"
+          }
+        ],
+        "except": [
+          {
+            "cuisine": "bubble_tea"
+          },
+          {
+            "name": "bubble tea|boba|chatime|^coco\\b|presotea|the alley|xing fu tang|yi fang|gong cha|sharetea|truedan|tiger sugar|chicha san chen"
+          }
+        ],
+        "one": "coffee shop",
+        "many": "coffee shops"
+      }
+    },
+    {
+      "id": "tennis-vs-pickleball",
+      "type": "pair",
+      "title": "Tennis vs pickleball",
+      "a": {
+        "label": "Tennis courts",
+        "short": "Tennis",
+        "colour": "#7FA51F",
+        "one": "tennis court",
+        "many": "tennis courts",
+        "osm": [
+          {
+            "leisure": "^pitch$",
+            "sport": "tennis"
+          }
+        ]
+      },
+      "b": {
+        "label": "Pickleball courts",
+        "short": "Pickleball",
+        "colour": "#1F8FA5",
+        "one": "pickleball court",
+        "many": "pickleball courts",
+        "osm": [
+          {
+            "leisure": "^pitch$",
+            "sport": "pickleball"
+          }
+        ]
+      },
+      "note": "Counts courts as mapped in OpenStreetMap, public and private; a court lined for both counts on both sides."
+    },
+    {
+      "id": "gas-vs-ev",
+      "type": "pair",
+      "title": "Gas stations vs EV chargers",
+      "a": {
+        "label": "Gas stations",
+        "colour": "#D9822B",
+        "osm": [
+          {
+            "amenity": "^fuel$"
+          }
+        ]
+      },
+      "b": {
+        "label": "Public EV charging sites",
+        "short": "EV chargers",
+        "colour": "#1F6FB5",
+        "layer": "parking.geojson",
+        "where": {
+          "c": "ev"
+        }
+      },
+      "note": "EV counts are charging sites (not plugs) open to the public, the same list as the map's EV chargers layer."
+    },
+    {
+      "id": "311-signature",
+      "type": "signature311",
+      "title": "What each local area calls 3-1-1 about",
+      "minTypeTotal": 200,
+      "minAreaCount": 20,
+      "note": "Each local area is coloured by the kind of 3-1-1 request it makes far more often than the city as a whole, not its most common one. Hover or tap for the single most over-represented request. Requests about people (encampments, welfare checks, needles) are left out. The City’s data covers its 22 local areas, so Stanley Park and the UEL have none.",
+      "themes": [
+        [
+          "Noise",
+          "noise"
+        ],
+        [
+          "Graffiti",
+          "graffiti"
+        ],
+        [
+          "Dumped items",
+          "abandoned|dump"
+        ],
+        [
+          "Garbage and green bins",
+          "green bin|garbage|recycl|sanitation|litter|yard"
+        ],
+        [
+          "Parking",
+          "parking|vehicle"
+        ],
+        [
+          "Trees",
+          "\\btree"
+        ],
+        [
+          "Wildlife",
+          "coyote|raccoon|\\brats?\\b|rodent|bird|animal"
+        ],
+        [
+          "Water and sewer",
+          "water|sewer|catch basin|flood|hydrant|drain"
+        ],
+        [
+          "Streets and lights",
+          "pothole|street|sidewalk|light|signal|\\bsigns?\\b|lane"
+        ]
+      ]
+    }
+  ]
+}

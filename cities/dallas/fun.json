@@ -1,0 +1,283 @@
+{
+  "page": {
+    "title": "Fun maps",
+    "city": "Dallas",
+    "description": "Dallas ZIP codes in silly-but-true maps: Whataburger vs Chick-fil-A, Tex-Mex vs barbecue, 7-Eleven vs QuikTrip, tennis vs pickleball, what each council district calls 311 about, and more.",
+    "lede": "The same ZIP codes as the map, counted in less serious ways. Each map is a head-to-head or a signature: what a place has more of than the rest of the city.",
+    "unitName": "ZIP code",
+    "unitPlural": "ZIP codes",
+    "credits": "Shops, restaurants and courts © OpenStreetMap contributors (ODbL). 311 requests: Dallas OpenData (public domain). EV chargers: U.S. DOE Alternative Fuels Data Center. Counts are only as complete as their sources.",
+    "refresh": "Refreshed every three months."
+  },
+  "units": {
+    "nb": {
+      "file": "zips.geojson",
+      "key": "code",
+      "label": "name",
+      "one": "ZIP code"
+    },
+    "wd": {
+      "file": "council.geojson",
+      "key": "num",
+      "label": "num",
+      "one": "council district",
+      "labelFormat": "District {}"
+    }
+  },
+  "maps": [
+    {
+      "id": "whataburger-vs-chick-fil-a",
+      "type": "pair",
+      "title": "Whataburger vs Chick-fil-A",
+      "a": {
+        "label": "Whataburger",
+        "brand": true,
+        "colour": "#F26722",
+        "osm": [
+          {
+            "brand": "^Whataburger$"
+          },
+          {
+            "name": "^Whataburger"
+          }
+        ]
+      },
+      "b": {
+        "label": "Chick-fil-A",
+        "brand": true,
+        "colour": "#DD0031",
+        "osm": [
+          {
+            "brand": "^Chick-fil-A$"
+          },
+          {
+            "name": "^Chick-?fil-?A"
+          }
+        ]
+      },
+      "note": "Counts each chain’s restaurants inside the city limits, drive-thru or not."
+    },
+    {
+      "id": "texmex-vs-bbq",
+      "type": "pair",
+      "title": "Tex-Mex vs barbecue",
+      "mode": "relative",
+      "a": {
+        "label": "Tex-Mex and taquerias",
+        "short": "Tex-Mex",
+        "colour": "#D9822B",
+        "one": "Tex-Mex place",
+        "many": "Tex-Mex places",
+        "osm": [
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "cuisine": "mexican|tex-mex|taco"
+          },
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "name": "taqueria|tacos?\\b"
+          }
+        ]
+      },
+      "b": {
+        "label": "Barbecue joints",
+        "short": "Barbecue",
+        "colour": "#6B2E1F",
+        "one": "barbecue joint",
+        "many": "barbecue joints",
+        "osm": [
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "cuisine": "barbecue|bbq"
+          },
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "name": "bbq|bar-?b-?q|barbe?cue|smokehouse"
+          }
+        ]
+      },
+      "note": "Tex-Mex counts places mapped as Mexican or Tex-Mex or named for tacos; barbecue counts places mapped or named as barbecue."
+    },
+    {
+      "id": "7eleven-vs-quiktrip",
+      "type": "pair",
+      "title": "7-Eleven vs QuikTrip",
+      "a": {
+        "label": "7-Eleven",
+        "brand": true,
+        "colour": "#008163",
+        "osm": [
+          {
+            "shop": "^convenience$",
+            "brand": "^7-Eleven$"
+          },
+          {
+            "shop": "^convenience$",
+            "name": "^7-?Eleven"
+          }
+        ]
+      },
+      "b": {
+        "label": "QuikTrip",
+        "brand": true,
+        "short": "QT",
+        "colour": "#D71920",
+        "osm": [
+          {
+            "shop": "^convenience$",
+            "brand": "^QuikTrip$"
+          },
+          {
+            "shop": "^convenience$",
+            "name": "^(QuikTrip|QT\\b)"
+          }
+        ]
+      },
+      "note": "Counts the stores, not their gas pumps. 7-Eleven started at an Oak Cliff ice dock in 1927."
+    },
+    {
+      "id": "donuts-vs-coffee",
+      "type": "pair",
+      "title": "Donut shops vs coffee shops",
+      "mode": "relative",
+      "a": {
+        "label": "Donut shops",
+        "short": "Donuts",
+        "colour": "#C2185B",
+        "one": "donut shop",
+        "many": "donut shops",
+        "osm": [
+          {
+            "cuisine": "donut"
+          },
+          {
+            "name": "donut|do-nut"
+          }
+        ]
+      },
+      "b": {
+        "label": "Coffee shops",
+        "short": "Coffee",
+        "colour": "#6B4423",
+        "one": "coffee shop",
+        "many": "coffee shops",
+        "osm": [
+          {
+            "amenity": "^cafe$"
+          }
+        ],
+        "except": [
+          {
+            "cuisine": "donut"
+          },
+          {
+            "name": "donut|do-nut"
+          }
+        ]
+      },
+      "note": "Donut shops count places mapped or named for donuts, Dunkin’ included; coffee shops are the rest of the cafés."
+    },
+    {
+      "id": "tennis-vs-pickleball",
+      "type": "pair",
+      "title": "Tennis vs pickleball",
+      "a": {
+        "label": "Tennis courts",
+        "short": "Tennis",
+        "colour": "#7FA51F",
+        "one": "tennis court",
+        "many": "tennis courts",
+        "osm": [
+          {
+            "leisure": "^pitch$",
+            "sport": "tennis"
+          }
+        ]
+      },
+      "b": {
+        "label": "Pickleball courts",
+        "short": "Pickleball",
+        "colour": "#1F8FA5",
+        "one": "pickleball court",
+        "many": "pickleball courts",
+        "osm": [
+          {
+            "leisure": "^pitch$",
+            "sport": "pickleball"
+          }
+        ]
+      },
+      "note": "Counts courts as mapped in OpenStreetMap, public and private; a court lined for both counts on both sides."
+    },
+    {
+      "id": "gas-vs-ev",
+      "type": "pair",
+      "title": "Gas stations vs EV chargers",
+      "a": {
+        "label": "Gas stations",
+        "colour": "#D9822B",
+        "osm": [
+          {
+            "amenity": "^fuel$"
+          }
+        ]
+      },
+      "b": {
+        "label": "Public EV charging sites",
+        "short": "EV chargers",
+        "colour": "#1F6FB5",
+        "layer": "parking.geojson",
+        "where": {
+          "c": "ev"
+        }
+      },
+      "note": "EV counts are charging sites (not plugs) open to the public, the same list as the map's EV chargers layer."
+    },
+    {
+      "id": "311-signature",
+      "type": "signature311",
+      "title": "What each council district calls 311 about",
+      "minTypeTotal": 1000,
+      "minAreaCount": 50,
+      "note": "Each council district is coloured by the kind of 311 request it makes far more often than the city as a whole. Hover or tap for the single most over-represented request. Left out so the map shows habits, not hardship: requests about people, police matters other than noise, property-condition complaints and animal-control calls. The City publishes 311 by council district.",
+      "themes": [
+        [
+          "Parking",
+          "parking"
+        ],
+        [
+          "Noise",
+          "noise"
+        ],
+        [
+          "Trees",
+          "\\btree"
+        ],
+        [
+          "Digging",
+          "line locate"
+        ],
+        [
+          "Traffic signals and signs",
+          "signal|\\bsigns?\\b"
+        ],
+        [
+          "Garbage and recycling",
+          "sanitation|roll cart|bulk|brush|litter|recycl|garbage"
+        ],
+        [
+          "Streets",
+          "pot ?hole|street|alley|sidewalk|lighting"
+        ],
+        [
+          "Water",
+          "water|storm|sewer|creek|inlet"
+        ],
+        [
+          "Animals",
+          "dead animal|cat program"
+        ]
+      ]
+    }
+  ]
+}
