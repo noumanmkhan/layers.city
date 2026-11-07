@@ -1,7 +1,7 @@
 """Fetch the City of Toronto Festivals & Events Calendar (Open Data "Festivals & Events", JSON feed,
 Open Government Licence – Toronto) and write docs/toronto/data/happening.json: every event on the
 calendar from today through the next 14 days, for "Happening nearby" on the card's Nearby section and
-in the iOS app (contract, Happening nearby). Run daily from GitHub Actions (*Fetch Toronto events*).
+in the iOS app (contract, Happening nearby). Run daily from GitHub Actions (*Fetch events*).
 
 Also docs/toronto/events/events.json, for the Events page (engine/events_page.py): the same items over 30 days,
 plus the City's events with no address on the map (city-wide or virtual, a boundary, a route, an address

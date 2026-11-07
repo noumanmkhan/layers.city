@@ -1,0 +1,40 @@
+name: Fetch events
+# Each city's public events listing, daily (cities/<city>/fetch_happening.py), for "Happening nearby" on the card's
+# Nearby section and in the iOS app (docs/<city>/data/happening.json: today through the next 14 days) and for the
+# Events page at /<city>/events/ (docs/<city>/events/events.json: 30 days, placeless events included).
+#   Toronto: the City's Festivals & Events Calendar (about 240 MB of JSON) and Toronto Public Library programs.
+#   Chicago: Chicago Public Library programs and Chicago Park District events (City of Chicago Data Portal).
+# Early in the morning in both cities, so "today" is the new day. Each city on its own, so one failing keeps the
+# others' update (and yesterday's file stays up). Scheduled runs only run from the copy of this file on main;
+# deploy.yml lists this workflow, so a run that commits goes live. (Was "Fetch Toronto events" until Nov 7, 2026.)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 9 * * *'        # 05:37 Toronto / 04:37 Chicago in summer, an hour earlier in winter
+  push:
+    branches: [main]
+    paths: ['cities/*/fetch_happening.py', '.github/workflows/fetch-happening.yml']
+permissions:
+  contents: write
+concurrency: fetch-happening
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          for f in cities/*/fetch_happening.py; do
+            c=$(basename $(dirname $f))
+            python3 -u $f || echo "::warning::$c events failed; yesterday's file stays up"
+          done
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add docs/*/data/happening.json docs/*/events/events.json
+          git commit -m "Fetch events ($(TZ=America/Toronto date +%F))" || echo "no changes"
+          git pull --rebase
+          git push
