@@ -61,7 +61,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          for p in cities/toronto/raw/closures cities/chicago/raw/closures cities/nyc/raw/closures cities/sf/raw/closures docs/toronto/data/closures.geojson docs/chicago/data/closures.geojson docs/nyc/data/closures.geojson docs/toronto/data/events.geojson docs/nyc/data/events.geojson docs/sf/data/events.geojson docs/*/data/weekend.json; do
+          for p in cities/toronto/raw/closures cities/chicago/raw/closures cities/nyc/raw/closures cities/sf/raw/closures docs/toronto/data/closures.geojson docs/chicago/data/closures.geojson docs/nyc/data/closures.geojson docs/toronto/data/events.geojson docs/chicago/data/events.geojson docs/nyc/data/events.geojson docs/sf/data/events.geojson docs/*/data/weekend.json; do
             if [ -e "$p" ]; then git add "$p"; fi
           done
           git commit -m "Daily transit closures ($(TZ=America/New_York date +%F))" || echo "no changes"

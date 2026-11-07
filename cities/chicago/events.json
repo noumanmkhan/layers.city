@@ -1,0 +1,19 @@
+{
+ "_about": "Special-event street closures (engine/events.py), from CDOT's DOT Special Event permits (Festival, Athletic, Parade, Block Party) via fetch_closures.py. Each permit's application name is its organizer key, so an event's blocks group together; block parties are named by their street, never by the resident who applied. Permits run by the day, so closures are whole days. 'organizers' renames an event or gives it the map's banner (keyed by the application name); events with at least 'bannerMin' closures get one anyway. 'nameIsOrganizer' names an event from its permit when 'organizers' doesn't. 'hide' drops application names by pattern (test entries, private gatherings); 'maxDays' leaves out season-long permits (weekly markets) unless their name matches 'long'.",
+ "tz": "America/Chicago",
+ "lat0": 41.88,
+ "lead": 3,
+ "ahead": 14,
+ "bannerMin": 40,
+ "nameIsOrganizer": true,
+ "maxDays": 21,
+ "long": ["Christkindlmarket"],
+ "hide": ["^test$", "\\btest\\b", "private", "memorial"],
+ "organizers": {
+  "Magnificent Mile Lights Fest": {"name": "Magnificent Mile Lights Festival", "short": "Lights Festival", "banner": true, "link": "https://www.themagnificentmile.com/Lights-Festival"},
+  "Christkindlmarket Chicago 2026": {"name": "Christkindlmarket", "short": "Christkindlmarket"},
+  "Turkey Trot Chicago 5K/8K": {"name": "Turkey Trot Chicago", "short": "Turkey Trot"},
+  "Chi Town Turkey Trot 5K/10K": {"name": "Chi Town Turkey Trot", "short": "Chi Town Turkey Trot"},
+  "Edison Park Turkey Trot 2026": {"name": "Edison Park Turkey Trot", "short": "Edison Park Turkey Trot"}
+ }
+}

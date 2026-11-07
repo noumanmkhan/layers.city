@@ -14,7 +14,8 @@ What it does, in order:
   5. Applies events.json "corrections" (see corrected()) and attaches any race course the organizer
      publishes as GPX (see course()) to its event, with kilometre marks, start and finish.
 
-Each closure keeps its own start and end time: race closures open and close in waves through the day.
+Each closure keeps its own start and end time: race closures open and close in waves through the day. Where a
+city's permits run by the day (Chicago), a closure carries `day: true` and runs T00:00 to T23:59 of its dates.
 Skips quietly (writes nothing) when the city has no events.json or no fetched events.
 
 Usage: python3 engine/events.py <city>
@@ -222,7 +223,7 @@ for org, ps in by_org.items():
 events, feats = [], []
 for org, ps in groups:
     o = ORGS.get(org, {})
-    name = o.get('name') or name_from(p['desc'] for p in ps) or 'Special event'
+    name = o.get('name') or name_from(p['desc'] for p in ps) or (org if cfg.get('nameIsOrganizer') and org else None) or 'Special event'
     start, end = min(p['start'] for p in ps), max(p['end'] for p in ps)
     eid = slug(o.get('short') or name) + '-' + start[:10]
     xs = [c[0] for p in ps for c in p['coords']]
@@ -244,7 +245,8 @@ for org, ps in groups:
         feats.append({'type': 'Feature',
                       'geometry': {'type': 'Point', 'coordinates': c[0]} if len(c) == 1 else {'type': 'LineString', 'coordinates': c},
                       'properties': {'ev': eid, 'street': p['street'], 'extent': p['extent'], 'kind': p['kind'], 'both': p['both'],
-                                     'start': p['start'], 'end': p['end'], 'desc': clean(p['desc'] or '')}})
+                                     'start': p['start'], 'end': p['end'], 'desc': clean(p['desc'] or ''),
+                                     **({'day': True} if p.get('day') else {})}})
 
 events.sort(key=lambda e: (e['start'], -e['closures']))
 out = {'type': 'FeatureCollection', 'asof': src['fetched'], 'today': now.strftime('%Y-%m-%d'), 'events': events, 'features': feats}
