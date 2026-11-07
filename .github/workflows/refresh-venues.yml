@@ -15,6 +15,9 @@ on:
         description: 'Also re-fetch drive times from GTA origins (OSRM, a minute)'
         type: boolean
         default: false
+  push:                          # a new or changed venue list (a new city): events and drive times straight away
+    branches: [main]
+    paths: ['cities/*/venues.json']
   schedule:
     - cron: '23 8 * * *'        # 04:23 Toronto in summer, 03:23 in winter: after the day's shows are over
     - cron: '47 8 11 * *'       # monthly: drive times too (the DRIVES env below)
@@ -26,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      DRIVES: ${{ inputs.drives == true || github.event.schedule == '47 8 11 * *' }}
+      DRIVES: ${{ inputs.drives == true || github.event.schedule == '47 8 11 * *' || github.event_name == 'push' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

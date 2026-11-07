@@ -1,0 +1,694 @@
+{
+ "_about": "Chicago's big live venues for the Venues pages (engine/venues.py), with three outside the city that the region travels to (Allstate Arena in Rosemont, Credit Union 1 Amphitheatre in Tinley Park, Ravinia in Highland Park; \"outside\": no map, City parking or What's here for those). Hand-curated: capacity is the venue's usual figure and is only used to sort and to say 'about'; notes are plain arrival facts written from the venue's own pages (or the team's). tm names are guesses until fetch_venue_events.py learns the ids. Sources per fact were checked on November 7, 2026 (the project's claude/venues.md).",
+ "city": "Chicago",
+ "week": "Monday to Sunday, Chicago time",
+ "feed": {
+  "_about": "engine/fetch_venue_events.py: venue by venue (ids found once near each venue's point and saved in raw/venue_tm_ids.json). drop: words left out when matching the feed's venue names to ours.",
+  "centre": [
+   41.88,
+   -87.75
+  ],
+  "radiusKm": 60,
+  "country": "US",
+  "drop": [
+   "chicago",
+   "il",
+   "illinois",
+   "rosemont",
+   "tinley park",
+   "highland park",
+   "at uic",
+   "the"
+  ],
+  "mode": "venues"
+ },
+ "fares": {
+  "_about": "Flat figures the pages quote. Check them before a release; they go stale. local is the CTA 'L' fare with Ventra or a contactless card (bus $2.25; leaving O'Hare $5.00); CTA, Metra and Pace kept 2026 fares at 2025 levels. Metra fares are by zone. The taxi figures are the City of Chicago meter from July 1, 2026: $3.25 flag pull and $0.31 a ninth of a mile ($2.79 a mile), plus $0.31 per 45 seconds of waiting; no flat surcharge every trip pays (taxiExtra 0). Sources: transitchicago.com/fares; metra.com/fare-table; Chicago Sun-Times April 15, 2026 and La Opinion June 4, 2026 (citing the City's BACP notice); chicago.gov BACP taxi placard (version 2024.05) for the charges the 2026 change left alone.",
+  "asof": "2026-11",
+  "local": 2.5,
+  "taxiDrop": 3.25,
+  "taxiPerMi": 2.79,
+  "taxiExtra": 0,
+  "oneFare": "CTA transfers are free for two more rides within two hours; a 1-day CTA/Pace pass is $5 and a 7-day $20. Metra one-way fares run from $3.75 (within Chicago, or between suburban zones) to $6.75 (zone 4 to downtown), and a weekend pass is $10; Metra and CTA fares are paid separately. Chicago taxis add $1 for a first extra passenger and $0.50 for each one after, $2.50 from 3:30 to 7 pm and $1 from 8 pm to 6 am, a $4 departure tax from the airports and a temporary fuel surcharge of $1 to $3; tolls and tip are extra."
+ },
+ "page": {
+  "_about": "How engine/venues.py reads Chicago: the CTA 'L' (cta_stations, cta_lines) as the subway, Metra as regional rail, community areas as the units, and the downtown terminals a trip from the suburbs arrives at. No City parking layer (Chicago leases its meters and garages privately), so no parking section; the venues' own lots are in their notes. lineHints: name the 'L' lines that run from a hub or origin to the venue's station.",
+  "units": "community_areas",
+  "distance": "mi",
+  "lineHints": true,
+  "metro": {
+   "stations": [
+    "cta_stations"
+   ],
+   "lines": [
+    "cta_lines"
+   ]
+  },
+  "lineColors": {
+   "red": "#C60C30",
+   "blue": "#00A1DE",
+   "brown": "#62361B",
+   "green": "#009B3A",
+   "orange": "#F9461C",
+   "pink": "#E27EA6",
+   "purple": "#522398",
+   "yellow": "#F9E300"
+  },
+  "rail": {
+   "stations": "metra_stations",
+   "lines": "metra_lines",
+   "walk": "go",
+   "within": 2
+  },
+  "hubs": [
+   {
+    "name": "Union Station",
+    "short": "Union Station",
+    "at": [
+     -87.63889,
+     41.87889
+    ]
+   },
+   {
+    "name": "Ogilvie Transportation Center",
+    "short": "Ogilvie",
+    "station": "Ogilvie",
+    "at": [
+     -87.64056,
+     41.88222
+    ]
+   },
+   {
+    "name": "LaSalle Street Station",
+    "short": "LaSalle Street",
+    "station": "LaSalle Street",
+    "at": [
+     -87.63222,
+     41.87639
+    ]
+   },
+   {
+    "name": "Millennium Station",
+    "short": "Millennium Station",
+    "at": [
+     -87.62306,
+     41.88417
+    ]
+   }
+  ],
+  "here": [
+   {
+    "label": "Side",
+    "file": "sides",
+    "text": "{name}"
+   },
+   {
+    "label": "Community area",
+    "file": "community_areas",
+    "text": "{name} (#{code})",
+    "page": true
+   },
+   {
+    "label": "Special Service Area",
+    "file": "ssa",
+    "text": "{name}",
+    "empty": "None"
+   },
+   {
+    "label": "City ward",
+    "file": "wards",
+    "text": "Ward {num}",
+    "rep": [
+     "wards",
+     "num"
+    ]
+   },
+   {
+    "label": "Illinois House",
+    "file": "il_house",
+    "text": "District {num}",
+    "rep": [
+     "house",
+     "num"
+    ]
+   },
+   {
+    "label": "Illinois Senate",
+    "file": "il_house",
+    "text": "District {senate}",
+    "rep": [
+     "senate",
+     "senate"
+    ]
+   },
+   {
+    "label": "U.S. House",
+    "file": "congress",
+    "text": "IL-{num}",
+    "rep": [
+     "congress",
+     "num"
+    ]
+   }
+  ],
+  "words": {
+   "local": "The ’L’",
+   "localFare": "CTA fare ${fare:.2f}",
+   "railShort": "Metra",
+   "subway": "The ’L’",
+   "rail": "Metra",
+   "routes": "CTA buses within a 5-minute walk",
+   "atDoor": "Bus at the door",
+   "bikeshare": "Divvy",
+   "region": "Chicagoland",
+   "taxi": "the City of Chicago taxi meter rate",
+   "busy": "Busy nights",
+   "legend": "’L’ lines in their colours, Metra dashed, other venues in grey.",
+   "sources": "Transit: CTA and Metra. Venues’ own visitor pages for arrival notes.",
+   "venueDesc": "what's on this week, the nearest ’L’ and Metra stations, CTA buses, and drive and transit from across Chicagoland.",
+   "intro": "places most of Chicagoland travels to, and how to get to each: nearest ’L’ and Metra stations, CTA buses, and drive and transit from the suburbs and Northwest Indiana.",
+   "listDesc": "from Soldier Field and the United Center to the Chicago Theatre, and how to get to each: nearest ’L’ and Metra stations, CTA buses, drive and transit from across Chicagoland.",
+   "other": "Smaller rooms, same facts, same listing.",
+   "hereNote": "The same rows the map’s What’s here card gives for this address; the map adds street sweeping, schools, Nearby and more."
+  },
+  "busy": true
+ },
+ "origins": [
+  {
+   "name": "The Loop",
+   "via": "Clark/Lake",
+   "mode": "local",
+   "at": [
+    -87.63089,
+    41.88574
+   ]
+  },
+  {
+   "name": "O'Hare",
+   "via": "O'Hare",
+   "mode": "local",
+   "at": [
+    -87.90422,
+    41.97767
+   ],
+   "fare": "CTA fare from O'Hare $5.00"
+  },
+  {
+   "name": "Oak Park",
+   "via": "Harlem/Lake",
+   "mode": "local",
+   "at": [
+    -87.80318,
+    41.88685
+   ]
+  },
+  {
+   "name": "Evanston",
+   "via": "Evanston (Davis St.)",
+   "mode": "rail",
+   "rail": "Metra UP-North",
+   "hub": "Ogilvie Transportation Center",
+   "fare": "Metra fare by zone; then the CTA fare ($2.50)"
+  },
+  {
+   "name": "Hyde Park",
+   "via": "51st/53rd St. (Hyde Park)",
+   "mode": "rail",
+   "rail": "Metra Electric",
+   "hub": "Millennium Station",
+   "fare": "Metra fare by zone; then the CTA fare ($2.50)"
+  },
+  {
+   "name": "Naperville",
+   "via": "Naperville",
+   "mode": "rail",
+   "rail": "Metra BNSF",
+   "hub": "Union Station",
+   "fare": "Metra fare by zone; then the CTA fare ($2.50)"
+  },
+  {
+   "name": "Schaumburg",
+   "via": "Schaumburg",
+   "mode": "rail",
+   "rail": "Metra Milwaukee District West",
+   "hub": "Union Station",
+   "fare": "Metra fare by zone; then the CTA fare ($2.50)"
+  },
+  {
+   "name": "Joliet",
+   "via": "Joliet",
+   "mode": "rail",
+   "rail": "Metra Rock Island",
+   "hub": "LaSalle Street Station",
+   "fare": "Metra fare by zone; then the CTA fare ($2.50)"
+  },
+  {
+   "name": "Hammond, Indiana",
+   "via": "Hammond Gateway",
+   "mode": "rail",
+   "rail": "South Shore Line",
+   "hub": "Millennium Station",
+   "at": [
+    -87.521384,
+    41.631047
+   ],
+   "fare": "South Shore Line fare by station; then the CTA fare ($2.50)"
+  }
+ ],
+ "venues": [
+  {
+   "slug": "soldier-field",
+   "name": "Soldier Field",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 62500,
+   "homeOf": [
+    "Chicago Bears",
+    "Chicago Fire FC"
+   ],
+   "address": "1410 Special Olympics Drive",
+   "at": [
+    -87.6167,
+    41.8623
+   ],
+   "site": "https://www.soldierfield.com/stadium-info/a-z-guide",
+   "tm": [
+    "Soldier Field",
+    "Soldier Field Stadium"
+   ],
+   "season": "Open-air: the Fire play from late February to October, the Bears from September to January, and stadium concerts are in summer.",
+   "notes": [
+    "The Red, Orange and Green Lines stop at Roosevelt; from there it is a walk east along Roosevelt Road through the Museum Campus, or the #146 bus, which serves the stadium all year. On Bears game days the #128 Soldier Field Express runs non-stop from Ogilvie and Union Station, and Pace runs Soldier Field Express buses from suburban park-and-ride lots.",
+    "Will Call is across from Gate 10 on the southeast corner. Only clear bags up to 12 x 6 x 12 inches (or a one-gallon clear freezer bag) are allowed, plus a small non-clear clutch up to 4.5 x 6.5 inches.",
+    "The lots around the stadium are paid and need a prepaid pass on Bears game days (sold at SoldierFieldParking.com); free shuttles run from the Millennium Garages and McCormick Place Lot B. Rideshares and taxis drop off and pick up at Balbo Drive and Columbus Drive."
+   ],
+   "arrive": "Red, Orange or Green Line to Roosevelt, then a walk east or the #146 bus; the #128 from Ogilvie and Union Station on Bears game days"
+  },
+  {
+   "slug": "wrigley-field",
+   "name": "Wrigley Field",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 41649,
+   "homeOf": [
+    "Chicago Cubs"
+   ],
+   "address": "1060 West Addison Street",
+   "at": [
+    -87.65556,
+    41.94806
+   ],
+   "site": "https://www.mlb.com/cubs/ballpark/information/guide",
+   "tm": [
+    "Wrigley Field"
+   ],
+   "tickets": "Cubs home games are sold by the team (Cubs.com and the MLB Ballpark app), not Ticketmaster, so they aren’t in this listing; concerts may be.",
+   "calendar": "https://www.mlb.com/cubs/schedule",
+   "season": "Open-air: baseball runs from April to September (October in a playoff year) and concerts are in summer; it is quiet from November to March.",
+   "notes": [
+    "The Red Line's Addison station is at the ballpark, and the #22 Clark and #152 Addison buses stop at Clark and Addison; from O'Hare, take the Blue Line to Addison and the #152 east.",
+    "The gates are the Marquee, Gallagher Way, Left Field, Right Field and Bleacher (Waveland and Sheffield) gates, and each mobile ticket names its gate. Backpacks (even clear ones) and bags larger than 16 x 16 x 8 inches are not allowed, and there is no bag storage.",
+    "For night and weekend games the Cubs run a free remote lot at 4650 N. Clarendon Avenue with a free shuttle to Irving Park Road; rideshares use Addison between Broadway and Halsted or Irving Park between Clark and Seminary."
+   ]
+  },
+  {
+   "slug": "rate-field",
+   "name": "Rate Field",
+   "kinds": [
+    "sports"
+   ],
+   "capacity": 40615,
+   "homeOf": [
+    "Chicago White Sox"
+   ],
+   "address": "333 West 35th Street",
+   "at": [
+    -87.63389,
+    41.83
+   ],
+   "site": "https://www.mlb.com/whitesox/ballpark/information/guide",
+   "tm": [
+    "Rate Field",
+    "Guaranteed Rate Field"
+   ],
+   "tickets": "White Sox home games are sold by the team (whitesox.com and the ballpark box office), not Ticketmaster, so they aren’t in this listing.",
+   "calendar": "https://www.mlb.com/whitesox/schedule",
+   "season": "Open-air: baseball runs from April to September; it is quiet from October to March.",
+   "notes": [
+    "Beside the Red Line's Sox-35th station; Metra's Rock Island Line stops at 35th Street, just east of the Dan Ryan.",
+    "Gates usually open 90 minutes before the game; rideshare riders use Gate 5, and Gate 4 is at 35th and Shields. Only clear bags up to 12 x 12 x 6 inches and small clutches up to 9 x 5 x 2 inches are allowed, and no backpacks; there is paid bag storage in Lot C.",
+    "The White Sox lots are paid, card only, and cheaper bought ahead online; pay inside an official lot, not to anyone on the street. Rideshare pick-up and drop-off is in Lot A (35th and Wentworth)."
+   ]
+  },
+  {
+   "slug": "united-center",
+   "name": "United Center",
+   "kinds": [
+    "sports",
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 20917,
+   "homeOf": [
+    "Chicago Bulls",
+    "Chicago Blackhawks"
+   ],
+   "address": "1901 West Madison Street",
+   "at": [
+    -87.67417,
+    41.88056
+   ],
+   "site": "https://www.unitedcenter.com/",
+   "tm": [
+    "United Center"
+   ],
+   "notes": [
+    "The nearest 'L' stations are Damen (Green Line), Ashland (Green and Pink) and Illinois Medical District (Blue); the CTA's #19 United Center Express runs for Bulls and Blackhawks games and selected events, every few minutes for up to an hour afterwards.",
+    "Only a small purse or bag up to 10 x 6 x 2 inches is allowed and no backpacks; Binbox lockers in the Uber zone near Madison and Wood Streets are the only bag storage. The arena is cashless.",
+    "The arena's lots are paid, on arrival or ahead on Ticketmaster, and SpotHero sells lots E, L, M, R, T and W ahead."
+   ]
+  },
+  {
+   "slug": "allstate-arena",
+   "name": "Allstate Arena",
+   "kinds": [
+    "sports",
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 17500,
+   "homeOf": [
+    "Chicago Wolves"
+   ],
+   "address": "6920 North Mannheim Road, Rosemont, IL",
+   "at": [
+    -87.88778,
+    42.00528
+   ],
+   "site": "https://rosemont.com/allstate/directions-parking/",
+   "tm": [
+    "Allstate Arena",
+    "Allstate Arena - Rosemont"
+   ],
+   "outside": true,
+   "notes": [
+    "In Rosemont, by O'Hare. Pace route 250 stops at Mannheim Road and Lunt Avenue, about three minutes on foot, and the Pulse Dempster Line stops at Lee and Touhy (southbound) or Mannheim and Higgins (northbound), 12 to 14 minutes away; the Blue Line's Rosemont station is about 3 km off.",
+    "Parking is paid (cash or card), close to every entrance, and opens two hours before the event; no tailgating. Doors usually open an hour before, and the walk-up box office three hours before.",
+    "Bags must be no bigger than 12 x 12 inches; backpacks, totes and larger bags are not allowed."
+   ],
+   "transit": {
+    "*": "Pace route 250 to Mannheim Rd and Lunt Ave (about 3 min on foot), or the Blue Line to Rosemont (about 3 km away) and a taxi"
+   },
+   "arrive": "Pace route 250 to Mannheim and Lunt, or drive (paid parking at the arena)"
+  },
+  {
+   "slug": "wintrust-arena",
+   "name": "Wintrust Arena",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 10387,
+   "homeOf": [
+    "Chicago Sky",
+    "DePaul Blue Demons"
+   ],
+   "address": "200 East Cermak Road",
+   "at": [
+    -87.62139,
+    41.85361
+   ],
+   "site": "https://www.wintrustarena.com/plan-your-visit/directions-parking",
+   "tm": [
+    "Wintrust Arena"
+   ],
+   "season": "The Sky play from May to September (a few big games move to the United Center) and DePaul basketball from November to March.",
+   "notes": [
+    "On the McCormick Place campus, near the Green Line's Cermak-McCormick Place station and Metra Electric's McCormick Place stop. The box office is on the south side, on Cermak between Prairie and Indiana; doors open an hour before games and shows.",
+    "Clear bags up to 12 x 6 x 12 inches (or a one-gallon freezer bag) and non-clear bags up to 10 x 6 x 2 inches are allowed. The arena is cashless.",
+    "All parking is paid: Lot A, a garage at 2301 S. Prairie with covered walkways to the arena, Lot B on 31st Street by Lake Shore Drive, and Lot C under the Lakeside Center."
+   ]
+  },
+  {
+   "slug": "credit-union-1-arena",
+   "name": "Credit Union 1 Arena",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 8000,
+   "homeOf": [
+    "UIC Flames"
+   ],
+   "address": "525 South Racine Avenue",
+   "at": [
+    -87.65611,
+    41.87472
+   ],
+   "site": "https://uicflames.com/facilities/credit-union-1-arena/3",
+   "tm": [
+    "Credit Union 1 Arena at UIC",
+    "Credit Union 1 Arena"
+   ],
+   "notes": [
+    "On the UIC campus at Harrison and Racine, about a block from the Blue Line's Racine station; the #7 Harrison and #60 Blue Island/26th buses pass nearby.",
+    "Parking is next door to the arena."
+   ]
+  },
+  {
+   "slug": "pavilion-northerly-island",
+   "name": "The Pavilion at Northerly Island",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 30000,
+   "address": "1300 South Linn White Drive",
+   "at": [
+    -87.6085,
+    41.86342
+   ],
+   "site": "https://www.thepavilionatnortherlyisland.com/visit",
+   "tm": [
+    "The Pavilion at Northerly Island",
+    "Huntington Bank Pavilion at Northerly Island",
+    "Huntington Bank Pavilion"
+   ],
+   "season": "Open-air and seasonal: concerts run from about late May to early October; it is closed in winter.",
+   "notes": [
+    "South of the Adler Planetarium by 12th Street Beach. The #146 bus stops on Solidarity Drive, under a quarter mile away; Roosevelt ('L') is about 1.1 miles and Metra's Museum Campus/11th Street about 0.9 miles away.",
+    "Only clear totes up to 12 x 6 x 12 inches and small clutches up to 6 x 9 inches are allowed, and all bags are searched.",
+    "Parking is not included with the ticket: the nearby Museum Campus lots are paid and sold ahead at SoldierFieldParking.com, with no tailgating. Rideshares drop off near the Adler and pick up on McFetridge Drive in front of the Field Museum."
+   ]
+  },
+  {
+   "slug": "salt-shed",
+   "name": "The Salt Shed",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 3600,
+   "address": "1357 North Elston Avenue",
+   "at": [
+    -87.659009,
+    41.9063
+   ],
+   "site": "https://www.saltshedchicago.com/faq",
+   "tm": [
+    "The Salt Shed",
+    "The Salt Shed - Indoors",
+    "The Salt Shed - Outdoors",
+    "The Salt Shed Fairgrounds"
+   ],
+   "season": "The Shed (indoors) runs all year; the outdoor Fairgrounds shows are in summer.",
+   "notes": [
+    "In the former Morton Salt warehouses on Elston. Division (Blue Line) is about 0.7 miles away and North/Clybourn (Red Line) about 0.9 miles; the #70 Division, #72 North and #9 Ashland buses stop nearby. The box office is by the main gate near 1200 W. Blackhawk.",
+    "Bags up to 12 x 12 x 6 inches are allowed; larger bags and backpacks are not, and there are paid lockers inside.",
+    "Paid lots are a short walk away (the largest at 939 W. North Avenue) and street parking is first come; rideshares use a marked zone on Magnolia Avenue."
+   ]
+  },
+  {
+   "slug": "chicago-theatre",
+   "name": "The Chicago Theatre",
+   "kinds": [
+    "concerts",
+    "comedy",
+    "theatre"
+   ],
+   "capacity": 3600,
+   "address": "175 North State Street",
+   "at": [
+    -87.62778,
+    41.88528
+   ],
+   "site": "https://www.msg.com/the-chicago-theatre/directions",
+   "tm": [
+    "The Chicago Theatre",
+    "Chicago Theatre"
+   ],
+   "notes": [
+    "On State Street in the Loop, beside the Red Line's Lake station; the elevated State/Lake station is closed for rebuilding (from January 2026, expected to reopen in 2029), so the nearest open Loop 'L' stations are Washington/Wabash and Clark/Lake."
+   ]
+  },
+  {
+   "slug": "auditorium-theatre",
+   "name": "Auditorium Theatre",
+   "kinds": [
+    "concerts",
+    "theatre"
+   ],
+   "capacity": 3875,
+   "address": "50 East Ida B. Wells Drive",
+   "at": [
+    -87.6251856,
+    41.8760639
+   ],
+   "site": "https://www.auditoriumtheatre.org/visit/parking-directions",
+   "tm": [
+    "Auditorium Theatre",
+    "Auditorium Theatre - Chicago"
+   ],
+   "tickets": "Many performances sell through AXS rather than Ticketmaster, so not every show is in this listing.",
+   "calendar": "https://www.auditoriumtheatre.org/",
+   "notes": [
+    "Between Wabash and Michigan Avenues. The theatre points riders to Jackson (Red), Adams/Wabash or Harold Washington Library (Brown, Orange, Pink) and LaSalle (Blue); Metra Electric and South Shore trains stop at Van Buren Street, on the same block.",
+    "Bags that fit on a lap or under the seat may stay with you; larger ones go to the paid coat check. The theatre is cashless.",
+    "The theatre has no parking of its own; the nearest garages are on Wabash, Michigan (Grant Park South) and Harrison."
+   ]
+  },
+  {
+   "slug": "lyric-opera-house",
+   "name": "Lyric Opera House",
+   "kinds": [
+    "theatre",
+    "concerts"
+   ],
+   "capacity": 3276,
+   "address": "20 North Wacker Drive",
+   "at": [
+    -87.6375,
+    41.8826
+   ],
+   "site": "https://lyricopera.org/yourvisit/gettinghere",
+   "tm": [],
+   "tickets": "Lyric Opera’s own performances are sold through Lyric’s Audience Services rather than Ticketmaster, so they aren’t in this listing.",
+   "calendar": "https://www.lyricopera.org/",
+   "notes": [
+    "The entrance is at Madison Street and Wacker Drive, almost across from Union Station's Madison Street exit; Washington/Wells (Brown, Orange, Pink, Purple) is about six minutes on foot, and the #20, #56, #60, #124 and #157 buses stop across the street.",
+    "Large bags, backpacks and luggage are not allowed in the auditorium; anything that won't fit on a lap is checked (paid coat check on floors 1 and 3).",
+    "Lyric does not run or validate parking; nearby garages are on West Madison, and paid valet is offered on performance evenings."
+   ]
+  },
+  {
+   "slug": "symphony-center",
+   "name": "Symphony Center",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 2522,
+   "homeOf": [
+    "Chicago Symphony Orchestra"
+   ],
+   "address": "220 South Michigan Avenue",
+   "at": [
+    -87.625,
+    41.87917
+   ],
+   "site": "https://chicagosymphony.org/concerts-tickets/plan-your-visit/parking-transit",
+   "tm": [],
+   "tickets": "Sells through the CSO's own box office and Patron Services rather than Ticketmaster, so its concerts aren’t in this listing.",
+   "calendar": "https://cso.org/",
+   "notes": [
+    "The main entrance and box office are at 220 S. Michigan Avenue, with a second entrance at 67 E. Adams Street; the box office opens on concert days only.",
+    "Adams/Wabash (Brown, Green, Orange, Pink, Purple) is a block west."
+   ]
+  },
+  {
+   "slug": "aragon-ballroom",
+   "name": "Aragon Ballroom",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 5000,
+   "address": "1106 West Lawrence Avenue",
+   "at": [
+    -87.6581333,
+    41.9694528
+   ],
+   "site": "https://www.aragonballroomchicago.com/visit",
+   "tm": [
+    "Byline Bank Aragon Ballroom",
+    "Aragon Ballroom"
+   ],
+   "tier": "other",
+   "notes": [
+    "At Lawrence and Winthrop in Uptown, a block from the Red Line's Lawrence station (rebuilt and reopened in July 2025).",
+    "Bags up to 12 x 6 x 12 inches are allowed, and all bags are searched; the box office opens at noon on show days only.",
+    "The venue suggests booking parking ahead on SpotHero."
+   ]
+  },
+  {
+   "slug": "credit-union-1-amphitheatre",
+   "name": "Credit Union 1 Amphitheatre",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 28739,
+   "address": "19100 Ridgeland Avenue, Tinley Park, IL",
+   "at": [
+    -87.7759861,
+    41.5440333
+   ],
+   "site": "https://www.creditunion1amphitheatre.com/",
+   "tm": [
+    "Credit Union 1 Amphitheatre",
+    "Credit Union 1 Amphitheatre - Tinley Park"
+   ],
+   "outside": true,
+   "season": "Open-air: concerts run from about June to September; it is closed the rest of the year.",
+   "notes": [
+    "In Tinley Park, in the south suburbs; most people drive. The nearest Metra stations, Tinley Park and Tinley-80th on the Rock Island Line, are 3 to 4 km away.",
+    "From the 2026 season a paid parking pass is needed to park at the venue; it was free before."
+   ],
+   "transit": {
+    "*": "Most people drive; the nearest Metra stations (Tinley Park and Tinley-80th, Rock Island Line from LaSalle Street) are 3 to 4 km away"
+   },
+   "arrive": "By car (paid parking pass from 2026); Metra's Tinley Park stations are 3 to 4 km away"
+  },
+  {
+   "slug": "ravinia",
+   "name": "Ravinia",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 2840,
+   "homeOf": [
+    "Chicago Symphony Orchestra (summers)"
+   ],
+   "address": "200 Ravinia Park Road, Highland Park, IL",
+   "at": [
+    -87.77694,
+    42.15806
+   ],
+   "site": "https://ravinia.org/visit/getting-here",
+   "tm": [],
+   "outside": true,
+   "tickets": "Sells through Ravinia's own box office and app rather than Ticketmaster, so its concerts aren’t in this listing.",
+   "calendar": "https://www.ravinia.org/",
+   "season": "Open-air: the festival runs from June to September; the indoor halls host a few concerts the rest of the year.",
+   "notes": [
+    "Metra's UP-North trains stop at the park's main entrance for most summer performances.",
+    "Onsite parking is paid for most concerts (free for some classical, children's and dance events), in the West Lot at 201 Ravinia Park Road; for some summer Pavilion shows a free shuttle runs from the downtown Highland Park Metra lots.",
+    "Bags, coolers and picnic baskets are searched at the entrances, and drop-offs are allowed only at the lots or train stations, not on nearby streets."
+   ],
+   "transit": {
+    "*": "Metra UP-North from Ogilvie to Ravinia's main entrance (most summer concerts)",
+    "Evanston": "Metra UP-North from Evanston (Davis St.) to Ravinia's main entrance (most summer concerts)"
+   },
+   "arrive": "Metra UP-North to the main entrance (summer concerts)"
+  }
+ ]
+}

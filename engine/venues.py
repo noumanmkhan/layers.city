@@ -692,7 +692,7 @@ for v in venues:
     here = [] if v.get('outside') else whats_here(v['at'])
     if here:
         parts.append('<section><h2>What’s here</h2><dl>' + ''.join(f'<dt>{esc(l)}</dt><dd>' + (f'<a href="{esc(u)}">{esc(t)}</a>' if u else esc(t)) + '</dd>' for l, t, u in here) +
-                     '</dl><p class="note" style="margin:12px 0 0">The same rows the map’s What’s here card gives for this address; the map adds collection day, heritage and school wards.</p></section>')
+                     '</dl><p class="note" style="margin:12px 0 0">' + esc(word('hereNote', 'The same rows the map’s What’s here card gives for this address; the map’s card has more.')) + '</p></section>')
     if not v.get('outside'):
         parts.append(f'<p class="legend">{esc(word("legend"))}</p>')
     # events
