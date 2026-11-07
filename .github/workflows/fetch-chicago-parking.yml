@@ -1,0 +1,37 @@
+name: Fetch Chicago parking
+# Public EV chargers for Chicago: cities/chicago/fetch_parking.py (the Alternative Fuels Data Center's station API)
+# -> raw/parking/ev_afdc.json, then parking.py -> docs/chicago/data/parking.geojson (the map's EV chargers layer and the
+# fact sheets' charging rows). Monthly, when either script changes on main, or by hand. deploy.yml and
+# refresh-fact-sheets.yml list this workflow, so its commits go live and the fact sheets follow.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '29 6 4 * *'
+  push:
+    branches: [main]
+    paths: ['cities/chicago/fetch_parking.py', 'cities/chicago/parking.py', '.github/workflows/fetch-chicago-parking.yml']
+permissions:
+  contents: write
+concurrency: fetch-chicago-parking
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q shapely
+      - env:
+          NLR_API_KEY: ${{ secrets.NLR_API_KEY }}
+        run: |
+          mkdir -p cities/chicago/raw/parking
+          ( python3 -u cities/chicago/fetch_parking.py && python3 -u cities/chicago/parking.py ) 2>&1 | tee cities/chicago/raw/parking/fetch.log
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/chicago/raw/parking docs/chicago/data/parking.geojson
+          git commit -m "Fetch Chicago parking (EV chargers)" || echo "no changes"
+          git pull --rebase
+          git push
