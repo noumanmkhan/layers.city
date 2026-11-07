@@ -1,0 +1,9 @@
+/* Line bullets in DART's light rail colours (cities/dallas/city.css): plain dots, as on DART's map. Bus badges in
+   DART's style: local routes dark blue, express outlined. */
+.ln{font-size:10.5px}
+.ln.lRed,.ln.lBlue,.ln.lGreen,.ln.lOrange{font-size:0;width:14px;height:14px}
+.ln.lRed{background:#CE0E2D} .ln.lBlue{background:#0064A8} .ln.lGreen{background:#009B3A} .ln.lOrange{background:#F7931D}
+.rb{background:#0B3B6E;color:#fff;box-shadow:none}
+.rb.exp{background:#fff;color:#0B3B6E;box-shadow:inset 0 0 0 1.5px #0B3B6E}
+.rb.night{background:#fff;color:#1C2A4A;box-shadow:inset 0 0 0 1.5px #1C2A4A}
+.ln.lb.lRed,.ln.lb.lBlue,.ln.lb.lGreen,.ln.lb.lOrange{font-size:0}

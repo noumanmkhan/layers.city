@@ -653,10 +653,10 @@ def build(feat):
 
     # Daily life
     n_heritage = count(heritage)
-    daily = [
-        [lbl('heritage', 'Heritage buildings'), str(n_heritage)],
-        ['Places of worship', str(sum(count(G[k]) for k in FAITH))],
-    ]
+    # A row only for what the city has: a city without individual heritage buildings or a faith layer gets no
+    # row at all, rather than a zero that reads as "none here".
+    daily = ([[lbl('heritage', 'Heritage buildings'), str(n_heritage)]] if heritage else []) + \
+            ([['Places of worship', str(sum(count(G[k]) for k in FAITH))]] if FAITH else [])
     if 'halal' in G or 'kosher' in G:
         daily.append([lbl('grocers', 'Halal and kosher grocers'), str(count(G.get('halal', [])) + count(G.get('kosher', [])))])
     lm = sorted(m['name'] for g, m in landmarks if P.contains(g))
@@ -673,7 +673,7 @@ def build(feat):
         [str(len(st_names)), lbl('glanceStation', 'subway station') if len(st_names) == 1 else lbl('glanceStations', 'subway stations')],
         [str(len(parks)), 'park' if len(parks) == 1 else 'parks'],
         *([[str(len(shares)), lbl('glanceBikeshare', 'bike share stations')]] if bikeshare else []),
-        [str(n_heritage), lbl('glanceHeritage', 'heritage buildings')],
+        *([[str(n_heritage), lbl('glanceHeritage', 'heritage buildings')]] if heritage else []),
     ]
     if c.get('canopy') is not None:
         glance.append([f"{c['canopy']}%", 'tree canopy'])
