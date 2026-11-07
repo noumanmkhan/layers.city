@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### Chicago: Venues pages, and State/Lake off the map (November 7)
+- layers.city/chicago/venues/: 16 venues (Soldier Field, Wrigley, Rate Field, United Center, the Salt Shed, the
+  theatres and halls, and Allstate Arena, Credit Union 1 Amphitheatre and Ravinia outside the city) with this
+  fortnight's Ticketmaster events, the nearest 'L' and Metra stations, CTA buses, and transit and drive times from nine
+  origins across Chicagoland. Arrival notes from each venue's own pages; Cubs, White Sox, Lyric, the CSO and Ravinia
+  sell their own tickets, so the pages say so and link their calendars. No parking section (no City parking layer).
+- venues.py: the What's here footnote is each city's own words. refresh-venues.yml runs on a changed venue list.
+- State/Lake is off the map while it's closed for its rebuild (January 2026 to 2029).
+
 ### Chicago: Where does this line or route go? (November 7)
 - New page at layers.city/chicago/routes/, linked from the map's Getting around group: the stops and 'L' platforms
   near a spot, and where each CTA bus and 'L' line goes from there (community areas, main streets, 'L' and Metra
