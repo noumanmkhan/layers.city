@@ -2,6 +2,13 @@
 
 ## Since 1.1
 
+### Chicago: EV chargers (November 7)
+- New Parking & Charging group on the Chicago map with an EV chargers layer: 289 public charging sites (992 Level 2 and
+  429 DC fast ports, 57 fast sites), from the U.S. DOE's Alternative Fuels Data Center, monthly (*Fetch Chicago parking*).
+  Same rules and popups as New York and San Francisco.
+- The fact sheets' Driving page gains its Parking and charging rows (sites, DC fast, nearest fast charger).
+- No City car parks: Chicago has no City list (its garages and meters are leased privately).
+
 ### Chicago: Fact sheets, and a full row on the hub (November 7)
 - layers.city/chicago/profiles/: a printable page for each of the 77 community areas: the 'L' (hubs Clark/Lake, Jackson,
   Roosevelt, Fullerton, Howard), CTA buses, Metra, expressways and ramps, drive times to the Loop, O'Hare, Midway,

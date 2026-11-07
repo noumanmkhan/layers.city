@@ -84,3 +84,9 @@ Hand-kept lists, in code: the nine sides, the known-as additions and the major s
 | `raw/closures/events.json` → `docs/chicago/data/events.geojson` | CDOT Transportation Department Permits (`pubx-yq2d`): DOT Special Event permits (Festival, Athletic, Parade, Block Party) that close or narrow the street, from `fetch_closures.py` in *Fetch transit closures*; `engine/events.py` with `events.json`. Permits run by the day. Block parties named by street; applicants' names and comments never shown. |
 
 Scouted and not used (raw/scouting/events.json): Public Health Department Events (`38sz-xyf4`) and Special Events (`xgse-8eg7`) had nothing in the next 30 days (the latter last updated January 2026); Chicago Park District Outdoor Event Permits (`pk66-w54g`) are mostly private rentals (weddings, photo shoots) under the applicants' own names.
+
+## EV chargers (November 7, 2026)
+
+| File | Source |
+|---|---|
+| `raw/parking/ev_afdc.json` → `docs/chicago/data/parking.geojson` | U.S. Department of Energy, Alternative Fuels Data Center station API (developer.nlr.gov; repo secret NLR_API_KEY), every electric station within 19 miles of the city's middle, monthly by `.github/workflows/fetch-chicago-parking.yml` (`fetch_parking.py`, then `parking.py`). Public, open stations inside the city only, one point per place and network. |
