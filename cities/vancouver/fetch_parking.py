@@ -25,7 +25,7 @@ def slim(s):
 
 
 key = os.environ.get('NLR_API_KEY') or 'DEMO_KEY'
-qs = urllib.parse.urlencode({'api_key': key, 'fuel_type': 'ELEC', 'latitude': 49.255, 'longitude': -123.15, 'radius': 8,
+qs = urllib.parse.urlencode({'api_key': key, 'fuel_type': 'ELEC', 'country': 'CA', 'latitude': 49.255, 'longitude': -123.15, 'radius': 8,
                              'status': 'all', 'access': 'all', 'limit': 'all'})
 for host in ('developer.nlr.gov', 'developer.nrel.gov'):
     for attempt in range(3):
