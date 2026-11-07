@@ -54,7 +54,7 @@ a{color:inherit;text-decoration:none}
 a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .page{min-height:100vh;display:flex;flex-direction:column}
-.top,main,.feats,.more,.prints,.foot{width:min(1280px,100% - 2*var(--gut));margin-left:auto;margin-right:auto}
+.top,main,.sect,.feats,.more,.prints,.foot{width:min(1280px,100% - 2*var(--gut));margin-left:auto;margin-right:auto}
 
 /* Header */
 .top{display:flex;align-items:center;gap:20px 28px;padding:22px 0;flex-wrap:wrap}
@@ -156,7 +156,11 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(40px,4.6v
 .under .lbl{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
 
 /* Feature card: a standalone page that isn't one of a city's columns (the transit history) */
-.feats{margin-top:48px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.sect{margin-top:48px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.sect .kicker{margin:0;font-weight:500}
+.tile.mob{display:none}
+.sect span{font-size:15px;color:var(--ink-3)}
+.feats{margin-top:14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
 .feat{display:flex;flex-direction:column;background:var(--card);border:1.5px solid var(--rule);border-radius:16px;overflow:hidden;color:inherit;text-decoration:none}
 a.feat:hover{border-color:var(--ink)}
 .feat .txt{flex:1;display:flex;flex-direction:column;gap:12px;padding:24px 28px 26px}
@@ -173,7 +177,7 @@ a.feat:hover{border-color:var(--ink)}
 .feat .art .el{stroke:#8a7d78;stroke-width:6;stroke-linecap:round;fill:none}
 
 /* Below the fold */
-.more{padding-top:24px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.more{padding-top:24px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
 .tile{display:flex;flex-direction:column;gap:14px;padding:26px 28px;background:var(--card);border:1.5px solid var(--rule);border-radius:16px}
 a.tile:hover{border-color:var(--ink)}
 .tile h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-height:1.1;letter-spacing:-.01em}
@@ -202,8 +206,6 @@ a.tile:hover{border-color:var(--ink)}
 @media (max-width:1180px){
   main{grid-template-columns:minmax(0,1fr);gap:36px}
   .hero{max-width:720px}
-  .more{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .more .tile:first-child{grid-column:1 / -1}
 }
 @media (max-width:900px){.nav .tx{display:none}.nav .vr{display:none}}
 @media (max-width:760px){
@@ -218,7 +220,10 @@ a.tile:hover{border-color:var(--ink)}
   .ix{display:none}
   .picker{display:block}
   .more{padding-top:20px;grid-template-columns:minmax(0,1fr);gap:12px}
-  .feats{margin-top:20px;grid-template-columns:minmax(0,1fr);gap:12px}
+  .tile.mob{display:flex}
+  .sect{margin-top:24px}
+  .sect span{font-size:14px}
+  .feats{margin-top:10px;grid-template-columns:minmax(0,1fr);gap:12px}
   .feat .txt{padding:16px 16px 18px;gap:10px}
   .feat h2{font-size:21px}
   .feat .art{height:130px;padding:10px}
@@ -425,7 +430,8 @@ a.tile:hover{border-color:var(--ink)}
   </main>
 
   <!-- Transit history pages (engine/history/build.py): their own row of cards, not columns of the city table. -->
-  <section class="feats" aria-label="Transit history">
+  <div class="sect"><h2 class="kicker" id="hist-h">TRANSIT HISTORY</h2><span>Every line built, and every one that wasn’t</span></div>
+  <section class="feats" aria-labelledby="hist-h">
     <a class="feat" href="/toronto/ttc-history/">
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet">
@@ -468,7 +474,7 @@ a.tile:hover{border-color:var(--ink)}
   </section>
 
   <section class="more" aria-label="More from Layers.City">
-    <a class="tile" href="/compare/">
+    <a class="tile mob" href="/compare/">   <!-- phones only: the nav link and the hero button are hidden there -->
       <span class="pair" aria-hidden="true"><i></i><i></i></span>
       <h2>Compare</h2>
       <p>Two cities side by side, or a neighbourhood’s closest match in another city: Rosedale in New York, Lincoln Park in Toronto.</p>

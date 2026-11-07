@@ -2,6 +2,12 @@
 
 ## Since 1.1
 
+### Hub: a Transit history label, Compare shown once per screen size (November 7)
+- The two history cards sit under a small "Transit history" label (mono, accent red, like the hero kicker) with a line
+  after it. The tiles below drop the Compare card on wider screens, where the nav link and the hero button already lead
+  there, leaving the app and What refreshes as a two-card row; phones keep the Compare card (`.tile.mob`), since the
+  nav link and hero buttons are hidden there.
+
 ### New York subway history is public; the hub shows both history pages in one row (November 7)
 - layers.city/nyc/mta-history/ drops its noindex tag and joins the sitemap. The hub's wide Toronto history card becomes a
   row of two cards (Toronto, New York), each a small drawn sketch over its title; stacked on phones.
