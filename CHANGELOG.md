@@ -2,6 +2,21 @@
 
 ## Since 1.1
 
+### Chicago: Events page, Happening nearby and Special events (November 7)
+- New page at layers.city/chicago/events/: every Chicago Public Library program and Chicago Park District event for
+  the next 30 days (about 1,400), filtered by free, category and community area, with Near me. Same engine as
+  Toronto's (`events_page.json` gains `units` and `hoodLabel`). `cities/chicago/fetch_happening.py` writes it daily
+  with the card's `happening.json`; the Park District's classes and open-skate sessions are left out (a timetable,
+  not events).
+- The card's Nearby section in Chicago gets Happening nearby: the next three events within half a mile, and See all
+  events.
+- Special events layer in Chicago, under Street closures: CDOT's festival, race, parade and block party permits that
+  close or narrow a street, drawn along the street where the map has it. Permits are whole days, so popups give
+  dates (`day: true`, `dayText`). Cancelled and incomplete applications are dropped; ones still in review say so.
+  Block parties are named by street, never by the applicant. The Magnificent Mile Lights Festival (Nov 21) gets the
+  banner and view; Christkindlmarket, the Christmas tree lighting and the Turkey Trots are named.
+- *Fetch Toronto events* becomes *Fetch events* (`fetch-happening.yml`), running every city's fetch_happening.py.
+
 ### Transit history is public, with its own card on the hub (November 7)
 - layers.city/toronto/ttc-history/ drops its noindex tag and joins the sitemap. The hub gets a wide feature card for it
   between the city table and the Compare / app / refresh tiles (it isn't a column of the table), with a small drawn

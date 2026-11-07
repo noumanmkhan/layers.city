@@ -1,0 +1,17 @@
+{
+  "_about": "The Events page at /chicago/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the neighborhood filter and card outline come from. 'words' are the page's own text; the engine names no city or source.",
+  "file": "events.json",
+  "units": "community_areas",
+  "words": {
+    "title": "What’s on in Chicago",
+    "intro": "Every Chicago Public Library program and every Chicago Park District event, for the next 30 days.",
+    "listing": "A listing, not a guide: the facts and a link to the source, nothing else.",
+    "desc": "What’s on in Chicago today, this weekend and this week: Chicago Public Library programs and Chicago Park District events, with free events marked.",
+    "card": "Today, this weekend, the next 30 days",
+    "hub": "What’s on: today, this weekend",
+    "hoodLabel": "Community area",
+    "placeless": "Online",
+    "sources": {"library": "Library program", "parks": "Park District"},
+    "source": "Events from the Chicago Public Library and the Chicago Park District, via the City of Chicago Data Portal (terms of use)."
+  }
+}

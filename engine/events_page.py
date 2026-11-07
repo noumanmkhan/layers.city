@@ -2,7 +2,8 @@
 
 Usage:  python3 engine/events_page.py <city>        (by hand, after the page's words or chrome change)
 Reads:  cities/<city>/events_page.json             the page's words and its listing's file name
-        docs/<city>/data/city.json, neighbourhoods.geojson   the city's name, locale and outline (for the card image)
+        docs/<city>/data/city.json, the units file              the city's name, locale and outline (for the card image);
+                                                       events_page.json "units" (default neighbourhoods.geojson)
 Writes: docs/<city>/events/index.html, card.png
 
 The listing itself (docs/<city>/events/<file>, Toronto: fetch_happening.py, daily) is read by the page in the
@@ -47,7 +48,7 @@ def font(weight, size):
 def card_image(path):
     RED, INK, INK2, PAPER, LAND, EDGE = '#C8102E', '#1A1414', '#5C5251', '#FBF6F5', '#EDE4E2', '#D6C9C6'
     rings = []
-    for f in json.load(open(os.path.join(D, 'neighbourhoods.geojson')))['features']:
+    for f in json.load(open(os.path.join(D, P.get('units', 'neighbourhoods') + '.geojson')))['features']:
         g = f['geometry']
         rings += [p[0] for p in (g['coordinates'] if g['type'] == 'MultiPolygon' else [g['coordinates']])]
     xs = [c[0] for r in rings for c in r]; ys = [c[1] for r in rings for c in r]
@@ -218,7 +219,7 @@ controls = f"""<div class="controls">
 <button type="button" class="near" id="near" aria-pressed="false">{NEAR_PIN.replace('fill="currentColor"', 'fill="#fff"')}<span>Near me</span></button>
 <label class="check"><input type="checkbox" id="free"> Free only</label>
 <label>Category <select id="cat"><option value="">All</option></select></label>
-<label>Neighbourhood <select id="hood"><option value="">All</option></select></label>
+<label>{esc(W.get('hoodLabel', 'Neighbourhood'))} <select id="hood"><option value="">All</option></select></label>
 <button type="button" class="reset" id="reset" hidden>Clear filters</button>
 </div>
 <p class="status" id="status" aria-live="polite"></p>"""

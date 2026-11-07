@@ -126,7 +126,7 @@ try:
         item = {'id': 'cpd-' + str(r.get('activity_id')), 'title': title, 'venue': venue,
                 'address': (r.get('address') or '').strip() or None, 'lat': lat, 'lng': lng,
                 'free': True if fee in ('0', '0.0', '0.00') else (False if fee else None),
-                'category': first(r.get('category'), ','),
+                'category': (first(r.get('category'), ',') or '').split(' - ')[0] or None,
                 'url': (link.get('url') if isinstance(link, dict) else None) or 'https://www.chicagoparkdistrict.com/events', 'src': 'parks'}
         if lat is None:
             item['area'] = 'citywide'
