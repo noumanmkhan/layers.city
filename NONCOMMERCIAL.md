@@ -6,3 +6,4 @@ of these must be licensed for that use or taken out. Each row says what to remov
 
 | Source | Terms | Used for | To take it out |
 |---|---|---|---|
+| Dallas Park and Recreation calendars (dallasparks.org CivicPlus iCal feeds) | City of Dallas disclaimer: commercial use prohibited without the City's written permission | Dallas Events page and the card's Happening nearby (`cities/dallas/fetch_happening.py`) | Ask the City for permission, or delete `cities/dallas/fetch_happening.py`, `events_page.json`, `card.nearby.happening` and `docs/dallas/events/` |

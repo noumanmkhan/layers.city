@@ -6,6 +6,7 @@ name: Fetch events
 #   Chicago: Chicago Public Library programs and Chicago Park District events (City of Chicago Data Portal).
 #   New York: NYC Parks public events (NYC Open Data; 14 days ahead, so its page covers 14 days).
 #   San Francisco: SF Public Library programs for children, teens and families (Our415 on DataSF, PDDL).
+#   Dallas: Dallas Park and Recreation's calendars (iCal; non-commercial terms, NONCOMMERCIAL.md).
 # Early in the morning in both cities, so "today" is the new day. Each city on its own, so one failing keeps the
 # others' update (and yesterday's file stays up). Scheduled runs only run from the copy of this file on main;
 # deploy.yml lists this workflow, so a run that commits goes live. (Was "Fetch Toronto events" until Nov 7, 2026.)
@@ -37,7 +38,7 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add docs/*/data/happening.json docs/*/events/events.json cities/*/raw/fetch_happening.log
+          git add docs/*/data/happening.json docs/*/events/events.json cities/*/raw/fetch_happening.log $(ls cities/*/raw/events_places.json 2>/dev/null)
           git commit -m "Fetch events ($(TZ=America/Toronto date +%F))" || echo "no changes"
           git pull --rebase
           git push
