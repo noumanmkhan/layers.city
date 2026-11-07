@@ -1,0 +1,4870 @@
+{
+ "_about": "NYC subway history page (engine/history/build.py), at docs/nyc/mta-history/. Built from three research passes (IRT, BMT, IND) on November 7, 2026, each date taken from a source read that day; see cities/toronto/history.json _about for the recipes and stages. op is the company that ran the line before the 1940 unification (IRT, BMT incl. the BRT before 1923, IND); colour is today's route colour from the MTA's GTFS, or a neutral brown for lines with no route today. _notes keep the researchers' doubts and source conflicts.",
+ "path": "mta-history",
+ "unlisted": true,
+ "colourBy": {
+  "default": "route",
+  "modes": [
+   {
+    "id": "route",
+    "label": "Today's route colours"
+   },
+   {
+    "id": "op",
+    "label": "Company that built it",
+    "field": "op",
+    "colours": {
+     "IRT": {
+      "c": "#B3263E",
+      "name": "IRT · numbered routes today"
+     },
+     "BMT": {
+      "c": "#C98A00",
+      "name": "BMT (BRT before 1923) · letters"
+     },
+     "IND": {
+      "c": "#234E9D",
+      "name": "IND (city-owned) · letters"
+     }
+    }
+   }
+  ]
+ },
+ "page": {
+  "city": "New York",
+  "title": "Three companies, one subway",
+  "short": "Subway history",
+  "description": "How New York's subway came together: the elevated railways, the three companies that built the subway, the els that came down and what's still being dug, on one map with a timeline from 1868 to today.",
+  "lede": "Drag the timeline to watch New York's rapid transit grow from the first elevated railway to today, and the els come down. Switch to colour by company to see why some trains have numbers and others letters. Tap any line for its history and sources.",
+  "note": "Built lines are cut from the MTA's own route shapes. Demolished elevated lines and lines never built are traced by hand along today's streets from published descriptions, so they show where a line ran, not its exact alignment. The totals count only the stretches drawn here (trunk lines and major branches), so they run a little under the real system's.",
+  "credits": "Lines: MTA GTFS (MTA Open Data). Streets and boroughs: NYC Open Data. Dates and routes: the sources listed on each line.",
+  "start": 1868,
+  "scale": [
+   1868,
+   1904,
+   1940,
+   1980
+  ],
+  "units": "mi",
+  "frame": "lines",
+  "future": "Future",
+  "later": {
+   "title": "Not on this map yet",
+   "lede": "Plans and pieces we know about but haven't drawn yet. They'll come later.",
+   "items": [
+    [
+     "The IND Second System, 1929",
+     "A citywide expansion plan with new lines in all four subway boroughs. Only fragments were built."
+    ],
+    [
+     "The 1968 Program for Action",
+     "The MTA's first big plan: Second Avenue, a Queens super-express, 63rd Street, Archer Avenue and more. Only some of it was finished."
+    ],
+    [
+     "Every branch and stub",
+     "The early els' short branches, spurs and terminal stubs, such as the Bronx Park spur and the els' City Hall stub."
+    ],
+    [
+     "The Second Avenue dig in Chinatown",
+     "A short 1970s stretch under the Manhattan Bridge approach; no source places it precisely enough to draw."
+    ],
+    [
+     "Staten Island Railway, PATH and the LIRR",
+     "Rail lines outside the subway, run by other operators or by the MTA as railroads."
+    ]
+   ]
+  }
+ },
+ "sources": {
+  "s1": {
+   "t": "IRT Broadway–Seventh Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Broadway%E2%80%93Seventh_Avenue_Line"
+  },
+  "s2": {
+   "t": "IRT Lexington Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Lexington_Avenue_Line"
+  },
+  "s3": {
+   "t": "Interborough Rapid Transit Company (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Interborough_Rapid_Transit_Company"
+  },
+  "s4": {
+   "t": "42nd Street Shuttle (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/42nd_Street_Shuttle"
+  },
+  "s5": {
+   "t": "IRT Lenox Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Lenox_Avenue_Line"
+  },
+  "s6": {
+   "t": "IRT White Plains Road Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_White_Plains_Road_Line"
+  },
+  "s7": {
+   "t": "East 180th Street station (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/East_180th_Street_station"
+  },
+  "s8": {
+   "t": "Nereid Avenue station (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Nereid_Avenue_station"
+  },
+  "s9": {
+   "t": "IRT Eastern Parkway Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Eastern_Parkway_Line"
+  },
+  "s10": {
+   "t": "IRT Nostrand Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Nostrand_Avenue_Line"
+  },
+  "s11": {
+   "t": "IRT New Lots Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_New_Lots_Line"
+  },
+  "s12": {
+   "t": "IRT Jerome Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Jerome_Avenue_Line"
+  },
+  "s13": {
+   "t": "IRT Pelham Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Pelham_Line"
+  },
+  "s14": {
+   "t": "IRT Flushing Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Flushing_Line"
+  },
+  "s15": {
+   "t": "IRT Ninth Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Ninth_Avenue_Line"
+  },
+  "s16": {
+   "t": "IRT Sixth Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Sixth_Avenue_Line"
+  },
+  "s17": {
+   "t": "History of the New York City Subway (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/History_of_the_New_York_City_Subway"
+  },
+  "s18": {
+   "t": "IRT Third Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Third_Avenue_Line"
+  },
+  "s19": {
+   "t": "Fordham Road–190th Street station (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Fordham_Road%E2%80%93190th_Street_station"
+  },
+  "s20": {
+   "t": "IRT Second Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IRT_Second_Avenue_Line"
+  },
+  "s21": {
+   "t": "nycsubway.org: The 2nd Avenue Elevated",
+   "u": "https://nycsubway.org/wiki/The_2nd_Avenue_Elevated"
+  },
+  "s22": {
+   "t": "111th Street station (IRT Second Avenue Line) (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/111th_Street_station_(IRT_Second_Avenue_Line)"
+  },
+  "s23": {
+   "t": "BMT Broadway Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Broadway_Line"
+  },
+  "s24": {
+   "t": "BMT Astoria Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Astoria_Line"
+  },
+  "s25": {
+   "t": "BMT Fourth Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Fourth_Avenue_Line"
+  },
+  "s26": {
+   "t": "Chrystie Street Connection (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Chrystie_Street_Connection"
+  },
+  "s27": {
+   "t": "BMT Nassau Street Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Nassau_Street_Line"
+  },
+  "s28": {
+   "t": "BMT Sea Beach Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Sea_Beach_Line"
+  },
+  "s29": {
+   "t": "BMT West End Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_West_End_Line"
+  },
+  "s30": {
+   "t": "BMT Brighton Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Brighton_Line"
+  },
+  "s31": {
+   "t": "BMT Culver Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Culver_Line"
+  },
+  "s32": {
+   "t": "nycsubway.org: BMT Culver Line",
+   "u": "https://www.nycsubway.org/wiki/BMT_Culver_Line"
+  },
+  "s33": {
+   "t": "BMT Jamaica Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Jamaica_Line"
+  },
+  "s34": {
+   "t": "BMT Lexington Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Lexington_Avenue_Line"
+  },
+  "s35": {
+   "t": "Archer Avenue lines (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Archer_Avenue_lines"
+  },
+  "s36": {
+   "t": "BMT Canarsie Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Canarsie_Line"
+  },
+  "s37": {
+   "t": "BMT Myrtle Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Myrtle_Avenue_Line"
+  },
+  "s38": {
+   "t": "BMT Fulton Street Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Fulton_Street_Line"
+  },
+  "s39": {
+   "t": "BMT Fifth Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/BMT_Fifth_Avenue_Line"
+  },
+  "s40": {
+   "t": "Culver Shuttle (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Culver_Shuttle"
+  },
+  "s41": {
+   "t": "IND Eighth Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IND_Eighth_Avenue_Line"
+  },
+  "s42": {
+   "t": "IND Concourse Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IND_Concourse_Line"
+  },
+  "s43": {
+   "t": "IND Queens Boulevard Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IND_Queens_Boulevard_Line"
+  },
+  "s44": {
+   "t": "Jamaica–179th Street station (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Jamaica%E2%80%93179th_Street_station"
+  },
+  "s45": {
+   "t": "IND Crosstown Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IND_Crosstown_Line"
+  },
+  "s46": {
+   "t": "IND Culver Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IND_Culver_Line"
+  },
+  "s47": {
+   "t": "Smith–Ninth Streets station (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Smith%E2%80%93Ninth_Streets_station"
+  },
+  "s48": {
+   "t": "IND Sixth Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IND_Sixth_Avenue_Line"
+  },
+  "s49": {
+   "t": "IND Fulton Street Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IND_Fulton_Street_Line"
+  },
+  "s50": {
+   "t": "IND Rockaway Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IND_Rockaway_Line"
+  },
+  "s51": {
+   "t": "nycsubway.org: IND Rockaway Line",
+   "u": "https://www.nycsubway.org/wiki/IND_Rockaway_Line"
+  },
+  "s52": {
+   "t": "Beach 25th Street station (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Beach_25th_Street_station"
+  },
+  "s53": {
+   "t": "IND 63rd Street Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IND_63rd_Street_Line"
+  },
+  "s54": {
+   "t": "IND Archer Avenue Line (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/IND_Archer_Avenue_Line"
+  },
+  "s55": {
+   "t": "Metropolitan Transportation Authority (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Metropolitan_Transportation_Authority"
+  },
+  "s56": {
+   "t": "Second Avenue Subway (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Second_Avenue_Subway"
+  },
+  "s57": {
+   "t": "Independent Subway System (Wikipedia)",
+   "u": "https://en.wikipedia.org/wiki/Independent_Subway_System"
+  },
+  "s58": {
+   "t": "untappedcities.com: 7",
+   "u": "https://untappedcities.com/2017/01/13/10-fun-facts-about-nycs-new-second-avenue-subway-line/7/"
+  },
+  "s59": {
+   "t": "mta.info: icymi governor hochul celebrates groundbreaking major construction stage of second",
+   "u": "https://www.mta.info/press-release/icymi-governor-hochul-celebrates-groundbreaking-major-construction-stage-of-second"
+  },
+  "s60": {
+   "t": "undergroundinfrastructure.com: 7 billion second avenue subway project advances with tbm launch",
+   "u": "https://undergroundinfrastructure.com/news/2026/june/7-billion-second-avenue-subway-project-advances-with-tbm-launch"
+  }
+ },
+ "lines": [
+  {
+   "id": "first-subway-brooklyn-bridge-to-grand-central",
+   "name": "First subway: Brooklyn Bridge to Grand Central",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "6",
+    "from": "Brooklyn Bridge-City Hall",
+    "to": "Grand Central-42 St"
+   },
+   "events": [
+    {
+     "d": "1904-10-27",
+     "s": "open",
+     "t": "The city's first subway opened, running north from City Hall up the East Side to 42nd Street.",
+     "src": [
+      "s1",
+      "s2",
+      "s3"
+     ]
+    }
+   ],
+   "now": "6 today",
+   "_notes": "Lexington Ave article says the 1904 line ran to just south of 42nd St; the Grand Central platforms are counted here as part of it. The City Hall loop terminal is its own segment."
+  },
+  {
+   "id": "city-hall-loop-station",
+   "name": "City Hall loop station",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "path": [
+     [
+      -74.0041,
+      40.7127
+     ],
+     [
+      -74.0066,
+      40.7127
+     ],
+     [
+      -74.0073,
+      40.7134
+     ],
+     [
+      -74.0062,
+      40.7141
+     ],
+     [
+      -74.0045,
+      40.7136
+     ]
+    ]
+   },
+   "events": [
+    {
+     "d": "1904-10-27",
+     "s": "open",
+     "t": "The ornate City Hall station opened as the southern end of the first subway.",
+     "src": [
+      "s1",
+      "s2"
+     ]
+    },
+    {
+     "d": "1945-12-31",
+     "s": "closed",
+     "t": "City Hall station closed to passengers; trains still turn through the loop.",
+     "src": [
+      "s2"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Geometry is a hand-drawn approximation of the loop south and west of Brooklyn Bridge-City Hall; refine against a track map. Closing date from the Lexington Ave line article's station table."
+  },
+  {
+   "id": "first-subway-42nd-st-crosstown-now-the-shuttle",
+   "name": "First subway: 42nd St crosstown (now the Shuttle)",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#7C858C",
+   "op": "IRT",
+   "geom": {
+    "route": "GS",
+    "from": "Grand Central-42 St",
+    "to": "Times Sq-42 St"
+   },
+   "events": [
+    {
+     "d": "1904-10-27",
+     "s": "open",
+     "t": "Trains on the first subway turned west under 42nd Street from Grand Central to Times Square.",
+     "src": [
+      "s4",
+      "s1"
+     ]
+    },
+    {
+     "d": "1918-08-01",
+     "s": "open",
+     "t": "When the Dual System's H pattern began, the crosstown tracks became a stand-alone shuttle.",
+     "src": [
+      "s4"
+     ]
+    },
+    {
+     "d": "1918-09-28",
+     "s": "open",
+     "t": "The shuttle reopened with better platforms and passageways after being ordered shut the day after it started.",
+     "src": [
+      "s4"
+     ]
+    }
+   ],
+   "now": "S today"
+  },
+  {
+   "id": "first-subway-times-sq-to-145-st",
+   "name": "First subway: Times Sq to 145 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "1",
+    "from": "Times Sq-42 St",
+    "to": "145 St|1"
+   },
+   "events": [
+    {
+     "d": "1904-10-27",
+     "s": "open",
+     "t": "The first subway continued up Broadway from Times Square to 145th Street on opening day.",
+     "src": [
+      "s1",
+      "s3"
+     ]
+    }
+   ],
+   "now": "1 today",
+   "_notes": "Runs over today's 1/2/3 trunk to 96 St and the 1 north of it."
+  },
+  {
+   "id": "broadway-145-st-to-157-st",
+   "name": "Broadway: 145 St to 157 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "1",
+    "from": "145 St|1",
+    "to": "157 St"
+   },
+   "events": [
+    {
+     "d": "1904-11-12",
+     "s": "open",
+     "t": "Service reached 157th Street after finishing work held up the station's opening.",
+     "src": [
+      "s1"
+     ]
+    }
+   ],
+   "now": "1 today"
+  },
+  {
+   "id": "broadway-157-st-to-marble-hill",
+   "name": "Broadway: 157 St to Marble Hill",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "1",
+    "from": "157 St",
+    "to": "Marble Hill-225 St"
+   },
+   "events": [
+    {
+     "d": "1906-03-12",
+     "s": "open",
+     "t": "Shuttle trains began running north from 157th Street through Dyckman and 215th Streets to a temporary 221st Street end.",
+     "src": [
+      "s1"
+     ]
+    },
+    {
+     "d": "1907-01-14",
+     "s": "open",
+     "t": "Trains crossed the Harlem Ship Canal on the Broadway Bridge to 225th Street (Marble Hill).",
+     "src": [
+      "s1"
+     ]
+    }
+   ],
+   "now": "1 today",
+   "_notes": "Staged: to a temporary 221 St terminal (not a current station) in 1906, over the bridge to 225 St in 1907. 168 St (1906-04-14), 181 St (1906-05-30), 207 St (1907-04-01) and 191 St (1911-01-14) opened later as infill stations."
+  },
+  {
+   "id": "broadway-marble-hill-to-242-st",
+   "name": "Broadway: Marble Hill to 242 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "1",
+    "from": "Marble Hill-225 St",
+    "to": "Van Cortlandt Park-242 St"
+   },
+   "events": [
+    {
+     "d": "1907-01-27",
+     "s": "open",
+     "t": "The line reached a temporary end at 230th Street.",
+     "src": [
+      "s1"
+     ]
+    },
+    {
+     "d": "1908-08-01",
+     "s": "open",
+     "t": "The Broadway line reached its northern end at 242nd Street by Van Cortlandt Park.",
+     "src": [
+      "s1"
+     ]
+    }
+   ],
+   "now": "1 today",
+   "_notes": "The 230th St temporary terminal corresponds roughly to today's 231 St; drawn as one piece."
+  },
+  {
+   "id": "lenox-ave-branch-96-st-to-145-st",
+   "name": "Lenox Ave branch: 96 St to 145 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "3",
+    "from": "96 St|1",
+    "to": "145 St|3"
+   },
+   "events": [
+    {
+     "d": "1904-11-23",
+     "s": "open",
+     "t": "The Lenox Avenue branch opened through Harlem to 145th Street.",
+     "src": [
+      "s5"
+     ]
+    }
+   ],
+   "now": "3 today",
+   "_notes": "Harlem-148 St, at the north end, opened much later (1968-05-13, per the Lenox Ave line article) and is not drawn here."
+  },
+  {
+   "id": "lenox-ave-to-the-bronx-135-st-to-jackson-av",
+   "name": "Lenox Ave to the Bronx: 135 St to Jackson Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "2",
+    "from": "135 St|2",
+    "to": "Jackson Av"
+   },
+   "events": [
+    {
+     "d": "1905-07-10",
+     "s": "open",
+     "t": "A tunnel under the Harlem River linked the Lenox Avenue subway to the Bronx el, so subway trains could run to West Farms.",
+     "src": [
+      "s5",
+      "s6"
+     ]
+    }
+   ],
+   "now": "2 today",
+   "_notes": "The branch leaves the Lenox trunk at the 142nd St junction; drawing from 135 St overlaps the Lenox segment for a few blocks. 3 Av-149 St station dates from 1905 per the White Plains Rd article."
+  },
+  {
+   "id": "west-farms-el-jackson-av-to-west-farms-sq",
+   "name": "West Farms el: Jackson Av to West Farms Sq",
+   "group": "built",
+   "mode": "el",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "2",
+    "from": "Jackson Av",
+    "to": "West Farms Sq-E Tremont Av"
+   },
+   "events": [
+    {
+     "d": "1904-11-26",
+     "s": "open",
+     "t": "The first Bronx stretch opened as an el, served at first by Second and Third Avenue el trains.",
+     "src": [
+      "s6"
+     ]
+    },
+    {
+     "d": "1905-07-10",
+     "s": "open",
+     "t": "Subway trains from Manhattan began running on the line.",
+     "src": [
+      "s6"
+     ]
+    }
+   ],
+   "now": "2 today",
+   "_notes": "The 1904 segment ran on to a 180th St terminal by Bronx Park (later a spur, closed 1952-08-04 per the White Plains Rd article); that stub is gone and is not drawn. Today's E 180 St station is a 1917 station, not the 1904 terminal."
+  },
+  {
+   "id": "white-plains-rd-west-farms-to-238-st",
+   "name": "White Plains Rd: West Farms to 238 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "2",
+    "from": "West Farms Sq-E Tremont Av",
+    "to": "Nereid Av"
+   },
+   "events": [
+    {
+     "d": "1917-03-03",
+     "s": "open",
+     "t": "Under the Dual Contracts the line was pushed north from 177th Street to 219th Street.",
+     "src": [
+      "s6",
+      "s7"
+     ]
+    },
+    {
+     "d": "1917-03-31",
+     "s": "open",
+     "t": "The line was extended again to 238th Street (today's Nereid Av).",
+     "src": [
+      "s6",
+      "s8"
+     ]
+    }
+   ],
+   "now": "2 today",
+   "_notes": "Two openings four weeks apart in 1917, so drawn as one piece."
+  },
+  {
+   "id": "white-plains-rd-238-st-to-241-st",
+   "name": "White Plains Rd: 238 St to 241 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "2",
+    "from": "Nereid Av",
+    "to": "Wakefield-241 St"
+   },
+   "events": [
+    {
+     "d": "1920-12-13",
+     "s": "open",
+     "t": "The final short extension reached the 241st Street terminal.",
+     "src": [
+      "s6",
+      "s8"
+     ]
+    }
+   ],
+   "now": "2 today"
+  },
+  {
+   "id": "lower-manhattan-brooklyn-bridge-to-bowling-green",
+   "name": "Lower Manhattan: Brooklyn Bridge to Bowling Green",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "4",
+    "from": "Brooklyn Bridge-City Hall",
+    "to": "Bowling Green"
+   },
+   "events": [
+    {
+     "d": "1905-01-16",
+     "s": "open",
+     "t": "The subway was extended south to Fulton Street, at first northbound only.",
+     "src": [
+      "s2"
+     ]
+    },
+    {
+     "d": "1905-06-12",
+     "s": "open",
+     "t": "Wall Street station opened along with Fulton Street's southbound side.",
+     "src": [
+      "s2"
+     ]
+    },
+    {
+     "d": "1905-07-10",
+     "s": "open",
+     "t": "The line reached Bowling Green and a South Ferry loop.",
+     "src": [
+      "s2"
+     ]
+    }
+   ],
+   "now": "4 today",
+   "_notes": "The inner South Ferry loop of 1905 is not drawn. Lexington article: first revenue train on this extension left late on 1905-07-09; the station table gives 1905-07-10."
+  },
+  {
+   "id": "to-brooklyn-joralemon-st-tunnel-to-atlantic-av",
+   "name": "To Brooklyn: Joralemon St tunnel to Atlantic Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "4",
+    "from": "Bowling Green",
+    "to": "Atlantic Av-Barclays Ctr"
+   },
+   "events": [
+    {
+     "d": "1908-01-09",
+     "s": "open",
+     "t": "The first subway trains ran under the East River to Borough Hall in Brooklyn.",
+     "src": [
+      "s2",
+      "s9"
+     ]
+    },
+    {
+     "d": "1908-05-01",
+     "s": "open",
+     "t": "Service was extended from Borough Hall to Atlantic Avenue.",
+     "src": [
+      "s9"
+     ]
+    }
+   ],
+   "now": "4 today"
+  },
+  {
+   "id": "7th-ave-times-sq-to-34-st",
+   "name": "7th Ave: Times Sq to 34 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "1",
+    "from": "Times Sq-42 St",
+    "to": "34 St-Penn Station|1"
+   },
+   "events": [
+    {
+     "d": "1917-06-03",
+     "s": "open",
+     "t": "A shuttle opened on the new Seventh Avenue line from Times Square to Penn Station.",
+     "src": [
+      "s1"
+     ]
+    }
+   ],
+   "now": "1 today"
+  },
+  {
+   "id": "7th-ave-34-st-to-south-ferry",
+   "name": "7th Ave: 34 St to South Ferry",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "1",
+    "from": "34 St-Penn Station|1",
+    "to": "South Ferry"
+   },
+   "events": [
+    {
+     "d": "1918-07-01",
+     "s": "open",
+     "t": "The Seventh Avenue shuttle was extended down the West Side to South Ferry.",
+     "src": [
+      "s1"
+     ]
+    },
+    {
+     "d": "1918-08-01",
+     "s": "open",
+     "t": "The H system joined the West Side and East Side halves into through routes.",
+     "src": [
+      "s1",
+      "s2"
+     ]
+    }
+   ],
+   "now": "1 today",
+   "_notes": "Today's South Ferry station is a newer one beside the 1918 loop; the endpoint is close enough at map scale."
+  },
+  {
+   "id": "brooklyn-branch-chambers-st-to-wall-st",
+   "name": "Brooklyn branch: Chambers St to Wall St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "2",
+    "from": "Chambers St|1",
+    "to": "Wall St"
+   },
+   "events": [
+    {
+     "d": "1918-07-01",
+     "s": "open",
+     "t": "A short shuttle opened on the new express branch through Park Place and Fulton Street to Wall Street.",
+     "src": [
+      "s1"
+     ]
+    }
+   ],
+   "now": "2 today",
+   "_notes": "The 'Wall St' name in our station list covers both IRT Wall St stations; the 2's own stop is the William St one."
+  },
+  {
+   "id": "clark-st-tunnel-wall-st-to-borough-hall",
+   "name": "Clark St tunnel: Wall St to Borough Hall",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "2",
+    "from": "Wall St",
+    "to": "Borough Hall"
+   },
+   "events": [
+    {
+     "d": "1919-04-15",
+     "s": "open",
+     "t": "The Clark Street tunnel opened, a second IRT crossing to Brooklyn that eased crowding in the Joralemon Street tube.",
+     "src": [
+      "s1"
+     ]
+    }
+   ],
+   "now": "2 today",
+   "_notes": "Express trains ran through to Atlantic Av from this date; Clark St and the 7th Ave side of Borough Hall opened the same day."
+  },
+  {
+   "id": "eastern-pkwy-atlantic-av-to-utica-av",
+   "name": "Eastern Pkwy: Atlantic Av to Utica Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "4",
+    "from": "Atlantic Av-Barclays Ctr",
+    "to": "Crown Hts-Utica Av"
+   },
+   "events": [
+    {
+     "d": "1920-08-23",
+     "s": "open",
+     "t": "The subway was extended under Flatbush Avenue and Eastern Parkway to Utica Avenue.",
+     "src": [
+      "s9"
+     ]
+    },
+    {
+     "d": "1920-10-10",
+     "s": "open",
+     "t": "Bergen St, Grand Army Plaza and Eastern Pkwy-Brooklyn Museum stations opened, having missed the August start.",
+     "src": [
+      "s9"
+     ]
+    }
+   ],
+   "now": "4 today"
+  },
+  {
+   "id": "nostrand-ave-line",
+   "name": "Nostrand Ave line",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "2",
+    "from": "Franklin Av-Medgar Evers College",
+    "to": "Flatbush Av-Brooklyn College"
+   },
+   "events": [
+    {
+     "d": "1920-08-23",
+     "s": "open",
+     "t": "The Nostrand Avenue branch opened all the way to Flatbush Avenue on the same night as the Eastern Parkway extension.",
+     "src": [
+      "s10"
+     ]
+    }
+   ],
+   "now": "2 today",
+   "_notes": "Line splits from Eastern Pkwy at Rogers Av junction just east of Franklin Av."
+  },
+  {
+   "id": "new-lots-line-utica-av-to-new-lots-av",
+   "name": "New Lots line: Utica Av to New Lots Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "geom": {
+    "route": "3",
+    "from": "Crown Hts-Utica Av",
+    "to": "New Lots Av|3"
+   },
+   "events": [
+    {
+     "d": "1920-11-22",
+     "s": "open",
+     "t": "An el branch opened from Utica Avenue to Junius Street, first as a shuttle.",
+     "src": [
+      "s11"
+     ]
+    },
+    {
+     "d": "1920-12-24",
+     "s": "open",
+     "t": "It was extended one stop to Pennsylvania Avenue.",
+     "src": [
+      "s11"
+     ]
+    },
+    {
+     "d": "1922-10-16",
+     "s": "open",
+     "t": "Shuttles began running to New Lots Avenue.",
+     "src": [
+      "s11"
+     ]
+    }
+   ],
+   "now": "3 today",
+   "_notes": "New Lots article is inconsistent: infobox says 1920-11-23, body and station table 1920-11-22; it also says through service to New Lots Av began 1924-10-31. The Pennsylvania Av-New Lots Av stretch arrives in 1922; drawn as one piece from 1920."
+  },
+  {
+   "id": "lexington-ave-grand-central-to-125-st",
+   "name": "Lexington Ave: Grand Central to 125 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "6",
+    "from": "Grand Central-42 St",
+    "to": "125 St|4"
+   },
+   "events": [
+    {
+     "d": "1918-07-17",
+     "s": "open",
+     "t": "The Lexington Avenue line opened north of Grand Central to 125th Street, first as a local shuttle.",
+     "src": [
+      "s2"
+     ]
+    },
+    {
+     "d": "1918-08-01",
+     "s": "open",
+     "t": "The H system made Lexington Avenue a through line from downtown.",
+     "src": [
+      "s2"
+     ]
+    }
+   ],
+   "now": "6 today"
+  },
+  {
+   "id": "jerome-ave-line-125-st-to-149-st",
+   "name": "Jerome Ave line: 125 St to 149 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "4",
+    "from": "125 St|4",
+    "to": "149 St-Hostos"
+   },
+   "events": [
+    {
+     "d": "1918-07-17",
+     "s": "open",
+     "t": "Through Lexington Avenue trains began running under the Harlem River to the Jerome Avenue line.",
+     "src": [
+      "s12"
+     ]
+    }
+   ],
+   "now": "4 today",
+   "_notes": "Date is when through service to the Lexington line began, per the Jerome Ave article; the tunnel's own opening is not separately dated there."
+  },
+  {
+   "id": "jerome-ave-line-149-st-to-kingsbridge-rd",
+   "name": "Jerome Ave line: 149 St to Kingsbridge Rd",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "4",
+    "from": "149 St-Hostos",
+    "to": "Kingsbridge Rd|4"
+   },
+   "events": [
+    {
+     "d": "1917-06-02",
+     "s": "open",
+     "t": "The Jerome Avenue el opened as a shuttle between 149th Street and Kingsbridge Road.",
+     "src": [
+      "s12"
+     ]
+    }
+   ],
+   "now": "4 today"
+  },
+  {
+   "id": "jerome-ave-line-kingsbridge-rd-to-woodlawn",
+   "name": "Jerome Ave line: Kingsbridge Rd to Woodlawn",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "4",
+    "from": "Kingsbridge Rd|4",
+    "to": "Woodlawn"
+   },
+   "events": [
+    {
+     "d": "1918-04-15",
+     "s": "open",
+     "t": "The line reached Woodlawn, again as a shuttle at first.",
+     "src": [
+      "s12"
+     ]
+    }
+   ],
+   "now": "4 today"
+  },
+  {
+   "id": "pelham-line-125-st-to-3-av-138-st",
+   "name": "Pelham line: 125 St to 3 Av-138 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "6",
+    "from": "125 St|4",
+    "to": "3 Av-138 St"
+   },
+   "events": [
+    {
+     "d": "1918-08-01",
+     "s": "open",
+     "t": "The first piece of the Pelham line opened into the South Bronx.",
+     "src": [
+      "s13"
+     ]
+    }
+   ],
+   "now": "6 today"
+  },
+  {
+   "id": "pelham-line-3-av-138-st-to-hunts-point-av",
+   "name": "Pelham line: 3 Av-138 St to Hunts Point Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "6",
+    "from": "3 Av-138 St",
+    "to": "Hunts Point Av"
+   },
+   "events": [
+    {
+     "d": "1919-01-07",
+     "s": "open",
+     "t": "The Pelham line was extended to Hunts Point Avenue.",
+     "src": [
+      "s13"
+     ]
+    }
+   ],
+   "now": "6 today"
+  },
+  {
+   "id": "pelham-line-hunts-point-av-to-pelham-bay-park",
+   "name": "Pelham line: Hunts Point Av to Pelham Bay Park",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#009952",
+   "op": "IRT",
+   "geom": {
+    "route": "6",
+    "from": "Hunts Point Av",
+    "to": "Pelham Bay Park"
+   },
+   "events": [
+    {
+     "d": "1920-05-30",
+     "s": "open",
+     "t": "The line reached East 177th Street (Parkchester), served first by a shuttle of el cars.",
+     "src": [
+      "s13"
+     ]
+    },
+    {
+     "d": "1920-10-24",
+     "s": "open",
+     "t": "It was extended to Westchester Square.",
+     "src": [
+      "s13"
+     ]
+    },
+    {
+     "d": "1920-12-20",
+     "s": "open",
+     "t": "It reached the edge of Pelham Bay Park.",
+     "src": [
+      "s13"
+     ]
+    }
+   ],
+   "now": "6 today",
+   "_notes": "Three openings in 1920; drawn as one piece."
+  },
+  {
+   "id": "flushing-line-grand-central-to-vernon-blvd",
+   "name": "Flushing line: Grand Central to Vernon Blvd",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#9A38A1",
+   "op": "IRT",
+   "geom": {
+    "route": "7",
+    "from": "Grand Central-42 St",
+    "to": "Vernon Blvd-Jackson Av"
+   },
+   "events": [
+    {
+     "d": "1915-06-22",
+     "s": "open",
+     "t": "The Steinway tunnel line opened under the East River to Long Island City.",
+     "src": [
+      "s14"
+     ]
+    }
+   ],
+   "now": "7 today"
+  },
+  {
+   "id": "flushing-line-vernon-blvd-to-queensboro-plaza",
+   "name": "Flushing line: Vernon Blvd to Queensboro Plaza",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#9A38A1",
+   "op": "IRT",
+   "geom": {
+    "route": "7",
+    "from": "Vernon Blvd-Jackson Av",
+    "to": "Queensboro Plaza"
+   },
+   "events": [
+    {
+     "d": "1916-02-15",
+     "s": "open",
+     "t": "It was extended to Hunters Point Avenue.",
+     "src": [
+      "s14"
+     ]
+    },
+    {
+     "d": "1916-11-05",
+     "s": "open",
+     "t": "It climbed to Queensboro Plaza.",
+     "src": [
+      "s14"
+     ]
+    }
+   ],
+   "now": "7 today"
+  },
+  {
+   "id": "flushing-line-queensboro-plaza-to-103-st",
+   "name": "Flushing line: Queensboro Plaza to 103 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#9A38A1",
+   "op": "IRT",
+   "geom": {
+    "route": "7",
+    "from": "Queensboro Plaza",
+    "to": "103 St-Corona Plaza"
+   },
+   "events": [
+    {
+     "d": "1917-04-21",
+     "s": "open",
+     "t": "The el along Queens Boulevard and Roosevelt Avenue opened to Alburtis Avenue, now 103 St-Corona Plaza.",
+     "src": [
+      "s14"
+     ]
+    }
+   ],
+   "now": "7 today"
+  },
+  {
+   "id": "flushing-line-103-st-to-111-st",
+   "name": "Flushing line: 103 St to 111 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#9A38A1",
+   "op": "IRT",
+   "geom": {
+    "route": "7",
+    "from": "103 St-Corona Plaza",
+    "to": "111 St|7"
+   },
+   "events": [
+    {
+     "d": "1925-10-13",
+     "s": "open",
+     "t": "A one-stop extension to 111th Street opened, at first as a shuttle.",
+     "src": [
+      "s14"
+     ]
+    }
+   ],
+   "now": "7 today"
+  },
+  {
+   "id": "flushing-line-111-st-to-flushing-main-st",
+   "name": "Flushing line: 111 St to Flushing-Main St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#9A38A1",
+   "op": "IRT",
+   "geom": {
+    "route": "7",
+    "from": "111 St|7",
+    "to": "Flushing-Main St"
+   },
+   "events": [
+    {
+     "d": "1927-05-07",
+     "s": "open",
+     "t": "Trains reached Willets Point, with through service a week later.",
+     "src": [
+      "s14"
+     ]
+    },
+    {
+     "d": "1928-01-21",
+     "s": "open",
+     "t": "The line was finished under the river to Main Street in Flushing.",
+     "src": [
+      "s14"
+     ]
+    }
+   ],
+   "now": "7 today",
+   "_notes": "Flushing article: history section gives May 1927 for Willets Point, but its station table lists Mets-Willets Point as 1928-01-21 (likely the permanent station)."
+  },
+  {
+   "id": "flushing-line-times-sq-to-grand-central",
+   "name": "Flushing line: Times Sq to Grand Central",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#9A38A1",
+   "op": "IRT",
+   "geom": {
+    "route": "7",
+    "from": "Times Sq-42 St",
+    "to": "Grand Central-42 St"
+   },
+   "events": [
+    {
+     "d": "1926-03-22",
+     "s": "open",
+     "t": "The line was pushed west from Grand Central to a temporary end at Fifth Avenue.",
+     "src": [
+      "s14"
+     ]
+    },
+    {
+     "d": "1927-03-14",
+     "s": "open",
+     "t": "It reached Times Square.",
+     "src": [
+      "s14"
+     ]
+    }
+   ],
+   "now": "7 today",
+   "_notes": "Fifth Av is mid-segment; the 2015 extension to 34 St-Hudson Yards (2015-09-13) is post-IRT and not drawn."
+  },
+  {
+   "id": "ninth-ave-el-battery-to-59-st",
+   "name": "Ninth Ave El: Battery to 59 St",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "parts": [
+     {
+      "path": [
+       [
+        -74.0137,
+        40.7013
+       ],
+       [
+        -74.015,
+        40.7058
+       ],
+       [
+        -74.014,
+        40.7085
+       ],
+       [
+        -74.0124,
+        40.712
+       ],
+       [
+        -74.0109,
+        40.7166
+       ],
+       [
+        -74.0094,
+        40.725
+       ],
+       [
+        -74.009,
+        40.729
+       ],
+       [
+        -74.0068,
+        40.7392
+       ],
+       [
+        -74.0051,
+        40.7409
+       ]
+      ]
+     },
+     {
+      "along": [
+       "9th Ave"
+      ],
+      "from": [
+       -74.0051,
+       40.7409
+      ],
+      "to": [
+       -73.9848,
+       40.7692
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1868-07-01",
+     "s": "open",
+     "t": "New York's first elevated railway opened on Greenwich Street as a cable-hauled experiment.",
+     "src": [
+      "s15"
+     ]
+    },
+    {
+     "d": "1873-12-10",
+     "s": "open",
+     "t": "The el was extended up Ninth Avenue to 30th Street.",
+     "src": [
+      "s15"
+     ]
+    },
+    {
+     "d": "1876-01-18",
+     "s": "open",
+     "t": "It reached 59th Street.",
+     "src": [
+      "s15"
+     ]
+    },
+    {
+     "d": "1940-06-11",
+     "s": "closed",
+     "t": "Most of the line closed soon after the city bought the IRT, and it was taken down.",
+     "src": [
+      "s15"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Ninth Ave article: text says the 1868 line ran Battery Place to Cortlandt St; its station table says Dey St to 29th St (1868-07-03). Steam service for the public began 1870-06-15/1871-04-20. Greenwich St is not in our street list, so the Battery-to-Gansevoort stretch is hand-placed points (approximate). South Ferry stayed open for other lines until 1950-12-22. No demolition year given in the source."
+  },
+  {
+   "id": "ninth-ave-el-59-st-to-155-st",
+   "name": "Ninth Ave El: 59 St to 155 St",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "parts": [
+     {
+      "along": [
+       "Columbus Ave"
+      ],
+      "from": [
+       -73.9848,
+       40.7692
+      ],
+      "to": {
+       "x": [
+        "Columbus Ave",
+        "110th St"
+       ]
+      }
+     },
+     {
+      "along": [
+       "110th St"
+      ],
+      "from": {
+       "x": [
+        "Columbus Ave",
+        "110th St"
+       ]
+      },
+      "to": [
+       -73.958,
+       40.8008
+      ]
+     },
+     {
+      "along": [
+       "Frederick Douglass Blvd"
+      ],
+      "from": [
+       -73.958,
+       40.8008
+      ],
+      "to": {
+       "x": [
+        "Frederick Douglass Blvd",
+        "155th St"
+       ]
+      }
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1879-06-09",
+     "s": "open",
+     "t": "The el was extended up Columbus Avenue to 81st Street.",
+     "src": [
+      "s15"
+     ]
+    },
+    {
+     "d": "1879-09-17",
+     "s": "open",
+     "t": "It reached 125th Street by way of the sharp double bend at 110th Street.",
+     "src": [
+      "s15"
+     ]
+    },
+    {
+     "d": "1879-12-01",
+     "s": "open",
+     "t": "It reached 155th Street at the Harlem River.",
+     "src": [
+      "s15"
+     ]
+    },
+    {
+     "d": "1940-06-11",
+     "s": "closed",
+     "t": "Service in Manhattan ended after unification.",
+     "src": [
+      "s15"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Three 1879 openings, drawn as one piece."
+  },
+  {
+   "id": "polo-grounds-shuttle-ninth-ave-el-over-the-harle",
+   "name": "Polo Grounds Shuttle (Ninth Ave El over the Harlem River)",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "path": [
+     [
+      -73.9373,
+      40.8292
+     ],
+     [
+      -73.933,
+      40.8322
+     ],
+     [
+      -73.9268,
+      40.833
+     ],
+     [
+      -73.924,
+      40.8316
+     ]
+    ]
+   },
+   "events": [
+    {
+     "d": "1918-07-01",
+     "s": "open",
+     "t": "Ninth Avenue trains were carried over the Harlem River on the Putnam Bridge to join the Jerome Avenue line.",
+     "src": [
+      "s12"
+     ]
+    },
+    {
+     "d": "1958-08-31",
+     "s": "closed",
+     "t": "The Polo Grounds Shuttle, last piece of the Ninth Avenue el, closed.",
+     "src": [
+      "s15"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Became a stand-alone shuttle when the rest of the Ninth Ave el closed on 1940-06-11. Path is approximate (bridge to the Jerome line junction between 161 St and 167 St). Ninth Ave article: text says August 1958, infobox 1958-08-31."
+  },
+  {
+   "id": "sixth-ave-el",
+   "name": "Sixth Ave El",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "parts": [
+     {
+      "path": [
+       [
+        -74.0128,
+        40.708
+       ],
+       [
+        -74.0093,
+        40.7142
+       ],
+       [
+        -74.0105,
+        40.715
+       ],
+       [
+        -74.0049,
+        40.7213
+       ],
+       [
+        -74.0011,
+        40.7262
+       ],
+       [
+        -73.9993,
+        40.7288
+       ],
+       [
+        -74.001,
+        40.7304
+       ]
+      ]
+     },
+     {
+      "along": [
+       "6th Ave"
+      ],
+      "from": [
+       -74.001,
+       40.7304
+      ],
+      "to": {
+       "x": [
+        "6th Ave",
+        "57th St"
+       ]
+      }
+     },
+     {
+      "along": [
+       "53rd St"
+      ],
+      "from": {
+       "x": [
+        "6th Ave",
+        "53rd St"
+       ]
+      },
+      "to": {
+       "x": [
+        "53rd St",
+        "9th Ave"
+       ]
+      }
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1878-06-05",
+     "s": "open",
+     "t": "The Sixth Avenue el opened from Rector Street up to 58th Street.",
+     "src": [
+      "s16"
+     ]
+    },
+    {
+     "d": "1881",
+     "s": "open",
+     "t": "It was tied into the Ninth Avenue el at Morris Street and by a link along 53rd Street.",
+     "src": [
+      "s16"
+     ]
+    },
+    {
+     "d": "1938-12-04",
+     "s": "closed",
+     "t": "The city bought the line and ran its last trains, clearing the way for the Sixth Avenue subway.",
+     "src": [
+      "s16",
+      "s17"
+     ]
+    },
+    {
+     "d": "1939",
+     "s": "closed",
+     "t": "The structure was torn down.",
+     "src": [
+      "s16"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Close date conflict: Sixth Ave article says closed 1938-12-04 (NYT account dated Dec 5); History of the NYC Subway says operations ended 1938-12-05. Northern end given as both 58th and 59th St. Trinity Pl/Church St/Murray St/West Broadway/W 3rd St are not in our street list, so the downtown stretch is hand-placed points (approximate). The 53rd St link dates from 1881."
+  },
+  {
+   "id": "third-ave-el-manhattan",
+   "name": "Third Ave El: Manhattan",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "parts": [
+     {
+      "path": [
+       [
+        -73.998,
+        40.7137
+       ],
+       [
+        -73.9976,
+        40.714
+       ]
+      ]
+     },
+     {
+      "along": [
+       "Bowery"
+      ],
+      "from": [
+       -73.9976,
+       40.714
+      ],
+      "to": [
+       -73.9916,
+       40.7269
+      ]
+     },
+     {
+      "along": [
+       "3rd Ave"
+      ],
+      "from": [
+       -73.9916,
+       40.7269
+      ],
+      "to": [
+       -73.9349,
+       40.805
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1878-08-26",
+     "s": "open",
+     "t": "The Third Avenue el opened from South Ferry to Grand Central Depot.",
+     "src": [
+      "s18"
+     ]
+    },
+    {
+     "d": "1878-12-30",
+     "s": "open",
+     "t": "It was extended to 129th Street in Harlem.",
+     "src": [
+      "s18"
+     ]
+    },
+    {
+     "d": "1955-05-12",
+     "s": "closed",
+     "t": "Service from Chatham Square north to 149th Street in the Bronx ended, closing the last el in Manhattan.",
+     "src": [
+      "s18"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "An express third track opened in Manhattan 1917-07-09 (Bronx 1916-01-17). The IRT ran this and the other Manhattan Railway els under a lease from 1903-04-01. Drawn from Chatham Sq north; the South Ferry spur below Chatham Sq closed 1950-12-22 and the City Hall spur 1953-12-31 (not drawn). Source gives no Manhattan demolition year."
+  },
+  {
+   "id": "third-ave-el-harlem-river-to-149-st-bronx",
+   "name": "Third Ave El: Harlem River to 149 St (Bronx)",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "parts": [
+     {
+      "path": [
+       [
+        -73.9349,
+        40.805
+       ],
+       [
+        -73.93,
+        40.8085
+       ],
+       [
+        -73.9271,
+        40.811
+       ]
+      ]
+     },
+     {
+      "along": [
+       "Third Ave"
+      ],
+      "from": [
+       -73.9271,
+       40.811
+      ],
+      "to": {
+       "x": [
+        "Third Ave",
+        "149th St"
+       ]
+      }
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1886-05-17",
+     "s": "open",
+     "t": "The Suburban Rapid Transit Company carried the el over the Harlem River to 133rd Street.",
+     "src": [
+      "s18"
+     ]
+    },
+    {
+     "d": "1887-06-16",
+     "s": "open",
+     "t": "The line reached 149th Street.",
+     "src": [
+      "s18"
+     ]
+    },
+    {
+     "d": "1955-05-12",
+     "s": "closed",
+     "t": "This stretch closed along with the Manhattan el.",
+     "src": [
+      "s18"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Station-table dates: 133rd 1886-05-17, 143rd 1886-05-23, 138th 1887-01-01, 149th 1887-06-16. River crossing is hand-placed."
+  },
+  {
+   "id": "third-ave-el-149-st-to-tremont-ave",
+   "name": "Third Ave El: 149 St to Tremont Ave",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "along": [
+     "Third Ave"
+    ],
+    "from": {
+     "x": [
+      "Third Ave",
+      "149th St"
+     ]
+    },
+    "to": {
+     "x": [
+      "Third Ave",
+      "E Tremont Ave"
+     ]
+    }
+   },
+   "events": [
+    {
+     "d": "1887-07-01",
+     "s": "open",
+     "t": "The Bronx el pushed north up Third Avenue past 149th Street.",
+     "src": [
+      "s18"
+     ]
+    },
+    {
+     "d": "1891-07-20",
+     "s": "open",
+     "t": "It reached 177th Street at Tremont Avenue.",
+     "src": [
+      "s18"
+     ]
+    },
+    {
+     "d": "1973-04-29",
+     "s": "closed",
+     "t": "The last Bronx stretch of the Third Avenue el closed.",
+     "src": [
+      "s18"
+     ]
+    },
+    {
+     "d": "1977",
+     "s": "closed",
+     "t": "The Bronx structure was demolished.",
+     "src": [
+      "s18"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Staged 1887-1891 (156th 1887-07-01, 161st 1887-08-07, 166th 1887-12-25, 169th and Claremont Pkwy 1888, 174th and 177th 1891-07-20). Demolition began 1977-03-09."
+  },
+  {
+   "id": "third-ave-el-tremont-ave-to-fordham-rd",
+   "name": "Third Ave El: Tremont Ave to Fordham Rd",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "along": [
+     "Third Ave"
+    ],
+    "from": {
+     "x": [
+      "Third Ave",
+      "E Tremont Ave"
+     ]
+    },
+    "to": [
+     -73.8904,
+     40.86
+    ]
+   },
+   "events": [
+    {
+     "d": "1901-07-01",
+     "s": "open",
+     "t": "The el was extended to Fordham Road.",
+     "src": [
+      "s18",
+      "s19"
+     ]
+    },
+    {
+     "d": "1973-04-29",
+     "s": "closed",
+     "t": "Service ended.",
+     "src": [
+      "s18",
+      "s19"
+     ]
+    },
+    {
+     "d": "1977",
+     "s": "closed",
+     "t": "The structure was demolished.",
+     "src": [
+      "s18"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "A Bronx Park terminal branch opened 1902-05-21 (not drawn)."
+  },
+  {
+   "id": "third-ave-el-fordham-rd-to-gun-hill-rd",
+   "name": "Third Ave El: Fordham Rd to Gun Hill Rd",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "along": [
+     "Webster Ave"
+    ],
+    "from": {
+     "x": [
+      "Webster Ave",
+      "Fordham Rd"
+     ]
+    },
+    "to": {
+     "x": [
+      "Webster Ave",
+      "Gun Hill Rd"
+     ]
+    }
+   },
+   "events": [
+    {
+     "d": "1920-10-04",
+     "s": "open",
+     "t": "The el was extended along Webster Avenue to Gun Hill Road, where it met the White Plains Road line.",
+     "src": [
+      "s18",
+      "s19"
+     ]
+    },
+    {
+     "d": "1973-04-29",
+     "s": "closed",
+     "t": "Service ended.",
+     "src": [
+      "s18"
+     ]
+    },
+    {
+     "d": "1977",
+     "s": "closed",
+     "t": "The structure was demolished.",
+     "src": [
+      "s18"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Webster Ave routing from the Fordham Road station article."
+  },
+  {
+   "id": "second-ave-el-chatham-sq-to-57-st",
+   "name": "Second Ave El: Chatham Sq to 57 St",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "parts": [
+     {
+      "path": [
+       [
+        -73.998,
+        40.7137
+       ],
+       [
+        -73.9929,
+        40.7144
+       ]
+      ]
+     },
+     {
+      "along": [
+       "Allen St"
+      ],
+      "from": [
+       -73.9929,
+       40.7144
+      ],
+      "to": {
+       "x": [
+        "Allen St",
+        "Houston St"
+       ]
+      }
+     },
+     {
+      "along": [
+       "1st Ave"
+      ],
+      "from": {
+       "x": [
+        "1st Ave",
+        "Houston St"
+       ]
+      },
+      "to": {
+       "x": [
+        "1st Ave",
+        "23rd St"
+       ]
+      }
+     },
+     {
+      "along": [
+       "23rd St"
+      ],
+      "from": {
+       "x": [
+        "1st Ave",
+        "23rd St"
+       ]
+      },
+      "to": {
+       "x": [
+        "23rd St",
+        "2nd Ave"
+       ]
+      }
+     },
+     {
+      "along": [
+       "2nd Ave"
+      ],
+      "from": {
+       "x": [
+        "23rd St",
+        "2nd Ave"
+       ]
+      },
+      "to": {
+       "x": [
+        "2nd Ave",
+        "57th St"
+       ]
+      }
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1880-03-01",
+     "s": "open",
+     "t": "The Second Avenue el opened to the public, from Chatham Square up Allen Street, First Avenue and Second Avenue.",
+     "src": [
+      "s20",
+      "s21"
+     ]
+    },
+    {
+     "d": "1917-07-23",
+     "s": "open",
+     "t": "Second Avenue trains began crossing the Queensboro Bridge to Queens.",
+     "src": [
+      "s20"
+     ]
+    },
+    {
+     "d": "1942-06-13",
+     "s": "closed",
+     "t": "The rest of the line, including the Queensboro Bridge service, closed during the war.",
+     "src": [
+      "s20"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Below Chatham Sq the Second Ave trains shared the 1878 South Ferry spur (not drawn). Division St between Chatham Sq and Allen St is hand-placed. Source gives no demolition year (a photo shows demolition under way in September 1942)."
+  },
+  {
+   "id": "second-ave-el-57-st-to-129-st",
+   "name": "Second Ave El: 57 St to 129 St",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IRT",
+   "geom": {
+    "parts": [
+     {
+      "along": [
+       "2nd Ave"
+      ],
+      "from": {
+       "x": [
+        "2nd Ave",
+        "57th St"
+       ]
+      },
+      "to": [
+       -73.9471,
+       40.7843
+      ]
+     },
+     {
+      "path": [
+       [
+        -73.9471,
+        40.7843
+       ],
+       [
+        -73.9335,
+        40.8031
+       ]
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1880-03-01",
+     "s": "open",
+     "t": "The el opened up Second Avenue to Harlem, where it joined the Third Avenue el at 129th Street.",
+     "src": [
+      "s20",
+      "s22"
+     ]
+    },
+    {
+     "d": "1940-06-11",
+     "s": "closed",
+     "t": "Service north of 57th Street ended after unification.",
+     "src": [
+      "s20"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Opening: 111th St station opened 1880-03-01 (its article), so the northern stretch is dated with the rest; the shared 129th St station dates from 1878-12-30. Close conflict inside the Second Ave article: lead says north of 57th St on 1940-06-11, body says north of 59th St on 1940-06-12. Our 2nd Ave street ends near 97th St, so the rest is a straight hand-placed line."
+  },
+  {
+   "id": "broadway-line-canal-st-to-14-st-union-sq",
+   "name": "Broadway Line: Canal St to 14 St-Union Sq",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "R",
+    "from": "Canal St|R",
+    "to": "14 St-Union Sq"
+   },
+   "events": [
+    {
+     "d": "1917-09-04",
+     "s": "open",
+     "t": "The BRT opened its first stretch of the Broadway subway, between Canal Street and Union Square, fed from Brooklyn over the Manhattan Bridge.",
+     "src": [
+      "s23"
+     ]
+    }
+   ],
+   "now": "R today",
+   "_notes": "Wikipedia gives a 2 p.m. ceremonial start and public service from 8 p.m. the same day."
+  },
+  {
+   "id": "broadway-line-rector-st-to-canal-st-and-14-st-to",
+   "name": "Broadway Line: Rector St to Canal St and 14 St to Times Sq",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "parts": [
+     {
+      "route": "R",
+      "from": "Rector St",
+      "to": "Canal St|R"
+     },
+     {
+      "route": "R",
+      "from": "14 St-Union Sq",
+      "to": "Times Sq-42 St"
+     },
+     {
+      "route": "R",
+      "from": "Whitehall St-South Ferry",
+      "to": "Rector St"
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1918-01-05",
+     "s": "open",
+     "t": "The Broadway subway grew at both ends, south to Rector Street and north to Times Square.",
+     "src": [
+      "s23"
+     ]
+    },
+    {
+     "d": "1918-09-20",
+     "s": "open",
+     "t": "A one-stop extension took the line south to Whitehall Street near South Ferry.",
+     "src": [
+      "s23"
+     ]
+    }
+   ],
+   "now": "R today",
+   "approx": true,
+   "_notes": "Two 1918 stages in one segment: Rector St-Canal St and 14 St-Times Sq on January 5, Whitehall St-Rector St on September 20. Split the Whitehall part out if the map needs month precision."
+  },
+  {
+   "id": "broadway-line-times-sq-to-lexington-av-59-st",
+   "name": "Broadway Line: Times Sq to Lexington Av/59 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "parts": [
+     {
+      "route": "N",
+      "from": "Times Sq-42 St",
+      "to": "57 St-7 Av"
+     },
+     {
+      "route": "N",
+      "from": "57 St-7 Av",
+      "to": "Lexington Av/59 St"
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1919-07-10",
+     "s": "open",
+     "t": "The line reached 57th Street and Seventh Avenue, two stops north of Times Square.",
+     "src": [
+      "s23"
+     ]
+    },
+    {
+     "d": "1919-09-01",
+     "s": "open",
+     "t": "It turned east under 60th Street to Lexington Avenue.",
+     "src": [
+      "s23"
+     ]
+    }
+   ],
+   "now": "N today",
+   "approx": true,
+   "_notes": "Two 1919 stages: Times Sq-57 St on July 10, 57 St-Lexington Av/59 St on September 1."
+  },
+  {
+   "id": "60th-street-tunnel-lexington-av-59-st-to-queensb",
+   "name": "60th Street Tunnel: Lexington Av/59 St to Queensboro Plaza",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "N",
+    "from": "Lexington Av/59 St",
+    "to": "Queensboro Plaza"
+   },
+   "events": [
+    {
+     "d": "1920-08-01",
+     "s": "open",
+     "t": "A new tunnel under the East River carried Broadway trains to Queensboro Plaza and on to Queens.",
+     "src": [
+      "s23"
+     ]
+    }
+   ],
+   "now": "N today",
+   "_notes": "Opened the same day as the Montague Street Tunnel."
+  },
+  {
+   "id": "astoria-line-queensboro-plaza-to-astoria-ditmars",
+   "name": "Astoria Line: Queensboro Plaza to Astoria-Ditmars Blvd",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "N",
+    "from": "Queensboro Plaza",
+    "to": "Astoria-Ditmars Blvd"
+   },
+   "events": [
+    {
+     "d": "1917-02-01",
+     "s": "open",
+     "t": "The elevated line to Astoria opened, first worked by IRT trains from Grand Central.",
+     "src": [
+      "s24"
+     ]
+    },
+    {
+     "d": "1923-04-08",
+     "s": "open",
+     "t": "The BMT began running its own shuttle trains on the line, sharing it with the IRT.",
+     "src": [
+      "s24"
+     ]
+    },
+    {
+     "d": "1949-10-17",
+     "s": "open",
+     "t": "Shared running ended; after platforms were trimmed for wider cars, the Astoria line became BMT-only while the Flushing line went to the IRT.",
+     "src": [
+      "s24"
+     ]
+    }
+   ],
+   "now": "N today",
+   "_notes": "Built under the Dual Contracts for joint IRT/BMT use. Wikipedia: IRT through service to Times Square ended July 24, 1949; the Flushing line became IRT-only October 17, 1949. No separate date found for the platform shaving itself. The 1949 event uses s=open only to mark the change; drop it if the map has no \"change\" stage."
+  },
+  {
+   "id": "montague-street-tunnel-whitehall-st-to-dekalb-av",
+   "name": "Montague Street Tunnel: Whitehall St to DeKalb Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "R",
+    "from": "Whitehall St-South Ferry",
+    "to": "DeKalb Av|R"
+   },
+   "events": [
+    {
+     "d": "1920-08-01",
+     "s": "open",
+     "t": "A second East River tunnel, from Whitehall Street to Court Street, linked the Broadway subway to the Fourth Avenue line at DeKalb Avenue.",
+     "src": [
+      "s23",
+      "s25"
+     ]
+    }
+   ],
+   "now": "R today",
+   "_notes": "Lawrence Street station (now part of Jay St-MetroTech) opened later, on June 11, 1924 (Fourth Avenue Line article)."
+  },
+  {
+   "id": "manhattan-bridge-south-tracks-canal-st-to-dekalb",
+   "name": "Manhattan Bridge south tracks: Canal St to DeKalb Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "Q",
+    "from": "Canal St|Q",
+    "to": "DeKalb Av|Q"
+   },
+   "events": [
+    {
+     "d": "1915-06-22",
+     "s": "open",
+     "t": "Trains from the new Fourth Avenue subway began crossing the Manhattan Bridge into Manhattan, running to Chambers Street over the Centre Street loop.",
+     "src": [
+      "s25",
+      "s26"
+     ]
+    },
+    {
+     "d": "1967-11-26",
+     "s": "open",
+     "t": "The Chrystie Street rebuild handed the bridge's north tracks to the Sixth Avenue subway and joined the Broadway Line to these south tracks; the run to Chambers Street ended.",
+     "src": [
+      "s26",
+      "s27"
+     ]
+    }
+   ],
+   "now": "Q today",
+   "_notes": "Geometry follows today's Q, so the short link from the bridge to the Broadway Line's Canal St station dates only from 1967; in 1915-1967 the south tracks ran to Chambers St instead, and Broadway trains (from 1917) used the north tracks. Date conflict: Chrystie Street Connection article says November 26, 1967; Nassau Street Line article says November 27, 1967."
+  },
+  {
+   "id": "fourth-avenue-line-dekalb-av-to-59-st",
+   "name": "Fourth Avenue Line: DeKalb Av to 59 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "R",
+    "from": "DeKalb Av|R",
+    "to": "59 St|R"
+   },
+   "events": [
+    {
+     "d": "1915-06-22",
+     "s": "open",
+     "t": "The Fourth Avenue subway opened from the Manhattan Bridge down to 59th Street, where trains carried on along the rebuilt Sea Beach line.",
+     "src": [
+      "s25"
+     ]
+    }
+   ],
+   "now": "R today",
+   "_notes": "Wikipedia: test train June 15, 1915; public service June 22, 1915. DeKalb Av station listed as opened June 22, 1915."
+  },
+  {
+   "id": "fourth-avenue-line-59-st-to-86-st",
+   "name": "Fourth Avenue Line: 59 St to 86 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "R",
+    "from": "59 St|R",
+    "to": [
+     -74.0284,
+     40.62269
+    ]
+   },
+   "events": [
+    {
+     "d": "1916-01-15",
+     "s": "open",
+     "t": "The line was extended south through Bay Ridge to 86th Street.",
+     "src": [
+      "s25"
+     ]
+    }
+   ],
+   "now": "R today",
+   "_notes": "The 86 St end is given as coordinates (station 86 St [R]) because \"86 St|R\" also matches 86 St [N Q R] on Second Avenue."
+  },
+  {
+   "id": "fourth-avenue-line-86-st-to-bay-ridge-95-st",
+   "name": "Fourth Avenue Line: 86 St to Bay Ridge-95 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "R",
+    "from": [
+     -74.0284,
+     40.62269
+    ],
+    "to": "Bay Ridge-95 St"
+   },
+   "events": [
+    {
+     "d": "1925-10-31",
+     "s": "open",
+     "t": "A final one-stop extension reached 95th Street in Bay Ridge.",
+     "src": [
+      "s25"
+     ]
+    }
+   ],
+   "now": "R today",
+   "_notes": "The 86 St end is given as coordinates (station 86 St [R]); see previous segment."
+  },
+  {
+   "id": "sea-beach-line-59-st-to-coney-island",
+   "name": "Sea Beach Line: 59 St to Coney Island",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "N",
+    "from": "59 St|N",
+    "to": "Coney Island-Stillwell Av"
+   },
+   "events": [
+    {
+     "d": "1915-06-22",
+     "s": "open",
+     "t": "Rebuilt in an open cut on the route of an 1879 steam railroad to Coney Island, the line reopened as rapid transit, through the Fourth Avenue subway.",
+     "src": [
+      "s28"
+     ]
+    }
+   ],
+   "now": "N today",
+   "_notes": "The 1879 event is the original surface railroad on roughly this route, not rapid transit; drop it if the map starts lines at rapid transit. The Sea Beach article's station table dates the Stillwell Av terminal to December 13, 1918 (not used as an event)."
+  },
+  {
+   "id": "west-end-line-36-st-to-25-av",
+   "name": "West End Line: 36 St to 25 Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "BMT",
+   "geom": {
+    "route": "D",
+    "from": "36 St|D",
+    "to": "25 Av"
+   },
+   "events": [
+    {
+     "d": "1916-06-24",
+     "s": "open",
+     "t": "The rebuilt West End elevated opened from the Fourth Avenue subway at 36th Street to 18th Avenue.",
+     "src": [
+      "s29"
+     ]
+    },
+    {
+     "d": "1916-07-29",
+     "s": "open",
+     "t": "The new elevated was extended to 25th Avenue.",
+     "src": [
+      "s29"
+     ]
+    }
+   ],
+   "now": "D today",
+   "_notes": "Stages in 1916: June 24 (36 St-62 St two tracks, on to 18 Av single track), July 8 (second track to 18 Av), July 29 (to 25 Av). The 19th-century surface railroad (Brooklyn, Bath and Coney Island, reached Coney Island in 1864) is left out: the article gives no endpoints or day."
+  },
+  {
+   "id": "west-end-line-25-av-to-coney-island",
+   "name": "West End Line: 25 Av to Coney Island",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "BMT",
+   "geom": {
+    "route": "D",
+    "from": "25 Av",
+    "to": "Coney Island-Stillwell Av"
+   },
+   "events": [
+    {
+     "d": "1917-07-21",
+     "s": "open",
+     "t": "The West End elevated was completed to Coney Island.",
+     "src": [
+      "s29"
+     ]
+    }
+   ],
+   "now": "D today"
+  },
+  {
+   "id": "brighton-line-dekalb-av-to-prospect-park",
+   "name": "Brighton Line: DeKalb Av to Prospect Park",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "Q",
+    "from": "DeKalb Av|Q",
+    "to": "Prospect Park"
+   },
+   "events": [
+    {
+     "d": "1920-08-01",
+     "s": "open",
+     "t": "A new subway under Flatbush Avenue joined the Brighton line to the Fourth Avenue and Broadway subways, giving it a direct run to Manhattan.",
+     "src": [
+      "s30"
+     ]
+    }
+   ],
+   "now": "Q today",
+   "_notes": "Wikipedia names it the St. Felix Street and Flatbush Avenue Connection. Before this, Brighton trains reached downtown Brooklyn over the Fulton Street El (connection opened August 15, 1896, per the Fulton Street Line article)."
+  },
+  {
+   "id": "brighton-line-prospect-park-to-brighton-beach",
+   "name": "Brighton Line: Prospect Park to Brighton Beach",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "BMT",
+   "geom": {
+    "route": "Q",
+    "from": "Prospect Park",
+    "to": "Brighton Beach"
+   },
+   "events": [
+    {
+     "d": "1908",
+     "s": "open",
+     "t": "The 1878 Brooklyn, Flatbush and Coney Island Railway, by then carrying elevated trains, finished its rebuild in an open cut and on an embankment, clear of street crossings.",
+     "src": [
+      "s30"
+     ]
+    }
+   ],
+   "now": "Q today",
+   "_notes": "The 1878 line was a steam excursion railroad, later run as part of the BRT system. The four-track rebuild of Prospect Park-Church Av and the el south of Neptune Av are dated only 1918-1920. The 1908 event marks a rebuild, not an opening; drop it if the map has no \"change\" stage."
+  },
+  {
+   "id": "culver-line-ditmas-av-to-avenue-x",
+   "name": "Culver Line: Ditmas Av to Avenue X",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "BMT",
+   "geom": {
+    "parts": [
+     {
+      "route": "F",
+      "from": "Ditmas Av",
+      "to": "Kings Hwy|F"
+     },
+     {
+      "route": "F",
+      "from": "Kings Hwy|F",
+      "to": "Avenue X"
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1919-03-16",
+     "s": "open",
+     "t": "The BRT opened the Culver elevated over Gravesend (now McDonald) Avenue from Ninth Avenue to Kings Highway.",
+     "src": [
+      "s31",
+      "s32"
+     ]
+    },
+    {
+     "d": "1919-05-10",
+     "s": "open",
+     "t": "The Culver el was extended to Avenue X.",
+     "src": [
+      "s31"
+     ]
+    },
+    {
+     "d": "1954-10-30",
+     "s": "open",
+     "t": "A new link joined the IND subway at Church Avenue to the Culver el at Ditmas Avenue, and IND trains took over the line.",
+     "src": [
+      "s31"
+     ]
+    }
+   ],
+   "now": "F today",
+   "approx": true,
+   "_notes": "The original Culver surface railroad opened June 25, 1875 (Greenwood Cemetery to Coney Island) per Wikipedia; not used as an event. 1954 event marks a change of operator; today the F runs here."
+  },
+  {
+   "id": "culver-line-avenue-x-to-coney-island",
+   "name": "Culver Line: Avenue X to Coney Island",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "BMT",
+   "geom": {
+    "route": "F",
+    "from": "Avenue X",
+    "to": "Coney Island-Stillwell Av"
+   },
+   "events": [
+    {
+     "d": "1920-05-01",
+     "s": "open",
+     "t": "The Culver el reached Coney Island, the last of the four BRT lines rebuilt there.",
+     "src": [
+      "s31"
+     ]
+    }
+   ],
+   "now": "F today"
+  },
+  {
+   "id": "williamsburg-bridge-marcy-av-to-delancey-st-esse",
+   "name": "Williamsburg Bridge: Marcy Av to Delancey St-Essex St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#8E5C33",
+   "op": "BMT",
+   "geom": {
+    "route": "J",
+    "from": "Marcy Av",
+    "to": "Delancey St-Essex St"
+   },
+   "events": [
+    {
+     "d": "1908-09-16",
+     "s": "open",
+     "t": "Elevated trains began crossing the Williamsburg Bridge into a subway terminal at Essex Street in Manhattan.",
+     "src": [
+      "s27",
+      "s33"
+     ]
+    }
+   ],
+   "now": "J today",
+   "_notes": "Wikipedia Jamaica Line gives only \"1908\" for the bridge connection; the Nassau Street Line article gives September 16, 1908."
+  },
+  {
+   "id": "nassau-street-line-essex-st-to-chambers-st",
+   "name": "Nassau Street Line: Essex St to Chambers St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#8E5C33",
+   "op": "BMT",
+   "geom": {
+    "route": "J",
+    "from": "Delancey St-Essex St",
+    "to": "Chambers St|J"
+   },
+   "events": [
+    {
+     "d": "1913-08-04",
+     "s": "open",
+     "t": "The Centre Street subway opened from Essex Street to Chambers Street under the Municipal Building.",
+     "src": [
+      "s27"
+     ]
+    }
+   ],
+   "now": "J today"
+  },
+  {
+   "id": "nassau-street-line-chambers-st-to-broad-st",
+   "name": "Nassau Street Line: Chambers St to Broad St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#8E5C33",
+   "op": "BMT",
+   "geom": {
+    "route": "J",
+    "from": "Chambers St|J",
+    "to": "Broad St"
+   },
+   "events": [
+    {
+     "d": "1931-05-29",
+     "s": "open",
+     "t": "The Nassau Street line was completed south to Broad Street and joined to the Montague Street Tunnel.",
+     "src": [
+      "s27"
+     ]
+    }
+   ],
+   "now": "J today",
+   "_notes": "The short link from Broad St to the Montague Street Tunnel has no route that runs it today, so it is not drawn."
+  },
+  {
+   "id": "jamaica-line-marcy-av-to-gates-av",
+   "name": "Jamaica Line: Marcy Av to Gates Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#8E5C33",
+   "op": "BMT",
+   "geom": {
+    "route": "J",
+    "from": "Marcy Av",
+    "to": "Gates Av"
+   },
+   "events": [
+    {
+     "d": "1888-06-25",
+     "s": "open",
+     "t": "The Broadway elevated opened along Broadway in Williamsburg and Bushwick, from Driggs Avenue to Gates Avenue.",
+     "src": [
+      "s33"
+     ]
+    }
+   ],
+   "now": "J today",
+   "_notes": "The 1888 line also ran west of Marcy Av to the Broadway Ferry (reached July 14, 1888); those two westernmost stations closed July 3, 1916. Not drawn."
+  },
+  {
+   "id": "jamaica-line-gates-av-to-van-siclen-av",
+   "name": "Jamaica Line: Gates Av to Van Siclen Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#8E5C33",
+   "op": "BMT",
+   "geom": {
+    "route": "J",
+    "from": "Gates Av",
+    "to": "Van Siclen Av|J"
+   },
+   "events": [
+    {
+     "d": "1885-05-13",
+     "s": "open",
+     "t": "The Brooklyn Elevated Railroad opened its first line, reaching Broadway at Gates Avenue; this stretch is now the oldest part of the J.",
+     "src": [
+      "s34",
+      "s33"
+     ]
+    },
+    {
+     "d": "1885-06-14",
+     "s": "open",
+     "t": "It was extended east to Manhattan Beach Crossing, today's Broadway Junction.",
+     "src": [
+      "s34"
+     ]
+    },
+    {
+     "d": "1885-09-05",
+     "s": "open",
+     "t": "It reached Alabama Avenue.",
+     "src": [
+      "s34"
+     ]
+    },
+    {
+     "d": "1885-12-03",
+     "s": "open",
+     "t": "It reached Van Siclen Avenue.",
+     "src": [
+      "s34"
+     ]
+    }
+   ],
+   "now": "J today",
+   "_notes": "Built as part of the Lexington Avenue El. The Jamaica Line infobox gives February 2, 1885, which its own text does not support; the Lexington Avenue Line article gives May 13, 1885 (Gates Av station table agrees)."
+  },
+  {
+   "id": "jamaica-line-van-siclen-av-to-cypress-hills",
+   "name": "Jamaica Line: Van Siclen Av to Cypress Hills",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#8E5C33",
+   "op": "BMT",
+   "geom": {
+    "route": "J",
+    "from": "Van Siclen Av|J",
+    "to": "Cypress Hills"
+   },
+   "events": [
+    {
+     "d": "1893-05-30",
+     "s": "open",
+     "t": "The elevated was extended over Fulton and Crescent Streets to Cypress Hills.",
+     "src": [
+      "s34",
+      "s33"
+     ]
+    }
+   ],
+   "now": "J today"
+  },
+  {
+   "id": "jamaica-line-cypress-hills-to-111-st",
+   "name": "Jamaica Line: Cypress Hills to 111 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#8E5C33",
+   "op": "BMT",
+   "geom": {
+    "route": "J",
+    "from": "Cypress Hills",
+    "to": "111 St|J"
+   },
+   "events": [
+    {
+     "d": "1917-05-28",
+     "s": "open",
+     "t": "The Dual Contracts extension along Jamaica Avenue opened as far as 111th Street.",
+     "src": [
+      "s33"
+     ]
+    }
+   ],
+   "now": "J today",
+   "_notes": "Date from the Jamaica Line station table (75 St-Elderts Ln to 111 St all May 28, 1917); the text does not describe this stage, so the staging is inferred from the table."
+  },
+  {
+   "id": "jamaica-line-111-st-to-121-st",
+   "name": "Jamaica Line: 111 St to 121 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#8E5C33",
+   "op": "BMT",
+   "geom": {
+    "route": "J",
+    "from": "111 St|J",
+    "to": "121 St"
+   },
+   "events": [
+    {
+     "d": "1918-07-03",
+     "s": "open",
+     "t": "The Jamaica Avenue extension was completed into Jamaica, to 168th Street.",
+     "src": [
+      "s33"
+     ]
+    }
+   ],
+   "now": "J today"
+  },
+  {
+   "id": "archer-avenue-121-st-to-jamaica-center",
+   "name": "Archer Avenue: 121 St to Jamaica Center",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#8E5C33",
+   "op": "BMT",
+   "geom": {
+    "route": "J",
+    "from": "121 St",
+    "to": "Jamaica Center-Parsons/Archer"
+   },
+   "events": [
+    {
+     "d": "1988-12-11",
+     "s": "open",
+     "t": "A new subway under Archer Avenue took J trains off the old Jamaica Avenue el into downtown Jamaica.",
+     "src": [
+      "s35"
+     ]
+    }
+   ],
+   "now": "J today",
+   "_notes": "Archer Avenue lines article gives December 11, 1988 for the whole line; the Jamaica Line article says only 1988."
+  },
+  {
+   "id": "canarsie-line-6-av-to-montrose-av",
+   "name": "Canarsie Line: 6 Av to Montrose Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#7C858C",
+   "op": "BMT",
+   "geom": {
+    "route": "L",
+    "from": "6 Av",
+    "to": "Montrose Av"
+   },
+   "events": [
+    {
+     "d": "1924-06-30",
+     "s": "open",
+     "t": "The 14th Street-Eastern District subway opened from Sixth Avenue in Manhattan under the East River to Montrose Avenue in Brooklyn.",
+     "src": [
+      "s36"
+     ]
+    }
+   ],
+   "now": "L today"
+  },
+  {
+   "id": "canarsie-line-montrose-av-to-broadway-junction",
+   "name": "Canarsie Line: Montrose Av to Broadway Junction",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#7C858C",
+   "op": "BMT",
+   "geom": {
+    "route": "L",
+    "from": "Montrose Av",
+    "to": "Broadway Junction"
+   },
+   "events": [
+    {
+     "d": "1928-07-14",
+     "s": "open",
+     "t": "The subway was extended under Wyckoff Avenue to Broadway Junction and joined to the Canarsie el.",
+     "src": [
+      "s36"
+     ]
+    }
+   ],
+   "now": "L today"
+  },
+  {
+   "id": "canarsie-line-8-av-to-6-av",
+   "name": "Canarsie Line: 8 Av to 6 Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#7C858C",
+   "op": "BMT",
+   "geom": {
+    "route": "L",
+    "from": "8 Av|L",
+    "to": "6 Av"
+   },
+   "events": [
+    {
+     "d": "1931-05-30",
+     "s": "open",
+     "t": "A two-block extension took the line west to Eighth Avenue.",
+     "src": [
+      "s36"
+     ]
+    }
+   ],
+   "now": "L today"
+  },
+  {
+   "id": "canarsie-line-broadway-junction-to-canarsie",
+   "name": "Canarsie Line: Broadway Junction to Canarsie",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#7C858C",
+   "op": "BMT",
+   "geom": {
+    "route": "L",
+    "from": "Broadway Junction",
+    "to": "Canarsie-Rockaway Pkwy"
+   },
+   "events": [
+    {
+     "d": "1906-07-28",
+     "s": "open",
+     "t": "Elevated trains began running from Canarsie to the Broadway Ferry over the old Canarsie railroad.",
+     "src": [
+      "s36"
+     ]
+    },
+    {
+     "d": "1928-07-14",
+     "s": "open",
+     "t": "The line was joined to the new 14th Street subway, giving through service to Manhattan.",
+     "src": [
+      "s36"
+     ]
+    }
+   ],
+   "now": "L today",
+   "_notes": "The original Canarsie steam railroad opened October 21, 1865 (East New York to Canarsie Landing). The 1928 event marks the through-running link."
+  },
+  {
+   "id": "myrtle-avenue-line-broadway-to-wyckoff-av",
+   "name": "Myrtle Avenue Line: Broadway to Wyckoff Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "BMT",
+   "geom": {
+    "route": "M",
+    "from": "Myrtle Av",
+    "to": "Myrtle-Wyckoff Avs"
+   },
+   "events": [
+    {
+     "d": "1889-07-20",
+     "s": "open",
+     "t": "The Myrtle Avenue el was extended east from Broadway to Wyckoff Avenue at the Queens border.",
+     "src": [
+      "s37"
+     ]
+    }
+   ],
+   "now": "M today",
+   "_notes": "Knickerbocker Av station opened later, August 15, 1889."
+  },
+  {
+   "id": "myrtle-avenue-line-wyckoff-av-to-middle-village",
+   "name": "Myrtle Avenue Line: Wyckoff Av to Middle Village",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "BMT",
+   "geom": {
+    "route": "M",
+    "from": "Myrtle-Wyckoff Avs",
+    "to": "Middle Village-Metropolitan Av"
+   },
+   "events": [
+    {
+     "d": "1906-10-01",
+     "s": "open",
+     "t": "A ramp joined the el to the Lutheran Cemetery line, and trains ran on at street level to Metropolitan Avenue.",
+     "src": [
+      "s37"
+     ]
+    },
+    {
+     "d": "1915-02-22",
+     "s": "open",
+     "t": "This stretch was rebuilt as an elevated under the Dual Contracts.",
+     "src": [
+      "s37"
+     ]
+    }
+   ],
+   "now": "M today",
+   "_notes": "1906 service was on the surface; the el dates from 1915."
+  },
+  {
+   "id": "fulton-street-el-80-st-to-ozone-park-lefferts-bl",
+   "name": "Fulton Street El: 80 St to Ozone Park-Lefferts Blvd",
+   "group": "built",
+   "mode": "el",
+   "colour": "#0062CF",
+   "op": "BMT",
+   "geom": {
+    "route": "A",
+    "from": "80 St",
+    "to": "Ozone Park-Lefferts Blvd"
+   },
+   "events": [
+    {
+     "d": "1915-09-25",
+     "s": "open",
+     "t": "The Fulton Street El was extended along Liberty Avenue from Grant Avenue to Lefferts Avenue.",
+     "src": [
+      "s38"
+     ]
+    },
+    {
+     "d": "1956-04-29",
+     "s": "open",
+     "t": "Trains from the IND Fulton Street subway took over this stretch of the old el.",
+     "src": [
+      "s38"
+     ]
+    }
+   ],
+   "now": "A today",
+   "_notes": "The 1956 event marks the change to IND (today A) service; Wikipedia does not frame it as a formal handover date beyond trains starting April 29, 1956."
+  },
+  {
+   "id": "fulton-street-el-sands-st-to-rockaway-av",
+   "name": "Fulton Street El: Sands St to Rockaway Av",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "BMT",
+   "geom": {
+    "parts": [
+     {
+      "path": [
+       [
+        -73.98834,
+        40.69994
+       ],
+       "Borough Hall",
+       "Hoyt St",
+       {
+        "x": [
+         "Fulton St",
+         "Flatbush Ave"
+        ]
+       }
+      ]
+     },
+     {
+      "along": [
+       "Fulton St"
+      ],
+      "from": {
+       "x": [
+        "Fulton St",
+        "Flatbush Ave"
+       ]
+      },
+      "to": [
+       -73.9108,
+       40.67829
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1888-04-24",
+     "s": "open",
+     "t": "The Kings County Elevated opened over Fulton Street from Fulton Ferry and the Brooklyn Bridge to Nostrand Avenue.",
+     "src": [
+      "s38"
+     ]
+    },
+    {
+     "d": "1888-09-20",
+     "s": "open",
+     "t": "The el was extended east to Ralph Avenue.",
+     "src": [
+      "s38"
+     ]
+    },
+    {
+     "d": "1889-07-04",
+     "s": "open",
+     "t": "It was extended on over Fulton Street toward East New York.",
+     "src": [
+      "s38"
+     ]
+    },
+    {
+     "d": "1940-05-31",
+     "s": "closed",
+     "t": "The el west of Rockaway Avenue made its last runs as the city took over the BMT; the new IND subway below Fulton Street replaced it.",
+     "src": [
+      "s38"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "GEOMETRY APPROXIMATE. No usable Brooklyn street for the downtown stretch, so it is a path: downtown part is a path from Sands St station (Wikipedia coords) via Borough Hall (IRT station, stand-in for Fulton/Court) and Hoyt St (IRT station under Fulton St) to Fulton St x Flatbush Ave; then along Fulton St to Fulton St x Rockaway Ave (point from the repo's OSM street file). The short Fulton Ferry branch is not drawn. Stations closed June 1, 1940."
+  },
+  {
+   "id": "fulton-street-el-rockaway-av-to-80-st",
+   "name": "Fulton Street El: Rockaway Av to 80 St",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "BMT",
+   "geom": {
+    "path": [
+     [
+      -73.9108,
+      40.67829
+     ],
+     "Broadway Junction",
+     "Euclid Av",
+     "Grant Av",
+     "80 St"
+    ]
+   },
+   "events": [
+    {
+     "d": "1889-07-04",
+     "s": "open",
+     "t": "The el reached East New York, meeting the Long Island Rail Road at Atlantic Avenue.",
+     "src": [
+      "s38"
+     ]
+    },
+    {
+     "d": "1889-11-18",
+     "s": "open",
+     "t": "It was extended over Snediker and Pitkin Avenues to Van Siclen Avenue.",
+     "src": [
+      "s38"
+     ]
+    },
+    {
+     "d": "1894-07-16",
+     "s": "open",
+     "t": "It was completed to Grant Avenue at the city line.",
+     "src": [
+      "s38"
+     ]
+    },
+    {
+     "d": "1956-04-26",
+     "s": "closed",
+     "t": "The remaining el west of 80th Street closed, and the IND subway took over the line east of it.",
+     "src": [
+      "s38"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "GEOMETRY APPROXIMATE: straight path through present station points (Broadway Junction, Euclid Av, Grant Av, 80 St), roughly following Fulton St, Pitkin Av, Euclid Av and Liberty Av; Pitkin, Euclid and Brooklyn Liberty Av are not in the streets file. Intermediate 1892 stages (Linwood St Feb 22, Montauk Av Mar 21) omitted. Wikipedia does not clearly say the 1956 closure began exactly at Rockaway Av."
+  },
+  {
+   "id": "fifth-avenue-el",
+   "name": "Fifth Avenue El",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "BMT",
+   "geom": {
+    "path": [
+     {
+      "x": [
+       "Myrtle Ave",
+       "Flatbush Ave Extension"
+      ]
+     },
+     "Atlantic Av-Barclays Ctr",
+     [
+      -73.97632,
+      40.68252
+     ],
+     [
+      -73.98133,
+      40.67515
+     ],
+     [
+      -73.98982,
+      40.66497
+     ],
+     [
+      -74.0033,
+      40.6519
+     ],
+     [
+      -74.0065,
+      40.65522
+     ],
+     [
+      -74.02105,
+      40.63831
+     ]
+    ]
+   },
+   "events": [
+    {
+     "d": "1888-11-05",
+     "s": "open",
+     "t": "Trains began running from Fulton Ferry to the Flatbush Avenue railroad terminal over the Hudson Avenue branch.",
+     "src": [
+      "s39"
+     ]
+    },
+    {
+     "d": "1889-06-22",
+     "s": "open",
+     "t": "After a crash closed it, the line reopened extended down Fifth Avenue to Third Street.",
+     "src": [
+      "s39"
+     ]
+    },
+    {
+     "d": "1889-08-15",
+     "s": "open",
+     "t": "It reached 25th Street by Green-Wood Cemetery.",
+     "src": [
+      "s39"
+     ]
+    },
+    {
+     "d": "1890-05-29",
+     "s": "open",
+     "t": "It reached 36th Street.",
+     "src": [
+      "s39"
+     ]
+    },
+    {
+     "d": "1893-10-01",
+     "s": "open",
+     "t": "It was extended over 38th Street and Third Avenue to 65th Street in Bay Ridge.",
+     "src": [
+      "s39"
+     ]
+    },
+    {
+     "d": "1940-06-01",
+     "s": "closed",
+     "t": "Service ended as part of the city's takeover of the private subway companies; the el was torn down in 1941.",
+     "src": [
+      "s39",
+      "s31"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "GEOMETRY APPROXIMATE: path from Myrtle Ave x Flatbush Ave Extension (stand-in for the Hudson Ave branch, which ran roughly 150 m east; Hudson Ave is not in the streets file), Atlantic Av-Barclays Ctr, then Brooklyn 5th Ave points sampled from the repo's NYC DOT centreline cache (raw/scouting/marathon_centerline.json), an estimated 5th Av/38th St corner, the nearest 3rd Ave point, and 3rd Ave x 65th St. Brooklyn 5th Ave, 3rd Ave and 38th St are not in nyc_streets.txt (the file's \"5th Ave\" and \"3rd Ave\" are Manhattan). Closing date conflict: Fifth Avenue Line article says service ended at midnight June 1, 1940; Culver Line article says May 31, 1940. Same night, so dated June 1 here; use 1940-06 if you prefer. Demolition began September 15, 1941 and was done by November 1941. The 1888 Fulton Ferry stretch shared the Lexington Ave el and is not drawn separately. The northern route also used Myrtle Ave el tracks to Sands St (see Myrtle segment)."
+  },
+  {
+   "id": "lexington-avenue-el-myrtle-av-to-gates-av",
+   "name": "Lexington Avenue El: Myrtle Av to Gates Av",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "BMT",
+   "geom": {
+    "path": [
+     [
+      -73.96406,
+      40.69366
+     ],
+     [
+      -73.96255,
+      40.68709
+     ],
+     [
+      -73.9568,
+      40.687
+     ],
+     [
+      -73.95104,
+      40.68768
+     ],
+     [
+      -73.93047,
+      40.69006
+     ],
+     "Gates Av"
+    ]
+   },
+   "events": [
+    {
+     "d": "1885-05-13",
+     "s": "open",
+     "t": "The Brooklyn Elevated Railroad opened its first line, over York Street, Hudson, Park, Grand and Lexington Avenues to Broadway at Gates Avenue.",
+     "src": [
+      "s34"
+     ]
+    },
+    {
+     "d": "1950-10-13",
+     "s": "closed",
+     "t": "The last Lexington Avenue el train ran; demolition began on November 1.",
+     "src": [
+      "s34"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "GEOMETRY APPROXIMATE: drawn only from Myrtle Ave x Grand Ave (from the repo street files) down Grand Ave and along Lexington Ave, through Wikipedia coordinates of the demolished Greene Av (Grand/Lexington), Franklin Av, Nostrand Av and Reid Av stations, to Gates Av. After 1889 trains reached downtown over the Myrtle Ave el, which is drawn in the Myrtle segment. Not drawn: the original 1885 route over York St, Hudson Av and Park Av (Park Av structure closed December 8 or 9, 1889, sources differ; Fulton Ferry branch closed April 11, 1904)."
+  },
+  {
+   "id": "myrtle-avenue-el-jay-st-to-broadway",
+   "name": "Myrtle Avenue El: Jay St to Broadway",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "BMT",
+   "geom": {
+    "parts": [
+     {
+      "path": [
+       [
+        -73.98519,
+        40.69377
+       ],
+       {
+        "x": [
+         "Myrtle Ave",
+         "Flatbush Ave Extension"
+        ]
+       }
+      ]
+     },
+     {
+      "along": [
+       "Myrtle Ave"
+      ],
+      "from": {
+       "x": [
+        "Myrtle Ave",
+        "Flatbush Ave Extension"
+       ]
+      },
+      "to": "Myrtle Av"
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1888-04-10",
+     "s": "open",
+     "t": "The Union Elevated opened over Myrtle Avenue from Adams Street to Grand Avenue.",
+     "src": [
+      "s37"
+     ]
+    },
+    {
+     "d": "1889-04-27",
+     "s": "open",
+     "t": "The el was extended east along Myrtle Avenue to Broadway.",
+     "src": [
+      "s37"
+     ]
+    },
+    {
+     "d": "1969-10-04",
+     "s": "closed",
+     "t": "The Myrtle Avenue el west of Broadway closed and was soon torn down.",
+     "src": [
+      "s37"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "GEOMETRY APPROXIMATE: a short path from Bridge-Jay Streets station (Wikipedia coords) to Myrtle Ave x Flatbush Ave Extension (the streets file's Myrtle Ave starts there), then along Myrtle Ave to Myrtle Av station. The two events split at Grand Ave (1888 west of it, 1889 east of it) but are one segment here. The stretch west of Bridge-Jay to Sands St and the Brooklyn Bridge closed March 5, 1944 (not drawn). Myrtle Av article infobox gives December 19, 1889, which contradicts its own history text (April 10, 1888)."
+  },
+  {
+   "id": "culver-shuttle-9-av-to-ditmas-av",
+   "name": "Culver Shuttle: 9 Av to Ditmas Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#6B5B53",
+   "op": "BMT",
+   "geom": {
+    "path": [
+     "9 Av",
+     [
+      -73.98905,
+      40.64412
+     ],
+     [
+      -73.98447,
+      40.64125
+     ],
+     "Ditmas Av"
+    ]
+   },
+   "events": [
+    {
+     "d": "1919-03-16",
+     "s": "open",
+     "t": "The new Culver elevated opened from Ninth Avenue, running east beside 37th Street toward Gravesend Avenue.",
+     "src": [
+      "s31",
+      "s32"
+     ]
+    },
+    {
+     "d": "1975-05",
+     "s": "closed",
+     "t": "The Culver Shuttle, the last remnant of the el between Ninth Avenue and Ditmas Avenue, made its final runs; the trestle was later torn down.",
+     "src": [
+      "s40",
+      "s32",
+      "s31"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Path through Wikipedia coordinates of the demolished Fort Hamilton Pkwy (37th St) and 13th Av stations. Closing date conflict: nycsubway.org says service ended at 12:01 a.m. May 11, 1975; Culver Shuttle article says it last ran May 10, 1975; station articles say closed May 11; Culver Line article says May 13, 1975. Month only given. Demolished in the mid-1980s per Wikipedia (no exact date). nycsubway.org dates the 9 Av lower level, Ft Hamilton Pkwy and 13 Av stations to 11/11/1919 in its table while Wikipedia station articles say March 16, 1919."
+  },
+  {
+   "id": "jamaica-avenue-el-121-st-to-sutphin-blvd",
+   "name": "Jamaica Avenue El: 121 St to Sutphin Blvd",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "BMT",
+   "geom": {
+    "along": [
+     "Jamaica Ave"
+    ],
+    "from": "121 St",
+    "to": {
+     "x": [
+      "Jamaica Ave",
+      "Sutphin Blvd"
+     ]
+    }
+   },
+   "events": [
+    {
+     "d": "1918-07-03",
+     "s": "open",
+     "t": "The Jamaica Avenue el opened through to downtown Jamaica.",
+     "src": [
+      "s33"
+     ]
+    },
+    {
+     "d": "1985-04-15",
+     "s": "closed",
+     "t": "The el east of 121st Street was cut back, closing the Queens Boulevard and Metropolitan Avenue stations.",
+     "src": [
+      "s35",
+      "s33"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Demolished by 1990 per the Jamaica Line article."
+  },
+  {
+   "id": "jamaica-avenue-el-sutphin-blvd-to-168-st",
+   "name": "Jamaica Avenue El: Sutphin Blvd to 168 St",
+   "group": "built",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "BMT",
+   "geom": {
+    "along": [
+     "Jamaica Ave"
+    ],
+    "from": {
+     "x": [
+      "Jamaica Ave",
+      "Sutphin Blvd"
+     ]
+    },
+    "to": [
+     -73.79249,
+     40.70639
+    ]
+   },
+   "events": [
+    {
+     "d": "1918-07-03",
+     "s": "open",
+     "t": "The Jamaica Avenue el opened to its terminal at 168th Street.",
+     "src": [
+      "s33"
+     ]
+    },
+    {
+     "d": "1977-09-10",
+     "s": "closed",
+     "t": "The easternmost stretch, with the 168th Street, 160th Street and Sutphin Boulevard stations, closed.",
+     "src": [
+      "s33"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "End point is Jamaica Ave x 168th St from the repo's OSM street file. Demolished by 1990 per the Jamaica Line article."
+  },
+  {
+   "id": "8-av-line-chambers-st-to-207-st",
+   "name": "8 Av Line: Chambers St to 207 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "A",
+    "from": "Chambers St|A",
+    "to": "Inwood-207 St"
+   },
+   "events": [
+    {
+     "d": "1925-03-14",
+     "s": "building",
+     "t": "Work on the city's own subway began with a ceremony at St. Nicholas Avenue and 123rd Street.",
+     "src": [
+      "s41"
+     ]
+    },
+    {
+     "d": "1932-09-10",
+     "s": "open",
+     "t": "The first IND line opened just after midnight, running under Eighth Avenue and Central Park West from Chambers Street to 207th Street.",
+     "src": [
+      "s41",
+      "s17"
+     ]
+    }
+   ],
+   "now": "A today",
+   "_notes": "Chambers St is the station listed in the stations file with A/C. The 1925 groundbreaking was for the IND as a whole, sited on this line."
+  },
+  {
+   "id": "8-av-line-world-trade-center-branch",
+   "name": "8 Av Line: World Trade Center branch",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "E",
+    "from": "World Trade Center",
+    "to": "Canal St|A"
+   },
+   "events": [
+    {
+     "d": "1932-09-10",
+     "s": "open",
+     "t": "The short branch to the station now called World Trade Center opened with the rest of the Eighth Avenue line.",
+     "src": [
+      "s41"
+     ]
+    }
+   ],
+   "now": "E today",
+   "_notes": "The station opened under another name (it served the Hudson Terminal area); Wikipedia's station table gives 1932-09-10. The rename history was not checked."
+  },
+  {
+   "id": "8-av-line-cranberry-st-tunnel-to-jay-st",
+   "name": "8 Av Line: Cranberry St tunnel to Jay St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "A",
+    "from": "Chambers St|A",
+    "to": "Jay St-MetroTech"
+   },
+   "events": [
+    {
+     "d": "1933-02-01",
+     "s": "open",
+     "t": "Eighth Avenue express trains were extended under Fulton Street and through a new tunnel beneath the East River to Jay Street in Brooklyn.",
+     "src": [
+      "s41"
+     ]
+    }
+   ],
+   "now": "A today",
+   "_notes": "Drawn from Chambers St so the Fulton St station is included. High St, the first stop in Brooklyn, opened later, on 1933-06-24 (Wikipedia station table)."
+  },
+  {
+   "id": "concourse-line",
+   "name": "Concourse Line",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "D",
+    "from": "145 St|D",
+    "to": "Norwood-205 St"
+   },
+   "events": [
+    {
+     "d": "1928-07",
+     "s": "building",
+     "t": "Construction of the Grand Concourse subway in the Bronx began.",
+     "src": [
+      "s42"
+     ]
+    },
+    {
+     "d": "1933-07-01",
+     "s": "open",
+     "t": "The whole Concourse line opened at once, from 145th Street in Harlem to 205th Street in the Bronx.",
+     "src": [
+      "s42"
+     ]
+    }
+   ],
+   "now": "D today",
+   "_notes": "Planned extensions east toward Baychester and Dyre avenues were never built (Wikipedia). B and D both run here today; both are orange."
+  },
+  {
+   "id": "queens-blvd-line-50-st-to-roosevelt-av-53-st-tun",
+   "name": "Queens Blvd Line: 50 St to Roosevelt Av (53 St tunnel)",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "E",
+    "from": "50 St|E",
+    "to": "Jackson Hts-Roosevelt Av"
+   },
+   "events": [
+    {
+     "d": "1933-08-19",
+     "s": "open",
+     "t": "The first stretch of the Queens line opened, from 50th Street under 53rd Street and the East River to Roosevelt Avenue in Jackson Heights.",
+     "src": [
+      "s43"
+     ]
+    }
+   ],
+   "now": "E today",
+   "_notes": "Wikipedia gives no separate date for the 53rd St tunnel, but its stations are listed as opening the same day. 'today' is E (blue) for this Manhattan/LIC stretch; the Queens Blvd line itself has no trunk colour (E blue, F/M orange, R yellow)."
+  },
+  {
+   "id": "queens-blvd-line-roosevelt-av-to-union-tpke",
+   "name": "Queens Blvd Line: Roosevelt Av to Union Tpke",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "Jackson Hts-Roosevelt Av",
+    "to": "Kew Gardens-Union Tpke"
+   },
+   "events": [
+    {
+     "d": "1936-12-31",
+     "s": "open",
+     "t": "The Queens line was extended out Queens Boulevard to Union Turnpike.",
+     "src": [
+      "s43"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "Used F, which runs express here; local stations opened the same day per the article."
+  },
+  {
+   "id": "queens-blvd-line-union-tpke-to-169-st",
+   "name": "Queens Blvd Line: Union Tpke to 169 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "Kew Gardens-Union Tpke",
+    "to": "169 St"
+   },
+   "events": [
+    {
+     "d": "1937-04-24",
+     "s": "open",
+     "t": "Trains reached Jamaica, ending at a terminal at Hillside Avenue and 169th Street.",
+     "src": [
+      "s43"
+     ]
+    }
+   ],
+   "now": "F today"
+  },
+  {
+   "id": "queens-blvd-line-169-st-to-179-st",
+   "name": "Queens Blvd Line: 169 St to 179 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "169 St",
+    "to": "Jamaica-179 St"
+   },
+   "events": [
+    {
+     "d": "1947-03",
+     "s": "building",
+     "t": "Work began on a proper terminal at 179th Street after delays from the Depression and the war.",
+     "src": [
+      "s44"
+     ]
+    },
+    {
+     "d": "1950-12-11",
+     "s": "open",
+     "t": "The line was extended one stop along Hillside Avenue to a new terminal at 179th Street.",
+     "src": [
+      "s43",
+      "s44"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "Conflict: the Queens Blvd Line article's station table says 1950-12-10, while its body text and the station's own article (citing a Dec 1, 1950 Long Island Star-Journal notice) say 1950-12-11. Used Dec 11."
+  },
+  {
+   "id": "crosstown-line-court-sq-to-nassau-av",
+   "name": "Crosstown Line: Court Sq to Nassau Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#799534",
+   "op": "IND",
+   "geom": {
+    "route": "G",
+    "from": "Court Sq",
+    "to": "Nassau Av"
+   },
+   "events": [
+    {
+     "d": "1933-08-19",
+     "s": "open",
+     "t": "The first part of the Crosstown line opened from Long Island City to Nassau Avenue in Greenpoint, with GG trains running to Queens Plaza.",
+     "src": [
+      "s45"
+     ]
+    }
+   ],
+   "now": "G today",
+   "_notes": "G service beyond Court Sq onto the Queens Blvd line ended for good on 2010-04-19 (weekdays from 2001-12-16), per Wikipedia."
+  },
+  {
+   "id": "crosstown-line-nassau-av-to-hoyt-schermerhorn",
+   "name": "Crosstown Line: Nassau Av to Hoyt-Schermerhorn",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#799534",
+   "op": "IND",
+   "geom": {
+    "route": "G",
+    "from": "Nassau Av",
+    "to": "Hoyt-Schermerhorn Sts"
+   },
+   "events": [
+    {
+     "d": "1937-07-01",
+     "s": "open",
+     "t": "The rest of the Crosstown line opened through Williamsburg and Bedford-Stuyvesant, joining the Brooklyn line so the GG could run to Smith-9th Streets.",
+     "src": [
+      "s45"
+     ]
+    }
+   ],
+   "now": "G today",
+   "_notes": "The track link from Hoyt-Schermerhorn to Bergen St is covered by the Culver segment (1933)."
+  },
+  {
+   "id": "culver-line-jay-st-to-bergen-st",
+   "name": "Culver Line: Jay St to Bergen St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "Jay St-MetroTech",
+    "to": "Bergen St|F"
+   },
+   "events": [
+    {
+     "d": "1933-03-20",
+     "s": "open",
+     "t": "The Brooklyn line under Smith Street opened from Jay Street to Bergen Street, served at first by Eighth Avenue express trains.",
+     "src": [
+      "s46",
+      "s47"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "The Eighth Avenue Line article's wording can be read as the line reaching Smith-9th Sts on this date; the Culver Line and Smith-Ninth Streets station articles both say Bergen St (Smith-9 Sts opened 1933-10-07). Used Bergen St. Wikipedia's Culver station table also lists Jay St as 1933-02-01 (the Cranberry tunnel date), which is the station, not this segment."
+  },
+  {
+   "id": "culver-line-bergen-st-to-church-av",
+   "name": "Culver Line: Bergen St to Church Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "Bergen St|F",
+    "to": "Church Av|F"
+   },
+   "events": [
+    {
+     "d": "1933-10-07",
+     "s": "open",
+     "t": "The Brooklyn line was finished as far as a terminal at Church Avenue, by way of Smith-9th Streets and Prospect Park.",
+     "src": [
+      "s46",
+      "s47"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "Church Av was described as a temporary terminal."
+  },
+  {
+   "id": "culver-line-link-to-the-culver-el-at-ditmas-av",
+   "name": "Culver Line: link to the Culver el at Ditmas Av",
+   "group": "built",
+   "mode": "el",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "Church Av|F",
+    "to": "Ditmas Av"
+   },
+   "events": [
+    {
+     "d": "1954-10-30",
+     "s": "open",
+     "t": "A new connection let IND trains climb from Church Avenue onto the old BMT Culver elevated and run through to Coney Island.",
+     "src": [
+      "s46"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "Only the ramp/connection is IND; the elevated south of Ditmas Av to Coney Island was built by the BMT and is outside this scope. The Culver line's own route colour today is F orange."
+  },
+  {
+   "id": "houston-essex-st-line-w-4-st-to-east-broadway",
+   "name": "Houston-Essex St line: W 4 St to East Broadway",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "W 4 St-Wash Sq",
+    "to": "East Broadway"
+   },
+   "events": [
+    {
+     "d": "1929-05",
+     "s": "building",
+     "t": "Construction of the line under Houston and Essex streets officially began.",
+     "src": [
+      "s48"
+     ]
+    },
+    {
+     "d": "1936-01-01",
+     "s": "open",
+     "t": "A branch opened from West 4th Street east under Houston Street to a temporary terminal at East Broadway.",
+     "src": [
+      "s48"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "Wikipedia treats this as the first part of the Sixth Avenue Line."
+  },
+  {
+   "id": "rutgers-st-tunnel-east-broadway-to-jay-st",
+   "name": "Rutgers St tunnel: East Broadway to Jay St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "East Broadway",
+    "to": "Jay St-MetroTech"
+   },
+   "events": [
+    {
+     "d": "1936-04-09",
+     "s": "open",
+     "t": "Trains began running from East Broadway under the East River to Brooklyn, the same day the Fulton Street line opened.",
+     "src": [
+      "s48"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "Includes York St. The source gives the under-river opening date; it does not separately date York St."
+  },
+  {
+   "id": "6-av-line-w-4-st-to-47-50-sts",
+   "name": "6 Av Line: W 4 St to 47-50 Sts",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "W 4 St-Wash Sq",
+    "to": "47-50 Sts-Rockefeller Ctr"
+   },
+   "events": [
+    {
+     "d": "1936-03-23",
+     "s": "building",
+     "t": "Work on the midtown Sixth Avenue subway began with a ceremony at Bryant Park.",
+     "src": [
+      "s48"
+     ]
+    },
+    {
+     "d": "1940-12-15",
+     "s": "open",
+     "t": "The Sixth Avenue subway opened from West 4th Street to 47th-50th Streets, linking with the 53rd Street line to Queens.",
+     "src": [
+      "s48"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "The Sixth Avenue elevated it replaced had closed earlier (not checked in this task). B/D/F/M all run here; all orange."
+  },
+  {
+   "id": "fulton-st-line-jay-st-to-rockaway-av",
+   "name": "Fulton St Line: Jay St to Rockaway Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "A",
+    "from": "Jay St-MetroTech",
+    "to": "Rockaway Av|A"
+   },
+   "events": [
+    {
+     "d": "1936-04-09",
+     "s": "open",
+     "t": "The Fulton Street subway opened east across Brooklyn from Jay Street to Rockaway Avenue, with a stub to Court Street.",
+     "src": [
+      "s49"
+     ]
+    }
+   ],
+   "now": "A today",
+   "_notes": "The Court Street stub station closed 1946-06-01 (later reused as the Transit Museum; that was not checked here)."
+  },
+  {
+   "id": "fulton-st-line-rockaway-av-to-broadway-junction",
+   "name": "Fulton St Line: Rockaway Av to Broadway Junction",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "A",
+    "from": "Rockaway Av|A",
+    "to": "Broadway Junction"
+   },
+   "events": [
+    {
+     "d": "1946-12-30",
+     "s": "open",
+     "t": "The Fulton Street line was extended one more stop to Broadway-East New York.",
+     "src": [
+      "s49"
+     ]
+    }
+   ],
+   "now": "A today",
+   "_notes": "The station was called Broadway-East New York then; now Broadway Junction."
+  },
+  {
+   "id": "fulton-st-line-broadway-junction-to-euclid-av",
+   "name": "Fulton St Line: Broadway Junction to Euclid Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "A",
+    "from": "Broadway Junction",
+    "to": "Euclid Av"
+   },
+   "events": [
+    {
+     "d": "1948-11-28",
+     "s": "open",
+     "t": "The line was pushed east under Pennsylvania and Pitkin avenues to Euclid Avenue.",
+     "src": [
+      "s49"
+     ]
+    }
+   ],
+   "now": "A today"
+  },
+  {
+   "id": "fulton-st-line-euclid-av-to-lefferts-blvd",
+   "name": "Fulton St Line: Euclid Av to Lefferts Blvd",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "A",
+    "from": "Euclid Av",
+    "to": "Ozone Park-Lefferts Blvd"
+   },
+   "events": [
+    {
+     "d": "1956-04-29",
+     "s": "open",
+     "t": "Subway trains took over the old Fulton Street elevated in Queens, reached by a new tunnel to Grant Avenue, and ran to Lefferts Boulevard.",
+     "src": [
+      "s49"
+     ]
+    }
+   ],
+   "now": "A today",
+   "_notes": "Euclid Av to Grant Av is new IND tunnel; east of there is the former BMT Fulton el, cut from the BMT on 1956-04-26. The article says service began 'three days later', so 1956-04-29 is derived from its wording; the Grant Av station date in the same article is 1956-04-29."
+  },
+  {
+   "id": "rockaway-line-main-line-and-far-rockaway-branch-",
+   "name": "Rockaway Line: main line and Far Rockaway branch to Wavecrest",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "A",
+    "from": "Rockaway Blvd",
+    "to": "Beach 25 St"
+   },
+   "events": [
+    {
+     "d": "1950-05-07",
+     "s": "superseded",
+     "t": "A fire destroyed part of the Long Island Rail Road's trestle across Jamaica Bay, and the railroad gave up the line.",
+     "src": [
+      "s50"
+     ]
+    },
+    {
+     "d": "1952-06-11",
+     "s": "approved",
+     "t": "The city bought the Rockaway line from the LIRR for $8.5 million to rebuild it for subway trains.",
+     "src": [
+      "s50"
+     ]
+    },
+    {
+     "d": "1956-06-28",
+     "s": "open",
+     "t": "Subway service began across Jamaica Bay to the Rockaways, running from Euclid Avenue to Wavecrest.",
+     "src": [
+      "s50",
+      "s51",
+      "s52"
+     ]
+    }
+   ],
+   "now": "A today",
+   "_notes": "Conflict: the Wikipedia line article says 1956-06-28 in one place and 1956-06-26 in another; nycsubway.org's station table and the Beach 25th St station article both say 06-28. Used 06-28. Wavecrest is today's Beach 25 St. The drawn stretch begins at Rockaway Blvd, where the line leaves the Fulton line."
+  },
+  {
+   "id": "rockaway-line-rockaway-park-branch",
+   "name": "Rockaway Line: Rockaway Park branch",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#7C858C",
+   "op": "IND",
+   "geom": {
+    "route": "H",
+    "from": "Broad Channel",
+    "to": "Rockaway Park-Beach 116 St"
+   },
+   "events": [
+    {
+     "d": "1956-06-28",
+     "s": "open",
+     "t": "The branch to Rockaway Park opened to subway trains along with the rest of the Rockaway line.",
+     "src": [
+      "s50",
+      "s51"
+     ]
+    }
+   ],
+   "now": "S today",
+   "_notes": "Same date conflict as the main Rockaway segment (06-26 vs 06-28). Today the S/H shuttle carries the grey shuttle colour."
+  },
+  {
+   "id": "rockaway-line-beach-25-st-to-far-rockaway-mott-a",
+   "name": "Rockaway Line: Beach 25 St to Far Rockaway-Mott Av",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "A",
+    "from": "Beach 25 St",
+    "to": "Far Rockaway-Mott Av"
+   },
+   "events": [
+    {
+     "d": "1958-01-16",
+     "s": "open",
+     "t": "The Far Rockaway branch was extended to a new terminal at Mott Avenue.",
+     "src": [
+      "s50",
+      "s51",
+      "s52"
+     ]
+    }
+   ],
+   "now": "A today"
+  },
+  {
+   "id": "chrystie-st-connection-to-the-manhattan-bridge",
+   "name": "Chrystie St connection: to the Manhattan Bridge",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "B",
+    "from": "Broadway-Lafayette St",
+    "to": "DeKalb Av|B"
+   },
+   "events": [
+    {
+     "d": "1957-11-25",
+     "s": "building",
+     "t": "Work began on a link joining the Sixth Avenue line to the BMT's tracks on the Manhattan Bridge.",
+     "src": [
+      "s26"
+     ]
+    },
+    {
+     "d": "1967-11-26",
+     "s": "open",
+     "t": "The Chrystie Street link and Grand Street station opened, sending Sixth Avenue trains over the Manhattan Bridge to the Brighton and Fourth Avenue lines in Brooklyn.",
+     "src": [
+      "s26",
+      "s48"
+     ]
+    }
+   ],
+   "now": "B today",
+   "_notes": "Conflict: the Sixth Avenue Line article's Grand St table says 1967-11-27; the body text of both articles says 1967-11-26. Used 11-26. The bridge tracks themselves are BMT."
+  },
+  {
+   "id": "chrystie-st-connection-to-the-williamsburg-bridg",
+   "name": "Chrystie St connection: to the Williamsburg Bridge",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "M",
+    "from": "Broadway-Lafayette St",
+    "to": "Delancey St-Essex St"
+   },
+   "events": [
+    {
+     "d": "1968-07-01",
+     "s": "open",
+     "t": "A second link opened from the Sixth Avenue local tracks to the BMT line at Essex Street and the Williamsburg Bridge.",
+     "src": [
+      "s26"
+     ]
+    }
+   ],
+   "now": "M today",
+   "_notes": "Little used for decades; the M uses it today (the M's move onto this link was not dated in this task)."
+  },
+  {
+   "id": "6-av-line-47-50-sts-to-57-st",
+   "name": "6 Av Line: 47-50 Sts to 57 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "47-50 Sts-Rockefeller Ctr",
+    "to": "57 St"
+   },
+   "events": [
+    {
+     "d": "1968-07-01",
+     "s": "open",
+     "t": "A two-track extension opened north to a new station at 57th Street and Sixth Avenue.",
+     "src": [
+      "s48",
+      "s26"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "57 St was a stub terminal until the 63rd St line opened in 1989."
+  },
+  {
+   "id": "63rd-st-line-57-st-to-21-st-queensbridge",
+   "name": "63rd St Line: 57 St to 21 St-Queensbridge",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "57 St",
+    "to": "21 St-Queensbridge"
+   },
+   "events": [
+    {
+     "d": "1969-11-24",
+     "s": "building",
+     "t": "Work on a new tunnel under 63rd Street and the East River began at Queensbridge Park.",
+     "src": [
+      "s53"
+     ]
+    },
+    {
+     "d": "1989-10-29",
+     "s": "open",
+     "t": "The 63rd Street line opened to Queens with stations at Lexington Avenue, Roosevelt Island and 21st Street, but stopped short of any other line.",
+     "src": [
+      "s53"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "Critics called it a 'tunnel to nowhere' because it ended after one Queens stop (described here, not quoted). The BMT half of the 63rd St tunnel opened with no regular service in 1989."
+  },
+  {
+   "id": "63rd-st-connector-to-queens-blvd",
+   "name": "63rd St connector to Queens Blvd",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#EB6800",
+   "op": "IND",
+   "geom": {
+    "route": "F",
+    "from": "21 St-Queensbridge",
+    "to": "Jackson Hts-Roosevelt Av"
+   },
+   "events": [
+    {
+     "d": "1994-09-22",
+     "s": "building",
+     "t": "Work began on a short tunnel to join the 63rd Street line to the Queens Boulevard line.",
+     "src": [
+      "s53",
+      "s48"
+     ]
+    },
+    {
+     "d": "2001-12-16",
+     "s": "open",
+     "t": "The connector opened, and the 63rd Street line finally fed into the Queens Boulevard express tracks.",
+     "src": [
+      "s53",
+      "s43",
+      "s45"
+     ]
+    }
+   ],
+   "now": "F today",
+   "_notes": "Geometry caveat: F's track from 21 St-Queensbridge to Roosevelt Av includes Queens Blvd express track that opened in 1933; only the part from 21 St to the junction near 36 St is new. Split the path if the engine allows."
+  },
+  {
+   "id": "archer-av-line-upper-level",
+   "name": "Archer Av Line (upper level)",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#0062CF",
+   "op": "IND",
+   "geom": {
+    "route": "E",
+    "from": "Briarwood",
+    "to": "Jamaica Center-Parsons/Archer"
+   },
+   "events": [
+    {
+     "d": "1968-02",
+     "s": "proposed",
+     "t": "The MTA's Program for Action included an Archer Avenue subway in Jamaica.",
+     "src": [
+      "s54",
+      "s55"
+     ]
+    },
+    {
+     "d": "1972-08-15",
+     "s": "building",
+     "t": "A groundbreaking for the Archer Avenue lines was held at Archer Avenue and 151st Street.",
+     "src": [
+      "s54"
+     ]
+    },
+    {
+     "d": "1988-12-11",
+     "s": "open",
+     "t": "The Archer Avenue subway opened, branching off the Queens Boulevard line under the Van Wyck Expressway to Jamaica Center.",
+     "src": [
+      "s54",
+      "s43"
+     ]
+    }
+   ],
+   "now": "E today",
+   "_notes": "Actual digging began 1973-10-23 (Wikipedia). Program for Action date: the MTA article says the report came out the day before the 1968-03-01 rename, i.e. 1968-02-29; only the month is given here. The BMT lower level is out of scope."
+  },
+  {
+   "id": "second-avenue-subway-plans-before-construction",
+   "name": "Second Avenue Subway: plans before construction",
+   "group": "unbuilt",
+   "mode": "subway",
+   "colour": "#6B5B53",
+   "op": "IND",
+   "geom": {
+    "parts": [
+     {
+      "path": [
+       [
+        -74.009,
+        40.7046
+       ],
+       [
+        -73.998,
+        40.7138
+       ],
+       {
+        "x": [
+         "2nd Ave",
+         "Houston St"
+        ]
+       }
+      ]
+     },
+     {
+      "along": [
+       "2nd Ave"
+      ],
+      "from": {
+       "x": [
+        "2nd Ave",
+        "Houston St"
+       ]
+      },
+      "to": {
+       "x": [
+        "2nd Ave",
+        "96th St"
+       ]
+      }
+     },
+     {
+      "path": [
+       {
+        "x": [
+         "2nd Ave",
+         "96th St"
+        ]
+       },
+       [
+        -73.9405,
+        40.7935
+       ],
+       [
+        -73.934,
+        40.802
+       ],
+       [
+        -73.9375,
+        40.804
+       ]
+      ]
+     }
+    ]
+   },
+   "events": [
+    {
+     "d": "1920",
+     "s": "proposed",
+     "t": "A city transit plan first sketched a big trunk subway under Second Avenue.",
+     "src": [
+      "s56"
+     ]
+    },
+    {
+     "d": "1929-09",
+     "s": "proposed",
+     "t": "The Board of Transportation tentatively approved a Second Avenue line as part of a large IND expansion.",
+     "src": [
+      "s56",
+      "s57"
+     ]
+    },
+    {
+     "d": "1939",
+     "s": "superseded",
+     "t": "After years of Depression-era cutbacks the Second Avenue line was left as only a proposal.",
+     "src": [
+      "s56"
+     ]
+    },
+    {
+     "d": "1951",
+     "s": "approved",
+     "t": "Voters passed a transit bond issue meant for the line, but most of the money went elsewhere.",
+     "src": [
+      "s56"
+     ]
+    },
+    {
+     "d": "1968-02",
+     "s": "approved",
+     "t": "The new MTA's Program for Action made the Second Avenue subway its top priority, to be built in two phases.",
+     "src": [
+      "s56",
+      "s55"
+     ]
+    },
+    {
+     "d": "2007-04-12",
+     "s": "superseded",
+     "t": "Construction restarted in phases from the north. This map shows the phases built or being built; the stretch south of 63rd Street is still a plan.",
+     "src": [
+      "s56"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "No geometry: these are city-wide plans. The Second Ave El closed in 1940 (north half, 06-11) and 1942 (south half, 06-13), and the Third Ave El in 1955 (05-13): context only, they are BMT/IRT. Wikipedia is inconsistent on whether the Third Ave El was demolished in 1955 or 1956."
+  },
+  {
+   "id": "second-avenue-1970s-tunnel-99-st-to-105-st",
+   "name": "Second Avenue 1970s tunnel: 99 St to 105 St",
+   "group": "unbuilt",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IND",
+   "geom": {
+    "path": [
+     [
+      -73.9458,
+      40.7863
+     ],
+     [
+      -73.943,
+      40.7902
+     ]
+    ]
+   },
+   "events": [
+    {
+     "d": "1972-10-27",
+     "s": "building",
+     "t": "Governor Rockefeller and Mayor Lindsay broke ground for the Second Avenue subway at 103rd Street.",
+     "src": [
+      "s58",
+      "s56"
+     ]
+    },
+    {
+     "d": "1975-09",
+     "s": "cancelled",
+     "t": "With the city near bankruptcy, Mayor Beame halted all work and the finished tunnel was sealed.",
+     "src": [
+      "s56"
+     ]
+    },
+    {
+     "d": "2007-04-12",
+     "s": "building",
+     "t": "Phase 1 began with a ceremony inside this old tunnel, which was reused for the new line's tracks.",
+     "src": [
+      "s56"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Wikipedia gives only October 1972 for the start; the exact day 10-27 comes from Untapped Cities. Path coordinates are not from a source: they are interpolated along Second Avenue between 99th and 105th streets, approximate."
+  },
+  {
+   "id": "second-avenue-1970s-tunnel-110-st-to-120-st",
+   "name": "Second Avenue 1970s tunnel: 110 St to 120 St",
+   "group": "unbuilt",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IND",
+   "geom": {
+    "path": [
+     [
+      -73.9407,
+      40.7934
+     ],
+     [
+      -73.936,
+      40.7998
+     ]
+    ]
+   },
+   "events": [
+    {
+     "d": "1973-03",
+     "s": "building",
+     "t": "Digging started on a second stretch under Second Avenue in East Harlem.",
+     "src": [
+      "s56"
+     ]
+    },
+    {
+     "d": "1975-09",
+     "s": "cancelled",
+     "t": "Work stopped in the fiscal crisis and the finished tunnel was sealed.",
+     "src": [
+      "s56"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "To be reused by Phase 2. Path interpolated along Second Avenue, approximate."
+  },
+  {
+   "id": "second-avenue-1970s-tunnel-east-village-2-st-to-",
+   "name": "Second Avenue 1970s tunnel: East Village (2 St to 9 St)",
+   "group": "unbuilt",
+   "mode": "el",
+   "colour": "#6B5B53",
+   "op": "IND",
+   "geom": {
+    "path": [
+     [
+      -73.989,
+      40.7245
+     ],
+     [
+      -73.9867,
+      40.729
+     ]
+    ]
+   },
+   "events": [
+    {
+     "d": "1974-07",
+     "s": "building",
+     "t": "Work began on a stretch under Second Avenue between Second and Ninth streets, with Mayor Beame at the ceremony.",
+     "src": [
+      "s56",
+      "s58"
+     ]
+    },
+    {
+     "d": "1975-09",
+     "s": "cancelled",
+     "t": "The stop-work order halted this stretch before it was finished.",
+     "src": [
+      "s56"
+     ]
+    }
+   ],
+   "approx": true,
+   "_notes": "Wikipedia says work here was halted, and that only three sections were completed (the two Harlem ones and Chinatown), so this one may not be a finished tunnel. Path interpolated, approximate. Untapped Cities says only 'summer 1974'."
+  },
+  {
+   "id": "second-avenue-subway-phase-1-63-st-to-96-st",
+   "name": "Second Avenue Subway Phase 1: 63 St to 96 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "IND",
+   "geom": {
+    "route": "Q",
+    "from": "Lexington Av/63 St",
+    "to": "96 St|Q"
+   },
+   "events": [
+    {
+     "d": "2007-04-23",
+     "s": "building",
+     "t": "Construction of Phase 1 began after a ceremonial groundbreaking on April 12.",
+     "src": [
+      "s56"
+     ]
+    },
+    {
+     "d": "2017-01-01",
+     "s": "open",
+     "t": "Phase 1 opened with new stations at 72nd, 86th and 96th streets, extending the Q up Second Avenue.",
+     "src": [
+      "s56"
+     ]
+    }
+   ],
+   "now": "Q today",
+   "_notes": "Lexington Av/63 St opened in 1989; drawn from there because the Q's new track starts east of it. Service began at noon on Jan 1. The stations file lists N and R as well as Q at 72/86/96 St."
+  },
+  {
+   "id": "second-avenue-subway-phase-2-96-st-to-125-st",
+   "name": "Second Avenue Subway Phase 2: 96 St to 125 St",
+   "group": "building",
+   "mode": "subway",
+   "colour": "#F6BC26",
+   "op": "IND",
+   "geom": {
+    "build": "sas2"
+   },
+   "events": [
+    {
+     "d": "2021-11",
+     "s": "approved",
+     "t": "Federal funding for Phase 2 was approved.",
+     "src": [
+      "s56"
+     ]
+    },
+    {
+     "d": "2024-01",
+     "s": "building",
+     "t": "The MTA awarded the first construction contract, for moving utilities.",
+     "src": [
+      "s56"
+     ]
+    },
+    {
+     "d": "2025-08",
+     "s": "building",
+     "t": "The MTA board awarded a $1.97 billion contract to bore the Phase 2 tunnels.",
+     "src": [
+      "s56"
+     ]
+    },
+    {
+     "d": "2026-06-08",
+     "s": "building",
+     "t": "Officials broke ground on the main construction stage at the tunnel boring launch site at 120th Street.",
+     "src": [
+      "s59",
+      "s60"
+     ]
+    }
+   ],
+   "now": "Q today",
+   "_notes": "As of the June 8, 2026 MTA release: three new stations (106, 116, 125 St), tunnel boring machine to be lowered in early 2027 at 120 St and mine toward 125 St, revenue service targeted for 2032, budget $6.968 billion. Wikipedia's table says September 2032. No future 'open' event was added. Federal Full Funding Grant Agreement date not confirmed in sources read. Phases 3 and 4 (south to Houston St and Hanover Sq) have no funding."
+  },
+  {
+   "id": "flushing-hudson-yards",
+   "name": "Flushing line: Times Sq to Hudson Yards",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#9A38A1",
+   "op": "IRT",
+   "now": "7 today",
+   "geom": {
+    "route": "7",
+    "from": "Times Sq-42 St",
+    "to": "34 St-Hudson Yards"
+   },
+   "events": [
+    {
+     "d": "2015-09-13",
+     "s": "open",
+     "t": "The 7 was extended west and south under 41st Street and 11th Avenue to a new station at Hudson Yards, the first new subway station in 26 years.",
+     "src": [
+      "s14"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "lenox-harlem-148",
+   "name": "Lenox Ave branch: 145 St to Harlem-148 St",
+   "group": "built",
+   "mode": "subway",
+   "colour": "#D82233",
+   "op": "IRT",
+   "now": "3 today",
+   "geom": {
+    "route": "3",
+    "from": "145 St|3",
+    "to": "Harlem-148 St"
+   },
+   "events": [
+    {
+     "d": "1968-05-13",
+     "s": "open",
+     "t": "A one-stop extension of the Lenox Avenue branch opened at 148th Street, by the train yard.",
+     "src": [
+      "s5"
+     ]
+    }
+   ]
+  }
+ ]
+}

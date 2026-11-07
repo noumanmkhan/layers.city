@@ -30,9 +30,15 @@ def load(name):
 
 
 # ---- inputs --------------------------------------------------------------------------------------------------
-stations = {}                     # name -> (lon, lat), from the map's station layer
+stations = {}                     # name -> [((lon, lat), lines), ...], from the map's station layer (names repeat in some cities)
+station_list = []                 # (name, (lon, lat), lines)
 for f in load('subway_stations.geojson'):
-    stations[f['properties']['name']] = tuple(f['geometry']['coordinates'])
+    p_ = f['properties']
+    stations.setdefault(p_['name'], []).append((tuple(f['geometry']['coordinates']), p_.get('lines', [])))
+    station_list.append((p_['name'], tuple(f['geometry']['coordinates']), p_.get('lines', [])))
+# The agency's route shapes (cities/<city>/raw/surface/rapid_routes.json, fetch_surface.py), for {"route": ...} recipes.
+RAPID = os.path.join(CITY, 'raw', 'surface', 'rapid_routes.json')
+routes_raw = {r['id']: r for r in json.load(open(RAPID))['routes']} if os.path.exists(RAPID) else {}
 lines_pub = {f['properties']['line']: shape(f['geometry']) for f in load('subway_lines.geojson')}
 build_lines, build_stations = {}, {}
 for f in load('construction.geojson'):
@@ -51,7 +57,7 @@ for f in load('streets.geojson'):
 boroughs = load('boroughs.geojson')
 base = load('base.geojson')
 
-LAT0 = 43.7
+LAT0 = unary_union([shape(f['geometry']) for f in boroughs]).centroid.y   # the city's latitude, for local metres
 KX = math.cos(math.radians(LAT0))
 M_PER_DEG = 111320.0
 
@@ -105,9 +111,15 @@ def resolve(pt):
     if pt.startswith('build:'):
         _, lid, name = pt.split(':', 2)
         return build_stations[(lid, name)]
-    if pt not in stations:
-        sys.exit(f'history.json: no station called {pt!r}')
-    return stations[pt]
+    name, _, line = pt.partition('|')   # "86 St|1": the 86 St on the 1 (names repeat)
+    if name not in stations:
+        sys.exit(f'history.json: no station called {name!r}')
+    hits = [p for p, lines in stations[name] if not line or line in lines]
+    if not hits:
+        sys.exit(f'history.json: no station {name!r} on line {line}')
+    if len(hits) > 1 and len({(round(x, 3), round(y, 3)) for x, y in hits}) > 1:
+        sys.exit(f'history.json: {len(hits)} stations called {name!r}; add |<line>')
+    return hits[0]
 
 
 def along(names, a, b, offset=0):
@@ -146,6 +158,33 @@ def cut(lid, a, b):
     return substring(g, min(da, db), max(da, db)), (min(da, db), max(da, db), g)
 
 
+def candidate(pt, g):
+    """A point for pt; when pt is a station name shared by several stations, the one nearest geometry g."""
+    if isinstance(pt, str) and not pt.startswith('build:'):
+        name, _, line = pt.partition('|')
+        hits = [p for p, lines in stations.get(name, []) if not line or line in lines]
+        if hits:
+            return min(hits, key=lambda p: g.distance(Point(p)))
+    return resolve(pt)
+
+
+def cut_route(rid, a, b):
+    """An agency route's track between two stations: its busiest shape that passes both, cut between them."""
+    if rid not in routes_raw:
+        sys.exit(f'history.json: no route {rid!r} in raw/surface/rapid_routes.json')
+    best = None
+    for sh in sorted(routes_raw[rid]['shapes'], key=lambda s: -s.get('trips', 0)):
+        g = LineString(sh['coords'])
+        A, B = Point(candidate(a, g)), Point(candidate(b, g))   # of stations sharing a name, the one on this track
+        if g.distance(A) < 0.0035 and g.distance(B) < 0.0035:   # station complexes sit up to ~300 m off a track
+            best = g
+            break
+    if best is None:
+        sys.exit(f'history.json: route {rid} does not pass both {a} and {b}')
+    da, db = best.project(A), best.project(B)
+    return substring(best, min(da, db), max(da, db))
+
+
 def geometry(spec):
     """A recipe -> (geometry, the published line and range it was cut from, if any)."""
     if 'parts' in spec:
@@ -158,6 +197,10 @@ def geometry(spec):
     if 'line' in spec:
         g, rng = cut(spec['line'], spec['from'], spec['to'])
         return g, (spec['line'],) + rng
+    if 'route' in spec:
+        g = cut_route(spec['route'], spec['from'], spec['to'])
+        short = routes_raw[spec['route']].get('short') or spec['route']
+        return g, ('route', short)
     if 'build' in spec:
         return build_lines[spec['build']], None
     if 'along' in spec:
@@ -199,8 +242,11 @@ for ln in cfg['lines']:
 
 # ---- projection: the city plus every line, with a margin --------------------------------------------------------
 city_poly = unary_union([shape(f['geometry']) for f in boroughs])
-bx = unary_union([city_poly] + all_geoms).bounds
-padx, pady = (bx[2] - bx[0]) * 0.02, (bx[3] - bx[1]) * 0.03
+# page "frame": "lines" fits the map to the lines (a city whose land reaches far past its network); default: city + lines.
+framed = all_geoms if cfg['page'].get('frame') == 'lines' else [city_poly] + all_geoms
+bx = unary_union(framed).bounds
+pad = 0.06 if cfg['page'].get('frame') == 'lines' else 0.02
+padx, pady = (bx[2] - bx[0]) * pad, (bx[3] - bx[1]) * (pad + 0.01)
 minx, miny, maxx, maxy = bx[0] - padx, bx[1] - pady, bx[2] + padx, bx[3] + pady
 SCALE = W / ((maxx - minx) * KX)
 H = round((maxy - miny) * SCALE)
@@ -233,7 +279,7 @@ def path_polys(g, tol=0.0003):
     return ''.join(out)
 
 
-neighbours = unary_union([shape(f['geometry']) for f in base if f['properties']['kind'] == 'neighbour'])
+neighbours = unary_union([shape(f['geometry']).buffer(0) for f in base if f['properties']['kind'] == 'neighbour'])   # buffer(0) mends invalid rings
 streets = unary_union(streets_major).intersection(frame).simplify(0.0002)
 basemap = {
     'w': W, 'h': H,
@@ -245,15 +291,14 @@ basemap = {
 
 
 # ---- built lines' stations: every station of the published line inside the cut -----------------------------------
-line_of = {}
-for f in load('subway_stations.geojson'):
-    line_of[f['properties']['name']] = f['properties']['lines']
 for item in out_lines:
     spec = item['ln']['geom']
-    if 'line' in spec and 'stations' not in item['ln']:
+    if 'stations' in item['ln']:
+        continue
+    lid = spec.get('line') or (routes_raw.get(spec.get('route'), {}).get('short') if 'route' in spec else None)
+    if lid:
         g = item['g']
-        item['sts'] = [[p, n] for n, p in stations.items()
-                       if spec['line'] in line_of[n] and g.distance(Point(p)) < 0.0008]
+        item['sts'] = [[p, n] for n, p, lines in station_list if lid in lines and g.distance(Point(p)) < 0.0008]
 
 
 def year_of(d):
@@ -275,13 +320,14 @@ def nice_date(d):
 REACH = {'floated': 1, 'proposed': 2, 'approved': 3, 'building': 4, 'open': 5, 'closed': 5}
 today = date.today()
 out = {'lines': [], 'ghosts': [], 'sources': cfg['sources'], 'start': cfg['page']['start'], 'now': today.year,
-       'future': cfg['page']['future'], 'later': cfg['page'].get('later')}
+       'future': cfg['page']['future'], 'later': cfg['page'].get('later'), 'colourBy': cfg.get('colourBy'),
+       'legend': cfg['page'].get('legend'), 'scale': cfg['page'].get('scale'), 'units': cfg['page'].get('units', 'km')}
 for item in out_lines:
     ln, g = item['ln'], item['g']
     xs = [xy(c) for seg in getattr(g, 'geoms', [g]) for c in seg.coords]
     out['lines'].append({
         'id': ln['id'], 'name': ln['name'], 'now': ln.get('now'), 'group': ln['group'], 'mode': ln['mode'],
-        'c': ln['colour'], 'approx': bool(ln.get('approx')), 'd': path_lines(g), 'km': round(length_km(g), 1),
+        'c': ln['colour'], 'op': ln.get('op'), 'approx': bool(ln.get('approx')), 'd': path_lines(g), 'km': round(length_km(g), 1),
         'bb': [min(p[0] for p in xs), min(p[1] for p in xs), max(p[0] for p in xs), max(p[1] for p in xs)],
         'st': [[*xy(p), n] for p, n in item['sts']],
         'r': max(REACH.get(e['s'], 0) for e in ln['events'] if not e.get('future')),

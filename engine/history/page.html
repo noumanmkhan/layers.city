@@ -38,7 +38,7 @@ h3{margin:0;font-family:var(--display);font-weight:800;font-size:22px;line-heigh
 .mapcard{padding:0;overflow:hidden}
 :root{--water:#DCE7EC;--land:#FBFAF9;--near:#EFEBE9;--street:#DDD4D1;--edge:#BFB3B0;--case:#1A1414;--ghost:#A99E9B}
 .map{position:relative;background:var(--water)}
-.map svg{display:block;width:100%;height:auto;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
+.map svg{display:block;width:100%;height:auto;max-height:82vh;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
 .map svg.drag{cursor:grabbing}
 .map .near{fill:var(--near);stroke:var(--edge);stroke-width:.6;vector-effect:non-scaling-stroke}
 .map .boro{fill:var(--land);stroke:var(--edge);stroke-width:1.2;stroke-dasharray:5 4;vector-effect:non-scaling-stroke}
@@ -126,6 +126,10 @@ svg.zoomed .gh text{display:inline}
 .close{float:right;border:1px solid var(--rule);background:none;border-radius:999px;padding:2px 10px;cursor:pointer;font-size:13px}
 .idx{margin-top:18px;padding:18px}
 .idx .groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.idx details summary{cursor:pointer;list-style:none}
+.idx details summary::-webkit-details-marker{display:none}
+.idx details summary h4::after{content:' ▸';color:var(--accent)}
+.idx details[open] summary h4::after{content:' ▾'}
 .idx h4{margin:0 0 8px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .idx ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
 .idx button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:8px;align-items:center;width:100%;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:14px}
@@ -136,6 +140,8 @@ svg.zoomed .gh text{display:inline}
 .reach .lbl{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:2px}
 .reach .chip{min-height:32px;padding:4px 11px;font-size:13px}
 .reach .chip .n{font:500 11px var(--mono);color:var(--muted)}
+.opkey{padding:0 16px 12px}
+.opkey i{display:inline-block;width:22px;height:6px;border-radius:3px;vertical-align:middle}
 .got{display:inline-block;font:500 11px var(--mono);letter-spacing:.06em;color:var(--accent);margin-left:2px}
 .later{margin-top:18px;padding:18px}
 .later ul{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 24px}
@@ -236,6 +242,8 @@ svg.zoomed .gh text{display:inline}
       <div class="key" id="key"></div>
       <button type="button" class="chip" id="ghosts" aria-pressed="true">Show plans that died</button>
     </div>
+    <div class="reach" id="colourby" role="group" aria-label="Colour the lines by" hidden><span class="lbl">Colour by</span></div>
+    <div class="opkey key" id="opkey" hidden></div>
     <div class="reach" id="reach" role="group" aria-label="Plans never built, by how far they got"><span class="lbl">Never built, by how far it got</span></div>
   </section>
 
@@ -325,7 +333,7 @@ svg.zoomed .gh text{display:inline}
       sts.append(el('text', {x: x + 5, y: y - 5}, n));
     });
     const hit = el('path', {d: l.d, class: 'hit'});
-    const g = el('g', {class: 'ln'}, [el('path', {d: l.d, class: 'case'}), el('path', {d: l.d, class: 'main', stroke: l.c}), sts, hit]);
+    const g = el('g', {class: 'ln'}, [el('path', {d: l.d, class: 'case'}), el('path', {d: l.d, class: 'main', stroke: l.c, 'data-line': l.id}), sts, hit]);
     hit.addEventListener('click', ev => { ev.stopPropagation(); if (!moved) select(sel === l.id ? null : l.id); });   // tap again to let go
     hit.addEventListener('pointermove', e => showTip(e, [el('b', {}, l.name), LABEL[stageOf(l, year)] + ' in ' + yearName(year)]));
     hit.addEventListener('pointerleave', () => { tip.hidden = true; });
@@ -349,7 +357,7 @@ svg.zoomed .gh text{display:inline}
     vb.y = Math.min(B.h - vb.h * .25, Math.max(-vb.h * .75, vb.y));
     svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
     // Keep dots and labels the same size on screen at every zoom.
-    const k = vb.w / svg.getBoundingClientRect().width || 1;
+    const k = upp() || 1;
     svg.style.setProperty('--k', k);
     svg.querySelectorAll('.ln circle').forEach(c => c.setAttribute('r', 2.8 * k));
     svg.querySelectorAll('.gh circle').forEach(c => c.setAttribute('r', 4.5 * k));
@@ -358,9 +366,12 @@ svg.zoomed .gh text{display:inline}
     svg.querySelectorAll('.blabel').forEach(t => t.style.fontSize = (11 * k) + 'px');
     svg.classList.toggle('zoomed', vb.w < B.w / 1.8);
   };
+  // Map units per screen pixel. A capped-height map is letterboxed (preserveAspectRatio meet), so it's the larger ratio,
+  // and the drawing sits centred in the box.
+  const upp = () => { const r = svg.getBoundingClientRect(); return Math.max(vb.w / r.width, vb.h / r.height); };
   const toSvg = (cx, cy) => {
-    const r = svg.getBoundingClientRect();
-    return [vb.x + (cx - r.left) / r.width * vb.w, vb.y + (cy - r.top) / r.height * vb.h];
+    const r = svg.getBoundingClientRect(), u = upp();
+    return [vb.x + vb.w / 2 + (cx - r.left - r.width / 2) * u, vb.y + vb.h / 2 + (cy - r.top - r.height / 2) * u];
   };
   const zoomAt = (f, px, py) => {
     const nw = Math.min(B.w, Math.max(B.w / MAXZ, vb.w / f));
@@ -395,8 +406,9 @@ svg.zoomed .gh text{display:inline}
       const nw = Math.min(B.w, Math.max(B.w / MAXZ, pinch.w * pinch.d / d));
       const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
       vb.w = nw; vb.h = nw * B.h / B.w;
-      vb.x = pinch.c[0] - (mx - r.left) / r.width * vb.w;
-      vb.y = pinch.c[1] - (my - r.top) / r.height * vb.h;
+      const u = Math.max(vb.w / r.width, vb.h / r.height);
+      vb.x = pinch.c[0] - vb.w / 2 - (mx - r.left - r.width / 2) * u;
+      vb.y = pinch.c[1] - vb.h / 2 - (my - r.top - r.height / 2) * u;
       moved = true; applyVB();
     } else if (ptrs.size === 1) {
       const dx = e.clientX - prev[0], dy = e.clientY - prev[1];
@@ -404,7 +416,8 @@ svg.zoomed .gh text{display:inline}
       if (!moved && st && Math.hypot(e.clientX - st[0], e.clientY - st[1]) < 8) return;   // a tap wobbles; it isn't a drag
       moved = true;
       svg.classList.add('drag');
-      vb.x -= dx / r.width * vb.w; vb.y -= dy / r.height * vb.h;
+      const u = Math.max(vb.w / r.width, vb.h / r.height);
+      vb.x -= dx * u; vb.y -= dy * u;
       applyVB();
     }
   });
@@ -424,7 +437,7 @@ svg.zoomed .gh text{display:inline}
                                    ...H.ghosts.flatMap(g => g.ev.map(e => e.y))])].filter(y => y >= H.start && y <= H.now).sort((a, b) => a - b);
   const span = FUT - H.start;
   eventYears.forEach(y => $('ticks').append(el('i', {style: `left:${(y - H.start) / span * 100}%`})));
-  const scaleYears = [H.start, 1966, 1985, 2002].filter((y, i, a) => a.indexOf(y) === i);
+  const scaleYears = H.scale || [H.start, 1966, 1985, 2002].filter((y, i, a) => a.indexOf(y) === i);
   $('scale').append(...scaleYears.map(y => el('span', {style: `left:${(y - H.start) / span * 100}%`}, String(y))),
                     el('span', {style: 'left:100%'}, H.future));
 
@@ -434,11 +447,20 @@ svg.zoomed .gh text{display:inline}
   [['s-open', 'Open'], ['s-building', 'Under construction'], ['s-approved', 'Approved or proposed'], ['ghost', 'Cancelled, shelved or replaced'],
    ['s-closed', 'Closed']].forEach(([c, t]) => $('key').append(el('span', {}, [swatch(c, '#C8102E'), t])));
   const ghostKey = el('span', {}, [el('svg', {width: 14, height: 14, 'aria-hidden': 'true'}, el('g', {class: 'gh'}, el('circle', {cx: 7, cy: 7, r: 4.5, style: 'fill:var(--card)'}))), 'Platform built, never used']);
-  $('key').append(ghostKey);
+  if (H.ghosts.length) $('key').append(ghostKey);
 
   let year = H.now, sel = null, showGhosts = true;
+  // Colour by: today's route colours (the default) or another scheme from history.json "colourBy" (e.g. who built it).
+  const CB = H.colourBy;
+  let cmode = CB ? CB.default : null;
+  const colourOf = l => {
+    const m = CB && CB.modes.find(m => m.id === cmode);
+    if (!m || !m.field) return l.c;
+    return (m.colours[l[m.field]] || {}).c || l.c;
+  };
 
   const render = () => {
+    H.lines.forEach(l => nodes[l.id].querySelector('.main').setAttribute('stroke', colourOf(l)));
     $('yr').textContent = yearName(year);
     $('year-name').textContent = year >= FUT ? 'the future (as planned)' : year;
     slider.value = year;
@@ -449,14 +471,16 @@ svg.zoomed .gh text{display:inline}
       const dead = DEAD.has(s);
       g.setAttribute('class', 'ln s-' + s + (dead ? ' ghost' : '') + (sel === l.id ? ' sel' : ''));
       g.style.display = (s === 'none' || (sel !== l.id && ((dead && !showGhosts) || !shown(l)))) ? 'none' : '';
-      if (s === 'open') { km += l.km; l.st.forEach(st => names.add(st[2])); }
+      if (s === 'open') { km += l.km; l.st.forEach(st => names.add(st[2] + '@' + Math.round(st[0] / 4) + ',' + Math.round(st[1] / 4))); }   // names repeat in some cities: count places
     });
     linesG.classList.toggle('dim', !!sel && stageOf(byId[sel], year) !== 'none');
     H.ghosts.forEach((gh, i) => { ghostNodes[i].style.display = stageOf(gh, year) === 'none' ? 'none' : ''; });
-    $('stat').textContent = km ? `${Math.round(km)} KM · ${names.size} STATIONS OPEN` : 'NO RAPID TRANSIT YET';
+    const dist = H.units === 'mi' ? `${Math.round(km * 0.621371)} MI` : `${Math.round(km)} KM`;
+    $('stat').textContent = km ? `${dist}${names.size ? ' · ' + names.size + ' STATIONS' : ''} OPEN` : 'NO RAPID TRANSIT YET';
     renderYear(); renderCard(); renderIndex();
     const q = new URLSearchParams(location.search);
     q.set('y', year >= FUT ? 'future' : year); if (sel) q.set('line', sel); else q.delete('line');
+    if (CB) { if (cmode === CB.default) q.delete('by'); else q.set('by', cmode); }
     const got = [...reachOn].sort().join(''); if (got === '234') q.delete('got'); else q.set('got', got || '0');
     history.replaceState(null, '', location.pathname + '?' + q.toString());
   };
@@ -484,7 +508,7 @@ svg.zoomed .gh text{display:inline}
     box.replaceChildren(el('ul', {class: 'evs'}, rows.map(({l, g, e}) => {
       const head = l ? pick(l) : el('b', {}, g.n);
       if (l) head.addEventListener('click', () => select(l.id));
-      return el('li', {}, [el('span', {class: 'dot', style: 'background:' + (l ? (DEAD.has(e.s) ? 'var(--muted)' : l.c) : 'var(--accent)')}),
+      return el('li', {}, [el('span', {class: 'dot', style: 'background:' + (l ? (DEAD.has(e.s) ? 'var(--muted)' : colourOf(l)) : 'var(--accent)')}),
         el('div', {}, [head, ' ', el('span', {class: 'when'}, e.d + ' · ' + (e.f ? 'Planned opening' : LABEL[e.s])), el('div', {}, e.t)])]);
     })));
   };
@@ -500,7 +524,7 @@ svg.zoomed .gh text{display:inline}
     const close = el('button', {type: 'button', class: 'close', 'aria-label': 'Close'}, 'Close');
     close.addEventListener('click', () => select(null));
     const now = l.ev.filter(e => e.f ? year >= FUT : e.y <= year).pop();
-    const bits = [l.now, l.km ? l.km + ' km' : null, l.mode === 'lrt' ? 'Light rail' : (l.mode === 'rt' ? 'Light metro' : 'Subway')].filter(Boolean);
+    const bits = [l.now, l.km ? (H.units === 'mi' ? (l.km * 0.621371).toFixed(1) + ' mi' : l.km + ' km') : null, l.mode === 'lrt' ? 'Light rail' : (l.mode === 'rt' ? 'Light metro' : l.mode === 'el' ? 'Elevated railway' : 'Subway')].filter(Boolean);
     card.replaceChildren(close,
       el('div', {class: 'head'}, [el('h3', {}, l.name), year < FUT ? el('span', {class: 'stage'}, LABEL[s] + ' in ' + year) : null]),
       l.group === 'unbuilt' ? el('div', {class: 'got'}, GOT[l.r]) : null,
@@ -518,15 +542,26 @@ svg.zoomed .gh text{display:inline}
     if (l.group === 'built') return String(open ? open.y : ys[0]);
     return ys[0] === ys[ys.length - 1] ? String(ys[0]) : ys[0] + '–' + ys[ys.length - 1];
   };
+  // A long group (more than 20 lines) folds into a summary with its count; open groups stay open across renders.
+  const openGroups = new Set();
+  const group = (g, t, list) => {
+    const n = H.lines.filter(l => l.group === g).length;
+    if (!n) return null;
+    if (n <= 20) return el('div', {}, [el('h4', {}, t), list]);
+    const d = el('details', {class: 'grp'}, [el('summary', {}, el('h4', {}, `${t} · ${n}`)), list]);
+    if (openGroups.has(g) || (sel && byId[sel].group === g)) d.open = true;
+    d.addEventListener('toggle', () => d.open ? openGroups.add(g) : openGroups.delete(g));
+    return d;
+  };
   const renderIndex = () => {
-    $('idx').replaceChildren(...GROUPS.map(([g, t]) => el('div', {}, [el('h4', {}, t), el('ul', {}, H.lines.filter(l => l.group === g).map(l => {
-      const b = el('button', {type: 'button', 'aria-current': sel === l.id ? 'true' : null}, [swatch(g === 'built' ? 's-open' : g === 'building' ? 's-building' : 's-approved', l.c), el('span', {}, l.name), el('span', {class: 'yrs'}, span_(l))]);
+    $('idx').replaceChildren(...GROUPS.map(([g, t]) => group(g, t, el('ul', {}, H.lines.filter(l => l.group === g).map(l => {
+      const b = el('button', {type: 'button', 'aria-current': sel === l.id ? 'true' : null}, [swatch(g === 'built' ? 's-open' : g === 'building' ? 's-building' : 's-approved', colourOf(l)), el('span', {}, l.name), el('span', {class: 'yrs'}, span_(l))]);
       b.addEventListener('click', () => {
         if (sel === l.id) return select(null);   // tap the selected name again to let go
         select(l.id, true); $('mapbox').scrollIntoView({behavior: 'smooth', block: 'start'});
       });
       return el('li', {}, b);
-    }))])));
+    })))).filter(Boolean));
   };
 
   // Select a line. From the index, move the timeline to a year when the line is on the map if it isn't now.
@@ -590,6 +625,24 @@ svg.zoomed .gh text{display:inline}
     });
     $('reach').append(b);
   });
+  if (CB) {
+    $('colourby').hidden = false;
+    const key = () => {
+      const m = CB.modes.find(m => m.id === cmode);
+      $('opkey').hidden = !m.field;
+      if (m.field) $('opkey').replaceChildren(...Object.values(m.colours).map(v => el('span', {}, [el('i', {style: 'background:' + v.c}), v.name])));
+    };
+    CB.modes.forEach(m => {
+      const b = el('button', {type: 'button', class: 'chip', 'aria-pressed': m.id === cmode, 'data-c': m.id}, m.label);
+      b.addEventListener('click', () => {
+        cmode = m.id;
+        $('colourby').querySelectorAll('[data-c]').forEach(x => x.setAttribute('aria-pressed', x.dataset.c === cmode));
+        key(); render();
+      });
+      $('colourby').append(b);
+    });
+    key();
+  }
   if (H.later) {
     $('later').hidden = false;
     $('later').append(el('h2', {id: 'later-h'}, H.later.title), el('p', {class: 'sub'}, H.later.lede),
@@ -602,6 +655,11 @@ svg.zoomed .gh text{display:inline}
   if (/^[0-4]+$/.test(q.get('got') || '')) {
     reachOn = new Set([...q.get('got')].map(Number).filter(Boolean));
     $('reach').querySelectorAll('[data-r]').forEach(b => b.setAttribute('aria-pressed', reachOn.has(+b.dataset.r)));
+  }
+  if (CB && CB.modes.some(m => m.id === q.get('by'))) {
+    cmode = q.get('by');
+    $('colourby').querySelectorAll('[data-c]').forEach(x => x.setAttribute('aria-pressed', x.dataset.c === cmode));
+    $('colourby').querySelector('[data-c]') && $('opkey') && (() => { const m = CB.modes.find(m => m.id === cmode); $('opkey').hidden = !m.field; if (m.field) $('opkey').replaceChildren(...Object.values(m.colours).map(v => el('span', {}, [el('i', {style: 'background:' + v.c}), v.name]))); })();
   }
   if (q.get('line') && byId[q.get('line')]) sel = q.get('line');
   if (sel) linesG.append(nodes[sel]);

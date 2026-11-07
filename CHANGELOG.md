@@ -2,6 +2,16 @@
 
 ## Since 1.1
 
+### New York subway history page, unlisted (November 7)
+- layers.city/nyc/mta-history/: the transit history engine's second city. 123 segments from the 1868 Ninth Avenue El to
+  Second Avenue Phase 2: the IRT, BMT and IND by opening segment, the Manhattan, Bronx and Brooklyn els and when they
+  closed, the 1970s Second Avenue dig and the line's century of plans. Every date from a source read on November 7.
+- A "Colour by" switch: today's route colours, or the company that built each line (IRT red, BMT amber, IND blue), the
+  shot that shows why some trains are numbers and others letters. Miles, a 1868–1980 scale, framed on the network.
+- Engine (both cities): cut built lines from the agency's GTFS shapes, tell apart stations that share a name, count
+  stations by place, cap the map at 82% of the screen height (pointer maths letterbox-aware), fold any index group
+  longer than 20 lines.
+
 ### Non-commercial sources: Dallas Events, Pace timetables (November 7)
 - The site earns nothing, so feeds offered for non-commercial use are now allowed (the user's call); `NONCOMMERCIAL.md`
   lists each one and how to take it out, and Attributions marks them.
