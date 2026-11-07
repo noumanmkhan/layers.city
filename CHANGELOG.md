@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### Transit history maps: no hard edges (November 7)
+- The base map (land, boundaries, streets) is drawn half the map's size again past the frame on every side, so a
+  letterboxed map or a pan never shows a cut-off edge: Staten Island and New Jersey now appear on the New York map.
+  Panning stops at that outer box (`ext` in the base map). Both cities.
+
 ### New York subway history page, unlisted (November 7)
 - layers.city/nyc/mta-history/: the transit history engine's second city. 123 segments from the 1868 Ninth Avenue El to
   Second Avenue Phase 2: the IRT, BMT and IND by opening segment, the Manhattan, Bronx and Brooklyn els and when they

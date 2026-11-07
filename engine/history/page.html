@@ -304,7 +304,8 @@ svg.zoomed .gh text{display:inline}
   // ---- the map --------------------------------------------------------------------------------------------------
   const svg = $('map');
   svg.setAttribute('viewBox', `0 0 ${B.w} ${B.h}`);
-  svg.append(el('rect', {x: -B.w, y: -B.h, width: B.w * 3, height: B.h * 3, fill: 'var(--water)'}));
+  const EXT = B.ext || [-B.w, -B.h, B.w * 2, B.h * 2];   // how far the base map is drawn (and panning may go)
+  svg.append(el('rect', {x: EXT[0] - B.w, y: EXT[1] - B.h, width: EXT[2] - EXT[0] + B.w * 2, height: EXT[3] - EXT[1] + B.h * 2, fill: 'var(--water)'}));
   svg.append(el('path', {d: B.near, class: 'near'}));
   B.boroughs.forEach(b => svg.append(el('path', {d: b.d, class: 'boro'})));
   svg.append(el('path', {d: B.streets, class: 'streets'}));
@@ -353,8 +354,11 @@ svg.zoomed .gh text{display:inline}
   const MAXZ = 8;
   const applyVB = () => {
     vb.w = Math.min(B.w, Math.max(B.w / MAXZ, vb.w)); vb.h = vb.w * B.h / B.w;
-    vb.x = Math.min(B.w - vb.w * .25, Math.max(-vb.w * .75, vb.x));
-    vb.y = Math.min(B.h - vb.h * .25, Math.max(-vb.h * .75, vb.y));
+    // Keep what's on screen (the box, letterboxing included) inside the drawn base map.
+    const r = svg.getBoundingClientRect(), u = Math.max(vb.w / r.width, vb.h / r.height) || 1;
+    const sw = r.width * u, sh = r.height * u, mx = (sw - vb.w) / 2, my = (sh - vb.h) / 2;
+    vb.x = Math.min(EXT[2] - vb.w - mx, Math.max(EXT[0] + mx, vb.x));
+    vb.y = Math.min(EXT[3] - vb.h - my, Math.max(EXT[1] + my, vb.y));
     svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
     // Keep dots and labels the same size on screen at every zoom.
     const k = upp() || 1;

@@ -251,6 +251,10 @@ minx, miny, maxx, maxy = bx[0] - padx, bx[1] - pady, bx[2] + padx, bx[3] + pady
 SCALE = W / ((maxx - minx) * KX)
 H = round((maxy - miny) * SCALE)
 frame = box(minx, miny, maxx, maxy)
+# The base map is drawn well past the frame (half its size again on every side), so panning or a letterboxed map never
+# shows a hard edge; the page stops panning at this outer box.
+ex, ey = (maxx - minx) * 0.5, (maxy - miny) * 0.5
+outer = box(minx - ex, miny - ey, maxx + ex, maxy + ey)
 
 
 def xy(p):
@@ -268,7 +272,7 @@ def path_lines(g):
 
 
 def path_polys(g, tol=0.0003):
-    g = g.intersection(frame).simplify(tol, preserve_topology=True)
+    g = g.intersection(outer).simplify(tol, preserve_topology=True)
     out = []
     for p in getattr(g, 'geoms', [g]):
         if p.geom_type != 'Polygon' or p.is_empty:
@@ -280,9 +284,10 @@ def path_polys(g, tol=0.0003):
 
 
 neighbours = unary_union([shape(f['geometry']).buffer(0) for f in base if f['properties']['kind'] == 'neighbour'])   # buffer(0) mends invalid rings
-streets = unary_union(streets_major).intersection(frame).simplify(0.0002)
+streets = unary_union(streets_major).intersection(outer).simplify(0.0002)
 basemap = {
     'w': W, 'h': H,
+    'ext': [*xy((minx - ex, maxy + ey)), *xy((maxx + ex, miny - ey))],   # the outer box, in map units: x0, y0, x1, y1
     'near': path_polys(neighbours),
     'boroughs': [{'d': path_polys(shape(f['geometry'])), 'n': f['properties']['name'],
                   'lp': xy(f['properties']['lp'])} for f in boroughs],
