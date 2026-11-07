@@ -175,15 +175,15 @@
       "title": "What each community area calls 311 about",
       "minTypeTotal": 1000,
       "minAreaCount": 40,
-      "note": "Each community area is coloured by the kind of 311 request it makes far more often than the city as a whole, not its most common one. Hover or tap for the single most over-represented request. Aircraft noise complaints (all filed at O'Hare), information-only calls and requests about people are left out.",
+      "note": "Each community area is coloured by the kind of 311 request it makes far more often than the city as a whole, not its most common one. Hover or tap for the single most over-represented request. Aircraft noise complaints (all filed at O'Hare), information-only calls, requests about people and building complaints are left out, so the map shows habits, not hardship. Potholes, streetlights and water calls count toward the totals but don't get a colour of their own.",
       "themes": [
         [
           "Rats",
-          "rodent|rat\\b"
+          "rodent|\\brats?\\b"
         ],
         [
           "Wildlife",
-          "coyote|animal|bee|wasp|bird|raccoon"
+          "coyote|\\bbees?\\b|wasp|bird|raccoon|animal in trap"
         ],
         [
           "Scooters and bikes",
@@ -191,7 +191,7 @@
         ],
         [
           "Snow and ice",
-          "snow|ice"
+          "snow|\\bice\\b|salt"
         ],
         [
           "Graffiti",
@@ -203,27 +203,15 @@
         ],
         [
           "Vehicles and parking",
-          "vehicle|parking|tow|car"
+          "vehicle|parking|\\btow|\\bcars?\\b"
         ],
         [
           "Garbage and recycling",
-          "garbage|cart|recycl|sanitation|dump|litter|bulk|debris"
+          "garbage|cart|recycl|sanitation|dump|litter|bulk|debris|yard waste"
         ],
         [
           "Trees",
-          "tree"
-        ],
-        [
-          "Water and sewer",
-          "water|basement|sewer|hydrant|flood|catch basin"
-        ],
-        [
-          "Streets and lights",
-          "pothole|light|pavement|sidewalk|curb|sign|signal|street|alley"
-        ],
-        [
-          "Buildings",
-          "building|heat|air|vacant|construction|porch"
+          "\\btree"
         ]
       ]
     }

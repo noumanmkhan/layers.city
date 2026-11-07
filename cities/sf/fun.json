@@ -61,7 +61,6 @@
       "id": "burritos-vs-dumplings",
       "type": "pair",
       "title": "Burritos vs dumplings",
-      "mode": "relative",
       "a": {
         "label": "Taquerias",
         "colour": "#D9822B",
@@ -93,7 +92,8 @@
             "amenity": "^(restaurant|fast_food)$",
             "name": "dim sum|dumpling|wonton"
           }
-        ]
+        ],
+        "noun": "Chinese restaurants"
       },
       "note": "Taquerias are restaurants mapped as Mexican or named for tacos and burritos; dumplings are Chinese restaurants of every region, dim sum included."
     },
@@ -184,8 +184,8 @@
       "id": "311-signature",
       "type": "signature311",
       "title": "What each neighborhood calls 311 about",
-      "minTypeTotal": 300,
-      "minAreaCount": 25,
+      "minTypeTotal": 100,
+      "minAreaCount": 15,
       "note": "Each neighborhood is coloured by the kind of 311 request it makes far more often than the city as a whole, not its most common one (that's street cleaning almost everywhere). Hover or tap for the single most over-represented request. Requests about people, such as encampments, and general requests are left out.",
       "themes": [
         [
@@ -206,7 +206,7 @@
         ],
         [
           "Trees",
-          "tree"
+          "\\btree"
         ],
         [
           "Water and sewer",
@@ -222,7 +222,7 @@
         ],
         [
           "Streets and sidewalks",
-          "sidewalk|street|pothole|curb|pavement|sign|light|signal"
+          "sidewalk|street|pothole|curb|pavement|\\bsigns?\\b|light|signal"
         ]
       ]
     },
@@ -230,7 +230,7 @@
       "id": "parking-tickets",
       "type": "tickets",
       "title": "Parking tickets",
-      "note": "SFMTA's citations, placed by the neighborhood the City records for each one. A $100-odd street-cleaning ticket is San Francisco's most common by far."
+      "note": "SFMTA's citations, placed by the neighborhood the City records for each one. Street cleaning is San Francisco's most common ticket by far."
     }
   ]
 }

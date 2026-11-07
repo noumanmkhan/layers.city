@@ -2,6 +2,16 @@
 
 ## Since 1.1
 
+### San Francisco and Chicago: Fun maps (November 7)
+- layers.city/sf/fun/: hometown coffee vs Starbucks, burritos vs dumplings, tennis vs pickleball, gas vs EV, bubble
+  tea vs coffee, each neighborhood's 311 signature (DataSF 311 Cases) and parking tickets (SFMTA citations).
+- layers.city/chicago/fun/: Dunkin' vs Starbucks, Lou Malnati's vs Giordano's, Jewel vs Mariano's, tennis vs
+  pickleball, gas vs EV and each community area's 311 signature (rats, scooters, snow…).
+- 311 requests about people are dropped before counting, in both cities; Chicago also drops aircraft noise (all filed at
+  O'Hare), information-only calls and building complaints.
+- Engine: the Overpass query is shared (`engine/fun/osm.py`, supermarkets added); the 311 map names its city's own unit.
+- The hub's four full rows are complete: every city has Guide, Fact sheets, Transit, Venues, Events and Fun maps.
+
 ### San Francisco: nearest emergency department on the card (November 7)
 - The card's Nearby section names the nearest emergency department, as in Toronto and Chicago, from the map's
   Hospitals layer (general hospitals with an ER; UCSF Mission Bay's is named as the children's hospital's).

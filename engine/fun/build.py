@@ -288,7 +288,7 @@ def sig311_map(m):
         cands = [(t, (n / tot) / (city_tot[t] / grand), n) for t, n in c.items()
                  if theme(t) == th and city_tot[t] >= m.get('minTypeTotal', 1000) and n >= m.get('minAreaCount', 50)]
         return max(cands, key=lambda x: x[1]) if cands else None
-    index, legend = cat_legend(picks)
+    index, legend = cat_legend(picks, max_cats=m.get('maxCats'))
     v, tips = [], []
     for num in wd_names:
         p = picks.get(num)

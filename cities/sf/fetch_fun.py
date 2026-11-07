@@ -64,6 +64,7 @@ def part_311():
     for r in rows:
         n = int(r['n'])
         svc, sub = (r.get('service_name') or '').strip(), (r.get('service_subtype') or '').strip()
+        sub = re.sub(r'\s+', ' ', sub.replace('_', ' ')).strip()   # the feed's subtypes are snake_case
         if not svc or DROP_SERVICE.search(svc) or DROP_SUBTYPE.search(sub):
             dropped[svc] += n
             continue
