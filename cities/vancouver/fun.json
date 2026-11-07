@@ -72,7 +72,8 @@
             "amenity": "^cafe$",
             "name": "^(jj bean|blenz|49th parallel|caff[eè] artigiano|bean around the world|matchstick|elysian|prado caf|revolver)"
           }
-        ]
+        ],
+        "proper": true
       },
       "b": {
         "label": "Starbucks",
@@ -93,7 +94,6 @@
       "id": "sushi-vs-pho",
       "type": "pair",
       "title": "Sushi vs pho",
-      "mode": "relative",
       "a": {
         "label": "Sushi restaurants",
         "short": "Sushi",

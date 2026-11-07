@@ -146,13 +146,13 @@ def side_counts(side):
 
 def noun(side):
     l = side['label']
-    return side.get('noun') or (l if side.get('brand') or l[:2].isupper() else l[0].lower() + l[1:])
+    return side.get('noun') or (l if side.get('brand') or side.get('proper') or l[:2].isupper() else l[0].lower() + l[1:])
 
 
 def sent(side):
     """A side's short name for use mid-sentence: brands keep their capitals."""
     w = side.get('short', side['label'])
-    return w if side.get('brand') or w[:2].isupper() else w[0].lower() + w[1:]
+    return w if side.get('brand') or side.get('proper') or w[:2].isupper() else w[0].lower() + w[1:]   # proper: a name that keeps its capital (Tex-Mex)
 
 
 def pair_map(m):

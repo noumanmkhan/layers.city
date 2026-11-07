@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Vancouver and Dallas: Fun maps (November 7)
+- layers.city/vancouver/fun/: Tim Hortons vs Starbucks, hometown coffee vs Starbucks, sushi vs pho, BC Liquor vs private
+  liquor stores, bubble tea vs coffee, tennis vs pickleball, gas vs EV, each local area's 3-1-1 signature.
+- layers.city/dallas/fun/: Whataburger vs Chick-fil-A, Tex-Mex vs barbecue, 7-Eleven vs QuikTrip, donuts vs coffee,
+  tennis vs pickleball, gas vs EV, 311 by council district (requests about people, police matters other than noise,
+  code concerns and animal calls left out, so it shows habits, not hardship).
+- Engine: OSM courts for tennis vs pickleball, `labelFormat` for numbered districts, `proper` names keep their capitals.
+
 ### Vancouver and Dallas: Fact sheets, Transit pages and EV chargers (November 7)
 - layers.city/vancouver/profiles/ (22 local areas and the UEL) and layers.city/dallas/profiles/ (its ZIP codes): the
   same printable sheets as the other cities: SkyTrain or DART light rail, buses, the West Coast Express or the Silver

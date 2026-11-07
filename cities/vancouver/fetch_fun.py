@@ -28,7 +28,7 @@ AREAS = {norm(f['properties']['name']): f['properties']['code']
          for f in json.load(open(os.path.join(HERE, '..', '..', 'docs', 'vancouver', 'data', 'local_areas.geojson')))['features']}
 os.makedirs(OUT, exist_ok=True)
 
-DROP = re.compile(r'homeless|encamp|\btents?\b|shelter|welfare|\bpersons?\b|\bpeople\b|needle|syringe|sharps|human|feces|urine|overdose|panhandl|^zz', re.I)
+DROP = re.compile(r'homeless|encamp|\btents?\b|shelter|welfare|\bpersons?\b|\bpeople\b|needle|syringe|sharps|human|feces|urine|overdose|panhandl|integrated response|^zz', re.I)
 
 
 def get(url):

@@ -77,7 +77,8 @@
             "amenity": "^(restaurant|fast_food)$",
             "name": "taqueria|tacos?\\b"
           }
-        ]
+        ],
+        "proper": true
       },
       "b": {
         "label": "Barbecue joints",
@@ -272,10 +273,6 @@
         [
           "Water",
           "water|storm|sewer|creek|inlet"
-        ],
-        [
-          "Animals",
-          "dead animal|cat program"
         ]
       ]
     }
