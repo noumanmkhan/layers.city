@@ -1,6 +1,9 @@
 {
-  "_about": "Buses (engine/fetch_surface.py, engine/surface.py). 'gtfs' says where the agency's schedule comes from: a CKAN package (ckan) or a direct zip (url). Rail routes are drawn by the 'L' layer, so only buses are kept. 'feeds' adds other agencies, each into raw/surface/<feed>/. Pace comes from OpenStreetMap ('osm', engine/osm_routes.py) because Pace offers its GTFS for non-commercial use only: routes and stops, no schedules. Its routes keep their own mode ('pace') and a 'Pace ' prefix; Pulse lines go by their names.",
+  "_about": "Buses (engine/fetch_surface.py, engine/surface.py), and the 'L' for the Routes page (see _rapid). 'gtfs' says where the agency's schedule comes from: a CKAN package (ckan) or a direct zip (url). Rail routes are drawn by the 'L' layer, so only buses are kept. 'feeds' adds other agencies, each into raw/surface/<feed>/. Pace comes from OpenStreetMap ('osm', engine/osm_routes.py) because Pace offers its GTFS for non-commercial use only: routes and stops, no schedules. Its routes keep their own mode ('pace') and a 'Pace ' prefix; Pulse lines go by their names.",
   "gtfs": {"url": "https://www.transitchicago.com/downloads/sch_data/google_transit.zip"},
+  "_rapid": "The 'L' joins the fetch for the Routes page only (November 7, 2026): its eight lines by the feed's route ids (the CTA leaves their short names blank), kept apart in raw/surface/rapid_*.json with each shape's platforms in order; the map still draws the 'L' from its own layer. 'sched' writes the timetable the Routes page shows for next departures (the CTA publishes no GTFS-realtime feed).",
+  "rapid": {"Red": "subway", "Blue": "subway", "Brn": "subway", "G": "subway", "Org": "subway", "P": "subway", "Pink": "subway", "Y": "subway"},
+  "sched": true,
   "skip": [],
   "feeds": {
     "pace": {
