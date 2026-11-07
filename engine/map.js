@@ -965,7 +965,14 @@ function evClock(s, day){
   return (day ? d.toLocaleDateString(CITY.locale, {weekday:'short'}) + ' ' : '') + d.toLocaleTimeString(CITY.locale, {hour:'numeric', minute:'2-digit'});
 }
 // When a closure is in force: "Closed now · until 3:30 p.m." or "Sun 8:00 a.m. to 3:30 p.m.".
+// Permits that run by the day (p.day, from CDOT): "Sat, Nov 21, for the day", "Today, through Sun, Nov 22".
+function evDay(s){ return new Date(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10)).toLocaleDateString(CITY.locale, {weekday:'short', month:'short', day:'numeric'}); }
 function evWhen(it, p, now){
+  if (p.day && it.dayText){
+    const a = (p.start || '').slice(0, 10), b = (p.end || '').slice(0, 10), t = now.slice(0, 10);
+    if (a <= t) return b === t ? it.dayTodayText : fill(it.dayNowText, {until: evDay(b)});
+    return a === b ? fill(it.dayText, {from: evDay(a)}) : fill(it.daysText, {from: evDay(a), to: evDay(b)});
+  }
   const same = (p.start || '').slice(0, 10) === (p.end || '').slice(0, 10), endDay = (p.end || '').slice(0, 10) !== now.slice(0, 10);
   if ((p.start || '') <= now) return fill(it.nowText, {until: evClock(p.end, endDay)});
   return fill(it.whenText, {from: evClock(p.start, true), to: evClock(p.end, !same)});
@@ -977,7 +984,8 @@ function evPopup(it, p, ev, latlng, asof){
     (p.extent && p.extent !== p.street ? '<p>' + esc(p.extent) + '</p>' : '') +
     rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
     (p.desc ? '<p class="desc">' + esc(p.desc) + '</p>' : '') +
-    (ev && ev.notice ? '<a href="' + esc(ev.notice) + '" target="_blank" rel="noopener">' + esc(it.noticeText) + '</a>' : '') +
+    (ev && ev.notice ? '<a href="' + esc(ev.notice) + '" target="_blank" rel="noopener">' + esc(it.noticeText) + '</a>'
+      : ev && ev.link && it.linkText ? '<a href="' + esc(ev.link) + '" target="_blank" rel="noopener">' + esc(it.linkText) + '</a>' : '') +
     '<p class="fine">' + esc(fill(it.fineText, {date: niceDate(asof)})) + '</p>').openOn(map);
 }
 // Today's date (YYYY-MM-DD) where the city is, so a permit ending today still shows until midnight there.

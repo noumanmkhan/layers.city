@@ -157,7 +157,11 @@ def along(street, lon, lat, direction, n_from, n_to):
                 dist[v], prev[v] = d + w, u
                 heapq.heappush(pq, (d + w, v))
     off = lambda n: abs((n[1] if ns else n[0]) - target) * (110540 if ns else KX)
-    e = min(dist, key=lambda n: (off(n), dist[n]))
+    want = abs(n_to - n_from) * M_PER_NUM
+    near = [n for n in dist if dist[n] <= 1.4 * want + 150]     # a diagonal runs a little longer than its grid span, not 4x
+    if not near:
+        return None
+    e = min(near, key=lambda n: (off(n), dist[n]))
     if off(e) > 120 or e == s:
         return None
     path = [e]

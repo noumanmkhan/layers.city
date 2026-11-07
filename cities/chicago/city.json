@@ -83,7 +83,15 @@
       {"id": "build", "kind": "construction", "file": "construction", "live": true, "name": "Transit under construction", "note": "Red Line Extension, 95th to 130th Street",
        "ucText": "Under construction", "linkText": "Project page"},
       {"id": "closures", "kind": "closures", "file": "closures", "optional": true, "live": true, "staleDays": 2, "name": "Street closures", "note": "From the Red Line Extension and Red/Purple rebuild; side streets when zoomed in",
-       "tz": "America/Chicago", "closedText": "Closed", "narrowedText": "Lanes narrowed", "bothText": "both directions", "startsText": "Starts {date}", "untilText": "Permit to {date}", "longText": "long-term", "allDayText": "Around the clock", "whenLabel": "When", "hoursLabel": "Hours", "projectLabel": "For", "whoLabel": "Permit holder", "fineText": "Dates are permit dates, not a forecast of when the road reopens. Data as of {date}.", "asofText": "as of {date}"}
+       "tz": "America/Chicago", "closedText": "Closed", "narrowedText": "Lanes narrowed", "bothText": "both directions", "startsText": "Starts {date}", "untilText": "Permit to {date}", "longText": "long-term", "allDayText": "Around the clock", "whenLabel": "When", "hoursLabel": "Hours", "projectLabel": "For", "whoLabel": "Permit holder", "fineText": "Dates are permit dates, not a forecast of when the road reopens. Data as of {date}.", "asofText": "as of {date}"},
+      {"id": "events", "kind": "events", "under": "closures", "file": "events", "optional": true, "live": true, "staleDays": 2, "name": "Special events", "note": "Street closures for parades, races, festivals and block parties",
+       "tz": "America/Chicago", "closedText": "Street closed", "narrowedText": "Curb lane or part closed", "nowText": "Closed now, until {until}", "whenText": "{from} to {to}",
+       "dayText": "{from}, for the day", "daysText": "{from} to {to}", "dayNowText": "Today, through {until}", "dayTodayText": "Today, for the day",
+       "whenLabel": "When", "eventLabel": "For", "noticeText": "Organizer’s closure notice", "linkText": "Event page", "courseText": "{event} {name} course · {km} mi", "startText": "Start", "finishText": "Finish",
+       "fineText": "CDOT special-event permits run by the day; the street is usually closed for only part of it. As of {date}.",
+       "viewLayers": ["streets", "coll", "hwy", "events"], "viewName": "{short}", "viewNote": "Street closures for the {name}, with main and collector streets. Tap a closure for its dates.",
+       "bannerText": "{name} is on {when}.", "bannerGo": "Street closures", "bannerClose": "Not now",
+       "weekendText": "this weekend", "todayText": "today", "rangeText": "{from} to {to}"}
     ]],
     ["Education", [
       {"id": "campus", "kind": "places", "file": "institutions", "icon": "university", "cats": [["university", "Universities", "University"], ["college", "City Colleges", "City College"]], "name": "Colleges & universities", "place": "Campus", "note": "Public and nonprofit universities with 1,000+ students and the 7 City Colleges, one point per campus", "aliases": {"University of Chicago": ["UChicago", "U of C"], "University of Illinois Chicago": ["UIC"], "Loyola University Chicago": ["Loyola"], "DePaul University": ["DePaul"], "Northwestern University": ["Northwestern"], "Illinois Institute of Technology": ["IIT", "Illinois Tech"]}, "replaces": {"unis": "university", "colleges": "college"}}
@@ -242,7 +250,10 @@
       "within": "Within ½ mile",
       "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["tennis", "tennis court location", "tennis court locations"]],
       "note": "Straight-line distances; half a mile is about a 10-minute walk. Chicago Public Library, the ERs layer and the Park District and City community centers, and OpenStreetMap (parks, playgrounds, courts). Places of worship (OpenStreetMap) and HMS- and cRc-certified shops show while their layers are on.",
-      "sources": "Sources: Chicago Public Library, Chicago Park District and City community centers, CMS and OpenStreetMap (hospitals), OpenStreetMap (parks, playgrounds, courts, places of worship), HMS and cRc (certified shops)."
+      "sources": "Sources: Chicago Public Library, Chicago Park District and City community centers, CMS and OpenStreetMap (hospitals), OpenStreetMap (parks, playgrounds, courts, places of worship), HMS and cRc (certified shops).",
+      "happening": {"file": "happening.json", "radius": 805, "max": 3, "days": 14, "title": "Happening nearby", "today": "Today", "free": "Free",
+                    "all": {"label": "See all events", "href": "/chicago/events/"},
+                    "source": "Events from the Chicago Public Library and the Chicago Park District, via the City of Chicago Data Portal."}
     },
     "reps": {
       "file": "representatives.json",
