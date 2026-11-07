@@ -4,12 +4,20 @@ raw/platform_names.json: {"stops": {stop id: words}}. The CTA's GTFS names platf
 so the Routes page reads them from here (routes.json "platformNames"). Run by *Fetch Chicago data* when this script
 changes, or by hand; the list changes only when a station opens or is rebuilt.
 """
-import json, os, re, urllib.request
+import json, os, re, time, urllib.request
 from datetime import date
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 URL = 'https://data.cityofchicago.org/resource/8pix-ypme.json?$limit=5000'
-rows = json.load(urllib.request.urlopen(urllib.request.Request(URL, headers={'User-Agent': 'layers.city data fetch'}), timeout=120))
+for attempt in range(5):   # the portal answers 503 now and then
+    try:
+        rows = json.load(urllib.request.urlopen(urllib.request.Request(URL, headers={'User-Agent': 'layers.city data fetch'}), timeout=120))
+        break
+    except Exception as ex:
+        print(f'try {attempt + 1}: {ex!r}')
+        if attempt == 4:
+            raise
+        time.sleep(30)
 out = {}
 for r in rows:
     m = re.search(r'\(([^)]+)\)\s*$', r.get('stop_name') or '')
