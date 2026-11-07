@@ -22,7 +22,7 @@ collide with TTC 41) and "simplify" (shape tolerance in degrees; long regional r
 A feed with "osm" instead of "gtfs" takes its routes from OpenStreetMap (engine/osm_routes.py; Chicago's Pace,
 whose own GTFS is offered for non-commercial use only).
 
-Rapid transit (surface.json "rapid": {route number: mode}, e.g. Toronto's subway lines and LRT) is kept apart from
+Rapid transit (surface.json "rapid": {route number: mode}, e.g. Toronto's subway lines and LRT) (with "rapidMatch" to find lines by name) is kept apart from
 the streetcars and buses, in raw/surface/rapid_routes.json and rapid_stops.json (same shapes; the stops are the
 lines' platforms), for the Routes page. The map draws those lines from its own layers, so routes.json and
 stops.json never include them.
@@ -39,7 +39,7 @@ URLs in the "gtfs" block are tried in turn (Toronto: the TTC's own address, then
 
 Usage: python3 engine/fetch_surface.py <city> [feed]
 """
-import collections, csv, datetime as dt, hashlib, io, json, os, sys, time, urllib.request, zipfile
+import collections, csv, datetime as dt, hashlib, io, json, os, re, sys, time, urllib.request, zipfile
 from shapely.geometry import LineString
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
@@ -208,9 +208,17 @@ RAPID = CFG.get('rapid', {})   # route number -> mode ("subway", "lrt")
 MERGE = CFG.get('merge', {})
 remap = {}   # feed route id -> (route id, direction)
 routes = {}
+# "rapidMatch": [[regex, short name], …]: rapid lines found by their GTFS short or long name ("Expo Line",
+# "RED"), given the short name "rapid" uses. For feeds whose rail lines have numeric or empty short names.
+RAPID_MATCH = [(re.compile(rx), sh) for rx, sh in CFG.get('rapidMatch', [])]
 for r in rows('routes.txt'):
     m = mode(r.get('route_type'))
     short = r.get('route_short_name') or r['route_id']
+    for rx, sh in RAPID_MATCH:
+        if rx.search(r.get('route_short_name') or '') or rx.search(r.get('route_long_name') or ''):
+            short = sh; break
+    if m is None and r.get('route_type') not in ('', None) and short not in RAPID:
+        print('  not kept (rail or other):', r['route_id'], repr(r.get('route_short_name')), repr(r.get('route_long_name')), r.get('route_type'))
     if short in MERGE:
         nid, nshort, ndir = MERGE[short]
         remap[r['route_id']] = (nid, ndir)

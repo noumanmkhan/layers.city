@@ -1,5 +1,5 @@
 {
-  "_about": "Buses (engine/fetch_surface.py, engine/surface.py), from DART's GTFS. Light rail, the Silver Line and the TRE are drawn by their own layers, so only buses are kept ('types'). Stop names come in capitals with direction codes; 'stopNames' tidies them.",
+  "_about": "Buses (engine/fetch_surface.py, engine/surface.py), from DART's GTFS. Light rail, the Silver Line and the TRE are drawn by their own layers, so only buses are kept ('types'). Stop names come in capitals with direction codes; 'stopNames' tidies them. DART's light rail lines are fetched as 'rapid' for the Routes page only (found by name with 'rapidMatch'), with 'sched' for scheduled departures.",
   "gtfs": {
     "url": "https://www.dart.org/transitdata/latest/google_transit.zip"
   },
@@ -30,5 +30,30 @@
       "SE",
       "II"
     ]
-  }
+  },
+  "rapid": {
+    "Red": "lrt",
+    "Blue": "lrt",
+    "Green": "lrt",
+    "Orange": "lrt"
+  },
+  "rapidMatch": [
+    [
+      "(?i)^red( line)?$",
+      "Red"
+    ],
+    [
+      "(?i)^blue( line)?$",
+      "Blue"
+    ],
+    [
+      "(?i)^green( line)?$",
+      "Green"
+    ],
+    [
+      "(?i)^orange( line)?$",
+      "Orange"
+    ]
+  ],
+  "sched": true
 }

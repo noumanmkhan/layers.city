@@ -1,9 +1,29 @@
 {
-  "_about": "Buses (engine/fetch_surface.py, engine/surface.py), from TransLink's GTFS. SkyTrain, SeaBus and the West Coast Express are drawn by their own layers, and aren't buses, so they're never fetched here. 'expressRoutes' marks RapidBus (R1–R6) and the 99 B-Line as express by number, since their names don't say so. 'stripZeros': TransLink pads route numbers (002, 099); the map shows 2 and 99.",
+  "_about": "Buses (engine/fetch_surface.py, engine/surface.py), from TransLink's GTFS. SkyTrain, SeaBus and the West Coast Express are drawn by their own layers, and aren't buses, so they're never fetched here. 'expressRoutes' marks RapidBus (R1–R6) and the 99 B-Line as express by number, since their names don't say so. 'stripZeros': TransLink pads route numbers (002, 099); the map shows 2 and 99. SkyTrain is fetched as 'rapid' for the Routes page only (found by name with 'rapidMatch'; the map draws it from its own layer), with 'sched' for scheduled departures.",
   "gtfs": {
     "url": "https://gtfs-static.translink.ca/gtfs/google_transit.zip"
   },
   "expressRoutes": "R\\d+|0*99",
   "skip": [],
-  "stripZeros": true
+  "stripZeros": true,
+  "rapid": {
+    "Expo": "subway",
+    "Millennium": "subway",
+    "Canada": "subway"
+  },
+  "rapidMatch": [
+    [
+      "(?i)^expo\\b",
+      "Expo"
+    ],
+    [
+      "(?i)^millennium\\b",
+      "Millennium"
+    ],
+    [
+      "(?i)^canada line\\b",
+      "Canada"
+    ]
+  ],
+  "sched": true
 }
