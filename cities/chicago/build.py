@@ -333,8 +333,13 @@ for lid, word in CTA:   # Purple and Yellow last, so the busier lines draw on to
     cta.append(feat(m, {'line': lid, 'name': word + ' Line'}))
 order = ['yellow', 'purple', 'pink', 'orange', 'brown', 'green', 'blue', 'red']
 dump('cta_lines', sorted(cta, key=lambda f: order.index(f['properties']['line'])))
+# Stations closed for a long rebuild: left off the map (and so off the fact sheets, Routes and Venues pages) until
+# they reopen. The City's list of 'L' stops still carries them. Take one out of here when it reopens.
+CLOSED = {'State/Lake': 'Closed January 5, 2026 for a full rebuild; reopening in 2029 (CTA). Change at Washington/Wabash.'}
 stations = {}
 for s in load('cta_stops.json'):
+    if s['station_name'] in CLOSED:
+        continue
     st = stations.setdefault(s['map_id'], {'name': s['station_name'], 'pts': [], 'lines': set()})
     st['pts'].append((float(s['location']['longitude']), float(s['location']['latitude'])))
     st['lines'] |= {word for lid, word in CTA if s.get(FLAG[lid])}
