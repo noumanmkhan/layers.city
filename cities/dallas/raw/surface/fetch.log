@@ -1,7 +1,13 @@
   got https://www.dart.org/transitdata/latest/google_transit.zip 8420769 bytes
-routes kept: 84
-feed 2026-10-29 - 2026-12-06 · week from 2026-11-02 · days {'wk': '2026-11-04', 'sat': '2026-11-07', 'sun': '2026-11-08'}
-trips in the week: 17042
+  not kept (rail or other): 27346 '425' 'MCKINNEY AVENUE TROLLEY' 5
+  not kept (rail or other): 27502 '620' 'DALLAS STREETCAR' 5
+  not kept (rail or other): 27514 'SILVER' 'SILVER LINE' 2
+  not kept (rail or other): 27516 'TRE' 'TRINITY RAILWAY' 2
+routes kept: 88
+feed 2026-10-29 - 2026-12-06 · week from 2026-11-09 · days {'wk': '2026-11-11', 'sat': '2026-11-14', 'sun': '2026-11-15'}
+trips in the week: 18571
+rapid lines written: [('Red', 'lrt', 2), ('Blue', 'lrt', 2), ('Green', 'lrt', 2), ('Orange', 'lrt', 4)] · platforms 67
+sched.json: 6923 stops · 6 kinds of day · 5351 span lists · 426361 bytes
 routes written: 84 · trams 0 · stops 6856
   bus    001 MALCOLM X/MAPLE                    shapes 2  midday/5h  20  1-5am 5
   bus    003 ROSS                               shapes 2  midday/5h  20  1-5am 3
