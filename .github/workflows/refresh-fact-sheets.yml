@@ -19,7 +19,7 @@ on:
         default: false
       cities:
         description: 'Cities, space-separated'
-        default: 'toronto nyc sf chicago'
+        default: 'toronto nyc sf chicago vancouver'
   push:
     branches: [main]
     paths: ['cities/*/factsheet.json']
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 330
     env:
-      CITIES: ${{ inputs.cities || 'toronto nyc sf chicago' }}
+      CITIES: ${{ inputs.cities || 'toronto nyc sf chicago vancouver' }}
       FULL: ${{ github.event_name == 'schedule' || github.event_name == 'push' || inputs.full == true }}
     steps:
       - uses: actions/checkout@v4

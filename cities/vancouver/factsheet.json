@@ -1,0 +1,216 @@
+{
+ "_about": "Settings for the fact sheets (engine/profiles/: build.py, walk_grid.py, fetch_walk.py, fetch_drive.py, page.html): one per local area, plus the University Endowment Lands (unit 24, beside the City, not part of it). 'The subway' here is SkyTrain (skytrain_stations, skytrain_lines; the SeaBus is drawn with it, as on TransLink's map); stops and changes to the hubs are counted along each drawn line, with a change wherever two stations sit within 200 m (Waterfront's Expo and Canada Line platforms). The headline transit time is the map's own To Waterfront (la_profiles.json 'waterfront'). The West Coast Express is the regional rail. No parking rows: Vancouver's layer list has no City car parks or EV chargers yet. factsheet.css colours the line bullets in TransLink's colours (cities/vancouver/city.css).",
+ "units": "local_areas",
+ "census": "la_profiles.json",
+ "distance": "km",
+ "metro": {
+  "stations": [
+   "skytrain_stations"
+  ],
+  "lines": [
+   "skytrain_lines"
+  ]
+ },
+ "hubs": [
+  "Waterfront",
+  "Burrard",
+  "Granville",
+  "Commercial-Broadway",
+  "Broadway-City Hall"
+ ],
+ "hub": {
+  "name": "Waterfront",
+  "field": "waterfront"
+ },
+ "rail": {
+  "file": "wce_stations",
+  "in": "West Coast Express stations",
+  "nearest": "Nearest West Coast Express station",
+  "within": 3
+ },
+ "regionHighways": "region_highways",
+ "arterials": {
+  "layers": {
+   "streets": "major",
+   "collectors": "collector"
+  }
+ },
+ "lineColors": {
+  "expo": "#0033A0",
+  "millennium": "#FFCD00",
+  "canada": "#007C9F",
+  "seabus": "#7D6A5C"
+ },
+ "drive": {
+  "rampRadius": 3,
+  "keepStation": true,
+  "destinations": [
+   [
+    "Waterfront",
+    -123.1117,
+    49.2856
+   ],
+   [
+    "YVR Airport",
+    -123.1792,
+    49.1947
+   ],
+   [
+    "Metrotown",
+    -123.0006,
+    49.2258
+   ],
+   [
+    "Surrey Central",
+    -122.849,
+    49.1896
+   ],
+   [
+    "Lonsdale Quay",
+    -123.0813,
+    49.31
+   ]
+  ]
+ },
+ "walk": {
+  "tiles": [
+   4,
+   4
+  ]
+ },
+ "stationLabels": 14,
+ "hubBullets": false,
+ "transferStops": 4,
+ "lineOrder": [
+  "expo",
+  "millennium",
+  "canada",
+  "seabus"
+ ],
+ "labels": {
+  "subwayStations": "SkyTrain stations",
+  "nearestSubway": "Nearest SkyTrain station",
+  "bikeshare": "Mobi stations",
+  "bikeLanes": "Bikeways",
+  "nature": [
+   [
+    "Parks",
+    "park"
+   ],
+   [
+    "Playgrounds",
+    "playground"
+   ],
+   [
+    "Off-leash areas",
+    "offleash"
+   ],
+   [
+    "Tennis court locations",
+    "tennis"
+   ]
+  ],
+  "libraries": "Libraries",
+  "centres": "Community centres",
+  "heritage": "Heritage buildings",
+  "walkBike": "Commute on foot or by bike (2021 Census)",
+  "glanceBikeshare": "Mobi stations",
+  "glanceHeritage": "Heritage buildings",
+  "subwaySection": "SkyTrain",
+  "busSection": "TransLink buses",
+  "railSection": "West Coast Express, cycling and driving",
+  "overnight": "NightBus",
+  "parkingLots": "City parking",
+  "parkingNearest": "Nearest City parking",
+  "mainRoads": "Longest main streets",
+  "roads": [
+   [
+    "major",
+    "Main streets"
+   ],
+   [
+    "collector",
+    "Collector streets"
+   ]
+  ],
+  "glanceStation": "SkyTrain station",
+  "glanceStations": "SkyTrain stations"
+ },
+ "page": {
+  "city": "Vancouver",
+  "kind": "VANCOUVER",
+  "description": "Printable one-page fact sheets for each of Vancouver’s 22 local areas and the University Endowment Lands: SkyTrain, buses, the West Coast Express, highways, drive times, parks, libraries, bikeways and Mobi. Drop a pin for walk and drive times from any spot.",
+  "unit": "local area",
+  "Unit": "Local area",
+  "boundary": "Vancouver local area boundary (City of Vancouver Open Data)",
+  "pinned": "Pinned spot (rounded to about 100 m) in {name}",
+  "outside": "That spot is outside Vancouver. Try a spot inside the city or the UEL.",
+  "noMatch": "No match in Vancouver for “{q}”. Try the full street address, like “453 W 12th Ave”.",
+  "placeholder": "Search an address, like 453 W 12th Ave",
+  "credits": "Boundaries: City of Vancouver Open Data and Statistics Canada · Transit: TransLink GTFS · Mobi: Mobi by Rogers (GBFS) · Parks: City of Vancouver and OpenStreetMap · Census figures: 2021 Census",
+  "creditsPin": " · Walks along streets and paths at 4.8 km/h from the 150 m square around the pin: © OpenStreetMap contributors · Drive times are free-flow",
+  "creditsTransit": " · Stops and changes counted along each drawn line · To Waterfront: typical weekday-morning trip, door to door",
+  "creditsDriving": " · Highways and ramps: © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads, no tolls or traffic); distances straight-line",
+  "sysNote": "SkyTrain and the SeaBus, simplified. Stops and changes are counted along each line.",
+  "sysLabel": "SkyTrain with this local area highlighted",
+  "nearestStop": "Nearest bus stop",
+  "nearestDock": "Nearest Mobi station",
+  "parkingNearest": "Nearest City parking",
+  "legendTransit": [
+   [
+    "line",
+    "#0033A0",
+    "SkyTrain"
+   ],
+   [
+    "line",
+    "var(--bus)",
+    "Frequent bus"
+   ],
+   [
+    "thin",
+    "var(--bus)",
+    "Other daytime bus"
+   ],
+   [
+    "line",
+    "var(--bike)",
+    "Bikeway"
+   ]
+  ],
+  "legendDriving": [
+   [
+    "hwy",
+    "#F7C548",
+    "Highway"
+   ],
+   [
+    "road",
+    "#FFFFFF",
+    "Main street"
+   ],
+   [
+    "ramp",
+    "#fff",
+    "On-ramp"
+   ]
+  ],
+  "legendOverview": [
+   [
+    "line",
+    "#0033A0",
+    "SkyTrain"
+   ],
+   [
+    "line",
+    "var(--bike)",
+    "Bikeway"
+   ],
+   [
+    "dot",
+    "var(--park)",
+    "Park"
+   ]
+  ]
+ }
+}

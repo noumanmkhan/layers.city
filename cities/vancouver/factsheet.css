@@ -1,0 +1,11 @@
+/* Line bullets in TransLink's SkyTrain colours (cities/vancouver/city.css). The lines are colours, not letters, so
+   their bullets are plain dots. Bus badges in TransLink's styles: regular routes dark blue, RapidBus green, NightBus navy
+   outlined. */
+.ln{font-size:10.5px}
+.ln.lExpo,.ln.lMillennium,.ln.lCanada,.ln.lSeaBus{font-size:0;width:14px;height:14px}
+.ln.lExpo{background:#0033A0} .ln.lMillennium{background:#FFCD00} .ln.lCanada{background:#007C9F} .ln.lSeaBus{background:#7D6A5C}
+.rb{background:#00467F;color:#fff;box-shadow:none}
+.rb.exp{background:#3A9A43;color:#fff;box-shadow:none}
+.rb.night{background:#fff;color:#1C2A4A;box-shadow:inset 0 0 0 1.5px #1C2A4A}
+/* The Routes page's SkyTrain badges: plain coloured dots, as on the fact sheets (the page's .ln.lb sizes them). */
+.ln.lb.lExpo,.ln.lb.lMillennium,.ln.lb.lCanada,.ln.lb.lSeaBus{font-size:0}
