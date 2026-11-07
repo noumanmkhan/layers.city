@@ -1,0 +1,236 @@
+{
+ "_about": "Settings for Chicago's Routes page (engine/routes/: build.py, page.html), at /chicago/routes/: pick a stop or 'L' platform near you, see where each CTA bus and 'L' line from it goes. The 'L' lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their platforms in order; Metra stations count as connections too. The CTA publishes no GTFS-realtime feed (its Bus and Train Tracker APIs need a key and their own terms), so the page shows scheduled departures, not live times.",
+ "modes": [
+  "bus",
+  "subway"
+ ],
+ "gridTilt": 0,
+ "keepRight": true,
+ "regions": [
+  "sides"
+ ],
+ "regionsWithThe": [
+  "Far North Side",
+  "Northwest Side",
+  "North Side",
+  "West Side",
+  "Southwest Side",
+  "South Side",
+  "Far Southwest Side",
+  "Far Southeast Side"
+ ],
+ "knownWithThe": "^(Gold Coast|Magnificent Mile|South Loop|West Loop|Ukrainian Village|East Village)$",
+ "units": "community_areas",
+ "streets": {
+  "raw": "osm_arterials.json",
+  "osm": true,
+  "name": "name",
+  "along": [
+   "primary",
+   "secondary",
+   "tertiary"
+  ],
+  "cross": [
+   "primary",
+   "secondary"
+  ]
+ },
+ "pois": [
+  {
+   "file": "landmarks",
+   "cat": "catLabel"
+  },
+  {
+   "file": "institutions",
+   "cats": {
+    "hospital": "Hospital",
+    "university": "University",
+    "college": "College"
+   }
+  }
+ ],
+ "known": "knownas",
+ "stations": {
+  "files": [
+   "cta_stations",
+   "metra_stations"
+  ]
+ },
+ "near": {
+  "poi": 200,
+  "station": 150,
+  "known": 250,
+  "platform": 150
+ },
+ "notCrossed": "(?i)\\b(Bridge|Tunnel|Ramp|Viaduct|Expressway|Exit)\\b",
+ "page": {
+  "city": "Chicago",
+  "title": "Where does this line or route go?",
+  "short": "Routes from here",
+  "description": "Find the CTA bus stops and ’L’ platforms nearest you in Chicago and see where each route goes, with the next scheduled departures: the community areas it passes through, the main streets it runs along, its ’L’ and Metra connections and the landmarks on the way.",
+  "lede": "Find the stops and stations near you, then pick a bus or ’L’ line to see where it goes: the community areas, main streets, connections and landmarks along the way.",
+  "placeholder": "Or search an address",
+  "outside": "That spot is outside Chicago. Try an address in the city.",
+  "noMatch": "No match in Chicago for “{q}”. Try the full street address, like “121 N LaSalle St”.",
+  "noStops": "No stops or stations within {r} of that spot.",
+  "credits": "Routes, stops and timetable: CTA GTFS (data provided by Chicago Transit Authority) · Community areas: City of Chicago Data Portal · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled; the CTA publishes no open real-time feed",
+  "mapLink": "Open on the map",
+  "mi": true,
+  "at": " & ",
+  "connectWith": "the ’L’ and Metra",
+  "legendUnits": "Community areas it passes",
+  "legendKnown": "Wicker Park: the names people use",
+  "lineFiles": [
+   "cta_lines"
+  ],
+  "lineColors": {
+   "red": "#C60C30",
+   "blue": "#00A1DE",
+   "brown": "#62361B",
+   "green": "#009B3A",
+   "orange": "#F9461C",
+   "pink": "#E27EA6",
+   "purple": "#522398",
+   "yellow": "#F9E300"
+  },
+  "lineNames": {
+   "Red": "Red Line",
+   "Blue": "Blue Line",
+   "Brn": "Brown Line",
+   "G": "Green Line",
+   "Org": "Orange Line",
+   "P": "Purple Line",
+   "Pink": "Pink Line",
+   "Y": "Yellow Line"
+  },
+  "overground": true,
+  "connectionsLabel": "’L’ and Metra connections",
+  "lineGroups": {
+   "Metra": [
+    "BNSF",
+    "Heritage Corridor",
+    "Metra Electric",
+    "Milwaukee District North",
+    "Milwaukee District West",
+    "North Central Service",
+    "Rock Island",
+    "SouthWest Service",
+    "UP North",
+    "UP Northwest",
+    "UP West"
+   ]
+  }
+ },
+ "badges": {
+  "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses dark grey with white numbers, X routes white with a green outline, Owl white with a blue outline; 'L' lines as plain dots in the line's colour.",
+  "bus": {
+   "fill": "#45484D",
+   "text": "#FFFFFF"
+  },
+  "exp": {
+   "fill": "#FFFFFF",
+   "text": "#00843D",
+   "outline": "#00843D"
+  },
+  "night": {
+   "fill": "#FFFFFF",
+   "text": "#1F5BA8",
+   "outline": "#1F5BA8"
+  },
+  "lines": {
+   "Red": {
+    "fill": "#C60C30",
+    "text": "#FFFFFF"
+   },
+   "Blue": {
+    "fill": "#00A1DE",
+    "text": "#FFFFFF"
+   },
+   "Brn": {
+    "fill": "#62361B",
+    "text": "#FFFFFF"
+   },
+   "G": {
+    "fill": "#009B3A",
+    "text": "#FFFFFF"
+   },
+   "Org": {
+    "fill": "#F9461C",
+    "text": "#FFFFFF"
+   },
+   "P": {
+    "fill": "#522398",
+    "text": "#FFFFFF"
+   },
+   "Pink": {
+    "fill": "#E27EA6",
+    "text": "#FFFFFF"
+   },
+   "Y": {
+    "fill": "#F9E300",
+    "text": "#1A1414"
+   }
+  }
+ },
+ "nameRules": [
+  [
+   "^(North|South|East|West) (?!(Avenue|Street|Road|Drive|Boulevard|Parkway)$)",
+   ""
+  ],
+  [
+   "^(Lower |Upper )?(Jean Baptiste Point )?DuSable Lake Shore Drive$",
+   "Lake Shore Drive"
+  ],
+  [
+   " Street$",
+   " St"
+  ],
+  [
+   " Avenue$",
+   " Ave"
+  ],
+  [
+   " Road$",
+   " Rd"
+  ],
+  [
+   " Boulevard$",
+   " Blvd"
+  ],
+  [
+   " Drive$",
+   " Dr"
+  ],
+  [
+   " Parkway$",
+   " Pkwy"
+  ],
+  [
+   " Place$",
+   " Pl"
+  ],
+  [
+   " Court$",
+   " Ct"
+  ],
+  [
+   " Highway$",
+   " Hwy"
+  ],
+  [
+   " Lane$",
+   " Ln"
+  ],
+  [
+   " Terrace$",
+   " Ter"
+  ]
+ ],
+ "_nameRules": "OpenStreetMap writes Chicago's streets in full behind their grid direction (North Clark Street, South South Chicago Avenue); the page drops the one grid word, unless only a suffix would be left (North Avenue), and abbreviates as the map does (Clark St, South Chicago Ave). DuSable Lake Shore Drive reads Lake Shore Dr.",
+ "_streets": "OpenStreetMap files most of Chicago's mile and half-mile streets (Devon, Lawrence, Belmont, Fullerton) as secondary, so secondary roads count as crossings too.",
+ "platformNames": {
+  "raw": "platform_names.json"
+ },
+ "_platformNames": "The CTA's own words for each platform (O'Hare-bound, Loop-bound, Inner Loop), from its list of 'L' stops on the City's portal (fetch_platforms.py); its GTFS names platforms without them.",
+ "_overground": "page 'overground': the 'L' runs mostly on elevated tracks and at ground level, so it 'runs along' its streets, not under them (the Red, Blue and parts of the Loop's subways are the exception)."
+}

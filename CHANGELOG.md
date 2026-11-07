@@ -2,6 +2,16 @@
 
 ## Since 1.1
 
+### Chicago: Where does this line or route go? (November 7)
+- New page at layers.city/chicago/routes/, linked from the map's Getting around group: the stops and 'L' platforms
+  near a spot, and where each CTA bus and 'L' line goes from there (community areas, main streets, 'L' and Metra
+  connections, landmarks). The CTA publishes no open real-time feed, so times are the timetable's next departure.
+- The 'L' joins the CTA schedule fetch (surface.json 'rapid', 'sched'). Platforms are headed in the CTA's own words
+  (O'Hare-bound, Inner Loop) from its list of 'L' stops (fetch_platforms.py); Metra's lines show as one pill.
+- Routes engine: 'nameRules' (OpenStreetMap's North Clark Street reads Clark St), 'platformNames', page 'overground'
+  (the 'L' runs along its streets, not under them); the page now gets its units file, which also fixes New York's
+  request for a file it doesn't have.
+
 ### Chicago: Events page, Happening nearby and Special events (November 7)
 - New page at layers.city/chicago/events/: every Chicago Public Library program and Chicago Park District event for
   the next 30 days (about 1,400), filtered by free, category and community area, with Near me. Same engine as

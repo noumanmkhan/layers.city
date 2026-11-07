@@ -885,7 +885,11 @@ streetcars (`tram`), cable cars (`cable`, a word of their own: "cable car") and 
 31 BART, as `subway`, with route ids `BART-Yellow` and so on and platforms headed "Platform 1"; live times from 511.org for Muni and from BART's own feed, `/api/arrivals?city=sf`: send `liveRapid` and
 `&lines=` with the BART routes at the platforms asked for, as for New York). New York as of October 30 (MTA buses and the subway, live for both: buses from MTA Bus Time, the subway from the MTA's
 feeds; add `&lines=<route ids>` with `liveRapid`, the rapid routes at the platforms asked for, so only their feeds
-are read, and `&onlyRapid=1` when every stop asked for is a platform, so the bus feed isn't). It is the data behind
+are read, and `&onlyRapid=1` when every stop asked for is a platform, so the bus feed isn't). Chicago as of November 7
+(CTA buses and the 'L', as `subway`, with the feed's route ids `Red`, `Blue`, `Brn`, `G`, `Org`, `P`, `Pink`, `Y`; no
+`live`: the CTA publishes no open GTFS-realtime feed, so show the timetable's next departure; platforms headed in the
+CTA's own words, "O'Hare-bound platform", "Inner Loop platform", "Arrival platform", in the stop's side field; Metra
+stations are connections, their eleven lines shown as one "Metra" pill, `lineGroups`). It is the data behind
 the website's "Where does this line or route go?" page (`/toronto/routes/`, `/sf/routes/`); an app can rebuild that page natively from it. A
 city without `transit` in its `city.json` has none of this: hide the feature.
 

@@ -45,6 +45,10 @@
   "facts": {"peers": "sides", "in": "on the {name}", "city": "in Chicago", "hub": "the Loop"},
   "units": {"singular": "Community area", "plural": "community areas"},
 
+  "pageLinks": [
+    {"group": "Getting around", "id": "routes", "name": "Where does this line or route go?", "note": "Find the stops and ’L’ stations near you and see where each bus and ’L’ line takes you", "href": "/chicago/routes/"}
+  ],
+
   "groups": [
     ["Places", [
       {"id": "ca", "kind": "units", "file": "community_areas", "name": "Community areas", "note": "The City’s 77 official community areas", "on": true, "hover": "{name} · #{code}"},

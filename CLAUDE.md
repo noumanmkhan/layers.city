@@ -26,7 +26,7 @@ the landing page, stop and say so; don't change this repo.
   and bike-lane fetch jobs and monthly re-fetches the walk network, walk times, ramps and drive times; deploy.yml
   lists it, so its commits go live. By hand: `python3 engine/profiles/build.py <city>` after the map's data changes.
 - **Routes from here** (`engine/routes/build.py` and `page.html`, `cities/<city>/routes.json`, pages at
-  `docs/<city>/routes/`; Toronto October 27): nearby stops and where each route goes from them. Linked from the hub
+  `docs/<city>/routes/`; Toronto October 27, Chicago November 7 with timetable times only): nearby stops and where each route goes from them. Linked from the hub
   card, the sitemap (places.py) and the map's Getting around group (city.json `pageLinks`, rows that open a page).
   Built from `raw/surface/` and the map's published layers; the engine names no city.
   `refresh-fact-sheets.yml` rebuilds it with the fact sheets. By hand: `python3 engine/routes/build.py <city>`.

@@ -18,11 +18,18 @@ for attempt in range(5):   # the portal answers 503 now and then
         if attempt == 4:
             raise
         time.sleep(30)
+def tidy(w):
+    """The list's words as the signs say them: "95th-Bound" -> "95th-bound", "Forest Pk" -> "Forest Park",
+    "Terminal Arrival" -> "Arrival"."""
+    w = re.sub(r'-Bound$', '-bound', w).replace('Forest Pk', 'Forest Park')
+    return 'Arrival' if re.fullmatch(r'(?i)(terminal )?arrival', w) else w
+
+
 out = {}
 for r in rows:
     m = re.search(r'\(([^)]+)\)\s*$', r.get('stop_name') or '')
     if r.get('stop_id') and m:
-        out[str(r['stop_id'])] = m.group(1).strip()
+        out[str(r['stop_id'])] = tidy(m.group(1).strip())
 json.dump({'source': 'City of Chicago Data Portal, CTA List of L Stops (8pix-ypme)', 'fetched': date.today().isoformat(), 'stops': out},
           open(os.path.join(HERE, 'raw', 'platform_names.json'), 'w'), indent=0, ensure_ascii=False, sort_keys=True)
 print(len(rows), 'platforms;', len(out), 'with direction words;', sorted(set(out.values()))[:60])
