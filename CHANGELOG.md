@@ -2,6 +2,12 @@
 
 ## Since 1.1
 
+### Non-commercial sources: Dallas Events, Pace timetables (November 7)
+- The site earns nothing, so feeds offered for non-commercial use are now allowed (the user's call); `NONCOMMERCIAL.md`
+  lists each one and how to take it out, and Attributions marks them.
+- layers.city/dallas/events/ and the Dallas card's Happening nearby, from Dallas Park and Recreation's calendars.
+- Chicago's Pace buses from Pace's own GTFS: frequencies for every Pace route, and the three routes OpenStreetMap lacked.
+
 ### Vancouver and Dallas: Venues (November 7)
 - layers.city/vancouver/venues/: 12 venues (BC Place, Rogers Arena, Pacific Coliseum, Nat Bailey, the Orpheum, Queen
   Elizabeth Theatre, Malkin Bowl, the Vogue, the Commodore, UBC's Doug Mitchell centre and Chan Centre, and the Langley
