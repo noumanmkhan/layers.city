@@ -2,6 +2,16 @@
 
 ## Since 1.1
 
+### New York and San Francisco: Events pages and Happening nearby (November 7)
+- layers.city/nyc/events/: every public event in New York City's parks for the next two weeks (NYC Parks, NYC Open
+  Data), by neighborhood; the feed looks two weeks ahead, so the page does too. No instructor names or contacts.
+- layers.city/sf/events/: the San Francisco Public Library's programs for children, teens and families at every branch
+  for the next 30 days (Our415 on DataSF, public domain). The page says plainly that adult programs aren't in the
+  feed. The feed's eligibility tags and Rec and Park's registration classes are left out.
+- Both cards gain Happening nearby (half a mile), and both cities get the Events column on the hub.
+- Events pages: the Free only box is hidden when it wouldn't change the list (New York has no cost field; every SF
+  library program is free); the last section's title is each city's own words.
+
 ### Chicago: Parks, Sports & rec and Schools (November 7)
 - New Outdoors group on the Chicago map: *Parks* (750 named parks and nature areas, shaded green, with Playground and
   Dog-friendly chips) and *Sports & rec* (283 parks with pools, ball fields, soccer fields, tennis, pickleball,

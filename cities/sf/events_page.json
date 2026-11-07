@@ -1,0 +1,19 @@
+{
+  "_about": "The Events page at /sf/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the neighborhood filter and card outline come from. The feed carries the library's programs for children, teens and families only, and the words say so. 'words' are the page's own text; the engine names no city or source.",
+  "file": "events.json",
+  "units": "neighbourhoods",
+  "words": {
+    "title": "What’s on at San Francisco’s libraries",
+    "intro": "San Francisco Public Library’s programs for children, teens and families at every branch, for the next 30 days: storytimes, workshops, clubs and more.",
+    "listing": "A listing, not a guide: the facts and a link to each event’s page, nothing else. The library’s programs for adults aren’t in the City’s open data, so see sfpl.org for those.",
+    "desc": "San Francisco Public Library programs for kids, teens and families today, this weekend and this month, by neighborhood, with free events marked.",
+    "card": "Kids, teens and families: the next 30 days",
+    "hub": "Library programs: today, this weekend",
+    "hoodLabel": "Neighborhood",
+    "placeless": "Online",
+    "sources": {
+      "library": "Library program"
+    },
+    "source": "Programs from the San Francisco Public Library, via Our415 on DataSF (public domain)."
+  }
+}

@@ -1794,7 +1794,21 @@
     ]
    ],
    "note": "Straight-line distances; half a mile is about a 10-minute walk. Rec & Park, the San Francisco Public Library and the State’s school directory. Counts parks, not courts. Schools are SFUSD’s own; most places are assigned by lottery, not distance. Places of worship (OpenStreetMap) show while their layer is on. Soft-story buildings are the wood-frame apartment buildings over garages or shops the City required to be strengthened; nearly all have been.",
-   "sources": "Sources: San Francisco Recreation and Park Department, San Francisco Public Library, California Department of Education, OpenStreetMap (hospitals, colleges and places of worship)."
+   "sources": "Sources: San Francisco Recreation and Park Department, San Francisco Public Library, California Department of Education, OpenStreetMap (hospitals, colleges and places of worship).",
+   "happening": {
+    "file": "happening.json",
+    "radius": 805,
+    "max": 3,
+    "days": 14,
+    "title": "Happening nearby",
+    "today": "Today",
+    "free": "Free",
+    "all": {
+     "label": "See all library programs",
+     "href": "/sf/events/"
+    },
+    "source": "Library programs for kids, teens and families from the San Francisco Public Library, via Our415 on DataSF."
+   }
   },
   "sweep": {
    "label": "Street sweeping",

@@ -1,0 +1,20 @@
+{
+  "_about": "The Events page at /nyc/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the neighborhood filter and card outline come from. NYC Parks' feed looks two weeks ahead, so the page covers 14 days. 'words' are the page's own text; the engine names no city or source.",
+  "file": "events.json",
+  "units": "ntas",
+  "words": {
+    "title": "What’s on in New York City parks",
+    "intro": "Every public event in New York City’s parks for the next two weeks: walks, concerts, classes, volunteer days, exhibitions and more, from NYC Parks.",
+    "listing": "A listing, not a guide: the facts and a link to each event’s page, nothing else. The city’s libraries publish no open events feed, so their programs aren’t here.",
+    "desc": "What’s on in New York City’s parks today, this weekend and over the next two weeks, from NYC Parks’ public events listing.",
+    "card": "Today, this weekend, the next two weeks",
+    "hub": "Parks events: today, this weekend",
+    "hoodLabel": "Neighborhood",
+    "placeless": "Online",
+    "later": "Later in the two weeks",
+    "sources": {
+      "parks": "NYC Parks"
+    },
+    "source": "Events from NYC Parks, via NYC Open Data."
+  }
+}

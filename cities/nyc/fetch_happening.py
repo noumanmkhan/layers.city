@@ -89,6 +89,8 @@ for r in rows:
     lat, lng = (None, None) if online else point(r.get('coordinates'))
     park = re.sub(r'\s+', ' ', html.unescape(r.get('parknames') or '')).strip() or None
     spot = re.sub(r'\s+', ' ', html.unescape(r.get('location') or '')).strip() or None
+    if spot and '),' in spot:                     # several spots in one park: the first is enough
+        spot = spot.split('),')[0] + ')'
     venue = spot if spot and (not park or park in spot) else (f'{spot}, {park}' if spot and park else park or spot)
     link = r.get('link') if isinstance(r.get('link'), dict) else {}
     link = (link.get('url') or '').strip().replace('http://', 'https://', 1) or 'https://www.nycgovparks.org/events'

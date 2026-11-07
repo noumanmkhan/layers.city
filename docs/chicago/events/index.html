@@ -80,13 +80,13 @@ footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(
 <main>
 <h1>What’s on in Chicago</h1><p class="kind">Every Chicago Public Library program and every Chicago Park District event, for the next 30 days. A listing, not a guide: the facts and a link to the source, nothing else.</p><p class="stamp" id="stamp"></p><div class="controls">
 <button type="button" class="near" id="near" aria-pressed="false"><svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#fff"/><circle cx="60" cy="48" r="14" fill="var(--accent)"/></svg><span>Near me</span></button>
-<label class="check"><input type="checkbox" id="free"> Free only</label>
+<label class="check" id="freeL"><input type="checkbox" id="free"> Free only</label>
 <label>Category <select id="cat"><option value="">All</option></select></label>
 <label>Community area <select id="hood"><option value="">All</option></select></label>
 <button type="button" class="reset" id="reset" hidden>Clear filters</button>
 </div>
 <p class="status" id="status" aria-live="polite"></p><div id="sections"><section><p class="empty">Loading the listing…</p></section></div><noscript><section><p class="empty">This page needs JavaScript to show the listing.</p></section></noscript><script>
-(()=>{const C={"file": "events.json", "map": "/chicago/", "locale": "en-US", "placeless": "Online", "unit": "km", "pin": "<svg viewBox=\"18 6 84 108\" aria-hidden=\"true\"><path d=\"M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z\" fill=\"currentColor\"/><circle cx=\"60\" cy=\"48\" r=\"14\" fill=\"var(--card)\"/></svg>", "srcs": {"library": "Library program", "parks": "Park District"}},$=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+(()=>{const C={"file": "events.json", "map": "/chicago/", "locale": "en-US", "placeless": "Online", "unit": "km", "pin": "<svg viewBox=\"18 6 84 108\" aria-hidden=\"true\"><path d=\"M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z\" fill=\"currentColor\"/><circle cx=\"60\" cy=\"48\" r=\"14\" fill=\"var(--card)\"/></svg>", "srcs": {"library": "Library program", "parks": "Park District"}, "later": "Later this month"},$=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
 const freeEl=$('free'),catEl=$('cat'),hoodEl=$('hood'),nearEl=$('near'),statusEl=$('status'),out=$('sections');
 let D=null,me=null;const shown={};   // me: the visitor's position, kept here only, never stored or sent
 // City-time clock: "YYYY-MM-DDTHH:MM".
@@ -106,7 +106,7 @@ function sections(now){const today=now.slice(0,10),wk=[],end=D.to;
   if(wd(today)===6)wk.splice(0,wk.length,dayAdd(today,1));         // Saturday: the weekend's other day
   const next=[];for(let i=1;i<=7;i++){const d=dayAdd(today,i);if(!wk.includes(d))next.push(d)}
   const later=[];for(let d=dayAdd(today,8);d<=end;d=dayAdd(d,1))later.push(d);
-  return[{id:'today',title:'Today',days:[today]},{id:'weekend',title:'This weekend',days:wk},{id:'week',title:'Next 7 days',days:next},{id:'later',title:'Later this month',days:later,cap:10}].filter(s=>s.days.length)}
+  return[{id:'today',title:'Today',days:[today]},{id:'weekend',title:'This weekend',days:wk},{id:'week',title:'Next 7 days',days:next},{id:'later',title:C.later,days:later,cap:10}].filter(s=>s.days.length)}
 function span(days){if(days.length===1)return dateFmt(days[0],{weekday:'long',month:'long',day:'numeric'});
   return dateFmt(days[0],{weekday:'short',month:'short',day:'numeric'})+' to '+dateFmt(days[days.length-1],{weekday:'short',month:'short',day:'numeric'})}
 // The day is left out in a one-day section (Today): its heading says it.
@@ -147,6 +147,7 @@ nearEl.addEventListener('click',()=>{
     statusEl.textContent='Nearest first, straight-line distance. Your location stays in this browser: it isn’t saved or sent anywhere.';render()},
     ()=>{statusEl.textContent='Location not available, so the list stays in time order.'},{enableHighAccuracy:false,timeout:15000,maximumAge:300000})});
 fetch(C.file).then(r=>r.json()).then(d=>{D=d;
+  if(!d.events.some(e=>e.free===true)||d.events.every(e=>e.free===true))$('freeL').hidden=true;
   const cats={},hoods={};let none=0;d.events.forEach(e=>{if(e.category)cats[e.category]=1;if(e.hood)hoods[e.hood]=1;if(e.lat==null)none++});
   const opt=(v,t)=>'<option value="'+esc(v)+'">'+esc(t)+'</option>',srt=o=>Object.keys(o).sort((a,b)=>a.localeCompare(b,C.locale));
   catEl.insertAdjacentHTML('beforeend',srt(cats).map(c=>opt(c,c)).join(''));
