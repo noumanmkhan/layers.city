@@ -1,17 +1,33 @@
 {
-  "_about": "Buses (engine/fetch_surface.py, engine/surface.py), and the 'L' for the Routes page (see _rapid). 'gtfs' says where the agency's schedule comes from: a CKAN package (ckan) or a direct zip (url). Rail routes are drawn by the 'L' layer, so only buses are kept. 'feeds' adds other agencies, each into raw/surface/<feed>/. Pace comes from OpenStreetMap ('osm', engine/osm_routes.py) because Pace offers its GTFS for non-commercial use only: routes and stops, no schedules. Its routes keep their own mode ('pace') and a 'Pace ' prefix; Pulse lines go by their names.",
-  "gtfs": {"url": "https://www.transitchicago.com/downloads/sch_data/google_transit.zip"},
-  "_rapid": "The 'L' joins the fetch for the Routes page only (November 7, 2026): its eight lines by the feed's route ids (the CTA leaves their short names blank), kept apart in raw/surface/rapid_*.json with each shape's platforms in order; the map still draws the 'L' from its own layer. 'sched' writes the timetable the Routes page shows for next departures (the CTA publishes no GTFS-realtime feed). The files fetched before this carried no options, so they were marked to be rewritten once.",
-  "rapid": {"Red": "subway", "Blue": "subway", "Brn": "subway", "G": "subway", "Org": "subway", "P": "subway", "Pink": "subway", "Y": "subway"},
-  "sched": true,
-  "skip": [],
-  "feeds": {
-    "pace": {
-      "osm": {"box": [41.10, -88.70, 42.55, -87.50], "network": "Pace"},
-      "mode": "pace",
-      "prefix": "Pace ",
-      "names": {"Pulse Dempster Line": "Pulse Dempster", "Pulse Milwaukee Line": "Pulse Milwaukee"},
-      "simplify": 0.00012
-    }
+ "_about": "Buses (engine/fetch_surface.py, engine/surface.py), and the 'L' for the Routes page (see _rapid). 'gtfs' says where the agency's schedule comes from: a CKAN package (ckan) or a direct zip (url). Rail routes are drawn by the 'L' layer, so only buses are kept. 'feeds' adds other agencies, each into raw/surface/<feed>/. Pace comes from its own GTFS (offered for non-commercial use: NONCOMMERCIAL.md; until November 7, 2026 it came from OpenStreetMap, 'osm', engine/osm_routes.py, which is what replaces it if the site goes commercial), via the Mobility Database's stable copy with Pace's monthly link as a fallback. Its routes keep their own mode ('pace') and a 'Pace ' prefix; Pulse lines go by their names.",
+ "gtfs": {
+  "url": "https://www.transitchicago.com/downloads/sch_data/google_transit.zip"
+ },
+ "_rapid": "The 'L' joins the fetch for the Routes page only (November 7, 2026): its eight lines by the feed's route ids (the CTA leaves their short names blank), kept apart in raw/surface/rapid_*.json with each shape's platforms in order; the map still draws the 'L' from its own layer. 'sched' writes the timetable the Routes page shows for next departures (the CTA publishes no GTFS-realtime feed). The files fetched before this carried no options, so they were marked to be rewritten once.",
+ "rapid": {
+  "Red": "subway",
+  "Blue": "subway",
+  "Brn": "subway",
+  "G": "subway",
+  "Org": "subway",
+  "P": "subway",
+  "Pink": "subway",
+  "Y": "subway"
+ },
+ "sched": true,
+ "skip": [],
+ "feeds": {
+  "pace": {
+   "gtfs": {
+    "url": "https://files.mobilitydatabase.org/mdb-2347/latest/latest.zip",
+    "fallback": [
+     "https://pacebus.com/sites/default/files/2026-10/GTFS.zip"
+    ],
+    "preferCurrent": true
+   },
+   "mode": "pace",
+   "prefix": "Pace ",
+   "simplify": 0.00012
   }
+ }
 }
