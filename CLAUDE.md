@@ -138,6 +138,11 @@ the landing page, stop and say so; don't change this repo.
 - The repo is all rights reserved (see `LICENSE`, and `docs/terms/` for visitors); it was MIT before
   October 14, 2026. Don't add licence headers or files that grant reuse rights. Third-party data keeps its own
   licences, so keep the Attributions page and map credit lines complete.
+- Non-commercial data (the user, November 7, 2026): the site earns nothing, so a feed or file its owner offers for
+  non-commercial use may be used. "Offered" means a feed or download the owner publishes, or terms that allow it: not
+  scraping a site whose terms forbid automated access, and not a source with no licence stated. Every such source goes
+  in `NONCOMMERCIAL.md` (what it is, its terms, where it's used, what replaces it) and is marked on the Attributions
+  page, so it can be removed or licensed before the site makes money.
 
 ## Conventions
 - One change per commit, with a plain-English message saying what changed and why.
