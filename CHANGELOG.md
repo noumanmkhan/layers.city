@@ -2,6 +2,10 @@
 
 ## Since 1.1
 
+### San Francisco: nearest emergency department on the card (November 7)
+- The card's Nearby section names the nearest emergency department, as in Toronto and Chicago, from the map's
+  Hospitals layer (general hospitals with an ER; UCSF Mission Bay's is named as the children's hospital's).
+
 ### New York and San Francisco: Events pages and Happening nearby (November 7)
 - layers.city/nyc/events/: every public event in New York City's parks for the next two weeks (NYC Parks, NYC Open
   Data), by neighborhood; the feed looks two weeks ahead, so the page does too. No instructor names or contacts.

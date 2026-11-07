@@ -6,7 +6,7 @@ Writes into docs/sf/data/:
   schools.geojson       SFUSD's district-run schools, elementary (with K-8) and middle and high, from the State's directory
   parks.geojson         Rec & Park properties, with amenities: playground, dog play area
   sports.geojson        Rec & Park courts, fields, pools and skateparks, one point per park with its sports
-  nearby.json           the points the card counts and names within its radius
+  nearby.json           the points the card counts and names within its radius (er: the hospitals above)
 Rules, as the other cities': describe only, never rank; public and nonprofit institutions; one point per place.
 
 Hospitals: a curated list (HOSPITALS) of the city's general acute hospitals with an emergency department, placed by
@@ -187,6 +187,12 @@ print('sports:', len(sports), {c: sum(1 for f in sports if c in f['properties'][
 
 # ---------- Nearby points for the card ----------
 G = defaultdict(list)
+# Emergency departments for the card's nearest-ER row: every hospital on the list has one. Mission Bay's is the
+# children's hospital's, so the row names that.
+ER_NAME = {'UCSF Medical Center at Mission Bay': 'UCSF Benioff Children’s Hospital (Mission Bay)'}
+for f in inst:
+    if f['properties']['cat'] == 'hospital':
+        G['er'].append(f['geometry']['coordinates'] + [ER_NAME.get(f['properties']['name'], f['properties']['name'])])
 for f in comm: G[f['properties']['cat']].append(f['geometry']['coordinates'] + [f['properties']['name']])
 for f in sports:
     for c in ('pool', 'tennis', 'basketball'):
