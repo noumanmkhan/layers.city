@@ -125,6 +125,8 @@ for ev in feed:
         continue
     if start[:10] < today.isoformat():
         start = today.isoformat()
+    if re.search(r'citywide|city-wide|all of vancouver', clean(ev.get('location')), re.I):
+        continue                                 # a citywide day has no place to be near
     venue, address, lat, lng = place(ev.get('location'))
     if lat is None:
         unplaced.append(clean(ev.get('location')))
