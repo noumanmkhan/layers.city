@@ -504,8 +504,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (!n) return null;
     const when = n.o === 0 ? '' : n.o === 1 ? 'tomorrow ' : new Date(n.day + n.o * 864e5).toLocaleDateString('en-CA', { weekday: 'long', timeZone: 'UTC' }) + ' ';
     const w = WORD[D.routes[rid][2]] || 'bus';
-    return el('span', { class: 'next sched', title: 'From the timetable: no live times until it starts running' },
-      [`Next ${w} `, el('b', {}, when + 'at ' + clock(n.m)), long ? ' · from the timetable; live times show once it’s on its way' : '']);
+    // Live times are promised only where the city has a live feed (routes.json "live"); elsewhere every time is the timetable's.
+    return el('span', { class: 'next sched', title: LIVE ? 'From the timetable: no live times until it starts running' : 'From the timetable' },
+      [`Next ${w} `, el('b', {}, when + 'at ' + clock(n.m)), long ? (LIVE ? ' · from the timetable; live times show once it’s on its way' : ' · from the timetable') : '']);
   }
   // What a row shows: live times, else (when the route isn't running) the next scheduled one, else how often it runs.
   function arrivalsEl(j, S, sid, rid, long) {
@@ -876,13 +877,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       for (const c of coords) { const [x, y] = xy(c[0], c[1]); out += (on ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1); on = true; }
       return out + (close ? 'Z' : '');
     };
-    const rings = g => g.type === 'Polygon' ? g.coordinates : g.type === 'MultiPolygon' ? g.coordinates.flat() : [];
+    const rings = g => !g ? [] : g.type === 'Polygon' ? g.coordinates : g.type === 'MultiPolygon' ? g.coordinates.flat() : [];
     const linesOf = g => g.type === 'LineString' ? [g.coordinates] : g.type === 'MultiLineString' ? g.coordinates : [];
     const near = cs => cs.some(c => inside(c[0], c[1], 0.02));
 
     const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Map of the route ahead, from ${clean(s[1])} to ${clean(P.to)}` });
     // Land: the city and its neighbours; the lake shows through as the background.
-    base.features.forEach(f => { if (f.properties.kind === 'outside') return; rings(f.geometry).forEach(r => { if (near(r)) svg.append(el('path', { d: pathOf(r, true), fill: f.properties.kind === 'city' ? 'var(--m-city)' : 'var(--m-out)', stroke: 'var(--m-edge)', 'stroke-width': 1 })); }); });
+    base.features.forEach(f => { if (f.properties.kind === 'outside') return; rings(f.geometry).forEach(r => { if (near(r)) svg.append(el('path', { d: pathOf(r, true), fill: f.properties.kind === 'city' || f.properties.kind === 'annex' ? 'var(--m-city)' : 'var(--m-out)', stroke: 'var(--m-edge)', 'stroke-width': 1 })); }); });
     // Each neighbourhood the ride passes gets its own tint, in turn along the route, so neighbours differ.
     const order = [];
     P.hoods.filter(h => h[1] > d0).forEach(h => (Array.isArray(h[2]) ? h[2] : [h[2]]).forEach(n => { if (!order.includes(n)) order.push(n); }));
@@ -1050,7 +1051,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     drawRecent();
     await fromURL();
   }
-  init().catch(() => { $('hint').textContent = 'This page could not load. Try again in a moment.'; });
+  init().catch(e => { console.error(e); $('hint').textContent = 'This page could not load. Try again in a moment.'; });
 })();
 </script>
 </body>

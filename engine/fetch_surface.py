@@ -228,7 +228,7 @@ for r in rows('routes.txt'):
         continue
     if short in RAPID: m = RAPID[short]
     elif not m or m not in TYPES or short in SKIP: continue
-    routes[r['route_id']] = {'id': r['route_id'], 'short': PREFIX + short, 'long': r.get('route_long_name', ''), 'mode': CFG.get('mode', m),
+    routes[r['route_id']] = {'id': r['route_id'], 'short': PREFIX + short, 'long': CFG.get('longNames', {}).get(short, r.get('route_long_name', '')), 'mode': CFG.get('mode', m),
                              'color': r.get('route_color', ''), 'text': r.get('route_text_color', '')}
 print('routes kept:', len(routes))
 

@@ -2,6 +2,18 @@
 
 ## Since 1.1
 
+### Vancouver and Dallas: Fact sheets, Transit pages and EV chargers (November 7)
+- layers.city/vancouver/profiles/ (22 local areas and the UEL) and layers.city/dallas/profiles/ (its ZIP codes): the
+  same printable sheets as the other cities: SkyTrain or DART light rail, buses, the West Coast Express or the Silver
+  Line and TRE, highways, drive times, parks, libraries, bikeways and walk times from a pin.
+- layers.city/vancouver/routes/ and layers.city/dallas/routes/: Where does this line or route go?, for every TransLink and
+  DART bus and SkyTrain or light rail line, with scheduled departures (neither agency's live feed is open without a key).
+- EV chargers on both maps (AFDC, which carries Natural Resources Canada's Canadian stations), monthly.
+- Engine: surface.json `rapidMatch` finds rail lines by name and `longNames` renames them; the Routes page mentions live
+  times only where a city has them, and tolerates a place with no shape; fact sheets skip the heritage and
+  places-of-worship rows where a city has no such layer.
+- Hub: Vancouver and Dallas rows link their Fact sheets and Transit pages.
+
 ### Chicago: community area badges and Divvy stations (November 7)
 - Community area badges: 15 one-colour drawings laid on the map like a watermark, as in the other cities: the Water
   Tower, the 'L' over the Loop, the Field Museum, both conservatories, Pullman's clock tower, the Museum of Science and

@@ -1,0 +1,199 @@
+{
+ "_about": "Settings for Dallas's Routes page (engine/routes/: build.py, page.html), at /dallas/routes/: pick a stop or DART rail platform near you, see where each DART bus and light rail line from it goes. The light rail lines come from raw/surface/rapid_*.json (surface.json 'rapid', found by name with 'rapidMatch'), their platforms in order; Silver Line and TRE stations count as connections too. DART's real-time data isn't open without a key, so the page shows scheduled departures.",
+ "modes": [
+  "bus",
+  "lrt"
+ ],
+ "gridTilt": 0,
+ "keepRight": true,
+ "regions": [
+  "sides"
+ ],
+ "regionsWithThe": [],
+ "knownWithThe": "^(Cedars|Design District|Arts District)$",
+ "units": "zips",
+ "streets": {
+  "raw": "osm_streets.json",
+  "osm": true,
+  "name": "name",
+  "along": [
+   "primary",
+   "secondary",
+   "tertiary"
+  ],
+  "cross": [
+   "primary",
+   "secondary"
+  ]
+ },
+ "pois": [
+  {
+   "file": "landmarks",
+   "cat": "catLabel"
+  },
+  {
+   "file": "institutions",
+   "cats": {
+    "hospital": "Hospital",
+    "university": "University",
+    "college": "College"
+   }
+  }
+ ],
+ "known": "knownas",
+ "stations": {
+  "files": [
+   "dart_stations",
+   "rail_stations"
+  ]
+ },
+ "near": {
+  "poi": 200,
+  "station": 150,
+  "known": 250,
+  "platform": 150
+ },
+ "notCrossed": "(?i)\\b(Bridge|Tunnel|Ramp|Viaduct|Freeway|Expressway|Tollway|Exit|Service Road)\\b",
+ "page": {
+  "city": "Dallas",
+  "title": "Where does this line or route go?",
+  "short": "Routes from here",
+  "description": "Find the DART bus stops and light rail platforms nearest you in Dallas and see where each route goes, with the next scheduled departures: the ZIP codes it passes through, the main streets it runs along, its rail connections and the landmarks on the way.",
+  "lede": "Find the stops and stations near you, then pick a bus or DART rail line to see where it goes: the ZIP codes, main streets, connections and landmarks along the way.",
+  "placeholder": "Or search an address",
+  "outside": "That spot is outside the City of Dallas. Try an address in the city.",
+  "noMatch": "No match in Dallas for “{q}”. Try the full street address, like “1500 Marilla St”.",
+  "noStops": "No stops or stations within {r} of that spot.",
+  "credits": "Routes, stops and timetable: DART GTFS · ZIP codes: U.S. Census Bureau · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled",
+  "mapLink": "Open on the map",
+  "mi": true,
+  "at": " & ",
+  "connectWith": "DART rail, the Silver Line and the TRE",
+  "legendUnits": "ZIP codes it passes",
+  "legendKnown": "Deep Ellum: the names people use",
+  "lineFiles": [
+   "dart_lines"
+  ],
+  "lineColors": {
+   "red": "#CE0E2D",
+   "blue": "#0064A8",
+   "green": "#009B3A",
+   "orange": "#F7931D"
+  },
+  "lineNames": {
+   "Red": "Red Line",
+   "Blue": "Blue Line",
+   "Green": "Green Line",
+   "Orange": "Orange Line"
+  },
+  "overground": true,
+  "connectionsLabel": "Rail connections"
+ },
+ "badges": {
+  "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses dark blue, express white with a blue outline; light rail lines as plain dots in the line's colour.",
+  "bus": {
+   "fill": "#0B3B6E",
+   "text": "#FFFFFF"
+  },
+  "exp": {
+   "fill": "#FFFFFF",
+   "text": "#0B3B6E",
+   "outline": "#0B3B6E"
+  },
+  "night": {
+   "fill": "#FFFFFF",
+   "text": "#1C2A4A",
+   "outline": "#1C2A4A"
+  },
+  "lines": {
+   "Red": {
+    "fill": "#CE0E2D",
+    "text": "#FFFFFF"
+   },
+   "Blue": {
+    "fill": "#0064A8",
+    "text": "#FFFFFF"
+   },
+   "Green": {
+    "fill": "#009B3A",
+    "text": "#FFFFFF"
+   },
+   "Orange": {
+    "fill": "#F7931D",
+    "text": "#FFFFFF"
+   }
+  }
+ },
+ "nameRules": [
+  [
+   "^North (?!(Avenue|Street|Road|Drive|Boulevard|Parkway)$)",
+   "N "
+  ],
+  [
+   "^South (?!(Avenue|Street|Road|Drive|Boulevard|Parkway)$)",
+   "S "
+  ],
+  [
+   "^East (?!(Avenue|Street|Road|Drive|Boulevard|Parkway)$)",
+   "E "
+  ],
+  [
+   "^West (?!(Avenue|Street|Road|Drive|Boulevard|Parkway)$)",
+   "W "
+  ],
+  [
+   " Street$",
+   " St"
+  ],
+  [
+   " Avenue$",
+   " Ave"
+  ],
+  [
+   " Road$",
+   " Rd"
+  ],
+  [
+   " Boulevard$",
+   " Blvd"
+  ],
+  [
+   " Drive$",
+   " Dr"
+  ],
+  [
+   " Parkway$",
+   " Pkwy"
+  ],
+  [
+   " Place$",
+   " Pl"
+  ],
+  [
+   " Court$",
+   " Ct"
+  ],
+  [
+   " Highway$",
+   " Hwy"
+  ],
+  [
+   " Lane$",
+   " Ln"
+  ],
+  [
+   " Terrace$",
+   " Ter"
+  ],
+  [
+   " Freeway$",
+   " Fwy"
+  ],
+  [
+   " Expressway$",
+   " Expy"
+  ]
+ ],
+ "_nameRules": "OpenStreetMap writes Dallas's streets in full (North Central Expressway, West Davis Street); the page abbreviates as the street signs do.",
+ "_overground": "page 'overground': DART light rail runs at street level and on elevated track, with one short tunnel (Cityplace)."
+}

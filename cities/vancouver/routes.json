@@ -1,0 +1,188 @@
+{
+ "_about": "Settings for Vancouver's Routes page (engine/routes/: build.py, page.html), at /vancouver/routes/: pick a stop or SkyTrain platform near you, see where each TransLink bus and SkyTrain line from it goes. SkyTrain comes from raw/surface/rapid_*.json (surface.json 'rapid', found by name with 'rapidMatch'), its platforms in order; West Coast Express stations count as connections too. TransLink's real-time feed needs a developer key and its own terms, so the page shows scheduled departures.",
+ "modes": [
+  "bus",
+  "subway"
+ ],
+ "gridTilt": 0,
+ "keepRight": true,
+ "regions": [
+  "sides"
+ ],
+ "regionsWithThe": [
+  "West Side",
+  "East Side"
+ ],
+ "knownWithThe": "^(West End|Drive|Downtown Eastside)$",
+ "units": "local_areas",
+ "streets": {
+  "raw": "osm_streets.json",
+  "osm": true,
+  "name": "name",
+  "along": [
+   "trunk",
+   "primary",
+   "secondary",
+   "tertiary"
+  ],
+  "cross": [
+   "trunk",
+   "primary",
+   "secondary"
+  ]
+ },
+ "pois": [
+  {
+   "file": "landmarks",
+   "cat": "catLabel"
+  },
+  {
+   "file": "institutions",
+   "cats": {
+    "hospital": "Hospital",
+    "university": "University",
+    "college": "College"
+   }
+  }
+ ],
+ "known": "knownas",
+ "stations": {
+  "files": [
+   "skytrain_stations",
+   "wce_stations"
+  ]
+ },
+ "near": {
+  "poi": 200,
+  "station": 150,
+  "known": 250,
+  "platform": 150
+ },
+ "notCrossed": "(?i)\\b(Bridge|Tunnel|Ramp|Viaduct|Highway|Exit|Causeway)\\b",
+ "page": {
+  "city": "Vancouver",
+  "title": "Where does this line or route go?",
+  "short": "Routes from here",
+  "description": "Find the TransLink bus stops and SkyTrain platforms nearest you in Vancouver and see where each route goes, with the next scheduled departures: the local areas it passes through, the main streets it runs along, its SkyTrain and West Coast Express connections and the landmarks on the way.",
+  "lede": "Find the stops and stations near you, then pick a bus or SkyTrain line to see where it goes: the local areas, main streets, connections and landmarks along the way.",
+  "placeholder": "Or search an address",
+  "outside": "That spot is outside Vancouver. Try an address in the city or the UEL.",
+  "noMatch": "No match in Vancouver for “{q}”. Try the full street address, like “453 W 12th Ave”.",
+  "noStops": "No stops or stations within {r} of that spot.",
+  "credits": "Routes, stops and timetable: TransLink GTFS · Local areas: City of Vancouver Open Data · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled; TransLink’s real-time feed needs a key",
+  "mapLink": "Open on the map",
+  "at": " & ",
+  "connectWith": "SkyTrain and the West Coast Express",
+  "legendUnits": "Local areas it passes",
+  "legendKnown": "Commercial Drive: the names people use",
+  "lineFiles": [
+   "skytrain_lines"
+  ],
+  "lineColors": {
+   "expo": "#0033A0",
+   "millennium": "#FFCD00",
+   "canada": "#007C9F"
+  },
+  "lineNames": {
+   "Expo": "Expo Line",
+   "Millennium": "Millennium Line",
+   "Canada": "Canada Line"
+  },
+  "overground": true,
+  "connectionsLabel": "SkyTrain and West Coast Express connections"
+ },
+ "badges": {
+  "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses dark blue, RapidBus green, NightBus white with a navy outline; SkyTrain lines as plain dots in the line's colour.",
+  "bus": {
+   "fill": "#00467F",
+   "text": "#FFFFFF"
+  },
+  "exp": {
+   "fill": "#3A9A43",
+   "text": "#FFFFFF"
+  },
+  "night": {
+   "fill": "#FFFFFF",
+   "text": "#1C2A4A",
+   "outline": "#1C2A4A"
+  },
+  "lines": {
+   "Expo": {
+    "fill": "#0033A0",
+    "text": "#FFFFFF"
+   },
+   "Millennium": {
+    "fill": "#FFCD00",
+    "text": "#1A1414"
+   },
+   "Canada": {
+    "fill": "#007C9F",
+    "text": "#FFFFFF"
+   }
+  }
+ },
+ "nameRules": [
+  [
+   "^West ",
+   "W "
+  ],
+  [
+   "^East ",
+   "E "
+  ],
+  [
+   "^South West Marine Drive$",
+   "SW Marine Drive"
+  ],
+  [
+   "^North West Marine Drive$",
+   "NW Marine Drive"
+  ],
+  [
+   " Street$",
+   " St"
+  ],
+  [
+   " Avenue$",
+   " Ave"
+  ],
+  [
+   " Road$",
+   " Rd"
+  ],
+  [
+   " Boulevard$",
+   " Blvd"
+  ],
+  [
+   " Drive$",
+   " Dr"
+  ],
+  [
+   " Parkway$",
+   " Pkwy"
+  ],
+  [
+   " Place$",
+   " Pl"
+  ],
+  [
+   " Court$",
+   " Ct"
+  ],
+  [
+   " Highway$",
+   " Hwy"
+  ],
+  [
+   " Lane$",
+   " Ln"
+  ],
+  [
+   " Terrace$",
+   " Ter"
+  ]
+ ],
+ "_nameRules": "OpenStreetMap writes Vancouver's streets in full (West 4th Avenue, East Hastings Street); the page writes them as the street signs do (W 4th Ave, E Hastings St).",
+ "_overground": "page 'overground': SkyTrain runs mostly on elevated guideway, so it 'runs along' its streets (the downtown and Canada Line tunnels are the exception)."
+}
