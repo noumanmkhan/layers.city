@@ -1,0 +1,588 @@
+{
+ "_about": "Vancouver's big live venues for the Venues pages (engine/venues.py): the City of Vancouver and the University Endowment Lands (UBC), which the map covers, plus the Langley Events Centre (\"outside\": no map, City parking or What's here). Hand-curated: capacity is the venue's usual figure and is only used to sort and to say 'about'; notes are plain arrival facts written from the venue's own pages (or the team's, or TransLink's where the venue's own site could not be read). tm names are guesses until fetch_venue_events.py learns the ids. Sources per fact were checked on November 7, 2026 (the project's claude/venues.md).",
+ "city": "Vancouver",
+ "week": "Monday to Sunday, Vancouver time",
+ "feed": {
+  "_about": "engine/fetch_venue_events.py: venue by venue (ids found once near each venue's point and saved in raw/venue_tm_ids.json). The centre sits east of downtown so UBC (about 18 km) and Langley (about 27 km) are well inside radiusKm. drop: words left out when matching the feed's venue names to ours.",
+  "centre": [
+   49.25,
+   -123.0
+  ],
+  "radiusKm": 40,
+  "country": "CA",
+  "drop": [
+   "vancouver",
+   "bc",
+   "b.c.",
+   "british columbia",
+   "canada",
+   "langley",
+   "ubc",
+   "at",
+   "the"
+  ],
+  "mode": "venues"
+ },
+ "fares": {
+  "_about": "Flat figures the pages quote. Check them before a release; they go stale (TransLink raises fares every July 1). local is TransLink's adult 1-zone fare with a Compass Card (stored value) from July 1, 2026; tapping a contactless card or phone costs the cash fare ($3.50 for 1 zone). Bus trips are always 1 zone, and every trip after 6:30 pm on weekdays and all weekend and on holidays is 1 zone, so most event trips cost the 1-zone fare; origins in zones 2 and 3 carry their own fare line. The taxi figures are the Passenger Transportation Board's common meter rate for Metro Vancouver (Rates Rules Manual, Rule 9; GST included, rounded): $3.75 flag and $2.18 a km, plus $38.93 an hour waiting; no flat surcharge every trip pays (taxiExtra 0). Sources: translink.ca/transit-fares/pricing-and-fare-zones; Daily Hive, June 2026 (the July 1, 2026 increase); ptboard.bc.ca/rule-9-common-rate-metro-vancouver (manual updated November 4, 2026).",
+  "asof": "2026-11",
+  "local": 2.85,
+  "taxiDrop": 3.75,
+  "taxiPerKm": 2.18,
+  "taxiExtra": 0,
+  "oneFare": "One fare covers 90 minutes on bus, SkyTrain and SeaBus. With a Compass Card, SkyTrain and SeaBus trips across zones cost $4.20 (2 zones) or $5.40 (3 zones) on weekdays before 6:30 pm; after 6:30 pm on weekdays, on weekends and holidays, and on every bus, any trip is 1 zone ($2.85). A contactless card or phone pays the cash fare ($3.50, $5.10 or $6.70), and a DayPass for all zones is $12.55. Trips that start at YVR-Airport, Sea Island Centre or Templeton add the $6.50 YVR AddFare. Taxis from YVR add $4 when the trip ends outside the Vancouver and Richmond flat-fare zones; tip is extra."
+ },
+ "page": {
+  "_about": "How engine/venues.py reads Vancouver: SkyTrain (the Expo, Millennium and Canada Lines; the SeaBus is drawn with them, as on TransLink's map) as the metro, the West Coast Express as regional rail (weekday rush hours only: it runs to Waterfront in the morning and back in the late afternoon, so it is never routed, and within 0.8 km keeps it off venue pages whose nearest station is Waterfront a long walk away), the 22 local areas plus Stanley Park and the University Endowment Lands as the units, and Waterfront as the hub. No City parking layer (the map's parking file is EV charging only), so no parking section; the venues' own lots are in their notes. lineHints on, so a trip from an Expo Line origin ends at an Expo Line station (Granville, not Vancouver City Centre); the station files name lines 'Expo', 'Canada', 'Millennium', so the pages read 'the Expo to Granville'.",
+  "units": "local_areas",
+  "distance": "km",
+  "lineHints": true,
+  "metro": {
+   "stations": [
+    "skytrain_stations"
+   ],
+   "lines": [
+    "skytrain_lines"
+   ]
+  },
+  "lineColors": {
+   "expo": "#0033A0",
+   "millennium": "#FFCD00",
+   "canada": "#007C9F",
+   "seabus": "#7D6A5C"
+  },
+  "rail": {
+   "stations": "wce_stations",
+   "lines": "wce_lines",
+   "walk": "go",
+   "within": 0.8,
+   "direct": false
+  },
+  "hubs": [
+   {
+    "name": "Waterfront Station",
+    "short": "Waterfront",
+    "station": "Waterfront",
+    "at": [
+     -123.11177,
+     49.28569
+    ]
+   }
+  ],
+  "here": [
+   {
+    "label": "Side",
+    "file": "sides",
+    "text": "{name}"
+   },
+   {
+    "label": "Local area",
+    "file": "local_areas",
+    "text": "{name}",
+    "page": true
+   },
+   {
+    "label": "BIA",
+    "file": "bia",
+    "text": "{name}",
+    "empty": "None"
+   },
+   {
+    "label": "Provincial",
+    "file": "provincial",
+    "text": "{name}"
+   },
+   {
+    "label": "Federal",
+    "file": "federal",
+    "text": "{name}",
+    "rep": [
+     "fed",
+     "name"
+    ]
+   }
+  ],
+  "words": {
+   "local": "SkyTrain",
+   "localFare": "Compass 1-zone fare ${fare:.2f}",
+   "metroRide": "SkyTrain",
+   "railShort": "West Coast Express",
+   "subway": "SkyTrain",
+   "rail": "West Coast Express",
+   "routes": "Buses within a 5-minute walk",
+   "atDoor": "Bus at the door",
+   "bikeshare": "Mobi",
+   "region": "Metro Vancouver",
+   "taxi": "the Metro Vancouver taxi meter rate",
+   "busy": "Busy nights",
+   "legend": "SkyTrain lines in their colours, the SeaBus dashed, the West Coast Express dashed, other venues in grey.",
+   "sources": "Transit: TransLink. Venues’ own visitor pages for arrival notes.",
+   "venueDesc": "what's on this week, the nearest SkyTrain station, buses, Mobi bike share, and drive and transit from across Metro Vancouver.",
+   "intro": "places most of Metro Vancouver travels to, and how to get to each: nearest SkyTrain station, buses, and drive and transit from Surrey, Burnaby, Richmond, the North Shore, the Tri-Cities and the airport.",
+   "listDesc": "from BC Place and Rogers Arena to the Orpheum and the Commodore, and how to get to each: nearest SkyTrain, buses, drive and transit from across Metro Vancouver.",
+   "other": "Smaller rooms, same facts, same listing.",
+   "hereNote": "The same rows the map’s What’s here card gives for this address; the map adds known-as names, the address grid, heritage and more.",
+   "nearestSubway": "Nearest SkyTrain station"
+  },
+  "busy": true
+ },
+ "origins": [
+  {
+   "name": "Downtown",
+   "via": "Waterfront",
+   "mode": "local",
+   "at": [
+    -123.11177,
+    49.28569
+   ]
+  },
+  {
+   "name": "YVR Airport",
+   "via": "YVR-Airport",
+   "mode": "local",
+   "at": [
+    -123.17827,
+    49.19417
+   ],
+   "fare": "Compass $4.20 (2 zones) on weekdays before 6:30 pm, $2.85 after and on weekends, plus the $6.50 YVR AddFare"
+  },
+  {
+   "name": "Richmond Centre",
+   "via": "Richmond-Brighouse",
+   "mode": "local",
+   "at": [
+    -123.13637,
+    49.16794
+   ],
+   "fare": "Compass $4.20 (2 zones) on weekdays before 6:30 pm, $2.85 (1 zone) after 6:30 pm and on weekends and holidays"
+  },
+  {
+   "name": "Metrotown",
+   "via": "Metrotown",
+   "mode": "local",
+   "at": [
+    -123.00392,
+    49.22583
+   ],
+   "fare": "Compass $4.20 (2 zones) on weekdays before 6:30 pm, $2.85 (1 zone) after 6:30 pm and on weekends and holidays"
+  },
+  {
+   "name": "New Westminster",
+   "via": "New Westminster",
+   "mode": "local",
+   "at": [
+    -122.91261,
+    49.20144
+   ],
+   "fare": "Compass $4.20 (2 zones) on weekdays before 6:30 pm, $2.85 (1 zone) after 6:30 pm and on weekends and holidays"
+  },
+  {
+   "name": "Surrey Central",
+   "via": "Surrey Central",
+   "mode": "local",
+   "at": [
+    -122.84787,
+    49.18956
+   ],
+   "fare": "Compass $5.40 (3 zones) on weekdays before 6:30 pm, $2.85 (1 zone) after 6:30 pm and on weekends and holidays"
+  },
+  {
+   "name": "Langley",
+   "via": "Surrey Central",
+   "mode": "local",
+   "at": [
+    -122.65454,
+    49.1063
+   ],
+   "fare": "The 501, 502 or 503 bus from Langley Centre to Surrey Central, then SkyTrain: Compass $5.40 (3 zones) on weekdays before 6:30 pm, $2.85 (1 zone) after 6:30 pm and on weekends and holidays"
+  },
+  {
+   "name": "Coquitlam Centre",
+   "via": "Lincoln",
+   "mode": "local",
+   "at": [
+    -122.79392,
+    49.28042
+   ],
+   "fare": "Compass $5.40 (3 zones) on weekdays before 6:30 pm, $2.85 (1 zone) after 6:30 pm and on weekends and holidays"
+  },
+  {
+   "name": "North Vancouver",
+   "via": "Lonsdale Quay",
+   "mode": "rail",
+   "rail": "SeaBus",
+   "hub": "Waterfront Station",
+   "at": [
+    -123.08331,
+    49.31014
+   ],
+   "fare": "Compass $4.20 (2 zones) on weekdays before 6:30 pm, $2.85 (1 zone) after 6:30 pm and on weekends and holidays"
+  }
+ ],
+ "venues": [
+  {
+   "slug": "bc-place",
+   "name": "BC Place",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 54500,
+   "homeOf": [
+    "BC Lions",
+    "Vancouver Whitecaps FC"
+   ],
+   "address": "777 Pacific Boulevard",
+   "at": [
+    -123.11201,
+    49.27671
+   ],
+   "site": "https://www.bcplace.com/getting-here",
+   "tm": [
+    "BC Place",
+    "BC Place Stadium"
+   ],
+   "season": "Under a retractable roof: the Whitecaps play from late February to October and the Lions from June to November, with stadium concerts mostly in summer.",
+   "notes": [
+    "Stadium-Chinatown (Expo Line) is about five minutes away: up the stairs to Beatty Street for Gates A, B and H, or down to Expo Boulevard. From the Canada Line, Yaletown-Roundhouse is a walk up Mainland Street to Robson.",
+    "Only clear plastic bags up to 12 x 12 x 6 inches and small bags up to 6.5 x 8.5 inches are allowed, and all bags are searched; a paid bag check takes the rest while it has room.",
+    "The closest lots are paid and few, and roads nearby can be closed when other events are on. The accessible drop-off, the 147 Accessible Entrance, is on Pacific Boulevard under Gate F; a free bike valet runs at nearly every event."
+   ],
+   "arrive": "Expo Line to Stadium-Chinatown, about five minutes on foot; or the Canada Line to Yaletown-Roundhouse"
+  },
+  {
+   "slug": "rogers-arena",
+   "name": "Rogers Arena",
+   "kinds": [
+    "sports",
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 18871,
+   "homeOf": [
+    "Vancouver Canucks",
+    "Vancouver Warriors"
+   ],
+   "address": "800 Griffiths Way",
+   "at": [
+    -123.10898,
+    49.27792
+   ],
+   "site": "https://rogersarena.com/parking-and-directions/",
+   "tm": [
+    "Rogers Arena"
+   ],
+   "season": "The Canucks play from October to April and the Warriors (lacrosse) through the winter; concerts and shows run all year.",
+   "notes": [
+    "Stadium-Chinatown (Expo Line) is steps from the arena. From the Canada Line, change to the Expo Line at Waterfront, or walk 15 to 20 minutes from Vancouver City Centre; from the North Shore, take the SeaBus to Waterfront and ride three Expo Line stops.",
+    "Buses with stops a short walk away include the R5, 4, 5, 7, 14, 19, 22, 23, 209, 210, 211 and 257. TransLink suggests buying the trip home before the game, or tapping a contactless card, to skip the ticket-machine queues afterwards."
+   ],
+   "arrive": "Expo Line to Stadium-Chinatown, steps from the arena"
+  },
+  {
+   "slug": "pacific-coliseum",
+   "name": "Pacific Coliseum",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 16281,
+   "homeOf": [
+    "Vancouver Goldeneyes"
+   ],
+   "address": "100 North Renfrew Street (Hastings Park)",
+   "at": [
+    -123.04277,
+    49.28582
+   ],
+   "site": "https://pne.ca/maps-directions/",
+   "tm": [
+    "Pacific Coliseum",
+    "Pacific Coliseum at the PNE"
+   ],
+   "season": "The Goldeneyes (PWHL) play here through the winter; in late summer the PNE Fair fills the grounds around it.",
+   "notes": [
+    "At Hastings Park, the PNE grounds, with no SkyTrain station close by. The R5 Hastings RapidBus stops at Hastings and Renfrew, and the #16 runs up Renfrew Street from 29th Avenue (Expo Line) and Renfrew (Millennium Line) stations to Renfrew and Pender.",
+    "At Goldeneyes games only small and clear bags up to 8.5 x 11 inches are allowed and every bag is searched; doors open an hour before puck drop, and there is no re-entry.",
+    "Onsite parking is limited and paid (EasyPark pay stations or app), in lots off Renfrew Street at Gates 2 and 6 and off Bridgeway Street at Gate 9; accessible spaces are first come, through Gate 6."
+   ],
+   "transit": {
+    "*": "SkyTrain to 29th Avenue (Expo Line) or Renfrew (Millennium Line), then the #16 bus to Renfrew St at E Pender St; or the R5 along Hastings St from downtown"
+   },
+   "transitFare": "Compass $2.85 (1 zone) after 6:30 pm on weekdays and all weekend, and on any bus; a SkyTrain leg across zones costs more on weekdays before 6:30 pm",
+   "arrive": "The R5 along Hastings to Renfrew, or the #16 from 29th Avenue or Renfrew station"
+  },
+  {
+   "slug": "doug-mitchell-thunderbird-sports-centre",
+   "name": "Doug Mitchell Thunderbird Sports Centre",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 6500,
+   "homeOf": [
+    "UBC Thunderbirds hockey"
+   ],
+   "address": "2555 Wesbrook Mall (UBC)",
+   "at": [
+    -123.24306,
+    49.26111
+   ],
+   "site": "https://thunderbirdarena.ubc.ca/transportation/parking/",
+   "tm": [
+    "Doug Mitchell Thunderbird Sports Centre",
+    "Doug Mitchell Thunderbird Sports Centre - UBC"
+   ],
+   "season": "UBC Thunderbirds hockey runs through the university year; concerts and shows come through all year.",
+   "notes": [
+    "On the UBC campus at Wesbrook Mall and Thunderbird Boulevard, about 750 m south of UBC Exchange, where the 99 B-Line, the R4 and the 44 end; the 25, 33 and 49 stop at Wesbrook and Thunderbird.",
+    "Gates open an hour before most events. Bags are searched and must fit under your seat; there is no bag check.",
+    "Thunderbird Parkade (about 1,600 spaces) is across the street, with Lot B1 behind it and the Health Sciences Parkade a few minutes north, which can be quicker on big nights. UBC parking is pay by plate, at the machines or on HonkMobile on the day."
+   ],
+   "transit": {
+    "*": "Bus to UBC Exchange (the 99 B-Line from Commercial-Broadway, the R4 from Joyce-Collingwood, or the 44 from Waterfront), then about 10 min on foot or the 25, 33 or 49 to Wesbrook Mall at Thunderbird Blvd"
+   },
+   "transitFare": "Compass $2.85 (1 zone) after 6:30 pm on weekdays and all weekend, and on any bus; a SkyTrain leg across zones costs more on weekdays before 6:30 pm",
+   "arrive": "Bus to UBC Exchange (99, R4 or 44), then about 10 minutes on foot"
+  },
+  {
+   "slug": "nat-bailey-stadium",
+   "name": "Nat Bailey Stadium",
+   "kinds": [
+    "sports"
+   ],
+   "capacity": 6500,
+   "homeOf": [
+    "Vancouver Canadians"
+   ],
+   "address": "4601 Ontario Street",
+   "at": [
+    -123.10675,
+    49.24273
+   ],
+   "site": "https://www.milb.com/vancouver/ballpark/directions-to-the-nat",
+   "tm": [],
+   "tickets": "Canadians home games are sold by the team (its box office by Gate A, its phone line and canadiansbaseball.com), not Ticketmaster, so they aren’t in this listing.",
+   "calendar": "https://www.milb.com/vancouver/schedule",
+   "season": "Open-air: the Canadians (High-A, Toronto Blue Jays affiliate) play from April to September; it is quiet the rest of the year.",
+   "notes": [
+    "Beside Queen Elizabeth Park. King Edward (Canada Line) is about 15 minutes (five blocks) on foot; the #33 stops on Midlothian Avenue, half a block from the box office, and the #3 at Main Street and 29th Avenue, two blocks away.",
+    "Gates open an hour before first pitch. Bags must be clear; backpacks, duffles and bags over 12 x 6 x 12 inches are not allowed, and smaller non-clear bags go to bag check. Re-entry is only through the 1st and 3rd Base entrances, with a stamp.",
+    "The stadium lots (entrances at 30th Avenue and Ontario Street, and on Midlothian Avenue) are paid, card only and limited, with more paid parking at the top of Queen Elizabeth Park. Over 200 free, secure bike spaces open an hour before first pitch, by the Ontario Street Greenway."
+   ],
+   "arrive": "Canada Line to King Edward, about 15 minutes on foot, or the #33 to Midlothian Avenue"
+  },
+  {
+   "slug": "langley-events-centre",
+   "name": "Langley Events Centre",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 5276,
+   "homeOf": [
+    "Vancouver Giants",
+    "Vancouver Bandits"
+   ],
+   "address": "7888 200 Street, Langley, BC",
+   "at": [
+    -122.66611,
+    49.14583
+   ],
+   "site": "https://langleyeventscentre.com/azguide",
+   "tm": [],
+   "outside": true,
+   "tickets": "Sells through its own ticket offices and Showpass rather than Ticketmaster, so its events aren’t in this listing.",
+   "calendar": "https://langleyeventscentre.com/",
+   "season": "The Giants (WHL hockey) play from September to March and the Bandits (CEBL basketball) in summer.",
+   "notes": [
+    "In the Township of Langley, just south of 200 Street and 80 Avenue. The 501 bus (Surrey Central to Langley Centre) stops at 200 St and 80 Ave; from Lougheed Town Centre, the Giants point riders to the 555 to Carvolth Exchange and then the 595.",
+    "Parking is free across the site; accessible spaces are limited, near Gates 3 and 7 and in the underground parkade. Giants doors open 90 minutes before face-off.",
+    "Bags larger than 14 x 14 x 6 inches are not allowed and all bags are searched. The centre is cashless."
+   ],
+   "transit": {
+    "*": "Expo Line to Surrey Central, then the 501 bus to 200 St at 80 Ave",
+    "Langley": "The 501 bus from Langley Centre to 200 St at 80 Ave"
+   },
+   "transitFare": "Compass $2.85 (1 zone) after 6:30 pm on weekdays and all weekend, and on any bus; a SkyTrain leg across zones costs more on weekdays before 6:30 pm",
+   "arrive": "Expo Line to Surrey Central and the 501 bus, or drive (free parking)"
+  },
+  {
+   "slug": "orpheum",
+   "name": "The Orpheum",
+   "kinds": [
+    "concerts",
+    "theatre",
+    "comedy"
+   ],
+   "capacity": 2800,
+   "homeOf": [
+    "Vancouver Symphony Orchestra"
+   ],
+   "address": "601 Smithe Street",
+   "at": [
+    -123.12138,
+    49.27994
+   ],
+   "site": "https://vancouvercivictheatres.com/venues/orpheum/",
+   "tm": [
+    "Orpheum Theatre",
+    "The Orpheum",
+    "Orpheum Theatre - Vancouver"
+   ],
+   "tickets": "Each presenter picks its ticket seller, and the VSO sells its concerts itself, so not every show here is in this listing.",
+   "calendar": "https://vancouvercivictheatres.com/",
+   "notes": [
+    "Entrances on Smithe Street and at 884 Granville Street; the box office and will-call are on Smithe only.",
+    "From Granville (Expo Line) or Vancouver City Centre (Canada Line), walk south on Granville to Smithe; many trolley buses pass close by.",
+    "There is no parkade: parking is limited to meters and public lots nearby. Large bags go to the paid coat check."
+   ],
+   "arrive": "Expo Line to Granville or Canada Line to Vancouver City Centre, then south on Granville"
+  },
+  {
+   "slug": "queen-elizabeth-theatre",
+   "name": "Queen Elizabeth Theatre",
+   "kinds": [
+    "theatre",
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 2765,
+   "homeOf": [
+    "Vancouver Opera",
+    "Ballet BC"
+   ],
+   "address": "630 Hamilton Street",
+   "at": [
+    -123.11316,
+    49.28031
+   ],
+   "site": "https://vancouvercivictheatres.com/venues/queen-elizabeth-theatre/",
+   "tm": [
+    "Queen Elizabeth Theatre",
+    "Queen Elizabeth Theatre - Vancouver"
+   ],
+   "tickets": "Each presenter picks its ticket seller, and Vancouver Opera and Ballet BC sell their own, so not every show here is in this listing.",
+   "calendar": "https://vancouvercivictheatres.com/",
+   "notes": [
+    "Stadium-Chinatown (Expo Line) is on Dunsmuir Street, a block east; Vancouver City Centre (Canada Line) is five blocks west on West Georgia.",
+    "The EasyPark parkade under the theatre is entered from Cambie Street between West Georgia and Dunsmuir (6'4\" clearance) and fills early; the library's underground lot off Hamilton and a surface lot off Cambie near Dunsmuir are close. Taxis and drop-offs use the driveway on Hamilton between West Georgia and Dunsmuir.",
+    "Large bags go to the paid coat check, and wheeled items other than wheelchairs stay in the lobby."
+   ],
+   "arrive": "Expo Line to Stadium-Chinatown, a block away"
+  },
+  {
+   "slug": "malkin-bowl",
+   "name": "Malkin Bowl",
+   "kinds": [
+    "concerts",
+    "theatre"
+   ],
+   "capacity": 2000,
+   "homeOf": [
+    "Theatre Under the Stars"
+   ],
+   "address": "610 Pipeline Road (Stanley Park)",
+   "at": [
+    -123.1334,
+    49.2988
+   ],
+   "site": "https://www.malkinbowl.com/getting-here",
+   "tm": [
+    "Malkin Bowl",
+    "Malkin Bowl at Stanley Park"
+   ],
+   "tickets": "Theatre Under the Stars sells its own musicals (tuts.ca), so only the concerts are in this listing.",
+   "season": "Open-air: Theatre Under the Stars musicals and concerts in summer; it is quiet in winter.",
+   "notes": [
+    "In Stanley Park on Pipeline Road. The #19 is the only bus into the park: its last stop, the Stanley Park Loop, is the nearest, and it runs through downtown past Burrard station and on to Main Street-Science World and Metrotown.",
+    "Parking is limited, first come and paid, in Park Board lots run by EasyPark, so the venue asks people to walk, cycle, take transit or share a car.",
+    "Bags up to 12 x 6 x 12 inches, purses included, and no large backpacks. The box office opens at door time, and there is no re-entry."
+   ],
+   "transit": {
+    "*": "The #19 bus to the Stanley Park Loop (it stops at Burrard and Main Street-Science World stations)"
+   },
+   "transitFare": "Compass $2.85 (1 zone) after 6:30 pm on weekdays and all weekend, and on any bus; a SkyTrain leg across zones costs more on weekdays before 6:30 pm",
+   "arrive": "The #19 bus to the Stanley Park Loop"
+  },
+  {
+   "slug": "chan-centre",
+   "name": "Chan Centre for the Performing Arts",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 1185,
+   "address": "6265 Crescent Road (UBC)",
+   "at": [
+    -123.25503,
+    49.26974
+   ],
+   "site": "https://chancentre.com/directions",
+   "tm": [
+    "Chan Centre for the Performing Arts",
+    "Chan Centre"
+   ],
+   "tickets": "Concerts sell through the Chan Centre’s own box office and site (chancentre.com/tickets), so not every show is in this listing.",
+   "calendar": "https://chancentre.com/",
+   "notes": [
+    "On Crescent Road at the north end of the UBC campus, about 8 minutes on foot from UBC Exchange; the 68 community shuttle stops beside the centre on NW Marine Drive about every 20 minutes.",
+    "The Rose Garden Parkade is the closest (accessible stalls on Level 5, and an elevator up to Flag Pole Plaza by the main doors); pay at the machines by card or coins, or on HonkMobile. Drop-offs are on Crescent Road facing Buchanan Block D and at Flag Pole Plaza.",
+    "Taxis can be scarce at UBC, especially on Friday and Saturday evenings, so arrange the ride home ahead."
+   ],
+   "transit": {
+    "*": "Bus to UBC Exchange (the 99 B-Line from Commercial-Broadway, the R4 from Joyce-Collingwood, or the 44 from Waterfront), then about 8 min on foot"
+   },
+   "transitFare": "Compass $2.85 (1 zone) after 6:30 pm on weekdays and all weekend, and on any bus; a SkyTrain leg across zones costs more on weekdays before 6:30 pm",
+   "arrive": "Bus to UBC Exchange (99, R4 or 44), then about 8 minutes on foot"
+  },
+  {
+   "slug": "vogue-theatre",
+   "name": "Vogue Theatre",
+   "kinds": [
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 1280,
+   "address": "918 Granville Street",
+   "at": [
+    -123.12166,
+    49.27976
+   ],
+   "site": "https://voguetheatre.com/faq",
+   "tm": [],
+   "tier": "other",
+   "tickets": "Sells through AdmitONE rather than Ticketmaster, so its shows aren’t in this listing.",
+   "calendar": "https://voguetheatre.com/",
+   "notes": [
+    "On the Granville strip. Shows are all ages and general admission unless the listing says otherwise.",
+    "Bags must fit under a seat and all are searched; the venue can't store oversized bags. The box office opens on show nights only, and the coat check on the second floor fills up.",
+    "EasyPark and Impark lots are a short walk away, with meters on Smithe and Nelson Streets."
+   ]
+  },
+  {
+   "slug": "commodore-ballroom",
+   "name": "Commodore Ballroom",
+   "kinds": [
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 990,
+   "address": "868 Granville Street",
+   "at": [
+    -123.12044,
+    49.28057
+   ],
+   "site": "https://www.commodoreballroom.com/visit",
+   "tm": [
+    "Commodore Ballroom",
+    "The Commodore Ballroom"
+   ],
+   "tier": "other",
+   "notes": [
+    "On the Granville strip, with many downtown bus routes a short walk away. Mostly 19+; all-ages shows are marked on the calendar.",
+    "Bags up to 12 x 6 x 12 inches, purses included, and no backpacks. Tickets are mobile only; the box office sells that night's show only, by card, and the venue is cashless.",
+    "Street parking nearby is limited; EasyPark runs paid lots close by."
+   ]
+  }
+ ]
+}

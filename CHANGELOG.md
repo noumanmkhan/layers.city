@@ -2,6 +2,16 @@
 
 ## Since 1.1
 
+### Vancouver and Dallas: Venues (November 7)
+- layers.city/vancouver/venues/: 12 venues (BC Place, Rogers Arena, Pacific Coliseum, Nat Bailey, the Orpheum, Queen
+  Elizabeth Theatre, Malkin Bowl, the Vogue, the Commodore, UBC's Doug Mitchell centre and Chan Centre, and the Langley
+  Events Centre), TransLink fares from July 2026, the Passenger Transportation Board's taxi meter.
+- layers.city/dallas/venues/: 14 venues across Dallas–Fort Worth, DART fares, the City taxi meter.
+- Dallas's DART stations: Fair Park, Deep Ellum and Baylor are Green Line only, and Convention Center station (closed
+  January 2026) is off the map.
+- Events pages for both are on hold: neither city, its library nor its parks board publishes events under terms that
+  allow commercial use.
+
 ### Vancouver and Dallas: Fun maps (November 7)
 - layers.city/vancouver/fun/: Tim Hortons vs Starbucks, hometown coffee vs Starbucks, sushi vs pho, BC Liquor vs private
   liquor stores, bubble tea vs coffee, tennis vs pickleball, gas vs EV, each local area's 3-1-1 signature.
