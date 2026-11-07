@@ -74,7 +74,8 @@ the landing page, stop and say so; don't change this repo.
   sourced research passes (IRT, BMT, IND; researchers' doubts kept in each line's `_notes`). Engine additions it uses:
   `{"route": id, "from", "to"}` cuts the agency's GTFS shape (`raw/surface/rapid_routes.json`); station names can take
   `|<line>` where they repeat; `colourBy` adds a "colour by" switch (today's route colours vs the company that built it, `op`);
-  page `frame: "lines"`, `units: "mi"`, `scale` years. Notes: the project's claude/mta-history-scouting.md.
+  page `frame: "lines"`, `units: "mi"`, `scale` years. Both cities: `badges` (official route colours; badges on built
+  stretches from GTFS overlap, or a line's own `badges`; `skip` for express variants). Notes: the project's claude/mta-history-scouting.md.
 - To let the user try an experiment on dev on a phone: run the "Deploy to Cloudflare Pages" workflow by
   hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev. The branch is the
   workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.

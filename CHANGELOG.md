@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Transit history maps: route badges in official colours (November 7)
+- Built lines carry today's route badges: circles with the route number or letter in the agency's colours (MTA Pantone set:
+  1 2 3 #EE352E … N Q R W #FCCC0A with black text; TTC line colours, Line 1 #F8C302 with black text), centred on each
+  stretch while it's open, at a fixed screen size, thinned so none overlap (more appear as you zoom). Tap one to pick its line.
+- Which routes run on a stretch comes from overlap with the agency GTFS shapes (within 20 m over 70% of the stretch);
+  Toronto stretches cut from a published line take that line's number; lines with no route today (the old els) get none.
+- Built lines now use the same official colours (Toronto's were near matches; New York's were the GTFS shades).
+
 ### Transit history maps: no hard edges (November 7)
 - The base map (land, boundaries, streets) is drawn half the map's size again past the frame on every side, so a
   letterboxed map or a pan never shows a cut-off edge: Staten Island and New Jersey now appear on the New York map.

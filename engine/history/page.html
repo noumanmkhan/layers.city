@@ -68,6 +68,9 @@ h3{margin:0;font-family:var(--display);font-weight:800;font-size:22px;line-heigh
 .ln.s-open .sts,.ln.s-building .sts,.ln.s-closed .sts,.ln.sel .sts{display:inline}
 .ln text{font:500 11px var(--body);fill:var(--ink);paint-order:stroke;stroke:var(--land);stroke-width:3.5px;stroke-linejoin:round;display:none;pointer-events:none}
 .ln.sel text{display:inline}
+.bdg circle{stroke:var(--land);stroke-width:1.5}
+.bdg text{font:800 10.5px var(--display);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.bdg{cursor:pointer}
 .gh circle{fill:var(--land);stroke:var(--accent);stroke-width:1.6;stroke-dasharray:2 2;vector-effect:non-scaling-stroke}
 .gh text{font:500 11px var(--body);fill:var(--accent);paint-order:stroke;stroke:var(--land);stroke-width:3.5px;display:none}
 svg.zoomed .gh text{display:inline}
@@ -341,6 +344,39 @@ svg.zoomed .gh text{display:inline}
     nodes[l.id] = g;
     linesG.append(g);
   });
+  // Route badges: today's routes on each built stretch, in the agency's colours, centred on the stretch. Drawn at a
+  // fixed screen size (scaled by the zoom) and thinned so none overlap (see placeBadges).
+  const badgesG = el('g');
+  const BAD = H.badges || {};
+  const badgeNodes = [];
+  [...H.lines].filter(l => l.b && l.b.length && l.bp).sort((a, b) => b.km - a.km).forEach(l => {
+    const g = el('g', {class: 'bdg'});
+    const n = l.b.length;
+    l.b.forEach((t, i) => {
+      const c = BAD[t] || {c: l.c, t: '#fff'};
+      const cx = (i - (n - 1) / 2) * 17;
+      g.append(el('circle', {cx, cy: 0, r: 8, fill: c.c}), el('text', {x: cx, y: 0.5, fill: c.t}, t));
+    });
+    g.addEventListener('click', ev => { ev.stopPropagation(); select(sel === l.id ? null : l.id); });
+    badgesG.append(g);
+    badgeNodes.push({l, g, w: n * 17 + 4});
+  });
+  const placeBadges = () => {
+    const r = svg.getBoundingClientRect(), u = Math.max(vb.w / r.width, vb.h / r.height) || 1;
+    const placed = [];
+    badgeNodes.forEach(b => {
+      const on = stageOf(b.l, year) === 'open' && nodes[b.l.id].style.display !== 'none';
+      if (!on) { b.g.style.display = 'none'; return; }
+      const x = b.l.bp[0], y = b.l.bp[1];
+      const box = [(x - vb.x) / u - b.w / 2, (y - vb.y) / u - 10, (x - vb.x) / u + b.w / 2, (y - vb.y) / u + 10];
+      const hit = placed.some(p => box[0] < p[2] && box[2] > p[0] && box[1] < p[3] && box[3] > p[1]);
+      if (hit && b.l.id !== sel) { b.g.style.display = 'none'; return; }
+      placed.push(box);
+      b.g.style.display = '';
+      b.g.style.opacity = sel && sel !== b.l.id && stageOf(byId[sel], year) !== 'none' ? .38 : 1;
+      b.g.setAttribute('transform', `translate(${x} ${y}) scale(${u})`);
+    });
+  };
   const ghostNodes = H.ghosts.map(gh => {
     const g = el('g', {class: 'gh'}, [el('circle', {cx: gh.p[0], cy: gh.p[1], r: 4.2}), el('text', {x: gh.p[0] - 7, y: gh.p[1] + 4, 'text-anchor': 'end'}, gh.n)]);
     g.addEventListener('pointermove', e => showTip(e, [el('b', {}, gh.n), gh.ev[gh.ev.length - 1].t]));
@@ -369,6 +405,7 @@ svg.zoomed .gh text{display:inline}
     svg.querySelectorAll('.ln text, .gh text').forEach(t => t.style.strokeWidth = (3.5 * k) + 'px');
     svg.querySelectorAll('.blabel').forEach(t => t.style.fontSize = (11 * k) + 'px');
     svg.classList.toggle('zoomed', vb.w < B.w / 1.8);
+    if (typeof placeBadges === 'function') placeBadges();
   };
   // Map units per screen pixel. A capped-height map is letterboxed (preserveAspectRatio meet), so it's the larger ratio,
   // and the drawing sits centred in the box.
@@ -433,6 +470,7 @@ svg.zoomed .gh text{display:inline}
   $('zout').addEventListener('click', () => zoomAt(1 / 1.6, ...centre()));
   $('zreset').addEventListener('click', () => { vb = {x: 0, y: 0, w: B.w, h: B.h}; applyVB(); });
   addEventListener('resize', applyVB);
+  svg.append(badgesG);
 
   // ---- the timeline -----------------------------------------------------------------------------------------------
   const slider = $('slider');
@@ -478,6 +516,7 @@ svg.zoomed .gh text{display:inline}
       if (s === 'open') { km += l.km; l.st.forEach(st => names.add(st[2] + '@' + Math.round(st[0] / 4) + ',' + Math.round(st[1] / 4))); }   // names repeat in some cities: count places
     });
     linesG.classList.toggle('dim', !!sel && stageOf(byId[sel], year) !== 'none');
+    placeBadges();
     H.ghosts.forEach((gh, i) => { ghostNodes[i].style.display = stageOf(gh, year) === 'none' ? 'none' : ''; });
     const dist = H.units === 'mi' ? `${Math.round(km * 0.621371)} MI` : `${Math.round(km)} KM`;
     $('stat').textContent = km ? `${dist}${names.size ? ' · ' + names.size + ' STATIONS' : ''} OPEN` : 'NO RAPID TRANSIT YET';

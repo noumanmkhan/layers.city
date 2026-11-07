@@ -240,6 +240,42 @@ for ln in cfg['lines']:
                 sys.exit(f'history.json: {ln["id"]}: unknown source {s}')
     out_lines.append({'ln': ln, 'g': g, 'sts': sts})
 
+# ---- route badges: which of today's routes run over each built stretch (overlap with the agency's GTFS shapes) ------
+BADGES = cfg.get('badges')
+route_tracks = {}
+if BADGES and routes_raw:
+    skip = set(BADGES.get('skip', []))
+    for rid, r in routes_raw.items():
+        if rid in skip:
+            continue
+        lab = r.get('short') or rid
+        if lab not in BADGES['colours']:
+            continue
+        tr = unary_union([LineString(sh['coords']) for sh in r['shapes'] if sh.get('share', 0) >= 0.1 and len(sh['coords']) > 1])
+        route_tracks.setdefault(lab, []).append(tr.buffer(0.0002))   # ~20 m either side: parallel tunnels (42nd St, the Manhattan Bridge) stay apart
+    route_tracks = {k: unary_union(v) for k, v in route_tracks.items()}
+ORDER = list(BADGES['colours']) if BADGES else []
+
+
+def badges_of(ln, g):
+    if not BADGES:
+        return []
+    if 'badges' in ln:
+        return ln['badges']
+    if ln['group'] != 'built':
+        return []
+    spec = ln['geom']
+    if 'line' in spec:   # cut from a published line: that line's badge
+        return [spec['line']] if spec['line'] in BADGES['colours'] else []
+    if not route_tracks or not (ln.get('now') or 'route' in spec):   # only stretches still running today
+        return []
+    L = g.length
+    if not L:
+        return []
+    got = [lab for lab, area in route_tracks.items() if g.intersection(area).length / L >= 0.7]
+    return sorted(got, key=ORDER.index)
+
+
 # ---- projection: the city plus every line, with a margin --------------------------------------------------------
 city_poly = unary_union([shape(f['geometry']) for f in boroughs])
 # page "frame": "lines" fits the map to the lines (a city whose land reaches far past its network); default: city + lines.
@@ -326,7 +362,7 @@ REACH = {'floated': 1, 'proposed': 2, 'approved': 3, 'building': 4, 'open': 5, '
 today = date.today()
 out = {'lines': [], 'ghosts': [], 'sources': cfg['sources'], 'start': cfg['page']['start'], 'now': today.year,
        'future': cfg['page']['future'], 'later': cfg['page'].get('later'), 'colourBy': cfg.get('colourBy'),
-       'legend': cfg['page'].get('legend'), 'scale': cfg['page'].get('scale'), 'units': cfg['page'].get('units', 'km')}
+       'legend': cfg['page'].get('legend'), 'badges': (BADGES or {}).get('colours'), 'scale': cfg['page'].get('scale'), 'units': cfg['page'].get('units', 'km')}
 for item in out_lines:
     ln, g = item['ln'], item['g']
     xs = [xy(c) for seg in getattr(g, 'geoms', [g]) for c in seg.coords]
@@ -335,6 +371,8 @@ for item in out_lines:
         'c': ln['colour'], 'op': ln.get('op'), 'approx': bool(ln.get('approx')), 'd': path_lines(g), 'km': round(length_km(g), 1),
         'bb': [min(p[0] for p in xs), min(p[1] for p in xs), max(p[0] for p in xs), max(p[1] for p in xs)],
         'st': [[*xy(p), n] for p, n in item['sts']],
+        'b': badges_of(ln, g),
+        'bp': xy(g.interpolate(0.5, normalized=True).coords[0]) if not g.is_empty else None,
         'r': max(REACH.get(e['s'], 0) for e in ln['events'] if not e.get('future')),
         'ev': [{'y': year_of(e['d']), 'd': nice_date(e['d']), 's': e['s'], 't': e['t'], 'src': e['src'],
                 'f': bool(e.get('future'))} for e in sorted(ln['events'], key=lambda e: str(e['d']))],
