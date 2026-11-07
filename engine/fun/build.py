@@ -6,14 +6,14 @@ Each map in fun.json is one of:
   pair          two kinds of place counted per neighbourhood: which one has more. A side is OpenStreetMap places
                 (raw/fun/osm_places.json, matched by tag regexes) or a published layer (docs/<city>/data/<file>,
                 filtered by "where" properties or a "has" sport).
-  signature311  each ward's most over-represented 311 request type (raw/fun/sr311.json).
+  signature311  each "wd" area's most over-represented 311 request type (raw/fun/sr311.json; Toronto's wards).
   tickets       parking tickets and fines per neighbourhood (raw/fun/tickets.json).
   suffix        each neighbourhood's most over-represented street ending (raw/fun/suffixes.json).
   permits       permits per area with the busiest streets drawn on top (raw/fun/<file>).
 A map whose input file is missing is left out, so the page builds with whatever has been fetched.
 
 fun.json "units" names the published outlines: "nb" (required, the page's main unit) and "wd" (a coarser one, for maps
-published only at that level), each {file, key, label, one}.
+published only at that level), each {file, key, label, one, optional many}.
 
 The page draws every map from one shared set of outlines (projected here, simplified) and a short list of
 class indexes per map, so adding a map costs a few hundred bytes. The engine names no city."""
@@ -272,6 +272,7 @@ def sig311_map(m):
     def theme(t):
         return next((name for name, rx in themes if rx.search(t)), 'Other')
     by = {int(k): Counter(v) for k, v in d['by_ward'].items()}
+    wd_one = units['wd'].get('one', 'ward'); wd_many = units['wd'].get('many', wd_one + 's')
     by_theme = {}
     for k, c in by.items():
         tc = Counter()
@@ -301,7 +302,7 @@ def sig311_map(m):
     wins = Counter(p[0] for p in picks.values()).most_common()
     return {'unit': 'wd', 'legend': legend, 'v': v, 'tips': tips,
             'line': f'{d["total"]:,} requests in {d["year"]}. The most common was {clean_311(top[0]).lower()}, '
-                    f'but each ward has its own pet issue: {wins[0][0].lower()} leads in {wins[0][1]} wards.',
+                    f'but each {wd_one} has its own pet issue: {wins[0][0].lower()} leads in {plural(wins[0][1], wd_one, wd_many)}.',
             'total': '', 'stand': stand, 'standTitle': 'Biggest outliers', 'asof': str(d['year'])}
 
 

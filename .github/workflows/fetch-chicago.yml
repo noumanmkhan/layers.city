@@ -12,7 +12,7 @@ on:
     # (fetch-chicago-faith.yml, monthly; fetch-chicago-voting.yml, daily to election day; fetch-happening.yml and
     # fetch-closures.yml, daily), so they aren't run twice (a second fetch_happening.py run left docs/ files this
     # job doesn't commit, and its rebase failed).
-    paths: ['cities/chicago/fetch*.py', '!cities/chicago/fetch_faith.py', '!cities/chicago/fetch_vote_centers.py', '!cities/chicago/fetch_happening.py', '!cities/chicago/fetch_closures.py', '!cities/chicago/fetch_parking.py', '.github/workflows/fetch-chicago.yml']
+    paths: ['cities/chicago/fetch*.py', '!cities/chicago/fetch_faith.py', '!cities/chicago/fetch_vote_centers.py', '!cities/chicago/fetch_happening.py', '!cities/chicago/fetch_closures.py', '!cities/chicago/fetch_parking.py', '!cities/chicago/fetch_fun.py', '.github/workflows/fetch-chicago.yml']
 permissions:
   contents: write
 jobs:

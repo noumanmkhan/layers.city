@@ -1,0 +1,231 @@
+{
+  "page": {
+    "title": "Fun maps",
+    "city": "Chicago",
+    "description": "Chicago's community areas in silly-but-true maps: Dunkin' vs Starbucks, Lou Malnati's vs Giordano's, Jewel vs Mariano's, tennis vs pickleball, and what each community area calls 311 about.",
+    "lede": "The same 77 community areas as the map, counted in less serious ways. Each map is a head-to-head or a signature: what a community area has more of than the rest of the city.",
+    "unitName": "community area",
+    "unitPlural": "community areas",
+    "credits": "Shops and restaurants © OpenStreetMap contributors (ODbL). 311 requests: City of Chicago Data Portal. Courts: OpenStreetMap, as on the map's Sports & rec layer. EV chargers: U.S. DOE Alternative Fuels Data Center. Counts are only as complete as their sources.",
+    "refresh": "Refreshed every three months."
+  },
+  "units": {
+    "nb": {
+      "file": "community_areas.geojson",
+      "key": "name",
+      "label": "name",
+      "one": "community area"
+    },
+    "wd": {
+      "file": "community_areas.geojson",
+      "key": "code",
+      "label": "name",
+      "one": "community area"
+    }
+  },
+  "maps": [
+    {
+      "id": "dunkin-vs-starbucks",
+      "type": "pair",
+      "title": "Dunkin' vs Starbucks",
+      "a": {
+        "label": "Dunkin'",
+        "brand": true,
+        "colour": "#E8559A",
+        "osm": [
+          {
+            "brand": "^Dunkin'?( Donuts)?$"
+          },
+          {
+            "name": "^Dunkin"
+          }
+        ]
+      },
+      "b": {
+        "label": "Starbucks",
+        "brand": true,
+        "colour": "#00704A",
+        "osm": [
+          {
+            "brand": "^Starbucks$"
+          },
+          {
+            "name": "^Starbucks"
+          }
+        ]
+      }
+    },
+    {
+      "id": "malnatis-vs-giordanos",
+      "type": "pair",
+      "title": "Deep dish: Lou Malnati's vs Giordano's",
+      "a": {
+        "label": "Lou Malnati's",
+        "brand": true,
+        "short": "Lou's",
+        "colour": "#1F5F3A",
+        "osm": [
+          {
+            "brand": "^Lou Malnati'?s( Pizzeria)?$"
+          },
+          {
+            "name": "^Lou Malnati"
+          }
+        ]
+      },
+      "b": {
+        "label": "Giordano's",
+        "brand": true,
+        "colour": "#C8102E",
+        "osm": [
+          {
+            "brand": "^Giordano'?s( Pizzeria)?$"
+          },
+          {
+            "name": "^Giordano'?s"
+          }
+        ]
+      },
+      "note": "Counts each chain's restaurants inside the city; most community areas have neither."
+    },
+    {
+      "id": "jewel-vs-marianos",
+      "type": "pair",
+      "title": "Jewel vs Mariano's",
+      "a": {
+        "label": "Jewel-Osco",
+        "brand": true,
+        "short": "Jewel",
+        "colour": "#D2232A",
+        "osm": [
+          {
+            "shop": "^supermarket$",
+            "brand": "^Jewel"
+          },
+          {
+            "shop": "^supermarket$",
+            "name": "^Jewel"
+          }
+        ]
+      },
+      "b": {
+        "label": "Mariano's",
+        "brand": true,
+        "colour": "#2E6B3F",
+        "osm": [
+          {
+            "shop": "^supermarket$",
+            "brand": "^Mariano'?s"
+          },
+          {
+            "shop": "^supermarket$",
+            "name": "^Mariano'?s"
+          }
+        ]
+      },
+      "note": "Counts each chain's supermarkets inside the city."
+    },
+    {
+      "id": "tennis-vs-pickleball",
+      "type": "pair",
+      "title": "Tennis vs pickleball",
+      "a": {
+        "label": "Parks with tennis courts",
+        "short": "Tennis",
+        "colour": "#7FA51F",
+        "layer": "sports.geojson",
+        "has": "tennis"
+      },
+      "b": {
+        "label": "Parks with pickleball courts",
+        "short": "Pickleball",
+        "colour": "#1F8FA5",
+        "layer": "sports.geojson",
+        "has": "pickleball"
+      },
+      "note": "Counts parks, not courts, from OpenStreetMap as on the map's Sports & rec layer. Many have both."
+    },
+    {
+      "id": "gas-vs-ev",
+      "type": "pair",
+      "title": "Gas stations vs EV chargers",
+      "a": {
+        "label": "Gas stations",
+        "colour": "#D9822B",
+        "osm": [
+          {
+            "amenity": "^fuel$"
+          }
+        ]
+      },
+      "b": {
+        "label": "Public EV charging sites",
+        "short": "EV chargers",
+        "colour": "#1F6FB5",
+        "layer": "parking.geojson",
+        "where": {
+          "c": "ev"
+        }
+      },
+      "note": "EV counts are charging sites (not plugs) open to the public, the same list as the map's EV chargers layer."
+    },
+    {
+      "id": "311-signature",
+      "type": "signature311",
+      "title": "What each community area calls 311 about",
+      "minTypeTotal": 1000,
+      "minAreaCount": 40,
+      "note": "Each community area is coloured by the kind of 311 request it makes far more often than the city as a whole, not its most common one. Hover or tap for the single most over-represented request. Aircraft noise complaints (all filed at O'Hare), information-only calls and requests about people are left out.",
+      "themes": [
+        [
+          "Rats",
+          "rodent|rat\\b"
+        ],
+        [
+          "Wildlife",
+          "coyote|animal|bee|wasp|bird|raccoon"
+        ],
+        [
+          "Scooters and bikes",
+          "scooter|divvy|bicycle|bike"
+        ],
+        [
+          "Snow and ice",
+          "snow|ice"
+        ],
+        [
+          "Graffiti",
+          "graffiti"
+        ],
+        [
+          "Noise",
+          "noise"
+        ],
+        [
+          "Vehicles and parking",
+          "vehicle|parking|tow|car"
+        ],
+        [
+          "Garbage and recycling",
+          "garbage|cart|recycl|sanitation|dump|litter|bulk|debris"
+        ],
+        [
+          "Trees",
+          "tree"
+        ],
+        [
+          "Water and sewer",
+          "water|basement|sewer|hydrant|flood|catch basin"
+        ],
+        [
+          "Streets and lights",
+          "pothole|light|pavement|sidewalk|curb|sign|signal|street|alley"
+        ],
+        [
+          "Buildings",
+          "building|heat|air|vacant|construction|porch"
+        ]
+      ]
+    }
+  ]
+}

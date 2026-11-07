@@ -53,6 +53,8 @@ on:
       - "Refresh San Francisco data"
       - "Fetch Toronto fun maps"
       - "Fetch New York City fun maps"
+      - "Fetch San Francisco fun maps"
+      - "Fetch Chicago fun maps"
     types: [completed]
   workflow_dispatch:
     inputs:

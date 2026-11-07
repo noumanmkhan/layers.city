@@ -1,0 +1,236 @@
+{
+  "page": {
+    "title": "Fun maps",
+    "city": "San Francisco",
+    "description": "San Francisco's neighborhoods in silly-but-true maps: hometown coffee vs Starbucks, burritos vs dumplings, tennis vs pickleball, what each neighborhood calls 311 about, and where the parking tickets go.",
+    "lede": "The same 41 neighborhoods as the map, counted in less serious ways. Each map is a head-to-head or a signature: what a neighborhood has more of than the rest of the city.",
+    "unitName": "neighborhood",
+    "unitPlural": "neighborhoods",
+    "credits": "Shops and restaurants © OpenStreetMap contributors (ODbL). 311 requests and parking citations: DataSF (311 Cases; SFMTA Parking Citations & Fines; public domain). Rec and Park courts: San Francisco Recreation and Park Department. EV chargers: U.S. DOE Alternative Fuels Data Center. Counts are only as complete as their sources.",
+    "refresh": "Refreshed every three months."
+  },
+  "units": {
+    "nb": {
+      "file": "neighbourhoods.geojson",
+      "key": "name",
+      "label": "name",
+      "one": "neighborhood"
+    },
+    "wd": {
+      "file": "neighbourhoods.geojson",
+      "key": "code",
+      "label": "name",
+      "one": "neighborhood"
+    }
+  },
+  "maps": [
+    {
+      "id": "hometown-coffee-vs-starbucks",
+      "type": "pair",
+      "title": "Hometown coffee vs Starbucks",
+      "a": {
+        "label": "Bay Area coffee chains",
+        "short": "Hometown",
+        "colour": "#6B4423",
+        "osm": [
+          {
+            "brand": "^(Peet'?s( Coffee)?|Philz( Coffee)?|Blue Bottle( Coffee)?|Ritual( Coffee Roasters)?|Sightglass( Coffee)?|Equator( Coffees)?|Andytown( Coffee Roasters)?|Saint Frank( Coffee)?)$"
+          },
+          {
+            "amenity": "^cafe$",
+            "name": "^(peet'?s|philz|blue bottle|ritual coffee|sightglass|equator|andytown|saint frank)"
+          }
+        ]
+      },
+      "b": {
+        "label": "Starbucks",
+        "brand": true,
+        "colour": "#00704A",
+        "osm": [
+          {
+            "brand": "^Starbucks$"
+          },
+          {
+            "name": "^Starbucks"
+          }
+        ]
+      },
+      "note": "Hometown counts chains and roasters that started in the Bay Area: Peet's, Philz, Blue Bottle, Ritual, Sightglass, Equator, Andytown and Saint Frank."
+    },
+    {
+      "id": "burritos-vs-dumplings",
+      "type": "pair",
+      "title": "Burritos vs dumplings",
+      "mode": "relative",
+      "a": {
+        "label": "Taquerias",
+        "colour": "#D9822B",
+        "one": "taqueria",
+        "many": "taquerias",
+        "osm": [
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "cuisine": "mexican|tex-mex|burrito|taco"
+          },
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "name": "taqueria|burrito|taco"
+          }
+        ]
+      },
+      "b": {
+        "label": "Chinese restaurants",
+        "short": "Dumplings",
+        "colour": "#C8102E",
+        "one": "Chinese restaurant",
+        "many": "Chinese restaurants",
+        "osm": [
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "cuisine": "chinese|cantonese|dim_sum|dumpling|sichuan|shanghai|hunan|taiwanese"
+          },
+          {
+            "amenity": "^(restaurant|fast_food)$",
+            "name": "dim sum|dumpling|wonton"
+          }
+        ]
+      },
+      "note": "Taquerias are restaurants mapped as Mexican or named for tacos and burritos; dumplings are Chinese restaurants of every region, dim sum included."
+    },
+    {
+      "id": "tennis-vs-pickleball",
+      "type": "pair",
+      "title": "Tennis vs pickleball",
+      "a": {
+        "label": "Parks with tennis courts",
+        "short": "Tennis",
+        "colour": "#7FA51F",
+        "layer": "sports.geojson",
+        "has": "tennis"
+      },
+      "b": {
+        "label": "Parks with pickleball courts",
+        "short": "Pickleball",
+        "colour": "#1F8FA5",
+        "layer": "sports.geojson",
+        "has": "pickleball"
+      },
+      "note": "Counts Rec and Park sites, not courts. Many have both, and some tennis courts are lined for pickleball too."
+    },
+    {
+      "id": "gas-vs-ev",
+      "type": "pair",
+      "title": "Gas stations vs EV chargers",
+      "a": {
+        "label": "Gas stations",
+        "colour": "#D9822B",
+        "osm": [
+          {
+            "amenity": "^fuel$"
+          }
+        ]
+      },
+      "b": {
+        "label": "Public EV charging sites",
+        "short": "EV chargers",
+        "colour": "#1F6FB5",
+        "layer": "parking.geojson",
+        "where": {
+          "c": "ev"
+        }
+      },
+      "note": "EV counts are charging sites (not plugs) open to the public, the same list as the map's EV chargers layer."
+    },
+    {
+      "id": "bubble-tea-vs-coffee",
+      "type": "pair",
+      "title": "Bubble tea vs coffee shops",
+      "mode": "relative",
+      "a": {
+        "label": "Bubble tea",
+        "colour": "#8E5BB5",
+        "osm": [
+          {
+            "cuisine": "bubble_tea"
+          },
+          {
+            "name": "bubble tea|boba|gong cha|kung fu tea|tiger sugar|tpumps|purple kow|boba guys|yi fang|sharetea|happy lemon"
+          }
+        ],
+        "one": "bubble tea shop",
+        "many": "bubble tea shops"
+      },
+      "b": {
+        "label": "Coffee shops",
+        "colour": "#6B4423",
+        "osm": [
+          {
+            "amenity": "^cafe$"
+          }
+        ],
+        "except": [
+          {
+            "cuisine": "bubble_tea"
+          },
+          {
+            "name": "bubble tea|boba|gong cha|kung fu tea|tiger sugar|tpumps|purple kow|boba guys|yi fang|sharetea|happy lemon"
+          }
+        ],
+        "one": "coffee shop",
+        "many": "coffee shops"
+      }
+    },
+    {
+      "id": "311-signature",
+      "type": "signature311",
+      "title": "What each neighborhood calls 311 about",
+      "minTypeTotal": 300,
+      "minAreaCount": 25,
+      "note": "Each neighborhood is coloured by the kind of 311 request it makes far more often than the city as a whole, not its most common one (that's street cleaning almost everywhere). Hover or tap for the single most over-represented request. Requests about people, such as encampments, and general requests are left out.",
+      "themes": [
+        [
+          "Robotaxis",
+          "autonomous"
+        ],
+        [
+          "Muni",
+          "muni"
+        ],
+        [
+          "Noise",
+          "noise"
+        ],
+        [
+          "Graffiti and posters",
+          "graffiti|posting"
+        ],
+        [
+          "Trees",
+          "tree"
+        ],
+        [
+          "Water and sewer",
+          "sewer|water|flood|catch basin|drain|hydrant"
+        ],
+        [
+          "Parking",
+          "parking|abandoned vehicle|driveway"
+        ],
+        [
+          "Street cleaning",
+          "cleaning|litter|bulky|dumping|garbage|recycl|compost"
+        ],
+        [
+          "Streets and sidewalks",
+          "sidewalk|street|pothole|curb|pavement|sign|light|signal"
+        ]
+      ]
+    },
+    {
+      "id": "parking-tickets",
+      "type": "tickets",
+      "title": "Parking tickets",
+      "note": "SFMTA's citations, placed by the neighborhood the City records for each one. A $100-odd street-cleaning ticket is San Francisco's most common by far."
+    }
+  ]
+}

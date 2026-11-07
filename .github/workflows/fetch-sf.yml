@@ -8,7 +8,7 @@ on:
       script: {description: 'Script in cities/sf/ to run', default: 'fetch.py'}
   push:
     branches: [main]
-    paths: ['cities/sf/fetch*.py', '!cities/sf/fetch_happening.py', '.github/workflows/fetch-sf.yml']   # events: fetch-happening.yml
+    paths: ['cities/sf/fetch*.py', '!cities/sf/fetch_happening.py', '!cities/sf/fetch_fun.py', '.github/workflows/fetch-sf.yml']   # events: fetch-happening.yml
 permissions:
   contents: write
 jobs:
@@ -26,7 +26,7 @@ jobs:
       # A manual run names its script; a push runs whichever fetch script its last commit changed (none: nothing to do).
       - run: |
           S="${{ inputs.script }}"
-          [ -n "$S" ] || S=$(git diff --name-only HEAD~1 HEAD -- 'cities/sf/fetch*.py' | grep -v -e fetch_lib -e fetch_happening | head -1 | xargs -r basename)
+          [ -n "$S" ] || S=$(git diff --name-only HEAD~1 HEAD -- 'cities/sf/fetch*.py' | grep -v -e fetch_lib -e fetch_happening -e fetch_fun | head -1 | xargs -r basename)
           echo "SCRIPT=$S" >> "$GITHUB_ENV"
       # Transit times (fetch_transit.py) need Java 21 and r5py.
       - if: env.SCRIPT == 'fetch_transit.py'
