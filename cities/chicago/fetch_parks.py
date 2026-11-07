@@ -19,7 +19,7 @@ Q = f"""
   way["leisure"~"^(park|nature_reserve)$"]["name"]({BBOX});
   relation["leisure"~"^(park|nature_reserve)$"]["name"]({BBOX});
 );
-out tags geom;
+out body geom;
 (
   nwr["leisure"="pitch"]{PRIV}({BBOX});
   nwr["leisure"="playground"]{PRIV}({BBOX});
