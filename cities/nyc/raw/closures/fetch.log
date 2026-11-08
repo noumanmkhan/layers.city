@@ -1,40 +1,22 @@
-nyc closures: 38 rows -> 38 segments; ['Arlington Ave', 'Broadway', 'De Reimer Ave', 'E 108th St', 'E 109th St', 'E 110th St', 'E 47th St', 'E 48th St', 'Keap St', 'Melrose St', 'Park Ave', 'Rockaway Freeway', 'Rodney St', 'S 5th St']
-centerline: 19275 segments on 836 streets; sample names ['1 AVE', '1 AVE', '1 AVE', '1 AVE', '1 AVE LOOP', '1 CT', '1 DR', '1 PL', '1 PL', '1 ST', '1 ST', '1 ST']
-nyc events: 64 permits -> 80 closures placed; 35 chunks not placed
-   not placed: NYC Public Schools- Heroes of Highbridge 2 Mile Walk/Run | DR. ML KING JR BLVD between WEST  170 STREET and WEST  168 STREET | no centerline for DR ML KING JR BLVD
-   not placed: NYC Public Schools- Heroes of Highbridge 2 Mile Walk/Run | UNIVERSITY/ MARTIN LUTHER KING BLVD between 170 and 168TH | no centerline for UNIVERSITY MARTIN LUTHER KING BLVD
-   not placed: Religious Procession | COMMONWEALTH BOULEVARD between 247 STREET and HILLSIDE AVENUE | no stretch between 247 ST and HILLSIDE AVE
-   not placed: Stone Street Pedestrian Mall | STONE STREET between BROAD STREET and HANOVER SQUARE | no stretch between BROAD ST and HANOVER SQ
-   not placed: Down to Earth Park Slope Farmers Market | 4TH STREET between FIFTH AVENUE and DEAD END | no stretch between 5 AVE and DEAD END
-   not placed: 2026 New York City Veterans Day Parade | WEST   24 STREET between 7 AVENUE and 6 AVENUE | no stretch between 7 AVE and 6 AVE
-   not placed: 2026 New York City Veterans Day Parade | WEST   24 STREET between 6 AVENUE and 5 AVENUE | no stretch between 6 AVE and 5 AVE
-   not placed: 2026 New York City Veterans Day Parade | WEST   25 STREET between 6 AVENUE and BROADWAY | no stretch between 6 AVE and BROADWAY
-   not placed: 2026 New York City Veterans Day Parade | WEST   26 STREET between 6 AVENUE and BROADWAY | no stretch between 6 AVE and BROADWAY
-   not placed: 2026 New York City Veterans Day Parade | WEST   27 STREET between 6 AVENUE and BROADWAY | no stretch between 6 AVE and BROADWAY
-   not placed: 2026 New York City Veterans Day Parade | WEST   28 STREET between 6 AVENUE and BROADWAY | no stretch between 6 AVE and BROADWAY
-   not placed: 2026 New York City Veterans Day Parade | Madison Square Park: 5th Ave Sidewalks Madison Square Park between Fifth Avenue Sidewalks and and  and | no centerline for MADISON SQUARE PARK 5 AVE SIDEWALKS MADISON SQUARE PARK
-   not placed: 2026 New York City Veterans Day Parade | AVENUE OF AMERICAS between WEST   23 STREET and WEST   27 STREET | no centerline for AVE OF AMERICAS
-   not placed: 2026 New York City Veterans Day Parade | WEST   45 STREET between 6 AVENUE and 5 AVENUE | no stretch between 6 AVE and 5 AVE
-   not placed: Breathe Deep NYC | WATER STREET between WHITEHALL STREET and FULTON STREET | no stretch between WHITEHALL ST and FULTON ST
-   not placed: Uptown Farmstand | EAST 115 STREET between PARK AVENUE and PARK AVENUE | no stretch between PARK AVE and PARK AVE
-   not placed: Frannys Fun Run/Walk | ROCKAWAY BEACH BOULEVARD between BEACH  128 STREET and BEACH  139 STREET | no stretch between BEACH 128 ST and BEACH 139 ST
-   not placed: Frannys Fun Run/Walk | ROCKAWAY BEACH BOULEVARD between BEACH  128 STREET and BEACH  130 STREET | no stretch between BEACH 128 ST and BEACH 130 ST
-   not placed: Uptown Farmstand | EAST 115 STREET between PARK AVENUE and PARK AVENUE | no stretch between PARK AVE and PARK AVE
-   not placed: Nassau Summer/Fall Street Closures | NASSAU AVENUE between BANKERS ANCHOR PLAZA and LORIMER STREET | no stretch between BANKERS ANCHOR PLZ and LORIMER ST
-   not placed: 2026 Brooklyn Veterans Appreciation Parade | EASTERN PARKWAY between NOSTRAND AVENUE and ROGERS AVENUE | no stretch between NOSTRAND AVE and ROGERS AVE
-   not placed: Bronx Veterans Day Parade | ELLSWORTH AV between RANDALL AV and THROGS NECK EXWY SERVICE RD | no stretch between RANDALL AVE and THROGS NECK EXWY SERVICE RD
-   not placed: Bronx Veterans Day Parade | THROGS NECK EXWY between ELLSWORTH AV and MEAGHER AV | no centerline for THROGS NECK EXWY
-   not placed: LADY OF HAVEN FATIMA SAW | LAUREL HILL BLVD.  61ST ST between 61ST STREET and QUEENS BLVD | no centerline for LAUREL HILL BLVD 61 ST
-   not placed: Procession Lord Of the Mericals | GRAND CONCOURSE between EAST  202 STREET and EAST  198 STREET | no centerline for GRAND CONCOURSE
-   not placed: East Coast Car Association Toys For Tots | Forest Park: Bandshell and Seating Forest Park between Bandshell and s | no centerline for FOREST PARK BANDSHELL AND SEATING FOREST PARK
-   not placed: East Coast Car Association Toys For Tots | FOREST PARK DRIVE WB EN JRP between FOREST PARK DRIVE and JRP | no centerline for FOREST PARK DRIVE WB EN JRP
-   not placed: East Coast Car Association Toys For Tots | JACKIE ROBINSON PKWY between FORREST PAK DRIVE and GCP | no stretch between FORREST PAK DR and GCP
-   not placed: East Coast Car Association Toys For Tots | GRAND CENTRAL PARKWAY between JACKIE ROBINSON PKWY and CLEARVIEW EXWY | no stretch between JACKIE ROBINSON PKWY and CLEARVIEW EXWY
-   not placed: East Coast Car Association Toys For Tots | CLEARVIEW EXWY between GRAND CENTRAL PARKWAY and 35TH AVE EXIT 6A | no centerline for CLEARVIEW EXWY
-   not placed: Down to Earth Park Slope Farmers Market | 4TH STREET between FIFTH AVENUE and DEAD END | no stretch between 5 AVE and DEAD END
-   not placed: Walk to End Alzheimers - Brooklyn | BROOKLYN HEIGHTS PROMENADE between REMSEN STREET and COLUMBIA HEIGHTS | no stretch between REMSEN ST and COLUMBIA HEIGHTS
-   not placed: Walk to End Alzheimers - Brooklyn | COLUMBIA HEIGHTS between BROOKLYN HEIGHTS PROMENADE and MIDDAGH STREET | no centerline for COLUMBIA HEIGHTS
-   not placed: Walk to End Alzheimers - Brooklyn | MIDDAGH STREET between COLUMBIA HEIGHTS and CADMAN PLAZA WEST | no stretch between COLUMBIA HEIGHTS and CADMAN PLZ W
-   not placed: Down to Earth Park Slope Farmers Market | 4TH STREET between FIFTH AVENUE and DEAD END | no stretch between 5 AVE and DEAD END
-nyc closures: 32 kept of 38 · dropped {'dates': 0, 'existing line': 0, 'local lane work': 0} · by project {'Other MTA work': 23, 'Second Avenue Subway, Phase 2': 9} · closed 32 · on arterials 9
-nyc: 73 special-event closures in 29 events: Stone Street Pedestrian Mall (1, 2026-03-12T11:00 to 2026-11-08T22:00); Witness for Life (3, 2026-11-07T08:45 to 2026-11-07T11:00); Breathe Deep NYC (3, 2026-11-07T09:00 to 2026-11-07T12:00); Playback Festival (3, 2026-11-07T10:00 to 2026-11-07T18:00); 2026 Rock the Block Fall Fest (1, 2026-11-07T10:00 to 2026-11-07T18:00); NYC Halal Fest (1, 2026-11-07T10:00 to 2026-11-07T18:00); 8TH ANNUAL VETERANS APPRECIATION PARADE AND RESOURCE FAIR (4, 2026-11-07T11:00 to 2026-11-07T16:00); 76th Mahan Nagar Kirtan (2, 2026-11-07T12:00 to 2026-11-07T17:00); 2026 Brooklyn Veterans Appreciation Parade (1, 2026-11-07T12:00 to 2026-11-07T14:00); Kapoor Wedding Baraat (1, 2026-11-07T12:30 to 2026-11-07T14:00); Sustainability Fair on Ave B Open Street (1, 2026-11-07T13:00 to 2026-11-07T16:00); UNION SQUARE PARTNERSHIP FALL BLOCK PARTY (1, 2026-11-08T10:00 to 2026-11-08T18:00); Walk to End Alzheimers - Brooklyn (3, 2026-11-08T11:00 to 2026-11-08T12:30); Bronx Veterans Day Parade (3, 2026-11-08T12:00 to 2026-11-08T14:00); Queens Veterans Parade (3, 2026-11-08T12:00 to 2026-11-08T15:00); Master Huaguang Birthday Memorial Procession (6, 2026-11-08T12:30 to 2026-11-08T14:30); LADY OF HAVEN FATIMA SAW (1, 2026-11-08T15:00 to 2026-11-08T18:00); Soccer Streets Underhill Avenue Soundview Academy (1, 2026-11-10T10:00 to 2026-11-10T13:30); Veterans Day Parade (5, 2026-11-11T10:30 to 2026-11-11T12:00); 2026 New York City Veterans Day Parade (12, 2026-11-11T12:30 to 2026-11-11T16:00); Saint Martin of Tours Celebration (6, 2026-11-11T20:15 to 2026-11-11T21:15); HHFM East Harlem Market (1, 2026-11-12T08:00 to 2026-11-12T15:00); Turkey Fest (1, 2026-11-13T10:00 to 2026-11-13T11:30); Cristo del Consuelo Procession (3, 2026-11-14T10:00 to 2026-11-14T11:00); Religious Procession (2, 2026-11-14T12:00 to 2026-11-14T16:00); Co-Naming (1, 2026-11-14T12:00 to 2026-11-14T13:00); East Coast Car Association Toys For Tots (1, 2026-11-15T12:30 to 2026-11-15T14:00); HHFM East Harlem Market (1, 2026-11-19T08:00 to 2026-11-19T15:00); Parish Feast 2026 (1, 2026-11-20T18:00 to 2026-11-20T19:00)
+Traceback (most recent call last):
+  File "/home/runner/work/layers.city/layers.city/cities/nyc/fetch_closures.py", line 22, in <module>
+    rows = json.load(urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'city-layers-pipeline (layers.city)'}), timeout=180))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 503: Service Unavailable
