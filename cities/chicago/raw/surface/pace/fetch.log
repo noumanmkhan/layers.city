@@ -1,11 +1,7 @@
-  retry 1 https://files.mobilitydatabase.org/mdb-2347/latest/latest.zip HTTP Error 403: Forbidden
-  retry 2 https://files.mobilitydatabase.org/mdb-2347/latest/latest.zip HTTP Error 403: Forbidden
-  retry 3 https://files.mobilitydatabase.org/mdb-2347/latest/latest.zip HTTP Error 403: Forbidden
-  retry 4 https://files.mobilitydatabase.org/mdb-2347/latest/latest.zip HTTP Error 403: Forbidden
-  got https://pacebus.com/sites/default/files/2026-10/GTFS.zip 10365028 bytes
-  service to 2026-12-19 https://pacebus.com/sites/default/files/2026-10/GTFS.zip
+  got https://files.mobilitydatabase.org/mdb-2347/latest.zip 10365028 bytes
+  service to 2026-12-19 https://files.mobilitydatabase.org/mdb-2347/latest.zip
 routes kept: 134
-feed 2026-11-01 - 2026-12-19 · week from 2026-11-09 · days {'wk': '2026-11-11', 'sat': '2026-11-14', 'sun': '2026-11-15'}
+feed 2026-11-01 - 2026-12-19 · week from 2026-11-16 · days {'wk': '2026-11-18', 'sat': '2026-11-21', 'sun': '2026-11-22'}
 trips in the week: 14069
 routes written: 134 · trams 0 · stops 13765
   pace Pace 100 Pulse Milwaukee Line               shapes 2  midday/5h  20  1-5am 0
@@ -71,9 +67,9 @@ routes written: 134 · trams 0 · stops 13765
   pace Pace 390 Midway CTA - UPS Hodgkins Limited  shapes 5  midday/5h   0  1-5am 2
   pace Pace 392 Green Line Cicero CTA - UPS Hodgki shapes 3  midday/5h   0  1-5am 2
   pace Pace 395 95th/Dan Ryan CTA - UPS Hodgkins L shapes 3  midday/5h   0  1-5am 5
-  pace Pace 410 East Niles Local                   shapes 4  midday/5h   0  1-5am 0
-  pace Pace 411 West Niles Local                   shapes 8  midday/5h   0  1-5am 0
-  pace Pace 412 Niles North Circulator             shapes 1  midday/5h   0  1-5am 0
+  pace Pace 410 East Niles Local                   shapes 4  midday/5h  10  1-5am 0
+  pace Pace 411 West Niles Local                   shapes 8  midday/5h  11  1-5am 0
+  pace Pace 412 Niles North Circulator             shapes 1  midday/5h   7  1-5am 0
   pace Pace 421 Wilmette Avenue                    shapes 2  midday/5h   1  1-5am 0
   pace Pace 422 Linden CTA/Glenview/Northbrook Cou shapes 8  midday/5h  10  1-5am 0
   pace Pace 423 Linden CTA - The Glen - Harlem L C shapes 4  midday/5h   5  1-5am 0

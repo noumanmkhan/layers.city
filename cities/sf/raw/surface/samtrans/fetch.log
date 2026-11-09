@@ -1,3 +1,5 @@
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
 sf: 31 routes from 71 OSM relations · 1064 named stops (6 unnamed left out)
        SamTrans 29  SamTrans 29                                                   pieces 6
       SamTrans 110  SamTrans 110                                                  pieces 7
@@ -17,7 +19,7 @@ sf: 31 routes from 71 OSM relations · 1064 named stops (6 unnamed left out)
       SamTrans 278  SamTrans 278                                                  pieces 8
       SamTrans 280  SamTrans 280                                                  pieces 6
       SamTrans 281  SamTrans 281                                                  pieces 13
-      SamTrans 286  SamTrans 286: Menlo Park Caltrain – Sharon Park               pieces 2
+      SamTrans 286  SamTrans 286: Sharon Park – Menlo Park Caltrain               pieces 2
       SamTrans 292  SamTrans 292                                                  pieces 47
       SamTrans 294  SamTrans 294                                                  pieces 2
       SamTrans 295  SamTrans 295                                                  pieces 14
