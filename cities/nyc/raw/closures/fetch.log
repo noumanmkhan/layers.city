@@ -1,7 +1,8 @@
+nyc closures: 38 rows -> 38 segments; ['Arlington Ave', 'Broadway', 'De Reimer Ave', 'E 108th St', 'E 109th St', 'E 110th St', 'E 47th St', 'E 48th St', 'Keap St', 'Melrose St', 'Park Ave', 'Rockaway Freeway', 'Rodney St', 'S 5th St']
 Traceback (most recent call last):
-  File "/home/runner/work/layers.city/layers.city/cities/nyc/fetch_closures.py", line 22, in <module>
-    rows = json.load(urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'city-layers-pipeline (layers.city)'}), timeout=180))
-                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/layers.city/layers.city/cities/nyc/fetch_closures.py", line 77, in <module>
+    evs = json.load(urllib.request.urlopen(urllib.request.Request(EV_API + '?' + urllib.parse.urlencode({'$where': ev_where, '$limit': 5000}),
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 215, in urlopen
     return opener.open(url, data, timeout)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

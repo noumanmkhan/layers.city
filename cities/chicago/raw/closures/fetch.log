@@ -1,4 +1,22 @@
-Chicago: 35 permits matched the query; 24 kept; 0 without a usable location
-Chicago events: 55 special-event permit rows; 41 closures kept from 14 events; left out: {'cancelled or incomplete': 10, 'season-long permit': 4} ; 3 drawn along their street
-chicago closures: 13 kept of 24 · dropped {'dates': 0, 'existing line': 0, 'local lane work': 11} · by project {'Red Line Extension': 13} · closed 12 · on arterials 3
-chicago: 35 special-event closures in 14 events: South Loop Farmers Market (Printers Row) (1, 2026-11-07T00:00 to 2026-11-21T23:59); Block party on 23rd St (1, 2026-11-09T00:00 to 2026-11-09T23:59); Block party on Morgan St (1, 2026-11-10T00:00 to 2026-11-10T23:59); Randolph Street Market (3, 2026-11-14T00:00 to 2026-11-15T23:59); North Branch Winter Market (1, 2026-11-14T00:00 to 2026-11-14T23:59); Back of the Yards 5K (6, 2026-11-15T00:00 to 2026-11-15T23:59); Christkindlmarket (4, 2026-11-19T00:00 to 2026-12-24T23:59); City Christmas Tree Lighting and Millennium Park Holiday Market (2, 2026-11-20T00:00 to 2026-11-22T23:59); Block party on 64th St (2, 2026-11-20T00:00 to 2026-11-21T23:59); Magnificent Mile Lights Festival (10, 2026-11-21T00:00 to 2026-11-21T23:59, banner); Block party on Iowa St (1, 2026-11-21T00:00 to 2026-11-21T23:59); Block party on 21st Pl (1, 2026-11-21T00:00 to 2026-11-21T23:59); Block party on 73rd St (1, 2026-11-21T00:00 to 2026-11-21T23:59); St. Alphonsus Tree Lighting (1, 2026-11-22T00:00 to 2026-11-22T23:59)
+Traceback (most recent call last):
+  File "/home/runner/work/layers.city/layers.city/cities/chicago/fetch_closures.py", line 37, in <module>
+    rows = json.load(urllib.request.urlopen(req, timeout=180))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 521, in open
+    response = meth(req, response)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 630, in http_response
+    response = self.parent.error(
+               ^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 559, in error
+    return self._call_chain(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 639, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 503: Service Unavailable
