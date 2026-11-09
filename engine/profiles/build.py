@@ -851,6 +851,7 @@ FS.pop('description', None)
 page = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'page.html'), encoding='utf-8').read()
 css_path = os.path.join(ROOT, 'cities', city, 'factsheet.css')
 fill = {k: html.escape(PG.get(k, ''), quote=True) for k in ('description', 'city', 'Unit', 'placeholder', 'kind', 'boundary', 'sysNote')}
+fill['canonical'] = f'https://layers.city/{city}/profiles/'   # ?n= and &lens= are views of this one page; tells search engines so
 fill['css'] = open(css_path, encoding='utf-8').read() if os.path.exists(css_path) else ''
 fill['FS'] = json.dumps(FS, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/')
 page = re.sub(r'\{\{(\w+)\}\}', lambda m: fill[m.group(1)], page)

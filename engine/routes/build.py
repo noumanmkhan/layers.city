@@ -622,6 +622,7 @@ cfg_out['the'] = CFG.get('regionsWithThe', [])
 cfg_out['theKnown'] = CFG.get('knownWithThe')   # a pattern: known-as names that take "the"
 html = (tpl.replace('{{RS}}', json.dumps(cfg_out, ensure_ascii=False))
         .replace('{{css}}', open(css_p, encoding='utf-8').read() if os.path.exists(css_p) else '')
+        .replace('{{canonical}}', f'https://layers.city/{city}/routes/')   # ?stop= views are one page to search engines
         .replace('{{title}}', page['title']).replace('{{city}}', page['city'])
         .replace('{{description}}', page['description']).replace('{{lede}}', page['lede'])
         .replace('{{placeholder}}', page['placeholder']).replace('{{credits}}', page['credits'])
