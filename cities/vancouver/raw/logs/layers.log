@@ -8,7 +8,7 @@
    zoning-districts-and-labels 8 features, modified 2026-06-29
    road-ahead-current-road-closures 23 features, modified 2026-09-17
    road-ahead-projects-under-construction 68 features, modified 2026-09-17
-   voting-places-2026 147 features, modified 2026-08-20
+   voting-places-2026 147 features, modified 2026-10-26
    parks-facilities 645 {'Playgrounds': 114, 'Soccer Fields': 62, 'Field Houses': 56, 'Tennis Courts': 43, 'Softball': 38, 'Dogs Off-Leash Areas': 37, 'Basketball Courts': 31, 'Baseball Diamonds': 24, 'Wading Pool': 20, 'Ultimate Fields': 18, 'Water/Spray Parks': 15, 'Ball Hockey': 14, 'Lighted Fields': 14, 'Community Centres': 14, 'Picnic Sites': 14, 'Jogging Trails': 11, 'Football Fields': 10, 'Pickleball': 9, 'Rugby Fields': 9, 'Swimming Pools': 9, 'Skateboard Parks': 8, 'Food Concessions': 8, 'Restaurants': 8, 'Running Tracks': 7, 'Rinks': 7, 'Field Hockey': 7, 'Bowling Greens': 6, 'Golf Courses': 6, 'Community Halls': 6, 'Beaches': 6, 'Cricket Pitches': 5, 'Outdoor Roller Hockey Rinks': 3, 'Disc Golf Courses': 2, 'Lacrosse Boxes': 2, 'Outdoor Fitness': 1, 'Drinking Fountain': 1}
    garbage-collection-schedule-zones-for-single-family-homes-and-duplexes modified 2019-05-19T07:00:00+00:00 | description: <div><p>This dataset includes the boundaries and pick up schedule of Garbage and Green Bin Collection for Single Family Homes and Duplexes. A separate dataset provides information on Multi-Unit Residential Buildings.</p><p>Town homes and row houses are collected as follows:</p><div><ul><ul><li>Where each residence has its own individual bin, collection will typically follow the Single Family Homes and Duplexes calendar.</li><li>Where multiple residences share bin, collection will typically follow the Multi-Unit Residential Buildings calendar. </li></ul></ul></div><h3>Data access</h3><p>This da
    attachments: []
@@ -121,7 +121,7 @@ wrote institutions_osm.json 22 KB
     university | Simon Fraser University Surrey Campus | None | None [-122.84951, 49.18751]
     university | South Science Building | None | None [-122.91795, 49.27731]
     university | Strand Hall | None | None [-122.91463, 49.27894]
-    university | TASC 1 | None | None [-122.91421, 49.27673]
+    university | TASC 1 | Simon Fraser University | None [-122.91421, 49.27673]
     university | TASC 2 | None | None [-122.91623, 49.27701]
     university | The University of British Columbia Vancouver | None | None [-123.24479, 49.25758]
     university | The Westside Schools – Miniversity | None | None [-123.11855, 49.27661]
@@ -132,4 +132,3 @@ wrote institutions_osm.json 22 KB
     university | UBC Learning Exchange | None | None [-123.09929, 49.2792]
     university | UBC Robson Square | University of British Columbia | None [-123.12118, 49.28243]
 done; failed: none
-exit 0

@@ -435,6 +435,7 @@
 ],
 "name": "Broadway Church",
 "religion": "christian",
+"denomination": "pentecostal",
 "addr:housenumber": "2700",
 "addr:street": "East Broadway",
 "addr:city": "Vancouver",
@@ -972,6 +973,18 @@
 "addr:street": "Victoria Drive"
 },
 {
+"osm": "w316440226",
+"at": [
+-123.08708,
+49.25767
+],
+"name": "Heaven Bridge",
+"religion": "christian",
+"addr:housenumber": "804",
+"addr:street": "East 14th Avenue",
+"building": "church"
+},
+{
 "osm": "w357727091",
 "at": [
 -123.06699,
@@ -1200,6 +1213,17 @@
 "building": "yes"
 },
 {
+"osm": "w1031393284",
+"at": [
+-123.05551,
+49.25735
+],
+"name": "Kingdom Hall of Jehovah's Witness",
+"religion": "christian",
+"denomination": "jehovahs_witness",
+"building": "yes"
+},
+{
 "osm": "n6348675796",
 "at": [
 -123.13185,
@@ -1224,16 +1248,6 @@
 "addr:housenumber": "1015",
 "addr:street": "West 8th Avenue",
 "building": "yes"
-},
-{
-"osm": "w162785115",
-"at": [
--123.05549,
-49.25733
-],
-"name": "Kingdom Hall of Jehovah's Witnesses",
-"religion": "christian",
-"denomination": "jehovahs_witness"
 },
 {
 "osm": "w162786168",
@@ -1759,6 +1773,19 @@
 "addr:city": "Vancouver"
 },
 {
+"osm": "w682591080",
+"at": [
+-123.23046,
+49.26308
+],
+"name": "Saint Anselm's Anglican Church",
+"religion": "christian",
+"denomination": "anglican",
+"addr:housenumber": "5210",
+"addr:street": "University Boulevard",
+"building": "church"
+},
+{
 "osm": "w129474689",
 "at": [
 -123.13669,
@@ -2167,19 +2194,6 @@
 "addr:street": "Granville Street",
 "addr:city": "Vancouver",
 "building": "yes"
-},
-{
-"osm": "w682591080",
-"at": [
--123.23046,
-49.26308
-],
-"name": "St. Anselm's Anglican Church",
-"religion": "christian",
-"denomination": "anglican",
-"addr:housenumber": "5210",
-"addr:street": "University Boulevard",
-"building": "church"
 },
 {
 "osm": "w394663131",
@@ -2736,6 +2750,9 @@
 ],
 "name": "Vancouver Community of Christ",
 "religion": "christian",
+"denomination": "church_of_christ",
+"addr:housenumber": "3333",
+"addr:street": "Kaslo Street",
 "building": "church"
 },
 {
@@ -2862,6 +2879,9 @@
 ],
 "name": "West Coast Christian Fellowship",
 "religion": "christian",
+"denomination": "nondenominational",
+"addr:housenumber": "3198",
+"addr:street": "East Georgia Street",
 "building": "church"
 },
 {
@@ -3775,15 +3795,6 @@
 "addr:housenumber": "1949",
 "addr:street": "West 10th Avenue",
 "building": "yes"
-},
-{
-"osm": "w316440226",
-"at": [
--123.08708,
-49.25767
-],
-"name": "Heaven Bridge",
-"building": "church"
 },
 {
 "osm": "w572433926",
