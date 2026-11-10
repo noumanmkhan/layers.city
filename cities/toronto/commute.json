@@ -12,29 +12,125 @@
   "districts": "raw/tts/pd2022.geojson"
  },
  "modes": [
-  {"id": "transit", "name": "TTC", "long": "TTC subway, streetcar or bus", "colour": "#C8102E", "from": ["Transit excluding GO rail"]},
-  {"id": "go", "name": "GO", "long": "GO train (with or without the TTC)", "colour": "#3C8D5A", "from": ["GO rail only", "Joint GO rail and local transit"]},
-  {"id": "car", "name": "Car", "long": "Car, as driver or passenger", "colour": "#5B7FA6", "from": ["Auto driver", "Auto passenger"]},
-  {"id": "active", "name": "Walk or bike", "long": "Walked, cycled or e-scooter", "colour": "#D99A1E", "from": ["Walk", "Cycle", "E-scooter"]},
-  {"id": "other", "name": "Taxi and other", "long": "Taxi, rideshare, motorcycle, school bus and other", "colour": "#9C8F8C", "from": ["Taxi passenger", "Paid rideshare", "Motorcycle", "School bus", "Other"]}
+  {
+   "id": "transit",
+   "name": "TTC",
+   "long": "TTC subway, streetcar or bus",
+   "colour": "#C8102E",
+   "from": [
+    "Transit excluding GO rail"
+   ]
+  },
+  {
+   "id": "go",
+   "name": "GO",
+   "long": "GO train (with or without the TTC)",
+   "colour": "#3C8D5A",
+   "from": [
+    "GO rail only",
+    "Joint GO rail and local transit"
+   ]
+  },
+  {
+   "id": "car",
+   "name": "Car",
+   "long": "Car, as driver or passenger",
+   "colour": "#5B7FA6",
+   "from": [
+    "Auto driver",
+    "Auto passenger"
+   ]
+  },
+  {
+   "id": "active",
+   "name": "Walk or bike",
+   "long": "Walked, cycled or e-scooter",
+   "colour": "#D99A1E",
+   "from": [
+    "Walk",
+    "Cycle",
+    "E-scooter"
+   ]
+  },
+  {
+   "id": "other",
+   "name": "Taxi and other",
+   "long": "Taxi, rideshare, motorcycle, school bus and other",
+   "colour": "#9C8F8C",
+   "from": [
+    "Taxi passenger",
+    "Paid rideshare",
+    "Motorcycle",
+    "School bus",
+    "Other"
+   ]
+  }
  ],
  "aliases": {
-  "Hamilton Area": {"no": 46},
-  "Hamilton Twp": {"no": 150},
-  "Port Colborne": {"name": "Port Colbourne"},
-  "Bradford-West Gwillimbury": {"name": "Bradford West Gwillimbury"},
-  "Cavan Monaghan": {"name": "Cavan-Monaghan"},
-  "Dummer-Douro": {"name": "Douro-Dummer"}
+  "Hamilton Area": {
+   "no": 46
+  },
+  "Hamilton Twp": {
+   "no": 150
+  },
+  "Port Colborne": {
+   "name": "Port Colbourne"
+  },
+  "Bradford-West Gwillimbury": {
+   "name": "Bradford West Gwillimbury"
+  },
+  "Cavan Monaghan": {
+   "name": "Cavan-Monaghan"
+  },
+  "Dummer-Douro": {
+   "name": "Douro-Dummer"
+  }
  },
  "regions": [
-  {"name": "Downtown itself", "match": "district"},
-  {"name": "Rest of Toronto", "reg": [1]},
-  {"name": "York Region", "reg": [3]},
-  {"name": "Peel", "reg": [4]},
-  {"name": "Durham", "reg": [2]},
-  {"name": "Halton", "reg": [5]},
-  {"name": "Hamilton", "reg": [6]},
-  {"name": "Beyond the GTHA", "rest": true}
+  {
+   "name": "Downtown itself",
+   "match": "district"
+  },
+  {
+   "name": "Rest of Toronto",
+   "reg": [
+    1
+   ]
+  },
+  {
+   "name": "York Region",
+   "reg": [
+    3
+   ]
+  },
+  {
+   "name": "Peel",
+   "reg": [
+    4
+   ]
+  },
+  {
+   "name": "Durham",
+   "reg": [
+    2
+   ]
+  },
+  {
+   "name": "Halton",
+   "reg": [
+    5
+   ]
+  },
+  {
+   "name": "Hamilton",
+   "reg": [
+    6
+   ]
+  },
+  {
+   "name": "Beyond the GTHA",
+   "rest": true
+  }
  ],
  "page": {
   "city": "Toronto",
@@ -63,5 +159,152 @@
   ],
   "credits": "Data: Transportation Tomorrow Survey 2022, Data Management Group, University of Toronto (open data licence). Planning district boundaries: TTS 2022. Analysis and design: Layers.City."
  },
- "videos": []
+ "videos": [],
+ "flow": {
+  "_about": "The moving-dots map on the clock (engine/commute/build.py): every trip into or out of the district in the chosen hour becomes dots on the corridor its mode uses, from the map's published layers (docs/<city>/data). Each corridor is split where it passes closest to 'hub', and each half runs inward. 'dots' trips make one dot. A corridor's 'weight' sets its share of its mode's dots; 'maxKm' keeps only the last stretch before the hub (walking and cycling). 'endKm' drops a half that stops further than that from the hub. 'frame.clip' ([west, south, east, north]) trims the frame to the part of the city the corridors cross.",
+  "hub": [
+   -79.3806,
+   43.6453
+  ],
+  "frame": {
+   "layer": "base.geojson",
+   "kind": "city",
+   "padKm": 0.8,
+   "clip": [
+    -79.64,
+    43.575,
+    -79.12,
+    43.8
+   ]
+  },
+  "land": {
+   "layer": "base.geojson",
+   "kinds": [
+    "city"
+   ]
+  },
+  "near": {
+   "layer": "base.geojson",
+   "kinds": [
+    "neighbour"
+   ]
+  },
+  "streets": {
+   "layer": "streets.geojson",
+   "cls": "major"
+  },
+  "dots": 120,
+  "corridors": [
+   {
+    "mode": "transit",
+    "layer": "subway_lines.geojson",
+    "match": {
+     "line": [
+      "1"
+     ]
+    },
+    "weight": 4
+   },
+   {
+    "mode": "transit",
+    "layer": "subway_lines.geojson",
+    "match": {
+     "line": [
+      "2"
+     ]
+    },
+    "weight": 3
+   },
+   {
+    "mode": "transit",
+    "layer": "streetcars.geojson",
+    "match": {
+     "r": [
+      "501",
+      "504",
+      "505",
+      "506",
+      "510"
+     ]
+    },
+    "weight": 0.6
+   },
+   {
+    "mode": "go",
+    "layer": "go_lines_416.geojson",
+    "match": {},
+    "weight": 1
+   },
+   {
+    "mode": "car",
+    "layer": "highways.geojson",
+    "match": {
+     "name": [
+      "Gardiner Expressway",
+      "Don Valley Parkway"
+     ]
+    },
+    "weight": 3
+   },
+   {
+    "mode": "car",
+    "layer": "streets.geojson",
+    "match": {
+     "name": [
+      "Lake Shore Blvd W",
+      "Lake Shore Blvd E",
+      "Bayview Ave",
+      "Spadina Ave",
+      "Bathurst St",
+      "Jarvis St",
+      "Yonge St",
+      "Avenue Rd",
+      "Dundas St W",
+      "Queen St E",
+      "Eastern Ave"
+     ]
+    },
+    "weight": 0.7
+   },
+   {
+    "mode": "active",
+    "layer": "streets.geojson",
+    "match": {
+     "name": [
+      "Bloor St W",
+      "Bloor St E",
+      "Queen St W",
+      "Queen St E",
+      "College St",
+      "Dundas St W",
+      "Dundas St E",
+      "Yonge St",
+      "Spadina Ave",
+      "Bathurst St",
+      "Parliament St",
+      "King St W",
+      "King St E"
+     ]
+    },
+    "weight": 1,
+    "maxKm": 3.5
+   },
+   {
+    "mode": "other",
+    "layer": "streets.geojson",
+    "match": {
+     "name": [
+      "Lake Shore Blvd W",
+      "Spadina Ave",
+      "Jarvis St",
+      "Yonge St",
+      "University Ave"
+     ]
+    },
+    "weight": 1,
+    "maxKm": 6
+   }
+  ],
+  "endKm": 4.5
+ }
 }

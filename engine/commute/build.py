@@ -10,7 +10,8 @@ The engine names no city; the district, the words and the files are in commute.j
 import csv, json, math, os, re, sys
 from datetime import date
 
-from shapely.geometry import shape
+from shapely.geometry import shape, Point, LineString, MultiLineString
+from shapely.ops import linemerge, substring, unary_union
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'engine'))
@@ -176,6 +177,93 @@ for f in feats:
     p = f['properties']
     names[p['PD_no']] = {'n': p['PD_name'], 'r': p['Reg_name'], 'w': round(workers.get(p['PD_no'], 0))}
 
+
+# ---- the moving-dots map --------------------------------------------------------------------------------------
+def build_flow(fc):
+    """Corridors projected to the frame, each running inward to the hub, plus the land, near land, streets and district."""
+    DATA = os.path.join(ROOT, 'docs', city, 'data')
+    layer = lambda n: json.load(open(os.path.join(DATA, n), encoding='utf-8'))['features']
+    lkx, lky = math.cos(math.radians(fc['hub'][1])) * 111.32, 110.57          # km per degree at the hub
+    hub = Point(fc['hub'][0] * lkx, fc['hub'][1] * lky)
+
+    def km(g):                                # lon/lat geometry -> local km
+        import shapely
+        return shapely.transform(g, lambda a: a * [lkx, lky])
+    fr = fc['frame']
+    frame = unary_union([shape(f['geometry']) for f in layer(fr['layer']) if f['properties'].get('kind') == fr['kind']])
+    if fr.get('clip'):
+        from shapely.geometry import box as _box
+        frame = frame.intersection(_box(*fr['clip']))
+    x0, y0, x1, y1 = km(frame).bounds
+    pad = fr.get('padKm', 1)
+    x0, y0, x1, y1 = x0 - pad, y0 - pad, x1 + pad, y1 + pad
+    S = 1000 / (x1 - x0)
+    H = round((y1 - y0) * S)
+
+    def xy(x, y):
+        return round((x - x0) * S, 1), round((y1 - y) * S, 1)
+
+    def lines_of(g):
+        return list(g.geoms) if hasattr(g, 'geoms') else [g]
+
+    def poly_d(geoms):
+        out = []
+        for g in geoms:
+            for p in lines_of(km(g)):
+                for ring in [p.exterior, *p.interiors]:
+                    pts = [xy(*c[:2]) for c in ring.coords]
+                    keep = [pts[0]] + [q for a, q in zip(pts, pts[1:]) if abs(q[0] - a[0]) + abs(q[1] - a[1]) > 0.8]
+                    if len(keep) > 2:
+                        out.append('M' + 'L'.join(f'{a} {b}' for a, b in keep) + 'Z')
+        return ''.join(out)
+    land = poly_d([shape(f['geometry']) for f in layer(fc['land']['layer']) if f['properties'].get('kind') in fc['land']['kinds']])
+    near = poly_d([shape(f['geometry']) for f in layer(fc['near']['layer']) if f['properties'].get('kind') in fc['near']['kinds']])
+    dist = poly_d([shape(f['geometry']) for f in feats if f['properties']['PD_no'] == dist_no])
+    box_km = LineString([(x0, y0), (x1, y0), (x1, y1), (x0, y1), (x0, y0)]).convex_hull
+    st = []
+    for f in layer(fc['streets']['layer']):
+        if f['properties'].get('cls') != fc['streets']['cls']:
+            continue
+        for l in lines_of(km(shape(f['geometry'])).intersection(box_km)):
+            if l.length > .2:
+                st.append('M' + 'L'.join('%s %s' % xy(*c[:2]) for c in l.simplify(.05).coords))
+
+    paths = []
+    for c in fc['corridors']:
+        fs = [f for f in layer(c['layer']) if all(str(f['properties'].get(k)) in v for k, v in c['match'].items())]
+        if not fs:
+            sys.exit(f'commute.json flow: nothing in {c["layer"]} matches {c["match"]}')
+        u = unary_union([km(shape(f['geometry'])) for f in fs]).intersection(box_km)
+        merged = linemerge(u) if u.geom_type == 'MultiLineString' else u
+        pieces = []
+        for l in lines_of(merged):
+            if l.length < .5:
+                continue
+            at = l.project(hub)
+            for a, b, inward in ((0, at, True), (at, l.length, False)):
+                if b - a < .8:
+                    continue
+                seg = substring(l, a, b)
+                cs = [c_[:2] for c_ in seg.coords]
+                if not inward:
+                    cs.reverse()
+                seg = LineString(cs)
+                if Point(seg.coords[-1]).distance(hub) > fc.get('endKm', 2.5):
+                    continue                      # a stretch that never reaches downtown (a branch, a side piece)
+                if c.get('maxKm') and seg.length > c['maxKm']:
+                    seg = substring(seg, seg.length - c['maxKm'], seg.length)
+                pieces.append(seg)
+        tot = sum(p.length for p in pieces)
+        for p_ in pieces:
+            pts = [xy(*q) for q in p_.simplify(.04).coords]
+            paths.append({'m': c['mode'], 'w': round(c['weight'] * p_.length / tot, 4), 'km': round(p_.length, 1),
+                          'p': [v for q in pts for v in q]})
+    return {'h': H, 'land': land, 'near': near, 'dist': dist, 'streets': ''.join(st), 'paths': paths, 'dots': fc['dots'],
+            'hub': xy(hub.x, hub.y)}
+
+
+FLOW = build_flow(cfg['flow']) if cfg.get('flow') else None
+
 # ---- words ----------------------------------------------------------------------------------------------------
 TOKENS = {
     'residents': rnd(RES), 'peak': rnd(peak['total']), 'peakTime': clock(peak['t']),
@@ -202,6 +290,8 @@ DATA = {
     'views': views, 'names': names, 'district': dist_no, 'wtot': round(W_TOT),
     'regions': regions, 'top': [[n, round(v)] for v, n in top],
     'videos': cfg.get('videos', []),
+    'flow': FLOW,
+    'byHour': {str(h + 1): {'in': {k: round(v) for k, v in IN[h].items()}, 'out': {k: round(v) for k, v in OUTB[h].items()}} for h in HOURS},
 }
 
 busy = max(series, key=lambda s: s['out'])
@@ -215,7 +305,7 @@ stats_html = ''.join(f'<div class="stat"><span class="k">{a}</span><b>{b}</b><sp
 method_html = ''.join(f'<p>{p}</p>' for p in page['method'])
 
 tpl = open(os.path.join(ROOT, 'engine', 'commute', 'page.html'), encoding='utf-8').read()
-DARK = ['.mapbox{--water:#1B2A33;--land:#24272D;--edge:#4A4F57}']
+DARK = ['{--water:#1B2A33;--land:#24272D;--edge:#4A4F57;--near-land:#1E2126}']
 rep = {
     'title': page['title'], 'city': page['city'], 'short': page['short'], 'description': page['description'],
     'lede': page['lede'], 'chartNoteJSON': json.dumps(page['chartNote'], ensure_ascii=False), 'howTitle': page['howTitle'], 'howLede': page['howLede'],

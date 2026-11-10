@@ -79,7 +79,8 @@ the landing page, stop and say so; don't change this repo.
   stretches from GTFS overlap, or a line's own `badges`; `skip` for express variants). Notes: the project's claude/mta-history-scouting.md.
 - **Commute explainer** (`engine/commute/build.py` and `page.html`, `cities/toronto/commute.json`, page at
   `docs/toronto/downtown-day/`; November 10, 2026, public the same day with an Explainers card on the hub): people downtown hour by hour
-  (residents + trips in - trips out), how they arrived, and a map of where downtown's workers live. Built from
+  (residents + trips in - trips out) with a moving-dots map over the chart (commute.json `flow`: corridors cut from the
+  map's published layers, each half running inward to the hub; one dot per `dots` trips), how they arrived, and a map of where downtown's workers live. Built from
   Transportation Tomorrow Survey 2022 cross-tabs the user exports by hand from the DMG's iDRS (`cities/toronto/raw/tts/`,
   kept exactly as downloaded) and the TTS 2022 planning-district boundaries (`raw/tts/pd2022.geojson`). Words and the
   mode groups are in commute.json; `"videos"` takes YouTube ids to embed. `"unlisted": false` puts it in the sitemap

@@ -22,7 +22,7 @@
   --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --muted:#5E5452; --rule:#E4DCDA; --accent:#C8102E;
   --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
   --pill-line:#D8CFCD; --sub:#5C5251; --res:rgba(26,20,20,.045); --resedge:#9C8F8C; --grid:rgba(26,20,20,.07);
-  --water:#E3EBEF; --land:#FBFAF9; --edge:#CFC4C1;
+  --water:#E3EBEF; --land:#FBFAF9; --edge:#CFC4C1; --near-land:#EFEBE9;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -77,6 +77,16 @@ section.card{padding:22px;margin-top:18px}
 .stat b{font:800 30px/1.05 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .stat span:last-child{font-size:13.5px;color:var(--muted)}
 
+.flowbox{position:relative;margin:4px auto 0;width:calc(100% - 44px);max-width:820px;border-radius:12px;overflow:hidden;background:var(--water)}
+.flowbox svg,.flowbox canvas{display:block;width:100%;height:auto}
+.flowbox canvas{position:absolute;inset:0;height:100%}
+.flowbox .land{fill:var(--land);stroke:var(--edge);stroke-width:1}
+.flowbox .near{fill:var(--near-land);stroke:var(--edge);stroke-width:.6}
+.flowbox .st{fill:none;stroke:var(--edge);stroke-width:.8;opacity:.7}
+.flowbox .dist{fill:var(--accent);fill-opacity:.1;stroke:var(--accent);stroke-width:2;transition:fill-opacity .4s}
+.flowtag{position:absolute;right:12px;bottom:10px;font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.flowcap{margin:6px auto 0;width:calc(100% - 44px);max-width:820px;font-size:12.5px;color:var(--muted)}
+
 /* How they got here */
 .bars{display:flex;flex-direction:column;gap:18px}
 .bar .t{font-weight:500;margin-bottom:6px}
@@ -129,6 +139,8 @@ h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform
   .readout{padding:16px 14px 4px;gap:4px 16px}
   .readout .time,.readout .count{font-size:38px}
   .chart{padding:2px 2px 0}
+  .flowbox{width:calc(100% - 20px)}
+  .flowcap{width:calc(100% - 28px)}
   .ctl{padding:6px 14px 14px}
   .legend{padding:12px 14px 14px;gap:6px 18px}
   .legend div{flex:1 1 40%}
@@ -190,6 +202,12 @@ h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform
       <div><span class="lbl">People downtown</span><span class="count" id="count" aria-live="polite"></span></div>
       <div class="x" id="times"></div>
     </div>
+    <div class="flowbox" id="flowbox" hidden>
+      <svg id="flowbase" aria-hidden="true"></svg>
+      <canvas id="flow" role="img" aria-label="Map of downtown with dots streaming in and out along the subway, GO lines, highways and streets for the chosen hour"></canvas>
+      <span class="flowtag">Downtown</span>
+    </div>
+    <p class="flowcap" id="flowcap"></p>
     <div class="chart"><svg id="chart" viewBox="0 0 1000 380" role="img" aria-label="Stacked area chart of people downtown by hour, split into residents and how visitors arrived"></svg></div>
     <div class="ctl">
       <button type="button" class="play" id="play">▶ Play</button>
@@ -324,17 +342,96 @@ h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform
     const r = svg.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W;
     show(Math.max(0, Math.min(S.length - 1, Math.round((x - L) / (W - L - R) * (S.length - 1)))));
   };
-  svg.addEventListener('pointermove', pick);
-  svg.addEventListener('pointerdown', pick);
+  svg.addEventListener('pointermove', e => { if (!playing) pick(e); });
+  svg.addEventListener('pointerdown', e => { stop(); pick(e); });
   $('hour').addEventListener('input', e => { stop(); show(+e.target.value); });
-  let timer = null;
-  function stop() { clearInterval(timer); timer = null; $('play').textContent = '▶ Play'; }
+
+  // ---- playback and the moving-dots map ---------------------------------------------------------------------------
+  // One clock drives both: while playing, the time runs on and the chart follows hour by hour; paused, the map keeps
+  // showing the chosen hour's flow, so it is never a still picture. Each dot is D.flow.dots trips.
+  const HOUR_SEC = 1.7;                       // seconds of playback per hour of the day
+  const SPEED = {transit: 7, go: 11, car: 9, active: 2.4, other: 8};   // km per second of playback
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let playing = false, simI = 0, last = 0;
+  function stop() { playing = false; $('play').textContent = '▶ Play'; }
   $('play').addEventListener('click', () => {
-    if (timer) return stop();
+    if (playing) return stop();
     if (at >= S.length - 1) show(0);
-    $('play').textContent = '❚❚ Pause';
-    timer = setInterval(() => { if (at >= S.length - 1) return stop(); show(at + 1); }, 420);
+    simI = at; playing = true; $('play').textContent = '❚❚ Pause';
+    if (!F) tick(performance.now());
   });
+  const F = D.flow;
+  let fctx, fcan, dist, scale = 1, dotK = 1, parts = [], acc = {}, visible = true;
+  const byMode = {};
+  if (F) {
+    const box = $('flowbox');
+    box.hidden = false;
+    const base = $('flowbase');
+    base.setAttribute('viewBox', `0 0 1000 ${F.h}`);
+    base.append(el('path', {d: F.near, class: 'near'}), el('path', {d: F.land, class: 'land'}), el('path', {d: F.streets, class: 'st'}));
+    dist = el('path', {d: F.dist, class: 'dist'});
+    base.append(dist);
+    for (const p of F.paths) {
+      const pts = []; for (let k = 0; k < p.p.length; k += 2) pts.push([p.p[k], p.p[k + 1]]);
+      const cum = [0]; for (let k = 1; k < pts.length; k++) cum.push(cum[k - 1] + Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]));
+      (byMode[p.m] = byMode[p.m] || []).push({pts, cum, len: cum[cum.length - 1], w: p.w, km: p.km});
+    }
+    for (const m in byMode) { const t = byMode[m].reduce((a, q) => a + q.w, 0); let c = 0; byMode[m].forEach(q => { c += q.w / t; q.c = c; }); }
+    fcan = $('flow'); fctx = fcan.getContext('2d');
+    const size = () => { const r = fcan.getBoundingClientRect(), d = devicePixelRatio || 1; fcan.width = r.width * d; fcan.height = r.height * d; scale = fcan.width / 1000; dotK = Math.max(1, 620 / r.width); };   // dots keep a readable size on a phone
+    size(); addEventListener('resize', size);
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(box);
+    $('flowcap').textContent = `Each dot is ${F.dots} trips. Dots run in along the subway, GO lines, highways and streets as people arrive, and back out as they leave.`;
+  }
+  const pathFor = m => { const r = Math.random(), L_ = byMode[m]; return L_.find(q => q.c >= r) || L_[L_.length - 1]; };
+  function posAt(q, f) {
+    const d = f * q.len; let k = 1; while (k < q.cum.length - 1 && q.cum[k] < d) k++;
+    const a = q.pts[k - 1], b = q.pts[k], seg = q.cum[k] - q.cum[k - 1] || 1, u = (d - q.cum[k - 1]) / seg;
+    return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u];
+  }
+  const colour = Object.fromEntries(M.map(m => [m.id, m.c]));
+  function tick(now) {
+    const dt = Math.min(.1, (now - (last || now)) / 1000); last = now;
+    if (playing) {
+      simI += dt / HOUR_SEC;
+      if (simI >= S.length - 1) { simI = S.length - 1; show(S.length - 1); stop(); }
+      else if (Math.floor(simI) !== at) show(Math.floor(simI));
+    }
+    if (F && visible && !calm) {
+      // Trips in the hour that ends at the clock's time (the 4 a.m. start uses the hour after it).
+      const t = S[Math.max(1, at)].t, h = D.byHour[t];
+      for (const dir of ['in', 'out']) for (const m of M) {
+        if (!byMode[m.id]) continue;
+        const k = dir + m.id;
+        acc[k] = (acc[k] || 0) + h[dir][m.id] / F.dots / HOUR_SEC * dt;
+        while (acc[k] >= 1) {
+          acc[k] -= 1;
+          const q = pathFor(m.id);
+          parts.push({q, m: m.id, out: dir === 'out', f: 0, j: (Math.random() - .5) * 7, dur: Math.max(.7, Math.min(3.2, q.km / SPEED[m.id])) * (.85 + Math.random() * .3)});
+        }
+      }
+      const s = S[at], peakV = Math.max(...S.map(x => x.tot));
+      dist.style.fillOpacity = (.06 + .34 * Math.max(0, (s.tot - D.res) / (peakV - D.res))).toFixed(3);
+      fctx.setTransform(scale, 0, 0, scale, 0, 0);
+      fctx.clearRect(0, 0, 1000, F.h);
+      const keep = [];
+      for (const p of parts) {
+        p.f += dt / p.dur;
+        if (p.f >= 1) continue;
+        keep.push(p);
+        const [x, y] = posAt(p.q, p.out ? 1 - p.f : p.f), [x2, y2] = posAt(p.q, Math.min(1, (p.out ? 1 - p.f : p.f) + .01));
+        const nx = -(y2 - y), ny = x2 - x, nl = Math.hypot(nx, ny) || 1;   // nudge sideways so a corridor reads as a stream
+        const edge = Math.min(1, p.f * 6, (1 - p.f) * 4);
+        fctx.globalAlpha = (p.out ? .55 : .95) * edge;
+        fctx.fillStyle = colour[p.m];
+        fctx.beginPath(); fctx.arc(x + nx / nl * p.j, y + ny / nl * p.j, (p.out ? 2.4 : 3) * dotK, 0, 6.2832); fctx.fill();
+      }
+      parts = keep.length > 2500 ? keep.slice(-2500) : keep;
+      fctx.globalAlpha = 1;
+    }
+    if (playing || (F && !calm)) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
   const peakI = S.findIndex(s => s.t === D.peakT);
   show(peakI);
   let wide = svg.parentNode.clientWidth < 600;
