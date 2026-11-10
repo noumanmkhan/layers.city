@@ -86,6 +86,15 @@ the landing page, stop and say so; don't change this repo.
   mode groups are in commute.json; `"videos"` takes YouTube ids to embed. `"unlisted": false` puts it in the sitemap
   (places.py); a hub card is added by hand. run.sh rebuilds it; by hand: `python3 engine/commute/build.py toronto`.
   Notes: the project's claude/reel-downtown-daily-population.md. It was at /toronto/downtown-day/ for its first day; a hand-written redirect page stays there.
+- **Ride-hail explainer** (`engine/rideshare/build.py` and `page.html`, `cities/toronto/rideshare.json`, page at
+  `docs/toronto/rideshare-day/`; built November 10, 2026, **unlisted** until the user says so): pickups by hour and ward for
+  four day types (Mon-Thu, Fri, Sat, Sun; a day runs 4 a.m. to 4 a.m.), average waits, drivers logged in city-wide,
+  top ward-to-ward flows and monthly totals since 2018. Data: the City's Private Transportation Companies open data,
+  downloaded by hand into `cities/toronto/raw/ptc/` (gitignored, ~18 GB unzipped) and reduced by `cities/toronto/rideshare.py`
+  (DuckDB) to the small files in `cities/toronto/rideshare/`, which are committed; the page build reads only those. Refresh:
+  download the newer yearly files, edit START/END and SUPPLY_MONTHS in rideshare.py, run it, then `python3 engine/rideshare/build.py toronto`.
+  Wording rules (no "surge", no "demand", drivers never placed in a ward, no Uber vs Lyft) are in rideshare.json's _about.
+  Notes: the project's claude/rideshare-scouting.md and claude/reel-rideshare-day.md.
 - To let the user try an experiment on dev on a phone: run the "Deploy to Cloudflare Pages" workflow by
   hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev. The branch is the
   workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.

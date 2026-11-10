@@ -55,4 +55,5 @@ python3 ../../engine/assemble.py toronto
 python3 ../../engine/places.py toronto   # a static page per place for search and link previews, plus the site's sitemap.xml
 [ -f history.json ] && python3 ../../engine/history/build.py toronto   # after the published layers: the transit history page (ttc-history/)
 [ -f commute.json ] && python3 ../../engine/commute/build.py toronto   # the commute explainer (downtown-weekday/), from the TTS exports in raw/tts/
+[ -f rideshare.json ] && python3 ../../engine/rideshare/build.py toronto   # the ride-hail explainer (rideshare-day/), from rideshare/*.json; rebuild those with rideshare.py after downloading raw/ptc/
 echo "Done. Preview: cd docs && python3 -m http.server 8000"

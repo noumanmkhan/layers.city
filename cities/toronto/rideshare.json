@@ -1,0 +1,45 @@
+{
+ "_about": "Ride-hail explainer page (engine/rideshare/build.py), at docs/toronto/<path>/. Built from the small JSON files cities/toronto/rideshare.py writes to cities/toronto/rideshare/ from the City of Toronto's Private Transportation Companies open data (raw/ptc/, gitignored). Ward boundaries: docs/toronto/data/wards.geojson. Words in 'page' can use {tokens} that build.py fills from the numbers (see TOKENS in build.py). Wording rules (claude/rideshare-scouting.md): 'pickups' or 'completed trips', never 'demand'; no 'surge'; drivers are 'logged in across the city', never placed in a ward; no Uber vs Lyft split; 'average wait' is request to driver arrival.",
+ "path": "rideshare-day",
+ "unlisted": true,
+ "dataDir": "rideshare",
+ "wards": "docs/toronto/data/wards.geojson",
+ "dayTypes": [
+  {"id": "weekday", "name": "Mon–Thu", "long": "an average Monday to Thursday", "colour": "#5B7FA6"},
+  {"id": "fri", "name": "Friday", "long": "an average Friday", "colour": "#D97B29"},
+  {"id": "sat", "name": "Saturday", "long": "an average Saturday", "colour": "#C8102E"},
+  {"id": "sun", "name": "Sunday", "long": "an average Sunday", "colour": "#7A5BA6"}
+ ],
+ "moments": [
+  {"id": "weekday_8", "label": "Mon–Thu, 8 a.m."},
+  {"id": "weekday_18", "label": "Mon–Thu, 6 p.m."},
+  {"id": "sat_1", "label": "Saturday night, 1 a.m."}
+ ],
+ "videos": [],
+ "page": {
+  "city": "Toronto",
+  "short": "Rideshare, hour by hour",
+  "title": "When Toronto calls an Uber",
+  "description": "Every Uber and Lyft pickup in Toronto, hour by hour and ward by ward: when the city rides, where, how long people wait and how stretched drivers are. From the City of Toronto's ride-hail open data, August 2025 to July 2026.",
+  "lede": "Toronto took {year2025} ride-hail trips in 2025, a record. They don't come evenly. On an average Monday to Thursday, about {perDay_weekday} rides begin each day; on a Friday, {perDay_fri}. Move the clock and switch the day to see where and when.",
+  "mapNote": "Each ward is shaded by pickups in that hour on the chosen day: an average over the year, counted by the hour the trip began. About {noWard} of Toronto pickups are left off the ward map because the City groups small counts together to protect privacy; they're still in the totals.",
+  "waitNote": "Average wait is the time from the request to the driver's arrival, averaged over every completed pickup in that ward and hour. Wards with fewer than {minTrips} pickups in an hour are left grey.",
+  "chartNote": "Pickups per hour across Toronto, Pearson and the rest of the GTA, for each kind of day. Lines start at 4 a.m. because a night out belongs to the day it started.",
+  "driversTitle": "Is there a car?",
+  "driversLede": "The busiest hour for riders isn't the hardest one for drivers. At {wk8} on a weekday, drivers spend only {idle8} of their logged-in time waiting for a request: the city's tightest hour. In the small hours, they wait about {idleNight} of the time.",
+  "driversNote": "Drivers logged in across the city in each hour, from a sample of four months (October, January, April and July). The City publishes driver time city-wide, not by place, so this can't say where idle drivers are. A driver working two apps is counted once.",
+  "flowsTitle": "Where people go",
+  "flowsLede": "Downtown's three wards trade riders all day. At 1 a.m. on a Saturday night, the busiest trip from one ward to another is Spadina-Fort York to Toronto Centre.",
+  "yearsTitle": "Since 2018",
+  "yearsLede": "Pickups fell by more than half in 2020 and 2021. They passed 2019's level in 2024 and set a record in 2025.",
+  "videosTitle": "Watch",
+  "methodTitle": "How this was counted",
+  "method": [
+   "The City of Toronto requires ride-hail companies (Uber, Lyft and others licensed as private transportation companies) to report every trip and every stretch of time a driver is available. Since March 2026 the City has published those records as open data, combined across companies and summed by hour and ward.",
+   "This page uses every completed trip from August 1, 2025 to July 30, 2026: {trips} of them, including trips that start in the GTA outside Toronto and at Pearson. A day here runs from 4 a.m. to 4 a.m., so a 1 a.m. pickup on Saturday counts as Friday night. Holidays are left out, and each hour shows the average over all days of that kind ({days}).",
+   "Pickups are counted in the ward where the trip began and the hour it began. Drivers are counted city-wide: a driver is logged in during an hour if any of it was spent available, heading to a pickup, waiting or on a trip.",
+   "What it leaves out: rides that were requested but never completed (the City's cancellation counts changed in January 2026), anything about price surges (the City's data has none), food delivery, taxis and limousines."
+  ],
+  "credits": "Data: City of Toronto, Private Transportation Companies open data (Transportation Services). Contains information licensed under the Open Government Licence – Toronto. Ward boundaries: City of Toronto. Analysis and design: Layers.City."
+ }
+}

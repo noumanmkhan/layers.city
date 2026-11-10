@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{{description}}">
+{{robots}}
+<link rel="canonical" href="{{canonical}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{canonical}}">
+<title>{{short}} · {{city}} · Layers.City</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{{themeScript}}
+<style>
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2')}
+:root{
+  --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --muted:#5E5452; --rule:#E4DCDA; --accent:#C8102E;
+  --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --pill-line:#D8CFCD; --sub:#5C5251; --res:rgba(26,20,20,.045); --resedge:#9C8F8C; --grid:rgba(26,20,20,.07);
+  --water:#E3EBEF; --land:#FBFAF9; --edge:#CFC4C1; --near-land:#EFEBE9;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 40px}
+h1{margin:4px 0 8px;font-family:var(--display);font-weight:800;font-size:44px;line-height:1.02;letter-spacing:-.02em;max-width:820px}
+h2{margin:0 0 8px;font-family:var(--display);font-weight:800;font-size:26px;line-height:1.1;letter-spacing:-.01em}
+.kicker{font-size:12px;font-weight:500;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+.kicker a{text-decoration:none}
+.lede{max-width:700px;color:var(--muted);margin:0 0 20px;font-size:16px}
+.rule{height:3px;width:64px;background:var(--accent);margin:14px 0}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px}
+section.card{padding:22px;margin-top:18px}
+.sublede{color:var(--muted);max-width:720px;margin:0 0 16px}
+.small{font-size:12.5px;color:var(--muted);margin:12px 0 0;max-width:760px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* The clock */
+.clockcard{padding:0!important;overflow:hidden;margin-top:0!important}
+.readout{display:flex;flex-wrap:wrap;align-items:flex-end;gap:6px 22px;padding:20px 22px 6px}
+.readout .time{font:800 54px/1 var(--display);letter-spacing:-.03em;min-width:3.9em}
+.readout .count{font:800 54px/1 var(--display);letter-spacing:-.03em;color:var(--accent);font-variant-numeric:tabular-nums}
+.readout .lbl{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+.readout .x{font:500 13px var(--mono);color:var(--muted);padding-bottom:8px}
+.tools{display:flex;flex-wrap:wrap;gap:8px 14px;padding:8px 22px 4px}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer;min-height:36px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.mapwrap{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;padding:10px 22px 0;align-items:start}
+.mapbox{position:relative;background:var(--water);border-radius:12px;overflow:hidden}
+.mapbox svg{display:block;width:100%;height:auto}
+.mapbox path{stroke:var(--edge);stroke-width:.8;vector-effect:non-scaling-stroke;cursor:pointer;stroke-linejoin:round;transition:fill .25s}
+.mapbox path.sel{stroke:var(--ink);stroke-width:2.4}
+.mapbox text{font:500 15px var(--mono);fill:var(--ink);text-anchor:middle;dominant-baseline:central;pointer-events:none;paint-order:stroke;stroke:var(--land);stroke-width:3px;opacity:.75}
+.side h3{margin:4px 0 8px}
+.rank{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.rank li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;font-size:14px;cursor:pointer}
+.rank .n{font:500 13px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.rank .track{grid-column:1/-1;height:7px;border-radius:4px;background:var(--bg);overflow:hidden}
+.rank .track i{display:block;height:100%;border-radius:4px;background:var(--accent);transition:width .25s}
+.info{min-height:44px;margin-top:12px;font-size:14px}
+.info b{font-weight:500}
+.ramp{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:500 11.5px var(--mono);color:var(--muted);margin-top:8px}
+.ramp span{display:inline-flex;align-items:center;gap:4px}
+.ramp i{width:14px;height:14px;border-radius:3px;border:1px solid var(--rule)}
+.mapnote{padding:0 22px;margin-top:8px}
+.chart{position:relative;padding:10px 10px 0}
+.chart svg{display:block;width:100%;height:auto;touch-action:pan-y;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.chart .gl{stroke:var(--grid);stroke-width:1}
+.chart .ax{font:500 12px var(--mono);fill:var(--muted)}
+.chart .cur{stroke:var(--ink);stroke-width:1.5}
+.chart .dot{fill:var(--card);stroke:var(--ink);stroke-width:2}
+.chart svg.narrow .ax{font-size:15px}
+.ctl{display:flex;align-items:center;gap:12px;padding:8px 22px 18px}
+.ctl .play{flex:none;height:42px;min-width:92px;padding:0 14px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-weight:500;font-size:14px;cursor:pointer}
+.ctl input{flex:1;min-width:0;accent-color:var(--accent);height:40px;cursor:pointer}
+.legend{display:flex;flex-wrap:wrap;gap:8px 26px;padding:14px 22px 18px;border-top:1px solid var(--rule)}
+.legend div{display:flex;gap:8px;align-items:center;font-size:14px}
+.legend i{width:14px;height:4px;border-radius:2px}
+.legend b{font:500 13.5px var(--mono);font-variant-numeric:tabular-nums}
+.legend .note{display:block;flex-basis:100%;font-size:12.5px;color:var(--muted)}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
+.stat{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.stat .k{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.stat b{font:800 30px/1.05 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span:last-child{font-size:13.5px;color:var(--muted)}
+
+.dreadout{display:flex;flex-wrap:wrap;gap:6px 28px;margin:4px 0 6px}
+.dreadout div{display:flex;flex-direction:column}
+.dreadout b{font:800 30px/1.1 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.dreadout span{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+#dchart .drv{fill:var(--ink);fill-opacity:.09;stroke:var(--resedge);stroke-width:2}
+#dchart .trp{fill:none;stroke:var(--accent);stroke-width:3}
+#dchart .idle{fill:var(--accent);fill-opacity:.18}
+
+.flows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.flows ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.flows li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px}
+.flows li .n{font:500 13px var(--mono);color:var(--muted)}
+.flows li .track{grid-column:1/-1;height:6px;border-radius:3px;background:var(--bg);overflow:hidden}
+.flows li .track i{display:block;height:100%;background:var(--accent);border-radius:3px}
+
+#ychart .bar{fill:var(--accent);fill-opacity:.85}
+#ychart .ax{font:500 12px var(--mono);fill:var(--muted)}
+#ychart .gl{stroke:var(--grid);stroke-width:1}
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.videos iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#000}
+.videos .v916 iframe{aspect-ratio:9/16;max-height:640px}
+.method p{max-width:760px;margin:0 0 10px;color:var(--muted)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;font-size:12px;color:var(--muted);margin-top:30px;border-top:1px solid var(--rule);padding-top:14px}
+h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+@media (max-width:860px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.mapwrap{grid-template-columns:minmax(0,1fr)}.flows{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){
+  .wrap{padding:0 12px 32px}
+  h1{font-size:32px}
+  h2{font-size:22px}
+  section.card{padding:16px}
+  .readout{padding:16px 14px 4px;gap:4px 16px}
+  .readout .time,.readout .count{font-size:38px}
+  .tools,.mapwrap,.mapnote{padding-left:14px;padding-right:14px}
+  .seg button{padding:7px 10px;font-size:13px}
+  .chart{padding:2px 2px 0}
+  .ctl{padding:6px 14px 14px}
+  .legend{padding:12px 14px 14px;gap:6px 18px}
+  .legend div{flex:1 1 40%}
+  .stat b{font-size:24px}
+  .mapbox text{font-size:22px}
+}
+@media (prefers-reduced-motion:reduce){.ctl .play{display:none}}
+/* Site header: the same as the maps hub (docs/index.html). */
+.site{max-width:1120px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.site a{color:inherit;text-decoration:none}
+.site .mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.08em}
+.site .brand{display:flex;align-items:center;gap:9px;font-size:24px;letter-spacing:-.01em}
+.site .brand b{font-weight:500;color:var(--accent)}
+.site .sub{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;font-size:13px;letter-spacing:.08em;color:var(--sub)}
+.site .sub:hover{color:var(--ink)}
+.site .sep{width:1.5px;height:16px;background:var(--pill-line)}
+.site .links{display:flex;flex-wrap:wrap;gap:10px}
+.site .pill{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--pill-line);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.site .pill .short{display:none}
+.site .pill.instagram{background:linear-gradient(45deg,#F58529 0%,#DD2A7B 45%,#8134AF 75%,#515BD4 100%);border-color:transparent;color:#fff}
+.site .pill:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(26,20,20,.10);border-color:var(--ink)}
+.site .pill.instagram:hover{border-color:transparent}
+.site .pill:focus-visible,.site .mark a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.site .pill{transition:none}.site .pill:hover{transform:none}}
+@media (max-width:520px){.site{padding:20px 16px}.site .links{flex-wrap:nowrap;gap:8px}.site .pill{gap:6px;min-height:40px;padding:0 13px;font-size:14px}.site .pill svg{width:16px;height:16px}.site .pill .full{display:none}.site .pill .short{display:inline}}
+{{themeCss}}
+:root[data-theme="dark"]{--res:rgba(236,237,239,.06);--resedge:#8A8F97;--grid:rgba(236,237,239,.08)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--res:rgba(236,237,239,.06);--resedge:#8A8F97;--grid:rgba(236,237,239,.08)}}
+</style>
+</head>
+<body>
+<header class="site">
+    <div class="mark">
+      <a class="brand" href="/"><svg width="22" height="28" viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#fff"/></svg><span>Layers<b>.City</b></span></a>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="sub" href="https://noumankhan.ca">BY NOUMAN KHAN</a>
+    </div>
+    <nav class="links" aria-label="Elsewhere">
+      <a class="pill" href="mailto:go@layers.city" aria-label="Email go@layers.city">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        <span class="full">go@layers.city</span><span class="short">Email</span>
+      </a>
+      <a class="pill instagram" href="https://www.instagram.com/layers.city" rel="me" aria-label="layers.city on Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+        layers.city
+      </a>
+    </nav>
+  </header>
+<main class="wrap">
+  <div class="kicker"><a href="../">{{city}}</a> · {{short}}</div>
+  <h1>{{title}}</h1>
+  <div class="rule"></div>
+  <p class="lede">{{lede}}</p>
+
+  <section class="card clockcard" aria-label="Pickups by hour and ward">
+    <div class="readout">
+      <div><span class="lbl">From</span><span class="time" id="time"></span></div>
+      <div><span class="lbl">Pickups that hour</span><span class="count" id="count" aria-live="polite"></span></div>
+      <div class="x" id="sub"></div>
+    </div>
+    <div class="tools">
+      <div class="seg" role="group" aria-label="Day" id="days"></div>
+      <div class="seg" role="group" aria-label="Shade wards by" id="modes">
+        <button type="button" data-m="p" aria-pressed="true">Pickups</button>
+        <button type="button" data-m="w" aria-pressed="false">Average wait</button>
+      </div>
+    </div>
+    <div class="mapwrap">
+      <div>
+        <div class="mapbox"><svg id="map" role="img" aria-label="Map of Toronto's 25 wards shaded for the chosen hour and day"></svg></div>
+        <div class="ramp" id="ramp"></div>
+        <div class="info" id="info" aria-live="polite"></div>
+      </div>
+      <div class="side">
+        <h3 id="rankh"></h3>
+        <ol class="rank" id="rank"></ol>
+      </div>
+    </div>
+    <p class="small mapnote" id="mapnote"></p>
+    <div class="chart"><svg id="chart" viewBox="0 0 1000 340" role="img" aria-label="Line chart of pickups per hour for each kind of day"></svg></div>
+    <div class="ctl">
+      <button type="button" class="play" id="play">▶ Play</button>
+      <input type="range" id="hour" min="0" max="23" step="1" aria-label="Hour of the day">
+    </div>
+    <div class="legend" id="legend"></div>
+  </section>
+  <div class="stats">{{stats}}</div>
+
+  <section class="card" aria-labelledby="drv-h">
+    <h2 id="drv-h">{{driversTitle}}</h2>
+    <p class="sublede">{{driversLede}}</p>
+    <div class="dreadout" id="dread"></div>
+    <div class="chart"><svg id="dchart" viewBox="0 0 1000 300" role="img" aria-label="Chart of drivers logged in and pickups by hour, with the share of drivers' time spent waiting for a ride"></svg></div>
+    <p class="small">{{driversNote}}</p>
+  </section>
+
+  <section class="card" aria-labelledby="fl-h">
+    <h2 id="fl-h">{{flowsTitle}}</h2>
+    <p class="sublede">{{flowsLede}}</p>
+    <div class="flows" id="flows"></div>
+  </section>
+
+  <section class="card" aria-labelledby="yr-h">
+    <h2 id="yr-h">{{yearsTitle}}</h2>
+    <p class="sublede">{{yearsLede}}</p>
+    <div class="chart"><svg id="ychart" viewBox="0 0 1000 260" role="img" aria-label="Bar chart of average daily ride-hail pickups by month since January 2018"></svg></div>
+  </section>
+
+  <section class="card" id="vids" aria-labelledby="vid-h" hidden>
+    <h2 id="vid-h">{{videosTitle}}</h2>
+    <div class="videos" id="videos"></div>
+  </section>
+
+  <section class="card method" aria-labelledby="m-h">
+    <h2 id="m-h">{{methodTitle}}</h2>
+    {{method}}
+  </section>
+  <footer class="foot"><span>{{credits}}</span></footer>
+</main>
+<script>
+(() => {
+  const D = {{DATA}};
+  const NOTE = {map: {{mapNoteJSON}}, wait: {{waitNoteJSON}}, chart: {{chartNoteJSON}}};
+  const $ = id => document.getElementById(id);
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs = {}, kids) => {
+    const n = ['svg', 'path', 'g', 'circle', 'text', 'line', 'rect', 'title'].includes(tag) ? document.createElementNS(NS, tag) : document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) if (v != null) n.setAttribute(k, v);
+    if (kids != null) (Array.isArray(kids) ? kids : [kids]).forEach(c => c != null && n.append(c));
+    return n;
+  };
+  const fmt = n => Math.round(n).toLocaleString('en-CA');
+  const kk = n => n >= 1000 ? (n / 1000).toFixed(n % 1000 ? 1 : 0).replace('.0', '') + 'k' : String(n);
+  const H = D.hours;
+  const clock = h => { h %= 24; return (h % 12 === 0 ? 12 : h % 12) + (h < 12 ? ' a.m.' : ' p.m.'); };
+  const span = h => { const a = clock(h), b = clock(h + 1); return a.split(' ')[0] + (a.split(' ')[1] === b.split(' ')[1] ? '–' + b : ' – ' + b); };
+  const short = h => { h %= 24; return (h % 12 === 0 ? 12 : h % 12) + (h < 12 ? 'a' : 'p'); };
+  const DAYS = Object.fromEntries(D.days.map(d => [d.id, d]));
+  let day = 'weekday', mode = 'p', i = H.indexOf(8), sel = null;
+
+  // ---- day and mode switches ---------------------------------------------------------------------------------
+  const dseg = $('days');
+  for (const d of D.days) dseg.append(el('button', {type: 'button', 'data-d': d.id, 'aria-pressed': d.id === day}, [el('i', {style: 'background:' + d.c}), d.n]));
+  dseg.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; day = b.dataset.d; dseg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); show(i); });
+  $('modes').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; mode = b.dataset.m; $('modes').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); drawRamp(); show(i); });
+
+  // ---- ward map ------------------------------------------------------------------------------------------------
+  const P_BINS = [50, 100, 150, 250, 400, 600, 1000, 1600], W_BINS = [4, 4.5, 5, 6, 7, 8, 9, 10];
+  const OP = [.05, .13, .22, .32, .43, .55, .67, .8, .95];
+  const WAITC = '#2F6690';
+  const bin = (v, B) => { const k = B.findIndex(b => v < b); return OP[k === -1 ? B.length : k]; };
+  const fill = (v, B, c) => v == null ? 'var(--rule)' : `color-mix(in srgb, ${c} ${bin(v, B) * 100}%, var(--land))`;
+  const map = $('map');
+  map.setAttribute('viewBox', `0 0 1000 ${D.map.h}`);
+  const wp = {};
+  for (const w of D.map.w) {
+    const p = el('path', {d: w.d, 'data-k': w.k}); p.append(el('title', {}, `Ward ${+w.k}, ${w.n}`));
+    wp[w.k] = p; map.append(p);
+  }
+  for (const w of D.map.w) map.append(el('text', {x: w.l[0], y: w.l[1]}, String(+w.k)));
+  map.addEventListener('click', e => { const p = e.target.closest('path'); if (!p) return; sel = sel === p.dataset.k ? null : p.dataset.k; show(i); });
+  function drawRamp() {
+    const r = $('ramp'); r.replaceChildren();
+    const B = mode === 'p' ? P_BINS : W_BINS, c = mode === 'p' ? 'var(--accent)' : WAITC;
+    const labs = mode === 'p' ? ['<50', '50', '100', '150', '250', '400', '600', '1,000', '1,600+'] : ['<4 min', '4', '4.5', '5', '6', '7', '8', '9', '10+'];
+    labs.forEach((t, k) => r.append(el('span', {}, [el('i', {style: `background:color-mix(in srgb, ${c} ${OP[k] * 100}%, var(--land))`}), t])));
+    if (mode === 'w') r.append(el('span', {}, [el('i', {style: 'background:var(--rule)'}), 'too few rides']));
+    $('mapnote').textContent = mode === 'p' ? NOTE.map : NOTE.wait;
+  }
+  drawRamp();
+
+  // ---- the line chart ------------------------------------------------------------------------------------------
+  const svg = $('chart');
+  let W, CH, L, R = 14, T = 14, B = 32, X, Y, cur, dot, lines = {};
+  const top = Math.ceil(Math.max(...D.days.flatMap(d => D.all[d.id])) / 5000) * 5000;
+  function drawChart() {
+    const narrow = svg.parentNode.clientWidth < 600;
+    W = narrow ? 560 : 1000; CH = narrow ? 380 : 320; L = narrow ? 48 : 54;
+    svg.setAttribute('viewBox', `0 0 ${W} ${CH}`); svg.classList.toggle('narrow', narrow);
+    X = k => L + (W - L - R) * k / 23; Y = v => T + (CH - T - B) * (1 - v / top);
+    svg.replaceChildren();
+    for (let v = 0; v <= top; v += 5000) {
+      svg.append(el('line', {class: 'gl', x1: L, x2: W - R, y1: Y(v), y2: Y(v)}));
+      svg.append(el('text', {class: 'ax', x: L - 8, y: Y(v) + 4, 'text-anchor': 'end'}, v ? kk(v) : '0'));
+    }
+    const every = narrow ? 6 : 3;
+    H.forEach((h, k) => { if (k % every === 0) svg.append(el('text', {class: 'ax', x: X(k), y: CH - 9, 'text-anchor': k === 0 ? 'start' : 'middle'}, short(h))); });
+    for (const d of D.days) {
+      lines[d.id] = el('path', {d: 'M' + D.all[d.id].map((v, k) => X(k).toFixed(1) + ' ' + Y(v).toFixed(1)).join('L'), fill: 'none', stroke: d.c, 'stroke-width': 3, 'stroke-linejoin': 'round'});
+      svg.append(lines[d.id]);
+    }
+    cur = el('line', {class: 'cur', y1: T, y2: CH - B}); dot = el('circle', {class: 'dot', r: 6});
+    svg.append(cur, dot);
+  }
+  drawChart();
+  const leg = $('legend'), legB = {};
+  for (const d of D.days) { const b = el('b'); legB[d.id] = b; leg.append(el('div', {title: d.l}, [el('i', {style: 'background:' + d.c}), el('span', {}, d.n), b])); }
+  leg.append(el('span', {class: 'note'}, NOTE.chart));
+
+  // ---- drivers chart -------------------------------------------------------------------------------------------
+  const ds = $('dchart');
+  function drawDrivers() {
+    const narrow = ds.parentNode.clientWidth < 600;
+    const w = narrow ? 560 : 1000, h = narrow ? 340 : 280, l = narrow ? 48 : 54, r = 14, t = 12, b = 30;
+    ds.setAttribute('viewBox', `0 0 ${w} ${h}`); ds.classList.toggle('narrow', narrow);
+    const dv = D.sup.d[day], tv = D.sup.t[day], iv = D.sup.i[day];
+    const mx = Math.ceil(Math.max(...D.days.flatMap(d => [...D.sup.d[d.id], ...D.sup.t[d.id]])) / 5000) * 5000;
+    const x = k => l + (w - l - r) * k / 23, y = v => t + (h - t - b) * (1 - v / mx);
+    ds.replaceChildren();
+    for (let v = 0; v <= mx; v += 5000) {
+      ds.append(el('line', {class: 'gl', x1: l, x2: w - r, y1: y(v), y2: y(v)}));
+      ds.append(el('text', {class: 'ax', x: l - 8, y: y(v) + 4, 'text-anchor': 'end'}, v ? kk(v) : '0'));
+    }
+    H.forEach((hh, k) => { if (k % (narrow ? 6 : 3) === 0) ds.append(el('text', {class: 'ax', x: x(k), y: h - 8, 'text-anchor': k === 0 ? 'start' : 'middle'}, short(hh))); });
+    // idle share: the part of the drivers band spent waiting for a ride
+    ds.append(el('path', {class: 'idle', d: 'M' + dv.map((v, k) => x(k).toFixed(1) + ' ' + y(v).toFixed(1)).join('L') + 'L' + dv.map((v, k) => x(k).toFixed(1) + ' ' + y(v * (1 - iv[k])).toFixed(1)).reverse().join('L') + 'Z'}));
+    ds.append(el('path', {class: 'drv', d: 'M' + x(0) + ' ' + y(0) + 'L' + dv.map((v, k) => x(k).toFixed(1) + ' ' + y(v).toFixed(1)).join('L') + 'L' + x(23) + ' ' + y(0) + 'Z'}));
+    ds.append(el('path', {class: 'trp', d: 'M' + tv.map((v, k) => x(k).toFixed(1) + ' ' + y(v).toFixed(1)).join('L')}));
+    ds.append(el('line', {class: 'cur', x1: x(i), x2: x(i), y1: t, y2: h - b}));
+    const rd = $('dread'); rd.replaceChildren(
+      el('div', {}, [el('b', {}, fmt(dv[i])), el('span', {}, 'drivers logged in')]),
+      el('div', {}, [el('b', {style: 'color:var(--accent)'}, fmt(tv[i])), el('span', {}, 'trips that hour')]),
+      el('div', {}, [el('b', {}, Math.round(iv[i] * 100) + '%'), el('span', {}, 'of their time waiting for a ride')]),
+      el('div', {}, [el('b', {style: 'font-size:18px'}, span(H[i]) + ' · ' + DAYS[day].n + (H[i] < 4 ? ' night' : '')), el('span', {}, 'grey band: drivers · shaded: waiting · red: trips')]));
+  }
+
+  // ---- show an hour ----------------------------------------------------------------------------------------------
+  function show(k) {
+    i = k;
+    const h = H[k], tot = D.all[day][k];
+    $('time').textContent = clock(h);
+    $('count').textContent = fmt(tot);
+    $('sub').textContent = `${DAYS[day].n}${h < 4 ? ' night' : ''}, ${span(h)} · Pearson ${fmt(D.pearson[day][k])}`;
+    for (const d of D.days) { lines[d.id].setAttribute('stroke-opacity', d.id === day ? 1 : .28); legB[d.id].textContent = fmt(D.all[d.id][k]); }
+    svg.append(lines[day], cur, dot);
+    cur.setAttribute('x1', X(k)); cur.setAttribute('x2', X(k));
+    dot.setAttribute('cx', X(k)); dot.setAttribute('cy', Y(tot)); dot.style.stroke = DAYS[day].c;
+    for (const [wk, p] of Object.entries(wp)) {
+      const v = mode === 'p' ? D.wards[wk].p[day][k] : D.wards[wk].w[day][k];
+      p.setAttribute('fill', mode === 'p' ? fill(v, P_BINS, 'var(--accent)') : fill(v, W_BINS, WAITC));
+      p.classList.toggle('sel', wk === sel);
+    }
+    if (sel) map.append(wp[sel]);
+    // ranking: top wards this hour
+    const key = mode === 'p' ? 'p' : 'w';
+    const rows = Object.entries(D.wards).map(([wk, w]) => [wk, w.n, w[key][day][k]]).filter(r => r[2] != null).sort((a, b) => b[2] - a[2]).slice(0, 8);
+    const mx = rows.length ? rows[0][2] : 1;
+    $('rankh').textContent = mode === 'p' ? 'Most pickups this hour' : 'Longest average waits';
+    $('rank').replaceChildren(...rows.map(([wk, n, v]) => {
+      const li = el('li', {'data-k': wk}, [el('span', {}, `${+wk} ${n}`), el('span', {class: 'n'}, mode === 'p' ? fmt(v) : v.toFixed(1) + ' min'),
+        el('span', {class: 'track'}, el('i', {style: `width:${v / mx * 100}%;background:${mode === 'p' ? 'var(--accent)' : WAITC}`}))]);
+      li.addEventListener('click', () => { sel = wk; show(i); }); return li;
+    }));
+    if (sel) {
+      const w = D.wards[sel], p = w.p[day][k], wt = w.w[day][k];
+      $('info').replaceChildren(el('b', {}, `Ward ${+sel}, ${w.n}`), el('br'),
+        `${fmt(p)} pickups, ${span(h)} on ${DAYS[day].l}${h < 4 ? ' night' : ''} · ${(p / tot * 100).toFixed(1)}% of all · ` + (wt != null ? `average wait ${wt.toFixed(1)} min` : 'too few rides for an average wait'));
+    } else $('info').textContent = 'Tap a ward for its numbers.';
+    $('hour').value = k;
+    drawDrivers();
+  }
+  const pick = e => { const r = svg.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W; show(Math.max(0, Math.min(23, Math.round((x - L) / (W - L - R) * 23)))); };
+  svg.addEventListener('pointermove', e => { if (!playing) pick(e); });
+  svg.addEventListener('pointerdown', e => { stop(); pick(e); });
+  $('hour').addEventListener('input', e => { stop(); show(+e.target.value); });
+
+  // ---- playback ---------------------------------------------------------------------------------------------------
+  const HOUR_SEC = 1.2;
+  let playing = false, simI = 0, last = 0;
+  function stop() { playing = false; $('play').textContent = '▶ Play'; }
+  function tick(now) {
+    if (!playing) return;
+    const dt = Math.min(.1, (now - (last || now)) / 1000); last = now;
+    simI += dt / HOUR_SEC;
+    if (simI >= 23.999) { show(23); return stop(); }
+    if (Math.floor(simI) !== i) show(Math.floor(simI));
+    requestAnimationFrame(tick);
+  }
+  $('play').addEventListener('click', () => {
+    if (playing) return stop();
+    if (i >= 23) show(0);
+    simI = i; last = 0; playing = true; $('play').textContent = '❚❚ Pause'; requestAnimationFrame(tick);
+  });
+
+  // ---- flows -------------------------------------------------------------------------------------------------------
+  $('flows').replaceChildren(...D.flows.map(m => {
+    const mx = m.f[0].n;
+    return el('div', {}, [el('h3', {}, m.l), el('ol', {}, m.f.map(f => el('li', {}, [
+      el('span', {}, `${f.a.n} → ${f.b.n}`), el('span', {class: 'n'}, fmt(f.n) + '/hr'), el('span', {class: 'track'}, el('i', {style: `width:${f.n / mx * 100}%`}))])))]);
+  }));
+
+  // ---- years -------------------------------------------------------------------------------------------------------
+  const ys = $('ychart');
+  function drawYears() {
+    const narrow = ys.parentNode.clientWidth < 600;
+    const w = narrow ? 560 : 1000, h = narrow ? 300 : 240, l = narrow ? 48 : 54, r = 6, t = 10, b = 28;
+    ys.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    const mx = Math.ceil(Math.max(...D.years.map(y => y[1])) / 100000) * 100000;
+    const n = D.years.length, bw = (w - l - r) / n, y = v => t + (h - t - b) * (1 - v / mx);
+    ys.replaceChildren();
+    for (let v = 0; v <= mx; v += 100000) {
+      ys.append(el('line', {class: 'gl', x1: l, x2: w - r, y1: y(v), y2: y(v)}));
+      ys.append(el('text', {class: 'ax', x: l - 8, y: y(v) + 4, 'text-anchor': 'end'}, v ? kk(v) : '0'));
+    }
+    D.years.forEach(([m, v], k) => {
+      const rc = el('rect', {class: 'bar', x: l + k * bw + .5, width: Math.max(1, bw - 1), y: y(v), height: y(0) - y(v)});
+      rc.append(el('title', {}, `${m}: ${fmt(v)} a day`)); ys.append(rc);
+      if (m.endsWith('-01')) ys.append(el('text', {class: 'ax', x: l + k * bw, y: h - 8}, narrow ? "'" + m.slice(2, 4) : m.slice(0, 4)));
+    });
+  }
+  drawYears();
+
+  // ---- videos ------------------------------------------------------------------------------------------------------
+  if (D.videos.length) {
+    $('vids').hidden = false;
+    $('videos').replaceChildren(...D.videos.map(v => el('div', {class: v.tall ? 'v916' : ''},
+      el('iframe', {src: 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.youtube), title: v.title, loading: 'lazy',
+        allow: 'encrypted-media; picture-in-picture; fullscreen', allowfullscreen: ''}))));
+  }
+
+  show(i);
+  let wide = svg.parentNode.clientWidth < 600;
+  addEventListener('resize', () => { const n = svg.parentNode.clientWidth < 600; if (n !== wide) { wide = n; drawChart(); drawYears(); show(i); } });
+})();
+</script>
+<script defer src="/stats.js"></script>
+</body>
+</html>
