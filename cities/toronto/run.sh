@@ -54,5 +54,5 @@ python3 ../../engine/badges.py toronto    # neighbourhood badges: drawings in ba
 python3 ../../engine/assemble.py toronto
 python3 ../../engine/places.py toronto   # a static page per place for search and link previews, plus the site's sitemap.xml
 [ -f history.json ] && python3 ../../engine/history/build.py toronto   # after the published layers: the transit history page (ttc-history/)
-[ -f commute.json ] && python3 ../../engine/commute/build.py toronto   # the commute explainer (downtown-day/), from the TTS exports in raw/tts/
+[ -f commute.json ] && python3 ../../engine/commute/build.py toronto   # the commute explainer (downtown-weekday/), from the TTS exports in raw/tts/
 echo "Done. Preview: cd docs && python3 -m http.server 8000"

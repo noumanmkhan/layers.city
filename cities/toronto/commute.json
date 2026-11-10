@@ -1,6 +1,6 @@
 {
  "_about": "Commute explainer page (engine/commute/build.py), at docs/toronto/<path>/. Built from Transportation Tomorrow Survey 2022 cross-tabulations exported by hand from the Data Management Group's iDRS (raw/tts/, the files exactly as downloaded): trips into and out of one planning district by start hour and primary mode, and the people who work there by planning district of household (Person table). People present at the end of each hour = the district's residents + all trips in so far - all trips out so far, from 4 a.m. (the survey's day runs 0400-2759). Mode layers net 'in by X' against 'out by X', so they assume people leave the way they came; a layer that dips below zero overnight is drawn at zero. Words in 'page' can use {tokens} that build.py fills from the numbers (see TOKENS in build.py). Boundaries: raw/tts/pd2022.geojson, the 2022 TTS planning districts (simplified to 40 m), joined on PD name with 'aliases' where the iDRS and the shapefile spell a place differently.",
- "path": "downtown-day",
+ "path": "downtown-weekday",
  "unlisted": false,
  "district": "PD 1 of Toronto",
  "residents": 313102,
