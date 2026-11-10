@@ -1,7 +1,7 @@
 {
  "_about": "Ride-hail explainer page (engine/rideshare/build.py), at docs/toronto/<path>/. Built from the small JSON files cities/toronto/rideshare.py writes to cities/toronto/rideshare/ from the City of Toronto's Private Transportation Companies open data (raw/ptc/, gitignored). Ward boundaries: docs/toronto/data/wards.geojson. Words in 'page' can use {tokens} that build.py fills from the numbers (see TOKENS in build.py). Wording rules (claude/rideshare-scouting.md): 'pickups' or 'completed trips', never 'demand'; no 'surge'; drivers are 'logged in across the city', never placed in a ward; no Uber vs Lyft split; 'average wait' is request to driver arrival.",
  "path": "rideshare-day",
- "unlisted": true,
+ "unlisted": false,
  "dataDir": "rideshare",
  "wards": "docs/toronto/data/wards.geojson",
  "dayTypes": [

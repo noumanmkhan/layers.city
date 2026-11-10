@@ -87,7 +87,7 @@ the landing page, stop and say so; don't change this repo.
   (places.py); a hub card is added by hand. run.sh rebuilds it; by hand: `python3 engine/commute/build.py toronto`.
   Notes: the project's claude/reel-downtown-daily-population.md. It was at /toronto/downtown-day/ for its first day; a hand-written redirect page stays there.
 - **Ride-hail explainer** (`engine/rideshare/build.py` and `page.html`, `cities/toronto/rideshare.json`, page at
-  `docs/toronto/rideshare-day/`; built November 10, 2026, **unlisted** until the user says so): pickups by hour and ward for
+  `docs/toronto/rideshare-day/`; November 10, 2026, public the same day with an Explainers card on the hub; `"unlisted": false` puts it in the sitemap via places.py): pickups by hour and ward for
   four day types (Mon-Thu, Fri, Sat, Sun; a day runs 4 a.m. to 4 a.m.), average waits, drivers logged in city-wide,
   top ward-to-ward flows and monthly totals since 2018. Data: the City's Private Transportation Companies open data,
   downloaded by hand into `cities/toronto/raw/ptc/` (gitignored, ~18 GB unzipped) and reduced by `cities/toronto/rideshare.py`

@@ -358,6 +358,10 @@ for c in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
     if os.path.exists(cp) and not json.load(open(cp)).get('unlisted'):
         cpath = json.load(open(cp))['path']
         if os.path.exists(os.path.join(base, cpath, 'index.html')): urls.append(f'{SITE}/{c}/{cpath}/')
+    rp = os.path.join(ROOT, 'cities', c, 'rideshare.json')   # engine/rideshare/build.py, once it isn't unlisted
+    if os.path.exists(rp) and not json.load(open(rp)).get('unlisted'):
+        rpath = json.load(open(rp))['path']
+        if os.path.exists(os.path.join(base, rpath, 'index.html')): urls.append(f'{SITE}/{c}/{rpath}/')
     vd = os.path.join(base, 'venues')                   # engine/venues.py: the list, then a page per venue
     if os.path.exists(os.path.join(vd, 'index.html')):
         urls.append(f'{SITE}/{c}/venues/')
