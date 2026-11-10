@@ -110,7 +110,7 @@ late_wk, late_sat = at(hourly['all']['weekday'], 1), at(hourly['all']['sat'], 1)
 peak_fri = max(range(24), key=lambda i: hourly['all']['fri'][i])
 stats = [
     ('Busiest hour', f'{hourly["all"]["fri"][peak_fri]:,}', f'pickups at {clock(HOURS[peak_fri])} on a Friday'),
-    ('1 a.m.', f'{late_sat / late_wk:.0f}×', 'as many pickups on a Saturday night as on a weeknight'),
+    ('1 a.m.', f'{late_sat / late_wk:.1f}'.rstrip('0').rstrip('.') + '×', 'as many pickups on a Saturday night as on a weeknight'),
     ('8 a.m. weekdays', TOKENS['idle8'], 'of drivers’ logged-in time spent waiting for a ride'),
     (wards[w10]['name'], pct(sum(wards[w10]['pickups']['weekday']) / sum(tot_t['weekday'])), 'of Toronto’s weekday pickups start in this one ward'),
 ]
