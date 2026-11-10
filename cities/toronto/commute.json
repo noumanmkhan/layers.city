@@ -161,7 +161,7 @@
  },
  "videos": [],
  "flow": {
-  "_about": "The moving-dots map on the clock (engine/commute/build.py): every trip into or out of the district in the chosen hour becomes dots on the corridor its mode uses, from the map's published layers (docs/<city>/data). Each corridor is split where it passes closest to 'hub', and each half runs inward. 'dots' trips make one dot. A corridor's 'weight' sets its share of its mode's dots; 'maxKm' keeps only the last stretch before the hub (walking and cycling). 'endKm' drops a half that stops further than that from the hub. 'frame.clip' ([west, south, east, north]) trims the frame to the part of the city the corridors cross.",
+  "_about": "The moving-dots map on the clock (engine/commute/build.py): every trip into or out of the district in the chosen hour becomes dots on the corridor its mode uses, from the map's published layers (docs/<city>/data). Each corridor is split where it passes closest to 'hub', and each half runs inward. 'dots' trips make one dot. A corridor's 'weight' sets its share of its mode's dots; 'maxKm' keeps only the last stretch before the hub (walking and cycling). 'endKm' drops a half that stops further than that from the hub. 'frame.clip' ([west, south, east, north]) trims the frame to the part of the city the corridors cross. 'lines' draws the roads and rail the dots run on (highways, GO lines, subway lines in their own colours), under the dots.",
   "hub": [
    -79.3806,
    43.6453
@@ -305,6 +305,31 @@
     "maxKm": 6
    }
   ],
-  "endKm": 4.5
+  "endKm": 4.5,
+  "lines": [
+   {
+    "layer": "highways.geojson",
+    "match": {},
+    "kind": "hwy"
+   },
+   {
+    "layer": "go_lines_416.geojson",
+    "match": {},
+    "kind": "go",
+    "colour": "color"
+   },
+   {
+    "layer": "subway_lines.geojson",
+    "match": {
+     "line": [
+      "1",
+      "2",
+      "4"
+     ]
+    },
+    "kind": "subway",
+    "colour": "color"
+   }
+  ]
  }
 }

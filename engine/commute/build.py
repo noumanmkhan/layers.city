@@ -228,6 +228,18 @@ def build_flow(fc):
             if l.length > .2:
                 st.append('M' + 'L'.join('%s %s' % xy(*c[:2]) for c in l.simplify(.05).coords))
 
+    lines = []                                    # the roads and rail the dots run on, drawn under them
+    for ln in fc.get('lines', []):
+        for f in layer(ln['layer']):
+            if not all(str(f['properties'].get(k)) in v for k, v in ln['match'].items()):
+                continue
+            ds = []
+            for l in lines_of(km(shape(f['geometry'])).intersection(box_km)):
+                if l.length > .2:
+                    ds.append('M' + 'L'.join('%s %s' % xy(*c_[:2]) for c_ in l.simplify(.03).coords))
+            if ds:
+                lines.append({'k': ln['kind'], 'c': f['properties'].get(ln.get('colour', ''), None), 'd': ''.join(ds)})
+
     paths = []
     for c in fc['corridors']:
         fs = [f for f in layer(c['layer']) if all(str(f['properties'].get(k)) in v for k, v in c['match'].items())]
@@ -258,7 +270,7 @@ def build_flow(fc):
             pts = [xy(*q) for q in p_.simplify(.04).coords]
             paths.append({'m': c['mode'], 'w': round(c['weight'] * p_.length / tot, 4), 'km': round(p_.length, 1),
                           'p': [v for q in pts for v in q]})
-    return {'h': H, 'land': land, 'near': near, 'dist': dist, 'streets': ''.join(st), 'paths': paths, 'dots': fc['dots'],
+    return {'h': H, 'land': land, 'near': near, 'dist': dist, 'streets': ''.join(st), 'lines': lines, 'paths': paths, 'dots': fc['dots'],
             'hub': xy(hub.x, hub.y)}
 
 
@@ -305,7 +317,7 @@ stats_html = ''.join(f'<div class="stat"><span class="k">{a}</span><b>{b}</b><sp
 method_html = ''.join(f'<p>{p}</p>' for p in page['method'])
 
 tpl = open(os.path.join(ROOT, 'engine', 'commute', 'page.html'), encoding='utf-8').read()
-DARK = ['{--water:#1B2A33;--land:#24272D;--edge:#4A4F57;--near-land:#1E2126}']
+DARK = ['{--water:#1B2A33;--land:#24272D;--edge:#4A4F57;--near-land:#1E2126}', '.flowbox .ln-hwy{stroke:#4D4A45}']
 rep = {
     'title': page['title'], 'city': page['city'], 'short': page['short'], 'description': page['description'],
     'lede': page['lede'], 'chartNoteJSON': json.dumps(page['chartNote'], ensure_ascii=False), 'howTitle': page['howTitle'], 'howLede': page['howLede'],
