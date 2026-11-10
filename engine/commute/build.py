@@ -282,6 +282,7 @@ TOKENS = {
     'times': f'{peak["total"] / RES:.2f}'.rstrip('0').rstrip('.'), 'visitors': rnd(peak['total'] - RES),
     'evening': rnd(evening['total'] - RES), 'workers': rnd(cfg['workers']),
     'commuters': rnd(cfg['workers'] - workers.get(dist_no, 0)), 'cityShare': f'{city_share * 100:.0f}%',
+    'dots': str(cfg['flow']['dots']) if cfg.get('flow') else '',
 }
 
 
@@ -320,7 +321,7 @@ tpl = open(os.path.join(ROOT, 'engine', 'commute', 'page.html'), encoding='utf-8
 DARK = ['{--water:#1B2A33;--land:#24272D;--edge:#4A4F57;--near-land:#1E2126}', '.flowbox .ln-hwy{stroke:#4D4A45}']
 rep = {
     'title': page['title'], 'city': page['city'], 'short': page['short'], 'description': page['description'],
-    'lede': page['lede'], 'chartNoteJSON': json.dumps(page['chartNote'], ensure_ascii=False), 'howTitle': page['howTitle'], 'howLede': page['howLede'],
+    'lede': page['lede'], 'chartNoteJSON': json.dumps(page['chartNote'], ensure_ascii=False), 'flowNote': page.get('flowNote', ''), 'howTitle': page['howTitle'], 'howLede': page['howLede'],
     'howA': page['howA'], 'howB': page['howB'], 'whereTitle': page['whereTitle'], 'whereLede': page['whereLede'],
     'whereNote': page['whereNote'], 'hybridTitle': page['hybridTitle'], 'hybridText': page['hybridText'],
     'hybridSmall': page['hybridSmall'], 'videosTitle': page['videosTitle'], 'methodTitle': page['methodTitle'],

@@ -210,7 +210,7 @@ h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform
       <canvas id="flow" role="img" aria-label="Map of downtown with dots streaming in and out along the subway, GO lines, highways and streets for the chosen hour"></canvas>
       <span class="flowtag">Downtown</span>
     </div>
-    <p class="flowcap" id="flowcap"></p>
+    <p class="flowcap" id="flowcap">{{flowNote}}</p>
     <div class="chart"><svg id="chart" viewBox="0 0 1000 380" role="img" aria-label="Stacked area chart of people downtown by hour, split into residents and how visitors arrived"></svg></div>
     <div class="ctl">
       <button type="button" class="play" id="play">▶ Play</button>
@@ -387,7 +387,6 @@ h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform
     const size = () => { const r = fcan.getBoundingClientRect(), d = devicePixelRatio || 1; fcan.width = r.width * d; fcan.height = r.height * d; scale = fcan.width / 1000; dotK = Math.max(1, 620 / r.width); };   // dots keep a readable size on a phone
     size(); addEventListener('resize', size);
     new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(box);
-    $('flowcap').textContent = `Each dot is ${F.dots} trips. Dots run in along the subway, GO lines, highways and streets as people arrive, and back out as they leave.`;
   }
   const pathFor = m => { const r = Math.random(), L_ = byMode[m]; return L_.find(q => q.c >= r) || L_[L_.length - 1]; };
   function posAt(q, f) {

@@ -157,7 +157,8 @@
    "We start at 4 a.m. with the district's {residents} residents, then add every trip that ended downtown and subtract every trip that left it, hour by hour, by the hour each trip started. Trips that began and ended downtown don't change the count.",
    "What it leaves out: tourists, business travellers and anyone who lives outside the survey area, and children under 5 on their own. So evenings, when visitors matter most, run low. Times are when trips began, so arrivals from far away land a little later than shown. Weekends aren't surveyed."
   ],
-  "credits": "Data: Transportation Tomorrow Survey 2022, Data Management Group, University of Toronto (open data licence). Planning district boundaries: TTS 2022. Analysis and design: Layers.City."
+  "credits": "Data: Transportation Tomorrow Survey 2022, Data Management Group, University of Toronto (open data licence). Planning district boundaries: TTS 2022. Analysis and design: Layers.City.",
+  "flowNote": "Each dot is {dots} trips into or out of downtown in that hour, coloured by how people travelled. The survey records where each trip started and ended and how it was made, not the route, so a mode’s dots are shared out across its main lines and roads. The map shows how much comes and goes by each mode; it isn’t a count of riders on any particular line or road."
  },
  "videos": [],
  "flow": {
