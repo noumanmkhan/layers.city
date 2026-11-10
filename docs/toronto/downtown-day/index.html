@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="How many people are in downtown Toronto at each hour of an average weekday, how they got there, and where downtown's 677,000 workers live. From the 2022 Transportation Tomorrow Survey.">
-<meta name="robots" content="noindex">
+
 <link rel="canonical" href="https://layers.city/toronto/downtown-day/">
 <meta property="og:title" content="Every weekday, downtown Toronto nearly doubles">
 <meta property="og:description" content="How many people are in downtown Toronto at each hour of an average weekday, how they got there, and where downtown's 677,000 workers live. From the 2022 Transportation Tomorrow Survey.">
@@ -21,7 +21,7 @@
 :root{
   --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --muted:#5E5452; --rule:#E4DCDA; --accent:#C8102E;
   --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
-  --pill-line:#D8CFCD; --sub:#5C5251; --res:#B9AEAB; --grid:rgba(26,20,20,.07);
+  --pill-line:#D8CFCD; --sub:#5C5251; --res:rgba(26,20,20,.045); --resedge:#9C8F8C; --grid:rgba(26,20,20,.07);
   --water:#E3EBEF; --land:#FBFAF9; --edge:#CFC4C1;
 }
 *{box-sizing:border-box}
@@ -55,9 +55,12 @@ section.card{padding:22px;margin-top:18px}
 .chart .ax{font:500 12px var(--mono);fill:var(--muted)}
 .chart .cur{stroke:var(--ink);stroke-width:1.5}
 .chart .dot{fill:var(--card);stroke:var(--ink);stroke-width:2}
-.chart .resline{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:4 4;opacity:.55}
-.chart .reslbl{font:500 12px var(--body);fill:var(--ink);opacity:.7}
+.chart .resline{stroke:var(--resedge);stroke-width:2}
+.chart .reslbl{font:500 13px var(--body);fill:var(--muted)}
+.chart .resnum{font:800 22px var(--display);fill:var(--muted);letter-spacing:-.01em}
+.legend i.res{background:var(--res);box-shadow:inset 0 0 0 1.5px var(--resedge)}
 .chart svg.narrow .ax,.chart svg.narrow .reslbl{font-size:15px}
+.chart svg.narrow .resnum{font-size:26px}
 .ctl{display:flex;align-items:center;gap:12px;padding:8px 22px 18px}
 .ctl .play{flex:none;height:42px;min-width:92px;padding:0 14px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-weight:500;font-size:14px;cursor:pointer}
 .ctl input{flex:1;min-width:0;accent-color:var(--accent);height:40px;cursor:pointer}
@@ -156,8 +159,8 @@ h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) .mapbox{--water:#1B2A33;--land:#24272D;--edge:#4A4F57}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}
 :root[data-theme="dark"] .mapbox{--water:#1B2A33;--land:#24272D;--edge:#4A4F57}
-:root[data-theme="dark"]{--res:#5A5E66;--grid:rgba(236,237,239,.08)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--res:#5A5E66;--grid:rgba(236,237,239,.08)}}
+:root[data-theme="dark"]{--res:rgba(236,237,239,.06);--resedge:#8A8F97;--grid:rgba(236,237,239,.08)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--res:rgba(236,237,239,.06);--resedge:#8A8F97;--grid:rgba(236,237,239,.08)}}
 </style>
 </head>
 <body>
@@ -293,7 +296,9 @@ h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform
       base = up;
     }
     svg.append(el('line', {class: 'resline', x1: L, x2: W - R, y1: Y(D.res), y2: Y(D.res)}));
-    svg.append(el('text', {class: 'reslbl', x: L + 10, y: Y(D.res) + 20}, 'Residents'));
+    const mid = (Y(D.res) + Y(0)) / 2;
+    svg.append(el('text', {class: 'resnum', x: L + 18, y: mid}, fmt(D.res)));
+    svg.append(el('text', {class: 'reslbl', x: L + 18, y: mid + 22}, 'people live downtown'));
     cur = el('line', {class: 'cur', y1: T, y2: H - B}); dot = el('circle', {class: 'dot', r: 6});
     svg.append(cur, dot);
   }
@@ -302,7 +307,7 @@ h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform
   // Legend with live values.
   const leg = $('legend');
   const rows = [{id: 'res', n: 'Residents', l: 'Live downtown', c: 'var(--res)'}, ...M].map(m => {
-    const b = el('b'); leg.append(el('div', {title: m.l}, [el('i', {style: 'background:' + m.c}), el('span', {}, m.n), b])); return [m.id, b];
+    const b = el('b'); leg.append(el('div', {title: m.l}, [el('i', m.id === 'res' ? {class: 'res'} : {style: 'background:' + m.c}), el('span', {}, m.n), b])); return [m.id, b];
   });
   leg.append(el('span', {class: 'note'}, "Each hour shows the people present when it ends. Residents are counted as home all day unless they made a trip out."));
 
