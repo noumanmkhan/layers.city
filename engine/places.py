@@ -354,6 +354,10 @@ for c in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
     if os.path.exists(hp) and not json.load(open(hp)).get('unlisted'):
         hpath = json.load(open(hp))['path']
         if os.path.exists(os.path.join(base, hpath, 'index.html')): urls.append(f'{SITE}/{c}/{hpath}/')
+    cp = os.path.join(ROOT, 'cities', c, 'commute.json')   # engine/commute/build.py, once it isn't unlisted
+    if os.path.exists(cp) and not json.load(open(cp)).get('unlisted'):
+        cpath = json.load(open(cp))['path']
+        if os.path.exists(os.path.join(base, cpath, 'index.html')): urls.append(f'{SITE}/{c}/{cpath}/')
     vd = os.path.join(base, 'venues')                   # engine/venues.py: the list, then a page per venue
     if os.path.exists(os.path.join(vd, 'index.html')):
         urls.append(f'{SITE}/{c}/venues/')

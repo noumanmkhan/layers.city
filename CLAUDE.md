@@ -77,6 +77,14 @@ the landing page, stop and say so; don't change this repo.
   `|<line>` where they repeat; `colourBy` adds a "colour by" switch (today's route colours vs the company that built it, `op`);
   page `frame: "lines"`, `units: "mi"`, `scale` years. Both cities: `badges` (official route colours; badges on built
   stretches from GTFS overlap, or a line's own `badges`; `skip` for express variants). Notes: the project's claude/mta-history-scouting.md.
+- **Commute explainer** (`engine/commute/build.py` and `page.html`, `cities/toronto/commute.json`, page at
+  `docs/toronto/downtown-day/`; November 10, 2026, unlisted until the user's Reels are ready): people downtown hour by hour
+  (residents + trips in - trips out), how they arrived, and a map of where downtown's workers live. Built from
+  Transportation Tomorrow Survey 2022 cross-tabs the user exports by hand from the DMG's iDRS (`cities/toronto/raw/tts/`,
+  kept exactly as downloaded) and the TTS 2022 planning-district boundaries (`raw/tts/pd2022.geojson`). Words and the
+  mode groups are in commute.json; `"videos"` takes YouTube ids to embed. `"unlisted": false` puts it in the sitemap
+  (places.py); a hub card is added by hand. run.sh rebuilds it; by hand: `python3 engine/commute/build.py toronto`.
+  Notes: the project's claude/reel-downtown-daily-population.md.
 - To let the user try an experiment on dev on a phone: run the "Deploy to Cloudflare Pages" workflow by
   hand with branch `dev`; it publishes a preview at https://dev.layers-city.pages.dev. The branch is the
   workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.

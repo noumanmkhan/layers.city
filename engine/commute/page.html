@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{{description}}">
+{{robots}}
+<link rel="canonical" href="{{canonical}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{canonical}}">
+<title>{{short}} · {{city}} · Layers.City</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{{themeScript}}
+<style>
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2')}
+:root{
+  --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --muted:#5E5452; --rule:#E4DCDA; --accent:#C8102E;
+  --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --pill-line:#D8CFCD; --sub:#5C5251; --res:#B9AEAB; --grid:rgba(26,20,20,.07);
+  --water:#E3EBEF; --land:#FBFAF9; --edge:#CFC4C1;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 40px}
+h1{margin:4px 0 8px;font-family:var(--display);font-weight:800;font-size:44px;line-height:1.02;letter-spacing:-.02em;max-width:820px}
+h2{margin:0 0 8px;font-family:var(--display);font-weight:800;font-size:26px;line-height:1.1;letter-spacing:-.01em}
+.kicker{font-size:12px;font-weight:500;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+.kicker a{text-decoration:none}
+.lede{max-width:700px;color:var(--muted);margin:0 0 20px;font-size:16px}
+.rule{height:3px;width:64px;background:var(--accent);margin:14px 0}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px}
+section.card{padding:22px;margin-top:18px}
+.sublede{color:var(--muted);max-width:720px;margin:0 0 16px}
+.small{font-size:12.5px;color:var(--muted);margin:12px 0 0;max-width:760px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+/* The clock */
+.clockcard{padding:0!important;overflow:hidden;margin-top:0!important}
+.readout{display:flex;flex-wrap:wrap;align-items:flex-end;gap:6px 22px;padding:20px 22px 6px}
+.readout .time{font:800 54px/1 var(--display);letter-spacing:-.03em;min-width:3.6em}
+.readout .count{font:800 54px/1 var(--display);letter-spacing:-.03em;color:var(--accent);font-variant-numeric:tabular-nums}
+.readout .lbl{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+.readout .x{font:500 13px var(--mono);color:var(--muted);padding-bottom:8px}
+.chart{position:relative;padding:4px 10px 0}
+.chart svg{display:block;width:100%;height:auto;touch-action:pan-y;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.chart .gl{stroke:var(--grid);stroke-width:1}
+.chart .ax{font:500 12px var(--mono);fill:var(--muted)}
+.chart .cur{stroke:var(--ink);stroke-width:1.5}
+.chart .dot{fill:var(--card);stroke:var(--ink);stroke-width:2}
+.chart .resline{stroke:var(--ink);stroke-width:1.2;stroke-dasharray:4 4;opacity:.55}
+.chart .reslbl{font:500 12px var(--body);fill:var(--ink);opacity:.7}
+.chart svg.narrow .ax,.chart svg.narrow .reslbl{font-size:15px}
+.ctl{display:flex;align-items:center;gap:12px;padding:8px 22px 18px}
+.ctl .play{flex:none;height:42px;min-width:92px;padding:0 14px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-weight:500;font-size:14px;cursor:pointer}
+.ctl input{flex:1;min-width:0;accent-color:var(--accent);height:40px;cursor:pointer}
+.legend{display:flex;flex-wrap:wrap;gap:8px 26px;padding:14px 22px 18px;border-top:1px solid var(--rule)}
+.legend div{display:flex;gap:8px;align-items:center;font-size:14px}
+.legend i{width:12px;height:12px;border-radius:3px}
+.legend b{font:500 13.5px var(--mono);font-variant-numeric:tabular-nums}
+.legend .note{display:block;flex-basis:100%;font-size:12.5px;color:var(--muted)}
+.mapbox text{font:800 20px var(--display);fill:var(--ink);text-anchor:middle;dominant-baseline:central;pointer-events:none;paint-order:stroke;stroke:var(--land);stroke-width:3px;stroke-linejoin:round}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
+.stat{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.stat .k{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.stat b{font:800 30px/1.05 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span:last-child{font-size:13.5px;color:var(--muted)}
+
+/* How they got here */
+.bars{display:flex;flex-direction:column;gap:18px}
+.bar .t{font-weight:500;margin-bottom:6px}
+.bar .strip{display:flex;height:40px;border-radius:10px;overflow:hidden;gap:2px;background:var(--card)}
+.bar .strip span{display:flex;align-items:center;justify-content:center;color:#fff;font:500 13px var(--mono);white-space:nowrap;overflow:hidden;min-width:0}
+.bar .keys{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:8px;font-size:13px;color:var(--muted)}
+.bar .keys span{display:inline-flex;align-items:center;gap:6px}
+.bar .keys i{width:10px;height:10px;border-radius:2px}
+
+/* Where they live */
+.where{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:22px;align-items:start}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:3px;margin-bottom:10px}
+.seg button{border:0;background:none;border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer;min-height:36px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.mapbox{position:relative;background:var(--water);border-radius:12px;overflow:hidden}
+.mapbox svg{display:block;width:100%;height:auto}
+.mapbox path{stroke:var(--edge);stroke-width:.7;vector-effect:non-scaling-stroke;cursor:pointer;stroke-linejoin:round}
+.mapbox path.home{stroke:var(--ink);stroke-width:2.2}
+.mapbox path.sel{stroke:var(--ink);stroke-width:2.4}
+.info{min-height:48px;margin-top:10px;font-size:14px}
+.info b{font-weight:500}
+.ramp{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:500 11.5px var(--mono);color:var(--muted);margin-top:8px}
+.ramp span{display:inline-flex;align-items:center;gap:4px}
+.ramp i{width:14px;height:14px;border-radius:3px;border:1px solid var(--rule)}
+.regions{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:9px}
+.regions li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;font-size:14px}
+.regions .n{font:500 13px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.regions .track{grid-column:1/-1;height:8px;border-radius:4px;background:var(--bg);overflow:hidden}
+.regions .track i{display:block;height:100%;background:var(--accent);border-radius:4px}
+h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.top{list-style:none;margin:0;padding:0;columns:2;column-gap:18px;font-size:14px}
+.top li{display:flex;justify-content:space-between;gap:8px;padding:3px 0;break-inside:avoid}
+.top li span:last-child{font:500 12.5px var(--mono);color:var(--muted)}
+
+.hybrid{background:var(--ink)!important;color:var(--bg);border-color:var(--ink)!important}
+.hybrid p{margin:0;max-width:760px;font-size:16px}
+.hybrid .small{color:inherit;opacity:.7}
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.videos iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#000}
+.videos .v916 iframe{aspect-ratio:9/16;max-height:640px}
+.method p{max-width:760px;margin:0 0 10px;color:var(--muted)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;font-size:12px;color:var(--muted);margin-top:30px;border-top:1px solid var(--rule);padding-top:14px}
+
+@media (max-width:860px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.where{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){
+  .wrap{padding:0 12px 32px}
+  h1{font-size:32px}
+  h2{font-size:22px}
+  section.card{padding:16px}
+  .readout{padding:16px 14px 4px;gap:4px 16px}
+  .readout .time,.readout .count{font-size:38px}
+  .chart{padding:2px 2px 0}
+  .ctl{padding:6px 14px 14px}
+  .legend{padding:12px 14px 14px;gap:6px 18px}
+  .legend div{flex:1 1 40%}
+  .stat b{font-size:24px}
+  .top{columns:1}
+  .mapbox text{font-size:30px;stroke-width:5px}
+}
+@media (prefers-reduced-motion:reduce){.ctl .play{display:none}}
+/* Site header: the same as the maps hub (docs/index.html). */
+.site{max-width:1120px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.site a{color:inherit;text-decoration:none}
+.site .mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.08em}
+.site .brand{display:flex;align-items:center;gap:9px;font-size:24px;letter-spacing:-.01em}
+.site .brand b{font-weight:500;color:var(--accent)}
+.site .sub{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;font-size:13px;letter-spacing:.08em;color:var(--sub)}
+.site .sub:hover{color:var(--ink)}
+.site .sep{width:1.5px;height:16px;background:var(--pill-line)}
+.site .links{display:flex;flex-wrap:wrap;gap:10px}
+.site .pill{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--pill-line);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.site .pill .short{display:none}
+.site .pill.instagram{background:linear-gradient(45deg,#F58529 0%,#DD2A7B 45%,#8134AF 75%,#515BD4 100%);border-color:transparent;color:#fff}
+.site .pill:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(26,20,20,.10);border-color:var(--ink)}
+.site .pill.instagram:hover{border-color:transparent}
+.site .pill:focus-visible,.site .mark a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.site .pill{transition:none}.site .pill:hover{transform:none}}
+@media (max-width:520px){.site{padding:20px 16px}.site .links{flex-wrap:nowrap;gap:8px}.site .pill{gap:6px;min-height:40px;padding:0 13px;font-size:14px}.site .pill svg{width:16px;height:16px}.site .pill .full{display:none}.site .pill .short{display:inline}}
+{{themeCss}}
+:root[data-theme="dark"]{--res:#5A5E66;--grid:rgba(236,237,239,.08)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--res:#5A5E66;--grid:rgba(236,237,239,.08)}}
+</style>
+</head>
+<body>
+<header class="site">
+    <div class="mark">
+      <a class="brand" href="/"><svg width="22" height="28" viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#fff"/></svg><span>Layers<b>.City</b></span></a>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="sub" href="https://noumankhan.ca">BY NOUMAN KHAN</a>
+    </div>
+    <nav class="links" aria-label="Elsewhere">
+      <a class="pill" href="mailto:go@layers.city" aria-label="Email go@layers.city">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        <span class="full">go@layers.city</span><span class="short">Email</span>
+      </a>
+      <a class="pill instagram" href="https://www.instagram.com/layers.city" rel="me" aria-label="layers.city on Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+        layers.city
+      </a>
+    </nav>
+  </header>
+<main class="wrap">
+  <div class="kicker"><a href="../">{{city}}</a> · {{short}}</div>
+  <h1>{{title}}</h1>
+  <div class="rule"></div>
+  <p class="lede">{{lede}}</p>
+
+  <section class="card clockcard" aria-label="People downtown, hour by hour">
+    <div class="readout">
+      <div><span class="lbl">At</span><span class="time" id="time"></span></div>
+      <div><span class="lbl">People downtown</span><span class="count" id="count" aria-live="polite"></span></div>
+      <div class="x" id="times"></div>
+    </div>
+    <div class="chart"><svg id="chart" viewBox="0 0 1000 380" role="img" aria-label="Stacked area chart of people downtown by hour, split into residents and how visitors arrived"></svg></div>
+    <div class="ctl">
+      <button type="button" class="play" id="play">▶ Play</button>
+      <input type="range" id="hour" min="0" max="24" step="1" aria-label="Hour of the day">
+    </div>
+    <div class="legend" id="legend"></div>
+  </section>
+  <div class="stats">{{stats}}</div>
+
+  <section class="card" aria-labelledby="how-h">
+    <h2 id="how-h">{{howTitle}}</h2>
+    <p class="sublede">{{howLede}}</p>
+    <div class="bars">
+      <div class="bar" id="barA" data-t="{{howA}}"></div>
+      <div class="bar" id="barB" data-t="{{howB}}"></div>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="where-h">
+    <h2 id="where-h">{{whereTitle}}</h2>
+    <p class="sublede">{{whereLede}}</p>
+    <div class="where">
+      <div>
+        <div class="seg" role="group" aria-label="Map extent">
+          <button type="button" data-v="city" aria-pressed="true">{{city}}</button>
+          <button type="button" data-v="region" aria-pressed="false">Whole region</button>
+        </div>
+        <div class="mapbox"><svg id="map" role="img" aria-label="Map of where downtown's workers live, shaded by number of workers"></svg></div>
+        <div class="ramp" id="ramp"></div>
+        <div class="info" id="info" aria-live="polite"></div>
+        <p class="small">{{whereNote}}</p>
+      </div>
+      <div>
+        <h3>By area</h3>
+        <ul class="regions" id="regions"></ul>
+        <h3>Biggest single places, after downtown</h3>
+        <ul class="top" id="top"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card hybrid" aria-labelledby="hy-h">
+    <h2 id="hy-h">{{hybridTitle}}</h2>
+    <p>{{hybridText}}</p>
+    <p class="small">{{hybridSmall}}</p>
+  </section>
+
+  <section class="card" id="vids" aria-labelledby="vid-h" hidden>
+    <h2 id="vid-h">{{videosTitle}}</h2>
+    <div class="videos" id="videos"></div>
+  </section>
+
+  <section class="card method" aria-labelledby="m-h">
+    <h2 id="m-h">{{methodTitle}}</h2>
+    {{method}}
+  </section>
+  <footer class="foot"><span>{{credits}}</span></footer>
+</main>
+<script>
+(() => {
+  const D = {{DATA}};
+  const $ = id => document.getElementById(id);
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs = {}, kids) => {
+    const n = ['svg', 'path', 'g', 'circle', 'text', 'line', 'rect'].includes(tag) ? document.createElementNS(NS, tag) : document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) if (v != null) n.setAttribute(k, v);
+    if (kids != null) (Array.isArray(kids) ? kids : [kids]).forEach(c => c != null && n.append(c));
+    return n;
+  };
+  const fmt = n => Math.round(n).toLocaleString('en-CA');
+  const k = n => n >= 1e6 ? (n / 1e6).toFixed(1) + 'M' : Math.round(n / 1e3) + 'k';
+  const clock = t => { t %= 24; return (t % 12 === 0 ? 12 : t % 12) + (t < 12 ? ' a.m.' : ' p.m.'); };
+  const S = D.series, M = D.modes;
+
+  // ---- the chart ----------------------------------------------------------------------------------------------
+  // Drawn in SVG units chosen for the screen: a wide, short frame on a computer, a narrower, taller one on a phone,
+  // so the axis labels stay readable.
+  const svg = $('chart');
+  let W, H, L, R = 14, T = 16, B = 34, X, Y, cur, dot;
+  const top = Math.ceil(Math.max(...S.map(s => s.tot)) / 100000) * 100000;
+  const layers = [{id: 'res', c: 'var(--res)', v: S.map(() => D.res)}, ...M.map(m => ({id: m.id, c: m.c, v: S.map(s => s.m[m.id])}))];
+  function drawChart() {
+    const narrow = svg.parentNode.clientWidth < 600;
+    W = narrow ? 560 : 1000; H = narrow ? 420 : 380; L = narrow ? 50 : 58;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.classList.toggle('narrow', narrow);
+    X = i => L + (W - L - R) * i / (S.length - 1);
+    Y = v => T + (H - T - B) * (1 - v / top);
+    svg.replaceChildren();
+    for (let v = 0; v <= top; v += 100000) {
+      svg.append(el('line', {class: 'gl', x1: L, x2: W - R, y1: Y(v), y2: Y(v)}));
+      svg.append(el('text', {class: 'ax', x: L - 8, y: Y(v) + 4, 'text-anchor': 'end'}, v ? k(v) : '0'));
+    }
+    const every = narrow ? 6 : 4;
+    S.forEach((s, i) => { if (i % every === 0) svg.append(el('text', {class: 'ax', x: X(i), y: H - 10, 'text-anchor': i === 0 ? 'start' : i === S.length - 1 ? 'end' : 'middle'}, clock(s.t).replace(' ', ''))); });
+    let base = S.map(() => 0);
+    for (const ly of layers) {
+      const up = base.map((b, i) => b + ly.v[i]);
+      const d = 'M' + up.map((v, i) => X(i).toFixed(1) + ' ' + Y(v).toFixed(1)).join('L') + 'L' + base.map((v, i) => [X(i).toFixed(1), Y(v).toFixed(1)].join(' ')).reverse().join('L') + 'Z';
+      svg.append(el('path', {d, fill: ly.c, 'fill-opacity': ly.id === 'res' ? 1 : .92}));
+      base = up;
+    }
+    svg.append(el('line', {class: 'resline', x1: L, x2: W - R, y1: Y(D.res), y2: Y(D.res)}));
+    svg.append(el('text', {class: 'reslbl', x: L + 10, y: Y(D.res) + 20}, 'Residents'));
+    cur = el('line', {class: 'cur', y1: T, y2: H - B}); dot = el('circle', {class: 'dot', r: 6});
+    svg.append(cur, dot);
+  }
+  drawChart();
+
+  // Legend with live values.
+  const leg = $('legend');
+  const rows = [{id: 'res', n: 'Residents', l: 'Live downtown', c: 'var(--res)'}, ...M].map(m => {
+    const b = el('b'); leg.append(el('div', {title: m.l}, [el('i', {style: 'background:' + m.c}), el('span', {}, m.n), b])); return [m.id, b];
+  });
+  leg.append(el('span', {class: 'note'}, {{chartNoteJSON}}));
+
+  let at = 0;
+  function show(i) {
+    at = i;
+    const s = S[i];
+    $('time').textContent = clock(s.t);
+    $('count').textContent = fmt(s.tot);
+    $('times').textContent = (s.tot / D.res).toFixed(2) + '× the residents';
+    cur.setAttribute('x1', X(i)); cur.setAttribute('x2', X(i));
+    dot.setAttribute('cx', X(i)); dot.setAttribute('cy', Y(s.tot));
+    for (const [id, b] of rows) b.textContent = fmt(id === 'res' ? D.res : s.m[id]);
+    $('hour').value = i;
+  }
+  const pick = e => {
+    const r = svg.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W;
+    show(Math.max(0, Math.min(S.length - 1, Math.round((x - L) / (W - L - R) * (S.length - 1)))));
+  };
+  svg.addEventListener('pointermove', pick);
+  svg.addEventListener('pointerdown', pick);
+  $('hour').addEventListener('input', e => { stop(); show(+e.target.value); });
+  let timer = null;
+  function stop() { clearInterval(timer); timer = null; $('play').textContent = '▶ Play'; }
+  $('play').addEventListener('click', () => {
+    if (timer) return stop();
+    if (at >= S.length - 1) show(0);
+    $('play').textContent = '❚❚ Pause';
+    timer = setInterval(() => { if (at >= S.length - 1) return stop(); show(at + 1); }, 420);
+  });
+  const peakI = S.findIndex(s => s.t === D.peakT);
+  show(peakI);
+  let wide = svg.parentNode.clientWidth < 600;
+  addEventListener('resize', () => { const n = svg.parentNode.clientWidth < 600; if (n !== wide) { wide = n; drawChart(); show(at); } });
+
+  // ---- how they got here ----------------------------------------------------------------------------------------
+  function strip(box, vals) {
+    const tot = Object.values(vals).reduce((a, b) => a + b, 0);
+    box.append(el('div', {class: 't'}, box.dataset.t));
+    const st = el('div', {class: 'strip', role: 'img', 'aria-label': M.map(m => `${m.n} ${Math.round(vals[m.id] / tot * 100)}%`).join(', ')});
+    const keys = el('div', {class: 'keys'});
+    for (const m of M) {
+      const p = vals[m.id] / tot * 100;
+      st.append(el('span', {style: `flex:${p} 1 0;background:${m.c}`}, p >= 7 ? Math.round(p) + '%' : ''));
+      keys.append(el('span', {}, [el('i', {style: 'background:' + m.c}), `${m.n} ${p < 1 ? '<1' : Math.round(p)}%`]));
+    }
+    box.append(st, keys);
+  }
+  strip($('barA'), D.atPeak);
+  strip($('barB'), D.allDay);
+
+  // ---- where they live ------------------------------------------------------------------------------------------
+  const BINS = [500, 2000, 5000, 10000, 20000, 40000];
+  const OP = [.06, .16, .3, .46, .64, .82, 1];
+  const shade = w => w <= 0 ? 0 : OP[BINS.findIndex(b => w < b) === -1 ? BINS.length : BINS.findIndex(b => w < b)];
+  const ramp = $('ramp');
+  ['<500', '500', '2k', '5k', '10k', '20k', '40k+'].forEach((t, i) => ramp.append(el('span', {}, [el('i', {style: `background:color-mix(in srgb, var(--accent) ${OP[i] * 100}%, var(--land))`}), t])));
+  const map = $('map');
+  let view = 'city', sel = null;
+  function info(no) {
+    const n = D.names[no];
+    if (!n) { $('info').textContent = 'Tap a district.'; return; }
+    const name = n.n.replace(/^PD (\d+) of (.+)$/, 'Planning district $1, $2');
+    $('info').replaceChildren(el('b', {}, name + (no === D.district ? ' (downtown)' : '')), el('br'),
+      `${fmt(n.w)} downtown workers live here · ${(n.w / D.wtot * 100).toFixed(1)}% of all of them`);
+  }
+  function drawMap() {
+    const V = D.views[view];
+    map.setAttribute('viewBox', `0 0 1000 ${V.h}`);
+    map.replaceChildren(...V.d.map(p => {
+      const w = D.names[p.no].w;
+      const path = el('path', {d: p.d, 'data-no': p.no, class: (p.no === D.district ? 'home' : '') + (p.no === sel ? ' sel' : ''),
+        fill: w > 0 ? `color-mix(in srgb, var(--accent) ${shade(w) * 100}%, var(--land))` : 'var(--land)'});
+      path.append(el('title', {}, D.names[p.no].n + ': ' + fmt(w)));
+      return path;
+    }));
+    const home = map.querySelector('.home'); home && map.append(home);
+    (V.lab || []).forEach(([no, x, y, t]) => map.append(el('text', {x, y}, t)));
+    const s = sel != null && map.querySelector(`[data-no="${sel}"]`); s && map.append(s);
+  }
+  map.addEventListener('click', e => { const p = e.target.closest('path'); if (!p) return; sel = +p.dataset.no; drawMap(); info(sel); });
+  document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    view = b.dataset.v; document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b)); drawMap();
+  }));
+  drawMap(); info(D.district);
+  const max = Math.max(...D.regions.map(r => r.n));
+  $('regions').replaceChildren(...D.regions.map(r => el('li', {}, [el('span', {}, r.name), el('span', {class: 'n'}, `${fmt(r.n)} · ${r.p}%`),
+    el('span', {class: 'track'}, el('i', {style: `width:${r.n / max * 100}%`}))])));
+  $('top').replaceChildren(...D.top.map(([no, n]) => el('li', {}, [el('span', {}, D.names[no].n.replace(/^PD (\d+) of .+$/, 'Toronto, district $1')), el('span', {}, fmt(n))])));
+
+  // ---- videos ---------------------------------------------------------------------------------------------------
+  if (D.videos.length) {
+    $('vids').hidden = false;
+    $('videos').replaceChildren(...D.videos.map(v => el('div', {class: v.tall ? 'v916' : ''},
+      el('iframe', {src: 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.youtube), title: v.title, loading: 'lazy',
+        allow: 'encrypted-media; picture-in-picture; fullscreen', allowfullscreen: ''}))));
+  }
+})();
+</script>
+<script defer src="/stats.js"></script>
+</body>
+</html>
