@@ -90,7 +90,7 @@ the landing page, stop and say so; don't change this repo.
   `docs/toronto/rideshare-day/`; November 10, 2026, public the same day with an Explainers card on the hub; `"unlisted": false` puts it in the sitemap via places.py): pickups by hour and ward for
   four day types (Mon-Thu, Fri, Sat, Sun; a day runs 4 a.m. to 4 a.m.), average waits, drivers logged in city-wide,
   top ward-to-ward flows and monthly totals since 2018. Data: the City's Private Transportation Companies open data,
-  downloaded by hand into `cities/toronto/raw/ptc/` (gitignored, ~18 GB unzipped) and reduced by `cities/toronto/rideshare.py`
+  downloaded by hand into `cities/toronto/raw/ptc/` (gitignored, ~4 GB; now a symlink to the external drive, see "Large raw downloads") and reduced by `cities/toronto/rideshare.py`
   (DuckDB) to the small files in `cities/toronto/rideshare/`, which are committed; the page build reads only those. Refresh:
   download the newer yearly files, edit START/END and SUPPLY_MONTHS in rideshare.py, run it, then `python3 engine/rideshare/build.py toronto`.
   Wording rules (no "surge", no "demand", drivers never placed in a ward, no Uber vs Lyft) are in rideshare.json's _about.
@@ -137,6 +137,14 @@ the landing page, stop and say so; don't change this repo.
     own colours (fill layers, transit lines, their swatches).
   - `cities/<city>/` also holds that city's fetch and build scripts, `raw/` inputs, `run.sh` and
     `SOURCES.md`.
+  - **Large raw downloads** (multi-GB dumps used once for an explainer or Reel, e.g. `raw/ptc/`,
+    `raw/bikeshare_rides/`): the user's Mac has a small internal disk and a slow external drive that is always
+    attached. Work from the internal disk while a dataset is in use (the drive is slow at random reads). Once
+    the build is done and its small outputs are committed, the user moves the folder to the same path under
+    `/Volumes/Seagate/Developer/layers.city/` and leaves a symlink in the repo (copy with `rsync -rt`, verify
+    with a dry run, then delete and `ln -s`). Gitignore such folders without a trailing slash
+    (`cities/*/raw/ptc`, not `.../ptc/`) so the rule also matches the symlink. Run the move in the
+    user's Terminal, not through the device bridge (about 1 MB/s).
 - Rebuild a city with `cities/<city>/run.sh` (needs Python with shapely, and Node; it runs
   `npm install` at the repo root for mapshaper and Leaflet). After a page-only or config-only
   change, `python3 engine/assemble.py <city>` is enough.
