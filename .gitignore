@@ -9,10 +9,10 @@ cities/*/raw/walk_extras.json
 cities/chicago/raw/vote_centers/page*.html
 
 # City of Toronto PTC raw files (large; see claude/rideshare-scouting.md)
-cities/*/raw/ptc/
+cities/*/raw/ptc
 
 # Bike Share Toronto trip files (large; see scouting/cycling-growth/FINDINGS.md)
-cities/*/raw/bikeshare_rides/
+cities/*/raw/bikeshare_rides
 
 # Scouting output: saved web pages and scout run logs. Saved third-party pages carry
 # those sites' own embedded keys (e.g. Google Maps), which GitHub secret scanning flags.
