@@ -184,7 +184,9 @@ the landing page, stop and say so; don't change this repo.
   lists, not exhaustive databases.
 - Address search uses OpenStreetMap Nominatim, whose usage policy forbids
   autocomplete-as-you-type. Live suggestions come only from the local landmark list.
-- Keep `README.md` current when features change. It doubles as the portfolio write-up.
+- Feature detail goes in `FEATURES.md` (per-city sections, How it's built, limitations, data sources): update it when
+  features change. `README.md` is the short portfolio write-up for hiring managers (about 100 lines): touch it only
+  for a new city, a new principle, a new kind of page or a change to the architecture, and keep it short.
 
 ## Project log in Notion
 The user keeps a history and roadmap of this project in a Notion database, "Layers.City Project"
