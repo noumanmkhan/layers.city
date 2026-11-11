@@ -1,0 +1,33 @@
+Wed Nov 11 2026 10:44:04 GMT+0530 (India Standard Time) - Run Time: 4774ms
+
+Cross Tabulation Query Form - Trip - 2022
+
+Row: Primary travel mode of trip - mode_prime
+Column: Planning district of destination - pd_dest
+
+
+Filters:
+Planning district of origin - pd_orig In 1-16
+and
+Planning district of destination - pd_dest In 1-16
+and
+Exclude for comparisons with 2016 or earlier TTS - excl2016 In 0
+
+Trip 2022 
+Table: 
+
+,PD 1 of Toronto,PD 2 of Toronto,PD 3 of Toronto,PD 4 of Toronto,PD 5 of Toronto,PD 6 of Toronto,PD 7 of Toronto,PD 8 of Toronto,PD 9 of Toronto,PD 10 of Toronto,PD 11 of Toronto,PD 12 of Toronto,PD 13 of Toronto,PD 14 of Toronto,PD 15 of Toronto,PD 16 of Toronto
+Transit excluding GO rail,283132,75768,71342,85668,27662,70448,13501,38840,18854,48091,53866,19496,57420,12823,16434,33207
+Cycle,64786,36855,8901,11488,1470,19389,2844,4132,946,2399,2778,402,2508,815,989,2956
+Auto driver,144832,92571,143271,174030,110378,119753,51542,178062,56460,94395,125168,56848,175816,46379,56959,147693
+E-scooter,2287,1722,1058,922,161,816,143,254,308,284,232,74,215,20,247,38
+GO rail only,5350,363,401,0,22,569,987,378,104,78,156,104,592,449,671,538
+Joint GO rail and local transit,2342,131,544,58,0,66,383,231,42,83,38,21,340,180,390,242
+Motorcycle,1062,304,480,311,153,564,417,576,14,65,144,6,232,88,138,55
+Other,541,406,107,97,31,239,0,46,237,83,154,12,187,40,91,105
+Auto passenger,36600,24460,34288,43703,31779,29774,10303,42701,14945,23408,33090,16839,53137,13038,16042,48158
+School bus,626,1278,2448,1796,1893,1273,644,3119,1080,2378,2730,505,3158,429,1267,3620
+Taxi passenger,4162,1601,872,1322,456,1465,262,366,565,893,334,70,460,287,328,449
+Paid rideshare,17250,4957,3970,4415,1075,4161,1407,1171,401,1652,1204,468,1855,346,643,868
+Walk,162829,49251,29084,46361,12431,48143,7061,18050,8432,17637,19234,8971,22149,7344,7669,20295
+
