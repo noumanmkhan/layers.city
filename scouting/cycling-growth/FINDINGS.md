@@ -120,11 +120,11 @@ comparisons:
 - **Expansion.** Keep iDRS's default expanded totals, as in the existing `raw/tts/` files; don't switch to sample
   counts.
 
-Exports: Trip table, one per year (2011, 2016, 2022). Save each as downloaded into `cities/toronto/raw/tts/`, with
+Exports: **Trip** table (not Person), one per year. iDRS lists each variable as "description - name" (e.g. "Primary travel mode of trip - mode_prime"); match on the name after the dash (2011, 2016, 2022). Save each as downloaded into `cities/toronto/raw/tts/`, with
 the year in the file name, as before. "Toronto" means PD 1–16.
 
 1. **City-wide share, same definition as the City's Figure 1.**
-   Row `mode_prime`, Column `trip_purp` (2022) / `purp_dest` (2011, 2016).
+   Row `mode_prime`, Column `pd_dest` (same in all three years; the share needs only the row totals).
    Filters: `pd_orig In 1-16` and `pd_dest In 1-16`; 2022 also `excl2016 In 0`.
    Check: bicycle + micromobility should come to about 3.1% (2016) and 4.4% (2022).
 2. **Trips into downtown (the City's Figure 3).** Row `mode_prime`, Column `pd_orig`.
