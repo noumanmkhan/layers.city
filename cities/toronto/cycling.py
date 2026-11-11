@@ -39,17 +39,17 @@ def resource(package, name):
     return dest
 
 
-# ---- Bike Share: trips per month, and e-bike trips from 2024 (when the files start naming the bike model) ------------
+# ---- Bike Share: trips per month, the busiest day, and e-bike trips from 2024 (when the files start naming the bike model) ------------
 def parse_date(s):
-    """(year, a, b) for a d/m or m/d date, or (year, month, None) for an ISO one."""
+    """(year, a, b, None) for a d/m or m/d date, or (year, month, None, day) for an ISO one."""
     s = s.strip()
-    m = re.match(r'(\d{4})-(\d{2})', s)
+    m = re.match(r'(\d{4})-(\d{2})(?:-(\d{2}))?', s)
     if m:
-        return int(m.group(1)), int(m.group(2)), None
+        return int(m.group(1)), int(m.group(2)), None, int(m.group(3)) if m.group(3) else None
     m = re.match(r'(\d{1,2})/(\d{1,2})/(\d{2,4})', s)
     if m:
         y = m.group(3)
-        return int('20' + y if len(y) == 2 else y), int(m.group(1)), int(m.group(2))
+        return int('20' + y if len(y) == 2 else y), int(m.group(1)), int(m.group(2)), None
     return None
 
 
@@ -59,6 +59,7 @@ def bikeshare():
         print(f'bikeshare: no trip files in {BS_DIR}; keeping cycling/bikeshare.json')
         return
     trips, ebike, other_model, models, unknown = Counter(), Counter(), Counter(), Counter(), 0
+    days = Counter()                                       # trips by the day they began
     for f in files:
         fh = open(f, encoding='latin-1', newline='')      # mixed encodings across years; latin-1 reads every byte
         rd = csv.reader(fh)
@@ -73,7 +74,7 @@ def bikeshare():
             n += 1
             d = parse_date(r[st]) if st < len(r) else None
             if not d and fm:
-                d = (int(fm.group(1)), int(fm.group(2)), None)
+                d = (int(fm.group(1)), int(fm.group(2)), None, None)
             if not d:
                 unknown += 1
                 continue
@@ -84,6 +85,9 @@ def bikeshare():
             mo = d[1] if d[2] is None else (d[2] if day_first else d[1])
             m = f'{d[0]}-{mo:02d}'
             trips[m] += c
+            dy = d[3] if d[2] is None else (d[1] if day_first else d[2])
+            if dy:
+                days[f'{m}-{dy:02d}'] += c
             if mk is not None:
                 models[mk] += c
                 if mk.startswith('EFIT'):
@@ -95,13 +99,21 @@ def bikeshare():
     months = sorted(m for m in trips if m >= '2017-01')
     allm = [f'{y}-{mo:02d}' for y in range(2017, int(months[-1][:4]) + 1) for mo in range(1, 13) if f'{y}-{mo:02d}' <= months[-1]]
     missing = [m for m in allm if trips[m] == 0]
+    days = {k: v for k, v in days.items() if k[:7] in allm}
+    top = max(days, key=days.get)
+    by_year = {}
+    for k, v in days.items():
+        if v > by_year.get(k[:4], ('', 0))[1]:
+            by_year[k[:4]] = (k, v)
     save('bikeshare.json', {
         'months': [[m, trips[m] or None] for m in allm],
         'ebike': {m: ebike[m] for m in allm if ebike[m]},
         'otherModel': {m: other_model[m] for m in allm if other_model[m]},
+        'busiest': {'day': top, 'trips': days[top], 'byYear': {y: list(v) for y, v in sorted(by_year.items())}},
         'models': dict(models), 'missing': missing, 'through': months[-1], 'unparsedDates': unknown,
     })
     print(f'bikeshare: {sum(trips.values()):,} trips, {months[0]} to {months[-1]}, missing months {missing}')
+    print(f'bikeshare: busiest day {top}, {days[top]:,} trips; by year', {y: v for y, v in sorted(by_year.items())})
 
 
 # ---- Cycling network: km by install year, dated snapshots, and the stretch the Province removed -------------------

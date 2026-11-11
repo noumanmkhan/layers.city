@@ -7,7 +7,7 @@ bike-share trips per month, the bike network's km by install year and dated snap
 counts, and counter averages; plus the city's bike network file (drawn as the map) and a boundary file for the land.
 Everything is computed and projected here, so the page needs no chart or map library. The engine names no city;
 the words are in the JSON."""
-import json, math, os, re, sys
+import datetime, json, math, os, re, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.insert(0, os.path.join(ROOT, 'engine'))
@@ -128,11 +128,22 @@ TOKENS = {
 }
 
 
+WEEKDAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+if bs.get('busiest'):                   # written by cycling.py since November 12, 2026
+    _d = datetime.date.fromisoformat(bs['busiest']['day'])
+    TOKENS['bsBusiestDay'] = f'{WEEKDAYS[_d.weekday()]}, {MONTHS[_d.month - 1]} {_d.day}, {_d.year}'
+    TOKENS['bsBusiestN'] = f'{bs["busiest"]["trips"]:,}'
+
+
 def words(s):
     return re.sub(r'\{(\w+)\}', lambda m: TOKENS[m.group(1)], s)
 
 
-page = {k: (words(v) if isinstance(v, str) else [words(x) for x in v] if isinstance(v, list) else v) for k, v in cfg['page'].items()}
+page = {k: (words(v) if isinstance(v, str) else [words(x) for x in v] if isinstance(v, list) else v) for k, v in cfg['page'].items() if k != 'bsRecord'}
+if 'bsBusiestDay' in TOKENS and cfg['page'].get('bsRecord'):
+    _l, _r = page['bsLede'], words(cfg['page']['bsRecord'])
+    _i = _l.find(' Tap or hover')
+    page['bsLede'] = _l[:_i] + ' ' + _r + _l[_i:] if _i >= 0 else _l + ' ' + _r
 
 first_full = min(y for y in year_tot if y >= '2018')
 stats = [
