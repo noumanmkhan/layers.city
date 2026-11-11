@@ -153,6 +153,40 @@ trips by bike, so always show the trip counts beside the share. The City's
 [Figure 6](https://www.toronto.ca/legdocs/mmis/2024/cc/bgrd/backgroundfile-250546.pdf) gives the count
 city-wide: 139,057 daily bicycle and micromobility trips in 2016 and 172,441 in 2022 (people 11+).
 
+### Results (exports received November 11, 2026)
+
+Files in `cities/toronto/raw/tts/`, as downloaded. Export 2 wasn't needed: the PD 1 column of export 1 is trips
+from across Toronto into downtown. Exports 5 (fall only) was run for within-Toronto; export 6 wasn't run.
+
+**Our exports reproduce the City's figures** (bike share of trips, people 11+; 2022 adds e-scooters as the City does):
+
+| | 2011 | 2016 | 2022 |
+|---|---|---|---|
+| Within Toronto, ours | 2.09% | 3.10% | 4.38% (bike alone 4.15%) |
+| Within Toronto, City | 2.1% | 3.1% | 4.4% |
+| From Toronto into downtown, ours | 5.11% | 6.41% | 9.24% (bike alone 8.93%) |
+| From Toronto into downtown, City | 5.1% | 6.4% | 9.3% |
+| Daily bike trips within Toronto, ours | 95,312 | 139,059 | 163,658 + 8,781 e-scooter |
+
+**Fall only (2022)** changes little: within Toronto 4.16% by bike (4.35% with e-scooters); into downtown 8.78%
+(9.03%). The rise since 2016 is not a seasonal effect. The fall-only file's trip totals are only fall's part of the
+weighted year (2.83 M against 3.94 M), so use it for shares, never counts.
+
+**Downtown counts tell a different story from the shares** (all origins, 2022 on the excl2016 definition):
+
+| Trips by bike | 2011 | 2016 | 2022 |
+|---|---|---|---|
+| Into downtown from outside it | 17,210 | 26,197 | 25,780 (+901 e-scooter) |
+| Out of downtown | 17,027 | 25,600 | 25,485 (+917) |
+| Within downtown | 23,145 | 34,895 | 39,385 (+1,505) |
+| All trips into downtown, every mode | 713,611 | 751,917 | 551,176 |
+| Bike share of trips into downtown | 2.4% | 3.5% | 4.7% |
+| Bike share of trips within downtown | 7.6% | 8.2% | 11.6% |
+
+Between 2016 and 2022, bike trips into downtown held level (−2%) while all trips into downtown fell 27% (the
+return-to-office year), so the share rose without more riders. Within downtown, bike trips rose 13%. Say "held
+their ground while other trips fell" for trips into downtown; never "more people cycle downtown" on these figures.
+
 ## 3. Cycling network: km by year, and removals
 
 From our `raw/bikes.geojson` (City snapshot of 2026-09-14, 1,581 segments). Lengths are geodesic centreline km,
@@ -288,7 +322,9 @@ here; take the official 2021 figure from the Census Profile (CSD 3520005) by han
    - Bike/micromobility share of trips within Toronto: 3.1% (2016) → 4.4% (2022).
    - Share of trips from Toronto into downtown: 6.4% (2016) → 9.3% (2022).
    - Daily trips: 139,057 → 172,441.
-   - We can reproduce these with exports 1 and 2.
+   - Our own exports reproduce all three (see section 2, Results).
+   - Bike trips into downtown from outside it: 26,197 (2016) → 25,780 (2022), while all trips into downtown fell 27%.
+     Bike trips within downtown: 34,895 → 39,385.
 5. Census bicycle commuters: 34,355 (2016); the May 2021 count isn't comparable.
 6. Downtown cordon (62 matched sites): 28,392 (2010) → 31,544 bicycles (2022).
 7. Bloor St W, Clissold–Royal York: 1.2 km of protected lanes removed by the Province, October 13–30, 2026. This
