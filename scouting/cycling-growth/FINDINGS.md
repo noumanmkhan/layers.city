@@ -156,7 +156,7 @@ city-wide: 139,057 daily bicycle and micromobility trips in 2016 and 172,441 in 
 ### Results (exports received November 11, 2026)
 
 Files in `cities/toronto/raw/tts/`, as downloaded. Export 2 wasn't needed: the PD 1 column of export 1 is trips
-from across Toronto into downtown. Exports 5 (fall only) was run for within-Toronto; export 6 wasn't run.
+from across Toronto into downtown. Export 5 (fall only) was run for within-Toronto; export 6 wasn't run.
 
 **Our exports reproduce the City's figures** (bike share of trips, people 11+; 2022 adds e-scooters as the City does):
 
