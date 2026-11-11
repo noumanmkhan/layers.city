@@ -117,8 +117,11 @@ def bikeshare():
 
 
 # ---- Cycling network: km by install year, dated snapshots, and the stretch the Province removed -------------------
-from pyproj import Geod   # noqa: E402
-GEOD = Geod(ellps='WGS84')
+try:                       # only the network part needs pyproj, so the Bike Share count runs without it
+    from pyproj import Geod
+    GEOD = Geod(ellps='WGS84')
+except ImportError:
+    GEOD = None
 CLASS = {'Cycle Track': 'prot', 'Bi-Directional Cycle Track': 'prot', 'Cycle Track - Contraflow': 'prot',
          'Bike Lane': 'paint', 'Bike Lane - Buffered': 'paint', 'Bike Lane - Contraflow': 'paint'}
 
