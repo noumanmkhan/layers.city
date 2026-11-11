@@ -362,6 +362,10 @@ for c in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
     if os.path.exists(rp) and not json.load(open(rp)).get('unlisted'):
         rpath = json.load(open(rp))['path']
         if os.path.exists(os.path.join(base, rpath, 'index.html')): urls.append(f'{SITE}/{c}/{rpath}/')
+    yp = os.path.join(ROOT, 'cities', c, 'cycling.json')   # engine/cycling/build.py, once it isn't unlisted
+    if os.path.exists(yp) and not json.load(open(yp)).get('unlisted'):
+        ypath = json.load(open(yp))['path']
+        if os.path.exists(os.path.join(base, ypath, 'index.html')): urls.append(f'{SITE}/{c}/{ypath}/')
     vd = os.path.join(base, 'venues')                   # engine/venues.py: the list, then a page per venue
     if os.path.exists(os.path.join(vd, 'index.html')):
         urls.append(f'{SITE}/{c}/venues/')

@@ -2,6 +2,19 @@
 
 ## Since 1.1
 
+### Cycling since 2016: an explainer page, unlisted (November 11)
+- layers.city/toronto/cycling-since-2016/ (noindex, not in the sitemap or on the hub until reviewed): "Toronto's bike
+  boom, counted", a follow-up to comments on the downtown-weekday Reel. Bike Share trips by month, January 2017 to
+  September 2026 (our yearly totals match the City's; November 2022 isn't published), with e-bikes from 2024; the bike
+  network by install year on a map with a year slider, a km-per-year chart and dated totals (2019, 2023, 2026), plus the
+  1.2 km of Bloor St W the Province removed in October 2026 drawn dashed; TTS 2011, 2016 and 2022 shares on the same
+  definition (people 11+, `excl2016`), which match the City's published figures, and downtown bike trip counts; the
+  permanent counters (April–September averages, 2026 kept apart after the City's recalibration) and the cordon counts.
+- `cities/toronto/cycling.py` (Bike Share files in `raw/bikeshare_rides/`, gitignored; the rest fetched or in `raw/`)
+  writes `cities/toronto/cycling/*.json`; `engine/cycling/build.py` and `page.html` build the page; words and wording
+  rules in `cities/toronto/cycling.json`. Attributions add the ridership data, the City's cycling counts and the 2011
+  and 2016 TTS.
+
 ### Hub: a Transit history label, Compare shown once per screen size (November 7)
 - The two history cards sit under a small "Transit history" label (mono, accent red, like the hero kicker) with a line
   after it. The tiles below drop the Compare card on wider screens, where the nav link and the hero button already lead

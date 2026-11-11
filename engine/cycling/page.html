@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{{description}}">
+{{robots}}
+<link rel="canonical" href="{{canonical}}">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{canonical}}">
+<title>{{short}} · {{city}} · Layers.City</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+{{themeScript}}
+<style>
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2')}
+:root{
+  --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --muted:#5E5452; --rule:#E4DCDA; --accent:#C8102E;
+  --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --pill-line:#D8CFCD; --sub:#5C5251; --grid:rgba(26,20,20,.07);
+  --water:#E3EBEF; --land:#FBFAF9; --edge:#DCD3D0;
+  --bike:#7CC012; --bike-2:#3F6E0F; --bike-trail:#9A6A2E; --ebike:#16807F;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+a{color:var(--accent)}
+button{font:inherit;color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 40px}
+h1{margin:4px 0 8px;font-family:var(--display);font-weight:800;font-size:44px;line-height:1.02;letter-spacing:-.02em;max-width:820px}
+h2{margin:0 0 8px;font-family:var(--display);font-weight:800;font-size:26px;line-height:1.1;letter-spacing:-.01em}
+h2.h2b{margin-top:26px;font-size:22px}
+h3{margin:0 0 8px;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.kicker{font-size:12px;font-weight:500;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+.kicker a{text-decoration:none}
+.lede{max-width:700px;color:var(--muted);margin:0 0 4px;font-size:16px}
+.rule{height:3px;width:64px;background:var(--accent);margin:14px 0}
+.card{background:var(--card);border:1px solid var(--rule);border-radius:14px}
+section.card{padding:22px;margin-top:18px}
+.sublede{color:var(--muted);max-width:720px;margin:0 0 14px}
+.small{font-size:12.5px;color:var(--muted);margin:12px 0 0;max-width:760px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:18px}
+.stat{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.stat .k{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.stat b{font:800 30px/1.05 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span:last-child{font-size:13.5px;color:var(--muted)}
+
+.readout{display:flex;flex-wrap:wrap;gap:6px 28px;margin:4px 0 6px}
+.readout div{display:flex;flex-direction:column}
+.readout .lbl{font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.readout b{font:800 30px/1.1 var(--display);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.readout b.acc{color:var(--accent)}
+.readout b.prot{color:var(--bike-2)}
+.chart{position:relative}
+.chart svg{display:block;width:100%;height:auto;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.gl{stroke:var(--grid);stroke-width:1}
+.ax{font:500 12px var(--mono);fill:var(--muted)}
+#bschart{cursor:crosshair}
+#bschart .bar{fill:var(--accent);fill-opacity:.85}
+#bschart .ebar{fill:var(--ebike)}
+#bschart .gapbar{fill:url(#none);fill:var(--grid);stroke:var(--muted);stroke-dasharray:2 3;stroke-width:1}
+#bschart .cur{fill:none;stroke:var(--ink);stroke-width:1.5;pointer-events:none}
+.years{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:6px 14px;margin-top:10px}
+.years div{display:flex;flex-direction:column;border-top:1px solid var(--rule);padding-top:4px}
+.years span{font:500 11px var(--mono);color:var(--muted)}
+.years b{font:500 15px var(--mono);font-variant-numeric:tabular-nums}
+.keys{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:10px;font-size:13.5px;color:var(--muted)}
+.keys.col{flex-direction:column;gap:6px}
+.keys span{display:inline-flex;align-items:center;gap:7px}
+.keys .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.keys .sw.gap{border:1px dashed var(--muted);background:var(--grid)}
+.keys .ln{display:inline-block;width:22px;height:0;border-top:4px solid}
+.keys .ln.thin{border-top-width:2.5px}
+.keys .ln.dash{border-top-style:dashed}
+
+.netwrap{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:20px;align-items:start;margin-top:6px}
+.mapbox{background:var(--water);border-radius:12px;overflow:hidden}
+.mapbox svg{display:block;width:100%;height:auto}
+.land{fill:var(--land);stroke:var(--edge);stroke-width:1}
+.bk{fill:none;stroke-linecap:round;stroke-linejoin:round;transition:opacity .35s}
+.bk.prot{stroke:var(--bike);stroke-width:3.4}
+.bk.paint{stroke:var(--bike-2);stroke-width:2}
+.bk.shared{stroke:var(--bike-2);stroke-width:1.4;stroke-dasharray:3 3;opacity:.7}
+.bk.trail{stroke:var(--bike-trail);stroke-width:1.6;opacity:.75}
+.bk.off{opacity:0}
+.rem{fill:none;stroke:var(--accent);stroke-width:5;stroke-dasharray:6 5;stroke-linecap:butt;opacity:0;transition:opacity .35s}
+.rem.show{opacity:1}
+#kmchart .kp{fill:var(--bike)}
+#kmchart .kq{fill:var(--bike-2)}
+.ctl{display:flex;align-items:center;gap:12px;margin-top:12px}
+.ctl .play{flex:none;height:42px;min-width:92px;padding:0 14px;border-radius:999px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-weight:500;font-size:14px;cursor:pointer}
+.ctl input{flex:1;min-width:0;accent-color:var(--accent);height:40px;cursor:pointer}
+.removed{margin-top:12px;padding:12px 14px;border-left:3px solid var(--rule);background:var(--bg);border-radius:0 10px 10px 0;font-size:14px;max-width:820px;transition:border-color .3s}
+.removed.lit{border-left-color:var(--accent)}
+.removed .small-inline{color:var(--muted);font-size:12.5px}
+
+.shares{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.shares>.keys{grid-column:1/-1;margin-top:0}
+.srow{display:grid;grid-template-columns:40px minmax(0,1fr) 52px;gap:8px;align-items:center;margin-bottom:6px}
+.sy,.sv{font:500 13px var(--mono);font-variant-numeric:tabular-nums}
+.sv{text-align:right}
+.strack{display:flex;height:16px;background:var(--bg);border-radius:4px;overflow:hidden}
+.strack .sb{background:var(--accent)}
+.strack .se{background:var(--ebike)}
+.tablewrap{overflow-x:auto}
+table.nums{border-collapse:collapse;font-size:14px;min-width:100%}
+table.nums th,table.nums td{padding:7px 10px;border-bottom:1px solid var(--rule);text-align:right;white-space:nowrap}
+table.nums th:first-child{text-align:left;white-space:normal}
+table.nums thead th{font:500 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+table.nums tbody th{font-weight:400}
+table.nums td{font:500 14px var(--mono);font-variant-numeric:tabular-nums}
+table.nums td.apart{color:var(--muted);font-style:italic}
+table.nums caption{caption-side:bottom;text-align:left;font-size:12.5px;color:var(--muted);padding-top:8px}
+#hchart{margin-top:14px}
+
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.videos iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;background:#000}
+.videos .v916 iframe{aspect-ratio:9/16;max-height:640px}
+.method p{max-width:760px;margin:0 0 10px;color:var(--muted)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;font-size:12px;color:var(--muted);margin-top:30px;border-top:1px solid var(--rule);padding-top:14px}
+
+@media (max-width:860px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.netwrap{grid-template-columns:minmax(0,1fr)}.shares{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:520px){
+  .wrap{padding:0 12px 32px}
+  h1{font-size:32px}
+  h2{font-size:22px}
+  section.card{padding:16px}
+  .stat b,.readout b{font-size:24px}
+  .ax{font-size:15px}
+  table.nums th,table.nums td{padding:6px 6px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){.ctl .play{display:none}.bk,.rem{transition:none}}
+/* Site header: the same as the maps hub (docs/index.html). */
+.site{max-width:1120px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.site a{color:inherit;text-decoration:none}
+.site .mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.08em}
+.site .brand{display:flex;align-items:center;gap:9px;font-size:24px;letter-spacing:-.01em}
+.site .brand b{font-weight:500;color:var(--accent)}
+.site .sub{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;font-size:13px;letter-spacing:.08em;color:var(--sub)}
+.site .sub:hover{color:var(--ink)}
+.site .sep{width:1.5px;height:16px;background:var(--pill-line)}
+.site .links{display:flex;flex-wrap:wrap;gap:10px}
+.site .pill{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--pill-line);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.site .pill .short{display:none}
+.site .pill.instagram{background:linear-gradient(45deg,#F58529 0%,#DD2A7B 45%,#8134AF 75%,#515BD4 100%);border-color:transparent;color:#fff}
+.site .pill:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(26,20,20,.10);border-color:var(--ink)}
+.site .pill.instagram:hover{border-color:transparent}
+.site .pill:focus-visible,.site .mark a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.site .pill{transition:none}.site .pill:hover{transform:none}}
+@media (max-width:520px){.site{padding:20px 16px}.site .links{flex-wrap:nowrap;gap:8px}.site .pill{gap:6px;min-height:40px;padding:0 13px;font-size:14px}.site .pill svg{width:16px;height:16px}.site .pill .full{display:none}.site .pill .short{display:inline}}
+{{themeCss}}
+</style>
+</head>
+<body>
+<header class="site">
+    <div class="mark">
+      <a class="brand" href="/"><svg width="22" height="28" viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#fff"/></svg><span>Layers<b>.City</b></span></a>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="sub" href="https://noumankhan.ca">BY NOUMAN KHAN</a>
+    </div>
+    <nav class="links" aria-label="Elsewhere">
+      <a class="pill" href="mailto:go@layers.city" aria-label="Email go@layers.city">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        <span class="full">go@layers.city</span><span class="short">Email</span>
+      </a>
+      <a class="pill instagram" href="https://www.instagram.com/layers.city" rel="me" aria-label="layers.city on Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+        layers.city
+      </a>
+    </nav>
+  </header>
+<main class="wrap">
+  <div class="kicker"><a href="../">{{city}}</a> · {{short}}</div>
+  <h1>{{title}}</h1>
+  <div class="rule"></div>
+  <p class="lede">{{lede}}</p>
+  <div class="stats">{{stats}}</div>
+
+  <section class="card" aria-labelledby="bs-h">
+    <h2 id="bs-h">{{bsTitle}}</h2>
+    <p class="sublede">{{bsLede}}</p>
+    <div class="readout">
+      <div><span class="lbl">Month</span><b id="bsm"></b></div>
+      <div><span class="lbl">Trips</span><b id="bsn" class="acc"></b></div>
+      <div><span class="lbl">On e-bikes</span><b id="bse"></b></div>
+    </div>
+    <div class="chart"><svg id="bschart" viewBox="0 0 1000 300" role="img" aria-label="Bar chart of Bike Share trips by month since January 2017, with e-bike trips from 2024"></svg></div>
+    <div class="years" id="bsyears"></div>
+    <div class="keys"><span><i class="sw" style="background:var(--accent)"></i>Classic bikes</span><span><i class="sw" style="background:var(--ebike)"></i>E-bikes (named from 2024)</span><span><i class="sw gap"></i>No data</span></div>
+    <p class="small">{{bsNote}}</p>
+  </section>
+
+  <section class="card" aria-labelledby="net-h">
+    <h2 id="net-h">{{netTitle}}</h2>
+    <p class="sublede">{{netLede}}</p>
+    <div class="readout">
+      <div><span class="lbl">Up to</span><b id="ny"></b></div>
+      <div><span class="lbl">Protected</span><b id="np" class="prot"></b></div>
+      <div><span class="lbl">Painted</span><b id="npa"></b></div>
+      <div><span class="lbl">All types</span><b id="nall"></b></div>
+    </div>
+    <div class="netwrap">
+      <div>
+        <div class="mapbox"><svg id="map" role="img" aria-label="Map of Toronto's bikeways, added in the year each was first installed"></svg></div>
+        <div class="ctl">
+          <button type="button" class="play" id="play">▶ Play</button>
+          <input type="range" id="yr" min="0" max="1" step="1" aria-label="Year">
+        </div>
+      </div>
+      <div class="side">
+        <h3>Km added each year</h3>
+        <div class="chart"><svg id="kmchart" viewBox="0 0 400 300" role="img" aria-label="Bar chart of protected and painted bike lane km by the year first installed"></svg></div>
+        <div class="keys col">
+          <span><i class="ln" style="border-color:var(--bike)"></i>Protected (cycle tracks)</span>
+          <span><i class="ln thin" style="border-color:var(--bike-2)"></i>Painted bike lanes</span>
+          <span><i class="ln thin dash" style="border-color:var(--bike-2)"></i>Shared roads and signed routes</span>
+          <span><i class="ln thin" style="border-color:var(--bike-trail)"></i>Trails</span>
+          <span><i class="ln dash" style="border-color:var(--accent)"></i>Removed by the Province, 2026</span>
+        </div>
+      </div>
+    </div>
+    <div class="removed" id="removed"><b>Bloor St W, 2026.</b> {{removedText}} <span class="small-inline">{{removedNote}}</span></div>
+    <p class="small">{{netNote}}</p>
+  </section>
+
+  <section class="card" aria-labelledby="tts-h">
+    <h2 id="tts-h">{{ttsTitle}}</h2>
+    <p class="sublede">{{ttsLede}}</p>
+    <div class="shares" id="shares"></div>
+    <h2 class="h2b">{{countsTitle}}</h2>
+    <p class="sublede">{{countsLede}}</p>
+    <div class="tablewrap"><table class="nums" id="dtcounts"></table></div>
+    <div class="chart"><svg id="hchart" viewBox="0 0 1000 280" role="img" aria-label="Line chart of bike trips into downtown by hour, 2011, 2016 and 2022"></svg></div>
+    <div class="keys" id="hkeys"></div>
+    <p class="small">{{hourNote}} {{ttsNote}}</p>
+  </section>
+
+  <section class="card" aria-labelledby="ln-h">
+    <h2 id="ln-h">{{lanesTitle}}</h2>
+    <p class="sublede">{{lanesLede}}</p>
+    <div class="tablewrap"><table class="nums" id="counters"></table></div>
+    <p class="sublede" style="margin-top:16px">{{cordonText}}</p>
+    <p class="small">{{lanesNote}}</p>
+  </section>
+
+  <section class="card" id="vids" aria-labelledby="vid-h" hidden>
+    <h2 id="vid-h">{{videosTitle}}</h2>
+    <div class="videos" id="videos"></div>
+  </section>
+
+  <section class="card method" aria-labelledby="m-h">
+    <h2 id="m-h">{{methodTitle}}</h2>
+    {{method}}
+  </section>
+  <footer class="foot"><span>{{credits}}</span></footer>
+</main>
+<script>
+(() => {
+  const D = {{DATA}};
+  const $ = id => document.getElementById(id);
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (tag, attrs = {}, kids) => {
+    const n = ['svg', 'path', 'g', 'circle', 'text', 'line', 'rect', 'title'].includes(tag) ? document.createElementNS(NS, tag) : document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) if (v != null) n.setAttribute(k, v);
+    if (kids != null) (Array.isArray(kids) ? kids : [kids]).forEach(c => c != null && n.append(c));
+    return n;
+  };
+  const fmt = n => Math.round(n).toLocaleString('en-CA');
+  const kk = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace('.0', '') + 'M' : n >= 1000 ? Math.round(n / 1000) + 'k' : String(n);
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const MONL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const narrowOf = svg => svg.parentNode.clientWidth < 600;
+
+  // ---- Bike Share by month -------------------------------------------------------------------------------------
+  const bsv = $('bschart'), M = D.months;
+  let bsSel = M.length - 1;
+  function bsShow(k) {
+    bsSel = k;
+    const [m, n] = M[k], e = D.ebike[m] || 0;
+    $('bsm').textContent = MONL[+m.slice(5) - 1] + ' ' + m.slice(0, 4);
+    $('bsn').textContent = n == null ? 'not published' : fmt(n);
+    $('bse').textContent = n == null ? '–' : m >= '2024' ? fmt(e) + ' (' + Math.round(e / n * 100) + '%)' : 'not named';
+    bsv.querySelectorAll('.cur').forEach(r => r.remove());
+    const b = bsv.querySelector(`[data-k="${k}"]`);
+    if (b) bsv.append(el('rect', {class: 'cur', x: b.getAttribute('x') - 1, y: 4, width: +b.getAttribute('width') + 2, height: b.dataset.base - 4}));
+  }
+  function bsDraw() {
+    const narrow = narrowOf(bsv), w = narrow ? 560 : 1000, h = narrow ? 320 : 280, l = narrow ? 44 : 50, r = 6, t = 10, b = 26;
+    bsv.setAttribute('viewBox', `0 0 ${w} ${h}`); bsv.replaceChildren();
+    const mx = Math.ceil(Math.max(...M.map(x => x[1] || 0)) / 250000) * 250000;
+    const bw = (w - l - r) / M.length, y = v => t + (h - t - b) * (1 - v / mx);
+    for (let v = 0; v <= mx; v += 250000) {
+      bsv.append(el('line', {class: 'gl', x1: l, x2: w - r, y1: y(v), y2: y(v)}));
+      bsv.append(el('text', {class: 'ax', x: l - 6, y: y(v) + 4, 'text-anchor': 'end'}, v ? kk(v) : '0'));
+    }
+    M.forEach(([m, n], k) => {
+      const x = l + k * bw, g = el('g');
+      if (n == null) g.append(el('rect', {class: 'gapbar', x: x + .5, width: Math.max(1, bw - 1), y: t, height: y(0) - t, 'data-k': k, 'data-base': y(0)}));
+      else {
+        const e = D.ebike[m] || 0;
+        g.append(el('rect', {class: 'bar', x: x + .5, width: Math.max(1, bw - 1), y: y(n), height: y(0) - y(n), 'data-k': k, 'data-base': y(0)}));
+        if (e) g.append(el('rect', {class: 'ebar', x: x + .5, width: Math.max(1, bw - 1), y: y(e), height: y(0) - y(e)}));
+      }
+      bsv.append(g);
+      if (m.endsWith('-01')) bsv.append(el('text', {class: 'ax', x: x, y: h - 7}, narrow ? "'" + m.slice(2, 4) : m.slice(0, 4)));
+    });
+    bsShow(bsSel);
+  }
+  const bsPick = e => {
+    const rc = bsv.getBoundingClientRect(), vb = bsv.viewBox.baseVal, x = (e.clientX - rc.left) / rc.width * vb.width;
+    const l = vb.width < 600 ? 44 : 50, bw = (vb.width - l - 6) / M.length;
+    bsShow(Math.max(0, Math.min(M.length - 1, Math.floor((x - l) / bw))));
+  };
+  bsv.addEventListener('pointermove', bsPick); bsv.addEventListener('pointerdown', bsPick);
+  const yt = {};
+  M.forEach(([m, n]) => { yt[m.slice(0, 4)] = (yt[m.slice(0, 4)] || 0) + (n || 0); });
+  const lastM = M[M.length - 1][0];
+  $('bsyears').replaceChildren(...Object.entries(yt).map(([y, n]) => {
+    const part = y === lastM.slice(0, 4) && !lastM.endsWith('-12') ? 'Jan–' + MON[+lastM.slice(5) - 1] : D.missing.some(m => m.startsWith(y)) ? 'no Nov' : '';
+    return el('div', {}, [el('span', {}, y + (part ? ' · ' + part : '')), el('b', {}, (n / 1e6).toFixed(2) + 'M')]);
+  }));
+
+  // ---- the network map -----------------------------------------------------------------------------------------
+  const map = $('map'), Y = D.net.years, STEPS = [...Y, 'removed'];
+  map.setAttribute('viewBox', `0 0 1000 ${D.map.h}`);
+  map.append(el('path', {class: 'land', d: D.map.land}));
+  const order = {trail: 0, shared: 1, paint: 2, prot: 3};
+  const segEls = [...D.map.segs].sort((a, b) => order[a.c] - order[b.c]).map(s => { const p = el('path', {class: 'bk ' + s.c, d: s.d}); p.dataset.y = s.y; map.append(p); return p; });
+  const rem = D.map.removed.map(r => { const p = el('path', {class: 'rem', d: r.d}); p.append(el('title', {}, r.label)); map.append(p); return p; });
+  const cum = {};
+  let run = {prot: 0, paint: 0, shared: 0, trail: 0};
+  for (const y of Y) { for (const [c, v] of Object.entries(D.net.byYear[y])) run[c] += v; cum[y] = {...run}; }
+  const kmv = $('kmchart');
+  function kmDraw(sel) {
+    const w = 400, h = 300, l = 34, r = 4, t = 8, b = 24, yrs = Y.filter(y => y >= 2005);
+    const mx = Math.ceil(Math.max(...yrs.map(y => (D.net.byYear[y].prot || 0) + (D.net.byYear[y].paint || 0))) / 10) * 10;
+    const bw = (w - l - r) / yrs.length, yy = v => t + (h - t - b) * (1 - v / mx);
+    kmv.replaceChildren();
+    for (let v = 0; v <= mx; v += 10) { kmv.append(el('line', {class: 'gl', x1: l, x2: w - r, y1: yy(v), y2: yy(v)})); kmv.append(el('text', {class: 'ax', x: l - 5, y: yy(v) + 4, 'text-anchor': 'end'}, String(v))); }
+    yrs.forEach((y, k) => {
+      const p = D.net.byYear[y].prot || 0, q = D.net.byYear[y].paint || 0, x = l + k * bw + 1, on = sel === 'removed' || y <= sel;
+      const g = el('g', {opacity: on ? 1 : .25});
+      g.append(el('rect', {class: 'kp', x, width: bw - 2, y: yy(p), height: yy(0) - yy(p)}));
+      g.append(el('rect', {class: 'kq', x, width: bw - 2, y: yy(p + q), height: yy(p) - yy(p + q)}));
+      g.append(el('title', {}, `${y}: ${p.toFixed(1)} km protected, ${q.toFixed(1)} km painted`));
+      kmv.append(g);
+      if (y % 5 === 0) kmv.append(el('text', {class: 'ax', x: k === yrs.length - 1 ? w - r : x + bw / 2, y: h - 6, 'text-anchor': k === yrs.length - 1 ? 'end' : 'middle'}, String(y)));
+    });
+  }
+  let step = STEPS.length - 1;
+  function netShow(k) {
+    step = k; const s = STEPS[k], y = s === 'removed' ? Y[Y.length - 1] : s;
+    segEls.forEach(p => p.classList.toggle('off', +p.dataset.y > y));
+    rem.forEach(p => p.classList.toggle('show', s === 'removed'));
+    const c = cum[y];
+    $('ny').textContent = s === 'removed' ? 'Oct 2026' : y === 2001 ? '2001 and before' : String(y);
+    $('np').textContent = c.prot.toFixed(0) + ' km'; $('npa').textContent = c.paint.toFixed(0) + ' km';
+    $('nall').textContent = (c.prot + c.paint + c.shared + c.trail).toFixed(0) + ' km';
+    $('removed').classList.toggle('lit', s === 'removed');
+    $('yr').value = k; kmDraw(s);
+  }
+  $('yr').max = STEPS.length - 1;
+  $('yr').addEventListener('input', e => { stop(); netShow(+e.target.value); });
+  let playing = false, timer = null;
+  function stop() { playing = false; clearTimeout(timer); $('play').textContent = '▶ Play'; }
+  function tick() { if (!playing) return; if (step >= STEPS.length - 1) return stop(); netShow(step + 1); timer = setTimeout(tick, step === STEPS.length - 2 ? 1400 : 650); }
+  $('play').addEventListener('click', () => { if (playing) return stop(); if (step >= STEPS.length - 1) netShow(0); playing = true; $('play').textContent = '❚❚ Pause'; timer = setTimeout(tick, 500); });
+
+  // ---- the survey ------------------------------------------------------------------------------------------------
+  const TY = ['2011', '2016', '2022'], pc = x => (x * 100).toFixed(1) + '%';
+  const groups = [['city', 'Trips within Toronto'], ['toDt', 'Trips from across Toronto into downtown'], ['inDt', 'Trips within downtown']];
+  const smax = Math.max(...groups.flatMap(([k]) => TY.map(y => D.tts[y][k][1])));
+  $('shares').replaceChildren(...groups.map(([k, label]) => el('div', {class: 'sg'}, [el('h3', {}, label), ...TY.map(y => {
+    const [b, be] = D.tts[y][k];
+    return el('div', {class: 'srow'}, [el('span', {class: 'sy'}, y), el('span', {class: 'strack'}, [el('i', {class: 'sb', style: `width:${b / smax * 100}%`}), be > b ? el('i', {class: 'se', style: `width:${(be - b) / smax * 100}%`}) : null]),
+      el('span', {class: 'sv'}, pc(be))]);
+  })])));
+  $('shares').append(el('div', {class: 'keys'}, [el('span', {}, [el('i', {class: 'sw', style: 'background:var(--accent)'}), 'Bike']), el('span', {}, [el('i', {class: 'sw', style: 'background:var(--ebike)'}), 'E-scooter (asked from 2022)'])]));
+  const row = (cells, th) => el('tr', {}, cells.map((c, i) => el(i === 0 || th ? 'th' : 'td', i === 0 && !th ? {scope: 'row'} : {}, c)));
+  $('dtcounts').replaceChildren(
+    el('thead', {}, row(['Weekday trips', ...TY], true)),
+    el('tbody', {}, [
+      row(['By bike into downtown, from outside it', ...TY.map(y => fmt(D.tts[y].bikeInto) + (D.tts[y].eInto ? ' + ' + fmt(D.tts[y].eInto) + ' e-scooter' : ''))]),
+      row(['By bike within downtown', ...TY.map(y => fmt(D.tts[y].bikeWithin) + (D.tts[y].eWithin ? ' + ' + fmt(D.tts[y].eWithin) + ' e-scooter' : ''))]),
+      row(['Into downtown, every mode', ...TY.map(y => fmt(D.tts[y].allInto))]),
+    ]));
+  const hv = $('hchart'), HC = {'2011': 'var(--muted)', '2016': 'var(--bike-2)', '2022': 'var(--accent)'};
+  function hDraw() {
+    const narrow = narrowOf(hv), w = narrow ? 560 : 1000, h = narrow ? 300 : 260, l = narrow ? 44 : 50, r = 10, t = 10, b = 26;
+    hv.setAttribute('viewBox', `0 0 ${w} ${h}`); hv.replaceChildren();
+    const mx = Math.ceil(Math.max(...TY.flatMap(y => D.tts[y].hour)) / 1000) * 1000;
+    const x = k => l + (w - l - r) * k / 23, y = v => t + (h - t - b) * (1 - v / mx);
+    for (let v = 0; v <= mx; v += 1000) { hv.append(el('line', {class: 'gl', x1: l, x2: w - r, y1: y(v), y2: y(v)})); hv.append(el('text', {class: 'ax', x: l - 6, y: y(v) + 4, 'text-anchor': 'end'}, v ? kk(v) : '0')); }
+    for (let k = 0; k < 24; k += narrow ? 6 : 3) { const hh = (k + 4) % 24; hv.append(el('text', {class: 'ax', x: x(k), y: h - 7, 'text-anchor': k ? 'middle' : 'start'}, (hh % 12 || 12) + (hh < 12 ? 'a' : 'p'))); }
+    for (const yr of TY) hv.append(el('path', {d: 'M' + D.tts[yr].hour.map((v, k) => x(k).toFixed(1) + ' ' + y(v).toFixed(1)).join('L'), fill: 'none', stroke: HC[yr], 'stroke-width': yr === '2022' ? 3 : 2, 'stroke-linejoin': 'round'}));
+  }
+  $('hkeys').replaceChildren(...TY.map(y => el('span', {}, [el('i', {class: 'ln', style: `border-color:${HC[y]}`}), y])));
+
+  // ---- counters ----------------------------------------------------------------------------------------------------
+  const CY = [...new Set(D.counters.flatMap(c => Object.keys(c.aprSep)))].sort();
+  $('counters').replaceChildren(
+    el('thead', {}, row(['Riders a day, April–September', ...CY.map(y => y === '2026' ? '2026*' : y)], true)),
+    el('tbody', {}, D.counters.map(c => { const tr = row([c.name, ...CY.map(y => c.aprSep[y] ? fmt(c.aprSep[y].avg) : '–')]); tr.lastChild.classList.toggle('apart', CY[CY.length - 1] === '2026'); return tr; })));
+  if (CY.includes('2026')) $('counters').append(el('caption', {}, '* After the City’s June–July 2026 recalibration; not yet comparable with earlier years.'));
+
+  // ---- videos ------------------------------------------------------------------------------------------------------
+  if (D.videos.length) {
+    $('vids').hidden = false;
+    $('videos').replaceChildren(...D.videos.map(v => el('div', {class: v.tall ? 'v916' : ''},
+      el('iframe', {src: 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(v.youtube), title: v.title, loading: 'lazy',
+        allow: 'encrypted-media; picture-in-picture; fullscreen', allowfullscreen: ''}))));
+  }
+
+  bsDraw(); netShow(step); hDraw();
+  let wide = narrowOf(bsv);
+  addEventListener('resize', () => { const n = narrowOf(bsv); if (n !== wide) { wide = n; bsDraw(); hDraw(); } });
+})();
+</script>
+<script defer src="/stats.js"></script>
+</body>
+</html>

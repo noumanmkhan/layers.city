@@ -1,0 +1,90 @@
+{
+ "_about": "Cycling explainer page (engine/cycling/build.py), at docs/toronto/<path>/. Built from the small JSON files cities/toronto/cycling.py writes to cities/toronto/cycling/ (Bike Share trip files in raw/bikeshare_rides/, gitignored; the Cycling Network; the City's retired bikeways snapshots, permanent counters and cordon counts; the TTS exports in raw/tts/), plus raw/bikes.geojson for the map. 'reduce' configures cycling.py; 'published' holds figures quoted from City reports, each with its source. Words in 'page' can use {tokens} that build.py fills from the numbers (see TOKENS in build.py). Wording rules (scouting/cycling-growth/FINDINGS.md): always name the measure ('Bike Share trips', 'trips by bike in the survey', 'km of bikeways', 'riders counted in the lane'), never 'cyclists in Toronto' or bare 'ridership'; Bike Share is one system, not all cycling; no claim that lanes caused riding or that removal caused anything; removals are 'removed by the Province of Ontario' with date and length, no adjectives, no politicians; TTS figures are shares of weekday trips by people 11 and up, with the year; trips into downtown 'held level' while other trips fell, never 'more people cycle downtown'; 2026 counter figures only with the recalibration note; quote the City's network km for totals.",
+ "path": "cycling-since-2016",
+ "unlisted": true,
+ "dataDir": "cycling",
+ "network": "cities/toronto/raw/bikes.geojson",
+ "base": "docs/toronto/data/wards.geojson",
+ "reduce": {
+  "counters": [
+   "Bloor St W, east of Palmerston Blvd",
+   "Yonge St, north of Bloor St",
+   "Sherbourne St, north of Gerrard St",
+   "Yonge St, north of St Clair Ave"
+  ],
+  "removed": [
+   {
+    "id": "bloor-west-2026",
+    "label": "Bloor St W, Clissold Rd to Royal York Rd",
+    "street": "Bloor St W",
+    "from": "Clissold Rd",
+    "to": "Royal York Rd",
+    "anchor": [
+     -79.5113,
+     43.6483
+    ],
+    "direction": "west",
+    "km": 1.2,
+    "start": "2026-10-14",
+    "done": "2026-10-30",
+    "_source": "Ontario Ministry of Transportation, notice of construction and news release of October 30, 2026, as reported by CBC News (October 8) and CP24 (October 30). The line starts at Royal York Rd and runs the stated 1.2 km west along the City's Bloor St W bikeway; the City's file doesn't mark Clissold Rd."
+   }
+  ]
+ },
+ "published": {
+  "bikeShareRides": {
+   "2020": 2.9,
+   "2021": 3.4,
+   "2022": 4.5,
+   "2023": 5.7,
+   "2024": 6.9,
+   "2025": 7.8
+  },
+  "networkKm": 745.3,
+  "cycleTrackKm": 110.1,
+  "bikeLaneKm": 143.8,
+  "installedKm": {
+   "2022": 17.8,
+   "2023": 19.6,
+   "2024": 26.7,
+   "2025": 14.1
+  },
+  "_source": "City of Toronto, Toronto Cycling Year in Review 2025 (March 2026): https://www.toronto.ca/wp-content/uploads/2026/03/8fa8-2025-Toronto-Cycling-Year-in-Review-FINAL.pdf"
+ },
+ "videos": [],
+ "page": {
+  "city": "Toronto",
+  "short": "Cycling since 2016",
+  "title": "Toronto's bike boom, counted",
+  "description": "How cycling in Toronto has changed since 2016, from four sources that each count something different: Bike Share trips, the City's bike lane network, the Transportation Tomorrow Survey and the City's bike counters.",
+  "lede": "Bike Share riders took {rides2025} trips in 2025, four times as many as in 2018, and {ytdPct} more in the first nine months of 2026 than in the same months of 2025. That's one rental system. Here's what each of Toronto's cycling numbers counts, and what it leaves out.",
+  "bsTitle": "Bike Share, month by month",
+  "bsLede": "{rides2025} trips in 2025, {ebike2025} of them on e-bikes. From January to September 2026, riders took {ytd} trips, {ytdPct} more than in the same months of 2025. Tap or hover over a month.",
+  "bsNote": "Every trip in the Toronto Parking Authority's open data, counted by the month it began. November 2022 is missing from the published files. E-bikes are counted from 2024, when the files start naming the bike model. Bike Share is one rental system: these are its trips, not all cycling in Toronto.",
+  "netTitle": "The bike network, year by year",
+  "netLede": "The City's map of bikeways had about {prot2019} km of protected bike lanes in August 2019, {prot2023} km in January 2023 and {protNow} km in September 2026. Move the slider to add today's bikeways in the year each was first installed.",
+  "netNote": "Lengths are centreline km: a street with a lane on each side counts once. The City gives {networkKm} km for its whole network at the end of 2025; the map also shows signed routes, park roads and trail entrances, which that total leaves out. A segment's year is when it first got any bikeway, so a painted lane later rebuilt as a cycle track keeps its first year. Segments with no recorded year are shown from 2001, when the City's records begin.",
+  "removedText": "In October 2026 the Province of Ontario removed the protected bike lanes on {removedKm} km of Bloor St W between Clissold Rd and Royal York Rd (work from October 14 to 30), under the Highway Traffic Act as amended in 2024. The City's file, last updated September 14, still lists them, so the map shows the stretch dashed. The Province has said more removals will follow next construction season.",
+  "removedNote": "The dashed line starts at Royal York Rd and runs the 1.2 km the Province gave, so its western end is approximate.",
+  "ttsTitle": "From the travel survey",
+  "ttsLede": "About every five years, the Transportation Tomorrow Survey asks a sample of households across the region (about one in 25 in 2022) about every trip they made on one weekday. In 2022, {cityShare} of trips within Toronto were made by bike or e-scooter, up from {cityShare2016} in 2016 and {cityShare2011} in 2011. Of trips from across Toronto into downtown, it was {dtShare}.",
+  "countsTitle": "Into downtown, bike trips held level; within downtown, they grew",
+  "countsLede": "The shares rose partly because other trips fell. In fall 2022 offices were still filling back up, and trips into downtown by every mode were {allIntoDrop} below 2016. Bike trips into downtown from outside it held level: {bikeInto2016} on an average weekday in 2016, {bikeInto2022} in 2022. Bike trips that began and ended downtown grew by {withinGrowth}.",
+  "hourNote": "Bike trips into downtown from outside it, by the hour they began, on an average weekday.",
+  "ttsNote": "Shares of weekday trips by people 11 and up, so the years compare: the 2022 survey also counted children aged 5 to 10 and walks that weren't to work or school, and both are left out here. 2022 counts e-scooters, a new choice that year, with bikes, as the City does; bikes alone were {cityShareBike}. The 2022 survey ran from September 2022 to July 2023; fall 2022 alone gives almost the same shares. Downtown is the survey's planning district 1.",
+  "lanesTitle": "Counted in the lane",
+  "lanesLede": "The City's permanent counters record every bike and e-scooter that rides over a sensor in the lane. From April to September 2025, an average of {palmerston2025} a day passed Bloor St W east of Palmerston Blvd, up from {palmerston2023} in the same months of 2023.",
+  "lanesNote": "Averages over every April-to-September day with each direction counted. The City recalibrated nearly every counter in June and July 2026 and says it may revise counts back in time, so 2026 is shown apart until those revisions settle. Riders on the sidewalk or in traffic lanes aren't counted.",
+  "cordonText": "On one fall weekday, between 7 a.m. and 7 p.m., the City counted bikes crossing a ring of {cordonSites} points around downtown: {cordon2010} in 2010, {cordon2014} in 2014 and {cordon2022} in 2022 ({cordon2022all} counting e-scooters and mopeds, counted for the first time that year).",
+  "videosTitle": "Watch",
+  "methodTitle": "How this was counted",
+  "method": [
+   "Bike Share: every trip in the Toronto Parking Authority's ridership files on the City's open data portal, January 2017 to September 2026 ({bsTotal} trips), counted by the month it began. Our yearly totals match the City's published ones; November 2022 isn't in the files. An e-bike trip is one on a bike the files name as an E-FIT model.",
+   "The network: the City's Cycling Network file of September 14, 2026, with each segment's install year, and two earlier versions of the same file the City still publishes (last edited August 2019 and January 2023). Protected means cycle tracks, including two-way and contraflow ones; painted means bike lanes, including buffered and contraflow ones. The 2019 lengths are approximate: that file's coordinates are converted with a factor measured against the 2023 file.",
+   "The survey: the Transportation Tomorrow Survey of 2011, 2016 and 2022, from the Data Management Group's data retrieval system. Each household reported every trip its members made on one weekday, weighted up to the whole population. Our shares match those City staff published in December 2024. The survey's methods and response rates changed between years, so its makers advise care with small differences.",
+   "Counts: the City's permanent bicycle counters (daily totals) and its downtown cordon counts of 2010, 2013, 2014 and 2022, compared only at the 62 points counted every time.",
+   "What's left out: the 2021 Census, taken in May 2021 during pandemic lockdowns, so its commuting figures can't be set beside 2016's; and private bikes on streets with no counter."
+  ],
+  "credits": "Data: Toronto Parking Authority, Bike Share Toronto ridership data; City of Toronto, Cycling Network, Bikeways (2019 and 2023 versions), Permanent Bicycle Counters and Bicycle Cordon Counts (Open Government Licence – Toronto); Transportation Tomorrow Survey 2011, 2016 and 2022, Data Management Group, University of Toronto; City of Toronto, Toronto Cycling Year in Review 2025. Removal dates: Ontario Ministry of Transportation, as reported by CBC News and CP24. Analysis and design: Layers.City."
+ }
+}
