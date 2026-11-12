@@ -100,6 +100,14 @@ the landing page, stop and say so; don't change this repo.
   workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.
   Without `-f branch=dev` it publishes main to the live site.
 
+## The map engine is moving to MapLibre GL (on `dev`, November 2026)
+- The user decided (November 13, 2026) to replace Leaflet with MapLibre GL JS, because the SVG map hitches when zooming
+  on iPhones. The port happens on `dev`: `engine/gl.js` (a toolkit: a facade with the Leaflet calls map.js makes, groups,
+  names/icons/dots as pooled GPU items, styles read from the engine's CSS) and a ported `engine/map.js`. Plan and status:
+  the project's claude/maplibre-migration.md.
+- Until it ships, keep engine changes on main small and self-contained, and merge main into dev after them (most merge
+  cleanly). A new layer kind or a change to how one draws needs porting on dev too: say so at the end of the work.
+
 ## Before changing anything
 - Other sessions may have pushed since you last looked. Run `git fetch origin main dev` and
   rebase or merge onto the latest first, and fetch again right before pushing.
