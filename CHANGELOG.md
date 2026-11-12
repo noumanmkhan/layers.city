@@ -2,6 +2,16 @@
 
 ## Since 1.1
 
+### Melbourne: the first build, unlisted (November 12)
+- layers.city/melbourne/ (not on the hub, not in the other cities' switchers): the City of Melbourne inside Greater
+  Melbourne, the San Francisco shape. Suburbs (ABS 2021, the CBD and St Kilda Road split at the Yarra), north and
+  south of the river, known-as names, landmarks, streets, freeways, Metro trains, trams and V/Line from Transport
+  Victoria's GTFS, and a suburb lens from the 2021 Census. Where to vote follows when the VEC publishes its voting
+  centres. Notes: cities/melbourne/SOURCES.md and PARKED.md.
+- Engine (every city): `card.living.housing` words the Housing row (Melbourne: weekly rent, monthly mortgage); the
+  Getting to work row is left out for a profile without commute shares; a metro layer's `badgeEnds` badges each line
+  only near its outer end; a city without representatives yet loads without a reps file.
+
 ### Cycling since 2016: public (November 12)
 - The cycling page is public: indexed, in the sitemap, and the third Explainers card on the hub. Before it went public
   it gained the busiest Bike Share day on record (Saturday, August 15, 2026, 50,240 trips) and a By month / By year

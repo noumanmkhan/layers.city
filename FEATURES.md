@@ -2,7 +2,7 @@
 
 The full reference for what each map does and how each part is built. For the short version, see [README.md](README.md); for the change history, [CHANGELOG.md](CHANGELOG.md).
 
-Contents: [Toronto](#toronto) · [Chicago](#chicago) · [Vancouver](#vancouver) · [Dallas](#dallas) · [New York City](#new-york-city) · [San Francisco](#san-francisco-and-the-bay-area) · [Hyderabad](#hyderabad-unlisted) · [How it's built](#how-its-built) · [Known limitations](#known-limitations) · [Roadmap](#roadmap) · [Data sources](#data-sources-and-licences)
+Contents: [Toronto](#toronto) · [Chicago](#chicago) · [Vancouver](#vancouver) · [Dallas](#dallas) · [New York City](#new-york-city) · [San Francisco](#san-francisco-and-the-bay-area) · [Hyderabad](#hyderabad-unlisted) · [Melbourne](#melbourne-unlisted) · [How it's built](#how-its-built) · [Known limitations](#known-limitations) · [Roadmap](#roadmap) · [Data sources](#data-sources-and-licences)
 
 ## Toronto
 
@@ -283,6 +283,24 @@ lines and the MMTS.
 The card says plainly what isn't on the map yet: the municipal corporation, and the MLA and MP, because the open
 constituency maps put well-known places in the wrong seat (checked against the old ward map). A revenue/civic picker
 comes once the civic boundaries are published. Scouting notes: `scouting/hyderabad/FINDINGS.md`.
+
+## Melbourne (unlisted)
+
+**Live at:** https://layers.city/melbourne/ (not on the hub yet)
+
+The seventh city (`cities/melbourne/`), started November 12, 2026, in the San Francisco shape: the City of Melbourne
+in full detail inside a Greater Melbourne view. Australians give their suburb rather than a neighbourhood, so the units
+are the ABS's 2021 suburbs cut to the City's boundary, with the locality "Melbourne" split at the Yarra into the CBD and
+St Kilda Road. Every other suburb in Greater Melbourne is a neighbour grouped by its council (30 metropolitan councils
+besides the City), so "Focus on a region" picks a council. The first build has the City centre and north and south of
+the river (the Yarra is the line Melburnians draw), 15 suburbs, 14 known-as names (Chinatown, the Paris End, Lygon
+Street, NewQuay…), 45 landmarks, main and collector streets, freeways across the region with their M-route shields,
+Metro trains in their line-group colours (one badge per line, near its outer end, so the City Loop isn't buried in
+badges: the layer's `badgeEnds`), all 24 tram routes in their own colours, and V/Line. The suburb lens (housing cost,
+renters and owners, housing type) and Living here use the 2021 Census by SA1: weekly rent and monthly mortgage
+repayments (the Census asks no home values; card.living.housing words the row), home types, language at home, ages and
+arrivals since 2016. The Census was taken in lockdown, so there's no getting-to-work lens. Not yet built, with what would
+bring each in: `cities/melbourne/PARKED.md`. Sources and quirks: `cities/melbourne/SOURCES.md`.
 
 ## How it's built
 

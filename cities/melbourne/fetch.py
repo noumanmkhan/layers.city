@@ -63,34 +63,51 @@ step('sa1s', lambda: abs_query('SA1', "1=1", 0.00002, 'sa1.geojson', CITY))
 
 
 # ---------- 2021 Census General Community Profile, SA1s (the City's rows only) ----------
+# Only the columns profiles.py reads are kept (the whole DataPack's SA1 rows for the City come to ~70 MB).
+CENSUS_KEEP = {
+    'G01': ['Tot_P_P', 'Age_0_4_yr_P', 'Age_5_14_yr_P', 'Age_15_19_yr_P', 'Age_20_24_yr_P', 'Age_25_34_yr_P', 'Age_35_44_yr_P', 'Age_45_54_yr_P',
+            'Age_55_64_yr_P', 'Age_65_74_yr_P', 'Age_75_84_yr_P', 'Age_85ov_P', 'Birthplace_Elsewhere_P', 'Count_psns_occ_priv_dwgs_P'],
+    'G02': None, 'G36': None,
+    'G37': ['O_OR_Total', 'O_MTG_Total', 'R_Tot_Total', 'R_ST_h_auth_Total', 'R_Com_Hp_Total', 'Oth_ten_type_Total', 'Ten_type_NS_Total', 'Total_Total'],
+    'G10C': ['Tot_2016', 'Tot_2017', 'Tot_2018', 'Tot_2019', 'Tot_2020', 'Tot_2021', 'Tot_Tot'],
+}
+
+
 def census():
     sa1 = json.load(open(os.path.join(RAW, 'sa1.geojson')))['features']
-    key = next(k for k in sa1[0]['properties'] if k.upper().startswith('SA1_CODE'))
-    want = {str(f['properties'][key]) for f in sa1}
+    want = {str(f['properties']['sa1_code_2021']) for f in sa1}
     print('  SA1s in the City box:', len(want))
     z = zipfile.ZipFile(download('https://www.abs.gov.au/census/find-census-data/datapacks/download/2021_GCP_SA1_for_VIC_short-header.zip',
                                  os.path.join(TMP, 'gcp.zip')))
-    out = {}
+    tables = {}
     for n in z.namelist():
         m = re.search(r'2021Census_(G\d+[A-Z]?)_VIC_SA1\.csv$', n)
-        if not m: continue
-        rows = list(csv.reader(io.TextIOWrapper(z.open(n), 'utf-8-sig')))
-        head, body = rows[0], [r for r in rows[1:] if r[0] in want]
-        out[m.group(1)] = {'cols': head, 'rows': body}
-    meta = [n for n in z.namelist() if 'Metadata' in n or n.lower().endswith('.xlsx')]
-    print('  census tables:', sorted(out), '· metadata files:', meta[:5])
+        if m and (m.group(1) in CENSUS_KEEP or m.group(1).startswith('G13')):
+            rows = list(csv.reader(io.TextIOWrapper(z.open(n), 'utf-8-sig')))
+            tables[m.group(1)] = (rows[0], [r for r in rows[1:] if r[0] in want])
+    out = {}
+    for t, cols in CENSUS_KEEP.items():
+        h, body = tables[t]
+        idx = [0] + ([h.index(c) for c in cols] if cols else list(range(1, len(h))))
+        out[t] = {'cols': [h[i] for i in idx], 'rows': [[r[i] for i in idx] for r in body]}
+    # Language used at home (G13A-E): persons, all levels of English (POL_<language>_Tot, PSEO_Tot), one row per SA1.
+    lc, rows = ['P_Tot_Tot'], {}
+    for t in sorted(k for k in tables if k.startswith('G13')):
+        h, body = tables[t]
+        lc += [c for c in h if re.fullmatch(r'(PSEO|POL_.+)_Tot', c) and '_UOLSE_' not in c and c not in lc]
+        for r in body: rows.setdefault(r[0], {}).update(zip(h, r))
+    out['G13'] = {'cols': ['SA1_CODE_2021'] + lc, 'rows': [[k] + [d.get(c, '0') for c in lc] for k, d in rows.items()]}
+    out['_about'] = ('ABS 2021 Census GCP DataPack, SA1s in the City of Melbourne box (fetch.py), trimmed to the columns profiles.py reads: '
+                     'G01 ages and birthplace, G02 medians, G36 dwelling structure, G37 tenure, G10C year of arrival totals, '
+                     'G13 language used at home (persons, all proficiencies).')
     save('census_sa1.json', out)
-    # The table and column descriptions, for building the lens (cell descriptors from the metadata workbook).
-    for n in meta:
-        if n.lower().endswith('.xlsx'):
-            open(os.path.join(RAW, 'census_metadata.xlsx'), 'wb').write(z.read(n)); print('  saved', n); break
 step('census', census)
 
 # ---------- OpenStreetMap ----------
 bb = lambda b: '%s,%s,%s,%s' % (b[1], b[0], b[3], b[2])
 step('osm streets', lambda: overpass(f'[out:json][timeout:300];way["highway"~"^(trunk|primary|secondary|tertiary)$"]["name"]({bb(CITY)});out tags geom;', 'osm_streets.json'))
 step('osm highways', lambda: overpass(f'[out:json][timeout:600];way["highway"~"^(motorway|trunk)$"]({bb(REGION)});out tags geom;', 'osm_highways.json'))
-step('osm yarra', lambda: overpass(f'[out:json][timeout:200];way["waterway"="river"]["name"="Yarra River"]({bb(CITY)});out tags geom;', 'osm_yarra.json'))
+step('osm yarra', lambda: overpass(f'[out:json][timeout:200];way["waterway"="river"]["name"~"Yarra|Birrarung"]({bb(CITY)});out tags geom;', 'osm_yarra.json'))
 step('osm places', lambda: overpass(f'[out:json][timeout:200];node["place"~"^(neighbourhood|quarter|suburb|locality|village|town|city)$"]["name"]({bb(REGION)});out tags;', 'osm_places.json'))
 
 
@@ -126,12 +143,13 @@ def ptv():
         if not n: print('  no folder', mode); continue
         z = zipfile.ZipFile(io.BytesIO(outer.read(n)))
         rd = lambda f: list(csv.DictReader(io.TextIOWrapper(z.open(f), 'utf-8-sig')))
-        routes = {r['route_id']: r for r in rd('routes.txt')}
-        trips = rd('trips.txt')
+        routes = {r['route_id']: r for r in rd('routes.txt') if r['route_short_name'] != 'Replacement Bus'}
+        trips = [t for t in rd('trips.txt') if t['route_id'] in routes]
         shape_n = Counter((t['route_id'], t['shape_id']) for t in trips)
         top = Counter()
         for (r, s), c in shape_n.items(): top[r] = max(top[r], c)
-        shape_n = Counter({k: c for k, c in shape_n.items() if c >= top[k[0]] * 0.05})   # drop rare variants (depot runs)
+        share = 0.5 if mode == '1' else 0.1   # V/Line: only its main patterns; trains and trams: drop rare variants (depot runs)
+        shape_n = Counter({k: c for k, c in shape_n.items() if c >= top[k[0]] * share})
         want = {s for _, s in shape_n}
         shapes = defaultdict(list)
         for p in rd('shapes.txt'):
@@ -156,6 +174,7 @@ def ptv():
                              'shapes': {sid: [[x, y] for _, x, y in sorted(shapes[sid])] for (ri, sid) in shape_n if ri == rid},
                              'counts': {sid: c for (ri, sid), c in shape_n.items() if ri == rid}} for rid, r in routes.items()},
             'stations': [dict(s, routes=sorted(s['routes'])) for s in stations.values()]}
+        out[mode]['routes'] = {k: v for k, v in out[mode]['routes'].items() if v['counts']}
     save('ptv_rail.json', out)
 step('ptv gtfs', ptv)
 

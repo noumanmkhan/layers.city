@@ -134,7 +134,7 @@ MAJOR_STREETS = {
     'Flinders St', 'Collins St', 'Bourke St', 'Lonsdale St', 'La Trobe St',
     'Spencer St', 'King St', 'William St', 'Queen St', 'Elizabeth St', 'Swanston St', 'Russell St', 'Exhibition St', 'Spring St',
     # around it
-    'St Kilda Rd', 'Kings Way', 'Queens Rd', 'City Rd', 'Clarendon St', 'Alexandra Ave', 'Batman Ave', 'Wellington Pde',
+    'St Kilda Rd', 'Kings Way', 'City Rd', 'Clarendon St', 'Alexandra Ave', 'Batman Ave', 'Wellington Pde',
     'Victoria Pde', 'Victoria St', 'Peel St', 'Flemington Rd', 'Racecourse Rd', 'Mount Alexander Rd', 'Macaulay Rd',
     'Dynon Rd', 'Footscray Rd', 'Harbour Esp', 'Wurundjeri Way', 'Docklands Dr', 'Lorimer St', 'Grattan St',
     'Royal Pde', 'Lygon St', 'Rathdowne St', 'Nicholson St', 'Elgin St', 'Punt Rd', 'Hoddle St', 'Toorak Rd',
