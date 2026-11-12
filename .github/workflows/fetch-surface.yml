@@ -68,13 +68,12 @@ jobs:
           ( set -o pipefail; python3 -u engine/fetch_surface.py $c 2>&1 | tee /tmp/fetch-$c.log ) \
             || echo "::warning::$c fetch failed: $(tail -2 /tmp/fetch-$c.log | tr '\n' ' ' | cut -c1-900)"
           changed=; if [ -n "$(git status --porcelain -- $d/routes.json)" ]; then cp /tmp/fetch-$c.log $d/fetch.log; changed=1; fi
-          if [ -n "$changed" ] || [ "${{ github.event_name }}" != "schedule" ]; then [ -f $d/routes.json ] && python3 -u engine/surface.py $c; fi
+          if [ -n "$changed" ] || [ "${{ github.event_name }}" != "schedule" ]; then if [ -f $d/routes.json ]; then python3 -u engine/surface.py $c; fi; fi
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
           git add cities/melbourne/raw/surface
-          [ -f docs/melbourne/data/transit.json ] && git add docs/melbourne/data/transit.json docs/melbourne/data/transit_routes.geojson
-          [ -f docs/melbourne/data/streetcars.geojson ] && git add docs/melbourne/data/streetcars.geojson
+          for f in transit.json transit_routes.geojson streetcars.geojson; do if [ -f docs/melbourne/data/$f ]; then git add docs/melbourne/data/$f; fi; done
           git commit -m "Update Melbourne's tram and bus routes from Transport Victoria's latest schedule" || echo "no changes"
           git pull --rebase
           git push

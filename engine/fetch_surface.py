@@ -77,9 +77,10 @@ def download(url, path, tries=4):
     return False
 
 
-def ok(path):
+def ok(path, need=None):
+    """A GTFS zip, or (need: the inner zips a feed names) a zip holding those zips."""
     try:
-        with zipfile.ZipFile(path) as z: return 'stop_times.txt' in z.namelist()
+        with zipfile.ZipFile(path) as z: return all(n in z.namelist() for n in (need or ['stop_times.txt']))
     except Exception: return False
 
 
@@ -157,13 +158,13 @@ else:
         feed_url, best = None, None
         for i, u in enumerate(urls + src.get('fallback', [])):
             p = os.path.join(WORK, 'cand%d.zip' % i)
-            if not (download(u, p) and ok(p)): continue
+            if not (download(u, p) and ok(p, src.get('inner'))): continue
             end = feed_end(p); print('  service to', end, u)
             if best is None or end > best[0]: best = (end, u, p)
             if end >= dt.date.today() + dt.timedelta(days=7): break
         if best: os.replace(best[2], ZIP); feed_url = best[1]
     else:
-        feed_url = next((u for u in urls + src.get('fallback', []) if download(u, ZIP) and ok(ZIP)), None)
+        feed_url = next((u for u in urls + src.get('fallback', []) if download(u, ZIP) and ok(ZIP, src.get('inner'))), None)
 if not feed_url: raise SystemExit('No GTFS found')
 # "inner": a feed that ships each mode as a zip inside the zip (Transport Victoria: 4/google_transit.zip is Melbourne's
 # metropolitan buses). The named inner zips are taken out (several are merged into one feed) and used as the feed.
