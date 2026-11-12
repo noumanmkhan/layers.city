@@ -137,7 +137,7 @@ function polyLayer(fc, opts){
   const g = grp();
   g.addLayer(geo(fc, {pane: opts.pane || 'fill', cls: opts.cls, hover: opts.hover}));
   if (opts.label) fc.features.forEach(f => { const t = opts.label(f); if (!t || !f.properties.lp) return;
-    const lb = label(t, opts.lcls(f), ll(f.properties.lp));
+    const lb = label(t, opts.lcls(f), ll(f.properties.lp), opts.lopts);
     if (opts.focusId) tapToFocus(lb, opts.focusId, f);
     g.addLayer(lb); });
   return g;
@@ -295,13 +295,16 @@ const KINDS = {
   outline: (it, fc) => {
     const c = OUTLINE[it.level];
     // Election view: the label carries the race too, shown (and the number enlarged) only while the view is on.
-    const lab = !ELECT[it.id] ? f => fill(it.label, f.properties) : f => { const [h, ls] = electLines(it, f);
-      // The chip reads "Ward 19"; zoomed out to the whole city it shrinks to the number (el-s) so all 25 fit.
-      return '<span class="el-n"><span class="el-h">' + esc(h) + '</span><span class="el-s">' + esc(String(f.properties[it.election.key])) + '</span></span><span class="el-x">' + ls.map(esc).join('<br>') + '</span>'; };
-    const g = polyLayer(fc, {pane:'civic', cls: () => c, label: lab, lcls: () => 'lbl-' + c + (ELECT[it.id] ? ' el' : ''),
+    // Election view: the plain name gives way, while the view is on, to a chip with the race (gl.js chip()).
+    const lab = !ELECT[it.id] ? f => fill(it.label, f.properties) : f => electLines(it, f)[0];
+    const g = polyLayer(fc, {pane:'civic', cls: () => c, label: lab, lcls: () => 'lbl-' + c, lopts: ELECT[it.id] ? {hideOn: 'elect'} : null,
       hover: f => !it.party ? fill(it.hover, f.properties) : () => { const p = shade === it.id && partyOf(it, f)[1]; return esc(fill(it.hover, f.properties)) + (p ? ' · ' + esc(p) : ''); }});
     // Party colours sit in the fill pane, under the lines; the lines on top still take hovers and taps.
     // A halo under the lines (lines pane, below civic) makes the contrasting edge read on any colour.
+    // The chip reads "Ward 19"; zoomed out to the whole city it shrinks to the number so all 25 fit; from zoom 13 a card
+    // under it lists the election date, the sitting member and how many are running.
+    if (ELECT[it.id]) fc.features.forEach(f => { if (!f.properties.lp) return; const [h, ls] = electLines(it, f);
+      g.addLayer(chip(ll(f.properties.lp), h, f.properties[it.election.key], ls)); });
     if (PARTY[it.id]){ g._party = grp(); g._party.addLayer(geo(fc, {pane:'fill', interactive:false, cls: f => 'pty p-' + partyOf(it, f)[0], weight: () => 0}));
       g._party.addLayer(geo(fc, {pane:'lines', interactive:false, cls: () => 'pty-case'})); }
     return g;

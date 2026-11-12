@@ -2089,24 +2089,38 @@ const NAMES = new Pool('names', (src, filter, item) => {
   const anchor = dir === 'right' ? 'left' : dir === 'left' ? 'right' : dir === 'top' ? 'bottom' : dir === 'bottom' ? 'top' : 'center';
   addL(({id, type: 'symbol', source: src, filter, layout: {'text-field': ['get', 't'], 'symbol-sort-key': ['get', 's'], 'text-anchor': anchor, 'text-padding': 2, 'text-rotate': ['coalesce', ['get', 'rot'], 0]}}), 'sym', rankOf(P.el));
   styled(id, () => { const t = at(P, x => x); const size = byZoom(P, v => v.size, 11);
-    return {layout: textLayout(t, {'text-size': size, 'text-offset': [off[0] / t.size, off[1] / t.size]}), paint: Object.assign(textPaint(t), {'text-opacity': fade(t.op, fzLabel(cls))}), range: zoomRange(P)}; });
+    const hide = item.p.hideOn && gl.getContainer().classList.contains(item.p.hideOn);
+    return {layout: textLayout(t, {'text-size': size, 'text-offset': [off[0] / t.size, off[1] / t.size], visibility: hide ? 'none' : 'visible'}), paint: Object.assign(textPaint(t), {'text-opacity': fade(t.op, fzLabel(cls))}), range: zoomRange(P)}; });
   NAMES.ids.add(id);
   TAP.set(id, it => it.p.tap ? it.p.tap() : false);
 });
 NAMES.ids = new Set();
 function label(text, cls, latlng, opts){
   opts = opts || {};
-  const it = new Item(NAMES, latlng, {text: plain(text), cls, dir: opts.direction, offset: opts.offset, sort: opts.sort || 0, data: opts.rotate ? {rot: +opts.rotate} : null, _key: cls + '|' + (opts.direction || '') + '|' + (opts.offset || ''), interactive: opts.interactive});
+  const it = new Item(NAMES, latlng, {text: plain(text), cls, dir: opts.direction, offset: opts.offset, sort: opts.sort || 0, data: opts.rotate ? {rot: +opts.rotate} : null, hideOn: opts.hideOn,
+    _key: cls + '|' + (opts.direction || '') + '|' + (opts.offset || '') + '|' + (opts.hideOn || ''), interactive: opts.interactive});
   return it;
 }
 /* Icons with a name beside them (the engine's .lm markers): the icon is drawn from the CSS of ".lm <classes> i",
    the name styled from ".lm <classes> b". One layer per class string; the glyph picks the image. */
 const ICONSETS = [], LMSETS = new Map();
 const imgCache = new Map();
+/* Add an image to the map's sprite, or replace it in place. Removing an image a layer uses and adding it back leaves
+   that layer's symbols unplaced until its tiles reload, so a same-size redraw (a theme change) updates instead. */
+function putImage(key, img, opts){
+  const w = img.width, h = img.height;
+  if (gl.hasImage(key)){
+    const cur = gl.getImage(key), d = cur && cur.data;
+    if (d && d.width === w && d.height === h){ gl.updateImage(key, img); return; }
+    gl.removeImage(key);
+  }
+  gl.addImage(key, img, Object.assign({pixelRatio: PR}, opts || {}));
+}
 function svgImage(key, svgText, opts){
   return new Promise(res => { const im = new Image(); im.onload = () => {
-    if (gl.hasImage(key)) gl.removeImage(key);
-    gl.addImage(key, im, Object.assign({pixelRatio: PR}, opts || {})); res();
+    // Through a canvas, so updateImage gets pixels it can compare by size.
+    const c = document.createElement('canvas'); c.width = im.naturalWidth || im.width; c.height = im.naturalHeight || im.height;
+    c.getContext('2d').drawImage(im, 0, 0); putImage(key, c.getContext('2d').getImageData(0, 0, c.width, c.height), opts); res();
   }; im.onerror = () => res(); im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgText); });
 }
 const PR = Math.min(3, Math.max(2, Math.ceil(devicePixelRatio || 1)));
@@ -2245,8 +2259,7 @@ function badgeImage(id, labs, bg, fg, ring, big){
     x.fillText(String(l), px + w / 2, y + H / 2 + .5);
     px += w + gap;
   });
-  const img = x.getImageData(0, 0, c.width, c.height);
-  if (gl.hasImage(id)) gl.updateImage(id, img); else gl.addImage(id, img, {pixelRatio: PR});
+  putImage(id, x.getImageData(0, 0, c.width, c.height));
 }
 const inkOn = c => { const m = String(c || '').match(/\d+(\.\d+)?/g); if (!m || m.length < 3) return '#fff';
   const [r, g, b] = m.slice(0, 3).map(Number); return (r * 299 + g * 587 + b * 114) / 1000 > 165 ? '#111' : '#fff'; };
@@ -2319,6 +2332,53 @@ function iconLayer(fc, opts){
   if (opts.hover) HOVER.set(id, opts.hover);
   if (opts.tap) TAP.set(id, opts.tap);
   return grp([id]);
+}
+/* Election chips (the election view's ward labels): a chip in the election colour with the seat's name, shrinking to
+   its number zoomed out, and from zoom 13 a card under it with the race. Drawn on a canvas with the page's font, in
+   the theme's --elect-chip, --elect-chip-ink, --elect-card and --ink; shown only while #map has "elect". */
+const CHIP_ITEMS = [];
+function chipImages(it){
+  const cs = getComputedStyle(document.documentElement), v = n => colour(cs.getPropertyValue(n).trim());
+  const chip = v('--elect-chip') || '#5B21B6', ink = v('--elect-chip-ink') || '#fff', card = v('--elect-card') || '#fff', text = v('--ink') || '#222';
+  const F = 'Inter, system-ui, sans-serif', {head, num, lines} = it.p.chip;
+  const draw = (key, chipText, size, pad, rad, withCard) => {
+    bcv.font = '800 ' + size + 'px ' + F;
+    const cw = Math.ceil(bcv.measureText(chipText).width) + 2 * pad[0], ch = Math.ceil(size * 1.1) + pad[1] + pad[2];
+    bcv.font = '600 11.5px ' + F;
+    const lw = withCard && lines.length ? Math.ceil(Math.max(...lines.map(l => bcv.measureText(l).width))) + 18 : 0, lh = withCard && lines.length ? lines.length * 16 + 11 : 0;
+    const W = Math.max(cw, lw) + 4, H = ch + (lh ? lh + 5 : 0) + 4;
+    const c = document.createElement('canvas'); c.width = Math.ceil(W * PR); c.height = Math.ceil(H * PR);
+    const x = c.getContext('2d'); x.scale(PR, PR);
+    const rr = (x0, y0, w, h, r, fill, stroke) => { x.beginPath(); if (x.roundRect) x.roundRect(x0, y0, w, h, r); else x.rect(x0, y0, w, h); if (fill){ x.fillStyle = fill; x.fill(); } if (stroke){ x.lineWidth = 1.5; x.strokeStyle = stroke; x.stroke(); } };
+    rr((W - cw) / 2, 2, cw, ch, rad, chip);
+    x.fillStyle = ink; x.font = '800 ' + size + 'px ' + F; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(chipText, W / 2, 2 + pad[1] + size * .55);
+    if (lh){
+      const y0 = 2 + ch + 5;
+      rr((W - lw) / 2 + .75, y0 + .75, lw - 1.5, lh - 1.5, 7, card, chip);
+      x.fillStyle = text; x.font = '600 11.5px ' + F; x.textBaseline = 'alphabetic';
+      lines.forEach((l, i) => x.fillText(l, W / 2, y0 + 5 + 12 + i * 16));
+    }
+    putImage('ec|' + it._gid + '|' + key, x.getImageData(0, 0, c.width, c.height));
+  };
+  draw('s', num, 13, [7, 2, 3], 6, false);
+  draw('h', head, 16, [9, 3, 4], 7, false);
+  draw('H', head, 19, [11, 4, 5], 7, false);
+  draw('f', head, 19, [11, 4, 5], 7, true);
+}
+const CHIPS = new Pool('chips', (src, filter, item) => {
+  const id = uid('ec'), img = k => ['concat', 'ec|', ['to-string', ['get', '_gid']], '|' + k];
+  addL({id, type: 'symbol', source: src, filter, minzoom: LZ(10), layout: {visibility: 'none', 'icon-image': ['step', ['zoom'], img('s'), LZ(11), img('h'), LZ(12), img('H'), LZ(13), img('f')],
+    'icon-padding': 2, 'symbol-sort-key': ['get', 's']}}, 'sym', item.p.rank == null ? 2 : item.p.rank);
+  styled(id, () => ({layout: {visibility: gl.getContainer().classList.contains('elect') ? 'visible' : 'none'}}));
+  ICONSETS.push({redraw: () => (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => CHIP_ITEMS.forEach(chipImages))});
+  TAP.set(id, it => it.p.tap ? it.p.tap() : false);
+  HOVER.set(id, it => it.p.hover);
+});
+function chip(latlng, head, num, lines, opts){
+  const it = new Item(CHIPS, latlng, Object.assign({chip: {head, num: String(num), lines}, _key: 'chip'}, opts || {}));
+  CHIP_ITEMS.push(it);
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => chipImages(it));
+  return it;
 }
 
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -2455,7 +2515,7 @@ function polyLayer(fc, opts){
   const g = grp();
   g.addLayer(geo(fc, {pane: opts.pane || 'fill', cls: opts.cls, hover: opts.hover}));
   if (opts.label) fc.features.forEach(f => { const t = opts.label(f); if (!t || !f.properties.lp) return;
-    const lb = label(t, opts.lcls(f), ll(f.properties.lp));
+    const lb = label(t, opts.lcls(f), ll(f.properties.lp), opts.lopts);
     if (opts.focusId) tapToFocus(lb, opts.focusId, f);
     g.addLayer(lb); });
   return g;
@@ -2613,13 +2673,16 @@ const KINDS = {
   outline: (it, fc) => {
     const c = OUTLINE[it.level];
     // Election view: the label carries the race too, shown (and the number enlarged) only while the view is on.
-    const lab = !ELECT[it.id] ? f => fill(it.label, f.properties) : f => { const [h, ls] = electLines(it, f);
-      // The chip reads "Ward 19"; zoomed out to the whole city it shrinks to the number (el-s) so all 25 fit.
-      return '<span class="el-n"><span class="el-h">' + esc(h) + '</span><span class="el-s">' + esc(String(f.properties[it.election.key])) + '</span></span><span class="el-x">' + ls.map(esc).join('<br>') + '</span>'; };
-    const g = polyLayer(fc, {pane:'civic', cls: () => c, label: lab, lcls: () => 'lbl-' + c + (ELECT[it.id] ? ' el' : ''),
+    // Election view: the plain name gives way, while the view is on, to a chip with the race (gl.js chip()).
+    const lab = !ELECT[it.id] ? f => fill(it.label, f.properties) : f => electLines(it, f)[0];
+    const g = polyLayer(fc, {pane:'civic', cls: () => c, label: lab, lcls: () => 'lbl-' + c, lopts: ELECT[it.id] ? {hideOn: 'elect'} : null,
       hover: f => !it.party ? fill(it.hover, f.properties) : () => { const p = shade === it.id && partyOf(it, f)[1]; return esc(fill(it.hover, f.properties)) + (p ? ' · ' + esc(p) : ''); }});
     // Party colours sit in the fill pane, under the lines; the lines on top still take hovers and taps.
     // A halo under the lines (lines pane, below civic) makes the contrasting edge read on any colour.
+    // The chip reads "Ward 19"; zoomed out to the whole city it shrinks to the number so all 25 fit; from zoom 13 a card
+    // under it lists the election date, the sitting member and how many are running.
+    if (ELECT[it.id]) fc.features.forEach(f => { if (!f.properties.lp) return; const [h, ls] = electLines(it, f);
+      g.addLayer(chip(ll(f.properties.lp), h, f.properties[it.election.key], ls)); });
     if (PARTY[it.id]){ g._party = grp(); g._party.addLayer(geo(fc, {pane:'fill', interactive:false, cls: f => 'pty p-' + partyOf(it, f)[0], weight: () => 0}));
       g._party.addLayer(geo(fc, {pane:'lines', interactive:false, cls: () => 'pty-case'})); }
     return g;
