@@ -3079,13 +3079,17 @@ function lineBadges(it, fc, lg, owner){
       if (last[x.p.line] && lastZ === map.getZoom()) cands.push(map.latLngToContainerPoint(last[x.p.line]));
       // Near an end of the line, outermost first (the ends spread out; the middles bunch up downtown).
       const tips = [];
+      // With "badgeEnds", an end inside the city (every line's city terminus) doesn't count: only the outer ends do.
+      const outer = q => { if (!it.badgeEnds || !data.footprint) return true; const p = map.containerPointToLatLng(q); return !hit(data.footprint, p.lng, p.lat); };
       runs.forEach(r => { if (r.len < 40) return;
-        if (r.a) tips.push([r.pts, r.pts[0]]);
-        if (r.b){ const rev = [...r.pts].reverse(); tips.push([rev, rev[0]]); } });
+        if (r.a && outer(r.pts[0])) tips.push([r.pts, r.pts[0]]);
+        if (r.b){ const rev = [...r.pts].reverse(); if (outer(rev[0])) tips.push([rev, rev[0]]); } });
       tips.sort((a, b) => b[1].distanceTo(mid) - a[1].distanceTo(mid))
         .forEach(([pts]) => [x.w / 2 + 16, x.w / 2 + 40, x.w / 2 + 70].forEach(d => cands.push(at(pts, d))));
-      // Otherwise along the longest stretches in view, from their middles outward.
-      runs.sort((a, b) => b.len - a.len).slice(0, 4).forEach(r => [.5, .4, .6, .3, .7, .2, .8, .1, .9].forEach(t => cands.push(at(r.pts, r.len * t))));
+      // Otherwise along the longest stretches in view, from their middles outward. A layer with "badgeEnds" (many
+      // lines sharing track through the centre, like Melbourne's trains) badges a line only near its end, so the
+      // centre isn't buried in badges: with the end out of view, the line goes without.
+      if (!it.badgeEnds) runs.sort((a, b) => b.len - a.len).slice(0, 4).forEach(r => [.5, .4, .6, .3, .7, .2, .8, .1, .9].forEach(t => cands.push(at(r.pts, r.len * t))));
       // Where every spot is crowded, the one that covers the fewest names.
       const cover = q => soft.filter(o => { const b = box(q); return b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]; }).length;
       const best = cands.filter(q => ok(q, false)).map(q => [q, cover(q)]).reduce((a, b) => !a || b[1] < a[1] ? b : a, null);
@@ -3778,9 +3782,13 @@ function livingHere(unit){
   const tier = (key, v) => { if (!TIER_LABEL[key + ':' + v]) return ''; const [label, col] = TIER_LABEL[key + ':' + v]; return '<span class="tier"><i style="background:var(' + col + ')"></i>' + esc(label) + '</span>'; };
   const hub = CITY.lens.lenses.find(L_ => L_.minutes);
   return '<div class="live"><dl>' +
-    '<dt>Housing</dt><dd>' + tier('cost', d.cost) + '<span>Median home ' + money(d.value) + ' · renters pay $' + d.rent.toLocaleString(CITY.locale) + '/mo</span><span class="caveat">' + esc(T.caveat) + '</span></dd>' +
+    // The housing figures' wording is the city's when it sets card.living.housing (Melbourne: weekly rent and monthly
+    // mortgage repayments, the Australian Census having no home values); otherwise median home value and monthly rent.
+    '<dt>Housing</dt><dd>' + tier('cost', d.cost) + '<span>' + (T.housing ? esc(fill(T.housing, {rent: d.rent != null ? d.rent.toLocaleString(CITY.locale) : null,
+      mortgage: d.mortgage != null ? d.mortgage.toLocaleString(CITY.locale) : null})) : 'Median home ' + money(d.value) + ' · renters pay $' + d.rent.toLocaleString(CITY.locale) + '/mo') +
+      '</span><span class="caveat">' + esc(T.caveat) + '</span></dd>' +
     (hub && d[hub.minutes] != null ? '<dt>' + esc(hub.hubs ? hub.short : T.hub) + '</dt><dd>' + tier(hub.key, d[hub.key]) + '<span>' + esc(fill(T.hubText, {minutes: d[hub.minutes]})) + '</span></dd>' : '') +
-    '<dt>Getting to work</dt><dd>' + tier('commute', d.commute) + '<span>' + d.carPct + '% drive · ' + d.transitPct + '% transit · ' + d.walkBikePct + '% walk or bike</span></dd>' +
+    (d.carPct != null ? '<dt>Getting to work</dt><dd>' + tier('commute', d.commute) + '<span>' + d.carPct + '% drive · ' + d.transitPct + '% transit · ' + d.walkBikePct + '% walk or bike</span></dd>' : '') +
     '<dt>Households</dt><dd>' + tier('tenure', d.tenure) + '<span>' + d.renterPct + '% rent</span></dd>' +
     (T.canopy && d.canopy != null ? '<dt>' + esc(T.canopy.label) + '</dt><dd>' + (TIER_LABEL['canopyBand:' + d.canopyBand] ? tier('canopyBand', d.canopyBand) : '') +
       '<span>' + esc(fill(T.canopy.text, {pct: d.canopy})) + '</span>' + (T.canopy.caveat ? '<span class="caveat">' + esc(T.canopy.caveat) + '</span>' : '') + '</dd>' : '') +
@@ -5816,7 +5824,7 @@ const loaded = {};
 // Files of layers marked "optional" (e.g. daily closures not fetched yet) load as empty instead of failing the map.
 const OPTIONAL = new Set(LAYERS.filter(it => it.optional).flatMap(it => [].concat(it.file || it.files || [])).concat(CITY.maskWater ? [CITY.maskWater] : []));
 Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type:'FeatureCollection', features:[]}; throw e; }).then(d => { loaded[f] = d; }))
-  .concat([get(CITY.lens.file).then(d => { data.profiles = d; }), get(CITY.card.reps.file).then(d => { data.reps = d; }).catch(() => { data.reps = null; }),
+  .concat([get(CITY.lens.file).then(d => { data.profiles = d; }), CITY.card.reps ? get(CITY.card.reps.file).then(d => { data.reps = d; }).catch(() => { data.reps = null; }) : null,   // a new city may have no representatives yet
     CITY.regionPlaces ? get(CITY.regionPlaces.file).then(d => { data.regionPlaces = d; }).catch(() => { data.regionPlaces = null; }) : null,
     CITY.card.nearby ? get(CITY.card.nearby.file).then(d => { data.nearby = d; }).catch(() => { data.nearby = null; }) : null,
     ...REP_FILES.map(f => get(f).then(d => { data.repAreas[f] = d; }).catch(() => { data.repAreas[f] = null; })),
