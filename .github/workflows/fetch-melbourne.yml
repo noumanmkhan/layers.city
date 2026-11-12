@@ -8,7 +8,7 @@ on:
       script: {description: 'Script in cities/melbourne/ to run', default: 'fetch.py'}
   push:
     branches: [main]
-    paths: ['cities/melbourne/fetch*.py', '!cities/melbourne/fetch_lib.py', '.github/workflows/fetch-melbourne.yml']
+    paths: ['cities/melbourne/fetch*.py', '!cities/melbourne/fetch_lib.py', '!cities/melbourne/fetch_voting.py', '!cities/melbourne/fetch_representatives.py', '.github/workflows/fetch-melbourne.yml']
 permissions:
   contents: write
 jobs:
