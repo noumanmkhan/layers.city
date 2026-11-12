@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### Melbourne: representatives and buses (November 12)
+- Representatives: the Lord Mayor and Deputy Lord Mayor, the state district and federal division in Boundaries, and
+  the federal MP for the pin, with a Federal division layer shaded by party (*Refresh Melbourne representatives*,
+  weekly). State MPs follow the November 28 election.
+- Buses: a Bus routes layer (Frequent, Express, Regular) and Transit nearby on the card (nearest train station, trams
+  and buses within 400 m, nearest stop), from Transport Victoria's tram and bus GTFS, fetched in its own job.
+- Engine: surface.json `within` (keep only routes and stops inside the named published layers) and `merge` (one route
+  per number and mode, trips added up) in engine/surface.py; fetch_surface.py reads feeds packed as zips inside a zip
+  (`inner`); a buses layer's `modes` (Melbourne: buses only, since its trams have their own layer). Other cities are
+  unchanged.
+
 ### Melbourne: the first build, unlisted (November 12)
 - layers.city/melbourne/ (not on the hub, not in the other cities' switchers): the City of Melbourne inside Greater
   Melbourne, the San Francisco shape. Suburbs (ABS 2021, the CBD and St Kilda Road split at the Yarra), north and

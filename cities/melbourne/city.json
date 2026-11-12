@@ -180,16 +180,42 @@
    {
     "id": "transit",
     "name": "Getting around",
-    "note": "Metro trains, the tram network, V/Line and the freeways.",
+    "note": "Metro trains, the tram network, frequent buses, V/Line and the freeways.",
     "layers": [
      "streets",
      "trains",
      "stnNames",
      "trams",
+     "bus",
      "vline",
      "hwy"
     ],
-    "view": "city"
+    "view": "city",
+    "bus": [
+     "freq"
+    ]
+   },
+   {
+    "id": "civic",
+    "name": "Who represents me",
+    "note": "Search your address or tap the map to see your state district, federal division and MP.",
+    "layers": [
+     "streets"
+    ],
+    "boundaries": [
+     "state",
+     "fed"
+    ],
+    "lead": "state",
+    "view": "city",
+    "hint": "Enter your address to find your districts and representatives."
+   }
+  ],
+  "elections": [
+   {
+    "date": "2026-11-28",
+    "lead": "state",
+    "label": "Victorian state election, November 28"
    }
   ]
  },
@@ -317,6 +343,43 @@
      "stationHover": "{name}"
     },
     {
+     "id": "bus",
+     "kind": "buses",
+     "file": "transit_routes",
+     "lazy": true,
+     "name": "Bus routes",
+     "note": "Every metropolitan bus route, by how often it runs; stops from zoom 15",
+     "allText": "All",
+     "default": "freq",
+     "allNote": "Every daytime bus route.",
+     "families": [
+      [
+       "freq",
+       "Frequent",
+       "Every 10 minutes or better each way, weekdays 7 am to 7 pm."
+      ],
+      [
+       "exp",
+       "Express",
+       "Routes Transport Victoria names express: fewer stops."
+      ],
+      [
+       "reg",
+       "Regular",
+       "Every other daytime route, SmartBus included."
+      ]
+     ],
+     "comboText": "Express routes are dashed.",
+     "countText": "{n} routes",
+     "hint": "Tap a route or its number to see it alone; tap elsewhere for all.",
+     "pickText": "Drawn on the map",
+     "unpickText": "Stop drawing route {r}",
+     "clearText": "Clear",
+     "modes": [
+      "bus"
+     ]
+    },
+    {
      "id": "vline",
      "kind": "rail",
      "files": [
@@ -361,6 +424,35 @@
      "name": "Collector streets",
      "on": true,
      "note": "The streets between the main ones; from zoom 13"
+    }
+   ]
+  ],
+  [
+   "Representation",
+   [
+    {
+     "id": "state",
+     "kind": "outline",
+     "level": "state",
+     "file": "state",
+     "name": "State districts",
+     "note": "5 Legislative Assembly districts, cut to the City line · the boundaries of the November 28, 2026 election",
+     "label": "{name}",
+     "hover": "State: {name} District"
+    },
+    {
+     "id": "fed",
+     "kind": "outline",
+     "level": "national",
+     "file": "federal",
+     "name": "Federal divisions",
+     "note": "4 members of the House of Representatives · 2024 boundaries, cut to the City line",
+     "label": "{name}",
+     "hover": "Federal: {name}",
+     "party": {
+      "table": "fed",
+      "key": "name"
+     }
     }
    ]
   ],
@@ -556,6 +648,16 @@
    {
     "label": "Known as",
     "knownas": true
+   },
+   {
+    "label": "State district",
+    "layer": "state",
+    "text": "{name} District"
+   },
+   {
+    "label": "Federal division",
+    "layer": "fed",
+    "text": "{name}"
    }
   ],
   "living": {
@@ -606,6 +708,61 @@
   },
   "compare": {
    "elsewhere": ""
+  },
+  "reps": {
+   "file": "representatives.json",
+   "offices": [
+    {
+     "role": "Lord Mayor",
+     "citywide": "city",
+     "table": "mayor",
+     "sub": "Citywide"
+    },
+    {
+     "role": "Deputy Lord Mayor",
+     "citywide": "deputy",
+     "table": "mayor",
+     "sub": "Citywide"
+    },
+    {
+     "role": "MP (federal)",
+     "layer": "fed",
+     "table": "fed",
+     "key": "name",
+     "sub": "{r.party} · {f.name}"
+    }
+   ],
+   "note": "Names open each person’s official page. The City elects its nine councillors at large, so every address shares the whole council. Members of the Legislative Assembly are added after the November 28 state election. Checked weekly; last change {date}."
+  },
+  "transit": {
+   "file": "transit.json",
+   "routes": "transit_routes",
+   "title": "Transit nearby",
+   "radius": 400,
+   "station": "Nearest train station",
+   "stationSub": "{lines} · {dist} away",
+   "rows": [
+    [
+     "tram",
+     "Trams",
+     false
+    ],
+    [
+     "bus",
+     "Buses",
+     false
+    ]
+   ],
+   "night": "Overnight",
+   "stop": "Nearest stop",
+   "none": "No tram or bus stop within 400 m",
+   "every": "about every {h} min on weekday middays",
+   "nightOnly": "overnight only",
+   "kinds": {
+    "tram": "Tram route",
+    "bus": "Bus route"
+   },
+   "note": "Routes with a stop within 400 m, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. Transport Victoria schedules, week of {week}."
   }
  },
  "tour": {
@@ -693,6 +850,50 @@
     "view": "city",
     "text": "Tap any spot or search an address, and the card shows the suburb it's in and what living there is like. Switch layers on and off in the panel to explore."
    }
+  ]
+ },
+ "party": {
+  "label": "Colour by party",
+  "note": "Each seat in the colour of its sitting member’s party, from the weekly check of the Parliamentary Handbook. Grey: vacant.",
+  "vacant": "Vacant",
+  "other": "Other",
+  "parties": [
+   [
+    "Labor",
+    "red",
+    [
+     "Labor"
+    ]
+   ],
+   [
+    "Liberal",
+    "blue",
+    [
+     "Liberal",
+     "Liberal National"
+    ]
+   ],
+   [
+    "Greens",
+    "green",
+    [
+     "Greens"
+    ]
+   ],
+   [
+    "Nationals",
+    "green",
+    [
+     "Nationals"
+    ]
+   ],
+   [
+    "Independent",
+    "other",
+    [
+     "Independent"
+    ]
+   ]
   ]
  }
 }

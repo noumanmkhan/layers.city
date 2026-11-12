@@ -11,6 +11,11 @@ the project's claude/australia-scouting.md.
 | SA1s in the City | ABS ASGS Edition 3 (2021), SA1 | CC BY 4.0 | `fetch.py` |
 | 2021 Census figures by SA1 | ABS 2021 Census General Community Profile DataPack, SA1, Victoria (short headers) | CC BY 4.0 | `fetch.py` |
 | Metro trains, trams, V/Line trains | Transport Victoria Open Data Portal, GTFS Schedule (weekly; folders 1 V/Line, 2 metro trains, 3 trams) | CC BY 4.0 | `fetch.py` |
+| Victorian Legislative Assembly districts (2021 redivision; the 2022 and 2026 elections) | Vicmap Admin State Assembly 2022, via the Vicmap open data WFS (opendata.maps.vic.gov.au, `open-data-platform:state_assembly_2022`) | CC BY 4.0 | `fetch_representatives.py` |
+| Federal electoral divisions (2024 redistribution) | Australian Electoral Commission, GIS data (Vic-october-2024-esri.zip) | CC BY 4.0 | `fetch_representatives.py` |
+| Federal members | Parliamentary Handbook API (handbookapi.aph.gov.au, current members), checked against the AEC's 2025 members elected | aph.gov.au; AEC (CC BY 4.0) | `fetch_representatives.py` |
+| Lord Mayor, Deputy Lord Mayor, councillors | Hand-kept from the VEC's Melbourne City Council page and 2024 results (`council.json`) | Public information | — |
+| Trams and metropolitan buses (card's Transit nearby, bus layer) | Transport Victoria GTFS Schedule, folders 3 and 4 (`surface.json` "inner") | CC BY 4.0 | `engine/fetch_surface.py` |
 | Main streets, freeways, the Yarra, place points, landmark positions | OpenStreetMap via Overpass | ODbL (© OpenStreetMap contributors) | `fetch.py` |
 
 ## Quirks

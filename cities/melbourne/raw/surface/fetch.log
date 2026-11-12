@@ -1,0 +1,725 @@
+  got https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/62370a3a-3fe0-4f6b-9022-9ebbf25751cc/download/gtfs.zip 243642809 bytes
+  merged 2 feeds into one: ['agency.txt', 'calendar.txt', 'calendar_dates.txt', 'levels.txt', 'pathways.txt', 'routes.txt', 'shapes.txt', 'stop_times.txt', 'stops.txt', 'transfers.txt', 'trips.txt']
+routes kept: 773
+feed 2026-11-06 - 2026-12-31 · week from 2026-11-16 · days {'wk': '2026-11-18', 'sat': '2026-11-21', 'sun': '2026-11-22'}
+trips in the week: 121715
+routes written: 719 · trams 24 · stops 24171
+  tram     1 East Coburg - South Melbourne Beac shapes 8  midday/5h  29  1-5am 1
+  bus      1 North Shore Station - Deakin Unive shapes 3  midday/5h  16  1-5am 1
+  bus      1 Moe - Traralgon via Morwell        shapes 2  midday/5h   7  1-5am 0
+  bus      1 Moe - Traralgon via Morwell        shapes 2  midday/5h   2  1-5am 0
+  bus      1 Moe - Traralgon via Morwell        shapes 2  midday/5h   8  1-5am 0
+  bus      1 Seymour - Seymour East             shapes 1  midday/5h  10  1-5am 0
+  bus      2 Morwell - Churchill                shapes 2  midday/5h   7  1-5am 0
+  bus      2 Morwell - Churchill                shapes 2  midday/5h   1  1-5am 0
+  bus      2 Seymour - Seymour North            shapes 4  midday/5h   3  1-5am 0
+  tram     3 Melbourne University - East Malver shapes 8  midday/5h  26  1-5am 1
+  bus      3 Traralgon - Churchill              shapes 2  midday/5h   0  1-5am 0
+  bus      3 Traralgon - Churchill              shapes 2  midday/5h   1  1-5am 0
+  bus      3 Traralgon - Churchill              shapes 2  midday/5h   3  1-5am 0
+  bus      3 Seymour - Puckapunyal              shapes 1  midday/5h   2  1-5am 0
+  bus      4 Churchill - Boolarra via Yinnar    shapes 2  midday/5h   0  1-5am 0
+  bus      4 Churchill - Boolarra via Yinnar    shapes 2  midday/5h   0  1-5am 0
+  bus      4 Churchill - Boolarra via Yinnar    shapes 2  midday/5h   2  1-5am 0
+  bus      4 Wimble Street - Seymour            shapes 1  midday/5h   0  1-5am 0
+  tram     5 Melbourne University - Malvern     shapes 8  midday/5h  26  1-5am 0
+  bus      5 Huntly - Kangaroo Flat via Bendigo shapes 6  midday/5h   8  1-5am 0
+  bus      5 Huntly - Kangaroo Flat via Bendigo shapes 6  midday/5h   4  1-5am 0
+  bus      5 Moe - Traralgon via Yallourn North shapes 4  midday/5h   1  1-5am 0
+  bus      5 Moe - Traralgon via Yallourn North shapes 3  midday/5h   1  1-5am 0
+  bus      5 Moe - Traralgon via Yallourn North shapes 3  midday/5h   1  1-5am 0
+  bus      5 Seymour - Seymour North East       shapes 2  midday/5h   0  1-5am 0
+  tram     6 Moreland - Glen Iris               shapes 8  midday/5h  29  1-5am 2
+  bus      6 Traralgon - Traralgon South        shapes 1  midday/5h   1  1-5am 0
+  bus      6 Traralgon - Traralgon South        shapes 1  midday/5h   2  1-5am 0
+  bus      7 Traralgon - Churchill (Special) vi shapes 2  midday/5h   0  1-5am 0
+  bus      8 Traralgon - Moe                    shapes 2  midday/5h   0  1-5am 0
+  bus      9 Traralgon - Churchill              shapes 2  midday/5h   0  1-5am 0
+  bus     10 Lara Station - Corio Village SC vi shapes 4  midday/5h   5  1-5am 0
+  bus     10 Ballarat Station - Lucas via Wendo shapes 2  midday/5h   5  1-5am 0
+  tram    11 West Preston - Victoria Harbour Do shapes 8  midday/5h  30  1-5am 0
+  bus     11 Ballarat Station - Wendouree Stati shapes 3  midday/5h  11  1-5am 0
+  bus     11 Moe West                           shapes 1  midday/5h   7  1-5am 0
+  bus     11 Moe West                           shapes 1  midday/5h   1  1-5am 0
+  bus     11 Moe West                           shapes 1  midday/5h   0  1-5am 0
+  tram    12 Victoria Gardens - St Kilda(Fitzro shapes 8  midday/5h  31  1-5am 0
+  bus     12 Lara Station - Lara West           shapes 3  midday/5h   6  1-5am 0
+  bus     12 Ballarat Station - Wendouree Stati shapes 3  midday/5h  10  1-5am 0
+  bus     12 Moe South                          shapes 1  midday/5h   2  1-5am 0
+  bus     12 Moe South                          shapes 1  midday/5h   0  1-5am 0
+  bus     12 Moe South                          shapes 1  midday/5h   0  1-5am 0
+  bus     13 Ballarat Station - Invermay Park   shapes 3  midday/5h   6  1-5am 0
+  bus     13 Moe - Moe North                    shapes 1  midday/5h   2  1-5am 0
+  bus     13 Moe - Moe North                    shapes 1  midday/5h   0  1-5am 0
+  bus     14 Ballarat Station - Black Hill      shapes 3  midday/5h  11  1-5am 0
+  bus     14 Moe - Newborough via Old Sale Rd   shapes 1  midday/5h   7  1-5am 0
+  bus     14 Moe - Newborough via Old Sale Rd   shapes 1  midday/5h   0  1-5am 0
+  bus     14 Moe - Newborough via Old Sale Rd   shapes 1  midday/5h   1  1-5am 0
+  bus     15 Ballarat Station - Brown Hill      shapes 4  midday/5h  10  1-5am 0
+  bus     15 Moe - Newborough via Dinwoodie Dr  shapes 1  midday/5h   7  1-5am 0
+  bus     15 Moe - Newborough via Dinwoodie Dr  shapes 1  midday/5h   1  1-5am 0
+  bus     15 Moe - Newborough via Dinwoodie Dr  shapes 1  midday/5h   0  1-5am 0
+  tram    16 Melbourne University - Kew         shapes 8  midday/5h  27  1-5am 2
+  bus     18 Avalon Airport - Lara Station      shapes 5  midday/5h   4  1-5am 0
+  tram    19 North Coburg - Flinders Street Sta shapes 8  midday/5h  50  1-5am 1
+  bus     19 Geelong - Bannockburn              shapes 2  midday/5h   0  1-5am 0
+  bus     20 Geelong Station - Corio SC         shapes 2  midday/5h  16  1-5am 0
+  bus     20 Ballarat Station - Canadian        shapes 4  midday/5h   5  1-5am 0
+  bus     20 Morwell South                      shapes 1  midday/5h   0  1-5am 0
+  bus     20 Morwell South                      shapes 1  midday/5h   3  1-5am 0
+  bus     20 Morwell South                      shapes 1  midday/5h   0  1-5am 0
+  bus     21 Ballarat Station - Buninyong via F shapes 3  midday/5h  10  1-5am 0
+  bus     21 Morwell - Mid Valley Shopping Cent shapes 2  midday/5h   8  1-5am 0
+  bus     21 Morwell - Mid Valley Shopping Cent shapes 2  midday/5h   1  1-5am 0
+  bus     22 Geelong Station - North Shore Stat shapes 2  midday/5h  16  1-5am 1
+  bus     22 Ballarat Station - Federation Univ shapes 5  midday/5h  10  1-5am 0
+  bus     22 Morwell - Mid Valley Shopping Cent shapes 2  midday/5h   7  1-5am 0
+  bus     22 Morwell - Mid Valley Shopping Cent shapes 2  midday/5h   1  1-5am 0
+  bus     23 Corio SC - North Shore Station     shapes 2  midday/5h  16  1-5am 0
+  bus     23 Ballarat Station - Mount Pleasant  shapes 3  midday/5h   5  1-5am 0
+  bus     24 Geelong Station - North Geelong St shapes 2  midday/5h   8  1-5am 0
+  bus     24 Ballarat Station - Sebastopol      shapes 3  midday/5h   9  1-5am 0
+  bus     25 Geelong Station - Bell Post Hill   shapes 2  midday/5h  15  1-5am 0
+  bus     25 Ballarat Station - Delacombe       shapes 3  midday/5h  10  1-5am 0
+  bus     26 Ballarat Station - Alfredton       shapes 3  midday/5h  10  1-5am 0
+  tram    30 St Vincents Plaza - Central Pier D shapes 8  midday/5h  25  1-5am 0
+  bus     30 Ballarat Station - Creswick        shapes 3  midday/5h   5  1-5am 0
+  bus     30 Churchill town loop                shapes 1  midday/5h   6  1-5am 0
+  bus     30 Churchill town loop                shapes 1  midday/5h   1  1-5am 0
+  bus     30 Geelong Station - Whittington via  shapes 2  midday/5h   8  1-5am 0
+  bus     30 Geelong Station - Whittington via  shapes 1  midday/5h   1  1-5am 0
+  bus     31 Wendouree Station - Miners Rest    shapes 2  midday/5h   5  1-5am 0
+  bus     31 Geelong Station - St Albans Park   shapes 2  midday/5h   9  1-5am 0
+  bus     31 Geelong Station - St Albans Park   shapes 1  midday/5h   0  1-5am 0
+  bus     32 Geelong Station - Leopold via Bell shapes 2  midday/5h   4  1-5am 0
+  bus     32 Geelong Station - Leopold          shapes 2  midday/5h   3  1-5am 0
+  bus     32 Geelong Station - Leopold          shapes 2  midday/5h   1  1-5am 0
+  bus     32 Geelong Station - Leopold          shapes 2  midday/5h   1  1-5am 0
+  tram    35 City Circle (Free Tourist Tram)    shapes 4  midday/5h  25  1-5am 0
+  bus     40 Traralgon via Cross's Road         shapes 1  midday/5h   0  1-5am 0
+  bus     40 Traralgon via Cross's Road         shapes 1  midday/5h   0  1-5am 0
+  bus     40 Traralgon via Cross's Road         shapes 1  midday/5h   5  1-5am 0
+  bus     40 Geelong Station - Deakin Universit shapes 2  midday/5h   4  1-5am 0
+  bus     40 Geelong Station - Deakin Universit shapes 1  midday/5h   0  1-5am 0
+  bus     40 Geelong Station - Deakin Universit shapes 2  midday/5h   2  1-5am 0
+  bus     41 Traralgon West                     shapes 1  midday/5h   1  1-5am 0
+  bus     41 Traralgon West                     shapes 1  midday/5h   1  1-5am 0
+  bus     41 Traralgon West                     shapes 1  midday/5h   3  1-5am 0
+  bus     41 Geelong Station - Deakin Universit shapes 2  midday/5h   8  1-5am 0
+  bus     41 Geelong Station - Deakin Universit shapes 1  midday/5h   0  1-5am 0
+  bus     41 Geelong Station - Deakin Universit shapes 1  midday/5h   1  1-5am 0
+  bus     41 Geelong Station - Deakin Universit shapes 2  midday/5h   0  1-5am 0
+  bus     42 Traralgon - Southside              shapes 1  midday/5h   1  1-5am 0
+  bus     42 Traralgon - Southside              shapes 1  midday/5h   0  1-5am 0
+  bus     42 Traralgon - Southside              shapes 1  midday/5h   4  1-5am 0
+  bus     42 Geelong Station - Deakin Universit shapes 2  midday/5h   9  1-5am 0
+  bus     42 Geelong Station - Deakin Universit shapes 2  midday/5h   4  1-5am 0
+  bus     42 Geelong Station - Deakin Universit shapes 2  midday/5h   2  1-5am 0
+  bus     42 Geelong Station - Deakin Universit shapes 2  midday/5h   1  1-5am 0
+  bus     43 Geelong Station - Deakin Universit shapes 2  midday/5h   8  1-5am 0
+  bus     43 Traralgon East                     shapes 1  midday/5h   1  1-5am 0
+  bus     43 Traralgon East                     shapes 1  midday/5h   4  1-5am 0
+  bus     44 Traralgon via Ellavale Dr          shapes 1  midday/5h   0  1-5am 0
+  bus     44 Traralgon via Ellavale Dr          shapes 1  midday/5h   0  1-5am 0
+  bus     44 Traralgon via Ellavale Dr          shapes 1  midday/5h   5  1-5am 0
+  bus     45 Traralgon North                    shapes 1  midday/5h   1  1-5am 0
+  bus     45 Traralgon North                    shapes 1  midday/5h   1  1-5am 0
+  bus     45 Traralgon North                    shapes 1  midday/5h   2  1-5am 0
+  bus     45 Armstrong Creek - Waurn Ponds Shop shapes 3  midday/5h   4  1-5am 0
+  bus     45 Armstrong Creek - Waurn Ponds SC v shapes 2  midday/5h   0  1-5am 0
+  bus     45 Armstrong Creek - Waurn Ponds SC v shapes 2  midday/5h   1  1-5am 0
+  bus     45 Armstrong Creek - Waurn Ponds SC v shapes 3  midday/5h   0  1-5am 0
+  tram    48 North Balwyn - Victoria Harbour Do shapes 8  midday/5h  31  1-5am 0
+  bus     49 Kalkee Retirement Village - Belmon shapes 2  midday/5h   0  1-5am 0
+  bus     50 Bendigo Station - Epsom Station vi shapes 3  midday/5h   4  1-5am 0
+  bus     50 Bendigo Station - Epsom Station vi shapes 2  midday/5h   1  1-5am 0
+  bus     51 Bendigo Station - Eaglehawk via Ja shapes 2  midday/5h   2  1-5am 0
+  bus     51 Bendigo Station - Eaglehawk via Ja shapes 2  midday/5h   4  1-5am 0
+  bus     52 Bendigo Station - Eaglehawk via Ar shapes 2  midday/5h   2  1-5am 0
+  bus     52 Bendigo Station - Eaglehawk via Ar shapes 2  midday/5h   9  1-5am 0
+  bus     52 Marshall Station - Torquay and Jan shapes 2  midday/5h   3  1-5am 0
+  bus     52 Jan Juc (Torquay) - Marshall Stati shapes 2  midday/5h   2  1-5am 0
+  bus     52 Jan Juc (Torquay) - Marshall Stati shapes 3  midday/5h   0  1-5am 0
+  bus     52 Jan Juc (Torquay) - Marshall Stati shapes 3  midday/5h   0  1-5am 0
+  bus     53 Bendigo Station - Eaglehawk via Ea shapes 2  midday/5h   5  1-5am 0
+  bus     53 Bendigo Station - Eaglehawk via Ea shapes 2  midday/5h   7  1-5am 0
+  bus     53 Geelong Station - Torquay (Bell St shapes 2  midday/5h   6  1-5am 0
+  bus     53 Geelong Station - Torquay (Bell St shapes 2  midday/5h   3  1-5am 0
+  bus     53 Geelong Station - Torquay (Bell St shapes 2  midday/5h   2  1-5am 0
+  bus     53 Geelong Station - Torquay (Bell St shapes 2  midday/5h   2  1-5am 0
+  bus     54 Bendigo Station - Maiden Gully via shapes 4  midday/5h   3  1-5am 0
+  bus     54 Bendigo Station - Maiden Gully via shapes 2  midday/5h   2  1-5am 0
+  bus     54 Marshall Station - Torquay (Bell S shapes 2  midday/5h   4  1-5am 0
+  bus     54 Marshall Station - Torquay (Bell S shapes 2  midday/5h   0  1-5am 0
+  bus     54 Marshall Station - Torquay (Bell S shapes 2  midday/5h   0  1-5am 0
+  bus     54 Marshall Station - Torquay (Bell S shapes 2  midday/5h   2  1-5am 0
+  bus     55 Bendigo Station - Kangaroo Flat vi shapes 2  midday/5h   8  1-5am 1
+  bus     55 Bendigo Station - Kangaroo Flat vi shapes 2  midday/5h   3  1-5am 0
+  bus     55 Geelong Station - Ocean Grove via  shapes 2  midday/5h   2  1-5am 0
+  bus     55 Geelong Station - Ocean Grove via  shapes 2  midday/5h   1  1-5am 0
+  bus     55 Geelong Station - Ocean Grove via  shapes 2  midday/5h   1  1-5am 0
+  bus     55 Geelong Station - Ocean Grove via  shapes 2  midday/5h   1  1-5am 0
+  bus     56 Geelong Station - Queenscliff via  shapes 2  midday/5h   2  1-5am 0
+  bus     56 Geelong Station - Queenscliff via  shapes 2  midday/5h   0  1-5am 0
+  bus     56 Geelong Station - Queenscliff via  shapes 4  midday/5h   1  1-5am 0
+  tram    57 West Maribyrnong - Flinders Street shapes 8  midday/5h  38  1-5am 0
+  tram    58 West Coburg - Toorak               shapes 8  midday/5h  33  1-5am 3
+  tram    59 Airport West - Flinders Street Sta shapes 8  midday/5h  38  1-5am 2
+  bus     60 Bendigo Station - East Bendigo via shapes 2  midday/5h   0  1-5am 0
+  bus     60 Bendigo Station - East Bendigo via shapes 2  midday/5h   5  1-5am 0
+  bus     60 Geelong Station - St Leonards via  shapes 4  midday/5h   0  1-5am 0
+  bus     60 Geelong Station - St Leonards via  shapes 4  midday/5h   6  1-5am 0
+  bus     60 Geelong Station - St Leonards via  shapes 4  midday/5h   1  1-5am 0
+  bus     60 Geelong Station - St Leonards via  shapes 3  midday/5h   0  1-5am 0
+  bus     61 Bendigo Station - La Trobe Univers shapes 2  midday/5h   5  1-5am 0
+  bus     61 Bendigo Station - La Trobe Univers shapes 2  midday/5h   6  1-5am 0
+  bus     61 Geelong Station - Drysdale via Leo shapes 3  midday/5h   0  1-5am 0
+  bus     61 Geelong Station - Drysdale via Cli shapes 2  midday/5h   7  1-5am 0
+  bus     61 Geelong Station - Drysdale via Cli shapes 2  midday/5h   1  1-5am 0
+  bus     61 Geelong Station - Drysdale via Cli shapes 2  midday/5h   0  1-5am 0
+  bus     62 Bendigo Station - Spring Gully via shapes 2  midday/5h   2  1-5am 0
+  bus     62 Bendigo Station - Spring Gully via shapes 2  midday/5h   4  1-5am 0
+  bus     63 Bendigo Hospital - La Trobe Univer shapes 2  midday/5h   4  1-5am 0
+  bus     63 Bendigo Hospital - La Trobe Univer shapes 2  midday/5h   6  1-5am 0
+  tram    64 Melbourne University - East Bright shapes 10  midday/5h  25  1-5am 0
+  bus     64 Bendigo Station - Golden Square vi shapes 2  midday/5h   5  1-5am 0
+  bus     64 Bendigo Station - Golden Square vi shapes 2  midday/5h   2  1-5am 0
+  bus     65 Bendigo Station - Spring Gully via shapes 2  midday/5h   4  1-5am 0
+  bus     65 Bendigo Station - Spring Gully via shapes 2  midday/5h   1  1-5am 0
+  tram    67 Melbourne University - Carnegie    shapes 8  midday/5h  25  1-5am 2
+  tram    70 Waterfront City Docklands -  Wattl shapes 8  midday/5h  31  1-5am 2
+  bus     70 Bendigo Station - Strathfieldsaye  shapes 3  midday/5h   1  1-5am 0
+  bus     70 Bendigo Station - Strathfieldsaye  shapes 3  midday/5h   4  1-5am 0
+  bus     71 Strathfieldsaye SC Loop via Strath shapes 1  midday/5h   0  1-5am 0
+  bus     71 Strathfieldsaye SC Loop via Strath shapes 2  midday/5h   2  1-5am 0
+  tram    72 Melbourne University - Camberwell  shapes 8  midday/5h  26  1-5am 1
+  tram    75 Vermont South - Central Pier Dockl shapes 8  midday/5h  31  1-5am 3
+  tram    78 North Richmond - Balaclava         shapes 8  midday/5h  26  1-5am 0
+  bus     80 Warragul Station - Warragul South  shapes 2  midday/5h   8  1-5am 0
+  bus     81 Warragul Station - Warragul North  shapes 2  midday/5h   8  1-5am 0
+  tram    82 Moonee Ponds - Footscray           shapes 8  midday/5h  21  1-5am 1
+  bus     82 Warragul Station - Warragul North  shapes 2  midday/5h   8  1-5am 0
+  bus     83 Warragul Station - Warragul East v shapes 2  midday/5h   8  1-5am 0
+  bus     85 Warragul Station - Drouin Station  shapes 3  midday/5h  15  1-5am 0
+  tram    86 Bundoora RMIT - Waterfront City Do shapes 8  midday/5h  38  1-5am 6
+  bus     86 Drouin Station - Drouin North via  shapes 2  midday/5h   8  1-5am 0
+  tram    96 East Brunswick - St Kilda Beach    shapes 8  midday/5h  39  1-5am 2
+  tram   109 Box Hill - Port Melbourne          shapes 8  midday/5h  31  1-5am 4
+  bus    140 Tarneit Station - Rockbank Station shapes 2  midday/5h  15  1-5am 0
+  bus    140 Tarneit Station - Rockbank Station shapes 2  midday/5h   1  1-5am 1
+  bus    150 Williams Landing Station - Tarneit shapes 2  midday/5h   8  1-5am 0
+  bus    151 Williams Landing Station - Tarneit shapes 2  midday/5h   8  1-5am 0
+  bus    152 Tarneit Station - Williams Landing shapes 2  midday/5h   8  1-5am 0
+  bus    153 Williams Landing Station - Werribe shapes 2  midday/5h  15  1-5am 0
+  bus    154 Laverton Station - Tarneit Station shapes 2  midday/5h  16  1-5am 1
+  bus    160 Tarneit Station - Hoppers Crossing shapes 2  midday/5h   8  1-5am 0
+  bus    161 Hoppers Crossing Station - Werribe shapes 2  midday/5h   7  1-5am 0
+  bus    166 Hoppers Crossing Station - Wyndham shapes 2  midday/5h   7  1-5am 0
+  bus    167 Tarneit Station - Hoppers Crossing shapes 3  midday/5h   8  1-5am 0
+  bus    170 Tarneit Station - Werribee Station shapes 2  midday/5h  15  1-5am 0
+  bus    180 Tarneit Station - Werribee Station shapes 2  midday/5h  15  1-5am 0
+  bus    181 Hoppers Crossing Station - Werribe shapes 2  midday/5h   7  1-5am 0
+  bus    182 Tarneit Station - Werribee Station shapes 2  midday/5h  15  1-5am 0
+  bus    186 Tarneit Station - West Tarneit Sta shapes 2  midday/5h  15  1-5am 0
+  bus    190 Werribee Station - Wyndham Vale St shapes 2  midday/5h  15  1-5am 1
+  bus    191 Werribee Station - Jubilee Estate  shapes 2  midday/5h   6  1-5am 1
+  bus    192 Werribee Station - Wyndham Vale St shapes 2  midday/5h  15  1-5am 0
+  bus    194 Wyndham Vale Station - Werribee St shapes 2  midday/5h  15  1-5am 0
+  bus    200 City - Bulleen via Kew Junction    shapes 2  midday/5h  13  1-5am 0
+  bus    200 City - Bulleen via Kew Junction    shapes 2  midday/5h   3  1-5am 0
+  bus    201 Box Hill Station - Deakin Universi shapes 2  midday/5h  20  1-5am 0
+  bus    207 City - Doncaster Shopping Centre v shapes 2  midday/5h  12  1-5am 0
+  bus    207 City - Doncaster Shopping Centre v shapes 2  midday/5h   5  1-5am 0
+  bus    215 Highpoint Shopping Centre - Caroli shapes 2  midday/5h   7  1-5am 0
+  bus    216 Sunshine Station - City via Dynon  shapes 2  midday/5h  20  1-5am 0
+  bus    220 Sunshine Station - City via Footsc shapes 2  midday/5h  20  1-5am 0
+  bus    223 Yarraville - Highpoint SC          shapes 2  midday/5h  21  1-5am 0
+  bus    232 Altona North - City (Queen Victori shapes 2  midday/5h  15  1-5am 0
+  bus    234 City (Queen Victoria Market) - Gar shapes 2  midday/5h   6  1-5am 0
+  bus    234 City (Queen Victoria Market) - Gar shapes 2  midday/5h  16  1-5am 0
+  bus    235 City (Southern Cross Station) - Fi shapes 2  midday/5h  18  1-5am 0
+  bus    235 City (Southern Cross Station) - Fi shapes 2  midday/5h  13  1-5am 0
+  bus    236 City (Queen Victoria Market) - Gar shapes 2  midday/5h   5  1-5am 0
+  bus    236 City (Queen Victoria Market) - Gar shapes 2  midday/5h   3  1-5am 0
+  bus    237 City (Southern Cross Station) - Fi shapes 2  midday/5h  19  1-5am 0
+  bus    237 City (Southern Cross Station) - Fi shapes 2  midday/5h  11  1-5am 0
+  bus    241 North Melbourne Station - Yarra Be shapes 2  midday/5h  30  1-5am 0
+  bus    246 Elsternwick - Clifton Hill via St  shapes 2  midday/5h  30  1-5am 0
+  bus    250 City (Queen St) - La Trobe Univers shapes 2  midday/5h  15  1-5am 0
+  bus    251 City (Queen St) - Northland Shoppi shapes 2  midday/5h  15  1-5am 0
+  bus    270 Box Hill - Mitcham via Blackburn N shapes 2  midday/5h  16  1-5am 0
+  bus    270 Box Hill - Mitcham via Blackburn N shapes 2  midday/5h   0  1-5am 0
+  bus    271 Box Hill Station - Ringwood via Pa shapes 2  midday/5h  10  1-5am 0
+  bus    273 The Pines SC - Nunawading Station  shapes 2  midday/5h  10  1-5am 0
+  bus    279 Box Hill Station - Doncaster SC vi shapes 4  midday/5h  21  1-5am 0
+  bus    279 Box Hill Station - Doncaster SC vi shapes 4  midday/5h   0  1-5am 0
+  bus    280 Manningham Loop via Tunstall Squar shapes 1  midday/5h   5  1-5am 0
+  bus    281 Templestowe - Box Hill Bus Station shapes 3  midday/5h  10  1-5am 0
+  bus    282 Manningham Loop via Templestowe Vi shapes 1  midday/5h   5  1-5am 0
+  bus    284 Doncaster Park & Ride - Box Hill S shapes 2  midday/5h   6  1-5am 0
+  bus    284 Doncaster Park & Ride - Box Hill S shapes 2  midday/5h   1  1-5am 0
+  bus    285 Doncaster Park & Ride - Camberwell shapes 2  midday/5h   7  1-5am 0
+  bus    285 Doncaster Park & Ride - Camberwell shapes 2  midday/5h   1  1-5am 0
+  bus    293 Box Hill Station - Greensborough S shapes 2  midday/5h  10  1-5am 0
+  bus    293 Box Hill Station - Greensborough S shapes 2  midday/5h   0  1-5am 0
+  bus    295 Doncaster SC - The Pines SC via Te shapes 2  midday/5h  10  1-5am 0
+  bus    302 City - Box Hill Station via Belmor shapes 3  midday/5h   8  1-5am 0
+  bus    302 City - Box Hill Station via Belmor shapes 4  midday/5h   2  1-5am 0
+  bus    303 City - Ringwood North via Park Rd  shapes 2  midday/5h   0  1-5am 0
+  bus    304 City - Doncaster SC via Belmore Rd shapes 3  midday/5h  10  1-5am 0
+  bus    304 City - Doncaster SC via Belmore Rd shapes 3  midday/5h   0  1-5am 0
+  bus    305 City - The Pines SC via Eastern Fw shapes 5  midday/5h  19  1-5am 0
+  bus    305 City - The Pines SC via Eastern Fw shapes 5  midday/5h   1  1-5am 0
+  bus    309 City - The Pines SC via Eastern Fw shapes 3  midday/5h   1  1-5am 0
+  bus    309 City - The Pines SC via Eastern Fw shapes 2  midday/5h   0  1-5am 0
+  bus    318 City - Deep Creek                  shapes 2  midday/5h   0  1-5am 0
+  bus    343 Hurstbridge Station - Greensboroug shapes 2  midday/5h   7  1-5am 0
+  bus    350 City - La Trobe University via Eas shapes 2  midday/5h   5  1-5am 0
+  bus    356 Epping Station - Wollert East via  shapes 2  midday/5h   8  1-5am 0
+  bus    357 Wollert West - Thomastown Station  shapes 2  midday/5h   8  1-5am 0
+  bus    358 Epping Station - Wollert via Eppin shapes 2  midday/5h   8  1-5am 0
+  bus    364 Warrandyte - Ringwood Station via  shapes 2  midday/5h  10  1-5am 0
+  bus    370 Mitcham - Ringwood via Ringwood No shapes 2  midday/5h  10  1-5am 0
+  bus    381 Mernda Station to Diamond Creek St shapes 4  midday/5h   8  1-5am 0
+  bus    382 Whittlesea - Northland Shopping Ce shapes 4  midday/5h   9  1-5am 1
+  bus    383 Palisades - University Hill        shapes 2  midday/5h   8  1-5am 0
+  bus    384 Kinglake - Whittlesea via Humevale shapes 5  midday/5h   5  1-5am 2
+  bus    385 Whittlesea/Mernda Station - Greens shapes 4  midday/5h   9  1-5am 0
+  bus    386 Mernda Station - Bundoora RMIT via shapes 2  midday/5h   9  1-5am 0
+  bus    387 Mernda Station - Bundoora RMIT via shapes 2  midday/5h   8  1-5am 0
+  bus    388 Mernda Station - Doreen - Mernda S shapes 2  midday/5h   8  1-5am 0
+  bus    389 Mernda Station - Doreen - Mernda S shapes 1  midday/5h   7  1-5am 0
+  bus    390 Craigieburn Station - Mernda Stati shapes 2  midday/5h  15  1-5am 0
+  bus    400 Sunshine Station - Laverton Statio shapes 4  midday/5h   4  1-5am 0
+  bus    400 Sunshine Station - Laverton Statio shapes 4  midday/5h   3  1-5am 0
+  bus    402 Footscray Station - East Melbourne shapes 2  midday/5h  31  1-5am 0
+  bus    404 Moonee Ponds - Footscray Station v shapes 2  midday/5h   9  1-5am 0
+  bus    405 Deer Park Station - Brimbank SC vi shapes 2  midday/5h  15  1-5am 0
+  bus    406 Keilor East - Footscray via Avonda shapes 4  midday/5h  16  1-5am 0
+  bus    407 Highpoint Shopping Centre - Avonda shapes 2  midday/5h   9  1-5am 0
+  bus    408 St Albans Station - Highpoint Shop shapes 2  midday/5h  15  1-5am 0
+  bus    409 Yarraville Station - Highpoint Sho shapes 3  midday/5h   7  1-5am 0
+  bus    410 Footscray - Sunshine Station via B shapes 4  midday/5h  20  1-5am 0
+  bus    411 Footscray - Laverton Station via A shapes 2  midday/5h   8  1-5am 0
+  bus    412 Footscray - Laverton Station via A shapes 2  midday/5h   8  1-5am 0
+  bus    414 Footscray - Laverton Station via G shapes 2  midday/5h   8  1-5am 0
+  bus    415 Williamstown - Laverton Station vi shapes 4  midday/5h   7  1-5am 0
+  bus    417 Laverton North - Laverton Station  shapes 4  midday/5h   5  1-5am 0
+  bus    418 St Albans Station - Caroline Sprin shapes 2  midday/5h   8  1-5am 0
+  bus    419 St Albans Station - Watergardens S shapes 2  midday/5h   8  1-5am 0
+  bus    420 Sunshine Station - Watergardens St shapes 4  midday/5h   0  1-5am 0
+  bus    420 Sunshine Station - Watergardens St shapes 2  midday/5h  15  1-5am 0
+  bus    421 St Albans Station - Watergardens S shapes 2  midday/5h   7  1-5am 0
+  bus    422 Sunshine Station - Brimbank SC via shapes 2  midday/5h   5  1-5am 0
+  bus    423 St Albans Station - Brimbank SC vi shapes 2  midday/5h   8  1-5am 0
+  bus    424 St Albans Station - Brimbank SC vi shapes 2  midday/5h   7  1-5am 0
+  bus    425 St Albans Station - Watergardens S shapes 2  midday/5h   7  1-5am 0
+  bus    426 Sunshine Station - Caroline Spring shapes 2  midday/5h   8  1-5am 0
+  bus    427 Williamstown - Sunshine Station vi shapes 2  midday/5h   8  1-5am 0
+  bus    428 Sunshine Station - Sunshine West v shapes 2  midday/5h   8  1-5am 0
+  bus    429 Sunshine Station - Sunshine South  shapes 1  midday/5h   8  1-5am 0
+  bus    431 Yarraville Station - Kingsville vi shapes 2  midday/5h  10  1-5am 0
+  bus    432 Newport - Yarraville Station via A shapes 2  midday/5h  14  1-5am 0
+  bus    433 Maddingley - Darley via Bacchus Ma shapes 4  midday/5h   6  1-5am 0
+  bus    434 Bacchus Marsh Station - Telford Pa shapes 2  midday/5h   6  1-5am 0
+  bus    439 Werribee Station - Werribee South  shapes 4  midday/5h   5  1-5am 0
+  bus    441 Werribee Station - Riverwalk Estat shapes 2  midday/5h   5  1-5am 0
+  bus    443 Werribee Station - Werribee Statio shapes 2  midday/5h   5  1-5am 0
+  bus    444 Rockbank Station - Aintree         shapes 2  midday/5h   8  1-5am 0
+  bus    451 Thornhill Park - Cobblebank Statio shapes 2  midday/5h  15  1-5am 0
+  bus    452 Eynesbury - Melton Station         shapes 2  midday/5h   8  1-5am 0
+  bus    453 Melton - Melton Station via Brookf shapes 2  midday/5h   5  1-5am 0
+  bus    454 Melton Station - Cobblebank Statio shapes 2  midday/5h   7  1-5am 0
+  bus    454 Melton Station - Cobblebank Statio shapes 2  midday/5h   1  1-5am 0
+  bus    455 Micasa Rise/Roslyn Park - Melton S shapes 2  midday/5h   5  1-5am 0
+  bus    455 Micasa Rise/Roslyn Park - Melton S shapes 2  midday/5h   0  1-5am 0
+  bus    456 Sunshine Station - Melton via Caro shapes 2  midday/5h   4  1-5am 0
+  bus    456 Sunshine Station - Melton via Caro shapes 2  midday/5h   5  1-5am 0
+  bus    457 Melton - Melton Station via Melton shapes 2  midday/5h  10  1-5am 0
+  bus    457 Melton - Melton Station via Melton shapes 2  midday/5h   0  1-5am 0
+  bus    458 Kurunjang - Melton Station         shapes 2  midday/5h  10  1-5am 0
+  bus    458 Kurunjang - Melton Station         shapes 2  midday/5h   0  1-5am 0
+  bus    459 Arnolds Creek to Melton Station vi shapes 2  midday/5h  10  1-5am 0
+  bus    460 Watergardens Station - Caroline Sp shapes 2  midday/5h  15  1-5am 0
+  bus    462 Watergardens Station - Caroline Sp shapes 2  midday/5h   8  1-5am 0
+  bus    463 Watergardens Station - Caroline Sp shapes 2  midday/5h  15  1-5am 0
+  bus    464 Watergardens Station - Rockbank St shapes 2  midday/5h  16  1-5am 1
+  bus    464 Watergardens Station - Rockbank St shapes 2  midday/5h   0  1-5am 0
+  bus    465 Essendon Station - Keilor Park via shapes 3  midday/5h  17  1-5am 0
+  bus    467 Moonee Ponds Station - Aberfeldie  shapes 2  midday/5h  16  1-5am 0
+  bus    468 Essendon Station - Highpoint Shopp shapes 2  midday/5h   8  1-5am 0
+  bus    469 Moonee Ponds - Keilor East via Air shapes 2  midday/5h   9  1-5am 0
+  bus    471 Williamstown - Sunshine Station vi shapes 2  midday/5h  16  1-5am 0
+  bus    472 Williamstown - Sunshine Station vi shapes 2  midday/5h  21  1-5am 0
+  bus    475 Sunbury Station - Diggers Rest Sta shapes 2  midday/5h  15  1-5am 0
+  bus    476 Moonee Ponds Interchange - Waterga shapes 2  midday/5h   9  1-5am 0
+  bus    477 Moonee Ponds - Broadmeadows Statio shapes 2  midday/5h  16  1-5am 0
+  bus    478 Airport West Shopping Centre - Mel shapes 2  midday/5h   5  1-5am 0
+  bus    479 Airport West Shopping Centre - Sun shapes 2  midday/5h   5  1-5am 0
+  bus    481 Sunbury Railway Station - Mount Li shapes 2  midday/5h   7  1-5am 0
+  bus    482 Airport West Shopping Centre - Mel shapes 2  midday/5h   1  1-5am 0
+  bus    483 Sunbury - Moonee Ponds via Diggers shapes 2  midday/5h   5  1-5am 0
+  bus    484 Broadmeadows - Roxburgh Park via G shapes 2  midday/5h   8  1-5am 0
+  bus    485 Sunbury Railway Station - Wilson L shapes 2  midday/5h   9  1-5am 0
+  bus    486 Sunbury Railway Station - Rolling  shapes 2  midday/5h   9  1-5am 0
+  bus    487 Sunbury Railway Station - Killara  shapes 2  midday/5h   8  1-5am 0
+  bus    488 Sunbury Railway Station - Jacksons shapes 2  midday/5h   7  1-5am 0
+  bus    489 Sunbury Railway Station - Canterbu shapes 2  midday/5h   7  1-5am 0
+  bus    490 Airport West to Gowanbrae via Melr shapes 2  midday/5h   6  1-5am 0
+  bus    494 Williams Landing Station - Point C shapes 2  midday/5h   9  1-5am 0
+  bus    495 Williams Landing Station -  Point  shapes 2  midday/5h   9  1-5am 0
+  bus    496 Aircraft Station - Sanctuary Lakes shapes 4  midday/5h   5  1-5am 0
+  bus    497 Williams Landing Station - Saltwat shapes 2  midday/5h   7  1-5am 0
+  bus    498 Laverton Station - Hoppers Crossin shapes 2  midday/5h   8  1-5am 0
+  bus    501 Craigieburn Station - Donnybrook S shapes 2  midday/5h  15  1-5am 0
+  bus    503 East Brunswick - Essendon Station  shapes 2  midday/5h  15  1-5am 0
+  bus    504 Moonee Ponds - Clifton Hill Statio shapes 2  midday/5h  10  1-5am 0
+  bus    505 Moonee Ponds - Melbourne Universit shapes 2  midday/5h  16  1-5am 0
+  bus    506 Westgarth Station - Moonee Ponds v shapes 2  midday/5h  16  1-5am 0
+  bus    508 Alphington - Moonee Ponds via Nort shapes 2  midday/5h  16  1-5am 0
+  bus    509 Barkly Square Shopping Centre - Br shapes 2  midday/5h   5  1-5am 0
+  bus    510 Essendon Station - Ivanhoe Station shapes 2  midday/5h  14  1-5am 0
+  bus    511 Craigieburn Station to Mandalay vi shapes 2  midday/5h   7  1-5am 0
+  bus    512 Strathmore Station - East Coburg v shapes 2  midday/5h  15  1-5am 0
+  bus    513 Glenroy Station - Eltham Station v shapes 5  midday/5h   9  1-5am 0
+  bus    514 Glenroy Station - Eltham Station v shapes 2  midday/5h   8  1-5am 0
+  bus    517 Northland - St Helena via Viewbank shapes 2  midday/5h  15  1-5am 0
+  bus    518 Greensborough Station - St Helena  shapes 2  midday/5h   8  1-5am 0
+  bus    524 Kalkallo - Peppercorn Hill via Don shapes 2  midday/5h   8  1-5am 0
+  bus    525 Craigieburn Station - Donnybrook S shapes 2  midday/5h   8  1-5am 0
+  bus    526 Coburg - Reservoir via Elizabeth S shapes 2  midday/5h  10  1-5am 0
+  bus    527 Gowrie  - Northland via Murray Roa shapes 2  midday/5h  15  1-5am 0
+  bus    528 Craigieburn Station - Craigieburn  shapes 2  midday/5h  15  1-5am 0
+  bus    529 Craigieburn Station - Craigieburn  shapes 2  midday/5h  15  1-5am 0
+  bus    530 Campbellfield Plaza - Coburg via F shapes 2  midday/5h  10  1-5am 0
+  bus    531 Upfield Station - North Coburg via shapes 2  midday/5h   5  1-5am 0
+  bus    532 Craigieburn Station - Broadmeadows shapes 2  midday/5h  10  1-5am 0
+  bus    533 Craigieburn Station - Craigieburn  shapes 2  midday/5h  15  1-5am 0
+  bus    534 Glenroy Station - Coburg via Merly shapes 2  midday/5h  10  1-5am 0
+  bus    536 Glenroy Station - Gowrie Station   shapes 2  midday/5h  10  1-5am 0
+  bus    537 Craigieburn Station - Craigieburn  shapes 2  midday/5h  15  1-5am 0
+  bus    538 Campbellfield - Broadmeadows via C shapes 2  midday/5h   8  1-5am 0
+  bus    540 Broadmeadows Station - Upfield Sta shapes 2  midday/5h  15  1-5am 0
+  bus    541 Broadmeadows Station - Craigieburn shapes 2  midday/5h  16  1-5am 0
+  bus    542 Pascoe Vale Station - Roxburgh Par shapes 2  midday/5h   8  1-5am 0
+  bus    543 Roxburgh Park Station - Craigiebur shapes 2  midday/5h  11  1-5am 0
+  bus    544 Craigieburn Station - Roxburgh Par shapes 2  midday/5h  10  1-5am 0
+  bus    546 Heidelberg Station - Melbourne Uni shapes 2  midday/5h  16  1-5am 0
+  bus    548 Kew (Cotham Road) - La Trobe Unive shapes 6  midday/5h  10  1-5am 0
+  bus    549 Ivanhoe - Northland via Oriel Road shapes 2  midday/5h  10  1-5am 0
+  bus    550 Northland - La Trobe University vi shapes 2  midday/5h  10  1-5am 0
+  bus    551 Heidelberg - La Trobe University I shapes 2  midday/5h  11  1-5am 0
+  bus    552 Northcote Plaza - North East Reser shapes 2  midday/5h  20  1-5am 0
+  bus    553 Preston - West Preston via Reservo shapes 4  midday/5h   9  1-5am 0
+  bus    554 Thomastown via West Lalor (clockwi shapes 2  midday/5h  10  1-5am 0
+  bus    555 Epping - Northland via Lalor, Thom shapes 2  midday/5h  14  1-5am 0
+  bus    556 Epping Plaza SC - Northland SC via shapes 2  midday/5h  14  1-5am 0
+  bus    557 Thomastown via West Lalor (anti cl shapes 2  midday/5h  10  1-5am 0
+  bus    558 Reservoir via North West Reservoir shapes 5  midday/5h   6  1-5am 0
+  bus    559 Thomastown via Darebin Drive       shapes 1  midday/5h  13  1-5am 0
+  bus    561 Pascoe Vale Station - Macleod via  shapes 4  midday/5h  15  1-5am 0
+  bus    564 Bundoora RMIT - South Morang       shapes 2  midday/5h  10  1-5am 0
+  bus    566 Lalor - Northland via Plenty Road, shapes 4  midday/5h  13  1-5am 0
+  bus    567 Regent Station - Northcote via Nor shapes 2  midday/5h  14  1-5am 0
+  bus    569 Epping Plaza SC - South Morang     shapes 2  midday/5h  10  1-5am 0
+  bus    570 Thomastown - RMIT Bundoora         shapes 2  midday/5h  16  1-5am 0
+  bus    577 Epping Plaza SC - South Morang Sta shapes 2  midday/5h  11  1-5am 0
+  bus    578 Eltham Station - Warrandyte via Re shapes 4  midday/5h   5  1-5am 0
+  bus    579 Eltham Station - Warrandyte via Re shapes 2  midday/5h   5  1-5am 0
+  bus    580 Diamond Creek - Eltham Station via shapes 2  midday/5h  10  1-5am 0
+  bus    582 Eltham Town Service via Woodridge  shapes 1  midday/5h  15  1-5am 0
+  bus    600 St Kilda Station - Southland Shopp shapes 5  midday/5h  10  1-5am 0
+  bus    601 Huntingdale -  Monash University ( shapes 2  midday/5h  93  1-5am 0
+  bus    603 Burnley Station - Brighton Beach S shapes 2  midday/5h  16  1-5am 0
+  bus    604 Anzac Station - Elsternwick Statio shapes 2  midday/5h  15  1-5am 0
+  bus    605 City (Queen Victoria Market) - Gar shapes 2  midday/5h  16  1-5am 0
+  bus    606 Elsternwick Station - Fishermans B shapes 2  midday/5h  10  1-5am 0
+  bus    609 Hawthorn to Fairfield via Kew      shapes 7  midday/5h   3  1-5am 0
+  bus    612 Chadstone Shopping Centre - Box Hi shapes 2  midday/5h   9  1-5am 0
+  bus    623 St Kilda - Glen Waverley Station v shapes 2  midday/5h  10  1-5am 0
+  bus    624 Kew - Oakleigh Station via Chadsto shapes 4  midday/5h  10  1-5am 0
+  bus    625 Chadstone Shopping Centre - Elster shapes 2  midday/5h  11  1-5am 0
+  bus    626 Middle Brighton Station - Chadston shapes 2  midday/5h  10  1-5am 0
+  bus    627 Moorabbin Station - Chadstone SC v shapes 2  midday/5h   6  1-5am 0
+  bus    627 Moorabbin Station - Chadstone SC v shapes 2  midday/5h   5  1-5am 0
+  bus    630 Elwood - Monash University via Gar shapes 2  midday/5h  15  1-5am 0
+  bus    631 Southland - Waverley Gardens via C shapes 2  midday/5h   8  1-5am 0
+  bus    631 Southland - Waverley Gardens via C shapes 2  midday/5h   3  1-5am 0
+  bus    663 Belgrave - Lilydale via Kallista,  shapes 2  midday/5h   2  1-5am 0
+  bus    663 Belgrave - Lilydale via Kallista,  shapes 2  midday/5h   0  1-5am 0
+  bus    663 Belgrave - Lilydale via Kallista,  shapes 3  midday/5h   0  1-5am 0
+  bus    663 Belgrave - Lilydale via Kallista,  shapes 2  midday/5h   3  1-5am 0
+  bus    664 Chirnside Park - Knox City via Cro shapes 5  midday/5h   3  1-5am 0
+  bus    664 Chirnside Park - Knox City via Cro shapes 6  midday/5h   6  1-5am 0
+  bus    664 Chirnside Park - Knox City via Cro shapes 6  midday/5h   3  1-5am 0
+  bus    668 Ringwood Station - Croydon Station shapes 2  midday/5h  11  1-5am 0
+  bus    669 Ringwood Station - Croydon Station shapes 2  midday/5h  10  1-5am 0
+  bus    670 Ringwood - Lilydale via Croydon &  shapes 4  midday/5h  10  1-5am 0
+  bus    670 Ringwood - Lilydale via Croydon &  shapes 4  midday/5h   0  1-5am 0
+  bus    670 Ringwood - Lilydale via Croydon &  shapes 4  midday/5h  13  1-5am 0
+  bus    671 Croydon - Chirnside Park via Warri shapes 2  midday/5h   4  1-5am 0
+  bus    671 Croydon - Chirnside Park via Warri shapes 2  midday/5h   1  1-5am 0
+  bus    671 Croydon - Chirnside Park via Warri shapes 2  midday/5h   1  1-5am 0
+  bus    672 Croydon - Chirnside Park via Wonga shapes 2  midday/5h   5  1-5am 0
+  bus    672 Croydon - Chirnside Park via Wonga shapes 2  midday/5h   0  1-5am 0
+  bus    672 Croydon - Chirnside Park via Wonga shapes 2  midday/5h   0  1-5am 0
+  bus    675 Chirnside Park - Mooroolbark via M shapes 2  midday/5h   2  1-5am 0
+  bus    675 Chirnside Park - Mooroolbark via M shapes 2  midday/5h   2  1-5am 0
+  bus    675 Chirnside Park - Mooroolbark via M shapes 2  midday/5h   2  1-5am 0
+  bus    677 Lilydale Station - Chirnside Park  shapes 2  midday/5h   0  1-5am 0
+  bus    677 Lilydale Station - Chirnside Park  shapes 2  midday/5h   1  1-5am 0
+  bus    677 Lilydale Station - Chirnside Park  shapes 2  midday/5h   5  1-5am 0
+  bus    679 Chirnside Park Shopping Centre - R shapes 5  midday/5h   6  1-5am 0
+  bus    679 Chirnside Park Shopping Centre - R shapes 3  midday/5h   2  1-5am 0
+  bus    679 Chirnside Park Shopping Centre - R shapes 4  midday/5h   4  1-5am 0
+  bus    680 Lilydale Station - Mooroolbark Sta shapes 2  midday/5h   2  1-5am 0
+  bus    680 Lilydale Station - Mooroolbark Sta shapes 2  midday/5h   0  1-5am 0
+  bus    680 Lilydale Station - Mooroolbark Sta shapes 2  midday/5h   4  1-5am 0
+  bus    681 Belgrave - Lilydale via Kallista,  shapes 1  midday/5h   0  1-5am 0
+  bus    681 Belgrave - Lilydale via Kallista,  shapes 3  midday/5h   3  1-5am 0
+  bus    681 Belgrave - Lilydale via Kallista,  shapes 1  midday/5h   0  1-5am 0
+  bus    682 Hampton Station to Carrum Station  shapes 1  midday/5h   0  1-5am 0
+  bus    682 Hampton Station to Carrum Station  shapes 3  midday/5h   3  1-5am 0
+  bus    682 Hampton Station to Carrum Station  shapes 1  midday/5h   1  1-5am 0
+  bus    683 Chirnside Park SC - Warburton via  shapes 3  midday/5h   6  1-5am 0
+  bus    684 Ringwood Station - Eildon SC via A shapes 5  midday/5h   1  1-5am 0
+  bus    685 Lilydale Station - Healesville San shapes 3  midday/5h   8  1-5am 0
+  bus    688 Croydon - Upper Ferntree Gully via shapes 7  midday/5h   4  1-5am 0
+  bus    688 Croydon - Upper Ferntree Gully via shapes 6  midday/5h   6  1-5am 0
+  bus    688 Croydon - Upper Ferntree Gully via shapes 1  midday/5h   0  1-5am 0
+  bus    688 Croydon - Upper Ferntree Gully via shapes 4  midday/5h   0  1-5am 0
+  bus    689 Croydon - Montrose via Hawthory Ro shapes 2  midday/5h   2  1-5am 0
+  bus    689 Croydon - Montrose via Hawthory Ro shapes 2  midday/5h   3  1-5am 0
+  bus    689 Croydon - Montrose via Hawthory Ro shapes 2  midday/5h   1  1-5am 0
+  bus    690 Croydon - Boronia via Kilsyth, Can shapes 2  midday/5h   6  1-5am 0
+  bus    690 Croydon - Boronia via Kilsyth, Can shapes 2  midday/5h   2  1-5am 0
+  bus    690 Croydon - Boronia via Kilsyth, Can shapes 2  midday/5h   0  1-5am 0
+  bus    690 Croydon - Boronia via Kilsyth, Can shapes 2  midday/5h   0  1-5am 0
+  bus    691 Boronia  - Waverley Gardens via Fe shapes 2  midday/5h   1  1-5am 0
+  bus    691 Boronia  - Waverley Gardens via Fe shapes 2  midday/5h  10  1-5am 0
+  bus    691 Boronia  - Waverley Gardens via Fe shapes 2  midday/5h   0  1-5am 0
+  bus    693 Belgrave - Oakleigh via Ferntree G shapes 2  midday/5h   0  1-5am 0
+  bus    693 Belgrave - Oakleigh via Ferntree G shapes 4  midday/5h   7  1-5am 0
+  bus    693 Belgrave - Oakleigh via Ferntree G shapes 3  midday/5h   3  1-5am 0
+  bus    693 Belgrave - Oakleigh via Ferntree G shapes 2  midday/5h   2  1-5am 0
+  bus    694 Olinda - Belgrave via Sherbrooke R shapes 2  midday/5h   2  1-5am 0
+  bus    694 Olinda - Belgrave via Sherbrooke R shapes 2  midday/5h   1  1-5am 0
+  bus    694 Olinda - Belgrave via Sherbrooke R shapes 3  midday/5h   1  1-5am 0
+  bus    694 Olinda - Belgrave via Sherbrooke R shapes 2  midday/5h   3  1-5am 0
+  bus    695 Belgrave - Gembrook                shapes 2  midday/5h   0  1-5am 0
+  bus    695 Belgrave - Gembrook                shapes 2  midday/5h   6  1-5am 0
+  bus    695 Belgrave - Gembrook                shapes 3  midday/5h   5  1-5am 0
+  bus    695 Belgrave - Gembrook                shapes 2  midday/5h   1  1-5am 0
+  bus    696 Belgrave - Gembrook                shapes 2  midday/5h   5  1-5am 0
+  bus    697 Belgrave -  Belgrave South via Bel shapes 2  midday/5h   0  1-5am 0
+  bus    697 Belgrave - Gembrook                shapes 2  midday/5h   4  1-5am 0
+  bus    697 Belgrave -  Belgrave South via Bel shapes 2  midday/5h   3  1-5am 0
+  bus    697 Belgrave -  Belgrave South via Bel shapes 3  midday/5h   0  1-5am 0
+  bus    699 Belgrave - Upwey                   shapes 6  midday/5h   3  1-5am 0
+  bus    699 Belgrave - Upwey                   shapes 3  midday/5h   1  1-5am 0
+  bus    699 Belgrave - Upwey                   shapes 3  midday/5h   1  1-5am 0
+  bus    701 Oakleigh - Bentleigh via Mackie Ro shapes 2  midday/5h  11  1-5am 0
+  bus    703 Middle Brighton - Blackburn via Be shapes 4  midday/5h  21  1-5am 0
+  bus    704 Oakleigh Station - Westall Station shapes 2  midday/5h   8  1-5am 0
+  bus    705 Mordialloc - Springvale via Braesi shapes 4  midday/5h   0  1-5am 0
+  bus    705 Mordialloc - Springvale via Braesi shapes 4  midday/5h   0  1-5am 0
+  bus    706 Mordialloc SC - Chelsea Railway St shapes 2  midday/5h   2  1-5am 0
+  bus    708 Hampton Station to Carrum Station  shapes 3  midday/5h   6  1-5am 0
+  bus    708 Hampton Station to Carrum Station  shapes 3  midday/5h   5  1-5am 0
+  bus    709 Mordialloc - Noble Park Station vi shapes 2  midday/5h   0  1-5am 0
+  bus    709 Mordialloc - Noble Park Station vi shapes 2  midday/5h  10  1-5am 0
+  bus    732 Box Hill Station - Upper Ferntree  shapes 5  midday/5h   9  1-5am 0
+  bus    732 Box Hill Station - Upper Ferntree  shapes 4  midday/5h  34  1-5am 0
+  bus    732 Box Hill Station - Upper Ferntree  shapes 4  midday/5h   2  1-5am 0
+  bus    732 Belgrave - Lilydale via Kallista,  shapes 3  midday/5h   2  1-5am 0
+  bus    733 Oakleigh - Box Hill via Clayton, M shapes 4  midday/5h  20  1-5am 0
+  bus    734 Glen Iris - Glen Waverley          shapes 2  midday/5h   0  1-5am 0
+  bus    734 Glen Iris - Glen Waverley          shapes 2  midday/5h  10  1-5am 0
+  bus    734 Glen Iris - Glen Waverley          shapes 2  midday/5h   0  1-5am 0
+  bus    735 Box Hill Station to Nunawading     shapes 3  midday/5h   2  1-5am 0
+  bus    735 Belgrave - Lilydale via Kallista,  shapes 2  midday/5h   7  1-5am 0
+  bus    735 Belgrave - Lilydale via Kallista,  shapes 3  midday/5h   2  1-5am 0
+  bus    736 Belgrave - Lilydale via Kallista,  shapes 3  midday/5h   3  1-5am 0
+  bus    736 Belgrave - Lilydale via Kallista,  shapes 4  midday/5h   7  1-5am 0
+  bus    736 Belgrave - Lilydale via Kallista,  shapes 3  midday/5h   0  1-5am 0
+  bus    737 Belgrave - Lilydale via Kallista,  shapes 8  midday/5h   6  1-5am 0
+  bus    737 Belgrave - Lilydale via Kallista,  shapes 8  midday/5h   5  1-5am 0
+  bus    737 Belgrave - Lilydale via Kallista,  shapes 7  midday/5h   1  1-5am 0
+  bus    738 Mordialloc - Noble Park Station vi shapes 2  midday/5h   2  1-5am 0
+  bus    738 Mordialloc - Noble Park Station vi shapes 2  midday/5h   3  1-5am 0
+  bus    738 Mordialloc - Noble Park Station vi shapes 2  midday/5h   1  1-5am 0
+  bus    740 Mitcham - Vermont East via Reserve shapes 2  midday/5h   0  1-5am 0
+  bus    740 Mitcham - Vermont East via Reserve shapes 3  midday/5h   0  1-5am 0
+  bus    740 Mitcham - Vermont East via Reserve shapes 2  midday/5h   0  1-5am 0
+  bus    742 Belgrave - Gembrook                shapes 4  midday/5h   2  1-5am 0
+  bus    742 Belgrave - Gembrook                shapes 4  midday/5h   7  1-5am 0
+  bus    742 Belgrave - Gembrook                shapes 6  midday/5h   3  1-5am 0
+  bus    745 Knox City SC -  Bayswater          shapes 4  midday/5h   1  1-5am 0
+  bus    753 Oakleigh - Box Hill via Clayton, M shapes 2  midday/5h   1  1-5am 0
+  bus    753 Oakleigh - Box Hill via Clayton, M shapes 4  midday/5h  11  1-5am 0
+  bus    754 Chirnside Park - Knox City via Cro shapes 2  midday/5h   2  1-5am 0
+  bus    754 Chirnside Park - Knox City via Cro shapes 4  midday/5h   6  1-5am 0
+  bus    754 Chirnside Park - Knox City via Cro shapes 2  midday/5h   0  1-5am 0
+  bus    755 Belgrave - Lilydale via Kallista,  shapes 7  midday/5h   3  1-5am 0
+  bus    755 Belgrave - Lilydale via Kallista,  shapes 7  midday/5h   8  1-5am 0
+  bus    755 Belgrave - Lilydale via Kallista,  shapes 1  midday/5h   1  1-5am 0
+  bus    757 Knox City - Scoresby via Old Orcha shapes 2  midday/5h   3  1-5am 0
+  bus    758 Knox City - Knoxfield via Wallace  shapes 4  midday/5h   4  1-5am 0
+  bus    760 Cranbourne - Seaford via Carrum Do shapes 2  midday/5h   7  1-5am 0
+  bus    765 Lilydale Station - Chirnside Park  shapes 2  midday/5h   7  1-5am 0
+  bus    765 Lilydale Station - Chirnside Park  shapes 2  midday/5h   3  1-5am 0
+  bus    765 Lilydale Station - Chirnside Park  shapes 3  midday/5h   1  1-5am 0
+  bus    766 Box Hill Station - Burwood via Sur shapes 2  midday/5h  10  1-5am 0
+  bus    767 Southland - Box Hill Station via C shapes 2  midday/5h  16  1-5am 0
+  bus    770 Frankston - Karingal via Ashleigh  shapes 2  midday/5h   8  1-5am 0
+  bus    771 Frankston - Langwarrin via Karinga shapes 2  midday/5h   8  1-5am 0
+  bus    772 Frankston - Eliza Heights          shapes 3  midday/5h   5  1-5am 0
+  bus    773 Frankston - Frankston South via Ka shapes 5  midday/5h   5  1-5am 0
+  bus    774 Frankston - Delacombe Park         shapes 3  midday/5h   6  1-5am 0
+  bus    775 Frankston - Lakewood via Heatherhi shapes 5  midday/5h   7  1-5am 0
+  bus    776 Frankston - Pearcedale via Baxter  shapes 4  midday/5h   2  1-5am 0
+  bus    777 Karingal Hub Shopping Centre - McC shapes 2  midday/5h   1  1-5am 0
+  bus    778 Kananook - Carrum Downs via Latham shapes 2  midday/5h   5  1-5am 0
+  bus    779 Frankston - Belvedere via Kananook shapes 2  midday/5h   5  1-5am 0
+  bus    780 Frankston Station - Carrum Station shapes 2  midday/5h   6  1-5am 0
+  bus    781 Frankston - Dromana via Mount Eliz shapes 2  midday/5h   5  1-5am 1
+  bus    782 Frankston - Balnarring Flinders vi shapes 6  midday/5h   2  1-5am 0
+  bus    783 Frankston - Hastings via Coolart R shapes 2  midday/5h   3  1-5am 0
+  bus    784 Frankston - Osborne via Mt Eliza,  shapes 2  midday/5h   5  1-5am 1
+  bus    785 Frankston - Mornington East via Mt shapes 2  midday/5h   5  1-5am 0
+  bus    787 Sorrento - Rosebud                 shapes 2  midday/5h   5  1-5am 0
+  bus    788 Frankston Station - Portsea via Dr shapes 4  midday/5h  10  1-5am 2
+  bus    789 Frankston Station - Langwarrin via shapes 2  midday/5h   8  1-5am 0
+  bus    790 Frankston Station - Langwarrin via shapes 2  midday/5h   8  1-5am 0
+  bus    791 Frankston Station - Cranbourne Sta shapes 2  midday/5h  16  1-5am 0
+  bus    792 Cranbourne Station - Pearcedale    shapes 2  midday/5h   8  1-5am 0
+  bus    795 Warneet - Cranbourne Station       shapes 6  midday/5h   1  1-5am 0
+  bus    796 Cranbourne Station - Clyde         shapes 2  midday/5h   2  1-5am 0
+  bus    798 Cranbourne Park SC - Clyde North v shapes 2  midday/5h  15  1-5am 0
+  bus    799 Merinda Park Station - The Avenue  shapes 2  midday/5h   8  1-5am 0
+  bus    800 Dandenong - Chadstone via Princes  shapes 2  midday/5h   0  1-5am 0
+  bus    800 Dandenong - Chadstone via Princes  shapes 2  midday/5h  16  1-5am 0
+  bus    802 Dandenong - Chadstone via Mulgrave shapes 3  midday/5h   8  1-5am 0
+  bus    804 Dandenong - Chadstone via Wheelers shapes 2  midday/5h   0  1-5am 0
+  bus    804 Dandenong - Chadstone via Wheelers shapes 2  midday/5h   8  1-5am 0
+  bus    811 Dandenong - Brighton via Heatherto shapes 5  midday/5h   0  1-5am 0
+  bus    811 Dandenong - Brighton via Heatherto shapes 2  midday/5h   5  1-5am 0
+  bus    812 Dandenong - Brighton via Parkmore  shapes 4  midday/5h   0  1-5am 0
+  bus    812 Dandenong - Brighton via Parkmore  shapes 5  midday/5h   5  1-5am 0
+  bus    813 Dandenong - Waverley Gardens SC    shapes 2  midday/5h   0  1-5am 0
+  bus    813 Dandenong - Waverley Gardens SC    shapes 2  midday/5h   7  1-5am 0
+  bus    814 Springvale South - Dandenong via W shapes 2  midday/5h   5  1-5am 0
+  bus    816 Keysborough South - Noble Park Sta shapes 2  midday/5h   5  1-5am 0
+  bus    822 Chadstone SC - Sandringham via Mur shapes 2  midday/5h  11  1-5am 0
+  bus    822 Chadstone SC - Sandringham via Mur shapes 2  midday/5h   0  1-5am 0
+  bus    823 North Brighton - Southland via Moo shapes 2  midday/5h   4  1-5am 0
+  bus    823 North Brighton - Southland via Moo shapes 2  midday/5h   1  1-5am 0
+  bus    824 Moorabbin - Keysborough via Clayto shapes 4  midday/5h  14  1-5am 0
+  bus    824 Moorabbin - Keysborough via Clayto shapes 6  midday/5h   2  1-5am 0
+  bus    825 Moorabbin - Southland via Black Ro shapes 2  midday/5h  12  1-5am 0
+  bus    825 Moorabbin - Southland via Black Ro shapes 2  midday/5h   5  1-5am 0
+  bus    828 Hampton - Berwick Station via Sout shapes 3  midday/5h   8  1-5am 0
+  bus    828 Hampton - Berwick Station via Sout shapes 5  midday/5h   8  1-5am 0
+  bus    831 Berwick Station - Clyde via Bells  shapes 2  midday/5h  16  1-5am 0
+  bus    832 Frankston - Carrum Downs via Kanan shapes 2  midday/5h  11  1-5am 1
+  bus    833 Frankston Station - Carrum Station shapes 2  midday/5h  10  1-5am 0
+  bus    834 Berwick Station - Fountain Gate SC shapes 2  midday/5h   8  1-5am 0
+  bus    835 Berwick Station - Fountain Gate SC shapes 2  midday/5h   8  1-5am 0
+  bus    836 Berwick Station - Eden Rise SC via shapes 3  midday/5h   5  1-5am 0
+  bus    837 Berwick Station - Beaconsfield Eas shapes 2  midday/5h   5  1-5am 0
+  bus    838 Emerald - Fountain Gate SC via Bea shapes 2  midday/5h   2  1-5am 0
+  bus    839 Berwick Station - Berwick North vi shapes 2  midday/5h   8  1-5am 0
+  bus    840 Gembrook - Pakenham Station via Pa shapes 2  midday/5h   3  1-5am 0
+  bus    841 Narre Warren North - Cranbourne vi shapes 2  midday/5h   8  1-5am 0
+  bus    842 Endeavour Hills SC - Fountain Gate shapes 2  midday/5h   5  1-5am 0
+  bus    843 Endeavour Hills - Dandenong Statio shapes 2  midday/5h   1  1-5am 0
+  bus    843 Endeavour Hills - Dandenong Statio shapes 2  midday/5h   9  1-5am 0
+  bus    844 Dandenong - Doveton via McCrae Str shapes 2  midday/5h   1  1-5am 0
+  bus    844 Dandenong - Doveton via McCrae Str shapes 2  midday/5h   9  1-5am 0
+  bus    845 Endeavour Hills - Dandenong Statio shapes 2  midday/5h   0  1-5am 0
+  bus    845 Endeavour Hills - Dandenong Statio shapes 2  midday/5h  10  1-5am 0
+  bus    846 Berwick Station - Eden Rise SC via shapes 2  midday/5h   5  1-5am 0
+  bus    847 Berwick Station - The Avenue Villa shapes 2  midday/5h   8  1-5am 0
+  bus    848 Dandenong - Brandon Park Shopping  shapes 2  midday/5h   0  1-5am 0
+  bus    848 Dandenong - Brandon Park Shopping  shapes 2  midday/5h   5  1-5am 0
+  bus    850 Dandenong - Glen Waverley via Mulg shapes 3  midday/5h   0  1-5am 0
+  bus    850 Dandenong - Glen Waverley via Mulg shapes 2  midday/5h  10  1-5am 0
+  bus    857 Chelsea Station - Dandenong Railwa shapes 3  midday/5h   1  1-5am 0
+  bus    857 Chelsea Station - Dandenong Statio shapes 6  midday/5h   5  1-5am 0
+  bus    858 Edithvale - Aspendale Gardens via  shapes 2  midday/5h   7  1-5am 0
+  bus    858 Edithvale - Aspendale Gardens via  shapes 2  midday/5h   3  1-5am 0
+  bus    861 Endeavour Hills - Dandenong Statio shapes 2  midday/5h   1  1-5am 0
+  bus    861 Endeavour Hills - Dandenong Statio shapes 2  midday/5h  10  1-5am 0
+  bus    862 Dandenong - Chadstone via North Da shapes 2  midday/5h   0  1-5am 0
+  bus    862 Dandenong - Chadstone via North Da shapes 2  midday/5h   8  1-5am 0
+  bus    863 Endeavour Hills SC - Cranbourne We shapes 2  midday/5h   0  1-5am 0
+  bus    863 Endeavour Hills SC - Cranbourne We shapes 2  midday/5h   8  1-5am 0
+  bus    881 Merinda Park Station - Clyde North shapes 2  midday/5h   8  1-5am 0
+  bus    885 Glen Waverley - Springvale via Wan shapes 2  midday/5h  11  1-5am 0
+  bus    886 Hastings – Mornington              shapes 2  midday/5h   5  1-5am 0
+  bus    887 Frankston - Rosebud via Monash Uni shapes 2  midday/5h   5  1-5am 0
+  bus    888 Clyde - Berwick Station            shapes 2  midday/5h   5  1-5am 0
+  bus    889 Clyde North - Berwick Station via  shapes 2  midday/5h   8  1-5am 0
+  bus    890 Dandenong Station - Lynbrook Stati shapes 2  midday/5h   8  1-5am 1
+  bus    891 Fountain Gate SC - Lynbrook Statio shapes 2  midday/5h   8  1-5am 0
+  bus    892 Casey Central SC - Dandenong Stati shapes 2  midday/5h  10  1-5am 0
+  bus    893 Cranbourne Park SC - Dandenong Sta shapes 2  midday/5h  15  1-5am 0
+  bus    894 Amberly Park  - Hallam Station via shapes 4  midday/5h   8  1-5am 0
+  bus    895 Narre Warren South - Fountain Gate shapes 2  midday/5h   8  1-5am 0
+  bus    897 Clyde North - Lynbrook Station via shapes 2  midday/5h  15  1-5am 0
+  bus    898 Clyde North - Cranbourne Station v shapes 2  midday/5h  15  1-5am 0
+  bus    899 The Avenue Village SC - Berwick St shapes 2  midday/5h   7  1-5am 0
+  bus    900 Stud Park SC (Rowville) - Caulfiel shapes 2  midday/5h   0  1-5am 0
+  bus    900 Stud Park SC (Rowville) - Caulfiel shapes 2  midday/5h  10  1-5am 0
+  bus    900 Stud Park SC (Rowville) - Caulfiel shapes 2  midday/5h  11  1-5am 0
+  bus    901 Frankston - Melbourne Airport (SMA shapes 2  midday/5h   0  1-5am 0
+  bus    901 Frankston - Melbourne Airport (SMA shapes 3  midday/5h  13  1-5am 3
+  bus    901 Frankston - Melbourne Airport (SMA shapes 2  midday/5h  11  1-5am 6
+  bus    902 Chelsea Railway Station - Airport  shapes 2  midday/5h  14  1-5am 0
+  bus    902 Chelsea Railway Station - Airport  shapes 2  midday/5h  16  1-5am 1
+  bus    903 Altona - Mordialloc (SMARTBUS Serv shapes 6  midday/5h   0  1-5am 0
+  bus    903 Altona - Mordialloc (SMARTBUS Serv shapes 5  midday/5h   5  1-5am 0
+  bus    903 Altona - Mordialloc (SMARTBUS Serv shapes 4  midday/5h  11  1-5am 3
+  bus    903 Altona - Mordialloc (SMARTBUS Serv shapes 5  midday/5h   8  1-5am 2
+  bus    905 City - The Pines SC via Eastern Fw shapes 2  midday/5h  17  1-5am 0
+  bus    905 City - The Pines SC via Eastern Fw shapes 2  midday/5h   5  1-5am 0
+  bus    906 City (King St) - Warrandyte via Ea shapes 3  midday/5h  19  1-5am 0
+  bus    906 City (King St) - Warrandyte via Ea shapes 4  midday/5h   1  1-5am 0
+  bus    907 City - Mitcham via Eastern Fwy and shapes 3  midday/5h  21  1-5am 0
+  bus    907 City - Mitcham via Eastern Fwy and shapes 3  midday/5h   0  1-5am 0
+  bus    908 City - The Pines SC via Eastern Fw shapes 5  midday/5h  20  1-5am 0
+  bus    908 City - The Pines SC via Eastern Fw shapes 4  midday/5h   2  1-5am 0
+  bus    922 St Kilda Station - Southland Shopp shapes 3  midday/5h   5  1-5am 0
+  bus    923 St Kilda Station - Southland Shopp shapes 3  midday/5h   6  1-5am 0
+  bus    925 Pakenham Station - Officer South v shapes 2  midday/5h   5  1-5am 0
+  bus    926 Pakenham Station - Fountain Gate S shapes 4  midday/5h   5  1-5am 0
+  bus    927 Pakenham Station - Pakenham North  shapes 2  midday/5h   5  1-5am 0
+  bus    928 Pakenham Station - Berwick Station shapes 2  midday/5h   9  1-5am 0
+  bus    929 Pakenham Station - Pakenham North  shapes 2  midday/5h   5  1-5am 0
+  bus    941 Sunshine Station - Watergardens St shapes 2  midday/5h   0  1-5am 0
+  bus    941 Sunshine Station - Watergardens St shapes 2  midday/5h   0  1-5am 0
+  bus    943 Watergardens Station - Melton via  shapes 4  midday/5h   0  1-5am 0
+  bus    943 Watergardens Station - Melton via  shapes 1  midday/5h   0  1-5am 0
+  bus    947 Footscray - Newport Station via Al shapes 2  midday/5h   0  1-5am 0
+  bus    949 Williams Landing Station - Altona  shapes 1  midday/5h   0  1-5am 0
+  bus    951 Brunswick Station - Glenroy Statio shapes 2  midday/5h   0  1-5am 0
+  bus    953 Broadmeadows Station - Craigieburn shapes 2  midday/5h   0  1-5am 0
+  bus    959 City - Broadmeadows Station via Ni shapes 4  midday/5h   0  1-5am 0
+  bus    965 Night Bus - Lilydale - Woori Yallo shapes 6  midday/5h   0  1-5am 0
+  bus    967 Glen Waverley Station - Croydon St shapes 4  midday/5h   0  1-5am 0
+  bus    978 Clayton Station - Dandenong Statio shapes 2  midday/5h   0  1-5am 0
+  bus    979 Clayton Station - Dandenong Statio shapes 2  midday/5h   0  1-5am 0
+  bus    981 Dandenong Station - Cranbourne via shapes 2  midday/5h   0  1-5am 0
+  bus    982 Dandenong Station - Cranbourne via shapes 2  midday/5h   0  1-5am 0
+  bus   695F Belgrave - Gembrook                shapes 2  midday/5h   0  1-5am 0
+  bus   695F Belgrave - Gembrook                shapes 4  midday/5h   0  1-5am 0
+  bus  Goornong Bendigo - Goornong                 shapes 2  midday/5h   0  1-5am 0
+  bus  57-W88-aus-1 Garfield Station - Traralgon Plaza shapes 13  midday/5h   2  1-5am 0
+  bus  66-855-aus-1 Yarram - Traralgon via Gormandale  shapes 2  midday/5h   1  1-5am 0
+  bus  79-KM1-aus-1 Kilmore Town Service (Link Bus)    shapes 4  midday/5h   7  1-5am 1
+  bus  80-W12-aus-1 Wallan Station via Springridge and shapes 1  midday/5h   0  1-5am 0
+  bus  80-WN1-aus-1 Wallan Station - Wallan Central    shapes 2  midday/5h   5  1-5am 0
+  bus  80-WN2-aus-1 Wallan Station - Springridge       shapes 2  midday/5h   6  1-5am 0
+  bus  80-WN3-aus-1 Wallan Station - Wallara Waters Sh shapes 2  midday/5h   0  1-5am 0
+  bus  81-99x-aus-1 Ballan - Mount Egerton via Gordon  shapes 2  midday/5h   0  1-5am 0
+  bus  81-99y-aus-1 Ballan - Hepburn via Daylesford    shapes 2  midday/5h   0  1-5am 0

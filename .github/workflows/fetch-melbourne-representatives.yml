@@ -1,0 +1,34 @@
+name: Refresh Melbourne representatives
+# Weekly: Victoria's Assembly districts and federal divisions, the AEC's 2025 members elected and the Parliamentary
+# Handbook's current members, matched to the divisions in the City of Melbourne, into docs/melbourne/data/representatives.json
+# (with the hand-kept council from cities/melbourne/council.json). Commits to main only when a name, party or link changed.
+# Members of the Legislative Assembly join after the November 28, 2026 state election.
+on:
+  schedule:
+    - cron: '53 9 * * 1'   # Mondays 09:53 UTC
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: refresh-melbourne-representatives
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin && pip install shapely
+      - run: python3 cities/melbourne/fetch_representatives.py
+      - run: python3 cities/melbourne/representatives.py
+      - run: |
+          if git diff --quiet -- docs/melbourne/data/representatives.json; then echo "no changes"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/melbourne/raw/representatives docs/melbourne/data/representatives.json
+          git commit -m "Refresh Melbourne representatives"
+          git pull --rebase origin main
+          git push origin HEAD:main

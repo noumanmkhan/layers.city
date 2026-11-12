@@ -1,8 +1,27 @@
 {
-  "_about": "Trams and metropolitan buses (engine/fetch_surface.py, engine/surface.py), from Transport Victoria's GTFS Schedule, which ships one zip per mode inside one zip ('inner': 3 metropolitan trams, 4 metropolitan buses; merged into one feed). The map draws trams from its own coloured layer (transit.py), so streetcars.geojson isn't used by the map; the trams are fetched so the card's Transit nearby can list them. Tram and bus numbers don't collide (trams 1-109, buses 200 up). Night Network buses run Friday and Saturday nights only, so the weeknight 'overnight' family has none; they show as Regular. Regional buses (folder 5/6) and V/Line coaches are left out.",
+  "_about": "Trams and metropolitan buses (engine/fetch_surface.py, engine/surface.py), from Transport Victoria's GTFS Schedule, which ships one zip per mode inside one zip ('inner': 3 metropolitan trams, 4 metropolitan buses; merged into one feed). The map draws trams from its own coloured layer (transit.py), so streetcars.geojson isn't used by the map; the trams are fetched so the card's Transit nearby can list them. Tram and bus numbers don't collide (trams 1-109, buses 200 up). Night Network buses run Friday and Saturday nights only, so the map has no overnight family; they show only in the card's Transit nearby. Regional buses (folder 5/6) and V/Line coaches are left out. 'within' (the City's suburbs and the 30 other metropolitan councils) leaves out the regional town buses the feed files with the metropolitan ones (Geelong, Ballarat, Bendigo, Traralgon, Seymour...), whose numbers 1-86 repeat the tram numbers; 'merge' joins a route run by several operators, which the feed lists once per operator. 'skip' leaves out the handful of country town buses filed with the metropolitan ones, which carry an id rather than a route number (Goornong, Wallan, Kilmore, Ballan, Traralgon).",
   "gtfs": {
     "ckan": "https://opendata.transport.vic.gov.au/api/3/action/package_show?id=gtfs-schedule",
-    "inner": ["3/google_transit.zip", "4/google_transit.zip"]
+    "inner": [
+      "3/google_transit.zip",
+      "4/google_transit.zip"
+    ]
   },
-  "skip": []
+  "skip": [
+    "Goornong",
+    "57-W88-aus-1",
+    "66-855-aus-1",
+    "79-KM1-aus-1",
+    "80-W12-aus-1",
+    "80-WN1-aus-1",
+    "80-WN2-aus-1",
+    "80-WN3-aus-1",
+    "81-99x-aus-1",
+    "81-99y-aus-1"
+  ],
+  "within": [
+    "suburbs",
+    "region_areas"
+  ],
+  "merge": true
 }

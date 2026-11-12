@@ -12,6 +12,8 @@ OUT=../../docs/melbourne/data
 simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
 npx mapshaper -i tmp/base.geojson -simplify interval=40 keep-shapes -filter-slivers min-area=20000m2 -filter "!this.isNull" -o $OUT/base.geojson precision=0.00005 format=geojson -quiet
 simplify sides 4; simplify suburbs 4
+[ -f raw/representatives/districts.geojson ] && python3 representatives.py   # state districts, federal divisions, who holds them
+simplify state 4; simplify federal 4
 for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval=5 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 python3 collectors.py          # after streets and base are simplified: the tier below the main streets
 npx mapshaper -i tmp/collectors.geojson -simplify interval=5 -o $OUT/collectors.geojson precision=0.00001 -quiet
