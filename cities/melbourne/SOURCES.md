@@ -15,6 +15,8 @@ the project's claude/australia-scouting.md.
 | Federal electoral divisions (2024 redistribution) | Australian Electoral Commission, GIS data (Vic-october-2024-esri.zip) | CC BY 4.0 | `fetch_representatives.py` |
 | Federal members | Parliamentary Handbook API (handbookapi.aph.gov.au, current members), checked against the AEC's 2025 members elected | aph.gov.au; AEC (CC BY 4.0) | `fetch_representatives.py` |
 | Lord Mayor, Deputy Lord Mayor, councillors | Hand-kept from the VEC's Melbourne City Council page and 2024 results (`council.json`) | Public information | — |
+| Where to vote (state election, November 28, 2026): early and election day voting centres | Victorian Electoral Commission, venues spreadsheet linked from vec.vic.gov.au/voting/2026-state-election/voting-locations (daily, `fetch-melbourne-voting.yml`) | CC BY 4.0 (© Victorian Electoral Commission) | `fetch_voting.py`, `voting.py` |
+| Where each voting centre is | Vicmap Address, via the Vicmap open data WFS (each venue's address looked up; kept in `raw/voting/sites.json`) | CC BY 4.0 | `fetch_voting.py` |
 | Trams and metropolitan buses (card's Transit nearby, bus layer) | Transport Victoria GTFS Schedule, folders 3 and 4 (`surface.json` "inner") | CC BY 4.0 | `engine/fetch_surface.py` |
 | Main streets, freeways, the Yarra, place points, landmark positions | OpenStreetMap via Overpass | ODbL (© OpenStreetMap contributors) | `fetch.py` |
 
@@ -36,3 +38,7 @@ the project's claude/australia-scouting.md.
   Williamstown share pink) and each tram route by its own colour; `transit.py` uses them and writes the CSS rules
   pasted into `city.css` (`tmp/tram_css.txt`) and the badge maps for `city.json` (`tmp/badges.json`).
   V/Line's "Pakenham Line (VLINE)" route (V/Line's listing of its trains on the Metro line) is left out.
+- The VEC's venue spreadsheet has addresses but no coordinates: `fetch_voting.py` looks each up in Vicmap Address
+  (the number on the street, else the street in that suburb) once and keeps the result. Joint centres (one venue
+  serving two districts) appear once per district; `voting.py` keeps one. Every early voting centre is also an
+  election day centre from this election.

@@ -1,6 +1,7 @@
 name: Fetch Melbourne voting places
 # The VEC's venues spreadsheet for the Victorian state election (cities/melbourne/fetch_voting.py) into
-# cities/melbourne/raw/voting/. Venues can change up to election day (November 28), so this runs daily from
+# cities/melbourne/raw/voting/ (with each address placed), then docs/melbourne/data/voting.geojson with
+# cities/melbourne/voting.py. Venues can change up to election day (November 28), so this runs daily from
 # November 13 to 28, on change, or by hand. A day with no change commits nothing.
 on:
   workflow_dispatch:
@@ -8,7 +9,7 @@ on:
     - cron: '41 19 13-28 11 *'   # daily, 19:41 UTC (6:41 am Melbourne)
   push:
     branches: [main]
-    paths: ['cities/melbourne/fetch_voting.py', '.github/workflows/fetch-melbourne-voting.yml']
+    paths: ['cities/melbourne/fetch_voting.py', 'cities/melbourne/voting.py', '.github/workflows/fetch-melbourne-voting.yml']
 permissions:
   contents: write
 concurrency: fetch-melbourne-voting
@@ -23,11 +24,13 @@ jobs:
           python-version: '3.12'
       - run: |
           mkdir -p cities/melbourne/raw/voting
+          pip install -q shapely openpyxl
           python3 -u cities/melbourne/fetch_voting.py 2>&1 | tee cities/melbourne/raw/voting/fetch.log
+          python3 -u cities/melbourne/voting.py 2>&1 | tee -a cities/melbourne/raw/voting/fetch.log
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/melbourne/raw/voting
+          git add cities/melbourne/raw/voting docs/melbourne/data/voting.geojson
           git commit -m "Update Melbourne voting places" || echo "no changes"
           git pull --rebase
           git push

@@ -763,6 +763,42 @@
     "bus": "Bus route"
    },
    "note": "Routes with a stop within 400 m, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. Transport Victoria schedules, week of {week}."
+  },
+  "vote": {
+   "file": "voting",
+   "date": "2026-11-28",
+   "tz": "Australia/Melbourne",
+   "closes": "2026-11-28T18:00:00+11:00",
+   "title": "Election day · {date}",
+   "today": "Election day is today",
+   "hours": "8 am to 6 pm",
+   "lead": "People living here can vote at",
+   "show": "Show on map",
+   "link": [
+    "Find a voting centre",
+    "https://maps.vec.vic.gov.au/elections"
+   ],
+   "early": {
+    "from": "2026-11-18",
+    "to": "2026-11-27",
+    "title": "Early voting · {from} to {to}",
+    "soon": "Early voting starts {from}",
+    "hours": "9 am to 6 pm, closed Sunday 22 Nov"
+   },
+   "earlyLead": "Anyone enrolled in Victoria can vote early at any early voting centre. Nearest to here:",
+   "earlyMore": "{n} early voting centres across Greater Melbourne, each open again on election day, when {ed} voting centres open.",
+   "centersLead": "Vote at any voting centre in Victoria. Nearest to here:",
+   "centersMore": "{n} voting centres across Greater Melbourne on election day.",
+   "note": "Victorian Electoral Commission venues as of {asof}. Venues can change: the VEC's locator has the final word.",
+   "counties": {
+    "vic": {
+     "name": "Victoria",
+     "link": [
+      "Find a voting centre",
+      "https://maps.vec.vic.gov.au/elections"
+     ]
+    }
+   }
   }
  },
  "tour": {

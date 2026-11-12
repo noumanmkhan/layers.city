@@ -24,5 +24,6 @@ for f in vline_lines vline_lines_inner; do npx mapshaper -i tmp/$f.geojson -simp
 cp tmp/region_areas.geojson tmp/region_areas.raw.geojson
 npx mapshaper -i tmp/region_areas.raw.geojson -simplify interval=60 keep-shapes -o tmp/region_areas.geojson precision=0.00005 format=geojson -quiet
 python3 ../../engine/regions.py melbourne
+if [ -f raw/voting/sites.json ]; then python3 voting.py; fi   # where to vote, until November 28
 python3 ../../engine/assemble.py melbourne
 echo "Done. Preview: cd docs && python3 -m http.server 8000"

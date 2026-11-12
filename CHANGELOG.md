@@ -13,6 +13,14 @@
   served with the site (`docs/glyphs/`, `engine/glyphs.py`). Leaflet and Leaflet.PolylineOffset are no longer loaded.
 - Fixed on the way: Reset no longer throws in a city without lens filters (Hyderabad).
 
+### Melbourne: where to vote, and line badges back (November 13)
+- Where to vote in the Victorian state election (November 28): the card lists the nearest early voting centres
+  (November 18 to 27) and then the nearest election day centres, open to anyone enrolled in Victoria, with marks on
+  the map. From the VEC's venues spreadsheet, each address placed with Vicmap Address; *Fetch Melbourne voting
+  places* refreshes it daily until election day.
+- Engine (every city): line badges on subway, tram and rapid transit lines drew nothing after the move to MapLibre
+  (the badge layer read a source built before the features carried their badge key); each badge layer now has its own.
+
 ### Melbourne: representatives and buses (November 12)
 - Representatives: the Lord Mayor and Deputy Lord Mayor, the state district and federal division in Boundaries, and
   the federal MP for the pin, with a Federal division layer shaded by party (*Refresh Melbourne representatives*,
