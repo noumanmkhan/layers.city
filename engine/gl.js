@@ -305,6 +305,7 @@ function geo(fc, opts){
     const c = opts.cls ? opts.cls(f) : '', key = k + '|' + c;
     if (!groups.has(key)) groups.set(key, {k, c, i: groups.size, f});
     f.properties._k = groups.get(key).i;
+    if (opts.color){ const c = opts.color(f); if (c) f.properties._col = c; }
   });
   groups.forEach(({k, c, i, f}) => {
     const P = pathProbe(c), filter = ['==', ['get', '_k'], i], wt = opts.weight ? opts.weight(f) : 1;
@@ -318,15 +319,16 @@ function geo(fc, opts){
     if (k === 'poly' || k === 'line'){
       const lid = addL(hidden({id: uid('l'), type: 'line', source: src, filter, layout: Object.assign({}, lineJoin)}), opts.pane);
       styled(lid, () => { const d = at(P, v => v.dash, 13); const w = width();
-        return {paint: Object.assign({'line-color': byZoom(P, v => v.stroke, 'rgba(0,0,0,0)'), 'line-width': w,
-          'line-opacity': byZoom(P, v => v.stroke ? (v.disp ? 1 : 0) * v.op * v.so : 0, 0)}, d ? {'line-dasharray': d.map(x => x / Math.max(1, typeof w === 'number' ? w : 1.5))} : {})}; });
+        const dd = d || opts.dash; const lc = byZoom(P, v => v.stroke, 'rgba(0,0,0,0)');
+        return {paint: Object.assign({'line-color': opts.color ? ['coalesce', ['get', '_col'], lc] : lc, 'line-width': w,
+          'line-opacity': byZoom(P, v => (v.stroke || opts.color) ? (v.disp ? 1 : 0) * v.op * (v.stroke ? v.so : 1) : 0, 0)}, dd ? {'line-dasharray': dd.map(x => x / Math.max(1, typeof w === 'number' ? w : 3))} : {}), range: zoomRange(P)}; });
       g.ids.push(lid); if (opts.interactive !== false && k === 'line') reg(lid);
     }
     if (k === 'pt'){
       fc.features.forEach(x => { if (x.properties._k === i) x.properties._r = opts.radius ? opts.radius(x) : 4; });
       const cid = addL(hidden({id: uid('c'), type: 'circle', source: src, filter}), opts.pane || 'pts');
       styled(cid, () => ({paint: {'circle-radius': ['get', '_r'], 'circle-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'circle-opacity': opa(v => v.fill ? v.fo : 0),
-        'circle-stroke-color': byZoom(P, v => v.stroke, 'rgba(0,0,0,0)'), 'circle-stroke-width': (() => { const w = byZoom(P, v => v.w, null); return w === null || Array.isArray(w) && w.includes(null) ? 1.5 : w; })(),
+        'circle-stroke-color': opts.color ? ['coalesce', ['get', '_col'], byZoom(P, v => v.stroke, 'rgba(0,0,0,0)')] : byZoom(P, v => v.stroke, 'rgba(0,0,0,0)'), 'circle-stroke-width': (() => { const w = byZoom(P, v => v.w, null); return w === null || Array.isArray(w) && w.includes(null) ? 1.5 : w; })(),
         'circle-stroke-opacity': opa(v => v.stroke ? v.so : 0)}, range: zoomRange(P)}));
       g.ids.push(cid); if (opts.interactive !== false) reg(cid);
     }
@@ -468,19 +470,19 @@ const DOTS = new Pool('dots', (src, filter, item) => {
   const P = pathProbe(item.p.cls), id = uid('d');
   addL(({id, type: 'circle', source: src, filter, paint: {'circle-radius': ['get', 'r']}}), item.p.pane || 'pts');
   styled(id, () => ({paint: {'circle-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'circle-opacity': byZoom(P, v => v.fill ? (v.disp ? 1 : 0) * v.op * v.fo : 0, 0),
-    'circle-stroke-color': byZoom(P, v => v.stroke, 'rgba(0,0,0,0)'), 'circle-stroke-width': byZoom(P, v => v.w == null ? 1.5 : v.w, 1.5),
+    'circle-stroke-color': ['coalesce', ['get', 'col'], byZoom(P, v => v.stroke, 'rgba(0,0,0,0)')], 'circle-stroke-width': byZoom(P, v => v.w == null ? 1.5 : v.w, 1.5),
     'circle-stroke-opacity': byZoom(P, v => v.stroke ? (v.disp ? 1 : 0) * v.op * v.so : 0, 0)}, range: zoomRange(P)}));
   TAP.set(id, it => it.p.tap ? it.p.tap() : false);
   HOVER.set(id, it => it.p.hover);
 });
 function dot(latlng, cls, r, opts){
   opts = opts || {};
-  return new Item(DOTS, latlng, {cls, data: {r}, pane: opts.pane, _key: cls + '|' + (opts.pane || ''), hover: opts.hover, tap: opts.tap});
+  return new Item(DOTS, latlng, {cls, data: opts.color ? {r, col: opts.color} : {r}, pane: opts.pane, _key: cls + '|' + (opts.pane || ''), hover: opts.hover, tap: opts.tap});
 }
 /* Highway shields: the CSS ".shield <classes>" box, stretched around the route number. */
 const SHIELDS = new Pool('shields', (src, filter, item) => {
-  const cls = item.p.cls, id = uid('h'), img = 'sh|' + cls;
-  const P = htmlProbe('sh:' + cls, '<span class="shield ' + cls + '">Ag</span>', el => { const s = getComputedStyle(el);
+  const cls = item.p.cls, wrap = item.p.wrap || 'shield', id = uid('h'), img = 'sh|' + wrap + '|' + cls;
+  const P = htmlProbe('sh:' + wrap + '|' + cls, '<span class="' + wrap + ' ' + cls + '">Ag</span>', el => { const s = getComputedStyle(el);
     return Object.assign(textOf(s), {box: {width: '20px', height: s.height, borderRadius: s.borderTopLeftRadius || s.borderRadius, boxShadow: s.boxShadow, backgroundColor: s.backgroundColor, color: s.color,
       borderTopWidth: s.borderTopWidth, borderTopColor: s.borderTopColor, borderTopStyle: s.borderTopStyle}, minw: parseFloat(s.minWidth) || 20, padx: parseFloat(s.paddingLeft) || 4}); });
   addL(({id, type: 'symbol', source: src, filter, layout: {'icon-image': img, 'icon-text-fit': 'both', 'text-field': ['get', 't'], 'symbol-sort-key': ['get', 's'], 'text-padding': 2, 'icon-padding': 1}}), 'sym', rankOf(P.el));
@@ -491,7 +493,7 @@ const SHIELDS = new Pool('shields', (src, filter, item) => {
   ICONSETS.push(set); Promise.resolve().then(() => set.redraw());
   styled(id, () => { const v = at(P, x => x, 13); return {layout: textLayout(v, {'text-size': byZoom(P, x => x.size, 11)}), paint: {'text-color': v.color}, range: zoomRange(P)}; });
 });
-const shield = (latlng, cls, text) => new Item(SHIELDS, latlng, {cls, text: plain(text), _key: cls});
+const shield = (latlng, cls, text, wrap) => new Item(SHIELDS, latlng, {cls, wrap, text: plain(text), _key: (wrap || 'shield') + '|' + cls});
 
 /* ---------- HTML markers (the pin, voting marks): real elements, few of them ---------- */
 class Mk extends G {
@@ -563,8 +565,25 @@ function badges(src, fc, keyOf, look, opts){
   const set = {redraw: () => (document.fonts ? document.fonts.ready : Promise.resolve()).then(draw)};
   ICONSETS.push(set); set.redraw();
   addL(hidden({id, type: 'symbol', source: src, filter: opts.filter || ['has', '_b'], minzoom: opts.minzoom || 0, maxzoom: opts.maxzoom || 24,
-    layout: {'symbol-placement': 'line', 'symbol-spacing': opts.spacing || 700, 'icon-image': ['get', '_b'], 'icon-rotation-alignment': 'viewport',
+    layout: {'symbol-placement': opts.points ? 'point' : 'line', 'symbol-spacing': opts.spacing || 700, 'icon-image': ['get', '_b'], 'icon-rotation-alignment': 'viewport',
       'icon-padding': 2, 'symbol-avoid-edges': true}}), 'sym', opts.rank == null ? 1 : opts.rank);
   if (opts.hover) HOVER.set(id, opts.hover);
   return id;
 }
+
+/* Plain boxes (small HTML marks such as ".cl-pin"): the element's CSS box as an icon, no text. */
+const BOXES = new Pool('boxes', (src, filter, item) => {
+  const cls = item.p.cls, id = uid('x'), img = 'bx|' + cls;
+  const P = htmlProbe('bx:' + cls, '<span class="' + cls + '"></span>', el => { const s = getComputedStyle(el);
+    return {disp: s.display !== 'none' && s.visibility !== 'hidden', op: +s.opacity, box: {width: s.width, height: s.height, borderRadius: s.borderTopLeftRadius, boxShadow: s.boxShadow,
+      backgroundColor: s.backgroundColor, color: s.color, borderTopWidth: s.borderTopWidth, borderTopColor: s.borderTopColor, borderTopStyle: s.borderTopStyle}}; });
+  addL({id, type: 'symbol', source: src, filter, layout: {'icon-image': img, 'icon-allow-overlap': true, 'symbol-sort-key': ['get', 's']}}, item.p.pane || 'pts');
+  const set = {redraw(){ const v = at(P, x => x, 14); svgImage(img, boxSvg(v.box, '', 0).svg); }};
+  ICONSETS.push(set); Promise.resolve().then(() => set.redraw());
+  styled(id, () => ({paint: {'icon-opacity': byZoom(P, v => v.op, 1)}, range: zoomRange(P)}));
+  TAP.set(id, it => it.p.tap ? it.p.tap() : false);
+  HOVER.set(id, it => it.p.hover);
+});
+const box = (latlng, cls, opts) => { opts = opts || {}; return new Item(BOXES, latlng, {cls, hover: opts.hover, tap: opts.tap, pane: opts.pane, _key: cls + '|' + (opts.pane || '')}); };
+/* Remove a group's layers for good (when it's rebuilt). */
+function drop(g){ if (!g) return; g.remove(); g.kids.forEach(drop); g.ids.forEach(id => { if (gl.getLayer(id)) gl.removeLayer(id); STYLERS.delete(id); TAP.delete(id); HOVER.delete(id); }); g.ids = []; }

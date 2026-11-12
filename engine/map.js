@@ -278,7 +278,7 @@ const driveTier = m => m == null ? null : DRIVE_TIERS.find(t => m < t[3]);
 const SUBURBS = LAYERS.find(it => it.kind === 'suburbs');
 
 /* Kinds not yet drawn on the GPU map: their panel rows stay, greyed out with a note, until they're ported. */
-const PENDING = new Set(['addresses', 'heritage', 'changes', 'bikes', 'parks', 'docks', 'spots', 'regional', 'construction', 'closures', 'events', 'streetcars', 'buses']);
+const PENDING = new Set(['addresses', 'heritage', 'changes', 'bikes', 'parks', 'docks', 'spots', 'regional', 'streetcars', 'buses']);
 function pending(it){
   const g = grp(), row = document.getElementById('lyr-' + it.id), lab = row && row.closest('label');
   if (lab){ lab.classList.add('gl-pending'); lab.title = 'Coming back soon: this layer is being moved to the new map engine.'; }
@@ -472,8 +472,28 @@ const KINDS = {
     g._names = names;
     // Each line carries its badge (it.badges: what a line's badge reads, e.g. several letters on a shared trunk).
     const B = it.badges || {};
-    g.ids.push(badges(lg.src, lines, f => f.properties.line, f => ({labels: [].concat(B[f.properties.line] != null ? B[f.properties.line] : f.properties.line),
-      bg: at(pathProbe('sub-line l' + f.properties.line), v => v.stroke) || f.properties.color || '#555'}), {hover: f => esc(f.properties.name || ''), spacing: 900}));
+    const look = f => ({labels: [].concat(B[f.properties.line] != null ? B[f.properties.line] : f.properties.line),
+      bg: at(pathProbe('sub-line l' + f.properties.line), v => v.stroke) || f.properties.color || '#555'});
+    if (!it.badgeEnds) g.ids.push(badges(lg.src, lines, f => f.properties.line, look, {hover: f => esc(f.properties.name || ''), spacing: 900}));
+    else {
+      // "badgeEnds" (many lines sharing track through the centre, like Melbourne's trains): a line's badge sits only near
+      // its outer ends (a loose end outside the city's footprint), so the centre isn't buried in badges.
+      const near = (a, b) => Math.abs(a[0] - b[0]) < 2e-4 && Math.abs(a[1] - b[1]) < 2e-4, pts = [];
+      lines.features.forEach(f => {
+        const parts = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.coordinates;
+        const loose = (pt, i) => !parts.some((q, j) => j !== i && q.some(v => near(v, pt)));
+        parts.forEach((c, i) => [[c, 0], [c.slice().reverse(), c.length - 1]].forEach(([run, k]) => {
+          const end = c[k];
+          if (!loose(end, i) || (data.footprint && hit(data.footprint, end[0], end[1]))) return;
+          // About 900 m in from the end, so the badge sits on the line rather than past its last station.
+          let d = 0, q = run[0];
+          for (let n = 1; n < run.length && d < 900; n++){ d += metres(run[n - 1], run[n]); q = run[n]; }
+          pts.push({type: 'Feature', properties: {line: f.properties.line, name: f.properties.name}, geometry: {type: 'Point', coordinates: q}});
+        }));
+      });
+      const pfc = {type: 'FeatureCollection', features: pts};
+      g.ids.push(badges(source(pfc), pfc, f => f.properties.line, f => look(f), {points: true, hover: f => esc(f.properties.name || '')}));
+    }
     return g;
   },
   // Streetcar routes with daytime service, each numbered along its line (badges from zoom 12).
@@ -742,22 +762,17 @@ const KINDS = {
   // Lines being built: dashed in the line's colour over a casing, hollow stations, names from zoom 13.
   // Tap a line or station for what it is, who builds it and when it's due.
   construction: (it, fc) => {
-    const g = L.layerGroup();
-    const w = () => { const z = map.getZoom(); return z < 11 ? 2.5 : z < 13 ? 3.5 : 5; };
+    const g = grp(), W = [[0, 2.5], [11, 3.5], [13, 5]];
     const lines = fc.features.filter(f => f.properties.part !== 'station'), stns = fc.features.filter(f => f.properties.part === 'station');
     const byId = {}; lines.forEach(f => { byId[f.properties.id] = f.properties; });
-    const cas = L.geoJSON({type:'FeatureCollection', features: lines}, {pane:'transit', interactive:false, style: () => ({className:'cx-case', weight: w() + 3})});
-    const core = L.geoJSON({type:'FeatureCollection', features: lines}, {pane:'transit', style: f => ({className:'cx-line', color: f.properties.color, weight: w(), dashArray: '7 6'}),
-      onEachFeature: (f, lyr) => { hoverTip(lyr, esc(f.properties.name) + ' · ' + esc(it.ucText || 'under construction')); lyr.on('click', e => cxPopup(it, f.properties, e.latlng)); }});
-    map.on('zoomend', () => { cas.eachLayer(l => l.setStyle({weight: w() + 3})); core.eachLayer(l => l.setStyle({weight: w()})); });
-    g.addLayer(cas); g.addLayer(core);
+    const lfc = {type:'FeatureCollection', features: lines};
+    g.addLayer(geo(lfc, {pane:'transit', interactive:false, cls: () => 'cx-case', weight: () => W.map(([z, w]) => [z, w + 3])}));
+    g.addLayer(geo(lfc, {pane:'transit', cls: () => 'cx-line', weight: () => W, color: f => f.properties.color, dash: [7, 6],
+      hover: f => esc(f.properties.name) + ' · ' + esc(it.ucText || 'under construction'), tap: (f, e) => cxPopup(it, f.properties, e.latlng)}));
     stns.forEach(f => {
-      const p = f.properties, line = byId[p.id] || {};
-      const m = L.circleMarker(ll(f.geometry.coordinates), {pane:'pts', radius: 4.5, className:'cx-stn', color: line.color});
-      hoverTip(m, esc(p.name) + ' · ' + esc(line.short || line.name || ''));
-      m.on('click', e => cxPopup(it, line, e.latlng, p.name));
-      g.addLayer(m);
-      g.addLayer(L.tooltip({permanent:true, direction:'right', offset:[6, 0], className:'lbl lbl-stn lbl-cx', interactive:false}).setLatLng(ll(f.geometry.coordinates)).setContent(esc(p.name)));
+      const p = f.properties, line = byId[p.id] || {}, at = ll(f.geometry.coordinates);
+      g.addLayer(dot(at, 'cx-stn', 4.5, {color: line.color, hover: esc(p.name) + ' · ' + esc(line.short || line.name || ''), tap: () => cxPopup(it, line, L.latLng(at), p.name)}));
+      g.addLayer(label(p.name, 'lbl-stn lbl-cx', at, {direction: 'right', offset: [8, 0]}));
     });
     return g;
   },
@@ -765,25 +780,20 @@ const KINDS = {
   // zoom; full closures of local streets from zoom 15. Permits that have ended are hidden; ones starting
   // within the week are drawn faint. Dates are permit dates, not a forecast of when a road reopens.
   closures: (it, fc) => {
-    const g = L.layerGroup(), today = cityToday(it.tz);
-    const w = () => { const z = map.getZoom(); return z < 13 ? 4 : z < 15 ? 6 : 8; };
+    const g = grp(), today = cityToday(it.tz);
     const shown = fc.features.filter(f => (f.properties.end || '9999').slice(0, 10) >= today);
-    const lyrs = [];
+    const soonOf = p => (p.start || '').slice(0, 10) > today;
+    const clsOf = p => 'cl ' + p.kind + (p.art ? '' : ' local') + (soonOf(p) ? ' soon' : '');
+    const tip = p => esc(p.street) + ' · ' + esc(p.kind === 'closed' ? it.closedText : it.narrowedText) + (soonOf(p) ? ' · ' + esc(fill(it.startsText, {date: niceDate(p.start)})) : '');
+    const tap = (p, latlng) => clPopup(it, p, latlng, soonOf(p), fc.asof);
+    g.addLayer(geo({type: 'FeatureCollection', features: shown}, {pane:'transit', cls: f => clsOf(f.properties), weight: () => [[0, 4], [13, 6], [15, 8]], radius: () => 6,
+      hover: f => tip(f.properties), tap: (f, e) => tap(f.properties, e.latlng)}));
+    // Most permits cover a block or less, too short to see zoomed out: a dot marks each one until zoom 15.
     shown.forEach(f => {
-      const p = f.properties, soon = (p.start || '').slice(0, 10) > today;
-      const cls = 'cl ' + p.kind + (p.art ? '' : ' local') + (soon ? ' soon' : '');
-      const lyr = f.geometry.type === 'Point'
-        ? L.circleMarker(ll(f.geometry.coordinates), {pane:'transit', radius: 6, className: cls})
-        : L.polyline(f.geometry.coordinates.map(ll), {pane:'transit', className: cls, weight: w()});
-      // Most permits cover a block or less, too short to see zoomed out: a dot marks each one until zoom 15.
-      const c = f.geometry.coordinates, mid = f.geometry.type === 'Point' ? null : c[Math.floor((c.length - 1) / 2)];
-      const dot = mid && L.marker(ll(c.length === 2 ? [(c[0][0] + c[1][0]) / 2, (c[0][1] + c[1][1]) / 2] : mid), {pane:'pts', keyboard:false, riseOnHover:true,
-        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="cl-pin ' + p.kind + (p.art ? '' : ' local') + (soon ? ' soon' : '') + '"></span>'})});
-      const tip = esc(p.street) + ' · ' + esc(p.kind === 'closed' ? it.closedText : it.narrowedText) + (soon ? ' · ' + esc(fill(it.startsText, {date: niceDate(p.start)})) : '');
-      [lyr, dot].filter(Boolean).forEach(x => { hoverTip(x, tip); x.on('click', e => clPopup(it, p, e.latlng, soon, fc.asof)); g.addLayer(x); });
-      if (f.geometry.type !== 'Point') lyrs.push(lyr);
+      if (f.geometry.type === 'Point') return;
+      const p = f.properties, c = f.geometry.coordinates, mid = c.length === 2 ? [(c[0][0] + c[1][0]) / 2, (c[0][1] + c[1][1]) / 2] : c[Math.floor((c.length - 1) / 2)];
+      g.addLayer(box(ll(mid), 'cl-pin ' + p.kind + (p.art ? '' : ' local') + (soonOf(p) ? ' soon' : ''), {hover: tip(p), tap: () => tap(p, L.latLng(ll(mid)))}));
     });
-    map.on('zoomend', () => lyrs.forEach(l => l.setStyle({weight: w()})));
     // The panel row says how fresh the data is.
     stampLive(it, fc.asof);
     return g;
@@ -793,42 +803,31 @@ const KINDS = {
   // closures open in waves): ones in force now are solid, later ones faint, ended ones go. Checked again
   // every few minutes while the page is open, so the map keeps up through race day.
   events: (it, fc) => {
-    const g = L.layerGroup(), names = {};
+    const g = grp(), names = {};
     (fc.events || []).forEach(e => { names[e.id] = e; });
-    const w = () => { const z = map.getZoom(); return z < 13 ? 5 : z < 15 ? 7 : 9; };
-    const items = fc.features.map(f => {
-      const p = f.properties, line = f.geometry.type !== 'Point';
-      const lyr = line ? L.polyline(f.geometry.coordinates.map(ll), {pane:'transit', className: 'ev ' + p.kind, weight: w()})
-        : L.circleMarker(ll(f.geometry.coordinates), {pane:'transit', radius: 6, className: 'ev ' + p.kind});
-      lyr.on('click', e => evPopup(it, p, names[p.ev], e.latlng, fc.asof));
-      return [lyr, p, line];
-    });
+    let cur = null, curKey = null;
     function refresh(){
       const now = cityNow(it.tz);
-      items.forEach(([lyr, p]) => {
-        const over = (p.end || '9999') <= now, soon = (p.start || '') > now;
-        if (over){ if (g.hasLayer(lyr)) g.removeLayer(lyr); return; }
-        if (!g.hasLayer(lyr)) g.addLayer(lyr);
-        lyr.unbindTooltip(); hoverTip(lyr, esc(p.street) + ' · ' + esc(evWhen(it, p, now)));
-        const el = lyr.getElement && lyr.getElement(); if (el) el.classList.toggle('soon', soon);
-        lyr.options.className = 'ev ' + p.kind + (soon ? ' soon' : '');
-      });
+      const live = fc.features.filter(f => (f.properties.end || '9999') > now);
+      const key = live.map(f => f.properties.start > now ? 's' : 'n').join('') + live.length;
+      if (key === curKey) return;
+      curKey = key;
+      if (cur){ g.removeLayer(cur); drop(cur); }
+      cur = geo({type: 'FeatureCollection', features: live.map(f => ({type: 'Feature', geometry: f.geometry, properties: f.properties}))}, {pane:'transit',
+        cls: f => 'ev ' + f.properties.kind + ((f.properties.start || '') > now ? ' soon' : ''), weight: () => [[0, 5], [13, 7], [15, 9]], radius: () => 6,
+        hover: f => esc(f.properties.street) + ' · ' + esc(evWhen(it, f.properties, cityNow(it.tz))), tap: (f, e) => evPopup(it, f.properties, names[f.properties.ev], e.latlng, fc.asof)});
+      g.addLayer(cur);
     }
     // A race course the organizer publishes (engine/events.py): a thin line over the closures, a mark at
     // every kilometre (every fifth until zoomed in, by CSS), and start and finish flags. Shown until the
     // event ends.
     const courses = [];
     (fc.events || []).forEach(e => (e.courses || []).forEach(c => {
-      const cg = L.layerGroup(), tip = esc(fill(it.courseText || '{name}', {name: c.name, km: c.km, event: e.short}));
-      const line = L.polyline(c.line.map(ll), {pane:'evcourse', className:'ev-course', weight: 2.5});
-      hoverTip(line, tip); cg.addLayer(line);
-      c.marks.forEach((m, i) => cg.addLayer(L.marker(ll(m), {pane:'pts', keyboard:false, interactive:false,
-        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="ev-km' + ((i + 1) % 5 ? '' : ' k5') + '">' + (i + 1) + '</span>'})})));
-      [['start', c.start, it.startText || 'Start'], ['finish', c.finish, it.finishText || 'Finish']].forEach(([k, at, t]) => {
-        const fl = L.marker(ll(at), {pane:'pts', keyboard:false,
-          icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="ev-flag ' + k + '"><i></i><b>' + esc(t) + '</b></span>'})});
-        hoverTip(fl, tip); cg.addLayer(fl);
-      });
+      const cg = grp(), tip = esc(fill(it.courseText || '{name}', {name: c.name, km: c.km, event: e.short}));
+      cg.addLayer(geo({type: 'LineString', coordinates: c.line}, {pane:'evcourse', cls: () => 'ev-course', weight: () => 2.5, hover: () => tip}));
+      c.marks.forEach((m, i) => cg.addLayer(shield(ll(m), (i + 1) % 5 ? '' : 'k5', String(i + 1), 'ev-km')));
+      [['start', c.start, it.startText || 'Start'], ['finish', c.finish, it.finishText || 'Finish']].forEach(([k, at, t]) =>
+        cg.addLayer(icon(ll(at), k, '', t, {wrap: 'ev-flag', hover: tip})));
       courses.push([cg, e.end]);
     }));
     function refreshCourses(){
@@ -838,7 +837,6 @@ const KINDS = {
     refresh(); refreshCourses();
     g.on('add', () => { refresh(); refreshCourses(); });
     setInterval(() => { if (map.hasLayer(g)) { refresh(); refreshCourses(); } }, 5 * 60e3);
-    map.on('zoomend', () => items.forEach(([l, , line]) => { if (line) l.setStyle({weight: w()}); }));
     stampLive(it, fc.asof);
     return g;
   },
