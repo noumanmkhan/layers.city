@@ -300,6 +300,10 @@ const lineJoin = {'line-join': 'round', 'line-cap': 'round'};
 function geo(fc, opts){
   opts = opts || {};
   if (!fc.features) fc = {type: 'FeatureCollection', features: [fc.type === 'Feature' ? fc : {type: 'Feature', properties: {}, geometry: fc}]};
+  // Each layer styles its own copy: the same features feed several layers (the base, the mask, the suburbs lens), and
+  // MapLibre reads a source's data a moment later, so marks written on shared features would cross over.
+  // FEAT (taps, hover names) still points at the original feature.
+  fc = {type: 'FeatureCollection', features: fc.features.map(f => { gidOf(f); return {type: 'Feature', geometry: f.geometry, properties: Object.assign({}, f.properties)}; })};
   const src = source(fc), g = grp(), groups = new Map();
   g.src = src; g.fc = fc;
   const addL0 = addL;

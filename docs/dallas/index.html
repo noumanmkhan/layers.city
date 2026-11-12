@@ -1975,6 +1975,10 @@ const lineJoin = {'line-join': 'round', 'line-cap': 'round'};
 function geo(fc, opts){
   opts = opts || {};
   if (!fc.features) fc = {type: 'FeatureCollection', features: [fc.type === 'Feature' ? fc : {type: 'Feature', properties: {}, geometry: fc}]};
+  // Each layer styles its own copy: the same features feed several layers (the base, the mask, the suburbs lens), and
+  // MapLibre reads a source's data a moment later, so marks written on shared features would cross over.
+  // FEAT (taps, hover names) still points at the original feature.
+  fc = {type: 'FeatureCollection', features: fc.features.map(f => { gidOf(f); return {type: 'Feature', geometry: f.geometry, properties: Object.assign({}, f.properties)}; })};
   const src = source(fc), g = grp(), groups = new Map();
   g.src = src; g.fc = fc;
   const addL0 = addL;
@@ -5982,21 +5986,13 @@ function locateMe(){
 
 
 /* ---------- Save the map as an image (all in the browser) ----------
-   The map is drawn from the site's own shapes, with no tiles from other sites, so html-to-image (loaded
-   only when first used) can turn it into a picture. The map is briefly redrawn in a frame of the chosen
+   The map is drawn from the site's own shapes, with no tiles from other sites, so the GPU map's own canvas can be
+   copied into a picture. The map is briefly redrawn in a frame of the chosen
    shape (wide 4K, or square, portrait or story for Instagram) that covers what's on screen, and stamped
    with the data credits the licences ask for. Focused on a place, the frame fits the place and its name
    goes top left as a title. The panels, the pin and the controls are left out; "Without labels" also drops every name. */
-const IMG_LIB = 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.js';
-let imgLib = null;
-const loadImgLib = () => imgLib || (imgLib = new Promise((res, rej) => {
-  const sc = document.createElement('script'); sc.src = IMG_LIB;
-  sc.onload = () => window.htmlToImage ? res(window.htmlToImage) : rej(new Error('missing'));
-  sc.onerror = () => { imgLib = null; rej(new Error('load')); };
-  document.head.appendChild(sc);
-}));
 const imgBtn = document.getElementById('saveImg'), imgMenu = document.getElementById('imgMenu');
-function imgMenuOpen(on){ imgMenu.hidden = !on; imgBtn.setAttribute('aria-expanded', String(on)); if (on) loadImgLib().catch(() => {}); }
+function imgMenuOpen(on){ imgMenu.hidden = !on; imgBtn.setAttribute('aria-expanded', String(on)); }
 imgBtn.addEventListener('click', e => { e.stopPropagation(); imgMenuOpen(imgMenu.hidden); });
 imgMenu.querySelectorAll('[data-img]').forEach(b => b.addEventListener('click', () => saveImage(b.dataset.img === 'labels')));
 /* Shapes: wide for screens and slides; square, portrait (4:5) and story (9:16) for Instagram, which shows
@@ -6014,19 +6010,6 @@ imgMenu.querySelectorAll('[data-shape]').forEach(b => b.addEventListener('click'
 setShape(imgShape);
 document.addEventListener('click', e => { if (!imgMenu.hidden && !imgMenu.contains(e.target)) imgMenuOpen(false); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && !imgMenu.hidden){ imgMenuOpen(false); imgBtn.focus(); } });
-// html-to-image copies each SVG whole without the page's stylesheet, and the map's shapes take their
-// colours from CSS classes. So, for the moment of capture, the computed look is written onto each shape.
-const SVG_PROPS = ['fill', 'fill-opacity', 'fill-rule', 'stroke', 'stroke-width', 'stroke-opacity', 'stroke-dasharray',
-  'stroke-linecap', 'stroke-linejoin', 'opacity', 'display', 'visibility', 'paint-order'];
-function inlineSvgStyles(root){
-  const saved = [];
-  root.querySelectorAll('svg *').forEach(n => {
-    const cs = getComputedStyle(n);
-    saved.push([n, n.getAttribute('style')]);
-    n.setAttribute('style', SVG_PROPS.map(k => k + ':' + cs.getPropertyValue(k)).join(';'));
-  });
-  return () => saved.forEach(([n, v]) => { if (v == null) n.removeAttribute('style'); else n.setAttribute('style', v); });
-}
 const frames = n => new Promise(r => { const step = k => k ? requestAnimationFrame(() => step(k - 1)) : r(); step(n); });
 let saving = false;
 async function saveImage(labels){
@@ -6041,31 +6024,37 @@ async function saveImage(labels){
   const cw = imgShape === 'wide' ? Math.round(Math.max(el.clientWidth, el.clientHeight * W / H)) : W / 2, ch = Math.round(cw * H / W);
   const k = cw / W;   // frame pixels per image pixel
   busy.firstElementChild.textContent = 'Making your image…'; busy.hidden = false;
-  let canvas = null, restoreSvg = null;
+  let canvas = null;
+  const hidden_ = [], pr0 = gl.getPixelRatio();
   try {
-    const lib = await loadImgLib();
+    // The map is one WebGL canvas: redraw it in a frame of the chosen shape at the export resolution, then copy that
+    // frame while it's on screen (the 'render' event). The pin, panels and controls are HTML, so they're never in it.
     el.style.right = 'auto'; el.style.bottom = 'auto'; el.style.width = cw + 'px'; el.style.height = ch + 'px';
-    map.invalidateSize({pan: false});
+    gl.setPixelRatio(W / cw);
+    map.invalidateSize();
     // Focused on a place: fit it in the frame, clear of the title (top left) and the credits (bottom right).
-    if (placeF) map.fitBounds(L.geoJSON(placeF.f).getBounds(), {animate: false, reset: true, maxZoom: 16,
+    if (placeF) map.fitBounds(L.geoJSON(placeF.f).getBounds(), {animate: false, maxZoom: 16,
       paddingTopLeft: [70 * k, (titleH(W) + 90) * k], paddingBottomRight: [70 * k, 220 * k]});
-    else map.setView(center, zoom, {animate: false, reset: true});   // reset: redraw every shape for the new frame
-    await new Promise(r => setTimeout(r, 400)); declutter(); await frames(2);
-    const has = (n, c) => n.classList && n.classList.contains(c);
-    const skip = n => has(n, 'leaflet-control-container') || has(n, 'leaflet-pin-pane') || has(n, 'hover-tip') ||
-      (!labels && (has(n, 'leaflet-tooltip-pane') || has(n, 'leaflet-stlbl-pane') || has(n, 'shield') || has(n, 'rt-b') || has(n, 'sub-b') ||
-        (n.tagName === 'B' && n.parentElement && has(n.parentElement, 'lm'))));
-    restoreSvg = inlineSvgStyles(el);
-    canvas = await lib.toCanvas(el, {width: cw, height: ch, canvasWidth: W, canvasHeight: H, pixelRatio: 1,
-      backgroundColor: getComputedStyle(el).backgroundColor, filter: n => !skip(n)});
+    else map.setView(center, zoom, {animate: false});
+    // "Without labels": every name, icon and badge layer is hidden for the capture.
+    if (!labels) gl.getStyle().layers.forEach(l => { if (l.type === 'symbol' && gl.getLayoutProperty(l.id, 'visibility') !== 'none'){ hidden_.push(l.id); gl.setLayoutProperty(l.id, 'visibility', 'none'); } });
+    // Wait until every tile at the new size is drawn (MapLibre goes idle again after the resize's own frames).
+    for (let t = 0; t < 150 && !(gl.loaded() && gl.areTilesLoaded() && !gl.isMoving()); t++) await new Promise(r => setTimeout(r, 100));
+    await new Promise(r => { gl.once('idle', r); gl.triggerRepaint(); setTimeout(r, 8000); });
+    canvas = await new Promise(res => {
+      gl.once('render', () => { const c = document.createElement('canvas'); c.width = W; c.height = H;
+        const x = c.getContext('2d'); x.fillStyle = getComputedStyle(el).backgroundColor; x.fillRect(0, 0, W, H); x.drawImage(gl.getCanvas(), 0, 0, W, H); res(c); });
+      gl.triggerRepaint();
+    });
     if (placeF) stampTitle(canvas, placeF.name, pfNoun(placeF.it) + ' · ' + document.title);
     stampCredits(canvas);
   } catch (err){
     console.error(err);
   } finally {
-    if (restoreSvg) restoreSvg();
+    hidden_.forEach(id => gl.setLayoutProperty(id, 'visibility', 'visible'));
     el.setAttribute('style', before);
-    map.invalidateSize({pan: false}); map.setView(center, zoom, {animate: false, reset: true});   // reset: redraw every shape for the new frame
+    gl.setPixelRatio(pr0);
+    map.invalidateSize(); map.setView(center, zoom, {animate: false});
     busy.hidden = true; saving = false;
   }
   if (!canvas){ flash('The image couldn’t be made. Check your connection and try again.'); return; }
