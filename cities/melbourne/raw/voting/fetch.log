@@ -1,4 +1,7 @@
   venues https://www.vec.vic.gov.au/-/media/19326aa361284a49a69b08194421da96.xlsx
+
+[notice] A new release of pip is available: 26.2.2 -> 26.3
+[notice] To update, run: pip install --upgrade pip
   sheet 'Definitions': 19 rows; header [None, 'Voting Venue Details', None, None, None, None, None, None, None, None, None, None]
   sheet 'EVCs': 311 rows; header ['District', 'Voting Location Name', 'Venue Name', 'Accessibility', 'Address Line 1', 'Address Line 2', 'Suburb', 'Post Code', 'Est. Early Votes', 'Designated Entrance Details', 'Secondary Designated Entrance Details (if applicable)', 'Additional Wheel Chair Access Description']
   sheet 'VCs': 1852 rows; header ['District', 'Voting Location Name', 'Venue Name', 'Accessibility', 'Address Line 1', 'Address Line 2', 'Suburb', 'Post Code', 'Est. Ord Votes', 'Est. Absent Votes', 'Designated Entrance Details', 'Secondary Designated Entrance Details (if applicable)', 'Additional Wheel Chair Access Description']
@@ -6,3 +9,25 @@
   sheet 'LSVCs': 89 rows; header ['District', 'LSV venue name (MEVC)', 'Address', 'Building Type', 'Estimated Votes']
   sheet 'ISOS': 37 rows; header ['Country', 'City', 'Organisation', 'Address', 'Voting types available']
   sheet 'Change Log': 43 rows; header ['Date', 'Venue Type', 'Change Type', 'District', 'Voting Location Name', 'Venue Name', 'Description', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+  0 placed before, 1651 to look up
+  address layers: ['open-data-platform:address', 'open-data-platform:address_main', 'open-data-platform:address_sup', 'open-data-platform:v_property_mp_address']
+  using open-data-platform:address ; fields {'ufi': 817464285, 'pfi': '51566847', 'property_pfi': '1334321', 'ezi_address': '136 DAVID HILL ROAD MONBULK 3793', 'source': 'LGO', 'source_verified': '2009-12-09T00:00:00Z', 'is_primary': 'Y', 'property_status': 'A', 'geocode_feature': 'V', 'distance_related_flag': 'N', 'location_descriptor': None, 'blg_unit_type': None, 'hsa_flag': 'N', 'hsa_unit_id': None, 'blg_unit_prefix_1': None, 'blg_unit_id_1': None, 'blg_unit_suffix_1': None, 'blg_unit_prefix_2': None, 'blg_unit_id_2': None, 'blg_unit_suffix_2': None, 'floor_type': None, 'floor_prefix_1': None, 'floor_no_1': None, 'floor_suffix_1': None, 'floor_prefix_2': None, 'floor_no_2': None, 'floor_suffix_2': None, 'building_name': None, 'complex_name': None, 'house_prefix_1': None, 'house_number_1': 136, 'house_suffix_1': None, 'house_prefix_2': None, 'house_number_2': None, 'house_suffix_2': None, 'disp_prefix_1': None, 'disp_number_1': None, 'disp_suffix_1': None, 'disp_prefix_2': None, 'disp_number_2': None, 'disp_suffix_2': None, 'road_name': 'DAVID HILL', 'road_type': 'ROAD', 'road_suffix': None, 'locality_name': 'MONBULK', 'lga_code': '377', 'state': 'VIC', 'postcode': '3793', 'mesh_block': '20660530000', 'num_road_address': '136 DAVID HILL ROAD', 'num_address': '136', 'address_class': 'S', 'add_access_type': 'L', 'outside_property': 'N', 'complex_site': 'N', 'label_address': 'Y', 'feature_quality_id': None, 'pfi_created': None, 'ufi_created': '2023-12-19T02:36:12Z', 'ufi_old': 460359887, 'task_id': 417948}
+  0/1651 1s 333 Bay Street|Port Melbourne|3207 [144.944682, -37.835715, 'address']
+  100/1651 137s 69 Whites Lane|Glen Waverley|3150 [145.169184, -37.897497, 'street']
+  200/1651 263s 28 Gourlay Road|Hillside|3037 [144.742605, -37.699321, 'address']
+  300/1651 384s 86 Conness Street|Chiltern|3683 [146.609509, -36.151067, 'street']
+  400/1651 508s 1-31 Janet Street|Blackburn|3130 [145.138759, -37.82707, 'address']
+  500/1651 632s 17 Tooronga Road|Malvern East|3144 [145.03854, -37.87119, 'address']
+  600/1651 756s 6583 Maroondah Highway|Yarck|3719 [145.616109, -37.101933, 'address']
+  700/1651 883s 684 Barkly Street|West Footscray|3012 [144.867796, -37.796294, 'street']
+  800/1651 1005s 82-88 MacAlister Street|Sale|3850 [147.067269, -38.10957, 'address']
+  900/1651 1118s 20 Peel Street|Kew|3101 [145.033247, -37.804158, 'address']
+  1000/1651 1228s 641 Mount Macedon Road|Mount Macedon|3441 [144.584205, -37.404873, 'address']
+  1100/1651 1367s 1536 Burwood Highway|Tecoma|3160 [145.344762, -37.906942, 'address']
+  1200/1651 1484s 1020 Princes Highway|Pakenham|3810 [145.471489, -38.069294, 'address']
+  1300/1651 1603s 91 Kiewa Valley Highway|Tawonga|3697 [147.149742, -36.726648, 'address']
+  1400/1651 1728s 631-639 Whitehorse Road|Mitcham|3132 [145.205959, -37.816165, 'address']
+  1500/1651 1837s 445 Dickins Road|Freshwater Creek|3217 [144.280343, -38.257439, 'address']
+  1600/1651 1962s 96 Landscape Drive|Doncaster East|3109 [145.167916, -37.777256, 'street']
+  placed: Counter({'address': 1225, 'street': 289, None: 137})
+  not found: ['Corner Station Street and Scoresby Road|Bayswater|3153', '1 John Dory Drive|Ocean Grove|3226', 'Zerbes Reserve|Doncaster East|3109', '117 Andersons Creek Road|Doncaster East|3109', 'Aenone Avenue|Noble Park|3174', 'Davies Reserve|Oakleigh South|3167', '255 South Gippsland Highway|Cranbourne|3977', 'Rowley Allan Reserve|Keysborough|3173', 'Ballam Park|Frankston|3199', 'Bakers Reserve|Geelong West|3218', '958 High Street Road|Glen Waverley|3150', 'Lakeside Reserve|Roxburgh Park|3064', 'Corner Manton Street and St James Road|Heidelberg|3084', 'Unit 8/85 Mt Derrimut Road|Deer Park|3023', 'The Gallery|Caroline Springs|3023', 'Unit 2/1-11 Little Boundary Road|Laverton North|3026', 'Corner Etiwanda Avenue and Fourteenth Street|Mildura|3500', 'Corner Fifth Avenue and Sixth Avenue|Aspendale|3195', 'Rosebud Foreshore on Point Nepean Road|Rosebud|3939', 'The Wellington Room|Taylors Lakes|3038', 'Front Hall|Preston|3072', 'Northern Room|Officer|3809', 'JK Grant Reserve|Altona|3018', 'Corner Dunstan Parade and Centre Avenue|Port Melbourne|3207', 'Corner Tulloch Street and Bass Highway|Dalyston|3992', 'Corner Worthing Road and Cross Road|Devon Meadows|3977', '175 Moolap Station Road|Moolap|3224', 'Corner Bridge Street and Jobling Street|Bethanga|3691', 'Corner Towong Street and Banool Road|Tallangatta|3700', 'Galvin Hall|Wodonga|3690', 'Corner Sedgwick Road and Boyd Lane|Sedgwick|3551', 'Knuldoorong Centre|Bendigo North|3550', '91 Old Violet Street|Bendigo|3550', 'Corner Centre Road and Tucker Road|Bentleigh|3204', 'Timbarra Way|Berwick|3806', '101 Glen Huntly Road|Elwood|3184', 'Corner Ludstone Street and Kingston Street|Hampton|3188', 'Corner of Michael Street and McKean Street|Fitzroy North|3068', 'Corner Fergie Street and Alfred Crescent|Fitzroy North|3068', 'Corner Nicholson Street and Glenlyon Road|Brunswick East|3057']
