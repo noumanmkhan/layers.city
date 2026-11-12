@@ -1751,7 +1751,7 @@ const map = {
   invalidateSize: () => { gl.resize(); return map; },
   setMaxBounds: b => { gl.setMaxBounds(lnglatBounds(b)); return map; },
   dragging: {disable: () => gl.dragPan.disable(), enable: () => gl.dragPan.enable(), moved: () => false},
-  on(types, fn){ types.split(' ').forEach(t => { if (t === 'layeradd' || t === 'layerremove') return; const h = e => fn(wrapE(e)); (fn._gl = fn._gl || {})[t] = h; gl.on(t, h); }); return map; },
+  on(types, fn){ types.split(' ').forEach(t => { if (t === 'layeradd' || t === 'layerremove') return; if (t === 'preclick'){ PRECLICK.push(fn); return; } const h = e => fn(wrapE(e)); (fn._gl = fn._gl || {})[t] = h; gl.on(t, h); }); return map; },
   once(types, fn){ types.split(' ').forEach(t => gl.once(t, e => fn(wrapE(e)))); return map; },
   off(types, fn){ types.split(' ').forEach(t => { if (fn && fn._gl && fn._gl[t]) gl.off(t, fn._gl[t]); }); return map; },
   hasLayer: g => !!(g && g.live && g.live()),
@@ -1763,7 +1763,7 @@ const map = {
   attributionControl: {getContainer: () => gl.getContainer().querySelector('.maplibregl-ctrl-attrib') || document.createElement('div'), addAttribution(){}, setPrefix(){}},
 };
 window.cityMap = map;
-const POPUPS = new Set();
+const POPUPS = new Set(), PRECLICK = [];
 
 /* ---------- styles read from the CSS ---------- */
 const NS = 'http://www.w3.org/2000/svg';
@@ -1947,7 +1947,9 @@ function hitAt(point, wanted){
 }
 let onMapTap = null;   // set by the engine (tapMap)
 gl.on('click', e => {
-  const ev = wrapE(e), h = hitAt(e.point, TAP);
+  const ev = wrapE(e);
+  PRECLICK.forEach(f => f(ev));
+  const h = hitAt(e.point, TAP);
   if (h){ const r = TAP.get(h[0])(h[1], ev); if (r !== false) return; }
   if (onMapTap) onMapTap(ev);
 });
@@ -2183,9 +2185,11 @@ const SHIELDS = new Pool('shields', (src, filter, item) => {
     svgImage(img, b.svg, {stretchX: [[st, en]], stretchY: [[Math.round((pad + h / 2 - 1) * PR), Math.round((pad + h / 2 + 1) * PR)]],
       content: [Math.round((pad + v.padx) * PR), Math.round(pad * PR), Math.round((b.W - pad - v.padx) * PR), Math.round((b.H - pad) * PR)]}); }};
   ICONSETS.push(set); Promise.resolve().then(() => set.redraw());
-  styled(id, () => { const v = at(P, x => x, 13); return {layout: textLayout(v, {'text-size': byZoom(P, x => x.size, 11)}), paint: {'text-color': v.color}, range: zoomRange(P)}; });
+  styled(id, () => { const v = at(P, x => x, 13); return {layout: textLayout(v, {'text-size': byZoom(P, x => x.size, 11)}), paint: {'text-color': v.color, 'text-opacity': byZoom(P, x => x.op, 1), 'icon-opacity': byZoom(P, x => x.op, 1)}, range: zoomRange(P)}; });
+  TAP.set(id, it => it.p.tap ? it.p.tap() : false);
+  HOVER.set(id, it => it.p.hover);
 });
-const shield = (latlng, cls, text, wrap) => new Item(SHIELDS, latlng, {cls, wrap, text: plain(text), _key: (wrap || 'shield') + '|' + cls});
+const shield = (latlng, cls, text, wrap, opts) => new Item(SHIELDS, latlng, Object.assign({cls, wrap, text: plain(text), _key: (wrap || 'shield') + '|' + cls}, opts || {}));
 
 /* ---------- HTML markers (the pin, voting marks): real elements, few of them ---------- */
 class Mk extends G {
@@ -2555,7 +2559,7 @@ const driveTier = m => m == null ? null : DRIVE_TIERS.find(t => m < t[3]);
 const SUBURBS = LAYERS.find(it => it.kind === 'suburbs');
 
 /* Kinds not yet drawn on the GPU map: their panel rows stay, greyed out with a note, until they're ported. */
-const PENDING = new Set(['addresses', 'heritage', 'changes', 'bikes', 'parks', 'docks', 'spots', 'regional', 'streetcars', 'buses']);
+const PENDING = new Set(['addresses', 'heritage', 'changes', 'bikes', 'parks', 'docks', 'spots', 'regional']);
 function pending(it){
   const g = grp(), row = document.getElementById('lyr-' + it.id), lab = row && row.closest('label');
   if (lab){ lab.classList.add('gl-pending'); lab.title = 'Coming back soon: this layer is being moved to the new map engine.'; }
@@ -2777,9 +2781,9 @@ const KINDS = {
   streetcars: (it, fc) => routeLines(fc.features, false),
   // Bus routes: one family at a time (frequent, express, overnight). Shapes load the first time it's on.
   buses: it => {
-    const g = L.layerGroup(); let cur = null;
+    const g = grp(); let cur = null;
     g._draw = () => {
-      if (cur){ g.removeLayer(cur); cur = null; }
+      if (cur){ g.removeLayer(cur); drop(cur); cur = null; }
       if (!routeGeo) return;
       // With two families on, the express routes are dashed (class dash) so they read apart from the locals
       // they shadow. Showing the overnight family, every route drawn gets the night class.
@@ -3606,29 +3610,20 @@ function longestRun(c, ok){
 }
 function routeLines(feats, pick, extra, opts){
   const pane = (opts && opts.pane) || 'transit', within = opts && opts.within;
+  const g = grp(), xs = new Map();
+  const cls = p => { if (!xs.has(p)) xs.set(p, ' ' + p.m + (pick ? ' pick' : '') + routeCls(p, opts && opts.night) + (extra ? extra(p) : '')); return xs.get(p); };
+  const fc = {type: 'FeatureCollection', features: feats.map(f => ({type: 'Feature', geometry: f.geometry, properties: f.properties}))};
   // Every casing goes in before any line, or a casing's rounded end would nick the line drawn before it.
-  const g = L.layerGroup(), cases = L.layerGroup(), lines = L.layerGroup();
-  g.addLayer(cases); g.addLayer(lines);
+  g.addLayer(geo(fc, {pane, interactive: false, cls: f => 'rt-case' + cls(f.properties)}));
+  g.addLayer(geo(fc, {pane, cls: f => 'rt' + cls(f.properties), hover: f => routeTip(f.properties), tap: f => { focusRoute(f.properties.r); }}));
   feats.forEach(f => {
     const p = f.properties, parts = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.coordinates;
-    const x = ' ' + p.m + (pick ? ' pick' : '') + routeCls(p, opts && opts.night) + (extra ? extra(p) : '');
-    parts.forEach(c => {
-      cases.addLayer(L.polyline(c.map(ll), {pane, className:'rt-case' + x, interactive:false, feat: f}));
-      const pl = L.polyline(c.map(ll), {pane, className:'rt' + x, bubblingMouseEvents:false, feat: f});
-      hoverTip(pl, routeTip(p));
-      pl.on('click', () => focusRoute(p.r));
-      lines.addLayer(pl);
-    });
     // Number badges: tapping one shows that route alone too.
     let long = parts.reduce((a, b) => span(b) > span(a) ? b : a);
     if (within) long = parts.map(c => longestRun(c, within)).reduce((a, b) => span(b) > span(a) ? b : a, []);
     if (long.length < 2) return;
-    (pick ? [0, .5, 1] : within ? [.5] : [.25, .75]).forEach(t => {
-      const m = L.marker(ll(along(long, t)), {pane:'pts', keyboard:false, title: routeName(p), feat: f,
-        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="rt-b' + x + '">' + esc(p.r) + '</span>'})});
-      m.on('click', () => focusRoute(p.r));
-      g.addLayer(m);
-    });
+    (pick ? [0, .5, 1] : within ? [.5] : [.25, .75]).forEach(t =>
+      g.addLayer(shield(ll(along(long, t)), cls(p).trim(), p.r, 'rt-b', {hover: esc(routeName(p)), tap: () => focusRoute(p.r)})));
   });
   return g;
 }
@@ -3652,7 +3647,7 @@ document.addEventListener('keydown', e => {
   if (focusR) unfocus(); else if (placeF) setPlaceFocus(null, null, false);
 });
 function drawPicks(){
-  pickLayer.clearLayers();
+  pickLayer.getLayers().forEach(drop); pickLayer.clearLayers();
   if (routeGeo && picked.size) pickLayer.addLayer(routeLines(routeGeo.features.filter(f => picked.has(f.properties.r) && f.properties.r !== focusR), true));
   if (routeGeo && focusR) pickLayer.addLayer(routeLines(routeGeo.features.filter(f => f.properties.r === focusR), true, () => ' focus'));
   drawStops(); drawBusBox();

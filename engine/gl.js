@@ -59,7 +59,7 @@ const map = {
   invalidateSize: () => { gl.resize(); return map; },
   setMaxBounds: b => { gl.setMaxBounds(lnglatBounds(b)); return map; },
   dragging: {disable: () => gl.dragPan.disable(), enable: () => gl.dragPan.enable(), moved: () => false},
-  on(types, fn){ types.split(' ').forEach(t => { if (t === 'layeradd' || t === 'layerremove') return; const h = e => fn(wrapE(e)); (fn._gl = fn._gl || {})[t] = h; gl.on(t, h); }); return map; },
+  on(types, fn){ types.split(' ').forEach(t => { if (t === 'layeradd' || t === 'layerremove') return; if (t === 'preclick'){ PRECLICK.push(fn); return; } const h = e => fn(wrapE(e)); (fn._gl = fn._gl || {})[t] = h; gl.on(t, h); }); return map; },
   once(types, fn){ types.split(' ').forEach(t => gl.once(t, e => fn(wrapE(e)))); return map; },
   off(types, fn){ types.split(' ').forEach(t => { if (fn && fn._gl && fn._gl[t]) gl.off(t, fn._gl[t]); }); return map; },
   hasLayer: g => !!(g && g.live && g.live()),
@@ -71,7 +71,7 @@ const map = {
   attributionControl: {getContainer: () => gl.getContainer().querySelector('.maplibregl-ctrl-attrib') || document.createElement('div'), addAttribution(){}, setPrefix(){}},
 };
 window.cityMap = map;
-const POPUPS = new Set();
+const POPUPS = new Set(), PRECLICK = [];
 
 /* ---------- styles read from the CSS ---------- */
 const NS = 'http://www.w3.org/2000/svg';
@@ -255,7 +255,9 @@ function hitAt(point, wanted){
 }
 let onMapTap = null;   // set by the engine (tapMap)
 gl.on('click', e => {
-  const ev = wrapE(e), h = hitAt(e.point, TAP);
+  const ev = wrapE(e);
+  PRECLICK.forEach(f => f(ev));
+  const h = hitAt(e.point, TAP);
   if (h){ const r = TAP.get(h[0])(h[1], ev); if (r !== false) return; }
   if (onMapTap) onMapTap(ev);
 });
@@ -491,9 +493,11 @@ const SHIELDS = new Pool('shields', (src, filter, item) => {
     svgImage(img, b.svg, {stretchX: [[st, en]], stretchY: [[Math.round((pad + h / 2 - 1) * PR), Math.round((pad + h / 2 + 1) * PR)]],
       content: [Math.round((pad + v.padx) * PR), Math.round(pad * PR), Math.round((b.W - pad - v.padx) * PR), Math.round((b.H - pad) * PR)]}); }};
   ICONSETS.push(set); Promise.resolve().then(() => set.redraw());
-  styled(id, () => { const v = at(P, x => x, 13); return {layout: textLayout(v, {'text-size': byZoom(P, x => x.size, 11)}), paint: {'text-color': v.color}, range: zoomRange(P)}; });
+  styled(id, () => { const v = at(P, x => x, 13); return {layout: textLayout(v, {'text-size': byZoom(P, x => x.size, 11)}), paint: {'text-color': v.color, 'text-opacity': byZoom(P, x => x.op, 1), 'icon-opacity': byZoom(P, x => x.op, 1)}, range: zoomRange(P)}; });
+  TAP.set(id, it => it.p.tap ? it.p.tap() : false);
+  HOVER.set(id, it => it.p.hover);
 });
-const shield = (latlng, cls, text, wrap) => new Item(SHIELDS, latlng, {cls, wrap, text: plain(text), _key: (wrap || 'shield') + '|' + cls});
+const shield = (latlng, cls, text, wrap, opts) => new Item(SHIELDS, latlng, Object.assign({cls, wrap, text: plain(text), _key: (wrap || 'shield') + '|' + cls}, opts || {}));
 
 /* ---------- HTML markers (the pin, voting marks): real elements, few of them ---------- */
 class Mk extends G {

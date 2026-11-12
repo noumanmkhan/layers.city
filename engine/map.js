@@ -278,7 +278,7 @@ const driveTier = m => m == null ? null : DRIVE_TIERS.find(t => m < t[3]);
 const SUBURBS = LAYERS.find(it => it.kind === 'suburbs');
 
 /* Kinds not yet drawn on the GPU map: their panel rows stay, greyed out with a note, until they're ported. */
-const PENDING = new Set(['addresses', 'heritage', 'changes', 'bikes', 'parks', 'docks', 'spots', 'regional', 'streetcars', 'buses']);
+const PENDING = new Set(['addresses', 'heritage', 'changes', 'bikes', 'parks', 'docks', 'spots', 'regional']);
 function pending(it){
   const g = grp(), row = document.getElementById('lyr-' + it.id), lab = row && row.closest('label');
   if (lab){ lab.classList.add('gl-pending'); lab.title = 'Coming back soon: this layer is being moved to the new map engine.'; }
@@ -500,9 +500,9 @@ const KINDS = {
   streetcars: (it, fc) => routeLines(fc.features, false),
   // Bus routes: one family at a time (frequent, express, overnight). Shapes load the first time it's on.
   buses: it => {
-    const g = L.layerGroup(); let cur = null;
+    const g = grp(); let cur = null;
     g._draw = () => {
-      if (cur){ g.removeLayer(cur); cur = null; }
+      if (cur){ g.removeLayer(cur); drop(cur); cur = null; }
       if (!routeGeo) return;
       // With two families on, the express routes are dashed (class dash) so they read apart from the locals
       // they shadow. Showing the overnight family, every route drawn gets the night class.
@@ -1329,29 +1329,20 @@ function longestRun(c, ok){
 }
 function routeLines(feats, pick, extra, opts){
   const pane = (opts && opts.pane) || 'transit', within = opts && opts.within;
+  const g = grp(), xs = new Map();
+  const cls = p => { if (!xs.has(p)) xs.set(p, ' ' + p.m + (pick ? ' pick' : '') + routeCls(p, opts && opts.night) + (extra ? extra(p) : '')); return xs.get(p); };
+  const fc = {type: 'FeatureCollection', features: feats.map(f => ({type: 'Feature', geometry: f.geometry, properties: f.properties}))};
   // Every casing goes in before any line, or a casing's rounded end would nick the line drawn before it.
-  const g = L.layerGroup(), cases = L.layerGroup(), lines = L.layerGroup();
-  g.addLayer(cases); g.addLayer(lines);
+  g.addLayer(geo(fc, {pane, interactive: false, cls: f => 'rt-case' + cls(f.properties)}));
+  g.addLayer(geo(fc, {pane, cls: f => 'rt' + cls(f.properties), hover: f => routeTip(f.properties), tap: f => { focusRoute(f.properties.r); }}));
   feats.forEach(f => {
     const p = f.properties, parts = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.coordinates;
-    const x = ' ' + p.m + (pick ? ' pick' : '') + routeCls(p, opts && opts.night) + (extra ? extra(p) : '');
-    parts.forEach(c => {
-      cases.addLayer(L.polyline(c.map(ll), {pane, className:'rt-case' + x, interactive:false, feat: f}));
-      const pl = L.polyline(c.map(ll), {pane, className:'rt' + x, bubblingMouseEvents:false, feat: f});
-      hoverTip(pl, routeTip(p));
-      pl.on('click', () => focusRoute(p.r));
-      lines.addLayer(pl);
-    });
     // Number badges: tapping one shows that route alone too.
     let long = parts.reduce((a, b) => span(b) > span(a) ? b : a);
     if (within) long = parts.map(c => longestRun(c, within)).reduce((a, b) => span(b) > span(a) ? b : a, []);
     if (long.length < 2) return;
-    (pick ? [0, .5, 1] : within ? [.5] : [.25, .75]).forEach(t => {
-      const m = L.marker(ll(along(long, t)), {pane:'pts', keyboard:false, title: routeName(p), feat: f,
-        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="rt-b' + x + '">' + esc(p.r) + '</span>'})});
-      m.on('click', () => focusRoute(p.r));
-      g.addLayer(m);
-    });
+    (pick ? [0, .5, 1] : within ? [.5] : [.25, .75]).forEach(t =>
+      g.addLayer(shield(ll(along(long, t)), cls(p).trim(), p.r, 'rt-b', {hover: esc(routeName(p)), tap: () => focusRoute(p.r)})));
   });
   return g;
 }
@@ -1375,7 +1366,7 @@ document.addEventListener('keydown', e => {
   if (focusR) unfocus(); else if (placeF) setPlaceFocus(null, null, false);
 });
 function drawPicks(){
-  pickLayer.clearLayers();
+  pickLayer.getLayers().forEach(drop); pickLayer.clearLayers();
   if (routeGeo && picked.size) pickLayer.addLayer(routeLines(routeGeo.features.filter(f => picked.has(f.properties.r) && f.properties.r !== focusR), true));
   if (routeGeo && focusR) pickLayer.addLayer(routeLines(routeGeo.features.filter(f => f.properties.r === focusR), true, () => ' focus'));
   drawStops(); drawBusBox();
