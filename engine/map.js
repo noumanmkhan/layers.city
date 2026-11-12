@@ -470,7 +470,10 @@ const KINDS = {
       names.addLayer(label(f.properties.name, 'lbl-stn' + (end ? ' end' : ''), at, {direction: 'right', offset: [8, 0], sort: end ? 0 : 1}));
     });
     g._names = names;
-    // Stations (dots and names) show from zoom 13 (CSS); zoomed out, each line carries a badge instead.
+    // Each line carries its badge (it.badges: what a line's badge reads, e.g. several letters on a shared trunk).
+    const B = it.badges || {};
+    g.ids.push(badges(lg.src, lines, f => f.properties.line, f => ({labels: [].concat(B[f.properties.line] != null ? B[f.properties.line] : f.properties.line),
+      bg: at(pathProbe('sub-line l' + f.properties.line), v => v.stroke) || f.properties.color || '#555'}), {hover: f => esc(f.properties.name || ''), spacing: 900}));
     return g;
   },
   // Streetcar routes with daytime service, each numbered along its line (badges from zoom 12).

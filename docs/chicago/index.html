@@ -2247,6 +2247,45 @@ glReady.then(() => {
   gl.addLayer({id: 'slot:end', type: 'background', layout: {visibility: 'none'}, paint: {'background-color': '#000'}});
 });
 const slotAfterLast = () => 'slot:end';
+/* Line badges (subway lines, route numbers): bullets and pills drawn on a canvas with the page's own font, then
+   placed by MapLibre along each line. look(): {labels, bg, fg} for a feature; the image is redrawn with the theme. */
+const bcv = document.createElement('canvas').getContext('2d');
+function badgeImage(id, labs, bg, fg, ring, big){
+  const H = big ? 20 : 18, r = 1.5, gap = 2;
+  const fn = l => String(l).length > 2 ? '700 ' + (big ? 11.5 : 10.5) + 'px Inter, system-ui, sans-serif' : '700 ' + (big ? 12 : 11) + 'px Inter, system-ui, sans-serif';
+  const ws = labs.map(l => { bcv.font = fn(l); return String(l).length > 2 ? Math.ceil(bcv.measureText(String(l)).width) + 12 : H; });
+  const W = ws.reduce((a, b) => a + b, 0) + gap * (labs.length - 1) + 2 * r + 2, HH = H + 2 * r + 2;
+  const c = document.createElement('canvas'); c.width = Math.ceil(W * PR); c.height = Math.ceil(HH * PR);
+  const x = c.getContext('2d'); x.scale(PR, PR);
+  let px = r + 1;
+  labs.forEach((l, i) => {
+    const w = ws[i], y = r + 1, rad = H / 2;
+    const pill = (k, fill) => { x.beginPath(); if (x.roundRect) x.roundRect(px - k, y - k, w + 2 * k, H + 2 * k, rad + k); else x.rect(px - k, y - k, w + 2 * k, H + 2 * k); x.fillStyle = fill; x.fill(); };
+    if (ring) pill(r, ring);
+    pill(0, bg);
+    x.fillStyle = fg; x.font = fn(l); x.textAlign = 'center'; x.textBaseline = 'middle';
+    x.fillText(String(l), px + w / 2, y + H / 2 + .5);
+    px += w + gap;
+  });
+  const img = x.getImageData(0, 0, c.width, c.height);
+  if (gl.hasImage(id)) gl.updateImage(id, img); else gl.addImage(id, img, {pixelRatio: PR});
+}
+const inkOn = c => { const m = String(c || '').match(/\d+(\.\d+)?/g); if (!m || m.length < 3) return '#fff';
+  const [r, g, b] = m.slice(0, 3).map(Number); return (r * 299 + g * 587 + b * 114) / 1000 > 165 ? '#111' : '#fff'; };
+function badges(src, fc, keyOf, look, opts){
+  opts = opts || {};
+  const id = uid('b'), keys = new Map();
+  fc.features.forEach(f => { const k = keyOf(f); f.properties._b = 'bd|' + id + '|' + k; if (!keys.has(k)) keys.set(k, f); });
+  const draw = () => { const ring = colour(getComputedStyle(document.documentElement).getPropertyValue('--city').trim()) || '#fff';
+    keys.forEach((f, k) => { const L_ = look(f); badgeImage('bd|' + id + '|' + k, L_.labels, L_.bg, L_.fg || inkOn(L_.bg), ring, opts.big); }); };
+  const set = {redraw: () => (document.fonts ? document.fonts.ready : Promise.resolve()).then(draw)};
+  ICONSETS.push(set); set.redraw();
+  addL(hidden({id, type: 'symbol', source: src, filter: opts.filter || ['has', '_b'], minzoom: opts.minzoom || 0, maxzoom: opts.maxzoom || 24,
+    layout: {'symbol-placement': 'line', 'symbol-spacing': opts.spacing || 700, 'icon-image': ['get', '_b'], 'icon-rotation-alignment': 'viewport',
+      'icon-padding': 2, 'symbol-avoid-edges': true}}), 'sym', opts.rank == null ? 1 : opts.rank);
+  if (opts.hover) HOVER.set(id, opts.hover);
+  return id;
+}
 
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -2715,7 +2754,10 @@ const KINDS = {
       names.addLayer(label(f.properties.name, 'lbl-stn' + (end ? ' end' : ''), at, {direction: 'right', offset: [8, 0], sort: end ? 0 : 1}));
     });
     g._names = names;
-    // Stations (dots and names) show from zoom 13 (CSS); zoomed out, each line carries a badge instead.
+    // Each line carries its badge (it.badges: what a line's badge reads, e.g. several letters on a shared trunk).
+    const B = it.badges || {};
+    g.ids.push(badges(lg.src, lines, f => f.properties.line, f => ({labels: [].concat(B[f.properties.line] != null ? B[f.properties.line] : f.properties.line),
+      bg: at(pathProbe('sub-line l' + f.properties.line), v => v.stroke) || f.properties.color || '#555'}), {hover: f => esc(f.properties.name || ''), spacing: 900}));
     return g;
   },
   // Streetcar routes with daytime service, each numbered along its line (badges from zoom 12).
