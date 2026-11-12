@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### Cycling since 2016: public (November 12)
+- The cycling page is public: indexed, in the sitemap, and the third Explainers card on the hub. Before it went public
+  it gained the busiest Bike Share day on record (Saturday, August 15, 2026, 50,240 trips) and a By month / By year
+  switch on the Bike Share chart.
+
 ### Cycling since 2016: an explainer page, unlisted (November 11)
 - layers.city/toronto/cycling-since-2016/ (noindex, not in the sitemap or on the hub until reviewed): "Toronto's bike
   boom, counted", a follow-up to comments on the downtown-weekday Reel. Bike Share trips by month, January 2017 to

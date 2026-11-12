@@ -1,7 +1,7 @@
 {
  "_about": "Cycling explainer page (engine/cycling/build.py), at docs/toronto/<path>/. Built from the small JSON files cities/toronto/cycling.py writes to cities/toronto/cycling/ (Bike Share trip files in raw/bikeshare_rides/, gitignored; the Cycling Network; the City's retired bikeways snapshots, permanent counters and cordon counts; the TTS exports in raw/tts/), plus raw/bikes.geojson for the map. 'reduce' configures cycling.py; 'published' holds figures quoted from City reports, each with its source. Words in 'page' can use {tokens} that build.py fills from the numbers (see TOKENS in build.py). Wording rules (scouting/cycling-growth/FINDINGS.md): always name the measure ('Bike Share trips', 'trips by bike in the survey', 'km of bikeways', 'riders counted in the lane'), never 'cyclists in Toronto' or bare 'ridership'; Bike Share is one system, not all cycling; no claim that lanes caused riding or that removal caused anything; removals are 'removed by the Province of Ontario' with date and length, no adjectives, no politicians; TTS figures are shares of weekday trips by people 11 and up, with the year; trips into downtown 'held level' while other trips fell, never 'more people cycle downtown'; 2026 counter figures only with the recalibration note; quote the City's network km for totals.",
  "path": "cycling-since-2016",
- "unlisted": true,
+ "unlisted": false,
  "dataDir": "cycling",
  "network": "cities/toronto/raw/bikes.geojson",
  "base": "docs/toronto/data/wards.geojson",
