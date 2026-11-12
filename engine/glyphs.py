@@ -3,14 +3,14 @@
 MapLibre draws map text on the GPU from SDF glyph sheets, fetched in 256-character ranges. This writes them for the
 Inter weights the map uses, from the woff2 files of the @fontsource/inter npm package (SIL Open Font Licence).
 
-Usage: python3 engine/gl/glyphs.py <dir with inter-latin-*.woff2>
+Usage: python3 engine/glyphs.py <dir with inter-latin-*.woff2>
 Needs: fonttools, brotli, freetype-py, numpy, scipy. Run once; the output is committed."""
 import io, os, sys
 import numpy as np, freetype
 from fontTools.ttLib import TTFont
 from scipy.ndimage import distance_transform_edt
 
-ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 SRC = sys.argv[1] if len(sys.argv) > 1 else sys.exit('usage: glyphs.py <fontsource files dir>')
 FONTS = {'Inter Regular': '400-normal', 'Inter Medium': '500-normal', 'Inter SemiBold': '600-normal', 'Inter Bold': '700-normal',
          'Inter Medium Italic': '500-italic', 'Inter SemiBold Italic': '600-italic'}

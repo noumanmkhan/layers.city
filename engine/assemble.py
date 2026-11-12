@@ -46,7 +46,7 @@ t = t.replace('/*LEAFLET_CSS*/', read(ROOT, 'node_modules', 'leaflet', 'dist', '
 t = t.replace('/*CITY_CSS*/', read(CITY_DIR, 'city.css'))
 # The config sits inside a <script>; escaping "</" keeps a stray "</script>" in any text from ending it.
 t = t.replace('/*CITY_CONFIG*/', json.dumps(cfg, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))
-t = t.replace('/*ENGINE_JS*/', read(HERE, 'map.js'))
+t = t.replace('/*ENGINE_JS*/', read(HERE, 'map.js').replace('/*GL_KIT*/', read(HERE, 'gl.js')))
 t = '<!doctype html>\n<html lang="en">\n<head>\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n' + \
     t.replace('<div id="app">', '</head>\n<body>\n<div id="app">', 1) + '\n</body>\n</html>\n'
 

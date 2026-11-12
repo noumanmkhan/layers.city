@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.1/dist/maplibre-gl.css">
 <style>
 /*LEAFLET_CSS*/
 </style>
@@ -90,6 +91,21 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .leaflet-bar{box-shadow:var(--shadow)!important;border:none!important}
 .leaflet-control-attribution{background:color-mix(in srgb,var(--panel) 85%,transparent)!important;color:var(--ink-3)!important;font-size:10.5px}
 .leaflet-control-attribution a{color:var(--ink-2)!important}
+/* MapLibre (GPU map): its controls in the engine's look, and the hidden elements gl.js reads styles from */
+.gl-probe{position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;pointer-events:none}
+.gl-tip{position:absolute;z-index:5;transform:translate(-50%,-100%);pointer-events:none;white-space:nowrap;margin:0}
+.gl-mk{pointer-events:none}
+.maplibregl-ctrl-bottom-left .maplibregl-ctrl-group{margin:0 0 calc(var(--attr-h,18px) + 8px) 332px;box-shadow:var(--shadow);border:1px solid var(--rule);background:var(--panel)}
+.maplibregl-ctrl-group button{background-color:var(--panel)} .maplibregl-ctrl-group button+button{border-top:1px solid var(--rule)}
+:root[data-theme=dark] .maplibregl-ctrl-icon{filter:invert(1)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .maplibregl-ctrl-icon{filter:invert(1)}}
+@media (max-width:760px){.maplibregl-ctrl-bottom-left{display:none}}
+.maplibregl-ctrl-attrib{background:color-mix(in srgb,var(--panel) 85%,transparent)!important;color:var(--ink-3);font-size:10.5px}
+.maplibregl-ctrl-attrib a{color:var(--ink-2)}
+.gl-pending{opacity:.45}
+.info-pop.maplibregl-popup .maplibregl-popup-content{background:var(--panel);color:var(--ink);border-radius:12px;box-shadow:var(--shadow);padding:12px 14px;font:13px/1.4 var(--font)}
+.info-pop .maplibregl-popup-tip{border-top-color:var(--panel)!important;border-bottom-color:var(--panel)!important}
+.info-pop .maplibregl-popup-close-button{color:var(--ink-3);font-size:18px;padding:0 6px}
 
 /* ---------- panel ---------- */
 #panel{position:absolute;z-index:1000;top:16px;left:16px;bottom:calc(var(--attr-h,18px) + 8px);width:300px;display:flex;flex-direction:column;
@@ -958,6 +974,8 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.1/dist/maplibre-gl.js"></script>
+<!-- Leaflet stays for its small helpers (L.latLng, bounds, DomEvent) while the engine moves to MapLibre; it draws nothing. -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet-polylineoffset@1.1.1/leaflet.polylineoffset.js"></script>
 <script>
