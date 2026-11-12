@@ -7,9 +7,8 @@ doesn't yet, and what would bring it in. Sources are in the project's claude/aus
 - **Where to vote** for the Victorian state election (Saturday November 28, 2026; early voting from November 18). The
   user's call (November 12): build it when the VEC publishes the voting centres as data. The VEC's locator is at
   maps.vec.vic.gov.au; no downloadable list was confirmed.
-- **Representatives**: state districts (VEC; 2022 boundaries stand for 2026) and federal divisions (AEC), with MPs. The
-  City of Melbourne elects its council at large (no wards).
-- **Bus routes** and the Routes page: in the same GTFS (folder 4, metropolitan buses).
+- **Members of the Legislative Assembly**: after the November 28 election (the five districts are on the map and card).
+- **Routes page** (Where does my bus go?): the buses and trams are fetched; the page and live times are next.
 - **School zones**: Victorian Government School Zones (DataVic, CC BY 4.0, annual; 2027 zones published).
 - **Beach water quality**: EPA Victoria Beach Report (Port Phillip, summer). No open feed found yet.
 - **City of Melbourne open data** (Opendatasoft, mostly CC BY 4.0): pedestrian counters, parking bay sensors,

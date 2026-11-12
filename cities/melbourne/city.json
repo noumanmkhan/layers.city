@@ -190,6 +190,28 @@
      "hwy"
     ],
     "view": "city"
+   },
+   {
+    "id": "civic",
+    "name": "Who represents me",
+    "note": "Search your address or tap the map to see your state district, federal division and MP.",
+    "layers": [
+     "streets"
+    ],
+    "boundaries": [
+     "state",
+     "fed"
+    ],
+    "lead": "state",
+    "view": "city",
+    "hint": "Enter your address to find your districts and representatives."
+   }
+  ],
+  "elections": [
+   {
+    "date": "2026-11-28",
+    "lead": "state",
+    "label": "Victorian state election, November 28"
    }
   ]
  },
@@ -361,6 +383,35 @@
      "name": "Collector streets",
      "on": true,
      "note": "The streets between the main ones; from zoom 13"
+    }
+   ]
+  ],
+  [
+   "Representation",
+   [
+    {
+     "id": "state",
+     "kind": "outline",
+     "level": "state",
+     "file": "state",
+     "name": "State districts",
+     "note": "5 Legislative Assembly districts, cut to the City line · the boundaries of the November 28, 2026 election",
+     "label": "{name}",
+     "hover": "State: {name} District"
+    },
+    {
+     "id": "fed",
+     "kind": "outline",
+     "level": "national",
+     "file": "federal",
+     "name": "Federal divisions",
+     "note": "4 members of the House of Representatives · 2024 boundaries, cut to the City line",
+     "label": "{name}",
+     "hover": "Federal: {name}",
+     "party": {
+      "table": "fed",
+      "key": "name"
+     }
     }
    ]
   ],
@@ -556,6 +607,16 @@
    {
     "label": "Known as",
     "knownas": true
+   },
+   {
+    "label": "State district",
+    "layer": "state",
+    "text": "{name} District"
+   },
+   {
+    "label": "Federal division",
+    "layer": "fed",
+    "text": "{name}"
    }
   ],
   "living": {
@@ -606,6 +667,31 @@
   },
   "compare": {
    "elsewhere": ""
+  },
+  "reps": {
+   "file": "representatives.json",
+   "offices": [
+    {
+     "role": "Lord Mayor",
+     "citywide": "city",
+     "table": "mayor",
+     "sub": "Citywide"
+    },
+    {
+     "role": "Deputy Lord Mayor",
+     "citywide": "deputy",
+     "table": "mayor",
+     "sub": "Citywide"
+    },
+    {
+     "role": "MP (federal)",
+     "layer": "fed",
+     "table": "fed",
+     "key": "name",
+     "sub": "{r.party} · {f.name}"
+    }
+   ],
+   "note": "Names open each person’s official page. The City elects its nine councillors at large, so every address shares the whole council. Members of the Legislative Assembly are added after the November 28 state election. Checked weekly; last change {date}."
   }
  },
  "tour": {
@@ -693,6 +779,50 @@
     "view": "city",
     "text": "Tap any spot or search an address, and the card shows the suburb it's in and what living there is like. Switch layers on and off in the panel to explore."
    }
+  ]
+ },
+ "party": {
+  "label": "Colour by party",
+  "note": "Each seat in the colour of its sitting member’s party, from the weekly check of the Parliamentary Handbook. Grey: vacant.",
+  "vacant": "Vacant",
+  "other": "Other",
+  "parties": [
+   [
+    "Labor",
+    "red",
+    [
+     "Labor"
+    ]
+   ],
+   [
+    "Liberal",
+    "blue",
+    [
+     "Liberal",
+     "Liberal National"
+    ]
+   ],
+   [
+    "Greens",
+    "green",
+    [
+     "Greens"
+    ]
+   ],
+   [
+    "Nationals",
+    "green",
+    [
+     "Nationals"
+    ]
+   ],
+   [
+    "Independent",
+    "other",
+    [
+     "Independent"
+    ]
+   ]
   ]
  }
 }
