@@ -1,0 +1,69 @@
+   resource: STATEASSEMBLY2022 DWG | DWG | https://datashare.maps.vic.gov.au/search?md=e9871b61-55b5-5a5a-b371-4b07370ffaba
+   resource: STATEASSEMBLY2022 DXF | DXF | https://datashare.maps.vic.gov.au/search?md=e9871b61-55b5-5a5a-b371-4b07370ffaba
+   resource: STATEASSEMBLY2022 GDB | GDB | https://datashare.maps.vic.gov.au/search?md=e9871b61-55b5-5a5a-b371-4b07370ffaba
+   resource: STATEASSEMBLY2022 SHP | SHP | https://datashare.maps.vic.gov.au/search?md=e9871b61-55b5-5a5a-b371-4b07370ffaba
+   resource: STATEASSEMBLY2022 MIF | MIF | https://datashare.maps.vic.gov.au/search?md=e9871b61-55b5-5a5a-b371-4b07370ffaba
+   resource: STATEASSEMBLY2022 TAB | TAB | https://datashare.maps.vic.gov.au/search?md=e9871b61-55b5-5a5a-b371-4b07370ffaba
+   resource: STATEASSEMBLY2022 Extended TAB | Extended TAB | https://datashare.maps.vic.gov.au/search?md=e9871b61-55b5-5a5a-b371-4b07370ffaba
+   resource: STATE_ASSEMBLY_2022 WMS | WMS | https://opendata.maps.vic.gov.au/geoserver/wms?service=wms&request=getmap&format=image%2Fpng8&transparent=true&layers=open-data-platform:state_assembly_2022&width=512&height=512&crs=epsg%3A3857&bbox=16114148.554967716%2C-4456584.4971389165%2C16119040.524777967%2C-4451692.527328665
+   resource: STATE_ASSEMBLY_2022 WFS | WFS | https://opendata.maps.vic.gov.au/geoserver/wfs?request=GetCapabilities&service=WFS
+  districts from None
+FAILED state districts TypeError("'NoneType' object is not subscriptable")
+Traceback (most recent call last):
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 29, in download
+    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=900) as r, open(path, 'wb') as f:
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 318, in __init__
+    self.full_url = url
+    ^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 344, in full_url
+    self._parse()
+  File "/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py", line 373, in _parse
+    raise ValueError("unknown url type: %r" % self.full_url)
+ValueError: unknown url type: 'None'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 43, in step
+    fn()
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_representatives.py", line 67, in districts
+    shp_zip_to_geojson(url, 'districts.geojson', None)
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_representatives.py", line 33, in shp_zip_to_geojson
+    z = download(url, os.path.join(TMP, os.path.basename(out) + '.zip'))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 37, in download
+    print('  retry', i + 1, url[:140], e); time.sleep(30 * (i + 1))
+                            ~~~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+    commonwealth-electoral-division-boundaries | Commonwealth Electoral Division Boundaries
+    commonwealth-electoral-divisions-as-at-2-august-2021 | Commonwealth Electoral Divisions as at 2 August 2021
+    nsw-1-c6a8b2ce6f4c4b48b8c2d3fba1616c951 | Commonwealth Electoral Divisions 2021
+    nsw-1-c6a8b2ce6f4c4b48b8c2d3fba1616c95 | Commonwealth Electoral Divisions 2021
+    federal-electoral-boundaries | Federal Electoral Boundaries
+    nsw-3-10506-electoral-commission-nsw-annual-report-2008 | Electoral Commission NSW Annual Report 2008
+    nsw-3-10372-electoral-commission-nsw-annual-report-2006-2007 | Electoral Commission NSW Annual Report 2006-2007
+    nsw-3-10303-seo-annual-report-2004-2005 | SEO Annual Report 2004-2005
+    nsw-3-9739-nswec-annual-report-2008-2009 | NSWEC Annual Report 2008/2009
+    nsw-3-10174-seo-annual-report-2005-2006 | SEO Annual Report 2005-2006
+    nsw-3-15284-byron-shire-council-report-2008-local-government-elections | Byron Shire Council Report - 2008 Local Government Elections
+    nsw-3-15319-griffith-city-council-report-2008-local-government-elections | Griffith City Council Report - 2008 Local Government Elections
+    nsw-3-15369-queanbeyan-city-council-report-2008-local-government-elections | Queanbeyan City Council Report - 2008 Local Government Elections
+    nsw-3-15339-lake-macquarie-city-council-report-2008-local-government-elections | Lake Macquarie City Council Report - 2008 Local Government Elections
+    nsw-3-15318-greater-taree-city-council-report-2008-local-government-elections | Greater Taree City Council Report - 2008 Local Government Elections
+    nsw-3-15291-cessnock-city-council-report-2008-local-government-elections | Cessnock City Council Report - 2008 Local Government Elections
+    nsw-3-15335-kyogle-council-report-2008-local-government-elections | Kyogle Council Report - 2008 Local Government Elections
+    nsw-3-15341-leeton-shire-council-report-2008-local-government-elections | Leeton Shire Council Report - 2008 Local Government Elections
+    nsw-3-15283-burwood-council-report-2008-local-government-elections | Burwood Council Report - 2008 Local Government Elections
+    nsw-3-15286-camden-council-report-2008-local-government-elections | Camden Council Report - 2008 Local Government Elections
+FAILED federal divisions RuntimeError('no federal divisions package with a zip')
+Traceback (most recent call last):
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 43, in step
+    fn()
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_representatives.py", line 81, in divisions
+    raise RuntimeError('no federal divisions package with a zip')
+RuntimeError: no federal divisions package with a zip
+  aec_elected.csv 9554 bytes · ['2025 Federal Election House of Representatives Members Elected [Event:31496 Phase:FinalResults Generated:2025-06-16T10:38:38 Cycle:194a421d-c559-4a18-a78a-90c7cf2acb4e Created:2025-06-16T10:36:42 Environment:PROD Site:CANBERRA Server:Internal Version:10.11.386.0]', 'DivisionID,DivisionNm,StateAb,CandidateID,GivenNm,Surname,PartyNm,PartyAb', '179,Adelaide,SA,41210,Steve,GEORGANAS,Australian Labor Party,ALP']
+  handbook individuals: 1881 · fields ['Age', 'Age_String', 'CountryOfBirth', 'DateOfBirth', 'DateOfDeath', 'DisplayName', 'ElectedMemberNo', 'ElectedSenatorNo', 'Electorate', 'ElectorateService', 'FamilyName', 'FirstNations', 'FirstNationsOption', 'FirstNationsText', 'Gender', 'GivenName', 'Honours', 'Image', 'InCurrentParliament', 'MPorSenator', 'MaritalStatus', 'MiddleNames', 'Occupations', 'PHID', 'ParliamentaryPositions', 'Party', 'PartyAbbrev', 'PartyParliamentaryService', 'PlaceOfBirth', 'PlaceOfDeath', 'PortraitNote', 'PreferredName', 'Qualifications', 'RepresentedElectorates', 'RepresentedMinistries', 'RepresentedParliaments', 'RepresentedParties', 'RepresentedShadowMinistries', 'RepresentedStates', 'SecondaryOccupations', 'SecondarySchool', 'SenateState', 'ServiceHistory_Days', 'ServiceHistory_Duration', 'ServiceHistory_End', 'ServiceHistory_Start', 'State', 'StateAbbrev', 'StateOfBirth', 'StateOfDeath', 'StateOrTerritory']
+  rows mentioning the House: 27 · e.g. [{"PHID": "300706", "GivenName": "Ralph", "MiddleNames": "", "FamilyName": "BABET", "PreferredName": "", "DisplayName": "BABET, Ralph", "DateOfBirth": "1983-06-29", "DateOfDeath": "", "PlaceOfBirth": "Rodrigues", "PlaceOfDeath": "", "SecondarySchool": "", "Image": "300706.0.jpg", "Gender": "Male", "MaritalStatus": "Unknown", "CountryOfBirth": "Mauritius", "StateOfBirth": "", "StateOfDeath": "", "Party": "United Australia Party [2018]", "PartyAbbrev": "UAP [2018]", "Electorate": "", "SenateState": "Victoria", "State": "Victoria", "StateAbbrev": "Vic", "StateOrTerritory": "State", "InCurrentParliament": "True", "ServiceHistory_Start": "2022-07-01", "ServiceHistory_End": "2026-11-12", "ServiceHistory_Days": "1596", "ServiceHistory_Duration": "4 years 4 month(s) and 12 days.", "Age": 15842, "Age_String": "43 years 4 month(s) and 14 days.", "PortraitNote": "", "ElectedMemberNo": -1, "ElectedSenatorNo": 635, "FirstNations": false, "FirstNationsOption": 0, "FirstNationsText": "", "MPorSenator": ["Senator"], "RepresentedParliaments": [47, 48], "RepresentedParties": ["United Australia Party [2018]"], "RepresentedElectorates": [], "RepresentedStates": ["Vic"], "RepresentedMinistries": [], "RepresentedShadowMinistries": [], "ParliamentaryPositions": [], "Honours": [], "Occupations": ["Small business owner"], "SecondaryOccupations": ["Real Estate Representative", "Sales Representatives and Agents"], "Qualifications": ["Bachelor of Business, Swinburne University of Technology", "Advanced 
+done; failed: ['state districts', 'federal divisions']
