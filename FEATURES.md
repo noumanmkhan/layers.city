@@ -299,7 +299,7 @@ Metro trains in their line-group colours (one badge per line, near its outer end
 badges: the layer's `badgeEnds`), all 24 tram routes in their own colours, and V/Line. The suburb lens (housing cost,
 renters and owners, housing type) and Living here use the 2021 Census by SA1: weekly rent and monthly mortgage
 repayments (the Census asks no home values; card.living.housing words the row), home types, language at home, ages and
-arrivals since 2016. The Census was taken in lockdown, so there's no getting-to-work lens. Not yet built, with what would
+arrivals since 2016. The Census was taken in lockdown, so there's no getting-to-work lens. Representatives (November 12): the Lord Mayor and Deputy Lord Mayor (hand-kept in `council.json`), the state district and federal division in Boundaries (Vicmap's 2022 districts, the AEC's 2024 divisions), and the federal MP from the AEC's 2025 results and the Parliamentary Handbook, refreshed weekly by *Refresh Melbourne representatives*; state MPs wait for the November 28 election. Buses (November 12): a Bus routes layer by family (Frequent, Express, Regular) and the card's Transit nearby (nearest train station, trams and buses within 400 m, nearest stop), from Transport Victoria's tram and metropolitan bus feeds (`surface.json`). The bus feed also files regional town buses whose numbers repeat the trams', so `within` keeps only routes and stops inside Greater Melbourne, and `merge` joins a route run by several operators into one. Not yet built, with what would
 bring each in: `cities/melbourne/PARKED.md`. Sources and quirks: `cities/melbourne/SOURCES.md`.
 
 ## How it's built
