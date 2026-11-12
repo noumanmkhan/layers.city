@@ -2,9 +2,9 @@
 (fetch-melbourne.yml when this file changes; weekly by fetch-melbourne-representatives.yml); the sandbox can't reach these.
 
   districts.geojson  Victorian Legislative Assembly districts (Vicmap Admin - State Assembly Polygon 2022: the 2021
-                     redivision, used at the 2022 and 2026 elections), from DataVic. CC BY 4.0.
-  divisions.geojson  Federal electoral divisions (AEC; Victoria's 2024 redistribution, used since the 2025 election),
-                     from data.gov.au. CC BY 4.0.
+                     redivision, used at the 2022 and 2026 elections), from the Vicmap open data WFS. CC BY 4.0.
+  divisions.geojson  Federal electoral divisions (Victoria's 2024 redistribution, used since the 2025 election), from
+                     the same WFS where it has them.
   aec_elected.csv    Members elected at the 2025 federal election (AEC tally room).
   handbook.json      Current members of the House of Representatives (Parliamentary Handbook API), for by-elections
                      since 2025 and each member's page.
@@ -55,30 +55,43 @@ def pick_zip(pkg, prefer=r'(?i)shp|shape|esri'):
     return z[0]['url'] if z else None
 
 
-def districts():
-    api = 'https://discover.data.vic.gov.au/api/3/action/'
-    try:
-        pkg = ckan(api, pid='vicmap-admin-state-assembly-polygon-2022')
-    except Exception as e:
-        print('  package_show failed', e)
-        pkg = ckan(api, query='State Assembly Polygon 2022')[0]
-    url = pick_zip(pkg)
-    print('  districts from', url)
-    shp_zip_to_geojson(url, 'districts.geojson', None)
-step('state districts', districts)
+WFS = 'https://opendata.maps.vic.gov.au/geoserver/wfs'
+
+
+def wfs_layers():
+    cap = get(WFS + '?service=WFS&request=GetCapabilities&version=2.0.0').decode('utf-8', 'replace')
+    names = re.findall(r'<(?:wfs:)?Name>([^<]+)</(?:wfs:)?Name>', cap)
+    hits = [n for n in names if re.search(r'(?i)assembly|electoral|federal|commonwealth|council|division', n)]
+    print('  WFS layers (%d); electoral ones: %s' % (len(names), hits))
+    return hits
+
+
+def wfs_get(layer, out):
+    q = {'service': 'WFS', 'version': '2.0.0', 'request': 'GetFeature', 'typeNames': layer, 'outputFormat': 'application/json',
+         'srsName': 'EPSG:4326', 'bbox': '%s,%s,%s,%s,EPSG:4326' % (BOX[1], BOX[0], BOX[3], BOX[2])}
+    fc = json.loads(get(WFS + '?' + urllib.parse.urlencode(q)))
+    print('  %s: %d features · fields %s' % (layer, len(fc['features']), sorted(fc['features'][0]['properties']) if fc['features'] else None))
+    json.dump(fc, open(os.path.join(OUT, out), 'w'), separators=(',', ':'))
+
+
+LAYERS = []
+step('wfs layers', lambda: LAYERS.extend(wfs_layers()))
+# Victorian Legislative Assembly districts, 2021 redivision (DataVic "Vicmap Admin - State Assembly Polygon 2022")
+step('state districts', lambda: wfs_get('open-data-platform:state_assembly_2022', 'districts.geojson'))
 
 
 def divisions():
-    api = 'https://data.gov.au/data/api/3/action/'
-    res = ckan(api, query='Federal Electoral Divisions AEC')
-    cand = [p for p in res if re.search(r'(?i)federal electoral division', p['title'])]
-    cand.sort(key=lambda p: ('2025' in p['title'], '2024' in p['title'], p.get('metadata_modified', '')), reverse=True)
-    for p in cand:
-        url = pick_zip(p)
-        if url:
-            print('  divisions from', p['title'], url)
-            shp_zip_to_geojson(url, 'divisions.geojson', None); return
-    raise RuntimeError('no federal divisions package with a zip')
+    fed = [n for n in LAYERS if re.search(r'(?i)commonwealth|federal', n)]
+    print('  federal candidates:', fed)
+    if fed:
+        wfs_get(sorted(fed)[-1], 'divisions.geojson'); return
+    for pid in ('commonwealth-electoral-division-boundaries', 'federal-electoral-boundaries'):
+        try:
+            p = ckan('https://data.gov.au/data/api/3/action/', pid=pid)
+            for r in p['resources']: print('   resource:', pid, r.get('name'), '|', r.get('format'), '|', r.get('url'))
+        except Exception as e:
+            print('  ', pid, e)
+    raise RuntimeError('no federal divisions found yet: see the resources above')
 step('federal divisions', divisions)
 
 
@@ -92,12 +105,12 @@ step('aec members elected', elected)
 def handbook():
     d = json.loads(get('https://handbookapi.aph.gov.au/api/individuals'))
     rows = d.get('value', d) if isinstance(d, dict) else d
-    print('  handbook individuals:', len(rows), '· fields', sorted(rows[0]) if rows else None)
-    # Keep the current members of the House only (the full list runs back to 1901).
-    cur = [r for r in rows if any('Representatives' in str(v) or 'MP' == str(v) for v in r.values())
-           and not any(k.lower().startswith(('deathdate', 'dateofdeath')) and r.get(k) for k in r)]
-    print('  rows mentioning the House:', len(cur), '· e.g.', json.dumps(cur[:2])[:1500])
-    json.dump(rows if len(json.dumps(rows)) < 3_000_000 else cur, open(os.path.join(OUT, 'handbook.json'), 'w'), separators=(',', ':'))
+    keep = ('PHID', 'DisplayName', 'GivenName', 'PreferredName', 'FamilyName', 'Party', 'PartyAbbrev', 'Electorate', 'State',
+            'StateAbbrev', 'MPorSenator', 'InCurrentParliament')
+    cur = [{k: r.get(k) for k in keep} for r in rows if r.get('InCurrentParliament') in (True, 'true', 'True', 1, 'Yes')]
+    print('  handbook: %d people, %d in the current Parliament · MPorSenator values %s' % (len(rows), len(cur), sorted({str(r.get('MPorSenator')) for r in rows})))
+    print('  e.g.', json.dumps([r for r in cur if r.get('Electorate')][:3]))
+    json.dump(cur, open(os.path.join(OUT, 'handbook.json'), 'w'), separators=(',', ':'), ensure_ascii=False)
 step('parliamentary handbook', handbook)
 
 print('done; failed:', FAILED or 'none')
