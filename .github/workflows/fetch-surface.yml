@@ -29,7 +29,7 @@ jobs:
       - run: pip install shapely
       - name: Fetch, and rebuild where a feed changed
         run: |
-          for c in toronto chicago vancouver dallas sf nyc melbourne; do
+          for c in toronto chicago vancouver dallas sf nyc; do
             changed=
             # The city's own agency, then any others listed under "feeds" in its surface.json (e.g. GO buses).
             for f in "" $(python3 -c "import json; print(' '.join(json.load(open('cities/$c/surface.json')).get('feeds', {})))"); do
@@ -46,8 +46,35 @@ jobs:
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/toronto/raw/surface cities/chicago/raw/surface cities/vancouver/raw/surface cities/dallas/raw/surface cities/sf/raw/surface cities/nyc/raw/surface cities/melbourne/raw/surface
-          for c in toronto chicago vancouver dallas sf nyc melbourne; do [ -f docs/$c/data/transit.json ] || continue; git add docs/$c/data/transit.json docs/$c/data/transit_routes.geojson; [ -f docs/$c/data/streetcars.geojson ] && git add docs/$c/data/streetcars.geojson; done
+          git add cities/toronto/raw/surface cities/chicago/raw/surface cities/vancouver/raw/surface cities/dallas/raw/surface cities/sf/raw/surface cities/nyc/raw/surface
+          for c in toronto chicago vancouver dallas sf nyc; do [ -f docs/$c/data/transit.json ] || continue; git add docs/$c/data/transit.json docs/$c/data/transit_routes.geojson; [ -f docs/$c/data/streetcars.geojson ] && git add docs/$c/data/streetcars.geojson; done
           git commit -m "Update streetcar and bus routes from the agencies' latest schedules" || echo "no changes"
+          git pull --rebase
+          git push
+  # Melbourne on its own: Transport Victoria's zip is 240 MB and its trams and buses are a big feed, so it runs beside the
+  # others rather than after them (a slow Overpass server for another city once used up the shared job's time).
+  melbourne:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install shapely
+      - name: Fetch, and rebuild if the feed changed
+        run: |
+          c=melbourne; d=cities/$c/raw/surface; mkdir -p $d
+          ( set -o pipefail; python3 -u engine/fetch_surface.py $c 2>&1 | tee /tmp/fetch-$c.log ) \
+            || echo "::warning::$c fetch failed: $(tail -2 /tmp/fetch-$c.log | tr '\n' ' ' | cut -c1-900)"
+          changed=; if [ -n "$(git status --porcelain -- $d/routes.json)" ]; then cp /tmp/fetch-$c.log $d/fetch.log; changed=1; fi
+          if [ -n "$changed" ] || [ "${{ github.event_name }}" != "schedule" ]; then [ -f $d/routes.json ] && python3 -u engine/surface.py $c; fi
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/melbourne/raw/surface
+          [ -f docs/melbourne/data/transit.json ] && git add docs/melbourne/data/transit.json docs/melbourne/data/transit_routes.geojson
+          [ -f docs/melbourne/data/streetcars.geojson ] && git add docs/melbourne/data/streetcars.geojson
+          git commit -m "Update Melbourne's tram and bus routes from Transport Victoria's latest schedule" || echo "no changes"
           git pull --rebase
           git push
