@@ -101,9 +101,11 @@ def road(text):
 
 def on_road(layer, name, typ, sub, pc, extra='', n=300):
     t = f" AND road_type = '{esc(typ)}'" if typ else ''
-    for area in (f"locality_name = '{esc(sub)}'", f"postcode = '{esc(pc)}'"):
-        f = wfs(layer, f"road_name = '{esc(name)}'{t} AND {area}{extra}", n)
-        if f: return f
+    names = [name] + ([name.replace("'", ''), name.replace("'", ' ')] if "'" in name else [])
+    for nm in names:
+        for area in (f"locality_name = '{esc(sub)}'", f"postcode = '{esc(pc)}'"):
+            f = wfs(layer, f"road_name = '{esc(nm)}'{t} AND {area}{extra}", n)
+            if f: return f
     return []
 
 
@@ -121,7 +123,12 @@ def place(layer, line, suburb, pc):
                 return [round((best[0][0] + best[1][0]) / 2, 6), round((best[0][1] + best[1][1]) / 2, 6), 'corner']
         return None
     m = re.match(r'^(\d+)[A-Za-z]?(?:\s*-\s*(\d+)[A-Za-z]?)?\s+(.+)$', line)
-    if not m: return None
+    if not m:
+        # A street with no number ("Molesworth Street"): the middle of its listed addresses.
+        name, typ = road(line)
+        if not typ: return None
+        f = on_road(layer, name, typ, sub, pc, '', 60)
+        return (sorted(pt(x) for x in f)[len(f) // 2] + ['street']) if f else None
     num = int(m.group(1)); name, typ = road(m.group(3))
     f = on_road(layer, name, typ, sub, pc, f' AND house_number_1 BETWEEN {max(num - 40, 0)} AND {num + 40}', 100)
     if f:
