@@ -20,7 +20,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.1/dist/maplibre-gl.css">
 <style>
-/*LEAFLET_CSS*/
 </style>
 <style>
 /* Layout: full-bleed map; a layer panel docked left (bottom sheet on phones); a "What's here" readout docked right. */
@@ -84,16 +83,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 #map{position:absolute;inset:0;background:var(--water)}
 .leaflet-container{background:var(--water);font-family:var(--font)}
 .leaflet-container :focus-visible{outline:2px solid var(--focus)}
-.leaflet-control-zoom{box-shadow:var(--shadow)!important;border:1px solid var(--rule)!important}
-.leaflet-bottom.leaflet-left .leaflet-control-zoom{margin:0 0 calc(var(--attr-h,18px) + 8px) 332px}
-@media (max-width:760px){.leaflet-control-zoom{display:none}}
-.leaflet-control-zoom a{background:var(--panel)!important;color:var(--ink)!important;border-color:var(--rule)!important}
-.leaflet-bar{box-shadow:var(--shadow)!important;border:none!important}
-.leaflet-control-attribution{background:color-mix(in srgb,var(--panel) 85%,transparent)!important;color:var(--ink-3)!important;font-size:10.5px}
-.leaflet-control-attribution a{color:var(--ink-2)!important}
-/* MapLibre (GPU map): its controls in the engine's look, and the hidden elements gl.js reads styles from */
+/* The map is MapLibre GL (engine/gl.js). Its controls in the engine's look, and the hidden elements gl.js reads styles from.
+   Class names such as .leaflet-tooltip and .leaflet-container are kept from the Leaflet days: gl.js's style probes use them. */
 .gl-probe{position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;pointer-events:none}
-.gl-tip{position:absolute;z-index:5;transform:translate(-50%,-100%);pointer-events:none;white-space:nowrap;margin:0}
+.gl-tip{position:absolute;z-index:5;transform:translate(-50%,-100%);pointer-events:none;white-space:nowrap;margin:0;padding:6px 8px;border-radius:6px}
 .gl-mk{pointer-events:none}
 .maplibregl-ctrl-bottom-left .maplibregl-ctrl-group{margin:0 0 calc(var(--attr-h,18px) + 8px) 332px;box-shadow:var(--shadow);border:1px solid var(--rule);background:var(--panel)}
 .maplibregl-ctrl-group button{background-color:var(--panel)} .maplibregl-ctrl-group button+button{border-top:1px solid var(--rule)}
@@ -438,10 +431,6 @@ circle.cl{stroke-width:3;fill:var(--city)}
 .sw.k-construction{background:repeating-linear-gradient(90deg,var(--ink-2) 0 6px,transparent 0 10px) center/100% 4px no-repeat}
 .sw.k-closures{background:linear-gradient(var(--cl-closed),var(--cl-closed)) left center/48% 5px no-repeat,linear-gradient(var(--cl-narrow),var(--cl-narrow)) right center/40% 5px no-repeat}
 /* Tap-for-details popups */
-.info-pop .leaflet-popup-content-wrapper{background:var(--panel);color:var(--ink);border-radius:12px;box-shadow:var(--shadow)}
-.info-pop .leaflet-popup-tip{background:var(--panel)}
-.info-pop .leaflet-popup-content{margin:12px 14px;font:13px/1.4 var(--font)}
-.info-pop .leaflet-popup-close-button{color:var(--ink-3)!important}
 .info-pop b{display:block;font-size:14px;padding-right:14px}
 .info-pop small{display:block;color:var(--ink-3);font-size:11.5px;margin:1px 0 6px}
 .info-pop small.cl-k.closed{color:var(--cl-closed);font-weight:700}
@@ -752,7 +741,6 @@ dl.facts dd{margin:0;font-weight:500;min-width:0}
   .pills{padding:0 12px 8px}
   .sec>summary{padding:9px 12px}
   .sec dl.facts,.live{padding-left:12px;padding-right:12px}
-  .leaflet-top.leaflet-left{display:none}
 }
 /* ---------- Heritage buildings (.hbm: .hb is the card header's buttons) ---------- */
 .hbm{position:absolute;left:0;top:0;display:flex;align-items:center;gap:5px;transform:translate(-4.5px,-50%);white-space:nowrap;pointer-events:auto;cursor:pointer}
@@ -975,9 +963,6 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
 
 
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.1/dist/maplibre-gl.js"></script>
-<!-- Leaflet stays for its small helpers (L.latLng, bounds, DomEvent) while the engine moves to MapLibre; it draws nothing. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/leaflet-polylineoffset@1.1.1/leaflet.polylineoffset.js"></script>
 <script>
 const CITY = /*CITY_CONFIG*/;
 /*ENGINE_JS*/

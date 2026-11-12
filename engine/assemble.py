@@ -3,8 +3,8 @@
 
 Usage: python3 engine/assemble.py <city>
 
-The page stays a single file: Leaflet's stylesheet, the city's colours, its config and the engine
-script are all inlined (Leaflet's JavaScript still loads from cdnjs). Text in {{double braces}} in the
+The page stays a single file: the city's colours, its config and the engine script (engine/gl.js inside
+engine/map.js) are all inlined (MapLibre GL JS loads from jsdelivr). Text in {{double braces}} in the
 template is filled from the city config, e.g. {{title}} or {{scope.outer.name}}."""
 import html, json, os, re, sys
 
@@ -42,7 +42,6 @@ if len(cities) > 1:
 else:
     switch = '<h1>%s</h1>' % title
 t = t.replace('<!--CITY_SWITCH-->', switch)
-t = t.replace('/*LEAFLET_CSS*/', read(ROOT, 'node_modules', 'leaflet', 'dist', 'leaflet.css'))
 t = t.replace('/*CITY_CSS*/', read(CITY_DIR, 'city.css'))
 # The config sits inside a <script>; escaping "</" keeps a stray "</script>" in any text from ending it.
 t = t.replace('/*CITY_CONFIG*/', json.dumps(cfg, ensure_ascii=False, separators=(',', ':')).replace('</', '<\\/'))

@@ -14,6 +14,40 @@
      names first, so that order is the declutter order.
    - Groups (G): what L.layerGroup was. A group's layers are made once and shown or hidden; points (names, icons,
      dots) are items in a shared source per pool, and showing one just puts it back in its source's data. */
+/* The few geometry helpers the engine used from Leaflet (L.latLng, L.latLngBounds, L.point, L.geoJSON(f).getBounds()),
+   so the library itself isn't loaded. Same shapes and method names as Leaflet's. */
+const L = (() => {
+  class LatLng {
+    constructor(lat, lng){ this.lat = +lat; this.lng = +lng; }
+    equals(o, m){ if (!o) return false; o = latLng(o); return Math.max(Math.abs(this.lat - o.lat), Math.abs(this.lng - o.lng)) <= (m == null ? 1e-9 : m); }
+    distanceTo(o){ o = latLng(o); const k = Math.PI / 180, a = Math.sin((o.lat - this.lat) * k / 2) ** 2 + Math.cos(this.lat * k) * Math.cos(o.lat * k) * Math.sin((o.lng - this.lng) * k / 2) ** 2; return 12742000 * Math.asin(Math.sqrt(a)); }
+    toString(){ return 'LatLng(' + this.lat + ', ' + this.lng + ')'; }
+  }
+  const latLng = (a, b) => a instanceof LatLng ? a : Array.isArray(a) ? new LatLng(a[0], a[1]) : a && typeof a === 'object' ? new LatLng(a.lat, a.lng != null ? a.lng : a.lon) : new LatLng(a, b);
+  class Bounds {
+    constructor(a, b){ this.s = Infinity; this.w = Infinity; this.n = -Infinity; this.e = -Infinity; if (a) (b ? [a, b] : a).forEach(p => this.extend(p)); }
+    extend(p){ if (p instanceof Bounds){ this.extend([p.s, p.w]); return this.extend([p.n, p.e]); } p = latLng(p); this.s = Math.min(this.s, p.lat); this.n = Math.max(this.n, p.lat); this.w = Math.min(this.w, p.lng); this.e = Math.max(this.e, p.lng); return this; }
+    getSouth(){ return this.s; } getNorth(){ return this.n; } getWest(){ return this.w; } getEast(){ return this.e; }
+    getSouthWest(){ return new LatLng(this.s, this.w); } getNorthEast(){ return new LatLng(this.n, this.e); }
+    getCenter(){ return new LatLng((this.s + this.n) / 2, (this.w + this.e) / 2); }
+    isValid(){ return isFinite(this.s) && isFinite(this.w); }
+    pad(r){ const dy = (this.n - this.s) * r, dx = (this.e - this.w) * r; return new Bounds([this.s - dy, this.w - dx], [this.n + dy, this.e + dx]); }
+    contains(p){ if (p instanceof Bounds) return this.contains([p.s, p.w]) && this.contains([p.n, p.e]); p = latLng(p); return p.lat >= this.s && p.lat <= this.n && p.lng >= this.w && p.lng <= this.e; }
+    intersects(b){ b = latLngBounds(b); return b.n >= this.s && b.s <= this.n && b.e >= this.w && b.w <= this.e; }
+  }
+  const latLngBounds = (a, b) => a instanceof Bounds ? a : new Bounds(a, b);
+  class Point {
+    constructor(x, y){ this.x = +x; this.y = +y; }
+    add(o){ return new Point(this.x + o.x, this.y + o.y); } subtract(o){ return new Point(this.x - o.x, this.y - o.y); }
+    multiplyBy(k){ return new Point(this.x * k, this.y * k); } divideBy(k){ return new Point(this.x / k, this.y / k); }
+    distanceTo(o){ return Math.hypot(o.x - this.x, o.y - this.y); }
+  }
+  // Only getBounds() was used: the box around any GeoJSON geometry, feature or collection.
+  const geoJSON = g => ({getBounds(){ const b = new Bounds(); const walk = c => typeof c[0] === 'number' ? b.extend([c[1], c[0]]) : c.forEach(walk);
+    const geomOf = x => x.type === 'FeatureCollection' ? x.features.forEach(f => geomOf(f)) : x.type === 'Feature' ? geomOf(x.geometry) : x.type === 'GeometryCollection' ? x.geometries.forEach(geomOf) : walk(x.coordinates);
+    geomOf(g); return b; }});
+  return {latLng, latLngBounds, point: (x, y) => new Point(x, y), geoJSON, LatLng, LatLngBounds: Bounds};
+})();
 const LZ = z => z - 1, ZL = z => z + 1;
 const LEVELS = [8, 9, 10, 11, 12, 13, 14, 15, 16];   // the engine's zoom classes: z9 … z16
 const CLOSE = 1e-6;

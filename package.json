@@ -2,6 +2,10 @@
   "name": "city-layers",
   "private": true,
   "description": "Build tools for City Layers",
-  "scripts": { "build:toronto": "bash cities/toronto/run.sh" },
-  "devDependencies": { "leaflet": "1.9.4", "mapshaper": "^0.6.0" }
+  "scripts": {
+    "build:toronto": "bash cities/toronto/run.sh"
+  },
+  "devDependencies": {
+    "mapshaper": "^0.6.0"
+  }
 }

@@ -24,668 +24,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.1/dist/maplibre-gl.css">
 <style>
-/* required styles */
-
-.leaflet-pane,
-.leaflet-tile,
-.leaflet-marker-icon,
-.leaflet-marker-shadow,
-.leaflet-tile-container,
-.leaflet-pane > svg,
-.leaflet-pane > canvas,
-.leaflet-zoom-box,
-.leaflet-image-layer,
-.leaflet-layer {
-	position: absolute;
-	left: 0;
-	top: 0;
-	}
-.leaflet-container {
-	overflow: hidden;
-	}
-.leaflet-tile,
-.leaflet-marker-icon,
-.leaflet-marker-shadow {
-	-webkit-user-select: none;
-	   -moz-user-select: none;
-	        user-select: none;
-	  -webkit-user-drag: none;
-	}
-/* Prevents IE11 from highlighting tiles in blue */
-.leaflet-tile::selection {
-	background: transparent;
-}
-/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
-.leaflet-safari .leaflet-tile {
-	image-rendering: -webkit-optimize-contrast;
-	}
-/* hack that prevents hw layers "stretching" when loading new tiles */
-.leaflet-safari .leaflet-tile-container {
-	width: 1600px;
-	height: 1600px;
-	-webkit-transform-origin: 0 0;
-	}
-.leaflet-marker-icon,
-.leaflet-marker-shadow {
-	display: block;
-	}
-/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
-/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
-.leaflet-container .leaflet-overlay-pane svg {
-	max-width: none !important;
-	max-height: none !important;
-	}
-.leaflet-container .leaflet-marker-pane img,
-.leaflet-container .leaflet-shadow-pane img,
-.leaflet-container .leaflet-tile-pane img,
-.leaflet-container img.leaflet-image-layer,
-.leaflet-container .leaflet-tile {
-	max-width: none !important;
-	max-height: none !important;
-	width: auto;
-	padding: 0;
-	}
-
-.leaflet-container img.leaflet-tile {
-	/* See: https://bugs.chromium.org/p/chromium/issues/detail?id=600120 */
-	mix-blend-mode: plus-lighter;
-}
-
-.leaflet-container.leaflet-touch-zoom {
-	-ms-touch-action: pan-x pan-y;
-	touch-action: pan-x pan-y;
-	}
-.leaflet-container.leaflet-touch-drag {
-	-ms-touch-action: pinch-zoom;
-	/* Fallback for FF which doesn't support pinch-zoom */
-	touch-action: none;
-	touch-action: pinch-zoom;
-}
-.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
-	-ms-touch-action: none;
-	touch-action: none;
-}
-.leaflet-container {
-	-webkit-tap-highlight-color: transparent;
-}
-.leaflet-container a {
-	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
-}
-.leaflet-tile {
-	filter: inherit;
-	visibility: hidden;
-	}
-.leaflet-tile-loaded {
-	visibility: inherit;
-	}
-.leaflet-zoom-box {
-	width: 0;
-	height: 0;
-	-moz-box-sizing: border-box;
-	     box-sizing: border-box;
-	z-index: 800;
-	}
-/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
-.leaflet-overlay-pane svg {
-	-moz-user-select: none;
-	}
-
-.leaflet-pane         { z-index: 400; }
-
-.leaflet-tile-pane    { z-index: 200; }
-.leaflet-overlay-pane { z-index: 400; }
-.leaflet-shadow-pane  { z-index: 500; }
-.leaflet-marker-pane  { z-index: 600; }
-.leaflet-tooltip-pane   { z-index: 650; }
-.leaflet-popup-pane   { z-index: 700; }
-
-.leaflet-map-pane canvas { z-index: 100; }
-.leaflet-map-pane svg    { z-index: 200; }
-
-.leaflet-vml-shape {
-	width: 1px;
-	height: 1px;
-	}
-.lvml {
-	behavior: url(#default#VML);
-	display: inline-block;
-	position: absolute;
-	}
-
-
-/* control positioning */
-
-.leaflet-control {
-	position: relative;
-	z-index: 800;
-	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
-	pointer-events: auto;
-	}
-.leaflet-top,
-.leaflet-bottom {
-	position: absolute;
-	z-index: 1000;
-	pointer-events: none;
-	}
-.leaflet-top {
-	top: 0;
-	}
-.leaflet-right {
-	right: 0;
-	}
-.leaflet-bottom {
-	bottom: 0;
-	}
-.leaflet-left {
-	left: 0;
-	}
-.leaflet-control {
-	float: left;
-	clear: both;
-	}
-.leaflet-right .leaflet-control {
-	float: right;
-	}
-.leaflet-top .leaflet-control {
-	margin-top: 10px;
-	}
-.leaflet-bottom .leaflet-control {
-	margin-bottom: 10px;
-	}
-.leaflet-left .leaflet-control {
-	margin-left: 10px;
-	}
-.leaflet-right .leaflet-control {
-	margin-right: 10px;
-	}
-
-
-/* zoom and fade animations */
-
-.leaflet-fade-anim .leaflet-popup {
-	opacity: 0;
-	-webkit-transition: opacity 0.2s linear;
-	   -moz-transition: opacity 0.2s linear;
-	        transition: opacity 0.2s linear;
-	}
-.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
-	opacity: 1;
-	}
-.leaflet-zoom-animated {
-	-webkit-transform-origin: 0 0;
-	    -ms-transform-origin: 0 0;
-	        transform-origin: 0 0;
-	}
-svg.leaflet-zoom-animated {
-	will-change: transform;
-}
-
-.leaflet-zoom-anim .leaflet-zoom-animated {
-	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
-	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
-	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
-	}
-.leaflet-zoom-anim .leaflet-tile,
-.leaflet-pan-anim .leaflet-tile {
-	-webkit-transition: none;
-	   -moz-transition: none;
-	        transition: none;
-	}
-
-.leaflet-zoom-anim .leaflet-zoom-hide {
-	visibility: hidden;
-	}
-
-
-/* cursors */
-
-.leaflet-interactive {
-	cursor: pointer;
-	}
-.leaflet-grab {
-	cursor: -webkit-grab;
-	cursor:    -moz-grab;
-	cursor:         grab;
-	}
-.leaflet-crosshair,
-.leaflet-crosshair .leaflet-interactive {
-	cursor: crosshair;
-	}
-.leaflet-popup-pane,
-.leaflet-control {
-	cursor: auto;
-	}
-.leaflet-dragging .leaflet-grab,
-.leaflet-dragging .leaflet-grab .leaflet-interactive,
-.leaflet-dragging .leaflet-marker-draggable {
-	cursor: move;
-	cursor: -webkit-grabbing;
-	cursor:    -moz-grabbing;
-	cursor:         grabbing;
-	}
-
-/* marker & overlays interactivity */
-.leaflet-marker-icon,
-.leaflet-marker-shadow,
-.leaflet-image-layer,
-.leaflet-pane > svg path,
-.leaflet-tile-container {
-	pointer-events: none;
-	}
-
-.leaflet-marker-icon.leaflet-interactive,
-.leaflet-image-layer.leaflet-interactive,
-.leaflet-pane > svg path.leaflet-interactive,
-svg.leaflet-image-layer.leaflet-interactive path {
-	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
-	pointer-events: auto;
-	}
-
-/* visual tweaks */
-
-.leaflet-container {
-	background: #ddd;
-	outline-offset: 1px;
-	}
-.leaflet-container a {
-	color: #0078A8;
-	}
-.leaflet-zoom-box {
-	border: 2px dotted #38f;
-	background: rgba(255,255,255,0.5);
-	}
-
-
-/* general typography */
-.leaflet-container {
-	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	font-size: 0.75rem;
-	line-height: 1.5;
-	}
-
-
-/* general toolbar styles */
-
-.leaflet-bar {
-	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
-	border-radius: 4px;
-	}
-.leaflet-bar a {
-	background-color: #fff;
-	border-bottom: 1px solid #ccc;
-	width: 26px;
-	height: 26px;
-	line-height: 26px;
-	display: block;
-	text-align: center;
-	text-decoration: none;
-	color: black;
-	}
-.leaflet-bar a,
-.leaflet-control-layers-toggle {
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	display: block;
-	}
-.leaflet-bar a:hover,
-.leaflet-bar a:focus {
-	background-color: #f4f4f4;
-	}
-.leaflet-bar a:first-child {
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
-	}
-.leaflet-bar a:last-child {
-	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;
-	border-bottom: none;
-	}
-.leaflet-bar a.leaflet-disabled {
-	cursor: default;
-	background-color: #f4f4f4;
-	color: #bbb;
-	}
-
-.leaflet-touch .leaflet-bar a {
-	width: 30px;
-	height: 30px;
-	line-height: 30px;
-	}
-.leaflet-touch .leaflet-bar a:first-child {
-	border-top-left-radius: 2px;
-	border-top-right-radius: 2px;
-	}
-.leaflet-touch .leaflet-bar a:last-child {
-	border-bottom-left-radius: 2px;
-	border-bottom-right-radius: 2px;
-	}
-
-/* zoom control */
-
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out {
-	font: bold 18px 'Lucida Console', Monaco, monospace;
-	text-indent: 1px;
-	}
-
-.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
-	font-size: 22px;
-	}
-
-
-/* layers control */
-
-.leaflet-control-layers {
-	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
-	background: #fff;
-	border-radius: 5px;
-	}
-.leaflet-control-layers-toggle {
-	background-image: url(images/layers.png);
-	width: 36px;
-	height: 36px;
-	}
-.leaflet-retina .leaflet-control-layers-toggle {
-	background-image: url(images/layers-2x.png);
-	background-size: 26px 26px;
-	}
-.leaflet-touch .leaflet-control-layers-toggle {
-	width: 44px;
-	height: 44px;
-	}
-.leaflet-control-layers .leaflet-control-layers-list,
-.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
-	display: none;
-	}
-.leaflet-control-layers-expanded .leaflet-control-layers-list {
-	display: block;
-	position: relative;
-	}
-.leaflet-control-layers-expanded {
-	padding: 6px 10px 6px 6px;
-	color: #333;
-	background: #fff;
-	}
-.leaflet-control-layers-scrollbar {
-	overflow-y: scroll;
-	overflow-x: hidden;
-	padding-right: 5px;
-	}
-.leaflet-control-layers-selector {
-	margin-top: 2px;
-	position: relative;
-	top: 1px;
-	}
-.leaflet-control-layers label {
-	display: block;
-	font-size: 13px;
-	font-size: 1.08333em;
-	}
-.leaflet-control-layers-separator {
-	height: 0;
-	border-top: 1px solid #ddd;
-	margin: 5px -10px 5px -6px;
-	}
-
-/* Default icon URLs */
-.leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
-	background-image: url(images/marker-icon.png);
-	}
-
-
-/* attribution and scale controls */
-
-.leaflet-container .leaflet-control-attribution {
-	background: #fff;
-	background: rgba(255, 255, 255, 0.8);
-	margin: 0;
-	}
-.leaflet-control-attribution,
-.leaflet-control-scale-line {
-	padding: 0 5px;
-	color: #333;
-	line-height: 1.4;
-	}
-.leaflet-control-attribution a {
-	text-decoration: none;
-	}
-.leaflet-control-attribution a:hover,
-.leaflet-control-attribution a:focus {
-	text-decoration: underline;
-	}
-.leaflet-attribution-flag {
-	display: inline !important;
-	vertical-align: baseline !important;
-	width: 1em;
-	height: 0.6669em;
-	}
-.leaflet-left .leaflet-control-scale {
-	margin-left: 5px;
-	}
-.leaflet-bottom .leaflet-control-scale {
-	margin-bottom: 5px;
-	}
-.leaflet-control-scale-line {
-	border: 2px solid #777;
-	border-top: none;
-	line-height: 1.1;
-	padding: 2px 5px 1px;
-	white-space: nowrap;
-	-moz-box-sizing: border-box;
-	     box-sizing: border-box;
-	background: rgba(255, 255, 255, 0.8);
-	text-shadow: 1px 1px #fff;
-	}
-.leaflet-control-scale-line:not(:first-child) {
-	border-top: 2px solid #777;
-	border-bottom: none;
-	margin-top: -2px;
-	}
-.leaflet-control-scale-line:not(:first-child):not(:last-child) {
-	border-bottom: 2px solid #777;
-	}
-
-.leaflet-touch .leaflet-control-attribution,
-.leaflet-touch .leaflet-control-layers,
-.leaflet-touch .leaflet-bar {
-	box-shadow: none;
-	}
-.leaflet-touch .leaflet-control-layers,
-.leaflet-touch .leaflet-bar {
-	border: 2px solid rgba(0,0,0,0.2);
-	background-clip: padding-box;
-	}
-
-
-/* popup */
-
-.leaflet-popup {
-	position: absolute;
-	text-align: center;
-	margin-bottom: 20px;
-	}
-.leaflet-popup-content-wrapper {
-	padding: 1px;
-	text-align: left;
-	border-radius: 12px;
-	}
-.leaflet-popup-content {
-	margin: 13px 24px 13px 20px;
-	line-height: 1.3;
-	font-size: 13px;
-	font-size: 1.08333em;
-	min-height: 1px;
-	}
-.leaflet-popup-content p {
-	margin: 17px 0;
-	margin: 1.3em 0;
-	}
-.leaflet-popup-tip-container {
-	width: 40px;
-	height: 20px;
-	position: absolute;
-	left: 50%;
-	margin-top: -1px;
-	margin-left: -20px;
-	overflow: hidden;
-	pointer-events: none;
-	}
-.leaflet-popup-tip {
-	width: 17px;
-	height: 17px;
-	padding: 1px;
-
-	margin: -10px auto 0;
-	pointer-events: auto;
-
-	-webkit-transform: rotate(45deg);
-	   -moz-transform: rotate(45deg);
-	    -ms-transform: rotate(45deg);
-	        transform: rotate(45deg);
-	}
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip {
-	background: white;
-	color: #333;
-	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
-	}
-.leaflet-container a.leaflet-popup-close-button {
-	position: absolute;
-	top: 0;
-	right: 0;
-	border: none;
-	text-align: center;
-	width: 24px;
-	height: 24px;
-	font: 16px/24px Tahoma, Verdana, sans-serif;
-	color: #757575;
-	text-decoration: none;
-	background: transparent;
-	}
-.leaflet-container a.leaflet-popup-close-button:hover,
-.leaflet-container a.leaflet-popup-close-button:focus {
-	color: #585858;
-	}
-.leaflet-popup-scrolled {
-	overflow: auto;
-	}
-
-.leaflet-oldie .leaflet-popup-content-wrapper {
-	-ms-zoom: 1;
-	}
-.leaflet-oldie .leaflet-popup-tip {
-	width: 24px;
-	margin: 0 auto;
-
-	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
-	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
-	}
-
-.leaflet-oldie .leaflet-control-zoom,
-.leaflet-oldie .leaflet-control-layers,
-.leaflet-oldie .leaflet-popup-content-wrapper,
-.leaflet-oldie .leaflet-popup-tip {
-	border: 1px solid #999;
-	}
-
-
-/* div icon */
-
-.leaflet-div-icon {
-	background: #fff;
-	border: 1px solid #666;
-	}
-
-
-/* Tooltip */
-/* Base styles for the element that has a tooltip */
-.leaflet-tooltip {
-	position: absolute;
-	padding: 6px;
-	background-color: #fff;
-	border: 1px solid #fff;
-	border-radius: 3px;
-	color: #222;
-	white-space: nowrap;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	pointer-events: none;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-	}
-.leaflet-tooltip.leaflet-interactive {
-	cursor: pointer;
-	pointer-events: auto;
-	}
-.leaflet-tooltip-top:before,
-.leaflet-tooltip-bottom:before,
-.leaflet-tooltip-left:before,
-.leaflet-tooltip-right:before {
-	position: absolute;
-	pointer-events: none;
-	border: 6px solid transparent;
-	background: transparent;
-	content: "";
-	}
-
-/* Directions */
-
-.leaflet-tooltip-bottom {
-	margin-top: 6px;
-}
-.leaflet-tooltip-top {
-	margin-top: -6px;
-}
-.leaflet-tooltip-bottom:before,
-.leaflet-tooltip-top:before {
-	left: 50%;
-	margin-left: -6px;
-	}
-.leaflet-tooltip-top:before {
-	bottom: 0;
-	margin-bottom: -12px;
-	border-top-color: #fff;
-	}
-.leaflet-tooltip-bottom:before {
-	top: 0;
-	margin-top: -12px;
-	margin-left: -6px;
-	border-bottom-color: #fff;
-	}
-.leaflet-tooltip-left {
-	margin-left: -6px;
-}
-.leaflet-tooltip-right {
-	margin-left: 6px;
-}
-.leaflet-tooltip-left:before,
-.leaflet-tooltip-right:before {
-	top: 50%;
-	margin-top: -6px;
-	}
-.leaflet-tooltip-left:before {
-	right: 0;
-	margin-right: -12px;
-	border-left-color: #fff;
-	}
-.leaflet-tooltip-right:before {
-	left: 0;
-	margin-left: -12px;
-	border-right-color: #fff;
-	}
-
-/* Printing */
-
-@media print {
-	/* Prevent printers from removing background-images of controls. */
-	.leaflet-control {
-		-webkit-print-color-adjust: exact;
-		print-color-adjust: exact;
-		}
-	}
-
 </style>
 <style>
 /* Layout: full-bleed map; a layer panel docked left (bottom sheet on phones); a "What's here" readout docked right. */
@@ -749,16 +87,10 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 #map{position:absolute;inset:0;background:var(--water)}
 .leaflet-container{background:var(--water);font-family:var(--font)}
 .leaflet-container :focus-visible{outline:2px solid var(--focus)}
-.leaflet-control-zoom{box-shadow:var(--shadow)!important;border:1px solid var(--rule)!important}
-.leaflet-bottom.leaflet-left .leaflet-control-zoom{margin:0 0 calc(var(--attr-h,18px) + 8px) 332px}
-@media (max-width:760px){.leaflet-control-zoom{display:none}}
-.leaflet-control-zoom a{background:var(--panel)!important;color:var(--ink)!important;border-color:var(--rule)!important}
-.leaflet-bar{box-shadow:var(--shadow)!important;border:none!important}
-.leaflet-control-attribution{background:color-mix(in srgb,var(--panel) 85%,transparent)!important;color:var(--ink-3)!important;font-size:10.5px}
-.leaflet-control-attribution a{color:var(--ink-2)!important}
-/* MapLibre (GPU map): its controls in the engine's look, and the hidden elements gl.js reads styles from */
+/* The map is MapLibre GL (engine/gl.js). Its controls in the engine's look, and the hidden elements gl.js reads styles from.
+   Class names such as .leaflet-tooltip and .leaflet-container are kept from the Leaflet days: gl.js's style probes use them. */
 .gl-probe{position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;pointer-events:none}
-.gl-tip{position:absolute;z-index:5;transform:translate(-50%,-100%);pointer-events:none;white-space:nowrap;margin:0}
+.gl-tip{position:absolute;z-index:5;transform:translate(-50%,-100%);pointer-events:none;white-space:nowrap;margin:0;padding:6px 8px;border-radius:6px}
 .gl-mk{pointer-events:none}
 .maplibregl-ctrl-bottom-left .maplibregl-ctrl-group{margin:0 0 calc(var(--attr-h,18px) + 8px) 332px;box-shadow:var(--shadow);border:1px solid var(--rule);background:var(--panel)}
 .maplibregl-ctrl-group button{background-color:var(--panel)} .maplibregl-ctrl-group button+button{border-top:1px solid var(--rule)}
@@ -1103,10 +435,6 @@ circle.cl{stroke-width:3;fill:var(--city)}
 .sw.k-construction{background:repeating-linear-gradient(90deg,var(--ink-2) 0 6px,transparent 0 10px) center/100% 4px no-repeat}
 .sw.k-closures{background:linear-gradient(var(--cl-closed),var(--cl-closed)) left center/48% 5px no-repeat,linear-gradient(var(--cl-narrow),var(--cl-narrow)) right center/40% 5px no-repeat}
 /* Tap-for-details popups */
-.info-pop .leaflet-popup-content-wrapper{background:var(--panel);color:var(--ink);border-radius:12px;box-shadow:var(--shadow)}
-.info-pop .leaflet-popup-tip{background:var(--panel)}
-.info-pop .leaflet-popup-content{margin:12px 14px;font:13px/1.4 var(--font)}
-.info-pop .leaflet-popup-close-button{color:var(--ink-3)!important}
 .info-pop b{display:block;font-size:14px;padding-right:14px}
 .info-pop small{display:block;color:var(--ink-3);font-size:11.5px;margin:1px 0 6px}
 .info-pop small.cl-k.closed{color:var(--cl-closed);font-weight:700}
@@ -1417,7 +745,6 @@ dl.facts dd{margin:0;font-weight:500;min-width:0}
   .pills{padding:0 12px 8px}
   .sec>summary{padding:9px 12px}
   .sec dl.facts,.live{padding-left:12px;padding-right:12px}
-  .leaflet-top.leaflet-left{display:none}
 }
 /* ---------- Heritage buildings (.hbm: .hb is the card header's buttons) ---------- */
 .hbm{position:absolute;left:0;top:0;display:flex;align-items:center;gap:5px;transform:translate(-4.5px,-50%);white-space:nowrap;pointer-events:auto;cursor:pointer}
@@ -1664,9 +991,6 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
 
 
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.1/dist/maplibre-gl.js"></script>
-<!-- Leaflet stays for its small helpers (L.latLng, bounds, DomEvent) while the engine moves to MapLibre; it draws nothing. -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/leaflet-polylineoffset@1.1.1/leaflet.polylineoffset.js"></script>
 <script>
 const CITY = {"id":"vancouver","schema":2,"title":"Vancouver · Layers.City","heading":"Vancouver","description":"A map of the City of Vancouver with toggleable layers: Downtown and the East and West Sides, 22 local areas, known-as names, landmarks, towers and heritage, ridings and BIAs, bikeways, SkyTrain, SeaBus, every bus route and what's being built.","mapLabel":"Map of the City of Vancouver","locale":"en-CA","view":{"city":[[49.198,-123.268],[49.316,-123.022]],"region":[[49.0,-123.32],[49.45,-122.42]],"max":[[48.4,-124.6],[50.0,-121.4]]},"scope":{"outer":{"name":"Metro Vancouver"},"inner":{"name":"Vancouver"}},"footprint":"sides","water":[{"name":"Burrard Inlet","at":[49.296,-123.06],"cls":"lake-near"},{"name":"English Bay","at":[49.285,-123.18],"cls":"lake-near"},{"name":"False Creek","at":[49.2752,-123.131],"cls":"lake-near"},{"name":"Fraser River","at":[49.204,-123.12],"cls":"lake-near"},{"name":"Strait of Georgia","at":[49.18,-123.42],"cls":"lake-far"}],"attribution":"Local areas, bikeways, heritage, permits, BIAs, parks & voting places: City of Vancouver Open Data (OGL – Vancouver) · Municipalities, reserves & 2021 Census: Statistics Canada · Provincial districts: DataBC · Federal ridings: Elections Canada via Open North · SkyTrain, SeaBus, West Coast Express & buses: TransLink GTFS · Mobi stations: Mobi GBFS · Towers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover (CC BY 4.0) · Streets, highways, places of worship, landmark positions & address search: © OpenStreetMap contributors via Nominatim · EV chargers: Natural Resources Canada via the U.S. DOE Alternative Fuels Data Center","example":{"at":[49.2797,-123.1157],"name":"Central Library (example)"},"search":{"label":"Search an address or place","country":"ca","viewbox":"-123.23,49.32,-123.02,49.19","regionViewbox":"-123.45,49.58,-122.20,49.00","noMatch":"No match in Metro Vancouver for “{q}”. Try the full street address, like “350 W Georgia St”.","more":"Or press Find to search addresses across Metro Vancouver"},"outside":{"beyond":"That spot is outside Metro Vancouver.","regionPill":"{region}","note":"Outside the City of Vancouver. The local areas and sides on this map cover Vancouver only.","appNote":"Outside the City of Vancouver, so local area and city details aren't shown here.","appBeyond":"That spot is outside Metro Vancouver."},"drive":{"hub":[49.2856,-123.1115],"hubName":"Waterfront Station"},"facts":{"peers":"sides","in":"on the {name}","inNames":{"Downtown":"Downtown"},"city":"in Vancouver","hub":"Waterfront"},"units":{"singular":"Local area","plural":"local areas"},"presets":{"label":"Views","customText":"Custom","customNote":"Changed from {name}. Pick a view again to go back to it.","boundaryLabel":"Boundaries","electionText":"Next on the ballot: {label}","window":180,"items":[{"id":"explore","name":"Explore downtown","note":"Landmarks, towers and heritage in Downtown, Gastown and Chinatown, with SkyTrain and the SeaBus.","layers":["sides","knownas","landmarks","towers","heritage","hbld","streets","skytrain","stnNames"],"view":[[49.268,-123.14],[49.292,-123.09]]},{"id":"local","name":"Know your city","note":"Every local area coloured by its transit trip to Waterfront. Try the other lenses below.","layers":["la","lens","knownas","streets","skytrain","stnNames","bus"],"lens":"waterfront","bus":["exp"],"view":"city"},{"id":"civic","name":"Who represents me","note":"Search your address or tap the map to see your ridings and your MP.","layers":["streets"],"boundaries":["prov","fed"],"lead":"fed","view":"city","hint":"Enter your address to find your ridings and representatives."},{"id":"newcomer","name":"Where to live","note":"Housing cost by local area, with frequent transit. Tap a spot for transit nearby and what’s changing.","layers":["la","lens","knownas","streets","skytrain","stnNames","bus"],"lens":"cost","bus":["freq"],"view":"city"},{"id":"transit","name":"Getting around","note":"SkyTrain, the SeaBus, frequent and express buses, the West Coast Express and the lines being built.","layers":["streets","skytrain","stnNames","bus","wce","build"],"bus":["freq","exp"],"view":"city"}],"elections":[{"date":"2026-10-17","lead":"fed","label":"Mayor, council, park board and school board, October 17"},{"date":"2026-10-24","lead":"prov","label":"BC provincial election, October 24"}]},"pageLinks":[{"group":"Getting around","id":"routes","name":"Where does this line or route go?","note":"Find the stops and SkyTrain stations near you and see where each bus and SkyTrain line takes you","href":"/vancouver/routes/"},{"group":"Places","id":"fun","name":"Fun maps","note":"Tim Hortons vs Starbucks, sushi vs pho, what each local area calls 3-1-1 about, and more","href":"/vancouver/fun/"},{"group":"Places","id":"venues","name":"Venues","note":"Metro Vancouver’s big venues: what’s on this week and how to get there","href":"/vancouver/venues/"}],"groups":[["Places",[{"id":"la","kind":"units","file":"local_areas","name":"Local areas","note":"The City’s 22 local areas, Stanley Park, and the University Endowment Lands beside the city","on":true,"hover":"{name}"},{"id":"knownas","kind":"knownas","file":"knownas","name":"Known-as names","note":"Gastown, Yaletown, Commercial Drive, Punjabi Market…","on":true},{"id":"sides","kind":"fill","size":"major","file":"sides","name":"Downtown, East and West","place":"Side of the city","note":"Ontario Street splits the East Side from the West Side","on":true,"colors":{"Downtown":"--s-downtown","West Side":"--s-west","East Side":"--s-east"}},{"id":"landmarks","kind":"landmarks","file":"landmarks","name":"Landmarks","note":"Stanley Park, stadiums, beaches, museums"},{"id":"hospitals","kind":"places","under":"landmarks","file":"institutions","cat":"hospital","name":"Hospitals","place":"Hospital","edText":"Emergency department","note":"Acute-care hospitals; a heavier ring marks an emergency department","aliases":{"Vancouver General Hospital":["VGH"],"St. Paul's Hospital":["St Pauls","St. Pauls","St Paul's"],"Mount Saint Joseph Hospital":["MSJ","Mount St. Joseph"]}},{"id":"towers","kind":"towers","under":"landmarks","file":"skyscrapers","name":"Skyscrapers","place":"Skyscraper","note":"Buildings 100 m and taller, open or under construction","key":{"res":"Residential","com":"Commercial (office or hotel)","mix":"Mixed use","uc":"Under construction · hollow","sup":"Supertall, 300 m or more · gold ring"},"purpose":{"Residential":"Residential tower","Office":"Office tower","Hotel":"Hotel tower","Mixed-use":"Mixed-use tower"},"supText":"Supertall","ucText":"Under construction","builtText":"Completed","expectedText":"Expected","akaText":"Also known as {aka}","moreText":"More on Wikipedia","sourceText":"Source: Wikipedia"},{"id":"heritage","kind":"districts","file":"heritage","name":"Heritage districts","note":"Gastown, Chinatown and Yaletown historic areas, and First Shaughnessy","label":"{name}","hover":"{name} · {kind}"},{"id":"hbld","kind":"heritage","file":"heritage_buildings","name":"Heritage buildings","note":"680 municipally designated properties on the Heritage Register; from zoom 15","place":"Designated heritage property","builtText":"built {y}","byText":"{ar}","designatedText":"designated {d}","typeText":"Register evaluation"},{"id":"bia","kind":"patches","file":"bia","name":"Business Improvement Areas","note":"22 BIAs","label":"{name}","hover":"{name} BIA"}]],["Getting around",[{"id":"skytrain","kind":"metro","files":["skytrain_lines","skytrain_stations"],"name":"SkyTrain & SeaBus","note":"Expo, Millennium and Canada Lines, and the SeaBus to Lonsdale Quay","on":true,"badges":{"expo":"Expo","millennium":"Millennium","canada":"Canada","seabus":"SeaBus"},"stationHover":"{name} · {lines}","sub":{"id":"stnNames","label":"Show station names","on":true}},{"id":"wce","kind":"rail","files":["wce_lines","wce_stations","wce_lines_inner"],"name":"West Coast Express","note":"Commuter trains from Waterfront to Mission, weekday rush hours","on":true,"hover":"{name} · Waterfront – {to}"},{"id":"hwy","kind":"highways","files":["highways","region_highways","region_shields"],"name":"Highways","note":"No freeway crosses the city: Highway 1 only clips its east edge","on":true,"shields":{"1":"1"},"tollShield":"Toll"},{"id":"streets","kind":"streets","file":"streets","name":"Main streets","note":"Arterials like Broadway, Hastings, Kingsway, Granville, Main","on":true},{"id":"coll","kind":"streets","file":"collectors","under":"streets","labelZoom":15,"yieldLabels":true,"name":"Collector streets","on":true,"note":"Collector roads like Nanaimo, Victoria and Dunbar; from zoom 13"},{"id":"bus","kind":"buses","file":"transit_routes","lazy":true,"name":"Bus routes","note":"Every bus route, by how often it runs, or the NightBus routes; stops from zoom 15","allText":"All","default":"all","allNote":"Every daytime bus route.","families":[["freq","Frequent","Every 10 minutes or better each way, weekdays 7 am to 7 pm."],["exp","Express","RapidBus (R1–R6), the 99 B-Line and routes TransLink names express: fewer stops."],["reg","Regular","Every other daytime route."],["night","Overnight","At least hourly each way from 2 to 4 am on weeknights: TransLink's NightBus."]],"solo":["night"],"comboText":"Express routes are dashed.","countText":"{n} routes","hint":"Tap a route or its number to see it alone; tap elsewhere for all.","pickText":"Drawn on the map","unpickText":"Stop drawing route {r}","clearText":"Clear"},{"id":"bikes","kind":"bikes","file":"bikes","lazy":true,"name":"Bike lanes","note":"The City’s bikeways: protected lanes, painted lanes, local-street bikeways and the seawall","classes":{"prot":["Protected","Separated from traffic by a curb or raised: Hornby, Dunsmuir, the bridges"],"paint":["Painted","Painted bike lanes, some with a buffer"],"shared":["Shared","Traffic-calmed local-street bikeways and sharrows: you ride with traffic"],"trail":["Paths","Off-street paths: the seawall, the Arbutus Greenway, BC Parkway, park trails"]},"default":["prot","paint"],"legend":"From the City’s Bikeways data. Tap a stretch for its type and the year it went in.","asofText":"City data as of {date}.","betweenText":"Between","yearText":"Installed","fine":"Shown as built: construction can close a lane for a while."},{"id":"bikeshare","kind":"docks","under":"bikes","file":"bikeshare","lazy":true,"optional":true,"minZoom":12,"name":"Mobi stations","note":"Mobi bike share stations; filled where e-bikes charge. From zoom 12.","countNote":"{n} {system} stations; filled where e-bikes charge. From zoom 12.","kindText":"{system} station","docksText":"{n} docks","docksLabel":"Docks","chargeLabel":"E-bikes","chargeText":"Charging station","payLabel":"Paying","noCardText":"No card reader: unlock with the app or a member key","fine":"Station list as of {date}. For bikes and free docks right now, check the Mobi app."},{"id":"addr","kind":"addresses","file":"addresses","name":"Ontario St: East and West","note":"Ontario Street (Carrall downtown) splits streets into W and E; numbers rise 100 a block away from it","eastText":"East","westText":"West"}]],["What's changing",[{"id":"chg","kind":"changes","file":"changes","lazy":true,"optional":true,"live":true,"staleDays":9,"name":"New development","note":"New buildings and demolitions with issued permits. Leaves out houses, laneway homes, duplexes and multiplexes.","stages":{"proposed":["Proposed","Applied for and under review: a proposal, not a decision"],"approved":["Approved","Approved, or permit issued; work not started"],"building":["Under construction","Permit inspections under way"],"finished":["Finished","Finished in the last two years"]},"kinds":{"rezoning":"Rezoning application","siteplan":"Site plan application","subdivision":"Subdivision application","building":"New building","demolition":"Demolition"},"dates":{"applied":"applied {date}","issued":"permit {date}","finished":"{date}"},"unitsText":"{n} homes","alsoText":"Also here","legend":"Issued building permits from the City: Vancouver publishes no development applications. Demolitions are dashed rings. Permits issued in the last two years."},{"id":"build","kind":"construction","file":"construction","live":true,"name":"Transit under construction","note":"Broadway Subway; Surrey Langley SkyTrain in the regional view","ucText":"Under construction","linkText":"Project page"}]],["Parking & Charging",[{"id":"ev","kind":"spots","mark":"charger","file":"parking","cat":"ev","countKey":"ev","lazy":true,"optional":true,"minZoom":12,"name":"EV chargers","note":"Public charging: DC fast filled, Level 2 ringed, bigger for more ports. From zoom 12.","countNote":"{n} public charging sites with {dc} DC fast and {l2} Level 2 ports. From zoom 12.","classes":{"dc":["DC fast","Fast chargers: most of a charge in under an hour"],"l2":["Level 2 only","Slower chargers: hours for a full charge, for a long stop"]},"legend":"Bigger dots have more ports; grey dashed ones are listed as temporarily unavailable.","zoomText":"Zoom in to see them.","typeText":{"dc":"DC fast charging","l2":"Level 2 charging"},"bothText":"DC fast and Level 2 charging","dcLabel":"DC fast","l2Label":"Level 2","l1Label":"Level 1","portText":["{n} port","{n} ports"],"kwText":"up to {kw} kW","addressLabel":"Address","operatorLabel":"Run by","networkLabel":"Network","hoursLabel":"Hours","h24Text":"24 hours","priceLabel":"Price","accessLabel":"Access","teslaText":"Tesla drivers only","statusLabel":"Status","offText":"Temporarily unavailable","fine":"Natural Resources Canada’s station locator data, via the U.S. Department of Energy’s Alternative Fuels Data Center, as of {date}[; this listing last confirmed {conf}]. Chargers can be busy or out of order: check the network’s app before you go."}]],["Education",[{"id":"campus","kind":"places","file":"institutions","icon":"university","cats":[["university","Universities","University"],["college","Colleges","College"]],"name":"Colleges & universities","place":"Campus","note":"Public and nonprofit universities and public colleges, one point per campus; UBC in the University Endowment Lands","aliases":{"University of British Columbia":["UBC","U of BC"],"Simon Fraser University":["SFU","SFU Vancouver","Harbour Centre"],"Emily Carr University of Art + Design":["Emily Carr","ECUAD"],"Vancouver Community College":["VCC"],"BCIT":["British Columbia Institute of Technology","BCIT Downtown"]},"replaces":{"unis":"university","colleges":"college"}},{"id":"frschools","kind":"places","file":"french_schools","cat":"frschool","name":"French-language schools","place":"French-language school","note":"CSF schools: taught in French, for children with a right to French-language education"},{"id":"immersion","kind":"places","file":"french_schools","cat":"immersion","name":"French immersion schools","place":"French immersion school","note":"Vancouver School Board schools teaching mostly in French to children from English-speaking homes"}]],["Representation",[{"id":"prov","kind":"outline","level":"state","file":"provincial","name":"Provincial ridings","note":"12 MLAs · the boundaries of the October 24, 2026 election","label":"{name}","hover":"Provincial: {name}"},{"id":"fed","kind":"outline","level":"national","file":"federal","name":"Federal ridings","note":"7 MPs · 2023 boundaries, cut to the city line","label":"{name}","hover":"Federal: {name}","party":{"table":"fed","key":"name"}}]],["Community & Faith",[{"id":"community","kind":"places","file":"community","icon":"library","minZoom":12,"cats":[["library","Libraries","Library"],["centre","Community centres","Community centre"]],"name":"Libraries & community centres","place":"Public place","note":"Vancouver Public Library branches and the Park Board’s community centres; from zoom 12"},{"id":"worship","kind":"places","file":"faith","icon":"otherfaith","cats":[["church","Churches","Church"],["mosque","Mosques","Mosque"],["hindu","Hindu temples","Hindu temple"],["synagogue","Synagogues","Synagogue"],["buddhist","Buddhist temples","Buddhist temple"],["gurdwara","Gurdwaras","Gurdwara"],["otherfaith","Other faiths","Place of worship"]],"name":"Places of worship","place":"Place of worship","note":"Churches, mosques, temples, synagogues and gurdwaras across Metro Vancouver (churches in the city); pick any mix below","catNote":"Tap a faith to hide or show it. Other faiths: Bahá’í, Taoist, Unitarian and more.","groups":[["catholic","Catholic"],["anglican","Anglican"],["baptist","Baptist"],["united","United"],["presbyterian","Presbyterian"],["orthodox","Orthodox"],["evangelical","Evangelical"],["other","Other"]],"groupsFor":"church","groupLabel":"Churches by denomination","allText":"All","countText":"{n} churches shown.","allNote":"Some aren’t listed with a denomination, so they appear only here.","groupNote":"By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal and Alliance churches.","replaces":{"churches":"church","mosques":"mosque","hindutemples":"hindu","synagogues":"synagogue","buddhisttemples":"buddhist","gurdwaras":"gurdwara","otherfaith":"otherfaith"}}]],["Lenses",[{"id":"lens","kind":"lens","name":"Local area lens","note":"Housing cost, getting to work, renters and owners, housing type. Narrow it to a shortlist."},{"id":"drive","kind":"suburbs","name":"Suburban lens","note":"Typical drive to Waterfront Station with no traffic, town by town. Shows in the regional view."}]]],"lens":{"label":"Local area lens","file":"la_profiles.json","source":"2021 Census (Statistics Canada), dissemination areas grouped into local areas.","lenses":[{"id":"cost","short":"Housing cost","key":"cost","tiers":[["lower","Lower housing cost","--cost-1"],["middle","Middle","--cost-2"],["higher","Higher housing cost","--cost-3"]],"note":"Median home value and rent, weighted by owners and renters, ranked into thirds across Vancouver's 22 local areas. 2021 figures, not current prices."},{"id":"waterfront","short":"To Waterfront","key":"waterfrontBand","minutes":"waterfront","optional":true,"tiers":[["under30","Under 30 min","--uni-1"],["30to45","30–45 min","--uni-2"],["45to60","45–60 min","--uni-3"],["over60","Over an hour","--uni-4"]],"note":"Typical transit trip to Waterfront Station leaving 8–9 am on a weekday, walking to the stop included. Median across each local area.","source":"TransLink schedules, routed with r5py."},{"id":"commute","short":"Getting to work","key":"commute","tiers":[["transit","Mostly transit, walk or bike","--com-1"],["mixed","Mixed","--com-2"],["car","Mostly car","--com-3"]],"note":"Share of commuters who drive: under 50%, 50–68%, 68% or more (the same lines as the Toronto map). Counted in May 2021, when transit use was unusually low everywhere."},{"id":"tenure","short":"Renters & owners","key":"tenure","tiers":[["owners","Mostly owners","--ten-1"],["mix","A mix","--ten-2"],["renters","Mostly renters","--ten-3"]],"note":"Share of households that rent: under 35%, 35–60%, over 60%."},{"id":"canopy","short":"Tree canopy","key":"canopyBand","optional":true,"tiers":[["c1","Under 20%","--can-1"],["c2","20–28%","--can-2"],["c3","28–45%","--can-3"],["c4","45% or more","--can-4"]],"note":"Share of the land under tree cover, water left out, from ESA WorldCover 2021, a 10 m satellite land-cover map. Citywide 38%: it counts every tree it can see, private yards included, so use it to compare local areas.","source":"ESA WorldCover 2021 (CC BY 4.0)."},{"id":"homes","short":"Housing type","key":"homesTier","field":"homes","pick":[["detached","Detached","detached houses"],["attached","Semi & row","semi-detached or row houses"],["lowrise","Low-rise","flats in duplexes and buildings under five storeys"],["tower","Towers","apartments in buildings of five or more storeys"]],"cuts":[10,30,60],"tiers":[["t1","Under 10%","--hty-1"],["t2","10–30%","--hty-2"],["t3","30–60%","--hty-3"],["t4","60% or more","--hty-4"]],"note":"Share of each local area's occupied homes that are {type}. In Vancouver, a house with a basement suite counts as a duplex: two flats."}],"filters":[{"lens":"cost","label":"Housing cost","options":[["lower","Lower"],["middle","Middle"],["higher","Higher"]]},{"lens":"waterfront","label":"To Waterfront by transit","max":true,"options":[[30,"Up to 30 min"],[45,"45 min"],[60,"60 min"]]},{"lens":"commute","label":"Getting to work","options":[["transit","Transit, walk, bike"],["mixed","Mixed"],["car","Car"]]},{"lens":"tenure","label":"Households","options":[["owners","Mostly own"],["mix","A mix"],["renters","Mostly rent"]]},{"lens":"homes","label":"Most common home","top":true}]},"card":{"report":{"to":"go@layers.city"},"pills":[{"layer":"sides","else":"sides"},{"knownas":2},{"layer":"bia","text":"{name} BIA","color":"--bia"}],"address":{"label":"Address","east":"East of Ontario St","west":"West of Ontario St","example":{"e":"E Broadway","w":"W Broadway"},"blocks":"About {ns} on north–south streets, {ew} on east–west ones","sub":"Streets that cross Ontario (Carrall St downtown) take W or E ({street}), and numbers rise 100 a block away from it. North–south streets count up going south, 100 an avenue: south of False Creek, the hundreds are the avenue plus 15 (4000 Main St is at 25th Ave)."},"facts":[{"label":"Side","layer":"sides","text":"{name}"},{"label":"Local area","layer":"la","text":"{name}[ ({park})]","empty":"—"},{"label":"Run by","layer":"la","text":"{gov}","skipEmpty":true},{"label":"Local vote","layer":"la","text":"{votes}","skipEmpty":true},{"label":"Known as","knownas":true},{"label":"Address","address":true},{"label":"Heritage district","layer":"heritage","text":"{name}","onlyInside":true},{"label":"Heritage building","heritageBuilding":true},{"label":"BIA","layer":"bia","text":"{name}","empty":"None"},{"label":"Provincial","layer":"prov","text":"{name}"},{"label":"Federal","layer":"fed","text":"{name}"}],"living":{"hub":"To Waterfront","hubText":"About {minutes} min by transit, weekday morning","caveat":"2021 Census figures, not current prices; home values and rents are averages of small-area medians. Rent is what renting households paid, utilities included, counting long-time tenants, subsidized homes and basement suites, so it sits below what a new lease costs. Use them to compare local areas, not to budget.","footer":"2021 Census (Statistics Canada), {name}. Tiers compare Vancouver's 22 local areas; the University Endowment Lands are placed against them.","homes":{"label":"Home types","types":[["detached","Detached"],["attached","Semi & row"],["lowrise","Low-rise"],["tower","Towers"]]},"built":{"label":"Built","bands":["1960 or before","1961–80","1981–2000","2001–21"]},"lang":{"label":"Language at home","floor":5,"note":"The language each person speaks most often at home.[ Another {multi}% name two or more equally.]"},"ages":{"label":"Ages","bands":["Under 15","15–24","25–44","45–64","65+"]},"recent":{"label":"Recent immigrants","text":"{pct}% arrived in Canada 2016–21","caveat":"Share of residents who immigrated in the five years before the 2021 Census."},"canopy":{"label":"Tree canopy","text":"{pct}% of the land is under trees","caveat":"Satellite land cover, 2021 (ESA WorldCover, 10 m)."}},"vote":{"file":"voting","date":"2026-10-17","tz":"America/Vancouver","closes":"2026-10-17T20:00:00-07:00","title":"Election day · {date}","today":"Election day is today","hours":"8 a.m. to 8 p.m.","lead":"People living here vote at","show":"Show on map","centersLead":"Vote at any {county} voting place. Nearest to here:","centersMore":"{n} voting places across Vancouver on election day.","counties":{"vancouver":{"name":"City of Vancouver","link":["Where to vote (City of Vancouver)","https://vancouver.ca/election/2026/where-to-vote.aspx"]}},"note":"City of Vancouver voting places as of {asof}. Places can change up to election day: the City’s own list has the final word."},"changes":{"title":"Changing nearby","radius":500,"max":6,"none":"No big new building or demolition permitted by the City within 500 m in the last two years. UBC and the University Endowment Lands issue their own permits, which aren't in this data.","more":"And {n} more nearby: turn on New development to see them.","note":"Issued permits only: Vancouver publishes no development applications. New buildings and demolitions within 500 m; no houses, laneway homes or multiplexes. City of Vancouver building permits (not UBC’s or the UEL’s), as of {date}."},"transit":{"file":"transit.json","routes":"transit_routes","title":"Transit nearby","radius":400,"station":"Nearest station","stationSub":"{lines} · {dist} away","rows":[["bus","Buses",false]],"night":"NightBus","stop":"Nearest stop","none":"No stop within 400 m","every":"about every {h} min on weekday middays","nightOnly":"overnight only","kinds":{"bus":"Bus route"},"note":"Routes with a stop within 400 m, about a 5-minute walk. Filled numbers come every 10 minutes or better on weekdays. Tap a number to draw the route. TransLink schedules, week of {week}.","bikeshare":{"label":"Mobi","radius":500,"sub":"{dist} away[ · {docks} docks]","charge":"charges e-bikes","none":"No station within 500 m"}},"nearby":{"file":"nearby.json","radius":1000,"nearest":[["library","Library"],["centre","Community centre"],["er","Emergency dept."],["mosque","Mosque","worship:mosque"],["gurdwara","Gurdwara","worship:gurdwara"],["synagogue","Synagogue","worship:synagogue"],["hindu","Hindu temple","worship:hindu"],["buddhist","Buddhist temple","worship:buddhist"],["church","Church","worship:church"]],"within":"Within 1 km","counts":[["park","park","parks"],["playground","playground","playgrounds"],["tennis","park with tennis courts","parks with tennis courts"],["offleash","dog off-leash area","dog off-leash areas"]],"note":"Straight-line distances; 1 km is about a 15-minute walk. Vancouver Public Library, Park Board parks, community centres and off-leash areas, and the hospitals layer. Counts parks, not courts. Places of worship (OpenStreetMap) show while their layers are on.","sources":"Sources: Vancouver Public Library, Vancouver Park Board (parks, community centres, off-leash areas), OpenStreetMap (hospitals, places of worship).","happening":{"file":"happening.json","radius":800,"max":3,"days":14,"title":"Happening nearby","today":"Today","free":"Free","linkText":"vancouver.ca","source":"Events from the City of Vancouver’s calendar of events (vancouver.ca)."}},"reps":{"file":"representatives.json","offices":[{"role":"MP","layer":"fed","table":"fed","key":"name","sub":"{r.party}"}],"note":"Names open each person’s official page. The mayor and councillors (elected at large on October 17) and MLAs (BC votes October 24) are added once the results are in. Checked weekly; last change {date}."}},"tour":{"invite":"New to Vancouver? Take a one-minute tour.","start":"Take the tour","stepText":"Tour · {n} of {of}","next":"Next","back":"Back","done":"Done","closeText":"Close the tour","dismissText":"No thanks","steps":[{"title":"Downtown, East and West","layers":["sides","streets"],"hi":["sides"],"view":"city","text":"Vancouverites place a neighbourhood by its side of town. Ontario Street, one block west of Main, splits the East Side from the West Side, and Downtown has the peninsula to itself, with Stanley Park at its tip."},{"title":"22 local areas","layers":["la","knownas","streets"],"hi":["la","knownas"],"view":[[49.255,-123.16],[49.3,-123.06]],"text":"The City divides itself into 22 local areas, like Kitsilano, Mount Pleasant or Strathcona. The names in italics are the places people actually say that aren't local areas of their own: Gastown, Yaletown, Chinatown, Commercial Drive."},{"title":"How addresses work","layers":["addr","streets","sides"],"hi":["addr"],"view":[[49.21,-123.17],[49.29,-123.04]],"text":"Ontario Street, one block west of Main, is Vancouver's zero line (downtown, Carrall Street takes its place). Streets that cross it take W or E, like W Broadway and E Hastings, and count up 100 a block going away from it. North–south streets count up going south: south of False Creek the hundreds are the avenue plus 15, so 4000 Main St is at 25th Avenue. Tap any spot and the card gives its numbers."},{"title":"Getting around","layers":["skytrain","wce","hwy"],"hi":["skytrain","wce"],"scope":"outer","view":[[49.0,-123.3],[49.35,-122.6]],"text":"SkyTrain runs without drivers on three lines, the Expo, Millennium and Canada Lines, and the SeaBus crosses Burrard Inlet to North Vancouver. No freeway runs through the city: Highway 1 only skirts its east edge."},{"title":"Tap anywhere","layers":["sides","la","knownas","streets","hwy","skytrain","wce"],"pin":{},"view":"city","text":"Tap any spot or search an address, and the card shows the local area it's in and what living there is like. Compare puts two places side by side. Switch layers on and off in the panel to explore."}]},"party":{"label":"Colour by party","note":"Each seat in the colour of its sitting member’s party, from the weekly check of the official member lists. Grey: vacant.","vacant":"Vacant","other":"Other","parties":[["Liberal","red",["Liberal","Ontario Liberal Party"]],["PC","blue",["Progressive Conservative Party of Ontario"]],["Conservative","blue",["Conservative"]],["NDP","orange",["NDP","New Democratic Party of Ontario"]],["Green","green",["Green Party","Green Party of Ontario"]],["Independent","other",["Independent"]]]}};
 /* Layers.City map engine. Everything city-specific comes from CITY (cities/<city>/city.json),
@@ -1689,6 +1013,40 @@ const DATA = 'data/';
      names first, so that order is the declutter order.
    - Groups (G): what L.layerGroup was. A group's layers are made once and shown or hidden; points (names, icons,
      dots) are items in a shared source per pool, and showing one just puts it back in its source's data. */
+/* The few geometry helpers the engine used from Leaflet (L.latLng, L.latLngBounds, L.point, L.geoJSON(f).getBounds()),
+   so the library itself isn't loaded. Same shapes and method names as Leaflet's. */
+const L = (() => {
+  class LatLng {
+    constructor(lat, lng){ this.lat = +lat; this.lng = +lng; }
+    equals(o, m){ if (!o) return false; o = latLng(o); return Math.max(Math.abs(this.lat - o.lat), Math.abs(this.lng - o.lng)) <= (m == null ? 1e-9 : m); }
+    distanceTo(o){ o = latLng(o); const k = Math.PI / 180, a = Math.sin((o.lat - this.lat) * k / 2) ** 2 + Math.cos(this.lat * k) * Math.cos(o.lat * k) * Math.sin((o.lng - this.lng) * k / 2) ** 2; return 12742000 * Math.asin(Math.sqrt(a)); }
+    toString(){ return 'LatLng(' + this.lat + ', ' + this.lng + ')'; }
+  }
+  const latLng = (a, b) => a instanceof LatLng ? a : Array.isArray(a) ? new LatLng(a[0], a[1]) : a && typeof a === 'object' ? new LatLng(a.lat, a.lng != null ? a.lng : a.lon) : new LatLng(a, b);
+  class Bounds {
+    constructor(a, b){ this.s = Infinity; this.w = Infinity; this.n = -Infinity; this.e = -Infinity; if (a) (b ? [a, b] : a).forEach(p => this.extend(p)); }
+    extend(p){ if (p instanceof Bounds){ this.extend([p.s, p.w]); return this.extend([p.n, p.e]); } p = latLng(p); this.s = Math.min(this.s, p.lat); this.n = Math.max(this.n, p.lat); this.w = Math.min(this.w, p.lng); this.e = Math.max(this.e, p.lng); return this; }
+    getSouth(){ return this.s; } getNorth(){ return this.n; } getWest(){ return this.w; } getEast(){ return this.e; }
+    getSouthWest(){ return new LatLng(this.s, this.w); } getNorthEast(){ return new LatLng(this.n, this.e); }
+    getCenter(){ return new LatLng((this.s + this.n) / 2, (this.w + this.e) / 2); }
+    isValid(){ return isFinite(this.s) && isFinite(this.w); }
+    pad(r){ const dy = (this.n - this.s) * r, dx = (this.e - this.w) * r; return new Bounds([this.s - dy, this.w - dx], [this.n + dy, this.e + dx]); }
+    contains(p){ if (p instanceof Bounds) return this.contains([p.s, p.w]) && this.contains([p.n, p.e]); p = latLng(p); return p.lat >= this.s && p.lat <= this.n && p.lng >= this.w && p.lng <= this.e; }
+    intersects(b){ b = latLngBounds(b); return b.n >= this.s && b.s <= this.n && b.e >= this.w && b.w <= this.e; }
+  }
+  const latLngBounds = (a, b) => a instanceof Bounds ? a : new Bounds(a, b);
+  class Point {
+    constructor(x, y){ this.x = +x; this.y = +y; }
+    add(o){ return new Point(this.x + o.x, this.y + o.y); } subtract(o){ return new Point(this.x - o.x, this.y - o.y); }
+    multiplyBy(k){ return new Point(this.x * k, this.y * k); } divideBy(k){ return new Point(this.x / k, this.y / k); }
+    distanceTo(o){ return Math.hypot(o.x - this.x, o.y - this.y); }
+  }
+  // Only getBounds() was used: the box around any GeoJSON geometry, feature or collection.
+  const geoJSON = g => ({getBounds(){ const b = new Bounds(); const walk = c => typeof c[0] === 'number' ? b.extend([c[1], c[0]]) : c.forEach(walk);
+    const geomOf = x => x.type === 'FeatureCollection' ? x.features.forEach(f => geomOf(f)) : x.type === 'Feature' ? geomOf(x.geometry) : x.type === 'GeometryCollection' ? x.geometries.forEach(geomOf) : walk(x.coordinates);
+    geomOf(g); return b; }});
+  return {latLng, latLngBounds, point: (x, y) => new Point(x, y), geoJSON, LatLng, LatLngBounds: Bounds};
+})();
 const LZ = z => z - 1, ZL = z => z + 1;
 const LEVELS = [8, 9, 10, 11, 12, 13, 14, 15, 16];   // the engine's zoom classes: z9 … z16
 const CLOSE = 1e-6;

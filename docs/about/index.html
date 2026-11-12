@@ -245,7 +245,7 @@ main.doc{padding-top:56px;gap:32px}
         <li><span class="step">2 · FETCH</span><b>Scheduled jobs</b>GitHub Actions pull each source on its own rhythm: daily, weekly, monthly or hourly on election night.</li>
         <li><span class="step">3 · BUILD</span><b>Geometry pipeline</b>Python (Shapely) and mapshaper clean, join, clip and simplify everything into small GeoJSON files.</li>
         <li><span class="step">4 · PUBLISH</span><b>Static site</b>Changed files deploy to Cloudflare Pages automatically, about a minute after the data changes.</li>
-        <li><span class="step">5 · USE</span><b>Web and iPhone</b>The map runs in the browser with Leaflet; a native iOS app reads the same files.</li>
+        <li><span class="step">5 · USE</span><b>Web and iPhone</b>The map runs in the browser with MapLibre GL, drawn on the device's graphics chip; a native iOS app reads the same files.</li>
       </ol>
       <h3>One engine, a folder per city</h3>
       <p>The map is a single engine that knows how to draw <em>kinds</em> of layer: filled areas, boundaries, streets, transit lines, points of interest. Everything specific to a city (its layers, labels, colours, the rows on its card, its tour) lives in that city’s configuration file. Chicago went live without changing the engine; adding a city means adding its data and settings, not rewriting code.</p>

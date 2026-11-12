@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Rebuild docs/dallas/data/* and docs/dallas/index.html from the inputs in cities/dallas/raw/.
-# Needs: python3 with shapely; node (npm install at the repo root brings mapshaper + leaflet).
+# Needs: python3 with shapely; node (npm install at the repo root brings mapshaper).
 set -euo pipefail
 cd "$(dirname "$0")"
 [ -d ../../node_modules ] || (cd ../.. && npm install --silent)
