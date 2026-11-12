@@ -4,7 +4,7 @@
   districts.geojson  Victorian Legislative Assembly districts (Vicmap Admin - State Assembly Polygon 2022: the 2021
                      redivision, used at the 2022 and 2026 elections), from the Vicmap open data WFS. CC BY 4.0.
   divisions.geojson  Federal electoral divisions (Victoria's 2024 redistribution, used since the 2025 election), from
-                     the same WFS where it has them.
+                     the AEC's GIS download (ESRI shapefile).
   aec_elected.csv    Members elected at the 2025 federal election (AEC tally room).
   handbook.json      Current members of the House of Representatives (Parliamentary Handbook API), for by-elections
                      since 2025 and each member's page.
@@ -68,7 +68,7 @@ def wfs_layers():
 
 def wfs_get(layer, out):
     q = {'service': 'WFS', 'version': '2.0.0', 'request': 'GetFeature', 'typeNames': layer, 'outputFormat': 'application/json',
-         'srsName': 'EPSG:4326', 'bbox': '%s,%s,%s,%s,EPSG:4326' % (BOX[1], BOX[0], BOX[3], BOX[2])}
+         'srsName': 'EPSG:4326'}   # all of Victoria's 88 districts (a bbox in EPSG:4326 matched nothing on November 12)
     fc = json.loads(get(WFS + '?' + urllib.parse.urlencode(q)))
     print('  %s: %d features · fields %s' % (layer, len(fc['features']), sorted(fc['features'][0]['properties']) if fc['features'] else None))
     json.dump(fc, open(os.path.join(OUT, out), 'w'), separators=(',', ':'))
@@ -81,17 +81,8 @@ step('state districts', lambda: wfs_get('open-data-platform:state_assembly_2022'
 
 
 def divisions():
-    fed = [n for n in LAYERS if re.search(r'(?i)commonwealth|federal', n)]
-    print('  federal candidates:', fed)
-    if fed:
-        wfs_get(sorted(fed)[-1], 'divisions.geojson'); return
-    for pid in ('commonwealth-electoral-division-boundaries', 'federal-electoral-boundaries'):
-        try:
-            p = ckan('https://data.gov.au/data/api/3/action/', pid=pid)
-            for r in p['resources']: print('   resource:', pid, r.get('name'), '|', r.get('format'), '|', r.get('url'))
-        except Exception as e:
-            print('  ', pid, e)
-    raise RuntimeError('no federal divisions found yet: see the resources above')
+    # The AEC's own file for Victoria's 2024 redistribution (aec.gov.au/Electorates/gis/gis_datadownload.htm, "Current").
+    shp_zip_to_geojson('https://aec.gov.au/Electorates/gis/files/Vic-october-2024-esri.zip', 'divisions.geojson', None)
 step('federal divisions', divisions)
 
 
