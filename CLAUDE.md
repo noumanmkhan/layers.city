@@ -100,14 +100,6 @@ the landing page, stop and say so; don't change this repo.
   workflow's `branch` input, not the ref it runs from: `gh workflow run deploy.yml --ref dev -f branch=dev`.
   Without `-f branch=dev` it publishes main to the live site.
 
-## The map engine is moving to MapLibre GL (on `dev`, November 2026)
-- The user decided (November 13, 2026) to replace Leaflet with MapLibre GL JS, because the SVG map hitches when zooming
-  on iPhones. The port happens on `dev`: `engine/gl.js` (a toolkit: a facade with the Leaflet calls map.js makes, groups,
-  names/icons/dots as pooled GPU items, styles read from the engine's CSS) and a ported `engine/map.js`. Plan and status:
-  the project's claude/maplibre-migration.md.
-- Until it ships, keep engine changes on main small and self-contained, and merge main into dev after them (most merge
-  cleanly). A new layer kind or a change to how one draws needs porting on dev too: say so at the end of the work.
-
 ## Before changing anything
 - Other sessions may have pushed since you last looked. Run `git fetch origin main dev` and
   rebase or merge onto the latest first, and fetch again right before pushing.
@@ -140,6 +132,15 @@ the landing page, stop and say so; don't change this repo.
 - The map is one engine with a folder per city:
   - `engine/template.html` (page and styles) and `engine/map.js` (behaviour) are shared by every
     city. Keep them free of city names, places and data sources.
+  - The map draws with **MapLibre GL JS** (since November 13, 2026; Leaflet before). `engine/gl.js` is inserted into map.js
+    by assemble.py: a facade answering the Leaflet-style calls map.js makes (`map.getZoom()` etc. count zoom the Leaflet
+    way, one more than MapLibre's), groups (`grp()`, addTo/remove), shapes (`geo()`), point items in shared sources
+    (`label`, `icon`, `dot`, `shield`, `box`, `chip`), line `badges()`, HTML markers (`mk`) and popups. Every look is read
+    from the CSS: gl.js styles hidden elements with the same class names (`.leaflet-tooltip.lbl …`, kept for that) at each
+    zoom class z9–z16, so colours, widths and "#map:not(.z13) .x{display:none}" rules keep working; style new layers in
+    the CSS as before. GeoJSON for MapLibre must be [lng, lat] with closed rings. Names and icons are placed by MapLibre in
+    LABEL_PRIORITY order. Map labels need glyph files for each font weight used (`docs/glyphs/`, `engine/glyphs.py`).
+    Notes and pitfalls: the project's claude/maplibre-migration.md.
   - `cities/<city>/city.json` holds everything city-specific on the page: text, layer list and
     files, lenses, "What's here" rows, representatives, search area. `city.css` holds the city's
     own colours (fill layers, transit lines, their swatches).
@@ -154,7 +155,7 @@ the landing page, stop and say so; don't change this repo.
     (`cities/*/raw/ptc`, not `.../ptc/`) so the rule also matches the symlink. Run the move in the
     user's Terminal, not through the device bridge (about 1 MB/s).
 - Rebuild a city with `cities/<city>/run.sh` (needs Python with shapely, and Node; it runs
-  `npm install` at the repo root for mapshaper and Leaflet). After a page-only or config-only
+  `npm install` at the repo root for mapshaper). After a page-only or config-only
   change, `python3 engine/assemble.py <city>` is enough.
 - An engine change affects every city: rebuild and check each one.
 - The City of Toronto GIS server (gis.toronto.ca) can't be reached from most sandboxes.

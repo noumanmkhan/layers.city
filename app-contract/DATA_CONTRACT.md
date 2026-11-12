@@ -695,7 +695,7 @@ changed and how to migrate.
 
 ## 11. Drawing the boundary layers on a map
 
-The website draws its layers with Leaflet on a plain base. This section gives what an app needs
+The website draws its layers with MapLibre GL on a plain base (Leaflet until November 2026). This section gives what an app needs
 to draw the same boundary layers on another map (Apple's MapKit, for the iOS app): which layers,
 their geometry, and how the website styles and labels them. Transit lines, streets, highways,
 landmarks and the lenses are not covered here yet.

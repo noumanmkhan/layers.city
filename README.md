@@ -44,7 +44,7 @@ Most of the work was deciding what the map should *not* do. These rules came fir
 ## How it's built
 
 - **One engine, a folder per city.** A shared map engine (`engine/`) knows how to draw kinds of layer. Everything specific to a city (layers, labels, colours, card rows, tour) lives in `cities/<city>/city.json`. Adding a city means adding data and config, not changing code.
-- **No server and no database.** Static files on Cloudflare Pages, with a Leaflet front end and no framework. The one exception is a small edge function that relays live bus arrivals.
+- **No server and no database.** Static files on Cloudflare Pages, with a MapLibre GL front end (drawn on the GPU, so it stays smooth on phones) and no framework. The one exception is a small edge function that relays live bus arrivals.
 - **Data pipeline.** Python (Shapely) and mapshaper clean, clip, join and simplify each source into small GeoJSON files.
 - **Keeps itself current.** About 40 scheduled GitHub Actions jobs pull each source daily, weekly or monthly and redeploy only what changed. A daily health check opens a GitHub issue when a feed goes stale or a job fails, and closes it once the data recovers.
 - **Shared with an iOS app.** The native app reads the same published files under a versioned data contract (`app-contract/`).

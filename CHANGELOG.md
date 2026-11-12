@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### The map draws on the GPU: MapLibre GL replaces Leaflet (November 13)
+- Every city's map now draws with MapLibre GL JS (WebGL) instead of Leaflet's SVG and HTML, so zooming and panning on
+  phones no longer stall while thousands of shapes and labels are redrawn. Names and icons are placed by MapLibre in the
+  old declutter order; street names run along their streets.
+- Looks are unchanged: `engine/gl.js` reads every layer's style from the CSS (light and dark, each city's colours, the
+  zoom rules) and turns it into MapLibre styles. Line badges are drawn per line (`badgeEnds` near the outer ends only),
+  election chips and neighbourhood badges as images, and focus mode dims and fades everything outside the place.
+- Save as image renders the map at the chosen size on the GPU (html-to-image is gone). Map labels use Inter glyph files
+  served with the site (`docs/glyphs/`, `engine/glyphs.py`). Leaflet and Leaflet.PolylineOffset are no longer loaded.
+- Fixed on the way: Reset no longer throws in a city without lens filters (Hyderabad).
+
 ### Melbourne: representatives and buses (November 12)
 - Representatives: the Lord Mayor and Deputy Lord Mayor, the state district and federal division in Boundaries, and
   the federal MP for the pin, with a Federal division layer shaded by party (*Refresh Melbourne representatives*,
