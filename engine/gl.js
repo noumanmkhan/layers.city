@@ -626,6 +626,9 @@ function badges(src, fc, keyOf, look, opts){
   opts = opts || {};
   const id = uid('b'), keys = new Map();
   fc.features.forEach(f => { const k = keyOf(f); f.properties._b = 'bd|' + id + '|' + k; if (!keys.has(k)) keys.set(k, f); });
+  // Badges read their key from a source of their own: the caller's source (a line layer's) was built from its own copy
+  // of these features before they had one, so a badge layer on it found nothing to draw.
+  src = source(fc);
   const draw = () => { const ring = colour(getComputedStyle(document.documentElement).getPropertyValue('--city').trim()) || '#fff';
     keys.forEach((f, k) => { const L_ = look(f); badgeImage('bd|' + id + '|' + k, L_.labels, L_.bg, L_.fg || inkOn(L_.bg), ring, opts.big); }); };
   const set = {redraw: () => (document.fonts ? document.fonts.ready : Promise.resolve()).then(draw)};
