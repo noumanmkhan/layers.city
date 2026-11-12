@@ -34,6 +34,8 @@ uses it for "next bus at 5:42 am" when the live feed has nothing (overnight, rus
 With "preferCurrent" in the "gtfs" block, every address is tried and the first whose service runs a week past today
 wins (else the one that runs latest). A feed that has already run out is counted on its last full week.
 
+"inner" in the "gtfs" block names zips inside the downloaded zip to use (Transport Victoria ships one per mode).
+
 When the agency's file is broken (the City's CKAN zip came back empty for a week in October 2026), "fallback"
 URLs in the "gtfs" block are tried in turn (Toronto: the TTC's own address, then the Mobility Database's copy).
 
@@ -163,10 +165,25 @@ else:
     else:
         feed_url = next((u for u in urls + src.get('fallback', []) if download(u, ZIP) and ok(ZIP)), None)
 if not feed_url: raise SystemExit('No GTFS found')
+# "inner": a feed that ships each mode as a zip inside the zip (Transport Victoria: 4/google_transit.zip is Melbourne's
+# metropolitan buses). The named inner zips are taken out (several are merged into one feed) and used as the feed.
+INNER_SHA = None
+if src.get('inner'):
+    with zipfile.ZipFile(ZIP) as outer:
+        inner, h = [], hashlib.sha256()
+        for i, n in enumerate(src['inner']):
+            p = os.path.join(WORK, 'inner%d.zip' % i)
+            b = outer.read(n); h.update(b)
+            open(p, 'wb').write(b); inner.append(p)
+    INNER_SHA = h.hexdigest()[:16]   # the inner zips' own bytes: a merge rewrites the zip differently every time
+    if len(inner) == 1: os.replace(inner[0], ZIP)
+    else: merge(inner, ZIP)
+    if not ok(ZIP): raise SystemExit('No GTFS in ' + ', '.join(src['inner']))
+    feed_url += ' (' + ', '.join(src['inner']) + ')'
 
 # The job runs weekly; agencies publish a new feed every few weeks. Same feed as last time: nothing to do,
 # so the repo only changes when the schedule does.
-SHA = hashlib.sha256(b''.join(open(p, 'rb').read() for p in (parts if urls is None else [ZIP]))).hexdigest()[:16]   # merged feeds: the parts' bytes
+SHA = INNER_SHA or hashlib.sha256(b''.join(open(p, 'rb').read() for p in (parts if urls is None else [ZIP]))).hexdigest()[:16]   # merged feeds: the parts' bytes
 # FORMAT changes when these files gain a field (2: each stop's rider-facing stop code), so the next run rewrites
 # them even from the same feed.
 FORMAT = 5   # 3: rapid_routes.json and rapid_stops.json; 4: each rapid shape's platforms in order; 5: sched.json
