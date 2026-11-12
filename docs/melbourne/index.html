@@ -2017,6 +2017,8 @@ function geo(fc, opts){
   if (!fc.features) fc = {type: 'FeatureCollection', features: [fc.type === 'Feature' ? fc : {type: 'Feature', properties: {}, geometry: fc}]};
   const src = source(fc), g = grp(), groups = new Map();
   g.src = src; g.fc = fc;
+  const addL0 = addL;
+  const addL_ = (def, pane, rank) => addL0(opts.minzoom ? Object.assign(def, {minzoom: LZ(opts.minzoom)}) : def, pane, rank);
   fc.features.forEach(f => {
     const k = kindOfGeom(f.geometry); if (!k) return;
     const c = opts.cls ? opts.cls(f) : '', key = k + '|' + c;
@@ -2029,12 +2031,12 @@ function geo(fc, opts){
     const width = () => { const css = byZoom(P, v => v.w, null); return css === null || (Array.isArray(css) && css.includes(null)) ? steps(wt) : css; };
     const opa = (a, b) => byZoom(P, v => (v.disp ? 1 : 0) * v.op * (a(v) == null ? 1 : a(v)), 1);
     if (k === 'poly'){
-      const fid = addL(hidden({id: uid('f'), type: 'fill', source: src, filter}), opts.pane);
+      const fid = addL_(hidden({id: uid('f'), type: 'fill', source: src, filter}), opts.pane);
       styled(fid, () => ({paint: {'fill-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'fill-opacity': byZoom(P, v => v.fill ? (v.disp ? 1 : 0) * v.op * v.fo : 0, 0)}}));
       g.ids.push(fid); if (opts.interactive !== false) reg(fid);
     }
     if (k === 'poly' || k === 'line'){
-      const lid = addL(hidden({id: uid('l'), type: 'line', source: src, filter, layout: Object.assign({}, lineJoin)}), opts.pane);
+      const lid = addL_(hidden({id: uid('l'), type: 'line', source: src, filter, layout: Object.assign({}, lineJoin)}), opts.pane);
       styled(lid, () => { const d = at(P, v => v.dash, 13); const w = width();
         const dd = d || opts.dash; const lc = byZoom(P, v => v.stroke, 'rgba(0,0,0,0)');
         return {paint: Object.assign({'line-color': opts.color ? ['coalesce', ['get', '_col'], lc] : lc, 'line-width': w,
@@ -2043,8 +2045,8 @@ function geo(fc, opts){
     }
     if (k === 'pt'){
       fc.features.forEach(x => { if (x.properties._k === i) x.properties._r = opts.radius ? opts.radius(x) : 4; });
-      const cid = addL(hidden({id: uid('c'), type: 'circle', source: src, filter}), opts.pane || 'pts');
-      styled(cid, () => ({paint: {'circle-radius': ['get', '_r'], 'circle-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'circle-opacity': opa(v => v.fill ? v.fo : 0),
+      const cid = addL_(hidden({id: uid('c'), type: 'circle', source: src, filter}), opts.pane || 'pts');
+      styled(cid, () => ({paint: {'circle-radius': opts.radiusZ ? steps(opts.radiusZ) : ['get', '_r'], 'circle-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'circle-opacity': opa(v => v.fill ? v.fo : 0),
         'circle-stroke-color': opts.color ? ['coalesce', ['get', '_col'], byZoom(P, v => v.stroke, 'rgba(0,0,0,0)')] : byZoom(P, v => v.stroke, 'rgba(0,0,0,0)'), 'circle-stroke-width': (() => { const w = byZoom(P, v => v.w, null); return w === null || Array.isArray(w) && w.includes(null) ? 1.5 : w; })(),
         'circle-stroke-opacity': opa(v => v.stroke ? v.so : 0)}, range: zoomRange(P)}));
       g.ids.push(cid); if (opts.interactive !== false) reg(cid);
@@ -2292,20 +2294,59 @@ function badges(src, fc, keyOf, look, opts){
 
 /* Plain boxes (small HTML marks such as ".cl-pin"): the element's CSS box as an icon, no text. */
 const BOXES = new Pool('boxes', (src, filter, item) => {
-  const cls = item.p.cls, id = uid('x'), img = 'bx|' + cls;
-  const P = htmlProbe('bx:' + cls, '<span class="' + cls + '"></span>', el => { const s = getComputedStyle(el);
-    return {disp: s.display !== 'none' && s.visibility !== 'hidden', op: +s.opacity, box: {width: s.width, height: s.height, borderRadius: s.borderTopLeftRadius, boxShadow: s.boxShadow,
+  const cls = item.p.cls, inner = item.p.inner || '', id = uid('x'), img = 'bx|' + cls;
+  const P = htmlProbe('bx:' + cls, '<span class="' + cls + '">' + inner + '</span>', el => { const s = getComputedStyle(el), a = getComputedStyle(el, '::after'), sv = el.querySelector('svg'), ss = sv && getComputedStyle(sv);
+    return {disp: s.display !== 'none' && s.visibility !== 'hidden', op: +s.opacity, w: parseFloat(s.width) || 7,
+      after: a.content && a.content !== 'none' && a.content !== 'normal' ? a.content.replace(/^["']|["']$/g, '') : '', ac: colour(a.color), af: a.fontWeight, as: parseFloat(a.fontSize) || 8,
+      g: ss && ss.display !== 'none' ? colour(ss.fill) : null,
+      box: {width: s.width, height: s.height, borderRadius: s.borderTopLeftRadius, boxShadow: s.boxShadow,
       backgroundColor: s.backgroundColor, color: s.color, borderTopWidth: s.borderTopWidth, borderTopColor: s.borderTopColor, borderTopStyle: s.borderTopStyle}}; });
-  addL({id, type: 'symbol', source: src, filter, layout: {'icon-image': img, 'icon-allow-overlap': true, 'symbol-sort-key': ['get', 's']}}, item.p.pane || 'pts');
-  const set = {redraw(){ const v = at(P, x => x, 14); svgImage(img, boxSvg(v.box, '', 0).svg); }};
+  addL({id, type: 'symbol', source: src, filter, layout: {'icon-image': img, 'icon-allow-overlap': true, 'symbol-sort-key': ['get', 's'], 'text-allow-overlap': true}}, item.p.pane || 'pts');
+  // Drawn at its biggest look (zoom 16) and scaled down by zoom; a glyph inside (svg) once the CSS shows it.
+  const glyphAt = () => LEVELS.find(l => vals(P)[l].g);
+  const set = {redraw(){ const v = at(P, x => x, 16), b = boxSvg(v.box, '', 0); svgImage(img, b.svg);
+    const gl_ = glyphAt(); if (gl_ && inner){ const gv = vals(P)[gl_]; const gs = parseFloat(v.box.width) * .7;
+      svgImage(img + '|g', boxSvg(Object.assign({}, v.box, {color: gv.g}), inner.replace(/<svg[^>]*>|<\/svg>/g, '').replace('<path', '<path transform="scale(2)"'), gs).svg); } }};
   ICONSETS.push(set); Promise.resolve().then(() => set.redraw());
-  styled(id, () => ({paint: {'icon-opacity': byZoom(P, v => v.op, 1)}, range: zoomRange(P)}));
+  styled(id, () => { const big = at(P, x => x.w, 16), gl_ = glyphAt(), aft = LEVELS.find(l => vals(P)[l].after), av = aft && vals(P)[aft];
+    return {layout: Object.assign({'icon-size': byZoom(P, v => v.w / big, 1), 'icon-image': gl_ && inner ? ['step', ['zoom'], img, LZ(gl_), img + '|g'] : img},
+      av ? {'text-field': ['step', ['zoom'], '', LZ(aft), av.after], 'text-font': [+av.af >= 700 ? 'Inter Bold' : 'Inter SemiBold'], 'text-size': byZoom(P, v => v.as, 8)} : {}),
+      paint: Object.assign({'icon-opacity': byZoom(P, v => v.op, 1)}, av ? {'text-color': av.ac || '#000'} : {}), range: zoomRange(P)}; });
   TAP.set(id, it => it.p.tap ? it.p.tap() : false);
   HOVER.set(id, it => it.p.hover);
 });
-const box = (latlng, cls, opts) => { opts = opts || {}; return new Item(BOXES, latlng, {cls, hover: opts.hover, tap: opts.tap, pane: opts.pane, _key: cls + '|' + (opts.pane || '')}); };
+const box = (latlng, cls, opts) => { opts = opts || {}; return new Item(BOXES, latlng, {cls, inner: opts.inner, hover: opts.hover, tap: opts.tap, pane: opts.pane, sort: opts.sort, _key: cls + '|' + (opts.pane || '')}); };
 /* Remove a group's layers for good (when it's rebuilt). */
 function drop(g){ if (!g) return; g.remove(); g.kids.forEach(drop); g.ids.forEach(id => { if (gl.getLayer(id)) gl.removeLayer(id); STYLERS.delete(id); TAP.delete(id); HOVER.delete(id); }); g.ids = []; }
+/* A whole file of same-looking icons in one layer (heritage diamonds, bike docks…): the icon from the CSS of
+   "<wrap cls> i", the name from "<wrap cls> b" (shown from the zoom the CSS shows it). opts: wrap, cls, glyph,
+   text(f), minzoom (Leaflet zoom), pane, hover(f), tap(f, e), sort(f). */
+function iconLayer(fc, opts){
+  const wrap = opts.wrap || 'lm', cls = opts.cls || '', key = wrap + '|' + cls, img = 'il|' + key + '|' + (opts.glyph || '');
+  fc.features.forEach(f => { f.properties._t = opts.text ? opts.text(f) || '' : ''; if (opts.sort) f.properties._s = opts.sort(f); });
+  const src = source(fc), id = uid('il');
+  const P = htmlProbe('il:' + key, '<span class="' + wrap + ' ' + cls + '"><i><svg viewBox="0 0 24 24"></svg></i><b>Ag</b></span>', el => {
+    const i = el.querySelector('i'), b = el.querySelector('b'), si = getComputedStyle(i), sv = i.querySelector('svg');
+    return Object.assign(textOf(getComputedStyle(b)), {box: {width: si.width, height: si.height, borderRadius: si.borderRadius, boxShadow: si.boxShadow, backgroundColor: si.backgroundColor, color: si.color,
+      borderTopWidth: si.borderTopWidth, borderTopColor: si.borderTopColor, borderTopStyle: si.borderTopStyle, transform: si.transform},
+      gap: parseFloat(getComputedStyle(el).columnGap) || 5, gs: sv ? parseFloat(getComputedStyle(sv).width) || 12 : 12,
+      idisp: getComputedStyle(el).display !== 'none' && si.display !== 'none', bdisp: getComputedStyle(b).display !== 'none'});
+  });
+  addL(hidden({id, type: 'symbol', source: src, minzoom: opts.minzoom ? LZ(opts.minzoom) : 0, layout: {'icon-image': img, 'text-anchor': 'left', 'text-optional': true,
+    'symbol-sort-key': ['coalesce', ['get', '_s'], 0], 'icon-padding': 1, 'text-padding': 2}}), opts.pane || 'sym', opts.rank == null ? 8 : opts.rank);
+  const set = {redraw(){ const v = at(P, x => x, 15); let b = boxSvg(v.box, GLYPH[opts.glyph] || '', v.gs);
+    // A rotated square (a diamond) keeps its CSS turn.
+    if (/matrix/.test(v.box.transform || '')) b = {svg: b.svg.replace('<rect', '<rect transform="rotate(45 ' + b.W / 2 + ' ' + b.H / 2 + ')"').replace(/(<rect)(?![^>]*transform)/g, '$1 transform="rotate(45 ' + b.W / 2 + ' ' + b.H / 2 + ')"')};
+    svgImage(img, b.svg); }};
+  ICONSETS.push(set); Promise.resolve().then(() => set.redraw());
+  styled(id, () => { const v = at(P, x => x, 15), bx = boxSvg(v.box, '', v.gs);
+    const tOn = LEVELS.filter(l => vals(P)[l].bdisp && vals(P)[l].idisp), tlo = tOn.length ? tOn[0] : 99;
+    return {layout: textLayout(v, {'text-size': byZoom(P, x => x.size, 11), 'text-offset': [(bx.w / 2 + v.gap) / v.size, 0],
+      'text-field': tlo <= 8 ? ['get', '_t'] : ['step', ['zoom'], '', LZ(tlo), ['get', '_t']]}), paint: textPaint(v)}; });
+  if (opts.hover) HOVER.set(id, opts.hover);
+  if (opts.tap) TAP.set(id, opts.tap);
+  return grp([id]);
+}
 
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -2582,7 +2623,7 @@ const driveTier = m => m == null ? null : DRIVE_TIERS.find(t => m < t[3]);
 const SUBURBS = LAYERS.find(it => it.kind === 'suburbs');
 
 /* Kinds not yet drawn on the GPU map: their panel rows stay, greyed out with a note, until they're ported. */
-const PENDING = new Set(['addresses', 'heritage', 'changes', 'bikes', 'parks', 'docks', 'spots', 'regional']);
+const PENDING = new Set([]);
 function pending(it){
   const g = grp(), row = document.getElementById('lyr-' + it.id), lab = row && row.closest('label');
   if (lab){ lab.classList.add('gl-pending'); lab.title = 'Coming back soon: this layer is being moved to the new map engine.'; }
@@ -2821,66 +2862,34 @@ const KINDS = {
   // dashed, each labelled with its number (westmost or northmost end). A city split by one street: that
   // street bold, and the streets it splits tinted East and West, with "West · East" marks along it.
   addresses: (it, fc) => {
-    const g = L.layerGroup();
+    const g = grp();
     if (fc.kind === 'grid'){
       const longest = {};
+      g.addLayer(geo(fc, {pane:'civic', cls: f => 'ag-line' + (f.properties.role === 'base' ? ' base' : ''), hover: f => esc(f.properties.street) + ' · ' + esc(f.properties.label)}));
       fc.features.forEach(f => {
-        const p = f.properties, c = f.geometry.coordinates;
-        const pl = L.polyline(c.map(ll), {pane:'civic', className: 'ag-line' + (p.role === 'base' ? ' base' : '')});
-        hoverTip(pl, esc(p.street) + ' · ' + esc(p.label));
-        pl.on('click', e => inspect(e.latlng));
-        g.addLayer(pl);
-        const k = p.axis + p.label, len = span(c);
+        const p = f.properties, k = p.axis + p.label, len = span(f.geometry.coordinates);
         if (!longest[k] || len > longest[k][1]) longest[k] = [f, len];
       });
       Object.values(longest).forEach(([f]) => {
         const p = f.properties, c = f.geometry.coordinates;
         const end = p.axis === 'ns' ? c.reduce((a, b) => b[0] < a[0] ? b : a) : c.reduce((a, b) => b[1] > a[1] ? b : a);
-        g.addLayer(L.tooltip({permanent:true, direction: p.axis === 'ns' ? 'right' : 'bottom', offset: p.axis === 'ns' ? [4, 0] : [0, 4], interactive:false,
-          className:'lbl lbl-ag' + (p.role === 'base' ? ' base' : '')}).setLatLng(ll(end)).setContent(esc(p.role === 'base' ? p.street + ' · 0' : p.label)));
+        g.addLayer(label(p.role === 'base' ? p.street + ' · 0' : p.label, 'lbl-ag' + (p.role === 'base' ? ' base' : ''), ll(end),
+          {direction: p.axis === 'ns' ? 'right' : 'bottom', offset: p.axis === 'ns' ? [4, 0] : [0, 4]}));
       });
     } else {
-      fc.features.forEach(f => {
-        const p = f.properties;
-        const pl = L.polyline(f.geometry.coordinates.map(ll), {pane:'civic', className: 'ag-' + p.role});
-        hoverTip(pl, esc(p.street) + (p.role === 'divide' ? '' : ' · ' + esc(p.role === 'e' ? it.eastText : it.westText)));
-        pl.on('click', e => inspect(e.latlng));
-        g.addLayer(pl);
-      });
+      g.addLayer(geo(fc, {pane:'civic', cls: f => 'ag-' + f.properties.role,
+        hover: f => esc(f.properties.street) + (f.properties.role === 'divide' ? '' : ' · ' + esc(f.properties.role === 'e' ? it.eastText : it.westText))}));
       // "West · East" marks along the dividing street, at a few points spread along it.
       const div = fc.features.filter(f => f.properties.role === 'divide').map(f => f.geometry.coordinates).reduce((a, b) => span(b) > span(a) ? b : a, []);
-      if (div.length > 1) [.12, .45, .8].forEach(t => g.addLayer(L.tooltip({permanent:true, direction:'center', interactive:false, className:'lbl lbl-ag div'})
-        .setLatLng(ll(along(div, t))).setContent('<i>' + esc(it.westText) + '</i><b>' + esc(fc.street) + '</b><i>' + esc(it.eastText) + '</i>')));
+      if (div.length > 1) [.12, .45, .8].forEach(t => g.addLayer(label(it.westText + '  ·  ' + fc.street + '  ·  ' + it.eastText, 'lbl-ag div', ll(along(div, t)))));
     }
     return g;
   },
-  // Heritage buildings: a small diamond per individually protected property, only from zoom it.minZoom (15)
-  // and only those in view (redrawn after each move), so a phone never holds more than a street's worth;
-  // names (when the record has one) from zoom 16. Tap for its name, year, architect and designation.
-  heritage: (it, fc) => {
-    const g = L.layerGroup(), shown = new Map(), minZ = it.minZoom || 15;
-    const make = f => {
-      const p = f.properties;
-      const m = L.marker(ll(f.geometry.coordinates), {pane:'pts', keyboard:false, riseOnHover:true,
-        icon: L.divIcon({className:'', iconSize:[0, 0], html:'<span class="hbm"><i></i>' + (p.n ? '<b>' + esc(p.n) + '</b>' : '') + '</span>'})});
-      hoverTip(m, esc(p.n || p.a) + (p.y ? ' · ' + esc(p.y) : ''));
-      m.on('click', e => { L.DomEvent.stop(e); hbPopup(it, p, e.latlng); });
-      return m;
-    };
-    const draw = () => {
-      if (!map.hasLayer(g)) return;
-      const on = map.getZoom() >= minZ - .01, b = map.getBounds().pad(.25);
-      fc.features.forEach(f => {
-        const c = f.geometry.coordinates, want = on && b.contains([c[1], c[0]]), m = shown.get(f);
-        if (want && !m){ const mk = make(f); shown.set(f, mk); g.addLayer(mk); }
-        else if (!want && m){ g.removeLayer(m); shown.delete(f); }
-      });
-    };
-    map.on('moveend', draw);
-    g.on('add', () => setTimeout(draw));
-    g.on('remove', () => { shown.forEach(m => g.removeLayer(m)); shown.clear(); });
-    return g;
-  },
+  // Heritage buildings: a small diamond per individually protected property, from zoom it.minZoom (15); names (when
+  // the record has one) from the zoom the CSS shows them. Tap for its name, year, architect and designation.
+  heritage: (it, fc) => iconLayer(fc, {wrap: 'hbm', minzoom: it.minZoom || 15, text: f => f.properties.n, rank: 12,
+    hover: f => esc(f.properties.n || f.properties.a) + (f.properties.y ? ' · ' + esc(f.properties.y) : ''),
+    tap: (f, e) => { hbPopup(it, f.properties, e.latlng); }}),
   // Neighbourhood badges (engine/badges.py): a one-colour drawing for a few curated places, laid like a watermark
   // just over the street lines (faint enough to show them) and under outlines and every label, turned square to the city grid (data angle) and sized to a share (it.scale) of the largest
   // box of its shape that fits inside its unit, so it never spills into a neighbour. Shown once it is it.minWidth px
@@ -2913,21 +2922,16 @@ const KINDS = {
   // What's changing: a dot per site, coloured by stage; demolitions dashed. Loads on first use (it.lazy).
   // Stage chips (several at once) narrow it. Tap a dot for what it is, its stage and date, and a link.
   changes: it => {
-    const g = L.layerGroup(); let cur = null;
+    const g = grp(); let cur = null;
     g._draw = () => {
-      if (cur){ g.removeLayer(cur); cur = null; }
+      if (cur){ g.removeLayer(cur); drop(cur); cur = null; }
       if (!data.changes) return;
-      cur = L.layerGroup();
-      data.changes.features.forEach(f => {
-        const p = f.properties; if (!chgStages.has(p.s)) return;
-        const m = L.circleMarker(ll(f.geometry.coordinates), {pane:'pts', radius: chgR(), className: 'chg s-' + p.s + (p.k === 'demolition' ? ' demo' : '')});
-        hoverTip(m, esc(CHG.kinds[p.k] || p.k) + ' · ' + esc(p.a) + ' · ' + esc(CHG.stages[p.s][0]));
-        m.on('click', e => { L.DomEvent.stop(e); chgPopup(p, e.latlng); });
-        cur.addLayer(m);
-      });
+      const fs = data.changes.features.filter(f => chgStages.has(f.properties.s)).map(f => ({type: 'Feature', geometry: f.geometry, properties: f.properties}));
+      cur = geo({type: 'FeatureCollection', features: fs}, {pane:'pts', cls: f => 'chg s-' + f.properties.s + (f.properties.k === 'demolition' ? ' demo' : ''), radiusZ: [[0, 2.8], [12, 4], [14, 5.5]],
+        hover: f => esc(CHG.kinds[f.properties.k] || f.properties.k) + ' · ' + esc(f.properties.a) + ' · ' + esc(CHG.stages[f.properties.s][0]),
+        tap: (f, e) => { chgPopup(f.properties, e.latlng); }});
       g.addLayer(cur);
     };
-    map.on('zoomend', () => cur && cur.eachLayer(m => m.setRadius(chgR())));
     g.on('add', () => ensureChanges().then(() => g._draw()));
     return g;
   },
@@ -2936,46 +2940,36 @@ const KINDS = {
   // Drawn in the highway pane, above the area outlines, so a tap on a lane reaches it rather than the neighbourhood.
   // Tap a stretch for its type, street, ends and year installed.
   bikes: it => {
-    const g = L.layerGroup(); let cur = null;
+    const g = grp(); let cur = null;
+    const W = t => { const b = {prot: 3.4, paint: 2.4, shared: 2, trail: 2.2}[t] || 2; return [[0, b * .7], [12, b * .85], [13, b], [15, b * 1.3]]; };
     g._draw = () => {
-      if (cur){ g.removeLayer(cur); cur = null; }
+      if (cur){ g.removeLayer(cur); drop(cur); cur = null; }
       if (!data.bikes) return;
-      const fs = data.bikes.features.filter(f => bkClasses.has(f.properties.t));
-      const fc = {type: 'FeatureCollection', features: fs};
-      cur = L.layerGroup();
+      const fs = data.bikes.features.filter(f => bkClasses.has(f.properties.t)).map(f => ({type: 'Feature', geometry: f.geometry, properties: f.properties}));
+      cur = grp();
       // A light casing under the lanes on the street, so they read over a main street's grey.
-      cur.addLayer(L.geoJSON({type: 'FeatureCollection', features: fs.filter(f => f.properties.t === 'prot' || f.properties.t === 'paint')},
-        {pane: 'hwy', interactive: false, style: f => ({className: 'bk-case t-' + f.properties.t, weight: bkW(f.properties.t) + 2.4})}));
-      cur.addLayer(L.geoJSON(fc, {pane: 'hwy', style: f => ({className: 'bk t-' + f.properties.t, weight: bkW(f.properties.t)}),
-        onEachFeature: (f, lyr) => {
-          const p = f.properties;
-          hoverTip(lyr, esc(p.d) + (p.n ? ' · ' + esc(p.n) : ''));
-          lyr.on('click', e => { L.DomEvent.stop(e); bkPopup(p, e.latlng); });
-        }}));
+      cur.addLayer(geo({type: 'FeatureCollection', features: fs.filter(f => f.properties.t === 'prot' || f.properties.t === 'paint')},
+        {pane: 'hwy', interactive: false, cls: f => 'bk-case t-' + f.properties.t, weight: f => W(f.properties.t).map(([z, w]) => [z, w + 2.4])}));
+      cur.addLayer(geo({type: 'FeatureCollection', features: fs}, {pane: 'hwy', cls: f => 'bk t-' + f.properties.t, weight: f => W(f.properties.t),
+        hover: f => esc(f.properties.d) + (f.properties.n ? ' · ' + esc(f.properties.n) : ''), tap: (f, e) => { bkPopup(f.properties, e.latlng); }}));
       g.addLayer(cur);
     };
-    map.on('zoomend', () => cur && cur.eachLayer(l => l.eachLayer(s => s.setStyle({weight: bkW(s.feature.properties.t) + (s.options.interactive === false ? 2.4 : 0)}))));
     g.on('add', () => ensureBikes().then(() => g._draw()));
     return g;
   },
   // Parks: outlines shaded green, one path per park. Amenity chips (it.amenities, any mix) narrow it: a park that lacks
   // one of the picked amenities fades to a faint wash, so the green space still reads. Drawn in the civic pane, above the
-  // neighbourhood fills, so a tap reaches the park; the wash is light enough for the streets to show through.
-  // Tap for its name, what it has and its City page. Loads on first use (it.lazy).
+  // neighbourhood fills, so a tap reaches the park. Tap for its name, what it has and its City page. Loads on first use.
   parks: it => {
-    const g = L.layerGroup(); let cur = null;
+    const g = grp(); let cur = null;
     g._draw = () => {
       if (!data.parks) return;
-      if (!cur){
-        cur = L.geoJSON(data.parks, {pane: 'civic', style: () => ({className: 'pk'}), onEachFeature: (f, lyr) => {
-          hoverTip(lyr, esc(pkTip(f.properties)));
-          lyr.on('click', e => { L.DomEvent.stop(e); pkPopup(f.properties, e.latlng); });
-        }});
-        g.addLayer(cur);
-      }
+      if (cur){ g.removeLayer(cur); drop(cur); }
       let n = 0;
-      cur.eachLayer(l => { const ok = pkMatch(l.feature.properties), el = l.getElement && l.getElement();
-        if (ok) n++; if (el) el.classList.toggle('dim', !ok); l.options.className = 'pk' + (ok ? '' : ' dim'); });
+      const fs = data.parks.features.map(f => { const ok = pkMatch(f.properties); if (ok) n++; return {type: 'Feature', geometry: f.geometry, properties: Object.assign(f.properties, {_ok: ok})}; });
+      cur = geo({type: 'FeatureCollection', features: fs}, {pane: 'civic', cls: f => 'pk' + (f.properties._ok ? '' : ' dim'), hover: f => esc(pkTip(f.properties)),
+        tap: (f, e) => { pkPopup(f.properties, e.latlng); }});
+      g.addLayer(cur);
       const note = document.getElementById('pknote');
       if (note) note.textContent = pkWant.size ? fill(it.matchText || '{n} of {total} parks', {n: n.toLocaleString(CITY.locale), total: data.parks.features.length.toLocaleString(CITY.locale)}) : '';
     };
@@ -2983,73 +2977,50 @@ const KINDS = {
     return g;
   },
   // Bike share stations (engine/bikeshare.py), nested under Bike lanes: a small ringed dot per station, filled where it
-  // charges e-bikes, from zoom it.minZoom (12) and only those near the view (redrawn after each move). A wider clear
-  // circle over each dot takes the tap. Tap for its name, docks, e-bike charging and whether the kiosk takes cards.
-  // No live counts of bikes or free docks. Loads on first use (it.lazy).
+  // charges e-bikes, from zoom it.minZoom (12). Tap for its name, docks, e-bike charging and whether the kiosk takes
+  // cards. No live counts of bikes or free docks. Loads on first use (it.lazy).
   docks: it => {
-    const g = L.layerGroup(), shown = new Map(), minZ = it.minZoom || 12;
-    const make = f => {
-      const p = f.properties, at = ll(f.geometry.coordinates), r = dkR();
-      const dot = L.circleMarker(at, {pane: 'pts', radius: r, interactive: false, className: 'dk' + (p.e ? ' e' : '')});
-      const hit = L.circleMarker(at, {pane: 'pts', radius: r + 6, className: 'dk-hit'});
-      hoverTip(hit, esc(p.n) + (p.d ? ' · ' + esc(fill(it.docksText || '{n} docks', {n: p.d})) : ''));
-      hit.on('click', e => { L.DomEvent.stop(e); dkPopup(p, at); });
-      return L.layerGroup([dot, hit]);
-    };
-    const draw = () => {
-      if (!map.hasLayer(g) || !data.docks) return;
-      const on = map.getZoom() >= minZ - .01, b = map.getBounds().pad(.25);
-      data.docks.features.forEach(f => {
-        const c = f.geometry.coordinates, want = on && b.contains([c[1], c[0]]), m = shown.get(f);
-        if (want && !m){ const mk = make(f); shown.set(f, mk); g.addLayer(mk); }
-        else if (!want && m){ g.removeLayer(m); shown.delete(f); }
-      });
-    };
-    map.on('moveend', draw);
-    map.on('zoomend', () => { const r = dkR(); shown.forEach(m => m.eachLayer(c => c.setRadius(c.options.className === 'dk-hit' ? r + 6 : r))); });
-    g.on('add', () => ensureDocks().then(() => setTimeout(draw)));
-    g.on('remove', () => { shown.forEach(m => g.removeLayer(m)); shown.clear(); });
+    const g = grp(); let made = false;
+    g.on('add', () => ensureDocks().then(() => {
+      if (made || !data.docks) return; made = true;
+      g.addLayer(geo(data.docks, {pane: 'pts', minzoom: it.minZoom || 12, cls: f => 'dk' + (f.properties.e ? ' e' : ''), radiusZ: [[0, 2.2], [13, 3.3], [15, 4.6]],
+        hover: f => esc(f.properties.n) + (f.properties.d ? ' · ' + esc(fill(it.docksText || '{n} docks', {n: f.properties.d})) : ''),
+        tap: f => { dkPopup(f.properties, ll(f.geometry.coordinates)); }}));
+    }));
     return g;
   },
   // Parking spots (car parks and EV chargers) from one shared points file (it.file, e.g. parking.geojson), the layer's own
   // ones picked by p.c === it.cat. it.mark is "lot" (a square: filled for a garage, outlined for a surface lot, sized
   // by spaces) or "charger" (a dot: filled with a heavier ring where DC fast charging is, ringed where Level 2 only;
-  // grey and dashed when listed as temporarily unavailable). Drawn from it.minZoom and only near the view, like docks;
-  // a wider clear target takes the tap. Chips (it.classes) narrow it by class. Loads on first use (it.lazy).
+  // grey and dashed when listed as temporarily unavailable). Shown from it.minZoom. Chips (it.classes) narrow it by class.
   spots: it => {
-    const g = L.layerGroup(), shown = new Map(), minZ = it.minZoom || 12;
-    const make = f => {
-      const p = f.properties, at = ll(f.geometry.coordinates), c = spotClass(it, p);
-      const m = L.marker(at, {pane: 'pts', keyboard: false, riseOnHover: true, zIndexOffset: c === 'dc' || c === 'g' ? 100 : 0,
-        icon: L.divIcon({className: '', iconSize: [0, 0], html: '<span class="sp ' + it.mark + ' c-' + c + ' z-' + spotSize(it, p) + (p.off ? ' off' : '') + (p.tes ? ' tes' : '') + '">' + (it.mark === 'charger' ? BOLT : '') + '</span>'})});
-      hoverTip(m, esc(spotTip(it, p)));
-      m.on('click', e => { L.DomEvent.stop(e); spotPopup(it, p, at); });
-      return m;
-    };
+    const g = grp(), items = new Map(), minZ = it.minZoom || 12;
+    const make = f => { const p = f.properties, at = ll(f.geometry.coordinates), c = spotClass(it, p);
+      return box(at, 'sp ' + it.mark + ' c-' + c + ' z-' + spotSize(it, p) + (p.off ? ' off' : '') + (p.tes ? ' tes' : ''), {inner: it.mark === 'charger' ? BOLT : '',
+        sort: c === 'dc' || c === 'g' ? 0 : 1, hover: esc(spotTip(it, p)), tap: () => spotPopup(it, p, at)}); };
     const draw = () => {
       const D = loaded[it.file];
       if (!map.hasLayer(g) || !D) return;
-      const pick = spotPick[it.id], on = map.getZoom() >= minZ - .01, b = map.getBounds().pad(.25);
+      const pick = spotPick[it.id];
+      g.clearLayers();
       D.features.forEach(f => {
-        if (f.properties.c !== it.cat) return;
-        const c = f.geometry.coordinates, want = on && b.contains([c[1], c[0]]) && (!pick || pick.has(spotClass(it, f.properties))), m = shown.get(f);
-        if (want && !m){ const mk = make(f); shown.set(f, mk); g.addLayer(mk); }
-        else if (!want && m){ g.removeLayer(m); shown.delete(f); }
+        if (f.properties.c !== it.cat || (pick && !pick.has(spotClass(it, f.properties)))) return;
+        let m = items.get(f); if (!m){ m = make(f); items.set(f, m); }
+        g.addLayer(m);
       });
       const n = document.getElementById('spnote-' + it.id);
       if (n) n.textContent = map.getZoom() < minZ - .01 ? fill(it.zoomText || 'Zoom in to see them.', {z: minZ}) : '';
     };
     g._draw = draw;
-    map.on('moveend', draw);
+    map.on('zoomend', () => { const n = document.getElementById('spnote-' + it.id); if (n && map.hasLayer(g)) n.textContent = map.getZoom() < minZ - .01 ? fill(it.zoomText || 'Zoom in to see them.', {z: minZ}) : ''; });
     g.on('add', () => ensureSpots(it).then(() => setTimeout(draw)));
-    g.on('remove', () => { shown.forEach(m => g.removeLayer(m)); shown.clear(); });
     return g;
   },
   // Another agency's buses (it.mode, e.g. GO): every route in the regional view; in the city view only the
   // routes with a stop in the city, numbered where they run inside it. Lines sit in the rail pane, under the
   // mask, so a route's stretch outside the city fades with the rest of the region. Shapes load on first use.
   regional: it => {
-    const g = L.layerGroup(); let full = null, inner = null;
+    const g = grp(); let full = null, inner = null;
     const inCity = c => !data.footprint || hit(data.footprint, c[0], c[1]);
     g._scope = s => { if (!full) return; g.removeLayer(full); g.removeLayer(inner); g.addLayer(s === 'inner' ? inner : full); };
     g.on('add', () => ensureRoutes().then(() => {
@@ -3526,103 +3497,6 @@ const span = c => c.reduce((a, p, i) => i ? a + Math.hypot((p[0] - c[i - 1][0]) 
    after every move on the longest stretch of the line in the open part of the map (clear of the panels,
    other badges and, where there's room, names), so a line on screen always says which it is. A badge keeps
    its spot while that spot stays in view, so panning doesn't make them jump. */
-function lineBadges(it, fc, lg, owner){
-  const g = L.layerGroup(), B = it.badges || {}, last = {};
-  let lastZ = null;
-  // The line's colour: the variable its CSS rule strokes with (so it follows the theme), else what's drawn.
-  const rule = id => { for (const sh of document.styleSheets){ let rs; try { rs = sh.cssRules; } catch (e) { continue; }
-    for (const r of rs) if (r.selectorText === '.sub-line.l' + id && r.style.stroke) return r.style.stroke; } return null; };
-  const ink = c => { const m = String(c).match(/\d+(\.\d+)?/g); if (!m || m.length < 3) return '#fff';
-    const [r, gg, b] = m.slice(0, 3).map(Number); return (r * 299 + gg * 587 + b * 114) / 1000 > 165 ? '#111' : '#fff'; };
-  const paths = {}; lg.eachLayer(l => { paths[l.feature.properties.line] = l; });
-  const items = fc.features.map(f => {
-    const p = f.properties, parts = f.geometry.type === 'LineString' ? [f.geometry.coordinates] : f.geometry.coordinates;
-    const labs = [].concat(B[p.line] != null ? B[p.line] : p.line);
-    // A part's end is the end of the line if no other part of it carries on from there (not a junction).
-    const near = (a, b) => Math.abs(a[0] - b[0]) < 2e-4 && Math.abs(a[1] - b[1]) < 2e-4;
-    const loose = (pt, i) => !parts.some((q, j) => j !== i && q.some(v => near(v, pt)));
-    const ends = parts.map((c, i) => [loose(c[0], i), loose(c[c.length - 1], i)]);
-    const w = labs.reduce((a, s) => a + (String(s).length > 2 ? String(s).length * 6.6 + 12 : 18) + 2, 0);
-    return {f, p, parts, labs, ends, w, v: rule(p.line)};
-  });
-  const html = x => {
-    const el = paths[x.p.line] && paths[x.p.line].getElement(), c = x.v || x.p.color || (el && getComputedStyle(el).stroke) || 'var(--ink)';
-    const seen = el ? getComputedStyle(el).stroke : x.p.color, fg = ink(seen || '');
-    return '<span class="sub-b">' + x.labs.map(s => '<i class="' + (String(s).length > 2 ? 'w' : '') + '" style="background:' + c + ';color:' + fg + '">' + esc(s) + '</i>').join('') + '</span>';
-  };
-  const len = r => r.reduce((a, q, i) => i ? a + q.distanceTo(r[i - 1]) : 0, 0);
-  const at = (r, d) => { for (let i = 1; i < r.length; i++){ const s = r[i].distanceTo(r[i - 1]); if (d <= s) return r[i - 1].add(r[i].subtract(r[i - 1]).multiplyBy(s ? d / s : 0)); d -= s; } return r[r.length - 1]; };
-  function place(){
-    g.clearLayers();
-    if (!map.hasLayer(owner)) return;
-    const size = map.getSize(), mr = map.getContainer().getBoundingClientRect(), m = 16;
-    const view = L.bounds([m, m], [size.x - m, size.y - m]), mid = size.divideBy(2);
-    const rects = sel => [...document.querySelectorAll(sel)].map(el => el.getBoundingClientRect()).filter(r => r.width && r.height)
-      .map(r => [r.left - mr.left - 4, r.top - mr.top - 4, r.right - mr.left + 4, r.bottom - mr.top + 4]);
-    // Hard: the panels and controls floating over the map, then each badge as it's placed. Soft (kept clear of
-    // where there's room): names of streets and stations, station dots, route numbers.
-    const hard = saving ? [] : rects('#panel, #search, #here, #ptabs, .leaflet-control');
-    const soft = rects('.st-lbl, .leaflet-tooltip.lbl, .stn, .rt-b, .shield, .lm i');
-    const hits = (b, list) => list.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
-    // Busiest lines first, so the trunks with several services get the best spots.
-    [...items].sort((a, b) => b.labs.length - a.labs.length).forEach(x => {
-      const box = q => [q.x - x.w / 2 - 2, q.y - 11, q.x + x.w / 2 + 2, q.y + 11];
-      const inView = q => q.x - x.w / 2 > m && q.x + x.w / 2 < size.x - m && q.y > m + 10 && q.y < size.y - m - 10;
-      const ok = (q, strict) => inView(q) && !hits(box(q), hard) && (!strict || !hits(box(q), soft));
-      // The line's stretches in view (screen points), noting which ends are the end of the line.
-      const runs = [];
-      x.parts.forEach((c, i) => {
-        const px = c.map(v => map.latLngToContainerPoint([v[1], v[0]]));
-        let cur = null;
-        for (let k = 1; k < px.length; k++){
-          const s = L.LineUtil.clipSegment(px[k - 1], px[k], view, false, false);
-          if (!s){ if (cur){ runs.push(cur); cur = null; } continue; }
-          if (!cur || cur.pts[cur.pts.length - 1] !== s[0]){ if (cur) runs.push(cur); cur = {pts: [s[0]], a: k === 1 && s[0] === px[0] && x.ends[i][0], b: false}; }
-          cur.pts.push(s[1]);
-          if (k === px.length - 1 && s[1] === px[k] && x.ends[i][1]) cur.b = true;
-        }
-        if (cur) runs.push(cur);
-      });
-      if (!runs.length){ delete last[x.p.line]; return; }
-      runs.forEach(r => { r.len = len(r.pts); });
-      const cands = [];
-      // Where it was, if that's still in view and the zoom hasn't changed (a new zoom starts afresh).
-      if (last[x.p.line] && lastZ === map.getZoom()) cands.push(map.latLngToContainerPoint(last[x.p.line]));
-      // Near an end of the line, outermost first (the ends spread out; the middles bunch up downtown).
-      const tips = [];
-      // With "badgeEnds", an end inside the city (every line's city terminus) doesn't count: only the outer ends do.
-      const outer = q => { if (!it.badgeEnds || !data.footprint) return true; const p = map.containerPointToLatLng(q); return !hit(data.footprint, p.lng, p.lat); };
-      runs.forEach(r => { if (r.len < 40) return;
-        if (r.a && outer(r.pts[0])) tips.push([r.pts, r.pts[0]]);
-        if (r.b){ const rev = [...r.pts].reverse(); if (outer(rev[0])) tips.push([rev, rev[0]]); } });
-      tips.sort((a, b) => b[1].distanceTo(mid) - a[1].distanceTo(mid))
-        .forEach(([pts]) => [x.w / 2 + 16, x.w / 2 + 40, x.w / 2 + 70].forEach(d => cands.push(at(pts, d))));
-      // Otherwise along the longest stretches in view, from their middles outward. A layer with "badgeEnds" (many
-      // lines sharing track through the centre, like Melbourne's trains) badges a line only near its end, so the
-      // centre isn't buried in badges: with the end out of view, the line goes without.
-      if (!it.badgeEnds) runs.sort((a, b) => b.len - a.len).slice(0, 4).forEach(r => [.5, .4, .6, .3, .7, .2, .8, .1, .9].forEach(t => cands.push(at(r.pts, r.len * t))));
-      // Where every spot is crowded, the one that covers the fewest names.
-      const cover = q => soft.filter(o => { const b = box(q); return b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]; }).length;
-      const best = cands.filter(q => ok(q, false)).map(q => [q, cover(q)]).reduce((a, b) => !a || b[1] < a[1] ? b : a, null);
-      const q = cands.find(q => ok(q, true)) || (best && best[0]);
-      if (!q) return;
-      hard.push(box(q));
-      const ll_ = map.containerPointToLatLng(q); last[x.p.line] = ll_;
-      const mk = L.marker(ll_, {pane:'pts', keyboard:false, zIndexOffset: 500,
-        icon: L.divIcon({className:'', iconSize:[0, 0], html: html(x)})});
-      hoverTip(mk, x.p.name);
-      mk.on('click', e => inspect(e.latlng));
-      g.addLayer(mk);
-    });
-    lastZ = map.getZoom();
-  }
-  map.on('moveend', place); owner.on('add', () => setTimeout(place));
-  // A new theme changes the lines' colours (and so whether the text on a badge reads better dark or light).
-  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => setTimeout(place));
-  new MutationObserver(() => setTimeout(place)).observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
-  setTimeout(place);
-  return g;
-}
 // Route lines with number badges. Line widths follow the zoom through CSS (.z12, .z14 on the map).
 // opts.pane: the map pane (default 'transit'); opts.within(c): badges go mid-way along the longest stretch
 // of the route where it's true (e.g. inside the city), or nowhere if there's none.
@@ -4060,6 +3934,7 @@ function applyFilter(){
   const LL = byKind('lens') && layers[byKind('lens').id];
   if (LL && LL._restyle) LL._restyle();
   const on = filtOn(), res = document.getElementById('fres'), list = document.getElementById('flist');
+  if (!res || !list) return;   // a city with no lens filters (Hyderabad)
   res.hidden = !on; list.innerHTML = '';
   if (!on || !data.profiles) return;
   const hits = data.units.features.filter(f => matches(data.profiles[String(f.properties.code)])).sort((a, b) => a.properties.name.localeCompare(b.properties.name));

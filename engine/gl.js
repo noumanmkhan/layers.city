@@ -302,6 +302,8 @@ function geo(fc, opts){
   if (!fc.features) fc = {type: 'FeatureCollection', features: [fc.type === 'Feature' ? fc : {type: 'Feature', properties: {}, geometry: fc}]};
   const src = source(fc), g = grp(), groups = new Map();
   g.src = src; g.fc = fc;
+  const addL0 = addL;
+  const addL_ = (def, pane, rank) => addL0(opts.minzoom ? Object.assign(def, {minzoom: LZ(opts.minzoom)}) : def, pane, rank);
   fc.features.forEach(f => {
     const k = kindOfGeom(f.geometry); if (!k) return;
     const c = opts.cls ? opts.cls(f) : '', key = k + '|' + c;
@@ -314,12 +316,12 @@ function geo(fc, opts){
     const width = () => { const css = byZoom(P, v => v.w, null); return css === null || (Array.isArray(css) && css.includes(null)) ? steps(wt) : css; };
     const opa = (a, b) => byZoom(P, v => (v.disp ? 1 : 0) * v.op * (a(v) == null ? 1 : a(v)), 1);
     if (k === 'poly'){
-      const fid = addL(hidden({id: uid('f'), type: 'fill', source: src, filter}), opts.pane);
+      const fid = addL_(hidden({id: uid('f'), type: 'fill', source: src, filter}), opts.pane);
       styled(fid, () => ({paint: {'fill-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'fill-opacity': byZoom(P, v => v.fill ? (v.disp ? 1 : 0) * v.op * v.fo : 0, 0)}}));
       g.ids.push(fid); if (opts.interactive !== false) reg(fid);
     }
     if (k === 'poly' || k === 'line'){
-      const lid = addL(hidden({id: uid('l'), type: 'line', source: src, filter, layout: Object.assign({}, lineJoin)}), opts.pane);
+      const lid = addL_(hidden({id: uid('l'), type: 'line', source: src, filter, layout: Object.assign({}, lineJoin)}), opts.pane);
       styled(lid, () => { const d = at(P, v => v.dash, 13); const w = width();
         const dd = d || opts.dash; const lc = byZoom(P, v => v.stroke, 'rgba(0,0,0,0)');
         return {paint: Object.assign({'line-color': opts.color ? ['coalesce', ['get', '_col'], lc] : lc, 'line-width': w,
@@ -328,8 +330,8 @@ function geo(fc, opts){
     }
     if (k === 'pt'){
       fc.features.forEach(x => { if (x.properties._k === i) x.properties._r = opts.radius ? opts.radius(x) : 4; });
-      const cid = addL(hidden({id: uid('c'), type: 'circle', source: src, filter}), opts.pane || 'pts');
-      styled(cid, () => ({paint: {'circle-radius': ['get', '_r'], 'circle-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'circle-opacity': opa(v => v.fill ? v.fo : 0),
+      const cid = addL_(hidden({id: uid('c'), type: 'circle', source: src, filter}), opts.pane || 'pts');
+      styled(cid, () => ({paint: {'circle-radius': opts.radiusZ ? steps(opts.radiusZ) : ['get', '_r'], 'circle-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'circle-opacity': opa(v => v.fill ? v.fo : 0),
         'circle-stroke-color': opts.color ? ['coalesce', ['get', '_col'], byZoom(P, v => v.stroke, 'rgba(0,0,0,0)')] : byZoom(P, v => v.stroke, 'rgba(0,0,0,0)'), 'circle-stroke-width': (() => { const w = byZoom(P, v => v.w, null); return w === null || Array.isArray(w) && w.includes(null) ? 1.5 : w; })(),
         'circle-stroke-opacity': opa(v => v.stroke ? v.so : 0)}, range: zoomRange(P)}));
       g.ids.push(cid); if (opts.interactive !== false) reg(cid);
@@ -577,17 +579,56 @@ function badges(src, fc, keyOf, look, opts){
 
 /* Plain boxes (small HTML marks such as ".cl-pin"): the element's CSS box as an icon, no text. */
 const BOXES = new Pool('boxes', (src, filter, item) => {
-  const cls = item.p.cls, id = uid('x'), img = 'bx|' + cls;
-  const P = htmlProbe('bx:' + cls, '<span class="' + cls + '"></span>', el => { const s = getComputedStyle(el);
-    return {disp: s.display !== 'none' && s.visibility !== 'hidden', op: +s.opacity, box: {width: s.width, height: s.height, borderRadius: s.borderTopLeftRadius, boxShadow: s.boxShadow,
+  const cls = item.p.cls, inner = item.p.inner || '', id = uid('x'), img = 'bx|' + cls;
+  const P = htmlProbe('bx:' + cls, '<span class="' + cls + '">' + inner + '</span>', el => { const s = getComputedStyle(el), a = getComputedStyle(el, '::after'), sv = el.querySelector('svg'), ss = sv && getComputedStyle(sv);
+    return {disp: s.display !== 'none' && s.visibility !== 'hidden', op: +s.opacity, w: parseFloat(s.width) || 7,
+      after: a.content && a.content !== 'none' && a.content !== 'normal' ? a.content.replace(/^["']|["']$/g, '') : '', ac: colour(a.color), af: a.fontWeight, as: parseFloat(a.fontSize) || 8,
+      g: ss && ss.display !== 'none' ? colour(ss.fill) : null,
+      box: {width: s.width, height: s.height, borderRadius: s.borderTopLeftRadius, boxShadow: s.boxShadow,
       backgroundColor: s.backgroundColor, color: s.color, borderTopWidth: s.borderTopWidth, borderTopColor: s.borderTopColor, borderTopStyle: s.borderTopStyle}}; });
-  addL({id, type: 'symbol', source: src, filter, layout: {'icon-image': img, 'icon-allow-overlap': true, 'symbol-sort-key': ['get', 's']}}, item.p.pane || 'pts');
-  const set = {redraw(){ const v = at(P, x => x, 14); svgImage(img, boxSvg(v.box, '', 0).svg); }};
+  addL({id, type: 'symbol', source: src, filter, layout: {'icon-image': img, 'icon-allow-overlap': true, 'symbol-sort-key': ['get', 's'], 'text-allow-overlap': true}}, item.p.pane || 'pts');
+  // Drawn at its biggest look (zoom 16) and scaled down by zoom; a glyph inside (svg) once the CSS shows it.
+  const glyphAt = () => LEVELS.find(l => vals(P)[l].g);
+  const set = {redraw(){ const v = at(P, x => x, 16), b = boxSvg(v.box, '', 0); svgImage(img, b.svg);
+    const gl_ = glyphAt(); if (gl_ && inner){ const gv = vals(P)[gl_]; const gs = parseFloat(v.box.width) * .7;
+      svgImage(img + '|g', boxSvg(Object.assign({}, v.box, {color: gv.g}), inner.replace(/<svg[^>]*>|<\/svg>/g, '').replace('<path', '<path transform="scale(2)"'), gs).svg); } }};
   ICONSETS.push(set); Promise.resolve().then(() => set.redraw());
-  styled(id, () => ({paint: {'icon-opacity': byZoom(P, v => v.op, 1)}, range: zoomRange(P)}));
+  styled(id, () => { const big = at(P, x => x.w, 16), gl_ = glyphAt(), aft = LEVELS.find(l => vals(P)[l].after), av = aft && vals(P)[aft];
+    return {layout: Object.assign({'icon-size': byZoom(P, v => v.w / big, 1), 'icon-image': gl_ && inner ? ['step', ['zoom'], img, LZ(gl_), img + '|g'] : img},
+      av ? {'text-field': ['step', ['zoom'], '', LZ(aft), av.after], 'text-font': [+av.af >= 700 ? 'Inter Bold' : 'Inter SemiBold'], 'text-size': byZoom(P, v => v.as, 8)} : {}),
+      paint: Object.assign({'icon-opacity': byZoom(P, v => v.op, 1)}, av ? {'text-color': av.ac || '#000'} : {}), range: zoomRange(P)}; });
   TAP.set(id, it => it.p.tap ? it.p.tap() : false);
   HOVER.set(id, it => it.p.hover);
 });
-const box = (latlng, cls, opts) => { opts = opts || {}; return new Item(BOXES, latlng, {cls, hover: opts.hover, tap: opts.tap, pane: opts.pane, _key: cls + '|' + (opts.pane || '')}); };
+const box = (latlng, cls, opts) => { opts = opts || {}; return new Item(BOXES, latlng, {cls, inner: opts.inner, hover: opts.hover, tap: opts.tap, pane: opts.pane, sort: opts.sort, _key: cls + '|' + (opts.pane || '')}); };
 /* Remove a group's layers for good (when it's rebuilt). */
 function drop(g){ if (!g) return; g.remove(); g.kids.forEach(drop); g.ids.forEach(id => { if (gl.getLayer(id)) gl.removeLayer(id); STYLERS.delete(id); TAP.delete(id); HOVER.delete(id); }); g.ids = []; }
+/* A whole file of same-looking icons in one layer (heritage diamonds, bike docks…): the icon from the CSS of
+   "<wrap cls> i", the name from "<wrap cls> b" (shown from the zoom the CSS shows it). opts: wrap, cls, glyph,
+   text(f), minzoom (Leaflet zoom), pane, hover(f), tap(f, e), sort(f). */
+function iconLayer(fc, opts){
+  const wrap = opts.wrap || 'lm', cls = opts.cls || '', key = wrap + '|' + cls, img = 'il|' + key + '|' + (opts.glyph || '');
+  fc.features.forEach(f => { f.properties._t = opts.text ? opts.text(f) || '' : ''; if (opts.sort) f.properties._s = opts.sort(f); });
+  const src = source(fc), id = uid('il');
+  const P = htmlProbe('il:' + key, '<span class="' + wrap + ' ' + cls + '"><i><svg viewBox="0 0 24 24"></svg></i><b>Ag</b></span>', el => {
+    const i = el.querySelector('i'), b = el.querySelector('b'), si = getComputedStyle(i), sv = i.querySelector('svg');
+    return Object.assign(textOf(getComputedStyle(b)), {box: {width: si.width, height: si.height, borderRadius: si.borderRadius, boxShadow: si.boxShadow, backgroundColor: si.backgroundColor, color: si.color,
+      borderTopWidth: si.borderTopWidth, borderTopColor: si.borderTopColor, borderTopStyle: si.borderTopStyle, transform: si.transform},
+      gap: parseFloat(getComputedStyle(el).columnGap) || 5, gs: sv ? parseFloat(getComputedStyle(sv).width) || 12 : 12,
+      idisp: getComputedStyle(el).display !== 'none' && si.display !== 'none', bdisp: getComputedStyle(b).display !== 'none'});
+  });
+  addL(hidden({id, type: 'symbol', source: src, minzoom: opts.minzoom ? LZ(opts.minzoom) : 0, layout: {'icon-image': img, 'text-anchor': 'left', 'text-optional': true,
+    'symbol-sort-key': ['coalesce', ['get', '_s'], 0], 'icon-padding': 1, 'text-padding': 2}}), opts.pane || 'sym', opts.rank == null ? 8 : opts.rank);
+  const set = {redraw(){ const v = at(P, x => x, 15); let b = boxSvg(v.box, GLYPH[opts.glyph] || '', v.gs);
+    // A rotated square (a diamond) keeps its CSS turn.
+    if (/matrix/.test(v.box.transform || '')) b = {svg: b.svg.replace('<rect', '<rect transform="rotate(45 ' + b.W / 2 + ' ' + b.H / 2 + ')"').replace(/(<rect)(?![^>]*transform)/g, '$1 transform="rotate(45 ' + b.W / 2 + ' ' + b.H / 2 + ')"')};
+    svgImage(img, b.svg); }};
+  ICONSETS.push(set); Promise.resolve().then(() => set.redraw());
+  styled(id, () => { const v = at(P, x => x, 15), bx = boxSvg(v.box, '', v.gs);
+    const tOn = LEVELS.filter(l => vals(P)[l].bdisp && vals(P)[l].idisp), tlo = tOn.length ? tOn[0] : 99;
+    return {layout: textLayout(v, {'text-size': byZoom(P, x => x.size, 11), 'text-offset': [(bx.w / 2 + v.gap) / v.size, 0],
+      'text-field': tlo <= 8 ? ['get', '_t'] : ['step', ['zoom'], '', LZ(tlo), ['get', '_t']]}), paint: textPaint(v)}; });
+  if (opts.hover) HOVER.set(id, opts.hover);
+  if (opts.tap) TAP.set(id, opts.tap);
+  return grp([id]);
+}
