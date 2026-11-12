@@ -8,8 +8,10 @@ Actions (fetch-melbourne-voting.yml); the sandbox can't reach the VEC.
 - venues.json: every sheet of it as rows (header row first), so the build and a reader of the diff needn't open Excel.
 - sites.json: each early and election day venue's address placed with Vicmap Address (the state's address points,
   CC BY 4.0, via the Vicmap open data WFS): {"<address|suburb|postcode>": [lng, lat, how]}, how being "address"
-  (the number on the street), "street" (the street in that suburb, when the number isn't listed) or null (not found).
-  Kept between runs, so a run only looks up addresses it hasn't seen."""
+  (the number on the street), "near" (the nearest listed number on it), "corner" (where the two roads of a
+  "Corner A and B" meet), "street" (somewhere on the street, when no number near it is listed) or null (not found:
+  a reserve or a building name with no street). Address line 2 is tried when line 1 gives nothing. Kept between
+  runs, so a run only looks up what it hasn't placed well."""
 import json, os, re, subprocess, sys, time, urllib.parse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fetch_lib import get
@@ -81,45 +83,76 @@ def pt(f):
 def esc(v): return v.replace("'", "''")
 
 
-def place(layer, props, line, suburb, pc):
-    keys = {k.lower(): k for k in props}
-    ezi, loc = keys.get('ezi_address'), keys.get('locality_name') or keys.get('locality')
-    street = keys.get('road_name') or keys.get('street_name')
-    m = re.match(r'(?:(?:shop|unit|level|suite)\s*\S+[,/ ]+)?(\d+)[a-z]?(?:-\d+[a-z]?)?\s+(.+)$', line.strip(), re.I)
+TYPES = {'ROAD', 'STREET', 'AVENUE', 'DRIVE', 'COURT', 'CRESCENT', 'PLACE', 'LANE', 'HIGHWAY', 'PARADE', 'BOULEVARD',
+         'WAY', 'GROVE', 'CLOSE', 'TERRACE', 'CIRCUIT', 'SQUARE', 'ESPLANADE', 'FREEWAY', 'PROMENADE', 'TRACK', 'RISE',
+         'WALK', 'VIEW', 'PATHWAY', 'RIDGE', 'MEWS', 'GARDENS', 'STRAND', 'BOULEVARDE', 'ROW', 'GLADE', 'CHASE', 'LINK'}
+SHORT = {'RD': 'ROAD', 'ST': 'STREET', 'AVE': 'AVENUE', 'AV': 'AVENUE', 'DR': 'DRIVE', 'CT': 'COURT', 'CRES': 'CRESCENT',
+         'PL': 'PLACE', 'HWY': 'HIGHWAY', 'PDE': 'PARADE', 'BLVD': 'BOULEVARD', 'CL': 'CLOSE', 'TCE': 'TERRACE'}
+
+
+def road(text):
+    """'Mt Derrimut Road' -> ('MOUNT DERRIMUT', 'ROAD'); the type is the last word when it is one. (Vicmap keeps ST in
+    names such as ST KILDA, so only MT is spelled out.)"""
+    w = re.sub(r'[^A-Za-z\' ]', ' ', text).upper().split()
+    w = ['MOUNT' if x == 'MT' else x for x in w]
+    if len(w) > 1 and SHORT.get(w[-1], w[-1]) in TYPES: return ' '.join(w[:-1]), SHORT.get(w[-1], w[-1])
+    return ' '.join(w), None
+
+
+def on_road(layer, name, typ, sub, pc, extra='', n=300):
+    t = f" AND road_type = '{esc(typ)}'" if typ else ''
+    for area in (f"locality_name = '{esc(sub)}'", f"postcode = '{esc(pc)}'"):
+        f = wfs(layer, f"road_name = '{esc(name)}'{t} AND {area}{extra}", n)
+        if f: return f
+    return []
+
+
+def place(layer, line, suburb, pc):
+    """[lng, lat, how] for one venue line: a numbered address, a corner, or nothing."""
     sub = suburb.strip().upper()
-    if ezi:
-        full = f'{line.strip()} {sub} {pc}'.upper()
-        f = wfs(layer, f"{ezi} = '{esc(full)}'")
-        if f: return pt(f[0]) + ['address']
-        if m:
-            f = wfs(layer, f"{ezi} LIKE '{esc(m.group(1))} {esc(m.group(2).upper())} {esc(sub)}%'")
-            if f: return pt(f[0]) + ['address']
-    if m and street and loc:
-        name = m.group(2).upper().split(' ')[0]
-        f = wfs(layer, f"{street} = '{esc(name)}' AND {loc} = '{esc(sub)}'", 20)
-        if f:
-            ps = [pt(x) for x in f]
-            return [round(sum(p[0] for p in ps) / len(ps), 6), round(sum(p[1] for p in ps) / len(ps), 6), 'street']
-    return [None, None, None]
+    line = re.sub(r'^(?:(?:unit|shop|suite|level|lot)\s*[\w.]+\s*[/,]?\s*)+', '', line.strip(), flags=re.I)
+    line = re.sub(r'^(\d+[A-Za-z]?)/(?=\d)', '', line)   # 8/85 -> 85
+    c = re.match(r'^corner (?:of )?(.+?) and (.+)$', line, re.I)
+    if c:
+        A = on_road(layer, *road(c.group(1)), sub, pc); B = on_road(layer, *road(c.group(2)), sub, pc)
+        if A and B:
+            best = min(((pt(a), pt(b)) for a in A for b in B), key=lambda q: (q[0][0] - q[1][0]) ** 2 + (q[0][1] - q[1][1]) ** 2)
+            if abs(best[0][0] - best[1][0]) + abs(best[0][1] - best[1][1]) < 0.004:
+                return [round((best[0][0] + best[1][0]) / 2, 6), round((best[0][1] + best[1][1]) / 2, 6), 'corner']
+        return None
+    m = re.match(r'^(\d+)[A-Za-z]?(?:\s*-\s*(\d+)[A-Za-z]?)?\s+(.+)$', line)
+    if not m: return None
+    num = int(m.group(1)); name, typ = road(m.group(3))
+    f = on_road(layer, name, typ, sub, pc, f' AND house_number_1 BETWEEN {max(num - 40, 0)} AND {num + 40}', 100)
+    if f:
+        g = min(f, key=lambda x: (abs((x['properties'].get('house_number_1') or 0) - num), x['properties'].get('is_primary') != 'Y'))
+        return pt(g) + ['address' if g['properties'].get('house_number_1') == num else 'near']
+    f = on_road(layer, name, typ, sub, pc, '', 60)
+    if f:
+        ps = sorted(pt(x) for x in f); mid = ps[len(ps) // 2]
+        return mid + ['street']
+    return None
 
 
 def geocode():
     sh = json.load(open(os.path.join(RAW, 'venues.json')))['sheets']
     path = os.path.join(RAW, 'sites.json')
     cache = json.load(open(path)) if os.path.exists(path) else {}
-    want = []
+    want, line2 = [], {}
     for s in ('EVCs', 'VCs'):
-        h = sh[s][0]; i = {k: h.index(k) for k in ('Address Line 1', 'Suburb', 'Post Code')}
+        h = sh[s][0]; i = {k: h.index(k) for k in ('Address Line 1', 'Address Line 2', 'Suburb', 'Post Code')}
         for r in sh[s][1:]:
             k = '|'.join(str(r[i[c]] or '').strip() for c in ('Address Line 1', 'Suburb', 'Post Code'))
-            if k not in cache and k not in want: want.append(k)
+            line2[k] = re.sub(r'\(.*?\)', '', str(r[i['Address Line 2']] or '')).strip()
+            # Look again at what the first passes only placed on the street or not at all.
+            if (k not in cache or cache[k][2] in (None, 'street')) and k not in want: want.append(k)
     print(f'  {len(cache)} placed before, {len(want)} to look up')
     if not want: return
     layer, props = address_layer()
     t0 = time.time()
     for n, k in enumerate(want):
         line, suburb, pc = k.split('|')
-        try: cache[k] = place(layer, props, line, suburb, pc)
+        try: cache[k] = place(layer, line, suburb, pc) or (line2[k] and place(layer, line2[k], suburb, pc)) or cache.get(k) or [None, None, None]
         except Exception as e: print('  ', k, e); continue
         if n % 100 == 0:
             print(f'  {n}/{len(want)} {time.time() - t0:.0f}s', k, cache[k])
