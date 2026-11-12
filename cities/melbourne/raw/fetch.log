@@ -1,0 +1,62 @@
+  ABS ASGS2021 services: ['ASGS2021/ADD', 'ASGS2021/ADD', 'ASGS2021/AUS', 'ASGS2021/AUS', 'ASGS2021/CED', 'ASGS2021/CED', 'ASGS2021/DZN', 'ASGS2021/DZN', 'ASGS2021/GCCSA', 'ASGS2021/GCCSA', 'ASGS2021/IARE', 'ASGS2021/IARE', 'ASGS2021/ILOC', 'ASGS2021/ILOC', 'ASGS2021/IREG', 'ASGS2021/IREG', 'ASGS2021/LGA', 'ASGS2021/LGA', 'ASGS2021/MB', 'ASGS2021/MB', 'ASGS2021/POA', 'ASGS2021/POA', 'ASGS2021/RA', 'ASGS2021/RA', 'ASGS2021/SA1', 'ASGS2021/SA1', 'ASGS2021/SA2', 'ASGS2021/SA2', 'ASGS2021/SA3', 'ASGS2021/SA3', 'ASGS2021/SA4', 'ASGS2021/SA4', 'ASGS2021/SAL', 'ASGS2021/SAL', 'ASGS2021/SEARCH', 'ASGS2021/SED', 'ASGS2021/SED', 'ASGS2021/SOS', 'ASGS2021/SOS', 'ASGS2021/SOSR', 'ASGS2021/SOSR', 'ASGS2021/STE', 'ASGS2021/STE', 'ASGS2021/SUA', 'ASGS2021/SUA', 'ASGS2021/TR', 'ASGS2021/TR', 'ASGS2021/UCL', 'ASGS2021/UCL']
+  SAL layer 0 SAL · max records 2000 · fields ['objectid', 'shape', 'sal_code_2021', 'sal_name_2021', 'state_code_2021', 'state_name_2021', 'aus_code_2021', 'aus_name_2021', 'area_albers_sqkm', 'asgs_loci_uri_2021', 'st_length(shape)', 'st_area(shape)']
+wrote sal.geojson 2924 KB
+   sal.geojson 780 features
+  LGA layer 0 LGA · max records 2000 · fields ['objectid', 'shape', 'lga_code_2021', 'lga_name_2021', 'state_code_2021', 'state_name_2021', 'aus_code_2021', 'aus_name_2021', 'area_albers_sqkm', 'asgs_loci_uri_2021', 'st_length(shape)', 'st_area(shape)']
+wrote lga.geojson 1124 KB
+   lga.geojson 45 features
+  GCCSA layer 0 GCCSA · max records 2000 · fields ['objectid', 'shape', 'gccsa_code_2021', 'gccsa_name_2021', 'change_flag_2021', 'change_label_2021', 'state_code_2021', 'state_name_2021', 'aus_code_2021', 'aus_name_2021', 'area_albers_sqkm', 'asgs_loci_uri_2021', 'st_length(shape)', 'st_area(shape)']
+wrote gccsa.geojson 113 KB
+   gccsa.geojson 1 features
+  STE layer 0 STE · max records 2000 · fields ['objectid', 'shape', 'state_code_2021', 'state_name_2021', 'change_flag_2021', 'change_label_2021', 'aus_code_2021', 'aus_name_2021', 'area_albers_sqkm', 'asgs_loci_uri_2021', 'st_length(shape)', 'st_area(shape)']
+wrote victoria.geojson 158 KB
+   victoria.geojson 1 features
+  SA1 layer 0 SA1 · max records 2000 · fields ['objectid', 'shape', 'sa1_code_2021', 'change_flag_2021', 'change_label_2021', 'sa2_code_2021', 'sa2_name_2021', 'sa3_code_2021', 'sa3_name_2021', 'sa4_code_2021', 'sa4_name_2021', 'gccsa_code_2021', 'gccsa_name_2021', 'state_code_2021', 'state_name_2021', 'aus_code_2021', 'aus_name_2021', 'area_albers_sqkm', 'asgs_loci_uri_2021', 'st_length(shape)', 'st_area(shape)']
+wrote sa1.geojson 934 KB
+   sa1.geojson 956 features
+  SA1s in the City box: 956
+  downloaded gcp.zip 101 MB
+  census tables: ['G01', 'G02', 'G03', 'G04A', 'G04B', 'G05', 'G06', 'G07', 'G08', 'G09A', 'G09B', 'G09C', 'G09D', 'G09E', 'G09F', 'G09G', 'G09H', 'G10A', 'G10B', 'G10C', 'G11A', 'G11B', 'G11C', 'G11D', 'G12A', 'G12B', 'G13A', 'G13B', 'G13C', 'G13D', 'G13E', 'G14', 'G15', 'G16A', 'G16B', 'G17A', 'G17B', 'G17C', 'G18', 'G19A', 'G19B', 'G19C', 'G20A', 'G20B', 'G21A', 'G21B', 'G21C', 'G22', 'G23', 'G24A', 'G24B', 'G25', 'G26A', 'G26B', 'G27A', 'G27B', 'G28', 'G29', 'G30', 'G31', 'G32', 'G33', 'G34', 'G35', 'G36', 'G37', 'G38', 'G39', 'G40', 'G41', 'G42', 'G43', 'G44', 'G45', 'G46A', 'G46B', 'G47A', 'G47B', 'G47C', 'G47D', 'G47E', 'G47F', 'G48A', 'G48B', 'G49A', 'G49B', 'G50A', 'G50B', 'G50C', 'G51A', 'G51B', 'G51C', 'G52A', 'G52B', 'G52C', 'G53A', 'G53B', 'G53C', 'G54A', 'G54B', 'G54C', 'G54D', 'G55A', 'G55B', 'G55C', 'G55D', 'G56A', 'G56B', 'G57A', 'G57B', 'G58A', 'G58B', 'G59A', 'G59B', 'G60A', 'G60B', 'G61A', 'G61B', 'G62'] · metadata files: ['Metadata/2021Census_geog_desc_1st_2nd_3rd_release.xlsx', 'Metadata/2021_GCP_Sequential_Template_R2.xlsx', 'Metadata/Metadata_2021_GCP_DataPack_R1_R2.xlsx']
+wrote census_sa1.json 69632 KB
+  saved Metadata/2021Census_geog_desc_1st_2nd_3rd_release.xlsx
+wrote osm_streets.json 4532 KB
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+wrote osm_highways.json 7191 KB
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 4 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  overpass retry 5 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  overpass retry 6 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+FAILED osm yarra RuntimeError('overpass failed: osm_yarra.json')
+Traceback (most recent call last):
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 43, in step
+    fn()
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch.py", line 93, in <lambda>
+    step('osm yarra', lambda: overpass(f'[out:json][timeout:200];way["waterway"="river"]["name"="Yarra River"]({bb(CITY)});out tags geom;', 'osm_yarra.json'))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 81, in overpass
+    raise RuntimeError('overpass failed: ' + name)
+RuntimeError: overpass failed: osm_yarra.json
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+wrote osm_places.json 75 KB
+wrote osm_landmarks.json 102 KB
+  GTFS resources: [('GTFS Schedule', 'ZIP', 'https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/62370a3a-3fe0-4f6b-9022-9ebbf25751cc/download/gtfs.zip')]
+  GTFS from https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/62370a3a-3fe0-4f6b-9022-9ebbf25751cc/download/gtfs.zip
+  downloaded gtfs.zip 243 MB
+  GTFS folders: ['2/google_transit.zip', '11/google_transit.zip', '3/google_transit.zip', '5/google_transit.zip', '6/google_transit.zip', '10/google_transit.zip', '4/google_transit.zip', '1/google_transit.zip']
+  mode 1 14 routes · 110 stops · e.g. [('Seymour', 'Albury - Melbourne via Seymour', '2', '8F1A95'), ('Ballarat', 'Ararat - Melbourne via Ballarat', '2', '8F1A95'), ('Ballarat', 'Ballarat/Wendouree - Melbourne via Melton', '2', '8F1A95'), ('Traralgon', 'Bairnsdale - Melbourne via Sale & Traralgon', '2', '8F1A95'), ('Bendigo', 'Bendigo - Melbourne via Gisborne', '2', '8F1A95'), ('Bendigo', 'Echuca/Moama - Melbourne via Bendigo or Heathcote', '2', '8F1A95'), ('Geelong', 'Geelong - Melbourne', '2', '8F1A95'), ('Ballarat', 'Maryborough - Melbourne via  Ballarat', '2', '8F1A95'), ('Seymour', 'Seymour - Melbourne via Broadmeadows', '2', '8F1A95'), ('Seymour', 'Shepparton - Melbourne via Seymour', '2', '8F1A95'), ('Bendigo', 'Swan Hill - Melbourne via Bendigo', '2', '8F1A95'), ('Traralgon', 'Traralgon - Melbourne via Morwell, Moe & Pakenham', '2', '8F1A95'), ('Pakenham', 'Pakenham Line (VLINE)', '2', '8F1A95'), ('Geelong', 'Warrnambool - Melbourne via Colac & Geelong', '2', '8F1A95')]
+  mode 2 34 routes · 226 stops · e.g. [('Alamein', 'Alamein Line', '400', '152C6B'), ('Replacement Bus', 'Alamein Line', '400', 'FE5000'), ('Belgrave', 'Belgrave Line', '400', '152C6B'), ('Replacement Bus', 'Belgrave Line', '400', 'FE5000'), ('Cranbourne', 'Cranbourne Line', '400', '34ACE1'), ('Replacement Bus', 'Cranbourne Line', '400', 'FE5000'), ('Craigieburn', 'Craigieburn Line', '400', 'FFBE00'), ('Replacement Bus', 'Craigieburn Line', '400', 'FE5000'), ('Frankston', 'Frankston Line', '400', '028430'), ('Replacement Bus', 'Frankston Line', '400', 'FE5000'), ('Glen Waverley', 'Glen Waverley Line', '400', '152C6B'), ('Replacement Bus', 'Glen Waverley Line', '400', 'FE5000'), ('Hurstbridge', 'Hurstbridge Line', '400', 'BE1014'), ('Replacement Bus', 'Hurstbridge Line', '400', 'FE5000'), ('Lilydale', 'Lilydale Line', '400', '152C6B'), ('Replacement Bus', 'Lilydale Line', '400', 'FE5000'), ('Mernda', 'Mernda Line', '400', 'BE1014'), ('Replacement Bus', 'Mernda Line', '400', 'FE5000'), ('Pakenham', 'Pakenham Line', '400', '34ACE1'), ('Replacement Bus', 'Pakenham Line', '400', 'FE5000'), ('Flemington Racecourse', 'Flemington Racecourse Line', '400', '95979A'), ('Replacement Bus', 'Flemington Racecourse Line', '400', 'FE5000'), ('Sandringham', 'Sandringham Line', '400', 'F178AF'), ('Replacement Bus', 'Sandringham Line', '400', 'FE5000'), ('Stony Point', 'Stony Point Line', '400', '028430'), ('Replacement Bus', 'Stony Point Line', '400', 'FE5000'), ('Sunbury', 'Sunbury Line', '400', '34ACE1'), ('Replacement Bus', 'Sunbury Line', '400', 'FE5000'), ('Upfield', 'Upfield Line', '400', 'FFBE00'), ('Replacement Bus', 'Upfield Line', '400', 'FE5000')]
+  mode 3 24 routes · 1624 stops · e.g. [('1', 'East Coburg - South Melbourne Beach', '0', 'B5BD00'), ('109', 'Box Hill - Port Melbourne', '0', 'E87722'), ('11', 'West Preston - Victoria Harbour Docklands', '0', '6ECEB2'), ('12', 'Victoria Gardens - St Kilda(Fitzroy St)', '0', '007E92'), ('16', 'Melbourne University - Kew', '0', 'FBD872'), ('19', 'North Coburg - Flinders Street Station', '0', '8A1B61'), ('3', 'Melbourne University - East Malvern', '0', '8DC8E8'), ('30', 'St Vincents Plaza - Central Pier Docklands', '0', '534F96'), ('35', 'City Circle (Free Tourist Tram)', '0', '6B3529'), ('48', 'North Balwyn - Victoria Harbour Docklands', '0', '333434'), ('5', 'Melbourne University - Malvern', '0', 'D50032'), ('57', 'West Maribyrnong - Flinders Street Station', '0', '00C1D5'), ('58', 'West Coburg - Toorak', '0', '969696'), ('59', 'Airport West - Flinders Street Station', '0', '00653A'), ('6', 'Moreland - Glen Iris', '0', '01426A'), ('64', 'Melbourne University - East Brighton', '0', '00AB8E'), ('67', 'Melbourne University - Carnegie', '0', '956C58'), ('70', 'Waterfront City Docklands -  Wattle Park', '0', 'F59BBB'), ('72', 'Melbourne University - Camberwell', '0', '9ABEAA'), ('75', 'Vermont South - Central Pier Docklands', '0', '00A9E0'), ('78', 'North Richmond - Balaclava', '0', 'A0A0D6'), ('82', 'Moonee Ponds - Footscray', '0', 'D2D755'), ('86', 'Bundoora RMIT - Waterfront City Docklands', '0', 'FFB500'), ('96', 'East Brunswick - St Kilda Beach', '0', 'C6007E')]
+wrote ptv_rail.json 36479 KB
+done; failed: ['osm yarra']
