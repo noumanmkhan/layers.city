@@ -1175,7 +1175,7 @@ function routeLines(feats, pick, extra, opts){
     if (within) long = parts.map(c => longestRun(c, within)).reduce((a, b) => span(b) > span(a) ? b : a, []);
     if (long.length < 2) return;
     (pick ? [0, .5, 1] : within ? [.5] : [.25, .75]).forEach(t =>
-      g.addLayer(shield(ll(along(long, t)), cls(p).trim(), p.r, 'rt-b', {hover: esc(routeName(p)), tap: () => focusRoute(p.r)})));
+      g.addLayer(shield(ll(along(long, t)), cls(p).trim(), p.r, 'rt-b', {hover: esc(routeName(p)), tap: () => focusRoute(p.r), route: f})));
   });
   return g;
 }
@@ -3264,7 +3264,7 @@ function setFocus(key, move){
   // Dim everything outside: a sheet over the whole map with the region cut out of it.
   const v = CITY.view.max, sheet = [[v[0][0] - 5, v[0][1] - 5], [v[0][0] - 5, v[1][1] + 5], [v[1][0] + 5, v[1][1] + 5], [v[1][0] + 5, v[0][1] - 5]];
   const polys = f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates;
-  focusLayer.addLayer(geo({type: 'Polygon', coordinates: [sheet].concat(polys.map(p => p[0]))}, {pane: 'mask', interactive: false, cls: () => 'focus-dim'}));
+  focusLayer.addLayer(geo({type: 'Polygon', coordinates: [sheet.concat([sheet[0]]).map(ll)].concat(polys.map(p => p[0]))}, {pane: 'mask', interactive: false, cls: () => 'focus-dim'}));
   focusLayer.addLayer(geo({type: 'FeatureCollection', features: [{type: 'Feature', properties: {}, geometry: f.geometry}]}, {pane: 'focus', interactive: false, cls: () => 'focus-line'}));
   // Every municipality in it, biggest first so they win the label declutter.
   const size = g => { const b = L.geoJSON(g).getBounds(); return (b.getEast() - b.getWest()) * (b.getNorth() - b.getSouth()); };
@@ -3363,8 +3363,15 @@ function placeRoutes(){
 const featMeets = f => { if (!pfMemo.has(f)) pfMemo.set(f, lineMeets(f.geometry)); return pfMemo.get(f); };
 // Sort one map layer into in / out as it joins the map.
 const PF_LINE_PANES = ['rail', 'transit'], PF_PT_PANES = ['pts', 'stlbl', 'tooltipPane'];
-// Focused on a place, names and stops outside it are muted or hidden (fz-out, fz-off): not yet on the GPU map.
+// Focused on a place, every name, icon and stop outside it fades (fz-out, how much by kind in the CSS) and a route's
+// number is hidden where the route doesn't pass through (fz-off); picked and focused routes keep theirs.
 function pfSort(){}
+FZ = it => {
+  if (!placeF) return 0;
+  if (it.p.route && !/\b(pick|focus)\b/.test(it.p.cls) && !featMeets(it.p.route)) return 2;
+  const p = it.getLatLng();
+  return inPlace(p.lng, p.lat) ? 0 : 1;
+};
 
 function setPlaceFocus(id, name, move){
   const f = id ? pfFeature(id, name) : null;
@@ -3374,6 +3381,7 @@ function setPlaceFocus(id, name, move){
   placeF = null; pfMemo = new WeakMap();
   if (!f || (same && move)){
     map.getContainer().classList.remove('pfocus');
+    refocus();
     drawPlaceBox();
     redrawCard();
     queueDeclutter(); queueHash(); return;
@@ -3385,11 +3393,12 @@ function setPlaceFocus(id, name, move){
   map.getContainer().classList.add('pfocus');
   pfLayer = grp();
   const v = CITY.view.max, sheet = [[v[0][0] - 5, v[0][1] - 5], [v[0][0] - 5, v[1][1] + 5], [v[1][0] + 5, v[1][1] + 5], [v[1][0] + 5, v[0][1] - 5]];
-  const dim = {type: 'Polygon', coordinates: [sheet].concat(polys.map(p => p[0]))};
+  const dim = {type: 'Polygon', coordinates: [sheet.concat([sheet[0]]).map(ll)].concat(polys.map(p => p[0]))};   // the sheet's corners are [lat, lng]
   pfLayer.addLayer(geo(dim, {pane: 'pfdim', interactive: false, cls: () => 'pf-dim'}));
   pfLayer.addLayer(geo(dim, {pane: 'pfdim2', interactive: false, cls: () => 'pf-dim2'}));
   pfLayer.addLayer(geo({type: 'FeatureCollection', features: [{type: 'Feature', properties: {}, geometry: f.geometry}]}, {pane: 'pfline', interactive: false, cls: () => 'pf-line'}));
   pfLayer.addTo(map);
+  refocus();
   drawPlaceBox();
   if (move){
     frame(L.geoJSON(f).getBounds());

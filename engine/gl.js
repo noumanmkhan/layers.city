@@ -368,6 +368,14 @@ function baked(fc, opts){
 /* ---------- point items: names, icons, dots ----------
    A pool is one source and a layer per look (class string); an item is shown by being in its pool's data. */
 const POOLS = [];
+/* Focus on a place (the engine sets FZ): each point item is 0 inside the place, 1 outside (faded, as the CSS's
+   "#map.pfocus .fz-out" says for its kind), or 2 (hidden: a route number for a route that doesn't pass through). */
+let FZ = null;
+const refocus = () => POOLS.forEach(p => p.queue());
+const fade = (base, k) => k >= .999 ? base : ['case', ['==', ['get', 'fz'], 1], base * k, base];
+const fzLabel = cls => at(labelProbe(cls + ' fz-out'), v => v.op);
+const fzPath = cls => at(pathProbe(cls + ' fz-out'), v => v.op);
+const fzMarker = html => at(htmlProbe('fz:' + html, '<div class="leaflet-marker-icon fz-out">' + html + '</div>', el => ({op: +getComputedStyle(el).opacity, disp: true})), v => v.op);
 class Pool {
   constructor(name, make){ this.name = name; this.make = make; this.items = new Set(); this.keys = new Map(); this.src = null; this.queued = false; POOLS.push(this); }
   ensure(){ if (!this.src){ this.src = uid('pool'); gl.addSource(this.src, {type: 'geojson', data: {type: 'FeatureCollection', features: []}, tolerance: 0, buffer: 128}); } }
@@ -378,7 +386,8 @@ class Pool {
   }
   set(item, on){ if (on) this.items.add(item); else this.items.delete(item); this.queue(); }
   queue(){ if (!this.queued){ this.queued = true; Promise.resolve().then(() => { this.queued = false; this.flush(); }); } }
-  flush(){ this.ensure(); gl.getSource(this.src).setData({type: 'FeatureCollection', features: [...this.items].map(it => it.feature())}); }
+  flush(){ this.ensure(); gl.getSource(this.src).setData({type: 'FeatureCollection', features: [...this.items].map(it => {
+    const z = FZ ? FZ(it) : 0; if (z === 2) return null; const f = it.feature(); f.properties.fz = z; return f; }).filter(Boolean)}); }
 }
 class Item extends G {
   constructor(pool, at, props){ super(); this.pool = pool; this.at = at; this.p = props; this.properties = props; this._gid = FEAT.length; FEAT.push(this); this._k = pool.key(props._key, this); }
@@ -405,7 +414,7 @@ const NAMES = new Pool('names', (src, filter, item) => {
   const anchor = dir === 'right' ? 'left' : dir === 'left' ? 'right' : dir === 'top' ? 'bottom' : dir === 'bottom' ? 'top' : 'center';
   addL(({id, type: 'symbol', source: src, filter, layout: {'text-field': ['get', 't'], 'symbol-sort-key': ['get', 's'], 'text-anchor': anchor, 'text-padding': 2, 'text-rotate': ['coalesce', ['get', 'rot'], 0]}}), 'sym', rankOf(P.el));
   styled(id, () => { const t = at(P, x => x); const size = byZoom(P, v => v.size, 11);
-    return {layout: textLayout(t, {'text-size': size, 'text-offset': [off[0] / t.size, off[1] / t.size]}), paint: textPaint(t), range: zoomRange(P)}; });
+    return {layout: textLayout(t, {'text-size': size, 'text-offset': [off[0] / t.size, off[1] / t.size]}), paint: Object.assign(textPaint(t), {'text-opacity': fade(t.op, fzLabel(cls))}), range: zoomRange(P)}; });
   NAMES.ids.add(id);
   TAP.set(id, it => it.p.tap ? it.p.tap() : false);
 });
@@ -462,7 +471,7 @@ const ICONS = new Pool('icons', (src, filter, item) => {
     const txtOn = LEVELS.filter(l => vals(P)[l].bdisp && vals(P)[l].idisp), iconOn = LEVELS.filter(l => vals(P)[l].idisp);
     const lo = iconOn.length ? iconOn[0] : 99, tlo = txtOn.length ? txtOn[0] : 99;
     return {layout: textLayout(v, {'text-size': byZoom(P, x => x.size, 11), 'text-offset': [(bx.w / 2 + v.gap) / v.size, 0],
-      'text-field': tlo <= 8 ? ['get', 't'] : ['step', ['zoom'], '', LZ(tlo), ['get', 't']]}), paint: textPaint(v), range: [lo > 8 ? LZ(lo) : 0, 24]};
+      'text-field': tlo <= 8 ? ['get', 't'] : ['step', ['zoom'], '', LZ(tlo), ['get', 't']]}), paint: Object.assign(textPaint(v), (k => ({'text-opacity': fade(v.op, k), 'icon-opacity': fade(1, k)}))(fzMarker('<span class="' + wrap + ' ' + cls + '"></span>'))), range: [lo > 8 ? LZ(lo) : 0, 24]};
   });
   if (item.p.tapping) TAP.set(id, it => it.p.tap ? it.p.tap() : false);
   HOVER.set(id, it => it.p.hover);
@@ -477,9 +486,9 @@ function icon(latlng, cls, glyph, name, opts){
 const DOTS = new Pool('dots', (src, filter, item) => {
   const P = pathProbe(item.p.cls), id = uid('d');
   addL(({id, type: 'circle', source: src, filter, paint: {'circle-radius': ['get', 'r']}}), item.p.pane || 'pts');
-  styled(id, () => ({paint: {'circle-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'circle-opacity': byZoom(P, v => v.fill ? (v.disp ? 1 : 0) * v.op * v.fo : 0, 0),
+  styled(id, () => ({paint: {'circle-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'circle-opacity': fade(at(P, v => v.fill ? v.op * v.fo : 0), fzPath(item.p.cls)),
     'circle-stroke-color': ['coalesce', ['get', 'col'], byZoom(P, v => v.stroke, 'rgba(0,0,0,0)')], 'circle-stroke-width': byZoom(P, v => v.w == null ? 1.5 : v.w, 1.5),
-    'circle-stroke-opacity': byZoom(P, v => v.stroke ? (v.disp ? 1 : 0) * v.op * v.so : 0, 0)}, range: zoomRange(P)}));
+    'circle-stroke-opacity': fade(at(P, v => v.stroke ? v.op * v.so : 0), fzPath(item.p.cls))}, range: zoomRange(P)}));
   TAP.set(id, it => it.p.tap ? it.p.tap() : false);
   HOVER.set(id, it => it.p.hover);
 });
@@ -499,7 +508,7 @@ const SHIELDS = new Pool('shields', (src, filter, item) => {
     svgImage(img, b.svg, {stretchX: [[st, en]], stretchY: [[Math.round((pad + h / 2 - 1) * PR), Math.round((pad + h / 2 + 1) * PR)]],
       content: [Math.round((pad + v.padx) * PR), Math.round(pad * PR), Math.round((b.W - pad - v.padx) * PR), Math.round((b.H - pad) * PR)]}); }};
   ICONSETS.push(set); Promise.resolve().then(() => set.redraw());
-  styled(id, () => { const v = at(P, x => x, 13); return {layout: textLayout(v, {'text-size': byZoom(P, x => x.size, 11)}), paint: {'text-color': v.color, 'text-opacity': byZoom(P, x => x.op, 1), 'icon-opacity': byZoom(P, x => x.op, 1)}, range: zoomRange(P)}; });
+  styled(id, () => { const v = at(P, x => x, 13); return {layout: textLayout(v, {'text-size': byZoom(P, x => x.size, 11)}), paint: (k => ({'text-color': v.color, 'text-opacity': fade(v.op, k), 'icon-opacity': fade(v.op, k)}))(fzMarker('<span class="' + wrap + ' ' + cls + '"></span>')), range: zoomRange(P)}; });
   TAP.set(id, it => it.p.tap ? it.p.tap() : false);
   HOVER.set(id, it => it.p.hover);
 });
@@ -600,7 +609,7 @@ const BOXES = new Pool('boxes', (src, filter, item) => {
   styled(id, () => { const big = at(P, x => x.w, 16), gl_ = glyphAt(), aft = LEVELS.find(l => vals(P)[l].after), av = aft && vals(P)[aft];
     return {layout: Object.assign({'icon-size': byZoom(P, v => v.w / big, 1), 'icon-image': gl_ && inner ? ['step', ['zoom'], img, LZ(gl_), img + '|g'] : img},
       av ? {'text-field': ['step', ['zoom'], '', LZ(aft), av.after], 'text-font': [+av.af >= 700 ? 'Inter Bold' : 'Inter SemiBold'], 'text-size': byZoom(P, v => v.as, 8)} : {}),
-      paint: Object.assign({'icon-opacity': byZoom(P, v => v.op, 1)}, av ? {'text-color': av.ac || '#000'} : {}), range: zoomRange(P)}; });
+      paint: Object.assign({'icon-opacity': fade(at(P, v => v.op), fzMarker('<span class="' + cls + '"></span>'))}, av ? {'text-color': av.ac || '#000'} : {}), range: zoomRange(P)}; });
   TAP.set(id, it => it.p.tap ? it.p.tap() : false);
   HOVER.set(id, it => it.p.hover);
 });
