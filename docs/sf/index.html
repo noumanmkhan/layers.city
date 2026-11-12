@@ -2981,7 +2981,9 @@ let routeGeo = null, routeGeoP = null;
 // "reg" is worked out here too (daytime, neither frequent nor express), so a browser still holding route
 // data cached from before the family existed shows the right routes.
 const inFam = (r, k) => r.f.includes(k) || (k === 'reg' && r.day !== false && !r.f.includes('freq') && !r.f.includes('exp'));
-const busShows = r => (r.m === 'bus' || r.m === 'tram') && [...busFams].some(k => inFam(r, k)) && (!TRAMS || r.m !== 'tram' || r.day === false);
+// A city that draws its trams as their own lines (a metro layer) lists only buses here: the buses layer's "modes".
+const BUS_MODES = BUSES && BUSES.modes || ['bus', 'tram'];
+const busShows = r => BUS_MODES.includes(r.m) && [...busFams].some(k => inFam(r, k)) && (!TRAMS || r.m !== 'tram' || r.day === false);
 // Other agencies' bus layers (kind "regional"), e.g. GO buses: their stops show from zoom it.stopZoom (default 12).
 const REGIONAL = LAYERS.filter(it => it.kind === 'regional');
 const allOn = () => COMBO.length > 1 && COMBO.every(k => busFams.has(k));

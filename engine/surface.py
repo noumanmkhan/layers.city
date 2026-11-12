@@ -44,6 +44,35 @@ EXPRESS_NO = re.compile(CFG['expressRoutes']) if CFG.get('expressRoutes') else N
 _num = (lambda s: s.lstrip('0') or s) if CFG.get('stripZeros') else (lambda s: s)
 # surface.json "rename": route numbers as riders know them where the feed's differ ("LOWL" -> "L Owl").
 num = lambda s: CFG.get('rename', {}).get(s, _num(s))
+# surface.json "within": a published layer or a list of them (e.g. the city's units and its region's councils). Routes that never enter it
+# and stops outside it are left out: for feeds that file country-town buses with the city's own, whose route
+# numbers repeat the city's (Melbourne's "1" is a tram and a Geelong bus).
+if CFG.get('within'):
+    from shapely.geometry import shape as _shape, Point as _Pt
+    from shapely.prepared import prep as _prep
+    _ws = CFG['within'] if isinstance(CFG['within'], list) else [CFG['within']]
+    _wf = [f for w in _ws for f in json.load(open(os.path.join(OUT, w + '.geojson')))['features']]
+    _area = _prep(unary_union([_shape(f['geometry']).buffer(0) for f in _wf]).buffer(0.003))
+    _n = len(R['routes'])
+    R['routes'] = [r for r in R['routes']
+                   if any(_area.contains(_Pt(x, y)) for s in r['shapes'] for x, y in s['coords'][::5] + s['coords'][-1:])]
+    S['stops'] = [s for s in S['stops'] if _area.contains(_Pt(s[2], s[3]))]
+    print(f'  within {CFG["within"]}: {len(R["routes"])} of {_n} routes, {len(S["stops"])} stops')
+# surface.json "merge": true joins routes that share a number and mode into one (Melbourne files a route run by
+# several operators once per operator): their shapes together, their trips added up hour by hour.
+if CFG.get('merge'):
+    _by = {}
+    for r in R['routes']:
+        k = (num(r['short']), r['mode'])
+        if k not in _by: _by[k] = r; continue
+        m = _by[k]
+        m['shapes'] = m['shapes'] + r['shapes']
+        for day in ('wk', 'sat', 'sun'):
+            for d, v in r.get(day, {}).items():
+                w = m.setdefault(day, {}).get(d)
+                m[day][d] = [a + b for a, b in zip(w, v)] if w else list(v)
+    print(f'  merge: {len(R["routes"])} routes into {len(_by)}')
+    R['routes'] = list(_by.values())
 # Agencies that publish stop names in capitals with routing codes ("ABRAMS @ LA VISTA - S - FS"): surface.json
 # "stopNames": {"strip": a pattern cut from the end, "title": true, "at": " & "} tidies them for the card.
 SN = CFG.get('stopNames') or {}
