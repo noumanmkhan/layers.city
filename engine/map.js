@@ -278,7 +278,7 @@ const driveTier = m => m == null ? null : DRIVE_TIERS.find(t => m < t[3]);
 const SUBURBS = LAYERS.find(it => it.kind === 'suburbs');
 
 /* Kinds not yet drawn on the GPU map: their panel rows stay, greyed out with a note, until they're ported. */
-const PENDING = new Set(['addresses', 'heritage', 'badges', 'changes', 'bikes', 'parks', 'docks', 'spots', 'regional', 'construction', 'closures', 'events', 'streetcars', 'buses']);
+const PENDING = new Set(['addresses', 'heritage', 'changes', 'bikes', 'parks', 'docks', 'spots', 'regional', 'construction', 'closures', 'events', 'streetcars', 'buses']);
 function pending(it){
   const g = grp(), row = document.getElementById('lyr-' + it.id), lab = row && row.closest('label');
   if (lab){ lab.classList.add('gl-pending'); lab.title = 'Coming back soon: this layer is being moved to the new map engine.'; }
@@ -562,36 +562,28 @@ const KINDS = {
   // box of its shape that fits inside its unit, so it never spills into a neighbour. Shown once it is it.minWidth px
   // wide, up to it.maxWidth px. No text: the name is the units layer's own label. Loads on first use (it.lazy).
   badges: it => {
-    const g = L.layerGroup(), items = [];
-    const SCALE = it.scale || .7, MINW = it.minWidth || 60, MAXW = it.maxWidth || 220;
-    let angle = 0;
-    const size = () => {
-      if (!map.hasLayer(g)) return;
-      const z = map.getZoom();
-      items.forEach(o => {
-        const mpp = 40075016.686 * Math.cos(o.u.c[0] * Math.PI / 180) / Math.pow(2, z + 8);   // metres per screen px
-        const w = Math.min(o.u.wm * SCALE / mpp, MAXW);
-        const el = o.m.getElement(), s = el && el.firstChild;
-        if (!s) return;
-        s.style.display = w >= MINW ? '' : 'none';
-        s.setAttribute('width', w.toFixed(1)); s.setAttribute('height', (w * o.u.h / o.u.w).toFixed(1));
-        s.style.transform = 'translate(-50%,-50%) rotate(' + (-angle) + 'deg)';
-        if (it.opacity) s.style.opacity = it.opacity;
-      });
-    };
+    // A drawing per unit, sized in metres (so it grows with the zoom like the ground it sits on), shown once it's at
+    // least minWidth px wide and capped at maxWidth. On the GPU map each drawing is an image and a layer of its own.
+    const g = grp(), SCALE = it.scale || .7, MINW = it.minWidth || 60, MAXW = it.maxWidth || 220, C = 40075016.686;
+    let made = false;
+    const accent = () => colour(getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()) || '#C8102E';
+    const op = () => +getComputedStyle(document.documentElement).getPropertyValue('--bdg-op') || .45;
+    const draw = d => d.units.forEach((u, k) => svgImage('bdg|' + it.id + '|' + k, '<svg xmlns="http://www.w3.org/2000/svg" width="' + MAXW * PR + '" height="' + (MAXW * u.h / u.w) * PR + '" viewBox="0 0 ' + u.w + ' ' + u.h + '"><style>.bd-m{fill:' + accent() + '}.bd-ms{fill:none;stroke:' + accent() + ';stroke-linecap:round}</style>' + u.svg + '</svg>'));
     g.on('add', () => ensureBadges().then(d => {
-      if (!d) return;
-      angle = d.angle || 0;
-      if (!items.length) d.units.forEach(u => {
-        const m = L.marker(u.c, {pane: 'badges', interactive: false, keyboard: false,
-          icon: L.divIcon({className: '', iconSize: [0, 0], html: '<svg class="bdg" viewBox="0 0 ' + u.w + ' ' + u.h + '" role="img" aria-label="' + esc(u.n) + '">' + u.svg + '</svg>'})});
-        items.push({m, u});
-        g.addLayer(m);
+      if (!d || made) return; made = true;
+      draw(d); ICONSETS.push({redraw: () => { draw(d); g.ids.forEach(id => gl.setPaintProperty(id, 'icon-opacity', it.opacity || op())); }});
+      const src = source({type: 'FeatureCollection', features: d.units.map((u, k) => ({type: 'Feature', properties: {k}, geometry: {type: 'Point', coordinates: [u.c[1], u.c[0]]}}))});
+      d.units.forEach((u, k) => {
+        const per = C * Math.cos(u.c[0] * Math.PI / 180) / (u.wm * SCALE);   // px wide = 2^(glZoom + 9) / per
+        const zAt = w => Math.log2(w * per) - 9, z0 = zAt(MINW), z1 = zAt(MAXW);
+        const id = addL(hidden({id: uid('bdg'), type: 'symbol', source: src, filter: ['==', ['get', 'k'], k], minzoom: Math.max(0, z0),
+          layout: {'icon-image': 'bdg|' + it.id + '|' + k, 'icon-allow-overlap': true, 'icon-ignore-placement': true, 'icon-rotate': -(d.angle || 0),
+            'icon-rotation-alignment': 'map', 'icon-size': ['interpolate', ['exponential', 2], ['zoom'], z0, MINW / MAXW, z1, 1]},
+          paint: {'icon-opacity': it.opacity || op()}}), 'badges');
+        g.ids.push(id);
       });
-      else items.forEach(o => g.addLayer(o.m));
-      size();
+      g._v = false; g._sync();
     }));
-    map.on('zoomend', size);
     return g;
   },
   // What's changing: a dot per site, coloured by stage; demolitions dashed. Loads on first use (it.lazy).
