@@ -1,16 +1,26 @@
   WFS layers (507); electoral ones: ['open-data-platform:state_assembly_1991', 'open-data-platform:state_assembly_2001', 'open-data-platform:state_assembly_2013', 'open-data-platform:state_assembly_2022', 'open-data-platform:state_council_1991', 'open-data-platform:state_council_2001', 'open-data-platform:state_council_2005', 'open-data-platform:state_council_2013', 'open-data-platform:state_council_2022']
-  open-data-platform:state_assembly_2022: 0 features · fields None
-  federal candidates: []
-   resource: commonwealth-electoral-division-boundaries Download Data (zip) [20.6 MB] | ZIP | https://d28rz98at9flks.cloudfront.net/147958/147958_00_0.zip
-   resource: federal-electoral-boundaries Federal electoral boundaries |  | http://www.aec.gov.au/Electorates/gis/
-FAILED federal divisions RuntimeError('no federal divisions found yet: see the resources above')
-Traceback (most recent call last):
-  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 43, in step
-    fn()
-  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_representatives.py", line 94, in divisions
-    raise RuntimeError('no federal divisions found yet: see the resources above')
-RuntimeError: no federal divisions found yet: see the resources above
+  open-data-platform:state_assembly_2022: 88 features · fields ['district', 'district_code', 'district_label', 'region', 'region_code', 'region_label', 'ufi', 'ufi_created']
+  downloaded divisions.geojson.zip 3 MB
+  shapefiles: ['Vic-october-2024-esri/E_VIC24_region.shp']
+  INFO: Open of `/tmp/tmpdkyx5fxh/tmpl8y4k2tu/Vic-october-2024-esri/E_VIC24_region.shp'
+  Layer name: E_VIC24_region
+  Metadata:
+  Geometry: 3D Polygon
+  Feature Count: 38
+  Extent: (140.961859, -39.159190) - (149.976192, -33.980650)
+  Layer SRS WKT:
+  Data axis to CRS axis mapping: 1,2
+  E_div_numb: Integer64 (11.0)
+  Elect_div: String (30.0)
+  Numccds: Integer64 (11.0)
+  Actual: Integer64 (11.0)
+  Projected: Integer64 (11.0)
+  Total_Popu: Integer64 (11.0)
+  Australian: Integer64 (11.0)
+  Area_SqKm: Real (31.15)
+  Sortname: String (30.0)
+  fields: ['Actual', 'Area_SqKm', 'Australian', 'E_div_numb', 'Elect_div', 'Numccds', 'Projected', 'Sortname', 'Total_Popu'] · 35 features
   aec_elected.csv 9554 bytes · ['2025 Federal Election House of Representatives Members Elected [Event:31496 Phase:FinalResults Generated:2025-06-16T10:38:38 Cycle:194a421d-c559-4a18-a78a-90c7cf2acb4e Created:2025-06-16T10:36:42 Environment:PROD Site:CANBERRA Server:Internal Version:10.11.386.0]', 'DivisionID,DivisionNm,StateAb,CandidateID,GivenNm,Surname,PartyNm,PartyAb', '179,Adelaide,SA,41210,Steve,GEORGANAS,Australian Labor Party,ALP']
   handbook: 1881 people, 226 in the current Parliament · MPorSenator values ["['Member', 'Senator']", "['Member']", "['Senator', 'Member']", "['Senator']"]
   e.g. [{"PHID": "316915", "DisplayName": "ABDO, Basem Jamal", "GivenName": "Basem", "PreferredName": "", "FamilyName": "ABDO", "Party": "Australian Labor Party", "PartyAbbrev": "ALP", "Electorate": "Calwell", "State": "Victoria", "StateAbbrev": "Vic", "MPorSenator": ["Member"], "InCurrentParliament": "True"}, {"PHID": "R36", "DisplayName": "ALBANESE, the Hon. Anthony Norman", "GivenName": "Anthony", "PreferredName": "", "FamilyName": "ALBANESE", "Party": "Australian Labor Party", "PartyAbbrev": "ALP", "Electorate": "Grayndler", "State": "New South Wales", "StateAbbrev": "NSW", "MPorSenator": ["Member"], "InCurrentParliament": "True"}, {"PHID": "11788", "DisplayName": "ALDRED, Mary", "GivenName": "Mary", "PreferredName": "", "FamilyName": "ALDRED", "Party": "Liberal Party of Australia", "PartyAbbrev": "LIB", "Electorate": "Monash", "State": "Victoria", "StateAbbrev": "Vic", "MPorSenator": ["Member"], "InCurrentParliament": "True"}]
-done; failed: ['federal divisions']
+done; failed: none
