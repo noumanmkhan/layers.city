@@ -88,9 +88,33 @@ def wfs_bbox(layer, out, where=None):
     print(f'  saved {out} from {layer}: {len(feats)} features; e.g.', json.dumps(feats[0]['properties'])[:600] if feats else None)
 
 
+VHD = 'https://api.heritagecouncil.vic.gov.au/v1/'
+
+
+def vhd(path):
+    import urllib.request
+    req = urllib.request.Request(VHD + path, headers={'Accept': 'application/hal+json', 'User-Agent': 'city-layers/1.0 (https://layers.city)'})
+    with urllib.request.urlopen(req, timeout=120) as r: return json.loads(r.read())
+
+
 def heritage():
-    """The Victorian Heritage Register and the planning schemes' Heritage Overlay (HO) in the City, from Vicmap."""
-    wfs_bbox('open-data-platform:heritage_register', 'heritage_register.geojson')
+    """The Victorian Heritage Database (Heritage Council API, CC BY 4.0): every place in the City's box, with its
+    Heritage Register number when it has one (heritage_places.json); the authorities list to tell the Register
+    from the councils' Heritage Overlay listings (heritage_authorities.json)."""
+    json.dump(vhd('heritage-authorities'), open(os.path.join(OUT, 'heritage_authorities.json'), 'w'), ensure_ascii=False)
+    places, page = [], 1
+    while True:
+        d = vhd(f'places?geo={CITY[3]},{CITY[0]},{CITY[1]},{CITY[2]}&rpp=1000&page={page}')
+        got = (d.get('_embedded') or {}).get('places') or []
+        places += got
+        print(f'  heritage page {page}: {len(got)} (total {d.get("total_items") or d.get("total")})')
+        if len(got) < 1000: break
+        page += 1
+    json.dump(places, open(os.path.join(OUT, 'heritage_places.json'), 'w'), separators=(',', ':'), ensure_ascii=False)
+    print('  saved heritage_places.json', len(places), '; e.g.', json.dumps(places[0], ensure_ascii=False)[:900] if places else None)
+
+
+def overlay():
     wfs_bbox('open-data-platform:plan_overlay', 'heritage_overlay.geojson', where="zone_code LIKE 'HO%'")
 
 
@@ -125,9 +149,10 @@ def com():
         except Exception as e: print('  failed', k, repr(e)[:300])
 
 
-ONLY = os.environ.get('ONLY', 'com').split(',')   # set ONLY=osm,datavic,com for a full run; heritage always runs
+ONLY = os.environ.get('ONLY', 'none').split(',')   # set ONLY=osm,datavic,com for a full run; heritage always runs
 if not ONLY or 'osm' in ONLY: step('osm', osm)
 if not ONLY or 'datavic' in ONLY: step('datavic', datavic)
 step('heritage', heritage)
+step('heritage overlay', overlay)
 if not ONLY or 'com' in ONLY: step('city of melbourne', com)
 if FAILED: print('FAILED steps:', FAILED)
