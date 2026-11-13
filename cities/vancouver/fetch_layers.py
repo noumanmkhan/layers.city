@@ -4,6 +4,7 @@ a failed step keeps the last good file.
 
   ods/<dataset>.geojson   City of Vancouver Open Data (Opendatasoft, OGL – Vancouver), whole datasets as GeoJSON:
                           libraries, community-centres, parks (points), parks-facilities (table), dog-off-leash-parks,
+                          park-polygons (the park boundaries, saved under that name whichever dataset id holds them),
                           schools, business-improvement-areas-bia, zoning-districts-and-labels (heritage-area and
                           First Shaughnessy zones only), road-ahead-current-road-closures,
                           road-ahead-projects-under-construction, voting-places-2026
@@ -60,6 +61,30 @@ def facilities():   # a table with no geometry
     from collections import Counter
     print('   parks-facilities', len(rows), dict(Counter(r['facilitytype'] for r in rows).most_common(60)))
 F.step('ods parks-facilities', facilities)
+
+
+def park_outlines():   # the Park Board's park boundaries (polygons), for the Parks layer (parks.py)
+    ids = ['parks-polygon-representation', 'park-polygons', 'parks-polygons']
+    try:
+        cat = json.loads(F.get(ODS[:-len('datasets/')] + 'datasets?' + urllib.parse.urlencode({'where': 'search("park")', 'limit': 100})))
+        found = [d['dataset_id'] for d in cat.get('results', [])]
+        print('   park datasets in the catalogue:', found)
+        ids += [i for i in found if 'polygon' in i and i not in ids]
+    except Exception as e:
+        print('   ! catalogue search', e)
+    for ds in ids:
+        try:
+            d = json.loads(F.get(ODS + ds + '/exports/geojson', tries=1))
+        except Exception as e:
+            print('   ', ds, e); continue
+        if d.get('features'):
+            json.dump(d, open(os.path.join(OUT, 'park-polygons.geojson'), 'w'), separators=(',', ':'), ensure_ascii=False)
+            m = json.loads(F.get(ODS + ds))['metas']['default']
+            meta['park-polygons'] = {'dataset': ds, 'modified': m.get('modified'), 'records': m.get('records_count'), 'license': m.get('license')}
+            print('   park outlines from', ds, len(d['features']), 'features; fields', sorted(d['features'][0]['properties']))
+            return
+    raise RuntimeError('no park polygon dataset found')
+F.step('ods park outlines', park_outlines)
 
 
 
