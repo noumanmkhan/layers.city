@@ -149,9 +149,20 @@ def com():
         except Exception as e: print('  failed', k, repr(e)[:300])
 
 
-ONLY = os.environ.get('ONLY', 'none').split(',')   # set ONLY=osm,datavic,com for a full run; heritage always runs
+def construction():
+    """Rail under construction across Greater Melbourne (OSM): the Suburban Rail Loop East's tracks and stations
+    (osm_construction.json), whatever OSM tags them with, by name or operator."""
+    overpass(f"""[out:json][timeout:300];(
+  nwr["name"~"Suburban Rail Loop|^SRL"]({bb(REGION)});
+  nwr["operator"~"Suburban Rail Loop"]({bb(REGION)});
+  way["railway"="construction"]({bb(REGION)});
+);out tags geom;""", 'more/osm_construction.json')
+
+
+ONLY = os.environ.get('ONLY', 'construction').split(',')   # set ONLY=osm,datavic,com for a full run; heritage always runs
 if not ONLY or 'osm' in ONLY: step('osm', osm)
 if not ONLY or 'datavic' in ONLY: step('datavic', datavic)
-step('heritage', heritage)
+if not ONLY or 'heritage' in ONLY: step('heritage', heritage)
 if not ONLY or 'com' in ONLY: step('city of melbourne', com)
+if not ONLY or 'construction' in ONLY: step('construction', construction)
 if FAILED: print('FAILED steps:', FAILED)
