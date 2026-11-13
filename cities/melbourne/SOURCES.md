@@ -17,6 +17,13 @@ the project's claude/australia-scouting.md.
 | Lord Mayor, Deputy Lord Mayor, councillors | Hand-kept from the VEC's Melbourne City Council page and 2024 results (`council.json`) | Public information | — |
 | Parks: outlines; Sports & rec; water play | OpenStreetMap via Overpass (`fetch_parks.py`) | ODbL | `parks.py` |
 | Parks: playgrounds, public toilets, public barbecues | City of Melbourne open data (data.melbourne.vic.gov.au: playgrounds, public-toilets, public-barbecues) | CC BY 4.0 | `parks.py` |
+| Skyscrapers | Wikipedia, "List of tallest buildings in Melbourne" (engine/fetch_skyscrapers.py) | CC BY-SA 4.0 | engine/skyscrapers.py |
+| ERs (Greater Melbourne), universities and TAFE, libraries and community centres, places of worship, bike lanes | OpenStreetMap via Overpass (`fetch_more.py`) | ODbL | `places_more.py` |
+| Schools | Department of Education, School Locations 2026 (DataVic) | CC BY 4.0 | `places_more.py` |
+| New development | City of Melbourne, Development Activity Monitor | CC BY 4.0 | `places_more.py` |
+| Public car parks | City of Melbourne, Off-street car parks with capacity and type (2024 census year, Commercial) | CC BY 4.0 | `parking.py` |
+| Heritage buildings | Heritage Council of Victoria, Victorian Heritage Database API (Victorian Heritage Register places) | CC BY 4.0 | `heritage.py` |
+| Address row | Vicmap Address (`fetch_addresses.py`) | CC BY 4.0 | `addresses.py` |
 | Where to vote (state election, November 28, 2026): early and election day voting centres | Victorian Electoral Commission, venues spreadsheet linked from vec.vic.gov.au/voting/2026-state-election/voting-locations (daily, `fetch-melbourne-voting.yml`) | CC BY 4.0 (© Victorian Electoral Commission) | `fetch_voting.py`, `voting.py` |
 | Where each voting centre is | Vicmap Address, via the Vicmap open data WFS (each venue's address looked up; kept in `raw/voting/sites.json`) | CC BY 4.0 | `fetch_voting.py` |
 | Trams and metropolitan buses (card's Transit nearby, bus layer) | Transport Victoria GTFS Schedule, folders 3 and 4 (`surface.json` "inner") | CC BY 4.0 | `engine/fetch_surface.py` |
