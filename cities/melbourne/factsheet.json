@@ -1,0 +1,229 @@
+{
+ "_about": "Settings for the fact sheets (engine/profiles/): one per suburb of the City of Melbourne (the units the map uses; the three slivers under 300 people have no Census profile). 'The subway' here is the metropolitan train network: train_stations and train_lines, each line in its group's colour (city.css). Trams are counted like Toronto's streetcars. The hub is Flinders Street; the City Loop and Metro Tunnel stations are the hubs counted for changes.",
+ "units": "suburbs",
+ "census": "suburb_profiles.json",
+ "distance": "km",
+ "metro": {
+  "stations": [
+   "train_stations"
+  ],
+  "lines": [
+   "train_lines"
+  ]
+ },
+ "hubs": [
+  "Flinders Street",
+  "Southern Cross",
+  "Melbourne Central",
+  "Parliament",
+  "Flagstaff",
+  "State Library",
+  "Town Hall"
+ ],
+ "hub": {
+  "name": "Flinders Street"
+ },
+ "rail": {
+  "file": "vline_stations",
+  "in": "V/Line stations",
+  "nearest": "Nearest V/Line station",
+  "within": 3
+ },
+ "regionHighways": "region_highways",
+ "arterials": {
+  "layers": {
+   "streets": "major"
+  }
+ },
+ "lineColors": {
+  "flemingtonracecourse": "#95979A",
+  "sandringham": "#F178AF",
+  "werribee": "#F178AF",
+  "williamstown": "#F178AF",
+  "frankston": "#028430",
+  "stonypoint": "#028430",
+  "craigieburn": "#FFBE00",
+  "upfield": "#FFBE00",
+  "hurstbridge": "#BE1014",
+  "mernda": "#BE1014",
+  "alamein": "#152C6B",
+  "belgrave": "#152C6B",
+  "glenwaverley": "#152C6B",
+  "lilydale": "#152C6B",
+  "cranbourne": "#34ACE1",
+  "pakenham": "#34ACE1",
+  "sunbury": "#34ACE1"
+ },
+ "lineOrder": [
+  "cranbourne",
+  "pakenham",
+  "sunbury",
+  "alamein",
+  "belgrave",
+  "glenwaverley",
+  "lilydale",
+  "hurstbridge",
+  "mernda",
+  "craigieburn",
+  "upfield",
+  "frankston",
+  "stonypoint",
+  "sandringham",
+  "werribee",
+  "williamstown",
+  "flemingtonracecourse"
+ ],
+ "drive": {
+  "rampRadius": 3,
+  "keepStation": true,
+  "destinations": [
+   [
+    "Flinders Street",
+    144.9671,
+    -37.8183
+   ],
+   [
+    "Melbourne Airport",
+    144.841,
+    -37.669
+   ],
+   [
+    "Avalon Airport",
+    144.473,
+    -38.039
+   ],
+   [
+    "Geelong",
+    144.36,
+    -38.149
+   ],
+   [
+    "Monash University Clayton",
+    145.134,
+    -37.911
+   ]
+  ]
+ },
+ "walk": {
+  "tiles": [
+   2,
+   2
+  ]
+ },
+ "stationLabels": 12,
+ "hubBullets": false,
+ "transferStops": 3,
+ "labels": {
+  "subwayStations": "Train stations",
+  "nearestSubway": "Nearest train station",
+  "bikeLanes": "Bike lanes and paths",
+  "nature": [
+   [
+    "Parks",
+    "park"
+   ],
+   [
+    "Playgrounds",
+    "playground"
+   ]
+  ],
+  "libraries": "Libraries",
+  "centres": "Community centres",
+  "heritage": "Victorian Heritage Register places",
+  "subwaySection": "Trains",
+  "busSection": "Trams and buses",
+  "railSection": "V/Line, cycling and driving",
+  "overnight": "Night buses",
+  "parkingLots": "Public car parks",
+  "parkingNearest": "Nearest public car park",
+  "mainRoads": "Longest main streets",
+  "roads": [
+   [
+    "major",
+    "Main streets"
+   ]
+  ],
+  "glanceStation": "train station",
+  "glanceStations": "train stations",
+  "glanceHeritage": "Heritage Register places",
+  "streetcars": "Trams",
+  "streetcarRoutes": "Tram routes"
+ },
+ "page": {
+  "city": "Melbourne",
+  "kind": "MELBOURNE",
+  "description": "Printable one-page fact sheets for each suburb of the City of Melbourne: trains, trams and buses, freeways, drive times, public car parks, parks, libraries and schools. Drop a pin for walk and drive times from any spot.",
+  "unit": "suburb",
+  "Unit": "Suburb",
+  "boundary": "Suburb boundary (ABS Suburbs and Localities 2021, cut to the City)",
+  "pinned": "Pinned spot (rounded to about 100 m) in {name}",
+  "outside": "That spot is outside the City of Melbourne. Try a spot inside the City.",
+  "noMatch": "No match in the City of Melbourne for “{q}”. Try the full street address, like “90 Swanston Street”.",
+  "placeholder": "Search an address, like 90 Swanston Street",
+  "credits": "Boundaries: Australian Bureau of Statistics · Transit: Transport Victoria GTFS · Parks and car parks: City of Melbourne and OpenStreetMap · Census figures: 2021 Census",
+  "creditsPin": " · Walks along streets and paths at 4.8 km/h from the 150 m square around the pin: © OpenStreetMap contributors · Drive times are free-flow",
+  "creditsTransit": " · Stops and changes counted along each drawn line",
+  "creditsDriving": " · Freeways and ramps: © OpenStreetMap contributors · Drive times: OSRM, free-flow (empty roads, no tolls or traffic); distances straight-line · Car parks: City of Melbourne land use census",
+  "sysNote": "Metropolitan trains, simplified. Stops and changes are counted along each line.",
+  "sysLabel": "Melbourne's train network with this suburb highlighted",
+  "nearestStop": "Nearest tram or bus stop",
+  "nearestDock": "",
+  "parkingNearest": "Nearest public car park",
+  "legendTransit": [
+   [
+    "line",
+    "#34ACE1",
+    "Train"
+   ],
+   [
+    "line",
+    "var(--tram)",
+    "Tram"
+   ],
+   [
+    "line",
+    "var(--bus)",
+    "Frequent bus"
+   ]
+  ],
+  "legendDriving": [
+   [
+    "hwy",
+    "#F7C548",
+    "Freeway"
+   ],
+   [
+    "road",
+    "#FFFFFF",
+    "Main street"
+   ],
+   [
+    "ramp",
+    "#fff",
+    "On-ramp"
+   ],
+   [
+    "gp",
+    "#0B8A44",
+    "Public car park"
+   ]
+  ],
+  "legendOverview": [
+   [
+    "line",
+    "#34ACE1",
+    "Train"
+   ],
+   [
+    "line",
+    "var(--bike)",
+    "Bike lane or path"
+   ],
+   [
+    "dot",
+    "var(--park)",
+    "Park"
+   ]
+  ]
+ }
+}

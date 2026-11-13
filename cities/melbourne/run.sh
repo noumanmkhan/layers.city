@@ -32,4 +32,5 @@ python3 parking.py   # public car parks
 python3 nearby.py   # the card's Nearby section, from the layers above
 if [ -f raw/voting/sites.json ]; then python3 voting.py; fi   # where to vote, until November 28
 python3 ../../engine/assemble.py melbourne
+python3 ../../engine/profiles/build.py melbourne   # fact sheets, from the published layers
 echo "Done. Preview: cd docs && python3 -m http.server 8000"

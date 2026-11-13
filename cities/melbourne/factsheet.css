@@ -1,0 +1,22 @@
+/* Line bullets in the train lines' group colours (cities/melbourne/city.css). The lines are named, not lettered,
+   so their bullets are plain dots. The page's class is "l" + the line's name, so a two-word name (Glen Waverley)
+   is matched by its first word. */
+.ln{font-size:10.5px}
+.ln.lAlamein,.ln.lBelgrave,.ln.lCraigieburn,.ln.lCranbourne,.ln.lFlemington,.ln.lFrankston,.ln.lGlen,.ln.lHurstbridge,.ln.lLilydale,.ln.lMernda,.ln.lPakenham,.ln.lSandringham,.ln.lStony,.ln.lSunbury,.ln.lUpfield,.ln.lWerribee,.ln.lWilliamstown{font-size:0;width:14px;height:14px}
+.ln.lAlamein{background:#152C6B}
+.ln.lBelgrave{background:#152C6B}
+.ln.lCraigieburn{background:#FFBE00}
+.ln.lCranbourne{background:#34ACE1}
+.ln.lFlemington{background:#95979A}
+.ln.lFrankston{background:#028430}
+.ln.lGlen{background:#152C6B}
+.ln.lHurstbridge{background:#BE1014}
+.ln.lLilydale{background:#152C6B}
+.ln.lMernda{background:#BE1014}
+.ln.lPakenham{background:#34ACE1}
+.ln.lSandringham{background:#F178AF}
+.ln.lStony{background:#028430}
+.ln.lSunbury{background:#34ACE1}
+.ln.lUpfield{background:#FFBE00}
+.ln.lWerribee{background:#F178AF}
+.ln.lWilliamstown{background:#F178AF}
