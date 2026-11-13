@@ -495,10 +495,12 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     }
     return next === Infinity ? null : { o: Math.floor(next / 1440), m: next % 1440, day };
   }
-  const WORD = { bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train', cable: 'cable car' };
+  // A city can use its own words (routes.json page "modeWords": Melbourne's trams) and its own am/pm ("ampm": ["am", "pm"]).
+  const WORD = Object.assign({ bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train', cable: 'cable car' }, RS.modeWords || {});
+  const AMPM = RS.ampm || ['a.m.', 'p.m.'];
   function clock(m) {
     const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
-    return `${h % 12 || 12}:${mm} ${h < 12 ? 'a.m.' : 'p.m.'}`;
+    return `${h % 12 || 12}:${mm} ${h < 12 ? AMPM[0] : AMPM[1]}`;
   }
   function schedEl(S, sid, rid, long) {
     const n = nextSched(S, sid, rid);
