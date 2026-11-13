@@ -1,0 +1,520 @@
+{
+ "_about": "Settings for Melbourne's Venues pages (engine/venues.py, engine/fetch_venue_events.py): the big live venues most of Greater Melbourne travels to, hand-kept; what's on at each from Ticketmaster's Discovery API; arrival notes in our own words, facts only. Hand-checked November 13, 2026: check capacities and arrival notes before a release, and the taxi figures every July.",
+ "city": "Melbourne",
+ "week": "Monday to Sunday, Melbourne time",
+ "feed": {
+  "_about": "engine/fetch_venue_events.py: venue by venue (ids found once near each venue's point and saved in raw/venue_tm_ids.json). drop: words left out when matching the feed's venue names to ours.",
+  "centre": [
+   -37.81,
+   144.96
+  ],
+  "radiusKm": 60,
+  "country": "AU",
+  "drop": [
+   "melbourne",
+   "vic",
+   "victoria",
+   "the",
+   "southbank",
+   "docklands",
+   "st kilda"
+  ],
+  "mode": "venues"
+ },
+ "fares": {
+  "_about": "Flat figures the pages quote. Check them before a release; they go stale. No train or tram fare: Victoria made public transport free for a month and then halved fares for the rest of 2026, so a number would mislead. Taxi: Safe Transport Victoria's maximum fare for unbooked trips in metropolitan Melbourne from July 1, 2026, standard rate (up to four passengers): $4.60 flagfall and $2.35 a kilometre above 21 km/h (safetransport.vic.gov.au, fares and levies).",
+  "asof": "2026-11",
+  "taxiDrop": 4.6,
+  "taxiPerKm": 2.35,
+  "taxiExtra": 0
+ },
+ "page": {
+  "_about": "How engine/venues.py reads Melbourne: metropolitan trains (train_stations, train_lines) as the subway, V/Line as regional rail, the City's suburbs as the units, and Flinders Street and Southern Cross as the stations a trip from the suburbs and regional Victoria arrives at. Public car parks from the City's land use census. No fare figures for trains: Victoria halved fares for the rest of 2026, so a number would mislead; the taxi figure is Safe Transport Victoria's maximum from July 1, 2026.",
+  "units": "suburbs",
+  "distance": "km",
+  "lineHints": true,
+  "metro": {
+   "stations": [
+    "train_stations"
+   ],
+   "lines": [
+    "train_lines"
+   ]
+  },
+  "lineColors": {
+   "flemingtonracecourse": "#95979A",
+   "sandringham": "#F178AF",
+   "werribee": "#F178AF",
+   "williamstown": "#F178AF",
+   "frankston": "#028430",
+   "stonypoint": "#028430",
+   "craigieburn": "#FFBE00",
+   "upfield": "#FFBE00",
+   "hurstbridge": "#BE1014",
+   "mernda": "#BE1014",
+   "alamein": "#152C6B",
+   "belgrave": "#152C6B",
+   "glenwaverley": "#152C6B",
+   "lilydale": "#152C6B",
+   "cranbourne": "#34ACE1",
+   "pakenham": "#34ACE1",
+   "sunbury": "#34ACE1"
+  },
+  "rail": {
+   "stations": "vline_stations",
+   "lines": "vline_lines",
+   "walk": "go",
+   "within": 3
+  },
+  "hubs": [
+   {
+    "name": "Flinders Street",
+    "short": "Flinders Street",
+    "station": "Flinders Street",
+    "at": [
+     144.9671,
+     -37.8183
+    ]
+   },
+   {
+    "name": "Southern Cross",
+    "short": "Southern Cross",
+    "station": "Southern Cross",
+    "at": [
+     144.9525,
+     -37.8184
+    ]
+   }
+  ],
+  "here": [
+   {
+    "label": "Part of the city",
+    "file": "sides",
+    "text": "{name}"
+   },
+   {
+    "label": "Suburb",
+    "file": "suburbs",
+    "text": "{name}",
+    "page": true
+   },
+   {
+    "label": "State district",
+    "file": "state",
+    "text": "{name}"
+   },
+   {
+    "label": "Federal division",
+    "file": "federal",
+    "text": "{name}"
+   }
+  ],
+  "words": {
+   "local": "Trains",
+   "railShort": "V/Line",
+   "subway": "Trains",
+   "rail": "V/Line",
+   "routes": "Trams and buses within a 5-minute walk",
+   "atDoor": "Tram at the door",
+   "bikeshare": "",
+   "region": "Greater Melbourne",
+   "taxi": "Victoria’s maximum taxi fare for unbooked trips",
+   "busy": "Busy nights",
+   "legend": "Train lines in their colours, V/Line dashed, other venues in grey.",
+   "sources": "Transit: Transport Victoria. Venues’ own visitor pages for arrival notes.",
+   "venueDesc": "what's on this week, the nearest train station, trams and buses, and drive and transit from across Greater Melbourne.",
+   "intro": "places most of Greater Melbourne travels to, and how to get to each: nearest train station, trams and buses, and drive and transit from the suburbs and regional Victoria.",
+   "listDesc": "from the MCG and Marvel Stadium to the Arts Centre and the Princess Theatre, and how to get to each: nearest train station, trams and buses, drive and transit from across Greater Melbourne.",
+   "other": "Smaller rooms, same facts, same listing.",
+   "hereNote": "The same rows the map’s What’s here card gives for this address; the map adds schools, Nearby and more.",
+   "nearestSubway": "Nearest train station"
+  },
+  "busy": true
+ },
+ "origins": [
+  {
+   "name": "Frankston",
+   "via": "Frankston",
+   "mode": "local"
+  },
+  {
+   "name": "Werribee",
+   "via": "Werribee",
+   "mode": "local"
+  },
+  {
+   "name": "Dandenong",
+   "via": "Dandenong",
+   "mode": "local"
+  },
+  {
+   "name": "Box Hill",
+   "via": "Box Hill",
+   "mode": "local"
+  },
+  {
+   "name": "Ringwood",
+   "via": "Ringwood",
+   "mode": "local"
+  },
+  {
+   "name": "Glen Waverley",
+   "via": "Glen Waverley",
+   "mode": "local"
+  },
+  {
+   "name": "Craigieburn",
+   "via": "Craigieburn",
+   "mode": "local"
+  },
+  {
+   "name": "Sunbury",
+   "via": "Sunbury",
+   "mode": "local"
+  },
+  {
+   "name": "Mernda",
+   "via": "Mernda",
+   "mode": "local"
+  },
+  {
+   "name": "Geelong",
+   "via": "Geelong",
+   "mode": "rail",
+   "rail": "V/Line Geelong line",
+   "hub": "Southern Cross",
+   "at": [
+    144.355,
+    -38.1447
+   ]
+  },
+  {
+   "name": "Ballarat",
+   "via": "Ballarat",
+   "mode": "rail",
+   "rail": "V/Line Ballarat line",
+   "hub": "Southern Cross"
+  },
+  {
+   "name": "Bendigo",
+   "via": "Bendigo",
+   "mode": "rail",
+   "rail": "V/Line Bendigo line",
+   "hub": "Southern Cross",
+   "at": [
+    144.2794,
+    -36.7652
+   ]
+  }
+ ],
+ "venues": [
+  {
+   "slug": "mcg",
+   "name": "Melbourne Cricket Ground",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 100024,
+   "homeOf": [
+    "AFL’s Collingwood, Melbourne, Richmond and Hawthorn"
+   ],
+   "address": "Brunton Avenue, Richmond",
+   "at": [
+    144.9834,
+    -37.8199
+   ],
+   "site": "https://www.mcg.org.au/",
+   "tm": [
+    "Melbourne Cricket Ground",
+    "MCG"
+   ],
+   "season": "AFL football from March to September, finals in September; cricket from December, with the Boxing Day Test.",
+   "arrive": "Train to Jolimont-MCG or Richmond, then a walk through Yarra Park; trams along Wellington Parade or Swan Street",
+   "notes": [
+    "Jolimont-MCG and Richmond stations are each a short walk through Yarra Park; Flinders Street is about 15 minutes on foot along the Birrarung Marr paths."
+   ]
+  },
+  {
+   "slug": "marvel-stadium",
+   "name": "Marvel Stadium",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 53000,
+   "homeOf": [
+    "AFL’s Essendon, North Melbourne, St Kilda and Western Bulldogs"
+   ],
+   "address": "740 Bourke Street, Docklands",
+   "at": [
+    144.9475,
+    -37.8165
+   ],
+   "site": "https://www.marvelstadium.com.au/",
+   "tm": [
+    "Marvel Stadium",
+    "Marvel Stadium Melbourne"
+   ],
+   "season": "AFL football from March to September under a roof that closes; concerts and other events the rest of the year.",
+   "arrive": "Train to Southern Cross, then the footbridge over the tracks; trams on Bourke and La Trobe streets",
+   "notes": [
+    "Inside the Free Tram Zone: trams along Bourke Street, La Trobe Street and Docklands cost nothing from the CBD."
+   ]
+  },
+  {
+   "slug": "aami-park",
+   "name": "AAMI Park",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 30050,
+   "homeOf": [
+    "Melbourne Storm, Melbourne Victory and Melbourne City"
+   ],
+   "address": "Olympic Boulevard, Melbourne",
+   "at": [
+    144.9837,
+    -37.8251
+   ],
+   "site": "https://www.aamipark.com.au/",
+   "tm": [
+    "AAMI Park"
+   ],
+   "arrive": "Train to Richmond, then a walk across the footbridge; tram 70 along Olympic Boulevard",
+   "notes": [
+    "Part of the Melbourne and Olympic Parks precinct with Rod Laver Arena and John Cain Arena."
+   ]
+  },
+  {
+   "slug": "rod-laver-arena",
+   "name": "Rod Laver Arena",
+   "kinds": [
+    "concerts",
+    "sports"
+   ],
+   "capacity": 14820,
+   "homeOf": [
+    "Australian Open"
+   ],
+   "address": "Olympic Boulevard, Melbourne",
+   "at": [
+    144.9786,
+    -37.8216
+   ],
+   "site": "https://rodlaverarena.com.au/",
+   "tm": [
+    "Rod Laver Arena"
+   ],
+   "season": "The Australian Open in late January; concerts all year.",
+   "arrive": "Train to Richmond or Flinders Street, then a walk; tram 70 along Olympic Boulevard"
+  },
+  {
+   "slug": "john-cain-arena",
+   "name": "John Cain Arena",
+   "kinds": [
+    "sports",
+    "concerts"
+   ],
+   "capacity": 10500,
+   "homeOf": [
+    "Melbourne United",
+    "Melbourne Vixens"
+   ],
+   "address": "Olympic Boulevard, Melbourne",
+   "at": [
+    144.9814,
+    -37.8222
+   ],
+   "site": "https://johncainarena.com.au/",
+   "tm": [
+    "John Cain Arena"
+   ],
+   "arrive": "Train to Richmond, then a walk across the footbridge; tram 70 along Olympic Boulevard"
+  },
+  {
+   "slug": "arts-centre-melbourne",
+   "name": "Arts Centre Melbourne",
+   "kinds": [
+    "theatre",
+    "concerts"
+   ],
+   "capacity": 2600,
+   "address": "100 St Kilda Road, Southbank",
+   "at": [
+    144.9687,
+    -37.8213
+   ],
+   "site": "https://www.artscentremelbourne.com.au/",
+   "tm": [
+    "Arts Centre Melbourne",
+    "Hamer Hall",
+    "State Theatre",
+    "Playhouse - Arts Centre Melbourne",
+    "Arts Centre Melbourne - State Theatre",
+    "Arts Centre Melbourne - Hamer Hall"
+   ],
+   "arrive": "Train to Flinders Street, then across Princes Bridge; trams along St Kilda Road stop at the door",
+   "notes": [
+    "Hamer Hall, the State Theatre and the Playhouse are here; the State Theatre is the largest at about 2,000 seats."
+   ]
+  },
+  {
+   "slug": "sidney-myer-music-bowl",
+   "name": "Sidney Myer Music Bowl",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 12000,
+   "address": "Linlithgow Avenue, Melbourne",
+   "at": [
+    144.9732,
+    -37.8238
+   ],
+   "site": "https://www.artscentremelbourne.com.au/",
+   "tm": [
+    "Sidney Myer Music Bowl"
+   ],
+   "season": "Open-air, mostly from spring to autumn.",
+   "arrive": "Train to Flinders Street, then a walk across Princes Bridge and through the Kings Domain; trams along St Kilda Road"
+  },
+  {
+   "slug": "princess-theatre",
+   "name": "Princess Theatre",
+   "kinds": [
+    "theatre"
+   ],
+   "capacity": 1450,
+   "address": "163 Spring Street, Melbourne",
+   "at": [
+    144.9727,
+    -37.8105
+   ],
+   "site": "https://www.marrinergroup.com.au/",
+   "tm": [
+    "Princess Theatre",
+    "Princess Theatre Melbourne"
+   ],
+   "arrive": "Train to Parliament; trams along Spring Street and Bourke Street"
+  },
+  {
+   "slug": "regent-theatre",
+   "name": "Regent Theatre",
+   "kinds": [
+    "theatre"
+   ],
+   "capacity": 2100,
+   "address": "191 Collins Street, Melbourne",
+   "at": [
+    144.9677,
+    -37.8151
+   ],
+   "site": "https://www.marrinergroup.com.au/",
+   "tm": [
+    "Regent Theatre",
+    "Regent Theatre Melbourne"
+   ],
+   "arrive": "Train to Town Hall or Flinders Street; trams along Collins and Swanston streets"
+  },
+  {
+   "slug": "her-majestys-theatre",
+   "name": "Her Majesty’s Theatre",
+   "kinds": [
+    "theatre"
+   ],
+   "capacity": 1700,
+   "address": "219 Exhibition Street, Melbourne",
+   "at": [
+    144.9695,
+    -37.8106
+   ],
+   "site": "https://www.hmt.com.au/",
+   "tm": [
+    "Her Majesty's Theatre",
+    "Her Majesty's Theatre Melbourne"
+   ],
+   "arrive": "Train to Parliament or Melbourne Central; trams along Bourke Street"
+  },
+  {
+   "slug": "forum-melbourne",
+   "name": "Forum Melbourne",
+   "kinds": [
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 2000,
+   "address": "154 Flinders Street, Melbourne",
+   "at": [
+    144.9692,
+    -37.8165
+   ],
+   "site": "https://forummelbourne.com.au/",
+   "tm": [
+    "Forum Melbourne",
+    "Forum Theatre"
+   ],
+   "arrive": "Train to Flinders Street; trams along Flinders and Russell streets"
+  },
+  {
+   "slug": "palais-theatre",
+   "name": "Palais Theatre",
+   "kinds": [
+    "concerts",
+    "comedy"
+   ],
+   "capacity": 2896,
+   "address": "Lower Esplanade, St Kilda",
+   "at": [
+    144.975,
+    -37.8678
+   ],
+   "site": "https://palaistheatre.com.au/",
+   "tm": [
+    "Palais Theatre"
+   ],
+   "arrive": "Trams to the St Kilda Esplanade and Acland Street; no train station nearby"
+  },
+  {
+   "slug": "festival-hall",
+   "name": "Festival Hall",
+   "kinds": [
+    "concerts"
+   ],
+   "capacity": 5445,
+   "address": "300 Dudley Street, West Melbourne",
+   "at": [
+    144.9455,
+    -37.8095
+   ],
+   "site": "https://www.festivalhall.com.au/",
+   "tm": [
+    "Festival Hall",
+    "Festival Hall Melbourne"
+   ],
+   "arrive": "Train to Southern Cross or North Melbourne, then a walk; trams along La Trobe Street and Spencer Street"
+  },
+  {
+   "slug": "flemington-racecourse",
+   "name": "Flemington Racecourse",
+   "kinds": [
+    "sports"
+   ],
+   "capacity": 120000,
+   "homeOf": [
+    "Melbourne Cup"
+   ],
+   "address": "448 Epsom Road, Flemington",
+   "at": [
+    144.9122,
+    -37.7895
+   ],
+   "site": "https://www.vrc.com.au/",
+   "tm": [
+    "Flemington Racecourse"
+   ],
+   "season": "The Melbourne Cup Carnival in early November, races through the year.",
+   "arrive": "Trains run to Flemington Racecourse station on race days only; trams to Racecourse Road and Epsom Road"
+  }
+ ]
+}
