@@ -104,7 +104,7 @@ def heritage():
     json.dump(vhd('heritage-authorities'), open(os.path.join(OUT, 'heritage_authorities.json'), 'w'), ensure_ascii=False)
     places, page = [], 1
     while True:
-        d = vhd(f'places?geo={CITY[3]},{CITY[0]},{CITY[1]},{CITY[2]}&rpp=1000&page={page}')
+        d = vhd(f'places?geo=-37.808,144.946,6&rpp=1000&page={page}')   # 6 km round the City's middle; heritage.py keeps the City's own
         got = (d.get('_embedded') or {}).get('places') or []
         places += got
         print(f'  heritage page {page}: {len(got)} (total {d.get("total_items") or d.get("total")})')
@@ -153,6 +153,5 @@ ONLY = os.environ.get('ONLY', 'none').split(',')   # set ONLY=osm,datavic,com fo
 if not ONLY or 'osm' in ONLY: step('osm', osm)
 if not ONLY or 'datavic' in ONLY: step('datavic', datavic)
 step('heritage', heritage)
-step('heritage overlay', overlay)
 if not ONLY or 'com' in ONLY: step('city of melbourne', com)
 if FAILED: print('FAILED steps:', FAILED)
