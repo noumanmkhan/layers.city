@@ -1,0 +1,35 @@
+melbourne: walkable ways in -37.863,144.885,-37.763,145.003, as 4 tiles
+  streets tile 1/4: fetching ...
+    32,272 elements in 38 s
+  streets tile 2/4: fetching ...
+    75,799 elements in 42 s
+  streets tile 3/4: fetching ...
+    63,215 elements in 33 s
+  streets tile 4/4: fetching ...
+    97,429 elements in 33 s
+melbourne: 206,761 nodes, 250,055 links -> cities/melbourne/raw/walk_network.json (9 MB)
+  entrances and parks tile 1/4: fetching ...
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    85 elements in 113 s
+  entrances and parks tile 2/4: fetching ...
+    215 elements in 33 s
+  entrances and parks tile 3/4: fetching ...
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    overpass.private.coffee: HTTP Error 504: Gateway Timeout; trying again in 40 s
+    186 elements in 293 s
+  entrances and parks tile 4/4: fetching ...
+    overpass-api.de: HTTP Error 502: Bad Gateway; trying again in 20 s
+    overpass.private.coffee: HTTP Error 502: Bad Gateway; trying again in 40 s
+    overpass.kumi.systems: HTTP Error 504: Gateway Timeout; trying again in 60 s
+    270 elements in 412 s
+melbourne: 42 subway entrances, 698 parks -> cities/melbourne/raw/walk_extras.json
+melbourne: network 206,761 corners, 250,055 links (as of 2026-11-13)
+  subway: 42 mapped entrances at 8 of 226 stations
+  park: 718 park outlines from OSM
+  grid 56 x 56, 1,885 squares on a street
+  subway: 268 places, 1,635 squares within 60 min
+  go: 95 places, 1,329 squares within 60 min
+  stop: 20,562 places, 1,776 squares within 60 min
+  park: 13,774 places, 1,786 squares within 60 min
+  library: 8 places, 1,548 squares within 60 min
+melbourne: -> docs/melbourne/profiles/data/walk_grid.json (0.1 MB)
