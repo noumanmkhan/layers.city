@@ -180,7 +180,7 @@
    {
     "id": "transit",
     "name": "Getting around",
-    "note": "Metro trains, the tram network, frequent buses, V/Line and the freeways.",
+    "note": "Metro trains, the tram network, frequent buses, V/Line, the freeways and the line being built.",
     "layers": [
      "streets",
      "trains",
@@ -188,6 +188,7 @@
      "trams",
      "bus",
      "vline",
+     "build",
      "hwy"
     ],
     "view": "city",
@@ -650,6 +651,16 @@
      "alsoText": "Also here",
      "linkText": "Details",
      "legend": "From the City of Melbourne’s Development Activity Monitor, which tracks larger projects (new buildings, big extensions) and is updated a few times a year. It gives no dates beyond the year a project was finished."
+    },
+    {
+     "id": "build",
+     "kind": "construction",
+     "file": "construction",
+     "live": true,
+     "name": "Transit under construction",
+     "note": "Suburban Rail Loop East, Cheltenham to Box Hill, in the regional view",
+     "ucText": "Under construction",
+     "linkText": "Project page"
     }
    ]
   ],

@@ -28,7 +28,7 @@
 - The parks popup's fine print can now name the outlines' date (`{outlines}`).
 
 ### Known-as names and Parks start on (November 13)
-- First load, Reset and any link without `layers=` now show Known-as names and Parks, so the first view shows green space. Known-as names was already on everywhere but Toronto; Parks is now on in Toronto, Chicago, New York and San Francisco (the `on` flags in each `city.json`). Dallas, Hyderabad, Melbourne and Vancouver have no Parks layer.
+- First load, Reset and any link without `layers=` now show Known-as names and Parks, so the first view shows green space. Known-as names was already on everywhere but Toronto; Parks is now on in Toronto, Chicago, New York and San Francisco (the `on` flags in each `city.json`), and in Melbourne and Vancouver, whose Parks layers came the same day. Dallas and Hyderabad have no Parks layer.
 
 ### The map draws on the GPU: MapLibre GL replaces Leaflet (November 13)
 - Every city's map now draws with MapLibre GL JS (WebGL) instead of Leaflet's SVG and HTML, so zooming and panning on
@@ -40,6 +40,12 @@
 - Save as image renders the map at the chosen size on the GPU (html-to-image is gone). Map labels use Inter glyph files
   served with the site (`docs/glyphs/`, `engine/glyphs.py`). Leaflet and Leaflet.PolylineOffset are no longer loaded.
 - Fixed on the way: Reset no longer throws in a city without lens filters (Hyderabad).
+
+### Melbourne: Transit under construction (November 13)
+- The Suburban Rail Loop East, Cheltenham to Box Hill, as a dashed line with its six stations, in What's changing and
+  the Getting around view (regional view). Its route and stations from OpenStreetMap, which maps the tunnels and
+  station sites (`fetch_more.py` step `construction`, `construction.py` draws one line along the mapped track); the
+  facts (26 km of twin tunnels, trains by 2035) in our own words from Victoria's Big Build pages.
 
 ### Melbourne: Routes from here and Venues (November 13)
 - Routes from here: tram and bus stops and train platforms near any spot, where each line goes and the next

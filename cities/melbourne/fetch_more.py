@@ -159,7 +159,7 @@ def construction():
 );out tags geom;""", 'more/osm_construction.json')
 
 
-ONLY = os.environ.get('ONLY', 'construction').split(',')   # set ONLY=osm,datavic,com for a full run; heritage always runs
+ONLY = os.environ.get('ONLY', 'construction').split(',')   # the steps to run: set ONLY=osm,datavic,heritage,overlay,com,construction for a full run
 if not ONLY or 'osm' in ONLY: step('osm', osm)
 if not ONLY or 'datavic' in ONLY: step('datavic', datavic)
 if not ONLY or 'heritage' in ONLY: step('heritage', heritage)
