@@ -1,0 +1,20 @@
+{
+ "_about": "Skyscrapers layer, 150 m and taller (Toronto's cut-off), from Wikipedia's list. engine/fetch_skyscrapers.py fetches it; engine/skyscrapers.py builds docs/melbourne/data/skyscrapers.geojson. Table names are checked against the fetch log (cities/melbourne/raw/skyscrapers/fetch.log). The list covers Greater Melbourne, mostly the CBD, Southbank and Docklands.",
+ "wiki": "List of tallest buildings in Melbourne",
+ "city": "Melbourne",
+ "min": 150,
+ "heights": ["m", "ft"],
+ "tables": {
+  "built": "Tallest buildings",
+  "uc": "Under construction",
+  "timeline": "Timeline of tallest buildings"
+ },
+ "exclude": {},
+ "geocode": {"suffix": "Melbourne, Victoria, Australia", "addresses": {}},
+ "use": {},
+ "open": {
+  "_rule": "A tower listed with this year's date is drawn hollow (under construction) unless marked true here: it must be open for occupancy, not just topped out."
+ },
+ "aka": {},
+ "facts": {}
+}
