@@ -2659,7 +2659,7 @@ const pkHas = p => (p.a || []).map(k => k === 'water' && p.w && PARK.waterText ?
 const pkTip = p => p.n + (p.a && p.a.length ? ' · ' + pkHas(p).join(', ') : '');
 function pkPopup(p, latlng){
   const D = data.parks || {}, A = D.asof || {}, has = pkHas(p);
-  const fine = fill(PARK.fine || '', {parks: A.parks ? niceDate(A.parks, true) : '', water: A.water ? niceDate(A.water, true) : ''});
+  const fine = fill(PARK.fine || '', {parks: A.parks ? niceDate(A.parks, true) : '', water: A.water ? niceDate(A.water, true) : '', outlines: A.outlines ? niceDate(A.outlines, true) : ''});
   lpopup({className: 'info-pop pk-pop', maxWidth: 280, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
     '<b>' + esc(p.n) + '</b><small><i class="pk-key"></i>' + esc(PARK.place || 'Park') + '</small>' +
     (has.length ? '<div class="kv"><span>' + esc(PARK.hasLabel || 'Has') + '</span><span>' + has.map(esc).join(', ') + '</span></div>' : '') +

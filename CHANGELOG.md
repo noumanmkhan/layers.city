@@ -2,6 +2,10 @@
 
 ## Since 1.1
 
+### Vancouver gets a Parks layer (November 13)
+- A new *Outdoors* group with *Parks*, on by default like the other cities': 248 Park Board park outlines shaded green, with playground, water play, washroom and off-leash chips and a ParkFinder link in each popup. Outlines from the City's `parks-polygon-representation` dataset (fetched by `fetch_layers.py`), amenities from its parks list and facilities table; built by `cities/vancouver/parks.py`.
+- The parks popup's fine print can now name the outlines' date (`{outlines}`).
+
 ### Known-as names and Parks start on (November 13)
 - First load, Reset and any link without `layers=` now show Known-as names and Parks, so the first view shows green space. Known-as names was already on everywhere but Toronto; Parks is now on in Toronto, Chicago, New York and San Francisco (the `on` flags in each `city.json`). Dallas, Hyderabad, Melbourne and Vancouver have no Parks layer.
 
