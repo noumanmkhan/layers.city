@@ -59,7 +59,7 @@
     ["Places", [
       {"id": "nbhd", "kind": "units", "file": "neighbourhoods", "name": "Neighbourhoods", "note": "The City’s 158 official neighbourhoods", "on": true, "hover": "{name} · #{code}"},
       {"id": "badges", "kind": "badges", "under": "nbhd", "file": "badges.json", "lazy": true, "align": "Steeles Ave", "name": "Neighbourhood badges", "on": true, "note": "A drawing of what a few places are known for, laid square to the city grid"},
-      {"id": "cultural", "kind": "knownas", "file": "cultural", "name": "Known-as names", "note": "King West, Little Italy, the Junction…"},
+      {"id": "cultural", "kind": "knownas", "file": "cultural", "name": "Known-as names", "note": "King West, Little Italy, the Junction…", "on": true},
       {"id": "boroughs", "kind": "fill", "size": "major", "file": "boroughs", "name": "Former cities", "place": "Former city", "note": "The 6 municipalities merged in 1998",
        "colors": {"Old Toronto": "--b-oldtoronto", "York": "--b-york", "North York": "--b-northyork", "East York": "--b-eastyork", "Etobicoke": "--b-etobicoke", "Scarborough": "--b-scarborough"}},
       {"id": "areas", "kind": "fill", "size": "minor", "file": "areas", "name": "Old Toronto areas", "place": "Old Toronto area", "note": "Downtown, Midtown, Uptown, West End, East End",
@@ -72,7 +72,7 @@
       {"id": "bia", "kind": "patches", "file": "bia", "name": "Business Improvement Areas", "note": "85 BIAs", "label": "{name}", "hover": "{name} BIA"}
     ]],
     ["Outdoors", [
-      {"id": "parks", "kind": "parks", "file": "parks", "lazy": true, "optional": true, "name": "Parks", "place": "City park",
+      {"id": "parks", "kind": "parks", "file": "parks", "lazy": true, "optional": true, "on": true, "name": "Parks", "place": "City park",
        "note": "City parks shaded green; pick a playground, water play and more", "countNote": "{n} City parks shaded green; pick a playground, water play and more",
        "amenities": {"play": ["Playground", "Parks with a playground"], "water": ["Water play", "A splash pad or wading pool: summer only"], "wc": ["Washroom", "Parks with a public washroom"], "dog": ["Off-leash", "Parks with a dog off-leash area"]},
        "legend": "Pick one or more: parks with all of them stay green, the rest fade.", "matchText": "{n} of {total} parks.",

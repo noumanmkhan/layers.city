@@ -2,6 +2,9 @@
 
 ## Since 1.1
 
+### Toronto starts with Known-as names and Parks on (November 13)
+- First load, Reset and any link without `layers=` now show Known-as names and Parks beside the existing defaults (`on` flags in `cities/toronto/city.json`).
+
 ### The map draws on the GPU: MapLibre GL replaces Leaflet (November 13)
 - Every city's map now draws with MapLibre GL JS (WebGL) instead of Leaflet's SVG and HTML, so zooming and panning on
   phones no longer stall while thousands of shapes and labels are redrawn. Names and icons are placed by MapLibre in the

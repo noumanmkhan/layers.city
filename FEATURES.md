@@ -78,7 +78,7 @@ Toronto's geography is described in several overlapping ways at once. A single a
 
 **416 or 416 + 905:** a switch at the top of the layer panel picks the extent. *Toronto* (the default) greys out everything beyond the city limits and clips the GO lines at the boundary, leaving the TTC in full; *Greater Toronto Area* shows the highways and GO lines across the region.
 
-**Starting view and Reset:** the map opens on Toronto with neighbourhoods and their badges, landmarks, main streets, highways, GO and the subway switched on, and everything else off: a deliberately quiet first view, so former cities, Old Toronto areas, known-as names and streetcars are each one click away rather than all on at once. *Reset*, at the bottom of the layer panel, returns to that view from wherever you've wandered (it also clears any neighbourhood filter); *Hide all* turns every layer off.
+**Starting view and Reset:** the map opens on Toronto with neighbourhoods and their badges, known-as names, parks, landmarks, main streets, highways, GO and the subway switched on, and everything else off: a deliberately quiet first view, so former cities, Old Toronto areas and streetcars are each one click away rather than all on at once. *Reset*, at the bottom of the layer panel, returns to that view from wherever you've wandered (it also clears any neighbourhood filter); *Hide all* turns every layer off.
 
 **Toronto in the GTA:** the highways continue past the city limits (OpenStreetMap data, joined to the City's centrelines at the boundary) and the GO Train lines run out to Barrie, Kitchener, Niagara Falls and Oshawa. Lines that share track near Union fan out as you zoom in. Tapping a spot outside Toronto names its municipality and region.
 
