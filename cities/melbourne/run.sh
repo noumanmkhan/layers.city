@@ -27,6 +27,7 @@ python3 ../../engine/regions.py melbourne
 if [ -f raw/parks/osm_parks.json ]; then python3 parks.py; fi   # Parks, Sports & rec
 if [ -f raw/more/osm_city.json ]; then python3 places_more.py; fi   # ERs, campuses, schools, community, worship, bikes, development
 python3 ../../engine/skyscrapers.py melbourne
+python3 nearby.py   # the card's Nearby section, from the layers above
 if [ -f raw/voting/sites.json ]; then python3 voting.py; fi   # where to vote, until November 28
 python3 ../../engine/assemble.py melbourne
 echo "Done. Preview: cd docs && python3 -m http.server 8000"

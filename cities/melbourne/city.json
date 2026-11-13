@@ -1224,6 +1224,89 @@
      ]
     }
    }
+  },
+  "nearby": {
+   "file": "nearby.json",
+   "radius": 800,
+   "nearest": [
+    [
+     "library",
+     "Library"
+    ],
+    [
+     "centre",
+     "Community centre"
+    ],
+    [
+     "er",
+     "Emergency dept."
+    ],
+    [
+     "synagogue",
+     "Synagogue",
+     "worship:synagogue"
+    ],
+    [
+     "mosque",
+     "Mosque",
+     "worship:mosque"
+    ],
+    [
+     "buddhist",
+     "Buddhist temple",
+     "worship:buddhist"
+    ],
+    [
+     "hindu",
+     "Hindu temple",
+     "worship:hindu"
+    ],
+    [
+     "gurdwara",
+     "Gurdwara",
+     "worship:gurdwara"
+    ],
+    [
+     "church",
+     "Church",
+     "worship:church"
+    ]
+   ],
+   "within": "Within 800 m",
+   "counts": [
+    [
+     "park",
+     "park",
+     "parks"
+    ],
+    [
+     "playground",
+     "playground",
+     "playgrounds"
+    ],
+    [
+     "tennis",
+     "park with tennis courts",
+     "parks with tennis courts"
+    ],
+    [
+     "basketball",
+     "park with basketball or netball courts",
+     "parks with basketball or netball courts"
+    ],
+    [
+     "school_e",
+     "primary school",
+     "primary schools"
+    ],
+    [
+     "school_s",
+     "secondary school",
+     "secondary schools"
+    ]
+   ],
+   "note": "Straight-line distances; 800 m is about a 10-minute walk. Libraries, community centres and the ERs layer, parks and playgrounds, schools from the Department of Education (the nearest school is not always the government school a home is zoned for). Places of worship show while their layer is on.",
+   "sources": "Sources: City of Melbourne (playgrounds), Department of Education (schools), OpenStreetMap (libraries, community centres, hospitals, parks, courts, places of worship)."
   }
  },
  "tour": {

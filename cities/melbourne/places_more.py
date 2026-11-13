@@ -118,7 +118,8 @@ for e in osm_city:
     if t.get('amenity') == 'library' and not UNI.search(n + ' ' + (t.get('operator') or '')) and (COUNCIL.search(t.get('operator') or '') or n.endswith('Library') or 'Library' in n):
         items.append({'name': n, 'at': c, 'cat': 'library'})
     elif t.get('amenity') == 'community_centre' and (COUNCIL.search(t.get('operator') or '') or HUB.search(n)) and not CLUB.search(n):
-        items.append({'name': n, 'at': c, 'cat': 'centre'})
+        # "Kathleen Syme Library and Community Centre": a library first (OSM tags some only as a community centre).
+        items.append({'name': n, 'at': c, 'cat': 'library' if 'Library' in n else 'centre'})
 items = one_each(items)
 feats = [{'type': 'Feature', 'properties': {'name': i['name'], 'cat': i['cat']}, 'geometry': pt(i['at'])} for i in items]
 write('community.geojson', {'type': 'FeatureCollection', 'count': dict(Counter(f['properties']['cat'] for f in feats)), 'features': feats})
