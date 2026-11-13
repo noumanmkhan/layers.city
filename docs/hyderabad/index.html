@@ -5529,7 +5529,7 @@ function modelsLayer(){
 function set3D(on){
   is3d = on; btn3d.setAttribute('aria-pressed', String(on));
   const tw = ORDER.find(it => it.kind === 'towers');
-  if (on && tw && !state[tw.id]) setLayer(tw.id, true);
+  if (on && tw && !state[tw.id]){ const cb = document.getElementById('lyr-' + tw.id); if (cb) cb.checked = true; setLayer(tw.id, true); }
   TOWERS3D.forEach(g => { if (on) g.addLayer(g._cols); else g.removeLayer(g._cols); });
   const ml = modelsLayer(); if (ml){ if (on) ml.addTo(map); else ml.remove(); }
   map.getContainer().classList.toggle('is3d', on);
