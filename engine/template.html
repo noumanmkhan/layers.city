@@ -905,6 +905,76 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
 .pin.b{background:var(--cmp-b);box-shadow:0 0 0 7px color-mix(in srgb,var(--cmp-b) 28%,transparent),0 2px 8px rgba(0,0,0,.4)}
 @media (min-width:761px){#side.cmp{width:min(540px,calc(100vw - 364px))}}
 @media (max-width:760px){.cmp-cols,.cmp-rows{padding-left:12px;padding-right:12px} .cmp-go,.cmp-wait,.cmp-row{margin-left:12px;margin-right:12px} .cmp-row .cmp-go{margin:0}}
+/* ---------- Desktop (761px and up): map first ----------
+   A top bar (Layers.City and the city, one tab per layer group, then search on the right). A tab opens its group as a
+   popover under it; a click on the map or Esc closes it. "Pin" docks the panel on the left as a full list of every group
+   (remembered in this browser). Map tools sit bottom-left, the card bottom-right at half height (its arrow grows it).
+   Phones keep the bottom sheet: none of this applies under 761px, and map.js moves the moved pieces back. */
+#bar,#tools,.dhead,.hh .grow{display:none}
+@media (min-width:761px){
+  #bar{position:absolute;z-index:1001;top:16px;left:16px;right:372px;display:flex;align-items:center;gap:10px;pointer-events:none}
+  #bar>*{pointer-events:auto}
+  .brand{flex:none;display:flex;align-items:center;gap:10px;height:46px;box-sizing:border-box;padding:0 14px 0 10px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow)}
+  .brand .hub-link{margin:0;font-size:13px;font-weight:700;color:var(--ink)}
+  .brand .hub-link:hover{color:var(--accent)}
+  .brand .switch h1,.brand>h1{margin:0;padding-left:10px;border-left:1px solid var(--rule);font-size:15px;font-weight:700;letter-spacing:-.01em;line-height:22px}
+  #cats{min-width:0;display:flex;align-items:center;gap:2px;height:46px;box-sizing:border-box;padding:0 5px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow);overflow-x:auto;scrollbar-width:none}
+  #cats::-webkit-scrollbar{display:none}
+  #cats button{flex:none;display:flex;align-items:center;gap:5px;height:36px;padding:0 10px;font:inherit;font-size:13px;font-weight:600;color:var(--ink);background:none;border:none;border-radius:8px;cursor:pointer;white-space:nowrap}
+  #cats button:hover,#cats button[aria-expanded="true"]{background:var(--pill-bg)}
+  #cats button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
+  #cats button svg{width:13px;height:13px;color:var(--ink-3);transition:transform .15s}
+  #cats button[aria-expanded="true"] svg{transform:rotate(180deg)}
+  #cats .bon{min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:var(--accent-2);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center}
+  #cats .bon:empty{display:none}
+  #cats.ovl{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px);mask-image:linear-gradient(90deg,transparent,#000 28px)}
+  #cats.ovr{-webkit-mask-image:linear-gradient(270deg,transparent,#000 28px);mask-image:linear-gradient(270deg,transparent,#000 28px)}
+  #cats.ovl.ovr{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 28px calc(100% - 28px),transparent)}
+  #cats .sep{flex:none;width:1px;height:22px;margin:0 4px;background:var(--rule)}
+  #app.pinned #cats{display:none}
+  .ph{display:none}
+  .dhead{display:flex;align-items:center;gap:8px;padding:12px 12px 4px 18px}
+  .dhead b{font-size:16px;font-weight:700}
+  .dhead small{font-size:12px;font-weight:600;color:var(--accent-2)}
+  .dhead>span{flex:1}
+  #pinBtn{display:flex;align-items:center;gap:5px;height:30px;padding:0 10px;font:inherit;font-size:12px;font-weight:600;color:var(--ink-2);background:none;border:1px solid var(--rule);border-radius:8px;cursor:pointer}
+  #pinBtn:hover{color:var(--ink)}
+  #pinBtn:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+  #pinBtn svg{width:14px;height:14px}
+  #pinBtn[aria-pressed="true"]{background:var(--pill-bg);border-color:transparent;color:var(--accent-2)}
+  #panel{top:74px;left:16px;bottom:16px;width:380px}
+  #panel.folded{display:flex} #unfold{display:none!important}
+  #panel.shut{display:none!important}
+  #panel.float{z-index:1002;bottom:auto;width:440px;max-height:calc(100% - 90px - var(--attr-h,18px))}
+  #panel.float:not(.views) :is(.presets,.scope,.ptabs,.focus,.pfbox){display:none}
+  #panel.views #layers{display:none}
+  #panel.views{padding-bottom:12px}
+  #panel.float .grp:not(.cur){display:none}
+  #panel.float .grp h2{display:none}
+  #panel.float .grp.cur .gb[hidden]{display:block!important}
+  #panel.float .grp{margin-top:0}
+  /* one line per explainer; the full text shows on hover */
+  #panel .tx>span:not(.asof){white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #tools{position:absolute;z-index:1000;left:16px;bottom:16px;display:flex}
+  #app.pinned #tools{left:412px}
+  #tools .pf{padding:0;border:none;flex-wrap:nowrap;gap:8px}
+  #tools .pfb,#tools .pf>.seg{flex-wrap:nowrap;gap:2px;padding:4px;background:var(--panel);border:none;border-radius:10px;box-shadow:var(--shadow)}
+  #tools .pfb>button,#tools .pf>.seg>button{border:none;border-radius:7px;padding:6px 9px;font-size:12px;font-weight:600;color:var(--ink-2)}
+  #tools .pfb>button:hover,#tools .pf>.seg>button:hover{background:var(--pill-bg);color:var(--ink)}
+  #tools .pf>.seg>button[aria-checked="true"]{background:var(--pill-bg);color:var(--ink)}
+  #tools #view3d[aria-pressed="true"]{background:var(--accent);color:#fff}
+  #tools .imgmenu{left:0;right:auto;width:300px}
+  .maplibregl-ctrl-bottom-left .maplibregl-ctrl-group{margin:0 0 70px 16px}
+  #app.pinned .maplibregl-ctrl-bottom-left .maplibregl-ctrl-group{margin-left:412px}
+  #side{width:340px}
+  #here{margin-top:auto;max-height:50%}
+  #side.tall #here{max-height:none}
+  .hh .grow{display:grid;place-items:center;padding:0}
+  .hh .grow svg{width:15px;height:15px;transition:transform .15s}
+  #side.tall .hh .grow svg{transform:rotate(180deg)}
+}
+/* narrower desktops: the tour box clears the map tools bottom-left */
+@media (min-width:761px) and (max-width:1500px){.tourbox{bottom:72px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <style>
@@ -914,7 +984,11 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
 <div id="app">
   <div id="map" role="application" aria-label="{{mapLabel}}"></div>
 
+  <div id="bar"><div class="brand" id="brand"></div><nav id="cats" aria-label="Layer groups"></nav></div>
+  <div id="tools"></div>
+
   <aside id="panel" aria-label="Map layers">
+    <div class="dhead"><b id="dTitle">Layers</b><small id="dOn"></small><span></span><button type="button" id="pinBtn" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6l-1 6 3 3H7l3-3z"/><path d="M12 12v9"/></svg><span>Pin</span></button></div>
     <div class="ph" id="ph">
       <div class="grab" aria-hidden="true"></div>
       <button type="button" class="fold" id="fold" aria-label="Hide the layer panel" title="Hide the panel"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>

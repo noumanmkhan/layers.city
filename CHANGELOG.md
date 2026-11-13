@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### A map-first layout on computers (every city, November 13)
+- The layer sidebar gives way to a bar along the top: Layers.City and the city menu, a tab per layer group with how
+  many of its layers are on, and search. A tab opens its group as a pop-up under it; a click on the map or Escape
+  closes it (that click doesn't drop a pin). A Views tab holds Views, the extent switch and All / Basic / Live.
+- Pin docks the panel on the left as the full list, like the old sidebar; remembered, and the default on very wide
+  screens. Explainers are cut to one line (full text on hover), with the "as of" date on its own line.
+- The footer buttons and theme move to a small bar at the bottom left; the What's here card sits bottom right at
+  half height, with an arrow to grow it; the data credits fold into an ⓘ button. Phones are unchanged.
+
 ### Ferries (Toronto, November 13)
 - A Ferries layer under Getting around (off by default, on in the Transit view): the City's three Toronto Island
   routes from Jack Layton Ferry Terminal to Ward's Island, Centre Island and Hanlan's Point, each in its own colour,
