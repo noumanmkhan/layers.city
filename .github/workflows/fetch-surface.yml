@@ -75,5 +75,4 @@ jobs:
           git add cities/melbourne/raw/surface
           for f in transit.json transit_routes.geojson streetcars.geojson; do if [ -f docs/melbourne/data/$f ]; then git add docs/melbourne/data/$f; fi; done
           git commit -m "Update Melbourne's tram and bus routes from Transport Victoria's latest schedule" || echo "no changes"
-          git pull --rebase
-          git push
+          for i in 1 2 3 4 5; do git pull --rebase && git push && break; sleep $((i * 15)); done

@@ -3,6 +3,7 @@
   "gtfs": {
     "ckan": "https://opendata.transport.vic.gov.au/api/3/action/package_show?id=gtfs-schedule",
     "inner": [
+      "2/google_transit.zip",
       "3/google_transit.zip",
       "4/google_transit.zip"
     ]
@@ -23,5 +24,26 @@
     "suburbs",
     "region_areas"
   ],
-  "merge": true
+  "merge": true,
+  "rapid": {
+    "Alamein": "subway",
+    "Belgrave": "subway",
+    "Cranbourne": "subway",
+    "Craigieburn": "subway",
+    "Frankston": "subway",
+    "Glen Waverley": "subway",
+    "Hurstbridge": "subway",
+    "Lilydale": "subway",
+    "Mernda": "subway",
+    "Pakenham": "subway",
+    "Flemington Racecourse": "subway",
+    "Sandringham": "subway",
+    "Stony Point": "subway",
+    "Sunbury": "subway",
+    "Upfield": "subway",
+    "Werribee": "subway",
+    "Williamstown": "subway"
+  },
+  "sched": true,
+  "_rapid": "Metropolitan trains (folder 2) join the fetch for the Routes page only (November 13, 2026): the 17 lines by their GTFS short names, kept apart in raw/surface/rapid_*.json with each shape's platforms in order; the map still draws them from its own train layers. 'sched' writes the timetable the Routes page shows for next departures (live times would need a Transport Victoria API key)."
 }
