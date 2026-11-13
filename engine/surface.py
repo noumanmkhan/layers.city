@@ -58,9 +58,9 @@ if CFG.get('within'):
                    if any(_area.contains(_Pt(x, y)) for s in r['shapes'] for x, y in s['coords'][::5] + s['coords'][-1:])]
     S['stops'] = [s for s in S['stops'] if _area.contains(_Pt(s[2], s[3]))]
     print(f'  within {CFG["within"]}: {len(R["routes"])} of {_n} routes, {len(S["stops"])} stops')
-# surface.json "merge": true joins routes that share a number and mode into one (Melbourne files a route run by
+# surface.json "mergeNumbers": true joins routes that share a number and mode into one (Melbourne files a route run by
 # several operators once per operator): their shapes together, their trips added up hour by hour.
-if CFG.get('merge'):
+if CFG.get('mergeNumbers'):
     _by = {}
     for r in R['routes']:
         k = (num(r['short']), r['mode'])
