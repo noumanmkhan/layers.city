@@ -11,7 +11,7 @@
 - City of Melbourne open data (CC BY 4.0 on most; catalogue in com_catalog.json): the Development Activity Monitor,
   off-street car parks (latest census year), landmarks and places of interest, bike routes, and the activities and
   planned works feed, when the catalogue has them.
-Each step logs its own failure and the rest carry on."""
+Each step logs its own failure and the rest carry on. (Its log is raw/fetch_more.log.)"""
 import csv, io, json, os, re, sys, urllib.parse, zipfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
