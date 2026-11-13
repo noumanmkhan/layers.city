@@ -1,35 +1,7 @@
-  heritage page 1: 1000 (total 33449)
-  heritage page 2: 1000 (total 33449)
-  heritage page 3: 1000 (total 33449)
-  heritage page 4: 1000 (total 33449)
-  heritage page 5: 1000 (total 33449)
-  heritage page 6: 1000 (total 33449)
-  heritage page 7: 1000 (total 33449)
-  heritage page 8: 1000 (total 33449)
-  heritage page 9: 1000 (total 33449)
-  heritage page 10: 1000 (total 33449)
-  heritage page 11: 1000 (total 33449)
-  heritage page 12: 1000 (total 33449)
-  heritage page 13: 1000 (total 33449)
-  heritage page 14: 1000 (total 33449)
-  heritage page 15: 1000 (total 33449)
-  heritage page 16: 1000 (total 33449)
-  heritage page 17: 1000 (total 33449)
-  heritage page 18: 1000 (total 33449)
-  heritage page 19: 1000 (total 33449)
-  heritage page 20: 1000 (total 33449)
-  heritage page 21: 1000 (total 33449)
-  heritage page 22: 1000 (total 33449)
-  heritage page 23: 1000 (total 33449)
-  heritage page 24: 1000 (total 33449)
-  heritage page 25: 1000 (total 33449)
-  heritage page 26: 1000 (total 33449)
-  heritage page 27: 1000 (total 33449)
-  heritage page 28: 1000 (total 33449)
-  heritage page 29: 1000 (total 33449)
-  heritage page 30: 1000 (total 33449)
-  heritage page 31: 1000 (total 33449)
-  heritage page 32: 1000 (total 33449)
-  heritage page 33: 1000 (total 33449)
-  heritage page 34: 449 (total 33449)
-  saved heritage_places.json 33449 ; e.g. {"id": 1, "name": "ABBOTSFORD CONVENT", "latlon": "-37.803030,145.004620", "summary": "Abbotsford Convent is located on Wurundjeri Country.\n&nbsp;\n&nbsp;\n\n\n\nThe Abbotsford Convent (former Convent of the Good Shepherd) is a large and architecturally distinctive example of a&hellip;", "primary_image_id": 79020, "primary_image_caption": "Abbotsford Convent (1902) from south, Photo: 2008", "heritage_authority_id": "1086", "heritage_authority_name": "Victorian Heritage Register", "heritage_authority_brief": "VHR", "vhr_number": "H0951", "overlay_numbers": ["HO9"], "score": 2.965211, "url": "http://vhd.heritage.vic.gov.au/places/1", "heritage_authority_logo": "https://api.heritagecouncil.vic.gov.au/img/owner_icons/1086.gif", "location": "CLARKE STREET AND ST HELIERS STREET ABBOTSFORD, YARRA CITY", "primary_image_url": "http://vhd.heritagecouncil.vic.gov.au/vhd-images/places/000/079/020.j
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
+  overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+wrote more/osm_construction.json 130 KB
