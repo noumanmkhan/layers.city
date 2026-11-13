@@ -33,8 +33,8 @@ OUT = os.path.join(ROOT, 'docs', city, 'data', 'skyscrapers.geojson')
 THIS_YEAR = date.today().year
 SUPERTALL = 300
 CITY = cfg['city']
-USE = {'residential': 'res', 'office': 'com', 'hotel': 'com', 'mixed-use': 'mix'}
-PURPOSE = {'residential': 'Residential', 'office': 'Office', 'hotel': 'Hotel', 'mixed-use': 'Mixed-use'}
+USE = {'residential': 'res', 'office': 'com', 'hotel': 'com', 'mixed-use': 'mix', 'mixeduse': 'mix'}
+PURPOSE = {'residential': 'Residential', 'office': 'Office', 'hotel': 'Hotel', 'mixed-use': 'Mixed-use', 'mixeduse': 'Mixed-use'}
 PURPOSE_OF = {'res': 'Residential', 'com': 'Office', 'mix': 'Mixed-use'}
 USE_WORD = {'res': 'residential tower', 'com': 'office or hotel tower', 'mix': 'mixed-use tower'}
 USE_WORD_COM = {'Office': 'office tower', 'Hotel': 'hotel'}
@@ -43,7 +43,7 @@ USE_WORD_COM = {'Office': 'office tower', 'Hotel': 'hotel'}
 def table(key):
     want = cfg['tables'][key]
     for t in raw['tables']:
-        if t['section'] == want:
+        if t['section'] == want and t.get('columns'):   # a section can open with a colour legend: a table with no header
             return t
     raise SystemExit(f'No table under "{want}" in {raw["page"]} (sections: {[t["section"] for t in raw["tables"]]})')
 
@@ -56,7 +56,8 @@ def rows(t):
                 return i
         return None
     idx = {'name': col('name'), 'loc': col('location'), 'h': col('height', 'std.height'), 'floors': col('floors'),
-           'year': col('year'), 'purpose': col('purpose'), 'notes': col('notes'), 'tallest': col('yearsastallest')}
+           'year': col('year', 'built', 'completed'), 'purpose': col('purpose'), 'notes': col('notes'), 'tallest': col('yearsastallest'),
+           'status': col('status')}
     for r in t['rows']:
         yield {k: (r[i] if i is not None and i < len(r) else {'text': '', 'link': None}) for k, i in idx.items()}
 
@@ -109,6 +110,10 @@ for key, uc_table in (('built', False), ('uc', True)):
     for r in rows(table(key)):
         raw_name = r['name']['text']
         if not raw_name or raw_name in exclude:
+            continue
+        # A list's "under construction or approved" table: only what is being built (approved, on hold or
+        # proposed towers may never be).
+        if uc_table and re.search(r'approved|on hold|proposed|cancel', r['status']['text'], re.I):
             continue
         name, address = clean_name(raw_name)
         h, ft = heights(r['h']['text'])
