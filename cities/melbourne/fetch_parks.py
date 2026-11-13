@@ -56,7 +56,7 @@ def osm():
     overpass(f"""[out:json][timeout:300];(
   way["leisure"~"^(park|garden|nature_reserve)$"]["name"]({B});
   relation["leisure"~"^(park|garden|nature_reserve)$"]["name"]({B});
-);out tags geom;""", 'parks/osm_parks.json')
+);out body geom;""", 'parks/osm_parks.json')
     overpass(f"""[out:json][timeout:300];(
   nwr["leisure"~"^(playground|dog_park|pitch|swimming_pool|water_park)$"]{PRIV}({B});
   nwr["leisure"="sports_centre"]["sport"~"swimming"]{PRIV}({B});
