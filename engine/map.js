@@ -109,8 +109,15 @@ gl.getContainer().classList.add('leaflet-container');   // the engine's CSS stil
 const CITY_BOUNDS = L.latLngBounds(CITY.view.city);
 const REGION_VIEW = L.latLngBounds(CITY.view.region);
 const wide = () => !matchMedia('(max-width:760px)').matches;
-gl.addControl(new maplibregl.AttributionControl({compact: !wide(), customAttribution: CITY.attribution}), 'bottom-right');
-map.fitBounds(CITY_BOUNDS, Object.assign({animate: false}, wide() ? {paddingTopLeft:[330,20], paddingBottomRight:[350,20]} : {paddingTopLeft:[0,150], paddingBottomRight:[0,90]}));
+// Credits fold to an (i) button, which opens them in full.
+gl.addControl(new maplibregl.AttributionControl({compact: true, customAttribution: CITY.attribution}), 'bottom-right');
+gl.once('load', () => { const ac = gl.getContainer().querySelector('.maplibregl-ctrl-attrib'); if (ac){ ac.classList.remove('maplibregl-compact-show'); ac.removeAttribute('open'); } });
+// Desktop: is the layer panel pinned on the left? (Pin button; remembered in this browser; pinned by default on very wide screens.)
+// The map's padding keeps clear of it and of the top bar.
+const PIN_KEY = 'panelPinned';
+if (wide()) try { const v = localStorage.getItem(PIN_KEY); if (v === null ? innerWidth >= 2200 : v === '1') document.getElementById('app').classList.add('pinned'); } catch (e) {}
+function padLeft(){ return document.getElementById('app').classList.contains('pinned') ? 410 : 20; }
+map.fitBounds(CITY_BOUNDS, Object.assign({animate: false}, wide() ? {paddingTopLeft:[padLeft(),80], paddingBottomRight:[20,20]} : {paddingTopLeft:[0,150], paddingBottomRight:[0,90]}));
 map.setMaxBounds(L.latLngBounds(CITY.view.max));  // the region plus a margin
 
 const layers = {}; const data = {layers: {}};
@@ -1374,6 +1381,7 @@ function groupCounts(){
     const n = [...g.querySelectorAll('.row input[type=checkbox]')].filter(cb => cb.checked).length;
     const c = g.querySelector('.gon'); if (c) c.textContent = n ? fill(CITY.groupOnText || '{n} on', {n}) : '';
   });
+  deskSync();
 }
 const PLINK_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M8 17v3M16 17v3"/><circle cx="8.5" cy="14" r=".6" fill="currentColor"/><circle cx="15.5" cy="14" r=".6" fill="currentColor"/></svg>';
 CITY.groups.forEach(([title, items]) => {
@@ -1542,7 +1550,11 @@ function stampLive(it, asof){
   const row = document.getElementById('lyr-' + it.id), note = row && row.closest('label').querySelector('.tx span');
   if (!note || !asof) return;
   const days = (Date.now() - new Date(asof.slice(0, 10) + 'T12:00:00')) / 864e5;
-  note.innerHTML = it.note + '<span class="asof' + (days > (it.staleDays || 3) ? ' old' : '') + '">' + esc(cap(fill(it.asofText || 'as of {date}', {date: niceDate(asof)}))) + '</span>';
+  // The date sits under the explainer (its own line), so the explainer can be cut to one line on desktop.
+  let stamp = note.parentNode.querySelector('.asof');
+  if (!stamp){ stamp = document.createElement('span'); note.after(stamp); }
+  stamp.className = 'asof' + (days > (it.staleDays || 3) ? ' old' : '');
+  stamp.textContent = cap(fill(it.asofText || 'as of {date}', {date: niceDate(asof)}));
 }
 function syncStnNames(){
   const L_ = METRO && layers[METRO.id]; if (!L_) return;
@@ -1822,6 +1834,108 @@ function setFolded(on){
 document.getElementById('fold').addEventListener('click', e => { e.stopPropagation(); setFolded(true); });
 unfold.addEventListener('click', () => setFolded(false));
 try { if (localStorage.getItem('panelFolded') && wide()){ panel.classList.add('folded'); unfold.hidden = false; } } catch (e) {}
+
+/* ---------- Desktop layout (761px and up): top bar, group popovers, pinned panel ----------
+   The brand and city switcher move from the panel's heading to a bar at the top, and the panel's footer tools to the
+   bottom-left; each layer group gets a tab in the bar (with "n on"), plus a "Views" tab for Views, the map extent,
+   the All/Basic/Live tabs and focus. A tab opens the panel as a popover holding just that group; clicking outside it
+   or Esc closes it (a click on the map then only closes it, so it never drops a pin by accident). "Pin" docks the
+   panel on the left as the full list. Under 761px everything goes back where it was: phones keep the bottom sheet.
+   State lives in vars (not let) because groupCounts() calls deskSync() before this block runs. */
+var deskOn = false, deskCat = null, deskPinned = document.getElementById('app').classList.contains('pinned');
+const appEl = document.getElementById('app'), catsEl = document.getElementById('cats'), brandEl = document.getElementById('brand'), toolsEl = document.getElementById('tools');
+const phEl = document.getElementById('ph'), pfEl = panel.querySelector('.pf'), hubEl = phEl.querySelector('.hub-link'), titleEl = hubEl.nextElementSibling, introEl = phEl.querySelector('p');
+const VIEWS_CAT = '\u0001views';
+(function buildCats(){
+  const tab = (cat, label) => { const b = document.createElement('button'); b.type = 'button'; b.dataset.cat = cat; b.setAttribute('aria-expanded', 'false');
+    b.innerHTML = '<span></span><small class="bon"></small>' + CHEVRON; b.firstChild.textContent = label; catsEl.appendChild(b); return b; };
+  tab(VIEWS_CAT, CITY.viewsTab || 'Views');
+  const sep = document.createElement('i'); sep.className = 'sep'; sep.setAttribute('aria-hidden', 'true'); catsEl.appendChild(sep);
+  host.querySelectorAll('.grp').forEach(g => tab(g.dataset.group, g.dataset.group));
+  catsEl.addEventListener('click', e => { const b = e.target.closest('button[data-cat]'); if (!b) return;
+    deskCat = deskCat === b.dataset.cat ? null : b.dataset.cat; deskApply(); if (deskCat) logEvent('group_tab', {id: deskCat === VIEWS_CAT ? 'views' : deskCat}); });
+  // Left and right arrows step between tabs, carrying an open popover along.
+  catsEl.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    const bs = [...catsEl.querySelectorAll('button[data-cat]')].filter(b => !b.hidden), i = bs.indexOf(document.activeElement); if (i < 0) return;
+    const nb = bs[(i + (e.key === 'ArrowRight' ? 1 : bs.length - 1)) % bs.length]; nb.focus(); e.preventDefault();
+    if (deskCat){ deskCat = nb.dataset.cat; deskApply(); }
+  });
+})();
+function deskOpen(cat){ if (!deskOn || deskPinned) return; deskCat = cat; deskApply(); }
+function deskSync(){
+  if (!deskOn) return;
+  let all = 0;
+  catsEl.querySelectorAll('button[data-cat]').forEach(b => {
+    if (b.dataset.cat === VIEWS_CAT) return;
+    const g = [...host.querySelectorAll('.grp')].find(x => x.dataset.group === b.dataset.cat); if (!g) return;
+    const n = [...g.querySelectorAll('.row input[type=checkbox]')].filter(cb => cb.checked).length; all += n;
+    b.querySelector('.bon').textContent = n || ''; b.hidden = g.hidden;
+  });
+  const n = deskPinned ? all : deskCat && deskCat !== VIEWS_CAT ? +(catsEl.querySelector('button[data-cat="' + CSS.escape(deskCat) + '"] .bon').textContent || 0) : 0;
+  document.getElementById('dOn').textContent = n ? fill(CITY.groupOnText || '{n} on', {n}) : '';
+}
+function deskApply(){
+  const open = !deskPinned && deskCat;
+  panel.classList.toggle('float', !deskPinned); panel.classList.toggle('shut', !deskPinned && !deskCat);
+  panel.classList.toggle('views', !deskPinned && deskCat === VIEWS_CAT); appEl.classList.toggle('pinned', deskPinned);
+  host.querySelectorAll('.grp').forEach(g => g.classList.toggle('cur', !deskPinned && g.dataset.group === deskCat));
+  catsEl.querySelectorAll('button[data-cat]').forEach(b => b.setAttribute('aria-expanded', String(!!open && b.dataset.cat === deskCat)));
+  const pb = document.getElementById('pinBtn'), pl = deskPinned ? (CITY.unpinText || 'Unpin') : (CITY.pinText || 'Pin');
+  pb.setAttribute('aria-pressed', String(deskPinned)); pb.querySelector('span').textContent = pl;
+  pb.title = deskPinned ? 'Back to a pop-up under each tab' : 'Keep every layer group open on the left';
+  document.getElementById('dTitle').textContent = deskPinned ? (CITY.layersTitle || 'Layers') : deskCat === VIEWS_CAT ? (CITY.viewsTab || 'Views') : (deskCat || '');
+  if (open){
+    const b = catsEl.querySelector('button[data-cat="' + CSS.escape(deskCat) + '"]');
+    if (b){ b.scrollIntoView({block: 'nearest', inline: 'nearest'}); const r = b.getBoundingClientRect(), a = appEl.getBoundingClientRect();
+      panel.style.left = Math.round(Math.max(16, Math.min(r.left - a.left - 4, a.width - 456))) + 'px'; }
+    const g = host.querySelector('.grp.cur'); if (g) host.scrollTop = 0;
+  } else panel.style.left = '';
+  deskSync();
+}
+function deskLayout(){
+  const d = wide();
+  if (d === deskOn) return;
+  deskOn = d;
+  if (d){ brandEl.append(hubEl, titleEl); toolsEl.append(pfEl); deskApply(); requestAnimationFrame(catsEdges); }
+  else {
+    phEl.insertBefore(hubEl, introEl); phEl.insertBefore(titleEl, introEl); panel.appendChild(pfEl);
+    panel.classList.remove('float', 'shut', 'views'); appEl.classList.remove('pinned'); panel.style.left = '';
+    host.querySelectorAll('.grp.cur').forEach(g => g.classList.remove('cur'));
+  }
+}
+document.getElementById('pinBtn').addEventListener('click', () => {
+  deskPinned = !deskPinned; deskCat = null;
+  try { localStorage.setItem(PIN_KEY, deskPinned ? '1' : '0'); } catch (e) {}
+  deskApply(); logEvent(deskPinned ? 'panel_pin' : 'panel_unpin', {});
+});
+// Close the popover on a press outside it (and its tab); a press on the map then doesn't also inspect that spot.
+let deskSwallow = false;
+document.addEventListener('pointerdown', e => {
+  if (!deskOn || deskPinned || !deskCat) return;
+  const t = e.target;
+  if (panel.contains(t) || catsEl.contains(t) || (t.closest && t.closest('.dirpop,.maplibregl-popup'))) return;
+  deskSwallow = document.getElementById('map').contains(t);
+  deskCat = null; deskApply();
+}, true);
+document.addEventListener('click', e => {
+  if (!deskSwallow) return; deskSwallow = false;
+  if (document.getElementById('map').contains(e.target)){ e.stopPropagation(); e.preventDefault(); }
+}, true);
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape' || !deskOn || deskPinned || !deskCat) return;
+  const b = catsEl.querySelector('button[data-cat="' + CSS.escape(deskCat) + '"]');
+  deskCat = null; deskApply(); if (b) b.focus();
+});
+// A tab's group can be hidden by the All/Basic/Live tabs: keep the bar in step.
+new MutationObserver(() => deskSync()).observe(host, {subtree: true, attributes: true, attributeFilter: ['hidden']});
+// Explainers are cut to one line on desktop: the full text shows on hover.
+host.querySelectorAll('.row .tx>span:first-of-type').forEach(s => { s.title = s.textContent; });
+// The tab strip scrolls sideways when the window is too narrow for every tab: fade the edge that has more.
+function catsEdges(){ catsEl.classList.toggle('ovl', catsEl.scrollLeft > 2); catsEl.classList.toggle('ovr', catsEl.scrollLeft + catsEl.clientWidth < catsEl.scrollWidth - 2); }
+catsEl.addEventListener('scroll', catsEdges, {passive: true}); addEventListener('resize', catsEdges);
+matchMedia('(max-width:760px)').addEventListener('change', deskLayout);
+deskLayout();
 
 /* ---------- What's here ---------- */
 const here = document.getElementById('here');
@@ -2752,6 +2866,18 @@ here.addEventListener('scroll', () => {
   here.classList.add('scrolling'); clearTimeout(hereScrollT);
   hereScrollT = setTimeout(() => here.classList.remove('scrolling'), 900);
 }, {passive: true});
+// Desktop: the card sits bottom-right at half height; the arrow in its header grows it to the full column (remembered).
+const sideEl = document.getElementById('side');
+try { if (localStorage.getItem('cardTall')) sideEl.classList.add('tall'); } catch (e) {}
+new MutationObserver(() => {
+  const hb = here.querySelector('.hh .hb'); if (!hb || hb.querySelector('.grow')) return;
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'grow';
+  b.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 10l4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const label = () => { const t = sideEl.classList.contains('tall'); b.setAttribute('aria-label', t ? 'Shrink the card' : 'Show the whole card'); b.title = b.getAttribute('aria-label'); };
+  label();
+  b.addEventListener('click', () => { const t = sideEl.classList.toggle('tall'); try { if (t) localStorage.setItem('cardTall', '1'); else localStorage.removeItem('cardTall'); } catch (e) {} label(); });
+  hb.insertBefore(b, hb.firstChild);
+}).observe(here, {childList: true});
 // Phones: the card stops above the layer sheet, whatever height the sheet is.
 if (window.ResizeObserver) new ResizeObserver(() => {
   document.documentElement.style.setProperty('--panel-h', (matchMedia('(max-width:760px)').matches && !panel.hidden ? panel.offsetHeight : 0) + 'px');
@@ -2804,6 +2930,7 @@ function showStep(i){
   document.querySelectorAll('#layers .row.tour-hi').forEach(r => r.classList.remove('tour-hi'));
   const rows = (st.hi || []).map(id => document.querySelector('label[for="lyr-' + id + '"]')).filter(Boolean);
   rows.forEach(r => { r.classList.add('tour-hi'); const g = r.closest('.grp.folded'); if (g) foldGroup(g, false, false); });
+  if (rows[0]) deskOpen(rows[0].closest('.grp').dataset.group);   // desktop: open the step's group under its tab
   if (wide()){ if (rows[0]) rows[0].scrollIntoView({block: 'nearest', behavior: 'smooth'}); }
   else panel.classList.add('collapsed');
   const dots = TOUR.steps.map((_, k) => '<i' + (k === i ? ' class="on"' : '') + '></i>').join('');
@@ -3197,7 +3324,7 @@ function goPlace(p){
   if (p.outside && scope === 'inner') setScope('outer', false);
   const lp = p.f.properties.lp, bounds = L.geoJSON(p.f).getBounds();
   inspect(lp ? L.latLng(lp[1], lp[0]) : bounds.getCenter(), p.name);
-  const opts = Object.assign(wide() ? {paddingTopLeft:[330,40], paddingBottomRight:[350,40]} : {paddingTopLeft:[20,170], paddingBottomRight:[20,110]}, {maxZoom: 15});
+  const opts = Object.assign(wide() ? {paddingTopLeft:[padLeft(),90], paddingBottomRight:[370,40]} : {paddingTopLeft:[20,170], paddingBottomRight:[20,110]}, {maxZoom: 15});
   const size = map.getSize(), calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   try {
     if (calm || !size.x || !size.y) map.fitBounds(bounds, Object.assign({animate: false}, opts));
@@ -3222,7 +3349,7 @@ let mask = null, scope = 'outer';
 function frame(bounds, extra){
   // The tour's box sits at the bottom of the map: keep what it's showing above it.
   const tb = tourBox && !tourBox.hidden ? tourBox.offsetHeight + 24 : 0;
-  const opts = Object.assign(wide() ? {paddingTopLeft:[330,20], paddingBottomRight:[350,Math.max(20, tb)]} : {paddingTopLeft:[0,150], paddingBottomRight:[0,Math.max(90, tb)]}, extra || {});
+  const opts = Object.assign(wide() ? {paddingTopLeft:[padLeft(),80], paddingBottomRight:[370,Math.max(20, tb)]} : {paddingTopLeft:[0,150], paddingBottomRight:[0,Math.max(90, tb)]}, extra || {});
   const size = map.getSize(), calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (calm || !size.x || !size.y) map.fitBounds(bounds, Object.assign({animate:false}, opts));
   else map.flyToBounds(bounds, Object.assign({duration:.8}, opts));
