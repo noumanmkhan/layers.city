@@ -34,6 +34,13 @@
   served with the site (`docs/glyphs/`, `engine/glyphs.py`). Leaflet and Leaflet.PolylineOffset are no longer loaded.
 - Fixed on the way: Reset no longer throws in a city without lens filters (Hyderabad).
 
+### Melbourne: Routes from here and Venues (November 13)
+- Routes from here: tram and bus stops and train platforms near any spot, where each line goes and the next
+  timetabled departure, linked from the map's Getting around group.
+- Venues: the MCG, Marvel Stadium, Melbourne Park, the Arts Centre and ten more, with how to get to each.
+- Engine: the Routes page takes a city's own words for its modes and am/pm; surface.json's operator merge is now
+  'mergeNumbers' (it clashed with the fetch's own 'merge').
+
 ### Melbourne: most of Toronto's layers, the card's Address and Nearby rows, and fact sheets (November 13)
 - Layers: Skyscrapers, ERs, Schools, Universities & TAFE, Libraries & community centres, Places of worship, Bike
   lanes, New development, Public car parks and Heritage buildings.

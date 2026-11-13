@@ -34,4 +34,6 @@ python3 nearby.py   # the card's Nearby section, from the layers above
 if [ -f raw/voting/sites.json ]; then python3 voting.py; fi   # where to vote, until November 28
 python3 ../../engine/assemble.py melbourne
 python3 ../../engine/profiles/build.py melbourne   # fact sheets, from the published layers
+python3 ../../engine/routes/build.py melbourne     # Routes from here (needs raw/surface/rapid_*.json and sched.json)
+python3 ../../engine/venues.py melbourne           # Venues pages (events and drive times come from the nightly job)
 echo "Done. Preview: cd docs && python3 -m http.server 8000"
