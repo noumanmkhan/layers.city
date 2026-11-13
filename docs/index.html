@@ -94,6 +94,12 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(40px,4.6v
 .ix tbody tr{--row:var(--card);background:var(--row);border-bottom:1px solid var(--rule-soft)}
 .ix tbody tr:hover{--row:var(--row-hover)}
 .ix tbody tr:last-child{border-bottom:0}
+.ix tbody + tbody{border-top:1.5px solid var(--rule)}
+.ix tr.cty{--row:var(--bg);background:var(--row)}
+.ix tr.cty:hover{--row:var(--bg)}
+.ix tr.cty th{padding:9px 20px 8px;text-align:left;font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.ix tr.cty span,.tgh{display:inline-flex;align-items:center;gap:10px}
+.ix tr.cty img,.tgh img{display:block;width:20px;height:15px;border-radius:3px;object-fit:cover;box-shadow:0 0 0 1px var(--rule)}
 .ix th[scope=row]{padding:10px 0 10px 20px;text-align:left;font-weight:inherit}
 .ix td{position:relative;height:68px;padding:0;text-align:center}
 .city{display:flex;align-items:center;gap:14px;min-height:44px}
@@ -124,12 +130,15 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(40px,4.6v
 
 /* Phone picker (shown under 760px instead of the table) */
 .picker{display:none}
-.tabs{display:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:5px;background:var(--card);border:1.5px solid var(--rule);border-radius:14px;margin-bottom:12px}
+.tabs{display:none;gap:4px;padding:5px;background:var(--card);border:1.5px solid var(--rule);border-radius:14px;margin-bottom:12px}
 .js .tabs{display:grid}
-.tabs button{min-height:48px;border:0;border-radius:10px;cursor:pointer;font:inherit;font-weight:500;font-size:14.5px;color:var(--ink-2);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.tabs button{min-height:48px;padding:0 2px;border:0;border-radius:10px;cursor:pointer;font:inherit;font-weight:500;font-size:14px;color:var(--ink-2);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
 .tabs button::after{content:"";width:22px;border-top:2px solid var(--accent)}
 .tabs button.dev::after{border-top-style:dashed;border-top-color:var(--track)}
-.tabs button:last-child:nth-child(3n+1){grid-column:1/-1}
+.tg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.tg + .tg{border-top:1px solid var(--rule-soft);padding-top:4px}
+.tgh{grid-column:1/-1;padding:6px 6px 0;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.tgh img{width:18px;height:13.5px}
 .tabs button[aria-selected=true]{background:var(--ink);color:var(--bg)}
 .panel{background:var(--card);border:1.5px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:12px}
 .js .panel{margin-bottom:0}
@@ -277,6 +286,7 @@ a.tile:hover{border-color:var(--ink)}
           <tr><th scope="col">CITY · OPENS THE MAP</th><th scope="col">GUIDE</th><th scope="col">FACT SHEETS</th><th scope="col">TRANSIT</th><th scope="col">VENUES</th><th scope="col">EVENTS</th><th scope="col">FUN MAPS</th></tr>
         </thead>
         <tbody>
+          <tr class="cty"><th colspan="7" scope="rowgroup"><span><img src="/flags/ca.svg" alt="" width="20" height="15">Canada</span></th></tr>
           <tr>
             <th scope="row"><a class="city" href="/toronto/"><img src="/thumbs/toronto.svg" alt="" width="60" height="45"><span><span class="n">Toronto</span><span class="s">FULL MAP · 7 PAGES</span></span></a></th>
             <td class="g"><a class="count" href="/toronto/neighbourhoods/" aria-label="Toronto guide: 158 neighbourhoods">158</a></td>
@@ -286,6 +296,18 @@ a.tile:hover{border-color:var(--ink)}
             <td><a class="stop" href="/toronto/events/" aria-label="Toronto: events"><i></i></a></td>
             <td><a class="stop" href="/toronto/fun/" aria-label="Toronto: fun maps"><i></i></a></td>
           </tr>
+          <tr class="dev">
+            <th scope="row"><a class="city" href="/vancouver/"><img src="/thumbs/vancouver.svg" alt="" width="60" height="45"><span><span class="n">Vancouver</span><span class="s">MAP · 6 PAGES</span></span></a></th>
+            <td class="g"><a class="count" href="/vancouver/local-areas/" aria-label="Vancouver guide: 22 local areas">22</a></td>
+            <td><a class="stop" href="/vancouver/profiles/" aria-label="Vancouver: fact sheets"><i></i></a></td>
+            <td><a class="stop" href="/vancouver/routes/" aria-label="Vancouver: transit"><i></i></a></td>
+            <td><a class="stop" href="/vancouver/venues/" aria-label="Vancouver: venues"><i></i></a></td>
+            <td><span class="none" role="img" aria-label="Not in Vancouver yet"></span></td>
+            <td><a class="stop" href="/vancouver/fun/" aria-label="Vancouver: fun maps"><i></i></a></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr class="cty"><th colspan="7" scope="rowgroup"><span><img src="/flags/us.svg" alt="" width="20" height="15">United States</span></th></tr>
           <tr>
             <th scope="row"><a class="city" href="/nyc/"><img src="/thumbs/nyc.svg" alt="" width="60" height="45"><span><span class="n">New York City</span><span class="s">FULL MAP · 7 PAGES</span></span></a></th>
             <td class="g"><a class="count" href="/nyc/community-districts/" aria-label="New York City guide: 59 community districts">59</a></td>
@@ -314,15 +336,6 @@ a.tile:hover{border-color:var(--ink)}
             <td><a class="stop" href="/chicago/fun/" aria-label="Chicago: fun maps"><i></i></a></td>
           </tr>
           <tr class="dev">
-            <th scope="row"><a class="city" href="/vancouver/"><img src="/thumbs/vancouver.svg" alt="" width="60" height="45"><span><span class="n">Vancouver</span><span class="s">MAP · 6 PAGES</span></span></a></th>
-            <td class="g"><a class="count" href="/vancouver/local-areas/" aria-label="Vancouver guide: 22 local areas">22</a></td>
-            <td><a class="stop" href="/vancouver/profiles/" aria-label="Vancouver: fact sheets"><i></i></a></td>
-            <td><a class="stop" href="/vancouver/routes/" aria-label="Vancouver: transit"><i></i></a></td>
-            <td><a class="stop" href="/vancouver/venues/" aria-label="Vancouver: venues"><i></i></a></td>
-            <td><span class="none" role="img" aria-label="Not in Vancouver yet"></span></td>
-            <td><a class="stop" href="/vancouver/fun/" aria-label="Vancouver: fun maps"><i></i></a></td>
-          </tr>
-          <tr class="dev">
             <th scope="row"><a class="city" href="/dallas/"><img src="/thumbs/dallas.svg" alt="" width="60" height="45"><span><span class="n">Dallas</span><span class="s">FULL MAP · 7 PAGES</span></span></a></th>
             <td class="g"><a class="count" href="/dallas/zip-codes/" aria-label="Dallas guide: ZIP codes">ZIP</a></td>
             <td><a class="stop" href="/dallas/profiles/" aria-label="Dallas: fact sheets"><i></i></a></td>
@@ -331,6 +344,9 @@ a.tile:hover{border-color:var(--ink)}
             <td><a class="stop" href="/dallas/events/" aria-label="Dallas: events"><i></i></a></td>
             <td><a class="stop" href="/dallas/fun/" aria-label="Dallas: fun maps"><i></i></a></td>
           </tr>
+        </tbody>
+        <tbody>
+          <tr class="cty"><th colspan="7" scope="rowgroup"><span><img src="/flags/au.svg" alt="" width="20" height="15">Australia</span></th></tr>
           <tr class="dev">
             <th scope="row"><a class="city" href="/melbourne/"><img src="/thumbs/melbourne.svg" alt="" width="60" height="45"><span><span class="n">Melbourne</span><span class="s">MAP · 5 PAGES</span></span></a></th>
             <td class="g"><a class="count" href="/melbourne/suburbs/" aria-label="Melbourne guide: 15 suburbs">15</a></td>
@@ -351,13 +367,19 @@ a.tile:hover{border-color:var(--ink)}
 
     <section class="picker" aria-label="Choose a city">
       <div class="tabs" role="tablist" aria-label="Cities">
-        <button type="button" role="tab" id="t-toronto" aria-controls="p-toronto" aria-selected="true">Toronto</button>
-        <button type="button" role="tab" id="t-nyc" aria-controls="p-nyc" aria-selected="false">New York</button>
-        <button type="button" role="tab" id="t-sf" aria-controls="p-sf" aria-selected="false">SF</button>
-        <button type="button" role="tab" id="t-chicago" aria-controls="p-chicago" aria-selected="false">Chicago</button>
-        <button type="button" role="tab" id="t-vancouver" aria-controls="p-vancouver" aria-selected="false" class="dev">Vancouver</button>
-        <button type="button" role="tab" id="t-dallas" aria-controls="p-dallas" aria-selected="false" class="dev">Dallas</button>
-        <button type="button" role="tab" id="t-melbourne" aria-controls="p-melbourne" aria-selected="false" class="dev">Melbourne</button>
+        <div class="tg" role="presentation"><span class="tgh" aria-hidden="true"><img src="/flags/ca.svg" alt="" width="18" height="13.5">Canada</span>
+          <button type="button" role="tab" id="t-toronto" aria-controls="p-toronto" aria-selected="true">Toronto</button>
+          <button type="button" role="tab" id="t-vancouver" aria-controls="p-vancouver" aria-selected="false" class="dev">Vancouver</button>
+        </div>
+        <div class="tg" role="presentation"><span class="tgh" aria-hidden="true"><img src="/flags/us.svg" alt="" width="18" height="13.5">United States</span>
+          <button type="button" role="tab" id="t-nyc" aria-controls="p-nyc" aria-selected="false">New York</button>
+          <button type="button" role="tab" id="t-sf" aria-controls="p-sf" aria-selected="false">SF</button>
+          <button type="button" role="tab" id="t-chicago" aria-controls="p-chicago" aria-selected="false">Chicago</button>
+          <button type="button" role="tab" id="t-dallas" aria-controls="p-dallas" aria-selected="false" class="dev">Dallas</button>
+        </div>
+        <div class="tg" role="presentation"><span class="tgh" aria-hidden="true"><img src="/flags/au.svg" alt="" width="18" height="13.5">Australia</span>
+          <button type="button" role="tab" id="t-melbourne" aria-controls="p-melbourne" aria-selected="false" class="dev">Melbourne</button>
+        </div>
       </div>
       <div class="panel" id="p-toronto" role="tabpanel" aria-labelledby="t-toronto">
         <div class="ph"><img src="/thumbs/toronto.svg" alt="Outline of the City of Toronto" width="84" height="63"><div><span class="s">FULL MAP · 7 PAGES</span><h2>Toronto</h2></div></div>
@@ -370,6 +392,19 @@ a.tile:hover{border-color:var(--ink)}
             <a href="/toronto/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
             <a href="/toronto/events/"><i></i><span><b>Events</b><small>Today, this weekend, this month</small></span></a>
             <a href="/toronto/fun/"><i></i><span><b>Fun maps</b><small>Tim’s vs Starbucks, and more</small></span></a>
+        </div>
+      </div>
+      <div class="panel dev" id="p-vancouver" role="tabpanel" aria-labelledby="t-vancouver" hidden>
+        <div class="ph"><img src="/thumbs/vancouver.svg" alt="Outline of the City of Vancouver and the University Endowment Lands" width="84" height="63"><div><span class="s">MAP · 6 PAGES</span><h2>Vancouver</h2></div></div>
+        <p>22 local areas and UBC, SkyTrain and buses, bikeways, heritage and ridings, and names like Gastown.</p>
+        <a class="btn" href="/vancouver/">Open the Vancouver map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+        <div class="line">
+            <a href="/vancouver/local-areas/"><i></i><span><b>Guide</b><small>22 local areas</small></span></a>
+            <a href="/vancouver/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
+            <a href="/vancouver/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
+            <a href="/vancouver/fun/"><i></i><span><b>Fun maps</b><small>Tim Hortons vs Starbucks, and more</small></span></a>
+            <a href="/vancouver/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
+            <div class="under"><span class="lbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21V10l6-5 6 5v11"/><path d="M10 21v-5h4v5"/></svg>Under construction</span><span>Events wait on a source the City or the library allows us to use.</span></div>
         </div>
       </div>
       <div class="panel" id="p-nyc" role="tabpanel" aria-labelledby="t-nyc" hidden>
@@ -409,19 +444,6 @@ a.tile:hover{border-color:var(--ink)}
             <a href="/chicago/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
             <a href="/chicago/events/"><i></i><span><b>Events</b><small>Today, this weekend, this month</small></span></a>
             <a href="/chicago/fun/"><i></i><span><b>Fun maps</b><small>Dunkin’ vs Starbucks, and more</small></span></a>
-        </div>
-      </div>
-      <div class="panel dev" id="p-vancouver" role="tabpanel" aria-labelledby="t-vancouver" hidden>
-        <div class="ph"><img src="/thumbs/vancouver.svg" alt="Outline of the City of Vancouver and the University Endowment Lands" width="84" height="63"><div><span class="s">MAP · 6 PAGES</span><h2>Vancouver</h2></div></div>
-        <p>22 local areas and UBC, SkyTrain and buses, bikeways, heritage and ridings, and names like Gastown.</p>
-        <a class="btn" href="/vancouver/">Open the Vancouver map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
-        <div class="line">
-            <a href="/vancouver/local-areas/"><i></i><span><b>Guide</b><small>22 local areas</small></span></a>
-            <a href="/vancouver/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
-            <a href="/vancouver/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
-            <a href="/vancouver/fun/"><i></i><span><b>Fun maps</b><small>Tim Hortons vs Starbucks, and more</small></span></a>
-            <a href="/vancouver/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
-            <div class="under"><span class="lbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21V10l6-5 6 5v11"/><path d="M10 21v-5h4v5"/></svg>Under construction</span><span>Events wait on a source the City or the library allows us to use.</span></div>
         </div>
       </div>
       <div class="panel dev" id="p-dallas" role="tabpanel" aria-labelledby="t-dallas" hidden>
