@@ -21,7 +21,7 @@
     {"name": "Lake Ontario", "at": [43.585, -79.40], "cls": "lake-near"},
     {"name": "Lake Ontario", "at": [43.45, -78.75], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Voting places: City of Toronto Elections · Heritage buildings: City of Toronto Heritage Register · Changes: City of Toronto development applications and building permits · Collection days: City of Toronto Solid Waste Management Services · Schools: Ontario Ministry of Education (Open Government Licence – Ontario) · Bike lanes: City of Toronto Cycling Network · Bike Share stations: Bike Share Toronto (Toronto Parking Authority) · Parking: City of Toronto (Green P, permit areas, City EV chargers) · EV chargers: AFDC / Natural Resources Canada · Waterfront Marathon course: Canada Running Series",
+  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Ferry routes: City of Toronto (Toronto Centreline) · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Voting places: City of Toronto Elections · Heritage buildings: City of Toronto Heritage Register · Changes: City of Toronto development applications and building permits · Collection days: City of Toronto Solid Waste Management Services · Schools: Ontario Ministry of Education (Open Government Licence – Ontario) · Bike lanes: City of Toronto Cycling Network · Bike Share stations: Bike Share Toronto (Toronto Parking Authority) · Parking: City of Toronto (Green P, permit areas, City EV chargers) · EV chargers: AFDC / Natural Resources Canada · Waterfront Marathon course: Canada Running Series",
   "example": {"at": [43.67194, -79.38667], "name": "Toronto Reference Library (example)"},
 
   "search": {
@@ -94,6 +94,8 @@
        "hover": "{name} line · Union – {to}", "lineHover": {"UP": "{name} (Union – Pearson)"}},
       {"id": "gobus", "kind": "regional", "mode": "go", "under": "go", "file": "transit_routes", "lazy": true, "stopZoom": 12, "name": "GO buses",
        "note": "Regional routes across the GTA and beyond; in the city view, the ones that stop in Toronto. Stops from zoom 15"},
+      {"id": "ferry", "kind": "rail", "files": ["ferry_lines", "ferry_stations", "ferry_lines_inner"], "name": "Ferries", "pane": "transit", "on": false, "hover": "{name} · {agency}",
+       "note": "Toronto Island ferries from Jack Layton Ferry Terminal, and the airport ferry. Ward's Island all year; Centre Island and Hanlan's Point mid-April to mid-October"},
       {"id": "hwy", "kind": "highways", "files": ["highways", "gta_highways", "gta_shields"], "name": "Highways", "note": "400-series, QEW, 407 ETR across the GTA; DVP, Gardiner, Allen", "on": true,
        "shields": {"401": "401", "400": "400", "404": "404", "409": "409", "427": "427", "QEW": "QEW", "2A": "2A", "DVP": "DVP", "Gardiner": "Gardiner", "Allen": "Allen Rd"},
        "repeat": {"401": [0.15, 0.5, 0.85]}, "tollShield": "407 ETR"},
@@ -249,7 +251,7 @@
       {"id": "local", "name": "Know your city", "note": "Every neighbourhood coloured by its transit trip to Union. Try the other lenses below.", "layers": ["nbhd", "lens", "cultural", "streets", "subway", "stnNames", "tram", "bus"], "lens": "union", "bus": ["exp"], "view": "city"},
       {"id": "civic", "name": "Who represents me", "note": "Search your address or tap the map to see your ward and every representative.", "layers": ["streets"], "boundaries": ["wards", "prov", "fed", "school"], "lead": "wards", "view": "city", "hint": "Enter your address to find your ward, riding and representatives."},
       {"id": "newcomer", "name": "Where to live", "note": "Housing cost by neighbourhood, with frequent transit. Tap a spot for transit nearby and what's changing.", "layers": ["nbhd", "lens", "cultural", "streets", "subway", "stnNames", "tram", "bus"], "lens": "cost", "bus": ["freq"], "view": "city"},
-      {"id": "transit", "name": "Getting around", "note": "Subway, streetcars, frequent and express buses, GO trains and buses, and lines being built.", "layers": ["streets", "subway", "stnNames", "tram", "bus", "go", "gobus", "build"], "bus": ["freq", "exp"], "view": "city"}
+      {"id": "transit", "name": "Getting around", "note": "Subway, streetcars, frequent and express buses, GO trains and buses, and lines being built.", "layers": ["streets", "subway", "stnNames", "tram", "bus", "go", "gobus", "ferry", "build"], "bus": ["freq", "exp"], "view": "city"}
     ],
     "elections": [
       {"date": "2026-10-26", "lead": "wards", "label": "City council and school boards, October 26"},
