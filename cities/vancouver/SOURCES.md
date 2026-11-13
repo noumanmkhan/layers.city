@@ -52,7 +52,7 @@ attribution.
 
 | What | Source | Licence | Script |
 |---|---|---|---|
-| Libraries, community centres, parks (points), park facilities, off-leash areas, schools, BIAs, historic-area and First Shaughnessy zoning, Road Ahead closures (not used, see PARKED.md), 2026 voting places | City of Vancouver Open Data (Opendatasoft exports) | OGL – Vancouver | `fetch_layers.py` |
+| Libraries, community centres, parks (points), park outlines (`parks-polygon-representation`, saved as `park-polygons.geojson`), park facilities, off-leash areas, schools, BIAs, historic-area and First Shaughnessy zoning, Road Ahead closures (not used, see PARKED.md), 2026 voting places | City of Vancouver Open Data (Opendatasoft exports) | OGL – Vancouver | `fetch_layers.py` |
 | Provincial electoral districts | DataBC WFS, `WHSE_ADMIN_BOUNDARIES.EBC_PROV_ELECTORAL_DIST_SVW` | OGL – British Columbia | `fetch_layers.py` |
 | Federal ridings, 2023 Representation Order | Open North Represent, simple shapes (as Toronto's) | Elections Canada's terms | `fetch_layers.py` |
 | Universities, colleges, hospitals (positions for the curated list) | OpenStreetMap via Overpass | ODbL | `fetch_layers.py`, `institutions.py` |

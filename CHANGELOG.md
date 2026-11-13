@@ -14,7 +14,14 @@
   Bridge; the Arts Centre spire, MCG and Melbourne Star; Charminar, the Buddha Statue, Durgam Cheruvu Cable Bridge and
   the Telangana Secretariat. Bridges sit on the line of their road in the map's own layers.
 - Models are a `models3d` list in each `city.json` (each with a `_src` note); the 3D button shows in any city with
-  towers or models, Melbourne and Hyderabad included. No terrain: hills such as Telegraph Hill are not drawn.
+  towers or models (Hyderabad has only models). No terrain: hills such as Telegraph Hill are not drawn.
+
+### Vancouver gets a Parks layer (November 13)
+- A new *Outdoors* group with *Parks*, on by default like the other cities': 248 Park Board park outlines shaded green, with playground, water play, washroom and off-leash chips and a ParkFinder link in each popup. Outlines from the City's `parks-polygon-representation` dataset (fetched by `fetch_layers.py`), amenities from its parks list and facilities table; built by `cities/vancouver/parks.py`.
+- The parks popup's fine print can now name the outlines' date (`{outlines}`).
+
+### Known-as names and Parks start on (November 13)
+- First load, Reset and any link without `layers=` now show Known-as names and Parks, so the first view shows green space. Known-as names was already on everywhere but Toronto; Parks is now on in Toronto, Chicago, New York and San Francisco (the `on` flags in each `city.json`). Dallas, Hyderabad, Melbourne and Vancouver have no Parks layer.
 
 ### The map draws on the GPU: MapLibre GL replaces Leaflet (November 13)
 - Every city's map now draws with MapLibre GL JS (WebGL) instead of Leaflet's SVG and HTML, so zooming and panning on
@@ -26,6 +33,21 @@
 - Save as image renders the map at the chosen size on the GPU (html-to-image is gone). Map labels use Inter glyph files
   served with the site (`docs/glyphs/`, `engine/glyphs.py`). Leaflet and Leaflet.PolylineOffset are no longer loaded.
 - Fixed on the way: Reset no longer throws in a city without lens filters (Hyderabad).
+
+### Melbourne: most of Toronto's layers, the card's Address and Nearby rows, and fact sheets (November 13)
+- Layers: Skyscrapers, ERs, Schools, Universities & TAFE, Libraries & community centres, Places of worship, Bike
+  lanes, New development, Public car parks and Heritage buildings.
+- Card: Address (where the street's numbers start and which way they rise), Heritage building, and Nearby (the
+  nearest library, community centre and ER, and parks, playgrounds, courts and schools within 800 m).
+- Fact sheets for the City's 15 suburbs, like Toronto's.
+- Engine: skyscrapers.py reads lists laid out like Melbourne's (a 'Built' column, approved towers left out); the
+  fact sheets' Streetcars row takes the city's own word. Other cities' output unchanged.
+
+### Melbourne: parks and Sports & rec (November 13)
+- Parks: 158 parks and gardens in the City, on by default like the other cities, with playground, water play,
+  toilet and barbecue filters (outlines from OpenStreetMap; playgrounds, toilets and barbecues also from the City's
+  own asset lists).
+- Sports & rec: pools, ovals, fields, tennis, basketball and netball courts and skate parks inside the City's parks.
 
 ### Melbourne: where to vote, and line badges back (November 13)
 - Where to vote in the Victorian state election (November 28): the card lists the nearest early voting centres

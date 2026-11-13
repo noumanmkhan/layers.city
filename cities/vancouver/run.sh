@@ -27,6 +27,7 @@ npx mapshaper -i tmp/region_highways.geojson -simplify interval=15 -o $OUT/regio
 for f in wce_lines wce_lines_inner; do npx mapshaper -i tmp/$f.geojson -simplify interval=30 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 npx mapshaper -i tmp/skytrain_lines.geojson -simplify interval=5 -o $OUT/skytrain_lines.geojson precision=0.00001 -quiet
 [ -f raw/public_streets.geojson ] && python3 address_prep.py && python3 ../../engine/addresses.py vancouver   # after streets: how addresses work
+[ -f raw/ods/park-polygons.geojson ] && python3 parks.py   # the Parks layer: park outlines with amenities
 python3 nearby.py              # after institutions and faith: the card's Nearby points
 [ -f raw/representatives/ourcommons.xml ] && python3 representatives.py   # after the federal ridings
 [ -f raw/drive_times.json ] && python3 ../../engine/drive.py build vancouver   # after base is simplified: adds drive times to it

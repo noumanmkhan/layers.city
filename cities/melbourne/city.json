@@ -261,6 +261,153 @@
      "file": "landmarks",
      "name": "Landmarks",
      "note": "The MCG, Flinders Street Station, Fed Square, the Shrine, parks and theatres"
+    },
+    {
+     "id": "hospitals",
+     "kind": "places",
+     "under": "landmarks",
+     "file": "institutions",
+     "cat": "hospital",
+     "name": "ERs",
+     "place": "Hospital with an emergency department",
+     "edText": "Emergency department",
+     "note": "Hospitals with an emergency department across Greater Melbourne, from OpenStreetMap"
+    },
+    {
+     "id": "towers",
+     "kind": "towers",
+     "under": "landmarks",
+     "file": "skyscrapers",
+     "name": "Skyscrapers",
+     "place": "Skyscraper",
+     "note": "Buildings 150 m and taller, open or under construction",
+     "key": {
+      "res": "Residential",
+      "com": "Commercial (office or hotel)",
+      "mix": "Mixed use",
+      "uc": "Under construction · hollow",
+      "sup": "Supertall, 300 m or more · gold ring"
+     },
+     "purpose": {
+      "Residential": "Residential tower",
+      "Office": "Office tower",
+      "Hotel": "Hotel tower",
+      "Mixed-use": "Mixed-use tower"
+     },
+     "supText": "Supertall",
+     "ucText": "Under construction",
+     "builtText": "Completed",
+     "expectedText": "Expected",
+     "akaText": "Also known as {aka}",
+     "moreText": "More on Wikipedia",
+     "sourceText": "Source: Wikipedia"
+    },
+    {
+     "id": "hbld",
+     "kind": "heritage",
+     "file": "heritage_buildings",
+     "name": "Heritage buildings",
+     "note": "422 places on the Victorian Heritage Register in the City; from zoom 15",
+     "place": "Victorian Heritage Register",
+     "builtText": "built {y}",
+     "byText": "{ar}",
+     "designatedText": "registered {d}",
+     "bylawText": "Register number",
+     "hcdText": "Also in (precinct)"
+    }
+   ]
+  ],
+  [
+   "Outdoors",
+   [
+    {
+     "id": "parks",
+     "kind": "parks",
+     "on": true,
+     "file": "parks",
+     "lazy": true,
+     "optional": true,
+     "name": "Parks",
+     "place": "Park",
+     "note": "The City’s parks and gardens shaded green; pick a playground, toilets and more",
+     "countNote": "{n} parks and gardens shaded green; pick a playground, toilets and more",
+     "amenities": {
+      "play": [
+       "Playground",
+       "Parks with a playground"
+      ],
+      "water": [
+       "Water play",
+       "A splash pad or water play area"
+      ],
+      "wc": [
+       "Toilets",
+       "Parks with public toilets in or beside them"
+      ],
+      "bbq": [
+       "Barbecues",
+       "Parks with a free public barbecue"
+      ]
+     },
+     "legend": "Pick one or more: parks with all of them stay green, the rest fade.",
+     "matchText": "{n} of {total} parks.",
+     "hasLabel": "Has",
+     "fine": "Outlines from OpenStreetMap as of {parks} (the City publishes none). Playgrounds, toilets and barbecues from the City of Melbourne’s asset lists and OpenStreetMap; water play from OpenStreetMap, which may miss a few."
+    },
+    {
+     "id": "sports",
+     "kind": "places",
+     "file": "sports",
+     "icon": "tennis",
+     "minZoom": 12,
+     "narrow": true,
+     "search": false,
+     "hover": "{name}",
+     "cats": [
+      [
+       "pool",
+       "Pools",
+       "Pool"
+      ],
+      [
+       "cricket",
+       "Ovals",
+       "Oval"
+      ],
+      [
+       "field",
+       "Sports fields",
+       "Sports field"
+      ],
+      [
+       "tennis",
+       "Tennis",
+       "Tennis courts"
+      ],
+      [
+       "basketball",
+       "Basketball & netball",
+       "Basketball or netball court"
+      ],
+      [
+       "skatepark",
+       "Skate parks",
+       "Skate park"
+      ]
+     ],
+     "name": "Sports & rec",
+     "place": "Sports and recreation",
+     "note": "Pools, ovals and courts in the City’s parks; pick a sport below. From zoom 12",
+     "catNote": "Pick one or more; none picked shows them all. Only what’s inside a park is shown, so school ovals and club courts are left out. Tap a pin for what’s there.",
+     "popup": {
+      "rows": [
+       [
+        "has",
+        "Has"
+       ]
+      ],
+      "fine": "From OpenStreetMap as of {asof}; volunteers map some parks in more detail than others, so a few courts and pools may be missing."
+     }
     }
    ]
   ],
@@ -380,6 +527,40 @@
      ]
     },
     {
+     "id": "bikes",
+     "kind": "bikes",
+     "file": "bikes",
+     "lazy": true,
+     "name": "Bike lanes",
+     "note": "Separated and painted bike lanes, shared lanes and shared paths in the City",
+     "classes": {
+      "prot": [
+       "Protected",
+       "Separated from traffic: kerbside lanes behind parked cars or a kerb, and bike-only paths"
+      ],
+      "paint": [
+       "Painted",
+       "Painted bike lanes, some with a buffer"
+      ],
+      "shared": [
+       "Shared",
+       "Marked shared lanes: you ride with traffic"
+      ],
+      "trail": [
+       "Shared paths",
+       "Paths shared with people walking, such as the Capital City Trail"
+      ]
+     },
+     "default": [
+      "prot",
+      "paint"
+     ],
+     "legend": "From OpenStreetMap, which volunteers keep up: a new lane can take a while to appear.",
+     "asofText": "OpenStreetMap as of {date}.",
+     "betweenText": "Between",
+     "fine": "Shown as built: construction can close a lane for a while."
+    },
+    {
      "id": "vline",
      "kind": "rail",
      "files": [
@@ -428,6 +609,181 @@
    ]
   ],
   [
+   "What's changing",
+   [
+    {
+     "id": "chg",
+     "kind": "changes",
+     "file": "changes",
+     "lazy": true,
+     "optional": true,
+     "name": "New development",
+     "note": "Projects on the City’s Development Activity Monitor: proposed, approved, under construction and recently finished",
+     "stages": {
+      "proposed": [
+       "Proposed",
+       "Applied for and under review: a proposal, not a decision"
+      ],
+      "approved": [
+       "Approved",
+       "Planning permit granted; work not started"
+      ],
+      "building": [
+       "Under construction",
+       "Work under way"
+      ],
+      "finished": [
+       "Finished",
+       "Completed last year or this year"
+      ]
+     },
+     "kinds": {
+      "building": "Development"
+     },
+     "dates": {
+      "listed": "City list of {date}",
+      "c2025": "completed 2025",
+      "c2026": "completed 2026",
+      "c2027": "completed 2027"
+     },
+     "unitsText": "{n} homes",
+     "alsoText": "Also here",
+     "linkText": "Details",
+     "legend": "From the City of Melbourne’s Development Activity Monitor, which tracks larger projects (new buildings, big extensions) and is updated a few times a year. It gives no dates beyond the year a project was finished."
+    }
+   ]
+  ],
+  [
+   "Education",
+   [
+    {
+     "id": "schools",
+     "kind": "places",
+     "file": "schools",
+     "icon": "elementary",
+     "minZoom": 13,
+     "cats": [
+      [
+       "elementary",
+       "Primary",
+       "Primary school"
+      ],
+      [
+       "secondary",
+       "Secondary",
+       "Secondary school"
+      ]
+     ],
+     "name": "Schools",
+     "place": "School",
+     "note": "Government, Catholic and independent schools in the City and just past its edge, by level; from zoom 13",
+     "catNote": "Primary runs from Prep to Year 6, secondary from Year 7 to 12; schools teaching both show under Secondary. Tap a school for its years and sector.",
+     "groups": [
+      [
+       "gov",
+       "Government"
+      ],
+      [
+       "cath",
+       "Catholic"
+      ],
+      [
+       "ind",
+       "Independent"
+      ]
+     ],
+     "groupLabel": "Sector",
+     "allText": "All schools",
+     "countText": "{n} shown.",
+     "allNote": "",
+     "groupNote": "Government schools have zones: a home in a school’s zone is guaranteed a place there. Catholic and independent schools enrol by application.",
+     "popup": {
+      "rows": [
+       [
+        "g",
+        "Years"
+       ],
+       [
+        "b",
+        "Sector"
+       ],
+       [
+        "a",
+        "Address"
+       ]
+      ],
+      "fine": "Department of Education School Locations, {asof}. Zones decide which government school a home is guaranteed; check findmyschool.vic.gov.au."
+     }
+    },
+    {
+     "id": "campus",
+     "kind": "places",
+     "file": "institutions",
+     "icon": "university",
+     "cats": [
+      [
+       "university",
+       "Universities",
+       "University"
+      ],
+      [
+       "college",
+       "TAFE",
+       "TAFE"
+      ]
+     ],
+     "name": "Universities & TAFE",
+     "place": "Campus",
+     "note": "University and TAFE campuses in the City, one point per campus, from OpenStreetMap",
+     "aliases": {
+      "The University of Melbourne, Parkville Campus": [
+       "Melbourne Uni",
+       "Unimelb"
+      ],
+      "RMIT University (City Campus)": [
+       "RMIT"
+      ]
+     }
+    }
+   ]
+  ],
+  [
+   "Parking",
+   [
+    {
+     "id": "greenp",
+     "kind": "spots",
+     "mark": "lot",
+     "file": "parking",
+     "cat": "gp",
+     "countKey": "greenp",
+     "lazy": true,
+     "optional": true,
+     "minZoom": 11,
+     "name": "Public car parks",
+     "note": "Car parks open to the public in the City, bigger for more spaces. From zoom 11.",
+     "countNote": "{n} public car parks with {spaces} spaces, from the City’s 2024 land use census. From zoom 11.",
+     "classes": {
+      "g": [
+       "Car parks",
+       "Paid car parks open to anyone"
+      ]
+     },
+     "legend": "Bigger squares hold more cars.",
+     "zoomText": "Zoom in to see them.",
+     "typeText": {
+      "g": "Public car park"
+     },
+     "spacesLabel": "Spaces",
+     "spacesText": [
+      "{n} space",
+      "{n} spaces"
+     ],
+     "fine": "From the City of Melbourne’s Census of Land Use and Employment ({date}), which counts car parks open to the public for a fee. Car parks open and close and rates change: check before you go."
+    }
+   ]
+  ],
+  [
    "Representation",
    [
     {
@@ -453,6 +809,124 @@
       "table": "fed",
       "key": "name"
      }
+    }
+   ]
+  ],
+  [
+   "Community & Faith",
+   [
+    {
+     "id": "community",
+     "kind": "places",
+     "file": "community",
+     "icon": "library",
+     "minZoom": 12,
+     "cats": [
+      [
+       "library",
+       "Libraries",
+       "Library"
+      ],
+      [
+       "centre",
+       "Community centres",
+       "Community centre"
+      ]
+     ],
+     "name": "Libraries & community centres",
+     "place": "Public place",
+     "note": "City of Melbourne libraries, the State Library and community hubs; from zoom 12"
+    },
+    {
+     "id": "worship",
+     "kind": "places",
+     "file": "faith",
+     "icon": "otherfaith",
+     "cats": [
+      [
+       "church",
+       "Churches",
+       "Church"
+      ],
+      [
+       "mosque",
+       "Mosques",
+       "Mosque"
+      ],
+      [
+       "hindu",
+       "Hindu temples",
+       "Hindu temple"
+      ],
+      [
+       "synagogue",
+       "Synagogues",
+       "Synagogue"
+      ],
+      [
+       "buddhist",
+       "Buddhist temples",
+       "Buddhist temple"
+      ],
+      [
+       "gurdwara",
+       "Gurdwaras",
+       "Gurdwara"
+      ],
+      [
+       "otherfaith",
+       "Other faiths",
+       "Place of worship"
+      ]
+     ],
+     "name": "Places of worship",
+     "place": "Place of worship",
+     "note": "Churches, synagogues, temples and more in the City; pick any mix below",
+     "catNote": "Tap a faith to hide or show it. Other faiths: Hare Krishna, Taoist, Unitarian, multifaith.",
+     "groups": [
+      [
+       "catholic",
+       "Catholic"
+      ],
+      [
+       "anglican",
+       "Anglican"
+      ],
+      [
+       "uniting",
+       "Uniting"
+      ],
+      [
+       "orthodox",
+       "Orthodox"
+      ],
+      [
+       "presbyterian",
+       "Presbyterian"
+      ],
+      [
+       "baptist",
+       "Baptist"
+      ],
+      [
+       "lutheran",
+       "Lutheran"
+      ],
+      [
+       "evangelical",
+       "Evangelical"
+      ],
+      [
+       "other",
+       "Other"
+      ]
+     ],
+     "groupsFor": "church",
+     "groupLabel": "Churches by denomination",
+     "allText": "All",
+     "countText": "{n} churches shown.",
+     "allNote": "Some aren’t listed with a denomination, so they appear only here.",
+     "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal churches."
     }
    ]
   ],
@@ -650,6 +1124,14 @@
     "knownas": true
    },
    {
+    "label": "Address",
+    "address": true
+   },
+   {
+    "label": "Heritage building",
+    "heritageBuilding": true
+   },
+   {
     "label": "State district",
     "layer": "state",
     "text": "{name} District"
@@ -799,6 +1281,102 @@
      ]
     }
    }
+  },
+  "nearby": {
+   "file": "nearby.json",
+   "radius": 800,
+   "nearest": [
+    [
+     "library",
+     "Library"
+    ],
+    [
+     "centre",
+     "Community centre"
+    ],
+    [
+     "er",
+     "Emergency dept."
+    ],
+    [
+     "synagogue",
+     "Synagogue",
+     "worship:synagogue"
+    ],
+    [
+     "mosque",
+     "Mosque",
+     "worship:mosque"
+    ],
+    [
+     "buddhist",
+     "Buddhist temple",
+     "worship:buddhist"
+    ],
+    [
+     "hindu",
+     "Hindu temple",
+     "worship:hindu"
+    ],
+    [
+     "gurdwara",
+     "Gurdwara",
+     "worship:gurdwara"
+    ],
+    [
+     "church",
+     "Church",
+     "worship:church"
+    ]
+   ],
+   "within": "Within 800 m",
+   "counts": [
+    [
+     "park",
+     "park",
+     "parks"
+    ],
+    [
+     "playground",
+     "playground",
+     "playgrounds"
+    ],
+    [
+     "tennis",
+     "park with tennis courts",
+     "parks with tennis courts"
+    ],
+    [
+     "basketball",
+     "park with basketball or netball courts",
+     "parks with basketball or netball courts"
+    ],
+    [
+     "school_e",
+     "primary school",
+     "primary schools"
+    ],
+    [
+     "school_s",
+     "secondary school",
+     "secondary schools"
+    ]
+   ],
+   "note": "Straight-line distances; 800 m is about a 10-minute walk. Libraries, community centres and the ERs layer, parks and playgrounds, schools from the Department of Education (the nearest school is not always the government school a home is zoned for). Places of worship show while their layer is on.",
+   "sources": "Sources: City of Melbourne (playgrounds), Department of Education (schools), OpenStreetMap (libraries, community centres, hospitals, parks, courts, places of worship)."
+  },
+  "address": {
+   "label": "Address",
+   "origins": true,
+   "dir": "addresses",
+   "cell": 0.005,
+   "within": 45,
+   "text": "{street}, numbers around {block}",
+   "textLow": "{street}, numbers under 100",
+   "rise": "Numbers start at {from} and rise to the {toward}.",
+   "riseNoFrom": "Numbers rise to the {toward}.",
+   "riseFrom": "Numbers start at {low} at {from} and rise to the {toward}.",
+   "sub": "No citywide grid: each street counts up from its own start, odd numbers on one side and even on the other."
   }
  },
  "tour": {
