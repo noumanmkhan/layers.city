@@ -1,9 +1,28 @@
   got https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/62370a3a-3fe0-4f6b-9022-9ebbf25751cc/download/gtfs.zip 243642809 bytes
-  merged 2 feeds into one: ['agency.txt', 'calendar.txt', 'calendar_dates.txt', 'levels.txt', 'pathways.txt', 'routes.txt', 'shapes.txt', 'stop_times.txt', 'stops.txt', 'transfers.txt', 'trips.txt']
-routes kept: 773
+  merged 3 feeds into one: ['agency.txt', 'calendar.txt', 'calendar_dates.txt', 'levels.txt', 'pathways.txt', 'routes.txt', 'shapes.txt', 'stop_times.txt', 'stops.txt', 'transfers.txt', 'trips.txt']
+  not kept (rail or other): aus:vic:vic-02-ALM-R: 'Replacement Bus' 'Alamein Line' 400
+  not kept (rail or other): aus:vic:vic-02-BEG-R: 'Replacement Bus' 'Belgrave Line' 400
+  not kept (rail or other): aus:vic:vic-02-CBE-R: 'Replacement Bus' 'Cranbourne Line' 400
+  not kept (rail or other): aus:vic:vic-02-CGB-R: 'Replacement Bus' 'Craigieburn Line' 400
+  not kept (rail or other): aus:vic:vic-02-FKN-R: 'Replacement Bus' 'Frankston Line' 400
+  not kept (rail or other): aus:vic:vic-02-GWY-R: 'Replacement Bus' 'Glen Waverley Line' 400
+  not kept (rail or other): aus:vic:vic-02-HBE-R: 'Replacement Bus' 'Hurstbridge Line' 400
+  not kept (rail or other): aus:vic:vic-02-LIL-R: 'Replacement Bus' 'Lilydale Line' 400
+  not kept (rail or other): aus:vic:vic-02-MDD-R: 'Replacement Bus' 'Mernda Line' 400
+  not kept (rail or other): aus:vic:vic-02-PKM-R: 'Replacement Bus' 'Pakenham Line' 400
+  not kept (rail or other): aus:vic:vic-02-RCE-R: 'Replacement Bus' 'Flemington Racecourse Line' 400
+  not kept (rail or other): aus:vic:vic-02-SHM-R: 'Replacement Bus' 'Sandringham Line' 400
+  not kept (rail or other): aus:vic:vic-02-STY-R: 'Replacement Bus' 'Stony Point Line' 400
+  not kept (rail or other): aus:vic:vic-02-SUY-R: 'Replacement Bus' 'Sunbury Line' 400
+  not kept (rail or other): aus:vic:vic-02-UFD-R: 'Replacement Bus' 'Upfield Line' 400
+  not kept (rail or other): aus:vic:vic-02-WER-R: 'Replacement Bus' 'Werribee Line' 400
+  not kept (rail or other): aus:vic:vic-02-WIL-R: 'Replacement Bus' 'Williamstown Line' 400
+routes kept: 780
 feed 2026-11-06 - 2026-12-31 · week from 2026-11-16 · days {'wk': '2026-11-18', 'sat': '2026-11-21', 'sun': '2026-11-22'}
-trips in the week: 121715
-routes written: 719 · trams 24 · stops 24171
+trips in the week: 127978
+rapid lines written: [('Mernda', 'subway', 4), ('Alamein', 'subway', 4), ('Sunbury', 'subway', 8), ('Upfield', 'subway', 4), ('Belgrave', 'subway', 4), ('Lilydale', 'subway', 4), ('Pakenham', 'subway', 4), ('Werribee', 'subway', 8), ('Frankston', 'subway', 4), ('Cranbourne', 'subway', 4), ('Craigieburn', 'subway', 4), ('Hurstbridge', 'subway', 5), ('Sandringham', 'subway', 3), ('Stony Point', 'subway', 2), ('Williamstown', 'subway', 5), ('Glen Waverley', 'subway', 7)] · platforms 490
+sched.json: 24555 stops · 40 kinds of day · 72743 span lists · 9226568 bytes
+routes written: 709 · trams 24 · stops 24016
   tram     1 East Coburg - South Melbourne Beac shapes 8  midday/5h  29  1-5am 1
   bus      1 North Shore Station - Deakin Unive shapes 3  midday/5h  16  1-5am 1
   bus      1 Moe - Traralgon via Morwell        shapes 2  midday/5h   7  1-5am 0
@@ -713,13 +732,3 @@ routes written: 719 · trams 24 · stops 24171
   bus    982 Dandenong Station - Cranbourne via shapes 2  midday/5h   0  1-5am 0
   bus   695F Belgrave - Gembrook                shapes 2  midday/5h   0  1-5am 0
   bus   695F Belgrave - Gembrook                shapes 4  midday/5h   0  1-5am 0
-  bus  Goornong Bendigo - Goornong                 shapes 2  midday/5h   0  1-5am 0
-  bus  57-W88-aus-1 Garfield Station - Traralgon Plaza shapes 13  midday/5h   2  1-5am 0
-  bus  66-855-aus-1 Yarram - Traralgon via Gormandale  shapes 2  midday/5h   1  1-5am 0
-  bus  79-KM1-aus-1 Kilmore Town Service (Link Bus)    shapes 4  midday/5h   7  1-5am 1
-  bus  80-W12-aus-1 Wallan Station via Springridge and shapes 1  midday/5h   0  1-5am 0
-  bus  80-WN1-aus-1 Wallan Station - Wallan Central    shapes 2  midday/5h   5  1-5am 0
-  bus  80-WN2-aus-1 Wallan Station - Springridge       shapes 2  midday/5h   6  1-5am 0
-  bus  80-WN3-aus-1 Wallan Station - Wallara Waters Sh shapes 2  midday/5h   0  1-5am 0
-  bus  81-99x-aus-1 Ballan - Mount Egerton via Gordon  shapes 2  midday/5h   0  1-5am 0
-  bus  81-99y-aus-1 Ballan - Hepburn via Daylesford    shapes 2  midday/5h   0  1-5am 0
