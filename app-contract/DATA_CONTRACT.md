@@ -283,6 +283,14 @@ How the website's search does it, for an app that wants to match:
   `max: true` is a minutes ceiling; `top: true` (Most common home, on the `homes` lens) has no `options`
   of its own: its choices are the lens's `pick` ids, and a unit matches when its largest share in the
   lens's `field` list is a picked one.
+- `models3d` (November 13, 2026, on dev; additive): a few landmarks as simple 3D massing for the website's 3D
+  button, each `{name, at: [lat, lng], rot, h, _src, parts}`. `rot` is the bearing of the model's own y axis;
+  `h` the height in metres to show (absent when it isn't well sourced); `parts` are stacked pieces placed `x`,
+  `y` metres from `at` in that frame and running from `base` to `top` metres: `round`, `hex`, `square`,
+  `tripod`, `box` (`w` by `l`), `ring` (`r2` to `r`, optional `a0`–`a1` arc), `star`, `sphere` (centre `c`),
+  `wheel` (upright, centre `c`) and `curve` (a beam from `y0`/`z0` to `y1`/`z2` through `z1` at its middle).
+  `tone` is a palette key without the prefix: colour `--m3-<tone>`. `engine/map.js` (`model3dFeatures`)
+  is the reference for turning them into extruded polygons. Apps may ignore it.
 - `palette`: every colour the website uses, keyed by its CSS variable name with the leading `--`
   (`"--bia": {"light": "#E0791A", "dark": "#F39A45"}`). Every colour reference elsewhere in
   `city.json` (a fill layer's `colors`, a pill's `color`, a lens tier) is a key here. Only the

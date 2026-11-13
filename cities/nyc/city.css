@@ -37,3 +37,5 @@
 :root[data-theme="dark"]{--crz:#B98AE8}
 .crz{fill:var(--crz);fill-opacity:.12;stroke:var(--crz);stroke-width:2.2;stroke-dasharray:6 4}.crz:hover{fill-opacity:.2}
 .sw.crz{background:color-mix(in srgb,var(--crz) 25%,transparent);border:2px dashed var(--crz)}
+/* 3D landmark colours (city.json models3d "tone") */
+:root{--m3-lib:#6FA690; --m3-gold:#D4A93C; --m3-cu:#B5713F;}

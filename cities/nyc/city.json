@@ -2281,5 +2281,55 @@
     "text": "Tap any spot or search an address, and the card shows the borough, community district and neighborhood it’s in, what living there is like, and its council, state and congressional districts."
    }
   ]
- }
+ },
+ "models3d": [
+   {"name": "Statue of Liberty", "at": [40.68924, -74.04454], "rot": 130, "h": 93, "_src": "93 m from the ground to the torch; pedestal top 47 m; the star-shaped walls of Fort Wood around its base", "parts": [
+     {"shape": "star", "n": 11, "r": 46, "r2": 32, "base": 0, "top": 8, "tone": "b"},
+     {"shape": "square", "r": 12, "base": 8, "top": 27, "tone": "b"},
+     {"shape": "square", "r": 9.5, "base": 27, "top": 47, "tone": "b"},
+     {"shape": "round", "r": 7, "base": 47, "top": 60, "tone": "lib"},
+     {"shape": "round", "r": 6, "base": 60, "top": 75, "tone": "lib"},
+     {"shape": "round", "r": 4, "base": 75, "top": 82, "tone": "lib"},
+     {"shape": "round", "r": 2.6, "base": 82, "top": 88, "tone": "lib"},
+     {"shape": "box", "x": 4.5, "y": 0, "w": 2, "l": 2, "base": 72, "top": 90, "tone": "lib"},
+     {"shape": "round", "r": 1.6, "base": 90, "top": 93, "x": 4.5, "tone": "gold"},
+     {"shape": "box", "x": -4.5, "y": 1, "w": 1.2, "l": 4, "base": 63, "top": 70, "tone": "lib"}]},
+   {"name": "Brooklyn Bridge", "at": [40.705732, -73.996305], "rot": 136.33, "h": 84, "_src": "Towers 84 m (276 ft); main span 486 m, side spans 286 m; deck about 41 m above the river; line from the map's bike layer", "parts": [
+     {"shape": "box", "y": -243, "w": 42, "l": 18, "base": 0, "top": 41, "tone": "a"},
+     {"shape": "box", "y": -243, "w": 42, "l": 18, "base": 68, "top": 84, "tone": "a"},
+     {"shape": "box", "x": -17, "y": -243, "w": 8, "l": 18, "base": 41, "top": 68, "tone": "a"},
+     {"shape": "box", "x": 0, "y": -243, "w": 8, "l": 18, "base": 41, "top": 68, "tone": "a"},
+     {"shape": "box", "x": 17, "y": -243, "w": 8, "l": 18, "base": 41, "top": 68, "tone": "a"},
+     {"shape": "box", "y": 243, "w": 42, "l": 18, "base": 0, "top": 41, "tone": "a"},
+     {"shape": "box", "y": 243, "w": 42, "l": 18, "base": 68, "top": 84, "tone": "a"},
+     {"shape": "box", "x": -17, "y": 243, "w": 8, "l": 18, "base": 41, "top": 68, "tone": "a"},
+     {"shape": "box", "x": 0, "y": 243, "w": 8, "l": 18, "base": 41, "top": 68, "tone": "a"},
+     {"shape": "box", "x": 17, "y": 243, "w": 8, "l": 18, "base": 41, "top": 68, "tone": "a"},
+     {"shape": "box", "y": -529, "w": 40, "l": 50, "base": 0, "top": 27, "tone": "a"},
+     {"shape": "box", "y": 529, "w": 40, "l": 50, "base": 0, "top": 27, "tone": "a"},
+     {"shape": "box", "w": 26, "l": 1058, "base": 35, "top": 41, "tone": "b"},
+     {"shape": "curve", "x": -12, "y0": -243, "y1": 243, "z0": 82, "z1": 43, "w": 1.4, "t": 1.4, "n": 24, "tone": "b"},
+     {"shape": "curve", "x": -12, "y0": -529, "y1": -243, "z0": 30, "z2": 82, "z1": 52, "w": 1.4, "t": 1.4, "n": 12, "tone": "b"},
+     {"shape": "curve", "x": -12, "y0": 243, "y1": 529, "z0": 82, "z2": 30, "z1": 52, "w": 1.4, "t": 1.4, "n": 12, "tone": "b"},
+     {"shape": "curve", "x": 12, "y0": -243, "y1": 243, "z0": 82, "z1": 43, "w": 1.4, "t": 1.4, "n": 24, "tone": "b"},
+     {"shape": "curve", "x": 12, "y0": -529, "y1": -243, "z0": 30, "z2": 82, "z1": 52, "w": 1.4, "t": 1.4, "n": 12, "tone": "b"},
+     {"shape": "curve", "x": 12, "y0": 243, "y1": 529, "z0": 82, "z2": 30, "z1": 52, "w": 1.4, "t": 1.4, "n": 12, "tone": "b"}]},
+   {"name": "Unisphere", "at": [40.74623, -73.84498], "h": 43, "_src": "Steel globe 37 m (120 ft) across, 43 m (140 ft) tall", "parts": [
+     {"shape": "tripod", "r": 7, "base": 0, "top": 6, "tone": "b"},
+     {"shape": "round", "r": 2, "base": 6, "top": 14, "tone": "b"},
+     {"shape": "sphere", "r": 18.5, "c": 24.5, "n": 12, "t": 1.2}]},
+   {"name": "Vessel", "at": [40.75382, -74.00215], "h": 46, "_src": "46 m (150 ft) tall, 15 m across at the base widening to 46 m at the top", "parts": [
+     {"shape": "ring", "r": 7.6, "r2": 4.6, "base": 0.0, "top": 3.2, "tone": "cu"},
+     {"shape": "ring", "r": 8.9, "r2": 5.9, "base": 3.8, "top": 7.1, "tone": "cu"},
+     {"shape": "ring", "r": 10.2, "r2": 7.2, "base": 7.7, "top": 10.9, "tone": "cu"},
+     {"shape": "ring", "r": 11.4, "r2": 8.4, "base": 11.5, "top": 14.7, "tone": "cu"},
+     {"shape": "ring", "r": 12.7, "r2": 9.7, "base": 15.3, "top": 18.6, "tone": "cu"},
+     {"shape": "ring", "r": 14.0, "r2": 11.0, "base": 19.2, "top": 22.4, "tone": "cu"},
+     {"shape": "ring", "r": 15.3, "r2": 12.3, "base": 23.0, "top": 26.2, "tone": "cu"},
+     {"shape": "ring", "r": 16.6, "r2": 13.6, "base": 26.8, "top": 30.1, "tone": "cu"},
+     {"shape": "ring", "r": 17.9, "r2": 14.9, "base": 30.7, "top": 33.9, "tone": "cu"},
+     {"shape": "ring", "r": 19.1, "r2": 16.1, "base": 34.5, "top": 37.7, "tone": "cu"},
+     {"shape": "ring", "r": 20.4, "r2": 17.4, "base": 38.3, "top": 41.6, "tone": "cu"},
+     {"shape": "ring", "r": 21.7, "r2": 18.7, "base": 42.2, "top": 45.4, "tone": "cu"}]}
+ ]
 }

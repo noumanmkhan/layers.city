@@ -413,28 +413,6 @@ const KINDS = {
       TAP.set(id, f => goTo(L.latLng(f.properties.lp ? f.properties.lp[1] : f.geometry.coordinates[0][0][1], f.geometry.coordinates[0][0][0]), f.properties.name, false));
       return id;
     }));
-    // Landmarks that aren't buildings in the list (a broadcast tower, a domed stadium) are drawn the same way from the layer's
-    // "models": stacked pieces, each a shape (round, hex, tripod or a square of side 2r) with its radius and the heights
-    // it runs between, in metres. Our own simple massing from published dimensions, not anyone's 3D model.
-    const poly = (c, shape, r) => { const kx = 111320 * Math.cos(c[1] * Math.PI / 180), ky = 111320, pt = (dx, dy) => [c[0] + dx / kx, c[1] + dy / ky];
-      if (shape === 'tripod'){ const w = Math.max(3, r * .22), ring = [];   // three legs 120 degrees apart, r long and w wide
-        [90, 210, 330].forEach(a => { const t = a * Math.PI / 180, ux = Math.cos(t), uy = Math.sin(t), vx = -uy, vy = ux;
-          ring.push(pt(vx * w * .9 + ux * w * .5, vy * w * .9 + uy * w * .5), pt(ux * r + vx * w / 2, uy * r + vy * w / 2), pt(ux * r - vx * w / 2, uy * r - vy * w / 2), pt(-vx * w * .9 + ux * w * .5, -vy * w * .9 + uy * w * .5)); });
-        return ring.concat([ring[0]]); }
-      const n = shape === 'hex' ? 6 : shape === 'square' ? 4 : 32, off = shape === 'square' ? Math.PI / 4 : 0, rr = shape === 'square' ? r * Math.SQRT2 : r;
-      return Array.from({length: n + 1}, (_, i) => { const t = off + 2 * Math.PI * (i % n) / n; return pt(Math.cos(t) * rr, Math.sin(t) * rr); }); };
-    const models = (it.models || []).flatMap(m => m.parts.map(q => ({type: 'Feature',
-      properties: {name: m.name, h: q.top, b: q.base || 0, tone: q.tone || 'a', mh: m.h, at: m.at},
-      geometry: {type: 'Polygon', coordinates: [poly([m.at[1], m.at[0]], q.shape || 'round', q.r)]}})));
-    if (models.length){
-      const id = addL(hidden({id: uid('tw3m'), type: 'fill-extrusion', source: source({type: 'FeatureCollection', features: models}),
-        paint: {'fill-extrusion-height': ['get', 'h'], 'fill-extrusion-base': ['get', 'b'], 'fill-extrusion-opacity': .95, 'fill-extrusion-vertical-gradient': true}}), 'pts');
-      styled(id, () => { const v = n => colour(getComputedStyle(document.documentElement).getPropertyValue(n).trim()) || '#999';
-        return {paint: {'fill-extrusion-color': ['match', ['get', 'tone'], 'b', v('--m3-b'), v('--m3-a')]}}; });
-      HOVER.set(id, f => esc(f.properties.name) + ' · ' + towerHeight({h: f.properties.mh, ft: Math.round(f.properties.mh * 3.2808)}, true));
-      TAP.set(id, f => { const a = typeof f.properties.at === 'string' ? JSON.parse(f.properties.at) : f.properties.at; goTo(L.latLng(a[0], a[1]), f.properties.name, false); });
-      g._cols.addLayer(grp([id]));
-    }
     TOWERS3D.push(g);
     return g;
   },
@@ -3734,11 +3712,84 @@ function locateMe(){
 const TOWERS3D = [];
 const btn3d = document.getElementById('view3d');
 let is3d = false;
+// Landmarks in 3D (city.json "models3d"): a few each city is known for, each our own simple massing from published
+// dimensions (not anyone's 3D model): stacked pieces with real heights in metres. A model has a name, "at" [lat, lng],
+// "rot" (the bearing its own y axis points along, degrees), "h" (the height shown on hover) and "parts". Each part is
+// placed at "x", "y" metres from "at" in the model's frame (y along rot) and runs from "base" to "top". Shapes:
+//   round, hex, square: radius r (round and hex take "sx"/"sy" to stretch into an oval); tripod: three legs r long;
+//   box: "w" wide (x) by "l" long (y), turned "rot" more degrees; ring: between radii r2 and r, from angle a0 to a1
+//   (degrees clockwise from the model's y axis; whole ring if left out), with sx/sy too;
+//   curve: a beam from y0 to y1, z0 high at y0, z2 at y1 (z0 if left out) and z1 at its middle: an arch, a hanging cable
+//   (z1 below the ends) or a straight sloping bar (z1 halfway), "w" wide and "t" thick, in n pieces;
+//   wheel: an upright wheel in the y-z plane, centre "c" metres up, radius r; sphere: a ball of radius r centred c metres up,
+//   in n slices, hollow rings t thick when t is given; star: n points r out, notches r2 in. round also takes "sides".
+// "tone" picks the colour: --m3-<tone> from the CSS (a and b in the engine; a city's own in its city.css).
+const MODELS3D = CITY.models3d || [];
+function model3dFeatures(){
+  const out = [];
+  MODELS3D.forEach(m => {
+    const c = [m.at[1], m.at[0]], kx = 111320 * Math.cos(c[1] * Math.PI / 180), ky = 111320, R = (m.rot || 0) * Math.PI / 180;
+    const pt = (x, y) => [c[0] + (x * Math.cos(R) + y * Math.sin(R)) / kx, c[1] + (-x * Math.sin(R) + y * Math.cos(R)) / ky];
+    const add = (ring, base, top, tone) => out.push({type: 'Feature', properties: {name: m.name, mh: m.h, at: m.at, b: base, h: top, tone: tone || 'a'},
+      geometry: {type: 'Polygon', coordinates: [ring.concat([ring[0]])]}});
+    const box = (x, y, w, l, rot) => { const t = (rot || 0) * Math.PI / 180, co = Math.cos(t), si = Math.sin(t);
+      return [[-w / 2, -l / 2], [w / 2, -l / 2], [w / 2, l / 2], [-w / 2, l / 2]].map(([u, v]) => pt(x + u * co + v * si, y - u * si + v * co)); };
+    m.parts.forEach(q => {
+      const x = q.x || 0, y = q.y || 0, sh = q.shape || 'round', sx = q.sx || 1, sy = q.sy || 1;
+      if (sh === 'box') return add(box(x, y, q.w, q.l, q.rot), q.base || 0, q.top, q.tone);
+      if (sh === 'square') return add(box(x, y, 2 * q.r, 2 * q.r, q.rot), q.base || 0, q.top, q.tone);
+      if (sh === 'tripod'){ const w = Math.max(3, q.r * .22), ring = [];   // three legs 120 degrees apart, r long and w wide
+        [90, 210, 330].forEach(a => { const t = a * Math.PI / 180, ux = Math.cos(t), uy = Math.sin(t), vx = -uy, vy = ux;
+          ring.push(pt(x + vx * w * .9 + ux * w * .5, y + vy * w * .9 + uy * w * .5), pt(x + ux * q.r + vx * w / 2, y + uy * q.r + vy * w / 2),
+            pt(x + ux * q.r - vx * w / 2, y + uy * q.r - vy * w / 2), pt(x - vx * w * .9 + ux * w * .5, y - vy * w * .9 + uy * w * .5)); });
+        return add(ring, q.base || 0, q.top, q.tone); }
+      if (sh === 'sphere'){ const k = q.n || 10, t = q.t;   // a ball of radius r centred c metres up, in k slices (hollow rings t thick if t is given)
+        for (let i = 0; i < k; i++){ const z0 = q.c - q.r + 2 * q.r * i / k, z1 = z0 + 2 * q.r / k, zm = (z0 + z1) / 2, rr = Math.sqrt(Math.max(0, q.r * q.r - (zm - q.c) * (zm - q.c)));
+          if (rr < .5) continue;
+          const ring = Array.from({length: 33}, (_, j) => { const a = 2 * Math.PI * j / 32; return pt(x + Math.sin(a) * rr * sx, y + Math.cos(a) * rr * sy); });
+          if (t && rr > t){ const inner = Array.from({length: 33}, (_, j) => { const a = 2 * Math.PI * (32 - j) / 32; return pt(x + Math.sin(a) * (rr - t) * sx, y + Math.cos(a) * (rr - t) * sy); });
+            for (let h = 0; h < 4; h++) add(ring.slice(h * 8, h * 8 + 9).concat(inner.slice(32 - h * 8 - 8, 33 - h * 8)), Math.max(0, z0), z1, q.tone); }
+          else add(ring.slice(0, -1), Math.max(0, z0), z1, q.tone); }
+        return; }
+      if (sh === 'star'){ const k = q.n || 5, ring = [];   // a k-pointed star, points r out and notches r2 in
+        for (let i = 0; i < 2 * k; i++){ const a = Math.PI * i / k, rr = i % 2 ? q.r2 : q.r; ring.push(pt(x + Math.sin(a) * rr, y + Math.cos(a) * rr)); }
+        return add(ring, q.base || 0, q.top, q.tone); }
+      if (sh === 'curve'){ const n = q.n || 16, z2 = q.z2 == null ? q.z0 : q.z2, z = u => q.z0 + (z2 - q.z0) * u + (q.z1 - (q.z0 + z2) / 2) * 4 * u * (1 - u), t = q.t || 2;
+        for (let i = 0; i < n; i++){ const u0 = i / n, u1 = (i + 1) / n, y0 = q.y0 + (q.y1 - q.y0) * u0, y1 = q.y0 + (q.y1 - q.y0) * u1;
+          add(box(x, (y0 + y1) / 2, q.w || 2, Math.abs(y1 - y0) + .2), Math.max(0, Math.min(z(u0), z(u1)) - t / 2), Math.max(z(u0), z(u1)) + t / 2, q.tone); }
+        return; }
+      if (sh === 'wheel'){ const n = q.n || 36, seg = 2 * Math.PI * q.r / n;
+        for (let i = 0; i < n; i++){ const a = 2 * Math.PI * (i + .5) / n, yy = y + q.r * Math.cos(a), zz = q.c + q.r * Math.sin(a);
+          add(box(x, yy, q.w || 3, Math.abs(seg * Math.sin(a)) + (q.t || 1.5)), Math.max(0, zz - Math.abs(seg * Math.cos(a)) / 2 - (q.t || 1.5) / 2), zz + Math.abs(seg * Math.cos(a)) / 2 + (q.t || 1.5) / 2, q.tone); }
+        return; }
+      const n = sh === 'hex' ? 6 : q.sides || 48, circ = (r, a0, a1, k) => Array.from({length: k + 1}, (_, i) => { const t = (a0 + (a1 - a0) * i / k) * Math.PI / 180;
+        return pt(x + Math.sin(t) * r * sx, y + Math.cos(t) * r * sy); });
+      if (sh === 'ring'){ const a0 = q.a0 == null ? 0 : q.a0, a1 = q.a1 == null ? 360 : q.a1, k = Math.max(6, Math.round(48 * (a1 - a0) / 360));
+        if (a1 - a0 >= 360){ for (let i = 0; i < 4; i++) add(circ(q.r, i * 90, i * 90 + 90, 12).concat(circ(q.r2, i * 90 + 90, i * 90, 12)), q.base || 0, q.top, q.tone); return; }
+        return add(circ(q.r, a0, a1, k).concat(circ(q.r2, a1, a0, k)), q.base || 0, q.top, q.tone); }
+      add(circ(q.r, 0, 360, n).slice(0, -1), q.base || 0, q.top, q.tone);
+    });
+  });
+  return {type: 'FeatureCollection', features: out};
+}
+let models3d = null;
+function modelsLayer(){
+  if (models3d || !MODELS3D.length) return models3d;
+  const fc = model3dFeatures(), tones = [...new Set(fc.features.map(f => f.properties.tone))];
+  const id = addL(hidden({id: uid('m3d'), type: 'fill-extrusion', source: source(fc),
+    paint: {'fill-extrusion-height': ['get', 'h'], 'fill-extrusion-base': ['get', 'b'], 'fill-extrusion-opacity': .96, 'fill-extrusion-vertical-gradient': true}}), 'pts');
+  styled(id, () => { const v = n => colour(getComputedStyle(document.documentElement).getPropertyValue(n).trim()) || '#999';
+    return {paint: {'fill-extrusion-color': tones.length > 1 ? ['match', ['get', 'tone']].concat(tones.flatMap(t => [t, v('--m3-' + t)]), [v('--m3-a')]) : v('--m3-' + tones[0])}}; });
+  HOVER.set(id, f => esc(f.properties.name) + ' · ' + towerHeight({h: f.properties.mh, ft: Math.round(f.properties.mh * 3.2808)}, true));
+  TAP.set(id, f => { const a = typeof f.properties.at === 'string' ? JSON.parse(f.properties.at) : f.properties.at; goTo(L.latLng(a[0], a[1]), f.properties.name, false); });
+  return models3d = grp([id]);
+}
 function set3D(on){
   is3d = on; btn3d.setAttribute('aria-pressed', String(on));
   const tw = ORDER.find(it => it.kind === 'towers');
   if (on && tw && !state[tw.id]) setLayer(tw.id, true);
   TOWERS3D.forEach(g => { if (on) g.addLayer(g._cols); else g.removeLayer(g._cols); });
+  const ml = modelsLayer(); if (ml){ if (on) ml.addTo(map); else ml.remove(); }
   map.getContainer().classList.toggle('is3d', on);
   if (on){
     gl.dragRotate.enable(); gl.touchZoomRotate.enableRotation(); gl.touchPitch.enable(); gl.keyboard.enableRotation && gl.keyboard.enableRotation();
@@ -3749,7 +3800,7 @@ function set3D(on){
   }
   logEvent('3d', {on});
 }
-if (btn3d && ORDER.some(it => it.kind === 'towers')){ btn3d.hidden = false; btn3d.addEventListener('click', () => set3D(!is3d)); }
+if (btn3d && (ORDER.some(it => it.kind === 'towers') || MODELS3D.length)){ btn3d.hidden = false; btn3d.addEventListener('click', () => set3D(!is3d)); }
 
 /* ---------- Save the map as an image (all in the browser) ----------
    The map is drawn from the site's own shapes, with no tiles from other sites, so the GPU map's own canvas can be

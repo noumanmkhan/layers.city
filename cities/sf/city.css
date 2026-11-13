@@ -46,3 +46,5 @@
 .sfcult{fill:var(--sfcult);fill-opacity:.4;stroke:var(--sfcult);stroke-width:1.2}.sfcult:hover{fill-opacity:.65}
 .lbl-sfcult{font-size:10px;font-weight:600;color:var(--sfcult)!important}
 .sw.cultural.k-patches{background:color-mix(in srgb,var(--sfcult) 45%,var(--city))}
+/* 3D landmark colours (city.json models3d "tone") */
+:root{--m3-gg:#C0462F; --m3-sut:#C9584A;}

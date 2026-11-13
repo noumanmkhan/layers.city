@@ -931,5 +931,36 @@
     ]
    ]
   ]
- }
+ },
+ "models3d": [
+   {"name": "Arts Centre Melbourne spire", "at": [-37.82028, 144.96833], "h": 162, "_src": "Steel spire 162 m since 1996 (115 m when built)", "parts": [
+     {"shape": "round", "r": 20, "base": 0, "top": 18},
+     {"shape": "round", "r": 15, "base": 18, "top": 36},
+     {"shape": "round", "r": 10.5, "base": 36, "top": 58},
+     {"shape": "round", "r": 7, "base": 58, "top": 84},
+     {"shape": "round", "r": 4, "base": 84, "top": 114},
+     {"shape": "round", "r": 2.2, "base": 114, "top": 140},
+     {"shape": "round", "r": 1, "base": 140, "top": 162}]},
+   {"name": "MCG", "at": [-37.81993, 144.98321], "h": 85, "_src": "Six light towers about 75 m, 85 m with their head frames (MCG); the stands' height is our estimate", "parts": [
+     {"shape": "ring", "r": 118, "r2": 88, "sx": 1.08, "base": 0, "top": 38, "tone": "b"},
+     {"shape": "round", "r": 2.1, "base": 0, "top": 75, "x": 73.4, "y": 117.8},
+     {"shape": "box", "x": 72.4, "y": 116.0, "w": 14, "l": 4, "rot": 30, "base": 75, "top": 85},
+     {"shape": "round", "r": 2.1, "base": 0, "top": 75, "x": 146.9, "y": 0.0},
+     {"shape": "box", "x": 144.7, "y": 0.0, "w": 14, "l": 4, "rot": 90, "base": 75, "top": 85},
+     {"shape": "round", "r": 2.1, "base": 0, "top": 75, "x": 73.4, "y": -117.8},
+     {"shape": "box", "x": 72.4, "y": -116.0, "w": 14, "l": 4, "rot": 150, "base": 75, "top": 85},
+     {"shape": "round", "r": 2.1, "base": 0, "top": 75, "x": -73.4, "y": -117.8},
+     {"shape": "box", "x": -72.4, "y": -116.0, "w": 14, "l": 4, "rot": 210, "base": 75, "top": 85},
+     {"shape": "round", "r": 2.1, "base": 0, "top": 75, "x": -146.9, "y": -0.0},
+     {"shape": "box", "x": -144.7, "y": -0.0, "w": 14, "l": 4, "rot": 270, "base": 75, "top": 85},
+     {"shape": "round", "r": 2.1, "base": 0, "top": 75, "x": -73.4, "y": 117.8},
+     {"shape": "box", "x": -72.4, "y": 116.0, "w": 14, "l": 4, "rot": 330, "base": 75, "top": 85}]},
+   {"name": "Melbourne Star", "at": [-37.81178, 144.93733], "rot": 90, "h": 120, "_src": "Observation wheel 120 m tall", "parts": [
+     {"shape": "wheel", "r": 55, "c": 63, "n": 48, "w": 4, "t": 2},
+     {"shape": "round", "r": 3, "base": 61, "top": 65, "tone": "b"},
+     {"shape": "curve", "x": -6, "y0": -30, "y1": 0, "z0": 0, "z2": 63, "z1": 31.5, "w": 2, "t": 2, "n": 10, "tone": "b"},
+     {"shape": "curve", "x": -6, "y0": 0, "y1": 30, "z0": 63, "z2": 0, "z1": 31.5, "w": 2, "t": 2, "n": 10, "tone": "b"},
+     {"shape": "curve", "x": 6, "y0": -30, "y1": 0, "z0": 0, "z2": 63, "z1": 31.5, "w": 2, "t": 2, "n": 10, "tone": "b"},
+     {"shape": "curve", "x": 6, "y0": 0, "y1": 30, "z0": 63, "z2": 0, "z1": 31.5, "w": 2, "t": 2, "n": 10, "tone": "b"}]}
+ ]
 }
