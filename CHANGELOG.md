@@ -2,6 +2,20 @@
 
 ## Since 1.1
 
+### A 3D view: towers rise and landmarks stand up (November 13)
+- A 3D button beside Share and Image tilts the map, turns Skyscrapers on (and ticks its box), and raises every tower
+  as a column at its real height, coloured by use; towers under construction are see-through. Drag rotates and two
+  fingers tilt while it is on; tap again to go back to the flat map.
+- Each city gets two to five landmarks as simple 3D models, built from their published dimensions with stacked shapes
+  (our own massing, not downloaded models: no extra library on phones and no licence to track): the CN Tower, Rogers
+  Centre and City Hall with Nathan Phillips Square; the Golden Gate Bridge, Coit Tower, Ferry Building, Palace of Fine
+  Arts and Sutro Tower; BC Place, Science World and Harbour Centre; the Statue of Liberty, Brooklyn Bridge, Unisphere
+  and Vessel; the Centennial Wheel, Cloud Gate, Water Tower and Soldier Field; Reunion Tower and the Margaret Hunt Hill
+  Bridge; the Arts Centre spire, MCG and Melbourne Star; Charminar, the Buddha Statue, Durgam Cheruvu Cable Bridge and
+  the Telangana Secretariat. Bridges sit on the line of their road in the map's own layers.
+- Models are a `models3d` list in each `city.json` (each with a `_src` note); the 3D button shows in any city with
+  towers or models, Melbourne and Hyderabad included. No terrain: hills such as Telegraph Hill are not drawn.
+
 ### The map draws on the GPU: MapLibre GL replaces Leaflet (November 13)
 - Every city's map now draws with MapLibre GL JS (WebGL) instead of Leaflet's SVG and HTML, so zooming and panning on
   phones no longer stall while thousands of shapes and labels are redrawn. Names and icons are placed by MapLibre in the
