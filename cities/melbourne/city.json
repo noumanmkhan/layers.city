@@ -735,6 +735,42 @@
    ]
   ],
   [
+   "Parking",
+   [
+    {
+     "id": "greenp",
+     "kind": "spots",
+     "mark": "lot",
+     "file": "parking",
+     "cat": "gp",
+     "countKey": "greenp",
+     "lazy": true,
+     "optional": true,
+     "minZoom": 11,
+     "name": "Public car parks",
+     "note": "Car parks open to the public in the City, bigger for more spaces. From zoom 11.",
+     "countNote": "{n} public car parks with {spaces} spaces, from the City’s 2024 land use census. From zoom 11.",
+     "classes": {
+      "g": [
+       "Car parks",
+       "Paid car parks open to anyone"
+      ]
+     },
+     "legend": "Bigger squares hold more cars.",
+     "zoomText": "Zoom in to see them.",
+     "typeText": {
+      "g": "Public car park"
+     },
+     "spacesLabel": "Spaces",
+     "spacesText": [
+      "{n} space",
+      "{n} spaces"
+     ],
+     "fine": "From the City of Melbourne’s Census of Land Use and Employment ({date}), which counts car parks open to the public for a fee. Car parks open and close and rates change: check before you go."
+    }
+   ]
+  ],
+  [
    "Representation",
    [
     {
