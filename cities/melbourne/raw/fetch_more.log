@@ -1,184 +1,23 @@
-wrote more/osm_city.json 144 KB
-wrote more/osm_bikes.json 6819 KB
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
-  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
-  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
-  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
-  overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
-wrote more/osm_region.json 118 KB
-  all-victorian-sars-cov-2-cases-by-local-government-area-and-postcode | All Victorian SARS-CoV-2 cases by local government area and postcode -  25-Jan-2020 to 14-Sep-2023 | Creative Commons Attribution 4.0 International
-      CSV | COVID-19 cases by local government area and postcode | https://www.health.vic.gov.au/sites/default/files/2023-12/ncov_cases_by_postcode_lga.csv
-  auditor-general-s-report-on-the-annual-financial-report-of-the-state-of-victoria-2017-18 | Auditor-General’s Results of 2017–18 Audits: Local Government | Creative Commons Attribution 4.0 International
-      XLSX | Annual Report 2018-19 | https://www.audit.vic.gov.au/sites/default/files/20191127-Local-Government-dashboard-data.xlsx
-  community-support-fund-2010-11-total-expenditure | Community Support Fund - 2010-11 Total expenditure | Creative Commons Attribution 4.0 International
-      XLSX | Community Support Fund - 2010-11 Total expenditure | https://www.dtf.vic.gov.au/files/aacf0961-689d-42a5-8196-a1e400ea68ac/CommunitySupportFund2010to11TotalExpenditure.xlsx
-  community-support-fund-2011-12-funds-approved-1-july-2011-to-30-june-2012 | Community Support Fund - 2011-12 Funds approved 1 July 2011 to 30 June 2012 | Creative Commons Attribution 4.0 International
-      XLSX | Community Support Fund - 2011-12 Funds approved 1 July 2011 to 30 June 2012 | https://www.dtf.vic.gov.au//files/00e8b632-c44c-4d05-9538-a1e400ea8afc/CommunitySupportFund2011to12FundsApproved.xlsx
-  community-support-fund-2011-12-total-expenditure | Community Support Fund - 2011-12 Total expenditure | Creative Commons Attribution 4.0 International
-      XLSX | Community Support Fund - 2011-12 Total expenditure | https://www.dtf.vic.gov.au/files/3c3050b6-48ef-4f6a-adfb-a1e400eacba9/CommunitySupportFund2011to12TotalExpenditureActual.xlsx
-  current-sars-cov-2-cases-by-local-government-area | Current SARS-CoV-2 cases by local government area | Creative Commons Attribution 4.0 International
-      CSV | Current Victorian PCR and RAT cases by local government area | https://docs.google.com/spreadsheets/d/e/2PACX-1vQ9oKYNQhJ6v85dQ9qsybfMfc-eaJ9oKVDZKx-VGUr6szNoTbvsLTzpEaJ3oW_LZTklZbz70hDBUt-d/pub?gid=0&single=true&output=csv
-  heritage-inventory | Heritage Inventory | Creative Commons Attribution 4.0 International
-      DWG | HERITAGEINVENTORY DWG | https://datashare.maps.vic.gov.au/search?md=fcb63ea2-7430-526b-a139-060c8a2cf990
-      DXF | HERITAGEINVENTORY DXF | https://datashare.maps.vic.gov.au/search?md=fcb63ea2-7430-526b-a139-060c8a2cf990
-      GDB | HERITAGEINVENTORY GDB | https://datashare.maps.vic.gov.au/search?md=fcb63ea2-7430-526b-a139-060c8a2cf990
-      SHP | HERITAGEINVENTORY SHP | https://datashare.maps.vic.gov.au/search?md=fcb63ea2-7430-526b-a139-060c8a2cf990
-      MIF | HERITAGEINVENTORY MIF | https://datashare.maps.vic.gov.au/search?md=fcb63ea2-7430-526b-a139-060c8a2cf990
-      TAB | HERITAGEINVENTORY TAB | https://datashare.maps.vic.gov.au/search?md=fcb63ea2-7430-526b-a139-060c8a2cf990
-      Extended TAB | HERITAGEINVENTORY Extended TAB | https://datashare.maps.vic.gov.au/search?md=fcb63ea2-7430-526b-a139-060c8a2cf990
-      WMS | HERITAGE_INVENTORY WMS | https://opendata.maps.vic.gov.au/geoserver/wms?service=wms&request=getmap&format=image%2Fpng8&transparent=true&layers=open-data-platform:heritage_inventory&width=512&height=512&crs=epsg%3A3857&bbox=16114148.554967716%2C-4456584.4971389165%2C16119040.524777967%2C-4451692.527328665
-  libraries-locations | Libraries Locations | other-open
-      CSV | Libraries Locations CSV | https://data.casey.vic.gov.au/api/v2/catalog/datasets/libraries-copy/exports/csv?delimiter=%2C
-      JSON | Libraries Locations JSON | https://data.casey.vic.gov.au/api/v2/catalog/datasets/libraries-copy/exports/json
-      GeoJSON | Libraries Locations GEOJSON | https://data.casey.vic.gov.au/api/v2/catalog/datasets/libraries-copy/exports/geojson
-      KML | Libraries Locations KML | https://data.casey.vic.gov.au/api/v2/catalog/datasets/libraries-copy/exports/kml
-      SHP | Libraries Locations SHP | https://data.casey.vic.gov.au/api/v2/catalog/datasets/libraries-copy/exports/shp
-      XLS | Libraries Locations XLS | https://data.casey.vic.gov.au/api/v2/catalog/datasets/libraries-copy/exports/xls
-  locations-of-major-works-at-government-schools-greater-than-50-000 | Locations of major works at Government Schools (greater than $50,000) | Creative Commons Attribution 4.0 International
-      XLSX | locations of major works at Government schools (greater than $50,000) | https://content.vic.gov.au/sites/default/files/2026-11/dv138-locmajorworks14.xlsx
-  school-crossing-locations-in-city-of-casey | School Crossing Locations in City of Casey | other-open
-      CSV | School Crossing Locations in City of Casey CSV | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school-crossings/exports/csv?delimiter=%2C
-      JSON | School Crossing Locations in City of Casey JSON | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school-crossings/exports/json
-      GeoJSON | School Crossing Locations in City of Casey GEOJSON | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school-crossings/exports/geojson
-      KML | School Crossing Locations in City of Casey KML | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school-crossings/exports/kml
-      SHP | School Crossing Locations in City of Casey SHP | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school-crossings/exports/shp
-      XLS | School Crossing Locations in City of Casey XLS | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school-crossings/exports/xls
-  school-crossings-pt-t1eam | School Crossings Pt T1EAM | other-open
-      CSV | School Crossings Pt T1EAM CSV | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school_crossings_pt_t1eam/exports/csv?delimiter=%2C
-      JSON | School Crossings Pt T1EAM JSON | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school_crossings_pt_t1eam/exports/json
-      GeoJSON | School Crossings Pt T1EAM GEOJSON | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school_crossings_pt_t1eam/exports/geojson
-      KML | School Crossings Pt T1EAM KML | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school_crossings_pt_t1eam/exports/kml
-      SHP | School Crossings Pt T1EAM SHP | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school_crossings_pt_t1eam/exports/shp
-      XLS | School Crossings Pt T1EAM XLS | https://data.casey.vic.gov.au/api/v2/catalog/datasets/school_crossings_pt_t1eam/exports/xls
-  school-locations-2020 | School Locations 2020 | Creative Commons Attribution 4.0 International
-      CSV | School Location 2020 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv296-schoollocations2020.csv
-  school-locations-2021 | School Locations 2021 | Creative Commons Attribution 4.0 International
-      CSV | School Locations - 2021 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv309_schoollocations2021.csv
-  school-locations-2023 | School Locations 2023 | Creative Commons Attribution 4.0 International
-      CSV | School Locations 2023 | https://content.vic.gov.au/sites/default/files/2026-11/dv346-schoollocations2023.csv
-  school-locations-2024 | School Locations 2024 | Creative Commons Attribution 4.0 International
-      CSV | School Locations 2024 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv378_DataVic-SchoolLocations-2024.csv
-  school-locations-2025 | School Locations 2025 | Creative Commons Attribution 4.0 International
-      CSV | School Locations 2025 | https://content.vic.gov.au/sites/default/files/2026-11/dv402-SchoolLocations2025.csv
-  school-locations-2026 | School Locations 2026 | Creative Commons Attribution 4.0 International
-      CSV | School Locations 2026 | https://content.vic.gov.au/DE-School-Locations%20-2026
-  school-locations-time-series | School Locations 2019 | Creative Commons Attribution 4.0 International
-      CSV | school locations 2015 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv165-allschoolslocationlist2015.csv
-      CSV | school locations 2016 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv212-allschoolslist2016.csv
-      CSV | school locations 2017 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv244-allschoolslist2017.csv
-      CSV | school-locations-2018 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv259-allschoolslist-2018.csv
-      CSV | School locations 2019 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv279-schoollocations2019.csv
-  speed-zones | Speed Zones | Creative Commons Attribution 4.0 International
-      GeoJSON | Speed Zones August 2026 | https://opendata.transport.vic.gov.au/dataset/975b80b9-e530-46e2-80a5-54002765e81a/resource/5b8f56bf-eb5c-467c-aed6-e9b423b510c3/download/speed_zones_august_2026.geojson
-      GeoJSON | Speed Zones July 2026 | https://opendata.transport.vic.gov.au/dataset/975b80b9-e530-46e2-80a5-54002765e81a/resource/96d4309f-30a2-4ed9-ba66-5dfbd3a959c7/download/speed_zones_july_2026.geojson
-      GeoJSON | Speed Zones June 2026 | https://opendata.transport.vic.gov.au/dataset/975b80b9-e530-46e2-80a5-54002765e81a/resource/2be0fdab-3cf7-42e1-87d6-330d02172167/download/speed_zones_june_2026.geojson
-      GeoJSON | Speed Zones April 2026 | https://opendata.transport.vic.gov.au/dataset/975b80b9-e530-46e2-80a5-54002765e81a/resource/a91ebf54-80e1-462f-a4e9-c320e61c34af/download/speed_zones_april_2026.geojson
-      GeoJSON | Speed Zones March 2026 | https://opendata.transport.vic.gov.au/dataset/975b80b9-e530-46e2-80a5-54002765e81a/resource/91313d09-a353-4e4a-bca0-d137113790c8/download/speed_zones_march_2026.geojson
-      GeoJSON | Speed Zones February 2026 | https://opendata.transport.vic.gov.au/dataset/975b80b9-e530-46e2-80a5-54002765e81a/resource/631bc6ee-099e-4309-9d62-83014999dbb3/download/speed_zones_february_2026.geojson
-      GeoJSON | Speed Zones January 2026 | https://opendata.transport.vic.gov.au/dataset/975b80b9-e530-46e2-80a5-54002765e81a/resource/8c77c695-f45e-49ac-9049-9e27ba4363c6/download/speed_zones_january_2026.geojson
-      GeoJSON | Speed Zones October 2025 | https://opendata.transport.vic.gov.au/dataset/975b80b9-e530-46e2-80a5-54002765e81a/resource/3d43867e-f67b-4ddd-9040-a940c54f3461/download/speed_zones_october_2025.geojson
-  the-victorian-heritage-database | The Victorian Heritage Database | Creative Commons Attribution 4.0 International
-      data tool | Victorian Heritage Database | http://vhd.heritagecouncil.vic.gov.au
-  vicmap-features-of-interest-rest-api | Vicmap Features of Interest REST API | Creative Commons Attribution 4.0 International
-      Esri REST | Vicmap Features of Interest | https://services-ap1.arcgis.com/P744lA0wf4LlBZ84/arcgis/rest/services/Vicmap_Features_of_Interest/FeatureServer
-      Esri REST | Vicmap Features of Interest (Map Service) | https://vicmap.land.vic.gov.au/hosting/rest/services/vicmap/Vicmap_Features_of_Interest/MapServer
-  vicmap-geomark-rest-api | Vicmap Geomark REST API | Creative Commons Attribution 4.0 International
-      Esri REST | Vicmap Geomark | https://services-ap1.arcgis.com/P744lA0wf4LlBZ84/arcgis/rest/services/Vicmap_Geomark/FeatureServer
-  victoria-road-crash-data | Victoria road crash data | Creative Commons Attribution 4.0 International
-      CSV | Accident | https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/20772c1a-8b19-424a-a733-eb84f725f611/download/accident.csv
-      CSV | Vehicle | https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/6d0b21f7-583a-4991-a168-f15a70c13ec4/download/vehicle.csv
-      CSV | Person | https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/60c8fc0c-2806-40f3-bb33-5c52691120e8/download/person.csv
-      CSV | SUB DCA | https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/41e4df8c-920e-4b01-93d2-b3d02c4b3c27/download/sub_dca.csv
-      CSV | Node | https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/466fd3b5-201b-42b5-b10d-e926324fa215/download/node.csv
-      CSV | Accident Event | https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/a75c1a99-7d30-4b39-b96d-fec3bf62ff3f/download/accident_event.csv
-      CSV | Road Surface Condition | https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/17965f05-2dda-4351-b32c-67038c74b6b3/download/road_surface_cond.csv
-      CSV | Accident Location | https://opendata.transport.vic.gov.au/dataset/bb77800e-1857-4edc-bf9e-e188437a1c8e/resource/e1beb92b-5836-448a-9769-e7aa6a9e7413/download/accident_location.csv
-  victorian-energy-efficiency-target-register-of-veecs | Victorian Energy Efficiency Target - Register of VEECs | Creative Commons Attribution 4.0 International
-      data tool | Victorian Energy Efficiency Target - Register of VEECs | https://www.veu-registry.vic.gov.au/Public/PublicRegister/Search.aspx
-  victorian-government-school-zones-2022 | Victorian Government School Zones 2022 | Creative Commons Attribution 4.0 International
-      ZIP | School Zones 2022 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv311-schoolzones2022.zip
-  victorian-government-school-zones-2023 | Victorian Government School Zones 2023 | Creative Commons Attribution 4.0 International
-      ZIP | Victorian Government School Zones 2023 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv330-schoolzones2023.zip
-  victorian-government-school-zones-2024 | Victorian Government School Zones 2024 | Creative Commons Attribution 4.0 International
-      ZIP | Victorian Government School Zones 2024 | https://www.education.vic.gov.au/Documents/about/research/datavic/dv371_DataVic_School_Zones_2024.zip
-  victorian-government-school-zones-2025 | Victorian Government School Zones 2025 | Creative Commons Attribution 4.0 International
-      ZIP | Victorian Government School Zones 2025 | https://content.vic.gov.au/sites/default/files/2026-10/dv397_DataVic_School_Zones_2025.zip
-  victorian-government-school-zones-2026 | Victorian Government School Zones 2026 | Creative Commons Attribution 4.0 International
-      ZIP | Victorian Government School Zones 2026 | https://content.vic.gov.au/sites/default/files/2026-10/dv418_DataVic_School_Zones_2026_MAR26.zip
-  victorian-government-school-zones-2027 | Victorian Government School Zones 2027 | Creative Commons Attribution 4.0 International
-      ZIP | School Zones 2027 | https://content.vic.gov.au/sites/default/files/2026-10/dv419_DataVic_School_Zones_2027_MAR26_0.zip
-  victorian-heritage-database-api | Victorian Heritage Database API | Creative Commons Attribution 4.0 International
-      api | Victorian Heritage Database API | https://api.heritagecouncil.vic.gov.au/documentation/VHD-v1
-  victorian-heritage-register | Victorian Heritage Register | Creative Commons Attribution 4.0 International
-      DWG | HERITAGEREGISTER DWG | https://datashare.maps.vic.gov.au/search?md=c95c7142-a03e-5fd3-9b15-5dfcd2b9ff33
-      DXF | HERITAGEREGISTER DXF | https://datashare.maps.vic.gov.au/search?md=c95c7142-a03e-5fd3-9b15-5dfcd2b9ff33
-      GDB | HERITAGEREGISTER GDB | https://datashare.maps.vic.gov.au/search?md=c95c7142-a03e-5fd3-9b15-5dfcd2b9ff33
-      SHP | HERITAGEREGISTER SHP | https://datashare.maps.vic.gov.au/search?md=c95c7142-a03e-5fd3-9b15-5dfcd2b9ff33
-      MIF | HERITAGEREGISTER MIF | https://datashare.maps.vic.gov.au/search?md=c95c7142-a03e-5fd3-9b15-5dfcd2b9ff33
-      TAB | HERITAGEREGISTER TAB | https://datashare.maps.vic.gov.au/search?md=c95c7142-a03e-5fd3-9b15-5dfcd2b9ff33
-      Extended TAB | HERITAGEREGISTER Extended TAB | https://datashare.maps.vic.gov.au/search?md=c95c7142-a03e-5fd3-9b15-5dfcd2b9ff33
-      WMS | HERITAGE_REGISTER WMS | https://opendata.maps.vic.gov.au/geoserver/wms?service=wms&request=getmap&format=image%2Fpng8&transparent=true&layers=open-data-platform:heritage_register&width=512&height=512&crs=epsg%3A3857&bbox=16114148.554967716%2C-4456584.4971389165%2C16119040.524777967%2C-4451692.527328665
-  victorian-war-heritage-inventory | Victorian War Heritage Inventory | Creative Commons Attribution 4.0 International
-      JSON | Victorian War Heritage Inventory  | https://hermesorion.heritage.vic.gov.au/system/veterans.json.gz
-  victorian-water-register-bore-details | Victorian Water Register Bore Details | Creative Commons Attribution 4.0 International
-      DWG | REGISTERGWDETAILS DWG | https://datashare.maps.vic.gov.au/search?md=5b755345-70b3-4436-8566-6d4dfe9fce9e
-      DXF | REGISTERGWDETAILS DXF | https://datashare.maps.vic.gov.au/search?md=5b755345-70b3-4436-8566-6d4dfe9fce9e
-      GDB | REGISTERGWDETAILS GDB | https://datashare.maps.vic.gov.au/search?md=5b755345-70b3-4436-8566-6d4dfe9fce9e
-      SHP | REGISTERGWDETAILS SHP | https://datashare.maps.vic.gov.au/search?md=5b755345-70b3-4436-8566-6d4dfe9fce9e
-      MIF | REGISTERGWDETAILS MIF | https://datashare.maps.vic.gov.au/search?md=5b755345-70b3-4436-8566-6d4dfe9fce9e
-      TAB | REGISTERGWDETAILS TAB | https://datashare.maps.vic.gov.au/search?md=5b755345-70b3-4436-8566-6d4dfe9fce9e
-      Extended TAB | REGISTERGWDETAILS Extended TAB | https://datashare.maps.vic.gov.au/search?md=5b755345-70b3-4436-8566-6d4dfe9fce9e
-      WMS | REGISTER_GW_DETAILS WMS | https://opendata.maps.vic.gov.au/geoserver/wms?service=wms&request=getmap&format=image%2Fpng8&transparent=true&layers=open-data-platform:register_gw_details&width=512&height=512&crs=epsg%3A3857&bbox=16114148.554967716%2C-4456584.4971389165%2C16119040.524777967%2C-4451692.527328665
-  victorian-water-register-bore-drilling-records | Victorian Water Register Bore Drilling Records | Creative Commons Attribution 4.0 International
-      GDB | REGISTERGWDRILL GDB | https://datashare.maps.vic.gov.au/search?md=e0b4a0dd-a235-4415-bfc0-0212a0ad8ba8
-      SHP | REGISTERGWDRILL SHP | https://datashare.maps.vic.gov.au/search?md=e0b4a0dd-a235-4415-bfc0-0212a0ad8ba8
-      MIF | REGISTERGWDRILL MIF | https://datashare.maps.vic.gov.au/search?md=e0b4a0dd-a235-4415-bfc0-0212a0ad8ba8
-      TAB | REGISTERGWDRILL TAB | https://datashare.maps.vic.gov.au/search?md=e0b4a0dd-a235-4415-bfc0-0212a0ad8ba8
-      Extended TAB | REGISTERGWDRILL Extended TAB | https://datashare.maps.vic.gov.au/search?md=e0b4a0dd-a235-4415-bfc0-0212a0ad8ba8
-  victorian-water-register-bore-gravel-records | Victorian Water Register Bore Gravel Records | Creative Commons Attribution 4.0 International
-      GDB | REGISTERGWGRAVEL GDB | https://datashare.maps.vic.gov.au/search?md=31b6c7bd-58d5-409a-a8d1-fca7261e0959
-      SHP | REGISTERGWGRAVEL SHP | https://datashare.maps.vic.gov.au/search?md=31b6c7bd-58d5-409a-a8d1-fca7261e0959
-      MIF | REGISTERGWGRAVEL MIF | https://datashare.maps.vic.gov.au/search?md=31b6c7bd-58d5-409a-a8d1-fca7261e0959
-      TAB | REGISTERGWGRAVEL TAB | https://datashare.maps.vic.gov.au/search?md=31b6c7bd-58d5-409a-a8d1-fca7261e0959
-      Extended TAB | REGISTERGWGRAVEL Extended TAB | https://datashare.maps.vic.gov.au/search?md=31b6c7bd-58d5-409a-a8d1-fca7261e0959
-  victorian-water-register-bore-lithology | Victorian Water Register Bore Lithology | Creative Commons Attribution 4.0 International
-      GDB | REGISTERGWLITH GDB | https://datashare.maps.vic.gov.au/search?md=01b852ad-9466-4f9c-894e-16b450d25c9e
-      SHP | REGISTERGWLITH SHP | https://datashare.maps.vic.gov.au/search?md=01b852ad-9466-4f9c-894e-16b450d25c9e
-      MIF | REGISTERGWLITH MIF | https://datashare.maps.vic.gov.au/search?md=01b852ad-9466-4f9c-894e-16b450d25c9e
-      TAB | REGISTERGWLITH TAB | https://datashare.maps.vic.gov.au/search?md=01b852ad-9466-4f9c-894e-16b450d25c9e
-      Extended TAB | REGISTERGWLITH Extended TAB | https://datashare.maps.vic.gov.au/search?md=01b852ad-9466-4f9c-894e-16b450d25c9e
-  victorian-water-register-bore-pump-tests | Victorian Water Register Bore Pump Tests | Creative Commons Attribution 4.0 International
-      GDB | REGISTERGWPUMP GDB | https://datashare.maps.vic.gov.au/search?md=fb3ec8e5-e8c9-4106-8df4-c6b44c69c5db
-      SHP | REGISTERGWPUMP SHP | https://datashare.maps.vic.gov.au/search?md=fb3ec8e5-e8c9-4106-8df4-c6b44c69c5db
-      MIF | REGISTERGWPUMP MIF | https://datashare.maps.vic.gov.au/search?md=fb3ec8e5-e8c9-4106-8df4-c6b44c69c5db
-      TAB | REGISTERGWPUMP TAB | https://datashare.maps.vic.gov.au/search?md=fb3ec8e5-e8c9-4106-8df4-c6b44c69c5db
-      Extended TAB | REGISTERGWPUMP Extended TAB | https://datashare.maps.vic.gov.au/search?md=fb3ec8e5-e8c9-4106-8df4-c6b44c69c5db
-  victorian-water-register-bores | Victorian Water Register Bores | Creative Commons Attribution 4.0 International
-      DWG | REGISTERGW DWG | https://datashare.maps.vic.gov.au/search?md=7f9b793f-c093-4544-ba01-e5d3fd9d5263
-      DXF | REGISTERGW DXF | https://datashare.maps.vic.gov.au/search?md=7f9b793f-c093-4544-ba01-e5d3fd9d5263
-      GDB | REGISTERGW GDB | https://datashare.maps.vic.gov.au/search?md=7f9b793f-c093-4544-ba01-e5d3fd9d5263
-      SHP | REGISTERGW SHP | https://datashare.maps.vic.gov.au/search?md=7f9b793f-c093-4544-ba01-e5d3fd9d5263
-      MIF | REGISTERGW MIF | https://datashare.maps.vic.gov.au/search?md=7f9b793f-c093-4544-ba01-e5d3fd9d5263
-      TAB | REGISTERGW TAB | https://datashare.maps.vic.gov.au/search?md=7f9b793f-c093-4544-ba01-e5d3fd9d5263
-      Extended TAB | REGISTERGW Extended TAB | https://datashare.maps.vic.gov.au/search?md=7f9b793f-c093-4544-ba01-e5d3fd9d5263
-  saved school_locations.csv from School Locations 2026 539 KB; header b'Education_Sector,Entity_Type,School_No,School_Name,School_Type,School_Status,Address_Line_1,Address_Line_2,Address_Town,Address_State,Address_Postcode,Postal_Address_Line_1,Postal_Address_Line_2,Postal_Town,Postal_State,Postal_Postcode,Full_Phone_No,Region,Area,LGA_ID,LGA_Name,LGA_TYPE,X,Y\r\nCatholic,2,20,Parade College,Secondary,O,1436 Plenty Road,,BUNDOORA,VIC,3083,1436 Plenty Road,,BUNDOORA,VIC,'
-  saved vhr.zip HERITAGEREGISTER SHP 166 KB
+  open-data-platform:heritage_register: geometry column geom; sample fields ['heritage_object', 'hermes_num', 'id', 'site_name', 'ufi', 'ufi_created', 'vdpid', 'vhi_num', 'vhr_num']
   retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register HTTP Error 400: 
   retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register HTTP Error 400: 
   retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register HTTP Error 400: 
-FAILED heritage RuntimeError('failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register&outputFormat=application%2Fjson&srsName=EPSG%3A4326&count=2000&startIndex=0&bbox=-37.86%2C144.89%2C-37.77%2C145.0%2Curn%3Aogc%3Adef%3Acrs%3AEPSG%3A%3A4326')
+  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register HTTP Error 400: 
+FAILED heritage RuntimeError('failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register&outputFormat=application%2Fjson&srsName=EPSG%3A4326&count=2000&startIndex=0&CQL_FILTER=BBOX%28geom%2C144.89%2C-37.86%2C145.0%2C-37.77%2C%27EPSG%3A4326%27%29')
 Traceback (most recent call last):
   File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 43, in step
     fn()
-  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_more.py", line 103, in heritage
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_more.py", line 93, in heritage
     wfs_bbox('open-data-platform:heritage_register', 'heritage_register.geojson')
-  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_more.py", line 92, in wfs_bbox
-    d = json.loads(get(WFS + '?' + urllib.parse.urlencode(q), tries=3))
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_more.py", line 86, in wfs_bbox
+    feats = vicmap_box(layer, CITY, page=2000, where=where)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 102, in vicmap_box
+    d = json.loads(get(VICMAP + '?' + urllib.parse.urlencode(q), tries=4, timeout=300))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 23, in get
     raise RuntimeError('failed: ' + url)
-RuntimeError: failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register&outputFormat=application%2Fjson&srsName=EPSG%3A4326&count=2000&startIndex=0&bbox=-37.86%2C144.89%2C-37.77%2C145.0%2Curn%3Aogc%3Adef%3Acrs%3AEPSG%3A%3A4326
+RuntimeError: failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register&outputFormat=application%2Fjson&srsName=EPSG%3A4326&count=2000&startIndex=0&CQL_FILTER=BBOX%28geom%2C144.89%2C-37.86%2C145.0%2C-37.77%2C%27EPSG%3A4326%27%29
   2018-aerial-imagery-true-ortho | 2018 Aerial Imagery (True Ortho) | 0 | 2019-11-19T00:00:00+00:00
   2018-building-footprints | 2018 Building Footprints | 37872 | 2026-09-03T12:57:58+00:00
   2020-aerial-imagery-true-ortho | 2020 Aerial Imagery | 0 | 2019-12-02T00:00:00+00:00
@@ -332,9 +171,7 @@ RuntimeError: failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS
   younger-people-profile-2016-15-24-years | Younger People Profile 2016 (15-24 years) | 436 | 2026-09-03T12:59:27+00:00
   saved development-activity-monitor: 1451 features; e.g. {"data_format": "Pre May 16", "development_key": "X000557", "status": "COMPLETED", "year_completed": "2002", "clue_small_area": "West Melbourne (Residential)", "clue_block": 401, "street_address": "7-21 Anderson Street WEST MELBOURNE VIC 3003", "property_id": "100435", "property_id_2": null, "property_id_3": null, "property_id_4": null, "property_id_5": null, "floors_above": 5, "resi_dwellings": 31, "studio_dwe": 0, "one_bdrm_dwe": 0, "two_bdrm_dwe": 0, "three_bdrm_dwe": 0, "student_apartments":
   off-street car parks, latest year: {'total_count': 151199, 'results': [{'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}]}
-  retry 1 https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/off-street-car-parks-with-capacity-and-type/exports/geojson?where=census HTTP Error 400: Bad Request
-  retry 2 https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/off-street-car-parks-with-capacity-and-type/exports/geojson?where=census HTTP Error 400: Bad Request
-  failed off-street-car-parks-with-capacity-and-type RuntimeError('failed: https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/off-street-car-parks-with-capacity-and-type/exports/geojson?where=census_year%3D2024-01-01T00%3A00%3A00%2B00%3A00')
+  saved off-street-car-parks-with-capacity-and-type: 7185 features; e.g. {"census_year": "2024", "block_id": 1, "property_id": "611393", "base_property_id": "611393", "building_address": "507-541 Flinders Street MELBOURNE VIC 3000", "clue_small_area": "Melbourne (CBD)", "parking_type": "Private", "parking_spaces": 29, "longitude": 144.957229886, "latitude": -37.82088351}
   saved bicycle-routes-including-informal-on-road-and-off-road-routes: 5517 features; e.g. {"assetid": "1835498", "class": "Road", "type": "Cycle Lane", "area": 42.567, "assetmanager": "City Infrastructure", "company": "City of Melbourne", "contract": "Civil Infrastructure Services", "description": "Painted Bicycle Lane Kerbside Unprotected", "ownership": "Owned", "primaryservicemanager": "City Infrastructure", "objectid": 1, "active": "Yes", "lanetype": "Painted Bicycle Lane Kerbside Unprotected", "roadclass": "Painted Bicycle Lane Kerbside Unprotected, not adjacent to parking", "sur
-  saved landmarks-and-places-of-interest-including-schools-theatres-health-services-spor: 242 features; e.g. {"theme": "Leisure/Recreation", "sub_theme": "Major Sports & Recreation Facility", "feature_name": "Carlton Football Club"}
+  saved landmarks-and-places-of-interest-including-schools-theatres-health-services-spor: 242 features; e.g. {"theme": "Vacant Land", "sub_theme": "Current Construction Site - Commercial", "feature_name": "Railway Good Shed No 2"}
 FAILED steps: ['heritage']
