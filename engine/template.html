@@ -918,8 +918,7 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
   .brand .hub-link{margin:0;font-size:13px;font-weight:700;color:var(--ink)}
   .brand .hub-link:hover{color:var(--accent)}
   .brand .switch h1,.brand>h1{margin:0;padding-left:10px;border-left:1px solid var(--rule);font-size:15px;font-weight:700;letter-spacing:-.01em;line-height:22px}
-  #cats{min-width:0;display:flex;align-items:center;gap:2px;height:46px;box-sizing:border-box;padding:0 5px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow);overflow-x:auto;scrollbar-width:none}
-  #cats::-webkit-scrollbar{display:none}
+  #cats{min-width:0;display:flex;align-items:center;gap:2px;height:46px;box-sizing:border-box;padding:0 5px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
   #cats button{flex:none;display:flex;align-items:center;gap:5px;height:36px;padding:0 10px;font:inherit;font-size:13px;font-weight:600;color:var(--ink);background:none;border:none;border-radius:8px;cursor:pointer;white-space:nowrap}
   #cats button:hover,#cats button[aria-expanded="true"]{background:var(--pill-bg)}
   #cats button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
@@ -927,9 +926,14 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
   #cats button[aria-expanded="true"] svg{transform:rotate(180deg)}
   #cats .bon{min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:var(--accent-2);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center}
   #cats .bon:empty{display:none}
-  #cats.ovl{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px);mask-image:linear-gradient(90deg,transparent,#000 28px)}
-  #cats.ovr{-webkit-mask-image:linear-gradient(270deg,transparent,#000 28px);mask-image:linear-gradient(270deg,transparent,#000 28px)}
-  #cats.ovl.ovr{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 28px calc(100% - 28px),transparent)}
+  /* tabs that don't fit go into More, at the end of the bar */
+  #cats button.ovf{display:none}
+  #moreMenu{position:absolute;z-index:1003;top:68px;min-width:220px;display:grid;gap:2px;padding:6px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow)}
+  #moreMenu button{display:flex;align-items:center;gap:8px;padding:9px 10px;font:inherit;font-size:13px;font-weight:600;text-align:left;color:var(--ink);background:none;border:none;border-radius:8px;cursor:pointer}
+  #moreMenu button:hover,#moreMenu button:focus-visible{background:var(--pill-bg);outline:none}
+  #moreMenu button span{flex:1}
+  #moreMenu .bon{min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:var(--accent-2);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center}
+  #moreMenu .bon:empty{display:none}
   #cats .sep{flex:none;width:1px;height:22px;margin:0 4px;background:var(--rule)}
   #app.pinned #cats{display:none}
   .ph{display:none}
@@ -985,6 +989,7 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
   <div id="map" role="application" aria-label="{{mapLabel}}"></div>
 
   <div id="bar"><div class="brand" id="brand"></div><nav id="cats" aria-label="Layer groups"></nav></div>
+  <div id="moreMenu" role="menu" aria-label="More layer groups" hidden></div>
   <div id="tools"></div>
 
   <aside id="panel" aria-label="Map layers">

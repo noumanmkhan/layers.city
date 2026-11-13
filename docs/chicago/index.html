@@ -922,8 +922,7 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
   .brand .hub-link{margin:0;font-size:13px;font-weight:700;color:var(--ink)}
   .brand .hub-link:hover{color:var(--accent)}
   .brand .switch h1,.brand>h1{margin:0;padding-left:10px;border-left:1px solid var(--rule);font-size:15px;font-weight:700;letter-spacing:-.01em;line-height:22px}
-  #cats{min-width:0;display:flex;align-items:center;gap:2px;height:46px;box-sizing:border-box;padding:0 5px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow);overflow-x:auto;scrollbar-width:none}
-  #cats::-webkit-scrollbar{display:none}
+  #cats{min-width:0;display:flex;align-items:center;gap:2px;height:46px;box-sizing:border-box;padding:0 5px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
   #cats button{flex:none;display:flex;align-items:center;gap:5px;height:36px;padding:0 10px;font:inherit;font-size:13px;font-weight:600;color:var(--ink);background:none;border:none;border-radius:8px;cursor:pointer;white-space:nowrap}
   #cats button:hover,#cats button[aria-expanded="true"]{background:var(--pill-bg)}
   #cats button:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}
@@ -931,9 +930,14 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
   #cats button[aria-expanded="true"] svg{transform:rotate(180deg)}
   #cats .bon{min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:var(--accent-2);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center}
   #cats .bon:empty{display:none}
-  #cats.ovl{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px);mask-image:linear-gradient(90deg,transparent,#000 28px)}
-  #cats.ovr{-webkit-mask-image:linear-gradient(270deg,transparent,#000 28px);mask-image:linear-gradient(270deg,transparent,#000 28px)}
-  #cats.ovl.ovr{-webkit-mask-image:linear-gradient(90deg,transparent,#000 28px calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,transparent,#000 28px calc(100% - 28px),transparent)}
+  /* tabs that don't fit go into More, at the end of the bar */
+  #cats button.ovf{display:none}
+  #moreMenu{position:absolute;z-index:1003;top:68px;min-width:220px;display:grid;gap:2px;padding:6px;background:var(--panel);border-radius:12px;box-shadow:var(--shadow)}
+  #moreMenu button{display:flex;align-items:center;gap:8px;padding:9px 10px;font:inherit;font-size:13px;font-weight:600;text-align:left;color:var(--ink);background:none;border:none;border-radius:8px;cursor:pointer}
+  #moreMenu button:hover,#moreMenu button:focus-visible{background:var(--pill-bg);outline:none}
+  #moreMenu button span{flex:1}
+  #moreMenu .bon{min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:var(--accent-2);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center}
+  #moreMenu .bon:empty{display:none}
   #cats .sep{flex:none;width:1px;height:22px;margin:0 4px;background:var(--rule)}
   #app.pinned #cats{display:none}
   .ph{display:none}
@@ -1056,6 +1060,7 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
   <div id="map" role="application" aria-label="Map of the City of Chicago"></div>
 
   <div id="bar"><div class="brand" id="brand"></div><nav id="cats" aria-label="Layer groups"></nav></div>
+  <div id="moreMenu" role="menu" aria-label="More layer groups" hidden></div>
   <div id="tools"></div>
 
   <aside id="panel" aria-label="Map layers">
@@ -3714,9 +3719,9 @@ const VIEWS_CAT = '\u0001views';
   // Left and right arrows step between tabs, carrying an open popover along.
   catsEl.addEventListener('keydown', e => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-    const bs = [...catsEl.querySelectorAll('button[data-cat]')].filter(b => !b.hidden), i = bs.indexOf(document.activeElement); if (i < 0) return;
+    const bs = [...catsEl.querySelectorAll('button[data-cat], button[data-more]')].filter(b => !b.hidden && !b.classList.contains('ovf')), i = bs.indexOf(document.activeElement); if (i < 0) return;
     const nb = bs[(i + (e.key === 'ArrowRight' ? 1 : bs.length - 1)) % bs.length]; nb.focus(); e.preventDefault();
-    if (deskCat){ deskCat = nb.dataset.cat; deskApply(); }
+    if (deskCat && nb.dataset.cat){ deskCat = nb.dataset.cat; deskApply(); }
   });
 })();
 function deskOpen(cat){ if (!deskOn || deskPinned) return; deskCat = cat; deskApply(); }
@@ -3731,6 +3736,7 @@ function deskSync(){
   });
   const n = deskPinned ? all : deskCat && deskCat !== VIEWS_CAT ? +(catsEl.querySelector('button[data-cat="' + CSS.escape(deskCat) + '"] .bon').textContent || 0) : 0;
   document.getElementById('dOn').textContent = n ? fill(CITY.groupOnText || '{n} on', {n}) : '';
+  if (typeof fitCats === 'function') fitCats();
 }
 function deskApply(){
   const open = !deskPinned && deskCat;
@@ -3744,7 +3750,8 @@ function deskApply(){
   document.getElementById('dTitle').textContent = deskPinned ? (CITY.layersTitle || 'Layers') : deskCat === VIEWS_CAT ? (CITY.viewsTab || 'Views') : (deskCat || '');
   if (open){
     const b = catsEl.querySelector('button[data-cat="' + CSS.escape(deskCat) + '"]');
-    if (b){ b.scrollIntoView({block: 'nearest', inline: 'nearest'}); const r = b.getBoundingClientRect(), a = appEl.getBoundingClientRect();
+    const at = b && b.classList.contains('ovf') ? moreBtn : b;   // a tab folded into More opens under More
+    if (at){ const r = at.getBoundingClientRect(), a = appEl.getBoundingClientRect();
       panel.style.left = Math.round(Math.max(16, Math.min(r.left - a.left - 4, a.width - 456))) + 'px'; }
     const g = host.querySelector('.grp.cur'); if (g) host.scrollTop = 0;
   } else panel.style.left = '';
@@ -3754,7 +3761,7 @@ function deskLayout(){
   const d = wide();
   if (d === deskOn) return;
   deskOn = d;
-  if (d){ brandEl.append(hubEl, titleEl); toolsEl.append(pfEl); deskApply(); requestAnimationFrame(catsEdges); }
+  if (d){ brandEl.append(hubEl, titleEl); toolsEl.append(pfEl); deskApply(); requestAnimationFrame(fitCats); }
   else {
     phEl.insertBefore(hubEl, introEl); phEl.insertBefore(titleEl, introEl); panel.appendChild(pfEl);
     panel.classList.remove('float', 'shut', 'views'); appEl.classList.remove('pinned'); panel.style.left = '';
@@ -3788,9 +3795,46 @@ document.addEventListener('keydown', e => {
 new MutationObserver(() => deskSync()).observe(host, {subtree: true, attributes: true, attributeFilter: ['hidden']});
 // Explainers are cut to one line on desktop: the full text shows on hover.
 host.querySelectorAll('.row .tx>span:first-of-type').forEach(s => { s.title = s.textContent; });
-// The tab strip scrolls sideways when the window is too narrow for every tab: fade the edge that has more.
-function catsEdges(){ catsEl.classList.toggle('ovl', catsEl.scrollLeft > 2); catsEl.classList.toggle('ovr', catsEl.scrollLeft + catsEl.clientWidth < catsEl.scrollWidth - 2); }
-catsEl.addEventListener('scroll', catsEdges, {passive: true}); addEventListener('resize', catsEdges);
+// Tabs that don't fit the window fold, from the end, into a More menu (whose pop-ups then open under More).
+const moreBtn = document.createElement('button'), moreMenu = document.getElementById('moreMenu');
+moreBtn.type = 'button'; moreBtn.dataset.more = '1'; moreBtn.hidden = true; moreBtn.setAttribute('aria-haspopup', 'menu'); moreBtn.setAttribute('aria-expanded', 'false');
+moreBtn.innerHTML = '<span>' + esc(CITY.moreTab || 'More') + '</span><small class="bon"></small>' + CHEVRON; catsEl.appendChild(moreBtn);
+const tabsOf = () => [...catsEl.querySelectorAll('button[data-cat]')];
+function fitCats(){
+  if (!deskOn) return;
+  tabsOf().forEach(b => b.classList.remove('ovf')); moreBtn.hidden = true;
+  if (catsEl.scrollWidth <= catsEl.clientWidth + 1){ moreMenu.hidden = true; return; }
+  moreBtn.hidden = false;
+  const fold = tabsOf().filter(b => b.dataset.cat !== VIEWS_CAT && !b.hidden).reverse();
+  for (const b of fold){ if (catsEl.scrollWidth <= catsEl.clientWidth + 1) break; b.classList.add('ovf'); }
+  const n = tabsOf().filter(b => b.classList.contains('ovf')).reduce((t, b) => t + (+b.querySelector('.bon').textContent || 0), 0);
+  moreBtn.querySelector('.bon').textContent = n || '';
+  moreBtn.setAttribute('aria-expanded', String(!moreMenu.hidden || !!(deskCat && tabsOf().some(b => b.dataset.cat === deskCat && b.classList.contains('ovf')))));
+}
+function closeMore(){ moreMenu.hidden = true; fitCats(); }
+moreBtn.addEventListener('click', () => {
+  if (!moreMenu.hidden){ closeMore(); return; }
+  deskCat = null; deskApply();
+  moreMenu.innerHTML = '';
+  tabsOf().filter(b => b.classList.contains('ovf')).forEach(t => {
+    const it = document.createElement('button'); it.type = 'button'; it.setAttribute('role', 'menuitem');
+    it.innerHTML = '<span></span><small class="bon"></small>'; it.firstChild.textContent = t.dataset.cat; it.lastChild.textContent = t.querySelector('.bon').textContent;
+    it.addEventListener('click', () => { moreMenu.hidden = true; deskCat = t.dataset.cat; deskApply(); logEvent('group_tab', {id: deskCat, via: 'more'}); });
+    moreMenu.appendChild(it);
+  });
+  const r = moreBtn.getBoundingClientRect(), a = appEl.getBoundingClientRect();
+  moreMenu.hidden = false;
+  moreMenu.style.left = Math.round(Math.min(r.left - a.left, a.width - moreMenu.offsetWidth - 16)) + 'px';
+  fitCats(); const f = moreMenu.querySelector('button'); if (f) f.focus();
+});
+moreMenu.addEventListener('keydown', e => {
+  const its = [...moreMenu.querySelectorAll('button')], i = its.indexOf(document.activeElement);
+  if (e.key === 'Escape'){ closeMore(); moreBtn.focus(); e.stopPropagation(); }
+  else if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){ its[(i + (e.key === 'ArrowDown' ? 1 : its.length - 1)) % its.length].focus(); e.preventDefault(); }
+});
+document.addEventListener('pointerdown', e => { if (!moreMenu.hidden && !moreMenu.contains(e.target) && !moreBtn.contains(e.target)) closeMore(); }, true);
+if (window.ResizeObserver) new ResizeObserver(() => fitCats()).observe(document.getElementById('bar'));
+addEventListener('resize', fitCats);
 matchMedia('(max-width:760px)').addEventListener('change', deskLayout);
 deskLayout();
 

@@ -1857,9 +1857,9 @@ const VIEWS_CAT = '\u0001views';
   // Left and right arrows step between tabs, carrying an open popover along.
   catsEl.addEventListener('keydown', e => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
-    const bs = [...catsEl.querySelectorAll('button[data-cat]')].filter(b => !b.hidden), i = bs.indexOf(document.activeElement); if (i < 0) return;
+    const bs = [...catsEl.querySelectorAll('button[data-cat], button[data-more]')].filter(b => !b.hidden && !b.classList.contains('ovf')), i = bs.indexOf(document.activeElement); if (i < 0) return;
     const nb = bs[(i + (e.key === 'ArrowRight' ? 1 : bs.length - 1)) % bs.length]; nb.focus(); e.preventDefault();
-    if (deskCat){ deskCat = nb.dataset.cat; deskApply(); }
+    if (deskCat && nb.dataset.cat){ deskCat = nb.dataset.cat; deskApply(); }
   });
 })();
 function deskOpen(cat){ if (!deskOn || deskPinned) return; deskCat = cat; deskApply(); }
@@ -1874,6 +1874,7 @@ function deskSync(){
   });
   const n = deskPinned ? all : deskCat && deskCat !== VIEWS_CAT ? +(catsEl.querySelector('button[data-cat="' + CSS.escape(deskCat) + '"] .bon').textContent || 0) : 0;
   document.getElementById('dOn').textContent = n ? fill(CITY.groupOnText || '{n} on', {n}) : '';
+  if (typeof fitCats === 'function') fitCats();
 }
 function deskApply(){
   const open = !deskPinned && deskCat;
@@ -1887,7 +1888,8 @@ function deskApply(){
   document.getElementById('dTitle').textContent = deskPinned ? (CITY.layersTitle || 'Layers') : deskCat === VIEWS_CAT ? (CITY.viewsTab || 'Views') : (deskCat || '');
   if (open){
     const b = catsEl.querySelector('button[data-cat="' + CSS.escape(deskCat) + '"]');
-    if (b){ b.scrollIntoView({block: 'nearest', inline: 'nearest'}); const r = b.getBoundingClientRect(), a = appEl.getBoundingClientRect();
+    const at = b && b.classList.contains('ovf') ? moreBtn : b;   // a tab folded into More opens under More
+    if (at){ const r = at.getBoundingClientRect(), a = appEl.getBoundingClientRect();
       panel.style.left = Math.round(Math.max(16, Math.min(r.left - a.left - 4, a.width - 456))) + 'px'; }
     const g = host.querySelector('.grp.cur'); if (g) host.scrollTop = 0;
   } else panel.style.left = '';
@@ -1897,7 +1899,7 @@ function deskLayout(){
   const d = wide();
   if (d === deskOn) return;
   deskOn = d;
-  if (d){ brandEl.append(hubEl, titleEl); toolsEl.append(pfEl); deskApply(); requestAnimationFrame(catsEdges); }
+  if (d){ brandEl.append(hubEl, titleEl); toolsEl.append(pfEl); deskApply(); requestAnimationFrame(fitCats); }
   else {
     phEl.insertBefore(hubEl, introEl); phEl.insertBefore(titleEl, introEl); panel.appendChild(pfEl);
     panel.classList.remove('float', 'shut', 'views'); appEl.classList.remove('pinned'); panel.style.left = '';
@@ -1931,9 +1933,46 @@ document.addEventListener('keydown', e => {
 new MutationObserver(() => deskSync()).observe(host, {subtree: true, attributes: true, attributeFilter: ['hidden']});
 // Explainers are cut to one line on desktop: the full text shows on hover.
 host.querySelectorAll('.row .tx>span:first-of-type').forEach(s => { s.title = s.textContent; });
-// The tab strip scrolls sideways when the window is too narrow for every tab: fade the edge that has more.
-function catsEdges(){ catsEl.classList.toggle('ovl', catsEl.scrollLeft > 2); catsEl.classList.toggle('ovr', catsEl.scrollLeft + catsEl.clientWidth < catsEl.scrollWidth - 2); }
-catsEl.addEventListener('scroll', catsEdges, {passive: true}); addEventListener('resize', catsEdges);
+// Tabs that don't fit the window fold, from the end, into a More menu (whose pop-ups then open under More).
+const moreBtn = document.createElement('button'), moreMenu = document.getElementById('moreMenu');
+moreBtn.type = 'button'; moreBtn.dataset.more = '1'; moreBtn.hidden = true; moreBtn.setAttribute('aria-haspopup', 'menu'); moreBtn.setAttribute('aria-expanded', 'false');
+moreBtn.innerHTML = '<span>' + esc(CITY.moreTab || 'More') + '</span><small class="bon"></small>' + CHEVRON; catsEl.appendChild(moreBtn);
+const tabsOf = () => [...catsEl.querySelectorAll('button[data-cat]')];
+function fitCats(){
+  if (!deskOn) return;
+  tabsOf().forEach(b => b.classList.remove('ovf')); moreBtn.hidden = true;
+  if (catsEl.scrollWidth <= catsEl.clientWidth + 1){ moreMenu.hidden = true; return; }
+  moreBtn.hidden = false;
+  const fold = tabsOf().filter(b => b.dataset.cat !== VIEWS_CAT && !b.hidden).reverse();
+  for (const b of fold){ if (catsEl.scrollWidth <= catsEl.clientWidth + 1) break; b.classList.add('ovf'); }
+  const n = tabsOf().filter(b => b.classList.contains('ovf')).reduce((t, b) => t + (+b.querySelector('.bon').textContent || 0), 0);
+  moreBtn.querySelector('.bon').textContent = n || '';
+  moreBtn.setAttribute('aria-expanded', String(!moreMenu.hidden || !!(deskCat && tabsOf().some(b => b.dataset.cat === deskCat && b.classList.contains('ovf')))));
+}
+function closeMore(){ moreMenu.hidden = true; fitCats(); }
+moreBtn.addEventListener('click', () => {
+  if (!moreMenu.hidden){ closeMore(); return; }
+  deskCat = null; deskApply();
+  moreMenu.innerHTML = '';
+  tabsOf().filter(b => b.classList.contains('ovf')).forEach(t => {
+    const it = document.createElement('button'); it.type = 'button'; it.setAttribute('role', 'menuitem');
+    it.innerHTML = '<span></span><small class="bon"></small>'; it.firstChild.textContent = t.dataset.cat; it.lastChild.textContent = t.querySelector('.bon').textContent;
+    it.addEventListener('click', () => { moreMenu.hidden = true; deskCat = t.dataset.cat; deskApply(); logEvent('group_tab', {id: deskCat, via: 'more'}); });
+    moreMenu.appendChild(it);
+  });
+  const r = moreBtn.getBoundingClientRect(), a = appEl.getBoundingClientRect();
+  moreMenu.hidden = false;
+  moreMenu.style.left = Math.round(Math.min(r.left - a.left, a.width - moreMenu.offsetWidth - 16)) + 'px';
+  fitCats(); const f = moreMenu.querySelector('button'); if (f) f.focus();
+});
+moreMenu.addEventListener('keydown', e => {
+  const its = [...moreMenu.querySelectorAll('button')], i = its.indexOf(document.activeElement);
+  if (e.key === 'Escape'){ closeMore(); moreBtn.focus(); e.stopPropagation(); }
+  else if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){ its[(i + (e.key === 'ArrowDown' ? 1 : its.length - 1)) % its.length].focus(); e.preventDefault(); }
+});
+document.addEventListener('pointerdown', e => { if (!moreMenu.hidden && !moreMenu.contains(e.target) && !moreBtn.contains(e.target)) closeMore(); }, true);
+if (window.ResizeObserver) new ResizeObserver(() => fitCats()).observe(document.getElementById('bar'));
+addEventListener('resize', fitCats);
 matchMedia('(max-width:760px)').addEventListener('change', deskLayout);
 deskLayout();
 
