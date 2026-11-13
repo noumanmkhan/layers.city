@@ -20,6 +20,15 @@
   served with the site (`docs/glyphs/`, `engine/glyphs.py`). Leaflet and Leaflet.PolylineOffset are no longer loaded.
 - Fixed on the way: Reset no longer throws in a city without lens filters (Hyderabad).
 
+### Melbourne: most of Toronto's layers, the card's Address and Nearby rows, and fact sheets (November 13)
+- Layers: Skyscrapers, ERs, Schools, Universities & TAFE, Libraries & community centres, Places of worship, Bike
+  lanes, New development, Public car parks and Heritage buildings.
+- Card: Address (where the street's numbers start and which way they rise), Heritage building, and Nearby (the
+  nearest library, community centre and ER, and parks, playgrounds, courts and schools within 800 m).
+- Fact sheets for the City's 15 suburbs, like Toronto's.
+- Engine: skyscrapers.py reads lists laid out like Melbourne's (a 'Built' column, approved towers left out); the
+  fact sheets' Streetcars row takes the city's own word. Other cities' output unchanged.
+
 ### Melbourne: parks and Sports & rec (November 13)
 - Parks: 158 parks and gardens in the City, on by default like the other cities, with playground, water play,
   toilet and barbecue filters (outlines from OpenStreetMap; playgrounds, toilets and barbecues also from the City's
