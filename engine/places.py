@@ -90,10 +90,13 @@ def living(d):
     tier = lambda key, v: TIER.get((key, v))
     cost = tier('cost', d['cost']); cost += '' if 'cost' in cost.lower() else ' housing cost'   # the card's "Middle" chip needs its noun in a sentence
     hv = ' · '.join(x for x in ((f"Median home {money(d['value'])}" if d.get('value') else ''), (f"renters pay ${d['rent']:,}/mo" if d.get('rent') else '')) if x)
+    if LIV.get('housing'):   # the city's own Housing wording, as the map's card uses it (Melbourne: weekly rent, monthly mortgage)
+        hv = fill(LIV['housing'], {k: (f'{v:,}' if isinstance(v, (int, float)) else v) for k, v in d.items()})
     rows.append(('Housing', f"{cost}. {hv}" if hv else cost, LIV.get('caveat')))   # a ZIP with too few homes for a median has none
     if hub and d.get(hub['minutes']) is not None:
         rows.append((LIV.get('hub', hub['short']), f"{tier(hub['key'], d.get(hub['key']))}. " + fill(LIV.get('hubText', '{minutes} min'), {'minutes': d[hub['minutes']]}), None))
-    rows.append(('Getting to work', f"{tier('commute', d['commute'])}. {d['carPct']}% drive · {d['transitPct']}% transit · {d['walkBikePct']}% walk or bike", None))
+    if d.get('carPct') is not None:   # as on the map: a census with no journey to work (Melbourne's 2021, in lockdown) has no row
+        rows.append(('Getting to work', f"{tier('commute', d['commute'])}. {d['carPct']}% drive · {d['transitPct']}% transit · {d['walkBikePct']}% walk or bike", None))
     rows.append(('Households', f"{tier('tenure', d['tenure'])}. {d['renterPct']}% rent", None))
     if LIV.get('canopy') and d.get('canopy') is not None:
         t = tier('canopyBand', d.get('canopyBand'))
