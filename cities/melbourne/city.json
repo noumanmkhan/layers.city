@@ -263,6 +263,17 @@
      "note": "The MCG, Flinders Street Station, Fed Square, the Shrine, parks and theatres"
     },
     {
+     "id": "hospitals",
+     "kind": "places",
+     "under": "landmarks",
+     "file": "institutions",
+     "cat": "hospital",
+     "name": "ERs",
+     "place": "Hospital with an emergency department",
+     "edText": "Emergency department",
+     "note": "Hospitals with an emergency department across Greater Melbourne, from OpenStreetMap"
+    },
+    {
      "id": "towers",
      "kind": "towers",
      "under": "landmarks",
@@ -503,6 +514,40 @@
      ]
     },
     {
+     "id": "bikes",
+     "kind": "bikes",
+     "file": "bikes",
+     "lazy": true,
+     "name": "Bike lanes",
+     "note": "Separated and painted bike lanes, shared lanes and shared paths in the City",
+     "classes": {
+      "prot": [
+       "Protected",
+       "Separated from traffic: kerbside lanes behind parked cars or a kerb, and bike-only paths"
+      ],
+      "paint": [
+       "Painted",
+       "Painted bike lanes, some with a buffer"
+      ],
+      "shared": [
+       "Shared",
+       "Marked shared lanes: you ride with traffic"
+      ],
+      "trail": [
+       "Shared paths",
+       "Paths shared with people walking, such as the Capital City Trail"
+      ]
+     },
+     "default": [
+      "prot",
+      "paint"
+     ],
+     "legend": "From OpenStreetMap, which volunteers keep up: a new lane can take a while to appear.",
+     "asofText": "OpenStreetMap as of {date}.",
+     "betweenText": "Between",
+     "fine": "Shown as built: construction can close a lane for a while."
+    },
+    {
      "id": "vline",
      "kind": "rail",
      "files": [
@@ -551,6 +596,145 @@
    ]
   ],
   [
+   "What's changing",
+   [
+    {
+     "id": "chg",
+     "kind": "changes",
+     "file": "changes",
+     "lazy": true,
+     "optional": true,
+     "name": "New development",
+     "note": "Projects on the City’s Development Activity Monitor: proposed, approved, under construction and recently finished",
+     "stages": {
+      "proposed": [
+       "Proposed",
+       "Applied for and under review: a proposal, not a decision"
+      ],
+      "approved": [
+       "Approved",
+       "Planning permit granted; work not started"
+      ],
+      "building": [
+       "Under construction",
+       "Work under way"
+      ],
+      "finished": [
+       "Finished",
+       "Completed last year or this year"
+      ]
+     },
+     "kinds": {
+      "building": "Development"
+     },
+     "dates": {
+      "listed": "City list of {date}",
+      "c2025": "completed 2025",
+      "c2026": "completed 2026",
+      "c2027": "completed 2027"
+     },
+     "unitsText": "{n} homes",
+     "alsoText": "Also here",
+     "linkText": "Details",
+     "legend": "From the City of Melbourne’s Development Activity Monitor, which tracks larger projects (new buildings, big extensions) and is updated a few times a year. It gives no dates beyond the year a project was finished."
+    }
+   ]
+  ],
+  [
+   "Education",
+   [
+    {
+     "id": "schools",
+     "kind": "places",
+     "file": "schools",
+     "icon": "elementary",
+     "minZoom": 13,
+     "cats": [
+      [
+       "elementary",
+       "Primary",
+       "Primary school"
+      ],
+      [
+       "secondary",
+       "Secondary",
+       "Secondary school"
+      ]
+     ],
+     "name": "Schools",
+     "place": "School",
+     "note": "Government, Catholic and independent schools in the City and just past its edge, by level; from zoom 13",
+     "catNote": "Primary runs from Prep to Year 6, secondary from Year 7 to 12; schools teaching both show under Secondary. Tap a school for its years and sector.",
+     "groups": [
+      [
+       "gov",
+       "Government"
+      ],
+      [
+       "cath",
+       "Catholic"
+      ],
+      [
+       "ind",
+       "Independent"
+      ]
+     ],
+     "groupLabel": "Sector",
+     "allText": "All schools",
+     "countText": "{n} shown.",
+     "allNote": "",
+     "groupNote": "Government schools have zones: a home in a school’s zone is guaranteed a place there. Catholic and independent schools enrol by application.",
+     "popup": {
+      "rows": [
+       [
+        "g",
+        "Years"
+       ],
+       [
+        "b",
+        "Sector"
+       ],
+       [
+        "a",
+        "Address"
+       ]
+      ],
+      "fine": "Department of Education School Locations, {asof}. Zones decide which government school a home is guaranteed; check findmyschool.vic.gov.au."
+     }
+    },
+    {
+     "id": "campus",
+     "kind": "places",
+     "file": "institutions",
+     "icon": "university",
+     "cats": [
+      [
+       "university",
+       "Universities",
+       "University"
+      ],
+      [
+       "college",
+       "TAFE",
+       "TAFE"
+      ]
+     ],
+     "name": "Universities & TAFE",
+     "place": "Campus",
+     "note": "University and TAFE campuses in the City, one point per campus, from OpenStreetMap",
+     "aliases": {
+      "The University of Melbourne, Parkville Campus": [
+       "Melbourne Uni",
+       "Unimelb"
+      ],
+      "RMIT University (City Campus)": [
+       "RMIT"
+      ]
+     }
+    }
+   ]
+  ],
+  [
    "Representation",
    [
     {
@@ -576,6 +760,124 @@
       "table": "fed",
       "key": "name"
      }
+    }
+   ]
+  ],
+  [
+   "Community & Faith",
+   [
+    {
+     "id": "community",
+     "kind": "places",
+     "file": "community",
+     "icon": "library",
+     "minZoom": 12,
+     "cats": [
+      [
+       "library",
+       "Libraries",
+       "Library"
+      ],
+      [
+       "centre",
+       "Community centres",
+       "Community centre"
+      ]
+     ],
+     "name": "Libraries & community centres",
+     "place": "Public place",
+     "note": "City of Melbourne libraries, the State Library and community hubs; from zoom 12"
+    },
+    {
+     "id": "worship",
+     "kind": "places",
+     "file": "faith",
+     "icon": "otherfaith",
+     "cats": [
+      [
+       "church",
+       "Churches",
+       "Church"
+      ],
+      [
+       "mosque",
+       "Mosques",
+       "Mosque"
+      ],
+      [
+       "hindu",
+       "Hindu temples",
+       "Hindu temple"
+      ],
+      [
+       "synagogue",
+       "Synagogues",
+       "Synagogue"
+      ],
+      [
+       "buddhist",
+       "Buddhist temples",
+       "Buddhist temple"
+      ],
+      [
+       "gurdwara",
+       "Gurdwaras",
+       "Gurdwara"
+      ],
+      [
+       "otherfaith",
+       "Other faiths",
+       "Place of worship"
+      ]
+     ],
+     "name": "Places of worship",
+     "place": "Place of worship",
+     "note": "Churches, synagogues, temples and more in the City; pick any mix below",
+     "catNote": "Tap a faith to hide or show it. Other faiths: Hare Krishna, Taoist, Unitarian, multifaith.",
+     "groups": [
+      [
+       "catholic",
+       "Catholic"
+      ],
+      [
+       "anglican",
+       "Anglican"
+      ],
+      [
+       "uniting",
+       "Uniting"
+      ],
+      [
+       "orthodox",
+       "Orthodox"
+      ],
+      [
+       "presbyterian",
+       "Presbyterian"
+      ],
+      [
+       "baptist",
+       "Baptist"
+      ],
+      [
+       "lutheran",
+       "Lutheran"
+      ],
+      [
+       "evangelical",
+       "Evangelical"
+      ],
+      [
+       "other",
+       "Other"
+      ]
+     ],
+     "groupsFor": "church",
+     "groupLabel": "Churches by denomination",
+     "allText": "All",
+     "countText": "{n} churches shown.",
+     "allNote": "Some aren’t listed with a denomination, so they appear only here.",
+     "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal churches."
     }
    ]
   ],
