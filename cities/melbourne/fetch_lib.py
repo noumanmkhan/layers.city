@@ -81,3 +81,26 @@ def overpass(q, name):
     raise RuntimeError('overpass failed: ' + name)
 
 
+
+
+VICMAP = 'https://opendata.maps.vic.gov.au/geoserver/wfs'
+
+
+def vicmap_box(layer, box, props=None, page=5000, where=None):
+    """Every feature of a Vicmap WFS layer inside box (lon/lat), paged. Vicmap rejects a plain bbox parameter in
+    EPSG:4326, so the box goes in a CQL BBOX on the layer's geometry column (read from one sample feature)."""
+    q1 = {'service': 'WFS', 'version': '2.0.0', 'request': 'GetFeature', 'typeNames': layer, 'outputFormat': 'application/json', 'count': 1}
+    s = json.loads(get(VICMAP + '?' + urllib.parse.urlencode(q1), tries=3))
+    geom = s.get('features', [{}])[0].get('geometry_name') or 'geom'
+    print(f'  {layer}: geometry column {geom}; sample fields', sorted((s.get('features') or [{}])[0].get('properties', {}))[:40])
+    cql = f"BBOX({geom},{box[0]},{box[1]},{box[2]},{box[3]},'EPSG:4326')" + (f' AND {where}' if where else '')
+    feats, start = [], 0
+    while True:
+        q = {'service': 'WFS', 'version': '2.0.0', 'request': 'GetFeature', 'typeNames': layer, 'outputFormat': 'application/json',
+             'srsName': 'EPSG:4326', 'count': page, 'startIndex': start, 'CQL_FILTER': cql}
+        if props: q['propertyName'] = ','.join(props + [geom])
+        d = json.loads(get(VICMAP + '?' + urllib.parse.urlencode(q), tries=4, timeout=300))
+        f = d.get('features', []); feats += f
+        print(f'    from {start}: {len(f)}')
+        if len(f) < page: return feats
+        start += page; time.sleep(1)

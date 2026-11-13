@@ -15,7 +15,7 @@ Each step logs its own failure and the rest carry on. (Its log is raw/fetch_more
 import csv, io, json, os, re, sys, urllib.parse, zipfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from fetch_lib import RAW, CITY, REGION, FAILED, get, step, overpass
+from fetch_lib import RAW, CITY, REGION, FAILED, get, step, overpass, vicmap_box
 
 OUT = os.path.join(RAW, 'more'); os.makedirs(OUT, exist_ok=True)
 def bb(b): return f'{b[1]},{b[0]},{b[3]},{b[2]}'
@@ -82,18 +82,8 @@ def datavic():
 WFS = 'https://opendata.maps.vic.gov.au/geoserver/wfs'
 
 
-def wfs_bbox(layer, out, extra=''):
-    """Every feature of a Vicmap layer touching the City's box (paged), with one sample's fields logged."""
-    feats, start = [], 0
-    while True:
-        q = {'service': 'WFS', 'version': '2.0.0', 'request': 'GetFeature', 'typeNames': layer, 'outputFormat': 'application/json',
-             'srsName': 'EPSG:4326', 'count': 2000, 'startIndex': start,
-             'bbox': f'{CITY[1]},{CITY[0]},{CITY[3]},{CITY[2]},urn:ogc:def:crs:EPSG::4326'}
-        d = json.loads(get(WFS + '?' + urllib.parse.urlencode(q), tries=3))
-        f = d.get('features', []); feats += f
-        if len(f) < 2000: break
-        start += 2000
-    if extra: feats = [x for x in feats if re.match(extra, str(x['properties'].get('zone_code') or x['properties'].get('scheme_code') or ''))]
+def wfs_bbox(layer, out, where=None):
+    feats = vicmap_box(layer, CITY, page=2000, where=where)
     json.dump({'type': 'FeatureCollection', 'features': feats}, open(os.path.join(OUT, out), 'w'), separators=(',', ':'))
     print(f'  saved {out} from {layer}: {len(feats)} features; e.g.', json.dumps(feats[0]['properties'])[:600] if feats else None)
 
@@ -101,7 +91,7 @@ def wfs_bbox(layer, out, extra=''):
 def heritage():
     """The Victorian Heritage Register and the planning schemes' Heritage Overlay (HO) in the City, from Vicmap."""
     wfs_bbox('open-data-platform:heritage_register', 'heritage_register.geojson')
-    wfs_bbox('open-data-platform:plan_overlay', 'heritage_overlay.geojson', extra=r'HO')
+    wfs_bbox('open-data-platform:plan_overlay', 'heritage_overlay.geojson', where="zone_code LIKE 'HO%'")
 
 
 CoM = 'https://data.melbourne.vic.gov.au/api/explore/v2.1/'
@@ -127,7 +117,7 @@ def com():
                 # One row per car park per census year since 2002: the latest year only.
                 y = json.loads(get(CoM + f'catalog/datasets/{k}/records?' + urllib.parse.urlencode({'select': 'max(census_year) as y'})))
                 print('  off-street car parks, latest year:', y)
-                q = '?' + urllib.parse.urlencode({'where': f'census_year={y["results"][0]["y"]}'})
+                q = '?' + urllib.parse.urlencode({'where': f'year(census_year)={y["results"][0]["y"][:4]}'})
             b = get(CoM + f'catalog/datasets/{k}/exports/geojson' + q, tries=2)
             d = json.loads(b); f = d.get('features', [])
             open(os.path.join(OUT, k[:60] + '.geojson'), 'wb').write(b)
@@ -135,7 +125,7 @@ def com():
         except Exception as e: print('  failed', k, repr(e)[:300])
 
 
-ONLY = os.environ.get('ONLY', '').split(',') if os.environ.get('ONLY') else None
+ONLY = os.environ.get('ONLY', 'com').split(',')   # set ONLY=osm,datavic,com for a full run; heritage always runs
 if not ONLY or 'osm' in ONLY: step('osm', osm)
 if not ONLY or 'datavic' in ONLY: step('datavic', datavic)
 step('heritage', heritage)
