@@ -20,6 +20,12 @@
   served with the site (`docs/glyphs/`, `engine/glyphs.py`). Leaflet and Leaflet.PolylineOffset are no longer loaded.
 - Fixed on the way: Reset no longer throws in a city without lens filters (Hyderabad).
 
+### Melbourne: parks and Sports & rec (November 13)
+- Parks: 158 parks and gardens in the City, on by default like the other cities, with playground, water play,
+  toilet and barbecue filters (outlines from OpenStreetMap; playgrounds, toilets and barbecues also from the City's
+  own asset lists).
+- Sports & rec: pools, ovals, fields, tennis, basketball and netball courts and skate parks inside the City's parks.
+
 ### Melbourne: where to vote, and line badges back (November 13)
 - Where to vote in the Victorian state election (November 28): the card lists the nearest early voting centres
   (November 18 to 27) and then the nearest election day centres, open to anyone enrolled in Victoria, with marks on

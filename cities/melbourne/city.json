@@ -265,6 +265,100 @@
    ]
   ],
   [
+   "Outdoors",
+   [
+    {
+     "id": "parks",
+     "kind": "parks",
+     "on": true,
+     "file": "parks",
+     "lazy": true,
+     "optional": true,
+     "name": "Parks",
+     "place": "Park",
+     "note": "The City’s parks and gardens shaded green; pick a playground, toilets and more",
+     "countNote": "{n} parks and gardens shaded green; pick a playground, toilets and more",
+     "amenities": {
+      "play": [
+       "Playground",
+       "Parks with a playground"
+      ],
+      "water": [
+       "Water play",
+       "A splash pad or water play area"
+      ],
+      "wc": [
+       "Toilets",
+       "Parks with public toilets in or beside them"
+      ],
+      "bbq": [
+       "Barbecues",
+       "Parks with a free public barbecue"
+      ]
+     },
+     "legend": "Pick one or more: parks with all of them stay green, the rest fade.",
+     "matchText": "{n} of {total} parks.",
+     "hasLabel": "Has",
+     "fine": "Outlines from OpenStreetMap as of {parks} (the City publishes none). Playgrounds, toilets and barbecues from the City of Melbourne’s asset lists and OpenStreetMap; water play from OpenStreetMap, which may miss a few."
+    },
+    {
+     "id": "sports",
+     "kind": "places",
+     "file": "sports",
+     "icon": "tennis",
+     "minZoom": 12,
+     "narrow": true,
+     "search": false,
+     "hover": "{name}",
+     "cats": [
+      [
+       "pool",
+       "Pools",
+       "Pool"
+      ],
+      [
+       "cricket",
+       "Ovals",
+       "Oval"
+      ],
+      [
+       "field",
+       "Sports fields",
+       "Sports field"
+      ],
+      [
+       "tennis",
+       "Tennis",
+       "Tennis courts"
+      ],
+      [
+       "basketball",
+       "Basketball & netball",
+       "Basketball or netball court"
+      ],
+      [
+       "skatepark",
+       "Skate parks",
+       "Skate park"
+      ]
+     ],
+     "name": "Sports & rec",
+     "place": "Sports and recreation",
+     "note": "Pools, ovals and courts in the City’s parks; pick a sport below. From zoom 12",
+     "catNote": "Pick one or more; none picked shows them all. Only what’s inside a park is shown, so school ovals and club courts are left out. Tap a pin for what’s there.",
+     "popup": {
+      "rows": [
+       [
+        "has",
+        "Has"
+       ]
+      ],
+      "fine": "From OpenStreetMap as of {asof}; volunteers map some parks in more detail than others, so a few courts and pools may be missing."
+     }
+    }
+   ]
+  ],
+  [
    "Getting around",
    [
     {
