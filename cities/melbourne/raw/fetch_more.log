@@ -1,13 +1,11 @@
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
-  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-wrote more/osm_city.json 139 KB
-  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
-  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
-  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
-  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
-  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Time-out
-  overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
+wrote more/osm_city.json 144 KB
 wrote more/osm_bikes.json 6819 KB
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  overpass retry 1 https://overpass-api.de/api/interpreter failed: https://overpass-api.de/api/interpreter
+  retry 1 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  overpass retry 2 https://overpass.kumi.systems/api/interpreter failed: https://overpass.kumi.systems/api/interpreter
+  retry 1 https://maps.mail.ru/osm/tools/overpass/api/interpreter HTTP Error 504: Gateway Timeout
+  overpass retry 3 https://maps.mail.ru/osm/tools/overpass/api/interpreter failed: https://maps.mail.ru/osm/tools/overpass/api/interpreter
 wrote more/osm_region.json 118 KB
   all-victorian-sars-cov-2-cases-by-local-government-area-and-postcode | All Victorian SARS-CoV-2 cases by local government area and postcode -  25-Jan-2020 to 14-Sep-2023 | Creative Commons Attribution 4.0 International
       CSV | COVID-19 cases by local government area and postcode | https://www.health.vic.gov.au/sites/default/files/2023-12/ncov_cases_by_postcode_lga.csv
@@ -166,13 +164,21 @@ wrote more/osm_region.json 118 KB
       Extended TAB | REGISTERGW Extended TAB | https://datashare.maps.vic.gov.au/search?md=7f9b793f-c093-4544-ba01-e5d3fd9d5263
   saved school_locations.csv from School Locations 2026 539 KB; header b'Education_Sector,Entity_Type,School_No,School_Name,School_Type,School_Status,Address_Line_1,Address_Line_2,Address_Town,Address_State,Address_Postcode,Postal_Address_Line_1,Postal_Address_Line_2,Postal_Town,Postal_State,Postal_Postcode,Full_Phone_No,Region,Area,LGA_ID,LGA_Name,LGA_TYPE,X,Y\r\nCatholic,2,20,Parade College,Secondary,O,1436 Plenty Road,,BUNDOORA,VIC,3083,1436 Plenty Road,,BUNDOORA,VIC,'
   saved vhr.zip HERITAGEREGISTER SHP 166 KB
-  overlay/heritage layers: ['open-data-platform:heritage_inventory', 'open-data-platform:heritage_register', 'open-data-platform:plan_overlay', 'open-data-platform:plm25_overlays', 'open-data-platform:plm25_overlays_to']
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aplan_overlay&outp HTTP Error 400: 
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aplan_overlay&outp HTTP Error 400: 
-    open-data-platform:plan_overlay the_geom failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aplan_overlay&outputFormat=application%2Fjson&srsName=EPSG%3A4326&coun
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aplan_overlay&outp HTTP Error 400: 
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aplan_overlay&outp HTTP Error 400: 
-    open-data-platform:plan_overlay shape failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aplan_overlay&outputFormat=application%2Fjson&srsName=EPSG%3A4326&coun
+  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register HTTP Error 400: 
+  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register HTTP Error 400: 
+  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register HTTP Error 400: 
+FAILED heritage RuntimeError('failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register&outputFormat=application%2Fjson&srsName=EPSG%3A4326&count=2000&startIndex=0&bbox=-37.86%2C144.89%2C-37.77%2C145.0%2Curn%3Aogc%3Adef%3Acrs%3AEPSG%3A%3A4326')
+Traceback (most recent call last):
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 43, in step
+    fn()
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_more.py", line 103, in heritage
+    wfs_bbox('open-data-platform:heritage_register', 'heritage_register.geojson')
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_more.py", line 92, in wfs_bbox
+    d = json.loads(get(WFS + '?' + urllib.parse.urlencode(q), tries=3))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/layers.city/layers.city/cities/melbourne/fetch_lib.py", line 23, in get
+    raise RuntimeError('failed: ' + url)
+RuntimeError: failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Aheritage_register&outputFormat=application%2Fjson&srsName=EPSG%3A4326&count=2000&startIndex=0&bbox=-37.86%2C144.89%2C-37.77%2C145.0%2Curn%3Aogc%3Adef%3Acrs%3AEPSG%3A%3A4326
   2018-aerial-imagery-true-ortho | 2018 Aerial Imagery (True Ortho) | 0 | 2019-11-19T00:00:00+00:00
   2018-building-footprints | 2018 Building Footprints | 37872 | 2026-09-03T12:57:58+00:00
   2020-aerial-imagery-true-ortho | 2020 Aerial Imagery | 0 | 2019-12-02T00:00:00+00:00
@@ -279,7 +285,7 @@ wrote more/osm_region.json 118 KB
   outdoor-non-smoking-zones | Outdoor non-smoking zones | 12 | 2021-09-30T00:00:00+00:00
   pay-stay-parking-restrictions | Pay Stay parking restrictions | 6270 | 2026-09-03T12:52:45+00:00
   pedestrian-counting-system-monthly-counts-per-hour | Pedestrian Counting System (counts per hour) | 1630132 | 2024-08-14T23:00:00+00:00
-  pedestrian-counting-system-past-hour-counts-per-minute | Pedestrian Counting System - Past Hour (counts per minute) | 45038 | 2022-11-13T00:00:00+00:00
+  pedestrian-counting-system-past-hour-counts-per-minute | Pedestrian Counting System - Past Hour (counts per minute) | 47626 | 2022-11-13T00:00:00+00:00
   pedestrian-counting-system-sensor-locations | Pedestrian Counting System - Sensor Locations | 134 | 2022-11-13T00:00:00+00:00
   planned-capital-works-and-maintenance-2014-15-with-funding-sources | Planned capital works and maintenance 2014-15, with funding sources | 133 | 2026-09-03T12:51:23+00:00
   polystyrene-collected-at-degraves-st-recycling-facility-2016 | Polystyrene collected at Degraves St Recycling Facility 2016 | 53 | 2026-09-03T12:56:05+00:00
@@ -325,9 +331,10 @@ wrote more/osm_region.json 118 KB
   workers-profile-2016 | Workers Profile 2016 | 2438 | 2026-09-03T12:58:33+00:00
   younger-people-profile-2016-15-24-years | Younger People Profile 2016 (15-24 years) | 436 | 2026-09-03T12:59:27+00:00
   saved development-activity-monitor: 1451 features; e.g. {"data_format": "Pre May 16", "development_key": "X000557", "status": "COMPLETED", "year_completed": "2002", "clue_small_area": "West Melbourne (Residential)", "clue_block": 401, "street_address": "7-21 Anderson Street WEST MELBOURNE VIC 3003", "property_id": "100435", "property_id_2": null, "property_id_3": null, "property_id_4": null, "property_id_5": null, "floors_above": 5, "resi_dwellings": 31, "studio_dwe": 0, "one_bdrm_dwe": 0, "two_bdrm_dwe": 0, "three_bdrm_dwe": 0, "student_apartments":
+  off-street car parks, latest year: {'total_count': 151199, 'results': [{'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}, {'y': '2024-01-01T00:00:00+00:00'}]}
   retry 1 https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/off-street-car-parks-with-capacity-and-type/exports/geojson?where=census HTTP Error 400: Bad Request
   retry 2 https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/off-street-car-parks-with-capacity-and-type/exports/geojson?where=census HTTP Error 400: Bad Request
-   off-street-car-parks-with-capacity-and-type failed: https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/off-street-car-parks-with-capacity-and-type/exports/geojson?where=census_year%3D2024-01-01T00%3A00%3A00%2B00%3A00
+  failed off-street-car-parks-with-capacity-and-type RuntimeError('failed: https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/off-street-car-parks-with-capacity-and-type/exports/geojson?where=census_year%3D2024-01-01T00%3A00%3A00%2B00%3A00')
   saved bicycle-routes-including-informal-on-road-and-off-road-routes: 5517 features; e.g. {"assetid": "1835498", "class": "Road", "type": "Cycle Lane", "area": 42.567, "assetmanager": "City Infrastructure", "company": "City of Melbourne", "contract": "Civil Infrastructure Services", "description": "Painted Bicycle Lane Kerbside Unprotected", "ownership": "Owned", "primaryservicemanager": "City Infrastructure", "objectid": 1, "active": "Yes", "lanetype": "Painted Bicycle Lane Kerbside Unprotected", "roadclass": "Painted Bicycle Lane Kerbside Unprotected, not adjacent to parking", "sur
-  saved bicycle-network: 130048 features; e.g. {"geo_point_2d": {"lon": 144.92878443145, "lat": -37.79213546455}, "objectid": "20011", "roadclass": "5", "width": "0", "oneway": null, "management": "Council Major", "direction": "B", "shape_length": 5.772597725364603, "description": "Local Road"}
-  saved landmarks-and-places-of-interest-including-schools-theatres-health-services-spor: 242 features; e.g. {"theme": "Vacant Land", "sub_theme": "Current Construction Site - Commercial", "feature_name": "Railway Good Shed No 2"}
+  saved landmarks-and-places-of-interest-including-schools-theatres-health-services-spor: 242 features; e.g. {"theme": "Leisure/Recreation", "sub_theme": "Major Sports & Recreation Facility", "feature_name": "Carlton Football Club"}
+FAILED steps: ['heritage']
