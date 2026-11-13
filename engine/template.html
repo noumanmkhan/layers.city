@@ -150,6 +150,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .pf button{font:inherit;color:var(--ink-2);background:none;border:1px solid var(--rule);border-radius:7px;padding:4px 7px;cursor:pointer}
 .pf button:hover{color:var(--ink)}
 .pfb{display:flex;gap:5px;flex-wrap:wrap}
+#view3d[aria-pressed=true]{background:var(--accent);color:#fff;border-color:var(--accent)}
 .pf{position:relative}
 .imgmenu{position:absolute;left:12px;right:12px;bottom:calc(100% + 6px);background:var(--panel);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow);padding:12px;display:grid;gap:4px;font-size:12px;color:var(--ink-2);z-index:5}
 .imgmenu[hidden]{display:none}
@@ -929,7 +930,7 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
     <div class="ptabs" id="ptabs" hidden><div class="seg" role="radiogroup" aria-label="Which layers to list"></div><p id="ptabNote" hidden></p></div>
     <div id="layers"></div>
     <div class="pf">
-      <div class="pfb"><button type="button" id="reset" title="Back to the starting view">Reset</button><button type="button" id="allOff">Hide all</button><button type="button" id="shareView" title="Copy a link to this view">Share</button><button type="button" id="saveImg" aria-haspopup="true" aria-expanded="false" title="Save the map as a 4K image">Image</button><button type="button" id="tourBtn" hidden title="A one-minute tour of the city">Tour</button></div>
+      <div class="pfb"><button type="button" id="reset" title="Back to the starting view">Reset</button><button type="button" id="allOff">Hide all</button><button type="button" id="shareView" title="Copy a link to this view">Share</button><button type="button" id="saveImg" aria-haspopup="true" aria-expanded="false" title="Save the map as a 4K image">Image</button><button type="button" id="tourBtn" hidden title="A one-minute tour of the city">Tour</button><button type="button" id="view3d" hidden aria-pressed="false" title="Tilt the map and raise the skyscrapers to their real heights">3D</button></div>
       <div class="imgmenu" id="imgMenu" hidden><b>Save the map as an image</b><div class="shape" role="radiogroup" aria-label="Image shape"><button type="button" role="radio" data-shape="wide"><i class="sh-wide"></i>Wide</button><button type="button" role="radio" data-shape="square"><i class="sh-square"></i>Square</button><button type="button" role="radio" data-shape="portrait"><i class="sh-portrait"></i>Portrait</button><button type="button" role="radio" data-shape="story"><i class="sh-story"></i>Story</button></div><span id="imgSize">Just the map, without the panels.</span><div><button type="button" data-img="labels">With labels</button><button type="button" data-img="plain">Without labels</button></div></div>
       <div class="seg" role="radiogroup" aria-label="Colour theme">
         <button type="button" role="radio" data-theme-choice="auto" title="Match your device">Auto</button>

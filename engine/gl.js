@@ -56,7 +56,7 @@ const gl = new maplibregl.Map({
   style: {version: 8, glyphs: '/glyphs/{fontstack}/{range}.pbf', sources: {}, layers: [{id: 'water', type: 'background', paint: {'background-color': '#CFE7F7'}}]},
   bounds: [[CITY.view.city[0][1], CITY.view.city[0][0]], [CITY.view.city[1][1], CITY.view.city[1][0]]],
   minZoom: LZ(8.5), maxZoom: LZ(17), attributionControl: false, renderWorldCopies: false,
-  dragRotate: false, pitchWithRotate: false, touchPitch: false, boxZoom: true, fadeDuration: 120,
+  dragRotate: false, pitchWithRotate: true, touchPitch: false, maxPitch: 65, boxZoom: true, fadeDuration: 120,
 });
 gl.touchZoomRotate.disableRotation();
 gl.keyboard.disableRotation && gl.keyboard.disableRotation();

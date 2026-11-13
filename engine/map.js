@@ -396,6 +396,24 @@ const KINDS = {
         hover: esc(p.name) + ' · ' + towerHeight(p, true) + (p.uc ? ' · ' + esc(it.ucText || 'Under construction') + (p.year ? ' · ' + esc((it.expectedText || 'Expected').toLowerCase()) + ' ' + p.year : '') : ''),
         tap: () => goTo(at, p.name, false)}));
     });
+    // The 3D skyline (the panel's 3D button): each tower as a square column of its real height, in its use's colour,
+    // fainter while under construction. The data has a point per tower, not its outline, so the columns are a stylised
+    // skyline (a bar chart standing on the map), the same width for every tower (wider for supertalls).
+    const sq = (c, m) => { const dx = m / 2 / (111320 * Math.cos(c[1] * Math.PI / 180)), dy = m / 2 / 111320;
+      return [[c[0] - dx, c[1] - dy], [c[0] + dx, c[1] - dy], [c[0] + dx, c[1] + dy], [c[0] - dx, c[1] + dy], [c[0] - dx, c[1] - dy]]; };
+    const cols = {type: 'FeatureCollection', features: fc.features.map(f => ({type: 'Feature',
+      properties: Object.assign({}, f.properties, {uc: !!f.properties.uc}), geometry: {type: 'Polygon', coordinates: [sq(f.geometry.coordinates, f.properties.super ? 46 : 34)]}}))};
+    const csrc = source(cols);
+    g._cols = grp([false, true].map(uc => {
+      const id = addL(hidden({id: uid('tw3'), type: 'fill-extrusion', source: csrc, filter: ['==', ['get', 'uc'], uc],
+        paint: {'fill-extrusion-height': ['get', 'h'], 'fill-extrusion-base': 0, 'fill-extrusion-opacity': uc ? .5 : .95, 'fill-extrusion-vertical-gradient': true}}), 'pts');
+      styled(id, () => { const v = n => colour(getComputedStyle(document.documentElement).getPropertyValue(n).trim()) || '#888';
+        return {paint: {'fill-extrusion-color': ['match', ['get', 'use'], 'res', v('--tw-res'), 'com', v('--tw-com'), v('--tw-mix')]}}; });
+      HOVER.set(id, f => esc(f.properties.name) + ' · ' + towerHeight(f.properties, true));
+      TAP.set(id, f => goTo(L.latLng(f.properties.lp ? f.properties.lp[1] : f.geometry.coordinates[0][0][1], f.geometry.coordinates[0][0][0]), f.properties.name, false));
+      return id;
+    }));
+    TOWERS3D.push(g);
     return g;
   },
   landmarks: (it, fc) => {
@@ -3687,6 +3705,29 @@ function locateMe(){
   }, {enableHighAccuracy: true, timeout: 15000, maximumAge: 30000});
 }
 
+
+/* ---------- 3D skyline (dev experiment) ----------
+   The 3D button tilts the map, lets it turn (two-finger twist and tilt on phones, right-drag on desktop) and raises the
+   skyscrapers (towers layers) as columns. Off, the map goes back to flat and north-up. Shown only in cities with towers. */
+const TOWERS3D = [];
+const btn3d = document.getElementById('view3d');
+let is3d = false;
+function set3D(on){
+  is3d = on; btn3d.setAttribute('aria-pressed', String(on));
+  const tw = ORDER.find(it => it.kind === 'towers');
+  if (on && tw && !state[tw.id]) setLayer(tw.id, true);
+  TOWERS3D.forEach(g => { if (on) g.addLayer(g._cols); else g.removeLayer(g._cols); });
+  map.getContainer().classList.toggle('is3d', on);
+  if (on){
+    gl.dragRotate.enable(); gl.touchZoomRotate.enableRotation(); gl.touchPitch.enable(); gl.keyboard.enableRotation && gl.keyboard.enableRotation();
+    gl.easeTo({pitch: 60, bearing: -17, zoom: Math.max(gl.getZoom(), LZ(15.3)), duration: 1100});   // close enough that the columns read as buildings
+  } else {
+    gl.dragRotate.disable(); gl.touchZoomRotate.disableRotation(); gl.touchPitch.disable(); gl.keyboard.disableRotation && gl.keyboard.disableRotation();
+    gl.easeTo({pitch: 0, bearing: 0, duration: 800});
+  }
+  logEvent('3d', {on});
+}
+if (btn3d && ORDER.some(it => it.kind === 'towers')){ btn3d.hidden = false; btn3d.addEventListener('click', () => set3D(!is3d)); }
 
 /* ---------- Save the map as an image (all in the browser) ----------
    The map is drawn from the site's own shapes, with no tiles from other sites, so the GPU map's own canvas can be
