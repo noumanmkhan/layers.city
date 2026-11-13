@@ -300,7 +300,7 @@ def transit_sections(P, poly_ll, ll, lp, c, st_names, shares, docks, bike_km, na
     night = [r for r in rs if 'night' in r.get('f', [])]
     other = [r for r in rs if r.get('m') == 'bus' and not set(r.get('f', [])) & {'freq', 'exp', 'night'}]
     gobus = [r for r in (ROUTES[i] for i in served) if r.get('m') == 'go']
-    rows2 = [['Streetcars', badges(cars)]] if HAS_TRAMS else []
+    rows2 = [[lbl('streetcars', 'Streetcars'), badges(cars)]] if HAS_TRAMS else []
     rows2.append(['Frequent buses (10 min or better)', badges(freq)])
     if exp:
         rows2.append(['Express buses', badges(exp)])
