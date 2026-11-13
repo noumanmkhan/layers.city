@@ -413,6 +413,28 @@ const KINDS = {
       TAP.set(id, f => goTo(L.latLng(f.properties.lp ? f.properties.lp[1] : f.geometry.coordinates[0][0][1], f.geometry.coordinates[0][0][0]), f.properties.name, false));
       return id;
     }));
+    // Landmarks that aren't buildings in the list (a broadcast tower, a domed stadium) are drawn the same way from the layer's
+    // "models": stacked pieces, each a shape (round, hex, tripod or a square of side 2r) with its radius and the heights
+    // it runs between, in metres. Our own simple massing from published dimensions, not anyone's 3D model.
+    const poly = (c, shape, r) => { const kx = 111320 * Math.cos(c[1] * Math.PI / 180), ky = 111320, pt = (dx, dy) => [c[0] + dx / kx, c[1] + dy / ky];
+      if (shape === 'tripod'){ const w = Math.max(3, r * .22), ring = [];   // three legs 120 degrees apart, r long and w wide
+        [90, 210, 330].forEach(a => { const t = a * Math.PI / 180, ux = Math.cos(t), uy = Math.sin(t), vx = -uy, vy = ux;
+          ring.push(pt(vx * w * .9 + ux * w * .5, vy * w * .9 + uy * w * .5), pt(ux * r + vx * w / 2, uy * r + vy * w / 2), pt(ux * r - vx * w / 2, uy * r - vy * w / 2), pt(-vx * w * .9 + ux * w * .5, -vy * w * .9 + uy * w * .5)); });
+        return ring.concat([ring[0]]); }
+      const n = shape === 'hex' ? 6 : shape === 'square' ? 4 : 32, off = shape === 'square' ? Math.PI / 4 : 0, rr = shape === 'square' ? r * Math.SQRT2 : r;
+      return Array.from({length: n + 1}, (_, i) => { const t = off + 2 * Math.PI * (i % n) / n; return pt(Math.cos(t) * rr, Math.sin(t) * rr); }); };
+    const models = (it.models || []).flatMap(m => m.parts.map(q => ({type: 'Feature',
+      properties: {name: m.name, h: q.top, b: q.base || 0, tone: q.tone || 'a', mh: m.h, at: m.at},
+      geometry: {type: 'Polygon', coordinates: [poly([m.at[1], m.at[0]], q.shape || 'round', q.r)]}})));
+    if (models.length){
+      const id = addL(hidden({id: uid('tw3m'), type: 'fill-extrusion', source: source({type: 'FeatureCollection', features: models}),
+        paint: {'fill-extrusion-height': ['get', 'h'], 'fill-extrusion-base': ['get', 'b'], 'fill-extrusion-opacity': .95, 'fill-extrusion-vertical-gradient': true}}), 'pts');
+      styled(id, () => { const v = n => colour(getComputedStyle(document.documentElement).getPropertyValue(n).trim()) || '#999';
+        return {paint: {'fill-extrusion-color': ['match', ['get', 'tone'], 'b', v('--m3-b'), v('--m3-a')]}}; });
+      HOVER.set(id, f => esc(f.properties.name) + ' · ' + towerHeight({h: f.properties.mh, ft: Math.round(f.properties.mh * 3.2808)}, true));
+      TAP.set(id, f => { const a = typeof f.properties.at === 'string' ? JSON.parse(f.properties.at) : f.properties.at; goTo(L.latLng(a[0], a[1]), f.properties.name, false); });
+      g._cols.addLayer(grp([id]));
+    }
     TOWERS3D.push(g);
     return g;
   },
