@@ -261,6 +261,35 @@
      "file": "landmarks",
      "name": "Landmarks",
      "note": "The MCG, Flinders Street Station, Fed Square, the Shrine, parks and theatres"
+    },
+    {
+     "id": "towers",
+     "kind": "towers",
+     "under": "landmarks",
+     "file": "skyscrapers",
+     "name": "Skyscrapers",
+     "place": "Skyscraper",
+     "note": "Buildings 150 m and taller, open or under construction",
+     "key": {
+      "res": "Residential",
+      "com": "Commercial (office or hotel)",
+      "mix": "Mixed use",
+      "uc": "Under construction · hollow",
+      "sup": "Supertall, 300 m or more · gold ring"
+     },
+     "purpose": {
+      "Residential": "Residential tower",
+      "Office": "Office tower",
+      "Hotel": "Hotel tower",
+      "Mixed-use": "Mixed-use tower"
+     },
+     "supText": "Supertall",
+     "ucText": "Under construction",
+     "builtText": "Completed",
+     "expectedText": "Expected",
+     "akaText": "Also known as {aka}",
+     "moreText": "More on Wikipedia",
+     "sourceText": "Source: Wikipedia"
     }
    ]
   ],
