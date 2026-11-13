@@ -4,8 +4,9 @@ which runs a fetch script when a push changes it); the sandbox can't reach these
 - City of Melbourne open data (data.melbourne.vic.gov.au, Opendatasoft; CC BY 4.0 on most datasets, checked per
   dataset in catalog.json): the catalogue's park-related datasets listed in catalog.json, and each one whose title
   is about open space, playgrounds, dogs, toilets, drinking fountains or barbecues saved as <dataset_id>.geojson.
-- OpenStreetMap via Overpass (ODbL), the City's frame: parks, gardens and reserves with their outlines (osm_parks.json)
-  and what's in or beside them (osm_amenities.json): playgrounds, dog parks, toilets, water play.
+- OpenStreetMap via Overpass (ODbL), the City's frame: named parks, gardens and reserves with their outlines
+  (osm_parks.json; the City publishes no park outlines) and what's in or beside them (osm_amenities.json):
+  playgrounds, dog parks, toilets, water play, barbecues, and public pitches, pools and skate parks for Sports & rec.
 Each step logs its own failure and the rest carry on."""
 import json, os, re, sys, urllib.parse
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -34,7 +35,7 @@ def catalog():
 
 def datasets(seen):
     for k, v in sorted(seen.items()):
-        if not v['title'] or not WANT.search(v['title']) or not v['geo']: continue
+        if not v['title'] or not WANT.search(v['title']) or not v['geo'] or v['title'].startswith('Street furniture'): continue   # 27 MB of bollards and bins
         try:
             b = get(CoM + f'catalog/datasets/{k}/exports/geojson', tries=2)
             d = json.loads(b)
@@ -49,12 +50,20 @@ def bb(b): return f'{b[1]},{b[0]},{b[3]},{b[2]}'
 
 
 def osm():
-    overpass(f'[out:json][timeout:300];nwr["leisure"~"^(park|garden|nature_reserve)$"]({bb(CITY)});out tags geom;',
-             'parks/osm_parks.json')
-    overpass(f'[out:json][timeout:300];(nwr["leisure"~"^(playground|dog_park)$"]({bb(CITY)});'
-             f'nwr["amenity"="toilets"]({bb(CITY)});nwr["playground"~"splash_pad|water"]({bb(CITY)});'
-             f'nwr["leisure"="water_park"]({bb(CITY)});nwr["amenity"~"^(drinking_water|bbq)$"]({bb(CITY)}););out tags center;',
-             'parks/osm_amenities.json')
+    """Parks and gardens with outlines, and what's in them: playgrounds, dog parks, toilets, water play, barbecues,
+    drinking water, and public sports (pitches by sport, pools, skate parks). Private ones are left out."""
+    B, PRIV = bb(CITY), '["access"!~"private|no|customers"]'
+    overpass(f"""[out:json][timeout:300];(
+  way["leisure"~"^(park|garden|nature_reserve)$"]["name"]({B});
+  relation["leisure"~"^(park|garden|nature_reserve)$"]["name"]({B});
+);out tags geom;""", 'parks/osm_parks.json')
+    overpass(f"""[out:json][timeout:300];(
+  nwr["leisure"~"^(playground|dog_park|pitch|swimming_pool|water_park)$"]{PRIV}({B});
+  nwr["leisure"="sports_centre"]["sport"~"swimming"]{PRIV}({B});
+  nwr["sport"="skateboard"]{PRIV}({B});
+  nwr["playground"~"splash_pad|water"]({B});
+  nwr["amenity"~"^(toilets|bbq|drinking_water)$"]({B});
+);out tags center;""", 'parks/osm_amenities.json')
 
 
 box = {}
