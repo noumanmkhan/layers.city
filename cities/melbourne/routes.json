@@ -1,0 +1,179 @@
+{
+ "_about": "Settings for Melbourne's Routes page (engine/routes/: build.py, page.html), at /melbourne/routes/: pick a tram or bus stop or train platform near you, see where each route and line from it goes. The train lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their platforms in order; V/Line stations count as connections too. Transport Victoria's GTFS-realtime feeds need an API key, so the page shows scheduled departures (surface.json 'sched'), not live times.",
+ "modes": [
+  "bus",
+  "tram",
+  "subway"
+ ],
+ "gridTilt": 0,
+ "keepRight": false,
+ "_keepRight": "Australia drives on the left: stops for each direction are on the left of the road.",
+ "regions": [
+  "sides"
+ ],
+ "regionsWithThe": [],
+ "knownWithThe": "^(Paris End)$",
+ "units": "suburbs",
+ "streets": {
+  "raw": "osm_streets.json",
+  "osm": true,
+  "name": "name",
+  "along": [
+   "primary",
+   "secondary",
+   "tertiary"
+  ],
+  "cross": [
+   "primary",
+   "secondary"
+  ]
+ },
+ "pois": [
+  {
+   "file": "landmarks",
+   "cat": "catLabel"
+  },
+  {
+   "file": "institutions",
+   "cats": {
+    "hospital": "Hospital",
+    "university": "University",
+    "college": "TAFE"
+   }
+  }
+ ],
+ "known": "knownas",
+ "stations": {
+  "files": [
+   "train_stations",
+   "vline_stations"
+  ]
+ },
+ "near": {
+  "poi": 200,
+  "station": 150,
+  "known": 250,
+  "platform": 150
+ },
+ "notCrossed": "(?i)\\b(Bridge|Tunnel|Ramp|Viaduct|Freeway|Exit|Overpass)\\b",
+ "page": {
+  "city": "Melbourne",
+  "title": "Where does this tram, bus or train go?",
+  "short": "Routes from here",
+  "description": "Find the tram and bus stops and train stations nearest you in Melbourne and see where each route goes, with the next scheduled departures: the suburbs it passes through, the main streets it runs along, its train and V/Line connections and the landmarks on the way.",
+  "lede": "Find the stops and stations near you, then pick a tram, bus or train line to see where it goes: the suburbs, main streets, connections and landmarks along the way.",
+  "placeholder": "Or search an address",
+  "outside": "That spot is outside the City of Melbourne. Try an address in the City.",
+  "noMatch": "No match in the City of Melbourne for “{q}”. Try the full street address, like “90 Swanston Street”.",
+  "noStops": "No stops or stations within {r} of that spot.",
+  "credits": "Routes, stops and timetable: Transport Victoria GTFS (CC BY 4.0) · Suburbs: Australian Bureau of Statistics · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled; live times need Transport Victoria’s keyed feed",
+  "mapLink": "Open on the map",
+  "mi": false,
+  "at": " / ",
+  "connectWith": "trains and V/Line",
+  "legendUnits": "Suburbs it passes",
+  "legendKnown": "Chinatown: the names people use",
+  "lineFiles": [
+   "train_lines"
+  ],
+  "lineColors": {
+   "flemingtonracecourse": "#95979A",
+   "sandringham": "#F178AF",
+   "werribee": "#F178AF",
+   "williamstown": "#F178AF",
+   "frankston": "#028430",
+   "stonypoint": "#028430",
+   "craigieburn": "#FFBE00",
+   "upfield": "#FFBE00",
+   "hurstbridge": "#BE1014",
+   "mernda": "#BE1014",
+   "alamein": "#152C6B",
+   "belgrave": "#152C6B",
+   "glenwaverley": "#152C6B",
+   "lilydale": "#152C6B",
+   "cranbourne": "#34ACE1",
+   "pakenham": "#34ACE1",
+   "sunbury": "#34ACE1"
+  },
+  "lineNames": {
+   "flemingtonracecourse": "flemingtonracecourse line",
+   "sandringham": "sandringham line",
+   "werribee": "werribee line",
+   "williamstown": "williamstown line",
+   "frankston": "frankston line",
+   "stonypoint": "stonypoint line",
+   "craigieburn": "craigieburn line",
+   "upfield": "upfield line",
+   "hurstbridge": "hurstbridge line",
+   "mernda": "mernda line",
+   "alamein": "alamein line",
+   "belgrave": "belgrave line",
+   "glenwaverley": "glenwaverley line",
+   "lilydale": "lilydale line",
+   "cranbourne": "cranbourne line",
+   "pakenham": "pakenham line",
+   "sunbury": "sunbury line"
+  },
+  "overground": true,
+  "connectionsLabel": "Train and V/Line connections",
+  "lineGroups": {
+   "V/Line": [
+    "V/Line"
+   ]
+  },
+  "modeWords": {
+   "tram": "tram"
+  },
+  "ampm": [
+   "am",
+   "pm"
+  ]
+ },
+ "badges": {},
+ "nameRules": [
+  [
+   " Street$",
+   " St"
+  ],
+  [
+   " Road$",
+   " Rd"
+  ],
+  [
+   " Avenue$",
+   " Ave"
+  ],
+  [
+   " Parade$",
+   " Pde"
+  ],
+  [
+   " Boulevard$",
+   " Blvd"
+  ],
+  [
+   " Highway$",
+   " Hwy"
+  ],
+  [
+   " Place$",
+   " Pl"
+  ],
+  [
+   " Lane$",
+   " La"
+  ],
+  [
+   " Terrace$",
+   " Tce"
+  ],
+  [
+   " Crescent$",
+   " Cres"
+  ],
+  [
+   " Drive$",
+   " Dr"
+  ]
+ ]
+}

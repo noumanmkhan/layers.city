@@ -20,3 +20,12 @@
 .ln.lUpfield{background:#FFBE00}
 .ln.lWerribee{background:#F178AF}
 .ln.lWilliamstown{background:#F178AF}
+/* Route badges in Transport Victoria's mode colours: trams green, buses orange, night buses outlined. */
+.rb{background:#FF8200;color:#fff;box-shadow:none}
+.rb.tram{background:#78BE20;color:#fff;box-shadow:none}
+.rb.exp{background:#fff;color:#FF8200;box-shadow:inset 0 0 0 1.5px #FF8200}
+.rb.night{background:#fff;color:#1F3A93;box-shadow:inset 0 0 0 1.5px #1F3A93}
+/* The Routes page's train line badges: plain coloured dots, as on the fact sheets (the page's .ln.lb sizes them). */
+.ln.lb.lAlamein,.ln.lb.lBelgrave,.ln.lb.lCraigieburn,.ln.lb.lCranbourne,.ln.lb.lFlemington,.ln.lb.lFrankston,.ln.lb.lGlen,.ln.lb.lHurstbridge,.ln.lb.lLilydale,.ln.lb.lMernda,.ln.lb.lPakenham,.ln.lb.lSandringham,.ln.lb.lStony,.ln.lb.lSunbury,.ln.lb.lUpfield,.ln.lb.lWerribee,.ln.lb.lWilliamstown{font-size:0}
+/* The Routes page says V/Line once, as one pill (routes.json page "lineGroups"), in V/Line's purple. */
+.ln.grp.lV\/Line{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em;background:#8F1A95;color:#fff}
