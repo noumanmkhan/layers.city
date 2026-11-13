@@ -82,25 +82,26 @@ def datavic():
 WFS = 'https://opendata.maps.vic.gov.au/geoserver/wfs'
 
 
-def heritage_overlay():
-    cap = get(WFS + '?service=WFS&request=GetCapabilities&version=2.0.0').decode('utf-8', 'replace')
-    names = re.findall(r'<(?:wfs:)?Name>([^<]+)</(?:wfs:)?Name>', cap)
-    hits = [n for n in names if re.search(r'overlay|heritage', n, re.I)]
-    print('  overlay/heritage layers:', hits)
-    for n in hits:
-        if not re.search(r'plan_overlay$|planning_overlay|heritage_overlay', n): continue
-        q = {'service': 'WFS', 'version': '2.0.0', 'request': 'GetFeature', 'typeNames': n, 'outputFormat': 'application/json',
-             'srsName': 'EPSG:4326', 'count': 5000,
-             'CQL_FILTER': f"zone_code LIKE 'HO%' AND BBOX(geom,{CITY[1]},{CITY[0]},{CITY[3]},{CITY[2]},'EPSG:4326')"}
-        for geomname in ('geom', 'the_geom', 'shape'):
-            q['CQL_FILTER'] = re.sub(r'BBOX\(\w+', f'BBOX({geomname}', q['CQL_FILTER'])
-            try:
-                b = get(WFS + '?' + urllib.parse.urlencode(q), tries=2)
-                d = json.loads(b)
-                if d.get('features'):
-                    open(os.path.join(OUT, 'heritage_overlay.geojson'), 'wb').write(b)
-                    print('  saved heritage_overlay from', n, len(d['features']), 'features; e.g.', d['features'][0]['properties']); return
-            except Exception as e: print('   ', n, geomname, str(e)[:200])
+def wfs_bbox(layer, out, extra=''):
+    """Every feature of a Vicmap layer touching the City's box (paged), with one sample's fields logged."""
+    feats, start = [], 0
+    while True:
+        q = {'service': 'WFS', 'version': '2.0.0', 'request': 'GetFeature', 'typeNames': layer, 'outputFormat': 'application/json',
+             'srsName': 'EPSG:4326', 'count': 2000, 'startIndex': start,
+             'bbox': f'{CITY[1]},{CITY[0]},{CITY[3]},{CITY[2]},urn:ogc:def:crs:EPSG::4326'}
+        d = json.loads(get(WFS + '?' + urllib.parse.urlencode(q), tries=3))
+        f = d.get('features', []); feats += f
+        if len(f) < 2000: break
+        start += 2000
+    if extra: feats = [x for x in feats if re.match(extra, str(x['properties'].get('zone_code') or x['properties'].get('scheme_code') or ''))]
+    json.dump({'type': 'FeatureCollection', 'features': feats}, open(os.path.join(OUT, out), 'w'), separators=(',', ':'))
+    print(f'  saved {out} from {layer}: {len(feats)} features; e.g.', json.dumps(feats[0]['properties'])[:600] if feats else None)
+
+
+def heritage():
+    """The Victorian Heritage Register and the planning schemes' Heritage Overlay (HO) in the City, from Vicmap."""
+    wfs_bbox('open-data-platform:heritage_register', 'heritage_register.geojson')
+    wfs_bbox('open-data-platform:plan_overlay', 'heritage_overlay.geojson', extra=r'HO')
 
 
 CoM = 'https://data.melbourne.vic.gov.au/api/explore/v2.1/'
@@ -118,23 +119,25 @@ def com():
     json.dump(seen, open(os.path.join(OUT, 'com_catalog.json'), 'w'), indent=1, ensure_ascii=False, sort_keys=True)
     for k, v in sorted(seen.items()): print(f'  {k} | {v["title"]} | {v["records"]} | {v["modified"]}')
     want = [k for k, v in seen.items() if re.search(
-        r'development activity monitor|landmarks and places|bike route|bicycle route|bicycle network|city activities|planned works|^off-street car parks', v['title'] or '', re.I)]
+        r'development activity monitor|landmarks and places|bike route|bicycle route|city activities|planned works|^off-street car parks', v['title'] or '', re.I)]
     for k in want:
         q = ''
-        if 'off-street' in (seen[k]['title'] or '').lower():
-            # One row per car park per census year since 2002: the latest year only.
-            y = json.loads(get(CoM + f'catalog/datasets/{k}/records?' + urllib.parse.urlencode({'select': 'max(census_year) as y'})))
-            q = '?' + urllib.parse.urlencode({'where': f'census_year={y["results"][0]["y"]}'})
         try:
+            if 'off-street' in (seen[k]['title'] or '').lower():
+                # One row per car park per census year since 2002: the latest year only.
+                y = json.loads(get(CoM + f'catalog/datasets/{k}/records?' + urllib.parse.urlencode({'select': 'max(census_year) as y'})))
+                print('  off-street car parks, latest year:', y)
+                q = '?' + urllib.parse.urlencode({'where': f'census_year={y["results"][0]["y"]}'})
             b = get(CoM + f'catalog/datasets/{k}/exports/geojson' + q, tries=2)
             d = json.loads(b); f = d.get('features', [])
             open(os.path.join(OUT, k[:60] + '.geojson'), 'wb').write(b)
             print(f'  saved {k}: {len(f)} features; e.g.', json.dumps(f[0]['properties'], ensure_ascii=False)[:500] if f else None)
-        except Exception as e: print('  ', k, e)
+        except Exception as e: print('  failed', k, repr(e)[:300])
 
 
-step('osm', osm)
-step('datavic', datavic)
-step('heritage overlay', heritage_overlay)
-step('city of melbourne', com)
+ONLY = os.environ.get('ONLY', '').split(',') if os.environ.get('ONLY') else None
+if not ONLY or 'osm' in ONLY: step('osm', osm)
+if not ONLY or 'datavic' in ONLY: step('datavic', datavic)
+step('heritage', heritage)
+if not ONLY or 'com' in ONLY: step('city of melbourne', com)
 if FAILED: print('FAILED steps:', FAILED)
