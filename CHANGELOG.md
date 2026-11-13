@@ -41,6 +41,12 @@
   served with the site (`docs/glyphs/`, `engine/glyphs.py`). Leaflet and Leaflet.PolylineOffset are no longer loaded.
 - Fixed on the way: Reset no longer throws in a city without lens filters (Hyderabad).
 
+### Melbourne joins the hub (November 13)
+- Melbourne, the first city outside North America, is listed: a row in the hub's city table and a tab on phones
+  (map, Guide, fact sheets, transit, venues; events and fun maps still to come), its outline on the hub, a place
+  page for each of its 15 suburbs with a Suburbs guide, sitemap entries, every city's map switcher, and a Melbourne
+  section on the Attributions page. The hub, About page and README now count seven cities in three countries.
+
 ### Melbourne: Transit under construction (November 13)
 - The Suburban Rail Loop East, Cheltenham to Box Hill, as a dashed line with its six stations, in What's changing and
   the Getting around view (regional view). Its route and stations from OpenStreetMap, which maps the tunnels and

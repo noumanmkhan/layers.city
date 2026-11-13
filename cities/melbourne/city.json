@@ -1,7 +1,7 @@
 {
  "id": "melbourne",
  "schema": 2,
- "unlisted": true,
+ "unlisted": false,
  "title": "Melbourne · Layers.City",
  "heading": "Melbourne",
  "description": "A map of the City of Melbourne inside Greater Melbourne, with toggleable layers: the city centre and the inner north and south, its suburbs, known-as names, landmarks, trains, trams, V/Line, freeways and main streets, and a suburb lens from the 2021 Census.",
@@ -128,7 +128,8 @@
  },
  "units": {
   "singular": "Suburb",
-  "plural": "suburbs"
+  "plural": "suburbs",
+  "boundaries": "state districts and federal divisions"
  },
  "presets": {
   "label": "Views",

@@ -2,7 +2,7 @@
 
 The full reference for what each map does and how each part is built. For the short version, see [README.md](README.md); for the change history, [CHANGELOG.md](CHANGELOG.md).
 
-Contents: [Toronto](#toronto) · [Chicago](#chicago) · [Vancouver](#vancouver) · [Dallas](#dallas) · [New York City](#new-york-city) · [San Francisco](#san-francisco-and-the-bay-area) · [Hyderabad](#hyderabad-unlisted) · [Melbourne](#melbourne-unlisted) · [How it's built](#how-its-built) · [Known limitations](#known-limitations) · [Roadmap](#roadmap) · [Data sources](#data-sources-and-licences)
+Contents: [Toronto](#toronto) · [Chicago](#chicago) · [Vancouver](#vancouver) · [Dallas](#dallas) · [New York City](#new-york-city) · [San Francisco](#san-francisco-and-the-bay-area) · [Hyderabad](#hyderabad-unlisted) · [Melbourne](#melbourne) · [How it's built](#how-its-built) · [Known limitations](#known-limitations) · [Roadmap](#roadmap) · [Data sources](#data-sources-and-licences)
 
 ## Toronto
 
@@ -288,11 +288,11 @@ The card says plainly what isn't on the map yet: the municipal corporation, and 
 constituency maps put well-known places in the wrong seat (checked against the old ward map). A revenue/civic picker
 comes once the civic boundaries are published. Scouting notes: `scouting/hyderabad/FINDINGS.md`.
 
-## Melbourne (unlisted)
+## Melbourne
 
 **Live at:** https://layers.city/melbourne/ (not on the hub yet)
 
-The seventh city (`cities/melbourne/`), started November 12, 2026, in the San Francisco shape: the City of Melbourne
+The seventh city (`cities/melbourne/`), started November 12, 2026 and listed on the hub November 13, in the San Francisco shape: the City of Melbourne
 in full detail inside a Greater Melbourne view. Australians give their suburb rather than a neighbourhood, so the units
 are the ABS's 2021 suburbs cut to the City's boundary, with the locality "Melbourne" split at the Yarra into the CBD and
 St Kilda Road. Every other suburb in Greater Melbourne is a neighbour grouped by its council (30 metropolitan councils

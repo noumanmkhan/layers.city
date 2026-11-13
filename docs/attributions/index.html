@@ -193,6 +193,7 @@ main.doc{width:auto;margin:0;display:flex;flex-direction:column;gap:40px;min-wid
         <a href="#vancouver">Vancouver</a>
         <a href="#sf">San Francisco</a>
         <a href="#dallas">Dallas</a>
+        <a href="#melbourne">Melbourne</a>
         <a href="#both">Every city</a>
         <a href="#software">Software and fonts</a>
       </nav>
@@ -200,7 +201,7 @@ main.doc{width:auto;margin:0;display:flex;flex-direction:column;gap:40px;min-wid
     </aside>
   <main class="doc">
     <section class="hero">
-      <div class="coords">THE FINE PRINT · LAST UPDATED · OCTOBER 19, 2026</div>
+      <div class="coords">THE FINE PRINT · LAST UPDATED · NOVEMBER 13, 2026</div>
       <h1>Attributions</h1>
       <p class="lede">Every map here is built from other people’s open data and open-source software. This page lists each source, what it’s used for, and the terms it’s used under.</p>
       <nav class="toc" aria-label="On this page">
@@ -796,12 +797,64 @@ main.doc{width:auto;margin:0;display:flex;flex-direction:column;gap:40px;min-wid
       </ul>
     </section>
 
+    <section class="policy" id="melbourne" aria-labelledby="melbourne-h">
+      <h2 id="melbourne-h">Melbourne Layers</h2>
+
+      <h3>Governments and elections</h3>
+      <ul class="src">
+        <li>
+          <span class="who">Australian Bureau of Statistics</span>
+          <p class="use">Suburbs and localities, councils, Greater Melbourne and SA1 boundaries (ASGS Edition 3, 2021), and 2021 Census figures summed into the City’s suburbs. Based on ABS data.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://www.abs.gov.au/">abs.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">City of Melbourne Open Data</span>
+          <p class="use">Playgrounds, public toilets and barbecues for the Parks layer; the Development Activity Monitor (new development); off-street car parks and their spaces (2024 land use census).</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://data.melbourne.vic.gov.au/">data.melbourne.vic.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">Victorian Government: Vicmap (Department of Transport and Planning) and DataVic</span>
+          <p class="use">State Assembly districts (Vicmap Admin); addresses for the card’s Address row and for placing each voting centre (Vicmap Address); school locations (Department of Education, School Locations 2026). © State of Victoria.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://www.data.vic.gov.au/">data.vic.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">Heritage Council of Victoria</span>
+          <p class="use">Places on the Victorian Heritage Register in the City, from the Victorian Heritage Database.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://vhd.heritagecouncil.vic.gov.au/">vhd.heritagecouncil.vic.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">Victorian Electoral Commission</span>
+          <p class="use">Early voting and election day voting centres for the November 28, 2026 state election, from the VEC’s venues list. © Victorian Electoral Commission.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://www.vec.vic.gov.au/">vec.vic.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">Australian Electoral Commission and the Parliament of Australia</span>
+          <p class="use">Federal electoral divisions (2024 redistribution) and members of the House of Representatives (AEC results; the Parliamentary Handbook).</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (AEC); <a href="https://www.aph.gov.au/">aph.gov.au</a></span>
+        </li>
+      </ul>
+
+      <h3>Transit and streets</h3>
+      <ul class="src">
+        <li>
+          <span class="who">Transport Victoria</span>
+          <p class="use">Metro trains, trams, V/Line trains and metropolitan buses, their stops and the schedules behind Routes from here, from the GTFS Schedule on the Transport Victoria Open Data Portal.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://opendata.transport.vic.gov.au/">opendata.transport.vic.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">OpenStreetMap contributors</span>
+          <p class="use">Main streets, freeways, the Yarra, park outlines and sports facilities, libraries and community centres, places of worship, emergency departments and campuses, bike lanes, and the Suburban Rail Loop East under construction.</p>
+          <span class="lic"><a href="https://www.openstreetmap.org/copyright">ODbL</a></span>
+        </li>
+      </ul>
+    </section>
+
     <section class="policy" id="both" aria-labelledby="both-h">
       <h2 id="both-h">Used for every city</h2>
       <ul class="src">
         <li>
           <span class="who">OpenStreetMap contributors</span>
-          <p class="use">Neighbouring municipalities and the lakeshore around Toronto, highways, the streets of Chicago, Vancouver and Dallas, named places for search, universities, colleges and hospitals, places of worship (Toronto, Chicago and Vancouver), Chicago’s park outlines, playgrounds, dog areas and sports facilities for its Parks and Sports &amp; rec layers, parks, playgrounds and bike paths in the University Endowment Lands (Vancouver), transit lines under construction, the walking network for transit times, and, in Toronto’s fact sheets, walk times, subway entrances, park edges and highway ramps, and Toronto’s splash pads and wading pools for the Parks layer. Some come through extracts by Geofabrik, BBBike and the osm-boundaries project.</p>
+          <p class="use">Neighbouring municipalities and the lakeshore around Toronto, highways, the streets of Chicago, Vancouver, Dallas and Melbourne, named places for search, universities, colleges and hospitals, places of worship (Toronto, Chicago and Vancouver), Chicago’s park outlines, playgrounds, dog areas and sports facilities for its Parks and Sports &amp; rec layers, parks, playgrounds and bike paths in the University Endowment Lands (Vancouver), transit lines under construction, the walking network for transit times, and, in Toronto’s fact sheets, walk times, subway entrances, park edges and highway ramps, and Toronto’s splash pads and wading pools for the Parks layer. Some come through extracts by Geofabrik, BBBike and the osm-boundaries project.</p>
           <span class="lic">© OpenStreetMap contributors, <a href="https://www.openstreetmap.org/copyright">Open Database Licence (ODbL)</a></span>
         </li>
         <li>

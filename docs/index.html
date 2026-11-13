@@ -5,14 +5,14 @@
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Layers.City · Maps that explain how a city fits together</title>
-<meta name="description" content="Layers.City: maps of Toronto, New York City, San Francisco, Chicago, Vancouver and Dallas that show how each city fits together: neighbourhoods, wards, transit and the names locals use, from each city’s own open data. By Nouman Khan.">
+<meta name="description" content="Layers.City: maps of Toronto, New York City, San Francisco, Chicago, Vancouver, Dallas and Melbourne that show how each city fits together: neighbourhoods, wards, transit and the names locals use, from each city’s own open data. By Nouman Khan.">
 <link rel="canonical" href="https://layers.city/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://layers.city/">
 <meta property="og:site_name" content="Layers.City">
 <meta property="og:title" content="Layers.City">
-<meta property="og:description" content="Maps of Toronto, New York City, San Francisco, Chicago, Vancouver and Dallas that show how each city fits together, from each city’s own open data.">
+<meta property="og:description" content="Maps of Toronto, New York City, San Francisco, Chicago, Vancouver, Dallas and Melbourne that show how each city fits together, from each city’s own open data.">
 <meta property="og:image" content="https://layers.city/og-layers.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -129,6 +129,7 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(40px,4.6v
 .tabs button{min-height:48px;border:0;border-radius:10px;cursor:pointer;font:inherit;font-weight:500;font-size:14.5px;color:var(--ink-2);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
 .tabs button::after{content:"";width:22px;border-top:2px solid var(--accent)}
 .tabs button.dev::after{border-top-style:dashed;border-top-color:var(--track)}
+.tabs button:last-child:nth-child(3n+1){grid-column:1/-1}
 .tabs button[aria-selected=true]{background:var(--ink);color:var(--bg)}
 .panel{background:var(--card);border:1.5px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:12px}
 .js .panel{margin-bottom:0}
@@ -258,7 +259,7 @@ a.tile:hover{border-color:var(--ink)}
 
   <main>
     <section class="hero">
-      <div class="kicker">6 CITIES · 2 COUNTRIES · OPEN DATA</div>
+      <div class="kicker">7 CITIES · 3 COUNTRIES · OPEN DATA</div>
       <h1>How a city fits together.</h1>
       <p class="lede">Neighbourhoods, wards, transit and the names locals actually use, <span class="long">drawn </span>from each city’s own open data<span class="long"> and rebuilt on a schedule</span>. Pick a city<span class="long">, then a way in</span>.</p>
       <div class="ctas">
@@ -330,6 +331,15 @@ a.tile:hover{border-color:var(--ink)}
             <td><a class="stop" href="/dallas/events/" aria-label="Dallas: events"><i></i></a></td>
             <td><a class="stop" href="/dallas/fun/" aria-label="Dallas: fun maps"><i></i></a></td>
           </tr>
+          <tr class="dev">
+            <th scope="row"><a class="city" href="/melbourne/"><img src="/thumbs/melbourne.svg" alt="" width="60" height="45"><span><span class="n">Melbourne</span><span class="s">MAP · 5 PAGES</span></span></a></th>
+            <td class="g"><a class="count" href="/melbourne/suburbs/" aria-label="Melbourne guide: 15 suburbs">15</a></td>
+            <td><a class="stop" href="/melbourne/profiles/" aria-label="Melbourne: fact sheets"><i></i></a></td>
+            <td><a class="stop" href="/melbourne/routes/" aria-label="Melbourne: transit"><i></i></a></td>
+            <td><a class="stop" href="/melbourne/venues/" aria-label="Melbourne: venues"><i></i></a></td>
+            <td><span class="none" role="img" aria-label="Not in Melbourne yet"></span></td>
+            <td><span class="none" role="img" aria-label="Not in Melbourne yet"></span></td>
+          </tr>
         </tbody>
       </table>
       <div class="legend">
@@ -347,6 +357,7 @@ a.tile:hover{border-color:var(--ink)}
         <button type="button" role="tab" id="t-chicago" aria-controls="p-chicago" aria-selected="false">Chicago</button>
         <button type="button" role="tab" id="t-vancouver" aria-controls="p-vancouver" aria-selected="false" class="dev">Vancouver</button>
         <button type="button" role="tab" id="t-dallas" aria-controls="p-dallas" aria-selected="false" class="dev">Dallas</button>
+        <button type="button" role="tab" id="t-melbourne" aria-controls="p-melbourne" aria-selected="false" class="dev">Melbourne</button>
       </div>
       <div class="panel" id="p-toronto" role="tabpanel" aria-labelledby="t-toronto">
         <div class="ph"><img src="/thumbs/toronto.svg" alt="Outline of the City of Toronto" width="84" height="63"><div><span class="s">FULL MAP · 7 PAGES</span><h2>Toronto</h2></div></div>
@@ -424,6 +435,18 @@ a.tile:hover{border-color:var(--ink)}
             <a href="/dallas/fun/"><i></i><span><b>Fun maps</b><small>Whataburger vs Chick-fil-A, and more</small></span></a>
             <a href="/dallas/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
             <a href="/dallas/events/"><i></i><span><b>Events</b><small>Parks events: today, this weekend</small></span></a>
+        </div>
+      </div>
+      <div class="panel dev" id="p-melbourne" role="tabpanel" aria-labelledby="t-melbourne" hidden>
+        <div class="ph"><img src="/thumbs/melbourne.svg" alt="Outline of the City of Melbourne" width="84" height="63"><div><span class="s">MAP · 5 PAGES</span><h2>Melbourne</h2></div></div>
+        <p>The City of Melbourne inside Greater Melbourne: suburbs and councils, trains, trams and buses, where to vote in the state election, and names like the Paris End.</p>
+        <a class="btn" href="/melbourne/">Open the Melbourne map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+        <div class="line">
+            <a href="/melbourne/suburbs/"><i></i><span><b>Guide</b><small>15 suburbs</small></span></a>
+            <a href="/melbourne/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
+            <a href="/melbourne/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
+            <a href="/melbourne/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
+            <div class="under"><span class="lbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21V10l6-5 6 5v11"/><path d="M10 21v-5h4v5"/></svg>Under construction</span><span>Events wait on an open listing from the City. Fun maps are still to come.</span></div>
         </div>
       </div>
     </section>
