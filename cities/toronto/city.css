@@ -25,6 +25,7 @@
 .sw.areas{background:linear-gradient(90deg,var(--a-westend) 0 20%,var(--a-downtown) 0 40%,var(--a-midtown) 0 60%,var(--a-uptown) 0 80%,var(--a-eastend) 0)}
 .sw.subway{background:linear-gradient(var(--l1) 0 25%,var(--l2) 0 50%,var(--l5) 0 75%,var(--l4) 0)}
 .sw.go{background:linear-gradient(var(--go-a) 0 25%,var(--go-b) 0 50%,var(--go-c) 0 75%,var(--go-d) 0)}
+.sw.ferry{background:linear-gradient(#1B7F79 0 34%,#1F6FB2 0 67%,#4E5FB0 0)}   /* Island ferries (ferries.py colours) */
 .fill-major.old-toronto{fill:var(--b-oldtoronto)} .fill-major.york{fill:var(--b-york)} .fill-major.north-york{fill:var(--b-northyork)}
 .fill-major.east-york{fill:var(--b-eastyork)} .fill-major.etobicoke{fill:var(--b-etobicoke)} .fill-major.scarborough{fill:var(--b-scarborough)}
 .fill-minor.downtown{fill:var(--a-downtown)} .fill-minor.midtown{fill:var(--a-midtown)} .fill-minor.uptown{fill:var(--a-uptown)}
