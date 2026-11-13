@@ -301,6 +301,19 @@
      "akaText": "Also known as {aka}",
      "moreText": "More on Wikipedia",
      "sourceText": "Source: Wikipedia"
+    },
+    {
+     "id": "hbld",
+     "kind": "heritage",
+     "file": "heritage_buildings",
+     "name": "Heritage buildings",
+     "note": "422 places on the Victorian Heritage Register in the City; from zoom 15",
+     "place": "Victorian Heritage Register",
+     "builtText": "built {y}",
+     "byText": "{ar}",
+     "designatedText": "registered {d}",
+     "bylawText": "Register number",
+     "hcdText": "Also in (precinct)"
     }
    ]
   ],
@@ -1113,6 +1126,10 @@
    {
     "label": "Address",
     "address": true
+   },
+   {
+    "label": "Heritage building",
+    "heritageBuilding": true
    },
    {
     "label": "State district",
