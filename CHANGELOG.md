@@ -2,8 +2,8 @@
 
 ## Since 1.1
 
-### Toronto starts with Known-as names and Parks on (November 13)
-- First load, Reset and any link without `layers=` now show Known-as names and Parks beside the existing defaults (`on` flags in `cities/toronto/city.json`).
+### Known-as names and Parks start on (November 13)
+- First load, Reset and any link without `layers=` now show Known-as names and Parks, so the first view shows green space. Known-as names was already on everywhere but Toronto; Parks is now on in Toronto, Chicago, New York and San Francisco (the `on` flags in each `city.json`). Dallas, Hyderabad, Melbourne and Vancouver have no Parks layer.
 
 ### The map draws on the GPU: MapLibre GL replaces Leaflet (November 13)
 - Every city's map now draws with MapLibre GL JS (WebGL) instead of Leaflet's SVG and HTML, so zooming and panning on
