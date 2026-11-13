@@ -37,5 +37,5 @@ jobs:
           [ -n "$SCRIPT" ] || exit 0
           git add cities/melbourne/raw
           git commit -m "Fetch Melbourne data ($SCRIPT)" || echo "no changes"
-          git pull --rebase
-          git push
+          # Other jobs push to main all day: try a few times rather than lose the fetch.
+          for i in 1 2 3 4 5; do git pull --rebase && git push && break; sleep $((i * 15)); done
