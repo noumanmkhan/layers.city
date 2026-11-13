@@ -983,6 +983,58 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
 }
 /* narrower desktops: the tour box clears the map tools bottom-left */
 @media (min-width:761px) and (max-width:1500px){.tourbox{bottom:72px}}
+/* ---------- Phones (760px and under): one sheet at a time ----------
+   Resting, the layer sheet is one row: the city menu and a Layers button (with how many are on). Open, it shows the
+   group tabs as chips (Views first: Views, the extent switch, All/Basic/Live) and that group's rows. A place's card is
+   the bottom sheet itself: the layer sheet steps aside while it's open (a Layers button floats top-right), the card
+   opens at about half height and its handle or arrow grows it. The early-voting box folds to its first venue. */
+.mlay,#mFab,.vmore{display:none}
+@media (max-width:760px){
+  #panel.collapsed :is(.scope,.ptabs,#cats){display:none}
+  #panel.collapsed .ph{padding-bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+  #panel.collapsed .ph .hub-link{display:none}
+  #panel.collapsed .mlay{display:flex;position:absolute;top:12px;right:12px;align-items:center;gap:7px;height:40px;padding:0 12px;font:inherit;font-size:15px;font-weight:700;color:var(--ink);background:var(--pill-bg);border:none;border-radius:11px;cursor:pointer}
+  .mlay svg,#mFab svg{width:19px;height:19px}
+  .mlay .bon,#mFab .bon{min-width:20px;height:20px;padding:0 6px;box-sizing:border-box;border-radius:10px;background:var(--accent-2);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
+  .mlay .bon:empty,#mFab .bon:empty{display:none}
+  #panel.collapsed .ph h1{line-height:40px}
+  #panel:not(.collapsed){max-height:80%}
+  #panel #cats{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 16px 10px}
+  #panel #cats::-webkit-scrollbar{display:none}
+  #panel #cats button{flex:none;display:flex;align-items:center;gap:6px;height:36px;padding:0 14px;font:inherit;font-size:14px;font-weight:600;color:var(--ink);background:var(--pill-bg);border:none;border-radius:18px;white-space:nowrap;cursor:pointer}
+  #panel #cats button[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
+  #panel #cats button svg,#panel #cats .sep,#panel #cats button[data-more]{display:none}
+  #panel #cats .bon{min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:var(--accent-2);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center}
+  #panel #cats .bon:empty{display:none}
+  #panel.mob:not(.views) :is(.presets,.scope,.ptabs){display:none}
+  #panel.mob.views #layers{display:none}
+  #panel.mob .grp:not(.cur){display:none}
+  #panel.mob .grp h2{display:none}
+  #panel.mob .grp.cur .gb[hidden]{display:block!important}
+  #panel.mob .grp{margin-top:0}
+  #panel .tx>span:not(.asof){display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+  /* the card is the sheet */
+  #app.carded #panel.collapsed{display:none}
+  #app.carded #side{bottom:0}
+  #app.layopen #panel{z-index:1003}
+  #here{margin:auto -12px 0;border-radius:20px 20px 0 0;max-height:55%;padding-bottom:env(safe-area-inset-bottom,0px)}
+  #side.tall #here{max-height:none}
+  #here .hh{padding-top:18px;cursor:pointer}
+  #here .hh::before{content:"";position:absolute;top:7px;left:50%;width:36px;height:4px;margin-left:-18px;border-radius:2px;background:var(--rule)}
+  .hh .grow{display:grid;place-items:center;padding:0}
+  .hh .grow svg{width:15px;height:15px;transition:transform .15s}
+  #side.tall .hh .grow svg{transform:rotate(180deg)}
+  #app.carded:not(.layopen) #mFab{display:flex;position:absolute;z-index:1001;top:72px;right:12px;width:46px;height:46px;align-items:center;justify-content:center;color:var(--ink);background:var(--panel);border:none;border-radius:13px;box-shadow:var(--shadow);cursor:pointer}
+  #mFab .bon{position:absolute;top:-5px;right:-5px}
+  /* the tour sits under the search box, clear of both sheets */
+  .tourbox{top:72px;bottom:auto}
+  .tourbox.inv{left:12px;right:70px;transform:none;width:auto;max-width:none;padding:8px 8px 8px 14px;font-size:13px}
+  #app.carded .tourbox.inv{right:70px}
+  #app:not(.carded) .tourbox.inv{right:12px}
+  /* early voting: the first venue and the actions; the rest one tap away */
+  .vote.vfold :is(.vote-lead,.vote-ex,.vote-note),.vote.vfold .vote-pl~.vote-pl{display:none}
+  .vote.vfold .vmore{display:inline-block;margin-top:8px;padding:0;font:inherit;font-size:12.5px;font-weight:700;color:var(--accent);background:none;border:none;cursor:pointer}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <style>
@@ -1060,12 +1112,14 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
   <div id="bar"><div class="brand" id="brand"></div><nav id="cats" aria-label="Layer groups"></nav></div>
   <div id="moreMenu" role="menu" aria-label="More layer groups" hidden></div>
   <div id="tools"></div>
+  <button type="button" id="mFab" aria-label="Layers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg><small class="bon"></small></button>
 
   <aside id="panel" aria-label="Map layers">
     <div class="dhead"><b id="dTitle">Layers</b><small id="dOn"></small><span></span><button type="button" id="pinBtn" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6l-1 6 3 3H7l3-3z"/><path d="M12 12v9"/></svg><span>Pin</span></button></div>
     <div class="ph" id="ph">
       <div class="grab" aria-hidden="true"></div>
       <button type="button" class="fold" id="fold" aria-label="Hide the layer panel" title="Hide the panel"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button type="button" class="mlay" id="mLay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg><span>Layers</span><small class="bon"></small></button>
       <a class="hub-link" href="../" title="All maps"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="mk" viewBox="16 6 88 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,42 86,54 60,66 34,54" fill="#fff" fill-opacity=".5"/><polygon points="60,24 86,36 60,48 34,36" fill="#fff"/></svg>Layers.City</a>
       <div class="switch"><h1>Toronto<svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></h1><select id="citySwitch" aria-label="Switch map"><option value="../chicago/">Chicago</option><option value="../dallas/">Dallas</option><option value="../melbourne/">Melbourne</option><option value="../nyc/">New York City</option><option value="../sf/">San Francisco</option><option value="../toronto/" selected>Toronto</option><option value="../vancouver/">Vancouver</option><option value="../">All maps</option></select></div>
       <p>Turn layers on and off. Search an address or tap anywhere on the map to see every boundary that spot falls inside.</p>
@@ -3702,7 +3756,7 @@ try { if (localStorage.getItem('panelFolded') && wide()){ panel.classList.add('f
    or Esc closes it (a click on the map then only closes it, so it never drops a pin by accident). "Pin" docks the
    panel on the left as the full list. Under 761px everything goes back where it was: phones keep the bottom sheet.
    State lives in vars (not let) because groupCounts() calls deskSync() before this block runs. */
-var deskOn = false, deskCat = null, deskPinned = document.getElementById('app').classList.contains('pinned');
+var deskOn = null, deskCat = null, deskPinned = document.getElementById('app').classList.contains('pinned');
 const appEl = document.getElementById('app'), catsEl = document.getElementById('cats'), brandEl = document.getElementById('brand'), toolsEl = document.getElementById('tools');
 const phEl = document.getElementById('ph'), pfEl = panel.querySelector('.pf'), hubEl = phEl.querySelector('.hub-link'), titleEl = hubEl.nextElementSibling, introEl = phEl.querySelector('p');
 const VIEWS_CAT = '\u0001views';
@@ -3713,7 +3767,7 @@ const VIEWS_CAT = '\u0001views';
   const sep = document.createElement('i'); sep.className = 'sep'; sep.setAttribute('aria-hidden', 'true'); catsEl.appendChild(sep);
   host.querySelectorAll('.grp').forEach(g => tab(g.dataset.group, g.dataset.group));
   catsEl.addEventListener('click', e => { const b = e.target.closest('button[data-cat]'); if (!b) return;
-    deskCat = deskCat === b.dataset.cat ? null : b.dataset.cat; deskApply(); if (deskCat) logEvent('group_tab', {id: deskCat === VIEWS_CAT ? 'views' : deskCat}); });
+    deskCat = deskOn && deskCat === b.dataset.cat ? null : b.dataset.cat; deskApply(); if (deskCat) logEvent('group_tab', {id: deskCat === VIEWS_CAT ? 'views' : deskCat}); });
   // Left and right arrows step between tabs, carrying an open popover along.
   catsEl.addEventListener('keydown', e => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
@@ -3722,9 +3776,9 @@ const VIEWS_CAT = '\u0001views';
     if (deskCat && nb.dataset.cat){ deskCat = nb.dataset.cat; deskApply(); }
   });
 })();
-function deskOpen(cat){ if (!deskOn || deskPinned) return; deskCat = cat; deskApply(); }
+function deskOpen(cat){ if (deskOn == null || (deskOn && deskPinned)) return; deskCat = cat; deskApply(); }
 function deskSync(){
-  if (!deskOn) return;
+  if (deskOn == null) return;
   let all = 0;
   catsEl.querySelectorAll('button[data-cat]').forEach(b => {
     if (b.dataset.cat === VIEWS_CAT) return;
@@ -3734,9 +3788,26 @@ function deskSync(){
   });
   const n = deskPinned ? all : deskCat && deskCat !== VIEWS_CAT ? +(catsEl.querySelector('button[data-cat="' + CSS.escape(deskCat) + '"] .bon').textContent || 0) : 0;
   document.getElementById('dOn').textContent = n ? fill(CITY.groupOnText || '{n} on', {n}) : '';
+  // phones: the Layers buttons carry the total; a chip whose group the All/Basic/Live tabs hid hands over to another
+  document.querySelectorAll('#mLay .bon, #mFab .bon').forEach(e => { e.textContent = all || ''; });
+  if (!deskOn && deskCat && deskCat !== VIEWS_CAT && !mobOk(deskCat)) deskApply();
   if (typeof fitCats === 'function') fitCats();
 }
+function mobOk(cat){ const g = [...host.querySelectorAll('.grp')].find(x => x.dataset.group === cat); return !!g && !g.hidden; }
 function deskApply(){
+  if (!deskOn){   // phones: one chip at a time; with none chosen, the first group with layers on (or the first group)
+    if (!deskCat || (deskCat !== VIEWS_CAT && !mobOk(deskCat))){
+      const gs = [...host.querySelectorAll('.grp')].filter(g => !g.hidden);
+      const on = gs.find(g => g.querySelector('.row input[type=checkbox]:checked'));
+      deskCat = (on || gs[0] || {dataset: {group: VIEWS_CAT}}).dataset.group;
+    }
+    panel.classList.add('mob'); panel.classList.toggle('views', deskCat === VIEWS_CAT);
+    host.querySelectorAll('.grp').forEach(g => g.classList.toggle('cur', g.dataset.group === deskCat));
+    catsEl.querySelectorAll('button[data-cat]').forEach(b => { b.setAttribute('aria-pressed', String(b.dataset.cat === deskCat)); b.removeAttribute('aria-expanded'); });
+    deskSync(); return;
+  }
+  panel.classList.remove('mob');
+  catsEl.querySelectorAll('button[data-cat]').forEach(b => b.removeAttribute('aria-pressed'));
   const open = !deskPinned && deskCat;
   panel.classList.toggle('float', !deskPinned); panel.classList.toggle('shut', !deskPinned && !deskCat);
   panel.classList.toggle('views', !deskPinned && deskCat === VIEWS_CAT); appEl.classList.toggle('pinned', deskPinned);
@@ -3759,11 +3830,12 @@ function deskLayout(){
   const d = wide();
   if (d === deskOn) return;
   deskOn = d;
-  if (d){ brandEl.append(hubEl, titleEl); toolsEl.append(pfEl); deskApply(); requestAnimationFrame(fitCats); }
+  if (d){ brandEl.append(hubEl, titleEl); toolsEl.append(pfEl); document.getElementById('bar').appendChild(catsEl); deskCat = null; deskApply(); requestAnimationFrame(fitCats); }
   else {
     phEl.insertBefore(hubEl, introEl); phEl.insertBefore(titleEl, introEl); panel.appendChild(pfEl);
     panel.classList.remove('float', 'shut', 'views'); appEl.classList.remove('pinned'); panel.style.left = '';
-    host.querySelectorAll('.grp.cur').forEach(g => g.classList.remove('cur'));
+    catsEl.querySelectorAll('button.ovf').forEach(b => b.classList.remove('ovf')); moreBtn.hidden = true; moreMenu.hidden = true;
+    phEl.after(catsEl); deskApply();
   }
 }
 document.getElementById('pinBtn').addEventListener('click', () => {
@@ -4776,7 +4848,33 @@ new MutationObserver(() => {
   label();
   b.addEventListener('click', () => { const t = sideEl.classList.toggle('tall'); try { if (t) localStorage.setItem('cardTall', '1'); else localStorage.removeItem('cardTall'); } catch (e) {} label(); });
   hb.insertBefore(b, hb.firstChild);
+  // Phones: the card's top edge is its handle: a tap there (not on a button) grows or shrinks it.
+  here.querySelector('.hh').addEventListener('click', e => { if (!wide() && !e.target.closest('button, a, select, input')) b.click(); });
 }).observe(here, {childList: true});
+// Phones: the early-voting box folds to its first venue and the actions, with a button for the rest.
+new MutationObserver(() => {
+  if (wide()) return;
+  here.querySelectorAll('.vote:not(.vseen)').forEach(v => {
+    v.classList.add('vseen');
+    if (v.querySelectorAll('.vote-tx>p').length < 4) return;
+    v.classList.add('vfold');
+    const m = document.createElement('button'); m.type = 'button'; m.className = 'vmore';
+    m.textContent = (typeof VOTE !== 'undefined' && VOTE && VOTE.moreText) || 'All voting details';
+    m.addEventListener('click', () => { v.classList.remove('vfold'); m.remove(); });
+    v.querySelector('.vote-tx').appendChild(m);
+  });
+}).observe(here, {childList: true, subtree: true});
+// Phones: one sheet at a time. While a card is open the layer sheet steps aside (CSS), and the floating Layers
+// button opens it over the card; closing it brings the card back.
+function sheetState(){
+  const a = document.getElementById('app');
+  a.classList.toggle('carded', !here.hidden);
+  a.classList.toggle('layopen', !panel.classList.contains('collapsed'));
+}
+new MutationObserver(sheetState).observe(here, {attributes: true, attributeFilter: ['hidden']});
+new MutationObserver(sheetState).observe(panel, {attributes: true, attributeFilter: ['class']});
+sheetState();
+document.getElementById('mFab').addEventListener('click', () => { panel.classList.remove('collapsed'); logEvent('layers_open', {via: 'fab'}); });
 // Phones: the card stops above the layer sheet, whatever height the sheet is.
 if (window.ResizeObserver) new ResizeObserver(() => {
   document.documentElement.style.setProperty('--panel-h', (matchMedia('(max-width:760px)').matches && !panel.hidden ? panel.offsetHeight : 0) + 'px');

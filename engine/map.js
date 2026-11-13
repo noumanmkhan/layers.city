@@ -1842,7 +1842,7 @@ try { if (localStorage.getItem('panelFolded') && wide()){ panel.classList.add('f
    or Esc closes it (a click on the map then only closes it, so it never drops a pin by accident). "Pin" docks the
    panel on the left as the full list. Under 761px everything goes back where it was: phones keep the bottom sheet.
    State lives in vars (not let) because groupCounts() calls deskSync() before this block runs. */
-var deskOn = false, deskCat = null, deskPinned = document.getElementById('app').classList.contains('pinned');
+var deskOn = null, deskCat = null, deskPinned = document.getElementById('app').classList.contains('pinned');
 const appEl = document.getElementById('app'), catsEl = document.getElementById('cats'), brandEl = document.getElementById('brand'), toolsEl = document.getElementById('tools');
 const phEl = document.getElementById('ph'), pfEl = panel.querySelector('.pf'), hubEl = phEl.querySelector('.hub-link'), titleEl = hubEl.nextElementSibling, introEl = phEl.querySelector('p');
 const VIEWS_CAT = '\u0001views';
@@ -1853,7 +1853,7 @@ const VIEWS_CAT = '\u0001views';
   const sep = document.createElement('i'); sep.className = 'sep'; sep.setAttribute('aria-hidden', 'true'); catsEl.appendChild(sep);
   host.querySelectorAll('.grp').forEach(g => tab(g.dataset.group, g.dataset.group));
   catsEl.addEventListener('click', e => { const b = e.target.closest('button[data-cat]'); if (!b) return;
-    deskCat = deskCat === b.dataset.cat ? null : b.dataset.cat; deskApply(); if (deskCat) logEvent('group_tab', {id: deskCat === VIEWS_CAT ? 'views' : deskCat}); });
+    deskCat = deskOn && deskCat === b.dataset.cat ? null : b.dataset.cat; deskApply(); if (deskCat) logEvent('group_tab', {id: deskCat === VIEWS_CAT ? 'views' : deskCat}); });
   // Left and right arrows step between tabs, carrying an open popover along.
   catsEl.addEventListener('keydown', e => {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
@@ -1862,9 +1862,9 @@ const VIEWS_CAT = '\u0001views';
     if (deskCat && nb.dataset.cat){ deskCat = nb.dataset.cat; deskApply(); }
   });
 })();
-function deskOpen(cat){ if (!deskOn || deskPinned) return; deskCat = cat; deskApply(); }
+function deskOpen(cat){ if (deskOn == null || (deskOn && deskPinned)) return; deskCat = cat; deskApply(); }
 function deskSync(){
-  if (!deskOn) return;
+  if (deskOn == null) return;
   let all = 0;
   catsEl.querySelectorAll('button[data-cat]').forEach(b => {
     if (b.dataset.cat === VIEWS_CAT) return;
@@ -1874,9 +1874,26 @@ function deskSync(){
   });
   const n = deskPinned ? all : deskCat && deskCat !== VIEWS_CAT ? +(catsEl.querySelector('button[data-cat="' + CSS.escape(deskCat) + '"] .bon').textContent || 0) : 0;
   document.getElementById('dOn').textContent = n ? fill(CITY.groupOnText || '{n} on', {n}) : '';
+  // phones: the Layers buttons carry the total; a chip whose group the All/Basic/Live tabs hid hands over to another
+  document.querySelectorAll('#mLay .bon, #mFab .bon').forEach(e => { e.textContent = all || ''; });
+  if (!deskOn && deskCat && deskCat !== VIEWS_CAT && !mobOk(deskCat)) deskApply();
   if (typeof fitCats === 'function') fitCats();
 }
+function mobOk(cat){ const g = [...host.querySelectorAll('.grp')].find(x => x.dataset.group === cat); return !!g && !g.hidden; }
 function deskApply(){
+  if (!deskOn){   // phones: one chip at a time; with none chosen, the first group with layers on (or the first group)
+    if (!deskCat || (deskCat !== VIEWS_CAT && !mobOk(deskCat))){
+      const gs = [...host.querySelectorAll('.grp')].filter(g => !g.hidden);
+      const on = gs.find(g => g.querySelector('.row input[type=checkbox]:checked'));
+      deskCat = (on || gs[0] || {dataset: {group: VIEWS_CAT}}).dataset.group;
+    }
+    panel.classList.add('mob'); panel.classList.toggle('views', deskCat === VIEWS_CAT);
+    host.querySelectorAll('.grp').forEach(g => g.classList.toggle('cur', g.dataset.group === deskCat));
+    catsEl.querySelectorAll('button[data-cat]').forEach(b => { b.setAttribute('aria-pressed', String(b.dataset.cat === deskCat)); b.removeAttribute('aria-expanded'); });
+    deskSync(); return;
+  }
+  panel.classList.remove('mob');
+  catsEl.querySelectorAll('button[data-cat]').forEach(b => b.removeAttribute('aria-pressed'));
   const open = !deskPinned && deskCat;
   panel.classList.toggle('float', !deskPinned); panel.classList.toggle('shut', !deskPinned && !deskCat);
   panel.classList.toggle('views', !deskPinned && deskCat === VIEWS_CAT); appEl.classList.toggle('pinned', deskPinned);
@@ -1899,11 +1916,12 @@ function deskLayout(){
   const d = wide();
   if (d === deskOn) return;
   deskOn = d;
-  if (d){ brandEl.append(hubEl, titleEl); toolsEl.append(pfEl); deskApply(); requestAnimationFrame(fitCats); }
+  if (d){ brandEl.append(hubEl, titleEl); toolsEl.append(pfEl); document.getElementById('bar').appendChild(catsEl); deskCat = null; deskApply(); requestAnimationFrame(fitCats); }
   else {
     phEl.insertBefore(hubEl, introEl); phEl.insertBefore(titleEl, introEl); panel.appendChild(pfEl);
     panel.classList.remove('float', 'shut', 'views'); appEl.classList.remove('pinned'); panel.style.left = '';
-    host.querySelectorAll('.grp.cur').forEach(g => g.classList.remove('cur'));
+    catsEl.querySelectorAll('button.ovf').forEach(b => b.classList.remove('ovf')); moreBtn.hidden = true; moreMenu.hidden = true;
+    phEl.after(catsEl); deskApply();
   }
 }
 document.getElementById('pinBtn').addEventListener('click', () => {
@@ -2916,7 +2934,33 @@ new MutationObserver(() => {
   label();
   b.addEventListener('click', () => { const t = sideEl.classList.toggle('tall'); try { if (t) localStorage.setItem('cardTall', '1'); else localStorage.removeItem('cardTall'); } catch (e) {} label(); });
   hb.insertBefore(b, hb.firstChild);
+  // Phones: the card's top edge is its handle: a tap there (not on a button) grows or shrinks it.
+  here.querySelector('.hh').addEventListener('click', e => { if (!wide() && !e.target.closest('button, a, select, input')) b.click(); });
 }).observe(here, {childList: true});
+// Phones: the early-voting box folds to its first venue and the actions, with a button for the rest.
+new MutationObserver(() => {
+  if (wide()) return;
+  here.querySelectorAll('.vote:not(.vseen)').forEach(v => {
+    v.classList.add('vseen');
+    if (v.querySelectorAll('.vote-tx>p').length < 4) return;
+    v.classList.add('vfold');
+    const m = document.createElement('button'); m.type = 'button'; m.className = 'vmore';
+    m.textContent = (typeof VOTE !== 'undefined' && VOTE && VOTE.moreText) || 'All voting details';
+    m.addEventListener('click', () => { v.classList.remove('vfold'); m.remove(); });
+    v.querySelector('.vote-tx').appendChild(m);
+  });
+}).observe(here, {childList: true, subtree: true});
+// Phones: one sheet at a time. While a card is open the layer sheet steps aside (CSS), and the floating Layers
+// button opens it over the card; closing it brings the card back.
+function sheetState(){
+  const a = document.getElementById('app');
+  a.classList.toggle('carded', !here.hidden);
+  a.classList.toggle('layopen', !panel.classList.contains('collapsed'));
+}
+new MutationObserver(sheetState).observe(here, {attributes: true, attributeFilter: ['hidden']});
+new MutationObserver(sheetState).observe(panel, {attributes: true, attributeFilter: ['class']});
+sheetState();
+document.getElementById('mFab').addEventListener('click', () => { panel.classList.remove('collapsed'); logEvent('layers_open', {via: 'fab'}); });
 // Phones: the card stops above the layer sheet, whatever height the sheet is.
 if (window.ResizeObserver) new ResizeObserver(() => {
   document.documentElement.style.setProperty('--panel-h', (matchMedia('(max-width:760px)').matches && !panel.hidden ? panel.offsetHeight : 0) + 'px');

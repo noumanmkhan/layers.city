@@ -2,6 +2,13 @@
 
 ## Since 1.1
 
+### One sheet at a time on phones (every city, November 14)
+- The layer sheet rests as one row: the city menu and a Layers button with how many are on. Opened, it shows the
+  layer groups as chips, Views first (Views, the extent switch, All / Basic / Live), and that group's rows.
+- A place's card is the bottom sheet, at about half height so the pin stays in view; its top edge or arrow grows
+  it. The layer sheet steps aside meanwhile, with a floating Layers button. Early voting shows the nearest venue
+  first, the rest behind "All voting details". The tour box moves under the search box.
+
 ### A map-first layout on computers (every city, November 13)
 - The layer sidebar gives way to a bar along the top: Layers.City and the city menu, a tab per layer group with how
   many of its layers are on, and search. A tab opens its group as a pop-up under it; a click on the map or Escape
