@@ -1075,6 +1075,10 @@
     "knownas": true
    },
    {
+    "label": "Address",
+    "address": true
+   },
+   {
     "label": "State district",
     "layer": "state",
     "text": "{name} District"
@@ -1307,6 +1311,19 @@
    ],
    "note": "Straight-line distances; 800 m is about a 10-minute walk. Libraries, community centres and the ERs layer, parks and playgrounds, schools from the Department of Education (the nearest school is not always the government school a home is zoned for). Places of worship show while their layer is on.",
    "sources": "Sources: City of Melbourne (playgrounds), Department of Education (schools), OpenStreetMap (libraries, community centres, hospitals, parks, courts, places of worship)."
+  },
+  "address": {
+   "label": "Address",
+   "origins": true,
+   "dir": "addresses",
+   "cell": 0.005,
+   "within": 45,
+   "text": "{street}, numbers around {block}",
+   "textLow": "{street}, numbers under 100",
+   "rise": "Numbers start at {from} and rise to the {toward}.",
+   "riseNoFrom": "Numbers rise to the {toward}.",
+   "riseFrom": "Numbers start at {low} at {from} and rise to the {toward}.",
+   "sub": "No citywide grid: each street counts up from its own start, odd numbers on one side and even on the other."
   }
  },
  "tour": {
