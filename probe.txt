@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Content-Type: application/octet-stream
+-rw-r--r-- 1 runner runner 278626 Nov 14 06:28 tu.pb
+positions 200 35003
+age 5 trip updates 331 with vehicle 322
+route ids [('6622', 7), ('23384', 7), ('38311', 7), ('6625', 7), ('6617', 6), ('6618', 6), ('6619', 6), ('6712', 6), ('6738', 6), ('37807', 6)]
+route ids in ours 125 of 126
+missing routes ['']
+stops in ours 3994 of 3998 ; platforms seen 0 of 113
+skytrain trips 0
+times [(1794637731, 1794637731, 0), (1794637800, 1794637800, 0), (1794637849, 1794637849, 0), (1794637905, 1794637905, 0)]
+trip sample trip_id: "15440385"
+start_date: "20261113"
+schedule_relationship: SCHEDULED
+route_id: "6612"
+direction_id: 0
+ dirs Counter({0: 166, 1: 165})
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/runner/work/layers.city/layers.city/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+scan ms 3.75
+{"985":[["6685",1,1794638921,1,"4592"],["6682",1,1794638699,1,"11367"],["6682",1,1794640433,1,"10882"],["6693",0,1794638921,1,"12531"],["6687",0,1794637717,1,"985"],["6687",0,1794639418,1,"4632"],["6687",0,1794641626,1,"13101"]],"8039":[],"8040":[],"12036":[]}
