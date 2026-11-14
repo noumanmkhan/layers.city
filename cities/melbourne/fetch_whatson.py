@@ -50,14 +50,20 @@ for t in ('get_categories_tool', 'get_sub_categories_tool', 'get_locations_tool'
     except Exception as ex: print(t, ex)
     time.sleep(1)
 d0 = date.today(); d1 = d0 + timedelta(days=30)
-for page in range(1, 4):
-    try:
-        res = rpc('tools/call', {'name': 'search_tool', 'arguments': {
-            'query': '', 'category': 'things_to_do', 'date_keyword': 'specific_dates',
-            'date_range': f'{d0} to {d1}', 'page_number': page}})
-        save(f'search_p{page}.json', res)
-        print('page', page, len(json.dumps(res)))
-    except Exception as ex:
-        print('search page', page, ex)
-    time.sleep(2)
+# scout 2: one sub-category's listing in full, and three items' own pages as HTML
+for sub in ('events', 'free'):
+    for page in range(1, 3):
+        try:
+            res = rpc('tools/call', {'name': 'search_tool', 'arguments': {
+                'query': '', 'category': 'things_to_do', 'sub_categories': [sub], 'date_keyword': 'specific_dates',
+                'date_range': f'{d0} to {d1}', 'page_number': page}})
+            save(f'sub_{sub}_p{page}.json', res)
+            print(sub, page, res['result']['content'][0]['text'][:120].replace(chr(10), ' '))
+        except Exception as ex:
+            print(sub, page, ex)
+        time.sleep(1)
+for slug in ('library-cinema-at-narrm-ngarrgu', 'christmas-square', 'koorie-krismas'):
+    req = urllib.request.Request('https://whatson.melbourne.vic.gov.au/things-to-do/' + slug, headers={'User-Agent': UA})
+    open(os.path.join(OUT, slug + '.html'), 'wb').write(urllib.request.urlopen(req, timeout=60).read())
+    time.sleep(1)
 print('done')
