@@ -927,6 +927,9 @@ transit: {
   title, credits,                                     the page's title and the credit line to show
   badges: {bus, tram, exp, night: {fill, text, outline?},   route badges: a rounded rectangle, number in it
            lines: {"1": {fill, text}, …}}                   subway and LRT: a round bullet in the line's colour
+           (November 14, 2026: a line may have `label`, the text in its bullet instead of its id: "" for a
+           plain dot, as Chicago's 'L' and Melbourne's named train lines, "V/Line" for Melbourne's V/Line pill.
+           Melbourne's badges: buses orange, trams green, both white numbers. Additive.)
   words: {…}                                          the city's own wording (below); {} for Toronto
 }
 ```

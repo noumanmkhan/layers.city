@@ -96,23 +96,23 @@
    "sunbury": "#34ACE1"
   },
   "lineNames": {
-   "flemingtonracecourse": "Flemington Racecourse line",
-   "sandringham": "Sandringham line",
-   "werribee": "Werribee line",
-   "williamstown": "Williamstown line",
-   "frankston": "Frankston line",
-   "stonypoint": "Stony Point line",
-   "craigieburn": "Craigieburn line",
-   "upfield": "Upfield line",
-   "hurstbridge": "Hurstbridge line",
-   "mernda": "Mernda line",
-   "alamein": "Alamein line",
-   "belgrave": "Belgrave line",
-   "glenwaverley": "Glen Waverley line",
-   "lilydale": "Lilydale line",
-   "cranbourne": "Cranbourne line",
-   "pakenham": "Pakenham line",
-   "sunbury": "Sunbury line"
+   "Alamein": "Alamein line",
+   "Belgrave": "Belgrave line",
+   "Craigieburn": "Craigieburn line",
+   "Cranbourne": "Cranbourne line",
+   "Flemington Racecourse": "Flemington Racecourse line",
+   "Frankston": "Frankston line",
+   "Glen Waverley": "Glen Waverley line",
+   "Hurstbridge": "Hurstbridge line",
+   "Lilydale": "Lilydale line",
+   "Mernda": "Mernda line",
+   "Pakenham": "Pakenham line",
+   "Sandringham": "Sandringham line",
+   "Stony Point": "Stony Point line",
+   "Sunbury": "Sunbury line",
+   "Upfield": "Upfield line",
+   "Werribee": "Werribee line",
+   "Williamstown": "Williamstown line"
   },
   "overground": true,
   "connectionsLabel": "Train and V/Line connections",
@@ -129,7 +129,119 @@
    "pm"
   ]
  },
- "badges": {},
+ "badges": {
+  "_about": "Route badge colours for apps, as the web page draws them (factsheet.css): buses orange, trams green, both with white numbers; train lines are named, not lettered, so their bullets are plain dots ('label' empty) in the line group's colour; V/Line a purple pill.",
+  "bus": {
+   "fill": "#FF8200",
+   "text": "#FFFFFF"
+  },
+  "tram": {
+   "fill": "#78BE20",
+   "text": "#FFFFFF"
+  },
+  "exp": {
+   "fill": "#FFFFFF",
+   "text": "#FF8200",
+   "outline": "#FF8200"
+  },
+  "night": {
+   "fill": "#FFFFFF",
+   "text": "#1F3A93",
+   "outline": "#1F3A93"
+  },
+  "lines": {
+   "Alamein": {
+    "fill": "#152C6B",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Belgrave": {
+    "fill": "#152C6B",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Craigieburn": {
+    "fill": "#FFBE00",
+    "text": "#1A1414",
+    "label": ""
+   },
+   "Cranbourne": {
+    "fill": "#34ACE1",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Flemington Racecourse": {
+    "fill": "#95979A",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Frankston": {
+    "fill": "#028430",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Glen Waverley": {
+    "fill": "#152C6B",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Hurstbridge": {
+    "fill": "#BE1014",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Lilydale": {
+    "fill": "#152C6B",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Mernda": {
+    "fill": "#BE1014",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Pakenham": {
+    "fill": "#34ACE1",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Sandringham": {
+    "fill": "#F178AF",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Stony Point": {
+    "fill": "#028430",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Sunbury": {
+    "fill": "#34ACE1",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Upfield": {
+    "fill": "#FFBE00",
+    "text": "#1A1414",
+    "label": ""
+   },
+   "Werribee": {
+    "fill": "#F178AF",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "Williamstown": {
+    "fill": "#F178AF",
+    "text": "#FFFFFF",
+    "label": ""
+   },
+   "V/Line": {
+    "fill": "#8F1A95",
+    "text": "#FFFFFF",
+    "label": "V/Line"
+   }
+  }
+ },
  "nameRules": [
   [
    " Street$",
