@@ -8,6 +8,11 @@
   "compatibility_date": "2026-11-01",
   "workers_dev": true,
   "preview_urls": true,
+  // The cutover (Phase 3, November 14, 2026): layers.city is served by this Worker through a route over the
+  // existing proxied DNS record, so no DNS changes. The Pages project stays deployed behind it as the fallback:
+  // to roll back, delete this route (dashboard: Workers & Pages > layers-city > Settings > Domains & Routes) and
+  // remove these lines. www.layers.city keeps its Redirect Rule to the root.
+  "routes": [{ "pattern": "layers.city/*", "zone_name": "layers.city" }],
   "assets": {
     "directory": "./docs",
     "binding": "ASSETS",
