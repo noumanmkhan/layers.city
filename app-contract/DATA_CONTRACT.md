@@ -1062,6 +1062,8 @@ below.
   the row describes) and find `next` in its `stops`, at or before the rider's stop. Stops away = the pattern's
   stops from `next` (counted) to the rider's stop (not counted): 0 is "Arriving", 1 "1 stop away". If `next`
   isn't in the pattern at or before the rider's stop (a short turn, another branch, a detour), show nothing.
+  When `next` is the rider's stop but the arrival is more than 2 minutes away, the trip starts there and hasn't
+  left yet (a terminus: Flinders Street, a tram's first stop): show nothing.
 - Words: "About 3 stops away · at <name of next>" (for subway and LRT, "About 3 stations away · approaching
   <station>"); always "about". `stops.json` and the route file's `stops` give the names.
 - Map: a dot on the pattern's `line` between the stop before `next` and `next` (at 60% of the way, by `d`, so it
