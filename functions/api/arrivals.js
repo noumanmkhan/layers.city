@@ -3,9 +3,12 @@
  * A Cloudflare Pages Function (deployed with the site by deploy.yml; it serves only /api/*). It reads the city's
  * GTFS-realtime trip updates, which browsers can't fetch themselves (the agency's server sends no CORS header),
  * and returns the next arrivals at the stops asked for:
- *   {now, asof, stops: {"8344": [[route, direction, epoch seconds, live], ...]}}
+ *   {now, asof, stops: {"8344": [[route, direction, epoch seconds, live, next stop], ...]}}
  * live is 1 when a vehicle is already on that trip (a prediction), 0 when not (the agency's schedule for a trip
- * that hasn't started yet).
+ * that hasn't started yet). next stop (only on a live arrival, and only when the feed says) is the stop id that
+ * trip's vehicle reaches next: the first stop still ahead of it in the trip update. The app places "about 3 stops
+ * away" and a dot between that stop and the one before it from its own list of the route's stops. It is the same
+ * stop asked about when the vehicle is about to arrive there.
  *
  * The feed (Toronto: about 620 KB, refreshed every 20 to 30 s) is fetched through Cloudflare's cache for 20 s, so
  * the agency sees at most a few requests a minute from each Cloudflare location, however many people are looking.
@@ -114,7 +117,11 @@ export async function onRequestGet({ request, env }) {
     const trips = feeds.tripRoutes && feeds.tripRoutes[which] ? await tripTable(url.origin + feeds.tripRoutes[which], env) : null;
     const o = scan(b.value, feedIds, now, b.value.length > 1500000, trips);
     out.asof = Math.max(out.asof, o.asof);
-    stops.forEach((s, i) => out.stops[s].push(...o.stops[feedIds[i]].map(x => feeds.liveAll ? [x[0], x[1], x[2], 1] : x)));
+    const back = id => pre && id.startsWith(pre) ? id.slice(pre.length) : id;   // the feed's stop id, as the page writes it
+    stops.forEach((s, i) => out.stops[s].push(...o.stops[feedIds[i]].map(x => {
+      const live = feeds.liveAll ? 1 : x[3];
+      return live && x[4] ? [x[0], x[1], x[2], 1, back(x[4])] : [x[0], x[1], x[2], live];
+    })));
   }
   for (const k of Object.keys(out.stops)) out.stops[k] = out.stops[k].sort((a, b) => a[2] - b[2]).slice(0, PER_STOP);
   const res = json({ now, asof: out.asof, stops: out.stops }, 200, Math.min(15, ttl));
@@ -149,6 +156,8 @@ function json(body, status, maxAge) {
 /* ---- a minimal GTFS-realtime reader ----
  * FeedMessage: 1 header {3 timestamp}, 2 entity*.  FeedEntity: 3 trip_update.
  * TripUpdate: 1 trip {4 schedule_relationship, 5 route_id, 6 direction_id}, 2 stop_time_update*, 3 vehicle {1 id}.
+ * Each arrival is [route, dir, time, live, next]: next is the trip's first stop whose time is still ahead (from 30 s
+ * ago), read only for trips with a stop asked about.
  * StopTimeUpdate: 2 arrival {2 time}, 3 departure {2 time}, 4 stop_id, 5 schedule_relationship.
  * Every other field is skipped by its wire type. */
 export function scan(b, stopIds, now, sparse = false, tripRoutes = null) {
@@ -185,7 +194,7 @@ export function scan(b, stopIds, now, sparse = false, tripRoutes = null) {
   function str(start, len) { let s = ''; for (let i = 0; i < len; i++) s += String.fromCharCode(b[start + i]); return s; }
 
   function tripUpdate(end) {
-    let route = '', trip = '', dir = 0, rel = 0, live = 0;
+    let route = '', trip = '', dir = 0, rel = 0, live = 0, nextAt = -1, nextLen = 0;
     const hits = [];
     while (p < end) {
       const k = varint(), f = k >>> 3, wt = k & 7;
@@ -201,15 +210,16 @@ export function scan(b, stopIds, now, sparse = false, tripRoutes = null) {
         }
       } else if (f === 2 && wt === 2) {   // stop_time_update
         const e = varint() + p;
-        let stop = null, t = 0, skipped = false;
+        let stop = null, t = 0, skipped = false, idAt = -1, idLen = 0;
         while (p < e) {
           const k2 = varint(), f2 = k2 >>> 3, w2 = k2 & 7;
-          if (f2 === 4 && w2 === 2) { const l = varint(); stop = matchStop(p, l); p += l; }
+          if (f2 === 4 && w2 === 2) { const l = varint(); idAt = p; idLen = l; stop = matchStop(p, l); p += l; }
           else if ((f2 === 2 || f2 === 3) && w2 === 2) { const l = varint(), ee = p + l; const tt = eventTime(ee); p = ee; if (f2 === 2 || !t) t = tt || t; }
           else if (f2 === 5 && w2 === 0) skipped = varint() === 1;   // SKIPPED
           else skip(w2);
         }
         if (stop && t && !skipped) hits.push([stop, t]);
+        if (nextAt < 0 && idAt >= 0 && t && !skipped && t >= now - 30) { nextAt = idAt; nextLen = idLen; }
       } else if (f === 3 && wt === 2) {   // vehicle
         const e = varint() + p;
         while (p < e) { const k2 = varint(), f2 = k2 >>> 3, w2 = k2 & 7; if (f2 === 1 && w2 === 2) { const l = varint(); if (l) live = 1; p += l; } else skip(w2); }
@@ -217,7 +227,8 @@ export function scan(b, stopIds, now, sparse = false, tripRoutes = null) {
     }
     if (rel === 3 || rel === 7) return;   // CANCELED, DELETED
     if (!route && tripRoutes) route = tripRoutes[trip] || '';   // a feed that names trips only (BART)
-    for (const [stop, t] of hits) if (t >= now - 60 && t <= now + AHEAD) stops[stop].push([route, dir, t, live]);
+    const next = hits.length && nextAt >= 0 ? str(nextAt, nextLen) : '';
+    for (const [stop, t] of hits) if (t >= now - 60 && t <= now + AHEAD) stops[stop].push([route, dir, t, live, next]);
   }
 
   function entity(e) {
