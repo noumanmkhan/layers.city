@@ -71,6 +71,9 @@ const FEEDS = {
         lineFeed: Object.fromEntries(['Yellow', 'Orange', 'Green', 'Red', 'Blue', 'OAK'].map(l => ['BART-' + l, 'bart'])),
         tripRoutes: { bart: '/sf/routes/data/bart_trips.json' } },
   chicago: { provider: cta, ttl: 30 },
+  // Vancouver: TransLink's trip updates (TRANSLINK_KEY; about 280 KB, buses only: SkyTrain has no live data).
+  vancouver: { main: env => env.TRANSLINK_KEY && `https://gtfsapi.translink.ca/v3/gtfsrealtime?apikey=${encodeURIComponent(env.TRANSLINK_KEY)}`,
+               ttl: 30, keep: 300 },
   melbourne: {
     main: 'https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1/bus/trip-updates',
     also: { tram: 'https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1/tram/trip-updates' },

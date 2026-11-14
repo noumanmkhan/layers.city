@@ -20,6 +20,8 @@
 > Festivals & Events Calendar for "Happening nearby" (section 16). Additive; schema stays 2.
 > **November 3, 2026, later, on dev:** `happening.json` also carries Toronto Public Library branch programs: `src`
 > on each event (`city` or `library`) and `sources` on the file. Additive.
+> **November 14, 2026, evening:** Vancouver has live times for buses (`transit.live`, TransLink). SkyTrain has none:
+> `liveNone` has `subway`, so its platforms show "Every N min or so" as Toronto's Lines 5 and 6 do. Additive.
 > **November 14, 2026, later still:** Chicago has live times (`transit.live`; the CTA's Bus Tracker and Train Tracker,
 > read by the arrivals API): buses and 'L' trains, same answer format. Bus Tracker only predicts about the next half
 > hour, and neither API gives a next stop (no `next`). Additive.
