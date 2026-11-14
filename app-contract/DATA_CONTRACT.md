@@ -944,6 +944,13 @@ wording, shown in brackets):
 - `connectionsLabel`: the heading of the connections fact ("Subway connections").
 - `mi`: true to show distances in feet under 0.1 mi and miles above (metres and km).
 - `changeBare`: true to list lines in "Change for …" by their ids ("Change for 4, 5, 6") rather than `lineNames`.
+- `overground` (November 14, 2026): true when the city's `subway` mode runs mostly above ground (Chicago's 'L',
+  Vancouver's SkyTrain, Dallas's light rail, Melbourne's trains): a route "runs along" its streets and its steps
+  read "Along <street>", never "runs under" / "Under <street>" (Toronto's and New York's subways).
+- `modeWords` (November 14, 2026): what to call a mode's vehicle in a sentence, `{"tram": "tram"}` in Melbourne
+  ("Next tram at 5:28 pm"); a missing mode keeps the default (bus, streetcar for `tram`, train for `subway` and `lrt`).
+- `ampm` (November 14, 2026): the clock's two suffixes, `["am", "pm"]` in Melbourne ("5:28 pm"); default
+  `["a.m.", "p.m."]`.
 
 Platforms' `side` and `travel` words can also be the agency's own: Muni's subway platforms are `inbound` and
 `outbound` ("Inbound platform"), as are a Muni Metro line's patterns' `head` (show them capitalised, "Outbound").
