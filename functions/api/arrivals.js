@@ -39,6 +39,12 @@
  * ("33-901-aus-1", one per operator of a number): "tripRoute" takes the number from the trip id ("33-901--1-Sat13-…")
  * and the table of route ids by number that engine/routes/build.py writes, so an arrival carries every id its
  * number goes by and matches whichever one a stop's row uses.
+ *
+ * Chicago: the CTA publishes no GTFS-realtime feed, so "provider" asks its two APIs directly, for the stops asked
+ * about only: Bus Tracker (CTA_BUS_KEY; up to 10 stops a call) and Train Tracker (CTA_TRAIN_KEY; one platform a call,
+ * the 'L' platforms being stop ids 30000-30999). Each call is cached 30 s at the edge (both refresh about every 30 s),
+ * and each key allows 100,000 calls a day. Bus Tracker predicts only buses on their way (live 1, about the next half
+ * hour); Train Tracker marks schedule-based times (isSch: live 0). No next stop: neither API says it per arrival.
  */
 const FEEDS = {
   toronto: { main: 'https://gtfsrt.ttc.ca/trips/update?format=binary', rapid: 'https://gtfsrt.ttc.ca/trips/subway?format=binary' },
@@ -64,6 +70,7 @@ const FEEDS = {
         rapid: { bart: 'https://api.bart.gov/gtfsrt/tripupdate.aspx' },
         lineFeed: Object.fromEntries(['Yellow', 'Orange', 'Green', 'Red', 'Blue', 'OAK'].map(l => ['BART-' + l, 'bart'])),
         tripRoutes: { bart: '/sf/routes/data/bart_trips.json' } },
+  chicago: { provider: cta, ttl: 30 },
   melbourne: {
     main: 'https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1/bus/trip-updates',
     also: { tram: 'https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1/tram/trip-updates' },
@@ -73,6 +80,42 @@ const FEEDS = {
     tripRoute: { main: { numbers: '/melbourne/routes/data/route_numbers.json', mode: 'bus' } },
   },
 };
+// Chicago's two APIs (the "provider" of a city with no GTFS-realtime feed): the arrivals at the stops asked for.
+async function cta({ stops, rapid, env, ttl }) {
+  const get = async u => {
+    const r = await fetch(u, { cf: { cacheTtlByStatus: { '200-299': ttl, '400-599': 30 }, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)' } });
+    if (!r.ok) throw new Error('cta ' + r.status);
+    return r.json();
+  };
+  const out = Object.fromEntries(stops.map(s => [s, []]));
+  const rail = stops.filter(s => /^30\d{3}$/.test(s)), bus = stops.filter(s => !/^30\d{3}$/.test(s));
+  const calls = [];
+  if (bus.length && env.CTA_BUS_KEY)
+    for (let i = 0; i < bus.length; i += 10)
+      calls.push(get(`https://www.ctabustracker.com/bustime/api/v3/getpredictions?key=${encodeURIComponent(env.CTA_BUS_KEY)}&stpid=${bus.slice(i, i + 10).join(',')}&unixTime=true&format=json`)
+        .then(j => { for (const p of (j['bustime-response'] || {}).prd || [])
+          if (out[p.stpid]) out[p.stpid].push([p.rt, 0, Math.round(Number(p.prdtm) / 1000), 1]); }));
+  if (rail.length && rapid && env.CTA_TRAIN_KEY)
+    for (const s of rail)
+      calls.push(get(`https://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=${encodeURIComponent(env.CTA_TRAIN_KEY)}&stpid=${s}&outputType=JSON`)
+        .then(j => { for (const e of (j.ctatt || {}).eta || [])
+          if (out[e.stpId]) out[e.stpId].push([e.rt, 0, chicago(e.arrT), e.isSch === '1' ? 0 : 1]); }));
+  const done = await Promise.allSettled(calls);
+  if (calls.length && done.every(d => d.status === 'rejected')) return null;
+  return out;
+}
+
+// "2026-11-14T20:23:53", Chicago's clock (Train Tracker), as epoch seconds.
+export function chicago(t) {
+  const asUtc = Date.parse(t + 'Z');
+  if (isNaN(asUtc)) return 0;
+  const f = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hourCycle: 'h23', year: 'numeric', month: '2-digit',
+    day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).formatToParts(new Date(asUtc));
+  const v = Object.fromEntries(f.map(p => [p.type, p.value]));
+  const shown = Date.UTC(+v.year, +v.month - 1, +v.day, +v.hour, +v.minute, +v.second);
+  return Math.round((asUtc - (shown - asUtc)) / 1000);   // the offset at that moment (close enough across a DST change)
+}
+
 const FEED_TTL = 20;      // seconds a feed is cached at the edge, unless it sets its own ttl
 const MAX_STOPS = 24;
 const AHEAD = 90 * 60;    // keep arrivals up to 90 minutes out
@@ -100,6 +143,15 @@ export async function onRequestGet({ request, env }) {
   if (hit) return hit;
 
   const ttl = feeds.ttl || FEED_TTL;
+  if (feeds.provider) {
+    const now = Math.floor(Date.now() / 1000);
+    const got = await feeds.provider({ stops, rapid: url.searchParams.get('rapid') === '1', env: env || {}, ttl });
+    if (!got) return json({ error: 'The live feed is not responding right now.' }, 503, 10);
+    for (const k of Object.keys(got)) got[k] = got[k].filter(x => x[2] >= now - 60 && x[2] <= now + AHEAD).sort((a, b) => a[2] - b[2]).slice(0, PER_STOP);
+    const res = json({ now, asof: now, stops: got }, 200, 15);
+    await cache.put(key, res.clone());
+    return res;
+  }
   // A feed's last good copy, for a feed that sets "keep" (seconds), under a key of its own that names no secret.
   const keepKey = which => new Request(`${url.origin}/api/arrivals/__feed/${city}/${which}`);
   const get = async which => {

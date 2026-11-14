@@ -149,6 +149,8 @@ jobs:
           FIVE11_KEY: ${{ secrets.FIVE11_KEY }}
           MTA_BUSTIME_KEY: ${{ secrets.MTA_BUSTIME_KEY }}
           PTV_GTFSR_KEY: ${{ secrets.PTV_GTFSR_KEY }}
+          CTA_BUS_KEY: ${{ secrets.CTA_BUS_KEY }}
+          CTA_TRAIN_KEY: ${{ secrets.CTA_TRAIN_KEY }}
         run: |
           W="npx --yes wrangler@4"
           msg="$(git log -1 --format=%s | cut -c1-100)"
@@ -164,7 +166,7 @@ jobs:
           HAVE="$have" python3 -c "
           import json, os
           have = {s.get('name') for s in json.loads(os.environ['HAVE'] or '[]')}
-          new = {k: os.environ[k] for k in ('FIVE11_KEY', 'MTA_BUSTIME_KEY', 'PTV_GTFSR_KEY') if os.environ.get(k) and k not in have}
+          new = {k: os.environ[k] for k in ('FIVE11_KEY', 'MTA_BUSTIME_KEY', 'PTV_GTFSR_KEY', 'CTA_BUS_KEY', 'CTA_TRAIN_KEY') if os.environ.get(k) and k not in have}
           json.dump(new, open('/tmp/secrets.json', 'w'))
           print('Secrets to add:', ', '.join(new) or 'none')"
           if [ "$(cat /tmp/secrets.json)" != "{}" ]; then $W secret bulk /tmp/secrets.json; fi
