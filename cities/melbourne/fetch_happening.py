@@ -200,23 +200,58 @@ places = json.load(open(PLACES)) if os.path.exists(PLACES) else {}
 vic = None
 
 
+# Street words as Vicmap spells them, for the shortened ones What's On uses.
+ROADS = {'st': 'Street', 'ln': 'Lane', 'rd': 'Road', 'ave': 'Avenue', 'av': 'Avenue', 'pl': 'Place', 'prom': 'Promenade',
+         'dr': 'Drive', 'pde': 'Parade', 'tce': 'Terrace', 'cres': 'Crescent', 'blvd': 'Boulevard', 'esp': 'Esplanade',
+         'hwy': 'Highway', 'sq': 'Square'}
+ROAD_WORDS = r'(?:St|Street|Ln|Lane|Rd|Road|Ave|Av|Avenue|Pl|Place|Prom|Promenade|Dr|Drive|Pde|Parade|Tce|Terrace|Cres|Crescent|Blvd|Boulevard|Esp|Esplanade|Hwy|Highway|Alley|Arcade|Walk|Way|Square|Sq)'
+
+
+def street_line(street):
+    """'Rm 5 Level 8/37 Swanston St' -> '37 Swanston Street'; 'Swanston St & Flinders St' -> 'corner of ...'; a street
+    with no number stays a street ('Flinders Ln' -> 'Flinders Lane'); None when no street is in it."""
+    t = street.replace('&amp;', '&')
+    if '&' in t or ' and ' in t:
+        a, b = re.split(r'\s*(?:&|\band\b)\s*', t, 1)
+        a, b = street_line(a), street_line(b)
+        return f'corner of {a} and {b}' if a and b and not a.startswith('corner') else None
+    t = re.sub(r'\bS(?= [A-Z][a-z])', 'South', re.sub(r'\bN(?= [A-Z][a-z])', 'North', t))
+    name = r"((?:[A-Za-z'./]+\s+)*?[A-Za-z'./]+)\s+(" + ROAD_WORDS + r")\b"
+    m = re.search(r"(?:^|[\s/,])(\d+[A-Za-z]?(?:-\d+[A-Za-z]?)?)\s+" + name, t)
+    if m: return f"{m.group(1)} {m.group(2)} {ROADS.get(m.group(3).lower(), m.group(3))}"
+    m = re.search(name, t.split(',')[-1].strip() or t.split(',')[0])
+    return f"{m.group(1)} {ROADS.get(m.group(2).lower(), m.group(2))}" if m else None
+
+
+# Places What's On names with no street (its address is just "Melbourne"), as a street line Vicmap can place.
+NAMED = {'city square': 'corner of Swanston Street and Collins Street'}
+
+
+def known(*names):
+    for n in names:
+        k = norm(n)
+        if not k: continue
+        if k in KNOWN: return KNOWN[k]
+        hit = max((x for x in KNOWN if len(x) >= 8 and (k.startswith(x + ' ') or k == x)), key=len, default=None)
+        if hit: return KNOWN[hit]
+    return None
+
+
 def place_of(it):
     if it['online']: return None
     k = '|'.join(str(it.get(x) or '') for x in ('venue', 'street', 'locality', 'pc'))
-    if k in places: return places[k]
-    got = None
-    for n in (it['venue'], (it['venue'] or '').split(',')[0], (it['venue'] or '').split(' (')[0]):
-        if n and norm(n) in KNOWN:
-            got = [round(KNOWN[norm(n)][0], 6), round(KNOWN[norm(n)][1], 6), 'known']; break
-    if not got and it['street']:
+    if places.get(k): return places[k]
+    v, st = it['venue'] or '', it['street'] or ''
+    got = known(v, v.split(',')[0], v.split(' (')[0], re.split(r'\s+[-–]\s+', v)[0], st.split(',')[0])
+    if got: got = [round(got[0], 6), round(got[1], 6), 'known']
+    line = NAMED.get(norm(v)) or (street_line(st) if st else None)
+    if not got and line:
         global vic
         try:
             from fetch_voting import address_layer, place
             if vic is None: vic = address_layer()[0]
-            line = re.sub(r'\s*&\s*', ' and ', it['street'])
-            line = ('corner of ' + line) if ' and ' in line and not re.match(r'\d', line) else line
-            line = re.sub(r'^(?:level|shop|suite|unit|ground floor)[^,]*,\s*', '', line, flags=re.I)
-            got = place(vic, line, it['locality'] or 'Melbourne', it['pc'] or '')
+            loc = it['locality'] if it['locality'] and it['locality'] != 'Victoria' else 'Melbourne'
+            got = place(vic, line, loc, it['pc'] or '')
         except Exception as ex:
             print('  vicmap', k, ex)
             return None          # try again tomorrow
@@ -255,9 +290,10 @@ print(f'pages: {fetched} fetched, {len(items)} kept')
 CATS = [('Festival', 'Festival'), ('Music', 'Music'), ('Theatre', 'Theatre'), ('Comedy', 'Comedy'), ('Dance', 'Dance'),
         ('Cabaret', 'Theatre'), ('Film', 'Film'), ('Exhibition', 'Exhibition'), ('Art', 'Art'), ('Design', 'Art'),
         ('Market', 'Market'), ('Talks and workshops', 'Talk or workshop'), ('Workshop', 'Talk or workshop'),
-        ('Learning', 'Talk or workshop'), ('Tour', 'Tour'), ('Sport', 'Sport'), ('Fitness', 'Sport'),
+        ('Learning', 'Talk or workshop'), ('Talk', 'Talk or workshop'), ('Tour', 'Tour'), ('Tours and cruises', 'Tour'),
+        ('Walking tour', 'Tour'), ('Cruise', 'Tour'), ('Sport', 'Sport'), ('Fitness', 'Sport'),
         ('Food and drink', 'Food and drink'), ('Family and kids', 'Family and kids'), ('Community', 'Community'),
-        ('Wellbeing', 'Community'), ('Nightlife', 'Nightlife'), ('Entertainment', 'Entertainment')]
+        ('Wellbeing', 'Community'), ('Activity', 'Community'), ('Nightlife', 'Nightlife'), ('Entertainment', 'Entertainment')]
 
 events = []
 for url, it in items.items():

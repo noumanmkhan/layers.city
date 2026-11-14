@@ -9,13 +9,14 @@ name: Fetch events
 #   Dallas: Dallas Park and Recreation's calendars (iCal; non-commercial terms, NONCOMMERCIAL.md).
 #   Vancouver: the City's calendar of events (Trumba feed; non-commercial terms), card only, no Events page.
 #   Melbourne: What's On Melbourne (the City's listings, via its MCP server and each event's page; non-commercial terms).
-# Early in the morning in both cities, so "today" is the new day. Each city on its own, so one failing keeps the
+# Early in the morning in each city (Melbourne has its own cron), so "today" is the new day. Each city on its own, so one failing keeps the
 # others' update (and yesterday's file stays up). Scheduled runs only run from the copy of this file on main;
 # deploy.yml lists this workflow, so a run that commits goes live. (Was "Fetch Toronto events" until Nov 7, 2026.)
 on:
   workflow_dispatch:
   schedule:
     - cron: '37 9 * * *'        # 05:37 Toronto / 04:37 Chicago in summer, an hour earlier in winter
+    - cron: '7 18 * * *'        # Melbourne only: 05:07 there in summer (AEDT), 04:07 in winter
   push:
     branches: [main]
     paths: ['cities/*/fetch_happening.py', '.github/workflows/fetch-happening.yml']
@@ -34,6 +35,9 @@ jobs:
       - run: |
           for f in cities/*/fetch_happening.py; do
             c=$(basename $(dirname $f))
+            # The Melbourne cron runs Melbourne alone; the other runs everyone else (and Melbourne on a push or by hand).
+            if [ "${{ github.event.schedule }}" = "7 18 * * *" ] && [ "$c" != melbourne ]; then continue; fi
+            if [ "${{ github.event.schedule }}" = "37 9 * * *" ] && [ "$c" = melbourne ]; then continue; fi
             mkdir -p cities/$c/raw
             python3 -u $f 2>&1 | tee cities/$c/raw/fetch_happening.log || echo "::warning::$c events failed; yesterday's file stays up"
           done
