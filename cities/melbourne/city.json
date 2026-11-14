@@ -92,7 +92,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Suburbs, councils & 2021 Census: Australian Bureau of Statistics (CC BY 4.0) · Trains, trams & V/Line: Transport Victoria GTFS (CC BY 4.0) · Streets, freeways, places & landmarks: © OpenStreetMap contributors (ODbL)",
+ "attribution": "Suburbs, councils & 2021 Census: Australian Bureau of Statistics (CC BY 4.0) · Trains, trams, V/Line & buses: Transport Victoria GTFS (CC BY 4.0) · State districts & addresses: Vicmap (CC BY 4.0) · Federal divisions: Australian Electoral Commission (CC BY 4.0) · Voting centres: Victorian Electoral Commission (CC BY 4.0) · Schools: Victorian Department of Education (CC BY 4.0) · Heritage places: Heritage Council of Victoria (CC BY 4.0) · New development, car parks, playgrounds & toilets: City of Melbourne Open Data (CC BY 4.0) · Events: What’s On Melbourne, © City of Melbourne (non-commercial use) · Skyscrapers: Wikipedia (CC BY-SA) · Streets, freeways, parks, places & landmarks: © OpenStreetMap contributors (ODbL)",
  "example": {
   "at": [
    -37.8183,
@@ -1375,7 +1375,21 @@
     ]
    ],
    "note": "Straight-line distances; 800 m is about a 10-minute walk. Libraries, community centres and the ERs layer, parks and playgrounds, schools from the Department of Education (the nearest school is not always the government school a home is zoned for). Places of worship show while their layer is on.",
-   "sources": "Sources: City of Melbourne (playgrounds), Department of Education (schools), OpenStreetMap (libraries, community centres, hospitals, parks, courts, places of worship)."
+   "sources": "Sources: City of Melbourne (playgrounds), Department of Education (schools), OpenStreetMap (libraries, community centres, hospitals, parks, courts, places of worship).",
+   "happening": {
+    "file": "happening.json",
+    "radius": 800,
+    "max": 3,
+    "days": 14,
+    "title": "Happening nearby",
+    "today": "Today",
+    "free": "Free",
+    "all": {
+     "label": "See all events",
+     "href": "/melbourne/events/"
+    },
+    "source": "Events from What’s On Melbourne, © City of Melbourne."
+   }
   },
   "address": {
    "label": "Address",

@@ -1,0 +1,17 @@
+{
+  "_about": "The Events page at /melbourne/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the suburb filter and card outline come from. 'words' are the page's own text; the engine names no city or source. What's On Melbourne lists only events inside the City of Melbourne.",
+  "file": "events.json",
+  "units": "suburbs",
+  "words": {
+    "title": "What’s on in Melbourne",
+    "intro": "Every event in the City of Melbourne’s own What’s On listings for the next 30 days: festivals, markets, music, theatre, exhibitions, library programs, talks and more, in the CBD and the City’s suburbs.",
+    "listing": "A listing, not a guide: the facts and a link to each event’s page on What’s On Melbourne, nothing else.",
+    "desc": "What’s on in the City of Melbourne today, this weekend and over the next 30 days, from the City’s What’s On Melbourne listings, with free events marked.",
+    "card": "Today, this weekend, the next 30 days",
+    "hub": "What’s on: today, this weekend",
+    "hoodLabel": "Suburb",
+    "placeless": "Around the City or online",
+    "sources": {},
+    "source": "Events from What’s On Melbourne, © City of Melbourne, used for a non-commercial site."
+  }
+}

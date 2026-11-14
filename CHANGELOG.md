@@ -57,6 +57,13 @@
   served with the site (`docs/glyphs/`, `engine/glyphs.py`). Leaflet and Leaflet.PolylineOffset are no longer loaded.
 - Fixed on the way: Reset no longer throws in a city without lens filters (Hyderabad).
 
+### Melbourne: Events (November 14)
+- /melbourne/events/ and Happening nearby on the card, from What's On Melbourne, the City of Melbourne's own event
+  listings: about 560 events over the next 30 days, with times, places, Free and a category, each linking to its
+  page there. The list comes from the site's public MCP server, the details from each event's page (cached, fetched
+  again when its dates change or every three days). Non-commercial terms, so it's in NONCOMMERCIAL.md and marked on
+  the Attributions page. The hub row now shows Events; Melbourne's map credit line names all its sources.
+
 ### Melbourne joins the hub (November 13)
 - Melbourne, the first city outside North America, is listed: a row in the hub's city table and a tab on phones
   (map, Guide, fact sheets, transit, venues; events and fun maps still to come), its outline on the hub, a place

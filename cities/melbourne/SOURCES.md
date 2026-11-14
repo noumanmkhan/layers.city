@@ -24,6 +24,7 @@ the project's claude/australia-scouting.md.
 | Public car parks | City of Melbourne, Off-street car parks with capacity and type (2024 census year, Commercial) | CC BY 4.0 | `parking.py` |
 | Heritage buildings | Heritage Council of Victoria, Victorian Heritage Database API (Victorian Heritage Register places) | CC BY 4.0 | `heritage.py` |
 | Transit under construction (Suburban Rail Loop East) | OpenStreetMap via Overpass (`fetch_more.py` step construction); facts from bigbuild.vic.gov.au in our own words | ODbL | `construction.py` |
+| Events page and Happening nearby | What's On Melbourne (whatson.melbourne.vic.gov.au): its public MCP server (search_tool, sub-category events) and each event's page (sessions table, schema.org Event, meta tags) | © City of Melbourne; non-commercial reuse only (NONCOMMERCIAL.md) | `fetch_happening.py` |
 | Address row | Vicmap Address (`fetch_addresses.py`) | CC BY 4.0 | `addresses.py` |
 | Where to vote (state election, November 28, 2026): early and election day voting centres | Victorian Electoral Commission, venues spreadsheet linked from vec.vic.gov.au/voting/2026-state-election/voting-locations (daily, `fetch-melbourne-voting.yml`) | CC BY 4.0 (© Victorian Electoral Commission) | `fetch_voting.py`, `voting.py` |
 | Where each voting centre is | Vicmap Address, via the Vicmap open data WFS (each venue's address looked up; kept in `raw/voting/sites.json`) | CC BY 4.0 | `fetch_voting.py` |
