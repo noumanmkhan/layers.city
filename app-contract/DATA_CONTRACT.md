@@ -20,6 +20,9 @@
 > Festivals & Events Calendar for "Happening nearby" (section 16). Additive; schema stays 2.
 > **November 3, 2026, later, on dev:** `happening.json` also carries Toronto Public Library branch programs: `src`
 > on each event (`city` or `library`) and `sources` on the file. Additive.
+> **November 14, 2026:** a live arrival may have a fifth element, `next`: the stop its vehicle reaches next, for
+> "about 3 stops away" and a dot on the route (section 15, "Where the next one is"). Additive: arrays of four
+> still come for scheduled arrivals.
 
 This is everything an app needs to rebuild the map's "What's here" card from the published
 data, without reading the website's code. The website (this repo) is the only producer; an app is
@@ -1027,7 +1030,7 @@ data and refresh it with the rest; fetch route files when a route is opened and 
 
 ```
 {now: 1793123589, asof: 1793123574,
- stops: {"8344": [[route, dir, epoch_s, live], …], …}}       sorted by time, up to 90 minutes ahead
+ stops: {"8344": [[route, dir, epoch_s, live, next?], …], …}}   sorted by time, up to 90 minutes ahead
 ```
 
 - San Francisco's answers can be up to 15 minutes old when 511.org turns a request away (it allows 60 an hour):
@@ -1042,6 +1045,28 @@ data and refresh it with the rest; fetch route files when a route is opened and 
 - The request carries only stop ids; nothing about the caller is kept. Nearby stop ids do say roughly where the
   phone is: ask only while the list or a widget is showing, and say so in the app's privacy notes.
 - On an error (503) or no network, show no times rather than old ones as if new.
+- Read the first four elements by position and ignore any more: arrays may grow.
+
+#### Where the next one is: `next`
+
+A live arrival (`live` 1) may carry a fifth element, `next`: the stop id its vehicle reaches next, the first stop
+still ahead of it in the agency's trip update. It is the stop asked about when the vehicle is about to get there.
+Same id space as `stops.json` and the route files' `patterns[].stops` (for subway and LRT, platform ids). It comes
+with live arrivals in every city that has them (none for Lines 5 and 6 or the timetable-only cities), missing on
+scheduled arrivals and wherever the feed doesn't say. A feed's id that isn't in the pattern is handled by the rule
+below.
+
+- Use it for the first live arrival of the row only. In the route file, take the pattern the rider is on (the one
+  the row describes) and find `next` in its `stops`, at or before the rider's stop. Stops away = the pattern's
+  stops from `next` (counted) to the rider's stop (not counted): 0 is "Arriving", 1 "1 stop away". If `next`
+  isn't in the pattern at or before the rider's stop (a short turn, another branch, a detour), show nothing.
+- Words: "About 3 stops away · at <name of next>" (for subway and LRT, "About 3 stations away · approaching
+  <station>"); always "about". `stops.json` and the route file's `stops` give the names.
+- Map: a dot on the pattern's `line` between the stop before `next` and `next` (at 60% of the way, by `d`, so it
+  sits nearer the stop it's heading for), in the route's badge colour. It's where the vehicle probably is, not a
+  GPS position: no heading arrow, no animation.
+- Refresh it with the arrivals, only while the screen showing it is open (no faster than every 30 s). Past 5
+  minutes since `asof` (as above) drop `next` with the live styling.
 
 ### Scheduled times: `sched/{bucket}.json`
 
