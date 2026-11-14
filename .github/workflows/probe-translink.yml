@@ -1,0 +1,40 @@
+name: Probe TransLink (temporary)
+on:
+  push:
+    branches: [probe-translink]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q gtfs-realtime-bindings
+      - env:
+          K: ${{ secrets.TRANSLINK_KEY }}
+        run: |
+          exec > >(sed "s/$K/KEY/g" | tee probe.txt) 2>&1
+          [ -n "$K" ] || { echo "no key"; exit 0; }
+          curl -sS -m 60 -D h.txt -o tu.pb "https://gtfsapi.translink.ca/v3/gtfsrealtime?apikey=$K"; head -1 h.txt; grep -i "content-type\|cache" h.txt; ls -l tu.pb
+          curl -sS -m 60 -o vp.pb -w "positions %{http_code} %{size_download}\n" "https://gtfsapi.translink.ca/v3/gtfsposition?apikey=$K"
+          python3 - <<'PY'
+          from google.transit import gtfs_realtime_pb2 as g
+          import collections, time, json
+          d = json.load(open('docs/vancouver/routes/data/stops.json'))
+          ours = {s[0] for s in d['stops']}; routes = set(d['routes']); plat = {s[0] for s in d['stops'] if s[-1] == 1}
+          m = g.FeedMessage(); m.ParseFromString(open('tu.pb', 'rb').read())
+          tu = [e.trip_update for e in m.entity if e.HasField('trip_update')]
+          st = [s.stop_id for t in tu for s in t.stop_time_update]
+          rid = collections.Counter(t.trip.route_id for t in tu)
+          print('age', int(time.time()) - m.header.timestamp, 'trip updates', len(tu), 'with vehicle', sum(1 for t in tu if t.vehicle.id))
+          print('route ids', rid.most_common(10)); print('route ids in ours', sum(1 for r in rid if r in routes), 'of', len(rid))
+          print('missing routes', [r for r in rid if r not in routes][:20])
+          print('stops in ours', len(set(st) & ours), 'of', len(set(st)), '; platforms seen', len(set(st) & plat), 'of', len(plat))
+          print('skytrain trips', sum(1 for t in tu if t.trip.route_id in ('30053', '13686', '30052')))
+          print('times', [(s.arrival.time, s.departure.time, s.schedule_relationship) for t in tu[:1] for s in t.stop_time_update][:4])
+          print('trip sample', tu[0].trip if tu else None, 'dirs', collections.Counter(t.trip.direction_id for t in tu))
+          PY
+          node -e "import('./functions/api/arrivals.js').then(m=>{const b=new Uint8Array(require('fs').readFileSync('tu.pb'));const now=Math.floor(Date.now()/1000);let t0=performance.now();for(let i=0;i<10;i++)m.scan(b,['8039','12036'],now);console.log('scan ms',((performance.now()-t0)/10).toFixed(2));console.log(JSON.stringify(m.scan(b,['8039','8040','12036','985'],now).stops).slice(0,600))})" 2>&1 | grep -v Warn
+      - run: |
+          git config user.name probe; git config user.email probe@users.noreply.github.com
+          git add -f probe.txt && git commit -qm "probe output" && git push -q
