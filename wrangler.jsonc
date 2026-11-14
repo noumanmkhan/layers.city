@@ -1,0 +1,22 @@
+// The site as a Cloudflare Worker with static assets (the move from Pages: the project's claude/pages-to-workers.md).
+// .github/workflows/deploy.yml publishes it: main with `wrangler deploy`, any other branch as a preview version
+// (`wrangler versions upload --preview-alias <branch>`, at https://<branch>-layers-city.<account>.workers.dev).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "layers-city",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    "directory": "./docs",
+    "binding": "ASSETS",
+    // As on Pages: /about serves /about/index.html at /about/, and a missing page gets the nearest 404.html.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    // Only the API runs the Worker; every other request is a static file, served free.
+    "run_worker_first": ["/api/*"]
+  }
+  // Secrets (set by deploy.yml from the repo's secrets, never in this file): FIVE11_KEY (San Francisco's Muni
+  // times from 511.org), MTA_BUSTIME_KEY (New York's bus times). No logs or observability: the API keeps nothing.
+}
