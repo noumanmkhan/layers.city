@@ -501,7 +501,7 @@ for r in routes:
             if gap <= 150 and (best is None or q['trips'] > best['trips']): best = q
         if best: p['next'] = best['k']
     doc = {'r': mt['r'], 'n': mt['n'], 'm': r['mode'], 'f': mt.get('f', []), 'h': mt.get('h'),
-           'stops': {sid: stops[sid][1] for p in pats for _, sid in p['stops']},
+           'stops': {sid: re.sub(CFG.get('toStrip') or r'(?!x)x', '', stops[sid][1]).strip() for p in pats for _, sid in p['stops']},
            'patterns': pats}
     json.dump(doc, open(os.path.join(OUT, 'data', 'r', rid + '.json'), 'w'), separators=(',', ':'), ensure_ascii=False)
     # For the list of stops near someone: each pattern's direction, end, length, share of trips, the regions it
