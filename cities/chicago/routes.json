@@ -1,5 +1,10 @@
 {
  "_about": "Settings for Chicago's Routes page (engine/routes/: build.py, page.html), at /chicago/routes/: pick a stop or 'L' platform near you, see where each CTA bus and 'L' line from it goes. The 'L' lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their platforms in order; Metra stations count as connections too. The CTA publishes no GTFS-realtime feed (its Bus and Train Tracker APIs need a key and their own terms), so the page shows scheduled departures, not live times.",
+ "live": {
+  "api": "/api/arrivals?city=chicago",
+  "source": "CTA Bus Tracker and Train Tracker"
+ },
+ "_live": "Live next arrivals (November 14, 2026) from the CTA's Bus Tracker and Train Tracker APIs (functions/api/arrivals.js 'provider', keys CTA_BUS_KEY and CTA_TRAIN_KEY; the CTA's Developer License Agreement asks for credit, kept on the Attributions page). Bus Tracker predicts about the next half hour; later and idle routes show the timetable's next departure.",
  "modes": [
   "bus",
   "subway"
