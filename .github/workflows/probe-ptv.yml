@@ -1,0 +1,52 @@
+name: Probe PTV (temporary)
+on:
+  push:
+    branches: [probe-ptv]
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install -q gtfs-realtime-bindings
+      - env:
+          K: ${{ secrets.PTV_GTFSR_KEY }}
+        run: |
+          exec > >(sed "s/$K/KEY/g" | tee probe.txt) 2>&1
+          [ -n "$K" ] || { echo "no key"; exit 0; }
+          B=https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1
+          for f in metro tram bus vline; do
+            curl -sS -m 60 -D h_$f.txt -o $f.pb -H "KeyID: $K" "$B/$f/trip-updates"; echo "$f: $(head -1 h_$f.txt) $(stat -c %s $f.pb) bytes"
+            grep -i "content-type\|cache\|ratelimit\|retry" h_$f.txt
+          done
+          curl -sS -m 60 -o vp_bus.pb -w "bus vehicle-positions %{http_code} %{size_download}\n" -H "KeyID: $K" "$B/bus/vehicle-positions"
+          curl -sS -m 60 -o vp_tram.pb -w "tram vehicle-positions %{http_code} %{size_download}\n" -H "KeyID: $K" "$B/tram/vehicle-positions"
+          python3 - <<'PY'
+          from google.transit import gtfs_realtime_pb2 as g
+          import collections, time, json
+          d = json.load(open('docs/melbourne/routes/data/stops.json'))
+          ours = {s[0] for s in d['stops']}; routes = set(d['routes'])
+          for f in ['metro', 'tram', 'bus', 'vline']:
+              m = g.FeedMessage()
+              try: m.ParseFromString(open(f + '.pb', 'rb').read())
+              except Exception as e: print(f, 'parse error', e, open(f + '.pb', 'rb').read()[:200]); continue
+              tu = [e.trip_update for e in m.entity if e.HasField('trip_update')]
+              st = [s.stop_id for t in tu for s in t.stop_time_update]
+              rid = collections.Counter(t.trip.route_id for t in tu)
+              print('\n==', f, 'age', int(time.time()) - m.header.timestamp, 'trip updates', len(tu), 'with vehicle', sum(1 for t in tu if t.vehicle.id))
+              print('route ids', rid.most_common(12))
+              print('route ids in our routes', sum(1 for r in rid if r in routes), 'of', len(rid))
+              print('stop ids sample', st[:12])
+              print('stop ids in our stops', len(set(st) & ours), 'of', len(set(st)))
+              print('times', [(s.arrival.time, s.departure.time, s.schedule_relationship) for t in tu[:1] for s in t.stop_time_update][:4])
+              print('trip sample', tu[0].trip if tu else None)
+          print('\nour route ids sample', list(routes)[:15])
+          print('our stop sample', [s[:2] for s in d['stops'] if 'Flinders Street' in s[1]][:8])
+          PY
+          node -e "
+          import('./functions/api/arrivals.js').then(m=>{for (const f of ['metro','tram','bus']) {const b=new Uint8Array(require('fs').readFileSync(f+'.pb'));const now=Math.floor(Date.now()/1000);
+          let t0=performance.now();for(let i=0;i<10;i++)m.scan(b,['19499','17850'],now);console.log(f,'scan ms',((performance.now()-t0)/10).toFixed(2));}})"
+      - run: |
+          git config user.name probe; git config user.email probe@users.noreply.github.com
+          git add -f probe.txt && git commit -qm "probe output" && git push -q
