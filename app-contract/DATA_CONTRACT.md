@@ -852,8 +852,10 @@ is one the app knows; keep bundled cities working offline.
 
 ## 14. The weekend brief
 
-`weekend.json` (Toronto and New York as of October 21, 2026; a city without it has no brief: hide the Weekend
-tab's content and its notification). Built daily by `engine/weekend.py` in *Fetch transit closures* and
+`weekend.json` (Toronto and New York as of October 21, 2026; since then also San Francisco, Chicago and Dallas, and
+from November 14 Vancouver and Melbourne, with `sources` `["venues"]` only; a city without it has no brief: hide the Weekend
+tab's content and its notification). The weekend is in the city's own time zone (`tz`), so Melbourne's runs Friday
+5 p.m. to Sunday midnight Melbourne time. Built daily by `engine/weekend.py` in *Fetch transit closures* and
 *Refresh venues*, so it always describes the next weekend: the coming one from Monday to Thursday, the current
 one from Friday to Sunday.
 

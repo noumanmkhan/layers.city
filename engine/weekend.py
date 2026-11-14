@@ -38,7 +38,8 @@ def load(*p):
 
 cfg = json.load(open(os.path.join(CITY, 'city.json'), encoding='utf-8'))
 tz_name = next((l.get('tz') for _, ls in cfg.get('groups', []) for l in ls if l.get('tz')), None) \
-    or (cfg.get('card', {}).get('pickup') or {}).get('tz')
+    or (cfg.get('card', {}).get('pickup') or {}).get('tz') \
+    or next((v['tz'] for v in cfg.get('card', {}).values() if isinstance(v, dict) and v.get('tz')), None)   # e.g. card.vote
 if not tz_name:
     print('%s: no time zone in city.json; no weekend.json' % city)
     sys.exit(0)
