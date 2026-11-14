@@ -1,28 +1,7 @@
 {
-"fetched": "2026-11-13",
+"fetched": "2026-11-14",
 "source": "https://data.sfgov.org/resource/8x25-yybr.json",
 "permits": [
-{
-"id": "1629321-28500424-0",
-"street": "Mission St",
-"extent": "The Embarcadero to Steuart St",
-"kind": "narrowed",
-"both": true,
-"start": "2026-11-10T05:00",
-"end": "2026-11-13T22:00",
-"who": "MB.DRIVE Assist Pro",
-"desc": "Street closed for the MB.DRIVE Assist Pro.",
-"coords": [
-[
--122.392499,
-37.793769
-],
-[
--122.393181,
-37.79323
-]
-]
-},
 {
 "id": "1429598-28499131-0",
 "street": "Greenwich St",
@@ -150,9 +129,9 @@
 ]
 },
 {
-"id": "1419904-28515209-0",
+"id": "1419904-28491304-0",
 "street": "37th Ave",
-"extent": "Pacheco St to Quintara St",
+"extent": "Ortega St to Pacheco St",
 "kind": "closed",
 "both": true,
 "start": "2026-11-15T06:00",
@@ -161,12 +140,12 @@
 "desc": "Street closed for the Outer Sunset Farmers' Market 2026.",
 "coords": [
 [
--122.4955,
-37.749662
+-122.49563,
+37.751527
 ],
 [
--122.49537,
-37.747794
+-122.4955,
+37.749662
 ]
 ]
 },
@@ -192,9 +171,9 @@
 ]
 },
 {
-"id": "1419904-28491304-0",
+"id": "1419904-28515209-0",
 "street": "37th Ave",
-"extent": "Ortega St to Pacheco St",
+"extent": "Pacheco St to Quintara St",
 "kind": "closed",
 "both": true,
 "start": "2026-11-15T06:00",
@@ -203,33 +182,12 @@
 "desc": "Street closed for the Outer Sunset Farmers' Market 2026.",
 "coords": [
 [
--122.49563,
-37.751527
-],
-[
 -122.4955,
 37.749662
-]
-]
-},
-{
-"id": "1365573-28501819-0",
-"street": "Irving St",
-"extent": "8th Ave to 9th Ave",
-"kind": "narrowed",
-"both": true,
-"start": "2026-11-15T07:00",
-"end": "2026-11-15T15:00",
-"who": "Inner Sunset Farmers' Market",
-"desc": "Street closed for the Inner Sunset Farmers' Market.",
-"coords": [
-[
--122.465245,
-37.764084
 ],
 [
--122.466311,
-37.764037
+-122.49537,
+37.747794
 ]
 ]
 },
@@ -255,6 +213,27 @@
 ]
 },
 {
+"id": "1498354-28499081-0",
+"street": "Clement St",
+"extent": "3rd Ave to Th Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-15T07:00",
+"end": "2026-11-15T15:30",
+"who": "Clement Street Farmers Market",
+"desc": "Street closed for the Clement Street Farmers Market.",
+"coords": [
+[
+-122.461207,
+37.783087
+],
+[
+-122.462279,
+37.783038
+]
+]
+},
+{
 "id": "1498354-28516011-0",
 "street": "Clement St",
 "extent": "2nd Ave to 3rd Ave",
@@ -276,23 +255,23 @@
 ]
 },
 {
-"id": "1498354-28499081-0",
-"street": "Clement St",
-"extent": "3rd Ave to Th Ave",
-"kind": "closed",
+"id": "1365573-28501819-0",
+"street": "Irving St",
+"extent": "8th Ave to 9th Ave",
+"kind": "narrowed",
 "both": true,
 "start": "2026-11-15T07:00",
-"end": "2026-11-15T15:30",
-"who": "Clement Street Farmers Market",
-"desc": "Street closed for the Clement Street Farmers Market.",
+"end": "2026-11-15T15:00",
+"who": "Inner Sunset Farmers' Market",
+"desc": "Street closed for the Inner Sunset Farmers' Market.",
 "coords": [
 [
--122.461207,
-37.783087
+-122.465245,
+37.764084
 ],
 [
--122.462279,
-37.783038
+-122.466311,
+37.764037
 ]
 ]
 },
@@ -406,27 +385,6 @@
 ]
 },
 {
-"id": "1365558-28502747-0",
-"street": "Ofarrell St",
-"extent": "Fillmore St to Steiner St",
-"kind": "closed",
-"both": true,
-"start": "2026-11-21T07:00",
-"end": "2026-11-21T15:00",
-"who": "Fillmore Farmers' Market 2026",
-"desc": "Street closed for the Fillmore Farmers' Market 2026.",
-"coords": [
-[
--122.432706,
-37.783293
-],
-[
--122.43435,
-37.783083
-]
-]
-},
-{
 "id": "1493851-28511951-0",
 "street": "Hayes St",
 "extent": "Gough St to Octavia St",
@@ -448,9 +406,30 @@
 ]
 },
 {
-"id": "1419904-28515444-0",
-"street": "Pacheco St",
-"extent": "Sunset Blvd to 37th Ave",
+"id": "1365558-28502747-0",
+"street": "Ofarrell St",
+"extent": "Fillmore St to Steiner St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-21T07:00",
+"end": "2026-11-21T15:00",
+"who": "Fillmore Farmers' Market 2026",
+"desc": "Street closed for the Fillmore Farmers' Market 2026.",
+"coords": [
+[
+-122.432706,
+37.783293
+],
+[
+-122.43435,
+37.783083
+]
+]
+},
+{
+"id": "1419904-28515210-0",
+"street": "37th Ave",
+"extent": "Pacheco St to Quintara St",
 "kind": "closed",
 "both": true,
 "start": "2026-11-22T06:00",
@@ -459,12 +438,12 @@
 "desc": "Street closed for the Outer Sunset Farmers' Market 2026.",
 "coords": [
 [
--122.494969,
-37.749684
-],
-[
 -122.4955,
 37.749662
+],
+[
+-122.49537,
+37.747794
 ]
 ]
 },
@@ -490,9 +469,9 @@
 ]
 },
 {
-"id": "1419904-28515210-0",
-"street": "37th Ave",
-"extent": "Pacheco St to Quintara St",
+"id": "1419904-28515444-0",
+"street": "Pacheco St",
+"extent": "Sunset Blvd to 37th Ave",
 "kind": "closed",
 "both": true,
 "start": "2026-11-22T06:00",
@@ -501,12 +480,33 @@
 "desc": "Street closed for the Outer Sunset Farmers' Market 2026.",
 "coords": [
 [
--122.4955,
-37.749662
+-122.494969,
+37.749684
 ],
 [
--122.49537,
-37.747794
+-122.4955,
+37.749662
+]
+]
+},
+{
+"id": "1365573-28501820-0",
+"street": "Irving St",
+"extent": "8th Ave to 9th Ave",
+"kind": "narrowed",
+"both": true,
+"start": "2026-11-22T07:00",
+"end": "2026-11-22T15:00",
+"who": "Inner Sunset Farmers' Market",
+"desc": "Street closed for the Inner Sunset Farmers' Market.",
+"coords": [
+[
+-122.465245,
+37.764084
+],
+[
+-122.466311,
+37.764037
 ]
 ]
 },
@@ -570,27 +570,6 @@
 [
 -122.462279,
 37.783038
-]
-]
-},
-{
-"id": "1365573-28501820-0",
-"street": "Irving St",
-"extent": "8th Ave to 9th Ave",
-"kind": "narrowed",
-"both": true,
-"start": "2026-11-22T07:00",
-"end": "2026-11-22T15:00",
-"who": "Inner Sunset Farmers' Market",
-"desc": "Street closed for the Inner Sunset Farmers' Market.",
-"coords": [
-[
--122.465245,
-37.764084
-],
-[
--122.466311,
-37.764037
 ]
 ]
 },
@@ -717,6 +696,153 @@
 [
 -122.411007,
 37.792762
+]
+]
+},
+{
+"id": "1419904-28515211-0",
+"street": "37th Ave",
+"extent": "Pacheco St to Quintara St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-29T06:00",
+"end": "2026-11-29T16:00",
+"who": "Outer Sunset Farmers' Market 2026",
+"desc": "Street closed for the Outer Sunset Farmers' Market 2026.",
+"coords": [
+[
+-122.4955,
+37.749662
+],
+[
+-122.49537,
+37.747794
+]
+]
+},
+{
+"id": "1419904-28515445-0",
+"street": "Pacheco St",
+"extent": "Sunset Blvd to 37th Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-29T06:00",
+"end": "2026-11-29T16:00",
+"who": "Outer Sunset Farmers' Market 2026",
+"desc": "Street closed for the Outer Sunset Farmers' Market 2026.",
+"coords": [
+[
+-122.494969,
+37.749684
+],
+[
+-122.4955,
+37.749662
+]
+]
+},
+{
+"id": "1419904-28491306-0",
+"street": "37th Ave",
+"extent": "Ortega St to Pacheco St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-29T06:00",
+"end": "2026-11-29T16:00",
+"who": "Outer Sunset Farmers' Market 2026",
+"desc": "Street closed for the Outer Sunset Farmers' Market 2026.",
+"coords": [
+[
+-122.49563,
+37.751527
+],
+[
+-122.4955,
+37.749662
+]
+]
+},
+{
+"id": "1498354-28516013-0",
+"street": "Clement St",
+"extent": "2nd Ave to 3rd Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-29T07:00",
+"end": "2026-11-29T15:30",
+"who": "Clement Street Farmers Market",
+"desc": "Street closed for the Clement Street Farmers Market.",
+"coords": [
+[
+-122.460137,
+37.783136
+],
+[
+-122.461207,
+37.783087
+]
+]
+},
+{
+"id": "1498354-28491916-0",
+"street": "Clement St",
+"extent": "Arguello Blvd to 2nd Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-29T07:00",
+"end": "2026-11-29T15:30",
+"who": "Clement Street Farmers Market",
+"desc": "Street closed for the Clement Street Farmers Market.",
+"coords": [
+[
+-122.458998,
+37.783189
+],
+[
+-122.460137,
+37.783136
+]
+]
+},
+{
+"id": "1498354-28499083-0",
+"street": "Clement St",
+"extent": "3rd Ave to Th Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-29T07:00",
+"end": "2026-11-29T15:30",
+"who": "Clement Street Farmers Market",
+"desc": "Street closed for the Clement Street Farmers Market.",
+"coords": [
+[
+-122.461207,
+37.783087
+],
+[
+-122.462279,
+37.783038
+]
+]
+},
+{
+"id": "1365573-28501821-0",
+"street": "Irving St",
+"extent": "8th Ave to 9th Ave",
+"kind": "narrowed",
+"both": true,
+"start": "2026-11-29T07:00",
+"end": "2026-11-29T15:00",
+"who": "Inner Sunset Farmers' Market",
+"desc": "Street closed for the Inner Sunset Farmers' Market.",
+"coords": [
+[
+-122.465245,
+37.764084
+],
+[
+-122.466311,
+37.764037
 ]
 ]
 }
