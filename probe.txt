@@ -1,0 +1,84 @@
+metro: HTTP/2 200  79918 bytes
+content-type: application/octet-stream
+cache-control: no-store, no-cache
+x-content-type-options: nosniff
+cf-cache-status: DYNAMIC
+tram: HTTP/2 200  70289 bytes
+content-type: application/octet-stream
+cache-control: no-store, no-cache
+x-content-type-options: nosniff
+cf-cache-status: DYNAMIC
+bus: HTTP/2 200  1293606 bytes
+content-type: application/octet-stream
+cache-control: no-store, no-cache
+x-content-type-options: nosniff
+cf-cache-status: DYNAMIC
+vline: HTTP/2 200  10061 bytes
+content-type: application/octet-stream
+cache-control: no-store, no-cache
+x-content-type-options: nosniff
+cf-cache-status: DYNAMIC
+bus vehicle-positions 200 118164
+tram vehicle-positions 200 15687
+
+== metro age 10 trip updates 195 with vehicle 0
+route ids [('aus:vic:vic-02-FKN:', 27), ('aus:vic:vic-02-SUY:', 21), ('aus:vic:vic-02-PKM:', 14), ('aus:vic:vic-02-BEG:', 13), ('aus:vic:vic-02-HBE:', 13), ('aus:vic:vic-02-MDD:', 13), ('aus:vic:vic-02-CGB:', 13), ('aus:vic:vic-02-GWY:', 13), ('aus:vic:vic-02-LIL:', 12), ('aus:vic:vic-02-WER:', 11), ('aus:vic:vic-02-CBE:', 11), ('aus:vic:vic-02-UFD:', 10)]
+route ids in our routes 15 of 15
+stop ids sample ['11217', '26554', '11246', '11123', '11121', '11220', '26502', '12173', '11210', '10923', '22191', '12205']
+stop ids in our stops 440 of 441
+times [(1794633780, 0, 0)]
+trip sample trip_id: "02-FKN--75-T2-4902"
+start_time: "15:07:00"
+start_date: "20261114"
+schedule_relationship: SCHEDULED
+route_id: "aus:vic:vic-02-FKN:"
+
+
+== tram age 9 trip updates 385 with vehicle 0
+route ids [('aus:vic:vic-03-86:', 24), ('aus:vic:vic-03-75:', 21), ('aus:vic:vic-03-58:', 21), ('aus:vic:vic-03-109:', 21), ('aus:vic:vic-03-16:', 20), ('aus:vic:vic-03-19:', 19), ('aus:vic:vic-03-6:', 18), ('aus:vic:vic-03-11:', 18), ('aus:vic:vic-03-12:', 18), ('aus:vic:vic-03-72:', 17), ('aus:vic:vic-03-3:', 17), ('aus:vic:vic-03-70:', 17)]
+route ids in our routes 24 of 24
+stop ids sample ['46874', '20981', '18037', '46874', '4174', '46875', '18725', '20595', '19338', '19696', '4181', '4175']
+stop ids in our stops 503 of 503
+times [(1794633660, 0, 0)]
+trip sample trip_id: "03-86--24-T2-148450729"
+start_time: "14:38:00"
+start_date: "20261114"
+schedule_relationship: SCHEDULED
+route_id: "aus:vic:vic-03-86:"
+
+
+== bus age 9 trip updates 1738 with vehicle 0
+route ids [('vic:18901:_:R:aus', 8), ('vic:33901:_:H:aus', 8), ('vic:18903:_:R:aus', 8), ('vic:14907:_:H:aus', 8), ('vic:14907:_:R:aus', 8), ('vic:17246:_:R:aus', 8), ('vic:35220:_:H:aus', 8), ('vic:35216:_:H:aus', 8), ('vic:35216:_:R:aus', 8), ('vic:35220:_:R:aus', 7), ('vic:21732:_:R:aus', 7), ('vic:35223:_:R:aus', 7)]
+route ids in our routes 0 of 784
+stop ids sample ['47996', '9627', '9626', '9625', '9624', '9623', '9622', '9621', '9620', '9619', '9618', '9617']
+stop ids in our stops 15338 of 17357
+times [(1794637944, 0, 0)]
+trip sample trip_id: "33-901--1-Sat13-901425"
+start_time: "08:12:00"
+start_date: "20261114"
+schedule_relationship: SCHEDULED
+route_id: "vic:33901:_:R:aus"
+
+
+== vline age 9 trip updates 60 with vehicle 0
+route ids [('aus:vic:vic-01-GEL:', 17), ('aus:vic:vic-01-TRN:', 10), ('aus:vic:vic-01-BAT:', 9), ('aus:vic:vic-01-BGO:', 7), ('aus:vic:vic-01-BDE:', 3), ('aus:vic:vic-01-WBL:', 3), ('aus:vic:vic-01-SNH:', 3), ('aus:vic:vic-01-SER:', 3), ('aus:vic:vic-01-ABY:', 1), ('aus:vic:vic-01-SWL:', 1), ('aus:vic:vic-01-MBY:', 1), ('aus:vic:vic-01-ECH:', 1)]
+route ids in our routes 0 of 13
+stop ids sample ['20291', '20043', '22249', '22248', '22247', '22238', '20349', '22257', '20296', '22244', '22240', '20043']
+stop ids in our stops 0 of 51
+times [(1794633732, 0, 0)]
+trip sample trip_id: "01-BDE--4-T2-8465"
+start_time: "12:20:00"
+start_date: "20261114"
+schedule_relationship: SCHEDULED
+route_id: "aus:vic:vic-01-BDE:"
+
+
+our route ids sample ['14-908-aus-1', '28-779-aus-1', '33-901-aus-1', '26-813-aus-1', 'aus:vic:vic-03-82:', '19-677-aus-1', '49-612-aus-1', '60-497-aus-1', '22-693-aus-1', '59-30B-aus-1', '27-787-aus-1', '65-L05-aus-1', '14-200-aus-1', '61-531-aus-1', '29-736-aus-1']
+our stop sample [['19499', 'Flinders Street Station/Swanston St #13'], ['19685', 'Flinders Street Station/Swanston St #13'], ['17850', 'Flinders Street Station/Elizabeth St #1'], ['17877', 'Flinders Street Station/Elizabeth St #1'], ['18175', 'Flinders Street Station/Swanston St #5'], ['18179', 'Flinders Street West/Flinders St #D6'], ['18056', 'Flinders Street West/Flinders St #D6'], ['18090', 'Flinders Street Station/Swanston St #5']]
+(node:2457) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/runner/work/layers.city/layers.city/functions/api/arrivals.js is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /home/runner/work/layers.city/layers.city/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+metro scan ms 4.68
+tram scan ms 1.49
+bus scan ms 6.23
