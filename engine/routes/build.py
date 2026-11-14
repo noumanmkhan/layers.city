@@ -450,7 +450,7 @@ for r in routes:
         last = stops[seq[-1][1]]
         st_end = next(((n, lines) for n, lines, g in stations if g.distance(Point(*m(last[2], last[3]))) < 300), None)
         p = {'k': len(pats), 'dir': sh['dir'], 'trips': sh['trips'], 'share': round(sh['trips'] / total, 2),
-             'head': head, 'km': round(L / 1000, 1), 'to': st_end[0] if st_end else last[1], 'line': coords,
+             'head': head, 'km': round(L / 1000, 1), 'to': st_end[0] if st_end else re.sub(CFG.get('toStrip') or r'(?!x)x', '', last[1]).strip(), 'line': coords,
              'stops': seq}
         p.update(story(line, 110 if r['id'] in rapid_ids else 18))   # a tunnel's drawn line strays further from the street above
         # A route that ends at a station connects there, even when its loop sits a little off the platform.

@@ -129,6 +129,8 @@
    "pm"
   ]
  },
+ "toStrip": "\\s+#\\w+$",
+ "_toStrip": "toStrip: a pattern taken off a route's destination (its last stop's name). Transport Victoria ends tram stop names with the stop number ('Waterfront City/Docklands Dr #D11'): useful on a stop, noise in 'to Waterfront City/Docklands Dr'.",
  "badges": {
   "_about": "Route badge colours for apps, as the web page draws them (factsheet.css): buses orange, trams green, both with white numbers; train lines are named, not lettered, so their bullets are plain dots ('label' empty) in the line group's colour; V/Line a purple pill.",
   "bus": {
