@@ -34,7 +34,9 @@ the landing page, stop and say so; don't change this repo.
   (the repo's only server code; Pages serves it at /api/arrivals and nothing else). It reads the agency's
   GTFS-realtime trip updates through a 20 s edge cache with a hand-written protobuf scan (keep it lean: the free
   plan allows about 10 ms of CPU a request). A city turns it on with `"live": {"api": ...}` in routes.json and
-  a feed URL in the function's FEEDS. Test it on a preview branch first (deploy.yml with `-f branch=<name>`).
+  a feed URL in the function's FEEDS (Melbourne, November 14: bus, tram and metro feeds with the PTV_GTFSR_KEY secret
+  in a KeyID header; its bus route ids come from the trip id via `data/route_numbers.json`, routes.json `live.numbers`).
+  Worker secrets are set by deploy.yml from main only (list them in its "Publish the Worker" step). Test it on a preview branch first (deploy.yml with `-f branch=<name>`).
   Subway and LRT come from `raw/surface/rapid_*.json` (fetch_surface.py, surface.json `rapid`: each shape lists its
   platforms in order); the function reads the subway feed only when the page sends `rapid=1`. The TTC publishes no
   live data for Lines 5 and 6 (routes.json `live.none`): the page shows their frequency. A route that isn't running shows its next

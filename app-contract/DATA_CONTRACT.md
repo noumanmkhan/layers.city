@@ -20,6 +20,8 @@
 > Festivals & Events Calendar for "Happening nearby" (section 16). Additive; schema stays 2.
 > **November 3, 2026, later, on dev:** `happening.json` also carries Toronto Public Library branch programs: `src`
 > on each event (`city` or `library`) and `sources` on the file. Additive.
+> **November 14, 2026, later:** Melbourne has live times (`transit.live`, Transport Victoria): trains, trams and
+> buses. Its feeds carry no vehicles, so every arrival is `live` 1, as in New York. Additive.
 > **November 14, 2026:** a live arrival may have a fifth element, `next`: the stop its vehicle reaches next, for
 > "about 3 stops away" and a dot on the route (section 15, "Where the next one is"). Additive: arrays of four
 > still come for scheduled arrivals.

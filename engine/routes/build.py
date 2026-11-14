@@ -602,6 +602,16 @@ for fd in CFG.get('rapidFeeds', []):
         json.dump({'routes': sorted(set(tr.values())), 'trips': tr}, open(os.path.join(OUT, 'data', fd + '_trips.json'), 'w'), separators=(',', ':'))
         print(f'{fd}_trips.json: {len(tr)} trips')
 
+# A live feed whose route ids aren't the schedule's (Melbourne's buses: routes.json live.numbers, the modes): the route
+# ids by the number riders see, for the arrivals function ("tripRoute"), at data/route_numbers.json.
+_nm = (CFG.get('live') or {}).get('numbers')
+if _nm:
+    nums = {}
+    for rid, v in route_index.items():
+        if v[2] in _nm: nums.setdefault(str(v[0]), []).append(rid)
+    json.dump({'numbers': nums}, open(os.path.join(OUT, 'data', 'route_numbers.json'), 'w'), separators=(',', ':'))
+    print(f'route_numbers.json: {len(nums)} numbers')
+
 # ---- the page ----
 if not os.path.exists(os.path.join(ROOT, 'engine', 'routes', 'page.html')): sys.exit(print(f'{city}: {len(route_index)} routes, {len(out_stops)} stops (no page template yet)'))
 sys.path.insert(0, os.path.join(ROOT, 'engine'))

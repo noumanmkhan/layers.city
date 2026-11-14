@@ -1,5 +1,13 @@
 {
- "_about": "Settings for Melbourne's Routes page (engine/routes/: build.py, page.html), at /melbourne/routes/: pick a tram or bus stop or train platform near you, see where each route and line from it goes. The train lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their platforms in order; V/Line stations count as connections too. Transport Victoria's GTFS-realtime feeds need an API key, so the page shows scheduled departures (surface.json 'sched'), not live times.",
+ "_about": "Settings for Melbourne's Routes page (engine/routes/: build.py, page.html), at /melbourne/routes/: pick a tram or bus stop or train platform near you, see where each route and line from it goes. The train lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their platforms in order; V/Line stations count as connections too. Live times come from Transport Victoria's GTFS-realtime feeds ('live'); routes with none show scheduled departures (surface.json 'sched').",
+ "live": {
+  "api": "/api/arrivals?city=melbourne",
+  "source": "Transport Victoria GTFS Realtime",
+  "numbers": [
+   "bus"
+  ]
+ },
+ "_live": "Live next departures (November 14, 2026) from Transport Victoria's trip updates for metropolitan trains, trams and buses (functions/api/arrivals.js, key PTV_GTFSR_KEY, CC BY 4.0). 'numbers': the bus feed's route ids aren't the schedule's, so build.py writes data/route_numbers.json (route ids by number) for the arrivals function. V/Line has no live times here.",
  "modes": [
   "bus",
   "tram",

@@ -30,6 +30,15 @@
  * the rapid lines at the platforms asked for (&lines=A,C), and only those lines' feeds are read ("rapid" is then a
  * map of feeds and "lineFeed" says which feed carries each line; with no lines given, all are read). The buses'
  * live times come from MTA Bus Time (below), with a key.
+ *
+ * Melbourne: Transport Victoria's trip updates, with the PTV_GTFSR_KEY secret sent in a KeyID header ("headers").
+ * Buses are the main feed (about 1.3 MB) and trams an "also" feed, read with it every time (the page asks about
+ * both kinds of stop without saying which); metropolitan trains are the rapid feed. The feeds carry no vehicle, so
+ * every arrival counts as live ("liveAll"), and they allow 20-27 requests a minute per key, so they're cached 30 s
+ * with the last good copy kept for 5 minutes. The bus feed's route ids ("vic:33901:_:R:aus") aren't the schedule's
+ * ("33-901-aus-1", one per operator of a number): "tripRoute" takes the number from the trip id ("33-901--1-Sat13-…")
+ * and the table of route ids by number that engine/routes/build.py writes, so an arrival carries every id its
+ * number goes by and matches whichever one a stop's row uses.
  */
 const FEEDS = {
   toronto: { main: 'https://gtfsrt.ttc.ca/trips/update?format=binary', rapid: 'https://gtfsrt.ttc.ca/trips/subway?format=binary' },
@@ -55,6 +64,14 @@ const FEEDS = {
         rapid: { bart: 'https://api.bart.gov/gtfsrt/tripupdate.aspx' },
         lineFeed: Object.fromEntries(['Yellow', 'Orange', 'Green', 'Red', 'Blue', 'OAK'].map(l => ['BART-' + l, 'bart'])),
         tripRoutes: { bart: '/sf/routes/data/bart_trips.json' } },
+  melbourne: {
+    main: 'https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1/bus/trip-updates',
+    also: { tram: 'https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1/tram/trip-updates' },
+    rapid: { metro: 'https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1/metro/trip-updates' },
+    headers: env => env.PTV_GTFSR_KEY ? { KeyID: env.PTV_GTFSR_KEY } : null,
+    ttl: 30, keep: 300, liveAll: true, skipMainForRapid: true,
+    tripRoute: { main: { numbers: '/melbourne/routes/data/route_numbers.json', mode: 'bus' } },
+  },
 };
 const FEED_TTL = 20;      // seconds a feed is cached at the edge, unless it sets its own ttl
 const MAX_STOPS = 24;
@@ -86,11 +103,13 @@ export async function onRequestGet({ request, env }) {
   // A feed's last good copy, for a feed that sets "keep" (seconds), under a key of its own that names no secret.
   const keepKey = which => new Request(`${url.origin}/api/arrivals/__feed/${city}/${which}`);
   const get = async which => {
-    const src = which === 'main' || which === 'rapid' ? feeds[which] : feeds.rapid[which];
+    const src = which === 'main' || which === 'rapid' ? feeds[which] : feeds.also && feeds.also[which] || feeds.rapid[which];
     const u = typeof src === 'function' ? src(env || {}) : src;
     try {
       if (!u) throw new Error('no feed address');
-      const r = await fetch(u, { cf: { cacheTtlByStatus: { '200-299': ttl, '400-599': 60 }, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)' } });
+      const auth = feeds.headers ? feeds.headers(env || {}) : {};
+      if (!auth) throw new Error('no key');
+      const r = await fetch(u, { cf: { cacheTtlByStatus: { '200-299': ttl, '400-599': 60 }, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)', ...auth } });
       if (!r.ok) throw new Error('feed ' + r.status);
       const buf = await r.arrayBuffer();
       if (feeds.keep && r.headers.get('cf-cache-status') !== 'HIT')
@@ -104,17 +123,23 @@ export async function onRequestGet({ request, env }) {
   };
   const now = Math.floor(Date.now() / 1000);
   const onlyRapid = rapid && feeds.skipMainForRapid && url.searchParams.get('onlyRapid') === '1';
-  const bufs = await Promise.allSettled([feeds.main && !onlyRapid ? get('main') : Promise.reject('main feed not read'), ...rapidFeeds.map(get)]);
+  const alsoFeeds = feeds.also && !onlyRapid ? Object.keys(feeds.also) : [];
+  const bufs = await Promise.allSettled([feeds.main && !onlyRapid ? get('main') : Promise.reject('main feed not read'), ...alsoFeeds.map(get), ...rapidFeeds.map(get)]);
   if (bufs.every(b => b.status === 'rejected')) return json({ error: 'The live feed is not responding right now.' }, 503, 10);
   const out = { asof: 0, stops: Object.fromEntries(stops.map(s => [s, []])) };
-  const names = ['main', ...rapidFeeds];
+  const names = ['main', ...alsoFeeds, ...rapidFeeds];
   for (let k = 0; k < bufs.length; k++) {
     const b = bufs[k], which = names[k];
     if (b.status !== 'fulfilled') continue;
     // The feed's own stop ids for the ones asked for (511: 1 + the stop_id), and back again.
     const pre = which === 'main' ? feeds.idPrefix || '' : '';
     const feedIds = stops.map(s => pre + s);
-    const trips = feeds.tripRoutes && feeds.tripRoutes[which] ? await tripTable(url.origin + feeds.tripRoutes[which], env) : null;
+    let trips = feeds.tripRoutes && feeds.tripRoutes[which] ? await tripTable(url.origin + feeds.tripRoutes[which], env) : null;
+    const tr = feeds.tripRoute && feeds.tripRoute[which];
+    if (tr) {   // route ids from the trip id's number (Melbourne's buses)
+      const nums = await tripTable(url.origin + tr.numbers, env, 'numbers');
+      trips = nums && ((trip, route) => { const m = /^\d+-([^-]+)-/.exec(trip); return (m && nums[m[1]]) || [route]; });
+    }
     const o = scan(b.value, feedIds, now, b.value.length > 1500000, trips);
     out.asof = Math.max(out.asof, o.asof);
     const back = id => pre && id.startsWith(pre) ? id.slice(pre.length) : id;   // the feed's stop id, as the page writes it
@@ -132,14 +157,14 @@ export async function onRequestGet({ request, env }) {
 // A trip -> route table (engine/routes/build.py writes it next to the Routes page's data), kept in the isolate's
 // memory for an hour: it changes only with the agency's schedule.
 const tables = new Map();
-async function tripTable(u, env) {
+async function tripTable(u, env, field = 'trips') {
   const t = tables.get(u);
   if (t && Date.now() - t.at < 3600e3) return t.trips;
   try {
     const req = new Request(u);
     const r = env && env.ASSETS ? await env.ASSETS.fetch(req) : await fetch(req, { cf: { cacheTtl: 3600 } });
     if (!r.ok) throw new Error('trips ' + r.status);
-    const trips = (await r.json()).trips || {};
+    const trips = (await r.json())[field] || {};
     tables.set(u, { at: Date.now(), trips });
     return trips;
   } catch { return t ? t.trips : null; }
@@ -226,9 +251,12 @@ export function scan(b, stopIds, now, sparse = false, tripRoutes = null) {
       } else skip(wt);
     }
     if (rel === 3 || rel === 7) return;   // CANCELED, DELETED
-    if (!route && tripRoutes) route = tripRoutes[trip] || '';   // a feed that names trips only (BART)
-    const next = hits.length && nextAt >= 0 ? str(nextAt, nextLen) : '';
-    for (const [stop, t] of hits) if (t >= now - 60 && t <= now + AHEAD) stops[stop].push([route, dir, t, live, next]);
+    if (!hits.length) return;
+    // A feed that names trips only (BART: a table), or whose route ids aren't the schedule's (a function -> ids).
+    const routes = typeof tripRoutes === 'function' ? tripRoutes(trip, route)
+      : [!route && tripRoutes ? tripRoutes[trip] || '' : route];
+    const next = nextAt >= 0 ? str(nextAt, nextLen) : '';
+    for (const [stop, t] of hits) if (t >= now - 60 && t <= now + AHEAD) for (const r of routes) stops[stop].push([r, dir, t, live, next]);
   }
 
   function entity(e) {
