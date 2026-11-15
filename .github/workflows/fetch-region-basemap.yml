@@ -11,11 +11,11 @@ on:
         required: true
   push:
     branches: [fetch-region-basemap]
-    paths: ['engine/region/fetch_basemap.py', '.github/workflows/fetch-region-basemap.yml', 'cities/*/region.json']
+    paths: ['engine/region/fetch_basemap.py', 'engine/region/fetch_places.py', '.github/workflows/fetch-region-basemap.yml', 'cities/*/region.json', 'cities/*/fetch_region.py']
 permissions:
   contents: write
 env:
-  CITIES: melbourne
+  CITIES: melbourne chicago
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -30,12 +30,14 @@ jobs:
           for c in ${{ github.event.inputs.city || env.CITIES }}; do
             mkdir -p cities/$c/raw/region_basemap
             python3 -u engine/region/fetch_basemap.py $c 2>&1 | tee cities/$c/raw/region_basemap/fetch.log
+            python3 -u engine/region/fetch_places.py $c 2>&1 | tee -a cities/$c/raw/region_basemap/fetch.log
+            if [ -f cities/$c/fetch_region.py ]; then python3 -u cities/$c/fetch_region.py 2>&1 | tee -a cities/$c/raw/region_basemap/fetch.log; fi
           done
       - if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/*/raw/region_basemap
+          git add cities/*/raw/region_basemap cities/*/raw/region 2>/dev/null || git add cities/*/raw/region_basemap
           git commit -m "Fetch the region basemap (roads, parks, land use) from OpenStreetMap" || echo "no changes"
           git pull --rebase
           git push

@@ -118,12 +118,16 @@ def save(name, items, extra=None):
     print('wrote', name, len(items), round(os.path.getsize(os.path.join(OUT, name + '.json')) / 1e6, 1), 'MB', flush=True)
 
 
+# A rerun keeps files already fetched (REFETCH=1 fetches everything again).
+done = lambda n: os.path.exists(os.path.join(OUT, n + '.json')) and not os.environ.get('REFETCH')
+
 # ---------- roads ----------
-els = fetch('roads', ['way["highway"~"^(trunk|primary|secondary|tertiary)$"]'], *TILES['roads'])
-roads = [{'id': el['id'], 'hw': el['tags']['highway'], 'name': el['tags'].get('name', ''), 'ref': el['tags'].get('ref', ''),
-          'c': [R5((q['lon'], q['lat'])) for q in el['geometry']]}
-         for el in els if el.get('geometry') and len(el['geometry']) > 1]
-save('roads', roads)
+if not done('roads'):
+    els = fetch('roads', ['way["highway"~"^(trunk|primary|secondary|tertiary)$"]'], *TILES['roads'])
+    save('roads', [{'id': el['id'], 'hw': el['tags']['highway'], 'name': el['tags'].get('name', ''), 'ref': el['tags'].get('ref', ''),
+                    'c': [R5((q['lon'], q['lat'])) for q in el['geometry']]}
+                   for el in els if el.get('geometry') and len(el['geometry']) > 1])
+
 
 # ---------- parks ----------
 def park_kind(t):
@@ -132,9 +136,10 @@ def park_kind(t):
     if t.get('leisure') == 'nature_reserve' or t.get('boundary') == 'protected_area':
         return 'reserve'
     return None
-els = fetch('parks', ['way["leisure"~"^(park|nature_reserve)$"]', 'relation["leisure"~"^(park|nature_reserve)$"]',
-                      'way["boundary"="protected_area"]', 'relation["boundary"="protected_area"]'], *TILES['parks'])
-save('parks', polys(els, park_kind, 1500))
+if not done('parks'):
+    els = fetch('parks', ['way["leisure"~"^(park|nature_reserve)$"]', 'relation["leisure"~"^(park|nature_reserve)$"]',
+                          'way["boundary"="protected_area"]', 'relation["boundary"="protected_area"]'], *TILES['parks'])
+    save('parks', polys(els, park_kind, 1500))
 
 # ---------- land use ----------
 LU = {'residential': 'res', 'commercial': 'com', 'retail': 'com', 'industrial': 'ind', 'farmland': 'farm',
@@ -145,6 +150,7 @@ def lu_kind(t):
         return 'wood'
     return LU.get(t.get('landuse'))
 lu_tags = '|'.join(LU)
-els = fetch('landuse', ['way["landuse"~"^(%s)$"]' % lu_tags, 'relation["landuse"~"^(%s)$"]' % lu_tags,
-                        'way["natural"="wood"]', 'relation["natural"="wood"]'], *TILES['landuse'])
-save('landuse', polys(els, lu_kind, 4000))
+if not done('landuse'):
+    els = fetch('landuse', ['way["landuse"~"^(%s)$"]' % lu_tags, 'relation["landuse"~"^(%s)$"]' % lu_tags,
+                            'way["natural"="wood"]', 'relation["natural"="wood"]'], *TILES['landuse'])
+    save('landuse', polys(els, lu_kind, 4000))
