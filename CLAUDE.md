@@ -166,6 +166,14 @@ the landing page, stop and say so; don't change this repo.
   `npm install` at the repo root for mapshaper). After a page-only or config-only
   change, `python3 engine/assemble.py <city>` is enough.
 - An engine change affects every city: rebuild and check each one.
+- **Scheduled jobs are grouped by what they do, not by city** (the user's preference; consolidated November 15, 2026;
+  the project's claude/actions-consolidation.md). `fetch-representatives.yml`, `fetch-voting.yml`, `fetch-parking.yml`,
+  `fetch-fun.yml` and `fetch-places.yml` each cover every city, one step per city with `continue-on-error`, one commit
+  at the end and a last step that fails the run if any city failed (deploy.yml and refresh-fact-sheets.yml still run
+  after a failed run, since the other cities' updates were committed). A new city joins these by adding its step (and
+  its name to the job's city list), not a new workflow file. When the voting-place runs and the daily election-results
+  runs happen comes from `.github/elections.json` (`.github/elections.py`): add each new election there. One-off
+  scouting scripts in `scouting/<folder>/` run through `scout.yml` (add the folder to its push paths).
 - The City of Toronto GIS server (gis.toronto.ca) can't be reached from most sandboxes.
   `.github/workflows/fetch-streets.yml` shows the pattern: fetch it in GitHub Actions and
   commit the raw file. It also rejects bursts of parallel requests, so fetch one layer at a time.
