@@ -2,7 +2,8 @@
 Run from GitHub Actions (fetch-gta-card.yml); the sandbox can't reach these hosts.
 
   ridings_fed.geojson   federal electoral districts (2023 Representation Order) in Ontario, Open North Represent
-  ridings_prov.geojson  Ontario electoral districts (Representation Act 2015, as amended), Open North Represent
+  ridings_prov.geojson  Ontario's provincial ridings in the south of the province: the 2013 federal districts, which the
+                        Representation Act, 2015 adopted (Elections Canada via Open North Represent)
   places.json           OpenStreetMap points in the GTA's box, via Overpass: libraries, community centres, hospitals
                         with an emergency department, playgrounds and named places of worship (with religion and
                         denomination), one [lon, lat, name, extra] per place (areas as their centre)
@@ -32,7 +33,10 @@ def get(url, data=None, tries=6, timeout=300):
 REP = 'https://represent.opennorth.ca'
 for name, path, keep in [
         ('ridings_fed', '/boundaries/federal-electoral-districts-2023-representation-order/', lambda o: str(o.get('external_id', '')).startswith('35')),
-        ('ridings_prov', '/boundaries/ontario-electoral-districts-representation-act-2015/', lambda o: True)]:
+        # Provincial ridings: Ontario's Representation Act, 2015 adopted the federal 2013 boundaries for southern
+        # Ontario, so the GTA's provincial ridings are the 2013 federal districts (Elections Canada, Open Government
+        # Licence – Canada). Elections Ontario's own shapefiles come with a licence that rules out derived products.
+        ('ridings_prov', '/boundaries/federal-electoral-districts-2013-representation-order/', lambda o: str(o.get('external_id', '')).startswith('35'))]:
     objs = json.loads(get(REP + path + '?limit=1000'))['objects']
     objs = [o for o in objs if keep(o)]
     print(name, len(objs), 'districts', flush=True)
