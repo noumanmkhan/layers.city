@@ -4063,8 +4063,9 @@ const MI = 1609.344, FT = 0.3048;
 const dist = CITY.distance === 'mi'
   ? m => m < 0.095 * MI ? (Math.round(m / FT / 50) * 50 || 50) + ' ft' : (m / MI).toFixed(m < 9.95 * MI ? 1 : 0) + ' mi'
   : m => m < 950 ? (Math.round(m / 50) * 50 || 50) + ' m' : (m / 1000).toFixed(m < 9950 ? 1 : 0) + ' km';
-function nearby(x, y){
-  const N = CITY.card.nearby, G = data.nearby && data.nearby.groups; if (!N || !G) return '';
+// Beyond the city (outside: true) the card reads card.outsideNearby and its own file (data.outNearby), if the city has them.
+function nearby(x, y, outside){
+  const N = outside ? CITY.card.outsideNearby : CITY.card.nearby, D = outside ? data.outNearby : data.nearby, G = D && D.groups; if (!N || !G) return '';
   // A row may name a layer as its third item ("layer", or "layer:category" on a multi-category layer):
   // it then shows only while that layer, and that category's chip, is on.
   const rows = N.nearest.map(([key, label, ref]) => {
@@ -4080,7 +4081,7 @@ function nearby(x, y){
     const n = (G[key] || []).filter(p => metres([x, y], p) <= N.radius).length;
     return n + ' ' + (n === 1 ? one : many);
   });
-  return '<div class="live"><dl>' + rows + '<dt>' + esc(N.within) + '</dt><dd>' + esc(counts.join(' · ')) + '</dd></dl>' + happeningHere(x, y) + '<p>' + esc(N.note) + '</p></div>';
+  return '<div class="live"><dl>' + rows + '<dt>' + esc(N.within) + '</dt><dd>' + esc(counts.join(' · ')) + '</dd></dl>' + (outside ? '' : happeningHere(x, y)) + '<p>' + esc(N.note) + '</p></div>';
 }
 /* Happening nearby (card.nearby.happening, inside the Nearby section): events from the city's calendar
    (happening.json) within the radius that haven't ended, soonest first (one on now counts as now), then
@@ -4135,9 +4136,13 @@ function schools(x, y){
   return rows ? '<div class="live reps"><dl>' + rows + '</dl><p>' + esc(fill(S.note, {year: D.year || ''})) + '</p></div>' : '';
 }
 // Who represents this spot. Names link to their official pages.
-function representatives(hits){
+// Beyond the city (outside: true) the offices are card.reps.outside: rows keyed by card-only boundary files
+// (o.file), such as provincial and federal ridings across the region.
+function representatives(hits, outside){
   // Skip the section outside the city: the first office drawn on a layer (a citywide office such as a mayor has none) has no hit.
-  const R = data.reps, cfg = CITY.card.reps, first = cfg && cfg.offices.find(o => o.layer); if (!R || !cfg || !first || !hits[first.layer]) return '';
+  const R = data.reps, base = CITY.card.reps, first = base && base.offices.find(o => o.layer);
+  const cfg = outside ? base && base.outside && Object.assign({}, base, base.outside, {trustees: null, ballot: null}) : base;
+  if (!R || !cfg || (outside ? !cfg.offices.some(o => o.file && hits['file:' + o.file]) : !first || !hits[first.layer])) return '';
   const link = r => r && r.name ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.name) + '</a>' : '<span class="vacant">Seat currently vacant</span>';
   const row = (role, r, sub) => '<dt>' + role + '</dt><dd>' + link(r) + (sub ? '<span>' + esc(sub) + '</span>' : '') + '</dd>';
   const date = new Date(...R.updated.split('-').map((v, i) => +v - (i === 1))).toLocaleDateString(CITY.locale, {month:'long', day:'numeric', year:'numeric'});
@@ -4278,12 +4283,17 @@ function cardOf(latlng, title, muniName){
     const opills = CITY.card.pills.filter(p => p.text && oh[p.layer]).map(p => '<span class="pill"><i style="background:var(' + p.color + ')"></i>' + esc(fill(p.text, oh[p.layer].properties)) + '</span>').join('');
     // CITY.outside.muniLabel: what the areas beyond the city are called on the card (Hyderabad's are mandals).
     const bounds = '<dl class="facts"><dt>' + esc(CITY.outside.muniLabel || 'Municipality') + '</dt><dd>' + esc(m.name) + '</dd><dt>' + esc((CITY.focus && CITY.focus.noun) || 'Region') + '</dt><dd>' + esc(rp) + '</dd>' + orows + '</dl>';
-    return {outside: true, x, y, m, heading: title || m.name, boundsSection: OF.length ? bounds : '',
+    // Nearby and Representatives beyond the city, where the city has the data (card.outsideNearby, card.reps.outside).
+    const rh = {}; REP_FILES.forEach(f => { rh['file:' + f] = hit(data.repAreas[f], x, y); });
+    const near = nearby(x, y, true), reps = representatives(rh, true);
+    return {outside: true, x, y, m, heading: title || m.name, boundsSection: OF.length ? bounds : '', near, reps,
       pills: nearCommunity(x, y, title) + '<span class="pill"><i style="background:var(--land-out-line)"></i>' + esc(m.name) + '</span><span class="pill"><i style="background:var(--muni-label)"></i>' + esc(rp) + '</span>' + opills,
       drive: driveHere(x, y, m),
       // For Compare: the same facts as rows, so they line up with a spot inside the city.
       sections: [['bounds', 'Boundaries', bounds],
-                 ['live', 'Living here', driveHere(x, y, m)]]};
+                 ['live', 'Living here', driveHere(x, y, m)],
+                 ['near', 'Nearby', near],
+                 ['reps', 'Representatives', reps]]};
   }
   const hits = {};
   LAYERS.filter(it => AREA_KINDS.includes(it.kind)).forEach(it => { hits[it.id] = hit(data.layers[it.id], x, y); });
@@ -4593,7 +4603,9 @@ function inspect(latlng, title, muniName){
     here.innerHTML = cardHead('What’s here', c.heading, dirBtn(c.y, c.x, c.heading)) +
       '<div class="pills">' + c.pills + '</div>' + voteBox(c.x, c.y) + c.drive +
       (regionFeature(m.region) && focusKey !== m.region ? '<button type="button" class="focus-go">' + esc(fill(CITY.focus.show, {name: regionName(m.region)})) + '</button>' : '') +
-      cmpRow + (c.boundsSection ? section('bounds', 'Boundaries', c.boundsSection) : '') + '<p class="outside-note">' + esc(CITY.outside.note) + '</p>' + reportBox(c.heading);
+      cmpRow + (c.boundsSection ? section('bounds', 'Boundaries', c.boundsSection) : '') +
+      (c.near ? section('near', 'Nearby', c.near) : '') + (c.reps ? section('reps', 'Representatives', c.reps) : '') +
+      '<p class="outside-note">' + esc(CITY.outside.note) + '</p>' + reportBox(c.heading);
     wireCard(); wireReport(latlng, c.heading); drawVoteMark(c.x, c.y);
     const fg = here.querySelector('.focus-go'); if (fg) fg.onclick = () => setFocus(m.region, true);
     return;
@@ -6102,7 +6114,7 @@ function stampTitle(canvas, name, sub){
 /* ---------- load ---------- */
 renderEmpty('Loading map data…');
 const files = ['base', 'regions'].concat(CITY.maskWater ? [CITY.maskWater] : []);
-const REP_FILES = ((CITY.card.reps && CITY.card.reps.offices) || []).map(o => o.file).filter(Boolean);
+const REP_FILES = [...new Set(((CITY.card.reps && CITY.card.reps.offices) || []).concat((CITY.card.reps && CITY.card.reps.outside && CITY.card.reps.outside.offices) || []).map(o => o.file).filter(Boolean))];
 data.repAreas = {};
 // Files of layers marked "lazy" (bus route shapes) load the first time they're needed.
 LAYERS.filter(it => !it.lazy).forEach(it => [].concat(it.file || it.files || [], it.more || []).forEach(f => { if (!files.includes(f)) files.push(f); }));
@@ -6113,6 +6125,7 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
   .concat([get(CITY.lens.file).then(d => { data.profiles = d; }), CITY.card.reps ? get(CITY.card.reps.file).then(d => { data.reps = d; }).catch(() => { data.reps = null; }) : null,   // a new city may have no representatives yet
     CITY.regionPlaces ? get(CITY.regionPlaces.file).then(d => { data.regionPlaces = d; }).catch(() => { data.regionPlaces = null; }) : null,
     CITY.card.nearby ? get(CITY.card.nearby.file).then(d => { data.nearby = d; }).catch(() => { data.nearby = null; }) : null,
+    CITY.card.outsideNearby ? get(CITY.card.outsideNearby.file).then(d => { data.outNearby = d; }).catch(() => { data.outNearby = null; }) : null,
     ...REP_FILES.map(f => get(f).then(d => { data.repAreas[f] = d; }).catch(() => { data.repAreas[f] = null; })),
     CITY.drive ? get('drive_grid.json').then(d => { data.driveGrid = d; }).catch(() => { data.driveGrid = null; }) : null,
     CITY.focus ? get('region_areas').then(d => { data.regionAreas = d; }).catch(() => { data.regionAreas = null; }) : null, glReady]))

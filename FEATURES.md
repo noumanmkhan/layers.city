@@ -132,6 +132,15 @@ farms, woods, cemeteries and quarries across the whole GTA, Toronto included, wi
 `gta_parks` and `landuse`). Land use is mapped by volunteers, so it is a guide to how land is used, not the zoning
 bylaw, and farmland is under-mapped in OpenStreetMap.
 
+**The card beyond the city (November 16, 2026):** a spot in Halton, Peel, York or Durham gets a *Nearby* section
+(nearest library, community centre and emergency department; parks, playgrounds and elementary and secondary schools
+within 1 km; places of worship while that layer is on) and *Representatives* (MPP and MP) as well as the drive time.
+`cities/toronto/fetch_gta_card.py` (GitHub Actions, `fetch-gta-card.yml`) fetches the ridings from Open North's
+Represent and the places from OpenStreetMap; `gta_card.py` writes `gta_nearby.json`, `gta_prov.geojson` and
+`gta_fed.geojson`, and `representatives.py` adds those ridings' members. Provincial ridings beyond the city are the 2013
+federal districts, which Ontario's Representation Act, 2015 adopted for southern Ontario (Elections Ontario's own
+shapefiles carry a licence that rules out derived products). Mayors and councillors beyond Toronto aren't listed yet.
+
 **Parks:** an *Outdoors* group holds a *Parks* layer, off by default: every City park outline from the City's Green Spaces data, shaded green, named on hover. Chips narrow it to parks with a *Playground*, *Water play* (a splash pad or wading pool), a *Washroom* or an *Off-leash* area; pick several and a park needs all of them, while the rest fade to a faint wash so the green space still reads. Tap a park for what it has and its toronto.ca page. The amenities come from the City's parks list, matched to the outlines once at build time; the City's list names no splash pads, so those come from OpenStreetMap. A GitHub Action refreshes it all monthly.
 
 **Panel groups:** the toggles come in groups, in the order most people need them: Places, Outdoors (Toronto, Vancouver), Getting around, What's changing (the live layers: new development, transit under construction, road closures and special events), Education, Parking & Charging (Toronto), Representation, Community & Faith (libraries and community centres, places of worship, halal and kosher food), and Lenses (the neighbourhood and suburban lenses, which shade the map rather than add to it). Every city uses the same order and skips the groups it has nothing for, and the All, Basic and Live tabs keep it too. A tap on a group's heading folds it away, so someone who never needs ridings doesn't scroll past them. A folded group says how many of its layers are on, and the browser remembers which are folded.

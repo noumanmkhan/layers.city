@@ -1,11 +1,12 @@
 """Fetch Ontario's school list (Ministry of Education, "School information and student demographics", Ontario Data
-Catalogue, Open Government Licence - Ontario) and keep Toronto's publicly funded schools -> raw/schools/ontario_schools.csv
+Catalogue, Open Government Licence - Ontario) and keep the GTA's publicly funded schools -> raw/schools/ontario_schools.csv
 
 Run from GitHub Actions (fetch-toronto-schools.yml); the sandbox can't reach data.ontario.ca.
 - Picks the newest English school-year file from the catalogue's API.
 - Keeps only descriptive columns (board, school, level, grades, language, address, coordinates). Test results and
   student demographics are dropped here and never reach the repo: the map describes schools, it never ranks them.
-- Keeps rows inside a box around Toronto; schools.py cuts them to the city itself.
+- Keeps rows inside a box around the GTA: schools.py cuts them to the city itself; gta_card.py uses the rest for the
+  card's Nearby section beyond the city.
 - Logs every column name it found, so a renamed column shows up in fetch.log rather than as silent gaps.
 """
 import csv, io, json, os, re, sys, urllib.request
@@ -13,7 +14,7 @@ import csv, io, json, os, re, sys, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'raw', 'schools')
 API = 'https://data.ontario.ca/api/3/action/package_show?id=school-information-and-student-demographics'
-BOX = (-79.66, 43.57, -79.10, 43.87)   # west, south, east, north
+BOX = (-80.2, 43.25, -78.4, 44.55)   # west, south, east, north: the GTA (Toronto plus Halton, Peel, York, Durham)
 KEEP = re.compile(r'^(board (number|name|type)|school (number|name|type|level|language|special condition.*)|grade range|'
                   r'building suite|p\.?o\.? box|street|municipality|city|province|postal code|school website|latitude|longitude)$', re.I)
 

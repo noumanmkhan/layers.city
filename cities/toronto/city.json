@@ -41,7 +41,7 @@
   "outside": {
     "beyond": "That spot is outside the Greater Toronto Area.",
     "regionPill": "{region} Region",
-    "note": "Outside the City of Toronto. Wards, ridings, neighbourhoods and BIAs on this map cover Toronto only.",
+    "note": "Outside the City of Toronto. Wards, neighbourhoods and BIAs on this map cover Toronto only; the ridings above cover the whole GTA.",
     "appNote": "Outside the City of Toronto, so neighbourhood, ward and pickup details aren't shown here.",
     "appBeyond": "That spot is outside the Greater Toronto Area."
   },
@@ -332,6 +332,15 @@
                     "all": {"label": "See all events", "href": "/toronto/events/"},
                     "source": "Events from the City of Toronto Festivals & Events Calendar (as the organizers list them) and Toronto Public Library branch programs. Contains information licensed under the Open Government Licence – Toronto."}
     },
+    "outsideNearby": {
+      "file": "gta_nearby.json", "radius": 1000,
+      "nearest": [["library", "Library"], ["centre", "Community centre"], ["er", "Emergency dept."],
+                  ["mosque", "Mosque", "worship:mosque"], ["gurdwara", "Gurdwara", "worship:gurdwara"], ["synagogue", "Synagogue", "worship:synagogue"],
+                  ["hindu", "Hindu temple", "worship:hindu"], ["buddhist", "Buddhist temple", "worship:buddhist"], ["church", "Church", "worship:church"]],
+      "within": "Within 1 km",
+      "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["school_e", "elementary school", "elementary schools"], ["school_s", "secondary school", "secondary schools"]],
+      "note": "Straight-line distances; 1 km is about a 15-minute walk. Libraries, community centres, emergency departments, parks, playgrounds and places of worship from OpenStreetMap, mapped by volunteers, so a few may be missing. Schools from the Ministry of Education; the nearest school is not always the one a home is zoned for."
+    },
     "reps": {
       "file": "representatives.json",
       "offices": [
@@ -348,7 +357,14 @@
         "race": "{n} candidate[{s}] · election {election}", "counting": "{n} candidate[{s}] · results to come",
         "elected": "elected {election} · takes office {starts}", "acclaimed": "acclaimed · takes office {starts}",
         "note": "Council and trustee candidates and results come from the City’s election results file and are unofficial until the City Clerk certifies them."},
-      "note": "Names open each person’s official page. Toronto councillors run without party labels. Checked weekly against those sites; last change {date}."
+      "note": "Names open each person’s official page. Toronto councillors run without party labels. Checked weekly against those sites; last change {date}.",
+      "outside": {
+        "offices": [
+          {"role": "MPP", "file": "gta_prov", "table": "prov", "key": "name", "sub": "{r.party} · {f.name}"},
+          {"role": "MP", "file": "gta_fed", "table": "fed", "key": "name", "sub": "{r.party} · {f.name}"}
+        ],
+        "note": "Names open each person’s official page. Checked weekly against the Legislative Assembly’s and House of Commons’ sites; last change {date}. Mayors and councillors outside Toronto aren’t listed yet."
+      }
     }
   },
  "models3d": [

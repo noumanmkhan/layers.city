@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### What's here in the suburbs: Nearby and your MPP and MP (Toronto's region, November 16)
+- Tap anywhere in Halton, Peel, York or Durham and the card now has a Nearby section: the nearest library,
+  community centre and emergency department, and how many parks, playgrounds and elementary and secondary schools are
+  within 1 km (places of worship too while that layer is on). Libraries, centres, hospitals, playgrounds and places
+  of worship from OpenStreetMap; schools from the Ministry of Education.
+- And a Representatives section with the MPP and MP for that spot, across the whole GTA, linked to their official
+  pages. Mayors and councillors beyond Toronto aren't listed yet.
+- Fixed: the card had shown Toronto's mayor as a vacant seat since the City retitled the mayor's page.
+
 ### The GTA filled in: streets, parks and land use beyond Toronto (November 15)
 - Main and collector streets now carry on across Halton, Peel, York and Durham, named in the regional view (the city
   view leaves their names off, since the mask covers their lines). From OpenStreetMap: trunk and primary roads are

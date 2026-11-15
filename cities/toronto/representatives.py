@@ -32,6 +32,10 @@ def slug(s):
 wards = json.load(open(os.path.join(DOCS, 'wards.geojson')))['features']
 feds = [f['properties']['name'] for f in json.load(open(os.path.join(DOCS, 'federal.geojson')))['features']]
 provs = sorted({f['properties']['prov'] for f in wards})
+# Ridings beyond the city (gta_card.py), for the card's MPP and MP rows in Halton, Peel, York and Durham.
+for fn, lst in (('gta_prov.geojson', provs), ('gta_fed.geojson', feds)):
+    if os.path.exists(os.path.join(DOCS, fn)):
+        lst.extend(n for n in (f['properties']['name'] for f in json.load(open(os.path.join(DOCS, fn)))['features']) if n not in lst)
 problems = []
 
 # City councillors: "Councillor Dianne Saxe – City of Toronto"
