@@ -1,11 +1,11 @@
 name: Fetch heritage buildings
 # Individually protected buildings (engine/fetch_heritage_buildings.py, cities/<city>/heritage_buildings.json)
 # into cities/<city>/raw/heritage_buildings.json, then docs/<city>/data/heritage_buildings.geojson with
-# engine/heritage_buildings.py when it exists. Monthly (the 7th), on change, or by hand.
+# engine/heritage_buildings.py when it exists. Quarterly (the 7th of January, April, July and October), on change, or by hand.
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 6 7 * *'
+    - cron: '17 6 7 1,4,7,10 *'   # quarterly (monthly until November 2026)
   push:
     branches: [main]
     paths: ['engine/fetch_heritage_buildings.py', 'engine/heritage_buildings.py', 'cities/*/heritage_buildings.json', '.github/workflows/fetch-heritage-buildings.yml']

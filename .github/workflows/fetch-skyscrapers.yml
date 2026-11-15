@@ -3,12 +3,12 @@ name: Fetch skyscrapers
 # coordinates and Wikidata ids) into cities/<city>/raw/skyscrapers/wiki.json and commits it to main.
 # The sandbox can't reach Wikipedia or Nominatim; Actions can. Runs when the fetch script or a city's
 # skyscrapers.json changes on main (addresses to geocode live there), on the
-# 1st of each month (towers open, lists change), or by hand from the Actions tab.
+# 1st of each quarter (towers open, lists change), or by hand from the Actions tab.
 # After it runs, rebuild with cities/<city>/run.sh (or python3 engine/skyscrapers.py <city>).
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 6 1 * *'
+    - cron: '17 6 1 1,4,7,10 *'   # quarterly (monthly until November 2026)
   push:
     branches: [main]
     paths: ['engine/fetch_skyscrapers.py', 'cities/*/skyscrapers.json', '.github/workflows/fetch-skyscrapers.yml']

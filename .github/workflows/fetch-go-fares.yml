@@ -1,11 +1,11 @@
 name: Fetch GO fares
 # GO Transit fares between the map's GO stations, from Metrolinx's GTFS (cities/toronto/fetch_go_fares.py), for the
-# Venues pages' "GO fare" figures. Monthly, or by hand; GO fares change rarely. Rebuilds the Toronto venue pages
+# Venues pages' "GO fare" figures. Quarterly, or by hand; GO fares change rarely. Rebuilds the Toronto venue pages
 # with the new figures and commits both. deploy.yml lists this workflow, so a commit goes live.
 on:
   workflow_dispatch:
   schedule:
-    - cron: '17 9 3 * *'        # monthly, the 3rd
+    - cron: '17 9 3 1,4,7,10 *'   # quarterly, the 3rd (monthly until November 2026)
 permissions:
   contents: write
 concurrency: refresh-venues
