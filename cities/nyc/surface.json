@@ -65,5 +65,136 @@
    "NYCHA"
   ],
   "strip": "(?i)\\s*\\((no |use |not |last stop|near|far|lot)[^)]*\\)$|\\s+rdwy$"
+ },
+ "feeds": {
+  "lirr": {
+   "_about": "Long Island Rail Road (MTA GTFS, free to use), for the Routes page only: each branch by its long name, under a short name without spaces (the page's CSS class); every departure kept ('schedGap' 0), as the page shows no live LIRR times.",
+   "gtfs": {
+    "url": "https://rrgtfsfeeds.s3.amazonaws.com/gtfslirr.zip"
+   },
+   "types": [],
+   "rapid": {
+    "Babylon": "rail",
+    "Hempstead": "rail",
+    "OysterBay": "rail",
+    "Ronkonkoma": "rail",
+    "Montauk": "rail",
+    "LongBeach": "rail",
+    "FarRockaway": "rail",
+    "WestHempstead": "rail",
+    "PortWashington": "rail",
+    "PortJefferson": "rail",
+    "Belmont": "rail",
+    "CityTerminal": "rail",
+    "Greenport": "rail"
+   },
+   "rapidTypes": [
+    "2"
+   ],
+   "rapidMatch": [
+    [
+     "^Babylon\\ Branch$",
+     "Babylon"
+    ],
+    [
+     "^Hempstead\\ Branch$",
+     "Hempstead"
+    ],
+    [
+     "^Oyster\\ Bay\\ Branch$",
+     "OysterBay"
+    ],
+    [
+     "^Ronkonkoma\\ Branch$",
+     "Ronkonkoma"
+    ],
+    [
+     "^Montauk\\ Branch$",
+     "Montauk"
+    ],
+    [
+     "^Long\\ Beach\\ Branch$",
+     "LongBeach"
+    ],
+    [
+     "^Far\\ Rockaway\\ Branch$",
+     "FarRockaway"
+    ],
+    [
+     "^West\\ Hempstead\\ Branch$",
+     "WestHempstead"
+    ],
+    [
+     "^Port\\ Washington\\ Branch$",
+     "PortWashington"
+    ],
+    [
+     "^Port\\ Jefferson\\ Branch$",
+     "PortJefferson"
+    ],
+    [
+     "^Belmont\\ Park$",
+     "Belmont"
+    ],
+    [
+     "^City\\ Terminal\\ Zone$",
+     "CityTerminal"
+    ],
+    [
+     "^Greenport\\ Service$",
+     "Greenport"
+    ]
+   ],
+   "sched": true,
+   "schedGap": 0,
+   "simplify": 0.00012
+  },
+  "mnr": {
+   "_about": "Metro-North Railroad (MTA GTFS, free to use), for the Routes page only, as the LIRR.",
+   "gtfs": {
+    "url": "https://rrgtfsfeeds.s3.amazonaws.com/gtfsmnr.zip"
+   },
+   "types": [],
+   "rapid": {
+    "NewHaven": "rail",
+    "NewCanaan": "rail",
+    "Danbury": "rail",
+    "Waterbury": "rail",
+    "Hudson": "rail",
+    "Harlem": "rail"
+   },
+   "rapidTypes": [
+    "2"
+   ],
+   "rapidMatch": [
+    [
+     "^New\\ Haven$",
+     "NewHaven"
+    ],
+    [
+     "^New\\ Canaan$",
+     "NewCanaan"
+    ],
+    [
+     "^Danbury$",
+     "Danbury"
+    ],
+    [
+     "^Waterbury$",
+     "Waterbury"
+    ],
+    [
+     "^Hudson$",
+     "Hudson"
+    ],
+    [
+     "^Harlem$",
+     "Harlem"
+    ]
+   ],
+   "sched": true,
+   "schedGap": 0,
+   "simplify": 0.00012
+  }
  }
 }

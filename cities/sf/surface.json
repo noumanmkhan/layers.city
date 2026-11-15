@@ -193,6 +193,29 @@
    "mode": "regional",
    "prefix": "SamTrans ",
    "simplify": 0.00012
+  },
+  "caltrain": {
+   "_about": "Caltrain (Trillium's GTFS, no key), for the Routes page only: its Local, Limited and Express routes joined into one line ('joinRapid'), every departure kept.",
+   "gtfs": {
+    "url": "https://data.trilliumtransit.com/gtfs/caltrain-ca-us/caltrain-ca-us.zip"
+   },
+   "types": [],
+   "rapid": {
+    "Caltrain": "rail"
+   },
+   "rapidTypes": [
+    "2"
+   ],
+   "rapidMatch": [
+    [
+     ".",
+     "Caltrain"
+    ]
+   ],
+   "joinRapid": true,
+   "sched": true,
+   "schedGap": 0,
+   "simplify": 0.00012
   }
  }
 }

@@ -2,11 +2,15 @@
  "_about": "Settings for New York's Routes page (engine/routes/: build.py, page.html), at /nyc/routes/: pick a stop or platform near you, see where each MTA bus and subway line from it goes. The subway's lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their platforms in order.",
  "modes": [
   "bus",
-  "subway"
+  "subway",
+  "rail"
  ],
  "live": {
   "api": "/api/arrivals?city=nyc",
-  "source": "MTA Bus Time and MTA subway GTFS-Realtime"
+  "source": "MTA Bus Time and MTA subway GTFS-Realtime",
+  "none": {
+   "rail": "The LIRR and Metro-North doesn’t share live times with this page: timetable times"
+  }
  },
  "gridTilt": 29,
  "_gridTilt": "Manhattan's street grid is turned about 29 degrees east of north, so the avenues read north-south and the streets east-west.",
@@ -23,7 +27,14 @@
  },
  "_platformLabels": "Platforms are headed with the MTA's own direction words (Uptown & The Bronx, Manhattan, Coney Island), from cities/nyc/fetch_station_labels.py.",
  "regions": [
-  "boroughs"
+  "boroughs",
+  {
+   "file": "base",
+   "prop": "name",
+   "kinds": [
+    "neighbour"
+   ]
+  }
  ],
  "regionsWithThe": [
   "Bronx"
@@ -61,7 +72,8 @@
  "known": "knownas",
  "stations": {
   "files": [
-   "subway_stations"
+   "subway_stations",
+   "rail_stations"
   ]
  },
  "near": {
@@ -75,15 +87,15 @@
   "title": "Where does this line or route go?",
   "short": "Routes from here",
   "description": "Find the bus stops and subway platforms nearest you in New York City and see where each route goes, with live next-bus and next-train times: the neighborhoods it passes through, the main streets it runs along, its subway connections and the landmarks on the way.",
-  "lede": "Find the stops and stations near you, then pick a bus or subway line to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
+  "lede": "Find the stops and stations near you, in the city or across the region, then pick a bus, subway line, LIRR branch or Metro-North line to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
-  "outside": "That spot is outside New York City. Try an address in the five boroughs.",
+  "outside": "That spot is too far from a subway, bus, LIRR or Metro-North stop. Try an address in the five boroughs or near a commuter station.",
   "noMatch": "No match in New York City for “{q}”. Try the full street name, like “350 Fifth Avenue”.",
   "noStops": "No stops or stations within {r} of that spot.",
-  "credits": "Routes, stops and timetable: MTA (New York City Transit and MTA Bus) GTFS · Neighborhoods: NYC Department of City Planning · Streets: © OpenStreetMap contributors (ODbL) · Live times: MTA Bus Time and MTA subway GTFS-Realtime",
+  "credits": "Routes, stops and timetable: MTA (New York City Transit and MTA Bus) GTFS · Neighborhoods: NYC Department of City Planning · Streets: © OpenStreetMap contributors (ODbL) · Live times: MTA Bus Time and MTA subway GTFS-Realtime · LIRR and Metro-North: MTA GTFS",
   "mapLink": "Open on the map",
   "mi": true,
-  "connectWith": "the subway",
+  "connectWith": "the subway and commuter rail",
   "legendUnits": "Neighborhoods it passes",
   "legendKnown": "DUMBO: the names people use",
   "lineFiles": [
@@ -134,10 +146,82 @@
    "5X": "5 express",
    "6X": "6 express",
    "7X": "7 express",
-   "FX": "F express"
+   "FX": "F express",
+   "Babylon": "Babylon Branch",
+   "Hempstead": "Hempstead Branch",
+   "OysterBay": "Oyster Bay Branch",
+   "Ronkonkoma": "Ronkonkoma Branch",
+   "Montauk": "Montauk Branch",
+   "LongBeach": "Long Beach Branch",
+   "FarRockaway": "Far Rockaway Branch",
+   "WestHempstead": "West Hempstead Branch",
+   "PortWashington": "Port Washington Branch",
+   "PortJefferson": "Port Jefferson Branch",
+   "Belmont": "Belmont Park",
+   "CityTerminal": "City Terminal Zone",
+   "Greenport": "Greenport Service",
+   "NewHaven": "New Haven Line",
+   "NewCanaan": "New Canaan Line",
+   "Danbury": "Danbury Line",
+   "Waterbury": "Waterbury Line",
+   "Hudson": "Hudson Line",
+   "Harlem": "Harlem Line"
   },
   "at": "/",
-  "changeBare": true
+  "changeBare": true,
+  "reach": 3,
+  "lineGroups": {
+   "LIRR": [
+    "LIRR Babylon",
+    "LIRR Hempstead",
+    "LIRR Oyster Bay",
+    "LIRR Ronkonkoma",
+    "LIRR Montauk",
+    "LIRR Long Beach",
+    "LIRR Far Rockaway",
+    "LIRR West Hempstead",
+    "LIRR Port Washington",
+    "LIRR Port Jefferson",
+    "LIRR Belmont Park",
+    "LIRR City Terminal Zone",
+    "LIRR Greenport",
+    "LIRR Greenport Service",
+    "Babylon",
+    "Hempstead",
+    "OysterBay",
+    "Ronkonkoma",
+    "Montauk",
+    "LongBeach",
+    "FarRockaway",
+    "WestHempstead",
+    "PortWashington",
+    "PortJefferson",
+    "Belmont",
+    "CityTerminal",
+    "Greenport"
+   ],
+   "Metro-North": [
+    "Metro-North New Haven",
+    "Metro-North New Canaan",
+    "Metro-North Danbury",
+    "Metro-North Waterbury",
+    "Metro-North Hudson",
+    "Metro-North Harlem",
+    "NewHaven",
+    "NewCanaan",
+    "Danbury",
+    "Waterbury",
+    "Hudson",
+    "Harlem"
+   ],
+   "NJ Transit": [
+    "NJ Transit"
+   ],
+   "PATH": [
+    "PATH"
+   ]
+  },
+  "_regional": "Regional trains (November 15, 2026): 'reach' (km) lets a spot outside the city use the page when a stop is that close, so riders across the region see their and LIRR and Metro-North stations and where each goes; regions outside the city are the base layer's municipalities."
  },
  "badges": {
   "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses white with an MTA blue outline, express buses green; subway lines as round bullets in the trunk line's colour.",
@@ -259,5 +343,9 @@
   }
  },
  "notCrossed": "(?i)\\b(Bridge|Tunnel|Level|Roadway|Expressway|Expwy|Exit|Approach|Ramp|Viaduct)\\b",
- "_notCrossed": "A bus crosses avenues, not the bridge decks and tunnel approaches drawn over or under them."
+ "_notCrossed": "A bus crosses avenues, not the bridge decks and tunnel approaches drawn over or under them.",
+ "rapidFeeds": [
+  "lirr",
+  "mnr"
+ ]
 }

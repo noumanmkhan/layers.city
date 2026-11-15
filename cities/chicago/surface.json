@@ -28,6 +28,55 @@
    "mode": "pace",
    "prefix": "Pace ",
    "simplify": 0.00012
+  },
+  "metra": {
+   "_about": "Metra (its own GTFS), for the Routes page only: each line by its short name, every departure kept.",
+   "gtfs": {
+    "url": "https://schedules.metrarail.com/gtfs/schedule.zip"
+   },
+   "types": [],
+   "rapid": {
+    "BNSF": "rail",
+    "HC": "rail",
+    "MD-N": "rail",
+    "MD-W": "rail",
+    "ME": "rail",
+    "NCS": "rail",
+    "RI": "rail",
+    "SWS": "rail",
+    "UP-N": "rail",
+    "UP-NW": "rail",
+    "UP-W": "rail"
+   },
+   "rapidTypes": [
+    "2"
+   ],
+   "sched": true,
+   "schedGap": 0,
+   "simplify": 0.00012
+  },
+  "nictd": {
+   "_about": "The South Shore Line (NICTD's GTFS, the Mobility Database's copy as a fallback), for the Routes page only.",
+   "gtfs": {
+    "url": "https://mysouthshoreline.com/google/google_transit.zip"
+   },
+   "types": [],
+   "rapid": {
+    "SSL": "rail"
+   },
+   "rapidTypes": [
+    "2"
+   ],
+   "rapidMatch": [
+    [
+     ".",
+     "SSL"
+    ]
+   ],
+   "joinRapid": true,
+   "sched": true,
+   "schedGap": 0,
+   "simplify": 0.00012
   }
  }
 }

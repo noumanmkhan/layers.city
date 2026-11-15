@@ -5,15 +5,20 @@
   "tram",
   "cable",
   "lrt",
-  "subway"
+  "subway",
+  "rail"
  ],
  "rapidFeeds": [
-  "bart"
+  "bart",
+  "caltrain"
  ],
  "_rapidFeeds": "BART's lines come from its own feed (surface.json feeds.bart), fetched into raw/surface/bart/.",
  "live": {
   "api": "/api/arrivals?city=sf",
-  "source": "511.org (SFMTA GTFS-Realtime)"
+  "source": "511.org (SFMTA GTFS-Realtime)",
+  "none": {
+   "rail": "Caltrain doesn’t share live times with this page: timetable times"
+  }
  },
  "gridTilt": 0,
  "_gridTilt": "San Francisco's grids disagree (north of Market they run true north, south of Market they're turned 45 degrees), so directions are read from true north.",
@@ -29,7 +34,14 @@
  "platformNumber": "^[A-Z]\\d+-(\\d)$",
  "_platformNumber": "BART's platforms are numbered in their stop ids (M20-1 is Montgomery Street's Platform 1), as its signs number them.",
  "regions": [
-  "sides"
+  "sides",
+  {
+   "file": "base",
+   "prop": "name",
+   "kinds": [
+    "neighbour"
+   ]
+  }
  ],
  "_regions": "The map's five parts of the city: Downtown, the Northside, the West Side, Central and the Southeast.",
  "regionsWithThe": [
@@ -72,7 +84,8 @@
  "stations": {
   "files": [
    "bart_stations",
-   "muni_stations"
+   "muni_stations",
+   "rail_stations"
   ],
   "skip": "^(?!4th ).+ & ",
   "_skip": "muni_stations also lists some street stops (Church St & 16th St); only stations count as connections, keeping 4th St & King St (Caltrain) and 4th & Brannan."
@@ -88,12 +101,12 @@
   "title": "Where does this line or route go?",
   "short": "Routes from here",
   "description": "Find the Muni bus, streetcar, cable car and Muni Metro stops and BART platforms nearest you in San Francisco and see where each route goes, with live next-bus and next-train times: the neighborhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.",
-  "lede": "Find the stops near you, then pick a Muni bus, the F streetcar, a cable car, a Muni Metro line or BART to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
+  "lede": "Find the stops near you, in the city or across the Bay Area, then pick a Muni bus, the F streetcar, a cable car, a Muni Metro line, BART or Caltrain to see where it goes: the neighborhoods, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
-  "outside": "That spot is outside San Francisco. Try an address in the city.",
+  "outside": "That spot is too far from a Muni, BART or Caltrain stop. Try an address in San Francisco or near a station.",
   "noMatch": "No match in San Francisco for “{q}”. Try the full street name, like “1 Ferry Building”.",
   "noStops": "No stops within {r} of that spot.",
-  "credits": "Routes, stops and timetable: SFMTA (Muni) GTFS via DataSF and BART GTFS · Neighborhoods: City and County of San Francisco (DataSF) · Streets: © OpenStreetMap contributors (ODbL) · Live times: SFMTA via 511.org and BART GTFS-Realtime",
+  "credits": "Routes, stops and timetable: SFMTA (Muni) GTFS via DataSF and BART GTFS · Neighborhoods: City and County of San Francisco (DataSF) · Streets: © OpenStreetMap contributors (ODbL) · Live times: SFMTA via 511.org and BART GTFS-Realtime · Caltrain: Caltrain GTFS via Trillium",
   "mapLink": "Open on the map",
   "mi": true,
   "at": " & ",
@@ -113,7 +126,8 @@
    "l": "#8E3A8E",
    "m": "#2E8B57",
    "n": "#1D5FA0",
-   "t": "#C0384F"
+   "t": "#C0384F",
+   "caltrain": "#E31837"
   },
   "lineNames": {
    "J": "J Church",
@@ -127,7 +141,8 @@
    "Red": "BART Red line",
    "Green": "BART Green line",
    "Blue": "BART Blue line",
-   "Oakland Airport": "BART to Oakland Airport"
+   "Oakland Airport": "BART to Oakland Airport",
+   "Caltrain": "Caltrain"
   },
   "connectionsLabel": "BART and Muni Metro",
   "lineGroups": {
@@ -138,10 +153,21 @@
     "Green",
     "Blue",
     "Oakland Airport"
+   ],
+   "Caltrain": [
+    "Caltrain"
+   ],
+   "SMART": [
+    "SMART"
+   ],
+   "ACE": [
+    "ACE"
    ]
   },
   "legendUnits": "Neighborhoods it passes",
-  "legendKnown": "SoMa: the names people use"
+  "legendKnown": "SoMa: the names people use",
+  "reach": 3,
+  "_regional": "Regional trains (November 15, 2026): 'reach' (km) lets a spot outside the city use the page when a stop is that close, so riders across the region see their and Caltrain stations and where each goes; regions outside the city are the base layer's municipalities."
  },
  "badges": {
   "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses white with a Muni red outline, express blue, owl-only white with a navy outline; Muni Metro lines as round bullets in the line's colour, BART lines as plain dots.",

@@ -5,19 +5,29 @@
   "source": "Transport Victoria GTFS Realtime",
   "numbers": [
    "bus"
-  ]
+  ],
+  "none": {
+   "rail": "V/Line doesn’t share live times with this page: timetable times",
+   "coach": "V/Line doesn’t share live times with this page: timetable times"
+  }
  },
  "_live": "Live next departures (November 14, 2026) from Transport Victoria's trip updates for metropolitan trains, trams and buses (functions/api/arrivals.js, key PTV_GTFSR_KEY, CC BY 4.0). 'numbers': the bus feed's route ids aren't the schedule's, so build.py writes data/route_numbers.json (route ids by number) for the arrivals function. V/Line has no live times here.",
  "modes": [
   "bus",
   "tram",
-  "subway"
+  "subway",
+  "coach",
+  "rail"
  ],
  "gridTilt": 0,
  "keepRight": false,
  "_keepRight": "Australia drives on the left: stops for each direction are on the left of the road.",
  "regions": [
-  "sides"
+  "sides",
+  {
+   "file": "region_areas",
+   "prop": "region"
+  }
  ],
  "regionsWithThe": [],
  "knownWithThe": "^(Paris End)$",
@@ -69,9 +79,9 @@
   "title": "Where does this tram, bus or train go?",
   "short": "Routes from here",
   "description": "Find the tram and bus stops and train stations nearest you in Melbourne and see where each route goes, with the next scheduled departures: the suburbs it passes through, the main streets it runs along, its train and V/Line connections and the landmarks on the way.",
-  "lede": "Find the stops and stations near you, then pick a tram, bus or train line to see where it goes: the suburbs, main streets, connections and landmarks along the way.",
+  "lede": "Find the stops and stations near you, in Melbourne or across Victoria, then pick a tram, bus, train line, V/Line train or coach to see where it goes: the suburbs, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
-  "outside": "That spot is outside the City of Melbourne. Try an address in the City.",
+  "outside": "That spot is too far from a tram, bus, train or V/Line stop. Try an address in Melbourne or near a station or coach stop.",
   "noMatch": "No match in the City of Melbourne for “{q}”. Try the full street address, like “90 Swanston Street”.",
   "noStops": "No stops or stations within {r} of that spot.",
   "credits": "Routes, stops and timetable: Transport Victoria GTFS (CC BY 4.0) · Suburbs: Australian Bureau of Statistics · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled; live times need Transport Victoria’s keyed feed",
@@ -120,22 +130,51 @@
    "Sunbury": "Sunbury line",
    "Upfield": "Upfield line",
    "Werribee": "Werribee line",
-   "Williamstown": "Williamstown line"
+   "Williamstown": "Williamstown line",
+   "Geelong": "Geelong line",
+   "Warrnambool": "Warrnambool line",
+   "Ballarat": "Ballarat line",
+   "Ararat": "Ararat line",
+   "Maryborough": "Maryborough line",
+   "Bendigo": "Bendigo line",
+   "Echuca": "Echuca line",
+   "Swan Hill": "Swan Hill line",
+   "Seymour": "Seymour line",
+   "Shepparton": "Shepparton line",
+   "Albury": "Albury line",
+   "Traralgon": "Traralgon line",
+   "Bairnsdale": "Bairnsdale line"
   },
   "overground": true,
   "connectionsLabel": "Train and V/Line connections",
   "lineGroups": {
    "V/Line": [
-    "V/Line"
+    "V/Line",
+    "Geelong",
+    "Warrnambool",
+    "Ballarat",
+    "Ararat",
+    "Maryborough",
+    "Bendigo",
+    "Echuca",
+    "Swan Hill",
+    "Seymour",
+    "Shepparton",
+    "Albury",
+    "Traralgon",
+    "Bairnsdale"
    ]
   },
   "modeWords": {
-   "tram": "tram"
+   "tram": "tram",
+   "coach": "coach"
   },
   "ampm": [
    "am",
    "pm"
-  ]
+  ],
+  "_regional": "Regional trains (November 15, 2026): 'reach' (km) lets a spot outside the city use the page when a stop is that close, so riders across the region see their and V/Line stations and coach stops and where each goes; regions outside the city are the base layer's municipalities.",
+  "reach": 3
  },
  "toStrip": "\\s+#\\w+$",
  "_toStrip": "toStrip: a pattern taken off a route's destination (its last stop's name). Transport Victoria ends tram stop names with the stop number ('Waterfront City/Docklands Dr #D11'): useful on a stop, noise in 'to Waterfront City/Docklands Dr'. Also taken off the stop names in each route's own file (where it starts and ends, the ride's stops); stops.json, the stops near you, keeps them.",
@@ -297,5 +336,13 @@
    " Drive$",
    " Dr"
   ]
- ]
+ ],
+ "feeds": [
+  "vline"
+ ],
+ "rapidFeeds": [
+  "vline"
+ ],
+ "_feeds": "V/Line (surface.json feed 'vline'): its coaches join through 'feeds' (mode 'coach'), its train services through 'rapidFeeds' (mode 'rail', each under V/Line's own line name).",
+ "_regions": "Inside the City, its three sides; outside, Greater Melbourne's councils (region_areas). Beyond them (Geelong, Ballarat...), a V/Line train's stations tell the story."
 }

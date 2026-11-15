@@ -2,12 +2,20 @@
  "_about": "Settings for Dallas's Routes page (engine/routes/: build.py, page.html), at /dallas/routes/: pick a stop or DART rail platform near you, see where each DART bus and light rail line from it goes. The light rail lines come from raw/surface/rapid_*.json (surface.json 'rapid', found by name with 'rapidMatch'), their platforms in order; Silver Line and TRE stations count as connections too. DART's real-time data isn't open without a key, so the page shows scheduled departures.",
  "modes": [
   "bus",
-  "lrt"
+  "lrt",
+  "rail"
  ],
  "gridTilt": 0,
  "keepRight": true,
  "regions": [
-  "sides"
+  "sides",
+  {
+   "file": "base",
+   "prop": "name",
+   "kinds": [
+    "neighbour"
+   ]
+  }
  ],
  "regionsWithThe": [],
  "knownWithThe": "^(Cedars|Design District|Arts District)$",
@@ -59,9 +67,9 @@
   "title": "Where does this line or route go?",
   "short": "Routes from here",
   "description": "Find the DART bus stops and light rail platforms nearest you in Dallas and see where each route goes, with the next scheduled departures: the ZIP codes it passes through, the main streets it runs along, its rail connections and the landmarks on the way.",
-  "lede": "Find the stops and stations near you, then pick a bus or DART rail line to see where it goes: the ZIP codes, main streets, connections and landmarks along the way.",
+  "lede": "Find the stops and stations near you, in the city or across the region, then pick a bus, DART rail line, the Silver Line or the TRE to see where it goes: the ZIP codes, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
-  "outside": "That spot is outside the City of Dallas. Try an address in the city.",
+  "outside": "That spot is too far from a DART stop. Try an address in Dallas or near a DART, Silver Line or TRE station.",
   "noMatch": "No match in Dallas for “{q}”. Try the full street address, like “1500 Marilla St”.",
   "noStops": "No stops or stations within {r} of that spot.",
   "credits": "Routes, stops and timetable: DART GTFS · ZIP codes: U.S. Census Bureau · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled",
@@ -78,16 +86,32 @@
    "red": "#CE0E2D",
    "blue": "#0064A8",
    "green": "#009B3A",
-   "orange": "#F7931D"
+   "orange": "#F7931D",
+   "tre": "#0B5DA9",
+   "silver": "#8C9296"
   },
   "lineNames": {
    "Red": "Red Line",
    "Blue": "Blue Line",
    "Green": "Green Line",
-   "Orange": "Orange Line"
+   "Orange": "Orange Line",
+   "TRE": "Trinity Railway Express",
+   "SILVER": "Silver Line"
   },
   "overground": true,
-  "connectionsLabel": "Rail connections"
+  "connectionsLabel": "Rail connections",
+  "reach": 3,
+  "lineGroups": {
+   "TRE": [
+    "TRE",
+    "Trinity Railway Express"
+   ],
+   "Silver Line": [
+    "SILVER",
+    "Silver Line"
+   ]
+  },
+  "_regional": "Regional trains (November 15, 2026): 'reach' (km) lets a spot outside the city use the page when a stop is that close, so riders across the region see their and Silver Line and TRE stations and where each goes; regions outside the city are the base layer's municipalities."
  },
  "badges": {
   "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses dark blue, express white with a blue outline; light rail lines as plain dots in the line's colour.",

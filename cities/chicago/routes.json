@@ -2,17 +2,28 @@
  "_about": "Settings for Chicago's Routes page (engine/routes/: build.py, page.html), at /chicago/routes/: pick a stop or 'L' platform near you, see where each CTA bus and 'L' line from it goes. The 'L' lines come from raw/surface/rapid_*.json (surface.json 'rapid'), their platforms in order; Metra stations count as connections too. The CTA publishes no GTFS-realtime feed (its Bus and Train Tracker APIs need a key and their own terms), so the page shows scheduled departures, not live times.",
  "live": {
   "api": "/api/arrivals?city=chicago",
-  "source": "CTA Bus Tracker and Train Tracker"
+  "source": "CTA Bus Tracker and Train Tracker",
+  "none": {
+   "rail": "Metra doesn’t share live times with this page: timetable times"
+  }
  },
  "_live": "Live next arrivals (November 14, 2026) from the CTA's Bus Tracker and Train Tracker APIs (functions/api/arrivals.js 'provider', keys CTA_BUS_KEY and CTA_TRAIN_KEY; the CTA's Developer License Agreement asks for credit, kept on the Attributions page). Bus Tracker predicts about the next half hour; later and idle routes show the timetable's next departure.",
  "modes": [
   "bus",
-  "subway"
+  "subway",
+  "rail"
  ],
  "gridTilt": 0,
  "keepRight": true,
  "regions": [
-  "sides"
+  "sides",
+  {
+   "file": "base",
+   "prop": "name",
+   "kinds": [
+    "neighbour"
+   ]
+  }
  ],
  "regionsWithThe": [
   "Far North Side",
@@ -73,12 +84,12 @@
   "title": "Where does this line or route go?",
   "short": "Routes from here",
   "description": "Find the CTA bus stops and ’L’ platforms nearest you in Chicago and see where each route goes, with the next scheduled departures: the community areas it passes through, the main streets it runs along, its ’L’ and Metra connections and the landmarks on the way.",
-  "lede": "Find the stops and stations near you, then pick a bus or ’L’ line to see where it goes: the community areas, main streets, connections and landmarks along the way.",
+  "lede": "Find the stops and stations near you, in the city or across the region, then pick a bus, ’L’ line, Metra line or the South Shore Line to see where it goes: the community areas, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
-  "outside": "That spot is outside Chicago. Try an address in the city.",
+  "outside": "That spot is too far from a CTA or Metra stop. Try an address in Chicago or near a Metra station.",
   "noMatch": "No match in Chicago for “{q}”. Try the full street address, like “121 N LaSalle St”.",
   "noStops": "No stops or stations within {r} of that spot.",
-  "credits": "Routes, stops and timetable: CTA GTFS (data provided by Chicago Transit Authority) · Community areas: City of Chicago Data Portal · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled; the CTA publishes no open real-time feed",
+  "credits": "Routes, stops and timetable: CTA GTFS (data provided by Chicago Transit Authority) · Community areas: City of Chicago Data Portal · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled; the CTA publishes no open real-time feed · Metra: Metra GTFS · South Shore Line: NICTD GTFS",
   "mapLink": "Open on the map",
   "mi": true,
   "at": " & ",
@@ -96,7 +107,8 @@
    "orange": "#F9461C",
    "pink": "#E27EA6",
    "purple": "#522398",
-   "yellow": "#F9E300"
+   "yellow": "#F9E300",
+   "ssl": "#8B1D41"
   },
   "lineNames": {
    "Red": "Red Line",
@@ -106,7 +118,19 @@
    "Org": "Orange Line",
    "P": "Purple Line",
    "Pink": "Pink Line",
-   "Y": "Yellow Line"
+   "Y": "Yellow Line",
+   "BNSF": "BNSF line",
+   "HC": "Heritage Corridor line",
+   "MD-N": "Milwaukee District North line",
+   "MD-W": "Milwaukee District West line",
+   "ME": "Metra Electric line",
+   "NCS": "North Central Service line",
+   "RI": "Rock Island line",
+   "SWS": "SouthWest Service line",
+   "UP-N": "UP North line",
+   "UP-NW": "UP Northwest line",
+   "UP-W": "UP West line",
+   "SSL": "South Shore Line"
   },
   "overground": true,
   "connectionsLabel": "’L’ and Metra connections",
@@ -122,9 +146,25 @@
     "SouthWest Service",
     "UP North",
     "UP Northwest",
-    "UP West"
+    "UP West",
+    "HC",
+    "MD-N",
+    "MD-W",
+    "ME",
+    "NCS",
+    "RI",
+    "SWS",
+    "UP-N",
+    "UP-NW",
+    "UP-W"
+   ],
+   "South Shore": [
+    "SSL",
+    "South Shore Line"
    ]
-  }
+  },
+  "reach": 3,
+  "_regional": "Regional trains (November 15, 2026): 'reach' (km) lets a spot outside the city use the page when a stop is that close, so riders across the region see their and Metra and South Shore Line stations and where each goes; regions outside the city are the base layer's municipalities."
  },
  "badges": {
   "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses dark grey with white numbers, X routes white with a green outline, Owl white with a blue outline; 'L' lines as plain dots in the line's colour.",
@@ -245,5 +285,9 @@
   "raw": "platform_names.json"
  },
  "_platformNames": "The CTA's own words for each platform (O'Hare-bound, Loop-bound, Inner Loop), from its list of 'L' stops on the City's portal (fetch_platforms.py); its GTFS names platforms without them.",
- "_overground": "page 'overground': the 'L' runs mostly on elevated tracks and at ground level, so it 'runs along' its streets, not under them (the Red, Blue and parts of the Loop's subways are the exception)."
+ "_overground": "page 'overground': the 'L' runs mostly on elevated tracks and at ground level, so it 'runs along' its streets, not under them (the Red, Blue and parts of the Loop's subways are the exception).",
+ "rapidFeeds": [
+  "metra",
+  "nictd"
+ ]
 }

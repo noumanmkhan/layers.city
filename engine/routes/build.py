@@ -114,7 +114,7 @@ def polys_by(spec, skip=()):
     if isinstance(spec, str): return polys(spec, skip)
     out = [(f['properties'].get(spec.get('prop', 'name')), proj(shape(f['geometry']))) for f in layer(spec['file'])
            if f['properties'].get(spec.get('prop', 'name')) and f['properties'].get(spec.get('prop', 'name')) not in skip
-           and not (spec.get('kinds') and f['properties'].get('kind') not in spec['kinds'])]
+           and f.get('geometry') and not (spec.get('kinds') and f['properties'].get('kind') not in spec['kinds'])]
     return out, STRtree([g for _, g in out])
 REGIONS = [polys_by(n, CFG.get('regionSkip', [])) for n in CFG.get('regions', [])]
 
@@ -270,7 +270,9 @@ if RR:
         if r['mode'] not in RAPID_MODES: continue
         ds_ = [v for v in r.get('wk', {}).values() if sum(v[10:15])]
         n_ = max((sum(v[10:15]) for v in ds_), default=0)
-        meta[r['id']] = {'r': r['short'], 'n': r['long'].title() if r['long'].isupper() else r['long'], 'm': r['mode'], 'f': ['freq'], 'h': round(300 / n_) if n_ >= 5 else None}
+        nm_ = (CFG.get('page', {}).get('lineNames') or {}).get(r['short']) if r['mode'] == 'rail' else None   # "Albury line", not "Albury - Melbourne via Seymour"
+        meta[r['id']] = {'r': r['short'], 'n': nm_ or (r['long'].title() if r['long'].isupper() else r['long']) or r['short'], 'm': r['mode'], 'f': ['freq'] if r['mode'] != 'rail' else [],
+                         'h': round(300 / n_) if n_ >= 5 else None, 'c': ('#' + r['color'].strip()) if r['mode'] == 'rail' and r.get('color', '').strip() else None}
         # The same platforms in the same order are one pattern, however many shapes the schedule draws for it.
         seen = {}
         for sh in sorted(r['shapes'], key=lambda x: -x['trips']):
@@ -534,6 +536,7 @@ for r in routes:
     route_index[rid] = [mt['r'], mt['n'], r['mode'], mt.get('f', []), mt.get('h'),
                         [[p['head'], p['to'], round(p['km'] * 1000), p['share'], p['regions'],
                           [[d, n, lines] for d, n, lines in p['stations']], p.get('next'), p['dir']] for p in pats]]
+    if mt.get('c'): route_index[rid].append(mt['c'])   # a regional line's own colour (the feed's route_color), for its badge
 
 # Route files from an earlier build whose route is no longer on the page go (a route dropped from the feed).
 for f_ in os.listdir(os.path.join(OUT, 'data', 'r')):

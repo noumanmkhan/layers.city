@@ -4,18 +4,27 @@
   "api": "/api/arrivals?city=vancouver",
   "source": "TransLink GTFS-realtime",
   "none": {
-   "subway": "TransLink doesn’t publish live times for SkyTrain"
+   "subway": "TransLink doesn’t publish live times for SkyTrain",
+   "rail": "TransLink doesn’t publish live times for the West Coast Express: timetable times"
   }
  },
  "_live": "Live next-bus times (November 14, 2026) from TransLink's GTFS-realtime trip updates (functions/api/arrivals.js, key TRANSLINK_KEY, under TransLink's Open API Terms of Use). The feed has buses only: SkyTrain platforms show how often trains run (live.none, by mode).",
  "modes": [
   "bus",
-  "subway"
+  "subway",
+  "rail"
  ],
  "gridTilt": 0,
  "keepRight": true,
  "regions": [
-  "sides"
+  "sides",
+  {
+   "file": "base",
+   "prop": "name",
+   "kinds": [
+    "neighbour"
+   ]
+  }
  ],
  "regionsWithThe": [
   "West Side",
@@ -72,9 +81,9 @@
   "title": "Where does this line or route go?",
   "short": "Routes from here",
   "description": "Find the TransLink bus stops and SkyTrain platforms nearest you in Vancouver and see where each route goes, with the next scheduled departures: the local areas it passes through, the main streets it runs along, its SkyTrain and West Coast Express connections and the landmarks on the way.",
-  "lede": "Find the stops and stations near you, then pick a bus or SkyTrain line to see where it goes: the local areas, main streets, connections and landmarks along the way.",
+  "lede": "Find the stops and stations near you, in the city or across the region, then pick a bus, SkyTrain line or the West Coast Express to see where it goes: the local areas, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
-  "outside": "That spot is outside Vancouver. Try an address in the city or the UEL.",
+  "outside": "That spot is too far from a TransLink stop. Try an address in Vancouver or near a SkyTrain or West Coast Express station.",
   "noMatch": "No match in Vancouver for “{q}”. Try the full street address, like “453 W 12th Ave”.",
   "noStops": "No stops or stations within {r} of that spot.",
   "credits": "Routes, stops and timetable: TransLink GTFS · Local areas: City of Vancouver Open Data · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled; TransLink’s real-time feed needs a key",
@@ -89,15 +98,25 @@
   "lineColors": {
    "expo": "#0033A0",
    "millennium": "#FFCD00",
-   "canada": "#007C9F"
+   "canada": "#007C9F",
+   "wce": "#711E8C"
   },
   "lineNames": {
    "Expo": "Expo Line",
    "Millennium": "Millennium Line",
-   "Canada": "Canada Line"
+   "Canada": "Canada Line",
+   "WCE": "West Coast Express"
   },
   "overground": true,
-  "connectionsLabel": "SkyTrain and West Coast Express connections"
+  "connectionsLabel": "SkyTrain and West Coast Express connections",
+  "reach": 3,
+  "lineGroups": {
+   "WCE": [
+    "WCE",
+    "West Coast Express"
+   ]
+  },
+  "_regional": "Regional trains (November 15, 2026): 'reach' (km) lets a spot outside the city use the page when a stop is that close, so riders across the region see their and West Coast Express stations and where each goes; regions outside the city are the base layer's municipalities."
  },
  "badges": {
   "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses dark blue, RapidBus green, NightBus white with a navy outline; SkyTrain lines as plain dots in the line's colour.",

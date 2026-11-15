@@ -253,6 +253,11 @@ for r in rows('routes.txt'):
                            'mode': RAPID.get(nshort, CFG.get('mode', m)), 'color': r.get('route_color', ''), 'text': r.get('route_text_color', '')}
         if nshort in RAPID: RAPID_IDS.add(nid)
         continue
+    # "joinRapid": an agency that lists one line as several routes (Caltrain: Local, Limited, Express...) as one line,
+    # under the first route's id; each trip keeps its own direction.
+    if short in RAPID and CFG.get('joinRapid'):
+        first_id = next((k for k, v in routes.items() if v['short'] == short and k in RAPID_IDS), None)
+        if first_id: remap[r['route_id']] = (first_id, None); continue
     if short in RAPID: m = RAPID[short]; RAPID_IDS.add(r['route_id'])
     elif not m or m not in TYPES or short in SKIP: continue
     routes[r['route_id']] = {'id': r['route_id'], 'short': (short if short in RAPID else PREFIX + short), 'long': CFG.get('longNames', {}).get(short, r.get('route_long_name', '')), 'mode': (m if short in RAPID else CFG.get('mode', m)),
@@ -299,7 +304,8 @@ SCHED = bool(CFG.get('sched'))
 svc_of = {}   # every trip of a kept route, any day -> (route number, service id): for sched.json
 trip_route = {}   # every trip of a kept route, any day -> route id: for a live feed that names trips only (BART's)
 for r in rows('trips.txt'):
-    rid_, dir_ = remap.get(r['route_id'], (r['route_id'], r.get('direction_id') or '0'))
+    rid_, dir_ = remap.get(r['route_id'], (r['route_id'], None))
+    dir_ = dir_ or r.get('direction_id') or '0'
     if rid_ not in routes: continue
     trip_route[r['trip_id']] = rid_
     if SCHED: svc_of[r['trip_id']] = (routes[rid_]['short'], r['service_id'])
