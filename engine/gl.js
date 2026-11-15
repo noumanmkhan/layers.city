@@ -213,6 +213,9 @@ function addL(def, pane, rank){
     const above = order.find(id => symRank.get(id) < r);
     if (above) before = above;
   }
+  // A symbol layer gets its real font from its styler; until then give it one we ship glyphs for, or MapLibre asks for
+  // its default font stack (which 404s) when a busy load lays out tiles before the styler has run.
+  if (def.type === 'symbol' && !(def.layout && def.layout['text-font'])) def.layout = Object.assign({'text-font': ['Inter Regular']}, def.layout);
   gl.addLayer(def, before);
   layerPane.set(def.id, pane);
   return def.id;
