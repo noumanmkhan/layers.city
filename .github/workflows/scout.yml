@@ -1,0 +1,59 @@
+name: Scout data
+# One-off checks of what a source publishes, before building a feature or a city: runs scouting/<folder>/<script>
+# and commits what it writes to scouting/<folder>/out/ back to main. Doesn't touch the site. Runs when one of the
+# folders below has its scout script changed on main (that script only), or by hand for any folder.
+# (Replaced one workflow per folder in November 2026. Chicago's and Toronto's scouts live in cities/<city>/scout_*.py
+# and keep their own jobs, scout-chicago.yml and scout-toronto.yml.)
+on:
+  workflow_dispatch:
+    inputs:
+      folder: {description: 'Folder in scouting/ (e.g. nyc, elections)', required: true}
+      script: {description: 'Script in that folder', default: 'scout.py'}
+  push:
+    branches: [main]
+    paths:
+      - 'scouting/bike-closures/scout.py'
+      - 'scouting/civic/scout.py'
+      - 'scouting/closures/scout.py'
+      - 'scouting/elections/scout2.py'
+      - 'scouting/lost-rivers/scout.py'
+      - 'scouting/nyc/scout.py'
+      - 'scouting/sf/scout.py'
+      - 'scouting/skyscrapers/scout.py'
+      - 'scouting/vancouver/scout.py'
+permissions:
+  contents: write
+concurrency: scout
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Which script
+        run: |
+          if [ "${{ github.event_name }}" = push ]; then
+            P=$(git diff --name-only HEAD~1 HEAD -- 'scouting/*/scout*.py' | head -1)
+          else P="scouting/${{ inputs.folder }}/${{ inputs.script }}"; fi
+          [ -n "$P" ] && [ -f "$P" ] || { echo "No scout script to run ($P)"; exit 1; }
+          echo "Running $P"
+          echo "SCOUT=$P" >> "$GITHUB_ENV"; echo "OUT=$(dirname "$P")/out" >> "$GITHUB_ENV"
+      # The union of what the scouts need (shapely: bike closures; pypdf: New York; pandas and lxml: skyscrapers).
+      - run: pip install -q shapely pyproj pypdf pandas lxml
+      - env:
+          FIVE11_KEY: ${{ secrets.FIVE11_KEY }}   # San Francisco's scout reads 511.org
+        run: |
+          mkdir -p "$OUT"
+          python3 -u "$SCOUT" 2>&1 | tee "$OUT/$(basename "${SCOUT%.py}").log" || true
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add "$OUT"
+          git commit -m "Scouting report: $(dirname "$SCOUT" | cut -d/ -f2)" || { echo "no changes"; exit 0; }
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 10; done
+          exit 1
