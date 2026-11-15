@@ -130,9 +130,11 @@ function row(e,t,rest,today,one){
   const where=e.lat==null?[e.venue,C.placeless]:[e.venue,e.hood],src=C.srcs[e.src];
   const more=rest.length?'<span class="more">'+(rest.length===1?'Also '+esc(dateFmt(rest[0][0].slice(0,10),{weekday:'short',month:'short',day:'numeric'})):esc('+ '+rest.length+' more dates to '+dateFmt(rest[rest.length-1][0].slice(0,10),{month:'short',day:'numeric'})))+'</span>':'';
   const map=e.lat==null?'':'<a class="maplink" href="'+esc(C.map+'#map=17/'+e.lat+'/'+e.lng+'&pin='+e.lat+','+e.lng+'&name='+encodeURIComponent(e.venue||e.title))+'">'+C.pin+'Show on map</a>';
-  return'<li><time>'+when(t,today,one)+'</time><div class="ev"><a class="t" href="'+esc(e.url)+'" target="_blank" rel="noopener">'+esc(e.title)+'</a>'+
+  // A source whose terms say how links to it must read (D.linkText, e.g. "vancouver.ca"): plain title, the link labelled so.
+  const lt=D.linkText,title=lt?'<span class="t">'+esc(e.title)+'</span>':'<a class="t" href="'+esc(e.url)+'" target="_blank" rel="noopener">'+esc(e.title)+'</a>';
+  return'<li><time>'+when(t,today,one)+'</time><div class="ev">'+title+
     '<span class="where">'+esc(where.filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join(' · '))+'</span>'+more+
-    '<span class="acts">'+(e.free?'<span class="tag free">Free</span>':'')+(src?'<span class="src">'+esc(src)+'</span>':'')+(e.category?'<span class="tag">'+esc(e.category)+'</span>':'')+
+    '<span class="acts">'+(e.free?'<span class="tag free">Free</span>':'')+(src?'<span class="src">'+esc(src)+'</span>':'')+(e.category?'<span class="tag">'+esc(e.category)+'</span>':'')+(lt?'<a class="maplink" href="'+esc(e.url)+'" target="_blank" rel="noopener">'+esc(lt)+' ↗</a>':'')+
     (me&&e.lat!=null?'<span class="away">'+esc(away(km(me,[e.lat,e.lng])))+'</span>':'')+map+'</span></div></li>'}
 // The big venues' shows (Venues listing), grouped by venue, venue first: each venue links to its page for getting there.
 function showRow(e,today){const d=e.date;

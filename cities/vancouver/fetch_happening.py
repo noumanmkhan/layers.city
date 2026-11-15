@@ -1,7 +1,8 @@
 """Fetch the City of Vancouver's calendar of events and write docs/vancouver/data/happening.json (today through the next
-14 days, placed events only), for "Happening nearby" on the card and in the iOS app (contract section 16). No Events
-page: the calendar is small (a handful of events a month). Run daily from GitHub Actions (*Fetch events*); the sandbox
-can't reach the feed.
+14 days, placed events only), for "Happening nearby" on the card and in the iOS app (contract section 16), and
+docs/vancouver/events/events.json (30 days, citywide and unplaced events kept, each placed one's local area) for the
+Events page (engine/events_page.py, November 15, 2026). The calendar is small (a handful of events a month), so the page
+leads with the big venues' shows. Run daily from GitHub Actions (*Fetch events*); the sandbox can't reach the feed.
 
 Source: the City and Park Board's calendar of events (vancouver.ca, a Trumba calendar), its public JSON feed. The City's
 terms allow feeds for personal, informational and non-commercial use only, and ask that links to its pages read
@@ -23,8 +24,9 @@ from zoneinfo import ZoneInfo
 HERE = os.path.dirname(os.path.abspath(__file__))
 DOCS = os.path.join(HERE, '..', '..', 'docs', 'vancouver')
 TZ = ZoneInfo('America/Vancouver')
-DAYS = 14
+DAYS, PAGE_DAYS = 14, 30
 OUT = os.path.join(DOCS, 'data', 'happening.json')
+PAGE_OUT = os.path.join(DOCS, 'events', 'events.json')
 CACHE = os.path.join(HERE, 'raw', 'events_places.json')
 FEED = 'https://www.trumba.com/calendars/city-of-vancouver-events.json?events=200&months=2'
 UA = {'User-Agent': 'layers.city events fetch (go@layers.city)'}
@@ -33,6 +35,7 @@ args = dict(zip(sys.argv[1::2], sys.argv[2::2]))
 now = datetime.now(TZ)
 today = date.fromisoformat(args['--today']) if '--today' in args else now.date()
 last14 = today + timedelta(days=DAYS)
+last = today + timedelta(days=PAGE_DAYS)
 
 
 def get(url, tries=3):
@@ -121,16 +124,16 @@ for ev in feed:
     end = (ev.get('endDateTime') or '')[:16]
     if ev.get('allDay'):
         start, end = start[:10], None
-    if not start or start[:10] > last14.isoformat() or (end or start)[:10] < today.isoformat():
+    if not start or start[:10] > last.isoformat() or (end or start)[:10] < today.isoformat():
         continue
     if start[:10] < today.isoformat():
         start = today.isoformat()
     if re.search(r'citywide|city-wide|all of vancouver', clean(ev.get('location')), re.I):
-        continue                                 # a citywide day has no place to be near
-    venue, address, lat, lng = place(ev.get('location'))
-    if lat is None:
-        unplaced.append(clean(ev.get('location')))
-        continue
+        venue, address, lat, lng = 'Citywide', None, None, None   # on the page only: a citywide day has no place to be near
+    else:
+        venue, address, lat, lng = place(ev.get('location'))
+        if lat is None:
+            unplaced.append(clean(ev.get('location')))
     price = custom(ev, 'ticket price')
     item = {'id': 'cov-' + str(ev.get('eventID') or title), 'title': title, 'venue': venue, 'address': address,
             'lat': lat, 'lng': lng, 'free': True if price and price.lower() == 'free' else (False if price else None),
@@ -140,18 +143,57 @@ for ev in feed:
     t = [start, None] if len(start) == 10 else [start, end if len(end) == 16 and end > start else None]
     if t not in e['times']:
         e['times'].append(t)
-print(f'{len(feed)} feed entries; {len(events)} events placed; not placed: {unplaced}')
+print(f'{len(feed)} feed entries; {len(events)} events kept; not placed: {unplaced}')
 os.makedirs(os.path.dirname(CACHE), exist_ok=True)
 json.dump(cache, open(CACHE, 'w'), indent=0, sort_keys=True)
 
 items = sorted(events.values(), key=lambda e: (min(t[0] for t in e['times']), e['title']))
 for e in items:
     e['times'].sort()
-doc = {'version': 1, 'city': 'vancouver', 'tz': 'America/Vancouver', 'asof': now.strftime('%Y-%m-%dT%H:%M'),
-       'from': today.isoformat(), 'to': last14.isoformat(), 'source': 'City of Vancouver calendar of events (vancouver.ca)',
-       'sources': ['city'], 'licence': 'City of Vancouver website terms: feeds for personal, informational and non-commercial use.',
-       'linkText': 'vancouver.ca', 'events': items}
-with open(OUT, 'w') as f:
-    json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))
-    f.write('\n')
-print(f'{len(items)} events, {today} to {last14}')
+
+
+def ring_has(ring, x, y):
+    inside = False
+    for (x1, y1), (x2, y2) in zip(ring, ring[1:] + ring[:1]):
+        if (y1 > y) != (y2 > y) and x < x1 + (y - y1) * (x2 - x1) / (y2 - y1):
+            inside = not inside
+    return inside
+
+
+AREAS = []
+for f in json.load(open(os.path.join(DOCS, 'data', 'local_areas.geojson')))['features']:
+    g = f['geometry']
+    AREAS.append((f['properties']['name'], g['coordinates'] if g['type'] == 'MultiPolygon' else [g['coordinates']]))
+
+
+def area_of(lng, lat):
+    for name, polys in AREAS:
+        for p in polys:
+            if ring_has(p[0], lng, lat) and not any(ring_has(h, lng, lat) for h in p[1:]):
+                return name
+    return None
+
+
+head = {'version': 1, 'city': 'vancouver', 'tz': 'America/Vancouver', 'asof': now.strftime('%Y-%m-%dT%H:%M'), 'from': today.isoformat()}
+tail = {'source': 'City of Vancouver calendar of events (vancouver.ca)', 'sources': ['city'],
+        'licence': 'City of Vancouver website terms: feeds for personal, informational and non-commercial use.', 'linkText': 'vancouver.ca'}
+
+
+def write(path, doc):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w') as f:
+        json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))
+        f.write('\n')
+
+
+near = []
+for e in items:
+    times = [t for t in e['times'] if t[0][:10] <= last14.isoformat()]
+    if e['lat'] is not None and times:
+        near.append({**e, 'times': times})
+write(OUT, {**head, 'to': last14.isoformat(), **tail, 'events': near})
+print(f'{len(near)} events, {today} to {last14}')
+for e in items:
+    e['hood'] = area_of(e['lng'], e['lat']) if e['lat'] is not None else None
+write(PAGE_OUT, {**head, 'to': last.isoformat(), **tail, 'events': items})
+print(f'Events page: {len(items)} events ({sum(e["lat"] is None for e in items)} citywide or unplaced), {today} to {last}')
