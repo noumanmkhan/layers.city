@@ -1,18 +1,26 @@
 name: Refresh representatives
-# Weekly: fetches the current councillors, MPPs and MPs from toronto.ca, ola.org and
-# ourcommons.ca, and the City's election results file (school trustee candidates and results), and rebuilds docs/toronto/data/representatives.json. Commits to main only when a
-# name, party or link changed (a by-election, a new council after an election); the deploy
-# workflow then republishes the site. Can also be run by hand from the Actions tab.
+# Every city's elected representatives, rebuilt into docs/<city>/data/representatives.json. One job, each city in its
+# own step, so one city failing keeps the others' updates (the run is then marked failed, so the daily feed check
+# reports it). Commits to main once, only what changed; the deploy workflow then republishes the site.
+#   Toronto: councillors, MPPs, MPs (toronto.ca, ola.org, ourcommons.ca) and the City's election results file
+#     (school trustee candidates and results).
+#   Chicago: alderpersons (City Data Portal), Illinois legislators (Open States), members of Congress (Clerk of the
+#     House), and Board of Education results from the Chicago Board of Elections.
+#   Dallas: council members (the City's council district layer), Texas legislators, members of Congress.
+#   Vancouver: MPs from ourcommons.ca, matched to Vancouver's federal ridings (mayor, councillors and MLAs to come).
+#   New York: council members (council.nyc.gov), state legislators (Open States), members of Congress.
+#   San Francisco: cities/sf/fetch_representatives.py, then representatives.py (formerly in refresh-sf.yml).
+#   Melbourne: Assembly districts and federal divisions, the AEC's members elected and the Parliamentary Handbook's
+#     current members, with the hand-kept council (cities/melbourne/council.json).
+# When: Mondays for every city; and daily for a city counting results after an election (results windows in
+# .github/elections.json). By hand: any cities (empty = all); on election night, run it by hand for the city.
 on:
   schedule:
-    - cron: '17 9 * * 1'   # Mondays 09:17 UTC
-    # Around Toronto's municipal election (October 26) the City's results file also feeds the school
-    # trustee rows: hourly on election night (polls close 8 pm Toronto time, 00:00 UTC), then daily
-    # until the new term starts on November 15. These dates repeat yearly; off-season runs find no change.
-    - cron: '7 0-6 27 10 *'
-    - cron: '17 9 27-31 10 *'
-    - cron: '17 9 1-16 11 *'
+    - cron: '17 9 * * 1'    # Mondays 09:17 UTC: every city
+    - cron: '37 15 * * *'   # daily: only cities in a results window (.github/elections.json); otherwise does nothing
   workflow_dispatch:
+    inputs:
+      cities: {description: 'Cities, space-separated (empty = all)', default: ''}
 permissions:
   contents: write
 concurrency:
@@ -20,6 +28,7 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
@@ -27,16 +36,104 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python3 cities/toronto/fetch_representatives.py
+      - name: Which cities
+        run: |
+          ALL="toronto chicago dallas vancouver nyc sf melbourne"
+          if [ "${{ github.event.schedule }}" = "37 15 * * *" ]; then C=$(python3 .github/elections.py results)
+          elif [ -n "${{ inputs.cities }}" ]; then C="${{ inputs.cities }}"
+          else C="$ALL"; fi
+          echo "Cities: ${C:-none}"
+          echo "CITIES= $C " >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        if: contains(env.CITIES, ' sf ')
+        with:
+          node-version: 22
+      # gdal (ogr2ogr): Melbourne's and San Francisco's fetches read district files with it. npm: assemble.py (SF).
+      - if: contains(env.CITIES, ' melbourne ') || contains(env.CITIES, ' sf ')
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin
+      - if: env.CITIES != '  '
+        run: pip install -q shapely
+
       # On failure, repeat the script's last lines as an annotation, readable from the run's summary page.
-      - run: |
+      - name: Toronto
+        id: toronto
+        if: contains(env.CITIES, ' toronto ')
+        continue-on-error: true
+        run: |
           set -o pipefail
+          python3 cities/toronto/fetch_representatives.py
           python3 cities/toronto/representatives.py 2>&1 | tee /tmp/reps.txt || { echo "::error::$(tail -n 6 /tmp/reps.txt | tr '\n' ' ' | cut -c1-900)"; exit 1; }
-      - run: |
-          if git diff --quiet -- docs/toronto/data/representatives.json; then echo "no changes"; exit 0; fi
+      - name: Chicago
+        id: chicago
+        if: contains(env.CITIES, ' chicago ')
+        continue-on-error: true
+        run: |
+          python3 cities/chicago/fetch_representatives.py
+          NO_PROBE=1 python3 cities/chicago/fetch_school_board_results.py || echo "school board results not fetched; keeping the last copy"
+          python3 cities/chicago/representatives.py
+      - name: Dallas
+        id: dallas
+        if: contains(env.CITIES, ' dallas ')
+        continue-on-error: true
+        run: |
+          python3 -u cities/dallas/fetch_more.py reps
+          [ -f docs/dallas/data/council.geojson ] || { echo "Dallas isn't on main yet"; exit 0; }
+          python3 cities/dallas/representatives.py
+      - name: Vancouver
+        id: vancouver
+        if: contains(env.CITIES, ' vancouver ')
+        continue-on-error: true
+        run: |
+          python3 cities/vancouver/fetch_representatives.py
+          python3 cities/vancouver/representatives.py
+      - name: New York
+        id: nyc
+        if: contains(env.CITIES, ' nyc ')
+        continue-on-error: true
+        run: |
+          python3 -u cities/nyc/fetch_representatives.py
+          python3 cities/nyc/representatives.py
+      - name: San Francisco
+        id: sf
+        if: contains(env.CITIES, ' sf ')
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm install --silent
+          python3 -u cities/sf/fetch_representatives.py 2>&1 | tee cities/sf/raw/fetch_representatives.log
+          ( cd cities/sf && python3 representatives.py )
+          python3 engine/assemble.py sf
+      - name: Melbourne
+        id: melbourne
+        if: contains(env.CITIES, ' melbourne ')
+        continue-on-error: true
+        run: |
+          python3 cities/melbourne/fetch_representatives.py
+          python3 cities/melbourne/representatives.py
+
+      - name: Commit what changed
+        if: always()
+        run: |
+          add() { for p in "$@"; do [ -e "$p" ] && git add "$p"; done; return 0; }
+          for c in $CITIES; do add docs/$c/data/representatives.json cities/$c/raw/representatives; done
+          add cities/chicago/raw/school_board cities/dallas/raw/dallas_council.geojson
+          case "$CITIES" in *" sf "*) add cities/sf/raw/fetch_representatives.log docs/sf/data docs/sf/index.html;; esac
+          if git diff --cached --quiet -- docs; then echo "no changes to the published files"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/toronto/raw/representatives docs/toronto/data/representatives.json
-          git commit -m "Refresh Toronto councillors, MPPs, MPs and school trustees"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          git commit -m "Refresh representatives:$(git diff --cached --name-only -- docs | cut -d/ -f2 | sort -u | tr '\n' ' ' | sed 's/^/ /')"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 10; done
+          exit 1
+      - name: Report cities that failed
+        if: always()
+        run: |
+          f=""
+          [ "${{ steps.toronto.outcome }}" = failure ] && f="$f Toronto"
+          [ "${{ steps.chicago.outcome }}" = failure ] && f="$f Chicago"
+          [ "${{ steps.dallas.outcome }}" = failure ] && f="$f Dallas"
+          [ "${{ steps.vancouver.outcome }}" = failure ] && f="$f Vancouver"
+          [ "${{ steps.nyc.outcome }}" = failure ] && f="$f New-York"
+          [ "${{ steps.sf.outcome }}" = failure ] && f="$f San-Francisco"
+          [ "${{ steps.melbourne.outcome }}" = failure ] && f="$f Melbourne"
+          [ -z "$f" ] && { echo "All cities OK"; exit 0; }
+          echo "::error::Failed:$f (the other cities' updates were committed)"; exit 1

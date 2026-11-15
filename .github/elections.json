@@ -1,0 +1,21 @@
+{
+  "_about": [
+    "Election calendar for the scheduled jobs (.github/elections.py reads it). One row per election per city.",
+    "voting_from..day (the city's local dates): fetch-voting.yml refreshes that city's voting places every morning.",
+    "day+1..results_until: fetch-representatives.yml refreshes that city daily (results feed its representatives file),",
+    "on top of the weekly Monday run for every city. No hourly election-night runs: on election night, run",
+    "'Refresh representatives' by hand for the city. Add the next election here when it's announced; past rows can stay."
+  ],
+  "elections": [
+    {"city": "toronto", "name": "Toronto municipal election", "tz": "America/Toronto",
+     "voting_from": "2026-10-01", "day": "2026-10-26", "results_until": "2026-11-16"},
+    {"city": "chicago", "name": "US general election", "tz": "America/Chicago",
+     "voting_from": "2026-10-19", "day": "2026-11-03", "results_until": "2026-12-10"},
+    {"city": "dallas", "name": "US general election", "tz": "America/Chicago",
+     "voting_from": "2026-10-01", "day": "2026-11-03"},
+    {"city": "nyc", "name": "US general election", "tz": "America/New_York",
+     "voting_from": "2026-10-01", "day": "2026-11-03"},
+    {"city": "melbourne", "name": "Victorian state election", "tz": "Australia/Melbourne",
+     "voting_from": "2026-11-13", "day": "2026-11-28"}
+  ]
+}
