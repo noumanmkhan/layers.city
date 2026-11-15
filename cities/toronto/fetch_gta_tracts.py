@@ -93,6 +93,7 @@ print('dimensions:', dims, flush=True)
 gset = set(geo_codes)
 def svc(dguid):
     if dguid in gset: return dguid
+    if dguid.replace('.', '_') in gset: return dguid.replace('.', '_')   # the service writes 0001.00 as 0001_00
     alt = [g for g in geo_codes if g.endswith(dguid[-10:])]
     return alt[0] if alt else None
 probe = feats[0]['properties']['DGUID']
@@ -122,7 +123,7 @@ for i in range(0, len(keys), 40):
         c = r[ck].split(':')[0].strip()
         if c not in keep: continue
         v = (r[vk] or '').strip()
-        out[dg.get(r[gk].split(':')[0].strip(), r[gk])][c] = float(v) if re.fullmatch(r'-?[\d.]+(E-?\d+)?', v) else None
+        out[dg.get(r[gk].split(':')[0].strip(), r[gk].split(':')[0].strip())][c] = float(v) if re.fullmatch(r'-?[\d.]+(E-?\d+)?', v) else None
     if i // 40 % 10 == 0: print('  batch', i // 40 + 1, 'of', (len(keys) + 39) // 40, flush=True)
     time.sleep(1)
 labels = {c: '  ' * depth(c) + names[c] for c in sorted(keep, key=int)}
