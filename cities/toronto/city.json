@@ -21,7 +21,7 @@
     {"name": "Lake Ontario", "at": [43.585, -79.40], "cls": "lake-near"},
     {"name": "Lake Ontario", "at": [43.45, -78.75], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Ferry routes: City of Toronto (Toronto Centreline) · Neighbouring municipalities & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Voting places: City of Toronto Elections · Heritage buildings: City of Toronto Heritage Register · Changes: City of Toronto development applications and building permits · Collection days: City of Toronto Solid Waste Management Services · Schools: Ontario Ministry of Education (Open Government Licence – Ontario) · Bike lanes: City of Toronto Cycling Network · Bike Share stations: Bike Share Toronto (Toronto Parking Authority) · Parking: City of Toronto (Green P, permit areas, City EV chargers) · EV chargers: AFDC / Natural Resources Canada · Waterfront Marathon course: Canada Running Series",
+  "attribution": "Boundaries & streets: City of Toronto Open Data · Ridings: Elections Canada / Elections Ontario via Open North · Transit: TTC GTFS · GO Transit: Metrolinx Open Data · Ferry routes: City of Toronto (Toronto Centreline) · Neighbouring municipalities, address search, and roads, parks and land use beyond Toronto: © OpenStreetMap contributors · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Voting places: City of Toronto Elections · Heritage buildings: City of Toronto Heritage Register · Changes: City of Toronto development applications and building permits · Collection days: City of Toronto Solid Waste Management Services · Schools: Ontario Ministry of Education (Open Government Licence – Ontario) · Bike lanes: City of Toronto Cycling Network · Bike Share stations: Bike Share Toronto (Toronto Parking Authority) · Parking: City of Toronto (Green P, permit areas, City EV chargers) · EV chargers: AFDC / Natural Resources Canada · Waterfront Marathon course: Canada Running Series",
   "example": {"at": [43.67194, -79.38667], "name": "Toronto Reference Library (example)"},
 
   "search": {
@@ -69,13 +69,17 @@
       {"id": "towers", "kind": "towers", "under": "landmarks", "file": "skyscrapers", "name": "Skyscrapers", "place": "Skyscraper", "note": "Buildings 150 m and taller, open or under construction", "key": {"res": "Residential", "com": "Commercial (office or hotel)", "mix": "Mixed use", "uc": "Under construction · hollow", "sup": "Supertall, 300 m or more · gold ring"}, "purpose": {"Residential": "Residential tower", "Office": "Office tower", "Hotel": "Hotel tower", "Mixed-use": "Mixed-use tower"}, "supText": "Supertall", "ucText": "Under construction", "builtText": "Completed", "expectedText": "Expected", "akaText": "Also known as {aka}", "moreText": "More on Wikipedia", "sourceText": "Source: Wikipedia"},
       {"id": "heritage", "kind": "districts", "file": "heritage", "name": "Heritage districts", "note": "29 Heritage Conservation Districts in force", "label": "{name}", "hover": "{name} Heritage Conservation District"},
       {"id": "hbld", "kind": "heritage", "file": "heritage_buildings", "name": "Heritage buildings", "note": "1,515 properties designated one by one (Part IV); from zoom 15", "place": "Designated heritage property", "builtText": "built {y}", "byText": "{ar}", "designatedText": "designated {d}", "bylawText": "By-law", "hcdText": "Also in (district)"},
-      {"id": "bia", "kind": "patches", "file": "bia", "name": "Business Improvement Areas", "note": "85 BIAs", "label": "{name}", "hover": "{name} BIA"}
+      {"id": "bia", "kind": "patches", "file": "bia", "name": "Business Improvement Areas", "note": "85 BIAs", "label": "{name}", "hover": "{name} BIA"},
+      {"id": "landuse", "kind": "landuse", "file": "landuse", "on": true, "name": "Land use", "note": "Homes, shops, industry, farms and woods across the GTA",
+       "key": {"res": "Residential", "com": "Commercial & retail", "ind": "Industrial", "farm": "Farmland", "wood": "Woods", "cem": "Cemeteries", "quarry": "Quarries"},
+       "legend": "From OpenStreetMap, mapped by volunteers: a guide to how land is used, not the zoning bylaw."}
     ]],
     ["Outdoors", [
-      {"id": "parks", "kind": "parks", "file": "parks", "lazy": true, "optional": true, "on": true, "name": "Parks", "place": "City park",
-       "note": "City parks shaded green; pick a playground, water play and more", "countNote": "{n} City parks shaded green; pick a playground, water play and more",
+      {"id": "parks", "kind": "parks", "file": "parks", "more": "gta_parks", "lazy": true, "optional": true, "on": true, "name": "Parks", "place": "City park",
+       "note": "City parks shaded green; parks and conservation areas across the GTA too", "countNote": "{n} City parks shaded green, plus parks and conservation areas across the GTA",
+       "placeOut": "Park", "reserveOut": "Conservation area", "fineOut": "Outline from OpenStreetMap. Amenities are listed for City of Toronto parks only.",
        "amenities": {"play": ["Playground", "Parks with a playground"], "water": ["Water play", "A splash pad or wading pool: summer only"], "wc": ["Washroom", "Parks with a public washroom"], "dog": ["Off-leash", "Parks with a dog off-leash area"]},
-       "legend": "Pick one or more: parks with all of them stay green, the rest fade.", "matchText": "{n} of {total} parks.",
+       "legend": "Pick one or more: City parks with all of them stay green, the rest fade. Amenities are known for Toronto’s parks only.", "matchText": "{n} of {total} parks.",
        "waterText": {"splash": "Splash pad", "wading": "Wading pool", "both": "Splash pad and wading pool"},
        "hasLabel": "Has", "seasonText": "Splash pads and wading pools run in summer only.",
        "linkUrl": "https://www.toronto.ca/explore-enjoy/parks-recreation/places-spaces/parks-and-recreation-facilities/location/?id={u}", "linkText": "Park page on toronto.ca",
@@ -100,8 +104,8 @@
        "shields": {"401": "401", "400": "400", "404": "404", "409": "409", "427": "427", "QEW": "QEW", "2A": "2A", "DVP": "DVP", "Gardiner": "Gardiner", "Allen": "Allen Rd"},
        "repeat": {"401": [0.15, 0.5, 0.85]}, "tollShield": "407 ETR"},
       {"id": "tram", "kind": "streetcars", "file": "streetcars", "name": "Streetcars", "note": "11 routes, numbered along the line; stops from zoom 15"},
-      {"id": "streets", "kind": "streets", "file": "streets", "name": "Main streets", "note": "Arterials like King, Queen, Eglinton, Don Mills", "on": true},
-      {"id": "coll", "kind": "streets", "file": "collectors", "under": "streets", "labelZoom": 15, "yieldLabels": true, "name": "Collector streets", "on": true, "note": "Collector roads like Dovercourt, Greenwood, Davisville; from zoom 13"},
+      {"id": "streets", "kind": "streets", "file": "streets", "more": "gta_streets", "name": "Main streets", "note": "Arterials like King, Queen, Eglinton, Don Mills, and across the GTA", "on": true},
+      {"id": "coll", "kind": "streets", "file": "collectors", "more": "gta_collectors", "under": "streets", "labelZoom": 15, "yieldLabels": true, "name": "Collector streets", "on": true, "note": "Collector roads like Dovercourt, Greenwood, Davisville, and across the GTA; from zoom 13"},
       {"id": "bus", "kind": "buses", "file": "transit_routes", "lazy": true, "name": "Bus routes", "note": "Every bus route, by how often it runs, or the overnight ones; stops from zoom 15",
        "allText": "All", "default": "all", "allNote": "Every daytime bus route.",
        "families": [["freq", "Frequent", "Every 10 minutes or better each way, weekdays 7 am to 7 pm."], ["exp", "Express", "Named express by the TTC: fewer stops."], ["reg", "Regular", "Every other daytime route."], ["night", "Overnight", "At least hourly each way from 2 to 4 am on weeknights: the Blue Night network, buses and streetcars."]],

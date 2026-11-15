@@ -32,8 +32,8 @@ Toronto's geography is described in several overlapping ways at once. A single a
 | Heritage districts | 29 | Heritage Conservation Districts in force;<br>ones under study or appeal are left out |
 | Neighbourhood badges | 23 | A faint drawing of what a few places<br>are known for, square to the city grid |
 | Neighbourhood lens | 158 | Housing cost, time to Union,<br>getting to work, renters and owners,<br>housing type |
-| Main streets | 321 streets | Major and minor arterials<br>(King, Queen, Eglinton…), named along the line |
-| Collector streets | 989 streets | The tier below (Dovercourt, Greenwood…),<br>from zoom 13; most non-arterial bus streets |
+| Main streets | 321 streets,<br>plus ~490 across the GTA | Major and minor arterials<br>(King, Queen, Eglinton…), named along the line;<br>beyond the city from OpenStreetMap |
+| Collector streets | 989 streets,<br>plus ~1,800 across the GTA | The tier below (Dovercourt, Greenwood…),<br>from zoom 13; most non-arterial bus streets;<br>beyond the city, OpenStreetMap tertiary roads |
 | Yonge: East and West | 43 streets | Yonge and the streets it splits<br>into East and West |
 | Highways | 10 in Toronto,<br>14 across the GTA | 400-series, QEW, 407 ETR,<br>DVP, Gardiner, Allen Rd |
 | Subway & LRT | 5 lines | Lines 1, 2, 4, 5, 6: a numbered badge per line,<br>stations and names from zoom 13 |
@@ -45,6 +45,8 @@ Toronto's geography is described in several overlapping ways at once. A single a
 | Permit parking areas | 97 areas | On-street permit areas; the card and a<br>lens give each neighbourhood's share |
 | EV chargers | 582 public sites | DC fast and Level 2, by ports;<br>network, hours, price where listed |
 | Parks | 1,629 parks | City park outlines shaded green; playground,<br>water play, washroom, off-leash chips |
+| Parks beyond the city | ~2,900 | Parks and conservation areas across Halton,<br>Peel, York and Durham (OpenStreetMap); no amenities |
+| Land use | 7 classes | Residential, commercial, industrial, farmland,<br>woods, cemeteries, quarries across the GTA,<br>a faint tint under everything (OpenStreetMap) |
 | Sports & rec | 592 places | Pools, rinks, ball diamonds, fields, tennis,<br>pickleball, basketball, skateparks, cricket |
 | GO Transit trains | 7 lines<br>+ UP Express | ~70 stations, Metrolinx<br>line colours |
 | GO buses | 37 routes | Whole network in the GTA view;<br>in Toronto, the 21 that stop there |
@@ -119,6 +121,16 @@ Toronto's geography is described in several overlapping ways at once. A single a
 **Election view (Toronto, until November 15, 2026):** switch on City wards and each ward is shaded in one neutral violet, chosen because no party uses it, with the other shading switched off. Ward numbers become bold chips, and zoomed in each one shows the election date, the sitting councillor (marked if not running again) and how many candidates are on the ballot. Tap a ward and the card opens on Representatives, with the candidates listed under the councillor. A councillor running somewhere else says so ("running for mayor", "running in Ward 14") rather than just "not running". The mayoral race is citywide, so it isn't on the ward labels: a Mayor row heads every card's Representatives with all 53 candidates in ballot order, and the election view's note points to it. No candidate is singled out; choosing frontrunners would be a political judgment the map shouldn't make.
 
 **November 3 ballot (Chicago and Dallas, until election day):** tap anywhere and, under each state representative, state senator and U.S. representative, the card lists that district's candidates with their party, in the order they appear on the ballot, and says whether the sitting member is running again, not running, or running for something else. U.S. Senate and Governor follow. Chicago's come from the Board of Elections' candidate list; Dallas's from Dallas County's official sample ballot, which is published only as a picture, so it is read with OCR and checked by eye. The city councils come later: Chicago's ward races in February 2027 and Dallas's council in May 2027 will get Toronto's election view once their ballots are set. It all comes from the City's election results file, so on election night the labels switch to the count and then the winner. The parties come from the weekly representatives check, so a by-election or a floor-crossing shows up within a week. Dallas's congressional districts stay uncoloured until January, because the members sitting now were elected on the old lines.
+
+**The GTA beyond the city (November 15, 2026):** the regional view used to be a grey plain with highways and GO lines
+on it. Now Halton, Peel, York and Durham get their arterials and collectors (*Main streets* and *Collector streets* carry
+on past the city limits, named in the regional view only), their parks and conservation areas (in *Parks*, faded and
+without small parks when zoomed out; their popup says the outline is from OpenStreetMap and amenities are known for
+Toronto's parks only), and a *Land use* layer under *Places*, on by default: a faint tint for homes, shops, industry,
+farms, woods, cemeteries and quarries across the whole GTA, Toronto included, with a key. All from OpenStreetMap
+(`cities/toronto/fetch_gta_basemap.py`, run in GitHub Actions; `gta_basemap.py` builds `gta_streets`, `gta_collectors`,
+`gta_parks` and `landuse`). Land use is mapped by volunteers, so it is a guide to how land is used, not the zoning
+bylaw, and farmland is under-mapped in OpenStreetMap.
 
 **Parks:** an *Outdoors* group holds a *Parks* layer, off by default: every City park outline from the City's Green Spaces data, shaded green, named on hover. Chips narrow it to parks with a *Playground*, *Water play* (a splash pad or wading pool), a *Washroom* or an *Off-leash* area; pick several and a park needs all of them, while the rest fade to a faint wash so the green space still reads. Tap a park for what it has and its toronto.ca page. The amenities come from the City's parks list, matched to the outlines once at build time; the City's list names no splash pads, so those come from OpenStreetMap. A GitHub Action refreshes it all monthly.
 

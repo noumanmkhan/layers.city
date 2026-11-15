@@ -2,6 +2,17 @@
 
 ## Since 1.1
 
+### The GTA filled in: streets, parks and land use beyond Toronto (November 15)
+- Main and collector streets now carry on across Halton, Peel, York and Durham, named in the regional view (the city
+  view leaves their names off, since the mask covers their lines). From OpenStreetMap: trunk and primary roads are
+  major, secondary minor, tertiary collectors.
+- Parks adds the region's parks and conservation areas (Kortright, Claireville, Crawford Lake…), faded and without
+  small parks when zoomed out. Their popup says the outline is from OpenStreetMap; amenity chips cover Toronto's parks
+  only.
+- A Land use layer under Places, on by default: a faint tint for residential, commercial and retail, industrial,
+  farmland, woods, cemeteries and quarries across the whole GTA, Toronto included, with a key. Volunteer-mapped,
+  so a guide to how land is used, not the zoning bylaw. Views that set their own layers leave it off.
+
 ### Regional trains and buses on the Routes pages (every city, November 15)
 - "Where does this line or route go?" now covers the trains (and in Toronto and Melbourne the regional buses and
   coaches) that bring people into each city, with the same stop list, route story and next departures as the

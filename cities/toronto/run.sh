@@ -25,6 +25,7 @@ python3 french_schools.py     # French-language and immersion schools: points, w
 python3 nearby.py             # after institutions: points for the card's Nearby section
 [ -f raw/nearby/green_spaces.geojson ] && python3 parks.py   # park outlines with their amenities, written straight to docs (fetch-toronto-nearby.yml)
 [ -f raw/nearby/rec_facilities.json ] && python3 sports.py   # pools, rinks, fields and courts for Sports & rec, written straight to docs (fetch-toronto-nearby.yml)
+[ -d raw/gta_basemap ] && python3 gta_basemap.py   # after streets and parks: OSM roads, parks and land use beyond the city (fetch-gta-basemap.yml)
 OUT=../../docs/toronto/data
 simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
 simplify areas 10; simplify base 40; simplify bia 5; simplify boroughs 10; simplify heritage 3
@@ -32,6 +33,9 @@ simplify federal 10; simplify neighbourhoods 10; simplify wards 10
 npx mapshaper -i tmp/highways.geojson -simplify interval=6 -o $OUT/highways.geojson precision=0.00001 -quiet
 npx mapshaper -i tmp/streets.geojson -simplify interval=6 keep-shapes -o $OUT/streets.geojson precision=0.00001 -quiet
 npx mapshaper -i tmp/collectors.geojson -simplify interval=6 -o $OUT/collectors.geojson precision=0.00001 -quiet
+[ -f tmp/gta_streets.geojson ] && npx mapshaper -i tmp/gta_streets.geojson -simplify interval=8 -o $OUT/gta_streets.geojson precision=0.00001 -quiet
+[ -f tmp/gta_collectors.geojson ] && npx mapshaper -i tmp/gta_collectors.geojson -simplify interval=8 -o $OUT/gta_collectors.geojson precision=0.00001 -quiet
+[ -f tmp/landuse.geojson ] && npx mapshaper -i tmp/landuse.geojson -simplify interval=20 -filter-slivers min-area=15000 -o $OUT/landuse.geojson precision=0.0001 -quiet
 npx mapshaper -i tmp/gta_highways.geojson -simplify interval=15 -o $OUT/gta_highways.geojson precision=0.00001 -quiet
 npx mapshaper -i tmp/go_lines.geojson -simplify interval=40 -o $OUT/go_lines.geojson precision=0.00001 -quiet
 npx mapshaper -i tmp/go_lines_416.geojson -simplify interval=40 -o $OUT/go_lines_416.geojson precision=0.00001 -quiet

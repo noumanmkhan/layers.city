@@ -293,6 +293,14 @@ function pending(it){
   return g;
 }
 /* One builder per kind of layer. Each gets its config entry and its loaded data. */
+// Street names from beyond the city (p.o, the region's streets) are left off in the city view, where the mask
+// covers their lines.
+const ST_LBL = [];   // [layer id, its own filter, whether the city-view filter is on]
+const stFilter = (f, inner) => inner ? ['all', f, ['!=', ['get', 'o'], 1]] : f;
+function streetScope(){
+  const inner = map.getContainer().classList.contains('mode-inner');
+  ST_LBL.forEach(L_ => { if (L_[2] !== inner && gl.getLayer(L_[0])){ gl.setFilter(L_[0], stFilter(L_[1], inner)); L_[2] = inner; } });
+}
 const KINDS = {
   fill: (it, fc) => {
     const major = it.size === 'major';
@@ -450,11 +458,12 @@ const KINDS = {
       if (!fc.features.some(f => f.properties.cls === c && f.properties.name)) return;
       const P = htmlProbe('st:' + c, '<span class="st-lbl ' + c + '">Ag</span>', el => textOf(getComputedStyle(el))), id = uid('st');
       const from = Math.max(it.labelZoom || 12, c === 'minor' ? 13 : 0);
-      addL(hidden({id, type: 'symbol', source: core.src, minzoom: LZ(from), filter: ['all', ['==', ['get', 'cls'], c], ['has', 'name']],
+      const flt = ['all', ['==', ['get', 'cls'], c], ['has', 'name']];
+      addL(hidden({id, type: 'symbol', source: core.src, minzoom: LZ(from), filter: stFilter(flt, map.getContainer().classList.contains('mode-inner')),
         layout: {'symbol-placement': 'line', 'text-field': ['get', 'name'], 'symbol-spacing': ['step', ['zoom'], 420, LZ(13), 340, LZ(14), 280], 'text-max-angle': 28,
           'text-padding': 3, 'text-rotation-alignment': 'map', 'text-pitch-alignment': 'viewport'}}), 'sym', LABEL_PRIORITY.length + (it.yieldLabels ? 2 : 1));
       styled(id, () => { const t = at(P, x => x); return {layout: textLayout(t, {'text-size': byZoom(P, v => v.size, 11), 'text-max-width': 100}), paint: textPaint(t)}; });
-      g.ids.push(id);
+      g.ids.push(id); ST_LBL.push([id, flt, map.getContainer().classList.contains('mode-inner')]);
     });
     return g;
   },
@@ -643,6 +652,9 @@ const KINDS = {
   // Parks: outlines shaded green, one path per park. Amenity chips (it.amenities, any mix) narrow it: a park that lacks
   // one of the picked amenities fades to a faint wash, so the green space still reads. Drawn in the civic pane, above the
   // neighbourhood fills, so a tap reaches the park. Tap for its name, what it has and its City page. Loads on first use.
+  // Land use (OpenStreetMap): what the land is used for, a faint tint per class under everything else, so the region
+  // reads as towns, industry, farms and woods rather than one grey plain. Not tappable: a tap still reads the place.
+  landuse: (it, fc) => geo(fc, {pane:'base', interactive:false, cls: f => 'lu ' + f.properties.k, weight: () => 0}),
   parks: it => {
     const g = grp(); let cur = null;
     g._draw = () => {
@@ -650,11 +662,11 @@ const KINDS = {
       if (cur){ g.removeLayer(cur); drop(cur); }
       let n = 0;
       const fs = data.parks.features.map(f => { const ok = pkMatch(f.properties); if (ok) n++; return {type: 'Feature', geometry: f.geometry, properties: Object.assign(f.properties, {_ok: ok})}; });
-      cur = geo({type: 'FeatureCollection', features: fs}, {pane: 'civic', cls: f => 'pk' + (f.properties._ok ? '' : ' dim'), hover: f => esc(pkTip(f.properties)),
+      cur = geo({type: 'FeatureCollection', features: fs}, {pane: 'civic', cls: f => 'pk' + (f.properties._ok ? '' : ' dim') + (f.properties.s ? ' s' : '') + (f.properties.o ? ' o' : ''), hover: f => esc(pkTip(f.properties)),
         tap: (f, e) => { pkPopup(f.properties, e.latlng); }});
       g.addLayer(cur);
       const note = document.getElementById('pknote');
-      if (note) note.textContent = pkWant.size ? fill(it.matchText || '{n} of {total} parks', {n: n.toLocaleString(CITY.locale), total: data.parks.features.length.toLocaleString(CITY.locale)}) : '';
+      if (note) note.textContent = pkWant.size ? fill(it.matchText || '{n} of {total} parks', {n: n.toLocaleString(CITY.locale), total: (data.parks.count || data.parks.features.length).toLocaleString(CITY.locale)}) : '';
     };
     g.on('add', () => ensureParks().then(() => g._draw()));
     return g;
@@ -933,7 +945,9 @@ const pkWant = new Set();
 let pkP = null;
 function ensureParks(){
   if (!PARK) return Promise.resolve(null);
-  return pkP || (pkP = get(PARK.file).then(d => {
+  // PARK.more: outlines from beyond the city, drawn with the city's (an empty or missing file is fine).
+  return pkP || (pkP = Promise.all([get(PARK.file)].concat([].concat(PARK.more || []).map(f => get(f).catch(() => null)))).then(([d, ...more]) => {
+    more.forEach(m => { if (m) d.features = d.features.concat(m.features); });
     data.parks = d;
     const n = document.querySelector('label[for="lyr-' + PARK.id + '"] .tx > span');
     if (n && PARK.countNote) n.textContent = fill(PARK.countNote, {n: (d.count || d.features.length).toLocaleString(CITY.locale)});
@@ -945,9 +959,11 @@ const pkHas = p => (p.a || []).map(k => k === 'water' && p.w && PARK.waterText ?
 const pkTip = p => p.n + (p.a && p.a.length ? ' · ' + pkHas(p).join(', ') : '');
 function pkPopup(p, latlng){
   const D = data.parks || {}, A = D.asof || {}, has = pkHas(p);
-  const fine = fill(PARK.fine || '', {parks: A.parks ? niceDate(A.parks, true) : '', water: A.water ? niceDate(A.water, true) : '', outlines: A.outlines ? niceDate(A.outlines, true) : ''});
+  // p.o: an outline from beyond the city (OpenStreetMap; p.r a conservation area), with its own kind and fine print.
+  const fine = p.o ? PARK.fineOut || '' : fill(PARK.fine || '', {parks: A.parks ? niceDate(A.parks, true) : '', water: A.water ? niceDate(A.water, true) : '', outlines: A.outlines ? niceDate(A.outlines, true) : ''});
+  const kind = p.o ? (p.r ? PARK.reserveOut : PARK.placeOut) || 'Park' : PARK.place || 'Park';
   lpopup({className: 'info-pop pk-pop', maxWidth: 280, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
-    '<b>' + esc(p.n) + '</b><small><i class="pk-key"></i>' + esc(PARK.place || 'Park') + '</small>' +
+    '<b>' + esc(p.n) + '</b><small><i class="pk-key"></i>' + esc(kind) + '</small>' +
     (has.length ? '<div class="kv"><span>' + esc(PARK.hasLabel || 'Has') + '</span><span>' + has.map(esc).join(', ') + '</span></div>' : '') +
     (p.w && PARK.seasonText ? '<p class="bk-fine">' + esc(PARK.seasonText) + '</p>' : '') +
     (p.u && PARK.linkUrl ? '<p><a href="' + esc(fill(PARK.linkUrl, {u: p.u})) + '" target="_blank" rel="noopener">' + esc(PARK.linkText || 'Park page') + '</a></p>' : '') +
@@ -1352,7 +1368,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, lens: 2, suburbs: 2, patches: 3, parks: 2.8, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, landuse: -1, lens: 2, suburbs: 2, patches: 3, parks: 2.8, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -1484,6 +1500,12 @@ CITY.groups.forEach(([title, items]) => {
         '</div><div class="legend"><small>' + esc(it.legend || '') + ' <span id="spnote-' + it.id + '"></span></small></div>';
       grp.appendChild(box);
       box.querySelectorAll('[data-sp]').forEach(b => b.addEventListener('click', () => tapSpotClass(it.id, b.dataset.k)));
+    }
+    if (it.kind === 'landuse' && it.key){   // key to the tints, shown while the layer is on
+      const box = document.createElement('div'); box.className = 'lensbox child'; box.id = 'lukey-' + it.id; box.hidden = !it.on;
+      box.innerHTML = '<div class="legend lukey">' + Object.entries(it.key).map(([k, t]) => '<div><i style="background:color-mix(in srgb,var(--lu-' + k + ') 70%,var(--city))"></i>' + esc(t) + '</div>').join('') + '</div>' +
+        (it.legend ? '<div class="legend"><small>' + esc(it.legend) + '</small></div>' : '');
+      grp.appendChild(box);
     }
     if (it.kind === 'towers'){   // key to the badges, shown while the layer is on
       const box = document.createElement('div'); box.className = 'lensbox child'; box.id = 'twkey-' + it.id; box.hidden = !it.on;
@@ -1684,6 +1706,7 @@ function setLayer(id, on){
   if (on) { lyr.addTo(map); } else { map.removeLayer(lyr); }
   if (METRO && id === METRO.id) syncStnNames();
   if (kindOf(id) === 'towers'){ const box = document.getElementById('twkey-' + id); if (box) box.hidden = !on; }
+  if (kindOf(id) === 'landuse'){ const box = document.getElementById('lukey-' + id); if (box) box.hidden = !on; }
   if (kindOf(id) === 'buses'){ document.getElementById('busbox').hidden = !on; drawBusBox(); }
   if (kindOf(id) === 'changes'){ const b = document.getElementById('chgbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'bikes'){ const b = document.getElementById('bkbox'); if (b) b.hidden = !on; }
@@ -3441,6 +3464,7 @@ function setScope(s, move){
   scope = s;
   document.querySelectorAll('[data-scope]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.scope === s)));
   map.getContainer().classList.toggle('mode-inner', s === 'inner');
+  streetScope();
   if (mask) { if (s === 'inner') mask.addTo(map); else map.removeLayer(mask); }
   ORDER.forEach(it => { if (layers[it.id] && layers[it.id]._scope) layers[it.id]._scope(s); });
   drawStops();
@@ -4149,10 +4173,10 @@ const files = ['base', 'regions'].concat(CITY.maskWater ? [CITY.maskWater] : [])
 const REP_FILES = ((CITY.card.reps && CITY.card.reps.offices) || []).map(o => o.file).filter(Boolean);
 data.repAreas = {};
 // Files of layers marked "lazy" (bus route shapes) load the first time they're needed.
-LAYERS.filter(it => !it.lazy).forEach(it => [].concat(it.file || it.files || []).forEach(f => { if (!files.includes(f)) files.push(f); }));
+LAYERS.filter(it => !it.lazy).forEach(it => [].concat(it.file || it.files || [], it.more || []).forEach(f => { if (!files.includes(f)) files.push(f); }));
 const loaded = {};
 // Files of layers marked "optional" (e.g. daily closures not fetched yet) load as empty instead of failing the map.
-const OPTIONAL = new Set(LAYERS.filter(it => it.optional).flatMap(it => [].concat(it.file || it.files || [])).concat(CITY.maskWater ? [CITY.maskWater] : []));
+const OPTIONAL = new Set(LAYERS.filter(it => it.optional).flatMap(it => [].concat(it.file || it.files || [])).concat(LAYERS.flatMap(it => [].concat(it.more || []))).concat(CITY.maskWater ? [CITY.maskWater] : []));
 Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type:'FeatureCollection', features:[]}; throw e; }).then(d => { loaded[f] = d; }))
   .concat([get(CITY.lens.file).then(d => { data.profiles = d; }), CITY.card.reps ? get(CITY.card.reps.file).then(d => { data.reps = d; }).catch(() => { data.reps = null; }) : null,   // a new city may have no representatives yet
     CITY.regionPlaces ? get(CITY.regionPlaces.file).then(d => { data.regionPlaces = d; }).catch(() => { data.regionPlaces = null; }) : null,
@@ -4162,7 +4186,8 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
     CITY.focus ? get('region_areas').then(d => { data.regionAreas = d; }).catch(() => { data.regionAreas = null; }) : null, glReady]))
 .then(() => {
   holdStyles = true;   // looks are read from the CSS once, for every layer, after they're all made
-  const base = loaded.base, src = it => it.file ? loaded[it.file] : it.files.map(f => loaded[f]);
+  // it.more: files drawn with the layer's own (the region's streets beyond the city, kept apart so the city's file stays the City's).
+  const base = loaded.base, src = it => it.file ? (it.more && loaded[it.file] ? {type: 'FeatureCollection', features: [].concat(loaded[it.file].features, ...[].concat(it.more).map(f => (loaded[f] || {}).features || []))} : loaded[it.file]) : it.files.map(f => loaded[f]);
   LAYERS.filter(it => AREA_KINDS.includes(it.kind) || it.kind === 'boards').forEach(it => { data.layers[it.id] = loaded[it.file]; });
   Object.assign(data, {footprint: data.layers[CITY.footprint], units: UNITS && loaded[UNITS.file],
     knownas: byKind('knownas') && loaded[byKind('knownas').file], landmarks: byKind('landmarks') && loaded[byKind('landmarks').file],
