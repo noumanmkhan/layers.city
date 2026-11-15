@@ -163,6 +163,10 @@ h1{margin:4px 0 0;font-family:var(--display);font-weight:800;font-size:48px;line
 .ln.lb.lAlamein,.ln.lb.lBelgrave,.ln.lb.lCraigieburn,.ln.lb.lCranbourne,.ln.lb.lFlemington,.ln.lb.lFrankston,.ln.lb.lGlen,.ln.lb.lHurstbridge,.ln.lb.lLilydale,.ln.lb.lMernda,.ln.lb.lPakenham,.ln.lb.lSandringham,.ln.lb.lStony,.ln.lb.lSunbury,.ln.lb.lUpfield,.ln.lb.lWerribee,.ln.lb.lWilliamstown{font-size:0}
 /* The Routes page says V/Line once, as one pill (routes.json page "lineGroups"), in V/Line's purple. */
 .ln.grp.lV\/Line{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em;background:#8F1A95;color:#fff}
+/* V/Line on the Routes page: coaches in V/Line purple (its trains' dots take the same colour from the feed). */
+.rb.m-coach{background:#8F1A95;color:#fff;box-shadow:none;white-space:nowrap;font-size:0}
+/* A coach's code ("Coach V29") means nothing to riders: its badge just says Coach; the row names the route. */
+.rb.m-coach::after{content:'Coach';font-size:13px}.rb.m-coach.big::after{font-size:17px}
 </style>
 </head>
 <body>
