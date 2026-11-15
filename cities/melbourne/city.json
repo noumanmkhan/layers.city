@@ -113,8 +113,10 @@
   "regionPill": "{region}",
   "note": "Outside the City of Melbourne. The suburbs and parts of the city on this map cover the City only.",
   "appNote": "Outside the City of Melbourne, so suburb and city details aren't shown here.",
-  "appBeyond": "That spot is outside Greater Melbourne."
+  "appBeyond": "That spot is outside Greater Melbourne.",
+  "muniLabel": "Suburb"
  },
+ "focus": {"label": "Focus on a council", "all": "All of Greater Melbourne", "noun": "Council", "count": "{n} suburbs in {name}", "show": "Show all of {name}"},
  "facts": {
   "peers": "sides",
   "in": "{name}",
@@ -816,7 +818,7 @@
      "level": "state",
      "file": "state",
      "name": "State districts",
-     "note": "5 Legislative Assembly districts, cut to the City line · the boundaries of the November 28, 2026 election",
+     "note": "Legislative Assembly districts across Greater Melbourne · the boundaries of the November 28, 2026 election",
      "label": "{name}",
      "hover": "State: {name} District"
     },
@@ -826,7 +828,7 @@
      "level": "national",
      "file": "federal",
      "name": "Federal divisions",
-     "note": "4 members of the House of Representatives · 2024 boundaries, cut to the City line",
+     "note": "Members of the House of Representatives across Greater Melbourne · 2024 boundaries",
      "label": "{name}",
      "hover": "Federal: {name}",
      "party": {
@@ -1215,6 +1217,7 @@
   "compare": {
    "elsewhere": ""
   },
+  "outsideFacts": ["state", "fed"],
   "reps": {
    "file": "representatives.json",
    "offices": [
@@ -1238,7 +1241,19 @@
      "sub": "{r.party} · {f.name}"
     }
    ],
-   "note": "Names open each person’s official page. The City elects its nine councillors at large, so every address shares the whole council. Members of the Legislative Assembly are added after the November 28 state election. Checked weekly; last change {date}."
+   "note": "Names open each person’s official page. The City elects its nine councillors at large, so every address shares the whole council. Members of the Legislative Assembly are added after the November 28 state election. Checked weekly; last change {date}.",
+   "outside": {
+    "offices": [
+     {
+      "role": "MP (federal)",
+      "file": "federal",
+      "table": "fed",
+      "key": "name",
+      "sub": "{r.party} · {f.name}"
+     }
+    ],
+    "note": "Names open each person’s official page on the Parliament of Australia’s site. Members of the Legislative Assembly are added after the November 28 state election; councillors and mayors outside the City aren’t listed yet. Checked weekly; last change {date}."
+   }
   },
   "transit": {
    "file": "transit.json",

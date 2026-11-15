@@ -2,6 +2,12 @@
 
 ## Since 1.1
 
+### Melbourne beyond the City: your districts and MP, and focus on a council (November 16)
+- State districts and federal divisions now cover Greater Melbourne, not just the City, so "Who represents me" works
+  from Werribee to Pakenham. Tap anywhere in the suburbs and the card names the suburb, its council, its state
+  district and federal division, and the federal MP (state MPs follow the November 28 election).
+- A "Focus on a council" picker zooms to any of Greater Melbourne's 31 councils.
+
 ### Buildings across the GTA (Toronto, November 16)
 - Zoom in anywhere in the GTA and every building is drawn: a new Buildings layer under Places, on from zoom 15, from the
   Overture Maps Foundation (OpenStreetMap plus traced footprints where it has none). The suburbs no longer look empty
