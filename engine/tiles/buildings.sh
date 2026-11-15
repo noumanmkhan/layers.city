@@ -34,4 +34,4 @@ tippecanoe -o "$WORK/buildings.pmtiles" --force -l buildings -Z13 -z15 \
 du -h "$WORK/buildings.pmtiles"
 npx --yes wrangler@4 r2 object put "layers-city-tiles/$CITY/buildings.pmtiles" --file "$WORK/buildings.pmtiles" \
   --content-type application/octet-stream --remote
-echo "uploaded $CITY/buildings.pmtiles ($(date -u +%F), Overture $REL)" | tee "cities/$CITY/raw/buildings_tiles.log"
+echo "uploaded $CITY/buildings.pmtiles ($(date -u +%F), Overture $REL)"

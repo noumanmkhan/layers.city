@@ -28,8 +28,13 @@ jobs:
           git clone --depth 1 https://github.com/felt/tippecanoe /tmp/tc && make -C /tmp/tc -j4 >/dev/null && sudo make -C /tmp/tc install >/dev/null
           tippecanoe --version
       - name: Toronto and the GTA
-        run: bash engine/tiles/buildings.sh toronto -80.2 43.25 -78.4 44.55
-      - run: |
+        run: |
+          set -o pipefail
+          bash engine/tiles/buildings.sh toronto -80.2 43.25 -78.4 44.55 2>&1 | tail -c 20000 | tee /tmp/build.log
+      - if: always()
+        run: mkdir -p cities/toronto/raw && cp /tmp/build.log cities/toronto/raw/buildings_tiles.log || true
+      - if: always()
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
           git add cities/*/raw/buildings_tiles.log
