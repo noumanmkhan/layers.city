@@ -1,26 +1,114 @@
 {
   "_about": "Streetcars and buses (engine/fetch_surface.py, engine/surface.py). 'gtfs' says where the agency's schedule comes from: a CKAN package (ckan) or a direct zip (url). 'skip' lists route numbers already drawn by another layer (Subway & LRT). 'feeds' adds other agencies, each fetched into raw/surface/<feed>/: GO buses keep their own mode ('go') and a 'GO ' prefix so GO 41 never collides with TTC 41; they get no families (frequent, express...), which describe the TTC network. 'rapid' keeps the subway and LRT lines apart, in raw/surface/rapid_*.json, for the Routes page only. 'sched' also writes raw/surface/sched.json, when each route runs at each stop, for the Routes page's scheduled times when there are no live ones. 'fallback' (in 'gtfs') lists other copies of the schedule to try when the City's file is broken; the last is the Mobility Database's archived copy from October 27, 2026, the last good one before the City's file went empty (service to December 21): drop it once the City's file is fixed.",
-  "gtfs": {"ckan": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=ttc-routes-and-schedules",
-           "fallback": ["http://opendata.toronto.ca/toronto.transit.commission/ttc-routes-and-schedules/OpenData_TTC_Schedules.zip",
-                        "https://files.mobilitydatabase.org/mdb-732/latest.zip",
-                        "https://files.mobilitydatabase.org/mdb-732/mdb-732-202610270039/mdb-732-202610270039.zip"]},
-  "skip": ["1", "2", "3", "4", "5", "6"],
+  "gtfs": {
+    "ckan": "https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/package_show?id=ttc-routes-and-schedules",
+    "fallback": [
+      "http://opendata.toronto.ca/toronto.transit.commission/ttc-routes-and-schedules/OpenData_TTC_Schedules.zip",
+      "https://files.mobilitydatabase.org/mdb-732/latest.zip",
+      "https://files.mobilitydatabase.org/mdb-732/mdb-732-202610270039/mdb-732-202610270039.zip"
+    ]
+  },
+  "skip": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
+  ],
   "sched": true,
-  "rapid": {"1": "subway", "2": "subway", "4": "subway", "5": "lrt", "6": "lrt"},
+  "rapid": {
+    "1": "subway",
+    "2": "subway",
+    "4": "subway",
+    "5": "lrt",
+    "6": "lrt"
+  },
   "feeds": {
     "go": {
-      "gtfs": {"url": "https://assets.metrolinx.com/raw/upload/Documents/Metrolinx/Open%20Data/GO-GTFS.zip"},
-      "types": ["bus"],
+      "gtfs": {
+        "url": "https://assets.metrolinx.com/raw/upload/Documents/Metrolinx/Open%20Data/GO-GTFS.zip"
+      },
+      "types": [
+        "bus"
+      ],
       "mode": "go",
       "prefix": "GO ",
       "simplify": 0.00012,
       "_rapid": "GO trains and UP Express (GTFS route type 2), for the Routes page only: kept apart in raw/surface/go/rapid_*.json under these short names (no prefix), each shape's stations in order; the map draws them from go.py's own layer. 'sched' with 'schedGap' 0 keeps every departure, so the page says when the next train or GO bus leaves (no live GO times on the page yet).",
-      "rapid": {"LW": "rail", "LE": "rail", "MI": "rail", "KI": "rail", "BR": "rail", "RH": "rail", "ST": "rail", "UP": "rail"},
-      "rapidTypes": ["2"],
-      "rapidMatch": [["^(LW|Lakeshore West)", "LW"], ["^(LE|Lakeshore East)", "LE"], ["^(MI|Milton)", "MI"], ["^(KI|Kitchener)", "KI"],
-                     ["^(BR|Barrie)", "BR"], ["^(RH|Richmond Hill)", "RH"], ["^(ST|Stouffville)", "ST"], ["^(UP|Union Pearson|UP Express)", "UP"]],
+      "rapid": {
+        "LW": "rail",
+        "LE": "rail",
+        "MI": "rail",
+        "KI": "rail",
+        "BR": "rail",
+        "RH": "rail",
+        "ST": "rail",
+        "UP": "rail"
+      },
+      "rapidTypes": [
+        "2"
+      ],
+      "rapidMatch": [
+        [
+          "^(LW|Lakeshore West)",
+          "LW"
+        ],
+        [
+          "^(LE|Lakeshore East)",
+          "LE"
+        ],
+        [
+          "^(MI|Milton)",
+          "MI"
+        ],
+        [
+          "^(KI|Kitchener)",
+          "KI"
+        ],
+        [
+          "^(BR|Barrie)",
+          "BR"
+        ],
+        [
+          "^(RH|Richmond Hill)",
+          "RH"
+        ],
+        [
+          "^(ST|Stouffville)",
+          "ST"
+        ],
+        [
+          "^(UP|Union Pearson|UP Express)",
+          "UP"
+        ]
+      ],
       "sched": true,
-      "schedGap": 0
+      "schedGap": 0,
+      "schedDirs": true
+    },
+    "up": {
+      "_about": "UP Express (Metrolinx Open Data, its own GTFS beside GO's), for the Routes page only: one line, 'UP', every departure kept, timed by direction.",
+      "gtfs": {
+        "url": "https://assets.metrolinx.com/raw/upload/Documents/Metrolinx/Open%20Data/UP-GTFS.zip"
+      },
+      "types": [],
+      "rapid": {
+        "UP": "rail"
+      },
+      "rapidTypes": [
+        "2"
+      ],
+      "rapidMatch": [
+        [
+          ".",
+          "UP"
+        ]
+      ],
+      "joinRapid": true,
+      "sched": true,
+      "schedGap": 0,
+      "schedDirs": true
     }
   }
 }

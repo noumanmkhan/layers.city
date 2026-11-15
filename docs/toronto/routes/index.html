@@ -86,6 +86,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .rb{display:inline-grid;place-items:center;box-sizing:border-box;height:26px;min-width:40px;padding:0 6px;border-radius:5px;font:700 14px/1 var(--body);background:#fff;color:#1A1414;box-shadow:inset 0 0 0 2px #1A1414;flex:none}
 .rb.big{height:40px;min-width:60px;font-size:20px;border-radius:7px}
 .ln.lb{width:28px;height:28px;font-size:14px}
+.ln.lb.dot{font-size:0}
+.ln.grp{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em}
 .ln.lb.big{width:40px;height:40px;font-size:20px}
 @media (max-width:520px){.ln.lb.big{width:34px;height:34px;font-size:17px}}
 .tl li.call::after{width:12px;height:12px;left:4px;top:11px;background:var(--card);box-shadow:inset 0 0 0 2.5px var(--ink)}
@@ -332,6 +334,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const routeCls = R => R[2] === 'tram' ? 'tram' : R[2] === 'cable' ? 'cable' : R[2] !== 'bus' ? 'm-' + R[2] : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
   const isRapid = rid => ['subway', 'lrt', 'rail'].includes(D.routes[rid][2]);
   const badge = (rid, big) => { const R = D.routes[rid];
+    // A regional line (mode rail): its colour from routes.json page "lineColors" or the feed (R[6]); a name longer
+    // than three letters (Albury, BNSF) is a plain dot, the line's name beside it.
+    if (R[2] === 'rail') { const c = (RS.lineColors || {})[R[0].toLowerCase()] || R[6];
+      return el('span', { class: `ln lb l${R[0]}${R[0].length > 3 ? ' dot' : ''}${big ? ' big' : ''}`, style: c ? `background:${c}` : null, 'aria-hidden': 'true' }, R[0]); }
     return isRapid(rid) ? el('span', { class: `ln lb l${R[0]}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0])
       : el('span', { class: `rb ${routeCls(R)}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0]); };
   // A group's lines (BART's colours) as one bullet with the group's name (routes.json page "lineGroups").
@@ -545,7 +551,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const via = el('span', { class: 'via' });
     if (x.loop != null) via.append(el('span', { class: 'loopy' }, '↻ Loops round first'));
     stns.forEach(t => via.append(stnEl(t[1], t[2])));
-    if (regs.length > 1) via.append(el('span', {}, regs.slice(1).join(' → ')));
+    // A regional train passes many towns: the first two and the last (Mississauga → Oakville → … → Hamilton).
+    const rs_ = regs.slice(1);
+    if (regs.length > 1) via.append(el('span', {}, (rs_.length > 4 ? [...rs_.slice(0, 2), '…', rs_[rs_.length - 1]] : rs_).join(' → ')));
     else if (!stns.length && regs.length) via.append(el('span', {}, 'Stays in ' + regs[0]));
     const b = el('button', { type: 'button', class: 'row', 'aria-label': `Route ${R[0]} ${R[1]}, ${DIR[x.head] || ''} to ${clean(x.to)}${x.loop != null ? ', looping round first' : ''}` }, [
       badge(x.rid),

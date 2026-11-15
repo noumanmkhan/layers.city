@@ -637,12 +637,15 @@ if sc:
         keep, remap, spans = parts[bucket(st[0])]
         row = {}
         for rid in st[6]:
-            v = sc['stops'].get(st[0], {}).get(rid)
-            if v is None: v = sc['stops'].get(st[0], {}).get(SHORT.get(rid, rid))
-            if v is None: continue
-            for i in v:
-                if i not in remap: remap[i] = len(spans); spans.append(sc['spans'][i])
-            row[rid] = [remap[i] for i in v]
+            got = sc['stops'].get(st[0], {})
+            # A feed timed by direction (surface.json "schedDirs") writes "LW@0" and "LW@1": kept as "<route id>@<dir>".
+            keys = [(rid, got.get(rid) if rid in got else got.get(SHORT.get(rid, rid)))]
+            keys += [(f'{rid}@{d_}', got.get(f'{SHORT.get(rid, rid)}@{d_}')) for d_ in ('0', '1')]
+            for key, v in keys:
+                if v is None: continue
+                for i in v:
+                    if i not in remap: remap[i] = len(spans); spans.append(sc['spans'][i])
+                row[key] = [remap[i] for i in v]
         if row: keep[st[0]] = row
     os.makedirs(sd, exist_ok=True)
     for b, (keep, _, spans) in enumerate(parts):

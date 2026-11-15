@@ -471,8 +471,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     return { day: Date.UTC(+p.year, +p.month - 1, +p.day), min: +p.hour * 60 + +p.minute };
   }
   // The next scheduled departure as {day offset, minute of that day}, or null while the route is running (or unknown).
-  function nextSched(S, sid, rid) {
-    const v = S && S.stops[sid] && S.stops[sid][rid];
+  function nextSched(S, sid, rid, k) {
+    // A route timed by direction ("<route>@<dir>": GO and V/Line stations are one stop for both ways): this pattern's.
+    const dir = k != null && D.routes[rid][5][k] ? D.routes[rid][5][k][7] : null;
+    const v = S && S.stops[sid] && ((dir != null && S.stops[sid][rid + '@' + dir]) || S.stops[sid][rid]);
     if (!v) return null;
     const { day, min } = cityNow(S.tz || 'UTC');
     let next = Infinity;
@@ -495,8 +497,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
     return `${h % 12 || 12}:${mm} ${h < 12 ? AMPM[0] : AMPM[1]}`;
   }
-  function schedEl(S, sid, rid, long) {
-    const n = nextSched(S, sid, rid);
+  function schedEl(S, sid, rid, long, k) {
+    const n = nextSched(S, sid, rid, k);
     if (!n) return null;
     const when = n.o === 0 ? '' : n.o === 1 ? 'tomorrow ' : new Date(n.day + n.o * 864e5).toLocaleDateString('en-CA', { weekday: 'long', timeZone: 'UTC' }) + ' ';
     const w = WORD[D.routes[rid][2]] || 'bus';
@@ -507,11 +509,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       [`Next ${w} `, el('b', {}, when + 'at ' + clock(n.m)), long ? (lv ? ' · from the timetable; live times show once it’s on its way' : ' · from the timetable' + (noLive(rid) ? ` (${noLive(rid)})` : '')) : '']);
   }
   // What a row shows: live times, else (when the route isn't running) the next scheduled one, else how often it runs.
-  function arrivalsEl(j, S, sid, rid, long) {
-    if (noLive(rid)) return schedEl(S, sid, rid, long) || everyEl(rid, long);
+  function arrivalsEl(j, S, sid, rid, long, k) {
+    if (noLive(rid)) return schedEl(S, sid, rid, long, k) || everyEl(rid, long);
     const ts = j ? nextAt(j, sid, rid) : [];
     if (ts.length) return timesEl(ts, long);
-    return schedEl(S, sid, rid, long) || (j ? timesEl(ts, long) : '');
+    return schedEl(S, sid, rid, long, k) || (j ? timesEl(ts, long) : '');
   }
 
   // One refresh loop for whatever is on screen, every 30 s, paused while the page is hidden.
@@ -541,7 +543,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       el('span', { class: 'live' }),
       via,
     ]);
-    b.dataset.sid = sid; b.dataset.rid = x.rid;
+    b.dataset.sid = sid; b.dataset.rid = x.rid; b.dataset.k = x.k;
     b.addEventListener('click', () => openRoute(sid, x.rid, x.k, true));
     return b;
   }
@@ -580,7 +582,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       // The timetable only when some row has no live times.
       const want = rowsShown.filter(r => noLive(r.dataset.rid) || !nextAt(j, r.dataset.sid, r.dataset.rid).length).map(r => r.dataset.sid);
       const S = want.length ? await loadSched(want) : null;
-      rowsShown.forEach(r => r.querySelector('.live').replaceChildren(arrivalsEl(j, S, r.dataset.sid, r.dataset.rid) || ''));
+      rowsShown.forEach(r => r.querySelector('.live').replaceChildren(arrivalsEl(j, S, r.dataset.sid, r.dataset.rid, false, +r.dataset.k) || ''));
     });
   }
 
@@ -844,7 +846,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     startLive(async () => {
       const j = noLive(rid) ? null : await fetchLive([sid]);
       const S = noLive(rid) || !nextAt(j, sid, rid).length ? await loadSched([sid]) : null;
-      $('rnext').replaceChildren(arrivalsEl(j, S, sid, rid, isRapid(rid) ? 'train' : true) || '');
+      $('rnext').replaceChildren(arrivalsEl(j, S, sid, rid, isRapid(rid) ? 'train' : true, k) || '');
     });
   }
 

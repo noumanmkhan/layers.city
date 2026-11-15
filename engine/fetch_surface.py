@@ -308,7 +308,8 @@ for r in rows('trips.txt'):
     dir_ = dir_ or r.get('direction_id') or '0'
     if rid_ not in routes: continue
     trip_route[r['trip_id']] = rid_
-    if SCHED: svc_of[r['trip_id']] = (routes[rid_]['short'], r['service_id'])
+    # "schedDirs": each direction timed on its own ("LW@0"), for an agency whose stations are one stop for both ways (GO, V/Line).
+    if SCHED: svc_of[r['trip_id']] = (routes[rid_]['short'] + ('@' + dir_ if CFG.get('schedDirs') else ''), r['service_id'])
     days = [active(r['service_id'], d) for d in WEEK]
     if not any(days): continue
     trips[r['trip_id']] = (rid_, dir_, r.get('shape_id', ''), days)
