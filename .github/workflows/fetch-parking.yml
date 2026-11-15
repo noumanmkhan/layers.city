@@ -1,0 +1,134 @@
+name: Fetch parking
+# Every city's parking layers, rebuilt into docs/<city>/data/parking.geojson (and the city's other parking files).
+# One job, each city in its own step, so one city failing keeps the others' updates (the run is then marked failed).
+# Each city's log goes in its raw/parking/ (committed either way). Commits to main once; deploy.yml and
+# refresh-fact-sheets.yml list this workflow, so its commits go live and the fact sheets follow.
+#   Toronto: Green P car parks, permit parking areas, EV chargers -> parking.geojson, permit_areas.geojson and the
+#     permit-parking share in nbhd_profiles.json.
+#   New York: NYC DOT municipal garages and fields (placed from the hand-kept cities/nyc/parking.json), EV chargers.
+#   San Francisco: garages, permit areas and EV chargers (fetch_parking.py, parking.py), street sweeping
+#     (fetch_sweeping.py, sweeping.py) (formerly weekly in refresh-sf.yml).
+#   Chicago, Vancouver, Dallas: public EV chargers (the Alternative Fuels Data Center's station API).
+# Uses the NLR_API_KEY secret (the AFDC API) if set. Monthly (EV chargers change; the rest rarely does), when a
+# city's parking scripts change on main (that city only), or by hand (any cities; empty = all).
+on:
+  workflow_dispatch:
+    inputs:
+      cities: {description: 'Cities, space-separated (empty = all)', default: ''}
+  schedule:
+    - cron: '41 6 4 * *'
+  push:
+    branches: [main]
+    paths:
+      - 'cities/*/fetch_parking.py'
+      - 'cities/*/parking.py'
+      - 'cities/nyc/parking.json'
+      - 'cities/sf/fetch_sweeping.py'
+      - 'cities/sf/sweeping.py'
+permissions:
+  contents: write
+concurrency: fetch-parking
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      NLR_API_KEY: ${{ secrets.NLR_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Which cities
+        run: |
+          ALL="toronto chicago dallas vancouver nyc sf"
+          if [ "${{ github.event_name }}" = push ]; then
+            C=$(git diff --name-only HEAD~1 HEAD -- cities | cut -d/ -f2 | sort -u | tr '\n' ' ')
+          elif [ -n "${{ inputs.cities }}" ]; then C="${{ inputs.cities }}"
+          else C="$ALL"; fi
+          echo "Cities: ${C:-none}"
+          echo "CITIES= $C " >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        if: contains(env.CITIES, ' sf ')
+        with:
+          node-version: 22
+      - run: pip install -q shapely
+
+      - name: Toronto
+        id: toronto
+        if: contains(env.CITIES, ' toronto ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; mkdir -p cities/toronto/raw/parking
+          { python3 -u cities/toronto/fetch_parking.py && python3 -u cities/toronto/parking.py; } 2>&1 | tee cities/toronto/raw/parking/fetch.log
+      - name: Chicago
+        id: chicago
+        if: contains(env.CITIES, ' chicago ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; mkdir -p cities/chicago/raw/parking
+          { python3 -u cities/chicago/fetch_parking.py && python3 -u cities/chicago/parking.py; } 2>&1 | tee cities/chicago/raw/parking/fetch.log
+      - name: Dallas
+        id: dallas
+        if: contains(env.CITIES, ' dallas ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; mkdir -p cities/dallas/raw/parking
+          { python3 -u cities/dallas/fetch_parking.py && python3 -u cities/dallas/parking.py; } 2>&1 | tee cities/dallas/raw/parking/fetch.log
+      - name: Vancouver
+        id: vancouver
+        if: contains(env.CITIES, ' vancouver ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; mkdir -p cities/vancouver/raw/parking
+          { python3 -u cities/vancouver/fetch_parking.py && python3 -u cities/vancouver/parking.py; } 2>&1 | tee cities/vancouver/raw/parking/fetch.log
+      - name: New York
+        id: nyc
+        if: contains(env.CITIES, ' nyc ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; mkdir -p cities/nyc/raw/parking
+          { python3 -u cities/nyc/fetch_parking.py && python3 -u cities/nyc/parking.py; } 2>&1 | tee cities/nyc/raw/parking/fetch.log
+      - name: San Francisco
+        id: sf
+        if: contains(env.CITIES, ' sf ')
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          npm install --silent
+          ok=1
+          for s in parking sweeping; do
+            python3 -u cities/sf/fetch_$s.py 2>&1 | tee cities/sf/raw/fetch_$s.log && ( cd cities/sf && python3 $s.py ) \
+              || { echo "::warning::San Francisco $s failed: $(tail -2 cities/sf/raw/fetch_$s.log | tr '\n' ' ' | cut -c1-600)"; ok=0; }
+          done
+          python3 engine/assemble.py sf
+          [ $ok = 1 ]
+
+      - name: Commit what changed
+        if: always()
+        run: |
+          add() { for p in "$@"; do [ -e "$p" ] && git add "$p"; done; return 0; }
+          for c in $CITIES; do add cities/$c/raw/parking docs/$c/data/parking.geojson; done
+          add docs/toronto/data/permit_areas.geojson docs/toronto/data/nbhd_profiles.json
+          case "$CITIES" in *" sf "*) add cities/sf/raw/fetch_parking.log cities/sf/raw/fetch_sweeping.log cities/sf/raw/sweeping.json docs/sf/data docs/sf/index.html;; esac
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update parking:$(git diff --cached --name-only | cut -d/ -f2 | sort -u | tr '\n' ' ' | sed 's/^/ /')"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 10; done
+          exit 1
+      - name: Report cities that failed
+        if: always()
+        run: |
+          f=""
+          [ "${{ steps.toronto.outcome }}" = failure ] && f="$f Toronto"
+          [ "${{ steps.chicago.outcome }}" = failure ] && f="$f Chicago"
+          [ "${{ steps.dallas.outcome }}" = failure ] && f="$f Dallas"
+          [ "${{ steps.vancouver.outcome }}" = failure ] && f="$f Vancouver"
+          [ "${{ steps.nyc.outcome }}" = failure ] && f="$f New-York"
+          [ "${{ steps.sf.outcome }}" = failure ] && f="$f San-Francisco"
+          [ -z "$f" ] && { echo "All cities OK"; exit 0; }
+          echo "::error::Failed:$f (the other cities' updates were committed)"; exit 1
