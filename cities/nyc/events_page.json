@@ -1,5 +1,5 @@
 {
-  "_about": "The Events page at /nyc/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the neighborhood filter and card outline come from. NYC Parks' feed looks two weeks ahead, so the page covers 14 days. 'words' are the page's own text; the engine names no city or source.",
+  "_about": "The Events page at /nyc/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the neighborhood filter and card outline come from. NYC Parks' feed looks two weeks ahead, so the page covers 14 days. 'words' are the page's own text; the engine names no city or source. 'shows' (November 15, 2026) adds the big venues' concerts, games and shows from the Venues listing (docs/<city>/venues/shows.json) with a switch at the top; its title, intro, desc and card replace the words'.",
   "file": "events.json",
   "units": "ntas",
   "words": {
@@ -16,5 +16,13 @@
       "parks": "NYC Parks"
     },
     "source": "Events from NYC Parks, via NYC Open Data."
+  },
+  "shows": {
+    "title": "What’s on in New York City",
+    "community": "Parks events",
+    "intro": "Concerts, games and shows at the region’s big venues, plus every public event in New York City’s parks for the next two weeks: walks, concerts, classes, volunteer days, exhibitions and more, from NYC Parks.",
+    "desc": "What’s on in New York City today, this weekend and over the next two weeks: concerts, games and shows at the big venues, and NYC Parks’ public events.",
+    "card": "Big venues and parks, the next two weeks",
+    "source": "Shows at the big venues from Ticketmaster."
   }
 }

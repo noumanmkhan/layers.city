@@ -1,5 +1,5 @@
 {
-  "_about": "The Events page at /dallas/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the ZIP filter and card outline come from. Its one source, Dallas Park and Recreation's calendars, is used under the non-commercial rule (NONCOMMERCIAL.md). 'words' are the page's own text; the engine names no city or source.",
+  "_about": "The Events page at /dallas/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the ZIP filter and card outline come from. Its one source, Dallas Park and Recreation's calendars, is used under the non-commercial rule (NONCOMMERCIAL.md). 'words' are the page's own text; the engine names no city or source. 'shows' (November 15, 2026) adds the big venues' concerts, games and shows from the Venues listing (docs/<city>/venues/shows.json) with a switch at the top; its title, intro, desc and card replace the words'.",
   "file": "events.json",
   "units": "zips",
   "words": {
@@ -15,5 +15,13 @@
       "parks": "Dallas Park and Recreation"
     },
     "source": "Events from Dallas Park and Recreation’s calendars (dallasparks.org)."
+  },
+  "shows": {
+    "title": "What’s on in Dallas",
+    "community": "Parks events",
+    "intro": "Concerts, games and shows at the big venues across Dallas–Fort Worth, plus Dallas Park and Recreation’s public events for the next 30 days, from its own calendars: Fair Park, Old City Park, recreation centers, outdoor programs and more. Some take place outside the city, at parks the City runs.",
+    "desc": "What’s on in Dallas today, this weekend and this week: concerts, games and shows at the big DFW venues, and Dallas Park and Recreation’s events.",
+    "card": "Big venues, community events, the next 30 days",
+    "source": "Shows at the big venues from Ticketmaster."
   }
 }

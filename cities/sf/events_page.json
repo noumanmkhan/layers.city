@@ -1,5 +1,5 @@
 {
-  "_about": "The Events page at /sf/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the neighborhood filter and card outline come from. The feed carries the library's programs for children, teens and families only, and the words say so. 'words' are the page's own text; the engine names no city or source.",
+  "_about": "The Events page at /sf/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the neighborhood filter and card outline come from. The feed carries the library's programs for children, teens and families only, and the words say so. 'words' are the page's own text; the engine names no city or source. 'shows' (November 15, 2026) adds the big venues' concerts, games and shows from the Venues listing (docs/<city>/venues/shows.json) with a switch at the top; its title, intro, desc and card replace the words'.",
   "file": "events.json",
   "units": "neighbourhoods",
   "words": {
@@ -15,5 +15,13 @@
       "library": "Library program"
     },
     "source": "Programs from the San Francisco Public Library, via Our415 on DataSF (public domain)."
+  },
+  "shows": {
+    "title": "What’s on in San Francisco",
+    "community": "Library programs",
+    "intro": "Concerts, games and shows at the Bay Area’s big venues, plus San Francisco Public Library’s programs for children, teens and families at every branch for the next 30 days: storytimes, workshops, clubs and more.",
+    "desc": "What’s on in San Francisco today, this weekend and this week: concerts, games and shows at the big venues, and the library’s programs for kids, teens and families.",
+    "card": "Big venues, community events, the next 30 days",
+    "source": "Shows at the big venues from Ticketmaster."
   }
 }

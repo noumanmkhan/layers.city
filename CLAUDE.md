@@ -67,6 +67,9 @@ the landing page, stop and say so; don't change this repo.
   and "Near me" (the position stays in the browser). The page renders in the browser from `docs/<city>/events/events.json`,
   which `fetch_happening.py` writes daily with happening.json (placeless events kept, each placed one's neighbourhood), so
   the HTML is rebuilt only when its words or chrome change: `python3 engine/events_page.py <city>`.
+  Since November 15, 2026 the page also shows the big venues' shows (venues.py writes `docs/<city>/venues/shows.json`
+  nightly; events_page.json `shows` holds the switch's words and the merged title). The hub has one Events column; the
+  Venues pages stay as the getting-there pages. The app's weekend brief is unaffected: it reads weekend.json.
 - **Transit history** (`engine/history/build.py` and `page.html`, `cities/<city>/history.json`, page at
   `docs/toronto/ttc-history/`; November 7, 2026, public the same day: its own feature card on the hub, below the city
   table, and in the sitemap (places.py). `"unlisted": true` in history.json would write a noindex tag and keep it out of the sitemap). One SVG map (land, former municipalities, main streets) with

@@ -1,5 +1,5 @@
 {
-  "_about": "The Events page at /melbourne/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the suburb filter and card outline come from. 'words' are the page's own text; the engine names no city or source. What's On Melbourne lists only events inside the City of Melbourne.",
+  "_about": "The Events page at /melbourne/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the suburb filter and card outline come from. 'words' are the page's own text; the engine names no city or source. What's On Melbourne lists only events inside the City of Melbourne. 'shows' (November 15, 2026) adds the big venues' concerts, games and shows from the Venues listing (docs/<city>/venues/shows.json) with a switch at the top; its title, intro, desc and card replace the words'.",
   "file": "events.json",
   "units": "suburbs",
   "words": {
@@ -13,5 +13,13 @@
     "placeless": "Around the City or online",
     "sources": {},
     "source": "Events from What’s On Melbourne, © City of Melbourne, used for a non-commercial site."
+  },
+  "shows": {
+    "title": "What’s on in Melbourne",
+    "community": "City listings",
+    "intro": "Concerts, games and shows at Melbourne’s big venues, plus every event in the City of Melbourne’s own What’s On listings for the next 30 days: festivals, markets, music, theatre, exhibitions, library programs, talks and more, in the CBD and the City’s suburbs.",
+    "desc": "What’s on in Melbourne today, this weekend and this week: concerts, games and shows at the big venues, and the City of Melbourne’s What’s On listings.",
+    "card": "Big venues, community events, the next 30 days",
+    "source": "Shows at the big venues from Ticketmaster."
   }
 }
