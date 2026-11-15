@@ -1,0 +1,146 @@
+name: Fetch places
+# Monthly refresh of the places behind each city's Nearby rows, Faith & Community and related layers. One job, each
+# city in its own step, so one city failing keeps the others' updates (the run is then marked failed). Commits to
+# main once, only what changed; deploy.yml lists this workflow, so its commits go live.
+#   Toronto faith: places of worship from OpenStreetMap (Overpass), and the curated lists (faith_shops.csv,
+#     faith_overrides.csv) placed with Nominatim, into raw/faith/ for cities/toronto/faith.py (raw only).
+#   Chicago faith: the same for Chicago (and other faiths' across Chicagoland), raw only.
+#   Toronto nearby: parks and recreation facilities, park outlines (Green Spaces), library branches (Toronto Open
+#     Data), splash pads and wading pools (OSM) into raw/nearby/, then the Parks and Sports & rec layers.
+#   Vancouver: the City's open data behind Nearby, BIAs, heritage districts and voting places, riding boundaries,
+#     OSM institutions, places of worship and the UEL's parks and bike paths (fetch_layers.py, fetch_faith.py,
+#     fetch_schools.py, fetch_uel.py), then a full rebuild (cities/vancouver/run.sh).
+#   San Francisco (formerly monthly in refresh-sf.yml): parks, schools, libraries, hospitals, colleges and places of
+#     worship (fetch_places.py), hazard zones, soft-story buildings, Slow Streets and ferries (fetch_extras.py), address
+#     points (fetch_addresses.py), then their builds and assemble.py.
+# Monthly, when Toronto's or Chicago's faith or nearby scripts or lists change on main (that city only), or by hand
+# (any of: toronto-faith chicago-faith toronto-nearby vancouver sf; empty = all). A row added to a curated list is
+# placed once it reaches main; give it lat/lon in the CSV to preview it sooner.
+on:
+  workflow_dispatch:
+    inputs:
+      parts: {description: 'Parts, space-separated: toronto-faith chicago-faith toronto-nearby vancouver sf (empty = all)', default: ''}
+  schedule:
+    - cron: '41 7 5 * *'
+  push:
+    branches: [main]
+    paths:
+      - 'cities/toronto/fetch_faith.py'
+      - 'cities/toronto/faith_shops.csv'
+      - 'cities/toronto/faith_overrides.csv'
+      - 'cities/chicago/fetch_faith.py'
+      - 'cities/chicago/faith_shops.csv'
+      - 'cities/chicago/faith_overrides.csv'
+      - 'cities/toronto/fetch_nearby.py'
+permissions:
+  contents: write
+concurrency: fetch-places
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Which parts
+        run: |
+          ALL="toronto-faith chicago-faith toronto-nearby vancouver sf"
+          if [ "${{ github.event_name }}" = push ]; then
+            P=""
+            git diff --quiet HEAD~1 HEAD -- cities/toronto/fetch_faith.py cities/toronto/faith_shops.csv cities/toronto/faith_overrides.csv || P="$P toronto-faith"
+            git diff --quiet HEAD~1 HEAD -- cities/chicago/fetch_faith.py cities/chicago/faith_shops.csv cities/chicago/faith_overrides.csv || P="$P chicago-faith"
+            git diff --quiet HEAD~1 HEAD -- cities/toronto/fetch_nearby.py || P="$P toronto-nearby"
+          elif [ -n "${{ inputs.parts }}" ]; then P="${{ inputs.parts }}"
+          else P="$ALL"; fi
+          echo "Parts: ${P:-none}"
+          echo "PARTS= $P " >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        if: contains(env.PARTS, ' vancouver ') || contains(env.PARTS, ' sf ')
+        with:
+          node-version: 22
+      - if: contains(env.PARTS, ' sf ')
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin
+      - run: pip install -q shapely pyproj
+
+      - name: Toronto faith
+        id: toronto_faith
+        if: contains(env.PARTS, ' toronto-faith ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; mkdir -p cities/toronto/raw/faith
+          python3 -u cities/toronto/fetch_faith.py 2>&1 | tee cities/toronto/raw/faith/fetch.log
+      - name: Chicago faith
+        id: chicago_faith
+        if: contains(env.PARTS, ' chicago-faith ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; mkdir -p cities/chicago/raw/faith
+          python3 -u cities/chicago/fetch_faith.py 2>&1 | tee cities/chicago/raw/faith/fetch.log
+      - name: Toronto nearby
+        id: toronto_nearby
+        if: contains(env.PARTS, ' toronto-nearby ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; mkdir -p cities/toronto/raw/nearby
+          python3 -u cities/toronto/fetch_nearby.py 2>&1 | tee cities/toronto/raw/nearby/fetch.log
+          python3 cities/toronto/parks.py && python3 cities/toronto/sports.py
+      - name: Vancouver
+        id: vancouver
+        if: contains(env.PARTS, ' vancouver ')
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          python3 -u cities/vancouver/fetch_layers.py 2>&1 | tee cities/vancouver/raw/logs/layers.log
+          python3 -u cities/vancouver/fetch_faith.py 2>&1 | tee cities/vancouver/raw/logs/faith.log
+          python3 -u cities/vancouver/fetch_schools.py
+          python3 -u cities/vancouver/fetch_uel.py
+          bash cities/vancouver/run.sh
+      - name: San Francisco
+        id: sf
+        if: contains(env.PARTS, ' sf ')
+        continue-on-error: true
+        run: |
+          npm install --silent
+          ok=1
+          for s in fetch_places.py fetch_extras.py fetch_addresses.py; do
+            ( set -o pipefail; python3 -u "cities/sf/$s" 2>&1 | tee "cities/sf/raw/${s%.py}.log" ) \
+              || { echo "::warning::$s failed: $(tail -2 cities/sf/raw/${s%.py}.log | tr '\n' ' ' | cut -c1-600)"; ok=0; }
+          done
+          cd cities/sf
+          for b in addresses faith extras places; do   # places.py last: it reads extras.py's soft-story counts
+            python3 $b.py 2>&1 | tee -a raw/refresh_build.log; [ ${PIPESTATUS[0]} = 0 ] || { echo "::warning::$b.py failed"; ok=0; }
+          done
+          python3 ../../engine/assemble.py sf || ok=0
+          [ $ok = 1 ]
+
+      - name: Commit what changed
+        if: always()
+        run: |
+          add() { for p in "$@"; do [ -e "$p" ] && git add "$p"; done; return 0; }
+          case "$PARTS" in *" toronto-faith "*) add cities/toronto/raw/faith;; esac
+          case "$PARTS" in *" chicago-faith "*) add cities/chicago/raw/faith;; esac
+          case "$PARTS" in *" toronto-nearby "*) add cities/toronto/raw/nearby docs/toronto/data/parks.geojson docs/toronto/data/sports.geojson;; esac
+          case "$PARTS" in *" vancouver "*) add cities/vancouver/raw docs/vancouver;; esac
+          case "$PARTS" in *" sf "*) add cities/sf/raw docs/sf/data docs/sf/index.html;; esac
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update places:$PARTS"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 10; done
+          exit 1
+      - name: Report parts that failed
+        if: always()
+        run: |
+          f=""
+          [ "${{ steps.toronto_faith.outcome }}" = failure ] && f="$f Toronto-faith"
+          [ "${{ steps.chicago_faith.outcome }}" = failure ] && f="$f Chicago-faith"
+          [ "${{ steps.toronto_nearby.outcome }}" = failure ] && f="$f Toronto-nearby"
+          [ "${{ steps.vancouver.outcome }}" = failure ] && f="$f Vancouver"
+          [ "${{ steps.sf.outcome }}" = failure ] && f="$f San-Francisco"
+          [ -z "$f" ] && { echo "All parts OK"; exit 0; }
+          echo "::error::Failed:$f (the other parts' updates were committed)"; exit 1
