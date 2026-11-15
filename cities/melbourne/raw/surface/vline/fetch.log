@@ -1,60 +1,58 @@
   got https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/8af7737c-5c9e-4022-aa98-911aa04370a7/download/gtfs.zip 310635000 bytes
   merged 2 feeds into one: ['agency.txt', 'calendar.txt', 'calendar_dates.txt', 'levels.txt', 'pathways.txt', 'routes.txt', 'shapes.txt', 'stop_times.txt', 'stops.txt', 'transfers.txt', 'trips.txt']
-  not kept (rail or other): aus:vic:vic-05-995: 'Coach' 'Warrnambool - Melbourne via Ararat & Hamilton' 204
-  not kept (rail or other): aus:vic:vic-05-ABY: 'Seymour' 'Albury - Melbourne via Seymour' 204
-  not kept (rail or other): aus:vic:vic-05-als: 'Coach' 'Alexandra - Seymour via Yea' 204
-  not kept (rail or other): aus:vic:vic-05-ART: 'Ballarat' 'Ararat - Melbourne via Ballarat' 204
-  not kept (rail or other): aus:vic:vic-05-BAT: 'Ballarat' 'Ballarat/Wendouree - Melbourne via Melton' 204
-  not kept (rail or other): aus:vic:vic-05-BDE: 'Traralgon' 'Bairnsdale - Melbourne via Sale & Traralgon' 204
-  not kept (rail or other): aus:vic:vic-05-BGO: 'Bendigo' 'Bendigo - Melbourne via Gisborne' 204
-  not kept (rail or other): aus:vic:vic-05-EC2: 'Coach' 'Echuca/Moama - Melbourne via Shepparton' 204
-  not kept (rail or other): aus:vic:vic-05-ECH: 'Bendigo' 'Echuca/Moama - Melbourne via Bendigo or Heathcote' 204
-  not kept (rail or other): aus:vic:vic-05-GEL: 'Geelong' 'Geelong - Melbourne' 204
-  not kept (rail or other): aus:vic:vic-05-mtb: 'Coach' 'Mount Beauty - Melbourne via Bright' 204
-  not kept (rail or other): aus:vic:vic-05-pay: 'Coach' 'Paynesville - Melbourne via Bairnsdale' 204
-  not kept (rail or other): aus:vic:vic-05-SER: 'Seymour' 'Seymour - Melbourne via Broadmeadows' 204
-  not kept (rail or other): aus:vic:vic-05-SNH: 'Seymour' 'Shepparton - Melbourne via Seymour' 204
-  not kept (rail or other): aus:vic:vic-05-SWL: 'Bendigo' 'Swan Hill - Melbourne via Bendigo' 204
-  not kept (rail or other): aus:vic:vic-05-TRN: 'Traralgon' 'Traralgon - Melbourne via Morwell, Moe & Pakenham' 204
-  not kept (rail or other): aus:vic:vic-05-V02: 'Coach' 'Adelaide - Melbourne via Horsham, Ballarat & Geelong' 204
-  not kept (rail or other): aus:vic:vic-05-V03: 'Coach' 'Adelaide - Melbourne via Nhill & Bendigo' 204
-  not kept (rail or other): aus:vic:vic-05-V06: 'Coach' 'Ballarat - Warrnambool via Skipton' 204
-  not kept (rail or other): aus:vic:vic-05-V07: 'Coach' 'Barmah - Melbourne via Shepparton & Heathcote' 204
-  not kept (rail or other): aus:vic:vic-05-V09: 'Coach' 'Batemans Bay - Melbourne via Bairnsdale' 204
-  not kept (rail or other): aus:vic:vic-05-V10: 'Coach' 'Barham - Melbourne via Bendigo' 204
-  not kept (rail or other): aus:vic:vic-05-V11: 'Coach' 'Albury - Bendigo via Wangaratta & Shepparton' 204
-  not kept (rail or other): aus:vic:vic-05-V13: 'Coach' 'Canberra - Melbourne via Bairnsdale' 204
-  not kept (rail or other): aus:vic:vic-05-V14: 'Coach' 'Canberra - Melbourne via Albury' 204
-  not kept (rail or other): aus:vic:vic-05-V15: 'Coach' 'Cowes and Inverloch - Melbourne via Dandenong & Koo Wee Rup' 204
-  not kept (rail or other): aus:vic:vic-05-V16: 'Coach' 'Portland - Casterton - Hamilton - Warrnambool - Melbourne' 204
-  not kept (rail or other): aus:vic:vic-05-V17: 'Coach' 'Corowa - Melbourne via Rutherglen & Wangaratta' 204
-  not kept (rail or other): aus:vic:vic-05-V18: 'Coach' 'Daylesford - Melbourne via  Woodend or Castlemaine' 204
-  not kept (rail or other): aus:vic:vic-05-V19: 'Coach' 'Donald - Melbourne via Bendigo' 204
-  not kept (rail or other): aus:vic:vic-05-V20: 'Coach' 'Deniliquin - Melbourne via Moama, Echuca & Heathcote' 204
-  not kept (rail or other): aus:vic:vic-05-V22: 'Coach' 'Geelong - Bendigo via Ballarat' 204
-  not kept (rail or other): aus:vic:vic-05-V24: 'Coach' 'Halls Gap - Melbourne via Stawell & Ballarat' 204
-  not kept (rail or other): aus:vic:vic-05-V25: 'Coach' 'Marlo - Lake Tyers Beach - Melbourne via Bairnsdale' 204
-  not kept (rail or other): aus:vic:vic-05-V27: 'Coach' 'Maryborough - Melbourne via Castlemaine' 204
-  not kept (rail or other): aus:vic:vic-05-V28: 'Coach' 'Mt Buller/Mansfield - Melbourne via Yea' 204
-  not kept (rail or other): aus:vic:vic-05-V29: 'Coach' 'Mount Gambier - Melbourne via Hamilton & Ballarat' 204
-  not kept (rail or other): aus:vic:vic-05-V30: 'Coach' 'Mount Gambier - Melbourne via Warrnambool & Geelong' 204
-  not kept (rail or other): aus:vic:vic-05-V31: 'Coach' 'Mildura - Albury via Kerang & Shepparton' 204
-  not kept (rail or other): aus:vic:vic-05-V32: 'Coach' 'Mildura - Ballarat via Swan Hill & Bendigo' 204
-  not kept (rail or other): aus:vic:vic-05-V34: 'Coach' 'Mildura - Melbourne via Ballarat & Donald' 204
-  not kept (rail or other): aus:vic:vic-05-V35: 'Coach' 'Mildura - Melbourne via Swan Hill & Bendigo' 204
-  not kept (rail or other): aus:vic:vic-05-V36: 'Coach' 'Mulwala - Melbourne via Benalla & Seymour' 204
-  not kept (rail or other): aus:vic:vic-05-V37: 'Coach' 'Nhill - Melbourne via Ararat & Ballarat' 204
-  not kept (rail or other): aus:vic:vic-05-V38: 'Coach' 'Ouyen - Melbourne via Warracknabeal & Ballarat' 204
-  not kept (rail or other): aus:vic:vic-05-V39: 'Coach' 'Sea Lake - Melbourne via Charlton & Bendigo' 204
-  not kept (rail or other): aus:vic:vic-05-V41: 'Coach' 'Griffith - Melbourne via Shepparton' 204
-  not kept (rail or other): aus:vic:vic-05-V43: 'Traralgon' 'Sale - Melbourne via Maffra & Traralgon' 204
-  not kept (rail or other): aus:vic:vic-05-V47: 'Coach' 'Sydney - Adelaide via Albury' 204
-  not kept (rail or other): aus:vic:vic-05-V50: 'Coach' 'Warrnambool - Melbourne via Apollo Bay & Geelong' 204
-  not kept (rail or other): aus:vic:vic-05-V52: 'Coach' 'Yarram - Melbourne via Koo Wee Rup & Dandenong' 204
-  not kept (rail or other): aus:vic:vic-05-WBL: 'Geelong' 'Warrnambool - Melbourne via Colac & Geelong' 204
-routes kept: 13
+routes kept: 65
 feed 2026-11-11 - 2027-02-14 · week from 2026-11-16 · days {'wk': '2026-11-18', 'sat': '2026-11-21', 'sun': '2026-11-22'}
-trips in the week: 1728
+trips in the week: 2834
 rapid lines written: [('Albury', 'rail', 9), ('Ararat', 'rail', 8), ('Echuca', 'rail', 8), ('Bendigo', 'rail', 6), ('Seymour', 'rail', 4), ('Ballarat', 'rail', 6), ('Swan Hill', 'rail', 9), ('Traralgon', 'rail', 10), ('Bairnsdale', 'rail', 9), ('Shepparton', 'rail', 3), ('Maryborough', 'rail', 7), ('Warrnambool', 'rail', 9)] · platforms 110
-sched.json: 111 stops · 38 kinds of day · 1675 span lists · 348988 bytes
-routes written: 0 · trams 0 · stops 0
+sched.json: 972 stops · 49 kinds of day · 4502 span lists · 838894 bytes
+routes written: 50 · trams 0 · stops 857
+  coach Coach 995 Warrnambool - Melbourne via Ararat shapes 6  midday/5h   0  1-5am 0
+  coach Coach ART Ararat - Melbourne via Ballarat    shapes 3  midday/5h   0  1-5am 0
+  coach Coach BAT Ballarat/Wendouree - Melbourne via shapes 6  midday/5h   0  1-5am 0
+  coach Coach BDE Bairnsdale - Melbourne via Sale &  shapes 13  midday/5h   1  1-5am 1
+  coach Coach BGO Bendigo - Melbourne via Gisborne   shapes 5  midday/5h   0  1-5am 0
+  coach Coach EC2 Echuca/Moama - Melbourne via Shepp shapes 14  midday/5h   1  1-5am 0
+  coach Coach ECH Echuca/Moama - Melbourne via Bendi shapes 6  midday/5h   1  1-5am 0
+  coach Coach GEL Geelong - Melbourne                shapes 7  midday/5h   0  1-5am 0
+  coach Coach SER Seymour - Melbourne via Broadmeado shapes 6  midday/5h   0  1-5am 0
+  coach Coach SNH Shepparton - Melbourne via Seymour shapes 4  midday/5h   0  1-5am 0
+  coach Coach SWL Swan Hill - Melbourne via Bendigo  shapes 9  midday/5h   0  1-5am 0
+  coach Coach TRN Traralgon - Melbourne via Morwell, shapes 8  midday/5h   0  1-5am 0
+  coach Coach V02 Adelaide - Melbourne via Horsham,  shapes 2  midday/5h   1  1-5am 0
+  coach Coach V03 Adelaide - Melbourne via Nhill & B shapes 10  midday/5h   0  1-5am 0
+  coach Coach V06 Ballarat - Warrnambool via Skipton shapes 10  midday/5h   1  1-5am 0
+  coach Coach V07 Barmah - Melbourne via Shepparton  shapes 8  midday/5h   1  1-5am 0
+  coach Coach V09 Batemans Bay - Melbourne via Bairn shapes 5  midday/5h   1  1-5am 0
+  coach Coach V10 Barham - Melbourne via Bendigo     shapes 10  midday/5h   0  1-5am 0
+  coach Coach V11 Albury - Bendigo via Wangaratta &  shapes 6  midday/5h   1  1-5am 0
+  coach Coach V13 Canberra - Melbourne via Bairnsdal shapes 4  midday/5h   0  1-5am 0
+  coach Coach V14 Canberra - Melbourne via Albury    shapes 10  midday/5h   1  1-5am 0
+  coach Coach V15 Cowes and Inverloch - Melbourne vi shapes 6  midday/5h   4  1-5am 0
+  coach Coach V16 Portland - Casterton - Hamilton -  shapes 8  midday/5h   1  1-5am 0
+  coach Coach V17 Corowa - Melbourne via Rutherglen  shapes 7  midday/5h   1  1-5am 0
+  coach Coach V18 Daylesford - Melbourne via  Wooden shapes 8  midday/5h   1  1-5am 0
+  coach Coach V19 Donald - Melbourne via Bendigo     shapes 2  midday/5h   0  1-5am 0
+  coach Coach V20 Deniliquin - Melbourne via Moama,  shapes 15  midday/5h   0  1-5am 0
+  coach Coach V22 Geelong - Bendigo via Ballarat     shapes 6  midday/5h   1  1-5am 0
+  coach Coach V24 Halls Gap - Melbourne via Stawell  shapes 9  midday/5h   0  1-5am 0
+  coach Coach V25 Marlo - Lake Tyers Beach - Melbour shapes 6  midday/5h   3  1-5am 1
+  coach Coach V27 Maryborough - Melbourne via Castle shapes 7  midday/5h   1  1-5am 0
+  coach Coach V28 Mt Buller/Mansfield - Melbourne vi shapes 8  midday/5h   1  1-5am 0
+  coach Coach V29 Mount Gambier - Melbourne via Hami shapes 12  midday/5h   1  1-5am 0
+  coach Coach V30 Mount Gambier - Melbourne via Warr shapes 2  midday/5h   1  1-5am 1
+  coach Coach V31 Mildura - Albury via Kerang & Shep shapes 7  midday/5h   2  1-5am 1
+  coach Coach V32 Mildura - Ballarat via Swan Hill & shapes 10  midday/5h   1  1-5am 0
+  coach Coach V34 Mildura - Melbourne via Ballarat & shapes 6  midday/5h   0  1-5am 0
+  coach Coach V35 Mildura - Melbourne via Swan Hill  shapes 8  midday/5h   2  1-5am 0
+  coach Coach V36 Mulwala - Melbourne via Benalla &  shapes 8  midday/5h   1  1-5am 0
+  coach Coach V37 Nhill - Melbourne via Ararat & Bal shapes 5  midday/5h   3  1-5am 1
+  coach Coach V38 Ouyen - Melbourne via Warracknabea shapes 9  midday/5h   1  1-5am 0
+  coach Coach V39 Sea Lake - Melbourne via Charlton  shapes 12  midday/5h   0  1-5am 0
+  coach Coach V43 Sale - Melbourne via Maffra & Trar shapes 7  midday/5h   1  1-5am 0
+  coach Coach V47 Sydney - Adelaide via Albury       shapes 10  midday/5h   0  1-5am 1
+  coach Coach V50 Warrnambool - Melbourne via Apollo shapes 4  midday/5h   4  1-5am 0
+  coach Coach V52 Yarram - Melbourne via Koo Wee Rup shapes 8  midday/5h   3  1-5am 0
+  coach Coach WBL Warrnambool - Melbourne via Colac  shapes 6  midday/5h   0  1-5am 0
+  coach Coach als Alexandra - Seymour via Yea        shapes 6  midday/5h   0  1-5am 0
+  coach Coach mtb Mount Beauty - Melbourne via Brigh shapes 5  midday/5h   2  1-5am 0
+  coach Coach pay Paynesville - Melbourne via Bairns shapes 9  midday/5h   1  1-5am 0
