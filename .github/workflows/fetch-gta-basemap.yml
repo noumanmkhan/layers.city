@@ -1,0 +1,29 @@
+name: Fetch GTA basemap
+# Downloads the GTA's arterials and collectors, parks and conservation areas, and land use from OpenStreetMap
+# (Overpass API) into cities/toronto/raw/gta_basemap/ and commits the files back to the branch that ran it.
+# Run by hand now and then (OSM changes slowly); push to the fetch-gta-basemap branch to run it from there.
+on:
+  workflow_dispatch:
+  push:
+    branches: [fetch-gta-basemap]
+    paths: ['cities/toronto/fetch_gta_basemap.py', '.github/workflows/fetch-gta-basemap.yml']
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install shapely
+      - run: python3 cities/toronto/fetch_gta_basemap.py
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/gta_basemap
+          git commit -m "Fetch the GTA basemap (roads, parks, land use) from OpenStreetMap" || echo "no changes"
+          git pull --rebase
+          git push
