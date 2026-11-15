@@ -1,4 +1,4 @@
-  got https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/62370a3a-3fe0-4f6b-9022-9ebbf25751cc/download/gtfs.zip 243642809 bytes
+  got https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/8af7737c-5c9e-4022-aa98-911aa04370a7/download/gtfs.zip 310635000 bytes
   merged 3 feeds into one: ['agency.txt', 'calendar.txt', 'calendar_dates.txt', 'levels.txt', 'pathways.txt', 'routes.txt', 'shapes.txt', 'stop_times.txt', 'stops.txt', 'transfers.txt', 'trips.txt']
   not kept (rail or other): aus:vic:vic-02-ALM-R: 'Replacement Bus' 'Alamein Line' 400
   not kept (rail or other): aus:vic:vic-02-BEG-R: 'Replacement Bus' 'Belgrave Line' 400
@@ -18,12 +18,12 @@
   not kept (rail or other): aus:vic:vic-02-WER-R: 'Replacement Bus' 'Werribee Line' 400
   not kept (rail or other): aus:vic:vic-02-WIL-R: 'Replacement Bus' 'Williamstown Line' 400
 routes kept: 780
-feed 2026-11-06 - 2026-12-31 · week from 2026-11-16 · days {'wk': '2026-11-18', 'sat': '2026-11-21', 'sun': '2026-11-22'}
-trips in the week: 127978
-rapid lines written: [('Mernda', 'subway', 4), ('Alamein', 'subway', 4), ('Sunbury', 'subway', 8), ('Upfield', 'subway', 4), ('Belgrave', 'subway', 4), ('Lilydale', 'subway', 4), ('Pakenham', 'subway', 4), ('Werribee', 'subway', 8), ('Frankston', 'subway', 4), ('Cranbourne', 'subway', 4), ('Craigieburn', 'subway', 4), ('Hurstbridge', 'subway', 5), ('Sandringham', 'subway', 3), ('Stony Point', 'subway', 2), ('Williamstown', 'subway', 5), ('Glen Waverley', 'subway', 7)] · platforms 490
-sched.json: 24555 stops · 40 kinds of day · 72743 span lists · 9226568 bytes
+feed 2026-11-11 - 2027-02-14 · week from 2026-11-16 · days {'wk': '2026-11-18', 'sat': '2026-11-21', 'sun': '2026-11-22'}
+trips in the week: 133810
+rapid lines written: [('Mernda', 'subway', 6), ('Alamein', 'subway', 5), ('Sunbury', 'subway', 8), ('Upfield', 'subway', 6), ('Belgrave', 'subway', 4), ('Lilydale', 'subway', 2), ('Pakenham', 'subway', 4), ('Werribee', 'subway', 6), ('Frankston', 'subway', 8), ('Cranbourne', 'subway', 5), ('Craigieburn', 'subway', 5), ('Hurstbridge', 'subway', 4), ('Sandringham', 'subway', 5), ('Stony Point', 'subway', 4), ('Williamstown', 'subway', 7), ('Glen Waverley', 'subway', 7), ('Flemington Racecourse', 'subway', 2)] · platforms 493
+sched.json: 24555 stops · 52 kinds of day · 79438 span lists · 11093594 bytes
 routes written: 709 · trams 24 · stops 24016
-  tram     1 East Coburg - South Melbourne Beac shapes 8  midday/5h  29  1-5am 1
+  tram     1 East Coburg - South Melbourne Beac shapes 12  midday/5h  29  1-5am 1
   bus      1 North Shore Station - Deakin Unive shapes 3  midday/5h  16  1-5am 1
   bus      1 Moe - Traralgon via Morwell        shapes 2  midday/5h   7  1-5am 0
   bus      1 Moe - Traralgon via Morwell        shapes 2  midday/5h   2  1-5am 0
@@ -32,7 +32,7 @@ routes written: 709 · trams 24 · stops 24016
   bus      2 Morwell - Churchill                shapes 2  midday/5h   7  1-5am 0
   bus      2 Morwell - Churchill                shapes 2  midday/5h   1  1-5am 0
   bus      2 Seymour - Seymour North            shapes 4  midday/5h   3  1-5am 0
-  tram     3 Melbourne University - East Malver shapes 8  midday/5h  26  1-5am 1
+  tram     3 Melbourne University - East Malver shapes 12  midday/5h  26  1-5am 1
   bus      3 Traralgon - Churchill              shapes 2  midday/5h   0  1-5am 0
   bus      3 Traralgon - Churchill              shapes 2  midday/5h   1  1-5am 0
   bus      3 Traralgon - Churchill              shapes 2  midday/5h   3  1-5am 0
@@ -41,14 +41,14 @@ routes written: 709 · trams 24 · stops 24016
   bus      4 Churchill - Boolarra via Yinnar    shapes 2  midday/5h   0  1-5am 0
   bus      4 Churchill - Boolarra via Yinnar    shapes 2  midday/5h   2  1-5am 0
   bus      4 Wimble Street - Seymour            shapes 1  midday/5h   0  1-5am 0
-  tram     5 Melbourne University - Malvern     shapes 8  midday/5h  26  1-5am 0
+  tram     5 Melbourne University - Malvern     shapes 14  midday/5h  26  1-5am 0
   bus      5 Huntly - Kangaroo Flat via Bendigo shapes 6  midday/5h   8  1-5am 0
   bus      5 Huntly - Kangaroo Flat via Bendigo shapes 6  midday/5h   4  1-5am 0
   bus      5 Moe - Traralgon via Yallourn North shapes 4  midday/5h   1  1-5am 0
   bus      5 Moe - Traralgon via Yallourn North shapes 3  midday/5h   1  1-5am 0
   bus      5 Moe - Traralgon via Yallourn North shapes 3  midday/5h   1  1-5am 0
   bus      5 Seymour - Seymour North East       shapes 2  midday/5h   0  1-5am 0
-  tram     6 Moreland - Glen Iris               shapes 8  midday/5h  29  1-5am 2
+  tram     6 Moreland - Glen Iris               shapes 12  midday/5h  29  1-5am 2
   bus      6 Traralgon - Traralgon South        shapes 1  midday/5h   1  1-5am 0
   bus      6 Traralgon - Traralgon South        shapes 1  midday/5h   2  1-5am 0
   bus      7 Traralgon - Churchill (Special) vi shapes 2  midday/5h   0  1-5am 0
@@ -56,12 +56,12 @@ routes written: 709 · trams 24 · stops 24016
   bus      9 Traralgon - Churchill              shapes 2  midday/5h   0  1-5am 0
   bus     10 Lara Station - Corio Village SC vi shapes 4  midday/5h   5  1-5am 0
   bus     10 Ballarat Station - Lucas via Wendo shapes 2  midday/5h   5  1-5am 0
-  tram    11 West Preston - Victoria Harbour Do shapes 8  midday/5h  30  1-5am 0
+  tram    11 West Preston - Victoria Harbour Do shapes 12  midday/5h  30  1-5am 0
   bus     11 Ballarat Station - Wendouree Stati shapes 3  midday/5h  11  1-5am 0
   bus     11 Moe West                           shapes 1  midday/5h   7  1-5am 0
   bus     11 Moe West                           shapes 1  midday/5h   1  1-5am 0
   bus     11 Moe West                           shapes 1  midday/5h   0  1-5am 0
-  tram    12 Victoria Gardens - St Kilda(Fitzro shapes 8  midday/5h  31  1-5am 0
+  tram    12 Victoria Gardens - St Kilda(Fitzro shapes 12  midday/5h  31  1-5am 0
   bus     12 Lara Station - Lara West           shapes 3  midday/5h   6  1-5am 0
   bus     12 Ballarat Station - Wendouree Stati shapes 3  midday/5h  10  1-5am 0
   bus     12 Moe South                          shapes 1  midday/5h   2  1-5am 0
@@ -78,9 +78,9 @@ routes written: 709 · trams 24 · stops 24016
   bus     15 Moe - Newborough via Dinwoodie Dr  shapes 1  midday/5h   7  1-5am 0
   bus     15 Moe - Newborough via Dinwoodie Dr  shapes 1  midday/5h   1  1-5am 0
   bus     15 Moe - Newborough via Dinwoodie Dr  shapes 1  midday/5h   0  1-5am 0
-  tram    16 Melbourne University - Kew         shapes 8  midday/5h  27  1-5am 2
+  tram    16 Melbourne University - Kew         shapes 12  midday/5h  27  1-5am 2
   bus     18 Avalon Airport - Lara Station      shapes 5  midday/5h   4  1-5am 0
-  tram    19 North Coburg - Flinders Street Sta shapes 8  midday/5h  50  1-5am 1
+  tram    19 North Coburg - Flinders Street Sta shapes 12  midday/5h  50  1-5am 1
   bus     19 Geelong - Bannockburn              shapes 2  midday/5h   0  1-5am 0
   bus     20 Geelong Station - Corio SC         shapes 2  midday/5h  16  1-5am 0
   bus     20 Ballarat Station - Canadian        shapes 4  midday/5h   5  1-5am 0
@@ -101,7 +101,7 @@ routes written: 709 · trams 24 · stops 24016
   bus     25 Geelong Station - Bell Post Hill   shapes 2  midday/5h  15  1-5am 0
   bus     25 Ballarat Station - Delacombe       shapes 3  midday/5h  10  1-5am 0
   bus     26 Ballarat Station - Alfredton       shapes 3  midday/5h  10  1-5am 0
-  tram    30 St Vincents Plaza - Central Pier D shapes 8  midday/5h  25  1-5am 0
+  tram    30 St Vincents Plaza - Central Pier D shapes 12  midday/5h  25  1-5am 0
   bus     30 Ballarat Station - Creswick        shapes 3  midday/5h   5  1-5am 0
   bus     30 Churchill town loop                shapes 1  midday/5h   6  1-5am 0
   bus     30 Churchill town loop                shapes 1  midday/5h   1  1-5am 0
@@ -114,7 +114,7 @@ routes written: 709 · trams 24 · stops 24016
   bus     32 Geelong Station - Leopold          shapes 2  midday/5h   3  1-5am 0
   bus     32 Geelong Station - Leopold          shapes 2  midday/5h   1  1-5am 0
   bus     32 Geelong Station - Leopold          shapes 2  midday/5h   1  1-5am 0
-  tram    35 City Circle (Free Tourist Tram)    shapes 4  midday/5h  25  1-5am 0
+  tram    35 City Circle (Free Tourist Tram)    shapes 7  midday/5h  25  1-5am 0
   bus     40 Traralgon via Cross's Road         shapes 1  midday/5h   0  1-5am 0
   bus     40 Traralgon via Cross's Road         shapes 1  midday/5h   0  1-5am 0
   bus     40 Traralgon via Cross's Road         shapes 1  midday/5h   5  1-5am 0
@@ -148,7 +148,7 @@ routes written: 709 · trams 24 · stops 24016
   bus     45 Armstrong Creek - Waurn Ponds SC v shapes 2  midday/5h   0  1-5am 0
   bus     45 Armstrong Creek - Waurn Ponds SC v shapes 2  midday/5h   1  1-5am 0
   bus     45 Armstrong Creek - Waurn Ponds SC v shapes 3  midday/5h   0  1-5am 0
-  tram    48 North Balwyn - Victoria Harbour Do shapes 8  midday/5h  31  1-5am 0
+  tram    48 North Balwyn - Victoria Harbour Do shapes 12  midday/5h  31  1-5am 0
   bus     49 Kalkee Retirement Village - Belmon shapes 2  midday/5h   0  1-5am 0
   bus     50 Bendigo Station - Epsom Station vi shapes 3  midday/5h   4  1-5am 0
   bus     50 Bendigo Station - Epsom Station vi shapes 2  midday/5h   1  1-5am 0
@@ -181,9 +181,9 @@ routes written: 709 · trams 24 · stops 24016
   bus     56 Geelong Station - Queenscliff via  shapes 2  midday/5h   2  1-5am 0
   bus     56 Geelong Station - Queenscliff via  shapes 2  midday/5h   0  1-5am 0
   bus     56 Geelong Station - Queenscliff via  shapes 4  midday/5h   1  1-5am 0
-  tram    57 West Maribyrnong - Flinders Street shapes 8  midday/5h  38  1-5am 0
-  tram    58 West Coburg - Toorak               shapes 8  midday/5h  33  1-5am 3
-  tram    59 Airport West - Flinders Street Sta shapes 8  midday/5h  38  1-5am 2
+  tram    57 West Maribyrnong - Flinders Street shapes 12  midday/5h  38  1-5am 0
+  tram    58 West Coburg - Toorak               shapes 12  midday/5h  33  1-5am 3
+  tram    59 Airport West - Flinders Street Sta shapes 12  midday/5h  38  1-5am 2
   bus     60 Bendigo Station - East Bendigo via shapes 2  midday/5h   0  1-5am 0
   bus     60 Bendigo Station - East Bendigo via shapes 2  midday/5h   5  1-5am 0
   bus     60 Geelong Station - St Leonards via  shapes 4  midday/5h   0  1-5am 0
@@ -205,25 +205,25 @@ routes written: 709 · trams 24 · stops 24016
   bus     64 Bendigo Station - Golden Square vi shapes 2  midday/5h   2  1-5am 0
   bus     65 Bendigo Station - Spring Gully via shapes 2  midday/5h   4  1-5am 0
   bus     65 Bendigo Station - Spring Gully via shapes 2  midday/5h   1  1-5am 0
-  tram    67 Melbourne University - Carnegie    shapes 8  midday/5h  25  1-5am 2
-  tram    70 Waterfront City Docklands -  Wattl shapes 8  midday/5h  31  1-5am 2
+  tram    67 Melbourne University - Carnegie    shapes 13  midday/5h  25  1-5am 2
+  tram    70 Waterfront City Docklands -  Wattl shapes 12  midday/5h  31  1-5am 2
   bus     70 Bendigo Station - Strathfieldsaye  shapes 3  midday/5h   1  1-5am 0
   bus     70 Bendigo Station - Strathfieldsaye  shapes 3  midday/5h   4  1-5am 0
   bus     71 Strathfieldsaye SC Loop via Strath shapes 1  midday/5h   0  1-5am 0
   bus     71 Strathfieldsaye SC Loop via Strath shapes 2  midday/5h   2  1-5am 0
-  tram    72 Melbourne University - Camberwell  shapes 8  midday/5h  26  1-5am 1
-  tram    75 Vermont South - Central Pier Dockl shapes 8  midday/5h  31  1-5am 3
-  tram    78 North Richmond - Balaclava         shapes 8  midday/5h  26  1-5am 0
+  tram    72 Melbourne University - Camberwell  shapes 12  midday/5h  26  1-5am 1
+  tram    75 Vermont South - Central Pier Dockl shapes 12  midday/5h  31  1-5am 3
+  tram    78 North Richmond - Balaclava         shapes 12  midday/5h  26  1-5am 0
   bus     80 Warragul Station - Warragul South  shapes 2  midday/5h   8  1-5am 0
   bus     81 Warragul Station - Warragul North  shapes 2  midday/5h   8  1-5am 0
-  tram    82 Moonee Ponds - Footscray           shapes 8  midday/5h  21  1-5am 1
+  tram    82 Moonee Ponds - Footscray           shapes 14  midday/5h  21  1-5am 1
   bus     82 Warragul Station - Warragul North  shapes 2  midday/5h   8  1-5am 0
   bus     83 Warragul Station - Warragul East v shapes 2  midday/5h   8  1-5am 0
   bus     85 Warragul Station - Drouin Station  shapes 3  midday/5h  15  1-5am 0
-  tram    86 Bundoora RMIT - Waterfront City Do shapes 8  midday/5h  38  1-5am 6
+  tram    86 Bundoora RMIT - Waterfront City Do shapes 12  midday/5h  38  1-5am 6
   bus     86 Drouin Station - Drouin North via  shapes 2  midday/5h   8  1-5am 0
-  tram    96 East Brunswick - St Kilda Beach    shapes 8  midday/5h  39  1-5am 2
-  tram   109 Box Hill - Port Melbourne          shapes 8  midday/5h  31  1-5am 4
+  tram    96 East Brunswick - St Kilda Beach    shapes 12  midday/5h  39  1-5am 2
+  tram   109 Box Hill - Port Melbourne          shapes 12  midday/5h  31  1-5am 4
   bus    140 Tarneit Station - Rockbank Station shapes 2  midday/5h  15  1-5am 0
   bus    140 Tarneit Station - Rockbank Station shapes 2  midday/5h   1  1-5am 1
   bus    150 Williams Landing Station - Tarneit shapes 2  midday/5h   8  1-5am 0
