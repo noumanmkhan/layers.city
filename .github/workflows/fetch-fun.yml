@@ -1,0 +1,124 @@
+name: Fetch fun maps
+# The inputs for every city's Fun maps page (cities/<city>/fetch_fun.py) into cities/<city>/raw/fun/, boiled down to
+# small summaries, then docs/<city>/fun/ with engine/fun/build.py. One job, each city in its own step, so one city
+# failing keeps the others' updates (the run is then marked failed). Commits to main once; deploy.yml lists this
+# workflow, so its commits go live.
+#   Toronto: OpenStreetMap shops, 311 requests, parking tickets, street names (parts: osm 311 suffixes tickets).
+#   Chicago, Dallas, Vancouver: OpenStreetMap shops, 311 requests (parts: osm 311).
+#   San Francisco: OpenStreetMap shops, 311 requests, parking tickets (parts: osm 311 tickets).
+#   New York: film permits from NYC Open Data (no parts; monthly until November 2026).
+# These maps change slowly, so: quarterly, when a city's fun script (or the shared OSM helper) changes on main, or by
+# hand (any cities; empty = all; "parts" only when running one city).
+on:
+  workflow_dispatch:
+    inputs:
+      cities: {description: 'Cities, space-separated (empty = all)', default: ''}
+      parts: {description: 'Parts to fetch, one city only (e.g. osm 311); empty = all', default: ''}
+  schedule:
+    - cron: '41 7 3 1,4,7,10 *'
+  push:
+    branches: [main]
+    paths:
+      - 'cities/*/fetch_fun.py'
+      - 'engine/fun/osm.py'
+permissions:
+  contents: write
+concurrency: fetch-fun
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Which cities
+        run: |
+          ALL="toronto chicago dallas vancouver nyc sf"
+          if [ "${{ github.event_name }}" = push ]; then
+            if git diff --quiet HEAD~1 HEAD -- engine/fun/osm.py; then
+              C=$(git diff --name-only HEAD~1 HEAD -- 'cities/*/fetch_fun.py' | cut -d/ -f2 | sort -u | tr '\n' ' ')
+            else C="chicago dallas vancouver sf"; fi   # the cities whose fetch_fun.py uses engine/fun/osm.py
+          elif [ -n "${{ inputs.cities }}" ]; then C="${{ inputs.cities }}"
+          else C="$ALL"; fi
+          echo "Cities: ${C:-none}"
+          echo "CITIES= $C " >> "$GITHUB_ENV"
+          echo "PARTS=${{ inputs.parts }}" >> "$GITHUB_ENV"
+      - run: pip install -q shapely
+
+      - name: Toronto
+        id: toronto
+        if: contains(env.CITIES, ' toronto ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; c=toronto; mkdir -p cities/$c/raw/fun
+          python3 -u cities/$c/fetch_fun.py $PARTS 2>&1 | tee cities/$c/raw/fun/fetch.log
+          python3 engine/fun/build.py $c
+      - name: Chicago
+        id: chicago
+        if: contains(env.CITIES, ' chicago ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; c=chicago; mkdir -p cities/$c/raw/fun
+          python3 -u cities/$c/fetch_fun.py $PARTS 2>&1 | tee cities/$c/raw/fun/fetch.log
+          python3 engine/fun/build.py $c
+      - name: Dallas
+        id: dallas
+        if: contains(env.CITIES, ' dallas ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; c=dallas; mkdir -p cities/$c/raw/fun
+          python3 -u cities/$c/fetch_fun.py $PARTS 2>&1 | tee cities/$c/raw/fun/fetch.log
+          python3 engine/fun/build.py $c
+      - name: Vancouver
+        id: vancouver
+        if: contains(env.CITIES, ' vancouver ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; c=vancouver; mkdir -p cities/$c/raw/fun
+          python3 -u cities/$c/fetch_fun.py $PARTS 2>&1 | tee cities/$c/raw/fun/fetch.log
+          python3 engine/fun/build.py $c
+      - name: New York
+        id: nyc
+        if: contains(env.CITIES, ' nyc ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; c=nyc; mkdir -p cities/$c/raw/fun
+          python3 -u cities/$c/fetch_fun.py $PARTS 2>&1 | tee cities/$c/raw/fun/fetch.log
+          python3 engine/fun/build.py $c
+      - name: San Francisco
+        id: sf
+        if: contains(env.CITIES, ' sf ')
+        continue-on-error: true
+        run: |
+          set -o pipefail; c=sf; mkdir -p cities/$c/raw/fun
+          python3 -u cities/$c/fetch_fun.py $PARTS 2>&1 | tee cities/$c/raw/fun/fetch.log
+          python3 engine/fun/build.py $c
+
+      - name: Commit what changed
+        if: always()
+        run: |
+          add() { for p in "$@"; do [ -e "$p" ] && git add "$p"; done; return 0; }
+          for c in $CITIES; do add cities/$c/raw/fun docs/$c/fun; done
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Fetch fun maps inputs:$(git diff --cached --name-only | cut -d/ -f2 | sort -u | tr '\n' ' ' | sed 's/^/ /')"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 10; done
+          exit 1
+      - name: Report cities that failed
+        if: always()
+        run: |
+          f=""
+          [ "${{ steps.toronto.outcome }}" = failure ] && f="$f Toronto"
+          [ "${{ steps.chicago.outcome }}" = failure ] && f="$f Chicago"
+          [ "${{ steps.dallas.outcome }}" = failure ] && f="$f Dallas"
+          [ "${{ steps.vancouver.outcome }}" = failure ] && f="$f Vancouver"
+          [ "${{ steps.nyc.outcome }}" = failure ] && f="$f New-York"
+          [ "${{ steps.sf.outcome }}" = failure ] && f="$f San-Francisco"
+          [ -z "$f" ] && { echo "All cities OK"; exit 0; }
+          echo "::error::Failed:$f (the other cities' updates were committed)"; exit 1
