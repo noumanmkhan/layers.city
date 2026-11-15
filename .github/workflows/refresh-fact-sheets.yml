@@ -28,11 +28,7 @@ on:
   workflow_run:
     workflows:
       - "Fetch streetcar and bus routes"
-      - "Fetch Toronto parking"
-      - "Fetch New York City parking"
-      - "Fetch Chicago parking"
-      - "Fetch Vancouver parking"
-      - "Fetch Dallas parking"
+      - "Fetch parking"
       - "Fetch bike lanes"
       - "Fetch New York City data"
       - "Fetch San Francisco data"
@@ -42,7 +38,7 @@ permissions:
 concurrency: refresh-fact-sheets
 jobs:
   refresh:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name != 'workflow_run' || contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion)
     runs-on: ubuntu-latest
     timeout-minutes: 330
     env:

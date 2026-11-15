@@ -37,34 +37,14 @@ on:
       - "Fetch bike lanes"
       - "Fetch Toronto collection days"
       - "Fetch voting places"
-      - "Fetch Dallas voting places"
       - "Refresh representatives"
-      - "Refresh Chicago representatives"
-      - "Refresh Dallas representatives"
-      - "Refresh Vancouver representatives"
-      - "Refresh Melbourne representatives"
-      - "Fetch Melbourne voting places"
-      - "Fetch New York voting places"
-      - "Fetch Chicago voting places"
-      - "Refresh New York representatives"
-      - "Fetch Vancouver places"
-      - "Fetch Toronto parking"
-      - "Fetch New York City parking"
-      - "Fetch Toronto nearby places"
-      - "Fetch Chicago parking"
-      - "Fetch Vancouver parking"
-      - "Fetch Dallas parking"
       - "Fetch events"
       - "Refresh fact sheets"
       - "Refresh venues"
       - "Fetch GO fares"
-      - "Refresh San Francisco data"
-      - "Fetch Toronto fun maps"
-      - "Fetch New York City fun maps"
-      - "Fetch San Francisco fun maps"
-      - "Fetch Chicago fun maps"
-      - "Fetch Vancouver fun maps"
-      - "Fetch Dallas fun maps"
+      - "Fetch parking"
+      - "Fetch fun maps"
+      - "Fetch places"
     types: [completed]
   workflow_dispatch:
     inputs:
@@ -81,8 +61,9 @@ concurrency:
 
 jobs:
   deploy:
-    # After a fetch job, deploy only if it succeeded (a failed job committed nothing new).
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    # After a fetch job, deploy if it succeeded or failed: the jobs that cover several cities commit the cities that
+    # worked and then mark the run failed for the ones that didn't. Only a cancelled or skipped run is ignored.
+    if: github.event_name != 'workflow_run' || contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
