@@ -17,7 +17,7 @@ import sys, duckdb, time
 rel, w, s, e, n, out = sys.argv[1], *map(float, sys.argv[2:6]), sys.argv[6]
 t = time.time()
 con = duckdb.connect()
-for q in ("INSTALL spatial", "LOAD spatial", "INSTALL httpfs", "LOAD httpfs", "SET s3_region='us-west-2'", "SET threads=4"):
+for q in ("INSTALL spatial", "LOAD spatial", "INSTALL httpfs", "LOAD httpfs", "SET s3_region='us-west-2'", "SET threads=4", "SET geometry_always_xy = true"):
     con.execute(q)
 con.execute(f"""
 COPY (
