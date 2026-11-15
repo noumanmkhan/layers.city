@@ -1,15 +1,15 @@
 layers: [(0, 'PR - lpr_000b21s_e'), (1, 'CAR - lcar000b21s_e'), (2, 'ER - ler_000b21s_e'), (3, 'FED - lfed000b21s_e'), (4, 'CD - lcd_000b21s_e'), (5, 'CCS - lccs000b21s_e'), (6, 'CMA - lcma000b21s_e'), (7, 'PC - lpc_000b21s_e'), (8, 'DPL - ldpl000b21s_e'), (9, 'CSD - lcsd000b21s_e'), (10, 'ADA - lada000b21s_e'), (11, 'CT - lct_000b21s_e'), (12, 'DA - lda_000b21s_e'), (13, 'DB - ldb_000b21s_e'), (14, 'FSA - lfsa000b21s_e')]
 tracts: 1524 · fields: ['OBJECTID', 'CTUID', 'DGUID', 'CTNAME', 'LANDAREA', 'PRUID', 'SHAPE_Length', 'SHAPE_Area']
 characteristics kept: 401
-  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001.00+2021S05075320002.01+2021S05075320002.02+2021S05075320002 HTTP Error 404: Not Found
-  retry 2 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001.00+2021S05075320002.01+2021S05075320002.02+2021S05075320002 HTTP Error 404: Not Found
-  retry 3 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001.00+2021S05075320002.01+2021S05075320002.02+2021S05075320002 HTTP Error 404: Not Found
-  retry 4 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001.00+2021S05075320002.01+2021S05075320002.02+2021S05075320002 HTTP Error 404: Not Found
-  retry 5 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001.00+2021S05075320002.01+2021S05075320002.02+2021S05075320002 HTTP Error 404: Not Found
-Traceback (most recent call last):
-  File "/home/runner/work/layers.city/layers.city/cities/toronto/fetch_gta_tracts.py", line 92, in <module>
-    t = get(API + 'data/STC_CP,DF_CT/A5.' + '+'.join(batch) + '.1..1?format=csv', 'text/csv').decode('utf-8-sig')
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/layers.city/layers.city/cities/toronto/fetch_gta_tracts.py", line 36, in get
-    raise RuntimeError('failed: ' + url)
-RuntimeError: failed: https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001.00+2021S05075320002.01+2021S05075320002.02+2021S05075320002.03+2021S05075320003.01+2021S05075320003.02+2021S05075320004.01+2021S05075320004.02+2021S05075320005.00+2021S05075320006.00+2021S05075320007.00+2021S05075320008.01+2021S05075320008.02+2021S05075320008.03+2021S05075320008.05+2021S05075320008.06+2021S05075320008.08+2021S05075320008.09+2021S05075320009.01+2021S05075320009.02+2021S05075320009.03+2021S05075320009.04+2021S05075320009.05+2021S05075320010.00+2021S05075320011.00+2021S05075320012.01+2021S05075320012.02+2021S05075320013.00+2021S05075320014.01+2021S05075320014.02+2021S05075320015.02+2021S05075320015.03+2021S05075320015.04+2021S05075320016.04+2021S05075320016.05+2021S05075320016.06+2021S05075320016.07+2021S05075320016.08+2021S05075320100.01+2021S05075320100.02.1..1?format=csv
+geo code list CL_GEO_CT 6247 codes; e.g. ['2021S05070010001_00', '2021S05070010002_00', '2021S05070010003_01'] ['2021S05075350001_00', '2021S05075350002_00', '2021S05075350003_00', '2021S05075350004_00', '2021S05075350005_00']
+dimensions: ['FREQ', 'REF_AREA', 'GENDER', 'CHARACTERISTIC', 'STATISTIC', None, None, None, None, None, None, None, None, None, None]
+probe 2021S05075370001.08 -> None
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.None.1..1?format=csv HTTP Error 404: Not Found
+key fails: A5.%s.1..1 failed: https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.None.1..1?format=csv
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.None.1.?format=csv HTTP Error 422: Unprocessable Entity
+key fails: A5.%s.1. failed: https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.None.1.?format=csv
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.None..?format=csv HTTP Error 422: Unprocessable Entity
+key fails: A5.%s.. failed: https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.None..?format=csv
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/.None..?format=csv HTTP Error 422: Unprocessable Entity
+key fails: .%s.. failed: https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/.None..?format=csv
+no key form works
