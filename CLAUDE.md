@@ -221,10 +221,19 @@ The user keeps a history and roadmap of this project in a Notion database, "Laye
   floats an idea in conversation. One row per change the user would recognise (the level of a CHANGELOG
   heading), not per commit; data refreshes by the fetch jobs never get a row.
 - When a row moves on (On dev → Shipped, Idea → On dev), update its Status rather than adding a duplicate.
-- Fields: **Name** (what changed, in plain words), **Step** (one more than the current highest), **Date**
-  (the day it landed; leave empty for ideas), **Thread** (an existing option where one fits; Notion
-  select options can't contain commas), **Type** (New feature, Iteration, Fix, Reversal, Scouting,
-  Milestone, Infrastructure or Idea), **Cities**, **Status** (Shipped, On dev, Parked, Reverted or
-  Idea), **Evolved from step** (the Step this iterates on, if any) and **Notes** (why, in a sentence).
-- Read the database first for the highest Step and the Thread options. If the session has no Notion
-  connector, say so at the end of the work and list the rows that should be added.
+- Small engine fixes, wording tweaks and follow-ups to a change go in the Notes of that change's row,
+  not a row of their own.
+- Features and their sub-items (since November 15, 2026): a New feature, Milestone, Scouting or
+  Infrastructure row is a top-level item. An Iteration, Fix, Reversal or Idea row sets **Parent item** to
+  the feature it belongs to, like a story under an epic.
+- Fields: **Name** (what changed, in plain words), **Date** (the day it landed; leave empty for ideas),
+  **Thread** (an existing option where one fits; Notion select options can't contain commas), **Type**
+  (New feature, Iteration, Fix, Reversal, Scouting, Milestone, Infrastructure or Idea), **Cities**,
+  **Status** (Shipped, On dev, Parked, Reverted or Idea), **Parent item** (as above) and **Notes** (why,
+  in a sentence).
+- Don't set **Step** or **Evolved from step**. They are the historical numbering, and parallel sessions
+  each taking "highest Step + 1" left duplicate numbers. Notion assigns each row an **ID** (LAYERS-123)
+  itself; refer to rows by that ID, and find a parent by searching its name.
+- Read the database first for the Thread options. If the session has no Notion connector, say so at the
+  end of the work and list the rows that should be added (Name · Type · Parent · Cities · Status · Date).
+- Conventions and background: the project doc `claude/notion-log.md`.
