@@ -242,7 +242,7 @@ main.doc{padding-top:56px;gap:32px}
       <p>There is no server and no database. Scheduled jobs turn the cities’ open data into static files, and a CDN serves them. That keeps it fast, free to run and hard to break.</p>
       <ol class="flow" aria-label="How data reaches the map">
         <li><span class="step">1 · SOURCES</span><b>Open data</b>City portals, transit schedules (GTFS), election offices, the census, OpenStreetMap, Wikipedia.</li>
-        <li><span class="step">2 · FETCH</span><b>Scheduled jobs</b>GitHub Actions pull each source on its own rhythm: daily, weekly, monthly or hourly on election night.</li>
+        <li><span class="step">2 · FETCH</span><b>Scheduled jobs</b>GitHub Actions pull each source on its own rhythm, from nightly to quarterly, with one job per kind of data across every city.</li>
         <li><span class="step">3 · BUILD</span><b>Geometry pipeline</b>Python (Shapely) and mapshaper clean, join, clip and simplify everything into small GeoJSON files.</li>
         <li><span class="step">4 · PUBLISH</span><b>Static site</b>Changed files deploy to Cloudflare Pages automatically, about a minute after the data changes.</li>
         <li><span class="step">5 · USE</span><b>Web and iPhone</b>The map runs in the browser with MapLibre GL, drawn on the device's graphics chip; a native iOS app reads the same files.</li>
@@ -261,6 +261,14 @@ main.doc{padding-top:56px;gap:32px}
 
     <section class="block" id="live" aria-labelledby="live-h">
       <h2 id="live-h">Keeping it current</h2>
+      <p>Each kind of data refreshes as often as its source changes:</p>
+      <ul>
+        <li><b>Daily.</b> Transit construction closures, city events and big-venue shows. In the weeks before an election, voting places every morning, and representatives while results come in.</li>
+        <li><b>Weekly.</b> Bus, streetcar and train routes and schedules, bike lanes and bike share, representatives, and the What’s changing layer.</li>
+        <li><b>Monthly.</b> Parking and EV chargers, parks, libraries and places of worship, garbage collection days, rail lines under construction, and the fact sheets’ walk and drive times.</li>
+        <li><b>Quarterly.</b> Fun maps, skyscrapers, heritage buildings and GO fares.</li>
+        <li><b>Twice a year.</b> Toronto’s schools, in March and September.</li>
+      </ul>
       <p>A map that rebuilds itself needs to notice when a rebuild quietly stops. When one did (a scheduled job kept skipping because the scheduler started hours late), it became a feature:</p>
       <ul>
         <li><b>A daily freshness check</b> reads the date inside every live file and the last run of every scheduled job, and opens an alert, emailed to me, when anything is stale or failing. It closes the alert itself once things recover.</li>
@@ -279,7 +287,7 @@ main.doc{padding-top:56px;gap:32px}
         <li><b>Acceptance testing.</b> I checked the output against what I know of Toronto, tested on my own phone, and sent features back when they read oddly to a resident.</li>
         <li><b>Licences and privacy.</b> I reviewed each source’s terms before use, and set the rule that visit counts never record places, pins or searches.</li>
       </ul>
-      <p>Working this way, one person shipped a scope that would usually take more than one: seven cities (Toronto, New York, San Francisco, Chicago, Dallas, Vancouver and Melbourne), a pipeline of two dozen automated data jobs, the data behind a native iPhone app, and a deployment that watches itself. The judgement about what to build, and what to leave out, stayed human.</p>
+      <p>Working this way, one person shipped a scope that would usually take more than one: seven cities (Toronto, New York, San Francisco, Chicago, Dallas, Vancouver and Melbourne), a pipeline of about twenty scheduled data jobs, the data behind a native iPhone app, and a deployment that watches itself. The judgement about what to build, and what to leave out, stayed human.</p>
     </section>
 
     <section class="cta" aria-label="Next">
