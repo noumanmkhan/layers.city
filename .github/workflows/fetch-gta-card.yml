@@ -1,31 +1,28 @@
 name: Fetch GTA card inputs
-# The What's here card beyond the City of Toronto: riding boundaries (Open North Represent), libraries, community
-# centres, hospitals, playgrounds and places of worship (OpenStreetMap, Overpass) into cities/toronto/raw/gta_card/,
-# and the GTA's schools (fetch_schools.py). Commits back to the branch that ran it. Run by hand now and then.
+# The What's here card beyond the City of Toronto. This run: census tracts (boundaries and 2021 profile figures,
+# Statistics Canada) for the neighbourhood lens beyond the city, into cities/toronto/raw/gta_tracts/.
 on:
   workflow_dispatch:
   push:
     branches: [fetch-gta-card]
-    paths: ['cities/toronto/fetch_gta_card.py', 'cities/toronto/fetch_gta_councils.py', '.github/workflows/fetch-gta-card.yml']
+    paths: ['cities/toronto/fetch_gta_tracts.py', '.github/workflows/fetch-gta-card.yml']
 permissions:
   contents: write
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install openpyxl
-      - run: python3 -u cities/toronto/fetch_gta_card.py
-      - run: python3 -u cities/toronto/fetch_gta_councils.py
-      - run: mkdir -p cities/toronto/raw/schools && python3 -u cities/toronto/fetch_schools.py 2>&1 | tee cities/toronto/raw/schools/fetch.log
+      - run: pip install pyshp pyproj
+      - run: df -h /tmp && python3 -u cities/toronto/fetch_gta_tracts.py
       - run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
-          git add cities/toronto/raw/gta_card cities/toronto/raw/schools
-          git commit -m "Fetch the GTA's ridings, nearby places and schools for the What's here card" || echo "no changes"
+          git add cities/toronto/raw/gta_tracts
+          git commit -m "Fetch the GTA's census tracts and 2021 profile figures" || echo "no changes"
           git pull --rebase
           git push
