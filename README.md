@@ -18,8 +18,9 @@ It's built for two people: a resident learning things they didn't know about the
 | Chicago | [layers.city/chicago](https://layers.city/chicago/) | 77 community areas; added<br>county focus from local feedback |
 | Vancouver | [layers.city/vancouver](https://layers.city/vancouver/) | Includes UBC and the University<br>Endowment Lands |
 | Dallas | [layers.city/dallas](https://layers.city/dallas/) | Built first for the November 2026<br>election; ZIP codes as units |
+| Melbourne | [layers.city/melbourne](https://layers.city/melbourne/) | The first city outside North America:<br>suburbs, built for Victoria's 2026 election |
 
-A seventh, Hyderabad, is live but unlisted while its civic boundaries are unpublished.
+An eighth, Hyderabad, is live but unlisted while its civic boundaries are unpublished.
 
 ## What it does
 

@@ -3,9 +3,12 @@
  * A Cloudflare Pages Function (deployed with the site by deploy.yml; it serves only /api/*). It reads the city's
  * GTFS-realtime trip updates, which browsers can't fetch themselves (the agency's server sends no CORS header),
  * and returns the next arrivals at the stops asked for:
- *   {now, asof, stops: {"8344": [[route, direction, epoch seconds, live], ...]}}
+ *   {now, asof, stops: {"8344": [[route, direction, epoch seconds, live, next stop], ...]}}
  * live is 1 when a vehicle is already on that trip (a prediction), 0 when not (the agency's schedule for a trip
- * that hasn't started yet).
+ * that hasn't started yet). next stop (only on a live arrival, and only when the feed says) is the stop id that
+ * trip's vehicle reaches next: the first stop still ahead of it in the trip update. The app places "about 3 stops
+ * away" and a dot between that stop and the one before it from its own list of the route's stops. It is the same
+ * stop asked about when the vehicle is about to arrive there.
  *
  * The feed (Toronto: about 620 KB, refreshed every 20 to 30 s) is fetched through Cloudflare's cache for 20 s, so
  * the agency sees at most a few requests a minute from each Cloudflare location, however many people are looking.
@@ -27,6 +30,21 @@
  * the rapid lines at the platforms asked for (&lines=A,C), and only those lines' feeds are read ("rapid" is then a
  * map of feeds and "lineFeed" says which feed carries each line; with no lines given, all are read). The buses'
  * live times come from MTA Bus Time (below), with a key.
+ *
+ * Melbourne: Transport Victoria's trip updates, with the PTV_GTFSR_KEY secret sent in a KeyID header ("headers").
+ * Buses are the main feed (about 1.3 MB) and trams an "also" feed, read with it every time (the page asks about
+ * both kinds of stop without saying which); metropolitan trains are the rapid feed. The feeds carry no vehicle, so
+ * every arrival counts as live ("liveAll"), and they allow 20-27 requests a minute per key, so they're cached 30 s
+ * with the last good copy kept for 5 minutes. The bus feed's route ids ("vic:33901:_:R:aus") aren't the schedule's
+ * ("33-901-aus-1", one per operator of a number): "tripRoute" takes the number from the trip id ("33-901--1-Sat13-…")
+ * and the table of route ids by number that engine/routes/build.py writes, so an arrival carries every id its
+ * number goes by and matches whichever one a stop's row uses.
+ *
+ * Chicago: the CTA publishes no GTFS-realtime feed, so "provider" asks its two APIs directly, for the stops asked
+ * about only: Bus Tracker (CTA_BUS_KEY; up to 10 stops a call) and Train Tracker (CTA_TRAIN_KEY; one platform a call,
+ * the 'L' platforms being stop ids 30000-30999). Each call is cached 30 s at the edge (both refresh about every 30 s),
+ * and each key allows 100,000 calls a day. Bus Tracker predicts only buses on their way (live 1, about the next half
+ * hour); Train Tracker marks schedule-based times (isSch: live 0). No next stop: neither API says it per arrival.
  */
 const FEEDS = {
   toronto: { main: 'https://gtfsrt.ttc.ca/trips/update?format=binary', rapid: 'https://gtfsrt.ttc.ca/trips/subway?format=binary' },
@@ -52,7 +70,55 @@ const FEEDS = {
         rapid: { bart: 'https://api.bart.gov/gtfsrt/tripupdate.aspx' },
         lineFeed: Object.fromEntries(['Yellow', 'Orange', 'Green', 'Red', 'Blue', 'OAK'].map(l => ['BART-' + l, 'bart'])),
         tripRoutes: { bart: '/sf/routes/data/bart_trips.json' } },
+  chicago: { provider: cta, ttl: 30 },
+  // Vancouver: TransLink's trip updates (TRANSLINK_KEY; about 280 KB, buses only: SkyTrain has no live data).
+  vancouver: { main: env => env.TRANSLINK_KEY && `https://gtfsapi.translink.ca/v3/gtfsrealtime?apikey=${encodeURIComponent(env.TRANSLINK_KEY)}`,
+               ttl: 30, keep: 300 },
+  melbourne: {
+    main: 'https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1/bus/trip-updates',
+    also: { tram: 'https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1/tram/trip-updates' },
+    rapid: { metro: 'https://api.opendata.transport.vic.gov.au/opendata/public-transport/gtfs/realtime/v1/metro/trip-updates' },
+    headers: env => env.PTV_GTFSR_KEY ? { KeyID: env.PTV_GTFSR_KEY } : null,
+    ttl: 30, keep: 300, liveAll: true, skipMainForRapid: true,
+    tripRoute: { main: { numbers: '/melbourne/routes/data/route_numbers.json', mode: 'bus' } },
+  },
 };
+// Chicago's two APIs (the "provider" of a city with no GTFS-realtime feed): the arrivals at the stops asked for.
+async function cta({ stops, rapid, env, ttl }) {
+  const get = async u => {
+    const r = await fetch(u, { cf: { cacheTtlByStatus: { '200-299': ttl, '400-599': 30 }, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)' } });
+    if (!r.ok) throw new Error('cta ' + r.status);
+    return r.json();
+  };
+  const out = Object.fromEntries(stops.map(s => [s, []]));
+  const rail = stops.filter(s => /^30\d{3}$/.test(s)), bus = stops.filter(s => !/^30\d{3}$/.test(s));
+  const calls = [];
+  if (bus.length && env.CTA_BUS_KEY)
+    for (let i = 0; i < bus.length; i += 10)
+      calls.push(get(`https://www.ctabustracker.com/bustime/api/v3/getpredictions?key=${encodeURIComponent(env.CTA_BUS_KEY)}&stpid=${bus.slice(i, i + 10).join(',')}&unixTime=true&format=json`)
+        .then(j => { for (const p of (j['bustime-response'] || {}).prd || [])
+          if (out[p.stpid]) out[p.stpid].push([p.rt, 0, Math.round(Number(p.prdtm) / 1000), 1]); }));
+  if (rail.length && rapid && env.CTA_TRAIN_KEY)
+    for (const s of rail)
+      calls.push(get(`https://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?key=${encodeURIComponent(env.CTA_TRAIN_KEY)}&stpid=${s}&outputType=JSON`)
+        .then(j => { for (const e of (j.ctatt || {}).eta || [])
+          if (out[e.stpId]) out[e.stpId].push([e.rt, 0, chicago(e.arrT), e.isSch === '1' ? 0 : 1]); }));
+  const done = await Promise.allSettled(calls);
+  if (calls.length && done.every(d => d.status === 'rejected')) return null;
+  return out;
+}
+
+// "2026-11-14T20:23:53", Chicago's clock (Train Tracker), as epoch seconds.
+export function chicago(t) {
+  const asUtc = Date.parse(t + 'Z');
+  if (isNaN(asUtc)) return 0;
+  const f = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hourCycle: 'h23', year: 'numeric', month: '2-digit',
+    day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).formatToParts(new Date(asUtc));
+  const v = Object.fromEntries(f.map(p => [p.type, p.value]));
+  const shown = Date.UTC(+v.year, +v.month - 1, +v.day, +v.hour, +v.minute, +v.second);
+  return Math.round((asUtc - (shown - asUtc)) / 1000);   // the offset at that moment (close enough across a DST change)
+}
+
 const FEED_TTL = 20;      // seconds a feed is cached at the edge, unless it sets its own ttl
 const MAX_STOPS = 24;
 const AHEAD = 90 * 60;    // keep arrivals up to 90 minutes out
@@ -80,14 +146,25 @@ export async function onRequestGet({ request, env }) {
   if (hit) return hit;
 
   const ttl = feeds.ttl || FEED_TTL;
+  if (feeds.provider) {
+    const now = Math.floor(Date.now() / 1000);
+    const got = await feeds.provider({ stops, rapid: url.searchParams.get('rapid') === '1', env: env || {}, ttl });
+    if (!got) return json({ error: 'The live feed is not responding right now.' }, 503, 10);
+    for (const k of Object.keys(got)) got[k] = got[k].filter(x => x[2] >= now - 60 && x[2] <= now + AHEAD).sort((a, b) => a[2] - b[2]).slice(0, PER_STOP);
+    const res = json({ now, asof: now, stops: got }, 200, 15);
+    await cache.put(key, res.clone());
+    return res;
+  }
   // A feed's last good copy, for a feed that sets "keep" (seconds), under a key of its own that names no secret.
   const keepKey = which => new Request(`${url.origin}/api/arrivals/__feed/${city}/${which}`);
   const get = async which => {
-    const src = which === 'main' || which === 'rapid' ? feeds[which] : feeds.rapid[which];
+    const src = which === 'main' || which === 'rapid' ? feeds[which] : feeds.also && feeds.also[which] || feeds.rapid[which];
     const u = typeof src === 'function' ? src(env || {}) : src;
     try {
       if (!u) throw new Error('no feed address');
-      const r = await fetch(u, { cf: { cacheTtlByStatus: { '200-299': ttl, '400-599': 60 }, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)' } });
+      const auth = feeds.headers ? feeds.headers(env || {}) : {};
+      if (!auth) throw new Error('no key');
+      const r = await fetch(u, { cf: { cacheTtlByStatus: { '200-299': ttl, '400-599': 60 }, cacheEverything: true }, headers: { 'User-Agent': 'Layers.City (go@layers.city)', ...auth } });
       if (!r.ok) throw new Error('feed ' + r.status);
       const buf = await r.arrayBuffer();
       if (feeds.keep && r.headers.get('cf-cache-status') !== 'HIT')
@@ -101,20 +178,30 @@ export async function onRequestGet({ request, env }) {
   };
   const now = Math.floor(Date.now() / 1000);
   const onlyRapid = rapid && feeds.skipMainForRapid && url.searchParams.get('onlyRapid') === '1';
-  const bufs = await Promise.allSettled([feeds.main && !onlyRapid ? get('main') : Promise.reject('main feed not read'), ...rapidFeeds.map(get)]);
+  const alsoFeeds = feeds.also && !onlyRapid ? Object.keys(feeds.also) : [];
+  const bufs = await Promise.allSettled([feeds.main && !onlyRapid ? get('main') : Promise.reject('main feed not read'), ...alsoFeeds.map(get), ...rapidFeeds.map(get)]);
   if (bufs.every(b => b.status === 'rejected')) return json({ error: 'The live feed is not responding right now.' }, 503, 10);
   const out = { asof: 0, stops: Object.fromEntries(stops.map(s => [s, []])) };
-  const names = ['main', ...rapidFeeds];
+  const names = ['main', ...alsoFeeds, ...rapidFeeds];
   for (let k = 0; k < bufs.length; k++) {
     const b = bufs[k], which = names[k];
     if (b.status !== 'fulfilled') continue;
     // The feed's own stop ids for the ones asked for (511: 1 + the stop_id), and back again.
     const pre = which === 'main' ? feeds.idPrefix || '' : '';
     const feedIds = stops.map(s => pre + s);
-    const trips = feeds.tripRoutes && feeds.tripRoutes[which] ? await tripTable(url.origin + feeds.tripRoutes[which], env) : null;
+    let trips = feeds.tripRoutes && feeds.tripRoutes[which] ? await tripTable(url.origin + feeds.tripRoutes[which], env) : null;
+    const tr = feeds.tripRoute && feeds.tripRoute[which];
+    if (tr) {   // route ids from the trip id's number (Melbourne's buses)
+      const nums = await tripTable(url.origin + tr.numbers, env, 'numbers');
+      trips = nums && ((trip, route) => { const m = /^\d+-([^-]+)-/.exec(trip); return (m && nums[m[1]]) || [route]; });
+    }
     const o = scan(b.value, feedIds, now, b.value.length > 1500000, trips);
     out.asof = Math.max(out.asof, o.asof);
-    stops.forEach((s, i) => out.stops[s].push(...o.stops[feedIds[i]].map(x => feeds.liveAll ? [x[0], x[1], x[2], 1] : x)));
+    const back = id => pre && id.startsWith(pre) ? id.slice(pre.length) : id;   // the feed's stop id, as the page writes it
+    stops.forEach((s, i) => out.stops[s].push(...o.stops[feedIds[i]].map(x => {
+      const live = feeds.liveAll ? 1 : x[3];
+      return live && x[4] ? [x[0], x[1], x[2], 1, back(x[4])] : [x[0], x[1], x[2], live];
+    })));
   }
   for (const k of Object.keys(out.stops)) out.stops[k] = out.stops[k].sort((a, b) => a[2] - b[2]).slice(0, PER_STOP);
   const res = json({ now, asof: out.asof, stops: out.stops }, 200, Math.min(15, ttl));
@@ -125,14 +212,14 @@ export async function onRequestGet({ request, env }) {
 // A trip -> route table (engine/routes/build.py writes it next to the Routes page's data), kept in the isolate's
 // memory for an hour: it changes only with the agency's schedule.
 const tables = new Map();
-async function tripTable(u, env) {
+async function tripTable(u, env, field = 'trips') {
   const t = tables.get(u);
   if (t && Date.now() - t.at < 3600e3) return t.trips;
   try {
     const req = new Request(u);
     const r = env && env.ASSETS ? await env.ASSETS.fetch(req) : await fetch(req, { cf: { cacheTtl: 3600 } });
     if (!r.ok) throw new Error('trips ' + r.status);
-    const trips = (await r.json()).trips || {};
+    const trips = (await r.json())[field] || {};
     tables.set(u, { at: Date.now(), trips });
     return trips;
   } catch { return t ? t.trips : null; }
@@ -149,6 +236,8 @@ function json(body, status, maxAge) {
 /* ---- a minimal GTFS-realtime reader ----
  * FeedMessage: 1 header {3 timestamp}, 2 entity*.  FeedEntity: 3 trip_update.
  * TripUpdate: 1 trip {4 schedule_relationship, 5 route_id, 6 direction_id}, 2 stop_time_update*, 3 vehicle {1 id}.
+ * Each arrival is [route, dir, time, live, next]: next is the trip's first stop whose time is still ahead (from 30 s
+ * ago), read only for trips with a stop asked about.
  * StopTimeUpdate: 2 arrival {2 time}, 3 departure {2 time}, 4 stop_id, 5 schedule_relationship.
  * Every other field is skipped by its wire type. */
 export function scan(b, stopIds, now, sparse = false, tripRoutes = null) {
@@ -185,7 +274,7 @@ export function scan(b, stopIds, now, sparse = false, tripRoutes = null) {
   function str(start, len) { let s = ''; for (let i = 0; i < len; i++) s += String.fromCharCode(b[start + i]); return s; }
 
   function tripUpdate(end) {
-    let route = '', trip = '', dir = 0, rel = 0, live = 0;
+    let route = '', trip = '', dir = 0, rel = 0, live = 0, nextAt = -1, nextLen = 0;
     const hits = [];
     while (p < end) {
       const k = varint(), f = k >>> 3, wt = k & 7;
@@ -201,23 +290,28 @@ export function scan(b, stopIds, now, sparse = false, tripRoutes = null) {
         }
       } else if (f === 2 && wt === 2) {   // stop_time_update
         const e = varint() + p;
-        let stop = null, t = 0, skipped = false;
+        let stop = null, t = 0, skipped = false, idAt = -1, idLen = 0;
         while (p < e) {
           const k2 = varint(), f2 = k2 >>> 3, w2 = k2 & 7;
-          if (f2 === 4 && w2 === 2) { const l = varint(); stop = matchStop(p, l); p += l; }
+          if (f2 === 4 && w2 === 2) { const l = varint(); idAt = p; idLen = l; stop = matchStop(p, l); p += l; }
           else if ((f2 === 2 || f2 === 3) && w2 === 2) { const l = varint(), ee = p + l; const tt = eventTime(ee); p = ee; if (f2 === 2 || !t) t = tt || t; }
           else if (f2 === 5 && w2 === 0) skipped = varint() === 1;   // SKIPPED
           else skip(w2);
         }
         if (stop && t && !skipped) hits.push([stop, t]);
+        if (nextAt < 0 && idAt >= 0 && t && !skipped && t >= now - 30) { nextAt = idAt; nextLen = idLen; }
       } else if (f === 3 && wt === 2) {   // vehicle
         const e = varint() + p;
         while (p < e) { const k2 = varint(), f2 = k2 >>> 3, w2 = k2 & 7; if (f2 === 1 && w2 === 2) { const l = varint(); if (l) live = 1; p += l; } else skip(w2); }
       } else skip(wt);
     }
     if (rel === 3 || rel === 7) return;   // CANCELED, DELETED
-    if (!route && tripRoutes) route = tripRoutes[trip] || '';   // a feed that names trips only (BART)
-    for (const [stop, t] of hits) if (t >= now - 60 && t <= now + AHEAD) stops[stop].push([route, dir, t, live]);
+    if (!hits.length) return;
+    // A feed that names trips only (BART: a table), or whose route ids aren't the schedule's (a function -> ids).
+    const routes = typeof tripRoutes === 'function' ? tripRoutes(trip, route)
+      : [!route && tripRoutes ? tripRoutes[trip] || '' : route];
+    const next = nextAt >= 0 ? str(nextAt, nextLen) : '';
+    for (const [stop, t] of hits) if (t >= now - 60 && t <= now + AHEAD) for (const r of routes) stops[stop].push([r, dir, t, live, next]);
   }
 
   function entity(e) {

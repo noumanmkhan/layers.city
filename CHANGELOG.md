@@ -2,6 +2,22 @@
 
 ## Since 1.1
 
+### One sheet at a time on phones (every city, November 14)
+- The layer sheet rests as one row: the city menu and a Layers button with how many are on. Opened, it shows the
+  layer groups as chips, Views first (Views, the extent switch, All / Basic / Live), and that group's rows.
+- A place's card is the bottom sheet, at about half height so the pin stays in view; its top edge or arrow grows
+  it. The layer sheet steps aside meanwhile, with a floating Layers button. Early voting shows the nearest venue
+  first, the rest behind "All voting details". The tour box moves under the search box.
+
+### A map-first layout on computers (every city, November 13)
+- The layer sidebar gives way to a bar along the top: Layers.City and the city menu, a tab per layer group with how
+  many of its layers are on, and search. A tab opens its group as a pop-up under it; a click on the map or Escape
+  closes it (that click doesn't drop a pin). A Views tab holds Views, the extent switch and All / Basic / Live.
+- Pin docks the panel on the left as the full list, like the old sidebar; remembered, and the default on very wide
+  screens. Explainers are cut to one line (full text on hover), with the "as of" date on its own line.
+- The footer buttons and theme move to a small bar at the bottom left; the What's here card sits bottom right at
+  half height, with an arrow to grow it; the data credits fold into an ⓘ button. Phones are unchanged.
+
 ### Ferries (Toronto, November 13)
 - A Ferries layer under Getting around (off by default, on in the Transit view): the City's three Toronto Island
   routes from Jack Layton Ferry Terminal to Ward's Island, Centre Island and Hanlan's Point, each in its own colour,
@@ -28,7 +44,7 @@
 - The parks popup's fine print can now name the outlines' date (`{outlines}`).
 
 ### Known-as names and Parks start on (November 13)
-- First load, Reset and any link without `layers=` now show Known-as names and Parks, so the first view shows green space. Known-as names was already on everywhere but Toronto; Parks is now on in Toronto, Chicago, New York and San Francisco (the `on` flags in each `city.json`). Dallas, Hyderabad, Melbourne and Vancouver have no Parks layer.
+- First load, Reset and any link without `layers=` now show Known-as names and Parks, so the first view shows green space. Known-as names was already on everywhere but Toronto; Parks is now on in Toronto, Chicago, New York and San Francisco (the `on` flags in each `city.json`), and in Melbourne and Vancouver, whose Parks layers came the same day. Dallas and Hyderabad have no Parks layer.
 
 ### The map draws on the GPU: MapLibre GL replaces Leaflet (November 13)
 - Every city's map now draws with MapLibre GL JS (WebGL) instead of Leaflet's SVG and HTML, so zooming and panning on
@@ -40,6 +56,25 @@
 - Save as image renders the map at the chosen size on the GPU (html-to-image is gone). Map labels use Inter glyph files
   served with the site (`docs/glyphs/`, `engine/glyphs.py`). Leaflet and Leaflet.PolylineOffset are no longer loaded.
 - Fixed on the way: Reset no longer throws in a city without lens filters (Hyderabad).
+
+### Melbourne: Events (November 14)
+- /melbourne/events/ and Happening nearby on the card, from What's On Melbourne, the City of Melbourne's own event
+  listings: about 560 events over the next 30 days, with times, places, Free and a category, each linking to its
+  page there. The list comes from the site's public MCP server, the details from each event's page (cached, fetched
+  again when its dates change or every three days). Non-commercial terms, so it's in NONCOMMERCIAL.md and marked on
+  the Attributions page. The hub row now shows Events; Melbourne's map credit line names all its sources.
+
+### Melbourne joins the hub (November 13)
+- Melbourne, the first city outside North America, is listed: a row in the hub's city table and a tab on phones
+  (map, Guide, fact sheets, transit, venues; events and fun maps still to come), its outline on the hub, a place
+  page for each of its 15 suburbs with a Suburbs guide, sitemap entries, every city's map switcher, and a Melbourne
+  section on the Attributions page. The hub, About page and README now count seven cities in three countries.
+
+### Melbourne: Transit under construction (November 13)
+- The Suburban Rail Loop East, Cheltenham to Box Hill, as a dashed line with its six stations, in What's changing and
+  the Getting around view (regional view). Its route and stations from OpenStreetMap, which maps the tunnels and
+  station sites (`fetch_more.py` step `construction`, `construction.py` draws one line along the mapped track); the
+  facts (26 km of twin tunnels, trains by 2035) in our own words from Victoria's Big Build pages.
 
 ### Melbourne: Routes from here and Venues (November 13)
 - Routes from here: tram and bus stops and train platforms near any spot, where each line goes and the next

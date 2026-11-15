@@ -1,5 +1,5 @@
 {
-  "_about": "The Events page at /chicago/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the neighborhood filter and card outline come from. 'words' are the page's own text; the engine names no city or source.",
+  "_about": "The Events page at /chicago/events/ (engine/events_page.py). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the neighborhood filter and card outline come from. 'words' are the page's own text; the engine names no city or source. 'shows' (November 15, 2026) adds the big venues' concerts, games and shows from the Venues listing (docs/<city>/venues/shows.json) with a switch at the top; its title, intro, desc and card replace the words'.",
   "file": "events.json",
   "units": "community_areas",
   "words": {
@@ -11,7 +11,18 @@
     "hub": "What’s on: today, this weekend",
     "hoodLabel": "Community area",
     "placeless": "Online",
-    "sources": {"library": "Library program", "parks": "Park District"},
+    "sources": {
+      "library": "Library program",
+      "parks": "Park District"
+    },
     "source": "Events from the Chicago Public Library and the Chicago Park District, via the City of Chicago Data Portal (terms of use)."
+  },
+  "shows": {
+    "title": "What’s on in Chicago",
+    "community": "Libraries & parks",
+    "intro": "Concerts, games and shows at Chicago’s big venues, plus every Chicago Public Library program and every Chicago Park District event, for the next 30 days.",
+    "desc": "What’s on in Chicago today, this weekend and this week: concerts, games and shows at the big venues, Chicago Public Library programs and Park District events.",
+    "card": "Big venues, community events, the next 30 days",
+    "source": "Shows at the big venues from Ticketmaster."
   }
 }

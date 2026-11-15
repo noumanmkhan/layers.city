@@ -30,6 +30,7 @@ python3 ../../engine/skyscrapers.py melbourne
 if [ -f raw/addresses.json ]; then python3 addresses.py; fi   # the card's Address row
 if [ -f raw/more/heritage_places.json ]; then python3 heritage.py; fi   # Heritage buildings
 python3 parking.py   # public car parks
+if [ -f raw/more/osm_construction.json ]; then python3 construction.py; fi   # Suburban Rail Loop East, from OSM
 python3 nearby.py   # the card's Nearby section, from the layers above
 if [ -f raw/voting/sites.json ]; then python3 voting.py; fi   # where to vote, until November 28
 python3 ../../engine/assemble.py melbourne

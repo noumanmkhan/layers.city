@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What’s on in New York City parks · Layers.City</title>
-<meta name="description" content="What’s on in New York City’s parks today, this weekend and over the next two weeks, from NYC Parks’ public events listing.">
+<title>What’s on in New York City · Layers.City</title>
+<meta name="description" content="What’s on in New York City today, this weekend and over the next two weeks: concerts, games and shows at the big venues, and NYC Parks’ public events.">
 <link rel="canonical" href="https://layers.city/nyc/events/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Layers.City">
 <meta property="og:url" content="https://layers.city/nyc/events/">
-<meta property="og:title" content="What’s on in New York City parks">
-<meta property="og:description" content="What’s on in New York City’s parks today, this weekend and over the next two weeks, from NYC Parks’ public events listing.">
+<meta property="og:title" content="What’s on in New York City">
+<meta property="og:description" content="What’s on in New York City today, this weekend and over the next two weeks: concerts, games and shows at the big venues, and NYC Parks’ public events.">
 <meta property="og:image" content="https://layers.city/nyc/events/card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -19,7 +19,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" href="events.json" as="fetch" crossorigin>
+<link rel="preload" href="events.json" as="fetch" crossorigin><link rel="preload" href="/nyc/venues/shows.json" as="fetch" crossorigin>
 <style>@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
 @font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
 @font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
@@ -67,6 +67,18 @@ ul.events .acts{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;marg
 .status{font-size:14px;color:var(--ink-3);margin:4px 0 0;min-height:1.5em}
 footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(--ink-2)}
 [hidden]{display:none!important}
+.kinds{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 0;padding:4px;background:var(--card);border:1.5px solid var(--rule);border-radius:999px;width:max-content;max-width:100%}
+.kinds button{font:500 15px/1.2 var(--body);min-height:38px;padding:6px 16px;border:0;border-radius:999px;background:none;color:var(--ink-2);cursor:pointer}
+.kinds button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.kinds button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.vn{padding:14px 0 4px;border-top:1px solid var(--rule)}.vn:first-of-type{border-top:0;padding-top:6px}
+.vn h3{font:700 18px/1.25 var(--display);margin:0;display:flex;flex-wrap:wrap;gap:2px 12px;align-items:baseline}
+.vn h3 a{color:var(--ink);text-decoration:none}.vn h3 a:hover{color:var(--accent);text-decoration:underline}
+.vn .vm{font:400 14px/1.4 var(--body);color:var(--ink-3)}
+.vn .go{display:inline-flex;align-items:center;gap:4px;font:500 14px/1.4 var(--body);color:var(--accent);text-decoration:none}.vn .go:hover{text-decoration:underline}
+.vn ul.events li{padding:8px 0}
+.allv{display:inline-block;margin:12px 0 0;font-size:15px}
+@media (max-width:560px){.kinds{width:100%;border-radius:14px}.kinds button{flex:1 1 auto;padding:6px 10px}}
 @media (max-width:560px){section{padding:16px}ul.events time{flex-basis:100%}ul.events time b{display:inline;margin-right:6px}h1{margin-top:12px}.controls label:not(.check){flex:1 1 100%;min-width:0}.controls select{flex:1;min-width:0;width:100%}}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) .tag.free{color:#0E1A14}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}
@@ -78,17 +90,18 @@ footer{padding:28px 0 40px;font-size:14px;color:var(--ink-3)}footer a{color:var(
 <header><a class="brand" href="/"><svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#fff"/></svg><span>Layers<b>.City</b></span></a>
 <nav class="crumbs"><a href="/nyc/">New York City map</a> › Events</nav></header>
 <main>
-<h1>What’s on in New York City parks</h1><p class="kind">Every public event in New York City’s parks for the next two weeks: walks, concerts, classes, volunteer days, exhibitions and more, from NYC Parks. A listing, not a guide: the facts and a link to each event’s page, nothing else. The city’s libraries publish no open events feed, so their programs aren’t here.</p><p class="stamp" id="stamp"></p><div class="controls">
+<h1>What’s on in New York City</h1><p class="kind">Concerts, games and shows at the region’s big venues, plus every public event in New York City’s parks for the next two weeks: walks, concerts, classes, volunteer days, exhibitions and more, from NYC Parks. A listing, not a guide: the facts and a link to each event’s page, nothing else. The city’s libraries publish no open events feed, so their programs aren’t here.</p><p class="stamp" id="stamp"></p><div class="kinds" id="kinds" role="group" aria-label="What to show"><button type="button" data-m="all" aria-pressed="true">Everything</button><button type="button" data-m="venues" aria-pressed="false">Concerts, games &amp; shows</button><button type="button" data-m="community" aria-pressed="false">Parks events</button></div><div class="controls">
 <button type="button" class="near" id="near" aria-pressed="false"><svg viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#fff"/><circle cx="60" cy="48" r="14" fill="var(--accent)"/></svg><span>Near me</span></button>
 <label class="check" id="freeL"><input type="checkbox" id="free"> Free only</label>
-<label>Category <select id="cat"><option value="">All</option></select></label>
-<label>Neighborhood <select id="hood"><option value="">All</option></select></label>
+<label id="catL">Category <select id="cat"><option value="">All</option></select></label>
+<label id="hoodL">Neighborhood <select id="hood"><option value="">All</option></select></label>
 <button type="button" class="reset" id="reset" hidden>Clear filters</button>
 </div>
 <p class="status" id="status" aria-live="polite"></p><div id="sections"><section><p class="empty">Loading the listing…</p></section></div><noscript><section><p class="empty">This page needs JavaScript to show the listing.</p></section></noscript><script>
-(()=>{const C={"file": "events.json", "map": "/nyc/", "locale": "en-US", "placeless": "Online", "unit": "km", "pin": "<svg viewBox=\"18 6 84 108\" aria-hidden=\"true\"><path d=\"M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z\" fill=\"currentColor\"/><circle cx=\"60\" cy=\"48\" r=\"14\" fill=\"var(--card)\"/></svg>", "srcs": {"parks": "NYC Parks"}, "later": "Later in the two weeks"},$=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+(()=>{const C={"file": "events.json", "map": "/nyc/", "locale": "en-US", "placeless": "Online", "unit": "km", "pin": "<svg viewBox=\"18 6 84 108\" aria-hidden=\"true\"><path d=\"M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z\" fill=\"currentColor\"/><circle cx=\"60\" cy=\"48\" r=\"14\" fill=\"var(--card)\"/></svg>", "srcs": {"parks": "NYC Parks"}, "later": "Later in the two weeks", "shows": {"file": "/nyc/venues/shows.json", "venues": "/nyc/venues/", "title": "At the big venues", "note": "Concerts, games and shows this week, biggest venue first.", "all": "Every venue, and how to get to each", "hub": "Getting there"}},$=id=>document.getElementById(id),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
 const freeEl=$('free'),catEl=$('cat'),hoodEl=$('hood'),nearEl=$('near'),statusEl=$('status'),out=$('sections');
-let D=null,me=null;const shown={};   // me: the visitor's position, kept here only, never stored or sent
+let D=null,S=null,me=null,M='all';const shown={};
+const kindsEl=$('kinds'),Q0=new URLSearchParams(location.search);if(C.shows&&['venues','community'].includes(Q0.get('show')))M=Q0.get('show');   // me: the visitor's position, kept here only, never stored or sent
 // City-time clock: "YYYY-MM-DDTHH:MM".
 const cityNow=tz=>new Date().toLocaleString('sv-SE',{timeZone:tz}).replace(' ','T').slice(0,16);
 const dayAdd=(d,n)=>{const t=new Date(Date.UTC(+d.slice(0,4),+d.slice(5,7)-1,+d.slice(8,10)+n));return t.toISOString().slice(0,10)};
@@ -117,25 +130,52 @@ function row(e,t,rest,today,one){
   const where=e.lat==null?[e.venue,C.placeless]:[e.venue,e.hood],src=C.srcs[e.src];
   const more=rest.length?'<span class="more">'+(rest.length===1?'Also '+esc(dateFmt(rest[0][0].slice(0,10),{weekday:'short',month:'short',day:'numeric'})):esc('+ '+rest.length+' more dates to '+dateFmt(rest[rest.length-1][0].slice(0,10),{month:'short',day:'numeric'})))+'</span>':'';
   const map=e.lat==null?'':'<a class="maplink" href="'+esc(C.map+'#map=17/'+e.lat+'/'+e.lng+'&pin='+e.lat+','+e.lng+'&name='+encodeURIComponent(e.venue||e.title))+'">'+C.pin+'Show on map</a>';
-  return'<li><time>'+when(t,today,one)+'</time><div class="ev"><a class="t" href="'+esc(e.url)+'" target="_blank" rel="noopener">'+esc(e.title)+'</a>'+
+  // A source whose terms say how links to it must read (D.linkText, e.g. "vancouver.ca"): plain title, the link labelled so.
+  const lt=D.linkText,title=lt?'<span class="t">'+esc(e.title)+'</span>':'<a class="t" href="'+esc(e.url)+'" target="_blank" rel="noopener">'+esc(e.title)+'</a>';
+  return'<li><time>'+when(t,today,one)+'</time><div class="ev">'+title+
     '<span class="where">'+esc(where.filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join(' · '))+'</span>'+more+
-    '<span class="acts">'+(e.free?'<span class="tag free">Free</span>':'')+(src?'<span class="src">'+esc(src)+'</span>':'')+(e.category?'<span class="tag">'+esc(e.category)+'</span>':'')+
+    '<span class="acts">'+(e.free?'<span class="tag free">Free</span>':'')+(src?'<span class="src">'+esc(src)+'</span>':'')+(e.category?'<span class="tag">'+esc(e.category)+'</span>':'')+(lt?'<a class="maplink" href="'+esc(e.url)+'" target="_blank" rel="noopener">'+esc(lt)+' ↗</a>':'')+
     (me&&e.lat!=null?'<span class="away">'+esc(away(km(me,[e.lat,e.lng])))+'</span>':'')+map+'</span></div></li>'}
+// The big venues' shows (Venues listing), grouped by venue, venue first: each venue links to its page for getting there.
+function showRow(e,today){const d=e.date;
+  const day='<b>'+esc(d===today?'Today':d===dayAdd(today,1)?'Tomorrow':dateFmt(d,{weekday:'short',month:'short',day:'numeric'}))+'</b>';
+  const t=e.time?esc(clock(d+'T'+e.time)+(e.until?' to '+clock(d+'T'+e.until)+', '+e.slots+' entry times':'')):'Time TBA';
+  return'<li><time>'+day+t+'</time><div class="ev"><span class="t">'+esc(e.title)+'</span><span class="acts"><span class="tag">'+esc(e.kind)+'</span>'+
+    (e.status?'<span class="src">'+esc(e.status)+'</span>':'')+(e.url?'<a class="maplink" href="'+esc(e.url)+'" target="_blank" rel="noopener">Ticketmaster ↗</a>':'')+'</span></div></li>'}
+function venuesHTML(now,full){const today=now.slice(0,10),lim=full?'9999':dayAdd(today,6);
+  const vs=S.venues.map(v=>[v,v.shows.filter(e=>e.date>=today&&e.date<=lim&&(e.date>today||!e.time||live([e.date+'T'+e.time,null],now)))]).filter(a=>a[1].length);
+  const dist=v=>me?km(me,[v.lat,v.lng]):0;vs.sort((a,b)=>(dist(a[0])-dist(b[0]))||(b[0].capacity-a[0].capacity));
+  const n=vs.reduce((t,a)=>t+a[1].length,0),cap=full?1e9:(shown.venues||6),per=full?1e9:2;
+  const body=vs.slice(0,cap).map(([v,es])=>'<div class="vn"><h3><a href="'+esc(v.link)+'">'+esc(v.name)+'</a><span class="vm">about '+v.capacity.toLocaleString(C.locale)+' seats'+
+    (me?' · '+esc(away(km(me,[v.lat,v.lng]))):'')+'</span><a class="go" href="'+esc(v.link)+'">'+esc(C.shows.hub)+' →</a></h3><ul class="events">'+es.slice(0,per).map(e=>showRow(e,today)).join('')+'</ul>'+
+    (es.length>per?'<a class="allv" href="'+esc(v.link)+'">+ '+(es.length-per)+' more at '+esc(v.name)+'</a>':'')+'</div>').join('');
+  const days=full?(S.window?span([today,S.window[1]]):''):span([today,lim]);
+  return'<section id="venues" aria-labelledby="h-venues"><h2 id="h-venues">'+esc(C.shows.title)+' <span class="n">'+n.toLocaleString(C.locale)+(n===1?' show':' shows')+'</span></h2>'+
+    '<p class="days">'+esc(days)+(full?'':' · '+esc(C.shows.note))+'</p>'+(n?body:'<p class="empty">Nothing listed at the big venues'+(full?'.':' this week.')+'</p>')+
+    (vs.length>cap?'<button type="button" class="showall" data-s="venues" data-n="'+vs.length+'">Show all '+vs.length+' venues</button><br>':'')+
+    '<a class="allv" href="'+esc(C.shows.venues)+'">'+esc(C.shows.all)+' →</a></section>'}
 function render(){if(!D)return;const now=cityNow(D.tz),today=now.slice(0,10),f=freeEl.checked,cat=catEl.value,hood=hoodEl.value;
   const keep=D.events.filter(e=>(!f||e.free===true)&&(!cat||e.category===cat)&&(!hood||(hood==='-'?e.lat==null:e.hood===hood)))
     .map(e=>[e,e.times.filter(t=>live(t,now))]).filter(a=>a[1].length);
   const dist=e=>me&&e.lat!=null?km(me,[e.lat,e.lng]):1e9;
   const key=s=>s.length===10?s+'T99':s;     // by start time, all-day ones after that day's timed ones
-  out.innerHTML=sections(now).map(s=>{const set=new Set(s.days);
+  const mode=C.shows?M:'community',filt=f||cat||hood;
+  ['catL','hoodL','reset'].forEach(id=>{if(mode==='venues')$(id).hidden=true});if(!freeOK||mode==='venues')$('freeL').hidden=true;else $('freeL').hidden=false;
+  if(mode!=='venues'){$('catL').hidden=false;$('hoodL').hidden=false}
+  if(kindsEl)kindsEl.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===mode)));
+  const top=mode!=='community'&&S&&!(filt&&mode==='all')?venuesHTML(now,mode==='venues'):'';
+  out.innerHTML=top+(mode==='venues'?'':sections(now).map(s=>{const set=new Set(s.days);
     const rows=keep.map(([e,ts])=>{const i=ts.findIndex(t=>set.has(t[0].slice(0,10)));return i<0?null:[e,ts[i],ts.slice(i+1)]}).filter(Boolean)
       .sort((a,b)=>(dist(a[0])-dist(b[0]))||key(a[1][0]).localeCompare(key(b[1][0]))||a[0].title.localeCompare(b[0].title));
     const cap=shown[s.id]||s.cap||30,body=rows.slice(0,cap).map(r=>row(r[0],r[1],r[2],today,s.days.length===1)).join('');
     return'<section id="'+s.id+'" aria-labelledby="h-'+s.id+'"><h2 id="h-'+s.id+'">'+esc(s.title)+' <span class="n">'+rows.length.toLocaleString(C.locale)+(rows.length===1?' event':' events')+'</span></h2>'+
       '<p class="days">'+esc(span(s.days))+'</p>'+(rows.length?'<ul class="events">'+body+'</ul>':'<p class="empty">Nothing listed'+(f||cat||hood?' with these filters.':'.')+'</p>')+
-      (rows.length>cap?'<button type="button" class="showall" data-s="'+s.id+'" data-n="'+rows.length+'">Show all '+rows.length.toLocaleString(C.locale)+'</button>':'')+'</section>'}).join('');
-  const q=new URLSearchParams();if(f)q.set('free','1');if(cat)q.set('cat',cat);if(hood)q.set('hood',hood);
+      (rows.length>cap?'<button type="button" class="showall" data-s="'+s.id+'" data-n="'+rows.length+'">Show all '+rows.length.toLocaleString(C.locale)+'</button>':'')+'</section>'}).join(''));
+  const q=new URLSearchParams();if(mode!=='all'&&C.shows)q.set('show',mode);if(f)q.set('free','1');if(cat)q.set('cat',cat);if(hood)q.set('hood',hood);
   try{history.replaceState(null,'',location.pathname+(q.toString()?'?'+q:''))}catch(e){}
-  $('reset').hidden=!(f||cat||hood)}
+  $('reset').hidden=!(f||cat||hood)||mode==='venues'}
+let freeOK=true;
+if(kindsEl)kindsEl.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;M=b.dataset.m;for(const k in shown)delete shown[k];render()});
 out.addEventListener('click',ev=>{const b=ev.target.closest('.showall');if(b){shown[b.dataset.s]=+b.dataset.n;render()}});
 [freeEl,catEl,hoodEl].forEach(el=>el.addEventListener('change',()=>{for(const k in shown)delete shown[k];render()}));
 $('reset').addEventListener('click',()=>{freeEl.checked=false;catEl.value='';hoodEl.value='';render()});
@@ -146,20 +186,21 @@ nearEl.addEventListener('click',()=>{
   navigator.geolocation.getCurrentPosition(p=>{me=[p.coords.latitude,p.coords.longitude];nearEl.setAttribute('aria-pressed','true');nearEl.lastChild.textContent='Sorted by distance';
     statusEl.textContent='Nearest first, straight-line distance. Your location stays in this browser: it isn’t saved or sent anywhere.';render()},
     ()=>{statusEl.textContent='Location not available, so the list stays in time order.'},{enableHighAccuracy:false,timeout:15000,maximumAge:300000})});
-fetch(C.file).then(r=>r.json()).then(d=>{D=d;
-  if(!d.events.some(e=>e.free===true)||d.events.every(e=>e.free===true))$('freeL').hidden=true;
+const showsP=C.shows?fetch(C.shows.file).then(r=>r.json()).catch(()=>null):Promise.resolve(null);
+Promise.all([fetch(C.file).then(r=>r.json()),showsP]).then(([d,sh])=>{D=d;S=sh;if(!S&&kindsEl)kindsEl.hidden=true;
+  if(!d.events.some(e=>e.free===true)||d.events.every(e=>e.free===true))freeOK=false;
   const cats={},hoods={};let none=0;d.events.forEach(e=>{if(e.category)cats[e.category]=1;if(e.hood)hoods[e.hood]=1;if(e.lat==null)none++});
   const opt=(v,t)=>'<option value="'+esc(v)+'">'+esc(t)+'</option>',srt=o=>Object.keys(o).sort((a,b)=>a.localeCompare(b,C.locale));
   catEl.insertAdjacentHTML('beforeend',srt(cats).map(c=>opt(c,c)).join(''));
   hoodEl.insertAdjacentHTML('beforeend',(none?opt('-',C.placeless):'')+srt(hoods).map(h=>opt(h,h)).join(''));
   const q=new URLSearchParams(location.search);freeEl.checked=q.get('free')==='1';
   if(q.get('cat')&&cats[q.get('cat')])catEl.value=q.get('cat');if(q.get('hood')&&(hoods[q.get('hood')]||q.get('hood')==='-'))hoodEl.value=q.get('hood');
-  const a=d.asof;$('stamp').textContent='Listing as of '+dateFmt(a.slice(0,10),{month:'long',day:'numeric'})+', '+clock(a)+', refreshed every morning. Each event links to its own page at the source.';
+  const a=d.asof;$('stamp').textContent='Listing as of '+dateFmt(a.slice(0,10),{month:'long',day:'numeric'})+', '+clock(a)+', refreshed every morning'+(S&&S.asof?'; big-venue shows from Ticketmaster as of '+dateFmt(S.asof.slice(0,10),{month:'long',day:'numeric'})+', refreshed nightly':'')+'. Each event links to its own page at the source.';
   render()}).catch(()=>{out.innerHTML='<section><p class="empty">The listing didn’t load. Try again in a moment.</p></section>'});
 })();
 </script>
 </main>
-<footer>Events from NYC Parks, via NYC Open Data.<br><a href="/attributions/">Attributions</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/">All maps</a></footer>
+<footer>Events from NYC Parks, via NYC Open Data. Shows at the big venues from Ticketmaster.<br><a href="/attributions/">Attributions</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/">All maps</a></footer>
 </div>
 </body>
 </html>

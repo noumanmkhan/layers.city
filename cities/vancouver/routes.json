@@ -1,5 +1,13 @@
 {
  "_about": "Settings for Vancouver's Routes page (engine/routes/: build.py, page.html), at /vancouver/routes/: pick a stop or SkyTrain platform near you, see where each TransLink bus and SkyTrain line from it goes. SkyTrain comes from raw/surface/rapid_*.json (surface.json 'rapid', found by name with 'rapidMatch'), its platforms in order; West Coast Express stations count as connections too. TransLink's real-time feed needs a developer key and its own terms, so the page shows scheduled departures.",
+ "live": {
+  "api": "/api/arrivals?city=vancouver",
+  "source": "TransLink GTFS-realtime",
+  "none": {
+   "subway": "TransLink doesn’t publish live times for SkyTrain"
+  }
+ },
+ "_live": "Live next-bus times (November 14, 2026) from TransLink's GTFS-realtime trip updates (functions/api/arrivals.js, key TRANSLINK_KEY, under TransLink's Open API Terms of Use). The feed has buses only: SkyTrain platforms show how often trains run (live.none, by mode).",
  "modes": [
   "bus",
   "subway"

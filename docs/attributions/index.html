@@ -193,6 +193,7 @@ main.doc{width:auto;margin:0;display:flex;flex-direction:column;gap:40px;min-wid
         <a href="#vancouver">Vancouver</a>
         <a href="#sf">San Francisco</a>
         <a href="#dallas">Dallas</a>
+        <a href="#melbourne">Melbourne</a>
         <a href="#both">Every city</a>
         <a href="#software">Software and fonts</a>
       </nav>
@@ -200,7 +201,7 @@ main.doc{width:auto;margin:0;display:flex;flex-direction:column;gap:40px;min-wid
     </aside>
   <main class="doc">
     <section class="hero">
-      <div class="coords">THE FINE PRINT · LAST UPDATED · OCTOBER 19, 2026</div>
+      <div class="coords">THE FINE PRINT · LAST UPDATED · NOVEMBER 13, 2026</div>
       <h1>Attributions</h1>
       <p class="lede">Every map here is built from other people’s open data and open-source software. This page lists each source, what it’s used for, and the terms it’s used under.</p>
       <nav class="toc" aria-label="On this page">
@@ -551,7 +552,7 @@ main.doc{width:auto;margin:0;display:flex;flex-direction:column;gap:40px;min-wid
         </li>
         <li>
           <span class="who">Chicago Transit Authority (CTA)</span>
-          <p class="use">Bus routes, stops and frequencies, and CTA trips in the transit-time lens. Data provided by Chicago Transit Authority.</p>
+          <p class="use">Bus routes, stops and frequencies, CTA trips in the transit-time lens, and live next arrivals on the Routes page and in the app from Bus Tracker and Train Tracker. Data provided by Chicago Transit Authority.</p>
           <span class="lic"><a href="https://www.transitchicago.com/developers/terms/">CTA Developer License Agreement &amp; Terms of Use</a></span>
         </li>
         <li>
@@ -632,8 +633,8 @@ main.doc{width:auto;margin:0;display:flex;flex-direction:column;gap:40px;min-wid
       <ul class="src">
         <li>
           <span class="who">TransLink</span>
-          <p class="use">SkyTrain, SeaBus, West Coast Express and bus routes and stops, and the schedules behind the transit times to Waterfront, from TransLink’s GTFS feed.</p>
-          <span class="lic">TransLink GTFS terms of use</span>
+          <p class="use">SkyTrain, SeaBus, West Coast Express and bus routes and stops, and the schedules behind the transit times to Waterfront, from TransLink’s GTFS feed; live next-bus times on the Routes page and in the app from its GTFS-realtime Open API.</p>
+          <span class="lic">TransLink GTFS and Open API terms of use</span>
         </li>
         <li>
           <span class="who">Mobi by Rogers</span>
@@ -796,12 +797,69 @@ main.doc{width:auto;margin:0;display:flex;flex-direction:column;gap:40px;min-wid
       </ul>
     </section>
 
+    <section class="policy" id="melbourne" aria-labelledby="melbourne-h">
+      <h2 id="melbourne-h">Melbourne Layers</h2>
+
+      <h3>Governments and elections</h3>
+      <ul class="src">
+        <li>
+          <span class="who">Australian Bureau of Statistics</span>
+          <p class="use">Suburbs and localities, councils, Greater Melbourne and SA1 boundaries (ASGS Edition 3, 2021), and 2021 Census figures summed into the City’s suburbs. Based on ABS data.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://www.abs.gov.au/">abs.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">City of Melbourne Open Data</span>
+          <p class="use">Playgrounds, public toilets and barbecues for the Parks layer; the Development Activity Monitor (new development); off-street car parks and their spaces (2024 land use census).</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://data.melbourne.vic.gov.au/">data.melbourne.vic.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">Victorian Government: Vicmap (Department of Transport and Planning) and DataVic</span>
+          <p class="use">State Assembly districts (Vicmap Admin); addresses for the card’s Address row and for placing each voting centre (Vicmap Address); school locations (Department of Education, School Locations 2026). © State of Victoria.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://www.data.vic.gov.au/">data.vic.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">Heritage Council of Victoria</span>
+          <p class="use">Places on the Victorian Heritage Register in the City, from the Victorian Heritage Database.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://vhd.heritagecouncil.vic.gov.au/">vhd.heritagecouncil.vic.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">Victorian Electoral Commission</span>
+          <p class="use">Early voting and election day voting centres for the November 28, 2026 state election, from the VEC’s venues list. © Victorian Electoral Commission.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://www.vec.vic.gov.au/">vec.vic.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">Australian Electoral Commission and the Parliament of Australia</span>
+          <p class="use">Federal electoral divisions (2024 redistribution) and members of the House of Representatives (AEC results; the Parliamentary Handbook).</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (AEC); <a href="https://www.aph.gov.au/">aph.gov.au</a></span>
+        </li>
+        <li>
+          <span class="who">What’s On Melbourne (City of Melbourne)</span>
+          <p class="use">Events in the City from the City’s What’s On listings (each event’s title, dates and times, place, whether it’s free, and a link to its page), for the Events page and the card’s Happening nearby. Used for non-commercial purposes: the City’s terms bar commercial reuse.</p>
+          <span class="lic">Non-commercial use only; © City of Melbourne (<a href="https://whatson.melbourne.vic.gov.au/disclaimer">terms</a>)</span>
+        </li>
+      </ul>
+
+      <h3>Transit and streets</h3>
+      <ul class="src">
+        <li>
+          <span class="who">Transport Victoria</span>
+          <p class="use">Metro trains, trams, V/Line trains and metropolitan buses, their stops and the schedules behind Routes from here, from the GTFS Schedule on the Transport Victoria Open Data Portal; live next departures for trains, trams and buses from its GTFS Realtime trip updates.</p>
+          <span class="lic"><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> (<a href="https://opendata.transport.vic.gov.au/">opendata.transport.vic.gov.au</a>)</span>
+        </li>
+        <li>
+          <span class="who">OpenStreetMap contributors</span>
+          <p class="use">Main streets, freeways, the Yarra, park outlines and sports facilities, libraries and community centres, places of worship, emergency departments and campuses, bike lanes, and the Suburban Rail Loop East under construction.</p>
+          <span class="lic"><a href="https://www.openstreetmap.org/copyright">ODbL</a></span>
+        </li>
+      </ul>
+    </section>
+
     <section class="policy" id="both" aria-labelledby="both-h">
       <h2 id="both-h">Used for every city</h2>
       <ul class="src">
         <li>
           <span class="who">OpenStreetMap contributors</span>
-          <p class="use">Neighbouring municipalities and the lakeshore around Toronto, highways, the streets of Chicago, Vancouver and Dallas, named places for search, universities, colleges and hospitals, places of worship (Toronto, Chicago and Vancouver), Chicago’s park outlines, playgrounds, dog areas and sports facilities for its Parks and Sports &amp; rec layers, parks, playgrounds and bike paths in the University Endowment Lands (Vancouver), transit lines under construction, the walking network for transit times, and, in Toronto’s fact sheets, walk times, subway entrances, park edges and highway ramps, and Toronto’s splash pads and wading pools for the Parks layer. Some come through extracts by Geofabrik, BBBike and the osm-boundaries project.</p>
+          <p class="use">Neighbouring municipalities and the lakeshore around Toronto, highways, the streets of Chicago, Vancouver, Dallas and Melbourne, named places for search, universities, colleges and hospitals, places of worship (Toronto, Chicago and Vancouver), Chicago’s park outlines, playgrounds, dog areas and sports facilities for its Parks and Sports &amp; rec layers, parks, playgrounds and bike paths in the University Endowment Lands (Vancouver), transit lines under construction, the walking network for transit times, and, in Toronto’s fact sheets, walk times, subway entrances, park edges and highway ramps, and Toronto’s splash pads and wading pools for the Parks layer. Some come through extracts by Geofabrik, BBBike and the osm-boundaries project.</p>
           <span class="lic">© OpenStreetMap contributors, <a href="https://www.openstreetmap.org/copyright">Open Database Licence (ODbL)</a></span>
         </li>
         <li>
@@ -854,6 +912,11 @@ main.doc{width:auto;margin:0;display:flex;flex-direction:column;gap:40px;min-wid
           <span class="who">Inter, Archivo and IBM Plex</span>
           <p class="use">Typefaces for the maps (Inter, from Google Fonts, and the map's own labels from a copy served with the site) and for these pages (Archivo, IBM Plex Sans and Mono).</p>
           <span class="lic"><a href="https://openfontlicense.org/">SIL Open Font License 1.1</a></span>
+        </li>
+        <li>
+          <span class="who">flag-icons, by Panayiotis Lipiridis</span>
+          <p class="use">The small country flags on the home page.</p>
+          <span class="lic"><a href="https://github.com/lipis/flag-icons">MIT License</a></span>
         </li>
       </ul>
     </section>

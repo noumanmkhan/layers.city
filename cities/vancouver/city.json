@@ -254,7 +254,7 @@
   "pageLinks": [
     {"group": "Getting around", "id": "routes", "name": "Where does this line or route go?", "note": "Find the stops and SkyTrain stations near you and see where each bus and SkyTrain line takes you", "href": "/vancouver/routes/"},
     {"group": "Places", "id": "fun", "name": "Fun maps", "note": "Tim Hortons vs Starbucks, sushi vs pho, what each local area calls 3-1-1 about, and more", "href": "/vancouver/fun/"},
-    {"group": "Places", "id": "venues", "name": "Venues", "note": "Metro Vancouver’s big venues: what’s on this week and how to get there", "href": "/vancouver/venues/"}
+    {"group": "Places", "id": "events", "name": "Events", "note": "Concerts, games and shows at the big venues, and the City’s calendar of events", "href": "/vancouver/events/"}
   ],
   "groups": [
     [
@@ -1446,7 +1446,7 @@
       ],
       "note": "Straight-line distances; 1 km is about a 15-minute walk. Vancouver Public Library, Park Board parks, community centres and off-leash areas, and the hospitals layer. Counts parks, not courts. Places of worship (OpenStreetMap) show while their layers are on.",
       "sources": "Sources: Vancouver Public Library, Vancouver Park Board (parks, community centres, off-leash areas), OpenStreetMap (hospitals, places of worship).",
-   "happening": {"file": "happening.json", "radius": 800, "max": 3, "days": 14, "title": "Happening nearby", "today": "Today", "free": "Free", "linkText": "vancouver.ca", "source": "Events from the City of Vancouver’s calendar of events (vancouver.ca)."}
+   "happening": {"file": "happening.json", "radius": 800, "max": 3, "days": 14, "title": "Happening nearby", "today": "Today", "free": "Free", "linkText": "vancouver.ca", "all": {"label": "See all events", "href": "/vancouver/events/"}, "source": "Events from the City of Vancouver’s calendar of events (vancouver.ca)."}
     },
     "reps": {
       "file": "representatives.json",

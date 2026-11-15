@@ -833,7 +833,9 @@ apply();})();
 </script>""".replace('UNIT', UNIT)
 intro = (f'<h1>{esc(CITY)}’s big venues, this week</h1>'
          f'<p class="kind">What’s on at the {len(main_cards_count := [v for v in venues if v.get('tier', 'main') == 'main'])} {esc(word("intro", "places most of the region travels to, and how to get to each."))} '
-         f'A listing, not a guide: the facts and a link to the source, nothing else.</p>'
+         f'A listing, not a guide: the facts and a link to the source, nothing else.'
+         + (f' These shows are also on <a href="/{city}/events/">What’s on in {esc(CITY)}</a>, alongside the community events.'
+            if os.path.exists(os.path.join(DOCS, city, 'events', 'index.html')) else '') + '</p>'
          + (f'<p class="stamp">Listing from Ticketmaster as of {esc(asof_text)} · week runs {esc(V.get("week", "Monday to Sunday"))}. Cards show the next seven days; each venue’s page has this week and next. Pick where you’re coming from to see the trip.</p>' if asof_text else
             '<p class="stamp">The events feed hasn’t run yet, so there’s no listing; every venue’s getting-there facts are here already.</p>'))
 main_cards = [h for t, h in cards if t == 'main']; other_cards = [h for t, h in cards if t == 'other']
@@ -843,4 +845,17 @@ body = intro + strip + controls + '<div id="list">' + ''.join(main_cards) + '</d
 idx_desc = f"What's on this week at {CITY}'s big venues, " + word('listDesc', 'and how to get to each.')
 og_image(f'{CITY}’s big venues', [v['at'] for v in venues], os.path.join(OUT, 'card.png'), 'This week, and how to get there')
 open(os.path.join(OUT, 'index.html'), 'w').write(page(f'{CITY} venues this week · Layers.City', idx_desc, INDEX, f'{INDEX}card.png', body, crumbs_idx))
+
+# shows.json: the same listing as data, for the city's Events page (engine/events_page.py), which shows the big venues'
+# shows beside the community listings. Page data only: the app's weekend brief reads weekend.json, not this.
+shows = {'asof': ASOF, 'window': EV.get('window'), 'venues': []}
+for v in venues:
+    evs = [{'title': e['name'], 'date': e['d'].isoformat(), 'time': e.get('time'), 'until': e.get('until'),
+            'slots': e.get('slots'), 'kind': KIND_LABEL.get(e['kind'], 'Event'), 'status': e.get('status'), 'url': e.get('url')}
+           for e in events_for(v['slug'])]
+    shows['venues'].append({'slug': v['slug'], 'name': v['name'], 'capacity': v['capacity'], 'tier': v.get('tier', 'main'),
+                            'lat': v['at'][1], 'lng': v['at'][0], 'link': f'/{city}/venues/{v["slug"]}/',
+                            'note': None if evs else (v.get('tickets') or None), 'calendar': v.get('calendar'), 'shows': evs})
+with open(os.path.join(OUT, 'shows.json'), 'w') as f:
+    json.dump(shows, f, ensure_ascii=False, separators=(',', ':'))
 print(f'{city}: {len(venues)} venue pages + /{city}/venues/ ({sum(len(events_for(v["slug"])) for v in venues)} events{"" if DR else ", no drive times yet"})')

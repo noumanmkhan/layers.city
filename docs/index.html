@@ -5,14 +5,14 @@
 <script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Layers.City · Maps that explain how a city fits together</title>
-<meta name="description" content="Layers.City: maps of Toronto, New York City, San Francisco, Chicago, Vancouver and Dallas that show how each city fits together: neighbourhoods, wards, transit and the names locals use, from each city’s own open data. By Nouman Khan.">
+<meta name="description" content="Layers.City: maps of Toronto, New York City, San Francisco, Chicago, Vancouver, Dallas and Melbourne that show how each city fits together: neighbourhoods, wards, transit and the names locals use, from each city’s own open data. By Nouman Khan.">
 <link rel="canonical" href="https://layers.city/">
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://layers.city/">
 <meta property="og:site_name" content="Layers.City">
 <meta property="og:title" content="Layers.City">
-<meta property="og:description" content="Maps of Toronto, New York City, San Francisco, Chicago, Vancouver and Dallas that show how each city fits together, from each city’s own open data.">
+<meta property="og:description" content="Maps of Toronto, New York City, San Francisco, Chicago, Vancouver, Dallas and Melbourne that show how each city fits together, from each city’s own open data.">
 <meta property="og:image" content="https://layers.city/og-layers.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -94,6 +94,12 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(40px,4.6v
 .ix tbody tr{--row:var(--card);background:var(--row);border-bottom:1px solid var(--rule-soft)}
 .ix tbody tr:hover{--row:var(--row-hover)}
 .ix tbody tr:last-child{border-bottom:0}
+.ix tbody + tbody{border-top:1.5px solid var(--rule)}
+.ix tr.cty{--row:var(--bg);background:var(--row)}
+.ix tr.cty:hover{--row:var(--bg)}
+.ix tr.cty th{padding:9px 20px 8px;text-align:left;font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.ix tr.cty span,.tgh{display:inline-flex;align-items:center;gap:10px}
+.ix tr.cty img,.tgh img{display:block;width:20px;height:15px;border-radius:3px;object-fit:cover;box-shadow:0 0 0 1px var(--rule)}
 .ix th[scope=row]{padding:10px 0 10px 20px;text-align:left;font-weight:inherit}
 .ix td{position:relative;height:68px;padding:0;text-align:center}
 .city{display:flex;align-items:center;gap:14px;min-height:44px}
@@ -124,11 +130,15 @@ h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(40px,4.6v
 
 /* Phone picker (shown under 760px instead of the table) */
 .picker{display:none}
-.tabs{display:none;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:5px;background:var(--card);border:1.5px solid var(--rule);border-radius:14px;margin-bottom:12px}
+.tabs{display:none;gap:4px;padding:5px;background:var(--card);border:1.5px solid var(--rule);border-radius:14px;margin-bottom:12px}
 .js .tabs{display:grid}
-.tabs button{min-height:48px;border:0;border-radius:10px;cursor:pointer;font:inherit;font-weight:500;font-size:14.5px;color:var(--ink-2);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.tabs button{min-height:48px;padding:0 2px;border:0;border-radius:10px;cursor:pointer;font:inherit;font-weight:500;font-size:14px;color:var(--ink-2);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
 .tabs button::after{content:"";width:22px;border-top:2px solid var(--accent)}
 .tabs button.dev::after{border-top-style:dashed;border-top-color:var(--track)}
+.tg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.tg + .tg{border-top:1px solid var(--rule-soft);padding-top:4px}
+.tgh{grid-column:1/-1;padding:6px 6px 0;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.tgh img{width:18px;height:13.5px}
 .tabs button[aria-selected=true]{background:var(--ink);color:var(--bg)}
 .panel{background:var(--card);border:1.5px solid var(--rule);border-radius:16px;overflow:hidden;margin-bottom:12px}
 .js .panel{margin-bottom:0}
@@ -258,7 +268,7 @@ a.tile:hover{border-color:var(--ink)}
 
   <main>
     <section class="hero">
-      <div class="kicker">6 CITIES · 2 COUNTRIES · OPEN DATA</div>
+      <div class="kicker">7 CITIES · 3 COUNTRIES · OPEN DATA</div>
       <h1>How a city fits together.</h1>
       <p class="lede">Neighbourhoods, wards, transit and the names locals actually use, <span class="long">drawn </span>from each city’s own open data<span class="long"> and rebuilt on a schedule</span>. Pick a city<span class="long">, then a way in</span>.</p>
       <div class="ctas">
@@ -273,62 +283,71 @@ a.tile:hover{border-color:var(--ink)}
       <h2 id="ix-h" class="vh">Every city and what it has</h2>
       <table>
         <thead>
-          <tr><th scope="col">CITY · OPENS THE MAP</th><th scope="col">GUIDE</th><th scope="col">FACT SHEETS</th><th scope="col">TRANSIT</th><th scope="col">VENUES</th><th scope="col">EVENTS</th><th scope="col">FUN MAPS</th></tr>
+          <tr><th scope="col">CITY · OPENS THE MAP</th><th scope="col">GUIDE</th><th scope="col">FACT SHEETS</th><th scope="col">TRANSIT</th><th scope="col">EVENTS</th><th scope="col">FUN MAPS</th></tr>
         </thead>
         <tbody>
+          <tr class="cty"><th colspan="6" scope="rowgroup"><span><img src="/flags/ca.svg" alt="" width="20" height="15">Canada</span></th></tr>
           <tr>
-            <th scope="row"><a class="city" href="/toronto/"><img src="/thumbs/toronto.svg" alt="" width="60" height="45"><span><span class="n">Toronto</span><span class="s">FULL MAP · 7 PAGES</span></span></a></th>
+            <th scope="row"><a class="city" href="/toronto/"><img src="/thumbs/toronto.svg" alt="" width="60" height="45"><span><span class="n">Toronto</span><span class="s">FULL MAP · 6 PAGES</span></span></a></th>
             <td class="g"><a class="count" href="/toronto/neighbourhoods/" aria-label="Toronto guide: 158 neighbourhoods">158</a></td>
             <td><a class="stop" href="/toronto/profiles/" aria-label="Toronto: fact sheets"><i></i></a></td>
             <td><a class="stop" href="/toronto/routes/" aria-label="Toronto: transit"><i></i></a></td>
-            <td><a class="stop" href="/toronto/venues/" aria-label="Toronto: venues"><i></i></a></td>
             <td><a class="stop" href="/toronto/events/" aria-label="Toronto: events"><i></i></a></td>
             <td><a class="stop" href="/toronto/fun/" aria-label="Toronto: fun maps"><i></i></a></td>
-          </tr>
-          <tr>
-            <th scope="row"><a class="city" href="/nyc/"><img src="/thumbs/nyc.svg" alt="" width="60" height="45"><span><span class="n">New York City</span><span class="s">FULL MAP · 7 PAGES</span></span></a></th>
-            <td class="g"><a class="count" href="/nyc/community-districts/" aria-label="New York City guide: 59 community districts">59</a></td>
-            <td><a class="stop" href="/nyc/profiles/" aria-label="New York City: fact sheets"><i></i></a></td>
-            <td><a class="stop" href="/nyc/routes/" aria-label="New York City: transit"><i></i></a></td>
-            <td><a class="stop" href="/nyc/venues/" aria-label="New York City: venues"><i></i></a></td>
-            <td><a class="stop" href="/nyc/events/" aria-label="New York City: events"><i></i></a></td>
-            <td><a class="stop" href="/nyc/fun/" aria-label="New York City: fun maps"><i></i></a></td>
-          </tr>
-          <tr>
-            <th scope="row"><a class="city" href="/sf/"><img src="/thumbs/sf.svg" alt="" width="60" height="45"><span><span class="n">San Francisco</span><span class="s">FULL MAP · 7 PAGES</span></span></a></th>
-            <td class="g"><a class="count" href="/sf/neighborhoods/" aria-label="San Francisco guide: 41 neighborhoods">41</a></td>
-            <td><a class="stop" href="/sf/profiles/" aria-label="San Francisco: fact sheets"><i></i></a></td>
-            <td><a class="stop" href="/sf/routes/" aria-label="San Francisco: transit"><i></i></a></td>
-            <td><a class="stop" href="/sf/venues/" aria-label="San Francisco: venues"><i></i></a></td>
-            <td><a class="stop" href="/sf/events/" aria-label="San Francisco: events"><i></i></a></td>
-            <td><a class="stop" href="/sf/fun/" aria-label="San Francisco: fun maps"><i></i></a></td>
-          </tr>
-          <tr>
-            <th scope="row"><a class="city" href="/chicago/"><img src="/thumbs/chicago.svg" alt="" width="60" height="45"><span><span class="n">Chicago</span><span class="s">FULL MAP · 7 PAGES</span></span></a></th>
-            <td class="g"><a class="count" href="/chicago/community-areas/" aria-label="Chicago guide: 77 community areas">77</a></td>
-            <td><a class="stop" href="/chicago/profiles/" aria-label="Chicago: fact sheets"><i></i></a></td>
-            <td><a class="stop" href="/chicago/routes/" aria-label="Chicago: transit"><i></i></a></td>
-            <td><a class="stop" href="/chicago/venues/" aria-label="Chicago: venues"><i></i></a></td>
-            <td><a class="stop" href="/chicago/events/" aria-label="Chicago: events"><i></i></a></td>
-            <td><a class="stop" href="/chicago/fun/" aria-label="Chicago: fun maps"><i></i></a></td>
           </tr>
           <tr class="dev">
             <th scope="row"><a class="city" href="/vancouver/"><img src="/thumbs/vancouver.svg" alt="" width="60" height="45"><span><span class="n">Vancouver</span><span class="s">MAP · 6 PAGES</span></span></a></th>
             <td class="g"><a class="count" href="/vancouver/local-areas/" aria-label="Vancouver guide: 22 local areas">22</a></td>
             <td><a class="stop" href="/vancouver/profiles/" aria-label="Vancouver: fact sheets"><i></i></a></td>
             <td><a class="stop" href="/vancouver/routes/" aria-label="Vancouver: transit"><i></i></a></td>
-            <td><a class="stop" href="/vancouver/venues/" aria-label="Vancouver: venues"><i></i></a></td>
-            <td><span class="none" role="img" aria-label="Not in Vancouver yet"></span></td>
+            <td><a class="stop" href="/vancouver/events/" aria-label="Vancouver: events"><i></i></a></td>
             <td><a class="stop" href="/vancouver/fun/" aria-label="Vancouver: fun maps"><i></i></a></td>
           </tr>
+        </tbody>
+        <tbody>
+          <tr class="cty"><th colspan="6" scope="rowgroup"><span><img src="/flags/us.svg" alt="" width="20" height="15">United States</span></th></tr>
+          <tr>
+            <th scope="row"><a class="city" href="/nyc/"><img src="/thumbs/nyc.svg" alt="" width="60" height="45"><span><span class="n">New York City</span><span class="s">FULL MAP · 6 PAGES</span></span></a></th>
+            <td class="g"><a class="count" href="/nyc/community-districts/" aria-label="New York City guide: 59 community districts">59</a></td>
+            <td><a class="stop" href="/nyc/profiles/" aria-label="New York City: fact sheets"><i></i></a></td>
+            <td><a class="stop" href="/nyc/routes/" aria-label="New York City: transit"><i></i></a></td>
+            <td><a class="stop" href="/nyc/events/" aria-label="New York City: events"><i></i></a></td>
+            <td><a class="stop" href="/nyc/fun/" aria-label="New York City: fun maps"><i></i></a></td>
+          </tr>
+          <tr>
+            <th scope="row"><a class="city" href="/sf/"><img src="/thumbs/sf.svg" alt="" width="60" height="45"><span><span class="n">San Francisco</span><span class="s">FULL MAP · 6 PAGES</span></span></a></th>
+            <td class="g"><a class="count" href="/sf/neighborhoods/" aria-label="San Francisco guide: 41 neighborhoods">41</a></td>
+            <td><a class="stop" href="/sf/profiles/" aria-label="San Francisco: fact sheets"><i></i></a></td>
+            <td><a class="stop" href="/sf/routes/" aria-label="San Francisco: transit"><i></i></a></td>
+            <td><a class="stop" href="/sf/events/" aria-label="San Francisco: events"><i></i></a></td>
+            <td><a class="stop" href="/sf/fun/" aria-label="San Francisco: fun maps"><i></i></a></td>
+          </tr>
+          <tr>
+            <th scope="row"><a class="city" href="/chicago/"><img src="/thumbs/chicago.svg" alt="" width="60" height="45"><span><span class="n">Chicago</span><span class="s">FULL MAP · 6 PAGES</span></span></a></th>
+            <td class="g"><a class="count" href="/chicago/community-areas/" aria-label="Chicago guide: 77 community areas">77</a></td>
+            <td><a class="stop" href="/chicago/profiles/" aria-label="Chicago: fact sheets"><i></i></a></td>
+            <td><a class="stop" href="/chicago/routes/" aria-label="Chicago: transit"><i></i></a></td>
+            <td><a class="stop" href="/chicago/events/" aria-label="Chicago: events"><i></i></a></td>
+            <td><a class="stop" href="/chicago/fun/" aria-label="Chicago: fun maps"><i></i></a></td>
+          </tr>
           <tr class="dev">
-            <th scope="row"><a class="city" href="/dallas/"><img src="/thumbs/dallas.svg" alt="" width="60" height="45"><span><span class="n">Dallas</span><span class="s">FULL MAP · 7 PAGES</span></span></a></th>
+            <th scope="row"><a class="city" href="/dallas/"><img src="/thumbs/dallas.svg" alt="" width="60" height="45"><span><span class="n">Dallas</span><span class="s">FULL MAP · 6 PAGES</span></span></a></th>
             <td class="g"><a class="count" href="/dallas/zip-codes/" aria-label="Dallas guide: ZIP codes">ZIP</a></td>
             <td><a class="stop" href="/dallas/profiles/" aria-label="Dallas: fact sheets"><i></i></a></td>
             <td><a class="stop" href="/dallas/routes/" aria-label="Dallas: transit"><i></i></a></td>
-            <td><a class="stop" href="/dallas/venues/" aria-label="Dallas: venues"><i></i></a></td>
             <td><a class="stop" href="/dallas/events/" aria-label="Dallas: events"><i></i></a></td>
             <td><a class="stop" href="/dallas/fun/" aria-label="Dallas: fun maps"><i></i></a></td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr class="cty"><th colspan="6" scope="rowgroup"><span><img src="/flags/au.svg" alt="" width="20" height="15">Australia</span></th></tr>
+          <tr class="dev">
+            <th scope="row"><a class="city" href="/melbourne/"><img src="/thumbs/melbourne.svg" alt="" width="60" height="45"><span><span class="n">Melbourne</span><span class="s">MAP · 5 PAGES</span></span></a></th>
+            <td class="g"><a class="count" href="/melbourne/suburbs/" aria-label="Melbourne guide: 15 suburbs">15</a></td>
+            <td><a class="stop" href="/melbourne/profiles/" aria-label="Melbourne: fact sheets"><i></i></a></td>
+            <td><a class="stop" href="/melbourne/routes/" aria-label="Melbourne: transit"><i></i></a></td>
+            <td><a class="stop" href="/melbourne/events/" aria-label="Melbourne: events"><i></i></a></td>
+            <td><span class="none" role="img" aria-label="Not in Melbourne yet"></span></td>
           </tr>
         </tbody>
       </table>
@@ -341,63 +360,30 @@ a.tile:hover{border-color:var(--ink)}
 
     <section class="picker" aria-label="Choose a city">
       <div class="tabs" role="tablist" aria-label="Cities">
-        <button type="button" role="tab" id="t-toronto" aria-controls="p-toronto" aria-selected="true">Toronto</button>
-        <button type="button" role="tab" id="t-nyc" aria-controls="p-nyc" aria-selected="false">New York</button>
-        <button type="button" role="tab" id="t-sf" aria-controls="p-sf" aria-selected="false">SF</button>
-        <button type="button" role="tab" id="t-chicago" aria-controls="p-chicago" aria-selected="false">Chicago</button>
-        <button type="button" role="tab" id="t-vancouver" aria-controls="p-vancouver" aria-selected="false" class="dev">Vancouver</button>
-        <button type="button" role="tab" id="t-dallas" aria-controls="p-dallas" aria-selected="false" class="dev">Dallas</button>
+        <div class="tg" role="presentation"><span class="tgh" aria-hidden="true"><img src="/flags/ca.svg" alt="" width="18" height="13.5">Canada</span>
+          <button type="button" role="tab" id="t-toronto" aria-controls="p-toronto" aria-selected="true">Toronto</button>
+          <button type="button" role="tab" id="t-vancouver" aria-controls="p-vancouver" aria-selected="false" class="dev">Vancouver</button>
+        </div>
+        <div class="tg" role="presentation"><span class="tgh" aria-hidden="true"><img src="/flags/us.svg" alt="" width="18" height="13.5">United States</span>
+          <button type="button" role="tab" id="t-nyc" aria-controls="p-nyc" aria-selected="false">New York</button>
+          <button type="button" role="tab" id="t-sf" aria-controls="p-sf" aria-selected="false">SF</button>
+          <button type="button" role="tab" id="t-chicago" aria-controls="p-chicago" aria-selected="false">Chicago</button>
+          <button type="button" role="tab" id="t-dallas" aria-controls="p-dallas" aria-selected="false" class="dev">Dallas</button>
+        </div>
+        <div class="tg" role="presentation"><span class="tgh" aria-hidden="true"><img src="/flags/au.svg" alt="" width="18" height="13.5">Australia</span>
+          <button type="button" role="tab" id="t-melbourne" aria-controls="p-melbourne" aria-selected="false" class="dev">Melbourne</button>
+        </div>
       </div>
       <div class="panel" id="p-toronto" role="tabpanel" aria-labelledby="t-toronto">
-        <div class="ph"><img src="/thumbs/toronto.svg" alt="Outline of the City of Toronto" width="84" height="63"><div><span class="s">FULL MAP · 7 PAGES</span><h2>Toronto</h2></div></div>
+        <div class="ph"><img src="/thumbs/toronto.svg" alt="Outline of the City of Toronto" width="84" height="63"><div><span class="s">FULL MAP · 6 PAGES</span><h2>Toronto</h2></div></div>
         <p>158 neighbourhoods, 25 wards, 85 BIAs, old boroughs and the names locals actually use, like King West, on one map. Type in any address to see every boundary it falls in.</p>
         <a class="btn" href="/toronto/">Open the Toronto map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
         <div class="line">
             <a href="/toronto/neighbourhoods/"><i></i><span><b>Guide</b><small>158 neighbourhoods</small></span></a>
             <a href="/toronto/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
             <a href="/toronto/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
-            <a href="/toronto/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
-            <a href="/toronto/events/"><i></i><span><b>Events</b><small>Today, this weekend, this month</small></span></a>
+            <a href="/toronto/events/"><i></i><span><b>Events</b><small>Concerts, games and City events</small></span></a>
             <a href="/toronto/fun/"><i></i><span><b>Fun maps</b><small>Tim’s vs Starbucks, and more</small></span></a>
-        </div>
-      </div>
-      <div class="panel" id="p-nyc" role="tabpanel" aria-labelledby="t-nyc" hidden>
-        <div class="ph"><img src="/thumbs/nyc.svg" alt="Outline of New York City" width="84" height="63"><div><span class="s">FULL MAP · 7 PAGES</span><h2>New York City</h2></div></div>
-        <p>The five boroughs, 59 community districts, the subway, commuter rail and ferries, hurricane evacuation zones and the congestion toll zone, and names like DUMBO.</p>
-        <a class="btn" href="/nyc/">Open the New York map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
-        <div class="line">
-            <a href="/nyc/community-districts/"><i></i><span><b>Guide</b><small>59 community districts</small></span></a>
-            <a href="/nyc/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
-            <a href="/nyc/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
-            <a href="/nyc/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
-            <a href="/nyc/events/"><i></i><span><b>Events</b><small>Parks events: today, the next two weeks</small></span></a>
-            <a href="/nyc/fun/"><i></i><span><b>Fun maps</b><small>Where New York gets filmed</small></span></a>
-        </div>
-      </div>
-      <div class="panel" id="p-sf" role="tabpanel" aria-labelledby="t-sf" hidden>
-        <div class="ph"><img src="/thumbs/sf.svg" alt="Outline of San Francisco" width="84" height="63"><div><span class="s">FULL MAP · 7 PAGES</span><h2>San Francisco</h2></div></div>
-        <p>San Francisco inside the nine-county Bay Area: 41 neighborhoods, BART, Muni and the ferries, tsunami and seismic zones, and where Big Tech has its headquarters.</p>
-        <a class="btn" href="/sf/">Open the SF map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
-        <div class="line">
-            <a href="/sf/neighborhoods/"><i></i><span><b>Guide</b><small>41 neighborhoods</small></span></a>
-            <a href="/sf/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
-            <a href="/sf/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
-            <a href="/sf/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
-            <a href="/sf/events/"><i></i><span><b>Events</b><small>Library programs for kids, teens and families</small></span></a>
-            <a href="/sf/fun/"><i></i><span><b>Fun maps</b><small>Hometown coffee vs Starbucks, and more</small></span></a>
-        </div>
-      </div>
-      <div class="panel" id="p-chicago" role="tabpanel" aria-labelledby="t-chicago" hidden>
-        <div class="ph"><img src="/thumbs/chicago.svg" alt="Outline of the City of Chicago" width="84" height="63"><div><span class="s">FULL MAP · 7 PAGES</span><h2>Chicago</h2></div></div>
-        <p>Community areas, wards, the ‘L’ and Metra, and the names people use, like Wicker Park.</p>
-        <a class="btn" href="/chicago/">Open the Chicago map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
-        <div class="line">
-            <a href="/chicago/community-areas/"><i></i><span><b>Guide</b><small>77 community areas</small></span></a>
-            <a href="/chicago/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
-            <a href="/chicago/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
-            <a href="/chicago/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
-            <a href="/chicago/events/"><i></i><span><b>Events</b><small>Today, this weekend, this month</small></span></a>
-            <a href="/chicago/fun/"><i></i><span><b>Fun maps</b><small>Dunkin’ vs Starbucks, and more</small></span></a>
         </div>
       </div>
       <div class="panel dev" id="p-vancouver" role="tabpanel" aria-labelledby="t-vancouver" hidden>
@@ -409,12 +395,48 @@ a.tile:hover{border-color:var(--ink)}
             <a href="/vancouver/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
             <a href="/vancouver/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
             <a href="/vancouver/fun/"><i></i><span><b>Fun maps</b><small>Tim Hortons vs Starbucks, and more</small></span></a>
-            <a href="/vancouver/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
+            <a href="/vancouver/events/"><i></i><span><b>Events</b><small>Concerts, games and City events</small></span></a>
             <div class="under"><span class="lbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21V10l6-5 6 5v11"/><path d="M10 21v-5h4v5"/></svg>Under construction</span><span>Events wait on a source the City or the library allows us to use.</span></div>
         </div>
       </div>
+      <div class="panel" id="p-nyc" role="tabpanel" aria-labelledby="t-nyc" hidden>
+        <div class="ph"><img src="/thumbs/nyc.svg" alt="Outline of New York City" width="84" height="63"><div><span class="s">FULL MAP · 6 PAGES</span><h2>New York City</h2></div></div>
+        <p>The five boroughs, 59 community districts, the subway, commuter rail and ferries, hurricane evacuation zones and the congestion toll zone, and names like DUMBO.</p>
+        <a class="btn" href="/nyc/">Open the New York map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+        <div class="line">
+            <a href="/nyc/community-districts/"><i></i><span><b>Guide</b><small>59 community districts</small></span></a>
+            <a href="/nyc/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
+            <a href="/nyc/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
+            <a href="/nyc/events/"><i></i><span><b>Events</b><small>Concerts, games and parks events</small></span></a>
+            <a href="/nyc/fun/"><i></i><span><b>Fun maps</b><small>Where New York gets filmed</small></span></a>
+        </div>
+      </div>
+      <div class="panel" id="p-sf" role="tabpanel" aria-labelledby="t-sf" hidden>
+        <div class="ph"><img src="/thumbs/sf.svg" alt="Outline of San Francisco" width="84" height="63"><div><span class="s">FULL MAP · 6 PAGES</span><h2>San Francisco</h2></div></div>
+        <p>San Francisco inside the nine-county Bay Area: 41 neighborhoods, BART, Muni and the ferries, tsunami and seismic zones, and where Big Tech has its headquarters.</p>
+        <a class="btn" href="/sf/">Open the SF map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+        <div class="line">
+            <a href="/sf/neighborhoods/"><i></i><span><b>Guide</b><small>41 neighborhoods</small></span></a>
+            <a href="/sf/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
+            <a href="/sf/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
+            <a href="/sf/events/"><i></i><span><b>Events</b><small>Concerts, games and library programs</small></span></a>
+            <a href="/sf/fun/"><i></i><span><b>Fun maps</b><small>Hometown coffee vs Starbucks, and more</small></span></a>
+        </div>
+      </div>
+      <div class="panel" id="p-chicago" role="tabpanel" aria-labelledby="t-chicago" hidden>
+        <div class="ph"><img src="/thumbs/chicago.svg" alt="Outline of the City of Chicago" width="84" height="63"><div><span class="s">FULL MAP · 6 PAGES</span><h2>Chicago</h2></div></div>
+        <p>Community areas, wards, the ‘L’ and Metra, and the names people use, like Wicker Park.</p>
+        <a class="btn" href="/chicago/">Open the Chicago map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+        <div class="line">
+            <a href="/chicago/community-areas/"><i></i><span><b>Guide</b><small>77 community areas</small></span></a>
+            <a href="/chicago/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
+            <a href="/chicago/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
+            <a href="/chicago/events/"><i></i><span><b>Events</b><small>Concerts, games and park events</small></span></a>
+            <a href="/chicago/fun/"><i></i><span><b>Fun maps</b><small>Dunkin’ vs Starbucks, and more</small></span></a>
+        </div>
+      </div>
       <div class="panel dev" id="p-dallas" role="tabpanel" aria-labelledby="t-dallas" hidden>
-        <div class="ph"><img src="/thumbs/dallas.svg" alt="Outline of the City of Dallas" width="84" height="63"><div><span class="s">FULL MAP · 7 PAGES</span><h2>Dallas</h2></div></div>
+        <div class="ph"><img src="/thumbs/dallas.svg" alt="Outline of the City of Dallas" width="84" height="63"><div><span class="s">FULL MAP · 6 PAGES</span><h2>Dallas</h2></div></div>
         <p>Dallas inside the DFW region: ZIP code areas, council and state districts, DART rail and buses.</p>
         <a class="btn" href="/dallas/">Open the Dallas map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
         <div class="line">
@@ -422,8 +444,19 @@ a.tile:hover{border-color:var(--ink)}
             <a href="/dallas/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
             <a href="/dallas/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
             <a href="/dallas/fun/"><i></i><span><b>Fun maps</b><small>Whataburger vs Chick-fil-A, and more</small></span></a>
-            <a href="/dallas/venues/"><i></i><span><b>Venues</b><small>This week, and how to get there</small></span></a>
-            <a href="/dallas/events/"><i></i><span><b>Events</b><small>Parks events: today, this weekend</small></span></a>
+            <a href="/dallas/events/"><i></i><span><b>Events</b><small>Concerts, games and parks events</small></span></a>
+        </div>
+      </div>
+      <div class="panel dev" id="p-melbourne" role="tabpanel" aria-labelledby="t-melbourne" hidden>
+        <div class="ph"><img src="/thumbs/melbourne.svg" alt="Outline of the City of Melbourne" width="84" height="63"><div><span class="s">MAP · 5 PAGES</span><h2>Melbourne</h2></div></div>
+        <p>The City of Melbourne inside Greater Melbourne: suburbs and councils, trains, trams and buses, where to vote in the state election, and names like the Paris End.</p>
+        <a class="btn" href="/melbourne/">Open the Melbourne map <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></a>
+        <div class="line">
+            <a href="/melbourne/suburbs/"><i></i><span><b>Guide</b><small>15 suburbs</small></span></a>
+            <a href="/melbourne/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
+            <a href="/melbourne/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
+            <a href="/melbourne/events/"><i></i><span><b>Events</b><small>Concerts, games and City listings</small></span></a>
+            <div class="under"><span class="lbl"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21V10l6-5 6 5v11"/><path d="M10 21v-5h4v5"/></svg>Under construction</span><span>Fun maps are still to come.</span></div>
         </div>
       </div>
     </section>

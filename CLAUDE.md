@@ -34,7 +34,12 @@ the landing page, stop and say so; don't change this repo.
   (the repo's only server code; Pages serves it at /api/arrivals and nothing else). It reads the agency's
   GTFS-realtime trip updates through a 20 s edge cache with a hand-written protobuf scan (keep it lean: the free
   plan allows about 10 ms of CPU a request). A city turns it on with `"live": {"api": ...}` in routes.json and
-  a feed URL in the function's FEEDS. Test it on a preview branch first (deploy.yml with `-f branch=<name>`).
+  a feed URL in the function's FEEDS (Melbourne, November 14: bus, tram and metro feeds with the PTV_GTFSR_KEY secret
+  in a KeyID header; its bus route ids come from the trip id via `data/route_numbers.json`, routes.json `live.numbers`).
+  Chicago has no GTFS-realtime feed: FEEDS.chicago.provider asks the CTA's Bus Tracker and Train Tracker for the stops
+  asked about (keys CTA_BUS_KEY, CTA_TRAIN_KEY; 'L' platforms are stop ids 30000-30999). Vancouver: TransLink's feed
+  (TRANSLINK_KEY), buses only; SkyTrain is in routes.json `live.none`.
+  Worker secrets are set by deploy.yml from main only (list them in its "Publish the Worker" step). Test it on a preview branch first (deploy.yml with `-f branch=<name>`).
   Subway and LRT come from `raw/surface/rapid_*.json` (fetch_surface.py, surface.json `rapid`: each shape lists its
   platforms in order); the function reads the subway feed only when the page sends `rapid=1`. The TTC publishes no
   live data for Lines 5 and 6 (routes.json `live.none`): the page shows their frequency. A route that isn't running shows its next
@@ -62,6 +67,9 @@ the landing page, stop and say so; don't change this repo.
   and "Near me" (the position stays in the browser). The page renders in the browser from `docs/<city>/events/events.json`,
   which `fetch_happening.py` writes daily with happening.json (placeless events kept, each placed one's neighbourhood), so
   the HTML is rebuilt only when its words or chrome change: `python3 engine/events_page.py <city>`.
+  Since November 15, 2026 the page also shows the big venues' shows (venues.py writes `docs/<city>/venues/shows.json`
+  nightly; events_page.json `shows` holds the switch's words and the merged title). The hub has one Events column; the
+  Venues pages stay as the getting-there pages. The app's weekend brief is unaffected: it reads weekend.json.
 - **Transit history** (`engine/history/build.py` and `page.html`, `cities/<city>/history.json`, page at
   `docs/toronto/ttc-history/`; November 7, 2026, public the same day: its own feature card on the hub, below the city
   table, and in the sitemap (places.py). `"unlisted": true` in history.json would write a noindex tag and keep it out of the sitemap). One SVG map (land, former municipalities, main streets) with

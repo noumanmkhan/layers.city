@@ -20,6 +20,16 @@
 > Festivals & Events Calendar for "Happening nearby" (section 16). Additive; schema stays 2.
 > **November 3, 2026, later, on dev:** `happening.json` also carries Toronto Public Library branch programs: `src`
 > on each event (`city` or `library`) and `sources` on the file. Additive.
+> **November 14, 2026, evening:** Vancouver has live times for buses (`transit.live`, TransLink). SkyTrain has none:
+> `liveNone` has `subway`, so its platforms show "Every N min or so" as Toronto's Lines 5 and 6 do. Additive.
+> **November 14, 2026, later still:** Chicago has live times (`transit.live`; the CTA's Bus Tracker and Train Tracker,
+> read by the arrivals API): buses and 'L' trains, same answer format. Bus Tracker only predicts about the next half
+> hour, and neither API gives a next stop (no `next`). Additive.
+> **November 14, 2026, later:** Melbourne has live times (`transit.live`, Transport Victoria): trains, trams and
+> buses. Its feeds carry no vehicles, so every arrival is `live` 1, as in New York. Additive.
+> **November 14, 2026:** a live arrival may have a fifth element, `next`: the stop its vehicle reaches next, for
+> "about 3 stops away" and a dot on the route (section 15, "Where the next one is"). Additive: arrays of four
+> still come for scheduled arrivals.
 
 This is everything an app needs to rebuild the map's "What's here" card from the published
 data, without reading the website's code. The website (this repo) is the only producer; an app is
@@ -852,8 +862,10 @@ is one the app knows; keep bundled cities working offline.
 
 ## 14. The weekend brief
 
-`weekend.json` (Toronto and New York as of October 21, 2026; a city without it has no brief: hide the Weekend
-tab's content and its notification). Built daily by `engine/weekend.py` in *Fetch transit closures* and
+`weekend.json` (Toronto and New York as of October 21, 2026; since then also San Francisco, Chicago and Dallas, and
+from November 14 Vancouver and Melbourne, with `sources` `["venues"]` only; a city without it has no brief: hide the Weekend
+tab's content and its notification). The weekend is in the city's own time zone (`tz`), so Melbourne's runs Friday
+5 p.m. to Sunday midnight Melbourne time. Built daily by `engine/weekend.py` in *Fetch transit closures* and
 *Refresh venues*, so it always describes the next weekend: the coming one from Monday to Thursday, the current
 one from Friday to Sunday.
 
@@ -925,6 +937,9 @@ transit: {
   title, credits,                                     the page's title and the credit line to show
   badges: {bus, tram, exp, night: {fill, text, outline?},   route badges: a rounded rectangle, number in it
            lines: {"1": {fill, text}, …}}                   subway and LRT: a round bullet in the line's colour
+           (November 14, 2026: a line may have `label`, the text in its bullet instead of its id: "" for a
+           plain dot, as Chicago's 'L' and Melbourne's named train lines, "V/Line" for Melbourne's V/Line pill.
+           Melbourne's badges: buses orange, trams green, both white numbers. Additive.)
   words: {…}                                          the city's own wording (below); {} for Toronto
 }
 ```
@@ -942,6 +957,13 @@ wording, shown in brackets):
 - `connectionsLabel`: the heading of the connections fact ("Subway connections").
 - `mi`: true to show distances in feet under 0.1 mi and miles above (metres and km).
 - `changeBare`: true to list lines in "Change for …" by their ids ("Change for 4, 5, 6") rather than `lineNames`.
+- `overground` (November 14, 2026): true when the city's `subway` mode runs mostly above ground (Chicago's 'L',
+  Vancouver's SkyTrain, Dallas's light rail, Melbourne's trains): a route "runs along" its streets and its steps
+  read "Along <street>", never "runs under" / "Under <street>" (Toronto's and New York's subways).
+- `modeWords` (November 14, 2026): what to call a mode's vehicle in a sentence, `{"tram": "tram"}` in Melbourne
+  ("Next tram at 5:28 pm"); a missing mode keeps the default (bus, streetcar for `tram`, train for `subway` and `lrt`).
+- `ampm` (November 14, 2026): the clock's two suffixes, `["am", "pm"]` in Melbourne ("5:28 pm"); default
+  `["a.m.", "p.m."]`.
 
 Platforms' `side` and `travel` words can also be the agency's own: Muni's subway platforms are `inbound` and
 `outbound` ("Inbound platform"), as are a Muni Metro line's patterns' `head` (show them capitalised, "Outbound").
@@ -1015,7 +1037,7 @@ data and refresh it with the rest; fetch route files when a route is opened and 
 
 ```
 {now: 1793123589, asof: 1793123574,
- stops: {"8344": [[route, dir, epoch_s, live], …], …}}       sorted by time, up to 90 minutes ahead
+ stops: {"8344": [[route, dir, epoch_s, live, next?], …], …}}   sorted by time, up to 90 minutes ahead
 ```
 
 - San Francisco's answers can be up to 15 minutes old when 511.org turns a request away (it allows 60 an hour):
@@ -1030,6 +1052,30 @@ data and refresh it with the rest; fetch route files when a route is opened and 
 - The request carries only stop ids; nothing about the caller is kept. Nearby stop ids do say roughly where the
   phone is: ask only while the list or a widget is showing, and say so in the app's privacy notes.
 - On an error (503) or no network, show no times rather than old ones as if new.
+- Read the first four elements by position and ignore any more: arrays may grow.
+
+#### Where the next one is: `next`
+
+A live arrival (`live` 1) may carry a fifth element, `next`: the stop id its vehicle reaches next, the first stop
+still ahead of it in the agency's trip update. It is the stop asked about when the vehicle is about to get there.
+Same id space as `stops.json` and the route files' `patterns[].stops` (for subway and LRT, platform ids). It comes
+with live arrivals in every city that has them (none for Lines 5 and 6 or the timetable-only cities), missing on
+scheduled arrivals and wherever the feed doesn't say. A feed's id that isn't in the pattern is handled by the rule
+below.
+
+- Use it for the first live arrival of the row only. In the route file, take the pattern the rider is on (the one
+  the row describes) and find `next` in its `stops`, at or before the rider's stop. Stops away = the pattern's
+  stops from `next` (counted) to the rider's stop (not counted): 0 is "Arriving", 1 "1 stop away". If `next`
+  isn't in the pattern at or before the rider's stop (a short turn, another branch, a detour), show nothing.
+  When `next` is the rider's stop but the arrival is more than 2 minutes away, the trip starts there and hasn't
+  left yet (a terminus: Flinders Street, a tram's first stop): show nothing.
+- Words: "About 3 stops away · at <name of next>" (for subway and LRT, "About 3 stations away · approaching
+  <station>"); always "about". `stops.json` and the route file's `stops` give the names.
+- Map: a dot on the pattern's `line` between the stop before `next` and `next` (at 60% of the way, by `d`, so it
+  sits nearer the stop it's heading for), in the route's badge colour. It's where the vehicle probably is, not a
+  GPS position: no heading arrow, no animation.
+- Refresh it with the arrivals, only while the screen showing it is open (no faster than every 30 s). Past 5
+  minutes since `asof` (as above) drop `next` with the live styling.
 
 ### Scheduled times: `sched/{bucket}.json`
 
@@ -1120,7 +1166,7 @@ different colour in turn, with their names, and the known-as names near the rout
 `happening.json` (Toronto as of November 3, 2026, Chicago, New York and San Francisco as of November 7; a city without `card.nearby.happening` has none: show
 nothing). Chicago's comes from `cities/chicago/fetch_happening.py`: `src` `library` (Chicago Public Library, `id` `cpl-…`,
 `free` true, `venue` "<branch> branch" or the library's own name, `address` the library's) and `parks` (Chicago Park District
-events, `id` `cpd-…`, `free` from the fee, `venue` the park); no `city` items; `radius` 805 (half a mile). New York (November 7, 2026, `cities/nyc/fetch_happening.py`): `src` `parks` only (NYC Parks' public events, NYC Open Data, no restrictions on use; `id` `nycp-…`, `free` always null since the feed has no cost field, `address` null, `venue` the spot in the park, "Arsenal (in Central Park)"); the feed looks two weeks ahead, so its Events page `events.json` also ends 14 days on. San Francisco (November 7, 2026, `cities/sf/fetch_happening.py`): `src` `library` only (the San Francisco Public Library's programs for children, teens and families from Our415 on DataSF, PDDL; `id` `sfpl-…`, `free` from the feed, `venue` "<branch> branch" or "Main Library", `category` the title's prefix, "Storytime"). Both `radius` 805. Additive. Vancouver (November 7, 2026, `cities/vancouver/fetch_happening.py`, card only, no Events page): `src` `city`, the City of Vancouver's calendar of events, used under non-commercial terms. Its file has a top-level `linkText` ("vancouver.ca"), also in `card.nearby.happening.linkText`: the City's terms ask that links to its pages read "City of Vancouver" or "vancouver.ca", so when `linkText` is present show the title as plain text and label the link with that text. Additive. Written daily, early morning city time, by `cities/toronto/fetch_happening.py` (*Fetch events*)
+events, `id` `cpd-…`, `free` from the fee, `venue` the park); no `city` items; `radius` 805 (half a mile). New York (November 7, 2026, `cities/nyc/fetch_happening.py`): `src` `parks` only (NYC Parks' public events, NYC Open Data, no restrictions on use; `id` `nycp-…`, `free` always null since the feed has no cost field, `address` null, `venue` the spot in the park, "Arsenal (in Central Park)"); the feed looks two weeks ahead, so its Events page `events.json` also ends 14 days on. San Francisco (November 7, 2026, `cities/sf/fetch_happening.py`): `src` `library` only (the San Francisco Public Library's programs for children, teens and families from Our415 on DataSF, PDDL; `id` `sfpl-…`, `free` from the feed, `venue` "<branch> branch" or "Main Library", `category` the title's prefix, "Storytime"). Both `radius` 805. Additive. Vancouver (November 7, 2026, `cities/vancouver/fetch_happening.py`; an Events page and `card.nearby.happening.all` since November 15): `src` `city`, the City of Vancouver's calendar of events, used under non-commercial terms. Its file has a top-level `linkText` ("vancouver.ca"), also in `card.nearby.happening.linkText`: the City's terms ask that links to its pages read "City of Vancouver" or "vancouver.ca", so when `linkText` is present show the title as plain text and label the link with that text. Additive. Melbourne (November 14, 2026, `cities/melbourne/fetch_happening.py`, with an Events page): `src` `whatson`, What's On Melbourne, the City of Melbourne's listings, used under non-commercial terms (`id` `wom-<slug>`, `free` from the event page's Free tag, `venue` the place's name, `category` one of the site's tags, "Talk or workshop", "Music"); `radius` 800. Additive. Written daily, early morning city time, by `cities/toronto/fetch_happening.py` (*Fetch events*)
 from the City of Toronto Festivals & Events Calendar (Toronto Open Data "Festivals & Events", JSON feed) and,
 since November 3, 2026 on dev, Toronto Public Library's programs at its branches (Toronto Open Data "Library
 Branch Programs and Events Feed"). Both are under the Open Government Licence – Toronto: commercial use allowed

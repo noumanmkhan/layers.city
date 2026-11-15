@@ -450,7 +450,7 @@ for r in routes:
         last = stops[seq[-1][1]]
         st_end = next(((n, lines) for n, lines, g in stations if g.distance(Point(*m(last[2], last[3]))) < 300), None)
         p = {'k': len(pats), 'dir': sh['dir'], 'trips': sh['trips'], 'share': round(sh['trips'] / total, 2),
-             'head': head, 'km': round(L / 1000, 1), 'to': st_end[0] if st_end else last[1], 'line': coords,
+             'head': head, 'km': round(L / 1000, 1), 'to': st_end[0] if st_end else re.sub(CFG.get('toStrip') or r'(?!x)x', '', last[1]).strip(), 'line': coords,
              'stops': seq}
         p.update(story(line, 110 if r['id'] in rapid_ids else 18))   # a tunnel's drawn line strays further from the street above
         # A route that ends at a station connects there, even when its loop sits a little off the platform.
@@ -501,7 +501,7 @@ for r in routes:
             if gap <= 150 and (best is None or q['trips'] > best['trips']): best = q
         if best: p['next'] = best['k']
     doc = {'r': mt['r'], 'n': mt['n'], 'm': r['mode'], 'f': mt.get('f', []), 'h': mt.get('h'),
-           'stops': {sid: stops[sid][1] for p in pats for _, sid in p['stops']},
+           'stops': {sid: re.sub(CFG.get('toStrip') or r'(?!x)x', '', stops[sid][1]).strip() for p in pats for _, sid in p['stops']},
            'patterns': pats}
     json.dump(doc, open(os.path.join(OUT, 'data', 'r', rid + '.json'), 'w'), separators=(',', ':'), ensure_ascii=False)
     # For the list of stops near someone: each pattern's direction, end, length, share of trips, the regions it
@@ -601,6 +601,16 @@ for fd in CFG.get('rapidFeeds', []):
         tr = json.load(open(tp))['trips']
         json.dump({'routes': sorted(set(tr.values())), 'trips': tr}, open(os.path.join(OUT, 'data', fd + '_trips.json'), 'w'), separators=(',', ':'))
         print(f'{fd}_trips.json: {len(tr)} trips')
+
+# A live feed whose route ids aren't the schedule's (Melbourne's buses: routes.json live.numbers, the modes): the route
+# ids by the number riders see, for the arrivals function ("tripRoute"), at data/route_numbers.json.
+_nm = (CFG.get('live') or {}).get('numbers')
+if _nm:
+    nums = {}
+    for rid, v in route_index.items():
+        if v[2] in _nm: nums.setdefault(str(v[0]), []).append(rid)
+    json.dump({'numbers': nums}, open(os.path.join(OUT, 'data', 'route_numbers.json'), 'w'), separators=(',', ':'))
+    print(f'route_numbers.json: {len(nums)} numbers')
 
 # ---- the page ----
 if not os.path.exists(os.path.join(ROOT, 'engine', 'routes', 'page.html')): sys.exit(print(f'{city}: {len(route_index)} routes, {len(out_stops)} stops (no page template yet)'))

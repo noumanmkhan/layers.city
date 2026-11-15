@@ -1,0 +1,25 @@
+{
+  "_about": "The Events page at /vancouver/events/ (engine/events_page.py, November 15, 2026). 'file' is the page's listing, written daily by fetch_happening.py next to the page; 'units' is the map's file the local-area filter and card outline come from. The City's calendar is small, so 'shows' (the big venues' concerts, games and shows from the Venues listing) carries most of the page. The City's terms ask that links to its pages read 'vancouver.ca': the listing's linkText makes the page show plain titles and a 'vancouver.ca' link. No library programs: Vancouver Public Library publishes no events feed. 'words' are the page's own text; the engine names no city or source.",
+  "file": "events.json",
+  "units": "local_areas",
+  "words": {
+    "title": "What’s on in Vancouver",
+    "intro": "",
+    "listing": "A listing, not a guide: the facts and a link to the source, nothing else.",
+    "desc": "",
+    "card": "",
+    "hub": "What’s on: today, this weekend",
+    "hoodLabel": "Local area",
+    "placeless": "Citywide",
+    "sources": {},
+    "source": "City events from the City of Vancouver’s calendar of events (vancouver.ca), used under its terms for non-commercial use."
+  },
+  "shows": {
+    "title": "What’s on in Vancouver",
+    "community": "City events",
+    "intro": "Concerts, games and shows at Metro Vancouver’s big venues, plus every event on the City of Vancouver’s calendar for the next 30 days. Library programs aren’t here: the Vancouver Public Library publishes no events feed, so see vpl.ca for those.",
+    "desc": "What’s on in Vancouver today, this weekend and this week: concerts, games and shows at the big venues, and the City of Vancouver’s calendar of events.",
+    "card": "Big venues and City events, the next 30 days",
+    "source": "Shows at the big venues from Ticketmaster."
+  }
+}
