@@ -1,0 +1,30 @@
+name: Fetch GTA card inputs
+# The What's here card beyond the City of Toronto: riding boundaries (Open North Represent), libraries, community
+# centres, hospitals, playgrounds and places of worship (OpenStreetMap, Overpass) into cities/toronto/raw/gta_card/,
+# and the GTA's schools (fetch_schools.py). Commits back to the branch that ran it. Run by hand now and then.
+on:
+  workflow_dispatch:
+  push:
+    branches: [fetch-gta-card]
+    paths: ['cities/toronto/fetch_gta_card.py', '.github/workflows/fetch-gta-card.yml']
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install openpyxl
+      - run: python3 -u cities/toronto/fetch_gta_card.py
+      - run: mkdir -p cities/toronto/raw/schools && python3 -u cities/toronto/fetch_schools.py 2>&1 | tee cities/toronto/raw/schools/fetch.log
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/gta_card cities/toronto/raw/schools
+          git commit -m "Fetch the GTA's ridings, nearby places and schools for the What's here card" || echo "no changes"
+          git pull --rebase
+          git push

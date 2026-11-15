@@ -42,7 +42,7 @@ for n, v in tor.items():
     if m: out_w[n] = {'name': m.group(1).strip(), 'url': v['url']}
     else: out_w[n] = {'name': None, 'url': v['url']}; problems.append('ward %s: no name in %r' % (n, v['title']))
 
-# The mayor: "Olivia Chow, 66th Mayor of Toronto – City of Toronto" (or "Mayor Olivia Chow – ..."). The citywide
+# The mayor: "Olivia Chow, 66th Mayor of Toronto – City of Toronto" (or "Mayor Olivia Chow – ...", "About Mayor Olivia Chow – ..."). The citywide
 # seat is keyed "city" so the card can look it up like any other office.
 out_m = None
 try:
@@ -51,7 +51,7 @@ except FileNotFoundError:
     mv = None
 if mv:
     t = html.unescape(mv['title'])
-    m = re.match(r'(.+?),\s*\d+\w*\s+Mayor', t) or re.match(r'Mayor\s+(.+?)\s+[–\-|]', t)
+    m = re.match(r'(.+?),\s*\d+\w*\s+Mayor', t) or re.match(r'(?:About\s+)?Mayor\s+(.+?)\s+[–\-|]', t)
     out_m = {'city': {'name': m.group(1).strip() if m else None, 'url': mv['url']}}
     if not m: problems.append('mayor: no name in %r' % t)
 else:
