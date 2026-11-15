@@ -219,7 +219,7 @@ The boundary lookup runs in the browser with point-in-polygon tests against ever
 
 **Live site:** https://layers.city/chicago/
 
-The second city runs on the same engine with its own data and config (`cities/chicago/`). Chicago's layers line up with Toronto's:
+The second city runs on the same engine with its own data and config (`cities/chicago/`). Chicago's layers line up with Toronto's (Buildings, November 16: every building outline across Chicagoland from zoom 15, Overture Maps via the shared tiles pipeline, box in `cities/chicago/region.json`):
 
 | Layer | Count | Notes |
 |---|---|---|

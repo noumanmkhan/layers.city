@@ -2,6 +2,10 @@
 
 ## Since 1.1
 
+### Buildings across Chicagoland (November 16)
+- Zoom in anywhere from Waukegan to Joliet to Gary and every building is drawn, from zoom 15, as in Toronto and
+  Melbourne (Overture Maps, mostly OpenStreetMap).
+
 ### Melbourne beyond the City: buildings, your districts and MP, and focus on a council (November 16)
 - State districts and federal divisions now cover Greater Melbourne, not just the City, so "Who represents me" works
   from Werribee to Pakenham. Tap anywhere in the suburbs and the card names the suburb, its council, its state
