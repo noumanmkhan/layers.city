@@ -900,6 +900,26 @@ one from Friday to Sunday.
 
 ## 15. Transit: stops near a spot, where each route goes, live arrivals
 
+**Regional trains and buses (November 15, 2026; additive, schema stays 2).** Every city's routes now include the
+region's trains into the city, and Toronto's and Melbourne's other-agency buses and coaches:
+- New modes: `rail` (a regional train line: GO and UP Express, V/Line, LIRR, Metro-North, Caltrain, Metra, the South
+  Shore Line, the West Coast Express, DART's Silver Line and the TRE), `go` (Toronto's GO buses, numbers like
+  "GO 21") and `coach` (Melbourne's V/Line coaches, "Coach …"). Treat `rail` like `subway`/`lrt` (platforms, calls,
+  "Next train"); `go` and `coach` like buses, with their own badge (`badges.go`, `badges.coach`). Route ids are the
+  agencies' own; `families` is empty for these modes: treat them as daytime routes.
+- A `rail` route entry may carry a 7th element, its colour from the feed (`"#98002E"`); `words.lineColors`
+  (`{"<short, lowercase>": "#colour"}`) overrides it. Its bullet shows `short` when three letters or fewer ("LW",
+  "UP", "TRE"), else a plain dot. `words.lineNames` names each line ("Lakeshore West line", "Albury line"), and the
+  route entry's `name` already uses it.
+- `liveNone` names these modes ("GO doesn’t share live times with this page yet"): show the timetable's next
+  departure, never "live".
+- Sched rows may also be keyed `"<route id>@<dir>"` (dir "0" or "1", the pattern's `dir`): a station that is one
+  stop for both directions (GO, V/Line) times each direction on its own. Look up `<route>@<dir>` first, then `<route>`.
+  These modes' sched spans are single departures (`[t, t]`), so "next departure" is exact.
+- `words.reach` (km, 3): a spot outside the city counts when a stop is this close (search the region's viewbox).
+- Regions outside the city are the base layer's municipality names (Mississauga, Oakville) or, in Melbourne, its
+  councils (City of Greater Geelong is beyond them: a V/Line train's calls tell that part).
+
 Vancouver and Dallas as of November 7, 2026 (scheduled times only, no `live`): Vancouver's TransLink buses and SkyTrain as `subway` (route ids are TransLink's: `30053` Expo, `30052` Millennium, `13686` Canada, short names `Expo`, `Millennium`, `Canada`); Dallas's DART buses and light rail as `lrt` (`27513` Red, `27510` Blue, `27511` Green, `27512` Orange). Same files and fields as the cities below; additive. Chicago, Vancouver and Dallas have no live feed, so an app should say "from the timetable" without promising live times.
 
 Toronto as of October 28, 2026 (buses, streetcars, subway and LRT), San Francisco as of October 30 (Muni buses,

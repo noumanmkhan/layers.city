@@ -343,6 +343,10 @@
     "fill": "#959595",
     "text": "#FFFFFF"
    }
+  },
+  "go": {
+   "fill": "#1E6B47",
+   "text": "#FFFFFF"
   }
  },
  "feeds": [
@@ -352,5 +356,8 @@
   "go",
   "up"
  ],
- "_feeds": "Other agencies fetched by fetch_surface.py into raw/surface/<feed>/ (surface.json 'feeds'): their buses join through 'feeds', their trains through 'rapidFeeds'. GO's stops reach well beyond the city: page 'reach' lets a spot across the region use the page."
+ "_feeds": "Other agencies fetched by fetch_surface.py into raw/surface/<feed>/ (surface.json 'feeds'): their buses join through 'feeds', their trains through 'rapidFeeds'. GO's stops reach well beyond the city: page 'reach' lets a spot across the region use the page.",
+ "sharedStops": [
+  "up"
+ ]
 }

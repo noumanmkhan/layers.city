@@ -2,6 +2,20 @@
 
 ## Since 1.1
 
+### Regional trains and buses on the Routes pages (every city, November 15)
+- "Where does this line or route go?" now covers the trains (and in Toronto and Melbourne the regional buses and
+  coaches) that bring people into each city, with the same stop list, route story and next departures as the
+  city's own buses and subways: GO trains, GO buses and UP Express across the GTA; V/Line trains and coaches across
+  Victoria (also a new V/Line coaches layer on the Melbourne map); the LIRR and Metro-North; Caltrain; Metra and the
+  South Shore Line; the West Coast Express; DART's Silver Line and the TRE.
+- A spot outside the city works when a stop is within 3 km, and address search covers the region. Outside the city
+  a route reads through its towns (Mississauga → Oakville → … → Burlington; Melbourne's councils).
+- These agencies share no live times with the page, so each direction shows its exact next departure from the
+  timetable ("Next train at 10:29 a.m."). Badges take each line's own colour; GO stations show a GO bullet, and the
+  TTC's routes now list the GO stations they meet.
+- Fix: in Melbourne, Geelong's town bus 1 (and other regional town buses) no longer showed up named as tram 1.
+  Local suburban buses (MiWay, YRT, Pace and the like) are a later step.
+
 ### One sheet at a time on phones (every city, November 14)
 - The layer sheet rests as one row: the city menu and a Layers button with how many are on. Opened, it shows the
   layer groups as chips, Views first (Views, the extent switch, All / Basic / Live), and that group's rows.

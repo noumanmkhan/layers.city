@@ -86,6 +86,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .rb{display:inline-grid;place-items:center;box-sizing:border-box;height:26px;min-width:40px;padding:0 6px;border-radius:5px;font:700 14px/1 var(--body);background:#fff;color:#1A1414;box-shadow:inset 0 0 0 2px #1A1414;flex:none}
 .rb.big{height:40px;min-width:60px;font-size:20px;border-radius:7px}
 .ln.lb{width:28px;height:28px;font-size:14px}
+.ln.lb.dot,.ln.lb.dot.big{font-size:0}
+.ln.lb.n3{font-size:10px;letter-spacing:-.02em}.ln.lb.n3.big{font-size:14px}
+.ln.grp{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em}
 .ln.lb.big{width:40px;height:40px;font-size:20px}
 @media (max-width:520px){.ln.lb.big{width:34px;height:34px;font-size:17px}}
 .tl li.call::after{width:12px;height:12px;left:4px;top:11px;background:var(--card);box-shadow:inset 0 0 0 2.5px var(--ink)}
@@ -142,6 +145,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .tl li.region{padding-top:14px}
 .tl li.region::after{display:none}
 .tl li.region b{display:inline-block;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em}
+.tl li.stn{display:block;white-space:normal}   /* the row is a list item, not a station chip: long "Change for" lists wrap */
 .tl li.stn::after{width:14px;height:14px;left:3px;top:10px;box-shadow:inset 0 0 0 3px var(--ink)}
 .tl li.end::after,.tl li.start::after{width:16px;height:16px;left:2px;top:9px;background:var(--accent);box-shadow:0 0 0 3px var(--card) inset}
 .tl li.on{background:var(--bg)}
@@ -215,6 +219,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .ln.lb.lAlamein,.ln.lb.lBelgrave,.ln.lb.lCraigieburn,.ln.lb.lCranbourne,.ln.lb.lFlemington,.ln.lb.lFrankston,.ln.lb.lGlen,.ln.lb.lHurstbridge,.ln.lb.lLilydale,.ln.lb.lMernda,.ln.lb.lPakenham,.ln.lb.lSandringham,.ln.lb.lStony,.ln.lb.lSunbury,.ln.lb.lUpfield,.ln.lb.lWerribee,.ln.lb.lWilliamstown{font-size:0}
 /* The Routes page says V/Line once, as one pill (routes.json page "lineGroups"), in V/Line's purple. */
 .ln.grp.lV\/Line{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em;background:#8F1A95;color:#fff}
+/* V/Line on the Routes page: coaches in V/Line purple (its trains' dots take the same colour from the feed). */
+.rb.m-coach{background:#8F1A95;color:#fff;box-shadow:none;white-space:nowrap;font-size:0}
+/* A coach's code ("Coach V29") means nothing to riders: its badge just says Coach; the row names the route. */
+.rb.m-coach::after{content:'Coach';font-size:13px}.rb.m-coach.big::after{font-size:17px}
 
 
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--m-t0:#40262B;--m-t1:#3B3326;--m-t2:#28362A;--m-t3:#253140;--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp):not(.cable){background:var(--card)} :root:not([data-theme="light"]) .row:hover{background:#262A30} :root:not([data-theme="light"]) .tl li.on{background:#262A30}}
@@ -250,7 +258,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   <section class="intro" id="intro">
     <div class="kicker" id="kicker"></div>
     <h1>Where does this tram, bus or train go?</h1>
-    <p class="lede">Find the stops and stations near you, then pick a tram, bus or train line to see where it goes: the suburbs, main streets, connections and landmarks along the way.</p>
+    <p class="lede">Find the stops and stations near you, in Melbourne or across Victoria, then pick a tram, bus, train line, V/Line train or coach to see where it goes: the suburbs, main streets, connections and landmarks along the way.</p>
     <form class="find" id="find">
       <button type="button" class="btn primary" id="locate">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg>
@@ -289,7 +297,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 </main>
 <script>
 (() => {
-  const RS = {"city": "Melbourne", "title": "Where does this tram, bus or train go?", "short": "Routes from here", "description": "Find the tram and bus stops and train stations nearest you in Melbourne and see where each route goes, with the next scheduled departures: the suburbs it passes through, the main streets it runs along, its train and V/Line connections and the landmarks on the way.", "lede": "Find the stops and stations near you, then pick a tram, bus or train line to see where it goes: the suburbs, main streets, connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside the City of Melbourne. Try an address in the City.", "noMatch": "No match in the City of Melbourne for “{q}”. Try the full street address, like “90 Swanston Street”.", "noStops": "No stops or stations within {r} of that spot.", "credits": "Routes, stops and timetable: Transport Victoria GTFS (CC BY 4.0) · Suburbs: Australian Bureau of Statistics · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled; live times need Transport Victoria’s keyed feed", "mapLink": "Open on the map", "mi": false, "at": " / ", "connectWith": "trains and V/Line", "legendUnits": "Suburbs it passes", "legendKnown": "Chinatown: the names people use", "lineFiles": ["train_lines"], "lineColors": {"flemingtonracecourse": "#95979A", "sandringham": "#F178AF", "werribee": "#F178AF", "williamstown": "#F178AF", "frankston": "#028430", "stonypoint": "#028430", "craigieburn": "#FFBE00", "upfield": "#FFBE00", "hurstbridge": "#BE1014", "mernda": "#BE1014", "alamein": "#152C6B", "belgrave": "#152C6B", "glenwaverley": "#152C6B", "lilydale": "#152C6B", "cranbourne": "#34ACE1", "pakenham": "#34ACE1", "sunbury": "#34ACE1"}, "lineNames": {"Alamein": "Alamein line", "Belgrave": "Belgrave line", "Craigieburn": "Craigieburn line", "Cranbourne": "Cranbourne line", "Flemington Racecourse": "Flemington Racecourse line", "Frankston": "Frankston line", "Glen Waverley": "Glen Waverley line", "Hurstbridge": "Hurstbridge line", "Lilydale": "Lilydale line", "Mernda": "Mernda line", "Pakenham": "Pakenham line", "Sandringham": "Sandringham line", "Stony Point": "Stony Point line", "Sunbury": "Sunbury line", "Upfield": "Upfield line", "Werribee": "Werribee line", "Williamstown": "Williamstown line"}, "overground": true, "connectionsLabel": "Train and V/Line connections", "lineGroups": {"V/Line": ["V/Line"]}, "modeWords": {"tram": "tram"}, "ampm": ["am", "pm"], "known": "knownas", "units": "suburbs", "platformWords": false, "live": {"api": "/api/arrivals?city=melbourne", "source": "Transport Victoria GTFS Realtime", "numbers": ["bus"]}, "sched": {"url": "data/sched/{b}.json", "n": 128}, "the": [], "theKnown": "^(Paris End)$"};   // this city's wording (cities/<city>/routes.json, page)
+  const RS = {"city": "Melbourne", "title": "Where does this tram, bus or train go?", "short": "Routes from here", "description": "Find the tram and bus stops and train stations nearest you in Melbourne and see where each route goes, with the next scheduled departures: the suburbs it passes through, the main streets it runs along, its train and V/Line connections and the landmarks on the way.", "lede": "Find the stops and stations near you, in Melbourne or across Victoria, then pick a tram, bus, train line, V/Line train or coach to see where it goes: the suburbs, main streets, connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is too far from a tram, bus, train or V/Line stop. Try an address in Melbourne or near a station or coach stop.", "noMatch": "No match in the City of Melbourne for “{q}”. Try the full street address, like “90 Swanston Street”.", "noStops": "No stops or stations within {r} of that spot.", "credits": "Routes, stops and timetable: Transport Victoria GTFS (CC BY 4.0) · Suburbs: Australian Bureau of Statistics · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled; live times need Transport Victoria’s keyed feed", "mapLink": "Open on the map", "mi": false, "at": " / ", "connectWith": "trains and V/Line", "legendUnits": "Suburbs it passes", "legendKnown": "Chinatown: the names people use", "lineFiles": ["train_lines"], "lineColors": {"flemingtonracecourse": "#95979A", "sandringham": "#F178AF", "werribee": "#F178AF", "williamstown": "#F178AF", "frankston": "#028430", "stonypoint": "#028430", "craigieburn": "#FFBE00", "upfield": "#FFBE00", "hurstbridge": "#BE1014", "mernda": "#BE1014", "alamein": "#152C6B", "belgrave": "#152C6B", "glenwaverley": "#152C6B", "lilydale": "#152C6B", "cranbourne": "#34ACE1", "pakenham": "#34ACE1", "sunbury": "#34ACE1"}, "lineNames": {"Alamein": "Alamein line", "Belgrave": "Belgrave line", "Craigieburn": "Craigieburn line", "Cranbourne": "Cranbourne line", "Flemington Racecourse": "Flemington Racecourse line", "Frankston": "Frankston line", "Glen Waverley": "Glen Waverley line", "Hurstbridge": "Hurstbridge line", "Lilydale": "Lilydale line", "Mernda": "Mernda line", "Pakenham": "Pakenham line", "Sandringham": "Sandringham line", "Stony Point": "Stony Point line", "Sunbury": "Sunbury line", "Upfield": "Upfield line", "Werribee": "Werribee line", "Williamstown": "Williamstown line", "Geelong": "Geelong line", "Warrnambool": "Warrnambool line", "Ballarat": "Ballarat line", "Ararat": "Ararat line", "Maryborough": "Maryborough line", "Bendigo": "Bendigo line", "Echuca": "Echuca line", "Swan Hill": "Swan Hill line", "Seymour": "Seymour line", "Shepparton": "Shepparton line", "Albury": "Albury line", "Traralgon": "Traralgon line", "Bairnsdale": "Bairnsdale line"}, "overground": true, "connectionsLabel": "Train and V/Line connections", "lineGroups": {"V/Line": ["V/Line", "Geelong", "Warrnambool", "Ballarat", "Ararat", "Maryborough", "Bendigo", "Echuca", "Swan Hill", "Seymour", "Shepparton", "Albury", "Traralgon", "Bairnsdale"]}, "modeWords": {"tram": "tram", "coach": "coach"}, "ampm": ["am", "pm"], "_regional": "Regional trains (November 15, 2026): 'reach' (km) lets a spot outside the city use the page when a stop is that close, so riders across the region see their and V/Line stations and coach stops and where each goes; regions outside the city are the base layer's municipalities.", "reach": 3, "known": "knownas", "units": "suburbs", "platformWords": false, "live": {"api": "/api/arrivals?city=melbourne", "source": "Transport Victoria GTFS Realtime", "numbers": ["bus"], "none": {"rail": "V/Line doesn’t share live times with this page: timetable times", "coach": "V/Line doesn’t share live times with this page: timetable times"}}, "sched": {"url": "data/sched/{b}.json", "n": 128}, "the": [], "theKnown": "^(Paris End)$"};   // this city's wording (cities/<city>/routes.json, page)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g', 'polygon'];
@@ -348,6 +356,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const routeCls = R => R[2] === 'tram' ? 'tram' : R[2] === 'cable' ? 'cable' : R[2] !== 'bus' ? 'm-' + R[2] : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
   const isRapid = rid => ['subway', 'lrt', 'rail'].includes(D.routes[rid][2]);
   const badge = (rid, big) => { const R = D.routes[rid];
+    // A regional line (mode rail): its colour from routes.json page "lineColors" or the feed (R[6]); a name longer
+    // than three letters (Albury, BNSF) is a plain dot, the line's name beside it.
+    if (R[2] === 'rail') { const c = (RS.lineColors || {})[R[0].toLowerCase()] || R[6];
+      return el('span', { class: `ln lb l${R[0]}${R[0].length > 3 ? ' dot' : R[0].length === 3 ? ' n3' : ''}${big ? ' big' : ''}`, style: c ? `background:${c}` : null, 'aria-hidden': 'true' }, R[0]); }
     return isRapid(rid) ? el('span', { class: `ln lb l${R[0]}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0])
       : el('span', { class: `rb ${routeCls(R)}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0]); };
   // A group's lines (BART's colours) as one bullet with the group's name (routes.json page "lineGroups").
@@ -493,7 +505,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const fs = (await Promise.all(bs.map(b => schedFiles.get(b)))).filter(Boolean);
     if (!fs.length) return null;
     const S = Object.assign({}, fs[0], { stops: {} });   // one view over them: each stop's rows carry their own file's span lists
-    fs.forEach(f => Object.entries(f.stops).forEach(([sid, v]) => { S.stops[sid] = Object.fromEntries(Object.entries(v).map(([r, ix]) => [r, ix.map(i => f.spans[i])])); }));
+    // A row from another agency's feed (GO, V/Line) is {f, r}: its kinds of day are that feed's own (S.feeds[f - 1]).
+    fs.forEach(f => Object.entries(f.stops).forEach(([sid, v]) => { S.stops[sid] = Object.fromEntries(Object.entries(v).map(([r, ix]) =>
+      [r, Array.isArray(ix) ? ix.map(i => f.spans[i]) : Object.assign(ix.r.map(i => f.spans[i]), { f: ix.f })])); }));
     return S;
   }
   function cityNow(tz) {
@@ -502,14 +516,17 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     return { day: Date.UTC(+p.year, +p.month - 1, +p.day), min: +p.hour * 60 + +p.minute };
   }
   // The next scheduled departure as {day offset, minute of that day}, or null while the route is running (or unknown).
-  function nextSched(S, sid, rid) {
-    const v = S && S.stops[sid] && S.stops[sid][rid];
+  function nextSched(S, sid, rid, k) {
+    // A route timed by direction ("<route>@<dir>": GO and V/Line stations are one stop for both ways): this pattern's.
+    const dir = k != null && D.routes[rid][5][k] ? D.routes[rid][5][k][7] : null;
+    const v = S && S.stops[sid] && ((dir != null && S.stops[sid][rid + '@' + dir]) || S.stops[sid][rid]);
     if (!v) return null;
     const { day, min } = cityNow(S.tz || 'UTC');
     let next = Infinity;
+    const cal = v.f ? S.feeds[v.f - 1] : S;   // the feed's own calendar
     for (let o = -1; o <= 7; o++) {
       const d = new Date(day + o * 864e5), iso = d.toISOString().slice(0, 10);
-      const k = iso in S.days ? S.days[iso] : S.week[(d.getUTCDay() + 6) % 7];
+      const k = iso in cal.days ? cal.days[iso] : cal.week[(d.getUTCDay() + 6) % 7];
       const sp = v[k] || [];
       for (let i = 0; i < sp.length; i += 2) {
         const a = sp[i] + o * 1440, b = sp[i + 1] + o * 1440;
@@ -526,8 +543,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
     return `${h % 12 || 12}:${mm} ${h < 12 ? AMPM[0] : AMPM[1]}`;
   }
-  function schedEl(S, sid, rid, long) {
-    const n = nextSched(S, sid, rid);
+  function schedEl(S, sid, rid, long, k) {
+    const n = nextSched(S, sid, rid, k);
     if (!n) return null;
     const when = n.o === 0 ? '' : n.o === 1 ? 'tomorrow ' : new Date(n.day + n.o * 864e5).toLocaleDateString('en-CA', { weekday: 'long', timeZone: 'UTC' }) + ' ';
     const w = WORD[D.routes[rid][2]] || 'bus';
@@ -538,11 +555,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       [`Next ${w} `, el('b', {}, when + 'at ' + clock(n.m)), long ? (lv ? ' · from the timetable; live times show once it’s on its way' : ' · from the timetable' + (noLive(rid) ? ` (${noLive(rid)})` : '')) : '']);
   }
   // What a row shows: live times, else (when the route isn't running) the next scheduled one, else how often it runs.
-  function arrivalsEl(j, S, sid, rid, long) {
-    if (noLive(rid)) return schedEl(S, sid, rid, long) || everyEl(rid, long);
+  function arrivalsEl(j, S, sid, rid, long, k) {
+    if (noLive(rid)) return schedEl(S, sid, rid, long, k) || everyEl(rid, long);
     const ts = j ? nextAt(j, sid, rid) : [];
     if (ts.length) return timesEl(ts, long);
-    return schedEl(S, sid, rid, long) || (j ? timesEl(ts, long) : '');
+    return schedEl(S, sid, rid, long, k) || (j ? timesEl(ts, long) : '');
   }
 
   // One refresh loop for whatever is on screen, every 30 s, paused while the page is hidden.
@@ -561,7 +578,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const via = el('span', { class: 'via' });
     if (x.loop != null) via.append(el('span', { class: 'loopy' }, '↻ Loops round first'));
     stns.forEach(t => via.append(stnEl(t[1], t[2])));
-    if (regs.length > 1) via.append(el('span', {}, regs.slice(1).join(' → ')));
+    // A regional train passes many towns: the first two and the last (Mississauga → Oakville → … → Hamilton).
+    const rs_ = regs.slice(1);
+    if (regs.length > 1) via.append(el('span', {}, (rs_.length > 4 ? [...rs_.slice(0, 2), '…', rs_[rs_.length - 1]] : rs_).join(' → ')));
     else if (!stns.length && regs.length) via.append(el('span', {}, 'Stays in ' + regs[0]));
     const b = el('button', { type: 'button', class: 'row', 'aria-label': `Route ${R[0]} ${R[1]}, ${DIR[x.head] || ''} to ${clean(x.to)}${x.loop != null ? ', looping round first' : ''}` }, [
       badge(x.rid),
@@ -570,7 +589,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       el('span', { class: 'live' }),
       via,
     ]);
-    b.dataset.sid = sid; b.dataset.rid = x.rid;
+    b.dataset.sid = sid; b.dataset.rid = x.rid; b.dataset.k = x.k;
     b.addEventListener('click', () => openRoute(sid, x.rid, x.k, true));
     return b;
   }
@@ -609,7 +628,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       // The timetable only when some row has no live times.
       const want = rowsShown.filter(r => noLive(r.dataset.rid) || !nextAt(j, r.dataset.sid, r.dataset.rid).length).map(r => r.dataset.sid);
       const S = want.length ? await loadSched(want) : null;
-      rowsShown.forEach(r => r.querySelector('.live').replaceChildren(arrivalsEl(j, S, r.dataset.sid, r.dataset.rid) || ''));
+      rowsShown.forEach(r => r.querySelector('.live').replaceChildren(arrivalsEl(j, S, r.dataset.sid, r.dataset.rid, false, +r.dataset.k) || ''));
     });
   }
 
@@ -873,7 +892,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     startLive(async () => {
       const j = noLive(rid) ? null : await fetchLive([sid]);
       const S = noLive(rid) || !nextAt(j, sid, rid).length ? await loadSched([sid]) : null;
-      $('rnext').replaceChildren(arrivalsEl(j, S, sid, rid, isRapid(rid) ? 'train' : true) || '');
+      $('rnext').replaceChildren(arrivalsEl(j, S, sid, rid, isRapid(rid) ? 'train' : true, k) || '');
     });
   }
 

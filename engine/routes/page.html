@@ -86,7 +86,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .rb{display:inline-grid;place-items:center;box-sizing:border-box;height:26px;min-width:40px;padding:0 6px;border-radius:5px;font:700 14px/1 var(--body);background:#fff;color:#1A1414;box-shadow:inset 0 0 0 2px #1A1414;flex:none}
 .rb.big{height:40px;min-width:60px;font-size:20px;border-radius:7px}
 .ln.lb{width:28px;height:28px;font-size:14px}
-.ln.lb.dot{font-size:0}
+.ln.lb.dot,.ln.lb.dot.big{font-size:0}
+.ln.lb.n3{font-size:10px;letter-spacing:-.02em}.ln.lb.n3.big{font-size:14px}
 .ln.grp{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em}
 .ln.lb.big{width:40px;height:40px;font-size:20px}
 @media (max-width:520px){.ln.lb.big{width:34px;height:34px;font-size:17px}}
@@ -144,6 +145,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .tl li.region{padding-top:14px}
 .tl li.region::after{display:none}
 .tl li.region b{display:inline-block;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em}
+.tl li.stn{display:block;white-space:normal}   /* the row is a list item, not a station chip: long "Change for" lists wrap */
 .tl li.stn::after{width:14px;height:14px;left:3px;top:10px;box-shadow:inset 0 0 0 3px var(--ink)}
 .tl li.end::after,.tl li.start::after{width:16px;height:16px;left:2px;top:9px;background:var(--accent);box-shadow:0 0 0 3px var(--card) inset}
 .tl li.on{background:var(--bg)}
@@ -316,7 +318,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     // A regional line (mode rail): its colour from routes.json page "lineColors" or the feed (R[6]); a name longer
     // than three letters (Albury, BNSF) is a plain dot, the line's name beside it.
     if (R[2] === 'rail') { const c = (RS.lineColors || {})[R[0].toLowerCase()] || R[6];
-      return el('span', { class: `ln lb l${R[0]}${R[0].length > 3 ? ' dot' : ''}${big ? ' big' : ''}`, style: c ? `background:${c}` : null, 'aria-hidden': 'true' }, R[0]); }
+      return el('span', { class: `ln lb l${R[0]}${R[0].length > 3 ? ' dot' : R[0].length === 3 ? ' n3' : ''}${big ? ' big' : ''}`, style: c ? `background:${c}` : null, 'aria-hidden': 'true' }, R[0]); }
     return isRapid(rid) ? el('span', { class: `ln lb l${R[0]}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0])
       : el('span', { class: `rb ${routeCls(R)}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0]); };
   // A group's lines (BART's colours) as one bullet with the group's name (routes.json page "lineGroups").
@@ -462,7 +464,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const fs = (await Promise.all(bs.map(b => schedFiles.get(b)))).filter(Boolean);
     if (!fs.length) return null;
     const S = Object.assign({}, fs[0], { stops: {} });   // one view over them: each stop's rows carry their own file's span lists
-    fs.forEach(f => Object.entries(f.stops).forEach(([sid, v]) => { S.stops[sid] = Object.fromEntries(Object.entries(v).map(([r, ix]) => [r, ix.map(i => f.spans[i])])); }));
+    // A row from another agency's feed (GO, V/Line) is {f, r}: its kinds of day are that feed's own (S.feeds[f - 1]).
+    fs.forEach(f => Object.entries(f.stops).forEach(([sid, v]) => { S.stops[sid] = Object.fromEntries(Object.entries(v).map(([r, ix]) =>
+      [r, Array.isArray(ix) ? ix.map(i => f.spans[i]) : Object.assign(ix.r.map(i => f.spans[i]), { f: ix.f })])); }));
     return S;
   }
   function cityNow(tz) {
@@ -478,9 +482,10 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (!v) return null;
     const { day, min } = cityNow(S.tz || 'UTC');
     let next = Infinity;
+    const cal = v.f ? S.feeds[v.f - 1] : S;   // the feed's own calendar
     for (let o = -1; o <= 7; o++) {
       const d = new Date(day + o * 864e5), iso = d.toISOString().slice(0, 10);
-      const k = iso in S.days ? S.days[iso] : S.week[(d.getUTCDay() + 6) % 7];
+      const k = iso in cal.days ? cal.days[iso] : cal.week[(d.getUTCDay() + 6) % 7];
       const sp = v[k] || [];
       for (let i = 0; i < sp.length; i += 2) {
         const a = sp[i] + o * 1440, b = sp[i + 1] + o * 1440;

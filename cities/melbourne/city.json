@@ -92,7 +92,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Suburbs, councils & 2021 Census: Australian Bureau of Statistics (CC BY 4.0) · Trains, trams, V/Line & buses: Transport Victoria GTFS (CC BY 4.0) · State districts & addresses: Vicmap (CC BY 4.0) · Federal divisions: Australian Electoral Commission (CC BY 4.0) · Voting centres: Victorian Electoral Commission (CC BY 4.0) · Schools: Victorian Department of Education (CC BY 4.0) · Heritage places: Heritage Council of Victoria (CC BY 4.0) · New development, car parks, playgrounds & toilets: City of Melbourne Open Data (CC BY 4.0) · Events: What’s On Melbourne, © City of Melbourne (non-commercial use) · Skyscrapers: Wikipedia (CC BY-SA) · Streets, freeways, parks, places & landmarks: © OpenStreetMap contributors (ODbL)",
+ "attribution": "Suburbs, councils & 2021 Census: Australian Bureau of Statistics (CC BY 4.0) · Trains, trams, V/Line trains & coaches & buses: Transport Victoria GTFS (CC BY 4.0) · State districts & addresses: Vicmap (CC BY 4.0) · Federal divisions: Australian Electoral Commission (CC BY 4.0) · Voting centres: Victorian Electoral Commission (CC BY 4.0) · Schools: Victorian Department of Education (CC BY 4.0) · Heritage places: Heritage Council of Victoria (CC BY 4.0) · New development, car parks, playgrounds & toilets: City of Melbourne Open Data (CC BY 4.0) · Events: What’s On Melbourne, © City of Melbourne (non-commercial use) · Skyscrapers: Wikipedia (CC BY-SA) · Streets, freeways, parks, places & landmarks: © OpenStreetMap contributors (ODbL)",
  "example": {
   "at": [
    -37.8183,
@@ -189,6 +189,7 @@
      "trams",
      "bus",
      "vline",
+     "coach",
      "build",
      "hwy"
     ],
@@ -574,6 +575,17 @@
      "note": "Regional trains from Southern Cross to Geelong, Ballarat, Bendigo, Seymour and Gippsland",
      "on": true,
      "hover": "{name} · {to}"
+    },
+    {
+     "id": "coach",
+     "kind": "regional",
+     "mode": "coach",
+     "under": "vline",
+     "file": "transit_routes",
+     "lazy": true,
+     "stopZoom": 12,
+     "name": "V/Line coaches",
+     "note": "Road coaches across Victoria and to the border towns, most from Southern Cross. Stops from zoom 15"
     },
     {
      "id": "hwy",
@@ -1245,6 +1257,11 @@
      "bus",
      "Buses",
      false
+    ],
+    [
+     "coach",
+     "V/Line coaches",
+     false
     ]
    ],
    "night": "Overnight",
@@ -1254,9 +1271,10 @@
    "nightOnly": "overnight only",
    "kinds": {
     "tram": "Tram route",
-    "bus": "Bus route"
+    "bus": "Bus route",
+    "coach": "V/Line coach route"
    },
-   "note": "Routes with a stop within 400 m, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. Transport Victoria schedules, week of {week}."
+   "note": "Routes with a stop within 400 m, about a 5-minute walk. Numbers with a double ring come every 10 minutes or better on weekdays. Tap a number to draw the route. Transport Victoria and V/Line schedules, week of {week}."
   },
   "vote": {
    "file": "voting",

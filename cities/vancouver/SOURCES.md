@@ -84,3 +84,5 @@ Quirks:
 - Parks, playgrounds, tennis courts, off-leash areas, community centres and bike paths/lanes: OpenStreetMap via Overpass
   (`fetch_uel.py`, ODbL). Bike ways are written in the City's Bikeways types and added by engine/bikes.py (`extra`).
 - Streets, landmarks and known-as names: the same OSM fetches as the city's, clipped to the city plus the UEL.
+
+Routes page, November 15, 2026: the West Coast Express come from the same agency GTFS as the buses (surface.json `rapid`, mode `rail`).

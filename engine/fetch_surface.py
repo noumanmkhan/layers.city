@@ -315,7 +315,9 @@ for r in rows('trips.txt'):
     if rid_ not in routes: continue
     trip_route[r['trip_id']] = rid_
     # "schedDirs": each direction timed on its own ("LW@0"), for an agency whose stations are one stop for both ways (GO, V/Line).
-    if SCHED: svc_of[r['trip_id']] = (routes[rid_]['short'] + ('@' + dir_ if CFG.get('schedDirs') else ''), r['service_id'])
+    # (true for the whole feed, or a list of modes: Dallas's ["rail"], the TRE in DART's own feed)
+    _sd = CFG.get('schedDirs')
+    if SCHED: svc_of[r['trip_id']] = (routes[rid_]['short'] + ('@' + dir_ if _sd is True or (isinstance(_sd, list) and routes[rid_]['mode'] in _sd) else ''), r['service_id'])
     days = [active(r['service_id'], d) for d in WEEK]
     if not any(days): continue
     trips[r['trip_id']] = (rid_, dir_, r.get('shape_id', ''), days)
@@ -415,6 +417,8 @@ if SCHED:
     # "schedGap": 0 keeps every departure as its own span (a regional train or coach every hour or two, with no live
     # feed: the page then always says when the next one leaves).
     GAP = CFG.get('schedGap', 90)
+    # "schedExact": modes timed departure by departure whatever the feed's gap (a regional line in a city agency's feed)
+    EXACT = {routes[k]['short'] for k in routes if routes[k]['mode'] in CFG.get('schedExact', [])}
     tz = next((r.get('agency_timezone') for r in rows('agency.txt')), '')
     used = {sv for _, sv in svc_of.values()}
     today = dt.date.today()
@@ -432,11 +436,12 @@ if SCHED:
     lists, list_ix, out = [], {}, collections.defaultdict(dict)
     for (st, rs), bysv in times.items():
         row = []
+        gap = 0 if rs.split('@')[0] in EXACT else GAP
         for k in pats:
             ts = sorted({t for sv in k for t in bysv.get(sv, ())})
             spans = []
             for t in ts:
-                if spans and t - spans[-1] <= GAP: spans[-1] = t
+                if spans and t - spans[-1] <= gap: spans[-1] = t
                 else: spans += [t, t]
             key = tuple(spans)
             if key not in list_ix: list_ix[key] = len(lists); lists.append(spans)

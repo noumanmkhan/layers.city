@@ -86,7 +86,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .rb{display:inline-grid;place-items:center;box-sizing:border-box;height:26px;min-width:40px;padding:0 6px;border-radius:5px;font:700 14px/1 var(--body);background:#fff;color:#1A1414;box-shadow:inset 0 0 0 2px #1A1414;flex:none}
 .rb.big{height:40px;min-width:60px;font-size:20px;border-radius:7px}
 .ln.lb{width:28px;height:28px;font-size:14px}
-.ln.lb.dot{font-size:0}
+.ln.lb.dot,.ln.lb.dot.big{font-size:0}
+.ln.lb.n3{font-size:10px;letter-spacing:-.02em}.ln.lb.n3.big{font-size:14px}
 .ln.grp{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em}
 .ln.lb.big{width:40px;height:40px;font-size:20px}
 @media (max-width:520px){.ln.lb.big{width:34px;height:34px;font-size:17px}}
@@ -144,6 +145,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .tl li.region{padding-top:14px}
 .tl li.region::after{display:none}
 .tl li.region b{display:inline-block;font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.01em}
+.tl li.stn{display:block;white-space:normal}   /* the row is a list item, not a station chip: long "Change for" lists wrap */
 .tl li.stn::after{width:14px;height:14px;left:3px;top:10px;box-shadow:inset 0 0 0 3px var(--ink)}
 .tl li.end::after,.tl li.start::after{width:16px;height:16px;left:2px;top:9px;background:var(--accent);box-shadow:0 0 0 3px var(--card) inset}
 .tl li.on{background:var(--bg)}
@@ -337,7 +339,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     // A regional line (mode rail): its colour from routes.json page "lineColors" or the feed (R[6]); a name longer
     // than three letters (Albury, BNSF) is a plain dot, the line's name beside it.
     if (R[2] === 'rail') { const c = (RS.lineColors || {})[R[0].toLowerCase()] || R[6];
-      return el('span', { class: `ln lb l${R[0]}${R[0].length > 3 ? ' dot' : ''}${big ? ' big' : ''}`, style: c ? `background:${c}` : null, 'aria-hidden': 'true' }, R[0]); }
+      return el('span', { class: `ln lb l${R[0]}${R[0].length > 3 ? ' dot' : R[0].length === 3 ? ' n3' : ''}${big ? ' big' : ''}`, style: c ? `background:${c}` : null, 'aria-hidden': 'true' }, R[0]); }
     return isRapid(rid) ? el('span', { class: `ln lb l${R[0]}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0])
       : el('span', { class: `rb ${routeCls(R)}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0]); };
   // A group's lines (BART's colours) as one bullet with the group's name (routes.json page "lineGroups").
@@ -483,7 +485,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const fs = (await Promise.all(bs.map(b => schedFiles.get(b)))).filter(Boolean);
     if (!fs.length) return null;
     const S = Object.assign({}, fs[0], { stops: {} });   // one view over them: each stop's rows carry their own file's span lists
-    fs.forEach(f => Object.entries(f.stops).forEach(([sid, v]) => { S.stops[sid] = Object.fromEntries(Object.entries(v).map(([r, ix]) => [r, ix.map(i => f.spans[i])])); }));
+    // A row from another agency's feed (GO, V/Line) is {f, r}: its kinds of day are that feed's own (S.feeds[f - 1]).
+    fs.forEach(f => Object.entries(f.stops).forEach(([sid, v]) => { S.stops[sid] = Object.fromEntries(Object.entries(v).map(([r, ix]) =>
+      [r, Array.isArray(ix) ? ix.map(i => f.spans[i]) : Object.assign(ix.r.map(i => f.spans[i]), { f: ix.f })])); }));
     return S;
   }
   function cityNow(tz) {
@@ -492,14 +496,17 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     return { day: Date.UTC(+p.year, +p.month - 1, +p.day), min: +p.hour * 60 + +p.minute };
   }
   // The next scheduled departure as {day offset, minute of that day}, or null while the route is running (or unknown).
-  function nextSched(S, sid, rid) {
-    const v = S && S.stops[sid] && S.stops[sid][rid];
+  function nextSched(S, sid, rid, k) {
+    // A route timed by direction ("<route>@<dir>": GO and V/Line stations are one stop for both ways): this pattern's.
+    const dir = k != null && D.routes[rid][5][k] ? D.routes[rid][5][k][7] : null;
+    const v = S && S.stops[sid] && ((dir != null && S.stops[sid][rid + '@' + dir]) || S.stops[sid][rid]);
     if (!v) return null;
     const { day, min } = cityNow(S.tz || 'UTC');
     let next = Infinity;
+    const cal = v.f ? S.feeds[v.f - 1] : S;   // the feed's own calendar
     for (let o = -1; o <= 7; o++) {
       const d = new Date(day + o * 864e5), iso = d.toISOString().slice(0, 10);
-      const k = iso in S.days ? S.days[iso] : S.week[(d.getUTCDay() + 6) % 7];
+      const k = iso in cal.days ? cal.days[iso] : cal.week[(d.getUTCDay() + 6) % 7];
       const sp = v[k] || [];
       for (let i = 0; i < sp.length; i += 2) {
         const a = sp[i] + o * 1440, b = sp[i + 1] + o * 1440;
@@ -516,8 +523,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
     return `${h % 12 || 12}:${mm} ${h < 12 ? AMPM[0] : AMPM[1]}`;
   }
-  function schedEl(S, sid, rid, long) {
-    const n = nextSched(S, sid, rid);
+  function schedEl(S, sid, rid, long, k) {
+    const n = nextSched(S, sid, rid, k);
     if (!n) return null;
     const when = n.o === 0 ? '' : n.o === 1 ? 'tomorrow ' : new Date(n.day + n.o * 864e5).toLocaleDateString('en-CA', { weekday: 'long', timeZone: 'UTC' }) + ' ';
     const w = WORD[D.routes[rid][2]] || 'bus';
@@ -528,11 +535,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       [`Next ${w} `, el('b', {}, when + 'at ' + clock(n.m)), long ? (lv ? ' · from the timetable; live times show once it’s on its way' : ' · from the timetable' + (noLive(rid) ? ` (${noLive(rid)})` : '')) : '']);
   }
   // What a row shows: live times, else (when the route isn't running) the next scheduled one, else how often it runs.
-  function arrivalsEl(j, S, sid, rid, long) {
-    if (noLive(rid)) return schedEl(S, sid, rid, long) || everyEl(rid, long);
+  function arrivalsEl(j, S, sid, rid, long, k) {
+    if (noLive(rid)) return schedEl(S, sid, rid, long, k) || everyEl(rid, long);
     const ts = j ? nextAt(j, sid, rid) : [];
     if (ts.length) return timesEl(ts, long);
-    return schedEl(S, sid, rid, long) || (j ? timesEl(ts, long) : '');
+    return schedEl(S, sid, rid, long, k) || (j ? timesEl(ts, long) : '');
   }
 
   // One refresh loop for whatever is on screen, every 30 s, paused while the page is hidden.
@@ -562,7 +569,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       el('span', { class: 'live' }),
       via,
     ]);
-    b.dataset.sid = sid; b.dataset.rid = x.rid;
+    b.dataset.sid = sid; b.dataset.rid = x.rid; b.dataset.k = x.k;
     b.addEventListener('click', () => openRoute(sid, x.rid, x.k, true));
     return b;
   }
@@ -601,7 +608,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       // The timetable only when some row has no live times.
       const want = rowsShown.filter(r => noLive(r.dataset.rid) || !nextAt(j, r.dataset.sid, r.dataset.rid).length).map(r => r.dataset.sid);
       const S = want.length ? await loadSched(want) : null;
-      rowsShown.forEach(r => r.querySelector('.live').replaceChildren(arrivalsEl(j, S, r.dataset.sid, r.dataset.rid) || ''));
+      rowsShown.forEach(r => r.querySelector('.live').replaceChildren(arrivalsEl(j, S, r.dataset.sid, r.dataset.rid, false, +r.dataset.k) || ''));
     });
   }
 
@@ -865,7 +872,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     startLive(async () => {
       const j = noLive(rid) ? null : await fetchLive([sid]);
       const S = noLive(rid) || !nextAt(j, sid, rid).length ? await loadSched([sid]) : null;
-      $('rnext').replaceChildren(arrivalsEl(j, S, sid, rid, isRapid(rid) ? 'train' : true) || '');
+      $('rnext').replaceChildren(arrivalsEl(j, S, sid, rid, isRapid(rid) ? 'train' : true, k) || '');
     });
   }
 

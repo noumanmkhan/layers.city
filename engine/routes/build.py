@@ -37,14 +37,38 @@ N_OWN = len(RAW_S['stops'])   # the city's own stops: they set the metric projec
 # Other agencies' buses and coaches (routes.json "feeds": Toronto's GO buses, Melbourne's V/Line coaches), fetched by
 # fetch_surface.py into raw/surface/<feed>/: their routes and stops join the city's own. Their route ids and stop ids
 # are the agency's own; a stop id two feeds share would be one stop, so the build says so.
+# A feed whose route or stop ids clash with ids already taken (the LIRR's routes "1", "2"... and the subway's) gets its
+# ids namespaced, "lirr:1"; one that doesn't (GO's, BART's) keeps the agency's own ids, which live arrivals use.
+def _ids(fd):
+    rid_, sid_ = set(), set()
+    for n_ in ('routes.json', 'rapid_routes.json'):
+        p_ = os.path.join(RAW, 'surface', fd, n_)
+        if os.path.exists(p_): rid_ |= {r_['id'] for r_ in json.load(open(p_))['routes']}
+    for n_ in ('stops.json', 'rapid_stops.json'):
+        p_ = os.path.join(RAW, 'surface', fd, n_)
+        if os.path.exists(p_): sid_ |= {s_[0] for s_ in json.load(open(p_))['stops']}
+    return rid_, sid_
+# routes.json "sharedStops": feeds whose stop ids are the same stations as another's (UP Express and GO share
+# Metrolinx's station codes): their stops stay one stop.
+NS, NSR = {'': ''}, {'': ''}   # stop and route id prefixes, per feed
+_taken_r, _taken_s = _ids('')
+for fd in dict.fromkeys([f for f in CFG.get('feeds', []) + CFG.get('rapidFeeds', []) if f]):
+    r_, s_ = _ids(fd)
+    NSR[fd] = fd + ':' if r_ & _taken_r else ''
+    NS[fd] = fd + ':' if (s_ & _taken_s) and fd not in CFG.get('sharedStops', []) else ''
+    if NS[fd] or NSR[fd]: print(f'  feed {fd}: ids clash with another feed\'s, so they read "{fd}:<id>"')
+    _taken_r |= {NSR[fd] + x for x in r_}; _taken_s |= {NS[fd] + x for x in s_}
+def ns_routes(fd, rs):
+    if not NS.get(fd) and not NSR.get(fd): return rs
+    return [dict(r_, id=NSR[fd] + r_['id'], shapes=[dict(sh, stops=[NS[fd] + x for x in sh.get('stops', [])]) if 'stops' in sh else sh for sh in r_['shapes']]) for r_ in rs]
+def ns_stops(fd, ss):
+    return [[NS[fd] + s_[0]] + list(s_[1:]) for s_ in ss] if NS.get(fd) else ss
 for fd in CFG.get('feeds', []):
     fp = os.path.join(RAW, 'surface', fd, 'routes.json')
     if not os.path.exists(fp): print(f'  feed {fd}: not fetched yet'); continue
     have = {s_[0] for s_ in RAW_S['stops']}
-    more = json.load(open(os.path.join(RAW, 'surface', fd, 'stops.json')))['stops']
-    clash = [s_[0] for s_ in more if s_[0] in have]
-    if clash: print(f'  feed {fd}: {len(clash)} stop ids also in the main feed, e.g. {clash[:5]}')
-    RAW_R['routes'] += json.load(open(fp))['routes']
+    more = ns_stops(fd, json.load(open(os.path.join(RAW, 'surface', fd, 'stops.json')))['stops'])
+    RAW_R['routes'] += ns_routes(fd, json.load(open(fp))['routes'])
     RAW_S['stops'] += [s_ for s_ in more if s_[0] not in have]
 # Stop names as the map writes them (engine/surface.py stop_name, from surface.json "stopNames"): an agency that
 # writes them in capitals ("1 AV/E 14 ST") reads "1 Av/E 14 St". Kept in step with surface.py by hand.
@@ -250,8 +274,8 @@ RR, RS_ = [], []
 for fd in [''] + CFG.get('rapidFeeds', []):
     rp = os.path.join(RAW, 'surface', fd, 'rapid_routes.json')
     if not os.path.exists(rp): continue
-    RR += json.load(open(rp))['routes']
-    RS_ += json.load(open(os.path.join(RAW, 'surface', fd, 'rapid_stops.json')))['stops']
+    RR += ns_routes(fd, json.load(open(rp))['routes'])
+    RS_ += ns_stops(fd, json.load(open(os.path.join(RAW, 'surface', fd, 'rapid_stops.json')))['stops'])
 if RR:
     for s_ in RS_: stops[s_[0]] = s_
     for r in RR:
@@ -476,8 +500,9 @@ for r in routes:
             coords.append([*ll(x, y), round(line.project(Point(x, y)))])
         last = stops[seq[-1][1]]
         st_end = next(((n, lines) for n, lines, g in stations if g.distance(Point(*m(last[2], last[3]))) < 300), None)
+        # (a regional line's km ends at its last station: its shape runs on into the yard)
         p = {'k': len(pats), 'dir': sh['dir'], 'trips': sh['trips'], 'share': round(sh['trips'] / total, 2),
-             'head': head, 'km': round(L / 1000, 1), 'to': st_end[0] if st_end else re.sub(CFG.get('toStrip') or r'(?!x)x', '', last[1]).strip(), 'line': coords,
+             'head': head, 'km': round((seq[-1][0] if r['mode'] == 'rail' else L) / 1000, 1), 'to': st_end[0] if st_end else re.sub(CFG.get('toStrip') or r'(?!x)x', '', last[1]).strip(), 'line': coords,
              'stops': seq}
         p.update(story(line, 110 if r['id'] in rapid_ids else 18))   # a tunnel's drawn line strays further from the street above
         # A route that ends at a station connects there, even when its loop sits a little off the platform.
@@ -563,6 +588,10 @@ for sid, rs in stop_routes.items():
             # its patterns' way, if they agree. Not where a pattern ends: a terminal's arrival platform has no way.
             heads = {route_index[rid_][5][pk][0] for rid_, v in rs.items() if rid_ in route_index and rid_ in rapid_ids for pk, d in v}
             w = heads.pop() if len(heads) == 1 else None
+        # A regional station is one stop for every line and both ways (GO's Union): no one word fits it.
+        if any(route_index.get(k_, [None, None, None])[2] == 'rail' for k_ in rs):
+            hs_ = {route_index[k_][5][pk][0] for k_, v in rs.items() if k_ in route_index for pk, d in v if route_index[k_][5][pk][2] - d >= 300}
+            if len(hs_) > 1: w = wm = None
         side = f'{dir_label(w)} platform' if w else 'Platform'
         # The agency's own words for a platform's direction, as its signs say them (routes.json "platformLabels":
         # New York's "Uptown & The Bronx", from the MTA's stations list, keyed by the stop id without its N or S).
@@ -602,36 +631,32 @@ SCHED = None
 sd = os.path.join(OUT, 'data', 'sched')
 if os.path.isdir(sd):
     for f in os.listdir(sd): os.remove(os.path.join(sd, f))
-# The city's own timetable and those of the other feeds on this page (GO's), as one: each day's kind is the tuple of
-# each feed's kind that day (a feed's typical week for a day past its end), so every stop keeps its own feed's spans.
+# The city's own timetable and those of the other feeds on this page (GO's), in one set of files. Each extra feed keeps
+# its own calendar ("feeds": [{days, week}], in order): its rows are {"f": n, "r": [...]}, read against feeds[n - 1],
+# so a city's stops don't carry a row entry for every combination of two agencies' kinds of day.
 def merged_sched():
     scs = []
     for fd in [''] + [f for f in CFG.get('feeds', []) + CFG.get('rapidFeeds', []) if f]:
         p_ = os.path.join(RAW, 'surface', fd, 'sched.json')
         if os.path.exists(p_) and not any(fd == x for x, _ in scs): scs.append((fd, json.load(open(p_))))
     if not scs: return None
-    if len(scs) == 1: return scs[0][1]
-    import datetime as _dt
-    days = sorted({d for _, c in scs for d in c['days']})
-    kinds, kind_ix = [], {}
-    def kind(t):
-        if t not in kind_ix: kind_ix[t] = len(kinds); kinds.append(t)
-        return kind_ix[t]
-    wd = lambda d: _dt.date.fromisoformat(d).weekday()
-    out_days = {d: kind(tuple(c['days'].get(d, c['week'][wd(d)]) for _, c in scs)) for d in days}
-    out_week = [kind(tuple(c['week'][i] for _, c in scs)) for i in range(7)]
-    spans, stops_ = [], {}
-    for fi, (_, c) in enumerate(scs):
+    if scs[0][0] != '':   # no timetable of the city's own: the first feed's calendar is the main one
+        scs.insert(0, ('', {'days': {}, 'week': [0] * 7, 'spans': [], 'stops': {}, 'fetched': scs[0][1]['fetched'],
+                            'feed': scs[0][1]['feed'], 'tz': scs[0][1]['tz'], 'gap': scs[0][1]['gap']}))
+    main = scs[0][1]
+    if len(scs) == 1: return main
+    spans, stops_ = list(main['spans']), {k: dict(v) for k, v in main['stops'].items()}
+    for fi, (fd, c) in enumerate(scs[1:], 1):
         base = len(spans); spans += c['spans']
         for st, rs in c['stops'].items():
             for rr, row in rs.items():
-                stops_.setdefault(st, {})[rr] = [base + row[t[fi]] for t in kinds]
-    first = scs[0][1]
+                stops_.setdefault(NS.get(fd, '') + st, {})[rr] = {'f': fi, 'r': [base + i for i in row]}
     return {'fetched': max(c['fetched'] for _, c in scs), 'feed': [min(c['feed'][0] for _, c in scs), max(c['feed'][1] for _, c in scs)],
-            'tz': first['tz'], 'gap': first['gap'], 'days': out_days, 'week': out_week, 'spans': spans, 'stops': stops_}
+            'tz': main['tz'], 'gap': main['gap'], 'days': main['days'], 'week': main['week'],
+            'feeds': [{'days': c['days'], 'week': c['week']} for _, c in scs[1:]], 'spans': spans, 'stops': stops_}
 sc = merged_sched()
 if sc:
-    head = {k: sc[k] for k in ('fetched', 'feed', 'tz', 'gap', 'days', 'week')}
+    head = {k: sc[k] for k in ('fetched', 'feed', 'tz', 'gap', 'days', 'week', 'feeds') if k in sc}
     parts = [({}, {}, []) for _ in range(SCHED_N)]   # stops, span remap, span lists
     for st in out_stops:
         keep, remap, spans = parts[bucket(st[0])]
@@ -643,9 +668,9 @@ if sc:
             keys += [(f'{rid}@{d_}', got.get(f'{SHORT.get(rid, rid)}@{d_}')) for d_ in ('0', '1')]
             for key, v in keys:
                 if v is None: continue
-                for i in v:
+                for i in (v['r'] if isinstance(v, dict) else v):
                     if i not in remap: remap[i] = len(spans); spans.append(sc['spans'][i])
-                row[key] = [remap[i] for i in v]
+                row[key] = {'f': v['f'], 'r': [remap[i] for i in v['r']]} if isinstance(v, dict) else [remap[i] for i in v]
         if row: keep[st[0]] = row
     os.makedirs(sd, exist_ok=True)
     for b, (keep, _, spans) in enumerate(parts):

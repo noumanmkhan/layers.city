@@ -29,6 +29,7 @@ the project's claude/australia-scouting.md.
 | Where to vote (state election, November 28, 2026): early and election day voting centres | Victorian Electoral Commission, venues spreadsheet linked from vec.vic.gov.au/voting/2026-state-election/voting-locations (daily, `fetch-melbourne-voting.yml`) | CC BY 4.0 (© Victorian Electoral Commission) | `fetch_voting.py`, `voting.py` |
 | Where each voting centre is | Vicmap Address, via the Vicmap open data WFS (each venue's address looked up; kept in `raw/voting/sites.json`) | CC BY 4.0 | `fetch_voting.py` |
 | Trams and metropolitan buses (card's Transit nearby, bus layer) | Transport Victoria GTFS Schedule, folders 3 and 4 (`surface.json` "inner") | CC BY 4.0 | `engine/fetch_surface.py` |
+| V/Line trains and coaches (Routes page; V/Line coaches layer) | Transport Victoria GTFS Schedule, folders 1 and 5 (`surface.json` feed `vline`, November 15, 2026) | CC BY 4.0 | `engine/fetch_surface.py melbourne vline` |
 | Main streets, freeways, the Yarra, place points, landmark positions | OpenStreetMap via Overpass | ODbL (© OpenStreetMap contributors) | `fetch.py` |
 
 ## Quirks

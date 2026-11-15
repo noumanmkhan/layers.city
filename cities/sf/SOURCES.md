@@ -25,6 +25,7 @@ October 30, 2026 (report in `scouting/sf/out/`; notes in the project's sf-bay-da
 | `fetch_sweeping.py` | `sweeping.json` | Public Works' Street Sweeping Schedule (DataSF yhqp-riqs): per block side and day, side, hours, weeks of the month, line. `sweeping.py` writes `docs/sf/data/sweeping/` (squares for the card's Street sweeping row). |
 | `fetch_addresses.py` | `addresses.json` | The Enterprise Addressing System's base addresses (DataSF 3mea-di5p): number, street, position. `addresses.py` works out where each street's numbers start and which way they rise, into `docs/sf/data/addresses/` (squares for the card's Address row). |
 | `engine/fetch_surface.py sf bart` | `surface/bart/` | BART GTFS (bart.gov): its lines for the Routes page, each line's two directions joined (`merge`), and `trip_routes.json` for its live trip updates (api.bart.gov GTFS-Realtime), read by the arrivals function. |
+| `engine/fetch_surface.py sf caltrain` | `surface/caltrain/` | Caltrain's GTFS (Trillium, as `gtfs_rail.json`) for the Routes page (November 15, 2026): Local, Limited and Express joined as one line, every departure by direction. |
 | (fact sheets, venues) | `drive_points.json`, `drive_times.json`, `canopy/`, `subway_patterns.json`, `venue_*` | OSRM drive times to Montgomery St (fetch-drive-times.yml); ESA WorldCover 2021 canopy (fetch-canopy.yml); BART and Muni Metro service patterns from GTFS shapes (build.py); Ticketmaster Discovery API events and OSRM drives for the venues (refresh-venues.yml). Venue list and fares are hand-kept in venues.json |
 
 ## Quirks

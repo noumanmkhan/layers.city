@@ -60,3 +60,5 @@ Everything is fetched in GitHub Actions (`.github/workflows/fetch-dallas.yml`, b
   (PLANC2333) the November 2026 election uses, and the card looks members up in `us_house_2021.geojson`.
 - What isn't here, and why: `cities/dallas/PARKED.md`.
 - Overpass often times out; `fetch_lib.overpass` retries across three servers.
+
+Routes page, November 15, 2026: the Silver Line and the TRE come from the same agency GTFS as the buses (surface.json `rapid`, mode `rail`).
