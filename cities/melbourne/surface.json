@@ -48,7 +48,7 @@
   "mergeNumbers": true,
   "feeds": {
     "vline": {
-      "_about": "V/Line (November 15, 2026): its trains (folder 1) and road coaches (folder 5) from the same Transport Victoria zip, for the Routes page and the map's V/Line coaches layer. Each train service goes by the name V/Line gives its line (Albury, Shepparton and Seymour share the Seymour corridor), matched on the long name ('rapidMatch', trains only: 'rapidTypes'); the 'Pakenham Line (VLINE)' listing isn't one of them, so it's left out. Coaches keep mode 'coach' and a 'Coach ' prefix so their numbers can't collide with trams and buses. 'schedGap' 0 keeps every departure: V/Line has no live times on the page.",
+      "_about": "V/Line (November 15, 2026): its trains (folder 1) and road coaches (folder 5) from the same Transport Victoria zip, for the Routes page and the map's V/Line coaches layer. Each train service goes by the name V/Line gives its line (Albury, Shepparton and Seymour share the Seymour corridor), matched on the long name ('rapidMatch', trains only: 'rapidTypes'); the 'Pakenham Line (VLINE)' listing isn't one of them, so it's left out. Coaches (GTFS type 204) keep mode 'coach'; the feed names them all 'Coach', so each takes its route id's code ('idShort': V29) after a 'Coach ' prefix, unique and clear of tram and bus numbers; the page and map badges just say 'Coach'. 'schedGap' 0 keeps every departure: V/Line has no live times on the page.",
       "gtfs": {
         "ckan": "https://opendata.transport.vic.gov.au/api/3/action/package_show?id=gtfs-schedule",
         "inner": [
@@ -57,7 +57,7 @@
         ]
       },
       "types": [
-        "bus"
+        "coach"
       ],
       "mode": "coach",
       "prefix": "Coach ",
@@ -135,7 +135,9 @@
         ]
       ],
       "sched": true,
-      "schedGap": 0, "schedDirs": true
+      "schedGap": 0,
+      "schedDirs": true,
+      "idShort": "-05-([^:]+)"
     }
   }
 }

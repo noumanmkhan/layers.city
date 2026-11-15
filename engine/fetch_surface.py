@@ -217,6 +217,7 @@ def mode(t):
     t = int(t or -1)
     if t == 0 or 900 <= t <= 906: return 'tram'
     if t in (3, 11) or 700 <= t <= 716 or t == 800: return 'bus'   # 11 and 800: trolleybuses (San Francisco's Muni)
+    if 200 <= t <= 209: return 'coach'   # coach services (V/Line's road coaches): kept only where "types" lists them
     return None
 
 
@@ -260,6 +261,11 @@ for r in rows('routes.txt'):
         if first_id: remap[r['route_id']] = (first_id, None); continue
     if short in RAPID: m = RAPID[short]; RAPID_IDS.add(r['route_id'])
     elif not m or m not in TYPES or short in SKIP: continue
+    # "idShort": a pattern whose group, taken from the route id, is the route's short name: V/Line's coaches are all
+    # "Coach" in the feed, so "aus:vic:vic-05-V29:" becomes "V29" (shown after the feed's prefix).
+    if CFG.get('idShort') and short not in RAPID:
+        mm = re.search(CFG['idShort'], r['route_id'])
+        if mm: short = mm.group(1)
     routes[r['route_id']] = {'id': r['route_id'], 'short': (short if short in RAPID else PREFIX + short), 'long': CFG.get('longNames', {}).get(short, r.get('route_long_name', '')), 'mode': (m if short in RAPID else CFG.get('mode', m)),
                              'color': r.get('route_color', ''), 'text': r.get('route_text_color', '')}
 print('routes kept:', len(routes))

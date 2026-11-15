@@ -60,3 +60,9 @@
 .sub-line.lt86{stroke:#FFB500;stroke-width:2.5px}
 .sub-line.lt96{stroke:#C6007E;stroke-width:2.5px}
 .sub-line.lt109{stroke:#E87722;stroke-width:2.5px}
+/* V/Line coaches (mode "coach" in transit.json, from surface.json's vline feed): a dashed purple, so a coach on the
+   freeway doesn't read as a V/Line train; badges, stops, card chips and the panel swatch in the same purple. */
+.rt.coach{stroke:var(--vline);stroke-dasharray:6 4} .rt-b.coach{background:var(--vline);color:#fff;font-size:0} .rt-b.coach::after{content:'Coach';font-size:11px} .stop.coach{stroke:var(--vline);stroke-width:2}
+.rt-chip.coach{border-color:var(--vline)}
+#map:not(.z12) .rt.coach{stroke-width:2.4px}
+.sw.coach{background:var(--city) linear-gradient(90deg,var(--vline) 60%,transparent 0) 0 50%/8px 3px repeat-x}
