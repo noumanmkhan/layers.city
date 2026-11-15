@@ -29,7 +29,7 @@ SINGLE = ['Population, 2021', 'Median value of dwellings ($)', 'Median monthly s
 def get(url, accept='*/*', tries=5):
     for i in range(tries):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=dict(UA, Accept=accept)), timeout=300) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=dict(UA, Accept=accept)), timeout=120) as r:
                 return r.read()
         except Exception as e:
             print('  retry', i + 1, url[:160], e, flush=True); time.sleep(10 * (i + 1))
@@ -108,24 +108,51 @@ else:
     raise SystemExit('no key form works')
 dg = {svc(f['properties']['DGUID']): f['properties']['CTUID'] for f in feats if svc(f['properties']['DGUID'])}
 keys = sorted(dg)
+# The service times out on big asks: small batches, each cached in raw/gta_tracts/cache/ so a rerun picks up where the
+# last one stopped (the workflow commits the cache even when a run runs out of time). Failed batches are retried at the end.
+CACHE = os.path.join(OUT, 'cache'); os.makedirs(CACHE, exist_ok=True)
 out = defaultdict(dict)
-for i in range(0, len(keys), 40):
-    batch = keys[i:i + 40]
-    t = get(API + 'data/STC_CP,DF_CT/' + (KEY % '+'.join(batch)) + '?format=csv', 'text/csv').decode('utf-8-sig')
+def take(t):
     rows = list(csv.DictReader(io.StringIO(t)))
-    if i == 0: print('csv columns:', list(rows[0].keys()) if rows else None, flush=True)
-    if not rows: continue
+    if not rows: return
     cols = list(rows[0].keys())
-    gk = next(k for k in cols if 'GEO' in k.upper() or 'REF_AREA' in k.upper())
+    gk = next(k for k in cols if 'REF_AREA' in k.upper() or 'GEO' in k.upper())
     ck = next(k for k in cols if 'CHARACTERISTIC' in k.upper())
     vk = next(k for k in cols if k.upper() in ('OBS_VALUE', 'VALUE'))
     for r in rows:
         c = r[ck].split(':')[0].strip()
         if c not in keep: continue
         v = (r[vk] or '').strip()
-        out[dg.get(r[gk].split(':')[0].strip(), r[gk].split(':')[0].strip())][c] = float(v) if re.fullmatch(r'-?[\d.]+(E-?\d+)?', v) else None
-    if i // 40 % 10 == 0: print('  batch', i // 40 + 1, 'of', (len(keys) + 39) // 40, flush=True)
-    time.sleep(1)
+        g = r[gk].split(':')[0].strip()
+        out[dg.get(g, g)][c] = float(v) if re.fullmatch(r'-?[\d.]+(E-?\d+)?', v) else None
+N = 8
+batches = [keys[i:i + N] for i in range(0, len(keys), N)]
+todo = []
+for bi, batch in enumerate(batches):
+    f = os.path.join(CACHE, '%03d.csv' % bi)
+    if os.path.exists(f): take(open(f).read()); continue
+    todo.append(bi)
+print('batches:', len(batches), '· cached:', len(batches) - len(todo), flush=True)
+for rnd in range(3):
+    failed = []
+    for bi in todo:
+        try:
+            t = get(API + 'data/STC_CP,DF_CT/' + (KEY % '+'.join(batches[bi])) + '?format=csv', 'text/csv', tries=2).decode('utf-8-sig')
+        except Exception as e:
+            failed.append(bi); continue
+        # keep only the rows we use, so the cache stays small
+        rows = list(csv.DictReader(io.StringIO(t)))
+        if rows:
+            ck = next(k for k in rows[0] if 'CHARACTERISTIC' in k.upper())
+            buf = io.StringIO(); w = csv.DictWriter(buf, fieldnames=list(rows[0])); w.writeheader()
+            w.writerows(r for r in rows if r[ck].split(':')[0].strip() in keep); t = buf.getvalue()
+        open(os.path.join(CACHE, '%03d.csv' % bi), 'w').write(t); take(t)
+        if bi % 20 == 0: print('  batch', bi + 1, 'of', len(batches), flush=True)
+        time.sleep(1)
+    print('round', rnd + 1, 'failed:', len(failed), flush=True)
+    todo = failed
+    if not todo: break
+    time.sleep(120)
 labels = {c: '  ' * depth(c) + names[c] for c in sorted(keep, key=int)}
 json.dump({'source': 'Statistics Canada, 2021 Census of Population, Census Profile web data service (STC_CP, DF_CT)',
            'labels': labels, 'cts': out}, open(os.path.join(OUT, 'profile.json'), 'w'), separators=(',', ':'), ensure_ascii=False)
