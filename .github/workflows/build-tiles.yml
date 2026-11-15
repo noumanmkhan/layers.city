@@ -2,11 +2,18 @@ name: Build map tiles
 # Building outlines as PMTiles (engine/tiles/buildings.sh), uploaded to the R2 bucket layers-city-tiles that the Worker
 # serves at /tiles/. Run by hand (Overture publishes a new release about monthly; buildings change slowly), or by
 # pushing the build-tiles branch. Commits only the log line naming the release used.
+# Each city's area is the bbox in cities/<city>/region.json. Pushing the branch builds the cities in CITIES below.
 on:
   workflow_dispatch:
+    inputs:
+      cities:
+        description: City folders under cities/, space-separated
+        required: true
   push:
     branches: [build-tiles]
     paths: ['engine/tiles/**', '.github/workflows/build-tiles.yml']
+env:
+  CITIES: melbourne
 permissions:
   contents: write
 jobs:
@@ -27,12 +34,15 @@ jobs:
           sudo apt-get update -qq && sudo apt-get install -y -qq build-essential libsqlite3-dev zlib1g-dev >/dev/null
           git clone --depth 1 https://github.com/felt/tippecanoe /tmp/tc && make -C /tmp/tc -j4 >/dev/null && sudo make -C /tmp/tc install >/dev/null
           tippecanoe --version
-      - name: Toronto and the GTA
+      - name: Buildings for each city
         run: |
           set -o pipefail
-          bash engine/tiles/buildings.sh toronto -80.2 43.25 -78.4 44.55 2>&1 | tail -c 20000 | tee /tmp/build.log
-      - if: always()
-        run: mkdir -p cities/toronto/raw && cp /tmp/build.log cities/toronto/raw/buildings_tiles.log || true
+          for c in ${{ github.event.inputs.cities || env.CITIES }}; do
+            bb=$(python3 -c "import json; s,w,n,e=json.load(open('cities/$c/region.json'))['bbox']; print(w,s,e,n)")
+            mkdir -p cities/$c/raw
+            bash engine/tiles/buildings.sh $c $bb 2>&1 | grep -v '%  1[0-9]/' | tail -c 6000 | tee cities/$c/raw/buildings_tiles.log
+            rm -rf /tmp/tiles-$c
+          done
       - if: always()
         run: |
           git config user.name "github-actions[bot]"
