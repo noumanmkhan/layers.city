@@ -84,12 +84,33 @@ else:
         if on or names[c] in SINGLE: keep.add(c)
 print('characteristics kept:', len(keep), flush=True)
 
-dg = {f['properties']['DGUID']: f['properties']['CTUID'] for f in feats}
+# The geography code list: how the service spells a tract (print a few, then match ours to them).
+geo_cl = max((cl for k, cl in lists.items() if 'GEO' in k.upper() or 'AREA' in k.upper()), key=lambda cl: len(cl.findall('s:Code', ns)))
+geo_codes = [c.get('id') for c in geo_cl.findall('s:Code', ns)]
+print('geo code list', geo_cl.get('id'), len(geo_codes), 'codes; e.g.', geo_codes[:3], [g for g in geo_codes if '535' in g][:5], flush=True)
+dims = [d.get('id') for d in root.iter('{%s}Dimension' % ns['s'])]
+print('dimensions:', dims, flush=True)
+gset = set(geo_codes)
+def svc(dguid):
+    if dguid in gset: return dguid
+    alt = [g for g in geo_codes if g.endswith(dguid[-10:])]
+    return alt[0] if alt else None
+probe = feats[0]['properties']['DGUID']
+print('probe', probe, '->', svc(probe), flush=True)
+for key in ('A5.%s.1..1', 'A5.%s.1.', 'A5.%s..', '.%s..'):
+    try:
+        t = get(API + 'data/STC_CP,DF_CT/' + (key % svc(probe)) + '?format=csv', 'text/csv', tries=1)
+        print('key works:', key, len(t), flush=True); KEY = key; break
+    except Exception as e:
+        print('key fails:', key, e, flush=True)
+else:
+    raise SystemExit('no key form works')
+dg = {svc(f['properties']['DGUID']): f['properties']['CTUID'] for f in feats if svc(f['properties']['DGUID'])}
 keys = sorted(dg)
 out = defaultdict(dict)
 for i in range(0, len(keys), 40):
     batch = keys[i:i + 40]
-    t = get(API + 'data/STC_CP,DF_CT/A5.' + '+'.join(batch) + '.1..1?format=csv', 'text/csv').decode('utf-8-sig')
+    t = get(API + 'data/STC_CP,DF_CT/' + (KEY % '+'.join(batch)) + '?format=csv', 'text/csv').decode('utf-8-sig')
     rows = list(csv.DictReader(io.StringIO(t)))
     if i == 0: print('csv columns:', list(rows[0].keys()) if rows else None, flush=True)
     if not rows: continue
