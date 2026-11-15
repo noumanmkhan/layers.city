@@ -6,7 +6,7 @@
 # known (h, f), for a flat fill now and 3D later. Tiles: MapLibre zoom 13 to 15 (the map shows buildings from its
 # zoom 15, which is MapLibre's 14), overzoomed beyond. Run in GitHub Actions (build-tiles.yml): needs duckdb (pip),
 # tippecanoe (built from source by the workflow), the AWS CLI (listing releases) and Wrangler with
-# CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID.
+# CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID (the token needs Workers R2 Storage: Write).
 set -euo pipefail
 CITY=$1; W=$2; S=$3; E=$4; N=$5
 WORK=${WORK:-/tmp/tiles-$CITY}; mkdir -p "$WORK"
