@@ -162,6 +162,10 @@ if res:
 # 'updated' is the date the list last changed, so a weekly run with no news leaves the file untouched.
 OUT = os.path.join(DOCS, 'representatives.json')
 new = {'wards': out_w, 'prov': out_p, 'fed': out_f}
+# Mayors beyond the city, hand-kept in gta_mayors.json (checked after each municipal election).
+gm = os.path.join(HERE, 'gta_mayors.json')
+if os.path.exists(gm):
+    new['gta_mayors'] = json.load(open(gm))['mayors']
 if out_t is not None: new['trustees'] = out_t
 if out_c is not None: new['council'] = out_c
 if out_m is not None: new['mayor'] = out_m

@@ -7,8 +7,8 @@
   community centre and emergency department, and how many parks, playgrounds and elementary and secondary schools are
   within 1 km (places of worship too while that layer is on). Libraries, centres, hospitals, playgrounds and places
   of worship from OpenStreetMap; schools from the Ministry of Education.
-- And a Representatives section with the MPP and MP for that spot, across the whole GTA, linked to their official
-  pages. Mayors and councillors beyond Toronto aren't listed yet.
+- And a Representatives section: the mayor elected on October 26 for the 2026–2030 term (all 24 municipalities), and
+  the MPP and MP for that spot, linked to their official pages. Ward councillors beyond Toronto aren't listed yet.
 - Fixed: the card had shown Toronto's mayor as a vacant seat since the City retitled the mayor's page.
 
 ### The GTA filled in: streets, parks and land use beyond Toronto (November 15)

@@ -4115,7 +4115,7 @@ function representatives(hits, outside){
   // Skip the section outside the city: the first office drawn on a layer (a citywide office such as a mayor has none) has no hit.
   const R = data.reps, base = CITY.card.reps, first = base && base.offices.find(o => o.layer);
   const cfg = outside ? base && base.outside && Object.assign({}, base, base.outside, {trustees: null, ballot: null}) : base;
-  if (!R || !cfg || (outside ? !cfg.offices.some(o => o.file && hits['file:' + o.file]) : !first || !hits[first.layer])) return '';
+  if (!R || !cfg || (outside ? !cfg.offices.some(o => (o.file && hits['file:' + o.file]) || (o.muni && hits.muni)) : !first || !hits[first.layer])) return '';
   const link = r => r && r.name ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">' + esc(r.name) + '</a>' : '<span class="vacant">Seat currently vacant</span>';
   const row = (role, r, sub) => '<dt>' + role + '</dt><dd>' + link(r) + (sub ? '<span>' + esc(sub) + '</span>' : '') + '</dd>';
   const date = new Date(...R.updated.split('-').map((v, i) => +v - (i === 1))).toLocaleDateString(CITY.locale, {month:'long', day:'numeric', year:'numeric'});
@@ -4126,6 +4126,8 @@ function representatives(hits, outside){
       // A ballot-only row (o.ballot {table, key}: a statewide race such as U.S. Senate): no member, just the race,
       // shown only while the race is (see raceRow).
       if (o.ballot){ const race = (R[o.ballot.table] || {})[o.ballot.key]; return race ? raceRow(Object.assign({race: o.ballot}, o), null, race, o.sub || '', link, o.ballot.key) : ''; }
+      // Beyond the city, an office keyed by the municipality the spot is in (o.muni: a mayor), from hits.muni.
+      if (o.muni){ const m = hits.muni, r = m && (R[o.table] || {})[m.properties.name]; return r ? row(o.role, r, fill(o.sub || '', {m: m.properties, r})) : ''; }
       // A citywide office (o.citywide: the record's key, e.g. a mayor) is the same everywhere in the city.
       if (o.citywide){
         const r = (R[o.table] || {})[o.citywide]; if (!r) return '';
@@ -4257,7 +4259,7 @@ function cardOf(latlng, title, muniName){
     // CITY.outside.muniLabel: what the areas beyond the city are called on the card (Hyderabad's are mandals).
     const bounds = '<dl class="facts"><dt>' + esc(CITY.outside.muniLabel || 'Municipality') + '</dt><dd>' + esc(m.name) + '</dd><dt>' + esc((CITY.focus && CITY.focus.noun) || 'Region') + '</dt><dd>' + esc(rp) + '</dd>' + orows + '</dl>';
     // Nearby and Representatives beyond the city, where the city has the data (card.outsideNearby, card.reps.outside).
-    const rh = {}; REP_FILES.forEach(f => { rh['file:' + f] = hit(data.repAreas[f], x, y); });
+    const rh = {muni}; REP_FILES.forEach(f => { rh['file:' + f] = hit(data.repAreas[f], x, y); });
     const near = nearby(x, y, true), reps = representatives(rh, true);
     return {outside: true, x, y, m, heading: title || m.name, boundsSection: OF.length ? bounds : '', near, reps,
       pills: nearCommunity(x, y, title) + '<span class="pill"><i style="background:var(--land-out-line)"></i>' + esc(m.name) + '</span><span class="pill"><i style="background:var(--muni-label)"></i>' + esc(rp) + '</span>' + opills,

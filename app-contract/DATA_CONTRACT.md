@@ -7,6 +7,10 @@
 > maps each old id to its category. Nearby rows (`card.nearby.nearest`) now name `"layer:category"`
 > (`"worship:mosque"`) instead of the old layer id. The data files and feature `cat` values are unchanged.
 
+> **November 16, 2026, later:** `card.reps.outside.offices` may hold an office with `"muni": true` (Toronto: the mayor):
+> its member is `representatives.json[table][<municipality name>]`, the `base.geojson` neighbour the spot is in;
+> `sub` fills `{m.name}` from that feature. `representatives.json` gains `gta_mayors` (hand-kept,
+> `cities/toronto/gta_mayors.json`). Additive.
 > **November 16, 2026:** the card beyond the city (Toronto): `card.outsideNearby` (a Nearby section from
 > `gta_nearby.json`, same shape as `nearby.json`) and `card.reps.outside` (MPP and MP rows keyed by the card-only
 > boundary files `gta_prov.geojson` and `gta_fed.geojson`, `properties.name`; `representatives.json` `prov` and `fed`

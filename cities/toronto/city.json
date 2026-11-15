@@ -360,10 +360,11 @@
       "note": "Names open each person’s official page. Toronto councillors run without party labels. Checked weekly against those sites; last change {date}.",
       "outside": {
         "offices": [
+          {"role": "Mayor", "muni": true, "table": "gta_mayors", "sub": "{m.name} · 2026–2030 term"},
           {"role": "MPP", "file": "gta_prov", "table": "prov", "key": "name", "sub": "{r.party} · {f.name}"},
           {"role": "MP", "file": "gta_fed", "table": "fed", "key": "name", "sub": "{r.party} · {f.name}"}
         ],
-        "note": "Names open each person’s official page. Checked weekly against the Legislative Assembly’s and House of Commons’ sites; last change {date}. Mayors and councillors outside Toronto aren’t listed yet."
+        "note": "Names open each person’s official page. Checked weekly against the Legislative Assembly’s and House of Commons’ sites; last change {date}. Mayors are from the October 26, 2026 municipal election and link to the municipality’s website. Ward councillors outside Toronto aren’t listed yet."
       }
     }
   },

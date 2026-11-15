@@ -139,7 +139,9 @@ within 1 km; places of worship while that layer is on) and *Representatives* (MP
 Represent and the places from OpenStreetMap; `gta_card.py` writes `gta_nearby.json`, `gta_prov.geojson` and
 `gta_fed.geojson`, and `representatives.py` adds those ridings' members. Provincial ridings beyond the city are the 2013
 federal districts, which Ontario's Representation Act, 2015 adopted for southern Ontario (Elections Ontario's own
-shapefiles carry a licence that rules out derived products). Mayors and councillors beyond Toronto aren't listed yet.
+shapefiles carry a licence that rules out derived products). Mayors for the 2026–2030 term are hand-kept in `cities/toronto/gta_mayors.json` from the October 26, 2026 results
+(update it after each municipal election or by-election). Ward councillors beyond Toronto aren't listed yet: Open North's
+Represent still had the previous councils in mid-November 2026, so it wasn't used.
 
 **Parks:** an *Outdoors* group holds a *Parks* layer, off by default: every City park outline from the City's Green Spaces data, shaded green, named on hover. Chips narrow it to parks with a *Playground*, *Water play* (a splash pad or wading pool), a *Washroom* or an *Off-leash* area; pick several and a park needs all of them, while the rest fade to a faint wash so the green space still reads. Tap a park for what it has and its toronto.ca page. The amenities come from the City's parks list, matched to the outlines once at build time; the City's list names no splash pads, so those come from OpenStreetMap. A GitHub Action refreshes it all monthly.
 
