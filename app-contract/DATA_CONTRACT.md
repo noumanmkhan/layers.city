@@ -14,7 +14,8 @@
 > **November 16, 2026:** Melbourne fills in Greater Melbourne like Toronto's GTA: `streets`, `coll` and `parks` take
 > `more` files (`region_streets`, `region_collectors`, `region_parks`; the same shapes as `gta_*`), a `landuse` layer
 > (section 3), `buildings`, a `focus` council picker, `card.outsideFacts` (state and fed), `card.reps.outside`, and
-> `state.geojson`/`federal.geojson` now cover Greater Melbourne. Additive; schema stays 2.
+> `state.geojson`/`federal.geojson` now cover Greater Melbourne, and `lens.region` (`region_suburbs.geojson` {code, name},
+> `region_profiles.json`, fields as `suburb_profiles.json` plus `region: 1`) like Toronto's. Additive; schema stays 2.
 > **November 16, 2026:** a new layer kind `buildings` (Toronto): building outlines as vector tiles, not GeoJSON. The
 > layer has `url` (a PMTiles archive on the site, `/tiles/toronto/buildings.pmtiles`, served by byte range) instead of
 > `file`, `layer` (the tile layer name, default `buildings`) and `minZoom` (15). Tiles cover zoom 13 to 15 (overzoom past

@@ -8,6 +8,7 @@ mkdir -p tmp ../../docs/melbourne/data
 python3 build.py
 python3 landmarks.py
 python3 profiles.py             # after build.py: the suburb lens and Living here (2021 Census, SA1s)
+[ -f raw/census_sal.json ] && python3 region_profiles.py   # after profiles.py: the lens beyond the City, by suburb (fetch_sal_census.py)
 OUT=../../docs/melbourne/data
 simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
 npx mapshaper -i tmp/base.geojson -simplify interval=40 keep-shapes -filter-slivers min-area=20000m2 -filter "!this.isNull" -o $OUT/base.geojson precision=0.00005 format=geojson -quiet

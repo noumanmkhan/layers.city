@@ -98,6 +98,11 @@ def score(k):
     r, m = s['R_Tot_Total'], s['O_MTG_Total']
     return (r * rr.get(k, .5) + m * rm.get(k, .5)) / (r + m) if r + m else .5
 ranked = sorted(core, key=score)
+# For region_profiles.py: the City's rents, mortgages and the scores that split it into thirds, so a suburb beyond the
+# City is tiered against the same lines.
+_sc = [score(k) for k in ranked]
+json.dump({'rents': sorted(d['rent'] for d in core.values() if d['rent']), 'mortgages': sorted(d['mortgage'] for d in core.values() if d.get('mortgage')),
+           'cuts': [_sc[int(len(_sc) / 3)], _sc[int(2 * len(_sc) / 3)]]}, open(os.path.join(TMP, 'lens_cuts.json'), 'w'))
 for i, k in enumerate(ranked):
     data[k]['cost'] = 'lower' if i < len(ranked) / 3 else 'middle' if i < 2 * len(ranked) / 3 else 'higher'
 for d in core.values():

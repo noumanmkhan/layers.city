@@ -111,7 +111,7 @@
  "outside": {
   "beyond": "That spot is outside Greater Melbourne.",
   "regionPill": "{region}",
-  "note": "Outside the City of Melbourne. The suburbs and parts of the city on this map cover the City only.",
+  "note": "Outside the City of Melbourne. The parts of the city and known-as names on this map cover the City only.",
   "appNote": "Outside the City of Melbourne, so suburb and city details aren't shown here.",
   "appBeyond": "That spot is outside Greater Melbourne.",
   "muniLabel": "Suburb"
@@ -997,6 +997,7 @@
  "lens": {
   "label": "Suburb lens",
   "file": "suburb_profiles.json",
+  "region": {"units": "region_suburbs", "profiles": "region_profiles.json"},
   "source": "2021 Census (Australian Bureau of Statistics), Statistical Areas Level 1 grouped into suburbs.",
   "lenses": [
    {
@@ -1020,7 +1021,7 @@
       "--cost-3"
      ]
     ],
-    "note": "Median weekly rent and monthly mortgage repayment, weighted by renters and buyers, ranked into thirds across the City's suburbs. 2021 figures, not current prices."
+    "note": "Median weekly rent and monthly mortgage repayment, weighted by renters and buyers, ranked into thirds across the City's suburbs; suburbs beyond the City are placed against the same lines. 2021 figures, not current prices."
    },
    {
     "id": "tenure",
@@ -1195,8 +1196,9 @@
    }
   ],
   "living": {
-   "caveat": "2021 Census figures, not current prices; rents and repayments are averages of small-area medians. Rent is what renting households paid, counting long-time tenants and public housing, so it sits below what a new lease costs. Use them to compare suburbs, not to budget.",
+   "caveat": "2021 Census figures, not current prices; in the City, rents and repayments are averages of small-area medians; beyond it, each suburb’s own median. Rent is what renting households paid, counting long-time tenants and public housing, so it sits below what a new lease costs. Use them to compare suburbs, not to budget.",
    "footer": "2021 Census (Australian Bureau of Statistics), {name}. Counted in August 2021, in lockdown with the border shut, so the City's student population was low. Tiers compare the City of Melbourne's suburbs.",
+   "regionFooter": "2021 Census (Australian Bureau of Statistics), {name}. Counted in August 2021, in lockdown. Tiers use the same lines as the City of Melbourne’s suburbs, so a suburb here reads as a City suburb would.",
    "homes": {
     "label": "Home types",
     "types": [

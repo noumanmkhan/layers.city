@@ -15,6 +15,8 @@
   district and federal division, and the federal MP (state MPs follow the November 28 election).
 - A "Focus on a council" picker zooms to any of Greater Melbourne's 31 councils.
 - Buildings: every building outline across Greater Melbourne from zoom 15, as in Toronto.
+- The suburb lens and Living here now cover all of Greater Melbourne's 500-odd suburbs (2021 Census by suburb), tiered
+  against the City's own lines: housing cost, renters and owners, home types, languages, ages, recent arrivals.
 
 ### Buildings across the GTA (Toronto, November 16)
 - Zoom in anywhere in the GTA and every building is drawn: a new Buildings layer under Places, on from zoom 15, from the
