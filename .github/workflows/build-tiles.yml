@@ -1,0 +1,43 @@
+name: Build map tiles
+# Building outlines as PMTiles (engine/tiles/buildings.sh), uploaded to the R2 bucket layers-city-tiles that the Worker
+# serves at /tiles/. Run by hand (Overture publishes a new release about monthly; buildings change slowly), or by
+# pushing the build-tiles branch. Commits only the log line naming the release used.
+on:
+  workflow_dispatch:
+  push:
+    branches: [build-tiles]
+    paths: ['engine/tiles/**', '.github/workflows/build-tiles.yml']
+permissions:
+  contents: write
+jobs:
+  buildings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install duckdb
+      - name: tippecanoe
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq build-essential libsqlite3-dev zlib1g-dev >/dev/null
+          git clone --depth 1 https://github.com/felt/tippecanoe /tmp/tc && make -C /tmp/tc -j4 >/dev/null && sudo make -C /tmp/tc install >/dev/null
+          tippecanoe --version
+      - name: Toronto and the GTA
+        run: |
+          set -o pipefail
+          bash engine/tiles/buildings.sh toronto -80.2 43.25 -78.4 44.55 2>&1 | tail -c 20000 | tee /tmp/build.log
+      - if: always()
+        run: mkdir -p cities/toronto/raw && cp /tmp/build.log cities/toronto/raw/buildings_tiles.log || true
+      - if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/*/raw/buildings_tiles.log
+          git commit -m "Build the building-outline tiles" || echo "no changes"
+          git pull --rebase
+          git push

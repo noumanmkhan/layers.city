@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### Buildings across the GTA (Toronto, November 16)
+- Zoom in anywhere in the GTA and every building is drawn: a new Buildings layer under Places, on from zoom 15, from the
+  Overture Maps Foundation (OpenStreetMap plus traced footprints where it has none). The suburbs no longer look empty
+  up close. The map's first vector tiles, served from the site itself.
+
 ### What's here in the suburbs: Nearby and your MPP and MP (Toronto's region, November 16)
 - Tap anywhere in Halton, Peel, York or Durham and the card now has a Nearby section: the nearest library,
   community centre and emergency department, and how many parks, playgrounds and elementary and secondary schools are

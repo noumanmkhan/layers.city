@@ -11,6 +11,12 @@
 > its member is `representatives.json[table][<municipality name>]`, the `base.geojson` neighbour the spot is in;
 > `sub` fills `{m.name}` from that feature. `representatives.json` gains `gta_mayors` (hand-kept,
 > `cities/toronto/gta_mayors.json`). Additive.
+> **November 16, 2026:** a new layer kind `buildings` (Toronto): building outlines as vector tiles, not GeoJSON. The
+> layer has `url` (a PMTiles archive on the site, `/tiles/toronto/buildings.pmtiles`, served by byte range) instead of
+> `file`, `layer` (the tile layer name, default `buildings`) and `minZoom` (15). Tiles cover zoom 13 to 15 (overzoom past
+> 15); each feature is a `Polygon` with `h` (height in metres, when known) and `f` (floors, when known). Drawn as a flat
+> fill (`--bldg`, `--bldg-line` in `palette`); not tappable. An app that skips the kind loses nothing else. Additive;
+> schema stays 2.
 > **November 16, 2026:** the card beyond the city (Toronto): `card.outsideNearby` (a Nearby section from
 > `gta_nearby.json`, same shape as `nearby.json`) and `card.reps.outside` (MPP and MP rows keyed by the card-only
 > boundary files `gta_prov.geojson` and `gta_fed.geojson`, `properties.name`; `representatives.json` `prov` and `fed`

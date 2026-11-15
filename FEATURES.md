@@ -46,6 +46,7 @@ Toronto's geography is described in several overlapping ways at once. A single a
 | EV chargers | 582 public sites | DC fast and Level 2, by ports;<br>network, hours, price where listed |
 | Parks | 1,629 parks | City park outlines shaded green; playground,<br>water play, washroom, off-leash chips |
 | Parks beyond the city | ~2,900 | Parks and conservation areas across Halton,<br>Peel, York and Durham (OpenStreetMap); no amenities |
+| Buildings | GTA-wide | Building outlines across the GTA from zoom 15<br>(Overture Maps, mostly OpenStreetMap) |
 | Land use | 7 classes | Residential, commercial, industrial, farmland,<br>woods, cemeteries, quarries across the GTA,<br>a faint tint under everything (OpenStreetMap) |
 | Sports & rec | 592 places | Pools, rinks, ball diamonds, fields, tennis,<br>pickleball, basketball, skateparks, cricket |
 | GO Transit trains | 7 lines<br>+ UP Express | ~70 stations, Metrolinx<br>line colours |
@@ -131,6 +132,14 @@ farms, woods, cemeteries and quarries across the whole GTA, Toronto included, wi
 (`cities/toronto/fetch_gta_basemap.py`, run in GitHub Actions; `gta_basemap.py` builds `gta_streets`, `gta_collectors`,
 `gta_parks` and `landuse`). Land use is mapped by volunteers, so it is a guide to how land is used, not the zoning
 bylaw, and farmland is under-mapped in OpenStreetMap.
+
+*Buildings* (November 16, on by default from zoom 15): every building outline across the GTA, Toronto included, from
+the Overture Maps Foundation's buildings theme (OpenStreetMap plus machine-traced footprints where OSM has none).
+Too big for GeoJSON, so it is the site's first vector tile set: `engine/tiles/buildings.sh` (run by *Build tiles*,
+`.github/workflows/build-tiles.yml`, by hand when a new Overture release is worth taking) cuts the GTA's box out of
+Overture with DuckDB, builds a PMTiles archive with tippecanoe (zoom 13 to 15) and uploads it to the R2 bucket
+`layers-city-tiles`; the Worker serves `/tiles/*` from R2 by byte range with an edge cache, and the map reads it with
+the pmtiles protocol. A city adds the layer with `"kind": "buildings", "url": "/tiles/<city>/buildings.pmtiles"`.
 
 **The card beyond the city (November 16, 2026):** a spot in Halton, Peel, York or Durham gets a *Nearby* section
 (nearest library, community centre and emergency department; parks, playgrounds and elementary and secondary schools

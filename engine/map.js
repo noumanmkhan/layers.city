@@ -337,10 +337,16 @@ const KINDS = {
   },
   // clsBy: one more class per feature from a property ("evac evac-3"), for patches shaded by category in city.css.
   patches: (it, fc) => polyLayer(fc, {pane:'civic', cls: f => (it.cls || 'bia') + (it.clsBy ? ' ' + (it.cls || 'bia') + '-' + f.properties[it.clsBy] : ''), label: f => fill(it.label, f.properties), lcls: () => it.lcls || 'lbl-bia', hover: f => fill(it.hover, f.properties)}),
-  lens: (it, [fc, prof]) => {
-    const g = baked(fc, {pane:'fill', cls: f => lensClass(prof[String(f.properties.code)]),
+  // CITY.lens.region: the same lens over units beyond the city (Toronto: the GTA's census tracts), in their own file and
+  // profiles (merged into data.profiles under their own codes). The city's mask covers them in the city view.
+  lens: (it, [fc, prof, rfc]) => {
+    const opts = {pane:'fill', cls: f => lensClass(prof[String(f.properties.code)]),
       hover: f => { const t = tierOf(prof[String(f.properties.code)]); return esc(f.properties.name) + (t ? ' · ' + esc(t) : ''); },
-      tap: (f, e) => { inspect(e.latlng); }});
+      tap: (f, e) => { inspect(e.latlng); }};
+    const city = baked(fc, opts), reg = rfc && rfc.features.length ? baked(rfc, opts) : null;
+    if (!reg){ city._restyle = () => city._recls(); return city; }
+    const g = grp(); g.addLayer(reg); g.addLayer(city);
+    g._recls = () => { reg._recls(); city._recls(); };
     g._restyle = () => g._recls();
     return g;
   },
@@ -652,6 +658,21 @@ const KINDS = {
   // Parks: outlines shaded green, one path per park. Amenity chips (it.amenities, any mix) narrow it: a park that lacks
   // one of the picked amenities fades to a faint wash, so the green space still reads. Drawn in the civic pane, above the
   // neighbourhood fills, so a tap reaches the park. Tap for its name, what it has and its City page. Loads on first use.
+  // Building outlines: a vector tile source (it.url, a PMTiles file the Worker serves from R2 at /tiles/), a faint fill
+  // from it.minZoom (15) up, under every other layer but land use. Not tappable. Needs the PMTiles script (template.html).
+  buildings: it => {
+    const g = grp();
+    if (typeof pmtiles === 'undefined') return g;
+    if (!window._pmt){ window._pmt = new pmtiles.Protocol(); maplibregl.addProtocol('pmtiles', window._pmt.tile); }
+    const src = uid('bsrc');
+    gl.addSource(src, {type: 'vector', url: 'pmtiles://' + location.origin + it.url, attribution: it.credit || ''});
+    const P = pathProbe('bldg'), id = uid('bld');
+    addL(hidden({id, type: 'fill', source: src, 'source-layer': it.layer || 'buildings', minzoom: LZ(it.minZoom || 15)}), 'base');
+    styled(id, () => ({paint: {'fill-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'fill-opacity': byZoom(P, v => v.fill ? (v.disp ? 1 : 0) * v.op * v.fo : 0, 0),
+      'fill-outline-color': byZoom(P, v => v.stroke || v.fill, 'rgba(0,0,0,0)')}}));
+    g.ids.push(id);
+    return g;
+  },
   // Land use (OpenStreetMap): what the land is used for, a faint tint per class under everything else, so the region
   // reads as towns, industry, farms and woods rather than one grey plain. Not tappable: a tap still reads the place.
   landuse: (it, fc) => geo(fc, {pane:'base', interactive:false, cls: f => 'lu ' + f.properties.k, weight: () => 0}),
@@ -1368,7 +1389,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, landuse: -1, lens: 2, suburbs: 2, patches: 3, parks: 2.8, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, landuse: -1, buildings: 2.9, lens: 2, suburbs: 2, patches: 3, parks: 2.8, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -2045,7 +2066,7 @@ function livingHere(unit){
     langRow(T.lang, d) +
     mixRow(T.ages, d.ages, T.ages && T.ages.bands) +
     recentRow(T.recent, d) +
-    '</dl><p>' + esc(fill(T.footer, {name: d.name})) + '</p></div>';
+    '</dl><p>' + esc(fill(d.region && T.regionFooter ? T.regionFooter : T.footer, {name: d.name})) + '</p></div>';
 }
 /* Description rows (no tiers, never ranked): how homes split by type or by when they were built, as a
    small stacked bar and the shares in words. Shares under 1% are left out of the words. */
@@ -2356,12 +2377,13 @@ function cardOf(latlng, title, muniName){
     // Nearby and Representatives beyond the city, where the city has the data (card.outsideNearby, card.reps.outside).
     const rh = {muni}; REP_FILES.forEach(f => { rh['file:' + f] = hit(data.repAreas[f], x, y); });
     const near = nearby(x, y, true), reps = representatives(rh, true);
-    return {outside: true, x, y, m, heading: title || m.name, boundsSection: OF.length ? bounds : '', near, reps,
+    const ru = data.regionUnits && hit(data.regionUnits, x, y), live = ru ? livingHere(ru) : '';
+    return {outside: true, x, y, m, heading: title || m.name, boundsSection: OF.length ? bounds : '', near, reps, live,
       pills: nearCommunity(x, y, title) + '<span class="pill"><i style="background:var(--land-out-line)"></i>' + esc(m.name) + '</span><span class="pill"><i style="background:var(--muni-label)"></i>' + esc(rp) + '</span>' + opills,
       drive: driveHere(x, y, m),
       // For Compare: the same facts as rows, so they line up with a spot inside the city.
       sections: [['bounds', 'Boundaries', bounds],
-                 ['live', 'Living here', driveHere(x, y, m)],
+                 ['live', 'Living here', driveHere(x, y, m) + live],
                  ['near', 'Nearby', near],
                  ['reps', 'Representatives', reps]]};
   }
@@ -2674,7 +2696,7 @@ function inspect(latlng, title, muniName){
       '<div class="pills">' + c.pills + '</div>' + voteBox(c.x, c.y) + c.drive +
       (regionFeature(m.region) && focusKey !== m.region ? '<button type="button" class="focus-go">' + esc(fill(CITY.focus.show, {name: regionName(m.region)})) + '</button>' : '') +
       cmpRow + (c.boundsSection ? section('bounds', 'Boundaries', c.boundsSection) : '') +
-      (c.near ? section('near', 'Nearby', c.near) : '') + (c.reps ? section('reps', 'Representatives', c.reps) : '') +
+      (c.live ? section('live', 'Living here', c.live) : '') + (c.near ? section('near', 'Nearby', c.near) : '') + (c.reps ? section('reps', 'Representatives', c.reps) : '') +
       '<p class="outside-note">' + esc(CITY.outside.note) + '</p>' + reportBox(c.heading);
     wireCard(); wireReport(latlng, c.heading); drawVoteMark(c.x, c.y);
     const fg = here.querySelector('.focus-go'); if (fg) fg.onclick = () => setFocus(m.region, true);
@@ -4196,13 +4218,15 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
     CITY.regionPlaces ? get(CITY.regionPlaces.file).then(d => { data.regionPlaces = d; }).catch(() => { data.regionPlaces = null; }) : null,
     CITY.card.nearby ? get(CITY.card.nearby.file).then(d => { data.nearby = d; }).catch(() => { data.nearby = null; }) : null,
     CITY.card.outsideNearby ? get(CITY.card.outsideNearby.file).then(d => { data.outNearby = d; }).catch(() => { data.outNearby = null; }) : null,
+    CITY.lens.region ? Promise.all([get(CITY.lens.region.units), get(CITY.lens.region.profiles)]).then(([u, p]) => { data.regionUnits = u; data.regionProfiles = p; }).catch(() => { data.regionUnits = null; }) : null,
     ...REP_FILES.map(f => get(f).then(d => { data.repAreas[f] = d; }).catch(() => { data.repAreas[f] = null; })),
     CITY.drive ? get('drive_grid.json').then(d => { data.driveGrid = d; }).catch(() => { data.driveGrid = null; }) : null,
     CITY.focus ? get('region_areas').then(d => { data.regionAreas = d; }).catch(() => { data.regionAreas = null; }) : null, glReady]))
 .then(() => {
   holdStyles = true;   // looks are read from the CSS once, for every layer, after they're all made
   // it.more: files drawn with the layer's own (the region's streets beyond the city, kept apart so the city's file stays the City's).
-  const base = loaded.base, src = it => it.file ? (it.more && loaded[it.file] ? {type: 'FeatureCollection', features: [].concat(loaded[it.file].features, ...[].concat(it.more).map(f => (loaded[f] || {}).features || []))} : loaded[it.file]) : it.files.map(f => loaded[f]);
+  if (data.regionProfiles) Object.assign(data.profiles, data.regionProfiles);
+  const base = loaded.base, src = it => it.file ? (it.more && loaded[it.file] ? {type: 'FeatureCollection', features: [].concat(loaded[it.file].features, ...[].concat(it.more).map(f => (loaded[f] || {}).features || []))} : loaded[it.file]) : it.files ? it.files.map(f => loaded[f]) : null;
   LAYERS.filter(it => AREA_KINDS.includes(it.kind) || it.kind === 'boards').forEach(it => { data.layers[it.id] = loaded[it.file]; });
   Object.assign(data, {footprint: data.layers[CITY.footprint], units: UNITS && loaded[UNITS.file],
     knownas: byKind('knownas') && loaded[byKind('knownas').file], landmarks: byKind('landmarks') && loaded[byKind('landmarks').file],
@@ -4223,7 +4247,7 @@ Promise.all(files.map(f => get(f).catch(e => { if (OPTIONAL.has(f)) return {type
   CITY.lens.lenses.filter(L_ => L_.optional).forEach(L_ => {
     if (!Object.values(data.profiles).some(d => d[L_.minutes || L_.field || L_.key] != null)) document.querySelectorAll('[data-lens="' + L_.id + '"], .frow:has([data-f="' + L_.id + '"])').forEach(e => e.remove());
   });
-  ORDER.forEach(it => { layers[it.id] = PENDING.has(it.kind) ? pending(it) : KINDS[it.kind](it, it.kind === 'lens' ? [data.units, data.profiles] : it.kind === 'suburbs' ? base : src(it)); });
+  ORDER.forEach(it => { layers[it.id] = PENDING.has(it.kind) ? pending(it) : KINDS[it.kind](it, it.kind === 'lens' ? [data.units, data.profiles, data.regionUnits] : it.kind === 'suburbs' ? base : src(it)); });
   drawDriveLegend();
   ORDER.forEach(it => { if (state[it.id]) layers[it.id].addTo(map); });
   syncStnNames();

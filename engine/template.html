@@ -29,6 +29,7 @@
      red and white, US cities set it to blue for red, white and blue. */
   --bg:#F4F3EE; --panel:#FFFFFF; --ink:#23262B; --ink-2:#5D6168; --ink-3:#8A8E95; --rule:#E2E0D8; --accent:#C8102E; --accent-2:var(--accent); --focus:#2F7FD8; --scroll-thumb:rgba(35,38,43,.28);
   /* map */
+  --bldg:#D3CCBE; --bldg-line:#BDB5A6;
   --lu-res:#E2B98A; --lu-com:#E38497; --lu-ind:#A897D6; --lu-farm:#D8CB6A; --lu-wood:#7FB86E; --lu-cem:#93B59A; --lu-quarry:#B2A898; --lu-a:.3;
   --water:#CFE7F7; --land-out:#E6E3DA; --land-out-line:#C4C0B4; --land-far:#F2F1EC; --city:#FBFAF6; --city-line:#4A4E55; --muni-label:#8E8B82; --annex:#6E7F3A;
   /* civic */
@@ -54,6 +55,7 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --tram:#F0574D; --cmp-b:#2FAE9C; --chg-1:#8D9CF2; --chg-2:#F2BE52; --chg-3:#F27A52; --chg-4:#9AA6B2; --ag:#F08AAE; --ag-e:#5CC9C9; --ag-w:#F2A65A; --bus:#6F94EC; --bike:#B4F03A; --bike-2:#6E9E2A; --bike-trail:#D9A35E; --dock:#9CCB4E; --park:#6CC25A; --bg:#15171B; --panel:#1E2126; --ink:#ECEDEF; --ink-2:#AEB2B9; --ink-3:#7E838B; --rule:#30343B; --accent:#E5364F; --focus:#6CB2FF; --scroll-thumb:rgba(236,237,239,.3);
+  --bldg:#3A3E46; --bldg-line:#4A4F58;
   --lu-res:#C9925A; --lu-com:#C9566E; --lu-ind:#8A76C8; --lu-farm:#A99B3E; --lu-wood:#4E8C45; --lu-cem:#5E8466; --lu-quarry:#7F7668; --lu-a:.15;
   --water:#13283A; --land-out:#24272D; --land-out-line:#3E434B; --land-far:#1A1C20; --city:#2A2D33; --city-line:#C9CCD2; --muni-label:#7E838B; --annex:#B3C27A;
   --nbhd:#D7DADF; --nbhd-fill:#D7DADF; --ward:#B892F0; --prov:#F07AAE; --fed:#6CB2FF; --bia:#F39A45; --hd:#D2A877; --sbw:#4CC4AE; --in-university:#5FA8F5; --in-college:#E0A040; --in-hospital:#F06262; --in-mosque:#4ADE80; --in-gurdwara:#F5B53D; --in-synagogue:#9A9AF7; --in-hindu:#F472B6; --in-buddhist:#F08A5D; --in-church:#BDB7C3; --in-otherfaith:#A0AEC0; --in-library:#22D3EE; --in-centre:#FB923C; --in-cc:#FCD34D; --in-elementary:#A3E635; --in-secondary:#60A5FA; --in-halal:#3DD6C8; --in-kosher:#B794F6; --in-frschool:#7FA6F8; --in-immersion:#F0A04B; --in-pool:#38BDF8; --in-rink:#A5B4FC; --in-diamond:#E0B050; --in-field:#4ADE80; --in-tennis:#F59E0B; --in-pickleball:#F472B6; --in-basketball:#FB923C; --in-skatepark:#C4B5FD; --in-cricket:#A3E635; --cult:#ECEDEF; --cult-enclave:#F07AAE;
@@ -67,6 +69,7 @@
 }}
 :root[data-theme="dark"]{
   --tram:#F0574D; --cmp-b:#2FAE9C; --chg-1:#8D9CF2; --chg-2:#F2BE52; --chg-3:#F27A52; --chg-4:#9AA6B2; --ag:#F08AAE; --ag-e:#5CC9C9; --ag-w:#F2A65A; --bus:#6F94EC; --bike:#B4F03A; --bike-2:#6E9E2A; --bike-trail:#D9A35E; --dock:#9CCB4E; --park:#6CC25A; --bg:#15171B; --panel:#1E2126; --ink:#ECEDEF; --ink-2:#AEB2B9; --ink-3:#7E838B; --rule:#30343B; --accent:#E5364F; --focus:#6CB2FF; --scroll-thumb:rgba(236,237,239,.3);
+  --bldg:#3A3E46; --bldg-line:#4A4F58;
   --lu-res:#C9925A; --lu-com:#C9566E; --lu-ind:#8A76C8; --lu-farm:#A99B3E; --lu-wood:#4E8C45; --lu-cem:#5E8466; --lu-quarry:#7F7668; --lu-a:.15;
   --water:#13283A; --land-out:#24272D; --land-out-line:#3E434B; --land-far:#1A1C20; --city:#2A2D33; --city-line:#C9CCD2; --muni-label:#7E838B; --annex:#B3C27A;
   --nbhd:#D7DADF; --nbhd-fill:#D7DADF; --ward:#B892F0; --prov:#F07AAE; --fed:#6CB2FF; --bia:#F39A45; --hd:#D2A877; --sbw:#4CC4AE; --in-university:#5FA8F5; --in-college:#E0A040; --in-hospital:#F06262; --in-mosque:#4ADE80; --in-gurdwara:#F5B53D; --in-synagogue:#9A9AF7; --in-hindu:#F472B6; --in-buddhist:#F08A5D; --in-church:#BDB7C3; --in-otherfaith:#A0AEC0; --in-library:#22D3EE; --in-centre:#FB923C; --in-cc:#FCD34D; --in-elementary:#A3E635; --in-secondary:#60A5FA; --in-halal:#3DD6C8; --in-kosher:#B794F6; --in-frschool:#7FA6F8; --in-immersion:#F0A04B; --in-pool:#38BDF8; --in-rink:#A5B4FC; --in-diamond:#E0B050; --in-field:#4ADE80; --in-tennis:#F59E0B; --in-pickleball:#F472B6; --in-basketball:#FB923C; --in-skatepark:#C4B5FD; --in-cricket:#A3E635; --cult:#ECEDEF; --cult-enclave:#F07AAE;
@@ -259,6 +262,9 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font
 .lensbox .sub{margin:0}
 .sbw{fill:var(--sbw);fill-opacity:0;stroke:var(--sbw);stroke-width:2.6;stroke-dasharray:9 4}
 .sbw:hover{fill-opacity:.08}
+.bldg{fill:var(--bldg);fill-opacity:.8;stroke:var(--bldg-line);stroke-width:.5}
+#map:not(.z15) .bldg{display:none}
+.sw.k-buildings{background:color-mix(in srgb,var(--bldg) 80%,var(--city));box-shadow:inset 0 0 0 1px var(--bldg-line)}
 .lu{fill-opacity:var(--lu-a);stroke:none}
 #map:not(.z11) .lu.wood{display:none}
 .lu.res{fill:var(--lu-res)} .lu.com{fill:var(--lu-com)} .lu.ind{fill:var(--lu-ind)} .lu.farm{fill:var(--lu-farm)} .lu.wood{fill:var(--lu-wood)} .lu.cem{fill:var(--lu-cem)} .lu.quarry{fill:var(--lu-quarry)}
@@ -1107,6 +1113,7 @@ dl.facts dd span.ag-sub.pu-note{color:var(--ink-3);font-size:11px;margin-top:3px
 
 
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.1/dist/maplibre-gl.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pmtiles@4.5.0/dist/pmtiles.js"></script>
 <script>
 const CITY = /*CITY_CONFIG*/;
 /*ENGINE_JS*/

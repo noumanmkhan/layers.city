@@ -70,6 +70,8 @@
       {"id": "heritage", "kind": "districts", "file": "heritage", "name": "Heritage districts", "note": "29 Heritage Conservation Districts in force", "label": "{name}", "hover": "{name} Heritage Conservation District"},
       {"id": "hbld", "kind": "heritage", "file": "heritage_buildings", "name": "Heritage buildings", "note": "1,515 properties designated one by one (Part IV); from zoom 15", "place": "Designated heritage property", "builtText": "built {y}", "byText": "{ar}", "designatedText": "designated {d}", "bylawText": "By-law", "hcdText": "Also in (district)"},
       {"id": "bia", "kind": "patches", "file": "bia", "name": "Business Improvement Areas", "note": "85 BIAs", "label": "{name}", "hover": "{name} BIA"},
+      {"id": "bldg", "kind": "buildings", "url": "/tiles/toronto/buildings.pmtiles", "on": true, "minZoom": 15, "name": "Buildings", "note": "Building outlines across the GTA; from zoom 15",
+       "credit": "Buildings: © OpenStreetMap contributors, Overture Maps Foundation"},
       {"id": "landuse", "kind": "landuse", "file": "landuse", "on": true, "name": "Land use", "note": "Homes, shops, industry, farms and woods across the GTA",
        "key": {"res": "Residential", "com": "Commercial & retail", "ind": "Industrial", "farm": "Farmland", "wood": "Woods", "cem": "Cemeteries", "quarry": "Quarries"},
        "legend": "From OpenStreetMap, mapped by volunteers: a guide to how land is used, not the zoning bylaw."}
@@ -297,6 +299,7 @@
       "hubText": "About {minutes} min by transit, weekday morning",
       "caveat": "2021 Census figures, not current prices. Rent is what renting households paid, utilities included, counting long-time tenants, subsidized homes and basement suites, so it sits below what a new lease costs. Use them to compare neighbourhoods, not to budget.",
       "footer": "2021 Census and TTC/GO schedules, {name}. Tiers compare neighbourhoods across Toronto.",
+      "regionFooter": "2021 Census (Statistics Canada), {name}. Tiers use the same lines as Toronto’s neighbourhoods, so a tract reads as a Toronto neighbourhood would.",
       "homes": {"label": "Home types", "types": [["detached", "Detached"], ["attached", "Semi & row"], ["lowrise", "Low-rise"], ["tower", "Towers"]]},
       "built": {"label": "Built", "bands": ["1960 or before", "1961–80", "1981–2000", "2001–21"]},
       "lang": {"label": "Language at home", "floor": 5, "note": "The language each person speaks most often at home.[ Another {multi}% name two or more equally.]"},

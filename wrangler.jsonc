@@ -20,8 +20,11 @@
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
     // Only the API runs the Worker; every other request is a static file, served free.
-    "run_worker_first": ["/api/*"]
-  }
+    "run_worker_first": ["/api/*", "/tiles/*"]
+  },
+  // Map tiles too big for static assets (25 MiB a file): building outlines as PMTiles, read by byte range through
+  // /tiles/ (worker/index.js). Uploaded by .github/workflows/build-tiles.yml.
+  "r2_buckets": [{ "binding": "TILES", "bucket_name": "layers-city-tiles" }]
   // Secrets (set by deploy.yml from the repo's secrets, never in this file): FIVE11_KEY (San Francisco's Muni
   // times from 511.org), MTA_BUSTIME_KEY (New York's bus times). No logs or observability: the API keeps nothing.
 }
