@@ -45,5 +45,97 @@
   },
   "sched": true,
   "_rapid": "Metropolitan trains (folder 2) join the fetch for the Routes page only (November 13, 2026): the 17 lines by their GTFS short names, kept apart in raw/surface/rapid_*.json with each shape's platforms in order; the map still draws them from its own train layers. 'sched' writes the timetable the Routes page shows for next departures (live times would need a Transport Victoria API key).",
-  "mergeNumbers": true
+  "mergeNumbers": true,
+  "feeds": {
+    "vline": {
+      "_about": "V/Line (November 15, 2026): its trains (folder 1) and road coaches (folder 5) from the same Transport Victoria zip, for the Routes page and the map's V/Line coaches layer. Each train service goes by the name V/Line gives its line (Albury, Shepparton and Seymour share the Seymour corridor), matched on the long name ('rapidMatch', trains only: 'rapidTypes'); the 'Pakenham Line (VLINE)' listing isn't one of them, so it's left out. Coaches keep mode 'coach' and a 'Coach ' prefix so their numbers can't collide with trams and buses. 'schedGap' 0 keeps every departure: V/Line has no live times on the page.",
+      "gtfs": {
+        "ckan": "https://opendata.transport.vic.gov.au/api/3/action/package_show?id=gtfs-schedule",
+        "inner": [
+          "1/google_transit.zip",
+          "5/google_transit.zip"
+        ]
+      },
+      "types": [
+        "bus"
+      ],
+      "mode": "coach",
+      "prefix": "Coach ",
+      "simplify": 0.0002,
+      "rapid": {
+        "Geelong": "rail",
+        "Warrnambool": "rail",
+        "Ballarat": "rail",
+        "Ararat": "rail",
+        "Maryborough": "rail",
+        "Bendigo": "rail",
+        "Echuca": "rail",
+        "Swan Hill": "rail",
+        "Seymour": "rail",
+        "Shepparton": "rail",
+        "Albury": "rail",
+        "Traralgon": "rail",
+        "Bairnsdale": "rail"
+      },
+      "rapidTypes": [
+        "2"
+      ],
+      "rapidMatch": [
+        [
+          "^Geelong - Melbourne",
+          "Geelong"
+        ],
+        [
+          "^Warrnambool - Melbourne",
+          "Warrnambool"
+        ],
+        [
+          "^Ballarat(/Wendouree)? - Melbourne",
+          "Ballarat"
+        ],
+        [
+          "^Ararat - Melbourne",
+          "Ararat"
+        ],
+        [
+          "^Maryborough - Melbourne",
+          "Maryborough"
+        ],
+        [
+          "^Bendigo - Melbourne",
+          "Bendigo"
+        ],
+        [
+          "^Echuca(/Moama)? - Melbourne",
+          "Echuca"
+        ],
+        [
+          "^Swan Hill - Melbourne",
+          "Swan Hill"
+        ],
+        [
+          "^Seymour - Melbourne",
+          "Seymour"
+        ],
+        [
+          "^Shepparton - Melbourne",
+          "Shepparton"
+        ],
+        [
+          "^Albury - Melbourne",
+          "Albury"
+        ],
+        [
+          "^Traralgon - Melbourne",
+          "Traralgon"
+        ],
+        [
+          "^Bairnsdale - Melbourne",
+          "Bairnsdale"
+        ]
+      ],
+      "sched": true,
+      "schedGap": 0
+    }
+  }
 }

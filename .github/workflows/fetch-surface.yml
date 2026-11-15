@@ -55,7 +55,7 @@ jobs:
   # others rather than after them (a slow Overpass server for another city once used up the shared job's time).
   melbourne:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 55
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -64,10 +64,15 @@ jobs:
       - run: pip install shapely
       - name: Fetch, and rebuild if the feed changed
         run: |
-          c=melbourne; d=cities/$c/raw/surface; mkdir -p $d
-          ( set -o pipefail; python3 -u engine/fetch_surface.py $c 2>&1 | tee /tmp/fetch-$c.log ) \
-            || echo "::warning::$c fetch failed: $(tail -2 /tmp/fetch-$c.log | tr '\n' ' ' | cut -c1-900)"
-          changed=; if [ -n "$(git status --porcelain -- $d/routes.json)" ]; then cp /tmp/fetch-$c.log $d/fetch.log; changed=1; fi
+          c=melbourne; changed=
+          # Its own trams and buses, then the feeds in its surface.json (V/Line's trains and coaches).
+          for f in "" $(python3 -c "import json; print(' '.join(json.load(open('cities/$c/surface.json')).get('feeds', {})))"); do
+            d=cities/$c/raw/surface${f:+/$f}; mkdir -p $d
+            ( set -o pipefail; python3 -u engine/fetch_surface.py $c $f 2>&1 | tee /tmp/fetch-$c-$f.log ) \
+              || echo "::warning::$c ${f:-} fetch failed: $(tail -2 /tmp/fetch-$c-$f.log | tr '\n' ' ' | cut -c1-900)"
+            if [ -n "$(git status --porcelain -- $d/routes.json)" ]; then cp /tmp/fetch-$c-$f.log $d/fetch.log; changed=1; fi
+          done
+          d=cities/$c/raw/surface
           if [ -n "$changed" ] || [ "${{ github.event_name }}" != "schedule" ]; then if [ -f $d/routes.json ]; then python3 -u engine/surface.py $c; fi; fi
       - run: |
           git config user.name "github-actions[bot]"
