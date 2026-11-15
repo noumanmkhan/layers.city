@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches: [fetch-gta-card]
-    paths: ['cities/toronto/fetch_gta_card.py', '.github/workflows/fetch-gta-card.yml']
+    paths: ['cities/toronto/fetch_gta_card.py', 'cities/toronto/fetch_gta_councils.py', '.github/workflows/fetch-gta-card.yml']
 permissions:
   contents: write
 jobs:
@@ -20,6 +20,7 @@ jobs:
           python-version: '3.12'
       - run: pip install openpyxl
       - run: python3 -u cities/toronto/fetch_gta_card.py
+      - run: python3 -u cities/toronto/fetch_gta_councils.py
       - run: mkdir -p cities/toronto/raw/schools && python3 -u cities/toronto/fetch_schools.py 2>&1 | tee cities/toronto/raw/schools/fetch.log
       - run: |
           git config user.name "github-actions[bot]"
