@@ -1,0 +1,12 @@
+Overture release: 2026-10-21.0
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+_duckdb.Error: GDAL COPY TO with an SRS is sensitive to the coordinate axis order.
+DuckDB GEOMETRY uses [EASTING, NORTHING] (= LONGITUDE, LATITUDE) internally.
+Unless 'geometry_always_xy' is enabled, GDAL interprets coordinates in authority-defined order
+(e.g., [LATITUDE, LONGITUDE] for EPSG:4326), causing incorrect output in KML and similar formats.
+In DuckDB v2.0, the 'geometry_always_xy' setting must be set explicitly to use this functionality.
+In DuckDB v2.1, 'geometry_always_xy = true' will become the default.
+To make this error go away:
+ * 'SET geometry_always_xy = true' to always assume [EASTING, NORTHING] (= LONGITUDE, LATITUDE) axis order (recommended)
+ * 'SET geometry_always_xy = false' to keep the pre-v2.0 behavior
