@@ -2,6 +2,13 @@
 
 ## Since 1.1
 
+### Ferries (Toronto, November 13)
+- A Ferries layer under Getting around (off by default, on in the Transit view): the City's three Toronto Island
+  routes from Jack Layton Ferry Terminal to Ward's Island, Centre Island and Hanlan's Point, each in its own colour,
+  and PortsToronto's airport ferry from Eireann Quay to Billy Bishop. Routes and docks from the City's Toronto
+  Centreline, where every ferry crossing is its own feature (no ferry GTFS exists). The note says which routes run
+  in winter (Ward's Island only).
+
 ### A 3D view: towers rise and landmarks stand up (November 13)
 - A 3D button beside Share and Image tilts the map, turns Skyscrapers on (and ticks its box), and raises every tower
   as a column at its real height, coloured by use; towers under construction are see-through. Drag rotates and two

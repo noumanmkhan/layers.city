@@ -11,6 +11,7 @@ python3 build.py
 python3 streets.py
 python3 landmarks.py
 python3 go.py
+python3 ferries.py           # Island and airport ferries from the City centreline (raw/ferries/, fetch_ferries.py by hand)
 python3 profiles.py
 [ -f raw/canopy/canopy.json ] && python3 ../../engine/canopy.py toronto   # after profiles: tree canopy per unit (fetch-canopy.yml)
 python3 parking.py            # after profiles: Green P, EV chargers, permit areas and each neighbourhood's permit share (fetch-toronto-parking.yml)
