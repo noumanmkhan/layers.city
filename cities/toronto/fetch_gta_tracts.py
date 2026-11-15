@@ -39,7 +39,7 @@ def get(url, accept='*/*', tries=5):
 # ---------- boundaries ----------
 layers = json.loads(get(GEO + '?f=json'))['layers']
 print('layers:', [(l['id'], l['name']) for l in layers], flush=True)
-ct_layer = next(l['id'] for l in layers if re.search(r'(?i)census tract', l['name']))
+ct_layer = next(l['id'] for l in layers if re.match(r'CT\b', l['name']))
 feats, start = [], 0
 where = ' OR '.join("CTUID LIKE '%s%%'" % c for c in CMAS)
 while True:
