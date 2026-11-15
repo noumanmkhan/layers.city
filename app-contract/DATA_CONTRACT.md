@@ -11,6 +11,10 @@
 > its member is `representatives.json[table][<municipality name>]`, the `base.geojson` neighbour the spot is in;
 > `sub` fills `{m.name}` from that feature. `representatives.json` gains `gta_mayors` (hand-kept,
 > `cities/toronto/gta_mayors.json`). Additive.
+> **November 16, 2026:** Melbourne fills in Greater Melbourne like Toronto's GTA: `streets`, `coll` and `parks` take
+> `more` files (`region_streets`, `region_collectors`, `region_parks`; the same shapes as `gta_*`), a `landuse` layer
+> (section 3), `buildings`, a `focus` council picker, `card.outsideFacts` (state and fed), `card.reps.outside`, and
+> `state.geojson`/`federal.geojson` now cover Greater Melbourne. Additive; schema stays 2.
 > **November 16, 2026:** a new layer kind `buildings` (Toronto): building outlines as vector tiles, not GeoJSON. The
 > layer has `url` (a PMTiles archive on the site, `/tiles/toronto/buildings.pmtiles`, served by byte range) instead of
 > `file`, `layer` (the tile layer name, default `buildings`) and `minZoom` (15). Tiles cover zoom 13 to 15 (overzoom past

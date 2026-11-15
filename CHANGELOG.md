@@ -7,6 +7,9 @@
   Melbourne (Overture Maps, mostly OpenStreetMap).
 
 ### Melbourne beyond the City: buildings, your districts and MP, and focus on a council (November 16)
+- Greater Melbourne filled in from OpenStreetMap: main and collector streets carry on across all 31 councils, parks and
+  reserves (Dandenong Ranges, Plenty Gorge, the You Yangs' edge…) join the Parks layer, and a Land use layer tints
+  homes, shops, industry, farms and bush, with a key.
 - State districts and federal divisions now cover Greater Melbourne, not just the City, so "Who represents me" works
   from Werribee to Pakenham. Tap anywhere in the suburbs and the card names the suburb, its council, its state
   district and federal division, and the federal MP (state MPs follow the November 28 election).

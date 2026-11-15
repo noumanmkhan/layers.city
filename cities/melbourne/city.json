@@ -92,7 +92,7 @@
    "cls": "lake-far"
   }
  ],
- "attribution": "Suburbs, councils & 2021 Census: Australian Bureau of Statistics (CC BY 4.0) · Trains, trams, V/Line trains & coaches & buses: Transport Victoria GTFS (CC BY 4.0) · State districts & addresses: Vicmap (CC BY 4.0) · Federal divisions: Australian Electoral Commission (CC BY 4.0) · Voting centres: Victorian Electoral Commission (CC BY 4.0) · Schools: Victorian Department of Education (CC BY 4.0) · Heritage places: Heritage Council of Victoria (CC BY 4.0) · New development, car parks, playgrounds & toilets: City of Melbourne Open Data (CC BY 4.0) · Events: What’s On Melbourne, © City of Melbourne (non-commercial use) · Skyscrapers: Wikipedia (CC BY-SA) · Streets, freeways, parks, places & landmarks: © OpenStreetMap contributors (ODbL)",
+ "attribution": "Suburbs, councils & 2021 Census: Australian Bureau of Statistics (CC BY 4.0) · Trains, trams, V/Line trains & coaches & buses: Transport Victoria GTFS (CC BY 4.0) · State districts & addresses: Vicmap (CC BY 4.0) · Federal divisions: Australian Electoral Commission (CC BY 4.0) · Voting centres: Victorian Electoral Commission (CC BY 4.0) · Schools: Victorian Department of Education (CC BY 4.0) · Heritage places: Heritage Council of Victoria (CC BY 4.0) · New development, car parks, playgrounds & toilets: City of Melbourne Open Data (CC BY 4.0) · Events: What’s On Melbourne, © City of Melbourne (non-commercial use) · Skyscrapers: Wikipedia (CC BY-SA) · Streets, freeways, parks, land use, places & landmarks: © OpenStreetMap contributors (ODbL)",
  "example": {
   "at": [
    -37.8183,
@@ -329,6 +329,16 @@
      "name": "Buildings",
      "note": "Building outlines across Greater Melbourne; from zoom 15",
      "credit": "Buildings: © OpenStreetMap contributors, Overture Maps Foundation"
+    },
+    {
+     "id": "landuse",
+     "kind": "landuse",
+     "file": "landuse",
+     "on": true,
+     "name": "Land use",
+     "note": "Homes, shops, industry, farms and bush across Greater Melbourne",
+     "key": {"res": "Residential", "com": "Commercial & retail", "ind": "Industrial", "farm": "Farmland", "wood": "Bush & forest", "cem": "Cemeteries", "quarry": "Quarries"},
+     "legend": "From OpenStreetMap, mapped by volunteers: a guide to how land is used, not the planning scheme’s zones."
     }
    ]
   ],
@@ -338,13 +348,17 @@
     {
      "id": "parks",
      "kind": "parks",
+     "more": "region_parks",
+     "placeOut": "Park",
+     "reserveOut": "Reserve",
+     "fineOut": "Outline from OpenStreetMap. Amenities are listed for the City of Melbourne’s parks only.",
      "on": true,
      "file": "parks",
      "lazy": true,
      "optional": true,
      "name": "Parks",
      "place": "Park",
-     "note": "The City’s parks and gardens shaded green; pick a playground, toilets and more",
+     "note": "The City’s parks and gardens shaded green; parks and reserves across Greater Melbourne too",
      "countNote": "{n} parks and gardens shaded green; pick a playground, toilets and more",
      "amenities": {
       "play": [
@@ -617,20 +631,22 @@
      "id": "streets",
      "kind": "streets",
      "file": "streets",
+     "more": "region_streets",
      "name": "Main streets",
-     "note": "The Hoddle Grid, St Kilda Road, Flemington Road, Victoria Parade",
+     "note": "The Hoddle Grid, St Kilda Road, Flemington Road, and across Greater Melbourne",
      "on": true
     },
     {
      "id": "coll",
      "kind": "streets",
      "file": "collectors",
+     "more": "region_collectors",
      "under": "streets",
      "labelZoom": 15,
      "yieldLabels": true,
      "name": "Collector streets",
      "on": true,
-     "note": "The streets between the main ones; from zoom 13"
+     "note": "The streets between the main ones, across Greater Melbourne; from zoom 13"
     }
    ]
   ],

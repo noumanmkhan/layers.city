@@ -17,6 +17,12 @@ simplify state 4; simplify federal 4
 for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval=5 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 python3 collectors.py          # after streets and base are simplified: the tier below the main streets
 npx mapshaper -i tmp/collectors.geojson -simplify interval=5 -o $OUT/collectors.geojson precision=0.00001 -quiet
+# Greater Melbourne beyond the City from OpenStreetMap (fetch-region-basemap.yml): roads, parks, land use
+if [ -d raw/region_basemap ] && [ -f raw/region_basemap/landuse.json ]; then
+  python3 ../../engine/region/basemap.py melbourne
+  for f in region_streets region_collectors; do npx mapshaper -i tmp/$f.geojson -simplify interval=8 -o $OUT/$f.geojson precision=0.00001 -quiet; done
+  npx mapshaper -i tmp/landuse.geojson -simplify interval=20 -filter-slivers min-area=15000 -o $OUT/landuse.geojson precision=0.0001 -quiet
+fi
 npx mapshaper -i tmp/region_highways.geojson -simplify interval=20 -o $OUT/region_highways.geojson precision=0.00001 -quiet
 python3 transit.py             # after base is simplified: trains, trams, V/Line
 for f in train_lines tram_lines; do npx mapshaper -i tmp/$f.geojson -simplify interval=4 -o $OUT/$f.geojson precision=0.00001 -quiet; done
@@ -32,6 +38,7 @@ if [ -f raw/more/heritage_places.json ]; then python3 heritage.py; fi   # Herita
 python3 parking.py   # public car parks
 if [ -f raw/more/osm_construction.json ]; then python3 construction.py; fi   # Suburban Rail Loop East, from OSM
 python3 nearby.py   # the card's Nearby section, from the layers above
+[ -f raw/region_basemap/places.json ] && python3 region_card.py   # Nearby beyond the City (after region_parks)
 if [ -f raw/voting/sites.json ]; then python3 voting.py; fi   # where to vote, until November 28
 python3 ../../engine/assemble.py melbourne
 python3 ../../engine/profiles/build.py melbourne   # fact sheets, from the published layers
