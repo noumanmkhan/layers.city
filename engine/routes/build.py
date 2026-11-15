@@ -33,6 +33,19 @@ os.makedirs(os.path.join(OUT, 'data', 'r'), exist_ok=True)
 
 RAW_R = json.load(open(os.path.join(RAW, 'surface', 'routes.json')))
 RAW_S = json.load(open(os.path.join(RAW, 'surface', 'stops.json')))
+N_OWN = len(RAW_S['stops'])   # the city's own stops: they set the metric projection, so other feeds don't shift it
+# Other agencies' buses and coaches (routes.json "feeds": Toronto's GO buses, Melbourne's V/Line coaches), fetched by
+# fetch_surface.py into raw/surface/<feed>/: their routes and stops join the city's own. Their route ids and stop ids
+# are the agency's own; a stop id two feeds share would be one stop, so the build says so.
+for fd in CFG.get('feeds', []):
+    fp = os.path.join(RAW, 'surface', fd, 'routes.json')
+    if not os.path.exists(fp): print(f'  feed {fd}: not fetched yet'); continue
+    have = {s_[0] for s_ in RAW_S['stops']}
+    more = json.load(open(os.path.join(RAW, 'surface', fd, 'stops.json')))['stops']
+    clash = [s_[0] for s_ in more if s_[0] in have]
+    if clash: print(f'  feed {fd}: {len(clash)} stop ids also in the main feed, e.g. {clash[:5]}')
+    RAW_R['routes'] += json.load(open(fp))['routes']
+    RAW_S['stops'] += [s_ for s_ in more if s_[0] not in have]
 # Stop names as the map writes them (engine/surface.py stop_name, from surface.json "stopNames"): an agency that
 # writes them in capitals ("1 AV/E 14 ST") reads "1 Av/E 14 St". Kept in step with surface.py by hand.
 SN = json.load(open(os.path.join(ROOT, 'cities', city, 'surface.json'))).get('stopNames') or {}
@@ -61,7 +74,7 @@ def street_name(n):
 BRIDGES = set(CFG.get('bridges', []))
 
 # ---- a flat metric projection around the city (plenty for distances of a few km) ----
-lat0 = sum(s[3] for s in RAW_S['stops']) / len(RAW_S['stops'])
+lat0 = sum(s[3] for s in RAW_S['stops'][:N_OWN]) / N_OWN
 KX, KY = 111320 * math.cos(math.radians(lat0)), 110574
 
 
@@ -95,7 +108,15 @@ def where(index, p):
 
 
 HOODS = polys(CFG.get('units', 'neighbourhoods'))
-REGIONS = [polys(n, CFG.get('regionSkip', [])) for n in CFG.get('regions', [])]
+# A region file is a name ("areas") or {"file", "prop"}: the property that names each shape (the map's base layer
+# names the municipalities around the city, so a GO train reads "through Mississauga, Oakville").
+def polys_by(spec, skip=()):
+    if isinstance(spec, str): return polys(spec, skip)
+    out = [(f['properties'].get(spec.get('prop', 'name')), proj(shape(f['geometry']))) for f in layer(spec['file'])
+           if f['properties'].get(spec.get('prop', 'name')) and f['properties'].get(spec.get('prop', 'name')) not in skip
+           and not (spec.get('kinds') and f['properties'].get('kind') not in spec['kinds'])]
+    return out, STRtree([g for _, g in out])
+REGIONS = [polys_by(n, CFG.get('regionSkip', [])) for n in CFG.get('regions', [])]
 
 
 def region(p):
@@ -168,10 +189,13 @@ SC = CFG['stations']
 # One file, or several (a city with two rapid agencies: BART's stations and Muni Metro's). A station of the same
 # name in two files within 300 m is one station with both sets of lines (Montgomery Street: BART and Muni).
 stations = []
+# A file is a name or {"file", "suffix"}: Toronto's subway stations take " Station" (Union -> Union Station, as GO's
+# file already names it, so the two are one station), its GO stations keep their own names (Oakville GO).
 for fn in SC.get('files') or [SC['file']]:
-    for f in layer(fn):
+    suffix = fn.get('suffix', '') if isinstance(fn, dict) else SC.get('suffix', '')
+    for f in layer(fn['file'] if isinstance(fn, dict) else fn):
         if SC.get('skip') and re.search(SC['skip'], f['properties']['name']): continue   # a file's street stops, not stations
-        n, lines, g = f['properties']['name'] + SC.get('suffix', ''), list(f['properties'].get('lines', [])), proj(shape(f['geometry']))
+        n, lines, g = f['properties']['name'] + suffix, list(f['properties'].get('lines', [])), proj(shape(f['geometry']))
         same = next((x for x in stations if x[0] == n and x[2].distance(g) < 300), None)
         if same: same[1].extend(l for l in lines if l not in same[1])
         else: stations.append((n, lines, g))
@@ -186,7 +210,8 @@ def _num(s):
     s2 = (s.lstrip('0') or s) if _SC.get('stripZeros') else s
     return _SC.get('rename', {}).get(s, s2)
 for r in RAW_R['routes']:
-    if r['id'] not in meta and _num(r['short']) in meta: meta[r['id']] = meta[_num(r['short'])]
+    # Same number, same mode only: Geelong's town bus 1 isn't Melbourne's tram 1 (the map leaves regional town buses out).
+    if r['id'] not in meta and _num(r['short']) in meta and meta[_num(r['short'])].get('m') in (None, r['mode']): meta[r['id']] = meta[_num(r['short'])]
 routes = [r for r in RAW_R['routes'] if r['mode'] in MODES and r['id'] in meta]
 SHORT = {r['id']: r['short'] for r in RAW_R['routes']}   # the schedule (sched.json) goes by the feed's short name
 stops = {s[0]: s for s in RAW_S['stops']}
@@ -194,7 +219,7 @@ stops = {s[0]: s for s in RAW_S['stops']}
 # Rapid transit (subway, LRT) from raw/surface/rapid_*.json (engine/fetch_surface.py, surface.json "rapid"): each
 # shape lists its platforms in order, so they're placed exactly rather than matched to the line by distance. The
 # map's transit.json doesn't list these lines, so their entry (name, frequency) is made here from the schedule.
-RAPID_MODES = {'subway', 'lrt'} & MODES
+RAPID_MODES = {'subway', 'lrt', 'rail'} & MODES   # rail: regional trains (GO, V/Line), from an agency's rapidFeeds
 STREET_STOPS = []   # stops of street lines from the rapid files (below)
 # A platform's direction from its name: "Eastbound Platform", or the agency's own words (routes.json "platformDirs":
 # Muni's "Metro Castro Station/Outbound" and ".../Downtown" are outbound and inbound).
@@ -510,6 +535,10 @@ for r in routes:
                         [[p['head'], p['to'], round(p['km'] * 1000), p['share'], p['regions'],
                           [[d, n, lines] for d, n, lines in p['stations']], p.get('next'), p['dir']] for p in pats]]
 
+# Route files from an earlier build whose route is no longer on the page go (a route dropped from the feed).
+for f_ in os.listdir(os.path.join(OUT, 'data', 'r')):
+    if f_.endswith('.json') and f_[:-5] not in route_index: os.remove(os.path.join(OUT, 'data', 'r', f_))
+
 # The stops list: [id, name, lon, lat, side ("East side"...), {route: [patterns]}]
 out_stops = []
 for sid, rs in stop_routes.items():
@@ -567,12 +596,38 @@ def bucket(sid):   # the same in the page and in apps (DATA_CONTRACT.md section 
     for ch in sid: h = (h * 31 + ord(ch)) % SCHED_N
     return h
 SCHED = None
-sp = os.path.join(RAW, 'surface', 'sched.json')
 sd = os.path.join(OUT, 'data', 'sched')
 if os.path.isdir(sd):
     for f in os.listdir(sd): os.remove(os.path.join(sd, f))
-if os.path.exists(sp):
-    sc = json.load(open(sp))
+# The city's own timetable and those of the other feeds on this page (GO's), as one: each day's kind is the tuple of
+# each feed's kind that day (a feed's typical week for a day past its end), so every stop keeps its own feed's spans.
+def merged_sched():
+    scs = []
+    for fd in [''] + [f for f in CFG.get('feeds', []) + CFG.get('rapidFeeds', []) if f]:
+        p_ = os.path.join(RAW, 'surface', fd, 'sched.json')
+        if os.path.exists(p_) and not any(fd == x for x, _ in scs): scs.append((fd, json.load(open(p_))))
+    if not scs: return None
+    if len(scs) == 1: return scs[0][1]
+    import datetime as _dt
+    days = sorted({d for _, c in scs for d in c['days']})
+    kinds, kind_ix = [], {}
+    def kind(t):
+        if t not in kind_ix: kind_ix[t] = len(kinds); kinds.append(t)
+        return kind_ix[t]
+    wd = lambda d: _dt.date.fromisoformat(d).weekday()
+    out_days = {d: kind(tuple(c['days'].get(d, c['week'][wd(d)]) for _, c in scs)) for d in days}
+    out_week = [kind(tuple(c['week'][i] for _, c in scs)) for i in range(7)]
+    spans, stops_ = [], {}
+    for fi, (_, c) in enumerate(scs):
+        base = len(spans); spans += c['spans']
+        for st, rs in c['stops'].items():
+            for rr, row in rs.items():
+                stops_.setdefault(st, {})[rr] = [base + row[t[fi]] for t in kinds]
+    first = scs[0][1]
+    return {'fetched': max(c['fetched'] for _, c in scs), 'feed': [min(c['feed'][0] for _, c in scs), max(c['feed'][1] for _, c in scs)],
+            'tz': first['tz'], 'gap': first['gap'], 'days': out_days, 'week': out_week, 'spans': spans, 'stops': stops_}
+sc = merged_sched()
+if sc:
     head = {k: sc[k] for k in ('fetched', 'feed', 'tz', 'gap', 'days', 'week')}
     parts = [({}, {}, []) for _ in range(SCHED_N)]   # stops, span remap, span lists
     for st in out_stops:

@@ -305,9 +305,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   // TTC stop names repeat the side ("North Side", "(East)"): the card says it once, from the geometry.
   const clean = n => n.replace(/\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)? ?Platform\b.*$/i, '').replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+/g, ' ').trim();
   const street = n => clean(n).split(AT)[0].replace(/^\d+[A-Z]?\s+/, '');
-  const dayRoute = rid => { const f = D.routes[rid][3]; return f.some(x => x !== 'night'); };
-  const routeCls = R => R[2] === 'tram' ? 'tram' : R[2] === 'cable' ? 'cable' : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
-  const isRapid = rid => ['subway', 'lrt'].includes(D.routes[rid][2]);
+  const dayRoute = rid => { const f = D.routes[rid][3]; return f.some(x => x !== 'night') || (!f.length && D.routes[rid][2] !== 'bus'); };   // another agency's routes (GO) carry no families
+  // Another agency's buses or coaches (Toronto's GO buses, mode "go"; Melbourne's V/Line coaches, "coach") take "m-" and their
+  // mode as their class, for the city's factsheet.css to colour.
+  const routeCls = R => R[2] === 'tram' ? 'tram' : R[2] === 'cable' ? 'cable' : R[2] !== 'bus' ? 'm-' + R[2] : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
+  const isRapid = rid => ['subway', 'lrt', 'rail'].includes(D.routes[rid][2]);
   const badge = (rid, big) => { const R = D.routes[rid];
     return isRapid(rid) ? el('span', { class: `ln lb l${R[0]}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0])
       : el('span', { class: `rb ${routeCls(R)}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0]); };
@@ -481,7 +483,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     return next === Infinity ? null : { o: Math.floor(next / 1440), m: next % 1440, day };
   }
   // A city can use its own words (routes.json page "modeWords": Melbourne's trams) and its own am/pm ("ampm": ["am", "pm"]).
-  const WORD = Object.assign({ bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train', cable: 'cable car' }, RS.modeWords || {});
+  const WORD = Object.assign({ bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train', rail: 'train', cable: 'cable car', coach: 'coach' }, RS.modeWords || {});
   const AMPM = RS.ampm || ['a.m.', 'p.m.'];
   function clock(m) {
     const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
@@ -492,9 +494,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (!n) return null;
     const when = n.o === 0 ? '' : n.o === 1 ? 'tomorrow ' : new Date(n.day + n.o * 864e5).toLocaleDateString('en-CA', { weekday: 'long', timeZone: 'UTC' }) + ' ';
     const w = WORD[D.routes[rid][2]] || 'bus';
-    // Live times are promised only where the city has a live feed (routes.json "live"); elsewhere every time is the timetable's.
-    return el('span', { class: 'next sched', title: LIVE ? 'From the timetable: no live times until it starts running' : 'From the timetable' },
-      [`Next ${w} `, el('b', {}, when + 'at ' + clock(n.m)), long ? (LIVE ? ' · from the timetable; live times show once it’s on its way' : ' · from the timetable') : '']);
+    // Live times are promised only where the city has a live feed (routes.json "live") and this route's mode has one
+    // (not live.none: GO, V/Line); elsewhere every time is the timetable's.
+    const lv = LIVE && !noLive(rid);
+    return el('span', { class: 'next sched', title: lv ? 'From the timetable: no live times until it starts running' : 'From the timetable' },
+      [`Next ${w} `, el('b', {}, when + 'at ' + clock(n.m)), long ? (lv ? ' · from the timetable; live times show once it’s on its way' : ' · from the timetable' + (noLive(rid) ? ` (${noLive(rid)})` : '')) : '']);
   }
   // What a row shows: live times, else (when the route isn't running) the next scheduled one, else how often it runs.
   function arrivalsEl(j, S, sid, rid, long) {
@@ -782,7 +786,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       wide,
       fact(RS.connectionsLabel || 'Subway connections', stns.length ? stns.map(t => stnEl(t[1], t[2])) : [el('span', {}, 'None on this route'), el('small', {}, 'from here')]),
       fact('Ends at', [clean(P.to), el('small', {}, endHood ? `in ${endHood}` : '')]),
-      fact('The ride', [`${ahead} stops · ${fmtM(lastD - d0)}`, el('small', {}, R[4] ? `About every ${R[4]} min, weekday middays` : 'Check the schedule: not frequent')]),
+      fact('The ride', [`${ahead} ${ahead === 1 ? 'stop' : 'stops'} · ${fmtM(lastD - d0)}`, el('small', {}, R[4] ? `About every ${R[4]} min, weekday middays` : 'Check the schedule: not frequent')]),
     );
 
     // The story, in order from this stop.
@@ -993,8 +997,12 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const inPoly = (r, x, y) => inRing(r[0], x, y) && !r.slice(1).some(h => inRing(h, x, y));
     return f.some(ft => { const g = ft.geometry; return g.type === 'Polygon' ? inPoly(g.coordinates, lon, lat) : g.coordinates.some(p => inPoly(p, lon, lat)); });
   }
+  // A city whose page also covers the trains and buses into it from the region (routes.json page "reach", in km):
+  // a spot outside the city counts when a stop on this page is within that distance.
+  const nearAStop = (lon, lat) => RS.reach && D.stops.some(s => kmBetween(lon, lat, s[2], s[3]) <= RS.reach);
+  const inArea = async (lon, lat) => await inCity(lon, lat) || nearAStop(lon, lat);
   async function goTo(lon, lat, label) {
-    if (!await inCity(lon, lat)) { $('hint').textContent = RS.outside; return; }
+    if (!await inArea(lon, lat)) { $('hint').textContent = RS.outside; return; }
     here = { lon, lat, label };
     const n = nearby(lon, lat);
     const first = n.cards[0] && n.cards[0].stops[0][1];
@@ -1021,9 +1029,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       if (wait > 0) await new Promise(r => setTimeout(r, wait));
       lastSearch = Date.now();
       const cfg = (await cityCfg()).search;
-      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&bounded=1&countrycodes=' + cfg.country + '&viewbox=' + cfg.viewbox + '&q=' + encodeURIComponent(text);
+      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&bounded=1&countrycodes=' + cfg.country + '&viewbox=' + (RS.reach && cfg.regionViewbox || cfg.viewbox) + '&q=' + encodeURIComponent(text);
       let hit = null;
-      for (const r of await getJSON(url)) if (await inCity(+r.lon, +r.lat)) { hit = r; break; }
+      for (const r of await getJSON(url)) if (await inArea(+r.lon, +r.lat)) { hit = r; break; }
       if (hit) await goTo(+hit.lon, +hit.lat, text);
       else $('hint').textContent = RS.noMatch.replace('{q}', text);
     } catch {

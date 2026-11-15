@@ -4,24 +4,35 @@
   "bus",
   "tram",
   "subway",
-  "lrt"
+  "lrt",
+  "go",
+  "rail"
  ],
  "live": {
   "api": "/api/arrivals?city=toronto",
   "source": "TTC GTFS-Realtime",
   "none": {
-   "lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet"
+   "lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet",
+   "go": "GO doesn’t share live times with this page yet",
+   "rail": "GO doesn’t share live times with this page yet"
   }
  },
- "_modes": "Route modes from raw/surface/routes.json to include: bus now; add \"tram\" for streetcars.",
+ "_modes": "Route modes to include: TTC buses, streetcars, subway and LRT, GO buses ('go', from the GO feed: 'feeds') and GO trains and UP Express ('rail', from the GO feed's rapid lines: 'rapidFeeds').",
  "gridTilt": 17,
  "_gridTilt": "Degrees the street grid is turned from true north (Toronto's grid runs about 17 degrees west of north), so Yonge reads as north-south and Bloor as east-west.",
  "keepRight": true,
  "regions": [
   "areas",
-  "boroughs"
+  "boroughs",
+  {
+   "file": "base",
+   "prop": "name",
+   "kinds": [
+    "neighbour"
+   ]
+  }
  ],
- "_regions": "Published files, in order, whose names describe where a trip goes (the first that contains a spot wins): Downtown, Midtown, East End..., then the former cities (Scarborough, North York...).",
+ "_regions": "Published files, in order, whose names describe where a trip goes (the first that contains a spot wins): Downtown, Midtown, East End..., then the former cities (Scarborough, North York...). Outside the city, the municipalities in the map's base layer (Mississauga, Oakville...).",
  "regionSkip": [
   "Old Toronto"
  ],
@@ -72,9 +83,14 @@
  ],
  "known": "cultural",
  "stations": {
-  "file": "subway_stations",
-  "lines": "subway_lines",
-  "suffix": " Station"
+  "files": [
+   {
+    "file": "subway_stations",
+    "suffix": " Station"
+   },
+   "go_stations"
+  ],
+  "_files": "Subway stations take ' Station' (Union Station, as GO's file names it, so Union is one station with both sets of lines); GO stations keep their names (Oakville GO). GO lines are one group on the page ('lineGroups'), so a GO train's own system isn't a connection and a TTC route's GO stops show one GO bullet."
  },
  "extras": [
   {
@@ -235,14 +251,56 @@
   "city": "Toronto",
   "title": "Where does this line or route go?",
   "short": "Routes from here",
-  "description": "Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.",
-  "lede": "Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.",
+  "description": "Find the bus and streetcar stops, subway and LRT stations and GO stations nearest you in Toronto and across the GTA, and see where each route goes, with live TTC times and GO timetable times: the neighbourhoods and towns it passes through, the main streets it runs along, its connections and the landmarks on the way.",
+  "lede": "Find the stops and stations near you, in Toronto or across the GTA, then pick a bus, streetcar, subway line, GO train or GO bus to see where it goes: the neighbourhoods, towns, main streets, connections and landmarks along the way.",
   "placeholder": "Or search an address",
-  "outside": "That spot is outside Toronto. Try an address in the city.",
-  "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.",
+  "outside": "That spot is too far from a TTC or GO stop. Try an address in Toronto or near a GO station or GO bus stop.",
+  "noMatch": "No match near a TTC or GO stop for “{q}”. Try the full street name, like “789 Yonge Street”.",
   "noStops": "No stops or stations within {r} of that spot.",
-  "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)",
-  "mapLink": "Open on the map"
+  "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · GO trains, GO buses and UP Express: Metrolinx GTFS (Metrolinx Open Data) · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)",
+  "mapLink": "Open on the map",
+  "reach": 3,
+  "lineFiles": [
+   "subway_lines",
+   "go_lines"
+  ],
+  "lineNames": {
+   "LW": "Lakeshore West line",
+   "LE": "Lakeshore East line",
+   "MI": "Milton line",
+   "KI": "Kitchener line",
+   "BR": "Barrie line",
+   "RH": "Richmond Hill line",
+   "ST": "Stouffville line",
+   "UP": "UP Express"
+  },
+  "lineGroups": {
+   "GO": [
+    "Lakeshore West",
+    "Lakeshore East",
+    "Milton",
+    "Kitchener",
+    "Barrie",
+    "Richmond Hill",
+    "Stouffville",
+    "UP Express",
+    "LW",
+    "LE",
+    "MI",
+    "KI",
+    "BR",
+    "RH",
+    "ST",
+    "UP"
+   ]
+  },
+  "_lineGroups": "GO's lines (and UP Express) said once, as GO: a station's GO bullet, and a GO train's own system, which isn't a connection.",
+  "connectWith": "the subway and GO",
+  "connectionsLabel": "Subway and GO connections",
+  "modeWords": {
+   "go": "GO bus",
+   "rail": "train"
+  }
  },
  "badges": {
   "_about": "Route badge colours for apps (the web page takes them from factsheet.css): buses white with a red outline, streetcars red, express green, overnight-only white with a blue outline; subway and LRT lines as round bullets in the line's colour.",
@@ -286,5 +344,12 @@
     "text": "#FFFFFF"
    }
   }
- }
+ },
+ "feeds": [
+  "go"
+ ],
+ "rapidFeeds": [
+  "go"
+ ],
+ "_feeds": "Other agencies fetched by fetch_surface.py into raw/surface/<feed>/ (surface.json 'feeds'): their buses join through 'feeds', their trains through 'rapidFeeds'. GO's stops reach well beyond the city: page 'reach' lets a spot across the region use the page."
 }

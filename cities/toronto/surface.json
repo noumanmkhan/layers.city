@@ -13,7 +13,14 @@
       "types": ["bus"],
       "mode": "go",
       "prefix": "GO ",
-      "simplify": 0.00012
+      "simplify": 0.00012,
+      "_rapid": "GO trains and UP Express (GTFS route type 2), for the Routes page only: kept apart in raw/surface/go/rapid_*.json under these short names (no prefix), each shape's stations in order; the map draws them from go.py's own layer. 'sched' with 'schedGap' 0 keeps every departure, so the page says when the next train or GO bus leaves (no live GO times on the page yet).",
+      "rapid": {"LW": "rail", "LE": "rail", "MI": "rail", "KI": "rail", "BR": "rail", "RH": "rail", "ST": "rail", "UP": "rail"},
+      "rapidTypes": ["2"],
+      "rapidMatch": [["^(LW|Lakeshore West)", "LW"], ["^(LE|Lakeshore East)", "LE"], ["^(MI|Milton)", "MI"], ["^(KI|Kitchener)", "KI"],
+                     ["^(BR|Barrie)", "BR"], ["^(RH|Richmond Hill)", "RH"], ["^(ST|Stouffville)", "ST"], ["^(UP|Union Pearson|UP Express)", "UP"]],
+      "sched": true,
+      "schedGap": 0
     }
   }
 }

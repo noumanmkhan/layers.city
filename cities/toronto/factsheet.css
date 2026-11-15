@@ -6,3 +6,10 @@
 .rb.exp{background:#15924A;color:#fff;box-shadow:none}
 .rb.night{background:#fff;color:#1F4FA3;box-shadow:inset 0 0 0 1.5px #1F4FA3}
 .rb.go{background:#1E6B47;color:#fff;box-shadow:none}
+/* GO Transit on the Routes page (Metrolinx's colours): GO buses in the fact sheets' GO green, each GO line's badge in its line colour,
+   and one green GO bullet for a station's GO lines. */
+.rb.m-go{background:#1E6B47;color:#fff;box-shadow:none;white-space:nowrap}
+.ln.lLW{background:#98002E} .ln.lMI{background:#F57F25} .ln.lBR{background:#003767} .ln.lKI{background:#00853E}
+.ln.lUP{background:#1F4E9C} .ln.lLE{background:#FF0D00} .ln.lST{background:#794500} .ln.lRH{background:#0099C7}
+.ln.lb.lLW,.ln.lb.lMI,.ln.lb.lBR,.ln.lb.lKI,.ln.lb.lUP,.ln.lb.lLE,.ln.lb.lST,.ln.lb.lRH{font-size:11px}
+.ln.grp.lGO{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em;background:#00853E;color:#fff}

@@ -19,6 +19,8 @@ A city can list more agencies under "feeds" in surface.json (e.g. Toronto's GO b
 own into cities/<city>/raw/surface/<feed>/, with its own options: "types" (which of tram/bus to keep), "mode"
 (the mode written for every route, e.g. "go"), "prefix" (put before each route number, so GO 41 doesn't
 collide with TTC 41) and "simplify" (shape tolerance in degrees; long regional routes can take more).
+A feed can also hold rapid lines ("rapid", "rapidMatch", "rapidTypes": GO's trains beside its buses), which keep their
+own short names (no "prefix"), and "schedGap" (see sched.json below).
 A feed with "osm" instead of "gtfs" takes its routes from OpenStreetMap (engine/osm_routes.py; Chicago's Pace,
 whose own GTFS is offered for non-commercial use only).
 
@@ -228,11 +230,17 @@ remap = {}   # feed route id -> (route id, direction)
 routes = {}
 # "rapidMatch": [[regex, short name], …]: rapid lines found by their GTFS short or long name ("Expo Line",
 # "RED"), given the short name "rapid" uses. For feeds whose rail lines have numeric or empty short names.
+# "rapidTypes": the GTFS route types rapidMatch applies to (["2"]: GO's and V/Line's trains), so a bus whose name
+# mentions a line ("Barrie / Toronto") stays a bus.
 RAPID_MATCH = [(re.compile(rx), sh) for rx, sh in CFG.get('rapidMatch', [])]
+RAPID_TYPES = set(CFG.get('rapidTypes', []))
+RAPID_IDS = set()   # feed route ids of the rapid lines (their short names carry no "prefix")
 for r in rows('routes.txt'):
     m = mode(r.get('route_type'))
     short = r.get('route_short_name') or r['route_id']
+    if RAPID_TYPES and r.get('route_type') not in RAPID_TYPES and short in RAPID: short = r['route_id']   # a bus named like a line
     for rx, sh in RAPID_MATCH:
+        if RAPID_TYPES and r.get('route_type') not in RAPID_TYPES: break
         if rx.search(r.get('route_short_name') or '') or rx.search(r.get('route_long_name') or ''):
             short = sh; break
     if m is None and r.get('route_type') not in ('', None) and short not in RAPID:
@@ -243,10 +251,11 @@ for r in rows('routes.txt'):
         if nid not in routes:
             routes[nid] = {'id': nid, 'short': PREFIX + nshort, 'long': CFG.get('longNames', {}).get(nshort, r.get('route_long_name', '')),
                            'mode': RAPID.get(nshort, CFG.get('mode', m)), 'color': r.get('route_color', ''), 'text': r.get('route_text_color', '')}
+        if nshort in RAPID: RAPID_IDS.add(nid)
         continue
-    if short in RAPID: m = RAPID[short]
+    if short in RAPID: m = RAPID[short]; RAPID_IDS.add(r['route_id'])
     elif not m or m not in TYPES or short in SKIP: continue
-    routes[r['route_id']] = {'id': r['route_id'], 'short': PREFIX + short, 'long': CFG.get('longNames', {}).get(short, r.get('route_long_name', '')), 'mode': CFG.get('mode', m),
+    routes[r['route_id']] = {'id': r['route_id'], 'short': (short if short in RAPID else PREFIX + short), 'long': CFG.get('longNames', {}).get(short, r.get('route_long_name', '')), 'mode': (m if short in RAPID else CFG.get('mode', m)),
                              'color': r.get('route_color', ''), 'text': r.get('route_text_color', '')}
 print('routes kept:', len(routes))
 
@@ -301,7 +310,7 @@ print('trips in the week:', len(trips))
 
 first_dep = {}                     # trip -> (stop_sequence, hour)
 stop_routes = collections.defaultdict(set)
-rapid_trip_ids = {tid for tid, t in trips.items() if routes[t[0]]['short'] in RAPID}
+rapid_trip_ids = {tid for tid, t in trips.items() if t[0] in RAPID_IDS}
 rapid_seq = collections.defaultdict(list)   # rapid trip -> [(stop_sequence, stop_id)]
 sched_times = collections.defaultdict(list)   # (stop, route number, service id) -> departure minutes
 for r in rows('stop_times.txt'):
@@ -352,14 +361,14 @@ for rid, rt in routes.items():
                 g = line(sh)
                 if not g: continue
                 e = {'dir': d, 'share': round(n / tot, 2), 'trips': n, 'coords': g}
-                if rt['short'] in RAPID:   # a rapid line's platforms in order, from its busiest trip on this shape
+                if rid in RAPID_IDS:   # a rapid line's platforms in order, from its busiest trip on this shape
                     seqs = [rapid_seq[t] for t, v in trips.items() if v[0] == rid and v[2] == sh and t in rapid_seq]
                     if seqs: e['stops'] = [sid for _, sid in sorted(max(seqs, key=len))]
                 shapes.append(e)
     if not shapes: continue
     out_routes.append(dict(rt, shapes=shapes, **{k: dict(v) for k, v in counts[rid].items()}))
 out_routes.sort(key=lambda r: (len(r['short']), r['short']))
-rapid_ids = {rid for rid, rt in routes.items() if rt['short'] in RAPID}
+rapid_ids = RAPID_IDS & set(routes)
 rapid_routes = [r for r in out_routes if r['id'] in rapid_ids]
 out_routes = [r for r in out_routes if r['id'] not in rapid_ids]
 
@@ -390,7 +399,9 @@ if SCHED:
     # the spans in which it runs, as [start, end, start, end...] in minutes after the service day's midnight (GTFS
     # writes after-midnight trips as 24:xx, so these can pass 1440). A span ends where the next departure is more
     # than GAP minutes later, the live feed's reach: with no live times, the next departure is the start of a span.
-    GAP = 90
+    # "schedGap": 0 keeps every departure as its own span (a regional train or coach every hour or two, with no live
+    # feed: the page then always says when the next one leaves).
+    GAP = CFG.get('schedGap', 90)
     tz = next((r.get('agency_timezone') for r in rows('agency.txt')), '')
     used = {sv for _, sv in svc_of.values()}
     today = dt.date.today()

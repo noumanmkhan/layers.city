@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.">
+<meta name="description" content="Find the bus and streetcar stops, subway and LRT stations and GO stations nearest you in Toronto and across the GTA, and see where each route goes, with live TTC times and GO timetable times: the neighbourhoods and towns it passes through, the main streets it runs along, its connections and the landmarks on the way.">
 <title>Where does this line or route go? · Toronto · Layers.City</title>
 <link rel="canonical" href="https://layers.city/toronto/routes/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -192,6 +192,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .rb.exp{background:#15924A;color:#fff;box-shadow:none}
 .rb.night{background:#fff;color:#1F4FA3;box-shadow:inset 0 0 0 1.5px #1F4FA3}
 .rb.go{background:#1E6B47;color:#fff;box-shadow:none}
+/* GO Transit on the Routes page (Metrolinx's colours): GO buses in the fact sheets' GO green, each GO line's badge in its line colour,
+   and one green GO bullet for a station's GO lines. */
+.rb.m-go{background:#1E6B47;color:#fff;box-shadow:none;white-space:nowrap}
+.ln.lLW{background:#98002E} .ln.lMI{background:#F57F25} .ln.lBR{background:#003767} .ln.lKI{background:#00853E}
+.ln.lUP{background:#1F4E9C} .ln.lLE{background:#FF0D00} .ln.lST{background:#794500} .ln.lRH{background:#0099C7}
+.ln.lb.lLW,.ln.lb.lMI,.ln.lb.lBR,.ln.lb.lKI,.ln.lb.lUP,.ln.lb.lLE,.ln.lb.lST,.ln.lb.lRH{font-size:11px}
+.ln.grp.lGO{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em;background:#00853E;color:#fff}
 
 
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--m-t0:#40262B;--m-t1:#3B3326;--m-t2:#28362A;--m-t3:#253140;--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hood:#3A2328;--m-hoodline:#4A3A3E;--m-major:#4A4E56;--m-minor:#363A41;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp):not(.cable){background:var(--card)} :root:not([data-theme="light"]) .row:hover{background:#262A30} :root:not([data-theme="light"]) .tl li.on{background:#262A30}}
@@ -227,7 +234,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   <section class="intro" id="intro">
     <div class="kicker" id="kicker"></div>
     <h1>Where does this line or route go?</h1>
-    <p class="lede">Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.</p>
+    <p class="lede">Find the stops and stations near you, in Toronto or across the GTA, then pick a bus, streetcar, subway line, GO train or GO bus to see where it goes: the neighbourhoods, towns, main streets, connections and landmarks along the way.</p>
     <form class="find" id="find">
       <button type="button" class="btn primary" id="locate">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg>
@@ -262,11 +269,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     </div>
   </section>
 
-  <footer class="foot"><span>Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)</span><span id="asof"></span></footer>
+  <footer class="foot"><span>Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · GO trains, GO buses and UP Express: Metrolinx GTFS (Metrolinx Open Data) · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)</span><span id="asof"></span></footer>
 </main>
 <script>
 (() => {
-  const RS = {"city": "Toronto", "title": "Where does this line or route go?", "short": "Routes from here", "description": "Find the bus and streetcar stops and subway and LRT stations nearest you in Toronto and see where each route goes, with live next-bus and next-train times: the neighbourhoods it passes through, the main streets it runs along, its connections and the landmarks on the way.", "lede": "Find the stops and stations near you, then pick a bus, streetcar or subway line to see where it goes: the neighbourhoods, main streets, connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is outside Toronto. Try an address in the city.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No stops or stations within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)", "mapLink": "Open on the map", "known": "cultural", "units": "neighbourhoods", "platformWords": false, "live": {"api": "/api/arrivals?city=toronto", "source": "TTC GTFS-Realtime", "none": {"lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet"}}, "sched": {"url": "data/sched/{b}.json", "n": 128}, "the": ["East End", "West End"], "theKnown": "^(.* District|Port Lands|Danforth Village|Junction Triangle|Upper Beaches|Annex)$"};   // this city's wording (cities/<city>/routes.json, page)
+  const RS = {"city": "Toronto", "title": "Where does this line or route go?", "short": "Routes from here", "description": "Find the bus and streetcar stops, subway and LRT stations and GO stations nearest you in Toronto and across the GTA, and see where each route goes, with live TTC times and GO timetable times: the neighbourhoods and towns it passes through, the main streets it runs along, its connections and the landmarks on the way.", "lede": "Find the stops and stations near you, in Toronto or across the GTA, then pick a bus, streetcar, subway line, GO train or GO bus to see where it goes: the neighbourhoods, towns, main streets, connections and landmarks along the way.", "placeholder": "Or search an address", "outside": "That spot is too far from a TTC or GO stop. Try an address in Toronto or near a GO station or GO bus stop.", "noMatch": "No match near a TTC or GO stop for “{q}”. Try the full street name, like “789 Yonge Street”.", "noStops": "No stops or stations within {r} of that spot.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · GO trains, GO buses and UP Express: Metrolinx GTFS (Metrolinx Open Data) · Boundaries and streets: City of Toronto Open Data · Live times: TTC GTFS-Realtime (buses, streetcars and subway) (City of Toronto Open Data)", "mapLink": "Open on the map", "reach": 3, "lineFiles": ["subway_lines", "go_lines"], "lineNames": {"LW": "Lakeshore West line", "LE": "Lakeshore East line", "MI": "Milton line", "KI": "Kitchener line", "BR": "Barrie line", "RH": "Richmond Hill line", "ST": "Stouffville line", "UP": "UP Express"}, "lineGroups": {"GO": ["Lakeshore West", "Lakeshore East", "Milton", "Kitchener", "Barrie", "Richmond Hill", "Stouffville", "UP Express", "LW", "LE", "MI", "KI", "BR", "RH", "ST", "UP"]}, "_lineGroups": "GO's lines (and UP Express) said once, as GO: a station's GO bullet, and a GO train's own system, which isn't a connection.", "connectWith": "the subway and GO", "connectionsLabel": "Subway and GO connections", "modeWords": {"go": "GO bus", "rail": "train"}, "known": "cultural", "units": "neighbourhoods", "platformWords": false, "live": {"api": "/api/arrivals?city=toronto", "source": "TTC GTFS-Realtime", "none": {"lrt": "the TTC doesn’t publish live times for Lines 5 and 6 yet", "go": "GO doesn’t share live times with this page yet", "rail": "GO doesn’t share live times with this page yet"}}, "sched": {"url": "data/sched/{b}.json", "n": 128}, "the": ["East End", "West End"], "theKnown": "^(.* District|Port Lands|Danforth Village|Junction Triangle|Upper Beaches|Annex)$"};   // this city's wording (cities/<city>/routes.json, page)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g', 'polygon'];
@@ -319,9 +326,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   // TTC stop names repeat the side ("North Side", "(East)"): the card says it once, from the geometry.
   const clean = n => n.replace(/\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)? ?Platform\b.*$/i, '').replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+/g, ' ').trim();
   const street = n => clean(n).split(AT)[0].replace(/^\d+[A-Z]?\s+/, '');
-  const dayRoute = rid => { const f = D.routes[rid][3]; return f.some(x => x !== 'night'); };
-  const routeCls = R => R[2] === 'tram' ? 'tram' : R[2] === 'cable' ? 'cable' : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
-  const isRapid = rid => ['subway', 'lrt'].includes(D.routes[rid][2]);
+  const dayRoute = rid => { const f = D.routes[rid][3]; return f.some(x => x !== 'night') || (!f.length && D.routes[rid][2] !== 'bus'); };   // another agency's routes (GO) carry no families
+  // Another agency's buses or coaches (Toronto's GO buses, mode "go"; Melbourne's V/Line coaches, "coach") take "m-" and their
+  // mode as their class, for the city's factsheet.css to colour.
+  const routeCls = R => R[2] === 'tram' ? 'tram' : R[2] === 'cable' ? 'cable' : R[2] !== 'bus' ? 'm-' + R[2] : R[3].includes('exp') ? 'exp' : (R[3].includes('night') && !R[3].includes('freq') && !R[3].includes('reg')) ? 'night' : '';
+  const isRapid = rid => ['subway', 'lrt', 'rail'].includes(D.routes[rid][2]);
   const badge = (rid, big) => { const R = D.routes[rid];
     return isRapid(rid) ? el('span', { class: `ln lb l${R[0]}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0])
       : el('span', { class: `rb ${routeCls(R)}${big ? ' big' : ''}`, 'aria-hidden': 'true' }, R[0]); };
@@ -495,7 +504,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     return next === Infinity ? null : { o: Math.floor(next / 1440), m: next % 1440, day };
   }
   // A city can use its own words (routes.json page "modeWords": Melbourne's trams) and its own am/pm ("ampm": ["am", "pm"]).
-  const WORD = Object.assign({ bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train', cable: 'cable car' }, RS.modeWords || {});
+  const WORD = Object.assign({ bus: 'bus', tram: 'streetcar', subway: 'train', lrt: 'train', rail: 'train', cable: 'cable car', coach: 'coach' }, RS.modeWords || {});
   const AMPM = RS.ampm || ['a.m.', 'p.m.'];
   function clock(m) {
     const h = Math.floor(m / 60), mm = String(m % 60).padStart(2, '0');
@@ -506,9 +515,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     if (!n) return null;
     const when = n.o === 0 ? '' : n.o === 1 ? 'tomorrow ' : new Date(n.day + n.o * 864e5).toLocaleDateString('en-CA', { weekday: 'long', timeZone: 'UTC' }) + ' ';
     const w = WORD[D.routes[rid][2]] || 'bus';
-    // Live times are promised only where the city has a live feed (routes.json "live"); elsewhere every time is the timetable's.
-    return el('span', { class: 'next sched', title: LIVE ? 'From the timetable: no live times until it starts running' : 'From the timetable' },
-      [`Next ${w} `, el('b', {}, when + 'at ' + clock(n.m)), long ? (LIVE ? ' · from the timetable; live times show once it’s on its way' : ' · from the timetable') : '']);
+    // Live times are promised only where the city has a live feed (routes.json "live") and this route's mode has one
+    // (not live.none: GO, V/Line); elsewhere every time is the timetable's.
+    const lv = LIVE && !noLive(rid);
+    return el('span', { class: 'next sched', title: lv ? 'From the timetable: no live times until it starts running' : 'From the timetable' },
+      [`Next ${w} `, el('b', {}, when + 'at ' + clock(n.m)), long ? (lv ? ' · from the timetable; live times show once it’s on its way' : ' · from the timetable' + (noLive(rid) ? ` (${noLive(rid)})` : '')) : '']);
   }
   // What a row shows: live times, else (when the route isn't running) the next scheduled one, else how often it runs.
   function arrivalsEl(j, S, sid, rid, long) {
@@ -796,7 +807,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       wide,
       fact(RS.connectionsLabel || 'Subway connections', stns.length ? stns.map(t => stnEl(t[1], t[2])) : [el('span', {}, 'None on this route'), el('small', {}, 'from here')]),
       fact('Ends at', [clean(P.to), el('small', {}, endHood ? `in ${endHood}` : '')]),
-      fact('The ride', [`${ahead} stops · ${fmtM(lastD - d0)}`, el('small', {}, R[4] ? `About every ${R[4]} min, weekday middays` : 'Check the schedule: not frequent')]),
+      fact('The ride', [`${ahead} ${ahead === 1 ? 'stop' : 'stops'} · ${fmtM(lastD - d0)}`, el('small', {}, R[4] ? `About every ${R[4]} min, weekday middays` : 'Check the schedule: not frequent')]),
     );
 
     // The story, in order from this stop.
@@ -1007,8 +1018,12 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const inPoly = (r, x, y) => inRing(r[0], x, y) && !r.slice(1).some(h => inRing(h, x, y));
     return f.some(ft => { const g = ft.geometry; return g.type === 'Polygon' ? inPoly(g.coordinates, lon, lat) : g.coordinates.some(p => inPoly(p, lon, lat)); });
   }
+  // A city whose page also covers the trains and buses into it from the region (routes.json page "reach", in km):
+  // a spot outside the city counts when a stop on this page is within that distance.
+  const nearAStop = (lon, lat) => RS.reach && D.stops.some(s => kmBetween(lon, lat, s[2], s[3]) <= RS.reach);
+  const inArea = async (lon, lat) => await inCity(lon, lat) || nearAStop(lon, lat);
   async function goTo(lon, lat, label) {
-    if (!await inCity(lon, lat)) { $('hint').textContent = RS.outside; return; }
+    if (!await inArea(lon, lat)) { $('hint').textContent = RS.outside; return; }
     here = { lon, lat, label };
     const n = nearby(lon, lat);
     const first = n.cards[0] && n.cards[0].stops[0][1];
@@ -1035,9 +1050,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       if (wait > 0) await new Promise(r => setTimeout(r, wait));
       lastSearch = Date.now();
       const cfg = (await cityCfg()).search;
-      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&bounded=1&countrycodes=' + cfg.country + '&viewbox=' + cfg.viewbox + '&q=' + encodeURIComponent(text);
+      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&bounded=1&countrycodes=' + cfg.country + '&viewbox=' + (RS.reach && cfg.regionViewbox || cfg.viewbox) + '&q=' + encodeURIComponent(text);
       let hit = null;
-      for (const r of await getJSON(url)) if (await inCity(+r.lon, +r.lat)) { hit = r; break; }
+      for (const r of await getJSON(url)) if (await inArea(+r.lon, +r.lat)) { hit = r; break; }
       if (hit) await goTo(+hit.lon, +hit.lat, text);
       else $('hint').textContent = RS.noMatch.replace('{q}', text);
     } catch {
