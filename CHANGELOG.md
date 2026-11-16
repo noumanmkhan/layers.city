@@ -14,6 +14,10 @@
 - Buildings: every building outline across the nine counties from zoom 15, as in the other cities.
 - Tap anywhere in the Metroplex and the card names your state representative, state senator and U.S. representative,
   not just the district numbers.
+- Main and collector streets and a Land use layer across the nine counties, and a new Parks layer: parks and nature
+  preserves across Dallas and the Metroplex, from OpenStreetMap.
+- The ZIP lens and Living here now cover the Metroplex's ~200 other ZIP codes, tiered on Dallas's own lines, and the
+  card's Nearby section works anywhere in the region.
 
 ### The Bay Area beyond San Francisco: streets, parks, land use, buildings, lens and card (November 16)
 - Buildings: every building outline across the nine counties from zoom 15, as in Toronto, Melbourne and Chicago.

@@ -282,6 +282,12 @@ Since October 16 it has most of Toronto's features: universities, colleges and h
 
 **Live site:** https://layers.city/dallas/
 
+*Beyond the City* (November 16, 2026): Overture buildings from zoom 15; OSM streets and land use across the nine
+counties and a Parks layer from OSM for the City and region alike (`region.json` `parksInCity`); Nearby beyond the City
+(`engine/region/card.py`); Representatives beyond the City from the region-wide district files; and the ZIP lens for
+~200 ZIPs beyond the City (`fetch_region.py`: ZCTAs and ACS; `region_profiles.py` via `engine/acs_profile.py`, tiers on
+the City's lines). Mayors outside Dallas aren't listed.
+
 The fourth city (`cities/dallas/`), built first for the November 3, 2026 election. Its shape follows Toronto's and Chicago's: the City of Dallas inside a Dallas–Fort Worth regional view of nine counties. Dallas has no official neighbourhoods, so the units are the ZIP codes people use, clipped to the city, grouped into eleven areas (a first draft for local review). Council districts, Texas House and Senate districts, congressional districts, counties, main streets, highways, DART light rail, the Silver Line and the TRE, and a ZIP lens from the American Community Survey.
 
 Since October 16 it has most of Toronto's features: landmarks, universities, Dallas College campuses and ERs, skyscrapers, landmark historic districts, public improvement districts, collector streets, bike lanes, DART buses and a Transit nearby section, a *To downtown* transit lens, tree canopy, the suburban drive lens, collection day, school districts (a Dallas address can be in any of a dozen ISDs) with Dallas ISD's trustee districts, Nearby (libraries, recreation centers, pools, parks), and representatives with their official pages. Members of Congress are matched on the lines they were elected on until January, while the map draws the new lines voters use on November 3. What it lacks (an address grid, what's changing, heritage buildings, school attendance zones, bike share, streetcars) is set out with reasons in `cities/dallas/PARKED.md`.

@@ -126,7 +126,7 @@
   "outside": {
     "beyond": "That spot is outside the nine counties on this map.",
     "regionPill": "{region}",
-    "note": "Outside the City of Dallas. Texas House, Senate and congressional districts cover all nine counties; the areas, ZIP codes and council districts cover Dallas only.",
+    "note": "Outside the City of Dallas. Texas House, Senate and congressional districts and ZIP codes cover all nine counties; the areas and council districts cover Dallas only.",
     "appNote": "Outside the City of Dallas, so city area, council district and pickup details aren't shown here.",
     "appBeyond": "That spot is outside the Dallas–Fort Worth area."
   },
@@ -270,6 +270,36 @@
           "name": "Buildings",
           "note": "Building outlines across the Metroplex; from zoom 15",
           "credit": "Buildings: © OpenStreetMap contributors, Overture Maps Foundation"
+        },
+        {
+          "id": "landuse",
+          "kind": "landuse",
+          "file": "landuse",
+          "on": true,
+          "name": "Land use",
+          "note": "Homes, shops, industry, farms and woods across the Metroplex",
+          "key": {"res": "Residential", "com": "Commercial & retail", "ind": "Industrial", "farm": "Farmland & ranches", "wood": "Woods", "cem": "Cemeteries", "quarry": "Quarries"},
+          "legend": "From OpenStreetMap, mapped by volunteers: a guide to how land is used, not the zoning code."
+        }
+      ]
+    ],
+    [
+      "Outdoors",
+      [
+        {
+          "id": "parks",
+          "kind": "parks",
+          "file": "region_parks",
+          "lazy": true,
+          "optional": true,
+          "on": true,
+          "name": "Parks",
+          "note": "Parks and nature preserves across Dallas and the Metroplex, shaded green",
+          "amenities": {},
+          "legend": "",
+          "placeOut": "Park",
+          "reserveOut": "Nature preserve",
+          "fineOut": "Outline from OpenStreetMap, mapped by volunteers."
         }
       ]
     ],
@@ -330,19 +360,21 @@
           "id": "streets",
           "kind": "streets",
           "file": "streets",
+          "more": "region_streets",
           "name": "Main streets",
-          "note": "Arterials like Preston, Greenville, Northwest Highway, Jefferson",
+          "note": "Arterials like Preston, Greenville, Northwest Highway, Jefferson, and across the Metroplex",
           "on": true
         },
         {
           "id": "coll",
           "kind": "streets",
           "file": "collectors",
+          "more": "region_collectors",
           "under": "streets",
           "labelZoom": 15,
           "yieldLabels": true,
           "name": "Collector streets",
-          "note": "Collector streets between the main ones; from zoom 13"
+          "note": "Collector streets between the main ones, across the Metroplex; from zoom 13"
         },
         {
           "id": "bus",
@@ -593,6 +625,7 @@
   "lens": {
     "label": "ZIP code lens",
     "file": "zip_profiles.json",
+    "region": {"units": "region_zips", "profiles": "region_zip_profiles.json"},
     "source": "American Community Survey 2020–2024 (U.S. Census Bureau), by ZIP Code Tabulation Area.",
     "lenses": [
       {
@@ -922,6 +955,7 @@
     "living": {
       "caveat": "Survey estimates for 2020–2024, not current prices, for the whole ZIP code (including any part outside Dallas). Rent is what renting households pay, utilities included, counting long-time tenants and subsidized homes, so it sits below what a new lease costs. Use them to compare ZIP codes, not to budget.",
       "footer": "American Community Survey 2020–2024 and DART schedules, ZIP {name}. Tiers compare ZIP codes across Dallas.",
+      "regionFooter": "American Community Survey 2020–2024 (U.S. Census Bureau), {name}. Figures describe the whole ZIP. Tiers use the same lines as Dallas’s ZIPs, so a ZIP here reads as a Dallas ZIP would.",
       "homes": {
         "label": "Home types",
         "types": [
@@ -1090,6 +1124,14 @@
       },
       "note": "{county} Elections lists as of {asof}. Sites can change up to election day: the county’s own finder has the final word.",
       "precinctNote": "Precinct {precinct} · {county} Elections, as of {asof}. Sites can change up to election day: the county’s own finder has the final word."
+    },
+    "outsideNearby": {
+      "file": "region_nearby.json",
+      "radius": 1609,
+      "nearest": [["library", "Library"], ["centre", "Community center"], ["er", "Emergency dept."], ["mosque", "Mosque", "worship:mosque"], ["gurdwara", "Gurdwara", "worship:gurdwara"], ["synagogue", "Synagogue", "worship:synagogue"], ["hindu", "Hindu temple", "worship:hindu"], ["buddhist", "Buddhist temple", "worship:buddhist"], ["church", "Church", "worship:church"]],
+      "within": "Within a mile",
+      "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["school_e", "elementary or middle school", "elementary or middle schools"], ["school_s", "high school", "high schools"]],
+      "note": "Straight-line distances; a mile is about a 20-minute walk. Libraries, community centers, emergency departments, parks, playgrounds, schools and places of worship from OpenStreetMap, mapped by volunteers, so a few may be missing; schools are sorted by their names. The nearest school is not always the one a home is zoned for."
     },
     "outsideFacts": [
       "house",

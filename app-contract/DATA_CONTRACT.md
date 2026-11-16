@@ -11,6 +11,11 @@
 > its member is `representatives.json[table][<municipality name>]`, the `base.geojson` neighbour the spot is in;
 > `sub` fills `{m.name}` from that feature. `representatives.json` gains `gta_mayors` (hand-kept,
 > `cities/toronto/gta_mayors.json`). Additive.
+> **November 16, 2026:** Dallas: a `parks` layer whose file is `region_parks` (OpenStreetMap outlines, all `o: 1`, no
+> amenities, the City's included), `more` files `region_streets` and `region_collectors`, `landuse`,
+> `card.outsideNearby` (`region_nearby.json`) and `lens.region` (`region_zips.geojson` {code "z<ZIP>", name},
+> `region_zip_profiles.json`, fields as `zip_profiles.json` plus `region: 1` and `muni`; a ZIP's outline is cut at
+> the City line but its figures describe the whole ZIP). Additive; schema stays 2.
 > **November 16, 2026:** Dallas: `card.reps.outside` (state representative, state senator, U.S. representative, keyed by
 > the region-wide `tx_house`, `tx_senate` and `us_house_2021` files and the existing tables), and a `buildings` layer.
 > Additive; schema stays 2.
