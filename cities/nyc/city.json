@@ -318,6 +318,16 @@
      "name": "Buildings",
      "note": "Building outlines across the City and the region; from zoom 15",
      "credit": "Buildings: © OpenStreetMap contributors, Overture Maps Foundation"
+    },
+    {
+     "id": "landuse",
+     "kind": "landuse",
+     "file": "landuse",
+     "on": true,
+     "name": "Land use",
+     "note": "Homes, shops, industry, farms and woods across the region",
+     "key": {"res": "Residential", "com": "Commercial & retail", "ind": "Industrial", "farm": "Farmland", "wood": "Woods", "cem": "Cemeteries", "quarry": "Quarries"},
+     "legend": "From OpenStreetMap, mapped by volunteers: a guide to how land is used, not the zoning map."
     }
    ]
   ],
@@ -329,11 +339,15 @@
      "kind": "parks",
      "on": true,
      "file": "parks",
+     "more": "region_parks",
+     "placeOut": "Park",
+     "reserveOut": "Preserve",
+     "fineOut": "Outline from OpenStreetMap. Amenities are listed for NYC Parks properties only.",
      "lazy": true,
      "optional": true,
      "name": "Parks",
      "place": "NYC Parks property",
-     "note": "NYC Parks properties shaded green; pick a playground, spray shower or dog run",
+     "note": "NYC Parks properties shaded green, and parks across the region; pick a playground, spray shower or dog run",
      "countNote": "{n} NYC Parks properties shaded green; pick a playground, spray shower or dog run",
      "amenities": {
       "play": [
@@ -545,19 +559,21 @@
      "id": "streets",
      "kind": "streets",
      "file": "streets",
+     "more": "region_streets",
      "name": "Main streets",
-     "note": "Avenues and the big crosstown streets: Broadway, 5th Ave, 42nd St, Queens Blvd, Flatbush Ave",
+     "note": "Avenues and the big crosstown streets: Broadway, 5th Ave, 42nd St, Queens Blvd, Flatbush Ave, and main roads across the region",
      "on": true
     },
     {
      "id": "coll",
      "kind": "streets",
      "file": "collectors",
+     "more": "region_collectors",
      "under": "streets",
      "labelZoom": 15,
      "yieldLabels": true,
      "name": "Collector streets",
-     "note": "Collector streets between the main ones; from zoom 13"
+     "note": "Collector streets between the main ones, across the region; from zoom 13"
     },
     {
      "id": "bus",
@@ -1866,6 +1882,14 @@
    }
   },
   "outsideFacts": [],
+  "outsideNearby": {
+   "file": "region_nearby.json",
+   "radius": 1609,
+   "nearest": [["library", "Library"], ["centre", "Community center"], ["er", "Emergency dept."], ["mosque", "Mosque", "worship:mosque"], ["gurdwara", "Gurdwara", "worship:gurdwara"], ["synagogue", "Synagogue", "worship:synagogue"], ["hindu", "Hindu temple", "worship:hindu"], ["buddhist", "Buddhist temple", "worship:buddhist"], ["church", "Church", "worship:church"]],
+   "within": "Within a mile",
+   "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["school_e", "elementary or middle school", "elementary or middle schools"], ["school_s", "high school", "high schools"]],
+   "note": "Straight-line distances; a mile is about a 20-minute walk. Libraries, community centers, emergency departments, parks, playgrounds, schools and places of worship from OpenStreetMap, mapped by volunteers, so a few may be missing; schools are sorted by their names. The nearest school is not always the one a home is zoned for."
+  },
   "vote": {
    "file": "voting",
    "date": "2026-11-03",

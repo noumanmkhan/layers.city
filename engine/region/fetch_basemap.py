@@ -149,6 +149,49 @@ def save(name, items, extra=None):
     print('wrote', name, len(items), round(os.path.getsize(os.path.join(OUT, name + '.json')) / 1e6, 1), 'MB', flush=True)
 
 
+# ---------- or from Geofabrik's extracts ----------
+# region.json "pbf": [Geofabrik .osm.pbf URLs] reads parks and land use from the state extracts with osmium instead of
+# Overpass (New York's region: Overpass took four hours for half its parks). Same items, same filters.
+PBF = None
+def from_pbf(name, expr, keep, min_m2):
+    global PBF
+    import subprocess, shapely.geometry
+    tmp = os.path.join('/tmp', 'region-pbf-' + CITY); os.makedirs(tmp, exist_ok=True)
+    if PBF is None:
+        parts = []
+        for i, u in enumerate(CFG['pbf']):
+            f = os.path.join(tmp, 'src%d.osm.pbf' % i)
+            if not os.path.exists(f):
+                subprocess.run(['curl', '-sSfL', '--retry', '5', '-o', f, u], check=True)
+            cut = os.path.join(tmp, 'cut%d.osm.pbf' % i)
+            subprocess.run(['osmium', 'extract', '-b', '%s,%s,%s,%s' % (W, S, E, N), '-s', 'smart', '-O', '-o', cut, f], check=True)
+            parts.append(cut)
+        PBF = os.path.join(tmp, 'region.osm.pbf')
+        subprocess.run(['osmium', 'merge', '-O', '-o', PBF] + parts, check=True)
+        print('pbf ready', round(os.path.getsize(PBF) / 1e6), 'MB', flush=True)
+    filt, seq = os.path.join(tmp, name + '.osm.pbf'), os.path.join(tmp, name + '.geojsonseq')
+    subprocess.run(['osmium', 'tags-filter', '-O', '-o', filt, PBF] + expr, check=True)
+    subprocess.run(['osmium', 'export', '-O', '-f', 'geojsonseq', '--geometry-types=polygon', '-a', 'type,id', '-o', seq, filt], check=True)
+    out, skipped = [], 0
+    rings = lambda p: [[R5(c) for c in r] for r in p]
+    for line in open(seq):
+        f = json.loads(line.strip().lstrip('\x1e'))
+        t = f['properties']; k = keep(t)
+        if not k: continue
+        g = shapely.geometry.shape(f['geometry'])
+        x0, y0, x1, y1 = g.bounds
+        if x1 - x0 > MAX_SPAN or y1 - y0 > MAX_SPAN: skipped += 1; continue
+        if not g.is_valid: g = g.buffer(0)
+        if g.is_empty or g.area * M2 < min_m2: continue
+        g = g.simplify(0.00002, preserve_topology=True)
+        if g.is_empty: continue
+        gj = mapping(g)
+        coords = [rings(gj['coordinates'])] if gj['type'] == 'Polygon' else [rings(q) for q in gj['coordinates']]
+        out.append({'id': t.get('@type', 'x')[0] + str(t.get('@id', '')), 'k': k, 'name': t.get('name', ''), 'poly': coords})
+    print(' ', name, 'from the extracts:', len(out), 'polygons; skipped', skipped, 'over', MAX_SPAN, 'degrees', flush=True)
+    return out
+
+
 # A rerun keeps files already fetched (REFETCH=1 fetches everything again).
 done = lambda n: os.path.exists(os.path.join(OUT, n + '.json')) and not os.environ.get('REFETCH')
 
@@ -169,9 +212,12 @@ def park_kind(t):
         return 'reserve'
     return None
 if not done('parks'):
-    els = fetch('parks', ['way["leisure"~"^(park|nature_reserve)$"]', 'relation["leisure"~"^(park|nature_reserve)$"]',
-                          'way["boundary"="protected_area"]', 'relation["boundary"="protected_area"]'], *TILES['parks'])
-    save('parks', polys(els, park_kind, 1500))
+    if CFG.get('pbf'):
+        save('parks', from_pbf('parks', ['wr/leisure=park,nature_reserve', 'wr/boundary=protected_area'], park_kind, 1500))
+    else:
+        els = fetch('parks', ['way["leisure"~"^(park|nature_reserve)$"]', 'relation["leisure"~"^(park|nature_reserve)$"]',
+                              'way["boundary"="protected_area"]', 'relation["boundary"="protected_area"]'], *TILES['parks'])
+        save('parks', polys(els, park_kind, 1500))
     clear_cache('parks')
 
 # ---------- land use ----------
@@ -184,7 +230,10 @@ def lu_kind(t):
     return LU.get(t.get('landuse'))
 lu_tags = '|'.join(LU)
 if not done('landuse'):
-    els = fetch('landuse', ['way["landuse"~"^(%s)$"]' % lu_tags, 'relation["landuse"~"^(%s)$"]' % lu_tags,
-                            'way["natural"="wood"]', 'relation["natural"="wood"]'], *TILES['landuse'])
-    save('landuse', polys(els, lu_kind, 4000))
+    if CFG.get('pbf'):
+        save('landuse', from_pbf('landuse', ['wr/landuse=' + ','.join(LU), 'wr/natural=wood'], lu_kind, 4000))
+    else:
+        els = fetch('landuse', ['way["landuse"~"^(%s)$"]' % lu_tags, 'relation["landuse"~"^(%s)$"]' % lu_tags,
+                                'way["natural"="wood"]', 'relation["natural"="wood"]'], *TILES['landuse'])
+        save('landuse', polys(els, lu_kind, 4000))
     clear_cache('landuse')

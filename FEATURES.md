@@ -304,6 +304,16 @@ The fifth city (`cities/nyc/`), listed on the hub on October 19, 2026 beside Tor
 
 It has Toronto's features: boroughs, known-as names, landmarks, skyscrapers from 650 ft, historic districts and individual landmarks, BIDs, the subway (by trunk line), LIRR, Metro-North, NJ Transit and PATH, ferries, highways and main streets, MTA buses with a Transit nearby section, bike lanes and Citi Bike, How addresses work (Fifth Avenue's East and West, Manhattan only), collection days, parks, sports, schools with the zoned elementary, middle and high school on the card, colleges, hospitals, libraries, community centers (NYC Parks recreation centers, NYCHA centers, Beacons in schools), older adult centers and places of worship, halal and kosher grocers, butchers, bakeries and fish markets picked from New York State's registries (no restaurants or chain counters), School zones as a map layer (elementary, middle or high), New development from DOB NOW with rezonings from City Planning's land-use applications (ZAP, placed on their tax lots through PLUTO, applicant names removed), the community district lens from the American Community Survey, tree canopy, *To Penn Station* transit times (r5py on the MTA schedules) and the suburban drive lens, representatives with council members' parties, and where to vote on November 3 with the ballot. Parking & Charging has NYC DOT's 39 municipal garages and fields (spaces and hours, from the City's list, kept by hand) and public EV chargers from the DOE's Alternative Fuels Data Center. New York-only layers: hurricane evacuation zones (and the nearest evacuation center) and the Congestion Relief Zone. What's left is in `cities/nyc/PARKED.md`; sources in `cities/nyc/SOURCES.md`.
 
+Beyond the City (November 16, 2026): a Buildings layer over the whole tri-state box (Overture, `region.json`; at 317 MiB
+with zoom 13 the file was over Wrangler's upload limit, so `engine/tiles/buildings.sh` rebuilds a big region from zoom
+14, the first zoom the map draws), OSM main and collector streets, parks and land use (`engine/region/`; parks and land use read from Geofabrik's New York, New Jersey and Connecticut extracts with osmium, `region.json` `pbf`, because Overpass managed half the parks in four hours), Nearby
+(`engine/region/card.py`, schools sorted by name), the community district lens for ~2,900 tracts in the New York, New
+Jersey and Connecticut counties (`fetch_region.py`: TIGERweb tracts and ACS; `region_profiles.py`, tiered on the City's
+lines from `tmp/lens_cuts.json`), and Representatives: each state's lower house, state Senate and Congress from
+TIGERweb's district layers, members from Open States (`ny.csv`, `region/nj.csv`, `region/ct.csv`, refreshed weekly by
+*Fetch representatives*) and the House Clerk. New Jersey's two Assembly members per district are a list in the table,
+shown as two rows. Mayors and town boards aren't listed.
+
 ## San Francisco and the Bay Area
 
 **Live at:** https://layers.city/sf/ (on the hub since October 30, 2026, in the top row with Toronto and New York)

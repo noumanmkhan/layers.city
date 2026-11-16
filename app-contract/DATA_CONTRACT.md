@@ -11,7 +11,8 @@
 > its member is `representatives.json[table][<municipality name>]`, the `base.geojson` neighbour the spot is in;
 > `sub` fills `{m.name}` from that feature. `representatives.json` gains `gta_mayors` (hand-kept,
 > `cities/toronto/gta_mayors.json`). Additive.
-> **November 16, 2026, evening:** New York: the tri-state region beyond the City: a `buildings` layer;
+> **November 16, 2026, evening:** New York: the tri-state region beyond the City: a `buildings` layer; `more` files
+> `region_streets`, `region_collectors`, `region_parks`; a `landuse` layer; `card.outsideNearby` (`region_nearby.json`);
 > `lens.region` (`region_tracts.geojson` {code "tr<GEOID>", name}, `region_tract_profiles.json`: fields as
 > `cd_profiles.json` plus `region: 1` and `muni`, no Penn Station minutes); and `card.reps.outside` keyed by the
 > card-only files `region_house`, `region_senate`, `region_congress` (`properties`: `k` "NJ-14", `st`, `num`, `lab`

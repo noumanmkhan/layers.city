@@ -22,7 +22,7 @@ npx mapshaper -i tmp/region_highways.geojson -simplify interval=20 -o $OUT/regio
 if [ -f raw/region_basemap/landuse.json ]; then
   python3 ../../engine/region/basemap.py nyc
   for f in region_streets region_collectors; do npx mapshaper -i tmp/$f.geojson -simplify interval=8 -o $OUT/$f.geojson precision=0.00001 -quiet; done
-  npx mapshaper -i tmp/landuse.geojson -simplify interval=35 -filter-slivers min-area=30000 -o $OUT/landuse.geojson precision=0.0001 -quiet
+  npx mapshaper -i tmp/landuse.geojson -simplify interval=60 -filter-slivers min-area=60000 -o $OUT/landuse.geojson precision=0.0001 -quiet
 fi
 [ -f raw/region_basemap/places.json ] && python3 ../../engine/region/card.py nyc   # Nearby beyond the City (after region_parks)
 if [ -f raw/region/acs_tracts.json ]; then   # after profiles.py and base: the lens beyond the City, by tract (fetch_region.py)

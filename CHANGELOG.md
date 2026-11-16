@@ -2,6 +2,15 @@
 
 ## Since 1.1
 
+### New York's tri-state region beyond the City (November 16)
+- Buildings: every building outline across the five boroughs and the New York, New Jersey and Connecticut counties
+  around them, from zoom 15.
+- Main and collector streets, parks and preserves and a Land use layer across the region, from OpenStreetMap.
+- The community district lens and Living here now cover the region's ~2,900 census tracts, tiered on the City's own
+  lines, and the card's Nearby section works anywhere in the region.
+- Tap anywhere in the region and the card names the state legislators (both of New Jersey's Assembly members) and the
+  U.S. representative.
+
 ### Metro Vancouver beyond the City (November 16)
 - Buildings: every building outline across Metro Vancouver from zoom 15, as in the other cities.
 - Provincial and federal ridings now cover all of Metro Vancouver, and tapping anywhere in the region names the
