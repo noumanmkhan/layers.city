@@ -1,0 +1,7 @@
+{
+  "_about": "The tri-state region around New York City (the New York, New Jersey and Connecticut counties on the map), for engine/region/fetch_basemap.py, basemap.py, fetch_places.py, card.py, fetch_region.py and engine/tiles/buildings.sh (build-tiles.yml). bbox is [S, W, N, E]. parkMaxKm2 is higher than other cities' so Harriman State Park (about 190 km²) stays in.",
+  "bbox": [40.07, -74.95, 41.95, -72.24],
+  "tiles": {"roads": [4, 4], "parks": [6, 6], "landuse": [7, 7]},
+  "parkNames": {"park": "Park", "reserve": "Preserve"},
+  "parkMaxKm2": 250
+}

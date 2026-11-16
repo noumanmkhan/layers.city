@@ -2,6 +2,7 @@
 Runs in GitHub Actions (fetch-nyc.yml now; a weekly refresh once NYC is released).
 
 - ny.csv: Open States' current New York legislators (data.openstates.org): Assembly and Senate, district and party
+- region/nj.csv, region/ct.csv: the same for New Jersey and Connecticut, for the card beyond the City (if raw/region/ exists)
 - house.xml: Clerk of the U.S. House member list (current members of Congress, with state and district)
 - council.json: each City Council district page's title on council.nyc.gov ("District 1 - <member>"), and the page URL
 representatives.py matches them to the map's districts. Borough presidents are hand-kept there (elected 2025).
@@ -18,6 +19,14 @@ for name, url in [('ny.csv', 'https://data.openstates.org/people/current/ny.csv'
         b = get(url, tries=3); open(os.path.join(OUT, name), 'wb').write(b); print('wrote', name, len(b))
     except Exception as e:
         print('failed', name, e); failed.append(name)
+# The region beyond the City: New Jersey's and Connecticut's legislators, for the card there (representatives.py).
+RG = os.path.join(RAW, 'region')
+if os.path.isdir(RG):
+    for st in ('nj', 'ct'):
+        try:
+            b = get(f'https://data.openstates.org/people/current/{st}.csv', tries=3); open(os.path.join(RG, st + '.csv'), 'wb').write(b); print('wrote region', st + '.csv', len(b))
+        except Exception as e:
+            print('failed', st + '.csv', e); failed.append(st + '.csv')
 council = {}
 for n in range(1, 52):
     url = f'https://council.nyc.gov/district-{n}/'

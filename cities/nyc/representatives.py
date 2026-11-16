@@ -78,6 +78,70 @@ if os.path.exists(BAL):
         if m: m['runs'] = {'office': 'council', 'district': d} if any(same(m['name'], c[0]) for c in cand['races']['council'][d]) else None
     out.update(tables)
 
+# The tri-state region beyond the City (raw/region/, fetch_region.py): every lower-house, state Senate and congressional
+# district that reaches the map's counties in New York, New Jersey and Connecticut, as card-only boundary files
+# (docs/nyc/data/region_house.geojson, region_senate, region_congress: k = state and number, "NJ-14", st, num, lab, and
+# on lower-house districts role) and tables keyed by k, for card.reps.outside. New Jersey elects two Assembly members per
+# legislative district, so its region_house entries are lists.
+RG = os.path.join(HERE, 'raw', 'region')
+if os.path.exists(os.path.join(RG, 'lower.geojson')):
+    import re
+    from shapely.geometry import shape, mapping
+    from shapely.ops import unary_union
+    base = json.load(open(os.path.join(DATA, 'base.geojson')))['features']
+    CITYG = unary_union([shape(f['geometry']).buffer(0) for f in base if f['properties']['kind'] == 'city' and f['geometry']]).buffer(0)
+    REG = unary_union([shape(f['geometry']).buffer(0) for f in base if f['properties']['kind'] == 'neighbour' and f['geometry']]).buffer(0)
+    REACH, CLIP = REG.difference(CITYG.buffer(0.002)).buffer(-0.002), REG.buffer(0.01)
+    ST = {'36': 'NY', '34': 'NJ', '09': 'CT'}
+    # Each member's official page, in order of preference: Connecticut's caucus pages are members' own pages; the
+    # General Assembly's is a list of their bills.
+    SITE = {'NJ': ('njleg.state.nj.us', 'pub.njleg.gov', 'njleg.gov'), 'CT': ('housedems.ct.gov', 'cthousegop.com', 'senatedems.ct.gov', 'ctsenaterepublicans.com', 'cga.ct.gov')}
+    r5 = lambda v: round(float(v), 5)
+    members = {'lower': {}, 'upper': {}, 'congress': {}}
+    for k, v in assembly.items(): members['lower']['NY-' + k] = v
+    for k, v in senate.items(): members['upper']['NY-' + k] = v
+    for st in ('NJ', 'CT'):
+        p = os.path.join(RG, st.lower() + '.csv')
+        if not os.path.exists(p): continue
+        for r in csv.DictReader(open(p, encoding='utf-8')):
+            d = re.sub(r'\D', '', r['current_district'] or '')
+            if not d: continue
+            links = [l for l in r['links'].split(';') if l]
+            url = next((l for s in SITE[st] for l in links if s in l), links[0] if links else '')
+            e = {'name': r['name'], 'url': url, 'party': PARTY.get(r['current_party'], r['current_party'])}
+            k = st + '-' + str(int(d))
+            if st == 'NJ' and r['current_chamber'] == 'lower':
+                members['lower'].setdefault(k, []).append(e)
+            else:
+                members[r['current_chamber']][k] = e
+    for k, v in members['lower'].items():
+        if isinstance(v, list): v.sort(key=lambda e: e['name'].split()[-1])
+    for m in ET.parse(os.path.join(SRC, 'house.xml')).getroot().find('members'):
+        sd, name = m.findtext('statedistrict') or '', m.findtext('member-info/official-name')
+        if sd[:2] in ('NY', 'NJ', 'CT') and name:
+            members['congress'][sd[:2] + '-' + str(int(sd[2:]))] = {'name': name, 'url': 'https://clerk.house.gov/members/' + m.findtext('member-info/bioguideID'),
+                                                                   'party': PARTY.get(m.findtext('member-info/party'), m.findtext('member-info/party'))}
+    LAB = {'lower': {'NY': 'NY Assembly District {}', 'NJ': 'NJ Legislative District {}', 'CT': 'CT House District {}'},
+           'upper': {'NY': 'NY Senate District {}', 'NJ': 'NJ Legislative District {}', 'CT': 'CT Senate District {}'},
+           'congress': {s: s + '-{}' for s in ('NY', 'NJ', 'CT')}}
+    ROLE = {'NY': 'Assembly member', 'NJ': 'Assembly member', 'CT': 'State representative'}
+    for src, table in (('lower', 'region_house'), ('upper', 'region_senate'), ('congress', 'region_congress')):
+        feats, keys = [], set()
+        for f in json.load(open(os.path.join(RG, src + '.geojson')))['features']:
+            pr = f['properties']; g = shape(f['geometry']).buffer(0)
+            if pr.get('STATE') not in ST or not re.search(r'\d', pr.get('BASENAME') or '') or not g.intersects(REACH): continue   # ZZ: water
+            g = g.intersection(CLIP).simplify(0.0003, preserve_topology=True)
+            if g.is_empty: continue
+            st, num = ST[pr['STATE']], str(int(re.sub(r'\D', '', pr['BASENAME'])))
+            k = st + '-' + num; keys.add(k)
+            p = {'k': k, 'st': st, 'num': num, 'lab': LAB[src][st].format(num)}
+            if src == 'lower': p['role'] = ROLE[st]
+            feats.append({'type': 'Feature', 'properties': p, 'geometry': json.loads(json.dumps(mapping(g)), parse_float=r5)})
+        json.dump({'type': 'FeatureCollection', 'features': feats}, open(os.path.join(DATA, table + '.geojson'), 'w'), separators=(',', ':'))
+        out[table] = {k: v for k, v in members[src].items() if k in keys}
+        print(table, len(feats), 'districts ·', len(out[table]), 'with members · vacant/missing', sorted(keys - set(out[table])),
+              '· NJ pairs', sum(1 for v in out[table].values() if isinstance(v, list) and len(v) == 2))
+
 old = json.load(open(OUT)) if os.path.exists(OUT) else {}
 same = {k: v for k, v in old.items() if k != 'updated'} == out
 out = {'updated': old['updated'] if same and old.get('updated') else datetime.date.today().isoformat(), **out}

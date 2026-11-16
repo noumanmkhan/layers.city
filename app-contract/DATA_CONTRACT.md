@@ -11,6 +11,14 @@
 > its member is `representatives.json[table][<municipality name>]`, the `base.geojson` neighbour the spot is in;
 > `sub` fills `{m.name}` from that feature. `representatives.json` gains `gta_mayors` (hand-kept,
 > `cities/toronto/gta_mayors.json`). Additive.
+> **November 16, 2026, evening:** New York: the tri-state region beyond the City: a `buildings` layer;
+> `lens.region` (`region_tracts.geojson` {code "tr<GEOID>", name}, `region_tract_profiles.json`: fields as
+> `cd_profiles.json` plus `region: 1` and `muni`, no Penn Station minutes); and `card.reps.outside` keyed by the
+> card-only files `region_house`, `region_senate`, `region_congress` (`properties`: `k` "NJ-14", `st`, `num`, `lab`
+> "NJ Legislative District 14", and on `region_house` `role`). Two things are new for any city: an office's `role` may
+> hold `{f.<field>}` (New York's `"{f.role}"`: "Assembly member" in New York and New Jersey, "State representative" in
+> Connecticut), and a table entry may be a list of members (New Jersey's two Assembly members per district), one row
+> each. Additive; schema stays 2.
 > **November 16, 2026:** Dallas: a `parks` layer whose file is `region_parks` (OpenStreetMap outlines, all `o: 1`, no
 > amenities, the City's included), `more` files `region_streets` and `region_collectors`, `landuse`,
 > `card.outsideNearby` (`region_nearby.json`) and `lens.region` (`region_zips.geojson` {code "z<ZIP>", name},

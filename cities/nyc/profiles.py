@@ -155,6 +155,12 @@ def pct_rank(key):
 rv, rr = pct_rank('value'), pct_rank('rent')
 score = {k: (1 - d['renterPct'] / 100) * rv.get(k, rr.get(k, .5)) + (d['renterPct'] / 100) * rr.get(k, rv.get(k, .5)) for k, d in data.items()}
 order = sorted(score, key=score.get)
+# The lines, for region_profiles.py: the tracts beyond the City are scored against the community districts' values and
+# rents and tiered at the same cuts.
+_sc = sorted(score.values())
+os.makedirs(os.path.join(HERE, 'tmp'), exist_ok=True)
+json.dump({'values': sorted(d['value'] for d in data.values() if d['value']), 'rents': sorted(d['rent'] for d in data.values() if d['rent']),
+           'cuts': [_sc[int(len(_sc) / 3)], _sc[int(2 * len(_sc) / 3)]]}, open(os.path.join(HERE, 'tmp', 'lens_cuts.json'), 'w'))
 for i, k in enumerate(order):
     data[k]['cost'] = 'lower' if i < len(order) / 3 else 'middle' if i < 2 * len(order) / 3 else 'higher'
 for d in data.values():

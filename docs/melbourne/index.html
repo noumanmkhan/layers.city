@@ -4190,7 +4190,12 @@ function representatives(hits, outside){
         return row(o.role, r, o.sub || '');
       }
       const h = hits[o.file ? 'file:' + o.file : o.layer]; if (!h) return '';
-      const r = R[o.table][String(h.properties[o.key])], sub = fill(o.sub, {f: h.properties, r: r || {}});
+      const r = R[o.table][String(h.properties[o.key])];
+      // A district with more than one member (New Jersey's two Assembly members): a list, one row each. The role can
+      // name the district's own chamber ({f.role}: an Assembly member in New York, a state representative in Connecticut).
+      if (Array.isArray(r)) return r.map(x => row(esc(fill(o.role, {f: h.properties})), x, fill(o.sub, {f: h.properties, r: x}))).join('');
+      if (o.role.includes('{')) return row(esc(fill(o.role, {f: h.properties})), r, fill(o.sub, {f: h.properties, r: r || {}}));
+      const sub = fill(o.sub, {f: h.properties, r: r || {}});
       if (raceOn(o)){
         // The race can be keyed by another layer than the member (o.race.layer: Dallas's members sit for the old
         // congressional lines, but November's race is on the new ones the map draws).

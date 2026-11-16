@@ -135,7 +135,7 @@
  "outside": {
   "beyond": "That spot is outside the counties on this map.",
   "regionPill": "{region}",
-  "note": "Outside New York City. The boroughs, community districts, council and state districts on this map cover the five boroughs only.",
+  "note": "Outside New York City. The boroughs, community districts, and the council and state districts drawn on this map cover the five boroughs only.",
   "appNote": "Outside New York City, so community district, council and pickup details aren't shown here.",
   "appBeyond": "That spot is outside the New York area."
  },
@@ -308,6 +308,16 @@
      "note": "Zones 1 to 6: where the City tells people to leave from, zone 1 first, as a storm gets stronger",
      "label": "",
      "hover": "Evacuation zone {zone}"
+    },
+    {
+     "id": "bldg",
+     "kind": "buildings",
+     "url": "/tiles/nyc/buildings.pmtiles",
+     "on": true,
+     "minZoom": 15,
+     "name": "Buildings",
+     "note": "Building outlines across the City and the region; from zoom 15",
+     "credit": "Buildings: © OpenStreetMap contributors, Overture Maps Foundation"
     }
    ]
   ],
@@ -1227,6 +1237,7 @@
  "lens": {
   "label": "Community district lens",
   "file": "cd_profiles.json",
+  "region": {"units": "region_tracts", "profiles": "region_tract_profiles.json"},
   "source": "American Community Survey 2020–2024 (U.S. Census Bureau), tracts summed into community districts.",
   "lenses": [
    {
@@ -1667,6 +1678,7 @@
   "living": {
    "caveat": "Survey estimates for 2020–2024, not current prices, for the whole community district. Rent is what renting households pay, utilities included, counting rent-stabilized and subsidized homes, so it sits well below what a new lease costs. Use them to compare districts, not to budget.",
    "footer": "American Community Survey 2020–2024 and MTA schedules, {name}. Tiers compare the 59 community districts.",
+   "regionFooter": "American Community Survey 2020–2024 (U.S. Census Bureau), {name}. Tiers use the same lines as the City’s community districts, so a tract here reads as a community district would.",
    "homes": {
     "label": "Home types",
     "types": [
@@ -1822,6 +1834,14 @@
     }
    ],
    "note": "Names open each person’s official page. Council members’ parties aren’t shown: the City Council’s pages don’t list them. Senate District 12 has been vacant since August 2026; it’s on the November 3 ballot. Checked against the official lists; last change {date}.",
+   "outside": {
+    "offices": [
+     {"role": "{f.role}", "file": "region_house", "table": "region_house", "key": "k", "sub": "{r.party} · {f.lab}"},
+     {"role": "State senator", "file": "region_senate", "table": "region_senate", "key": "k", "sub": "{r.party} · {f.lab}"},
+     {"role": "U.S. representative", "file": "region_congress", "table": "region_congress", "key": "k", "sub": "{r.party} · {f.k}"}
+    ],
+    "note": "Names open each person’s official page. New Jersey elects two Assembly members per district. These are the members in office now: those elected on November 3 in New York and Connecticut, and to Congress, take office in January. State legislators from Open States, U.S. representatives from the House Clerk; last change {date}. Mayors and town boards outside the City aren’t listed."
+   },
    "ballot": {
     "election": "2026-11-03",
     "through": "2026-11-03",

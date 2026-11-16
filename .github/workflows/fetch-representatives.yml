@@ -117,6 +117,7 @@ jobs:
           add() { for p in "$@"; do [ -e "$p" ] && git add "$p"; done; return 0; }
           for c in $CITIES; do add docs/$c/data/representatives.json cities/$c/raw/representatives; done
           add cities/chicago/raw/school_board cities/dallas/raw/dallas_council.geojson
+          add cities/nyc/raw/region/nj.csv cities/nyc/raw/region/ct.csv docs/nyc/data/region_house.geojson docs/nyc/data/region_senate.geojson docs/nyc/data/region_congress.geojson
           case "$CITIES" in *" sf "*) add cities/sf/raw/fetch_representatives.log docs/sf/data docs/sf/index.html;; esac
           if git diff --cached --quiet -- docs; then echo "no changes to the published files"; exit 0; fi
           git config user.name "github-actions[bot]"

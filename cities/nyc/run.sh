@@ -18,6 +18,17 @@ for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval
 python3 collectors.py          # after streets and base are simplified: the tier below the main streets (fetch_streets.py)
 npx mapshaper -i tmp/collectors.geojson -simplify interval=5 -o $OUT/collectors.geojson precision=0.00001 -quiet
 npx mapshaper -i tmp/region_highways.geojson -simplify interval=20 -o $OUT/region_highways.geojson precision=0.00001 -quiet
+# The tri-state region beyond the City from OpenStreetMap (fetch-region-basemap.yml): roads, parks, land use
+if [ -f raw/region_basemap/landuse.json ]; then
+  python3 ../../engine/region/basemap.py nyc
+  for f in region_streets region_collectors; do npx mapshaper -i tmp/$f.geojson -simplify interval=8 -o $OUT/$f.geojson precision=0.00001 -quiet; done
+  npx mapshaper -i tmp/landuse.geojson -simplify interval=35 -filter-slivers min-area=30000 -o $OUT/landuse.geojson precision=0.0001 -quiet
+fi
+[ -f raw/region_basemap/places.json ] && python3 ../../engine/region/card.py nyc   # Nearby beyond the City (after region_parks)
+if [ -f raw/region/acs_tracts.json ]; then   # after profiles.py and base: the lens beyond the City, by tract (fetch_region.py)
+  python3 region_profiles.py
+  npx mapshaper -i $OUT/region_tracts.geojson -simplify 25% keep-shapes -o force $OUT/region_tracts.geojson precision=0.0001 -quiet   # 3,000 tracts
+fi
 for f in rail_lines rail_lines_inner; do npx mapshaper -i tmp/$f.geojson -simplify interval=15 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 npx mapshaper -i tmp/subway_lines.geojson -simplify interval=4 -o $OUT/subway_lines.geojson precision=0.00001 -quiet
 cp tmp/region_areas.geojson tmp/region_areas.raw.geojson
