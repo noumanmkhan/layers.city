@@ -15,6 +15,7 @@ on:
       - 'scouting/bike-closures/scout.py'
       - 'scouting/civic/scout.py'
       - 'scouting/closures/scout.py'
+      - 'scouting/discovery/scout.py'
       - 'scouting/elections/scout2.py'
       - 'scouting/lost-rivers/scout.py'
       - 'scouting/nyc/scout.py'
@@ -43,8 +44,9 @@ jobs:
           [ -n "$P" ] && [ -f "$P" ] || { echo "No scout script to run ($P)"; exit 1; }
           echo "Running $P"
           echo "SCOUT=$P" >> "$GITHUB_ENV"; echo "OUT=$(dirname "$P")/out" >> "$GITHUB_ENV"
-      # The union of what the scouts need (shapely: bike closures; pypdf: New York; pandas and lxml: skyscrapers).
-      - run: pip install -q shapely pyproj pypdf pandas lxml
+      # The union of what the scouts need (shapely: bike closures; pypdf: New York; pandas and lxml: skyscrapers;
+      # osmium (pyosmium): discovery).
+      - run: pip install -q shapely pyproj pypdf pandas lxml osmium
       - env:
           FIVE11_KEY: ${{ secrets.FIVE11_KEY }}   # San Francisco's scout reads 511.org
         run: |
