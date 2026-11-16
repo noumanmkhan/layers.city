@@ -5,35 +5,23 @@ geo code list CL_GEO_CT 6247 codes; e.g. ['2021S05070010001_00', '2021S050700100
 dimensions: ['FREQ', 'REF_AREA', 'GENDER', 'CHARACTERISTIC', 'STATISTIC', None, None, None, None, None, None, None, None, None, None]
 probe 2021S05075370001.08 -> 2021S05075370001_08
 key works: A5.%s.1..1 344420
-  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001_00+2021S05075320002_01+2021S05075320002_02+2021S05075320002 HTTP Error 504: Gateway Time-out
-  retry 2 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001_00+2021S05075320002_01+2021S05075320002_02+2021S05075320002 HTTP Error 503: Service Unavailable
-  retry 3 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001_00+2021S05075320002_01+2021S05075320002_02+2021S05075320002 HTTP Error 504: Gateway Time-out
-  retry 4 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001_00+2021S05075320002_01+2021S05075320002_02+2021S05075320002 HTTP Error 504: Gateway Time-out
-csv columns: ['DATAFLOW', 'FREQ', 'TIME_PERIOD', 'REF_AREA', 'GENDER', 'CHARACTERISTIC', 'STATISTIC', 'OBS_VALUE', 'DECIMALS', 'FLAG', 'TOPIC', 'NOTE', 'RELEASE_DATE', 'GEO_LEVEL', 'ALT_GEO_CODE', 'GEO_DESC', 'PROV_TERR', 'DATA_QUALITY_FLAG', 'TNR_LF', 'TNR_SF', 'CI_LOW', 'CI_HIGH']
-  batch 1 of 39
-  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320100_03+2021S05075320101_02+2021S05075320101_03+2021S05075320101 HTTP Error 504: Gateway Time-out
-  retry 2 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320100_03+2021S05075320101_02+2021S05075320101_03+2021S05075320101 HTTP Error 504: Gateway Time-out
-  retry 3 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320100_03+2021S05075320101_02+2021S05075320101_03+2021S05075320101 HTTP Error 504: Gateway Time-out
-  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320202_16+2021S05075320202_17+2021S05075320202_18+2021S05075320203 HTTP Error 504: Gateway Time-out
-  retry 2 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320202_16+2021S05075320202_17+2021S05075320202_18+2021S05075320203 HTTP Error 504: Gateway Time-out
-  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350020_00+2021S05075350021_00+2021S05075350022_00+2021S05075350023 HTTP Error 504: Gateway Time-out
-  retry 2 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350020_00+2021S05075350021_00+2021S05075350022_00+2021S05075350023 HTTP Error 504: Gateway Time-out
-  retry 3 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350020_00+2021S05075350021_00+2021S05075350022_00+2021S05075350023 HTTP Error 504: Gateway Time-out
-  retry 4 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350020_00+2021S05075350021_00+2021S05075350022_00+2021S05075350023 HTTP Error 504: Gateway Time-out
-  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350053_00+2021S05075350054_00+2021S05075350055_00+2021S05075350056 HTTP Error 504: Gateway Time-out
-  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350085_00+2021S05075350086_00+2021S05075350087_00+2021S05075350088 HTTP Error 504: Gateway Time-out
-  retry 2 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350085_00+2021S05075350086_00+2021S05075350087_00+2021S05075350088 HTTP Error 504: Gateway Time-out
-  retry 3 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350085_00+2021S05075350086_00+2021S05075350087_00+2021S05075350088 HTTP Error 504: Gateway Time-out
-  retry 4 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350085_00+2021S05075350086_00+2021S05075350087_00+2021S05075350088 HTTP Error 504: Gateway Time-out
-  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350118_00+2021S05075350119_00+2021S05075350120_00+2021S05075350121 HTTP Error 504: Gateway Time-out
-  retry 2 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350118_00+2021S05075350119_00+2021S05075350120_00+2021S05075350121 HTTP Error 504: Gateway Time-out
-  retry 3 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350118_00+2021S05075350119_00+2021S05075350120_00+2021S05075350121 HTTP Error 504: Gateway Time-out
-  retry 4 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350118_00+2021S05075350119_00+2021S05075350120_00+2021S05075350121 HTTP Error 504: Gateway Time-out
-  retry 5 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350118_00+2021S05075350119_00+2021S05075350120_00+2021S05075350121 HTTP Error 504: Gateway Time-out
-Traceback (most recent call last):
-  File "/home/runner/work/layers.city/layers.city/cities/toronto/fetch_gta_tracts.py", line 114, in <module>
-    t = get(API + 'data/STC_CP,DF_CT/' + (KEY % '+'.join(batch)) + '?format=csv', 'text/csv').decode('utf-8-sig')
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/layers.city/layers.city/cities/toronto/fetch_gta_tracts.py", line 36, in get
-    raise RuntimeError('failed: ' + url)
-RuntimeError: failed: https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350118_00+2021S05075350119_00+2021S05075350120_00+2021S05075350121_00+2021S05075350122_00+2021S05075350123_00+2021S05075350124_00+2021S05075350125_00+2021S05075350126_00+2021S05075350127_00+2021S05075350128_02+2021S05075350128_04+2021S05075350128_05+2021S05075350128_06+2021S05075350129_00+2021S05075350130_00+2021S05075350131_00+2021S05075350132_00+2021S05075350133_00+2021S05075350134_00+2021S05075350135_00+2021S05075350136_01+2021S05075350136_02+2021S05075350137_00+2021S05075350138_00+2021S05075350139_01+2021S05075350139_02+2021S05075350140_00+2021S05075350141_01+2021S05075350141_02+2021S05075350142_00+2021S05075350150_00+2021S05075350151_00+2021S05075350152_00+2021S05075350153_00+2021S05075350154_00+2021S05075350155_00+2021S05075350156_01+2021S05075350156_02+2021S05075350157_00.1..1?format=csv
+batches: 191 · cached: 0
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001_00+2021S05075320002_01+2021S05075320002_02+2021S05075320002 The read operation timed out
+  retry 2 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001_00+2021S05075320002_01+2021S05075320002_02+2021S05075320002 The read operation timed out
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320005_00+2021S05075320006_00+2021S05075320007_00+2021S05075320008 HTTP Error 503: Service Unavailable
+  batch 21 of 191
+  batch 41 of 191
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350196_01+2021S05075350196_02+2021S05075350200_01+2021S05075350200 HTTP Error 503: Service Unavailable
+  batch 61 of 191
+  batch 81 of 191
+  batch 101 of 191
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350502_01+2021S05075350502_02+2021S05075350503_00+2021S05075350504 HTTP Error 503: Service Unavailable
+  batch 121 of 191
+  batch 141 of 191
+  batch 161 of 191
+  batch 181 of 191
+round 1 failed: 1
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001_00+2021S05075320002_01+2021S05075320002_02+2021S05075320002 The read operation timed out
+  batch 1 of 191
+round 2 failed: 0
+profiles: 1524 of 1524
