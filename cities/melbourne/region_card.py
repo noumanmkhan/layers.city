@@ -19,8 +19,8 @@ DATA = os.path.join(HERE, '..', '..', 'docs', 'melbourne', 'data')
 if not os.path.exists(os.path.join(RAW, 'places.json')):
     raise SystemExit('region_card: no raw/region_basemap/places.json yet (fetch-region-basemap.yml); skipped')
 base = json.load(open(os.path.join(DATA, 'base.geojson')))['features']
-CITY = unary_union([shape(f['geometry']) for f in base if f['properties']['kind'] == 'city']).buffer(0)
-REGION = unary_union([shape(f['geometry']) for f in base if f['properties']['kind'] == 'neighbour']).buffer(0)
+CITY = unary_union([shape(f['geometry']).buffer(0) for f in base if f['properties']['kind'] == 'city']).buffer(0)
+REGION = unary_union([shape(f['geometry']).buffer(0) for f in base if f['properties']['kind'] == 'neighbour']).buffer(0)
 OUT_AREA = prep(REGION.buffer(0.01).difference(CITY.buffer(-0.002)))
 r5 = lambda v: round(float(v), 5)
 groups = {}
