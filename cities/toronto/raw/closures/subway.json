@@ -1,25 +1,33 @@
 {
- "fetched": "2026-11-15T06:55",
+ "fetched": "2026-11-16T07:40",
  "source": "https://gtfsrt.ttc.ca/alerts/subway?format=binary",
  "licence": "Open Government Licence – Toronto",
  "closures": [
   {
-   "id": "80241",
-   "line": "2",
-   "name": "Line 2 Bloor-Danforth",
-   "from": "Victoria Park",
-   "to": "Kennedy",
+   "id": "80409",
+   "line": "1",
+   "name": "Line 1 Yonge-University",
+   "from": "York Mills",
+   "to": "Eglinton",
    "windows": [
     [
-     "2026-11-14T05:00",
-     "2026-11-16T03:30"
+     "2026-11-16T23:00",
+     "2026-11-17T03:30"
+    ],
+    [
+     "2026-11-17T23:00",
+     "2026-11-18T03:30"
+    ],
+    [
+     "2026-11-18T23:00",
+     "2026-11-19T03:30"
     ]
    ],
-   "text": "There is no subway service between Victoria Park and Kennedy stations due to planned track work. Shuttle buses are running.",
+   "text": "There is no subway service between York Mills and Eglinton stations due to structural maintenance. Shuttle buses are running.",
    "shuttle": true,
-   "start": "2026-11-14T05:00",
-   "end": "2026-11-16T03:30",
-   "effect": "Full closure"
+   "start": "2026-11-16T23:00",
+   "end": "2026-11-19T03:30",
+   "effect": "Early closure"
   }
  ]
 }
