@@ -26,7 +26,9 @@ pts = json.load(open(os.path.join(RAW, 'tracts.json')))
 cas = [(f['properties']['code'], f['properties']['name'], shape(f['geometry']).buffer(0))
        for f in json.load(open(os.path.join(HERE, 'tmp', 'neighbourhoods.geojson')))['features'] if 'park' not in f['properties']]
 
-import acs_profile
+import sys
+sys.path.insert(0, os.path.join(HERE, '..', '..', 'engine'))
+import acs_profile   # engine/acs_profile.py: the figures for one area, shared with region_profiles.py and Dallas
 from acs_profile import median, VALUE, RENT, v   # noqa: F401
 
 sums = {}

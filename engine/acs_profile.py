@@ -1,8 +1,8 @@
-"""The ACS figures for one area (a neighbourhood's summed tracts, or a single tract beyond the City), shared by
-profiles.py and region_profiles.py. setup(labels) reads the tables' variables from the Census labels once;
-figures(s, m, name) returns the card's fields from summed counts s (the core tables) and m (the extra tables; the
-same file today, so the same counts)."""
-from collections import Counter
+"""The American Community Survey figures for one area, shared by the US cities' lens scripts (a neighbourhood's summed
+tracts, a ZIP, or a single tract or ZIP beyond the city). setup(labels) reads the tables' variables from the Census
+labels once; figures(s, m, name) returns the card's fields from counts s (the core tables: B25003, B08301, B25075,
+B25063) and m (the extra tables: B25032, B25036, C16001, B01001, B05005), which are usually the same counts.
+Medians of home value and cash rent are read from the summed brackets by linear interpolation."""
 
 # Bracket lower edges (dollars), in table order.
 VALUE = [0, 10e3, 15e3, 20e3, 25e3, 30e3, 35e3, 40e3, 50e3, 60e3, 70e3, 80e3, 90e3, 100e3, 125e3, 150e3, 175e3,
@@ -22,17 +22,13 @@ def median(counts, edges):
         run += c
 
 
-
 def setup(labels):
     global LAB, UNIT_VARS, BUILT_VARS, LANG_VARS, AGE_VARS, RECENT_PERIOD, RECENT_VARS, ENTRY, leaf, shares, LANG_NAME
-    MORE = {'labels': labels}
-    LAB = {k: lab.split('!!') for k, lab in MORE['labels'].items()}
+    LAB = {k: lab.split('!!') for k, lab in labels.items()}
     leaf = lambda k: LAB[k][-1].rstrip(':')
-
 
     def vars_where(table, test):
         return [k for k in sorted(LAB) if k.startswith(table + '_') and test(LAB[k])]
-
 
     UNITS = {'1, detached': 0, '1, attached': 1, '2': 2, '3 or 4': 2, '5 to 9': 2, '10 to 19': 2, '20 to 49': 3, '50 or more': 3}
     UNIT_VARS = [(k, UNITS[leaf(k)]) for k in vars_where('B25032', lambda l: len(l) == 4 and l[-1] in UNITS)]
@@ -61,14 +57,12 @@ def setup(labels):
     assert len(AGE_VARS) == 46 and RECENT_VARS, (len(AGE_VARS), ENTRY)
     assert len(UNIT_VARS) == 16 and len(BUILT_VARS) == 20 and len(LANG_VARS) >= 10, (len(UNIT_VARS), len(BUILT_VARS), len(LANG_VARS))
 
-
     def shares(s, pairs, n):
         tot = sum(s[k] for k, _ in pairs)
         if not tot: return None
         out = [0] * n
         for k, i in pairs: out[i] += s[k]
         return [round(100 * x / tot) for x in out]
-
 
 
 v = lambda s, tbl, n: s.get(f'{tbl}_E{n:03d}', 0)

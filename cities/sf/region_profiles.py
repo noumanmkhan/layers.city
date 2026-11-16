@@ -4,7 +4,7 @@ labels, if the region file lacks them), docs/sf/data/base.geojson (each tract's 
 (profiles.py). Outputs: docs/sf/data/bay_tracts.geojson ({code "tr<GEOID>", name}) and bay_tract_profiles.json, read
 by the engine through city.json lens.region.
 
-Each profile has the same ACS fields as a San Francisco neighborhood's (acs_profile.py), plus region: 1 and muni. Tiers
+Each profile has the same ACS fields as a San Francisco neighborhood's (engine/acs_profile.py), plus region: 1 and muni. Tiers
 use the City's own lines so a tract reads as a San Francisco neighborhood would:
 - Housing cost: the tract's median home value and rent placed among San Francisco's neighborhoods (percentile),
   weighted by owners and renters as in profiles.py, then compared with the scores at the City's thirds.
@@ -14,9 +14,11 @@ import json, os, re
 from collections import Counter
 from shapely.geometry import shape, mapping
 from shapely.prepared import prep
-import acs_profile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+import sys
+sys.path.insert(0, os.path.join(HERE, '..', '..', 'engine'))
+import acs_profile   # engine/acs_profile.py
 RG = os.path.join(HERE, 'raw', 'region')
 DATA = os.path.join(HERE, '..', '..', 'docs', 'sf', 'data')
 if not os.path.exists(os.path.join(RG, 'acs_tracts.json')):
