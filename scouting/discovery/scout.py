@@ -44,7 +44,7 @@ KINDS = [
     ('vintage',           'Character shops', lambda t: A(t, 'shop', 'antiques', 'second_hand') or (A(t, 'shop', 'clothes') and A(t, 'second_hand', 'only'))),
     ('comics_games_toys', 'Character shops', lambda t: A(t, 'shop', 'games', 'toys', 'comic', 'anime', 'hobby', 'model') or (A(t, 'shop', 'books') and A(t, 'books', 'comic', 'comics'))),
     ('specialty_food',    'Character shops', lambda t: A(t, 'shop', 'cheese', 'deli', 'spices', 'tea', 'chocolate', 'confectionery', 'butcher', 'seafood', 'pasta', 'nuts')),
-    ('makers_oddities',   'Character shops', lambda t: A(t, 'shop', 'art', 'collector', 'craft', 'frame', 'musical_instrument') or 'craft' in t and 'name' in t and 'shop' not in t and 'amenity' not in t),
+    ('makers_oddities',   'Character shops', lambda t: A(t, 'shop', 'art', 'collector', 'craft', 'frame', 'musical_instrument')),
     ('viewpoints',        'Places',          lambda t: A(t, 'tourism', 'viewpoint')),
 ]
 STORY = ['start_date', 'wikidata', 'wikipedia', 'heritage', 'description', 'website', 'opening_hours']
@@ -176,3 +176,5 @@ if __name__ == '__main__':
     for k, r in report['kinds'].items():
         print('%-18s %6d %8d %7d %6d %6d' % (k, r['total'], r['branded'], r['likely_chain'], r['independent'], r['independent_named']))
     print('\nwrote report.json and one CSV per kind (independent candidates). Data: (c) OpenStreetMap contributors, ODbL.')
+    import match   # the City's described places, matched to these candidates (match.py)
+    match.main()
