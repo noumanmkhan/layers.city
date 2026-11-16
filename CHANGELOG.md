@@ -15,6 +15,8 @@
   district and federal division, and the federal MP (state MPs follow the November 28 election).
 - A "Focus on a council" picker zooms to any of Greater Melbourne's 31 councils.
 - Buildings: every building outline across Greater Melbourne from zoom 15, as in Toronto.
+- Tap anywhere in the suburbs and the card's Nearby section names the nearest library, community centre and
+  emergency department, and counts parks, playgrounds and primary and secondary schools within 1 km.
 - The suburb lens and Living here now cover all of Greater Melbourne's 500-odd suburbs (2021 Census by suburb), tiered
   against the City's own lines: housing cost, renters and owners, home types, languages, ages, recent arrivals.
 
