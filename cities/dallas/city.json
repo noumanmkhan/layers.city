@@ -1025,7 +1025,15 @@
         "races": {"ussenate": "U.S. Senate", "governor": "Governor"},
         "party": {"Republican": "R", "Democratic": "D", "Libertarian": "L", "Green": "G", "Rep": "R", "Dem": "D", "Lib": "L", "Grn": "G"},
         "note": "Candidates on the November 3 ballot, in ballot order, from Dallas County’s official sample ballot (where the city reaches into Collin, Denton, Kaufman or Rockwall counties, districts that don’t reach Dallas County show no race); shown until election day."},
-      "note": "Names open each person's official page. Dallas's council elections are nonpartisan. Each U.S. representative is shown for the district they were elected on; the congressional lines on the map are the new ones used on November 3, and the winners take office in January. Last change {date}."
+      "note": "Names open each person's official page. Dallas's council elections are nonpartisan. Each U.S. representative is shown for the district they were elected on; the congressional lines on the map are the new ones used on November 3, and the winners take office in January. Last change {date}.",
+      "outside": {
+        "offices": [
+          {"role": "State representative", "file": "tx_house", "table": "house", "key": "num", "sub": "{r.party} · District {f.num}"},
+          {"role": "State senator", "file": "tx_senate", "table": "senate", "key": "num", "sub": "{r.party} · District {f.num}"},
+          {"role": "U.S. representative", "file": "us_house_2021", "table": "congress", "key": "num", "sub": "{r.party} · TX-{f.num}"}
+        ],
+        "note": "Names open each person’s official page. Each U.S. representative is shown for the district they were elected on; the winners on the new map take office in January. Mayors and city councils outside Dallas aren’t listed yet. Last change {date}."
+      }
     },
     "vote": {
       "file": "voting",

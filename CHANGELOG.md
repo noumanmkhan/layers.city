@@ -9,6 +9,8 @@
 
 ### The Metroplex beyond Dallas (November 16)
 - Buildings: every building outline across the nine counties from zoom 15, as in the other cities.
+- Tap anywhere in the Metroplex and the card names your state representative, state senator and U.S. representative,
+  not just the district numbers.
 
 ### The Bay Area beyond San Francisco: streets, parks, land use, buildings, lens and card (November 16)
 - Buildings: every building outline across the nine counties from zoom 15, as in Toronto, Melbourne and Chicago.

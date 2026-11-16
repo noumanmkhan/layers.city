@@ -11,6 +11,9 @@
 > its member is `representatives.json[table][<municipality name>]`, the `base.geojson` neighbour the spot is in;
 > `sub` fills `{m.name}` from that feature. `representatives.json` gains `gta_mayors` (hand-kept,
 > `cities/toronto/gta_mayors.json`). Additive.
+> **November 16, 2026:** Dallas: `card.reps.outside` (state representative, state senator, U.S. representative, keyed by
+> the region-wide `tx_house`, `tx_senate` and `us_house_2021` files and the existing tables), and a `buildings` layer.
+> Additive; schema stays 2.
 > **November 16, 2026:** Vancouver: `provincial.geojson` and `federal.geojson` cover Metro Vancouver, `card.outsideFacts`
 > (prov, fed), `card.reps.outside` (a Mayor office with `muni: true` and table `region_mayors`, keyed by the
 > municipality's name in `base.geojson`; the MP keyed by the federal riding), `representatives.json` `region_mayors`,
