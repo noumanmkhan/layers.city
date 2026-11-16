@@ -108,7 +108,7 @@
   "outside": {
     "beyond": "That spot is outside Metro Vancouver.",
     "regionPill": "{region}",
-    "note": "Outside the City of Vancouver. The local areas and sides on this map cover Vancouver only.",
+    "note": "Outside the City of Vancouver. The local areas, sides and the City’s own layers on this map cover Vancouver only.",
     "appNote": "Outside the City of Vancouver, so local area and city details aren't shown here.",
     "appBeyond": "That spot is outside Metro Vancouver."
   },
@@ -382,6 +382,16 @@
           "note": "22 BIAs",
           "label": "{name}",
           "hover": "{name} BIA"
+        },
+        {
+          "id": "bldg",
+          "kind": "buildings",
+          "url": "/tiles/vancouver/buildings.pmtiles",
+          "on": true,
+          "minZoom": 15,
+          "name": "Buildings",
+          "note": "Building outlines across Metro Vancouver; from zoom 15",
+          "credit": "Buildings: © OpenStreetMap contributors, Overture Maps Foundation"
         }
       ]
     ],
@@ -729,7 +739,7 @@
           "level": "state",
           "file": "provincial",
           "name": "Provincial ridings",
-          "note": "12 MLAs · the boundaries of the October 24, 2026 election",
+          "note": "Across Metro Vancouver · the boundaries of the October 24, 2026 election",
           "label": "{name}",
           "hover": "Provincial: {name}"
         },
@@ -739,7 +749,7 @@
           "level": "national",
           "file": "federal",
           "name": "Federal ridings",
-          "note": "7 MPs · 2023 boundaries, cut to the city line",
+          "note": "MPs across Metro Vancouver · 2023 boundaries",
           "label": "{name}",
           "hover": "Federal: {name}",
           "party": {
@@ -1459,8 +1469,16 @@
           "sub": "{r.party}"
         }
       ],
-      "note": "Names open each person’s official page. The mayor and councillors (elected at large on October 17) and MLAs (BC votes October 24) are added once the results are in. Checked weekly; last change {date}."
-    }
+      "note": "Names open each person’s official page. The mayor and councillors (elected at large on October 17) and MLAs (BC votes October 24) are added once the results are in. Checked weekly; last change {date}.",
+      "outside": {
+        "offices": [
+          {"role": "Mayor", "muni": true, "table": "region_mayors", "sub": "{m.name} · 2026–2030 term"},
+          {"role": "MP", "file": "federal", "table": "fed", "key": "name", "sub": "{r.party} · {f.name}"}
+        ],
+        "note": "Names open each person’s official page; mayors link to the municipality’s website. Mayors are from the October 17, 2026 local elections. MLAs and councillors aren’t listed yet. Last change {date}."
+      }
+    },
+    "outsideFacts": ["prov", "fed"]
   },
   "tour": {
     "invite": "New to Vancouver? Take a one-minute tour.",

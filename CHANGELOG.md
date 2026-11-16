@@ -2,6 +2,11 @@
 
 ## Since 1.1
 
+### Metro Vancouver beyond the City (November 16)
+- Buildings: every building outline across Metro Vancouver from zoom 15, as in the other cities.
+- Provincial and federal ridings now cover all of Metro Vancouver, and tapping anywhere in the region names the
+  municipality, its mayor (from the October 17 local elections), the provincial and federal ridings and the MP.
+
 ### The Metroplex beyond Dallas (November 16)
 - Buildings: every building outline across the nine counties from zoom 15, as in the other cities.
 

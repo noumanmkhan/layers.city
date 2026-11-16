@@ -8,10 +8,9 @@ mapshaper in run.sh), plus the election-day voting places straight to docs/vanco
   bia         The 22 business improvement areas (`business-improvement-areas-bia`; Dunbar Village's three pieces
               are one BIA).
   provincial  BC provincial electoral districts (DataBC; the boundaries used in the October 24, 2026 election),
-              cut to the City's land and the University Endowment Lands: a district that reaches into Burnaby shows only
-              its Vancouver part.
-  federal     Federal ridings, 2023 Representation Order (Open North's Represent), cut to the City's land the same
-              way, so Marpole (in Richmond Centre—Marpole) is covered.
+              cut to Metro Vancouver's land (since November 16, 2026; the City's before), so the card names them anywhere
+              in the region.
+  federal     Federal ridings, 2023 Representation Order (Open North's Represent), cut to Metro Vancouver the same way.
   voting      Vancouver votes at any voting place in the city: one area (the City) and every election-day voting
               place from the City's `voting-places-2026`, in Dallas's vote-centre shape. Advance-only places are left
               out (advance voting has ended); two places in one building are one entry."""
@@ -28,6 +27,9 @@ CITY = next(shape(f['geometry']).buffer(0) for f in load('csds.geojson')['featur
 # The University Endowment Lands (build.py's annex), shown in the city view: ridings reach over it too.
 ANNEX = unary_union([shape(f['geometry']).buffer(0) for f in json.load(open(os.path.join(TMP, 'base.geojson')))['features'] if f['properties']['kind'] == 'annex'])
 VIEW = CITY.union(ANNEX)
+# Metro Vancouver's land (build.py's municipalities), for the ridings since November 16, 2026.
+REGION = unary_union([shape(f['geometry']).buffer(0) for f in json.load(open(os.path.join(TMP, 'base.geojson')))['features']
+                      if f['geometry'] and f['properties']['kind'] in ('city', 'neighbour', 'annex')]).union(VIEW).buffer(0)
 
 
 def label_pt(g):
@@ -69,18 +71,19 @@ for f in load('ods', 'business-improvement-areas-bia.geojson')['features']:
     by.setdefault(n, []).append(shape(f['geometry']).buffer(0))
 dump('bia', [feat(polys(unary_union(gs)), {'name': n}) for n, gs in sorted(by.items())])
 
-# ---------- Provincial districts and federal ridings, cut to the City ----------
-def cut(features, name_of, min_km2=0.05):
+# ---------- Provincial districts and federal ridings, cut to Metro Vancouver ----------
+def cut(features, name_of, min_km2=0.05, within=VIEW):
     out = []
     for f in features:
-        g = polys(shape(f['geometry']).buffer(0).intersection(VIEW))
+        g = polys(shape(f['geometry']).buffer(0).intersection(within))
         if g.is_empty or g.area * 72.6 * 111.2 < min_km2: continue
         out.append(feat(g, {'name': name_of(f['properties'])}))
     return sorted(out, key=lambda f: f['properties']['name'])
 
 
-dump('provincial', cut(load('prov_districts.geojson')['features'], lambda p: p['ED_NAME']))
-dump('federal', cut(load('fed2023.geojson')['features'], lambda p: p['name']))
+dump('provincial', cut(load('prov_districts.geojson')['features'], lambda p: p['ED_NAME'], 1, REGION))
+FED = 'fed2023_bc.geojson' if os.path.exists(os.path.join(R, 'fed2023_bc.geojson')) else 'fed2023.geojson'   # all of BC (fetch_region_feds.py)
+dump('federal', cut(load(FED)['features'], lambda p: p['name'], 1, REGION))
 
 # ---------- Where to vote (October 17, 2026) ----------
 centers = []

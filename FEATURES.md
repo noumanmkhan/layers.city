@@ -295,6 +295,11 @@ It has Toronto's features: boroughs, known-as names, landmarks, skyscrapers from
 
 **Live at:** https://layers.city/sf/ (on the hub since October 30, 2026, in the top row with Toronto and New York)
 
+*Beyond the City* (November 16, 2026): provincial and federal ridings cut to Metro Vancouver (`layers.py`; every BC
+riding from `fetch_region_feds.py`), the card's `outsideFacts` and Representatives beyond the City (mayors hand-kept in
+`region_mayors.json` from the October 17, 2026 elections, Lions Bay left out until confirmed; MPs), and a Buildings
+layer (Overture, `region.json`).
+
 *Beyond the City* (November 16, 2026): the Bay Area filled in the way the GTA, Greater Melbourne and Chicagoland were.
 OSM main and collector streets, parks and open space and a Land use layer (`engine/region/`, `region.json`); Overture
 buildings from zoom 15; the lens and Living here for the other eight counties' ~1,500 tracts (`fetch_region.py`: ACS

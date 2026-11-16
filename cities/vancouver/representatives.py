@@ -1,6 +1,8 @@
 """Who represents each part of Vancouver, with a link to their official page.
 Inputs: raw/representatives/ourcommons.xml (fetch_representatives.py) and the map's federal riding file for the names.
-Output: docs/vancouver/data/representatives.json  {"updated": date, "fed": {"Vancouver Centre": {name, party, url}}}
+Output: docs/vancouver/data/representatives.json  {"updated": date, "fed": {"Vancouver Centre": {name, party, url}},
+        "region_mayors": {"Burnaby": {name, url}}}  (the federal ridings cover Metro Vancouver since November 16, 2026;
+        mayors beyond the City are hand-kept in region_mayors.json)
 
 Only MPs for now. Vancouver's mayor and councillors (elected at large, October 17, 2026) and its MLAs (BC votes
 October 24, 2026) are added once the results are in; until then the card shows the riding names without people.
@@ -37,8 +39,11 @@ for r in feds:
     fed[r] = com.get(key(r))
     if not fed[r]: problems.append('MP not found (seat may be vacant): ' + r)
 old = json.load(open(OUT)) if os.path.exists(OUT) else {}
+# Mayors beyond the City (hand-kept, region_mayors.json), keyed by the municipality's name in base.geojson.
+mayors = {k: v for k, v in json.load(open(os.path.join(HERE, 'region_mayors.json')))['mayors'].items()}
 import datetime as dt
-out = {'updated': old.get('updated') if old.get('fed') == fed else dt.date.today().isoformat(), 'fed': fed}
+same = old.get('fed') == fed and old.get('region_mayors') == mayors
+out = {'updated': old.get('updated') if same else dt.date.today().isoformat(), 'fed': fed, 'region_mayors': mayors}
 json.dump(out, open(OUT, 'w'), ensure_ascii=False, indent=1)
 print('MPs:', {k: (v or {}).get('name') for k, v in fed.items()})
 if problems: print('  ' + '\n  '.join(problems))
