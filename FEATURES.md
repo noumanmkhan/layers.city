@@ -133,6 +133,8 @@ farms, woods, cemeteries and quarries across the whole GTA, Toronto included, wi
 `gta_parks` and `landuse`). Land use is mapped by volunteers, so it is a guide to how land is used, not the zoning
 bylaw, and farmland is under-mapped in OpenStreetMap.
 
+*The lens beyond the city* (November 16): the GTA's 750 census tracts outside Toronto get the same Census figures and tiers as Toronto's neighbourhoods (`fetch_gta_tracts.py` in *Fetch GTA census tracts*: StatCan's ArcGIS tract boundaries and its SDMX Census Profile service, since www12 refuses runners; `tracts.py` places each tract's home value and rent among Toronto's neighbourhoods and uses Toronto's lines; `lens.region` in city.json). The City-only lenses (union station access, Bloor, canopy, permit parking) stay grey beyond the city.
+
 *Buildings* (November 16, on by default from zoom 15): every building outline across the GTA, Toronto included, from
 the Overture Maps Foundation's buildings theme (OpenStreetMap plus machine-traced footprints where OSM has none).
 Too big for GeoJSON, so it is the site's first vector tile set: `engine/tiles/buildings.sh` (run by *Build tiles*,

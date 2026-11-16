@@ -189,6 +189,7 @@
     "label": "Neighbourhood lens",
     "hubLabel": "Trip to",
     "file": "nbhd_profiles.json",
+    "region": {"units": "gta_tracts", "profiles": "gta_tract_profiles.json"},
     "source": "2021 Census via City of Toronto Neighbourhood Profiles.",
     "lenses": [
       {"id": "cost", "short": "Housing cost", "key": "cost",

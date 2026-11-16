@@ -1,0 +1,30 @@
+name: Fetch GTA census tracts
+# The What's here card beyond the City of Toronto. This run: census tracts (boundaries and 2021 profile figures,
+# Statistics Canada) for the neighbourhood lens beyond the city, into cities/toronto/raw/gta_tracts/.
+on:
+  workflow_dispatch:
+  push:
+    branches: [fetch-gta-tracts]
+    paths: ['cities/toronto/fetch_gta_tracts.py', '.github/workflows/fetch-gta-tracts.yml']
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: echo no extra packages
+      - run: mkdir -p cities/toronto/raw/gta_tracts && timeout 300m python3 -u cities/toronto/fetch_gta_tracts.py 2>&1 | tee cities/toronto/raw/gta_tracts/fetch.log; exit ${PIPESTATUS[0]}
+        shell: bash
+      - if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/gta_tracts
+          git commit -m "Fetch the GTA's census tracts and 2021 profile figures" || echo "no changes"
+          git pull --rebase
+          git push

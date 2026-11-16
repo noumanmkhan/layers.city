@@ -1,0 +1,27 @@
+layers: [(0, 'PR - lpr_000b21s_e'), (1, 'CAR - lcar000b21s_e'), (2, 'ER - ler_000b21s_e'), (3, 'FED - lfed000b21s_e'), (4, 'CD - lcd_000b21s_e'), (5, 'CCS - lccs000b21s_e'), (6, 'CMA - lcma000b21s_e'), (7, 'PC - lpc_000b21s_e'), (8, 'DPL - ldpl000b21s_e'), (9, 'CSD - lcsd000b21s_e'), (10, 'ADA - lada000b21s_e'), (11, 'CT - lct_000b21s_e'), (12, 'DA - lda_000b21s_e'), (13, 'DB - ldb_000b21s_e'), (14, 'FSA - lfsa000b21s_e')]
+tracts: 1524 · fields: ['OBJECTID', 'CTUID', 'DGUID', 'CTNAME', 'LANDAREA', 'PRUID', 'SHAPE_Length', 'SHAPE_Area']
+characteristics kept: 401
+geo code list CL_GEO_CT 6247 codes; e.g. ['2021S05070010001_00', '2021S05070010002_00', '2021S05070010003_01'] ['2021S05075350001_00', '2021S05075350002_00', '2021S05075350003_00', '2021S05075350004_00', '2021S05075350005_00']
+dimensions: ['FREQ', 'REF_AREA', 'GENDER', 'CHARACTERISTIC', 'STATISTIC', None, None, None, None, None, None, None, None, None, None]
+probe 2021S05075370001.08 -> 2021S05075370001_08
+key works: A5.%s.1..1 344420
+batches: 191 · cached: 0
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001_00+2021S05075320002_01+2021S05075320002_02+2021S05075320002 The read operation timed out
+  retry 2 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001_00+2021S05075320002_01+2021S05075320002_02+2021S05075320002 The read operation timed out
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320005_00+2021S05075320006_00+2021S05075320007_00+2021S05075320008 HTTP Error 503: Service Unavailable
+  batch 21 of 191
+  batch 41 of 191
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350196_01+2021S05075350196_02+2021S05075350200_01+2021S05075350200 HTTP Error 503: Service Unavailable
+  batch 61 of 191
+  batch 81 of 191
+  batch 101 of 191
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075350502_01+2021S05075350502_02+2021S05075350503_00+2021S05075350504 HTTP Error 503: Service Unavailable
+  batch 121 of 191
+  batch 141 of 191
+  batch 161 of 191
+  batch 181 of 191
+round 1 failed: 1
+  retry 1 https://api.statcan.gc.ca/census-recensement/profile/sdmx/rest/data/STC_CP,DF_CT/A5.2021S05075320001_00+2021S05075320002_01+2021S05075320002_02+2021S05075320002 The read operation timed out
+  batch 1 of 191
+round 2 failed: 0
+profiles: 1524 of 1524

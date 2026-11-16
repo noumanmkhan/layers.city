@@ -2,6 +2,12 @@
 
 ## Since 1.1
 
+### The neighbourhood lens across the GTA (Toronto, November 16)
+- The lens and Living here now reach Halton, Peel, York and Durham: 750 census tracts with the same 2021 Census
+  figures as Toronto's neighbourhoods (housing cost, getting to work, renters and owners, home types, year built,
+  languages, ages, recent immigrants), tiered on Toronto's own lines so a tract in Brampton reads as a Toronto
+  neighbourhood would.
+
 ### Chicagoland filled in: streets, parks, land use, buildings and the card beyond the City (November 16)
 - Zoom in anywhere from Waukegan to Joliet to Gary and every building is drawn, from zoom 15, as in Toronto and
   Melbourne (Overture Maps, mostly OpenStreetMap).
