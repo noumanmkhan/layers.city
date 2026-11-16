@@ -96,6 +96,10 @@ def acs():
     raise RuntimeError('no ACS year available')
 
 
+# A rerun (the basemap fetch again) skips what's already here unless REFETCH=1.
+DONE = {'districts': 'lower.geojson', 'legislators': 'ct.csv', 'tracts': 'tracts.geojson', 'acs': 'acs_tracts.json'}
 for label, fn in [('districts', districts), ('legislators', legislators), ('tracts', tracts), ('acs', acs)]:
+    if not os.environ.get('REFETCH') and os.path.exists(os.path.join(OUT, DONE[label])):
+        print('==', label, 'already fetched', flush=True); continue
     print('==', label, flush=True); step(label, fn)
 print('FAILED:', FAILED or 'none')
