@@ -2,8 +2,15 @@
 
 ## Since 1.1
 
-### The Bay Area beyond San Francisco (November 16)
+### The Bay Area beyond San Francisco: streets, parks, land use, buildings, lens and card (November 16)
 - Buildings: every building outline across the nine counties from zoom 15, as in Toronto, Melbourne and Chicago.
+- Main and collector streets, parks and open space preserves and a Land use layer (homes, shops, industry, farms and
+  vineyards, woods) from Healdsburg to Gilroy, all from OpenStreetMap.
+- The neighborhood lens and Living here now cover the other eight counties: 1,500 census tracts with the same ACS
+  figures as San Francisco's neighborhoods, tiered on the City's own lines.
+- Tap anywhere in the Bay Area: Nearby names the nearest library, community center and ER and counts parks,
+  playgrounds and schools within a mile, and Representatives names the Assemblymember, state senator and U.S.
+  representative.
 
 ### The neighbourhood lens across the GTA (Toronto, November 16)
 - The lens and Living here now reach Halton, Peel, York and Durham: 750 census tracts with the same 2021 Census

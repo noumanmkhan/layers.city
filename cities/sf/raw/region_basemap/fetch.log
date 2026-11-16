@@ -1,0 +1,89 @@
+  roads (36.89, -123.54, 37.55, -122.76) 0 elements
+  roads (37.55, -123.54, 38.21, -122.76) 77 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  roads (38.21, -123.54, 38.87, -122.76) 1267 elements
+  roads (36.89, -122.76, 37.55, -121.98) 15105 elements
+  roads (37.55, -122.76, 38.21, -121.98) 36490 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  roads (38.21, -122.76, 38.87, -121.98) 6672 elements
+  roads (36.89, -121.98, 37.55, -121.2) 20074 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  roads (37.55, -121.98, 38.21, -121.2) 13229 elements
+  roads (38.21, -121.98, 38.87, -121.2) 21816 elements
+wrote roads 114455 26.1 MB
+  parks (36.89, -123.54, 37.55, -122.76) 2 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  parks (37.55, -123.54, 38.21, -122.76) 24 elements
+  parks (38.21, -123.54, 38.87, -122.76) 142 elements
+  parks (36.89, -122.76, 37.55, -121.98) 858 elements
+  parks (37.55, -122.76, 38.21, -121.98) 1886 elements
+  parks (38.21, -122.76, 38.87, -121.98) 432 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  parks (36.89, -121.98, 37.55, -121.2) 937 elements
+  parks (37.55, -121.98, 38.21, -121.2) 1108 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  parks (38.21, -121.98, 38.87, -121.2) 1202 elements
+wrote parks 4963 2.3 MB
+  landuse (36.89, -123.54, 37.385, -122.955) 0 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry 3 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 4 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  landuse (37.385, -123.54, 37.88, -122.955) 0 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 504: Gateway Timeout
+  landuse (37.88, -123.54, 38.375, -122.955) 186 elements
+  landuse (38.375, -123.54, 38.87, -122.955) 502 elements
+  landuse (36.89, -122.955, 37.385, -122.37) 107 elements
+  landuse (37.385, -122.955, 37.88, -122.37) 1850 elements
+  landuse (37.88, -122.955, 38.375, -122.37) 3451 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  landuse (38.375, -122.955, 38.87, -122.37) 5707 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  landuse (36.89, -122.37, 37.385, -121.785) 10211 elements
+  landuse (37.385, -122.37, 37.88, -121.785) 14338 elements
+  landuse (37.88, -122.37, 38.375, -121.785) 9846 elements
+  landuse (38.375, -122.37, 38.87, -121.785) 5235 elements
+  landuse (36.89, -121.785, 37.385, -121.2) 3513 elements
+  landuse (37.385, -121.785, 37.88, -121.2) 2535 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  landuse (37.88, -121.785, 38.375, -121.2) 8808 elements
+  landuse (38.375, -121.785, 38.87, -121.2) 7860 elements
+wrote landuse 52959 26.9 MB
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+places: {'library': 530, 'centre': 679, 'hospital': 145, 'playground': 6562, 'worship': 3661, 'school': 3643}
+== districts
+  saved upper.geojson
+  upper 15
+  saved lower.geojson
+  lower 28
+== tracts
+  tracts so far 379
+  tracts so far 621
+  tracts so far 684
+  tracts so far 724
+  tracts so far 898
+  tracts so far 1306
+  tracts so far 1406
+  tracts so far 1528
+  saved tracts.geojson
+== acs
+  B25003 tracts so far 1528
+  B08301 tracts so far 1528
+  B25075 tracts so far 1528
+  B25063 tracts so far 1528
+  B25036 tracts so far 1528
+  B25032 tracts so far 1528
+  C16001 tracts so far 1528
+  B01001 tracts so far 1528
+  B05005 tracts so far 1528
+  saved acs_tracts.json
+FAILED: none

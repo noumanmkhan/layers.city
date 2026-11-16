@@ -70,6 +70,35 @@ out = {'sup': {k: v for k, v in sup.items() if k in nums('supervisors.geojson')}
        'senate': {k: v for k, v in senate.items() if k in nums('senate.geojson')},
        'congress': {k: v for k, v in congress.items() if k in {str(f['properties']['num']) for f in us}},
        'mayor': {'city': MAYOR}}
+# The Bay Area beyond the City (raw/region/, fetch_region.py): every Assembly and State Senate district in the region,
+# and the 2021 congressional districts the sitting members were elected on, as card-only boundary files
+# (region_assembly.geojson, region_senate, region_congress: properties num) and tables of the same names, for
+# card.reps.outside.
+RG = os.path.join(HERE, 'raw', 'region')
+if os.path.exists(os.path.join(RG, 'lower.geojson')):
+    import re
+    from shapely.prepared import prep
+    base = [f for f in feats('base.geojson') if f['properties']['kind'] == 'neighbour']
+    REG = unary_union([shape(f['geometry']).buffer(0) for f in base]).buffer(0)
+    REACH, CLIP = REG.difference(city.buffer(-0.002)).buffer(-0.001), REG.buffer(0.01)
+    srcs = [('region_assembly', assembly, [(f['properties'].get('BASENAME'), f['geometry']) for f in json.load(open(os.path.join(RG, 'lower.geojson')))['features']]),
+            ('region_senate', senate, [(f['properties'].get('BASENAME'), f['geometry']) for f in json.load(open(os.path.join(RG, 'upper.geojson')))['features']]),
+            ('region_congress', congress, [(f['properties']['CD119FP'], f['geometry']) for f in json.load(open(os.path.join(SRC, 'us_house_2021.geojson')))['features']])]
+    for table, members, shapes in srcs:
+        fs = []
+        for num, geom in shapes:
+            if not re.search(r'\d', num or ''): continue
+            g = shape(geom).buffer(0)
+            if not g.intersects(REACH): continue
+            g = g.intersection(CLIP).simplify(0.0003, preserve_topology=True)
+            if g.is_empty: continue
+            m = mapping(g)
+            fs.append({'type': 'Feature', 'properties': {'num': int(re.sub(r'\D', '', num))}, 'geometry': {'type': m['type'], 'coordinates': rnd(m['coordinates'])}})
+        json.dump({'type': 'FeatureCollection', 'features': fs}, open(os.path.join(DATA, table + '.geojson'), 'w'), separators=(',', ':'))
+        keys = {str(f['properties']['num']) for f in fs}
+        out[table] = {k: v for k, v in members.items() if k in keys}
+        print(table, len(fs), 'districts ·', len(out[table]), 'members · vacant', sorted(keys - set(out[table]), key=int))
+
 old = json.load(open(OUT)) if os.path.exists(OUT) else {}
 same = {k: v for k, v in old.items() if k != 'updated'} == out
 out = {'updated': old['updated'] if same and old.get('updated') else datetime.date.today().isoformat(), **out}

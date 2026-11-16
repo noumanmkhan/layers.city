@@ -101,7 +101,7 @@
  "outside": {
   "beyond": "That spot is outside the nine Bay Area counties on this map.",
   "regionPill": "{region}",
-  "note": "Outside San Francisco. The neighborhoods and districts on this map cover the City only.",
+  "note": "Outside San Francisco. The neighborhoods, supervisor districts and the City’s own layers on this map cover the City only.",
   "appNote": "Outside San Francisco, so neighborhood and supervisor details aren't shown here.",
   "appBeyond": "That spot is outside the Bay Area."
  },
@@ -321,6 +321,16 @@
      "hcdText": "Also in (historic district)"
     },
     {
+     "id": "landuse",
+     "kind": "landuse",
+     "file": "landuse",
+     "on": true,
+     "name": "Land use",
+     "note": "Homes, shops, industry, farms and woods across the Bay Area",
+     "key": {"res": "Residential", "com": "Commercial & retail", "ind": "Industrial", "farm": "Farmland & vineyards", "wood": "Woods", "cem": "Cemeteries", "quarry": "Quarries"},
+     "legend": "From OpenStreetMap, mapped by volunteers: a guide to how land is used, not the zoning code."
+    },
+    {
      "id": "bldg",
      "kind": "buildings",
      "url": "/tiles/sf/buildings.pmtiles",
@@ -380,6 +390,10 @@
      "kind": "parks",
      "on": true,
      "file": "parks",
+     "more": "region_parks",
+     "placeOut": "Park",
+     "reserveOut": "Open space preserve",
+     "fineOut": "Outline from OpenStreetMap. Amenities are listed for San Francisco’s Rec & Park properties only.",
      "lazy": true,
      "optional": true,
      "name": "Parks",
@@ -610,14 +624,16 @@
      "id": "streets",
      "kind": "streets",
      "file": "streets",
+     "more": "region_streets",
      "name": "Main streets",
-     "note": "Market, Mission, Van Ness, Geary, 19th Avenue, the Embarcadero",
+     "note": "Market, Mission, Van Ness, Geary, 19th Avenue, the Embarcadero, and across the Bay Area",
      "on": true
     },
     {
      "id": "coll",
      "kind": "streets",
      "file": "collectors",
+     "more": "region_collectors",
      "under": "streets",
      "labelZoom": 15,
      "yieldLabels": true,
@@ -1148,7 +1164,8 @@
  "lens": {
   "label": "Neighborhood lens",
   "file": "nb_profiles.json",
-  "source": "American Community Survey 2020–2024 (U.S. Census Bureau), tracts summed into the 41 Analysis Neighborhoods.",
+  "region": {"units": "bay_tracts", "profiles": "bay_tract_profiles.json"},
+  "source": "American Community Survey 2020–2024 (U.S. Census Bureau), tracts summed into the 41 Analysis Neighborhoods, and single tracts across the rest of the Bay Area.",
   "lenses": [
    {
     "id": "cost",
@@ -1563,6 +1580,7 @@
   "living": {
    "caveat": "Survey estimates for 2020–2024, not current prices, for the whole neighborhood. Rent is what renting households pay, utilities included, counting rent-controlled and subsidized homes, so it sits well below what a new lease costs. Use them to compare neighborhoods, not to budget.",
    "footer": "American Community Survey 2020–2024 and Muni, BART and Caltrain schedules, {name}. Tiers compare San Francisco's 38 residential Analysis Neighborhoods.",
+   "regionFooter": "American Community Survey 2020–2024 (U.S. Census Bureau), {name}. Tiers use the same lines as San Francisco’s neighborhoods, so a tract here reads as a San Francisco neighborhood would.",
    "homes": {
     "label": "Home types",
     "types": [
@@ -1695,7 +1713,23 @@
      "sub": "{r.party} · CA-{f.num}"
     }
    ],
-   "note": "Names open each person’s official page. San Francisco’s Board of Supervisors elections are nonpartisan. Supervisor Districts 2, 4, 6, 8 and 10 are on the November 3 ballot, and new terms start January 8. Each U.S. representative is shown for the district they were elected on; the congressional lines on the map are the new Proposition 50 ones used on November 3, and the winners take office in January. Last change {date}."
+   "note": "Names open each person’s official page. San Francisco’s Board of Supervisors elections are nonpartisan. Supervisor Districts 2, 4, 6, 8 and 10 are on the November 3 ballot, and new terms start January 8. Each U.S. representative is shown for the district they were elected on; the congressional lines on the map are the new Proposition 50 ones used on November 3, and the winners take office in January. Last change {date}.",
+   "outside": {
+    "offices": [
+     {"role": "Assemblymember", "file": "region_assembly", "table": "region_assembly", "key": "num", "sub": "{r.party} · District {f.num}"},
+     {"role": "State senator", "file": "region_senate", "table": "region_senate", "key": "num", "sub": "{r.party} · District {f.num}"},
+     {"role": "U.S. representative", "file": "region_congress", "table": "region_congress", "key": "num", "sub": "{r.party} · CA-{f.num}"}
+    ],
+    "note": "Names open each person’s official page. Each U.S. representative is shown for the district they were elected on; the Proposition 50 winners take office in January. Mayors and city councils outside San Francisco aren’t listed yet. Last change {date}."
+   }
+  },
+  "outsideNearby": {
+   "file": "region_nearby.json",
+   "radius": 1609,
+   "nearest": [["library", "Library"], ["centre", "Community center"], ["er", "Emergency dept."], ["mosque", "Mosque", "worship:mosque"], ["gurdwara", "Gurdwara", "worship:gurdwara"], ["synagogue", "Synagogue", "worship:synagogue"], ["hindu", "Hindu temple", "worship:hindu"], ["buddhist", "Buddhist temple", "worship:buddhist"], ["church", "Church", "worship:church"]],
+   "within": "Within a mile",
+   "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["school_e", "elementary or middle school", "elementary or middle schools"], ["school_s", "high school", "high schools"]],
+   "note": "Straight-line distances; a mile is about a 20-minute walk. Libraries, community centers, emergency departments, parks, playgrounds, schools and places of worship from OpenStreetMap, mapped by volunteers, so a few may be missing; schools are sorted by their names. The nearest school is not always the one a home is assigned to."
   },
   "transit": {
    "file": "transit.json",

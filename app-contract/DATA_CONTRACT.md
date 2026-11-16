@@ -11,6 +11,11 @@
 > its member is `representatives.json[table][<municipality name>]`, the `base.geojson` neighbour the spot is in;
 > `sub` fills `{m.name}` from that feature. `representatives.json` gains `gta_mayors` (hand-kept,
 > `cities/toronto/gta_mayors.json`). Additive.
+> **November 16, 2026:** San Francisco fills in the Bay Area the same way: `more` files `region_streets`,
+> `region_collectors`, `region_parks`, `landuse`, `buildings`; `lens.region` (`bay_tracts.geojson` {code "tr<GEOID>",
+> name}, `bay_tract_profiles.json`: ACS fields as `nb_profiles.json` plus `region: 1` and `muni`); `card.outsideNearby`
+> (`region_nearby.json`); `card.reps.outside` keyed by the card-only files `region_assembly`, `region_senate`,
+> `region_congress` (`properties.num`) and `representatives.json` tables of the same names. Additive; schema stays 2.
 > **November 16, 2026:** Toronto's `lens.region`: `gta_tracts.geojson` ({code "ct<CTUID>", name}) and
 > `gta_tract_profiles.json` (fields as `nbhd_profiles.json`'s Census fields, plus `region: 1` and `muni`) for the GTA's
 > 750 census tracts beyond the city. A spot beyond the city that falls in a tract gets Living here from it. Additive;

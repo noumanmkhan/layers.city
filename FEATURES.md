@@ -295,6 +295,14 @@ It has Toronto's features: boroughs, known-as names, landmarks, skyscrapers from
 
 **Live at:** https://layers.city/sf/ (on the hub since October 30, 2026, in the top row with Toronto and New York)
 
+*Beyond the City* (November 16, 2026): the Bay Area filled in the way the GTA, Greater Melbourne and Chicagoland were.
+OSM main and collector streets, parks and open space and a Land use layer (`engine/region/`, `region.json`); Overture
+buildings from zoom 15; the lens and Living here for the other eight counties' ~1,500 tracts (`fetch_region.py`: ACS
+summary files and TIGERweb tracts; `region_profiles.py`, sharing `acs_profile.py` with `profiles.py`, tiers on the
+City's lines from `tmp/lens_cuts.json`); Nearby beyond the City (`region_card.py`, OSM, schools sorted by name); and
+Representatives beyond the City (TIGERweb Assembly and Senate districts, the 2021 congressional districts the sitting
+members were elected on, `representatives.py`). Mayors and councils outside the City aren't listed.
+
 The seventh city (`cities/sf/`), started October 30, 2026: the City and County of San Francisco inside a nine-county Bay Area view (101 cities and towns, from MTC/ABAG). The units are the City's 41 Analysis Neighborhoods, with SF Find's 117 neighborhoods as a finer layer and a hand grouping of the city into Downtown, the Northside, the West Side, Central and the Southeast.
 
 It has most of Toronto's and New York's features: known-as names, landmarks, skyscrapers from 150 m, Article 10 landmark buildings, historic and cultural districts and the Community Benefit Districts (San Francisco's BIAs); BART, Muni Metro, the streetcars and cable cars, Caltrain and the other regional trains, Bay ferries, freeways, main and collector streets; Muni buses by frequency and the regional buses (AC Transit Transbay, Golden Gate Transit, SamTrans) with Transit nearby, bike lanes (with Slow Streets) and Bay Wheels; parks, sports, SFUSD schools, colleges, hospitals, libraries, rec centers and places of worship with Nearby; New development from the Planning Department's Development Pipeline, special-event street closures and transit under construction (VTA's Eastridge extension); City garages and lots, residential permit areas and EV chargers; the State's tsunami and seismic hazard zones on the card; where to vote on November 3 (each precinct's polling place); supervisors, Assembly and Senate (coloured by party) and Congress on the card; the neighborhood lens with a transit trip to Montgomery St or 4th & King, tree canopy, the suburban drive lens; fact sheets and Venues pages; a one-minute tour.

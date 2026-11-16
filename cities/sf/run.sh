@@ -9,6 +9,7 @@ python3 build.py
 python3 landmarks.py
 [ -f raw/acs_tracts.json ] && python3 profiles.py   # after build.py: the neighbourhood lens (fetch_acs.py)
 [ -f raw/canopy/canopy.json ] && python3 ../../engine/canopy.py sf   # after profiles: tree canopy per neighborhood
+[ -f raw/region/acs_tracts.json ] && python3 region_profiles.py   # after profiles.py: the lens beyond the City, by tract (fetch_region.py)
 OUT=../../docs/sf/data
 simplify () { npx mapshaper -i "tmp/$1.geojson" -simplify interval="$2" keep-shapes -o "$OUT/$1.geojson" precision=0.00001 format=geojson -quiet; }
 npx mapshaper -i tmp/base.geojson -simplify interval=50 keep-shapes -filter-slivers min-area=20000m2 -filter "!this.isNull" -o $OUT/base.geojson precision=0.00005 format=geojson -quiet
@@ -18,6 +19,12 @@ for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval
 python3 collectors.py          # after streets and base are simplified: the tier below the main streets (fetch_streets.py)
 npx mapshaper -i tmp/collectors.geojson -simplify interval=5 -o $OUT/collectors.geojson precision=0.00001 -quiet
 npx mapshaper -i tmp/region_highways.geojson -simplify interval=20 -o $OUT/region_highways.geojson precision=0.00001 -quiet
+# The Bay Area beyond the City from OpenStreetMap (fetch-region-basemap.yml): roads, parks, land use
+if [ -f raw/region_basemap/landuse.json ]; then
+  python3 ../../engine/region/basemap.py sf
+  for f in region_streets region_collectors; do npx mapshaper -i tmp/$f.geojson -simplify interval=8 -o $OUT/$f.geojson precision=0.00001 -quiet; done
+  npx mapshaper -i tmp/landuse.geojson -simplify interval=35 -filter-slivers min-area=30000 -o $OUT/landuse.geojson precision=0.0001 -quiet
+fi
 for f in rail_lines rail_lines_inner; do npx mapshaper -i tmp/$f.geojson -simplify interval=15 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 for f in bart_lines muni_lines; do npx mapshaper -i tmp/$f.geojson -simplify interval=4 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 cp tmp/region_areas.geojson tmp/region_areas.raw.geojson
@@ -25,6 +32,7 @@ npx mapshaper -i tmp/region_areas.raw.geojson -simplify interval=60 keep-shapes 
 [ -f raw/construction/osm.json ] && python3 ../../engine/construction.py sf   # after streets: lines being built (fetch-construction.yml)
 [ -f raw/places/osm_worship.json ] && python3 faith.py   # places of worship (fetch_places.py)
 [ -f raw/places/parks.geojson ] && python3 places.py   # parks, sports, schools, libraries, hospitals, colleges, Nearby
+[ -f raw/region_basemap/places.json ] && python3 region_card.py   # Nearby beyond the City (after region_parks)
 [ -f raw/tech_geocoded.json ] && python3 tech.py   # tech headquarters (fetch_tech.py)
 [ -f raw/extras/tsunami.geojson ] && python3 extras.py   # hazard zones, soft-story buildings, ferries (fetch_extras.py)
 [ -f raw/parking/garages.json ] && python3 parking.py   # garages and lots, permit areas, EV chargers (fetch_parking.py)
