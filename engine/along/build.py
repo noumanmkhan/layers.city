@@ -45,7 +45,7 @@ json.dump(out, open(p, 'w'), separators=(',', ':'), ensure_ascii=False)
 print(f'  along: {len(stops)} stops, {len(plist)} patterns, {os.path.getsize(p)/1e6:.2f} MB')
 
 # ---- what's a short walk from each stop: points from the map's published layers (cities/<city>/along.json "pois") ----
-import math, re
+import math, re, hashlib
 from shapely.geometry import shape
 CFG = json.load(open(os.path.join(ROOT, 'cities', city, 'along.json'), encoding='utf-8'))
 DATA = os.path.join(ROOT, 'docs', city, 'data')
@@ -82,7 +82,10 @@ for src in CFG['pois']:
                 k = max(4, int(L / 120))
                 pts += [list(ring.interpolate(i / k, normalized=True).coords[0]) for i in range(k)]
         seen.add(key)
-        pois.append([src['kind'], name, word or '', [round(c, 5) for p in pts for c in p[:2]]])
+        # a short id that stays the same across rebuilds, for shared links that name the places someone kept
+        pid = int(hashlib.sha1(f"{src['kind']}|{name}|{word or ''}".encode()).hexdigest()[:8], 16)
+        pid = ''.join('0123456789abcdefghijklmnopqrstuvwxyz'[(pid // 36 ** i) % 36] for i in range(5))
+        pois.append([src['kind'], name, word or '', [round(c, 5) for p in pts for c in p[:2]], pid])
     print(f"  along: {len(pois) - n0} {src['kind']} from {src['file']}")
 p2 = os.path.join(OUT, 'pois.json')
 json.dump({'kinds': [s['kind'] for s in CFG['pois']], 'pois': pois}, open(p2, 'w'), separators=(',', ':'), ensure_ascii=False)
