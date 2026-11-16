@@ -9,7 +9,9 @@ Run from GitHub Actions (fetch-region-basemap.yml): Overpass can't be reached fr
 
 One city kept its own copy before this existed; new cities use this one.
 Multipolygon relations are assembled into polygons here (shapely), so raw/ holds plain [lng, lat] rings.
-The area is fetched in tiles, one request at a time (Overpass rejects bursts), and deduplicated by OSM id."""
+The area is fetched in tiles, one request at a time (Overpass rejects bursts), and deduplicated by OSM id. Each tile is
+cached in raw/region_basemap/.tiles/ until its file is written, and relations spanning more than region.json
+"relationMaxSpan" degrees (default 1) are skipped (New York: the Appalachian Trail's protected corridor)."""
 import json, math, os, sys, time, urllib.parse, urllib.request
 from shapely.geometry import LineString, Polygon, MultiPolygon, mapping
 from shapely.ops import linemerge, polygonize, unary_union
@@ -45,18 +47,47 @@ def overpass(body):
     raise SystemExit('Overpass request failed')
 
 
+# Relations whose box spans more than this many degrees (a long-distance trail's protected corridor, a state-wide
+# planning overlay) are skipped: their full geometry makes Overpass fail the whole tile, and basemap.py would drop
+# them anyway (parkMaxKm2). Relations are listed first with their boxes, then fetched by id.
+MAX_SPAN = CFG.get('relationMaxSpan', 1.0)
+CACHE = os.path.join(OUT, '.tiles')
+
+
 def fetch(name, filters, nx, ny):
-    """Every element matching the filters, over the area in nx*ny tiles, keyed by type/id."""
+    """Every element matching the filters, over the area in nx*ny tiles, keyed by type/id. Each tile's result is kept
+    in raw/region_basemap/.tiles/ until the file is written, so a rerun after a failure picks up where it stopped."""
     els = {}
-    for b in tiles(nx, ny):
-        bb = '(%s,%s,%s,%s)' % b
-        q = '(' + ''.join(f + bb + ';' for f in filters) + ');out tags geom;'
-        res = overpass(q)
-        for el in res.get('elements', []):
+    os.makedirs(CACHE, exist_ok=True)
+    ways, rels = [f for f in filters if not f.startswith('relation')], [f for f in filters if f.startswith('relation')]
+    for i, b in enumerate(tiles(nx, ny)):
+        cp = os.path.join(CACHE, '%s-%d-%d.json' % (name, nx, i))
+        if os.path.exists(cp) and not os.environ.get('REFETCH'):
+            got = json.load(open(cp))
+        else:
+            bb = '(%s,%s,%s,%s)' % b
+            got = overpass('(' + ''.join(f + bb + ';' for f in ways) + ');out tags geom;').get('elements', []) if ways else []
+            if rels:
+                listed = overpass('(' + ''.join(f + bb + ';' for f in rels) + ');out tags bb;').get('elements', [])
+                ids = [el['id'] for el in listed if 'bounds' in el and
+                       el['bounds']['maxlat'] - el['bounds']['minlat'] <= MAX_SPAN and el['bounds']['maxlon'] - el['bounds']['minlon'] <= MAX_SPAN]
+                if len(ids) < len(listed):
+                    print('  skipped', len(listed) - len(ids), 'relations over', MAX_SPAN, 'degrees:',
+                          [el.get('tags', {}).get('name') for el in listed if el['id'] not in ids][:5], flush=True)
+                for k in range(0, len(ids), 40):
+                    got += overpass('relation(id:%s);out tags geom;' % ','.join(map(str, ids[k:k + 40]))).get('elements', [])
+                    time.sleep(3)
+            json.dump(got, open(cp, 'w'))
+            time.sleep(5)
+        for el in got:
             els[el['type'] + str(el['id'])] = el
-        print(' ', name, b, len(res.get('elements', [])), 'elements', flush=True)
-        time.sleep(5)
+        print(' ', name, b, len(got), 'elements', flush=True)
     return list(els.values())
+
+
+def clear_cache(name):
+    for f in os.listdir(CACHE) if os.path.isdir(CACHE) else []:
+        if f.startswith(name + '-'): os.remove(os.path.join(CACHE, f))
 
 
 R5 = lambda c: [round(c[0], 5), round(c[1], 5)]
@@ -127,6 +158,7 @@ if not done('roads'):
     save('roads', [{'id': el['id'], 'hw': el['tags']['highway'], 'name': el['tags'].get('name', ''), 'ref': el['tags'].get('ref', ''),
                     'c': [R5((q['lon'], q['lat'])) for q in el['geometry']]}
                    for el in els if el.get('geometry') and len(el['geometry']) > 1])
+    clear_cache('roads')
 
 
 # ---------- parks ----------
@@ -140,6 +172,7 @@ if not done('parks'):
     els = fetch('parks', ['way["leisure"~"^(park|nature_reserve)$"]', 'relation["leisure"~"^(park|nature_reserve)$"]',
                           'way["boundary"="protected_area"]', 'relation["boundary"="protected_area"]'], *TILES['parks'])
     save('parks', polys(els, park_kind, 1500))
+    clear_cache('parks')
 
 # ---------- land use ----------
 LU = {'residential': 'res', 'commercial': 'com', 'retail': 'com', 'industrial': 'ind', 'farmland': 'farm',
@@ -154,3 +187,4 @@ if not done('landuse'):
     els = fetch('landuse', ['way["landuse"~"^(%s)$"]' % lu_tags, 'relation["landuse"~"^(%s)$"]' % lu_tags,
                             'way["natural"="wood"]', 'relation["natural"="wood"]'], *TILES['landuse'])
     save('landuse', polys(els, lu_kind, 4000))
+    clear_cache('landuse')
