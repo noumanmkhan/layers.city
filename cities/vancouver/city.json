@@ -392,6 +392,16 @@
           "name": "Buildings",
           "note": "Building outlines across Metro Vancouver; from zoom 15",
           "credit": "Buildings: © OpenStreetMap contributors, Overture Maps Foundation"
+        },
+        {
+          "id": "landuse",
+          "kind": "landuse",
+          "file": "landuse",
+          "on": true,
+          "name": "Land use",
+          "note": "Homes, shops, industry, farms and forest across Metro Vancouver",
+          "key": {"res": "Residential", "com": "Commercial & retail", "ind": "Industrial", "farm": "Farmland", "wood": "Forest", "cem": "Cemeteries", "quarry": "Quarries"},
+          "legend": "From OpenStreetMap, mapped by volunteers: a guide to how land is used, not zoning."
         }
       ]
     ],
@@ -402,12 +412,16 @@
           "id": "parks",
           "kind": "parks",
           "file": "parks",
+          "more": "region_parks",
+          "placeOut": "Park",
+          "reserveOut": "Regional park",
+          "fineOut": "Outline from OpenStreetMap. Amenities are listed for the City’s Park Board parks only.",
           "lazy": true,
           "optional": true,
           "on": true,
           "name": "Parks",
           "place": "City park",
-          "note": "Park Board parks shaded green; pick a playground, water play and more",
+          "note": "Park Board parks shaded green, and parks across Metro Vancouver; pick a playground, water play and more",
           "countNote": "{n} Park Board parks shaded green; pick a playground, water play and more",
           "amenities": {"play": ["Playground", "Parks with a playground"], "water": ["Water play", "A spray park or wading pool: summer only"], "wc": ["Washroom", "Parks with a public washroom"], "dog": ["Off-leash", "Parks with a dog off-leash area"]},
           "legend": "Pick one or more: parks with all of them stay green, the rest fade.",
@@ -475,20 +489,22 @@
           "id": "streets",
           "kind": "streets",
           "file": "streets",
+          "more": "region_streets",
           "name": "Main streets",
-          "note": "Arterials like Broadway, Hastings, Kingsway, Granville, Main",
+          "note": "Arterials like Broadway, Hastings, Kingsway, Granville, Main, and across Metro Vancouver",
           "on": true
         },
         {
           "id": "coll",
           "kind": "streets",
           "file": "collectors",
+          "more": "region_collectors",
           "under": "streets",
           "labelZoom": 15,
           "yieldLabels": true,
           "name": "Collector streets",
           "on": true,
-          "note": "Collector roads like Nanaimo, Victoria and Dunbar; from zoom 13"
+          "note": "Collector roads like Nanaimo, Victoria and Dunbar, and across Metro Vancouver; from zoom 13"
         },
         {
           "id": "bus",
@@ -903,6 +919,7 @@
   "lens": {
     "label": "Local area lens",
     "file": "la_profiles.json",
+    "region": {"units": "region_tracts", "profiles": "region_tract_profiles.json"},
     "source": "2021 Census (Statistics Canada), dissemination areas grouped into local areas.",
     "lenses": [
       {
@@ -1264,8 +1281,9 @@
     "living": {
       "hub": "To Waterfront",
       "hubText": "About {minutes} min by transit, weekday morning",
-      "caveat": "2021 Census figures, not current prices; home values and rents are averages of small-area medians. Rent is what renting households paid, utilities included, counting long-time tenants, subsidized homes and basement suites, so it sits below what a new lease costs. Use them to compare local areas, not to budget.",
+      "caveat": "2021 Census figures, not current prices; in the City, home values and rents are averages of small-area medians, beyond it each tract’s own. Rent is what renting households paid, utilities included, counting long-time tenants, subsidized homes and basement suites, so it sits below what a new lease costs. Use them to compare local areas, not to budget.",
       "footer": "2021 Census (Statistics Canada), {name}. Tiers compare Vancouver's 22 local areas; the University Endowment Lands are placed against them.",
+      "regionFooter": "2021 Census (Statistics Canada), {name}. Tiers use the same lines as Vancouver’s local areas, so a tract here reads as a local area would.",
       "homes": {
         "label": "Home types",
         "types": [
@@ -1478,7 +1496,15 @@
         "note": "Names open each person’s official page; mayors link to the municipality’s website. Mayors are from the October 17, 2026 local elections. MLAs and councillors aren’t listed yet. Last change {date}."
       }
     },
-    "outsideFacts": ["prov", "fed"]
+    "outsideFacts": ["prov", "fed"],
+    "outsideNearby": {
+      "file": "region_nearby.json",
+      "radius": 1000,
+      "nearest": [["library", "Library"], ["centre", "Community centre"], ["er", "Emergency dept."], ["mosque", "Mosque", "worship:mosque"], ["gurdwara", "Gurdwara", "worship:gurdwara"], ["synagogue", "Synagogue", "worship:synagogue"], ["hindu", "Hindu temple", "worship:hindu"], ["buddhist", "Buddhist temple", "worship:buddhist"], ["church", "Church", "worship:church"]],
+      "within": "Within 1 km",
+      "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["school_e", "elementary or middle school", "elementary or middle schools"], ["school_s", "secondary school", "secondary schools"]],
+      "note": "Straight-line distances; 1 km is about a 15-minute walk. Libraries, community centres, emergency departments, parks, playgrounds, schools and places of worship from OpenStreetMap, mapped by volunteers, so a few may be missing; schools are sorted by their names. The nearest school is not always the one a home is in the catchment for."
+    }
   },
   "tour": {
     "invite": "New to Vancouver? Take a one-minute tour.",

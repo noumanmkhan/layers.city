@@ -17,7 +17,9 @@
 > **November 16, 2026:** Vancouver: `provincial.geojson` and `federal.geojson` cover Metro Vancouver, `card.outsideFacts`
 > (prov, fed), `card.reps.outside` (a Mayor office with `muni: true` and table `region_mayors`, keyed by the
 > municipality's name in `base.geojson`; the MP keyed by the federal riding), `representatives.json` `region_mayors`,
-> and a `buildings` layer. Additive; schema stays 2.
+> and a `buildings` layer. Then the region basemap (`more` files `region_streets`, `region_collectors`,
+> `region_parks`; `landuse`), `card.outsideNearby` (`region_nearby.json`) and `lens.region` (`region_tracts.geojson`,
+> `region_tract_profiles.json`, fields as `la_profiles.json` plus `region: 1` and `muni`). Additive; schema stays 2.
 > **November 16, 2026:** San Francisco fills in the Bay Area the same way: `more` files `region_streets`,
 > `region_collectors`, `region_parks`, `landuse`, `buildings`; `lens.region` (`bay_tracts.geojson` {code "tr<GEOID>",
 > name}, `bay_tract_profiles.json`: ACS fields as `nb_profiles.json` plus `region: 1` and `muni`); `card.outsideNearby`

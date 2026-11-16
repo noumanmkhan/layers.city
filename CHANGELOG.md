@@ -6,6 +6,9 @@
 - Buildings: every building outline across Metro Vancouver from zoom 15, as in the other cities.
 - Provincial and federal ridings now cover all of Metro Vancouver, and tapping anywhere in the region names the
   municipality, its mayor (from the October 17 local elections), the provincial and federal ridings and the MP.
+- Main and collector streets, parks and regional parks and a Land use layer across Metro Vancouver, from OpenStreetMap.
+- The local-area lens and Living here now cover the other municipalities' ~400 census tracts, tiered on the City's
+  own lines, and the card's Nearby section works anywhere in the region.
 
 ### The Metroplex beyond Dallas (November 16)
 - Buildings: every building outline across the nine counties from zoom 15, as in the other cities.

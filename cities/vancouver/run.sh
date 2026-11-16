@@ -15,6 +15,7 @@ simplify sides 8; simplify local_areas 8
 python3 layers.py              # heritage districts, BIAs, provincial and federal ridings (tmp/), voting places (docs)
 simplify heritage 3; simplify bia 4; simplify provincial 8; simplify federal 8
 [ -f raw/canopy/canopy.json ] && python3 ../../engine/canopy.py vancouver   # after profiles: tree canopy per local area
+[ -f raw/region/profile.json ] && python3 region_profiles.py   # the lens beyond the City, by tract (fetch_region.py)
 python3 ../../engine/skyscrapers.py vancouver   # towers 100 m+ from raw/skyscrapers/wiki.json
 python3 institutions.py        # universities, colleges, hospitals: points, written straight to docs
 python3 french_schools.py      # CSF and VSB immersion schools
@@ -24,11 +25,18 @@ for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval
 python3 collectors.py          # after streets and base are simplified: the tier below the main streets
 npx mapshaper -i tmp/collectors.geojson -simplify interval=6 -o $OUT/collectors.geojson precision=0.00001 -quiet
 npx mapshaper -i tmp/region_highways.geojson -simplify interval=15 -o $OUT/region_highways.geojson precision=0.00001 -quiet
+# Metro Vancouver beyond the City from OpenStreetMap (fetch-region-basemap.yml): roads, parks, land use
+if [ -f raw/region_basemap/landuse.json ]; then
+  python3 ../../engine/region/basemap.py vancouver
+  for f in region_streets region_collectors; do npx mapshaper -i tmp/$f.geojson -simplify interval=8 -o $OUT/$f.geojson precision=0.00001 -quiet; done
+  npx mapshaper -i tmp/landuse.geojson -simplify interval=25 -filter-slivers min-area=20000 -o $OUT/landuse.geojson precision=0.0001 -quiet
+fi
 for f in wce_lines wce_lines_inner; do npx mapshaper -i tmp/$f.geojson -simplify interval=30 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 npx mapshaper -i tmp/skytrain_lines.geojson -simplify interval=5 -o $OUT/skytrain_lines.geojson precision=0.00001 -quiet
 [ -f raw/public_streets.geojson ] && python3 address_prep.py && python3 ../../engine/addresses.py vancouver   # after streets: how addresses work
 [ -f raw/ods/park-polygons.geojson ] && python3 parks.py   # the Parks layer: park outlines with amenities
 python3 nearby.py              # after institutions and faith: the card's Nearby points
+[ -f raw/region_basemap/places.json ] && python3 ../../engine/region/card.py vancouver   # Nearby beyond the City (after region_parks)
 [ -f raw/representatives/ourcommons.xml ] && python3 representatives.py   # after the federal ridings
 [ -f raw/drive_times.json ] && python3 ../../engine/drive.py build vancouver   # after base is simplified: adds drive times to it
 [ -f raw/bikes.geojson ] && python3 ../../engine/bikes.py vancouver           # Bikeways (fetch-bikes.yml)

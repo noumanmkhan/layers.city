@@ -265,8 +265,10 @@ The community area lens uses the American Community Survey (2020–2024 five-yea
 
 *Beyond the City* (November 16, 2026): provincial and federal ridings cut to Metro Vancouver (`layers.py`; every BC
 riding from `fetch_region_feds.py`), the card's `outsideFacts` and Representatives beyond the City (mayors hand-kept in
-`region_mayors.json` from the October 17, 2026 elections, Lions Bay left out until confirmed; MPs), and a Buildings
-layer (Overture, `region.json`).
+`region_mayors.json` from the October 17, 2026 elections, Lions Bay left out until confirmed; MPs), a Buildings
+layer (Overture, `region.json`), OSM streets, parks and land use (`engine/region/`), Nearby beyond the City
+(`engine/region/card.py`, OSM, schools sorted by name) and the lens for ~400 tracts beyond the City
+(`fetch_region.py`, Toronto's SDMX method for the Vancouver CMA; `region_profiles.py` tiers on the City's lines).
 
 The third city, on the same engine (`cities/vancouver/`). The University Endowment Lands (UBC, Pacific Spirit Park and the UEL neighbourhoods) aren't part of the City, but the city view shows them, shaded and outlined apart, with the same level of detail wherever data exists: Census figures, streets, landmarks, transit, bike paths and Nearby (from OpenStreetMap where the City's data stops at its line). UBC's large student population would expect nothing less. The first build has the base: Downtown and the East and West Sides (Ontario Street splits east from west), the City's 22 local areas plus Stanley Park, 21 known-as names (Gastown, Yaletown, Commercial Drive, Punjabi Market…), landmarks, main streets, BC highways across Metro Vancouver, SkyTrain and SeaBus, and the West Coast Express. The local area lens and Living here rows use the 2021 Census: the City hasn't published 2021 profiles for its local areas, so Statistics Canada's dissemination areas are summed into them. Vancouver elects its council, park board and school board at large, so there are no wards. Sources and quirks are in `cities/vancouver/SOURCES.md`.
 

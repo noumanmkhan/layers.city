@@ -3,6 +3,8 @@ engine/region/fetch_basemap.py). Usage: python3 engine/region/basemap.py <city>.
 this one serves any city, set by cities/<city>/region.json:
   "parkNames": {"park": "Park", "reserve": "Nature reserve"}   names for unnamed parks
   "parkMaxKm2": 120     planning overlays tagged protected_area that cover whole districts are left out
+  "parksInCity": true   for a city with no parks file of its own: region_parks also holds OpenStreetMap's parks inside
+                        the city (still o: 1, so they read as OSM outlines)
 
   roads   arterials and collectors outside the city -> tmp/region_streets.geojson (trunk and primary: major,
           secondary: minor) and tmp/region_collectors.geojson (tertiary), drawn with the Main streets and Collector
@@ -35,8 +37,9 @@ KM = 111.32 * COS      # km per degree of longitude here, roughly, for lengths o
 M2 = 111_320 ** 2 * COS
 
 base = json.load(open(os.path.join(TMP, 'base.geojson')))['features']
-CITY = unary_union([shape(f['geometry']) for f in base if f['properties']['kind'] == 'city']).buffer(0)
-MUNIS = unary_union([shape(f['geometry']) for f in base if f['properties']['kind'] == 'neighbour']).buffer(0)
+base = [f for f in base if f.get('geometry')]
+CITY = unary_union([shape(f['geometry']).buffer(0) for f in base if f['properties']['kind'] in ('city', 'annex')]).buffer(0)
+MUNIS = unary_union([shape(f['geometry']).buffer(0) for f in base if f['properties']['kind'] == 'neighbour']).buffer(0)
 REGION = unary_union([CITY, MUNIS]).buffer(0)
 OUTSIDE = MUNIS.buffer(0.002).difference(CITY.buffer(-0.0004))
 R5 = lambda x: round(float(x), 5)
@@ -100,7 +103,8 @@ for it in json.load(open(os.path.join(RAW, 'parks.json')))['items']:
     if a_km2 > CFG.get('parkMaxKm2', 120) or (it['name'] or '').upper() == 'RESTRICTED AREA':
         skipped.append((it['name'], round(a_km2)))
         continue
-    g = g.intersection(OUTSIDE.difference(CITY))
+    # A city with no parks file of its own (region.json "parksInCity": true) takes OpenStreetMap's inside the city too.
+    g = g.intersection(OUTSIDE.union(CITY) if CFG.get('parksInCity') else OUTSIDE.difference(CITY))
     if g.is_empty or g.area * M2 < 3000:
         continue
     g = g.simplify(0.00003, preserve_topology=True)
