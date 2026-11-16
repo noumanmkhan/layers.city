@@ -32,6 +32,15 @@ tippecanoe -o "$WORK/buildings.pmtiles" --force -l buildings -Z13 -z15 \
   --drop-smallest-as-needed --maximum-tile-bytes=1500000 --simplification=2 --hilbert --read-parallel \
   --attribution='© OpenStreetMap contributors, Overture Maps Foundation' "$WORK/buildings.geojsonl"
 du -h "$WORK/buildings.pmtiles"
+# Wrangler uploads at most 300 MiB. A big region (New York's tri-state) goes over: drop zoom 13, which the map
+# doesn't draw (it shows buildings from MapLibre zoom 14), and build again.
+if [ "$(stat -c %s "$WORK/buildings.pmtiles")" -gt 304087040 ]; then
+  echo "over 290 MiB: rebuilding from zoom 14"
+  tippecanoe -o "$WORK/buildings.pmtiles" --force -l buildings -Z14 -z15 \
+    --drop-smallest-as-needed --maximum-tile-bytes=1500000 --simplification=2 --hilbert --read-parallel \
+    --attribution='© OpenStreetMap contributors, Overture Maps Foundation' "$WORK/buildings.geojsonl"
+  du -h "$WORK/buildings.pmtiles"
+fi
 npx --yes wrangler@4 r2 object put "layers-city-tiles/$CITY/buildings.pmtiles" --file "$WORK/buildings.pmtiles" \
   --content-type application/octet-stream --remote
 echo "uploaded $CITY/buildings.pmtiles ($(date -u +%F), Overture $REL)"
