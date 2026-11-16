@@ -24,7 +24,7 @@ from them is share-alike.
 | Vintage | 84 | 17 | 0 | 67 | 0 | 0 | 23 |
 | Comics, games, toys | 85 | 11 | 0 | 74 | 0 | 1 | 23 |
 | Specialty food | 300 | 27 | 8 | 265 | 0 | 0 | 70 |
-| Makers & oddities | 508 | 20 | 0 | 488 | 6 | 1 | 196 |
+| Makers & oddities | 195 | 14 | 0 | 181 | | | |
 | Viewpoints | 59 | 0 | 0 | 59 | 0 | 0 | 0 |
 
 ## What it means
@@ -39,16 +39,35 @@ from them is share-alike.
 - **Records:** 31 independents, including the well-known shops (Sonic Boom, Rotate This, Kops, Grasshopper), but
   also karaoke shops, a radio station and music schools: hand-clean. The City's Music Locations list has 41 record stores.
 - **Books (89), vintage (67), comics/games/toys (74):** small enough to review whole.
-- **Makers & oddities is polluted:** 307 of 488 are `craft=*` with no shop tag (mechanical supply, sign makers,
-  caterers). Drop that rule next run and keep shop=art/collector/frame/musical_instrument/craft. shop=art is
-  mostly commercial galleries.
+- **Makers & oddities:** the first run counted 508, of which 307 were `craft=*` trades (sign makers, caterers).
+  That rule is gone (second run: 195, 181 independent). shop=art is mostly commercial galleries; instrument shops
+  are the most characterful part.
 - **Public art:** OSM has 84 murals; the City's StrollTO has ~267 and Public Art has 459 works. Use the City
   as the source and OSM only to fill gaps (dedupe by distance).
 - **Viewpoints:** 59, only 8 named (Sheldon's Lookout, Chester Hill Lookout, Governor's Bridge Lookout, Sauriol Cliff…).
   A start for the Viewpoints kind, curated by hand.
 
+## Matching to the City's described places (match.py, second run)
+`out/matches.csv`: each OSM candidate whose name matches a StrollTO, Cultural Hotspot or Music Locations entry within
+80 m, with the City's description and link (to quote with credit, OGL-Toronto). `relation` says what the City wrote about:
+
+| Relation | Rows | Meaning |
+|---|---|---|
+| same | 43 | The business itself (34 of these are Music Locations rows: a name, no text) |
+| inside | 9 | The place it sits in: Paradise Theatre (1937), Peanut Plaza, Music Garden, Fairview Mall… |
+| mural | 4 | A mural on or behind it (supercoffee's Polinator mural, St. Clair Gardens murals) |
+
+- **The City has written a story for only about 8 businesses:** Rustic Bakery, Accordions Canada, the Old Mill,
+  Miller Tavern, Lula Lounge, David Duncan House, plus Casa Loma and the Sheldon and Chester Hill lookouts. Only 3
+  matches carry a founding year in the text.
+- Record shops are well confirmed (16 of 31 are on the City's list too), but with no text.
+- **So for businesses, "has a story" is hand research**, not a data join. "inside" and "mural" rows give lore
+  for the setting, which a card can still use ("in the 1937 Paradise Theatre").
+- `out/art_gaps.csv`: OSM artworks with no City art record within 40 m: murals 47 of 84, sculptures 146 of 244,
+  monuments 69 of 112, installations 96 of 145. Gap-fill candidates; many sculptures are likely condo-lobby or
+  private pieces to check.
+
 ## Next
-- Fix the makers rule; raise or lower the chain threshold after a look at the 2–3-shop chains.
-- Join each candidate list to the City's lists (StrollTO, Cultural Hotspot, Music Locations) by name and distance:
-  a business the City wrote about already has a story, with a description to quote with credit.
-- Then curate by neighbourhood, starting where Along the way needs it.
+- Curation by hand, by neighbourhood: research each candidate's story (founding year, signature thing, history)
+  from citable sources, starting where Along the way needs it.
+- Review chains with 2–3 Toronto shops (bubble tea and small local chains) and decide whether they count.
