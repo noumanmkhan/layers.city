@@ -2,6 +2,9 @@
 
 ## Since 1.1
 
+### The Metroplex beyond Dallas (November 16)
+- Buildings: every building outline across the nine counties from zoom 15, as in the other cities.
+
 ### The Bay Area beyond San Francisco: streets, parks, land use, buildings, lens and card (November 16)
 - Buildings: every building outline across the nine counties from zoom 15, as in Toronto, Melbourne and Chicago.
 - Main and collector streets, parks and open space preserves and a Land use layer (homes, shops, industry, farms and

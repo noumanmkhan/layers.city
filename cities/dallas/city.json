@@ -260,6 +260,16 @@
           "note": "Business and neighbourhood districts funded by their own property assessment: Downtown, Deep Ellum, Uptown…",
           "label": "{name}",
           "hover": "{name} PID"
+        },
+        {
+          "id": "bldg",
+          "kind": "buildings",
+          "url": "/tiles/dallas/buildings.pmtiles",
+          "on": true,
+          "minZoom": 15,
+          "name": "Buildings",
+          "note": "Building outlines across the Metroplex; from zoom 15",
+          "credit": "Buildings: © OpenStreetMap contributors, Overture Maps Foundation"
         }
       ]
     ],
