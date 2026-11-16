@@ -26,7 +26,7 @@ for name, url in [('ca.csv', 'https://data.openstates.org/people/current/ca.csv'
 
 def house_2021():
     z = download('https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_cd119_500k.zip', os.path.join(TMP, 'cd119.zip'))
-    shp_to_geojson(z, "STATEFP = '06'", os.path.join('representatives', 'us_house_2021.geojson'), spat=CITY)
+    shp_to_geojson(z, "STATEFP = '06'", os.path.join('representatives', 'us_house_2021.geojson'), spat=REGION)   # the whole Bay Area, for the card beyond the City too
 
 
 step('us_house_2021', house_2021)
