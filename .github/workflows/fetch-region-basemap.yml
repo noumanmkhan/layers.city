@@ -15,7 +15,7 @@ on:
 permissions:
   contents: write
 env:
-  CITIES: melbourne chicago
+  CITIES: vancouver dallas
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -25,7 +25,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install shapely
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq gdal-bin && pip install shapely   # ogr2ogr: some cities' fetch_region.py
       - run: |
           for c in ${{ github.event.inputs.city || env.CITIES }}; do
             mkdir -p cities/$c/raw/region_basemap
