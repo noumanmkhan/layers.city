@@ -21,6 +21,12 @@ simplify il_house 10; simplify congress 10; simplify school_board 10; simplify s
 for f in highways streets; do npx mapshaper -i tmp/$f.geojson -simplify interval=6 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 python3 collectors.py          # after streets and base are simplified: the tier below the main streets
 npx mapshaper -i tmp/collectors.geojson -simplify interval=6 -o $OUT/collectors.geojson precision=0.00001 -quiet
+# Chicagoland beyond the City from OpenStreetMap (fetch-region-basemap.yml): roads, parks, land use
+if [ -f raw/region_basemap/landuse.json ]; then
+  python3 ../../engine/region/basemap.py chicago
+  for f in region_streets region_collectors; do npx mapshaper -i tmp/$f.geojson -simplify interval=8 -o $OUT/$f.geojson precision=0.00001 -quiet; done
+  npx mapshaper -i tmp/landuse.geojson -simplify interval=35 -filter-slivers min-area=30000 -o $OUT/landuse.geojson precision=0.0001 -quiet
+fi
 npx mapshaper -i tmp/region_highways.geojson -simplify interval=15 -o $OUT/region_highways.geojson precision=0.00001 -quiet
 for f in metra_lines metra_lines_inner; do npx mapshaper -i tmp/$f.geojson -simplify interval=40 -o $OUT/$f.geojson precision=0.00001 -quiet; done
 npx mapshaper -i tmp/cta_lines.geojson -simplify interval=5 -o $OUT/cta_lines.geojson precision=0.00001 -quiet
@@ -28,6 +34,7 @@ python3 attendance.py         # CPS attendance areas for the card's Schools sect
 [ -f raw/faith/worship_osm.json ] && python3 faith.py   # places of worship and halal/kosher shops: points, written straight to docs
 python3 places.py             # schools (CPS), parks and sports & rec (OSM): before nearby
 python3 nearby.py             # after faith, and after sides are simplified and institutions written: the card's Nearby points
+[ -f raw/region_basemap/places.json ] && python3 region_card.py   # Nearby beyond the City (after region_parks)
 [ -d raw/representatives ] && python3 representatives.py   # after the boundaries above: it matches them
 [ -f raw/drive_times.json ] && python3 ../../engine/drive.py build chicago   # after base is simplified: adds drive times to it
 python3 ../../engine/regions.py chicago   # outlines for Focus on a county / region

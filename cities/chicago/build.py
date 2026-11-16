@@ -137,7 +137,9 @@ def neighbour(g, name, gid, rest=False):
     if g.is_empty: return
     if g.geom_type == 'MultiPolygon':   # drop slivers left in the lake or along the city limits
         big = max(p.area for p in g.geoms)
-        g = unary_union([p for p in g.geoms if p.area > big * 0.01])
+        # Unincorporated land comes in many islands between towns: keep any that isn't a sliver (about 1.5 ha), or
+        # they show as water.
+        g = unary_union([p for p in g.geoms if p.area > (2e-6 if rest else big * 0.01)])
     munis.append(g)
     p = {'kind': 'neighbour', 'name': name, 'region': county_name(gid), 'lp': label_pt(g)}
     if rest: p['rest'] = True   # unincorporated land: part of the region, but not a place to colour by town
@@ -163,7 +165,7 @@ extra = [p for p in getattr(extra, 'geoms', [extra]) if p.geom_type == 'Polygon'
 print('lakefront harbours shown as water:', len(extra))
 # What's left of each county is unincorporated land, still part of the region.
 for gid, cg in counties.items():
-    rest = cg.difference(unary_union(places[gid]).buffer(0.0002)) if places[gid] else cg
+    rest = cg.difference(unary_union(places[gid])) if places[gid] else cg
     neighbour(rest, 'Unincorporated ' + county_name(gid).replace(', Indiana', ''), gid, rest=True)
 # Land beyond the region: the frame minus the lake and the region's counties (which hold every municipality
 # and the city), so it's one simple shape rather than a lacework of gaps between suburbs.

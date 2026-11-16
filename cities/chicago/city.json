@@ -64,10 +64,11 @@
       {"id": "heritage", "kind": "districts", "file": "heritage", "name": "Landmark districts", "note": "59 Chicago Landmark Districts · boundaries as of 2012", "label": "{name}", "hover": "{name} Landmark District"},
       {"id": "hbld", "kind": "heritage", "file": "heritage_buildings", "name": "Heritage buildings", "note": "412 Chicago Landmarks designated one by one; from zoom 15", "place": "Chicago Landmark", "builtText": "built {y}", "byText": "{ar}", "designatedText": "designated {d}"},
       {"id": "ssa", "kind": "patches", "file": "ssa", "name": "Special Service Areas", "note": "Business districts funded by a local property-tax levy", "label": "{name}", "hover": "SSA #{num} · {name}"},
+      {"id": "landuse", "kind": "landuse", "file": "landuse", "on": true, "name": "Land use", "note": "Homes, shops, industry, farms and woods across Chicagoland", "key": {"res": "Residential", "com": "Commercial & retail", "ind": "Industrial", "farm": "Farmland", "wood": "Woods", "cem": "Cemeteries", "quarry": "Quarries"}, "legend": "From OpenStreetMap, mapped by volunteers: a guide to how land is used, not the zoning code."},
       {"id": "bldg", "kind": "buildings", "url": "/tiles/chicago/buildings.pmtiles", "on": true, "minZoom": 15, "name": "Buildings", "note": "Building outlines across Chicagoland; from zoom 15", "credit": "Buildings: © OpenStreetMap contributors, Overture Maps Foundation"}
     ]],
     ["Outdoors", [
-      {"id": "parks", "kind": "parks", "on": true, "file": "parks", "lazy": true, "optional": true, "name": "Parks", "place": "Park", "note": "Parks and nature areas shaded green; pick a playground or dog area", "countNote": "{n} parks and nature areas shaded green; pick a playground or dog area", "amenities": {"play": ["Playground", "Parks with a children’s play area"], "dog": ["Dog area", "Parks with an off-leash dog-friendly area"]}, "legend": "Pick one or more: parks with all of them stay green, the rest fade.", "matchText": "{n} of {total} parks.", "hasLabel": "Has", "fine": "Outlines and amenities from OpenStreetMap as of {parks} (the Park District’s own files on the City portal stopped in 2016). Mostly Chicago Park District parks; Forest Preserve land inside the city is included."},
+      {"id": "parks", "kind": "parks", "on": true, "file": "parks", "more": "region_parks", "placeOut": "Park", "reserveOut": "Forest preserve", "fineOut": "Outline from OpenStreetMap. Amenities are listed for Chicago’s parks only.", "lazy": true, "optional": true, "name": "Parks", "place": "Park", "note": "Parks and nature areas shaded green; parks and forest preserves across Chicagoland too", "countNote": "{n} parks and nature areas shaded green; pick a playground or dog area", "amenities": {"play": ["Playground", "Parks with a children’s play area"], "dog": ["Dog area", "Parks with an off-leash dog-friendly area"]}, "legend": "Pick one or more: parks with all of them stay green, the rest fade.", "matchText": "{n} of {total} parks.", "hasLabel": "Has", "fine": "Outlines and amenities from OpenStreetMap as of {parks} (the Park District’s own files on the City portal stopped in 2016). Mostly Chicago Park District parks; Forest Preserve land inside the city is included."},
       {"id": "sports", "kind": "places", "file": "sports", "icon": "tennis", "minZoom": 12, "narrow": true, "search": false, "hover": "{name}", "cats": [["pool", "Pools", "Pool"], ["diamond", "Ball fields", "Ball field"], ["field", "Sports fields", "Sports field"], ["tennis", "Tennis", "Tennis courts"], ["pickleball", "Pickleball", "Pickleball courts"], ["basketball", "Basketball", "Basketball court"], ["skatepark", "Skateparks", "Skatepark"]], "name": "Sports & rec", "place": "Sports and recreation", "note": "Pools, fields and courts in the city’s parks; pick a sport below. From zoom 12", "catNote": "Pick one or more; none picked shows them all. Only what’s inside a park is shown, so school fields and private pools are left out. Tap a pin for what’s there.", "popup": {"rows": [["has", "Has"]], "fine": "From OpenStreetMap as of {asof}; volunteers map some parks in more detail than others, so a few pools, courts and skateparks are missing."}}
     ]],
     ["Getting around", [
@@ -80,8 +81,8 @@
        "note": "Suburban routes across Chicagoland; in the city view, the ones that stop in Chicago. From Pace’s schedules. Stops from zoom 12"},
       {"id": "hwy", "kind": "highways", "files": ["highways", "region_highways", "region_shields"], "name": "Expressways", "note": "Kennedy, Dan Ryan, Eisenhower, Stevenson, Lake Shore Drive", "on": true,
        "shields": {"LSD": "Lake Shore Dr"}, "tollShield": "Toll"},
-      {"id": "streets", "kind": "streets", "file": "streets", "name": "Main streets", "note": "The mile grid and the diagonals: Ashland, Western, Milwaukee…", "on": true},
-      {"id": "coll", "kind": "streets", "file": "collectors", "under": "streets", "labelZoom": 15, "yieldLabels": true, "name": "Collector streets", "note": "Collector streets between the main ones; from zoom 13"},
+      {"id": "streets", "kind": "streets", "file": "streets", "more": "region_streets", "name": "Main streets", "note": "The mile grid and the diagonals: Ashland, Western, Milwaukee…, and across Chicagoland", "on": true},
+      {"id": "coll", "kind": "streets", "file": "collectors", "more": "region_collectors", "under": "streets", "labelZoom": 15, "yieldLabels": true, "name": "Collector streets", "note": "Collector streets between the main ones, across Chicagoland; from zoom 13"},
       {"id": "bus", "kind": "buses", "file": "transit_routes", "lazy": true, "name": "Bus routes", "note": "Every bus route, by how often it runs, or the overnight ones; stops from zoom 15",
        "allText": "All", "default": "all", "allNote": "Every daytime bus route.",
        "families": [["freq", "Frequent", "Every 10 minutes or better each way, weekdays 7 am to 7 pm."], ["exp", "Express", "Named express by the CTA: fewer stops."], ["reg", "Regular", "Every other daytime route."], ["night", "Overnight", "At least hourly each way from 2 to 4 am on weeknights: the CTA's Owl routes."]],
@@ -295,7 +296,23 @@
         "leading": "leads the unofficial count", "elected": "elected {election} · takes office {starts}", "acclaimed": "elected {election} · takes office {starts}",
         "citywide": {"board": "cps", "key": "president", "role": "School board president", "sub": "Citywide"},
         "note": "School board candidates are from the Chicago Board of Elections’ candidate list, and counts from its results pages; results are unofficial until the board proclaims them."},
-      "note": "Names open each person’s official page. Chicago’s city council elections are nonpartisan. Checked weekly against those sources; last change {date}."
+      "note": "Names open each person’s official page. Chicago’s city council elections are nonpartisan. Checked weekly against those sources; last change {date}.",
+      "outside": {
+        "offices": [
+          {"role": "State representative", "file": "region_house", "table": "region_house", "key": "k", "sub": "{r.party} · {f.st} House District {f.num}"},
+          {"role": "State senator", "file": "region_senate", "table": "region_senate", "key": "k", "sub": "{r.party} · {f.st} Senate District {f.num}"},
+          {"role": "U.S. representative", "file": "region_congress", "table": "region_congress", "key": "k", "sub": "{r.party} · {f.st}-{f.num}"}
+        ],
+        "note": "Names open each person’s official page. Illinois members from Open States and the General Assembly, Indiana members from Open States, U.S. representatives from the House Clerk; checked weekly, last change {date}. Mayors and village boards outside Chicago aren’t listed yet."
+      }
+    },
+    "outsideNearby": {
+      "file": "region_nearby.json",
+      "radius": 1609,
+      "nearest": [["library", "Library"], ["centre", "Community center"], ["er", "Emergency dept."], ["mosque", "Mosque", "worship:mosque"], ["gurdwara", "Gurdwara", "worship:gurdwara"], ["synagogue", "Synagogue", "worship:synagogue"], ["hindu", "Hindu temple", "worship:hindu"], ["buddhist", "Buddhist temple", "worship:buddhist"], ["church", "Church", "worship:church"]],
+      "within": "Within a mile",
+      "counts": [["park", "park", "parks"], ["playground", "playground", "playgrounds"], ["school_e", "elementary or middle school", "elementary or middle schools"], ["school_s", "high school", "high schools"]],
+      "note": "Straight-line distances; a mile is about a 20-minute walk. Libraries, community centers, emergency departments, parks, playgrounds, schools and places of worship from OpenStreetMap, mapped by volunteers, so a few may be missing; schools are sorted by their names. The nearest school is not always the one a home is zoned for."
     }
   },
  "models3d": [

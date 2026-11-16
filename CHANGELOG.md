@@ -2,9 +2,15 @@
 
 ## Since 1.1
 
-### Buildings across Chicagoland (November 16)
+### Chicagoland filled in: streets, parks, land use, buildings and the card beyond the City (November 16)
 - Zoom in anywhere from Waukegan to Joliet to Gary and every building is drawn, from zoom 15, as in Toronto and
   Melbourne (Overture Maps, mostly OpenStreetMap).
+- Main and collector streets across the nine counties, 4,500 suburban parks and forest preserves in the Parks layer, and
+  a Land use layer (homes, shops, industry, farms, woods), all from OpenStreetMap.
+- Tap anywhere in the suburbs: the card's Nearby names the nearest library, community center and ER and counts parks,
+  playgrounds and schools within a mile, and Representatives names the state representative, state senator and U.S.
+  representative, in Illinois and northwest Indiana alike.
+- Fixed: unincorporated land between suburbs showed as water; it now reads as land, named "Unincorporated <County>".
 
 ### Melbourne beyond the City: buildings, your districts and MP, and focus on a council (November 16)
 - Greater Melbourne filled in from OpenStreetMap: main and collector streets carry on across all 31 councils, parks and

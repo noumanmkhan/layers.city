@@ -1,0 +1,58 @@
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  retry 3 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 4 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  retry 5 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 6 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  roads (41.2, -88.75, 41.6333, -88.15) 2363 elements
+  roads (41.6333, -88.75, 42.0667, -88.15) 9359 elements
+  roads (42.0667, -88.75, 42.5, -88.15) 3807 elements
+  roads (41.2, -88.15, 41.6333, -87.55) 6969 elements
+  roads (41.6333, -88.15, 42.0667, -87.55) 40500 elements
+  roads (42.0667, -88.15, 42.5, -87.55) 12393 elements
+  roads (41.2, -87.55, 41.6333, -86.95) 5958 elements
+  roads (41.6333, -87.55, 42.0667, -86.95) 869 elements
+  roads (42.0667, -87.55, 42.5, -86.95) 0 elements
+wrote roads 81914 15.7 MB
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  parks (41.2, -88.75, 41.6333, -88.15) 245 elements
+  parks (41.6333, -88.75, 42.0667, -88.15) 1018 elements
+  parks (42.0667, -88.75, 42.5, -88.15) 415 elements
+  parks (41.2, -88.15, 41.6333, -87.55) 646 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 502: Bad Gateway
+  parks (41.6333, -88.15, 42.0667, -87.55) 2920 elements
+  parks (42.0667, -88.15, 42.5, -87.55) 1031 elements
+  parks (41.2, -87.55, 41.6333, -86.95) 450 elements
+  parks (41.6333, -87.55, 42.0667, -86.95) 85 elements
+  parks (42.0667, -87.55, 42.5, -86.95) 0 elements
+wrote parks 5626 2.0 MB
+  landuse (41.2, -88.75, 41.525, -88.3) 1910 elements
+  landuse (41.525, -88.75, 41.85, -88.3) 6644 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  landuse (41.85, -88.75, 42.175, -88.3) 2607 elements
+  landuse (42.175, -88.75, 42.5, -88.3) 3208 elements
+  landuse (41.2, -88.3, 41.525, -87.85) 2056 elements
+  landuse (41.525, -88.3, 41.85, -87.85) 8115 elements
+  landuse (41.85, -88.3, 42.175, -87.85) 7976 elements
+  landuse (42.175, -88.3, 42.5, -87.85) 3799 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 2 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  retry 3 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  retry 4 https://overpass.kumi.systems/api/interpreter HTTP Error 504: Gateway Timeout
+  landuse (41.2, -87.85, 41.525, -87.4) 2956 elements
+  landuse (41.525, -87.85, 41.85, -87.4) 12116 elements
+  landuse (41.85, -87.85, 42.175, -87.4) 6671 elements
+  landuse (42.175, -87.85, 42.5, -87.4) 383 elements
+  landuse (41.2, -87.4, 41.525, -86.95) 4030 elements
+  landuse (41.525, -87.4, 41.85, -86.95) 5319 elements
+  landuse (41.85, -87.4, 42.175, -86.95) 0 elements
+  retry 1 https://overpass-api.de/api/interpreter HTTP Error 502: Bad Gateway
+  landuse (42.175, -87.4, 42.5, -86.95) 0 elements
+wrote landuse 52560 21.0 MB
+places: {'library': 397, 'centre': 453, 'hospital': 136, 'playground': 6021, 'worship': 4752, 'school': 3354}
+congress 16 districts ['17', '18']
+upper 51 districts ['17', '18']
+lower 98 districts ['17', '18']
+in.csv saved

@@ -11,6 +11,11 @@
 > its member is `representatives.json[table][<municipality name>]`, the `base.geojson` neighbour the spot is in;
 > `sub` fills `{m.name}` from that feature. `representatives.json` gains `gta_mayors` (hand-kept,
 > `cities/toronto/gta_mayors.json`). Additive.
+> **November 16, 2026:** Chicago fills in Chicagoland the same way: `more` files `region_streets`, `region_collectors`,
+> `region_parks`, a `landuse` layer, `card.outsideNearby` (`region_nearby.json`) and `card.reps.outside` keyed by the
+> card-only boundary files `region_house`, `region_senate`, `region_congress` (`properties.k`: "IL-82", "IN-3"; also
+> `st`, `num`) and the `representatives.json` tables of the same names. `base.geojson` now keeps every unincorporated
+> island (more `Unincorporated <County>` pieces). Additive; schema stays 2.
 > **November 16, 2026:** Melbourne fills in Greater Melbourne like Toronto's GTA: `streets`, `coll` and `parks` take
 > `more` files (`region_streets`, `region_collectors`, `region_parks`; the same shapes as `gta_*`), a `landuse` layer
 > (section 3), `buildings`, a `focus` council picker, `card.outsideFacts` (state and fed), `card.reps.outside`, and
