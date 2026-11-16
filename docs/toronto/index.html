@@ -3440,7 +3440,7 @@ CITY.groups.forEach(([title, items]) => {
       grp.appendChild(box);
       box.querySelectorAll('[data-bk]').forEach(b => b.addEventListener('click', () => tapBikeClass(b.dataset.bk)));
     }
-    if (it.kind === 'parks'){   // amenities, any mix; none picked shows every park
+    if (it.kind === 'parks' && Object.keys(it.amenities || {}).length){   // amenities, any mix; none picked shows every park
       const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'pkbox'; box.hidden = !it.on;
       box.innerHTML = '<div class="chips pick" role="group" aria-label="' + esc(it.name) + '">' + Object.entries(it.amenities).map(([k, [short, long]]) =>
         '<button type="button" data-pk="' + k + '" aria-pressed="' + pkWant.has(k) + '" title="' + esc(long) + '">' + esc(short) + '</button>').join('') +
