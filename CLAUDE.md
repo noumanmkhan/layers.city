@@ -50,6 +50,11 @@ the landing page, stop and say so; don't change this repo.
   The iOS app rebuilds this page natively (its 1.1 Transit tab) from `city.json` `transit` (assemble.py writes it
   from routes.json) and contract section 15: a change to the page's files, their fields, the arrivals API or how
   the page words things goes in that section too, and the contract is copied to the app repo.
+- **Along the way** (`engine/along/build.py`, `router.js` and `page.html`, `cities/<city>/along.json`, page at `docs/<city>/along/`;
+  Toronto November 16, 2026, unlisted: `"unlisted": true` writes noindex and keeps it out of the sitemap; no hub or map link yet):
+  two places in, a few likely transit routes out (no schedules; routing in the browser), with what's a short walk from each
+  stop and each end. Built from the Routes page's data (`docs/<city>/routes/data/`), so it runs after `engine/routes/build.py`
+  (refresh-fact-sheets.yml does both). By hand: `python3 engine/along/build.py <city>`. Notes: the project's claude/along-the-way.md.
 - **Venues** (`cities/<city>/venues.json`, `engine/venues.py`, pages at `docs/<city>/venues/`; Toronto October 18, New York
   October 19, Chicago November 7): each city's big live venues, what's on at each this fortnight from Ticketmaster's Discovery API
   (`engine/fetch_venue_events.py <city>`, secret `TICKETMASTER_KEY`) and how to get to each from across the region

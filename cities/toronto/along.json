@@ -1,0 +1,109 @@
+{
+ "_about": "Settings for the Along the way page (engine/along/: build.py, router.js, page.html), at /toronto/along/: pick two places, see a likely TTC route between them and what's a short walk from the stops you pass. Built from the Routes page's data (docs/toronto/routes/data/) and the map's published layers. The engine names no city.",
+ "unlisted": true,
+ "_unlisted": "Live at its URL but kept out of the sitemap, the hub and the map (and marked noindex) until the user makes it public.",
+ "skipModes": [
+  "go",
+  "rail"
+ ],
+ "_skipModes": "Modes left out of the routes: the page is about the everyday TTC trip, so GO buses and GO trains (another fare) aren't offered.",
+ "pois": [
+  {
+   "file": "landmarks",
+   "kind": "landmark",
+   "label": "catLabel"
+  },
+  {
+   "file": "cultural",
+   "kind": "area",
+   "word": "Known as"
+  },
+  {
+   "file": "bia",
+   "kind": "street",
+   "word": "Shopping street",
+   "suffix": " BIA"
+  },
+  {
+   "file": "heritage",
+   "kind": "heritage",
+   "word": "Heritage district",
+   "suffix": " Heritage District"
+  },
+  {
+   "file": "parks",
+   "kind": "park",
+   "name": "n",
+   "word": "Park",
+   "minHa": 1.5,
+   "skip": "^\\d|Parkette|Greenbelt|Boulevard|Hydro Corridor|Ravine Lands|^Park$"
+  },
+  {
+   "file": "institutions",
+   "kind": "campus",
+   "cats": [
+    "university",
+    "college"
+   ],
+   "sub": "sub",
+   "word": "Campus"
+  },
+  {
+   "file": "community",
+   "kind": "library",
+   "cats": [
+    "library"
+   ],
+   "word": "Library",
+   "rename": [
+    "( Library)? branch$",
+    " library"
+   ]
+  }
+ ],
+ "_pois": "What a stop's 5-minute walk can turn up, from the map's own layers, in the order the page lists them. kind: the page's icon and group; word: what it is, under the name (or label: a property holding it); suffix: dropped from the name; skip: names to leave out; minHa: smallest park kept; cats: categories kept; rename: [pattern, replacement].",
+ "page": {
+  "city": "Toronto",
+  "title": "What’s along your commute?",
+  "short": "Along the way",
+  "description": "Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: parks, shopping streets, heritage districts, landmarks and the names people use for each area.",
+  "lede": "You take the same bus, subway and streetcar every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.",
+  "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries and boundaries: City of Toronto Open Data · Landmarks, areas and skyscrapers: Layers.City",
+  "outside": "That spot is too far from a TTC stop. Try an address in Toronto.",
+  "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.",
+  "noRoute": "No TTC route turned up between those two places. Try spots closer to a bus, streetcar or subway stop.",
+  "mapLink": "Open the map",
+  "kindWords": {
+   "landmark": "Landmarks",
+   "street": "Shopping streets",
+   "heritage": "Heritage districts",
+   "park": "Parks",
+   "campus": "Campuses",
+   "library": "Libraries"
+  },
+  "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers, so it’s far from everything that’s there.",
+  "tries": [
+   {
+    "name": "Thorncliffe Park to King West",
+    "from": "8344",
+    "to": "10176",
+    "fromLabel": "Thorncliffe Park",
+    "toLabel": "King West"
+   },
+   {
+    "name": "The Junction to Leslieville",
+    "from": "3508",
+    "to": "3052",
+    "fromLabel": "The Junction",
+    "toLabel": "Leslieville"
+   },
+   {
+    "name": "Eglinton West to Kipling",
+    "from": "2388",
+    "to": "14724",
+    "fromLabel": "Oakwood & Eglinton",
+    "toLabel": "Kipling Station"
+   }
+  ]
+ }
+}

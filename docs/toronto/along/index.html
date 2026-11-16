@@ -1,0 +1,771 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: parks, shopping streets, heritage districts, landmarks and the names people use for each area.">
+<title>What’s along your commute? · Toronto · Layers.City</title>
+<link rel="canonical" href="https://layers.city/toronto/along/">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2')}
+:root{
+  --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --muted:#5E5452; --rule:#E4DCDA; --accent:#C8102E;
+  --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
+  --water:#DCE7EC; --m-city:#F7F4F3; --m-out:#ECE7E5; --m-edge:#D8CFCD; --m-hoodline:#E2D7D4;
+  --m-major:#D6CDCA; --m-halo:#FFFFFF; --pill-line:#D8CFCD; --sub:#5C5251; --hover:#F3EEEC;
+  /* what each kind of place looks like: its dot on the map and its mark in the list */
+  --k-landmark:#C8102E; --k-area:#C8102E; --k-street:#B5651D; --k-heritage:#7A5C3E; --k-park:#3F8F4E;
+  --k-campus:#2F5E9E; --k-library:#6B4FA0; --k-tower:#4A5560;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
+button,input{font:inherit;color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 40px}
+h1{margin:4px 0 8px;font-family:var(--display);font-weight:800;font-size:44px;line-height:1.02;letter-spacing:-.02em}
+h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-height:1.1;letter-spacing:-.01em}
+.kicker{font-size:12px;font-weight:500;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+.lede{max-width:660px;color:var(--muted);margin:0 0 18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;-webkit-appearance:none;appearance:none;padding:8px 16px;border:1.5px solid var(--ink);border-radius:999px;background:var(--card);min-height:44px;font-weight:500;cursor:pointer;text-decoration:none;color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:disabled{opacity:.6;cursor:default}
+.btn:focus-visible,.opt:focus-visible,.ends input:focus-visible,.mini:focus-visible,.more:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+/* Where from, where to */
+.ends{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;max-width:640px}
+.ends .pair{display:grid;gap:8px}
+.ends .f{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:4px 6px 4px 12px}
+.ends .f b{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);width:38px;flex:none}
+.ends input{flex:1;min-width:0;border:0;background:none;padding:8px 2px;min-height:40px;border-radius:6px}
+.ends input:focus{outline:none}
+.mini{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);background:var(--bg);border-radius:999px;padding:0 12px;min-height:36px;cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap}
+.mini:hover{border-color:var(--ink)}
+.swap{align-self:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--rule);background:var(--card);cursor:pointer;display:grid;place-items:center}
+.swap:hover{border-color:var(--ink)}
+.go-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.hint{color:var(--muted);font-size:13.5px;margin:10px 0 0;min-height:1.4em}
+.tries{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+.tries .lbl{font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.chip{border:1px solid var(--rule);background:var(--card);border-radius:999px;padding:6px 12px;min-height:36px;cursor:pointer;font-size:13.5px}
+.chip:hover{border-color:var(--ink)}
+/* The ways to go */
+.res{margin-top:28px}
+.res-head{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+.res-head p{margin:0;color:var(--muted);font-size:13.5px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-bottom:16px}
+.opt{display:flex;flex-direction:column;gap:8px;text-align:left;background:var(--card);border:1.5px solid var(--rule);border-radius:12px;padding:12px 14px;cursor:pointer}
+.opt:hover{border-color:var(--ink)}
+.opt[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.opt .k{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.opt[aria-pressed="true"] .k{color:var(--accent)}
+.opt .chain{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.opt .chain .ar{color:var(--muted);font-size:13px}
+.opt .t{font-weight:500}
+.opt .t small{color:var(--muted);font-weight:400;font-size:13px}
+.split{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;align-items:start}
+.mapbox{background:var(--card);border:1px solid var(--rule);border-radius:12px;overflow:hidden;position:sticky;top:12px}
+.mapbox svg{display:block;width:100%;height:auto;background:var(--water)}
+.mapfoot{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:space-between;align-items:center;padding:10px 14px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule)}
+.mapfoot a{color:var(--accent);font-weight:500;text-decoration:none}
+.key{display:flex;flex-wrap:wrap;gap:4px 12px}
+.key i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
+/* The trip, stop by stop */
+.story{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:6px 16px 12px}
+.tl{list-style:none;margin:0;padding:0}
+.tl > li{position:relative;padding:8px 0 8px 28px}
+.tl > li::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:4px;background:var(--line,var(--rule))}
+.tl > li.walk::before{background:none;border-left:3px dotted var(--muted);left:10px;width:0}
+.tl > li.end::before{bottom:calc(100% - 16px)} .tl > li.start::before{top:16px;background:none;border-left:3px dotted var(--muted);left:10px;width:0}
+.tl > li::after{content:'';position:absolute;left:5px;top:13px;width:12px;height:12px;border-radius:50%;background:var(--card);box-shadow:inset 0 0 0 3px var(--line,var(--ink))}
+.tl > li.walk::after{display:none}
+.tl > li.start::after,.tl > li.end::after{width:18px;height:18px;left:2px;top:10px;background:var(--accent);box-shadow:0 0 0 3px var(--card) inset}
+.tl > li.leg::after{display:none}
+.tl > li.leg{padding:12px 0 8px 28px}
+.tl > li.on{background:var(--hover)}
+.tl .h{font-weight:500}
+.tl .h .s{display:block;color:var(--muted);font-weight:400;font-size:13px}
+.tl .big{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.01em;line-height:1.2}
+.tl .lh{display:flex;gap:10px;align-items:center}
+.tl .lh .h{line-height:1.25}
+.tl .via{color:var(--muted);font-size:13.5px;margin-top:4px}
+.tl .via .ka{font-style:italic;color:var(--accent);font-weight:500}
+.tl .wl{color:var(--muted);font-size:13.5px}
+.ps{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px}
+.ps li{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:8px;align-items:baseline;font-size:14px;line-height:1.35}
+.ps li i{width:9px;height:9px;border-radius:50%;background:var(--kc);align-self:center}
+.ps li.area i{background:none;border:2px solid var(--kc);width:10px;height:10px}
+.ps li .w{color:var(--muted);font-size:12.5px;white-space:nowrap}
+.ps li .n small{color:var(--muted);font-size:12.5px;margin-left:5px}
+.ps li.area .n{font-style:italic;color:var(--accent);font-weight:500}
+.more{background:none;border:0;padding:2px 0;min-height:30px;color:var(--accent);font-weight:500;cursor:pointer;font-size:13.5px}
+.note{color:var(--muted);font-size:13px;margin:12px 0 0}
+.empty{background:var(--card);border:1px dashed var(--rule);border-radius:12px;padding:18px;color:var(--muted)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;font-size:12px;color:var(--muted);margin-top:36px;border-top:1px solid var(--rule);padding-top:14px}
+/* Badges: shapes here, colours from the city's factsheet.css */
+.rb{display:inline-grid;place-items:center;box-sizing:border-box;height:26px;min-width:40px;padding:0 6px;border-radius:5px;font:700 14px/1 var(--body);background:#fff;color:#1A1414;box-shadow:inset 0 0 0 2px #1A1414;flex:none}
+.ln{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font:800 13px/1 var(--display);color:#fff;background:#5E5452;flex:none}
+.wk{display:inline-grid;place-items:center;width:22px;height:22px;color:var(--muted)}
+@media (max-width:860px){
+  .split{grid-template-columns:minmax(0,1fr)}
+  .mapbox{position:static}
+}
+@media (max-width:520px){
+  .wrap{padding:0 16px 32px}
+  h1{font-size:34px}
+  h2{font-size:22px}
+  .go-row .btn.primary{flex:1 1 100%}
+  .ends .f b{width:32px}
+}
+/* Site header: the same as the maps hub (docs/index.html). */
+.site{max-width:1120px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.site a{color:inherit;text-decoration:none}
+.site .mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.08em}
+.site .brand{display:flex;align-items:center;gap:9px;font-size:24px;letter-spacing:-.01em}
+.site .brand b{font-weight:500;color:var(--accent)}
+.site .sub{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;font-size:13px;letter-spacing:.08em;color:var(--sub)}
+.site .sub:hover{color:var(--ink)}
+.site .sep{width:1.5px;height:16px;background:var(--pill-line)}
+.site .links{display:flex;flex-wrap:wrap;gap:10px}
+.site .pill{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--pill-line);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.site .pill .short{display:none}
+.site .pill.instagram{background:linear-gradient(45deg,#F58529 0%,#DD2A7B 45%,#8134AF 75%,#515BD4 100%);border-color:transparent;color:#fff}
+.site .pill:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(26,20,20,.10);border-color:var(--ink)}
+.site .pill.instagram:hover{border-color:transparent}
+.site .pill:focus-visible,.site .mark a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.site .pill{transition:none}.site .pill:hover{transform:none}}
+@media (max-width:520px){.site{padding:20px 16px}.site .links{flex-wrap:nowrap;gap:8px}.site .pill{gap:6px;min-height:40px;padding:0 13px;font-size:14px}.site .pill svg{width:16px;height:16px}.site .pill .full{display:none}.site .pill .short{display:inline}}
+/* This city: */
+/* Line bullets and route badges, in the map's TTC styles (cities/toronto/city.css): streetcars red with white
+   numbers, buses white with a red outline, express green, Blue Night white with a blue outline, GO green. */
+.ln.l1{background:#FFC425;color:#1A1414} .ln.l2{background:#00A64F} .ln.l4{background:#A8518A} .ln.l5{background:#F58426} .ln.l6{background:#959595}
+.rb{background:#fff;color:#D7261E;box-shadow:inset 0 0 0 1.5px #D7261E}
+.rb.tram{background:#D7261E;color:#fff;box-shadow:none}
+.rb.exp{background:#15924A;color:#fff;box-shadow:none}
+.rb.night{background:#fff;color:#1F4FA3;box-shadow:inset 0 0 0 1.5px #1F4FA3}
+.rb.go{background:#1E6B47;color:#fff;box-shadow:none}
+/* GO Transit on the Routes page (Metrolinx's colours): GO buses in the fact sheets' GO green, each GO line's badge in its line colour,
+   and one green GO bullet for a station's GO lines. */
+.rb.m-go{background:#1E6B47;color:#fff;box-shadow:none;white-space:nowrap}
+.ln.lLW{background:#98002E} .ln.lMI{background:#F57F25} .ln.lBR{background:#003767} .ln.lKI{background:#00853E}
+.ln.lUP{background:#1F4E9C} .ln.lLE{background:#FF0D00} .ln.lST{background:#794500} .ln.lRH{background:#0099C7}
+.ln.lb.lLW,.ln.lb.lMI,.ln.lb.lBR,.ln.lb.lKI,.ln.lb.lUP,.ln.lb.lLE,.ln.lb.lST,.ln.lb.lRH{font-size:11px}
+.ln.grp.lGO{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em;background:#00853E;color:#fff}
+
+
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp){background:var(--card)}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}
+:root[data-theme="dark"] body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE}
+:root[data-theme="dark"] .rb:not(.tram):not(.exp){background:var(--card)}
+.rb{height:26px;min-width:40px;font-size:14px;box-shadow:inset 0 0 0 2px currentColor}
+</style>
+</head>
+<body>
+  <header class="site">
+    <div class="mark">
+      <a class="brand" href="/"><svg width="22" height="28" viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#fff"/></svg><span>Layers<b>.City</b></span></a>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="sub" href="https://noumankhan.ca">BY NOUMAN KHAN</a>
+    </div>
+    <nav class="links" aria-label="Elsewhere">
+      <a class="pill" href="mailto:go@layers.city" aria-label="Email go@layers.city">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        <span class="full">go@layers.city</span><span class="short">Email</span>
+      </a>
+      <a class="pill instagram" href="https://www.instagram.com/layers.city" rel="me" aria-label="layers.city on Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+        layers.city
+      </a>
+    </nav>
+  </header>
+<main class="wrap">
+  <section id="intro">
+    <div class="kicker" id="kicker"></div>
+    <h1>What’s along your commute?</h1>
+    <p class="lede">You take the same bus, subway and streetcar every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.</p>
+    <form id="find" autocomplete="off">
+      <div class="ends">
+        <div class="pair">
+          <div class="f"><b>From</b><label for="qa" class="sr">Where you start</label><input id="qa" type="search" placeholder="Where you start: an address or place" enterkeyhint="next">
+            <button type="button" class="mini" id="locate" aria-label="Start from where I am">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg>Here</button></div>
+          <div class="f"><b>To</b><label for="qb" class="sr">Where you’re going</label><input id="qb" type="search" placeholder="Where you’re going" enterkeyhint="go"></div>
+        </div>
+        <button type="button" class="swap" id="swap" aria-label="Swap start and end"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/></svg></button>
+      </div>
+      <div class="go-row"><button type="submit" class="btn primary" id="go">Show what’s along the way</button></div>
+    </form>
+    <p class="hint" id="hint" aria-live="polite">Routes are worked out in your browser. A shared link names the nearest stops, never your address.</p>
+    <div class="tries" id="tries" hidden></div>
+  </section>
+
+  <section class="res" id="res" hidden>
+    <div class="res-head"><h2 id="resTitle"></h2><p id="resNote"></p></div>
+    <div class="opts" id="opts" role="group" aria-label="Ways to go"></div>
+    <div class="split">
+      <div class="mapbox"><div id="map"></div>
+        <div class="mapfoot"><span class="key" id="key"></span><a id="maplink" href="../">Open the map →</a></div>
+      </div>
+      <div class="story"><ol class="tl" id="story"></ol></div>
+    </div>
+    <p class="note" id="caveat"></p>
+  </section>
+
+  <footer class="foot"><span>Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries and boundaries: City of Toronto Open Data · Landmarks, areas and skyscrapers: Layers.City</span><span id="asof"></span></footer>
+</main>
+<script>/* Along the way: find likely transit routes between two points, in the browser.
+   No timetables: each ride costs its distance at the mode's typical speed, each boarding costs half the route's
+   usual gap between vehicles plus a small penalty, and walking joins nearby stops. Round-based like RAPTOR
+   (round k = k rides). Alternatives come from searching again with the main route's lines left out.
+   Shared by the page and by tests (node). The engine names no city. */
+(function (root) {
+  var SPEED = { bus: 300, tram: 220, subway: 530, lrt: 380, go: 700, rail: 900 };  // metres a minute, stops included
+  var WALK = 75;            // metres a minute, after the 1.3 detour below
+  var DETOUR = 1.3;         // street distance / straight-line distance
+  var ACCESS = 1000;        // furthest walk to the first stop / from the last (m, straight line)
+  var XFER = 250;           // furthest walk between stops to change (m)
+  var BOARD = 2;            // minutes added for every boarding (getting on is a hassle)
+  var MAXWAIT = 10, MINWAIT = 1;
+  var ROUNDS = 4;
+
+  // opts.skip: modes to leave out, e.g. ['go', 'rail'] for local transit only.
+  function Router(g, opts) {
+    this.g = g;
+    var skip = this.skip = {}, sm = (opts && opts.skip) || [];
+    Object.keys(g.routes).forEach(function (rid) { if (sm.indexOf(g.routes[rid][2]) >= 0) skip[rid] = 1; });
+    var lat0 = 0; g.stops.forEach(function (s) { lat0 += s[1]; }); lat0 /= g.stops.length;
+    this.kx = 111320 * Math.cos(lat0 * Math.PI / 180); this.ky = 110540;
+    var xy = this.xy = g.stops.map(function (s) { return [s[0] * this.kx, s[1] * this.ky]; }, this);
+    // grid of stops, 250 m cells
+    var C = this.C = 250, grid = this.grid = {};
+    xy.forEach(function (p, i) { var k = Math.floor(p[0] / C) + ',' + Math.floor(p[1] / C); (grid[k] = grid[k] || []).push(i); });
+    // patterns serving each stop: [pattern index, position]
+    var sp = this.sp = g.stops.map(function () { return []; });
+    g.patterns.forEach(function (p, pi) { p[2].forEach(function (s, j) { sp[s].push(pi, j); }); });
+    // walking transfers, built lazily
+    this.near = {};
+  }
+  Router.prototype.within = function (x, y, r) {
+    var C = this.C, out = [], xy = this.xy, g = this.grid;
+    for (var i = Math.floor((x - r) / C); i <= Math.floor((x + r) / C); i++)
+      for (var j = Math.floor((y - r) / C); j <= Math.floor((y + r) / C); j++) {
+        var c = g[i + ',' + j]; if (!c) continue;
+        for (var n = 0; n < c.length; n++) {
+          var p = xy[c[n]], d = Math.hypot(p[0] - x, p[1] - y);
+          if (d <= r) out.push([c[n], d]);
+        }
+      }
+    return out;
+  };
+  Router.prototype.nearStops = function (s) {
+    if (!this.near[s]) { var p = this.xy[s]; this.near[s] = this.within(p[0], p[1], XFER).filter(function (q) { return q[0] !== s; }); }
+    return this.near[s];
+  };
+  Router.prototype.wait = function (rid) {
+    var h = this.g.routes[rid][3];
+    return h ? Math.max(MINWAIT, Math.min(MAXWAIT, h / 2)) : MAXWAIT;
+  };
+  Router.prototype.speed = function (rid) {
+    var r = this.g.routes[rid], m = r[2];
+    if (m === 'bus' && /^9\d\d$/.test(r[0])) return 400;   // express buses
+    return SPEED[m] || 300;
+  };
+  function walkMin(d) { return d * DETOUR / WALK; }
+
+  // One search. a, b: [lng, lat]. ban: object of route ids to leave out.
+  Router.prototype.search = function (a, b, ban) {
+    ban = Object.assign({}, this.skip, ban || {});
+    var g = this.g, n = g.stops.length, self = this;
+    var ax = a[0] * this.kx, ay = a[1] * this.ky, bx = b[0] * this.kx, by = b[1] * this.ky;
+    var direct = Math.hypot(ax - bx, ay - by);
+    var egress = {}; this.within(bx, by, ACCESS).forEach(function (q) { egress[q[0]] = walkMin(q[1]); });
+    var best = new Float64Array(n).fill(Infinity);      // best over all rounds (for pruning)
+    var labels = [], parents = [];
+    var L0 = new Float64Array(n).fill(Infinity), P0 = new Array(n), marked = [];
+    this.within(ax, ay, ACCESS).forEach(function (q) { var t = walkMin(q[1]); L0[q[0]] = t; best[q[0]] = t; P0[q[0]] = { walk: true, d: q[1] }; marked.push(q[0]); });
+    labels.push(L0); parents.push(P0);
+    var target = direct < 2500 ? walkMin(direct) : Infinity, targetEnd = { walk: true };
+    var ends = [];
+    function checkEnd(k, L) {
+      for (var s in egress) { var t = L[s] + egress[s]; if (t < target) { target = t; } if (isFinite(L[s])) ends.push([t, k, +s]); }
+    }
+    for (var k = 1; k <= ROUNDS && marked.length; k++) {
+      var prev = labels[k - 1], L = new Float64Array(n).fill(Infinity), P = new Array(n);
+      // patterns to scan, from the earliest marked position
+      var scan = {};
+      marked.forEach(function (s) { var a2 = self.sp[s]; for (var i = 0; i < a2.length; i += 2) { var pi = a2[i], j = a2[i + 1]; if (ban[g.patterns[pi][0]]) continue; if (scan[pi] === undefined || j < scan[pi]) scan[pi] = j; } });
+      var improved = [];
+      for (var pk in scan) {
+        var pi = +pk, pat = g.patterns[pi], rid = pat[0], seq = pat[2], dist = pat[3];
+        var v = this.speed(rid), w = this.wait(rid) + BOARD;
+        var on = -1, onCost = Infinity;
+        for (var j = scan[pi]; j < seq.length; j++) {
+          var s = seq[j];
+          if (on >= 0) {
+            var t = onCost + (dist[j] - dist[on]) / v;
+            if (t < L[s] && t < best[s] && t < target) { L[s] = t; best[s] = t; P[s] = { pat: pi, from: on, to: j, prev: k - 1 }; improved.push(s); }
+          }
+          var c = prev[s] + w;
+          if (c < Infinity && (on < 0 || c < onCost + (dist[j] - dist[on]) / v)) { on = j; onCost = c; }
+        }
+      }
+      // walk to nearby stops to change
+      var walked = [];
+      improved.forEach(function (s) {
+        self.nearStops(s).forEach(function (q) {
+          var t = L[s] + walkMin(q[1]);
+          if (t < L[q[0]] && t < best[q[0]] && t < target) { L[q[0]] = t; best[q[0]] = t; P[q[0]] = { xfer: s, d: q[1] }; walked.push(q[0]); }
+        });
+      });
+      labels.push(L); parents.push(P);
+      checkEnd(k, L);
+      marked = improved.concat(walked);
+    }
+    // the best end, then walk back through the parents
+    ends.sort(function (x, y) { return x[0] - y[0]; });
+    var walkOnly = direct < 2500 ? walkMin(direct) : Infinity;
+    if (!ends.length || walkOnly <= ends[0][0]) return isFinite(walkOnly) ? { min: walkOnly, legs: [{ walk: true, m: direct * DETOUR, min: walkOnly }] } : null;
+    var e = ends[0], legs = [], s = e[2], kk = e[1];
+    legs.push({ walk: true, end: true, from: s, min: egress[s] });
+    while (kk > 0) {
+      var p = parents[kk][s];
+      if (p.xfer !== undefined) { legs.push({ walk: true, from: p.xfer, to: s, min: walkMin(p.d) }); s = p.xfer; p = parents[kk][s]; }
+      var pat = g.patterns[p.pat];
+      legs.push({ route: pat[0], pat: p.pat, k: pat[1], from: p.from, to: p.to, stops: pat[2].slice(p.from, p.to + 1), wait: this.wait(pat[0]),
+                  min: (pat[3][p.to] - pat[3][p.from]) / this.speed(pat[0]) });
+      s = pat[2][p.from]; kk = p.prev;
+    }
+    legs.push({ walk: true, start: true, to: s, min: labels[0][s] });
+    legs.reverse();
+    return { min: e[0], legs: legs };
+  };
+  // Two routes are the same trip when their rides get on and off at the same places (504 or 503 along King):
+  // the second's lines are kept on the first's legs as `also`.
+  Router.prototype.same = function (x, y) {
+    var a = x.legs.filter(function (l) { return l.route; }), b = y.legs.filter(function (l) { return l.route; }), self = this;
+    if (a.length !== b.length) return false;
+    function close(s, t) { var p = self.xy[s], q = self.xy[t]; return Math.hypot(p[0] - q[0], p[1] - q[1]) < 300; }
+    for (var i = 0; i < a.length; i++)
+      if (!close(a[i].stops[0], b[i].stops[0]) || !close(a[i].stops[a[i].stops.length - 1], b[i].stops[b[i].stops.length - 1])) return false;
+    return true;
+  };
+  function sig(r) { return r.legs.filter(function (l) { return l.route; }).map(function (l) { return l.route; }).join('>'); }
+  Router.prototype.sig = sig;
+
+  // Up to `max` different routes, each within `slack` minutes (or 35%) of the quickest.
+  Router.prototype.options = function (a, b, max) {
+    max = max || 3;
+    var first = this.search(a, b);
+    if (!first) return [];
+    var out = [first], seen = {}; seen[sig(first)] = 1;
+    var limit = first.min + Math.max(12, first.min * 0.35);
+    var queue = [{}], tried = {};
+    while (queue.length && out.length < max + 3) {
+      var ban = queue.shift();
+      var base = this.search(a, b, ban);
+      if (!base) continue;
+      var lines = base.legs.filter(function (l) { return l.route; }).map(function (l) { return l.route; });
+      for (var i = 0; i < lines.length; i++) {
+        var b2 = Object.assign({}, ban); b2[lines[i]] = 1;
+        var key = Object.keys(b2).sort().join(',');
+        if (tried[key]) continue; tried[key] = 1;
+        var r = this.search(a, b, b2);
+        if (!r || r.min > limit) continue;
+        var sg = sig(r);
+        if (!seen[sg]) {
+          seen[sg] = 1;
+          var dup = null, self2 = this;
+          for (var o = 0; o < out.length; o++) if (this.same(out[o], r)) { dup = out[o]; break; }
+          if (dup) {
+            var da = dup.legs.filter(function (l) { return l.route; }), ra = r.legs.filter(function (l) { return l.route; });
+            da.forEach(function (l, li) { if (ra[li].route !== l.route && self2.g.routes[ra[li].route][2] === self2.g.routes[l.route][2]) { l.also = l.also || []; if (l.also.indexOf(ra[li].route) < 0) l.also.push(ra[li].route); } });
+          } else out.push(r);
+        }
+        if (Object.keys(b2).length < 2) queue.push(b2);
+      }
+    }
+    out.sort(function (x, y) { return x.min - y.min; });
+    return out.slice(0, max);
+  };
+
+  if (typeof module !== 'undefined' && module.exports) module.exports = Router; else root.AlongRouter = Router;
+})(this);
+</script>
+<script>
+(() => {
+  const RS = {"city": "Toronto", "title": "What’s along your commute?", "short": "Along the way", "description": "Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: parks, shopping streets, heritage districts, landmarks and the names people use for each area.", "lede": "You take the same bus, subway and streetcar every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries and boundaries: City of Toronto Open Data · Landmarks, areas and skyscrapers: Layers.City", "outside": "That spot is too far from a TTC stop. Try an address in Toronto.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noRoute": "No TTC route turned up between those two places. Try spots closer to a bus, streetcar or subway stop.", "mapLink": "Open the map", "kindWords": {"landmark": "Landmarks", "street": "Shopping streets", "heritage": "Heritage districts", "park": "Parks", "campus": "Campuses", "library": "Libraries"}, "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers, so it’s far from everything that’s there.", "tries": [{"name": "Thorncliffe Park to King West", "from": "8344", "to": "10176", "fromLabel": "Thorncliffe Park", "toLabel": "King West"}, {"name": "The Junction to Leslieville", "from": "3508", "to": "3052", "fromLabel": "The Junction", "toLabel": "Leslieville"}, {"name": "Eglinton West to Kipling", "from": "2388", "to": "14724", "fromLabel": "Oakwood & Eglinton", "toLabel": "Kipling Station"}], "skipModes": ["go", "rail"]};   // this city's settings and wording (cities/<city>/along.json)
+  const $ = id => document.getElementById(id);
+  const NS = 'http://www.w3.org/2000/svg';
+  const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'rect', 'g'];
+  const el = (tag, attrs = {}, kids) => {
+    const n = SVG_TAGS.includes(tag) ? document.createElementNS(NS, tag) : document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) if (v != null) n.setAttribute(k, v);
+    if (kids != null) (Array.isArray(kids) ? kids : [kids]).forEach(c => c != null && n.append(c));
+    return n;
+  };
+  const getJSON = async url => { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); };
+  const once = f => { let p; return () => (p ||= f()); };
+  const gjOrNone = n => getJSON('../data/' + n + '.geojson').catch(() => ({ features: [] }));
+  const basemap = once(() => Promise.all([gjOrNone('base'), gjOrNone('streets'), gjOrNone('subway_lines'), gjOrNone('neighbourhoods')]));
+  const cityCfg = once(() => getJSON('../data/city.json'));
+  const routeFile = {};
+  const routeData = rid => (routeFile[rid] ||= getJSON('../routes/data/r/' + encodeURIComponent(rid) + '.json').catch(() => null));
+
+  let G = null, R = null, P = null;      // graph, router, places
+  let A = null, B = null;                 // {lon, lat, label, sid}
+  let opts = [], cur = 0;
+
+  // ---- words ----
+  const kmBetween = (lon1, lat1, lon2, lat2) => Math.hypot((lon1 - lon2) * 111.32 * Math.cos(lat1 * Math.PI / 180), (lat1 - lat2) * 110.574);
+  const walkTxt = m => `${Math.max(1, Math.round(m * 1.3 / 80))} min walk`;
+  const clean = n => n.replace(/\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)? ?Platform\b.*$/i, '').replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+-\s+[^-]*Station$/, '').replace(/\s+/g, ' ').trim();
+  const isRapid = rid => ['subway', 'lrt', 'rail'].includes(G.routes[rid][2]);
+  const WORD = { bus: 'bus', tram: 'streetcar', subway: 'subway', lrt: 'LRT' };
+  const badge = rid => { const r = G.routes[rid];
+    if (isRapid(rid)) return el('span', { class: 'ln l' + r[0], 'aria-hidden': 'true' }, r[0]);
+    return el('span', { class: 'rb' + (r[2] === 'tram' ? ' tram' : /^9\d\d$/.test(r[0]) ? ' exp' : ''), 'aria-hidden': 'true' }, r[0]); };
+  // The colour a route's badge shows, for its line on the map (read from the city's CSS).
+  const colourCache = {};
+  function colourOf(rid) {
+    if (colourCache[rid]) return colourCache[rid];
+    const b = badge(rid); b.style.position = 'absolute'; b.style.left = '-999px'; document.body.append(b);
+    // an outlined badge (a regular bus) takes its text colour, a filled one (a streetcar, a subway line) its fill
+    const cs = getComputedStyle(b), filled = !b.classList.contains('rb') || b.classList.contains('tram') || b.classList.contains('exp');
+    const c = filled ? cs.backgroundColor : cs.color;
+    b.remove(); return (colourCache[rid] = c);
+  }
+  const routeName = rid => { const r = G.routes[rid]; return isRapid(rid) ? r[1].replace(/\s*\(.*\)$/, '') : `${r[0]} ${r[1]}`; };
+  const stopName = s => clean(G.stops[s][2]);
+  // A station's name for the list ("Pape Station"), a stop's cross streets otherwise.
+
+  // ---- places a short walk away ----
+  let grid = null; const CELL = 0.004;
+  function indexPlaces() {
+    grid = new Map();
+    P.pois.forEach((p, i) => { const c = p[3]; for (let j = 0; j < c.length; j += 2) {
+      const k = Math.floor(c[j] / CELL) + ',' + Math.floor(c[j + 1] / CELL);
+      if (!grid.has(k)) grid.set(k, []); grid.get(k).push(i, j); } });
+  }
+  // Every place within r metres of a spot: Map(place index -> metres).
+  function placesNear(lon, lat, r) {
+    const out = new Map(), span = Math.ceil(r / 300) + 1, cx = Math.floor(lon / CELL), cy = Math.floor(lat / CELL);
+    for (let i = cx - span; i <= cx + span; i++) for (let j = cy - span; j <= cy + span; j++) {
+      const a = grid.get(i + ',' + j); if (!a) continue;
+      for (let n = 0; n < a.length; n += 2) { const c = P.pois[a[n]][3], m = kmBetween(lon, lat, c[a[n + 1]], c[a[n + 1] + 1]) * 1000;
+        if (m <= r && (!out.has(a[n]) || m < out.get(a[n]))) out.set(a[n], m); }
+    }
+    return out;
+  }
+  const KORDER = P0 => Object.fromEntries((P0.kinds || []).map((k, i) => [k, i]));
+
+  // ---- the trip as a list: start, each ride (its stops with what's near them), changes, end ----
+  const STOP_R = 350, END_R = 700;   // about a 5-minute walk from a stop, 10 from either end
+  function places(o) {
+    // Every spot on the trip, in order; each place goes to the spot it's closest to.
+    const spots = [{ end: 'a', lon: A.lon, lat: A.lat, r: END_R }];
+    // a change is one spot: where you get off (the next ride's first stop is a short walk from it)
+    let firstRide = true;
+    o.legs.forEach((l, li) => { if (!l.route) return; const fr = firstRide; firstRide = false;
+      l.stops.forEach((s, j) => { if (j === 0 && !fr) return; spots.push({ leg: li, j, s, lon: G.stops[s][0], lat: G.stops[s][1], r: STOP_R }); }); });
+    spots.push({ end: 'b', lon: B.lon, lat: B.lat, r: END_R });
+    const best = new Map();
+    spots.forEach((sp, si) => placesNear(sp.lon, sp.lat, sp.r).forEach((m, pi) => {
+      const score = sp.end ? m * 0.7 : m;   // the ends first: you're on foot there anyway
+      if (!best.has(pi) || score < best.get(pi)[1]) best.set(pi, [si, score, m]); }));
+    spots.forEach(sp => { sp.places = []; });
+    best.forEach(([si, , m], pi) => spots[si].places.push([pi, m]));
+    const ko = KORDER(P);
+    spots.forEach(sp => sp.places.sort((x, y) => (ko[P.pois[x[0]][0]] - ko[P.pois[y[0]][0]]) || x[1] - y[1]));
+    return spots;
+  }
+  function placeList(list, max) {
+    const ul = el('ul', { class: 'ps' });
+    const row = ([pi, m]) => { const p = P.pois[pi];
+      return el('li', { class: p[0] === 'area' ? 'area' : null, style: `--kc:var(--k-${p[0]})`, 'data-p': pi },
+        [el('i', { 'aria-hidden': 'true' }), el('span', { class: 'n' }, [p[1], p[2] && p[0] !== 'area' ? el('small', {}, p[2]) : null]), el('span', { class: 'w' }, walkTxt(m))]); };
+    list.slice(0, max).forEach(x => ul.append(row(x)));
+    const frag = [ul];
+    if (list.length > max) {
+      const b = el('button', { type: 'button', class: 'more' }, `${list.length - max} more nearby`);
+      b.addEventListener('click', () => { list.slice(max).forEach(x => ul.append(row(x))); b.remove(); });
+      frag.push(b);
+    }
+    return frag;
+  }
+
+  function pointAt(line, d) {
+    for (let i = 1; i < line.length; i++) {
+      const [x0, y0, d0] = line[i - 1], [x1, y1, d1] = line[i];
+      if (d <= d1) { const t = d1 > d0 ? (d - d0) / (d1 - d0) : 0; return [x0 + (x1 - x0) * t, y0 + (y1 - y0) * t]; }
+    }
+    const l = line[line.length - 1]; return [l[0], l[1]];
+  }
+  // What a ride runs along, from the Routes page's story of the pattern: its main streets and areas between the stops.
+  async function viaOf(l) {
+    const f = await routeData(l.route); if (!f) return null;
+    const pat = f.patterns.find(p => +p.k === l.k); if (!pat) return null;
+    const d0 = G.patterns[l.pat][3][l.from], d1 = G.patterns[l.pat][3][l.to];
+    const inR = x => x[1] > d0 + 150 && x[0] < d1 - 150;
+    const streets = [...new Set((pat.streets || []).filter(inR).map(x => x[2]))];
+    const known = (pat.known || []).filter(k => k[0] > d0 && k[0] < d1).map(k => k[1]);
+    const L = pat.line || [];
+    const line = L.length > 1 ? [pointAt(L, d0), ...L.filter(p => p[2] > d0 && p[2] < d1).map(p => [p[0], p[1]]), pointAt(L, d1)] : [];
+    return { streets, known, line };
+  }
+
+  async function story(o) {
+    const ol = $('story'); ol.replaceChildren();
+    const spots = places(o);
+    const end = sp => spots.find(x => x.end === sp);
+    const li = (cls, kids, line) => el('li', { class: cls, style: line ? `--line:${line}` : null }, kids);
+    // Start
+    const a = end('a');
+    ol.append(li('start', [el('div', { class: 'h' }, [el('span', { class: 'big' }, A.label || 'Where you start'),
+      el('span', { class: 's' }, a.places.length ? 'Within about 10 minutes’ walk' : 'Nothing from our layers within 10 minutes’ walk')]), ...placeList(a.places, 5)]));
+    const vias = await Promise.all(o.legs.map(l => l.route ? viaOf(l) : null));
+    o.legs.forEach((l, i) => {
+      if (!l.route) {
+        if (l.start || l.end || l.min < 1.5) return;
+        ol.append(li('walk', el('div', { class: 'wl' }, `Walk to ${stopName(l.to)}, about ${Math.max(1, Math.round(l.min))} min`)));
+        return;
+      }
+      const c = colourOf(l.route), r = G.routes[l.route], v = vias[i];
+      const also = (l.also || []).filter(x => G.routes[x]);
+      const lastS = l.stops[l.stops.length - 1];
+      const head = el('div', { class: 'lh' }, [badge(l.route), el('div', { class: 'h' }, [
+        `${routeName(l.route)}${also.length ? ' (or ' + also.map(x => G.routes[x][0]).join(', ') + ')' : ''}`,
+        el('span', { class: 's' }, `${stopName(l.stops[0])} to ${stopName(lastS)} · ${l.stops.length - 1} stop${l.stops.length === 2 ? '' : 's'} · about ${Math.max(1, Math.round(l.min))} min`)])]);
+      const kids = [head];
+      if (v && (v.streets.length || v.known.length)) {
+        const via = el('div', { class: 'via' });
+        if (v.streets.length) via.append(`Along ${v.streets.slice(0, 4).join(', ')}`);
+        if (v.known.length) { via.append(v.streets.length ? ', past ' : 'Past '); v.known.slice(0, 5).forEach((k, j) => { if (j) via.append(', '); via.append(el('span', { class: 'ka' }, k)); }); }
+        kids.push(via);
+      }
+      ol.append(li('leg', kids, c));
+      // the stops on this ride with somewhere a short walk away
+      spots.filter(sp => sp.leg === i).forEach(sp => {
+        const last = sp.j === l.stops.length - 1, first = sp.j === 0;
+        if (!sp.places.length && !(isRapid(l.route) && !first && !last)) return;
+        if (!sp.places.length) { ol.append(li('stop', el('div', { class: 'h' }, [stopName(sp.s), el('span', { class: 's' }, 'Nothing from our layers within 5 minutes')]), c)); return; }
+        const change = last && i < o.legs.length - 1 && o.legs.slice(i + 1).some(x => x.route);
+        const n = el('div', { class: 'h' }, [stopName(sp.s), el('span', { class: 's' }, first ? 'Where you get on' : change ? 'Where you change' : last ? 'Where you get off' : null)]);
+        ol.append(li('stop', [n, ...placeList(sp.places, 3)], c));
+      });
+    });
+    const b = end('b');
+    ol.append(li('end', [el('div', { class: 'h' }, [el('span', { class: 'big' }, B.label || 'Where you’re going'),
+      el('span', { class: 's' }, b.places.length ? 'Within about 10 minutes’ walk' : 'Nothing from our layers within 10 minutes’ walk')]), ...placeList(b.places, 6)]));
+    return { spots, vias };
+  }
+
+  // ---- the map: the whole trip, its rides in their own colours, and the places it turns up ----
+  async function drawMap(o, spots, vias) {
+    const [base, streets, subway, nb] = await basemap();
+    const pts = [[A.lon, A.lat], [B.lon, B.lat]];
+    o.legs.forEach(l => { if (l.route) l.stops.forEach(s => pts.push([G.stops[s][0], G.stops[s][1]])); });
+    let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
+    pts.forEach(([lon, lat]) => { x0 = Math.min(x0, lon); x1 = Math.max(x1, lon); y0 = Math.min(y0, lat); y1 = Math.max(y1, lat); });
+    const kx = Math.cos(((y0 + y1) / 2) * Math.PI / 180);
+    let w = (x1 - x0) * kx, h = y1 - y0;
+    const minSpan = 0.014;
+    if (w < minSpan) { const c = (x0 + x1) / 2; x0 = c - minSpan / kx / 2; x1 = c + minSpan / kx / 2; w = minSpan; }
+    if (h < minSpan) { const c = (y0 + y1) / 2; y0 = c - minSpan / 2; y1 = c + minSpan / 2; h = minSpan; }
+    const wide = matchMedia('(min-width:861px)').matches, lo = wide ? 0.75 : 0.85, hi = wide ? 1.25 : 1.3;
+    if (h / w > hi) { const add = (h / hi - w) / 2 / kx; x0 -= add; x1 += add; w = h / hi; }
+    if (h / w < lo) { const add = (w * lo - h) / 2; y0 -= add; y1 += add; h = w * lo; }
+    const pad = Math.max(w, h) * 0.07;
+    x0 -= pad / kx; x1 += pad / kx; y0 -= pad; y1 += pad; w += 2 * pad; h += 2 * pad;
+    const W = Math.round(Math.min(800, Math.max(320, $('map').clientWidth || 700))), sc = W / w, H = Math.round(h * sc);
+    const xy = (lon, lat) => [(lon - x0) * kx * sc, (y1 - lat) * sc];
+    const inside = (lon, lat, m = 0.01) => lon > x0 - m && lon < x1 + m && lat > y0 - m && lat < y1 + m;
+    const pathOf = (coords, close) => coords.map((c, i) => { const [x, y] = xy(c[0], c[1]); return (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1); }).join('') + (close ? 'Z' : '');
+    const rings = g => !g ? [] : g.type === 'Polygon' ? g.coordinates : g.type === 'MultiPolygon' ? g.coordinates.flat() : [];
+    const linesOf = g => g.type === 'LineString' ? [g.coordinates] : g.type === 'MultiLineString' ? g.coordinates : [];
+    const near = cs => cs.some(c => inside(c[0], c[1], 0.02));
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': `Map of the trip from ${A.label || 'the start'} to ${B.label || 'the end'}` });
+    base.features.forEach(f => { if (f.properties.kind === 'outside') return; rings(f.geometry).forEach(r => { if (near(r)) svg.append(el('path', { d: pathOf(r, true), fill: f.properties.kind === 'city' ? 'var(--m-city)' : 'var(--m-out)', stroke: 'var(--m-edge)', 'stroke-width': 1 })); }); });
+    nb.features.forEach(f => rings(f.geometry).forEach(r => { if (near(r)) svg.append(el('path', { d: pathOf(r, true), fill: 'none', stroke: 'var(--m-hoodline)', 'stroke-width': 1 })); }));
+    // parks, shopping streets and heritage districts as soft shapes: their sampled edges, filled
+    streets.features.forEach(f => { if (f.properties.cls !== 'major') return; linesOf(f.geometry).forEach(c => { if (near(c)) svg.append(el('path', { d: pathOf(c), fill: 'none', stroke: 'var(--m-major)', 'stroke-width': 1.8, 'stroke-linecap': 'round' })); }); });
+    subway.features.forEach(f => linesOf(f.geometry).forEach(c => { if (near(c)) svg.append(el('path', { d: pathOf(c), fill: 'none', stroke: f.properties.color || '#888', 'stroke-width': 3, 'stroke-linecap': 'round', 'stroke-opacity': .35 })); }));
+    // walks dotted, rides in the route's colour
+    const legLine = (l, i) => (vias[i] && vias[i].line.length > 1) ? vias[i].line : l.stops.map(s => [G.stops[s][0], G.stops[s][1]]);
+    let prev = [A.lon, A.lat];
+    o.legs.forEach((l, i) => {
+      if (l.route) { const ln = legLine(l, i), first = [G.stops[l.stops[0]][0], G.stops[l.stops[0]][1]];
+        svg.append(el('path', { d: pathOf([prev, first]), fill: 'none', stroke: 'var(--muted)', 'stroke-width': 2.5, 'stroke-dasharray': '1 6', 'stroke-linecap': 'round' }));
+        svg.append(el('path', { d: pathOf(ln), fill: 'none', stroke: 'var(--m-halo)', 'stroke-width': 10, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+        svg.append(el('path', { d: pathOf(ln), fill: 'none', stroke: colourOf(l.route), 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+        const ls = l.stops[l.stops.length - 1]; prev = [G.stops[ls][0], G.stops[ls][1]]; }
+    });
+    svg.append(el('path', { d: pathOf([prev, [B.lon, B.lat]]), fill: 'none', stroke: 'var(--muted)', 'stroke-width': 2.5, 'stroke-dasharray': '1 6', 'stroke-linecap': 'round' }));
+    // labels placed in priority order, skipped where they'd overlap
+    const taken = [];
+    const label = (x, y, text, opts = {}) => {
+      const fs = opts.size || 12.5, wd = text.length * fs * 0.56, left = x > W - wd - 20;
+      const tx = left ? x - 8 : x + 8, ty = y + fs * 0.35;
+      const box = [left ? tx - wd : tx, ty - fs, left ? tx : tx + wd, ty + 3];
+      if (box[0] < 2 || box[2] > W - 2 || box[1] < 2 || box[3] > H - 2) return false;
+      if (taken.some(t => box[0] < t[2] && box[2] > t[0] && box[1] < t[3] && box[3] > t[1])) return false;
+      taken.push(box);
+      svg.append(el('text', { x: tx, y: ty, 'text-anchor': left ? 'end' : 'start', 'font-size': fs, 'font-weight': opts.weight || 500, fill: opts.color || 'var(--ink)', 'font-style': opts.italic ? 'italic' : null,
+        stroke: 'var(--m-halo)', 'stroke-width': 3.5, 'paint-order': 'stroke', 'stroke-linejoin': 'round', 'font-family': 'IBM Plex Sans, sans-serif' }, text));
+      return true;
+    };
+    // where you change
+    const changes = [];
+    o.legs.forEach(l => { if (l.route) { changes.push(l.stops[0]); changes.push(l.stops[l.stops.length - 1]); } });
+    const changeDots = changes.map(s => { const [x, y] = xy(G.stops[s][0], G.stops[s][1]); svg.append(el('circle', { cx: x, cy: y, r: 6, fill: 'var(--m-halo)', stroke: 'var(--ink)', 'stroke-width': 2.5 })); taken.push([x - 7, y - 7, x + 7, y + 7]); return [s, x, y]; });
+    // the places, as dots in their kind's colour
+    const ko = KORDER(P), shown = [];
+    spots.forEach(sp => sp.places.forEach(([pi, m]) => shown.push([pi, m])));
+    shown.sort((x, y) => (ko[P.pois[x[0]][0]] - ko[P.pois[y[0]][0]]) || x[1] - y[1]);
+    const dots = shown.map(([pi]) => { const p = P.pois[pi], c = p[3];
+      // a shape's dot goes at its point nearest the trip: its first point is a point inside it
+      const [x, y] = xy(c[0], c[1]);
+      const d = el('circle', { cx: x, cy: y, r: p[0] === 'area' ? 0 : 4.5, fill: `var(--k-${p[0]})`, stroke: 'var(--m-halo)', 'stroke-width': 1.5, 'data-p': pi });
+      svg.append(d); return [pi, x, y]; });
+    // ends
+    const pin = (lon, lat, txt) => { const [x, y] = xy(lon, lat);
+      const g = el('g', { transform: `translate(${x.toFixed(1)} ${y.toFixed(1)})` });
+      g.append(el('path', { d: 'M0 0C-3-6-11-11-11-19A11 11 0 0 1 11-19C11-11 3-6 0 0Z', fill: '#C8102E', stroke: '#fff', 'stroke-width': 2 }));
+      g.append(el('text', { y: -15, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 800, fill: '#fff', 'font-family': 'Archivo, sans-serif' }, txt));
+      svg.append(g); taken.push([x - 12, y - 32, x + 12, y + 2]); return [x, y]; };
+    const pa = pin(A.lon, A.lat, 'A'), pb = pin(B.lon, B.lat, 'B');
+    changeDots.forEach(([s, x, y]) => label(x, y, stopName(s).replace(/ Station$/, ''), { size: 12.5, weight: 700 }));
+    dots.forEach(([pi, x, y]) => { const p = P.pois[pi]; label(x, y, p[1], p[0] === 'area' ? { italic: true, color: 'var(--accent)', size: 12.5 } : { size: 12, weight: 500 }); });
+    $('map').replaceChildren(svg);
+    const kinds = [...new Set(shown.map(([pi]) => P.pois[pi][0]))].filter(k => k !== 'area');
+    $('key').replaceChildren(...kinds.map(k => el('span', {}, [el('i', { style: `background:var(--k-${k})` }), RS.kindWords[k] || k])));
+    $('maplink').href = `../#pin=${A.lat.toFixed(5)},${A.lon.toFixed(5)}&pin2=${B.lat.toFixed(5)},${B.lon.toFixed(5)}`;
+  }
+
+  // ---- results ----
+  function optionCard(o, i) {
+    const chain = el('span', { class: 'chain' });
+    o.legs.filter(l => l.route).forEach((l, j) => { if (j) chain.append(el('span', { class: 'ar', 'aria-hidden': 'true' }, '›')); chain.append(badge(l.route)); });
+    const rides = o.legs.filter(l => l.route);
+    const desc = rides.map(l => routeName(l.route)).join(', then ');
+    const b = el('button', { type: 'button', class: 'opt', 'aria-pressed': String(i === cur), 'aria-label': `Option ${i + 1}: ${desc}, about ${Math.round(o.min)} minutes` }, [
+      el('span', { class: 'k' }, i === 0 ? 'Quickest' : 'Another way'),
+      chain,
+      el('span', { class: 't' }, [`About ${Math.round(o.min / 5) * 5 || Math.round(o.min)} min`, el('small', {}, ` · ${rides.length === 1 ? 'no changes' : rides.length - 1 + (rides.length === 2 ? ' change' : ' changes')}`)])]);
+    b.addEventListener('click', () => { cur = i; syncURL(); render(); });
+    return b;
+  }
+  async function render() {
+    $('opts').replaceChildren(...opts.map(optionCard));
+    $('res').hidden = false;
+    const { spots, vias } = await story(opts[cur]);
+    await drawMap(opts[cur], spots, vias);
+  }
+
+  async function plan(push) {
+    if (!A || !B) return;
+    $('hint').textContent = 'Working out the ways to go…';
+    await new Promise(r => setTimeout(r, 20));
+    opts = R.options([A.lon, A.lat], [B.lon, B.lat], 3).filter(o => o.legs.some(l => l.route));
+    if (!opts.length) { $('res').hidden = true; $('hint').textContent = RS.noRoute; return; }
+    if (cur >= opts.length) cur = 0;
+    $('hint').textContent = '';
+    $('resTitle').textContent = opts.length > 1 ? `${opts.length} ways to go` : 'One way to go';
+    $('resNote').textContent = 'Times are rough: no schedules, no live delays';
+    $('caveat').textContent = RS.caveat || '';
+    if (push) syncURL();
+    await render();
+    if (push) $('res').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ---- the link: the stops nearest each end (never the address someone typed), and which way ----
+  function nearestStop(lon, lat) { let b = -1, bd = Infinity; G.stops.forEach((s, i) => { const d = kmBetween(lon, lat, s[0], s[1]); if (d < bd) { bd = d; b = i; } }); return [b, bd]; }
+  function syncURL() {
+    const q = new URLSearchParams();
+    if (A && B) { q.set('from', G.stops[A.si][3]); q.set('to', G.stops[B.si][3]); if (cur) q.set('way', cur + 1); }
+    history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
+  }
+  const byId = new Map();
+  function fromURL() {
+    const q = new URLSearchParams(location.search);
+    const a = byId.get(q.get('from') || ''), b = byId.get(q.get('to') || '');
+    if (a == null || b == null) return false;
+    A = spotAt(G.stops[a][0], G.stops[a][1], 'Near ' + stopName(a)); B = spotAt(G.stops[b][0], G.stops[b][1], 'Near ' + stopName(b));
+    $('qa').value = A.label; $('qb').value = B.label;
+    cur = Math.max(0, (+q.get('way') || 1) - 1);
+    return true;
+  }
+  function spotAt(lon, lat, label) { const [si, d] = nearestStop(lon, lat); return { lon, lat, label, si, far: d }; }
+
+  // ---- finding the two places: the device's location, or one address search per press (Nominatim's usage policy) ----
+  let lastSearch = 0;
+  async function geocode(text) {
+    const wait = 1100 - (Date.now() - lastSearch);
+    if (wait > 0) await new Promise(r => setTimeout(r, wait));
+    lastSearch = Date.now();
+    const cfg = (await cityCfg()).search;
+    const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&bounded=1&countrycodes=' + cfg.country + '&viewbox=' + cfg.viewbox + '&q=' + encodeURIComponent(text);
+    for (const r of await getJSON(url)) { const s = spotAt(+r.lon, +r.lat, text); if (s.far <= 1.2) return s; }
+    return null;
+  }
+  let here = null;
+  $('locate').addEventListener('click', () => {
+    if (!navigator.geolocation) { $('hint').textContent = 'This browser can’t share your location. Type an address instead.'; return; }
+    $('hint').textContent = 'Finding you…';
+    navigator.geolocation.getCurrentPosition(p => {
+      const s = spotAt(p.coords.longitude, p.coords.latitude, 'Where you are');
+      if (s.far > 1.2) { $('hint').textContent = RS.outside; return; }
+      here = s; A = s; $('qa').value = 'Where you are'; $('hint').textContent = ''; if (!$('qb').value) $('qb').focus(); },
+      e => { $('hint').textContent = e.code === 1 ? 'Location is turned off for this site. Type an address instead.' : 'Couldn’t find your location. Type an address instead.'; },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 });
+  });
+  $('swap').addEventListener('click', () => { [A, B] = [B, A]; const t = $('qa').value; $('qa').value = $('qb').value; $('qb').value = t; if (A && B) plan(true); });
+  $('qa').addEventListener('keydown', e => { if (e.key === 'Enter' && !$('qb').value) { e.preventDefault(); $('qb').focus(); } });
+  let busy = false;
+  $('find').addEventListener('submit', async e => {
+    e.preventDefault();
+    if (busy) return;
+    const ta = $('qa').value.trim(), tb = $('qb').value.trim();
+    if (!ta || !tb) { $('hint').textContent = 'Put in both: where you start and where you’re going.'; (ta ? $('qb') : $('qa')).focus(); return; }
+    busy = true; $('go').disabled = true;
+    try {
+      $('hint').textContent = 'Finding those places…';
+      if (!A || A.label !== ta) { A = ta === 'Where you are' && here ? here : await geocode(ta); if (!A) { $('hint').textContent = RS.noMatch.replace('{q}', ta); return; } }
+      if (!B || B.label !== tb) { B = await geocode(tb); if (!B) { $('hint').textContent = RS.noMatch.replace('{q}', tb); return; } }
+      cur = 0;
+      await plan(true);
+    } catch (err) {
+      console.error(err);
+      $('hint').textContent = 'Address search isn’t responding right now. Try again in a moment.';
+    } finally { busy = false; $('go').disabled = false; }
+  });
+
+  async function init() {
+    $('kicker').textContent = `${RS.short} · ${RS.city}`;
+    [G, P] = await Promise.all([getJSON('data/graph.json'), getJSON('data/pois.json')]);
+    R = new AlongRouter(G, { skip: RS.skipModes || [] });
+    G.stops.forEach((s, i) => byId.set(s[3], i));
+    indexPlaces();
+    if (G.asof) $('asof').textContent = `Schedule as of ${G.asof}`;
+    // a few trips to try, from the city's settings
+    if (RS.tries && RS.tries.length) {
+      const t = $('tries'); t.hidden = false;
+      t.append(el('span', { class: 'lbl' }, 'Try'));
+      RS.tries.forEach(x => { const a = byId.get(x.from), b = byId.get(x.to); if (a == null || b == null) return;
+        const c = el('button', { type: 'button', class: 'chip' }, x.name);
+        c.addEventListener('click', () => { A = spotAt(G.stops[a][0], G.stops[a][1], x.fromLabel || 'Near ' + stopName(a)); B = spotAt(G.stops[b][0], G.stops[b][1], x.toLabel || 'Near ' + stopName(b));
+          $('qa').value = A.label; $('qb').value = B.label; cur = 0; plan(true); });
+        t.append(c); });
+    }
+    if (fromURL()) await plan(false);
+  }
+  init().catch(e => { console.error(e); $('hint').textContent = 'This page could not load. Try again in a moment.'; });
+})();
+</script>
+</body>
+</html>

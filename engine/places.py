@@ -355,6 +355,8 @@ for c in sorted(os.listdir(os.path.join(ROOT, 'cities'))):
     if os.path.exists(os.path.join(base, 'profiles', 'index.html')): urls.append(f'{SITE}/{c}/profiles/')
     if os.path.exists(os.path.join(base, 'routes', 'index.html')): urls.append(f'{SITE}/{c}/routes/')   # engine/routes/build.py
     if os.path.exists(os.path.join(base, 'fun', 'index.html')): urls.append(f'{SITE}/{c}/fun/')   # engine/fun/build.py
+    ap = os.path.join(ROOT, 'cities', c, 'along.json')   # engine/along/build.py, once it isn't unlisted
+    if os.path.exists(ap) and not json.load(open(ap)).get('unlisted') and os.path.exists(os.path.join(base, 'along', 'index.html')): urls.append(f'{SITE}/{c}/along/')
     if os.path.exists(os.path.join(base, 'events', 'index.html')): urls.append(f'{SITE}/{c}/events/')   # engine/events_page.py
     hp = os.path.join(ROOT, 'cities', c, 'history.json')   # engine/history/build.py, once it isn't unlisted
     if os.path.exists(hp) and not json.load(open(hp)).get('unlisted'):

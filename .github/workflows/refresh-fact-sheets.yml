@@ -97,6 +97,11 @@ jobs:
       - name: Rebuild the Routes pages
         if: steps.have.outputs.ok
         run: for CITY in $CITIES; do if [ -f "cities/$CITY/routes.json" ]; then python3 -u engine/routes/build.py "$CITY"; fi; done
+      # The Along the way page (engine/along/build.py) is built from the Routes page's data, for each city with a
+      # cities/<city>/along.json.
+      - name: Rebuild the Along the way pages
+        if: steps.have.outputs.ok
+        run: for CITY in $CITIES; do if [ -f "cities/$CITY/along.json" ]; then python3 -u engine/along/build.py "$CITY"; fi; done
       - name: Commit
         if: steps.have.outputs.ok
         run: |
@@ -105,6 +110,7 @@ jobs:
           for CITY in $CITIES; do
             git add "docs/$CITY/profiles"
             [ -d "docs/$CITY/routes" ] && git add "docs/$CITY/routes"
+            [ -d "docs/$CITY/along" ] && git add "docs/$CITY/along"
             for f in ramps.json drive_profiles.json factsheet_walk.log; do [ -f "cities/$CITY/raw/$f" ] && git add "cities/$CITY/raw/$f"; done
           done
           git commit -m "Refresh fact sheets and Routes pages ($CITIES)$([ "$FULL" = true ] && echo ', walk and drive times re-fetched')" || { echo "no changes"; exit 0; }
