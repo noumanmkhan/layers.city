@@ -1,0 +1,7 @@
+tracts: 535
+Traceback (most recent call last):
+  File "/home/runner/work/layers.city/layers.city/cities/vancouver/fetch_region.py", line 101, in <module>
+    CACHE = os.path.join(OUT, 'cache'); os.makedirs(CACHE, exist_ok=True)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen os>", line 226, in makedirs
+FileExistsError: [Errno 17] File exists: '/home/runner/work/layers.city/layers.city/cities/vancouver/raw/region/cache'
