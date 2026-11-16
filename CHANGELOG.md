@@ -2,6 +2,9 @@
 
 ## Since 1.1
 
+### The Bay Area beyond San Francisco (November 16)
+- Buildings: every building outline across the nine counties from zoom 15, as in Toronto, Melbourne and Chicago.
+
 ### The neighbourhood lens across the GTA (Toronto, November 16)
 - The lens and Living here now reach Halton, Peel, York and Durham: 750 census tracts with the same 2021 Census
   figures as Toronto's neighbourhoods (housing cost, getting to work, renters and owners, home types, year built,

@@ -321,6 +321,16 @@
      "hcdText": "Also in (historic district)"
     },
     {
+     "id": "bldg",
+     "kind": "buildings",
+     "url": "/tiles/sf/buildings.pmtiles",
+     "on": true,
+     "minZoom": 15,
+     "name": "Buildings",
+     "note": "Building outlines across the Bay Area; from zoom 15",
+     "credit": "Buildings: © OpenStreetMap contributors, Overture Maps Foundation"
+    },
+    {
      "id": "cbd",
      "kind": "patches",
      "file": "cbds",
