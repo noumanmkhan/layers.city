@@ -7,6 +7,9 @@
 > maps each old id to its category. Nearby rows (`card.nearby.nearest`) now name `"layer:category"`
 > (`"worship:mosque"`) instead of the old layer id. The data files and feature `cat` values are unchanged.
 
+> **November 18, 2026:** the app opens Along trip links (Universal Links through
+> `/.well-known/apple-app-site-association`, and a `layerscity://` button on the page): section 18, "The link".
+
 > **November 17, 2026, evening:** Toronto: `city.json` gains an `along` block naming the Along the way page's files
 > (`graph.json`, `pois.json`, `about/<n>.json`) and its route finder as a standalone `router.js`, with a `version`
 > that changes whenever any of them does. Section 18. Additive; no schema change.
@@ -1459,3 +1462,12 @@ For a trip, the page lists each place once, at the spot on the trip it is closes
 `/toronto/along/?from=<stop id>&to=<stop id>&way=<n>` opens a trip between two stops (the page puts the stops
 nearest the places typed in the link, never the addresses). `way` is 1-based among `options(…, 3)` and is left out
 for the first. A shared card adds `pick=<id>.<id>…` (the kept places), `card=v|sq|h` and `title=`.
+
+The iOS app (1.5) opens this link. As `https://layers.city/<city>/along/?from=…` it is a Universal Link:
+`/.well-known/apple-app-site-association` sends only Along links that have `from=` to the app (`/*/along/*` with
+`?from=?*`); every other page stays on the web. On the page itself a Universal Link tapped on its own site stays in
+Safari, so on iPhone and iPad the page shows a "Take this trip in the app" button (along.json `page.appButton`, with
+`appNote` under it) whose link is the same path and query with the app's scheme:
+`layerscity://layers.city/<city>/along/?from=<stop id>&to=<stop id>&way=<n>` (`way` left out for the first). The
+app reads `from`, `to` and `way` and ignores `pick`, `card` and `title`. It shows the trip, and starts it only when
+the rider taps Start.

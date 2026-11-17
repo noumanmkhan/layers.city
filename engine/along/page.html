@@ -146,6 +146,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 
 /* Share: pick what goes on the card, pick a shape, save it */
 .res-head .acts{display:flex;gap:8px;align-items:center}
+.app{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:0 0 14px}.app .btn{text-decoration:none}.app small{color:var(--muted);font-size:13px}
 .share{background:var(--card);border:1.5px solid var(--accent);border-radius:12px;padding:14px 16px;margin-bottom:16px}
 .share h3{margin:0 0 4px;font-family:var(--display);font-weight:800;font-size:20px}
 .share .how{margin:0 0 12px;color:var(--muted);font-size:13.5px}
@@ -233,6 +234,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   <section class="res" id="res" hidden>
     <div class="res-head"><h2 id="resTitle"></h2><div class="acts"><p id="resNote"></p><button type="button" class="btn" id="shareBtn">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg>Share as a card</button></div></div>
+    <p class="app" id="app" hidden><a class="btn" id="appBtn" href="#"></a><small id="appNote"></small></p>
     <div class="share" id="share" hidden>
       <h3>Make a card of this trip</h3>
       <p class="how">Tick the places worth a stop in the list (each gets a number on the map), pick a shape, then save the image. The preview is where the map was.</p>
@@ -764,7 +766,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   async function openShare(fromLink) {
     picking = true; $('share').hidden = false;
     // the preview takes the map's place beside the list, so it stays in view while ticking (it's sticky on wide screens)
-    const mb = $('map').closest('.mapbox'); mb.prepend($('prev')); $('map').hidden = true; mb.querySelector('.mapfoot').hidden = true; $('story').closest('.story').classList.add('picking'); $('shareBtn').hidden = true;
+    const mb = $('map').closest('.mapbox'); mb.prepend($('prev')); $('map').hidden = true; mb.querySelector('.mapfoot').hidden = true; $('story').closest('.story').classList.add('picking'); $('shareBtn').hidden = true; $('app').hidden = true;
     if (!fromLink && (pickedFor !== trip.o || !picks.size)) picks = defaultPicks(trip.spots, Math.min(cap(), 8));
     pickedFor = trip.o;
     $('cardTitle').placeholder = defaultTitle(); $('cardTitle').value = cardTitle;
@@ -772,7 +774,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     await story(opts[cur]); await drawCard();
   }
   async function closeShare() {
-    picking = false; $('share').hidden = true;
+    picking = false; $('share').hidden = true; appLink();
     const mb = $('map').closest('.mapbox'); $('share').insertBefore($('prev'), $('share').querySelector('.acts2')); $('map').hidden = false; mb.querySelector('.mapfoot').hidden = false; $('story').closest('.story').classList.remove('picking'); $('shareBtn').hidden = false; $('shareMsg').textContent = '';
     await story(opts[cur]);
   }
@@ -825,9 +827,20 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     const n = $('kf').children[f]; if (n) n.focus();   // keep the keyboard on the chip just pressed
     window.umami?.track?.('along-kinds', { off: [...hidden].join(' ') || 'none' });
   }
+  // The app opens the same trip (the link with the app's scheme: a Universal Link tapped on its own site stays in
+  // the browser). Only on iPhone and iPad, and only for a city whose along.json words it.
+  const IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+  function appLink() {
+    if (!IOS || !RS.appButton || !A || !B || picking) { $('app').hidden = true; return; }
+    const q = new URLSearchParams({ from: G.stops[A.si][3], to: G.stops[B.si][3] }); if (cur) q.set('way', cur + 1);
+    $('appBtn').href = `layerscity://${location.host}${location.pathname}?${q}`;
+    $('appBtn').textContent = RS.appButton; $('appNote').textContent = RS.appNote || '';
+    $('app').hidden = false;
+  }
   async function render() {
     $('opts').replaceChildren(...opts.map(optionCard));
     $('res').hidden = false;
+    appLink();
     const { spots, vias } = await story(opts[cur]);
     trip = { o: opts[cur], spots, vias };
     kindChips(spots.found);

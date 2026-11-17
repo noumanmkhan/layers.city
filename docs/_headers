@@ -1,0 +1,4 @@
+# Response headers for static files (Cloudflare Workers static assets and Pages read this file; it is not served).
+# The app's Universal Links file has no extension, so its type is set here (Apple wants application/json).
+/.well-known/apple-app-site-association
+  Content-Type: application/json
