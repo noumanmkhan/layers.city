@@ -1,5 +1,5 @@
 {
-  "_about": "Hand-curated trial batch of discovery points of interest (Queen West, Trinity-Bellwoods, Kensington-Chinatown), November 17, 2026. Candidates came from out/*.csv (OpenStreetMap) and the City's StrollTO; each entry was checked against the sources listed. 'why' lines are our own words. 'quote' is the City's text, used with credit under the Open Government Licence - Toronto. Kinds and lenses follow the project's discovery brief. Status is as of the date shown; nothing here is published.",
+  "_about": "Hand-curated trial batch of discovery points of interest (Queen West, Trinity-Bellwoods, Kensington-Chinatown), November 17, 2026. Candidates came from out/*.csv (OpenStreetMap) and the City's StrollTO; each entry was checked against the sources listed. 'why' lines are our own words. 'quote' is the City's text, used with credit under the Open Government Licence - Toronto. Kinds and lenses follow the project's discovery brief. Each place's 'checked' is the day its details were last confirmed against its sources (YYYY-MM-DD); a page can show it as \"last checked\". Status is as of that date; nothing here is published.",
   "as_of": "2026-11-17",
   "places": [
     {
@@ -10,6 +10,7 @@
       "quote": {"text": "Toronto's famous Graffiti Alley holds multiple murals to explore on the walls of Rush Lane.", "credit": "City of Toronto, StrollTO"},
       "screen": [{"title": "Rick Mercer Report (rants)", "years": "2004–2018"}],
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.647865, "lon": -79.398667,
       "source_ids": {"city": "strollto: Graffiti Alley"},
       "sources": ["https://en.wikipedia.org/wiki/Graffiti_Alley,_Toronto", "https://www.cbc.ca/news/canada/newfoundland-labrador/rick-mercer-report-finale-behind-the-scenes-1.4611189"]
@@ -21,6 +22,7 @@
       "why": "The park was once Trinity College's campus; the 1904 gates still stand on Queen. It sits on the buried Garrison Creek and is home to the neighbourhood's famous white squirrels.",
       "quote": {"text": "The university opened to students on January 15, 1852. Of the original campus, only the St. Hilda's women's residence (now the John Gibson House for seniors) and the entrance gates (constructed in 1904) remain standing.", "credit": "City of Toronto, StrollTO"},
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.645449, "lon": -79.413202,
       "source_ids": {"city": "strollto: Trinity Bellwoods Park & 'Lovebot' Mural"},
       "sources": ["https://www.toronto.ca/data/parks/prd/facilities/complex/241/index.html"]
@@ -32,6 +34,7 @@
       "why": "An old car turned into a planter at Oxford and Augusta. It's the second car to do the job, and it's taken away in winter.",
       "quote": {"text": "Not many know that this is the second car used for this installation. The first was created in 2006 by a now-inactive community group, Streets Are for People.", "credit": "City of Toronto, StrollTO"},
       "status": "seasonal",
+      "checked": "2026-11-17",
       "lat": 43.656092, "lon": -79.402685,
       "source_ids": {"city": "strollto: Kensington Market Garden Car"},
       "sources": []
@@ -43,6 +46,7 @@
       "est": 2001,
       "why": "Billed as Canada's largest independent record store. It started in the Annex, spent years in the Honest Ed's building, and moved to this 13,000-square-foot Spadina space in 2014.",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.650822, "lon": -79.396867, "osm": "node/5440393221",
       "notes": "The Scott Pilgrim cameo was at an earlier location, so the seen-on-screen lens doesn't apply to this address.",
       "sources": ["https://retail-insider.com/retail-insider/2026/05/sonic-boom-at-25-inside-a-toronto-record-stores-survival-and-growth/", "https://www.blogto.com/music/2014/05/sonic_boom_stores_to_merge_in_new_spadina_location/"]
@@ -54,6 +58,7 @@
       "est": 1987,
       "why": "Comics and graphic-novel shop founded on Harbord Street in 1987, later in a house beside Honest Ed's, and on College since 2017. Its staff started the Toronto Comic Arts Festival in 2003.",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.657389, "lon": -79.402081, "osm": "node/2999061827",
       "sources": ["https://en.wikipedia.org/wiki/The_Beguiling", "https://canadianaci.ca/Encyclopedia/beguiling-the/", "https://joeshusterawards.com/awards/harry-kremer-award-for-outstanding-canadian-comic-book-retailers/2010-the-beguiling-toronto-on/"]
     },
@@ -64,6 +69,7 @@
       "est": 1991,
       "why": "Opened on Queen West in 1991, a few weeks after Nirvana's Nevermind came out. Moved to Ossington in 2016 and still sells tickets to indie shows.",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.648462, "lon": -79.420587, "osm": "node/5448529524",
       "sources": ["https://nowtoronto.com/music/twenty-five-years-of-rotate-this/", "https://nowtoronto.com/music/rotate-this-reopens-on-ossington/"]
     },
@@ -74,6 +80,7 @@
       "est": 2012,
       "why": "Vinyl shop opened in 2012 by musician Derek \"Grasshopper\" Madison. It stays open until about midnight, so you can buy a record after a show.",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.649246, "lon": -79.42159, "osm": "node/5440427921",
       "sources": ["https://blogto.com/announcements/2012/06/inside_torontos_newest_used_record_store", "https://www.blogto.com/music/2016/04/a_guide_to_buying_vinyl_records_in_toronto/"]
     },
@@ -84,6 +91,7 @@
       "est": 2006,
       "why": "Independent bookshop opened across from Trinity Bellwoods Park in April 2006, when many indie bookstores were closing. It was founded by two Canadian literature PhDs.",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.645552, "lon": -79.411549, "osm": "node/6304072410",
       "sources": ["https://open-book.ca/Columnists/Ten-Years-of-Type", "https://www.libro.fm/typebooks/about"]
     },
@@ -94,6 +102,7 @@
       "est": 2009,
       "why": "Whole-animal butcher selling meat from Ontario family farms. It opened in 2009 in the space of Max & Son, a market butcher for 54 years, and in 2012 moved into the former European Meats shop.",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.65484, "lon": -79.400778, "osm": "node/3769531983",
       "sources": ["https://blogto.com/announcements/2009/12/has_kensington_market_found_its_new_king_of_butchers", "https://tayloronhistory.com/?p=3574", "https://www.blogto.com/events/whole-hog-butchery-by-peter-sanagan-toronto/"]
     },
@@ -104,6 +113,7 @@
       "est": 1970,
       "why": "Second-generation family cheese shop in the market since July 1, 1970. Look for the cow statues and the free samples.",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.654589, "lon": -79.400741, "osm": "node/3769531980",
       "notes": "Founding date comes from the shop's own listing (via an Airbnb page). Confirm on the shop's website before publishing.",
       "sources": ["https://airbnb.cat/things-to-do/places/f26b0ccd-740b-4897-9461-6d0546f74dd5", "https://torontolife.com/food/torontos-best-fromageries-cheese-shops/"]
@@ -115,6 +125,7 @@
       "est": 2014,
       "why": "Sourdough and baguette bakery. Simon Blackwell, a fourth-generation baker, began in a shared kitchen in 2011 and opened this first shop in 2014.",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.654877, "lon": -79.400623, "osm": "node/7581343434",
       "sources": ["https://www.tastetoronto.com/stories/rise-of-blackbird-baking-co-in-toronto"]
     },
@@ -125,6 +136,7 @@
       "est": 1980,
       "why": "Punk-era vintage store that began in 1980 as pop-up shops to pay the founder's way through school. Known for \"$10 or less\". Its famous basement at 256 Queen closed in 2019, and the store moved across the street.",
       "status": "open (moved)",
+      "checked": "2026-11-17",
       "address": "347 Queen Street West",
       "lat": null, "lon": null, "osm_stale": "node/1358246287 (256 Queen St W, the old basement)",
       "notes": "Needs a point at 347 Queen St W. The OSM node is the old location.",
@@ -136,6 +148,7 @@
       "lenses": ["local-lore"],
       "why": "Named after the white squirrels of Trinity Bellwoods Park across the street. Neighbours treat them as a local legend.",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.645366, "lon": -79.412387, "osm": "node/4595660196",
       "notes": "Opening year not confirmed. Pairs with the White Squirrel sculpture nearby (OSM node/10858983186).",
       "sources": ["https://globalnews.ca/news/1516409/trinity-bellwoods-residents-remember-the-white-squirrel", "https://blogto.com/city/2020/10/history-toronto-squirrel-statues", "https://spottedbylocals.com/toronto/the-white-squirrel"]
@@ -146,6 +159,7 @@
       "lenses": [],
       "why": "Part of a small Toronto coffee bar chain. Sam James opened his first one on Harbord in 2009 and roasts his own beans (Cut Coffee).",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.647415, "lon": -79.419842, "osm": "node/12906402156",
       "notes": "Borderline: about 5 locations, over the 3-location rule. Keep only if the user wants it. The Harbord original is the stronger story (University neighbourhood).",
       "sources": ["https://blogto.com/cafes/sam-james-141-ossington-toronto", "https://www.bestcoffee.guide/cafe/sam-james-coffee-bar-harbord-ca-5804"]
@@ -156,6 +170,7 @@
       "lenses": [],
       "why": "Long-running Kensington café that roasts its coffee in-house.",
       "status": "open",
+      "checked": "2026-11-17",
       "lat": 43.654205, "lon": -79.400181, "osm": "node/534354088",
       "notes": "Fails the 'verifiable story' bar so far: no dated source for its founding. Hold until a year is confirmed.",
       "sources": ["https://media.blogto.com/cafes/moonbean"]
