@@ -107,8 +107,66 @@ Pulse were 56 MB (2022); Data Dubai id not yet found. Lens parked until DM units
    each quarter, or use the Mobility Database mirror (mdb-3359, but its latest copy is August 2025 and expired).
 3. Makani card row: bulk entrances (242 MB) could give "nearest Makani entrance" offline. Not built yet.
 
-## Toronto parity checklist
-Filled in as the build goes: see the end of this file.
+## Toronto parity checklist (Phase 2, November 17, 2026)
+Built = live at layers.city/dubai/ (unlisted). No data = no usable open source yet. N/A = doesn't apply to Dubai.
+
+| Toronto layer or feature | Dubai | How |
+|---|---|---|
+| Neighbourhoods (units) | Built | 122 OSM communities (L10, plus named L8 areas); about two-thirds of the urban area. Gaps say "Not mapped yet". DM's 224 communities once GeoDubai approves |
+| Former municipalities / sides | Built | Deira, Bur Dubai, New Dubai (the Creek and the old side lines) |
+| Wards / sectors | No data | DM's 9 sectors wait for GeoDubai |
+| Known-as names | Built | 40 (Dubai Marina, JLT, the Palm, Al Barsha, Al Fahidi…) |
+| Landmarks | Built | 41 |
+| Highways and shields, streets, collectors | Built | OSM; E11, E311, E611, E44, E66, E77 and the rest by ref |
+| Regional municipalities | Built | Sharjah (OSM areas) and Ajman (Ajman Open Data districts, CC BY 4.0) as neighbours, the rest of Dubai emirate as one piece |
+| Subway | Built | Metro Red and Green, 53 stations (RTA GTFS via Data Dubai) |
+| Streetcars | Built | Dubai Tram, 10 stops |
+| Buses | Built | 189 routes by family (Frequent, Express, Regular, Night) |
+| Ferries | Built | Abras, Dubai Ferry, water taxi; 24 stations (off by default) |
+| GO / regional rail | Built | Etihad Rail and Dubai (Al Yalayis) station (OSM) |
+| Transit under construction | Built | Blue Line (OSM, opens September 2029 per the RTA) |
+| Other rail | Built | Palm Monorail (OSM, off by default) |
+| Transit nearby (card) | Built | From the GTFS |
+| Routes from here page | Built | /dubai/routes/, timetable only |
+| Live arrivals | No data | RTA publishes no GTFS-realtime |
+| Parks and beaches | Built | 120 parks and 112 beaches (OSM) |
+| Sports & rec | Built | 99 stadiums, sports centres, golf courses, water parks (OSM) |
+| Libraries & community centres | Built | 14 (OSM) |
+| Hospitals / ERs | Built | 36 hospitals; the ER only where OSM tags it (13) |
+| Universities and colleges | Built | 34 campuses (OSM) |
+| Schools | Built | 215 (OSM), one category, never ranked. KHDA's list and ratings not used |
+| Places of worship | Built | 151 (126 mosques; churches, Hindu temples, gurdwaras) |
+| Heritage | Built | 34 historic sites and museums (OSM) |
+| Skyscrapers | Built | 81 towers 200 m+ (Wikipedia, placed with OSM) |
+| Card: Nearby | Built | nearby.json from the layers above |
+| Card: Address (Makani) | No data | Makani is UAE-only and the bulk entrances file is 242 MB; not built |
+| Card: representatives | N/A | Appointed offices: no representative rows (brief) |
+| Card: where to vote | N/A | No public elections for the city |
+| Lens and Living here | No data | No census; DSC population by community needs DM units; DLD rents parked |
+| Guide pages, sitemap | N/A | The engine writes none for an unlisted city |
+| Fact sheets | No data | Waiting for DM units (OSM units cover two-thirds of the city, with no figures to show) |
+| Venues | No data | Ticketmaster doesn't sell in the UAE; the UAE's ticket sellers publish no open feed |
+| Events and Happening nearby | No data | Dubai Calendar and Dubai Municipality publish no open events feed |
+| Weekend brief | No data | No closures or events inputs |
+| Bike lanes, bike share | Not built | OSM has 651 cycleway ways (buildable later); Careem BIKE has no public feed |
+| Parking | No data | No open Parkin zone geometry |
+| Buildings (3D) | Not built | Overture tiles could cover Dubai; left for a later pass |
+| Fun maps | Not built | Suggested only (Content hooks above) |
+| Halal / kosher layer | N/A | Not built, per the brief |
+
+### Decisions taken without stopping
+- Sides: Deira, Bur Dubai and New Dubai, cut along the Creek's water.
+- OSM gaps: the Routes page names a place in a gap by the nearest known-as name (route_areas), never by a far community.
+- Mosques get a chip on the map. Places of worship start at zoom 13 so 126 mosques don't crowd the city view.
+- Hospitals: all of them, with the ER only where OSM tags it.
+- Skyscrapers: 200 m and up; Dubai has more than 100 towers of 150 m and up, too many at that cut.
+- Ferries and the Palm Monorail are off by default.
+- No sea label: the name of the Gulf is disputed, so the water is left unnamed.
+- Etihad Rail is drawn inside the frame only, with no line to the border.
+- Venues, Events and fact sheets are recorded as no data rather than built thin.
+- Refreshes: Dubai joins the quarterly skyscrapers fetch (Wikipedia). The RTA GTFS needs a UAE address and the OSM
+  layers come from a 258 MB Geofabrik extract, so both are refreshed by hand from the Mac (SOURCES.md), not in
+  Actions.
 
 ## Timing log
 - Phase 1: 14:22 to 15:00 (Mac local time, November 17, 2026).
@@ -117,3 +175,14 @@ Filled in as the build goes: see the end of this file.
   cloud sandbox or Actions runner has a UAE address); Geofabrik's 258 MB GCC extract in seconds and local osmium
   processing (no Overpass rate limits; Overpass itself took 32 s just for /status); the 242 MB entrances KML;
   the in-app browser for Data Dubai's session-only catalogue.
+- Phase 2, step by step (Mac local time, November 17):
+  1. Skeleton, units, sides, known-as, landmarks, streets, region: 14:53 to 15:03
+  2. Metro, tram, buses, marine, Etihad Rail, Blue Line, monorail, Routes page: 15:04 to 15:12
+  3. Parks, beaches, sports, libraries, hospitals, campuses, schools, worship, heritage, skyscrapers: 15:12 to 15:16
+  4. Card Nearby (Makani, lens, Guide and fact sheets recorded as no data / N/A): 15:16 to 15:20
+  5. Venues, Events, fun maps (checked, recorded as no data; fun maps suggested): 15:20 to 15:21
+  6. Refreshes (skyscrapers workflow): 15:21 to 15:22
+  7. FEATURES.md, CHANGELOG, this file: 15:22 to 15:26
+- Stops for the user during Phase 2: 0. Total stops: 2.
+- Phase 1 to an unlisted, live city: about an hour and five minutes in one session. Melbourne by comparison took
+  several cloud sessions over two days and leaned on Actions and WebFetch for portal access.
