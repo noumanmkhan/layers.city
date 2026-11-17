@@ -37,11 +37,14 @@ Danish Pastry House, Book City, Kinton Ramen, Hooked, Rowe Farms, the 11 Gardine
 similar. `report.json` lists each kind's `top_megachains` and `top_local_repeats` (names seen twice or more, or
 branded, among the candidates) for spotting a chain the list misses.
 
-**Left in for the user's call** (national or multinational, but arguably places people make plans to go):
-Ontario franchises Sunset Grill (14), Eggsmart (13), St. Louis Bar & Grill (12), Wild Wing (12), Mr. Greek (7),
-Shoeless Joe's (7), Scaddabush, Chuck's Roadhouse, The Works; Quebec's Au Pain Doré, 3 Brasseurs, Café Dépôt;
-destination multinationals Nobu, Haidilao, Gyu-Kaku, Hokkaido Ramen Santouka, AFURI, Ruth's Chris, Morton's, STK,
-% Arabica, Café Landwer. Add any to MEGACHAINS to drop them.
+**Kept as candidates (the user, November 17, 2026):**
+- Regional franchises, "still somewhat local character" (kept for now): Ontario's Sunset Grill (14), Eggsmart (13),
+  St. Louis Bar & Grill (12), Wild Wing (12), Mr. Greek (7), Shoeless Joe's (7), Scaddabush, Chuck's Roadhouse,
+  The Works; Quebec's Au Pain Doré, 3 Brasseurs, Café Dépôt.
+- Destination multinationals: special-occasion, aspirational, Michelin Guide-type marquee places people travel to,
+  even when the brand is global: Nobu, Haidilao, Gyu-Kaku, Hokkaido Ramen Santouka, AFURI, Ruth's Chris, Morton's,
+  STK, % Arabica, Café Landwer.
+MEGACHAINS stays for convenience chains; add a name there to drop it.
 
 ## What it means
 - **OSM finds the candidates, but not the story.** Almost no local business carries start_date or
@@ -85,7 +88,6 @@ destination multinationals Nobu, Haidilao, Gyu-Kaku, Hokkaido Ramen Santouka, AF
 ## Next
 - Curation by hand, by neighbourhood: research each candidate's story (founding year, signature thing, history)
   from citable sources, starting where Along the way needs it.
-- Decide on the regional franchises and destination multinationals listed above.
 
 ## Trial curation: Queen West, Trinity-Bellwoods, Kensington (November 17, 2026)
 `pilot-queen-west-kensington.json`: 15 places, each checked against sources the file lists, with kind, lenses,

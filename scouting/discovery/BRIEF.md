@@ -17,7 +17,10 @@ character, plus film locations and photo spots later.
 - Each place gets a small **"report an issue" flag** that opens a prefilled GitHub issue. The user asked for this,
   so it is the one approved exception to CLAUDE.md's "don't link the site's pages to GitHub".
 - **Chains:** only megachains are out (Tim Hortons, Starbucks and the like: places nobody makes plans to go to,
-  "I need coffee, where's the nearest Tims"). Small local chains are in (Sam James, ~5 shops).
+  "I need coffee, where's the nearest Tims"). Small local chains are in (Sam James, ~5 shops). Regional
+  franchises (Sunset Grill, Eggsmart, Mr. Greek...) are in for now: still somewhat local character. Destination
+  restaurants with a global brand are in too: special-occasion, aspirational, Michelin Guide-type marquee places
+  (Nobu, Ruth's Chris...).
 - **Stories are optional:** stories are sparse, so a missing founding year or lore line never rules a place out.
   Show one when found and cited.
 
@@ -75,5 +78,5 @@ Pull main first. One commit per step, plain-English messages, push to main.
 5. ~~CLAUDE.md note on the place-report link.~~ Done.
 6. ~~Pilot file: the three cafés as regular entries; "_about" updated.~~ Done.
 7. ~~`scout.py`: MEGACHAINS list, class "megachain", 4+ count informational; FINDINGS.md updated.~~ Done. The
-   regional franchises and destination multinationals left in are listed in FINDINGS.md for the user's call.
+   regional franchises and destination multinationals are kept (user's decision, November 17); see FINDINGS.md.
 8. Notion: add the follow-ups to the Notes of the row "Scouted discovery points of interest" (no new row).
