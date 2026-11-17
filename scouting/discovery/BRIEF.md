@@ -68,6 +68,40 @@ screen [{title, years}] · status · checked (ISO date) · lat/lon · osm · not
   256 Queen W (moved to 347 Queen W in 2019) are all still listed. Curated businesses need their own rechecks.
 - Images: link to the City's image or page; don't rehost until each image's terms are checked.
 
+## Website build: Toronto (November 17, 2026)
+- `engine/discover/build.py` (names no city) reads `cities/toronto/discover.json` and writes
+  `docs/toronto/data/discover.geojson` (contract section 17): 2,719 places (art 1,078, history 766, park 604,
+  community 200, library 56, view 15), each with the City's description and credit.
+- Kinds on the web: art, history, park, library, community (what's left: community centres, schools, services) and
+  view. Each row gets the first matching rule in discover.json (name or column regexes); a name like
+  "Former Pickfair Restaurant" is history, but live businesses (restaurant, café, coffee, bakery, deli, pizzeria,
+  bistro, brewery, flea market) are skipped.
+- Viewpoints: `cities/toronto/viewpoints.json`, hand-kept, 15 places the City's own text describes as having a
+  view, our one-line note, the City's point, a `checked` date. OpenStreetMap-only lookouts wait for a second source.
+- Along the way lists them (along.json's last `pois` source). Tapping a name opens the text, credited, with the
+  City's link; viewpoints add "Checked Nov 2026" and "Report a problem". A place another layer already lists gets
+  the text instead of a second row.
+- Refresh: `fetch-discover.yml`, weekly for all three datasets (cheap; nothing is committed when nothing changed),
+  then Along is rebuilt; `stale.py` also checks the viewpoints.
+
+## Adding a city (once the user is happy with Toronto)
+1. **Find the data.** The city's open-data portal: walking tours, public art, heritage or cultural guides with a
+   point and a paragraph per place. Note each dataset's licence (an open government licence, or a non-commercial
+   one that goes in `NONCOMMERCIAL.md`, per CLAUDE.md) and its direct download URL (CSV or GeoJSON). No scraping.
+2. **Write `cities/<city>/discover.json`** from Toronto's: one `sources` entry per dataset (columns for name, text,
+   link, position, the word under the name), `keep`/`skip` to drop non-places and live businesses, and `kinds` rules
+   ending in a catch-all. Run `python3 engine/discover/build.py <city> --fetch` and read the counts and a sample of
+   each kind; tune the rules until each kind reads right.
+3. **Viewpoints:** search the datasets' text for lookout, skyline, vista, view of; write `viewpoints.json` with
+   our own one-liners kept to what the source says, the source entry named, `same_as` for the city's rows of the
+   same place, and today's `checked` date.
+4. **Along the way:** add the discover source to the city's `along.json` (copy Toronto's last `pois` entry and
+   `order`, adjusting `attachTo` to the city's layer kinds), the kind words, and the credits line; rebuild with
+   `engine/along/build.py <city>`; test at desktop and phone widths, light and dark.
+5. **Plumbing:** add the city's step to `fetch-discover.yml` (and its name to ALL); add the datasets to the
+   Attributions page; add the city to contract section 17 and copy the contract to the app repo; FEATURES.md.
+6. **Notion:** a row for the city's discovery places (Iteration, parent "Scouted discovery points of interest").
+
 ## Trial batch
 `pilot-queen-west-kensington.json`: 15 places in Queen West, Trinity-Bellwoods and Kensington. All are in under
 the November 17 rules, including White Squirrel Coffee, Sam James (Ossington) and Moonbean.

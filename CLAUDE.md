@@ -55,6 +55,13 @@ the landing page, stop and say so; don't change this repo.
   two places in, a few likely transit routes out (no schedules; routing in the browser), with what's a short walk from each
   stop and each end. Built from the Routes page's data (`docs/<city>/routes/data/`), so it runs after `engine/routes/build.py`
   (refresh-fact-sheets.yml does both). By hand: `python3 engine/along/build.py <city>`. Notes: the project's claude/along-the-way.md.
+- **Discovery places** (`engine/discover/build.py`, `cities/<city>/discover.json` and `viewpoints.json`, published as
+  `docs/<city>/data/discover.geojson`; Toronto November 17, 2026): the places a city government describes in its own open
+  data (Toronto: StrollTO, Public Art, Cultural Hotspot) with its descriptions quoted word for word with credit, plus
+  hand-checked viewpoints. Along the way reads it (along.json's last `pois` source; tapping a place opens the text);
+  contract section 17. **No businesses on the website** (the user, November 17, 2026): cafés, bakeries, restaurants and
+  shops are for the iOS app only. `fetch-discover.yml` refreshes it weekly and rebuilds Along; deploy.yml lists it.
+  Adding a city: `scouting/discovery/BRIEF.md`, "Adding a city". By hand: `python3 engine/discover/build.py <city> --fetch`.
 - **Venues** (`cities/<city>/venues.json`, `engine/venues.py`, pages at `docs/<city>/venues/`; Toronto October 18, New York
   October 19, Chicago November 7): each city's big live venues, what's on at each this fortnight from Ticketmaster's Discovery API
   (`engine/fetch_venue_events.py <city>`, secret `TICKETMASTER_KEY`) and how to get to each from across the region
