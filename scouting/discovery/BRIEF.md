@@ -8,6 +8,11 @@ Curated points of interest for city discovery, Toronto first, website only for n
 iOS app is undecided). Murals and other public art, independent cafés, bakeries and restaurants, and shops with
 character, plus film locations and photo spots later.
 
+**Where each part goes (the user, November 17, 2026):** businesses (cafés, bakeries, restaurants, character shops)
+are for the iOS app only, built there with MapKit. The website, starting with Along the way, shows only the City's
+open data (StrollTO, Public Art, Cultural Hotspot: parks, art, history and buildings, with the City's descriptions
+quoted with credit) and the Viewpoints kind. The trial batch and the business scouting stay as research for the app.
+
 ## User decisions (November 17, 2026)
 - Refresh cadence: public art weekly; everything else monthly.
 - Labels allowed: famous, iconic, historic, world-famous, long-running, independent. No "best" (describe, don't rank).
