@@ -1,0 +1,17 @@
+{
+  "_about": "Tram and buses (engine/fetch_surface.py, engine/surface.py) from RTA's GTFS, downloaded by hand from Data Dubai (dataset 464468; it answers only UAE addresses, so Actions can't fetch it): 'file' is the zip in raw/gtfs2026/ (gitignored). The Metro's Red and Green lines join for the Routes page only ('rapid'); the map draws them from its own layer (transit.py), with the tram and the marine routes. RTA publishes no live feed, so the Routes page shows timetable times ('sched').",
+  "gtfs": {
+    "file": "raw/gtfs2026/Ops_GTFS_11-Sep-2026.zip"
+  },
+  "types": [
+    "tram",
+    "bus"
+  ],
+  "rapid": {
+    "MRed1": "subway",
+    "MRed2": "subway",
+    "MGrn": "subway"
+  },
+  "sched": true,
+  "expressRoutes": "X\\d+"
+}

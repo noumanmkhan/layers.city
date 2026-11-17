@@ -1,0 +1,13 @@
+{
+ "_about": "Transit under construction (engine/construction.py). The Blue Line is drawn from OpenStreetMap's ways named 'Blue Line Metro' (raw/construction/osm.json, written by transit.py from raw/rail.geojson); stations come from OSM where mapped. Only facts RTA has published go in 'opens' and 'length'.",
+ "lat0": 25.2,
+ "lines": [
+  {"id": "blue", "name": "Dubai Metro Blue Line", "short": "Blue Line", "mode": "subway", "color": "#1D5FBF",
+   "owner": "Roads and Transport Authority (RTA)", "opens": "September 2029 (RTA)", "length": "30 km, 14 stations",
+   "about": "From Creek on the Green Line and Centrepoint on the Red Line, across the Creek to Dubai Creek Harbour, Ras Al Khor, International City, Dubai Silicon Oasis and Academic City, with a branch to Mirdif; part underground, part elevated.",
+   "link": "https://www.rta.ae/",
+   "match": "^Blue Line Metro$",
+   "stationsFromOsm": true}
+ ],
+ "existing": ["metro_lines"]
+}

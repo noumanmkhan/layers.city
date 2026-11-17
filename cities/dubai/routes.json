@@ -1,0 +1,139 @@
+{
+ "_about": "Settings for Dubai's Routes page (engine/routes/: build.py, page.html), at /dubai/routes/: pick a bus or tram stop or Metro platform near you, see where each RTA route goes. The Metro comes from raw/surface/rapid_*.json (surface.json 'rapid'), its platforms in order. RTA publishes no open real-time feed, so every time on the page is from the timetable (surface.json 'sched'). Streets come from the map's own OpenStreetMap roads (tmp/streets_by_class.json, written by build.py).",
+ "modes": [
+  "bus",
+  "tram",
+  "subway"
+ ],
+ "gridTilt": 0,
+ "keepRight": true,
+ "regions": [
+  "sides",
+  {
+   "file": "region_areas",
+   "prop": "region"
+  }
+ ],
+ "regionsWithThe": [],
+ "knownWithThe": "^(Palm Jumeirah|Greens)$",
+ "units": "route_areas",
+ "streets": {
+  "raw": "../tmp/streets_by_class.json",
+  "name": "name",
+  "along": [
+   "trunk",
+   "primary",
+   "secondary",
+   "tertiary"
+  ],
+  "cross": [
+   "trunk",
+   "primary",
+   "secondary"
+  ]
+ },
+ "pois": [
+  {
+   "file": "landmarks",
+   "cat": "catLabel"
+  }
+ ],
+ "known": "knownas",
+ "stations": {
+  "files": [
+   "metro_stations",
+   "rail_stations"
+  ]
+ },
+ "near": {
+  "poi": 200,
+  "station": 150,
+  "known": 250,
+  "platform": 150
+ },
+ "notCrossed": "(?i)\\b(Bridge|Tunnel|Ramp|Interchange|Exit|Flyover|Crossing)\\b",
+ "page": {
+  "city": "Dubai",
+  "title": "Where does this bus, tram or Metro go?",
+  "short": "Routes from here",
+  "description": "Find the RTA bus and tram stops and Metro stations nearest you in Dubai and see where each route goes, with the next scheduled departures: the communities it passes through, the main roads it runs along, its Metro connections and the landmarks on the way.",
+  "lede": "Find the stops and stations near you, then pick a bus, the tram or a Metro line to see where it goes: the communities, main roads, connections and landmarks along the way.",
+  "placeholder": "Or search an address",
+  "outside": "That spot is too far from an RTA stop. Try a place in Dubai or near a Metro station.",
+  "noMatch": "No match in Dubai for “{q}”. Try a community or landmark, like “Al Karama” or “Dubai Mall”.",
+  "noStops": "No stops or stations within {r} of that spot.",
+  "credits": "Routes, stops and timetable: RTA GTFS via Data Dubai (Dubai Open Data Licence) · Streets: © OpenStreetMap contributors (ODbL) · Times are scheduled: RTA publishes no open live feed",
+  "mapLink": "Open on the map",
+  "mi": false,
+  "at": " / ",
+  "connectWith": "the Metro and Etihad Rail",
+  "legendUnits": "Communities it passes",
+  "legendKnown": "Dubai Marina: the names people use",
+  "lineFiles": [
+   "metro_lines"
+  ],
+  "lineColors": {
+   "red": "#E91D2F",
+   "green": "#0AAE53"
+  },
+  "lineNames": {
+   "Red": "Red Line",
+   "Green": "Green Line"
+  },
+  "overground": true,
+  "connectionsLabel": "Metro and Etihad Rail connections",
+  "modeWords": {
+   "tram": "tram"
+  },
+  "ampm": [
+   "am",
+   "pm"
+  ],
+  "reach": 3
+ },
+ "badges": {
+  "_about": "Route badge colours for apps: buses RTA's blue, the tram orange, Metro lines as plain dots in the line's colour.",
+  "bus": {
+   "fill": "#3A6EB7",
+   "text": "#FFFFFF"
+  },
+  "exp": {
+   "fill": "#6F2E90",
+   "text": "#FFFFFF"
+  },
+  "night": {
+   "fill": "#FFFFFF",
+   "text": "#1C2A4A",
+   "outline": "#1C2A4A"
+  },
+  "tram": {
+   "fill": "#F47922",
+   "text": "#FFFFFF"
+  },
+  "lines": {
+   "MRed1": {
+    "fill": "#E91D2F",
+    "text": "#FFFFFF"
+   },
+   "MRed2": {
+    "fill": "#E91D2F",
+    "text": "#FFFFFF"
+   },
+   "MGrn": {
+    "fill": "#0AAE53",
+    "text": "#FFFFFF"
+   }
+  }
+ },
+ "nameRules": [
+  [
+   " Street$",
+   " St"
+  ],
+  [
+   " Road$",
+   " Rd"
+  ]
+ ],
+ "_units": "'units' is route_areas (build.py): OpenStreetMap's communities, with the gaps between them (Dubai Marina, Al Barsha, Jebel Ali) named by the nearest known-as name, so a route's story doesn't carry the last community's name across a gap."
+}

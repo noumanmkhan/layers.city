@@ -195,6 +195,23 @@ for k in KNOWN_AS:
                   'geometry': {'type': 'Point', 'coordinates': [round(pt[0], 5), round(pt[1], 5)]}})
 write('knownas', known)
 
+# The Routes page names the places a route passes ("through Al Karama, Dubai Marina"): OpenStreetMap's communities leave
+# gaps, so for that page alone each gap is split among the known-as names inside it, by nearest name (a Voronoi cell).
+# Not drawn on the map: these are the page's wording, not boundaries.
+from shapely.ops import voronoi_diagram
+from shapely.geometry import MultiPoint
+gaps = polys(CITY.difference(covered.buffer(0.0002)))
+kpts = [Point(f['geometry']['coordinates']) for f in known]
+cells = voronoi_diagram(MultiPoint(kpts), envelope=FRAME)
+ra = list(uf)
+for cell in cells.geoms:
+    k = next(i for i, q in enumerate(kpts) if cell.contains(q))
+    g = polys(cell.intersection(gaps))
+    g = polys(unary_union([x for x in getattr(g, 'geoms', [g]) if x.area * KM2 > 0.3]))
+    if not g.is_empty: ra.append(feat(g, {'name': known[k]['properties']['name'], 'gap': True}))
+dump('route_areas', ra)
+print('Routes page areas: %d communities + %d gap areas by known-as name' % (len(uf), len(ra) - len(uf)))
+
 # ---------- Places beyond the city, for search ("Near Al Nahda, Sharjah") ----------
 KIND = {'town': 'Town', 'village': 'Village', 'suburb': 'Suburb', 'quarter': 'Neighbourhood', 'neighbourhood': 'Neighbourhood',
         'locality': 'Locality', 'hamlet': 'Hamlet', 'city': 'Town'}
@@ -238,6 +255,14 @@ for (route, name), gs in in_city.items():
     m = merged(gs, 0.5)
     if m is not None: hw.append(feat(m, {'route': route, 'name': name, 'kind': 'provincial'}))
 dump('highways', hw)
+
+# Named streets by class across the region, for the Routes page ("runs along Al Wasl Road, crosses Al Safa Street")
+by_cls = defaultdict(list)
+for f in roads:
+    p = f['properties']; n = nm(p)
+    if p.get('highway') in ('motorway', 'trunk', 'primary', 'secondary', 'tertiary') and n and re.search(r'[A-Za-z]', n):
+        by_cls[p['highway']].append({'type': 'Feature', 'properties': {'name': n}, 'geometry': f['geometry']})
+json.dump({c: fc(v) for c, v in by_cls.items()}, open(TMP + 'streets_by_class.json', 'w'), separators=(',', ':'), ensure_ascii=False)
 
 CITY_B3 = CITY.buffer(0.0003)
 CLS = {'motorway': 'major', 'trunk': 'major', 'primary': 'major', 'secondary': 'minor', 'tertiary': 'coll'}

@@ -4,3 +4,12 @@
 :root[data-theme="dark"]{ --s-deira:#B8763A; --s-bur:#4C7FB5; --s-new:#5E9A48; }
 .sw.side{background:conic-gradient(var(--s-deira) 0 33%,var(--s-bur) 0 66%,var(--s-new) 0)}
 .fill-major.deira{fill:var(--s-deira)} .fill-major.bur-dubai{fill:var(--s-bur)} .fill-major.new-dubai{fill:var(--s-new)}
+/* Transit: RTA's line colours (from its GTFS: Red E91D2F, Green 0AAE53, tram F47922). */
+:root{ --l-red:#E91D2F; --l-green:#0AAE53; --l-tram:#F47922; }
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){ --l-red:#F0505E; --l-green:#3CCB78; --l-tram:#F79A55; }}
+:root[data-theme="dark"]{ --l-red:#F0505E; --l-green:#3CCB78; --l-tram:#F79A55; }
+.sw.metro{background:linear-gradient(var(--l-red) 0 50%,var(--l-green) 0)}
+.sw.tram{background:var(--l-tram)}
+.sw.ferry{background:linear-gradient(#2C8C7E 0 34%,#1F6FB2 0 67%,#7A4E9E 0)}
+.sw.etihad{background:#5B6770} .sw.mono{background:#B08A3E}
+.sub-line.lred{stroke:var(--l-red)} .sub-line.lgreen{stroke:var(--l-green)} .sub-line.lt1{stroke:var(--l-tram)}
