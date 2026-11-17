@@ -23,3 +23,11 @@ cities/*/raw/scouting/**/*.html
 cities/*/raw/scouting/**/*.log
 .wrangler/
 /Claude outputs
+
+# Dubai: big raw downloads (OSM extract, GTFS, Data Dubai and Wayback probes); see scouting/dubai/FINDINGS.md
+cities/dubai/raw/osm
+cities/dubai/raw/probe
+cities/dubai/raw/pulse
+cities/dubai/raw/gtfs
+cities/dubai/raw/gtfs2026
+cities/dubai/raw/datadubai
