@@ -70,10 +70,12 @@ screen [{title, years}] · status · checked (ISO date) · lat/lon · osm · not
 
 ## Website build: Toronto (November 17, 2026)
 - `engine/discover/build.py` (names no city) reads `cities/toronto/discover.json` and writes
-  `docs/toronto/data/discover.geojson` (contract section 17): 2,719 places (art 1,078, history 766, park 604,
-  community 200, library 56, view 15), each with the City's description and credit.
-- Kinds on the web: art, history, park, library, community (what's left: community centres, schools, services) and
-  view. Each row gets the first matching rule in discover.json (name or column regexes); a name like
+  `docs/toronto/data/discover.geojson` (contract section 17): 2,716 places (art 1,078, history 864, park 604,
+  library 56, rec 51, arts 22, nature 18, view 15, faith 8), each with the City's description and credit.
+- Kinds on the web: art, history, park, library, view, and for rows no earlier rule claims: faith, rec (community
+  centres, recreation, youth and community services), nature, arts (arts centres, studios, venues), then history as
+  the catch-all (streets, addresses, plazas, Indigenous places; the City's text is about their past). A single
+  "community" catch-all was tried first and read as a grab-bag (the user, November 17). Each row gets the first matching rule in discover.json (name or column regexes); a name like
   "Former Pickfair Restaurant" is history, but live businesses (restaurant, café, coffee, bakery, deli, pizzeria,
   bistro, brewery, flea market) are skipped.
 - Viewpoints: `cities/toronto/viewpoints.json`, hand-kept, 15 places the City's own text describes as having a

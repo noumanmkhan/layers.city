@@ -1,7 +1,7 @@
 {
- "_about": "Settings for this city's discovery places layer (engine/discover/build.py), docs/toronto/data/discover.geojson: places the City describes in its own open data, plus hand-checked viewpoints, for Along the way and the app. No businesses on the website (the user, November 17, 2026: they're for the iOS app). Keys: sources (each a dataset: id, url, credit, licence; name, text, link and word = its columns, word joined with ' · '; lat and lon columns, or a GeoJSON 'geometry' column; keep = {column: regex} rows must match; skip = regex on the name to leave out; kinds = rules in order, the first that matches gives the kind: {kind, match: regex, field: column, default the name}, a rule with no match catches the rest); words = the line under the name when a source has none; dedupe_m = metres within which two rows with the same name are one place (the first source wins, later ones fill in a missing text or link); viewpoints = the hand-kept file of viewpoints. Kinds: art, history, park, library, view, community (what's left: community centres, schools, services, with no history in the name or text). The descriptions are the City's words, quoted with credit under the Open Government Licence - Toronto, never rewritten.",
+ "_about": "Settings for this city's discovery places layer (engine/discover/build.py), docs/toronto/data/discover.geojson: places the City describes in its own open data, plus hand-checked viewpoints, for Along the way and the app. No businesses on the website (the user, November 17, 2026: they're for the iOS app). Keys: sources (each a dataset: id, url, credit, licence; name, text, link and word = its columns, word joined with ' · '; lat and lon columns, or a GeoJSON 'geometry' column; keep = {column: regex} rows must match; skip = regex on the name to leave out; kinds = rules in order, the first that matches gives the kind: {kind, match: regex, field: column, default the name}, a rule with no match catches the rest); words = the line under the name when a source has none; dedupe_m = metres within which two rows with the same name are one place (the first source wins, later ones fill in a missing text or link); viewpoints = the hand-kept file of viewpoints. Kinds: art (public artworks), history, park, library, view, and for the rows no earlier rule claims: faith (places of worship), rec (community centres, recreation, youth and community services), nature (greenbelts, trees, wetlands), arts (arts centres, studios, venues), then history (streets, addresses, plazas, Indigenous places: the City's text is about their past). The descriptions are the City's words, quoted with credit under the Open Government Licence - Toronto, never rewritten.",
  "about": "Places described by the City of Toronto (StrollTO, Public Art, Cultural Hotspot; Open Government Licence - Toronto) and viewpoints checked by Layers.City.",
- "words": {"art": "Public art", "history": "Local history", "park": "Park", "library": "Library", "view": "Viewpoint", "community": "Community"},
+ "words": {"art": "Public art", "history": "Local history", "park": "Park", "library": "Library", "view": "Viewpoint", "faith": "Place of worship", "rec": "Community & recreation", "nature": "Nature", "arts": "Arts space"},
  "dedupe_m": 150,
  "viewpoints": "viewpoints.json",
  "sources": [
@@ -10,7 +10,9 @@
    "url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/f87fbe88-f9d1-432d-a482-b7044b32d587/resource/b30cc1eb-6385-4bf4-8231-20d3e9ec4021/download/strollto-poi-details-4326.csv",
    "credit": "City of Toronto, StrollTO",
    "licence": "Open Government Licence - Toronto",
-   "name": "Title", "text": "Description", "link": "Link_URL",
+   "name": "Title",
+   "text": "Description",
+   "link": "Link_URL",
    "skip": "(?i)^(?!(former|historic|the historic|site of)\\b).*\\b(restaurant|caf[eé]|coffee|bakery|deli|pizzeria|bistro|brewery|flea market)\\b",
    "kinds": [
     {"kind": "art", "match": "(?i)mural|artbox|art box|sculpture|statue|installation|memorial|monument|cenotaph|'[^']+'"},
@@ -19,7 +21,11 @@
     {"kind": "park", "match": "(?i)\\bpark\\b|parkette|gardens?\\b|ravine|\\btrail\\b|beach|creek|\\bwoods\\b|valley|bluffs|marsh|meadow|\\bponds?\\b"},
     {"kind": "history", "match": "(?i)\\b(former|historic|heritage|plaque|house|homestead|cottage|church|cathedral|synagogue|temple|mosque|cemetery|burial|museum|theatre|hall|bridge|mill|farm|estate|station|tower|lane)\\b"},
     {"kind": "history", "field": "Description", "match": "\\b(1[6-8]\\d\\d|19[0-7]\\d)\\b"},
-    {"kind": "community"}
+    {"kind": "faith", "match": "(?i)masjid|mosque|mandir|temple|\\bchurch\\b|gurdwara|synagogue|islamic|muslim|jamaat|jamatkhana|parish|buddhist|hindu|sikh|chapel|ministr|cathedral|shul|monaster|congregation"},
+    {"kind": "rec", "match": "(?i)community (recreation )?cent(re|er)|recreation|\\brec\\b|skate ?park|arena|\\bpool\\b|rink|sports|athletic|field study|variety village|ymca|ywca|stadium|velodrome|golf|ski\\b|courts?\\b|playground|splash pad|leisure|aquatic|olympium|\\bhub\\b|youth|family centre|neighbourhood centre|community (services|centre)|centre for (spanish|young)|\\bLINC\\b|employment|boys and girls club|filipino centre|bangladesh centre|indigenous centre"},
+    {"kind": "nature", "match": "(?i)swamp|sanctuary|\\btrees?\\b|\\boak\\b|parkland|greenbelt|\\bforest\\b(?! home)|wetland|orchard|nature|conservation|\\blake\\b(?!shore)|\\briver\\b|habitat|grove|wildflower|pollinator|butterfly|\\bbirds?\\b|savannah|arboretum|ecology"},
+    {"kind": "arts", "match": "(?i)\\barts?\\b|studio|galler|cultur|music|concert|dance|film|cinema|palace|theat|stage|creative|urbanism|artcave|artscape|urbanarts|daniels spectrum|mercer union|lula lounge"},
+    {"kind": "history"}
    ]
   },
   {
@@ -27,16 +33,27 @@
    "url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/bfdc6aa8-7ea6-4225-a3f7-e13d1d2b4018/resource/2cb2c65a-1565-4382-8fe3-3a235aec7655/download/public-art-4326.csv",
    "credit": "City of Toronto, Public Art",
    "licence": "Open Government Licence - Toronto",
-   "name": "TITLE", "text": "DESCRIPTION", "link": "EXTERNAL_LINK", "lat": "LATITUDE", "lon": "LONGITUDE",
-   "word": ["ARTWORK_TYPE", "YEAR", "ARTIST"], "flip": ["ARTIST"],
-   "kinds": [{"kind": "art"}]
+   "name": "TITLE",
+   "text": "DESCRIPTION",
+   "link": "EXTERNAL_LINK",
+   "lat": "LATITUDE",
+   "lon": "LONGITUDE",
+   "word": ["ARTWORK_TYPE", "YEAR", "ARTIST"],
+   "flip": ["ARTIST"],
+   "kinds": [
+    {"kind": "art"}
+   ]
   },
   {
    "id": "hotspot",
    "url": "https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/c7be2ee7-d317-4a28-8cbe-bff1ce116b46/resource/70eb3e9e-47c1-4254-9f78-ebcad6df29e9/download/cultural-loop-tour-points-4326.csv",
    "credit": "City of Toronto, Cultural Hotspot",
    "licence": "Open Government Licence - Toronto",
-   "name": "SiteName", "text": "Description", "link": "ExternalLink", "lat": "Latitude", "lon": "Longitude",
+   "name": "SiteName",
+   "text": "Description",
+   "link": "ExternalLink",
+   "lat": "Latitude",
+   "lon": "Longitude",
    "keep": {"EntryType": "(?i)^\\s*destination"},
    "skip": "(?i)^(?!(former|historic|the historic|site of)\\b).*\\b(restaurant|caf[eé]|coffee|bakery|deli|pizzeria|bistro|brewery|flea market)\\b",
    "kinds": [
@@ -46,7 +63,11 @@
     {"kind": "history", "field": "Interests", "match": "History|Architecture"},
     {"kind": "history", "match": "(?i)\\b(former|historic|heritage|plaque|house|homestead|cottage|church|cathedral|synagogue|temple|mosque|cemetery|burial|museum|theatre|hall|bridge|mill|farm|estate|station|tower|lane)\\b"},
     {"kind": "history", "field": "Description", "match": "\\b(1[6-8]\\d\\d|19[0-7]\\d)\\b"},
-    {"kind": "community"}
+    {"kind": "faith", "match": "(?i)masjid|mosque|mandir|temple|\\bchurch\\b|gurdwara|synagogue|islamic|muslim|jamaat|jamatkhana|parish|buddhist|hindu|sikh|chapel|ministr|cathedral|shul|monaster|congregation"},
+    {"kind": "rec", "match": "(?i)community (recreation )?cent(re|er)|recreation|\\brec\\b|skate ?park|arena|\\bpool\\b|rink|sports|athletic|field study|variety village|ymca|ywca|stadium|velodrome|golf|ski\\b|courts?\\b|playground|splash pad|leisure|aquatic|olympium|\\bhub\\b|youth|family centre|neighbourhood centre|community (services|centre)|centre for (spanish|young)|\\bLINC\\b|employment|boys and girls club|filipino centre|bangladesh centre|indigenous centre"},
+    {"kind": "nature", "match": "(?i)swamp|sanctuary|\\btrees?\\b|\\boak\\b|parkland|greenbelt|\\bforest\\b(?! home)|wetland|orchard|nature|conservation|\\blake\\b(?!shore)|\\briver\\b|habitat|grove|wildflower|pollinator|butterfly|\\bbirds?\\b|savannah|arboretum|ecology"},
+    {"kind": "arts", "match": "(?i)\\barts?\\b|studio|galler|cultur|music|concert|dance|film|cinema|palace|theat|stage|creative|urbanism|artcave|artscape|urbanarts|daniels spectrum|mercer union|lula lounge"},
+    {"kind": "history"}
    ]
   }
  ]

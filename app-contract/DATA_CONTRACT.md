@@ -9,7 +9,9 @@
 
 > **November 17, 2026:** Toronto: a new file, `discover.geojson`, the places the City describes in its own open data
 > (public art, local history, parks, libraries, community places) and hand-checked viewpoints, each with the City's
-> own description to quote with credit. Section 17. Additive; no schema change.
+> own description to quote with credit. Section 17. Additive; no schema change. Later the same day, before any app
+> release read it, the catch-all `community` kind was split into `rec`, `faith`, `nature` and `arts` (the rest went
+> to `history`), so `community` no longer appears.
 
 > **November 16, 2026, later:** `card.reps.outside.offices` may hold an office with `"muni": true` (Toronto: the mayor):
 > its member is `representatives.json[table][<municipality name>]`, the `base.geojson` neighbour the spot is in;
@@ -1322,7 +1324,9 @@ itself (the user, November 17, 2026). The website shows these on the Along the w
 ```
 
 - `id`: stable while the place's source, name and position don't change (hex). `kind`: `art`, `history`, `park`,
-  `library`, `view` or `community` (what's left: community centres, schools, services). `word`: the short line
+  `library`, `view`, `rec` (community centres, recreation, youth and community services), `faith` (places of
+  worship), `nature` (greenbelts, trees, wetlands) or `arts` (arts centres, studios, venues). Treat an unknown kind
+  as `history`. `word`: the short line
   under the name ("Sculpture · 1984 · Michael Belmore", "Skyline view", "Local history"); may be empty.
 - `text`: the publisher's description, word for word (paragraphs split by `\n`), or empty (about a quarter of the
   public art has none). Quote it as is, never shortened into a different meaning or rewritten, and always show

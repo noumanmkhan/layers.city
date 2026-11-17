@@ -71,9 +71,12 @@
     "view",
     "art",
     "history",
+    "arts",
     "park",
+    "nature",
     "library",
-    "community"
+    "rec",
+    "faith"
    ],
    "attachTo": {
     "view": [
@@ -94,9 +97,18 @@
     "library": [
      "library"
     ],
-    "community": [
+    "arts": [
+     "landmark"
+    ],
+    "nature": [
+     "park"
+    ],
+    "rec": [
      "library",
      "campus"
+    ],
+    "faith": [
+     "landmark"
     ]
    },
    "promote": [
@@ -126,7 +138,10 @@
    "view": "Viewpoints",
    "art": "Public art",
    "history": "Local history",
-   "community": "Community"
+   "arts": "Arts spaces",
+   "nature": "Nature",
+   "rec": "Community & recreation",
+   "faith": "Places of worship"
   },
   "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers and the places the City of Toronto describes, so it’s far from everything that’s there.",
   "tries": [
@@ -160,12 +175,15 @@
   "view",
   "art",
   "history",
+  "arts",
   "street",
   "heritage",
   "park",
+  "nature",
   "campus",
   "library",
-  "community"
+  "rec",
+  "faith"
  ],
  "_order": "The order a stop's places are listed in (kinds); the build order is pois."
 }

@@ -22,7 +22,7 @@
   /* what each kind of place looks like: its dot on the map and its mark in the list */
   --k-landmark:#C8102E; --k-area:#C8102E; --k-street:#B5651D; --k-heritage:#7A5C3E; --k-park:#3F8F4E;
   --k-campus:#2F5E9E; --k-library:#6B4FA0; --k-tower:#4A5560;
-  --k-view:#1F7A8C; --k-art:#B0307A; --k-history:#9A6A12; --k-community:#6E6A66;
+  --k-view:#1F7A8C; --k-art:#B0307A; --k-history:#9A6A12; --k-arts:#8B3A62; --k-nature:#6E8B3D; --k-rec:#6E6A66; --k-faith:#4F6D8A;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -583,7 +583,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const CARD_PAL = { water: '#DCE7EC', city: '#F7F4F3', out: '#ECE7E5', edge: '#D8CFCD', hood: '#E2D7D4', major: '#D6CDCA', halo: '#FFFFFF',
     ink: '#1A1414', muted: '#5E5452', accent: '#C8102E', font: 'IBM Plex Sans, sans-serif',
     kind: k => ({ landmark: '#C8102E', area: '#C8102E', street: '#B5651D', heritage: '#7A5C3E', park: '#3F8F4E', campus: '#2F5E9E', library: '#6B4FA0', tower: '#4A5560',
-      view: '#1F7A8C', art: '#B0307A', history: '#9A6A12', community: '#6E6A66' })[k] || '#5E5452' };
+      view: '#1F7A8C', art: '#B0307A', history: '#9A6A12', arts: '#8B3A62', nature: '#6E8B3D', rec: '#6E6A66', faith: '#4F6D8A' })[k] || '#5E5452' };
   const cap = () => LAYOUTS[layout].cap;
 
   function togglePick(pi, box, li) {
