@@ -184,6 +184,8 @@ a.feat:hover{border-color:var(--ink)}
 .feat .art .ghost{stroke:var(--track);stroke-dasharray:1 7;stroke-width:4;stroke-linecap:round;fill:none}
 .feat .art .built{stroke-width:7;stroke-linecap:round;fill:none}
 .feat .art .case{stroke:var(--ink);stroke-width:11;stroke-linecap:round;fill:none}
+.feats.one .feat{grid-column:1/-1;flex-direction:row}
+.feats.one .feat .art{flex:0 0 46%;height:auto;min-height:200px;border-bottom:0;border-right:1.5px solid var(--rule)}
 .feat .art .el{stroke:#8a7d78;stroke-width:6;stroke-linecap:round;fill:none}
 
 /* Below the fold */
@@ -237,6 +239,8 @@ a.tile:hover{border-color:var(--ink)}
   .feat .txt{padding:16px 16px 18px;gap:10px}
   .feat h2{font-size:21px}
   .feat .art{height:130px;padding:10px}
+  .feats.one .feat{flex-direction:column}
+  .feats.one .feat .art{flex:none;min-height:0;height:130px;border-right:0;border-bottom:1.5px solid var(--rule)}
   .tile{padding:18px 16px;gap:10px}
   .tile h2{font-size:20px}
   .prints{margin-top:12px;margin-bottom:24px;padding:16px}
@@ -382,6 +386,7 @@ a.tile:hover{border-color:var(--ink)}
             <a href="/toronto/neighbourhoods/"><i></i><span><b>Guide</b><small>158 neighbourhoods</small></span></a>
             <a href="/toronto/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
             <a href="/toronto/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
+            <a href="/toronto/along/"><i></i><span><b>What’s along your commute?</b><small>What’s a short walk from every stop</small></span></a>
             <a href="/toronto/events/"><i></i><span><b>Events</b><small>Concerts, games and City events</small></span></a>
             <a href="/toronto/fun/"><i></i><span><b>Fun maps</b><small>Tim’s vs Starbucks, and more</small></span></a>
         </div>
@@ -461,6 +466,27 @@ a.tile:hover{border-color:var(--ink)}
       </div>
     </section>
   </main>
+
+  <!-- Along the way (engine/along/build.py): a trip in, what's a short walk from each stop out. Toronto only for now. -->
+  <div class="sect"><h2 class="kicker" id="along-h">ALONG THE WAY</h2><span>Your commute, stop by stop</span></div>
+  <section class="feats one" aria-labelledby="along-h">
+    <a class="feat" href="/toronto/along/">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet">
+          <path class="case" d="M40 170 L150 150 L250 92 L380 60"/><path class="built" stroke="#00923F" d="M40 170 L150 150 L250 92 L380 60"/>
+          <g fill="#fff" stroke="#1A1414" stroke-width="3"><circle cx="40" cy="170" r="8"/><circle cx="150" cy="150" r="7"/><circle cx="200" cy="121" r="7"/><circle cx="250" cy="92" r="7"/><circle cx="315" cy="76" r="7"/><circle cx="380" cy="60" r="8"/></g>
+          <g stroke="#fff" stroke-width="2"><circle cx="128" cy="124" r="7" fill="#B0307A"/><circle cx="172" cy="178" r="7" fill="#9A6A12"/><circle cx="222" cy="150" r="7" fill="#3F8F4E"/><circle cx="232" cy="66" r="7" fill="#B0307A"/><circle cx="290" cy="112" r="7" fill="#1F7A8C"/><circle cx="338" cy="44" r="7" fill="#9A6A12"/><circle cx="66" cy="140" r="7" fill="#B5651D"/></g>
+          <text class="yr" x="30" y="212" style="font-size:22px">A → B</text>
+        </svg>
+      </div>
+      <div class="txt">
+        <span class="k">TORONTO · ANY TWO PLACES</span>
+        <h2>What’s along your commute?</h2>
+        <p>Put in where you start and where you’re going, and see the likely TTC routes with what’s a short walk from every stop: public art, local history, viewpoints, parks and shopping streets, with the City’s own descriptions. Share the trip as a card.</p>
+        <span class="go">Plan a trip <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </div>
+    </a>
+  </section>
 
   <!-- Transit history pages (engine/history/build.py): their own row of cards, not columns of the city table. -->
   <div class="sect"><h2 class="kicker" id="hist-h">TRANSIT HISTORY</h2><span>Every line built, and every one that wasn’t</span></div>

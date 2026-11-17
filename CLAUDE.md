@@ -51,7 +51,8 @@ the landing page, stop and say so; don't change this repo.
   from routes.json) and contract section 15: a change to the page's files, their fields, the arrivals API or how
   the page words things goes in that section too, and the contract is copied to the app repo.
 - **Along the way** (`engine/along/build.py`, `router.js` and `page.html`, `cities/<city>/along.json`, page at `docs/<city>/along/`;
-  Toronto November 16, 2026, unlisted: `"unlisted": true` writes noindex and keeps it out of the sitemap; no hub or map link yet):
+  Toronto November 16, 2026; public November 17 with its own "Along the way" card on the hub, above Transit history, a
+  link in Toronto's phone panel, and the sitemap; `"unlisted": true` would write noindex and drop it from the sitemap; no map link yet):
   two places in, a few likely transit routes out (no schedules; routing in the browser), with what's a short walk from each
   stop and each end. Built from the Routes page's data (`docs/<city>/routes/data/`), so it runs after `engine/routes/build.py`
   (refresh-fact-sheets.yml does both). By hand: `python3 engine/along/build.py <city>`. Notes: the project's claude/along-the-way.md.
