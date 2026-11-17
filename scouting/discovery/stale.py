@@ -1,6 +1,7 @@
 """List discovery places that are due for another check.
 
-Reads every curated batch in this folder (*.json with a "places" list) and prints each place whose "checked" date
+Reads every curated batch in this folder and each city's hand-kept viewpoints (cities/*/viewpoints.json): any
+*.json with a "places" list. It prints each place whose "checked" date
 is more than MAX_DAYS old, oldest first. Exits non-zero if any place has no "checked" date (or one that isn't
 YYYY-MM-DD), so a new entry can't slip in unchecked. Stale places are listed but don't fail the run.
 
@@ -35,4 +36,6 @@ def main(paths):
 
 
 if __name__ == '__main__':
-    sys.exit(main(sys.argv[1:] or sorted(glob.glob(os.path.join(HERE, '*.json')))))
+    ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
+    sys.exit(main(sys.argv[1:] or sorted(glob.glob(os.path.join(HERE, '*.json')) +
+                                         glob.glob(os.path.join(ROOT, 'cities', '*', 'viewpoints.json')))))

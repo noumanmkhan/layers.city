@@ -1,0 +1,69 @@
+name: Fetch discovery places
+# Weekly refresh of each city's discovery places layer (engine/discover/build.py, cities/<city>/discover.json): the
+# places the city government describes in its own open data (Toronto: StrollTO, Public Art, Cultural Hotspot) plus
+# the hand-kept viewpoints, into docs/<city>/data/discover.geojson, then that city's Along the way page. One step per
+# city with continue-on-error, one commit, and a last step that fails the run if any city failed. deploy.yml lists
+# this workflow, so its commits go live. Also runs when a city's discover.json or viewpoints.json, or the engine,
+# changes on main, or by hand (cities: space-separated; empty = all).
+# A new city joins by adding its step below and its name to ALL.
+on:
+  workflow_dispatch:
+    inputs:
+      cities: {description: 'Cities, space-separated (empty = all)', default: ''}
+  schedule:
+    - cron: '23 9 * * 2'
+  push:
+    branches: [main]
+    paths:
+      - 'engine/discover/build.py'
+      - 'cities/*/discover.json'
+      - 'cities/*/viewpoints.json'
+permissions:
+  contents: write
+concurrency: fetch-discover
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q shapely
+      - name: Which cities
+        run: |
+          ALL="toronto"
+          C="${{ inputs.cities }}"; [ -n "$C" ] || C="$ALL"
+          echo "Cities: $C"; echo "CITIES= $C " >> "$GITHUB_ENV"
+      - name: Toronto
+        id: toronto
+        if: contains(env.CITIES, ' toronto ')
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          python3 -u engine/discover/build.py toronto --fetch
+          python3 -u engine/along/build.py toronto
+      - name: Viewpoints due for a check
+        run: python3 scouting/discovery/stale.py || echo "::warning::A viewpoint has no checked date"
+      - name: Commit what changed
+        if: always()
+        run: |
+          for C in $CITIES; do
+            for p in "cities/$C/raw/discover" "docs/$C/data/discover.geojson" "docs/$C/along"; do [ -e "$p" ] && git add "$p"; done
+          done
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update discovery places:$CITIES"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 10; done
+          exit 1
+      - name: Report cities that failed
+        if: always()
+        run: |
+          f=""
+          [ "${{ steps.toronto.outcome }}" = failure ] && f="$f Toronto"
+          [ -z "$f" ] && { echo "All cities OK"; exit 0; }
+          echo "::error::Failed:$f (the other cities' updates were committed)"; exit 1
