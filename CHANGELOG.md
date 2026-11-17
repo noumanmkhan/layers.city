@@ -2,6 +2,14 @@
 
 ## Since 1.1
 
+### Dubai, unlisted (November 17)
+- A new map at layers.city/dubai/, not on the hub yet: Deira, Bur Dubai and New Dubai, 122 communities, known-as
+  names, landmarks, streets and the E-routes, with Sharjah and Ajman next door.
+- Metro, tram, buses, abras and ferries, Etihad Rail, the Palm Monorail and the Blue Line under construction, with
+  Transit nearby on the card and a Routes page.
+- Parks and beaches, sports, libraries, hospitals, campuses, schools, places of worship, heritage and skyscrapers,
+  and the card's Nearby section.
+
 ### New York's tri-state region beyond the City (November 16)
 - Buildings: every building outline across the five boroughs and the New York, New Jersey and Connecticut counties
   around them, from zoom 15.
