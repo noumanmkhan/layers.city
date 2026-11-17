@@ -70,20 +70,10 @@ Pull main first. One commit per step, plain-English messages, push to main.
 1. ~~Add `"checked": "2026-11-17"` to every place in the pilot file.~~ Done (ff20284).
 2. ~~Add `.github/ISSUE_TEMPLATE/place-report.yml` (label `place-report`).~~ Done (92478d1). Check the label
    exists and Issues are on (`gh repo view`).
-3. Add a helper the future places page or card can call, e.g. `reportUrl(place, city, pageUrl)` in engine JS,
-   building `https://github.com/noumanmkhan/layers.city/issues/new?template=place-report.yml&place_id=…&place_name=…&city=…&page_url=…`
-   (URL-encoded; field ids must match the form). Keep it free of city names. Test that one URL opens the form
-   filled in.
-4. Add `scouting/discovery/stale.py`: list entries whose `checked` is over 180 days old; fail if any entry has none.
-5. CLAUDE.md: note the place-report issue link as the approved exception to "don't link the site's pages to
-   GitHub" (user, November 17, 2026).
-6. Pilot file: make White Squirrel Coffee, Sam James (Ossington) and Moonbean regular entries; reword their
-   "notes" so they no longer say they're held back (keep missing-year notes as plain facts). Update "_about":
-   stories optional, only megachains excluded.
-7. `scout.py`: replace the "likely chain" rule (same name at 4+ places) with a MEGACHAINS list (Tim Hortons,
-   Starbucks, Second Cup, Aroma Espresso Bar, Country Style, Coffee Time, McCafé, CoCo, Chatime, Gong Cha, Real
-   Fruit Bubble Tea, Kung Fu Tea, COBS Bread, Paris Baguette, Swiss Chalet, Pizza Hut, Freshii, Boston Pizza,
-   The Keg, Jack Astor's and similar; match on brand, brand:wikidata or a normalised name). Rename the class
-   "megachain". Small local brands stay in the candidate CSVs even with a brand tag; keep the old 4+ count as an
-   informational column. Pushing reruns scout.yml; then update FINDINGS.md with the new counts.
+3. ~~`reportUrl(place, city, pageUrl)` in `engine/report.js`.~~ Done.
+4. ~~`scouting/discovery/stale.py`.~~ Done.
+5. ~~CLAUDE.md note on the place-report link.~~ Done.
+6. ~~Pilot file: the three cafés as regular entries; "_about" updated.~~ Done.
+7. ~~`scout.py`: MEGACHAINS list, class "megachain", 4+ count informational; FINDINGS.md updated.~~ Done. The
+   regional franchises and destination multinationals left in are listed in FINDINGS.md for the user's call.
 8. Notion: add the follow-ups to the Notes of the row "Scouted discovery points of interest" (no new row).
