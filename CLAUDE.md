@@ -59,6 +59,9 @@ the landing page, stop and say so; don't change this repo.
   `docs/<city>/data/discover.geojson`; Toronto November 17, 2026): the places a city government describes in its own open
   data (Toronto: StrollTO, Public Art, Cultural Hotspot) with its descriptions quoted word for word with credit, plus
   hand-checked viewpoints. Along the way reads it (along.json's last `pois` source; tapping a place opens the text);
+  so does the map's "Discover" menu (discover.json `map` writes `discover_pts.geojson`, the words in `discover_about/`,
+  and `discover_attach.json` so parks, libraries and places of worship quote the words in their own popups;
+  map.js `kind: "discover"`, city.json `about`);
   contract section 17. **No businesses on the website** (the user, November 17, 2026): cafés, bakeries, restaurants and
   shops are for the iOS app only. `fetch-discover.yml` refreshes it weekly and rebuilds Along; deploy.yml lists it.
   Adding a city: `scouting/discovery/BRIEF.md`, "Adding a city". By hand: `python3 engine/discover/build.py <city> --fetch`.

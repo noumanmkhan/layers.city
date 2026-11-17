@@ -83,6 +83,12 @@ screen [{title, years}] · status · checked (ISO date) · lat/lon · osm · not
 - Along the way lists them (along.json's last `pois` source). Tapping a name opens the text, credited, with the
   City's link; viewpoints add "Checked Nov 2026" and "Report a problem". A place another layer already lists gets
   the text instead of a second row.
+- On the web map (November 17): a "Discover" menu with Public art, Local history, Viewpoints, Arts spaces, Nature
+  spots and Community places (skateparks, playgrounds, hubs), off by default and loaded on first use
+  (`discover_pts.geojson`); a tap opens the City's words, loaded from 32 small files. About 410 parks, 40 libraries,
+  20 community centres and 3 places of worship the map already draws show the words in their own popups instead
+  (`discover_attach.json`): matched by name, exactly or as "the name and more" ("Berczy Park & Gooderham Flatiron
+  Building"), never by containment ("High Park Nature Centre" is not High Park).
 - Refresh: `fetch-discover.yml`, weekly for all three datasets (cheap; nothing is committed when nothing changed),
   then Along is rebuilt; `stale.py` also checks the viewpoints.
 
@@ -100,9 +106,14 @@ screen [{title, years}] · status · checked (ISO date) · lat/lon · osm · not
 4. **Along the way:** add the discover source to the city's `along.json` (copy Toronto's last `pois` entry and
    `order`, adjusting `attachTo` to the city's layer kinds), the kind words, and the credits line; rebuild with
    `engine/along/build.py <city>`; test at desktop and phone widths, light and dark.
-5. **Plumbing:** add the city's step to `fetch-discover.yml` (and its name to ALL); add the datasets to the
+5. **The web map:** add a `map` block to discover.json (copy Toronto's: which kinds get points, and which of the
+   map's own layer files a kind's places belong to, with a `strip` regex where names differ, like "Albion Library" and
+   "Albion branch"); add a "Discover" group to city.json with one `kind: "discover"` layer per kind (copy Toronto's),
+   the `about` block, and `"about": true` on the parks, community and faith layers. Check the build's
+   "words attached" counts and a few attached pairs (a park must not get a nearby building's text).
+6. **Plumbing:** add the city's step to `fetch-discover.yml` (and its name to ALL); add the datasets to the
    Attributions page; add the city to contract section 17 and copy the contract to the app repo; FEATURES.md.
-6. **Notion:** a row for the city's discovery places (Iteration, parent "Scouted discovery points of interest").
+7. **Notion:** a row for the city's discovery places (Iteration, parent "Scouted discovery points of interest").
 
 ## Trial batch
 `pilot-queen-west-kensington.json`: 15 places in Queen West, Trinity-Bellwoods and Kensington. All are in under

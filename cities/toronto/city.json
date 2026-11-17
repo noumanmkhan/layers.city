@@ -77,7 +77,7 @@
        "legend": "From OpenStreetMap, mapped by volunteers: a guide to how land is used, not the zoning bylaw."}
     ]],
     ["Outdoors", [
-      {"id": "parks", "kind": "parks", "file": "parks", "more": "gta_parks", "lazy": true, "optional": true, "on": true, "name": "Parks", "place": "City park",
+      {"id": "parks", "kind": "parks", "file": "parks", "about": true, "more": "gta_parks", "lazy": true, "optional": true, "on": true, "name": "Parks", "place": "City park",
        "note": "City parks shaded green; parks and conservation areas across the GTA too", "countNote": "{n} City parks shaded green, plus parks and conservation areas across the GTA",
        "placeOut": "Park", "reserveOut": "Conservation area", "fineOut": "Outline from OpenStreetMap. Amenities are listed for City of Toronto parks only.",
        "amenities": {"play": ["Playground", "Parks with a playground"], "water": ["Water play", "A splash pad or wading pool: summer only"], "wc": ["Washroom", "Parks with a public washroom"], "dog": ["Off-leash", "Parks with a dog off-leash area"]},
@@ -92,6 +92,14 @@
        "catNote": "Pick one or more; none picked shows them all. Outdoor pools open in summer and outdoor rinks in winter. Tap a pin for what’s there.",
        "popup": {"rows": [["has", "Has"], ["addr", "Address"]], "linkText": "Page on toronto.ca",
                  "fine": "From the City’s recreation facilities list as of {asof}; pickleball from its parks list. May miss a few."}}
+    ]],
+    ["Discover", [
+      {"id": "dart", "kind": "discover", "file": "discover_pts", "cat": "art", "icon": "dart", "lazy": true, "optional": true, "minZoom": 14, "name": "Public art", "place": "Public art", "note": "1,078 murals, sculptures and memorials; from zoom 14. Tap one for the City’s description"},
+      {"id": "dhistory", "kind": "discover", "file": "discover_pts", "cat": "history", "icon": "dhistory", "lazy": true, "optional": true, "minZoom": 14, "name": "Local history", "place": "Local history", "note": "Old buildings, lost places and their stories, from the City’s guides; from zoom 14"},
+      {"id": "dview", "kind": "discover", "file": "discover_pts", "cat": "view", "icon": "dview", "lazy": true, "optional": true, "wide": true, "name": "Viewpoints", "place": "Viewpoint", "note": "15 spots for the skyline, the lake or a valley"},
+      {"id": "darts", "kind": "discover", "file": "discover_pts", "cat": "arts", "icon": "darts", "lazy": true, "optional": true, "minZoom": 12, "name": "Arts spaces", "place": "Arts space", "note": "Arts centres, studios and stages the City’s guides describe; from zoom 12"},
+      {"id": "dnature", "kind": "discover", "file": "discover_pts", "cat": "nature", "icon": "dnature", "lazy": true, "optional": true, "minZoom": 12, "name": "Nature spots", "place": "Nature", "note": "Old trees, greenbelts, wetlands and habitats the City’s guides describe; from zoom 12"},
+      {"id": "drec", "kind": "discover", "file": "discover_pts", "cats": [["rec", "Community & recreation", "Community & recreation"], ["faith", "Places of worship", "Place of worship"]], "icon": "drec", "lazy": true, "optional": true, "minZoom": 12, "name": "Community places", "place": "Community place", "note": "Skateparks, playgrounds, hubs and youth centres from the City’s guides; from zoom 12"}
     ]],
     ["Getting around", [
       {"id": "subway", "kind": "metro", "files": ["subway_lines", "subway_stations"], "name": "Subway & LRT", "note": "Lines 1, 2, 4, 5 and 6", "on": true,
@@ -175,8 +183,8 @@
        "label": "{short} {num}", "hover": "{short} Ward {num}[ {area}] · City wards {wards}"}
     ]],
     ["Community & Faith", [
-      {"id": "community", "kind": "places", "file": "community", "icon": "library", "minZoom": 12, "cats": [["library", "Libraries", "Library"], ["centre", "Community centres", "Community centre"]], "name": "Libraries & community centres", "place": "Public place", "note": "Toronto Public Library branches and City-run community recreation centres; from zoom 12"},
-      {"id": "worship", "kind": "places", "file": "faith", "icon": "otherfaith", "cats": [["church", "Churches", "Church"], ["mosque", "Mosques", "Mosque"], ["hindu", "Hindu temples", "Hindu temple"], ["synagogue", "Synagogues", "Synagogue"], ["buddhist", "Buddhist temples", "Buddhist temple"], ["gurdwara", "Gurdwaras", "Gurdwara"], ["otherfaith", "Other faiths", "Place of worship"]], "name": "Places of worship", "place": "Place of worship", "note": "Churches, mosques, temples, synagogues and gurdwaras; pick any mix below", "catNote": "Tap a faith to hide or show it. Other faiths: Jain, Bahá’í, Zoroastrian, Unitarian and more.", "groups": [["catholic", "Catholic"], ["anglican", "Anglican"], ["baptist", "Baptist"], ["united", "United"], ["presbyterian", "Presbyterian"], ["orthodox", "Orthodox"], ["evangelical", "Evangelical"], ["other", "Other"]], "groupsFor": "church", "groupLabel": "Churches by denomination", "allText": "All", "countText": "{n} churches shown.", "allNote": "Some aren’t listed with a denomination, so they appear only here.", "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal and Alliance churches.", "replaces": {"churches": "church", "mosques": "mosque", "hindutemples": "hindu", "synagogues": "synagogue", "buddhisttemples": "buddhist", "gurdwaras": "gurdwara", "otherfaith": "otherfaith"}},
+      {"id": "community", "kind": "places", "file": "community", "about": true, "icon": "library", "minZoom": 12, "cats": [["library", "Libraries", "Library"], ["centre", "Community centres", "Community centre"]], "name": "Libraries & community centres", "place": "Public place", "note": "Toronto Public Library branches and City-run community recreation centres; from zoom 12"},
+      {"id": "worship", "kind": "places", "file": "faith", "about": true, "icon": "otherfaith", "cats": [["church", "Churches", "Church"], ["mosque", "Mosques", "Mosque"], ["hindu", "Hindu temples", "Hindu temple"], ["synagogue", "Synagogues", "Synagogue"], ["buddhist", "Buddhist temples", "Buddhist temple"], ["gurdwara", "Gurdwaras", "Gurdwara"], ["otherfaith", "Other faiths", "Place of worship"]], "name": "Places of worship", "place": "Place of worship", "note": "Churches, mosques, temples, synagogues and gurdwaras; pick any mix below", "catNote": "Tap a faith to hide or show it. Other faiths: Jain, Bahá’í, Zoroastrian, Unitarian and more.", "groups": [["catholic", "Catholic"], ["anglican", "Anglican"], ["baptist", "Baptist"], ["united", "United"], ["presbyterian", "Presbyterian"], ["orthodox", "Orthodox"], ["evangelical", "Evangelical"], ["other", "Other"]], "groupsFor": "church", "groupLabel": "Churches by denomination", "allText": "All", "countText": "{n} churches shown.", "allNote": "Some aren’t listed with a denomination, so they appear only here.", "groupNote": "By the denomination listed in OpenStreetMap, or the church’s name. Evangelical includes Pentecostal and Alliance churches.", "replaces": {"churches": "church", "mosques": "mosque", "hindutemples": "hindu", "synagogues": "synagogue", "buddhisttemples": "buddhist", "gurdwaras": "gurdwara", "otherfaith": "otherfaith"}},
       {"id": "food", "kind": "places", "file": "faith", "icon": "halal", "cats": [["halal", "Halal", "Halal shop"], ["kosher", "Kosher", "Kosher shop"]], "name": "Halal & kosher food", "place": "Certified food shop", "note": "Certified independent grocers, butchers and bakeries (HMA for halal, COR for kosher); no chain-store counters", "replaces": {"halal": "halal", "kosher": "kosher"}}
     ]],
     ["Lenses", [
@@ -185,6 +193,8 @@
     ]]
   ],
 
+  "about": {"attach": "discover_attach.json", "dir": "discover_about", "moreText": "More about it", "checkedText": "Checked {date}", "reportText": "Report a problem", "loadingText": "Loading the City’s description…",
+    "_about": "Where the discovery layers' words are (engine/discover/build.py writes them): the places another layer draws (parks, libraries, community centres, places of worship) show the City's description in their popup."},
   "lens": {
     "label": "Neighbourhood lens",
     "hubLabel": "Trip to",

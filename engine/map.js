@@ -4,6 +4,7 @@
 const DATA = 'data/';
 /*GL_KIT*/
 const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+/*REPORT_JS*/
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 /* Feature counts (docs/stats.js, which also enforces this): an event name and short config ids, true/false
@@ -220,6 +221,14 @@ const GLYPH = {
   'tw-res': '<path fill-rule="evenodd" d="M5 1.5h14v21H5zM7.6 4.5h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 10h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 15.5h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2z"/>',
   'tw-mix': '<path fill-rule="evenodd" d="M5 1.5h14v21H5zM7.6 4.5h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 10h3.2v3.2H7.6zm5.6 0h3.2v3.2h-3.2zM7.6 15v2.2h8.8V15zm0 3.6v2h8.8v-2z"/>',
 };
+// Discovery places (CITY.about, the discover layers): public art, local history, viewpoints, arts spaces, nature.
+Object.assign(GLYPH, {
+  dart: '<path fill-rule="evenodd" d="M12 2C6.5 2 2 6 2 11c0 3.3 2.7 6 6 6h1.5a1.5 1.5 0 0 1 1.1 2.5A2 2 0 0 0 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zM6.5 12a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm3 4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>',
+  dhistory: '<path fill-rule="evenodd" d="M3 3h18v12h-8v7h-2v-7H3zm3 3v2h12V6zm0 4v2h8v-2z"/>',
+  dview: '<path fill-rule="evenodd" d="M4.5 4H9v4h6V4h4.5l2.3 10.2A4.2 4.2 0 0 1 13.5 15v-2.5h-3V15a4.2 4.2 0 0 1-8.3-.8zM6.4 12.6a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm11.2 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>',
+  darts: '<path fill-rule="evenodd" d="M3 3h12v7c0 4-2.7 7-6 7s-6-3-6-7zm3 4v1.6h2.6V7zm3.8 0v1.6h2.6V7zM6 11.5c1.5 2.2 4.5 2.2 6 0zM16.5 7H21v7c0 4-2.7 7-6 7-1.4 0-2.7-.5-3.7-1.5 3.5-.8 5.2-4.4 5.2-8.5z"/>',
+  dnature: '<path fill-rule="evenodd" d="M20.5 3C9.5 3 4 8.2 4 15c0 1.5.3 2.8.9 4L3 20.9 4.4 22.3l1.9-1.9c1.2.6 2.6.9 4 .9C17 21.3 21.4 15 20.5 3zM8.2 18.4c1.8-4.6 4.8-7.6 8.8-9.8-3.2 3-5.8 6-7.3 10.5z"/>'});
+GLYPH.drec = GLYPH.centre; GLYPH.dfaith = GLYPH.otherfaith;
 const svg = d => '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + d + '</svg>';
 const SWATCH = {knownas: 'Aa', landmarks: svg(GLYPH.culture), badges: svg('<path d="M2 20h20v1.6H2zM3.5 20v-7h4v7zM9 20V6.5h4.5V20zM15 20v-9.5h2.4V8.4h1.6v2.1H20.5V20z"/>')};
 /* Places layers: one category ("cat"), or several in one toggle ("cats": [[cat, chip label, singular noun]…]),
@@ -230,7 +239,7 @@ const placeNoun = (it, cat) => ((it.cats || []).find(c => c[0] === cat) || [])[2
 const placeIcon = it => it.icon || placeCats(it)[0];
 const catPick = {};   // layer id -> Set of categories shown (null: all)
 const catOn = (id, cat) => !catPick[id] || catPick[id].has(cat);
-const swatchOf = it => it.kind === 'spots' ? '<i class="sp ' + it.mark + ' c-' + Object.keys(it.classes || {x: 1})[0] + ' z-2"></i>' : it.kind === 'places' ? svg(GLYPH[placeIcon(it)] || GLYPH.culture) : it.kind === 'towers' ? svg(GLYPH['tw-com']) : (SWATCH[it.kind] || '');
+const swatchOf = it => it.kind === 'spots' ? '<i class="sp ' + it.mark + ' c-' + Object.keys(it.classes || {x: 1})[0] + ' z-2"></i>' : it.kind === 'places' || it.kind === 'discover' ? svg(GLYPH[placeIcon(it)] || GLYPH.culture) : it.kind === 'towers' ? svg(GLYPH['tw-com']) : (SWATCH[it.kind] || '');
 // Representation layers draw in one of three styles, by level of government.
 const OUTLINE = {city:'ward', state:'prov', national:'fed'};
 /* Party colours: a representation layer with "party" in city.json ({table, key}) can be shaded by the
@@ -392,7 +401,10 @@ const KINDS = {
     const make = (f, c) => { const p = f.properties;
       return icon(ll(f.geometry.coordinates), 'inst in-' + c + (p.ed ? ' ed' : '') + (it.minZoom ? ' mz' + it.minZoom : '') + (it.wide ? ' wide' : ''), c, p.name, {
         hover: esc(fill(it.hover || '{name}[ · {sub}]', p) + (p.ed && it.edText ? ' · ' + it.edText : '')),
-        tap: () => { if (it.popup) placePopup(it, p, fc, L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0])); else goTo(L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]), p.name, false); }}); };
+        tap: () => { const at = L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]);
+          if (it.popup) placePopup(it, p, fc, at);
+          else if (it.about && ABOUT) aboutFor(it.file, p.name, at).then(r => r ? aboutPlacePopup(it, p, at, r) : goTo(at, p.name, false));
+          else goTo(at, p.name, false); }}); };
     fc.features.filter(f => featCats(f.properties).some(c => cats.includes(c))).forEach(f => {
       const p = f.properties;
       marks.push([make(f, p.cat), p.grp, p.cat, p, p.cat, f]);
@@ -404,6 +416,27 @@ const KINDS = {
     g._draw = () => { g.clearLayers(); marks.forEach(x => { if (shown(x)){ repin(x); g.addLayer(x[0]); } }); };
     g._count = () => marks.filter(x => grouped(x[2]) && shown(x)).length;
     g._draw();
+    return g;
+  },
+  // Discovery places (discover.json's map copy, discover_pts): what the city's own open data describes, one kind per
+  // layer ("cat", or "cats" for several), drawn as place icons ("icon" picks the glyph and colour). "minZoom" (12-14)
+  // holds a busy layer back; "wide" shows a few from zoom 9. Loads on first use; a tap opens the city's words (CITY.about).
+  discover: it => {
+    const g = grp(), items = new Map(), cats = placeCats(it), mz = (it.minZoom ? ' mz' + it.minZoom : '') + (it.wide ? ' wide' : '');
+    const draw = () => {
+      const D = loaded[it.file];
+      if (!map.hasLayer(g) || !D) return;
+      g.clearLayers();
+      D.features.forEach(f => { const p = f.properties; if (!cats.includes(p.cat)) return;
+        let m = items.get(f);
+        if (!m){ const at = ll(f.geometry.coordinates);
+          m = icon(at, 'inst in-' + placeIcon(it) + mz, placeIcon(it), p.name, {hover: esc(p.name + (p.sub ? ' · ' + p.sub : '')),
+            tap: () => discoverPopup(it, p, L.latLng(f.geometry.coordinates[1], f.geometry.coordinates[0]))});
+          items.set(f, m); }
+        g.addLayer(m); });
+    };
+    g._draw = draw;
+    g.on('add', () => ensureFile(it.file).then(() => setTimeout(draw)));
     return g;
   },
   // Skyscrapers: a square badge per tower, its glyph showing use (residential, commercial, mixed);
@@ -979,16 +1012,18 @@ const pkMatch = p => { for (const k of pkWant) if (!(p.a || []).includes(k)) ret
 const pkHas = p => (p.a || []).map(k => k === 'water' && p.w && PARK.waterText ? PARK.waterText[p.w] : PARK.amenities[k][0]);
 const pkTip = p => p.n + (p.a && p.a.length ? ' · ' + pkHas(p).join(', ') : '');
 function pkPopup(p, latlng){
-  const D = data.parks || {}, A = D.asof || {}, has = pkHas(p);
+  const D = data.parks || {}, A = D.asof || {}, has = pkHas(p), words = !p.o && PARK.about && ABOUT ? aboutFor(PARK.file, p.n, latlng) : null;
   // p.o: an outline from beyond the city (OpenStreetMap; p.r a conservation area), with its own kind and fine print.
   const fine = p.o ? PARK.fineOut || '' : fill(PARK.fine || '', {parks: A.parks ? niceDate(A.parks, true) : '', water: A.water ? niceDate(A.water, true) : '', outlines: A.outlines ? niceDate(A.outlines, true) : ''});
   const kind = p.o ? (p.r ? PARK.reserveOut : PARK.placeOut) || 'Park' : PARK.place || 'Park';
-  lpopup({className: 'info-pop pk-pop', maxWidth: 280, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
+  const pp = lpopup({className: 'info-pop pk-pop', maxWidth: words ? 300 : 280, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
     '<b>' + esc(p.n) + '</b><small><i class="pk-key"></i>' + esc(kind) + '</small>' +
     (has.length ? '<div class="kv"><span>' + esc(PARK.hasLabel || 'Has') + '</span><span>' + has.map(esc).join(', ') + '</span></div>' : '') +
     (p.w && PARK.seasonText ? '<p class="bk-fine">' + esc(PARK.seasonText) + '</p>' : '') +
+    (words ? '<p class="ab-load"></p>' : '') +
     (p.u && PARK.linkUrl ? '<p><a href="' + esc(fill(PARK.linkUrl, {u: p.u})) + '" target="_blank" rel="noopener">' + esc(PARK.linkText || 'Park page') + '</a></p>' : '') +
     (fine ? '<p class="bk-fine">' + esc(fine) + '</p>' : '')).openOn(map);
+  if (words) aboutInto(pp, words.then(r => r ? aboutHtml(r.a, r.id, p.n) : ''));
 }
 function setParkWant(want){
   pkWant.clear(); (want || []).filter(k => PARK && k in PARK.amenities).forEach(k => pkWant.add(k));
@@ -1023,6 +1058,56 @@ function placePopup(it, p, fc, latlng){
     rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
     (p.u && /^https?:\/\//.test(p.u) && P.linkText ? '<p class="pp-link"><a href="' + esc(p.u) + '" target="_blank" rel="noopener">' + esc(P.linkText) + ' ↗</a></p>' : '') +
     (P.fine ? '<p class="bk-fine">' + esc(fill(P.fine, {asof: (fc && fc.asof) || ''})) + '</p>' : '')).openOn(map);
+}
+// A file loaded the first time a layer needs it (a lazy layer's own data).
+const lazyFiles = {};
+function ensureFile(f){
+  if (loaded[f]) return Promise.resolve(loaded[f]);
+  return lazyFiles[f] || (lazyFiles[f] = get(f).then(d => (loaded[f] = d)).catch(() => { lazyFiles[f] = null; return null; }));
+}
+/* ---------- What a city's own open data says about a place (CITY.about) ----------
+   The discovery build (engine/discover/build.py) splits the words into shards (about.dir/<n>.json, {id: [text,
+   credit, link, checked]}) loaded when a popup opens, and lists the places another layer already draws (a park, a
+   library) in about.attach ({files: {layer file: [[name, lon, lat, id]…]}}), so that layer's popup can show them. */
+const ABOUT = CITY.about || null, aboutFiles = {};
+let aboutIdx = null;
+const aboutIndex = () => aboutIdx || (aboutIdx = get(ABOUT.attach).catch(() => ({shards: 1, files: {}})));
+const aboutWords = id => aboutIndex().then(A => { const n = parseInt(id, 16) % (A.shards || 1);
+  return aboutFiles[n] || (aboutFiles[n] = get(ABOUT.dir + '/' + n + '.json').catch(() => ({}))); }).then(f => f[id]);
+function aboutFor(file, name, latlng){
+  if (!ABOUT) return Promise.resolve(null);
+  return aboutIndex().then(A => {
+    const hit = ((A.files || {})[file] || []).find(x => x[0] === name && metres([x[1], x[2]], [latlng.lng, latlng.lat]) < 3000);
+    return hit ? aboutWords(hit[3]).then(a => a && a[0] ? {a, id: hit[3]} : null) : null;
+  }).catch(() => null);
+}
+// The words, quoted as given, then the credit, the publisher's page, and (for places we checked ourselves) when and a report link.
+function aboutHtml(a, id, name){
+  const [text, credit, link, checked] = a, A = ABOUT;
+  const when = checked ? new Date(checked + 'T12:00:00').toLocaleDateString(CITY.locale, {month: 'short', year: 'numeric'}) : '';
+  const bits = [credit ? '<span>' + esc(credit) + '</span>' : '',
+    link ? '<a href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(A.moreText || 'More about it') + ' ↗</a>' : '',
+    when ? '<span>' + esc(fill(A.checkedText || 'Checked {date}', {date: when})) + '</span>' : '',
+    checked && typeof reportUrl === 'function' ? '<a href="' + esc(reportUrl({id, name}, CITY.name, location.href)) + '" target="_blank" rel="noopener">' + esc(A.reportText || 'Report a problem') + '</a>' : ''].filter(Boolean);
+  return (text ? '<div class="ab">' + text.split(/\n+/).filter(Boolean).map(t => '<p>' + esc(t) + '</p>').join('') + '</div>' : '') +
+    (bits.length ? '<p class="ab-cr">' + bits.join('') + '</p>' : '');
+}
+// Fill in an open popup's placeholder (".ab-load") once the words arrive.
+function aboutInto(pp, prom){
+  prom.then(h => { const el = pp.p && pp.p.getElement && pp.p.getElement(), l = el && el.querySelector('.ab-load'); if (l) l.outerHTML = h || ''; });
+}
+const aboutLoading = () => '<p class="ab-load">' + esc((ABOUT && ABOUT.loadingText) || 'Loading…') + '</p>';
+function discoverPopup(it, p, latlng){
+  const pp = lpopup({className: 'info-pop', maxWidth: 300, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.name) + '</b><small><i class="pl-dot" style="background:var(--in-' + placeIcon(it) + ')"></i>' + esc(p.sub || placeNoun(it, p.cat)) + '</small>' +
+    (p.x && ABOUT ? aboutLoading() : '')).openOn(map);
+  if (p.x && ABOUT) aboutInto(pp, aboutWords(p.id).then(a => a ? aboutHtml(a, p.id, p.name) : ''));
+}
+// A place another layer draws that the city describes: its name and kind, then the words.
+function aboutPlacePopup(it, p, latlng, r){
+  lpopup({className: 'info-pop', maxWidth: 300, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.name) + '</b><small><i class="pl-dot" style="background:var(--in-' + p.cat + ')"></i>' + esc(p.cats && p.sub ? p.sub : placeNoun(it, p.cat)) + '</small>' +
+    aboutHtml(r.a, r.id, p.name)).openOn(map);
 }
 function dkPopup(p, latlng){
   const D = data.docks || {};
@@ -1389,7 +1474,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, landuse: -1, buildings: 2.9, lens: 2, suburbs: 2, patches: 3, parks: 2.8, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, landuse: -1, buildings: 2.9, lens: 2, suburbs: 2, patches: 3, parks: 2.8, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, discover: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -1432,7 +1517,7 @@ CITY.groups.forEach(([title, items]) => {
     const grp = document.createElement('div'); grp.className = 'it'; grp.dataset.live = it.live ? '1' : '';
     body.appendChild(grp);
     const row = document.createElement('label'); row.className = 'row' + (it.under ? ' child' : ''); row.htmlFor = 'lyr-' + it.id;
-    row.innerHTML = '<span class="sw ' + it.id + ' k-' + (it.kind === 'outline' ? it.level : it.kind) + (it.kind === 'places' ? ' in-' + placeIcon(it) : '') + '">' + swatchOf(it) + '</span><span class="tx"><b>' + it.name + '</b><span>' + it.note + '</span></span>' +
+    row.innerHTML = '<span class="sw ' + it.id + ' k-' + (it.kind === 'outline' ? it.level : it.kind) + (it.kind === 'places' || it.kind === 'discover' ? ' in-' + placeIcon(it) : '') + '">' + swatchOf(it) + '</span><span class="tx"><b>' + it.name + '</b><span>' + it.note + '</span></span>' +
       '<input type="checkbox" id="lyr-' + it.id + '"' + (it.on ? ' checked' : '') + '><span class="tg" aria-hidden="true"></span>';
     grp.appendChild(row);
     row.querySelector('input').addEventListener('change', e => { setLayer(it.id, e.target.checked); if (e.target.checked) logEvent('layer_on', {id: it.id}); });
