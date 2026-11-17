@@ -3,7 +3,8 @@ GTFS into cities/<city>/raw/surface/ (routes.json, stops.json). Run from GitHub 
 *Fetch streetcar and bus routes* workflow); the sandbox can't reach the agencies' servers.
 
 Where the GTFS comes from is in cities/<city>/surface.json ("gtfs": a CKAN package, a zip URL, or "urls": several zips
-from one agency, merged into one feed, as New York's MTA publishes its buses one borough per file).
+from one agency, merged into one feed, as New York's MTA publishes its buses one borough per file; or "file": a zip
+downloaded by hand, relative to cities/<city>/, when the agency's server can't be reached from Actions).
 Nothing is decided here about what the map shows: the build (engine/surface.py) picks families
 (frequent, express, overnight) from the counts written here.
 
@@ -107,6 +108,8 @@ if 'ckan' in src:
     urls = [r['url'] for r in pkg['resources'] if (r.get('format') or '').lower() == 'zip' or (r.get('url') or '').lower().endswith('.zip')]
 elif 'urls' in src:
     urls = None
+elif 'file' in src:   # a zip fetched by hand into the city's folder (Dubai's RTA feed: Data Dubai answers only UAE addresses)
+    urls = ['file://' + os.path.join(ROOT, 'cities', city, src['file'])]
 else:
     urls = [src['url']]
 
@@ -168,6 +171,7 @@ else:
     else:
         feed_url = next((u for u in urls + src.get('fallback', []) if download(u, ZIP) and ok(ZIP, src.get('inner'))), None)
 if not feed_url: raise SystemExit('No GTFS found')
+if 'file' in src: feed_url = src['file']   # the path in the city's folder, not this machine's
 # "inner": a feed that ships each mode as a zip inside the zip (Transport Victoria: 4/google_transit.zip is Melbourne's
 # metropolitan buses). The named inner zips are taken out (several are merged into one feed) and used as the feed.
 INNER_SHA = None
