@@ -71,3 +71,17 @@ from them is share-alike.
 - Curation by hand, by neighbourhood: research each candidate's story (founding year, signature thing, history)
   from citable sources, starting where Along the way needs it.
 - Review chains with 2–3 Toronto shops (bubble tea and small local chains) and decide whether they count.
+
+## Trial curation: Queen West, Trinity-Bellwoods, Kensington (November 17, 2026)
+`pilot-queen-west-kensington.json`: 15 places, each checked against sources the file lists, with kind, lenses,
+founding year, a one-line "why" in our own words and, for the City's places, a credited quote (OGL-Toronto).
+- 12 are ready (or nearly): Graffiti Alley, Trinity Bellwoods Park, the Kensington Garden Car, Sonic Boom (2001),
+  The Beguiling (1987), Rotate This (1991), Grasshopper Records (2012), Type Books (2006), Sanagan's (2009),
+  Global Cheese (1970), Blackbird (2014), Black Market Vintage (1980).
+- 3 are on hold: White Squirrel Coffee (no opening year yet), Sam James (about 5 locations, over the 3-location
+  rule), Moonbean (no dated source).
+- **OSM is stale for shops.** Of about 19 places checked, 3 had closed or moved while OSM still lists them:
+  Dufflet's Queen West café (closed 2023), Craft Ontario Shop at 1106 Queen W (closed July 2026), and Black Market's
+  256 Queen W basement (moved to 347 Queen W in 2019). BMV Queen West is unclear. A monthly refresh from OSM
+  can't catch closures: curated businesses need their own status check (a per-entry "checked" date and a recheck
+  every few months), separate from the OSM refresh.
