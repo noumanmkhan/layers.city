@@ -137,7 +137,11 @@ the landing page, stop and say so; don't change this repo.
     `docs/attributions/` and `docs/terms/` are hand-written pages; edit them directly. Keep about/ in step
     with the README when the architecture or principles change. The repo is public (since October 30, 2026, to keep
     GitHub Actions free; it was private October 14–30) but still all rights reserved: don't link the site's pages to
-    GitHub unless the user asks.
+    GitHub unless the user asks. The one approved exception (the user, November 17, 2026): a place's "report an
+    issue" link to the place-report issue form (`.github/ISSUE_TEMPLATE/place-report.yml`, built by `reportUrl()` in
+    `engine/report.js`); issues are public, so the form asks readers not to include personal information.
+    Discovery places carry a "checked" date (shown as "last checked"); `scouting/discovery/stale.py` lists those over
+    180 days old and fails on any without one.
   - `docs/<city>/` is each city's map (Toronto's is `docs/toronto/`). Don't hand-edit
     `docs/<city>/index.html` or `docs/<city>/data/*`; they are build output.
     The place pages (`docs/<city>/<place>/`, the index page, `docs/sitemap.xml`, `docs/robots.txt`)
