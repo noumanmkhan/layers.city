@@ -1,15 +1,17 @@
 {
  "source": "Toronto.osm.pbf",
  "chain_min": 4,
+ "megachain_names": 112,
  "kinds": {
   "murals": {
    "family": "Public art",
    "total": 84,
-   "branded": 0,
-   "likely_chain": 0,
-   "independent": 84,
-   "independent_named": 55,
-   "story_tags_on_independent": {
+   "megachain": 0,
+   "local": 84,
+   "local_named": 55,
+   "branded_local": 0,
+   "name_4plus": 0,
+   "story_tags_on_local": {
     "start_date": 38,
     "wikidata": 1,
     "wikipedia": 1,
@@ -60,7 +62,21 @@
      2
     ]
    ],
-   "top_chains": [],
+   "top_megachains": [],
+   "top_local_repeats": [
+    [
+     "Waterfall",
+     2
+    ],
+    [
+     "Banksy",
+     2
+    ],
+    [
+     "Graffiti Alley",
+     1
+    ]
+   ],
    "artwork_types": [
     [
      "mural",
@@ -79,11 +95,12 @@
   "sculptures": {
    "family": "Public art",
    "total": 244,
-   "branded": 0,
-   "likely_chain": 0,
-   "independent": 244,
-   "independent_named": 147,
-   "story_tags_on_independent": {
+   "megachain": 0,
+   "local": 244,
+   "local_named": 147,
+   "branded_local": 0,
+   "name_4plus": 0,
+   "story_tags_on_local": {
     "start_date": 43,
     "wikidata": 23,
     "wikipedia": 12,
@@ -134,7 +151,37 @@
      7
     ]
    ],
-   "top_chains": [],
+   "top_megachains": [],
+   "top_local_repeats": [
+    [
+     "Sun Dial",
+     3
+    ],
+    [
+     "Monument to the War of 1812",
+     2
+    ],
+    [
+     "Statue of lion",
+     2
+    ],
+    [
+     "Elevated Wetlands",
+     2
+    ],
+    [
+     "Turtle Sculpture",
+     1
+    ],
+    [
+     "Moose In the City",
+     1
+    ],
+    [
+     "Dr. Jose P. Rizal",
+     1
+    ]
+   ],
    "artwork_types": [
     [
      "sculpture",
@@ -161,11 +208,12 @@
   "monuments": {
    "family": "Public art",
    "total": 112,
-   "branded": 0,
-   "likely_chain": 0,
-   "independent": 112,
-   "independent_named": 81,
-   "story_tags_on_independent": {
+   "megachain": 0,
+   "local": 112,
+   "local_named": 81,
+   "branded_local": 0,
+   "name_4plus": 0,
+   "story_tags_on_local": {
     "start_date": 13,
     "wikidata": 16,
     "wikipedia": 11,
@@ -216,16 +264,35 @@
      3
     ]
    ],
-   "top_chains": []
+   "top_megachains": [],
+   "top_local_repeats": [
+    [
+     "Kensington Market Community Marker",
+     2
+    ],
+    [
+     "Cannon from the Siege of Sevastopol",
+     2
+    ],
+    [
+     "To Our Glorious Dead",
+     2
+    ],
+    [
+     "Dr. Jose P. Rizal",
+     1
+    ]
+   ]
   },
   "installations": {
    "family": "Public art",
    "total": 160,
-   "branded": 0,
-   "likely_chain": 15,
-   "independent": 145,
-   "independent_named": 80,
-   "story_tags_on_independent": {
+   "megachain": 0,
+   "local": 160,
+   "local_named": 95,
+   "branded_local": 0,
+   "name_4plus": 15,
+   "story_tags_on_local": {
     "start_date": 20,
     "wikidata": 6,
     "wikipedia": 5,
@@ -237,7 +304,7 @@
    "top_neighbourhoods": [
     [
      "South Riverdale",
-     16
+     31
     ],
     [
      "Harbourfront-CityPlace",
@@ -276,7 +343,8 @@
      5
     ]
    ],
-   "top_chains": [
+   "top_megachains": [],
+   "top_local_repeats": [
     [
      "Support posts from demolished Gardiner Expressway",
      11
@@ -284,6 +352,42 @@
     [
      "Stories of relics",
      3
+    ],
+    [
+     "Maple Leaf Fence",
+     3
+    ],
+    [
+     "Dignity City",
+     2
+    ],
+    [
+     "Rainbow Road - The Long Walk to Equality",
+     2
+    ],
+    [
+     "The Moccasin Identifier",
+     2
+    ],
+    [
+     "Saverio and Daisy (Navel)",
+     2
+    ],
+    [
+     "Spirits of the Grotto",
+     2
+    ],
+    [
+     "Moose in the City",
+     1
+    ],
+    [
+     "Turtle Sculpture",
+     1
+    ],
+    [
+     "Graffiti Alley",
+     1
     ],
     [
      "Stories of Relics",
@@ -340,62 +444,63 @@
   "cafes": {
    "family": "Food & drink",
    "total": 1659,
-   "branded": 719,
-   "likely_chain": 102,
-   "independent": 838,
-   "independent_named": 828,
-   "story_tags_on_independent": {
-    "start_date": 0,
+   "megachain": 692,
+   "local": 967,
+   "local_named": 957,
+   "branded_local": 37,
+   "name_4plus": 111,
+   "story_tags_on_local": {
+    "start_date": 1,
     "wikidata": 1,
     "wikipedia": 1,
     "heritage": 0,
-    "description": 12,
-    "website": 249,
-    "opening_hours": 259
+    "description": 14,
+    "website": 303,
+    "opening_hours": 315
    },
    "top_neighbourhoods": [
     [
      "Kensington-Chinatown",
-     48
-    ],
-    [
-     "Trinity-Bellwoods",
-     39
+     58
     ],
     [
      "Yonge-Bay Corridor",
-     37
+     51
+    ],
+    [
+     "Trinity-Bellwoods",
+     43
     ],
     [
      "Annex",
-     31
-    ],
-    [
-     "Roncesvalles",
-     26
-    ],
-    [
-     "University",
-     25
+     35
     ],
     [
      "St Lawrence-East Bayfront-The Islands",
-     24
+     35
+    ],
+    [
+     "Roncesvalles",
+     28
+    ],
+    [
+     "University",
+     26
     ],
     [
      "South Riverdale",
-     22
+     26
+    ],
+    [
+     "Wellington Place",
+     24
     ],
     [
      "Palmerston-Little Italy",
-     20
-    ],
-    [
-     "Wychwood",
-     20
+     23
     ]
    ],
-   "top_chains": [
+   "top_megachains": [
     [
      "Tim Hortons",
      365
@@ -437,10 +542,6 @@
      11
     ],
     [
-     "Jimmy's Coffee",
-     9
-    ],
-    [
      "Kung Fu Tea",
      9
     ],
@@ -449,43 +550,134 @@
      8
     ],
     [
+     "The Alley",
+     4
+    ],
+    [
+     "Tiger Sugar",
+     2
+    ],
+    [
+     "machi machi",
+     2
+    ]
+   ],
+   "top_local_repeats": [
+    [
+     "Jimmy's Coffee",
+     9
+    ],
+    [
      "Dark Horse Espresso Bar",
      7
     ],
     [
      "Isabella's Donuts",
      5
+    ],
+    [
+     "Balzac's Coffee",
+     5
+    ],
+    [
+     "Mos Mos",
+     5
+    ],
+    [
+     "NEO Coffee Bar",
+     5
+    ],
+    [
+     "Marry Me Mochi",
+     5
+    ],
+    [
+     "Wallace Espresso",
+     5
+    ],
+    [
+     "Palgong Tea",
+     5
+    ],
+    [
+     "Mofer Coffee",
+     4
+    ],
+    [
+     "Sam James Coffee Bar",
+     4
+    ],
+    [
+     "Treats",
+     4
+    ],
+    [
+     "The Coffee",
+     4
+    ],
+    [
+     "Pilot Coffee Roasters",
+     4
+    ],
+    [
+     "Nespresso",
+     4
+    ],
+    [
+     "Hale Coffee",
+     4
+    ],
+    [
+     "Red Rocket Coffee",
+     3
+    ],
+    [
+     "% Arabica",
+     3
+    ],
+    [
+     "Unholy Donuts",
+     3
+    ],
+    [
+     "Rooster Coffee House",
+     3
     ]
    ]
   },
   "bakeries": {
    "family": "Food & drink",
    "total": 413,
-   "branded": 21,
-   "likely_chain": 17,
-   "independent": 375,
-   "independent_named": 372,
-   "story_tags_on_independent": {
+   "megachain": 18,
+   "local": 395,
+   "local_named": 392,
+   "branded_local": 4,
+   "name_4plus": 19,
+   "story_tags_on_local": {
     "start_date": 1,
     "wikidata": 2,
     "wikipedia": 0,
     "heritage": 0,
-    "description": 4,
-    "website": 97,
-    "opening_hours": 91
+    "description": 5,
+    "website": 102,
+    "opening_hours": 95
    },
    "top_neighbourhoods": [
     [
      "South Riverdale",
-     15
+     16
     ],
     [
      "Kensington-Chinatown",
-     12
+     13
     ],
     [
      "Etobicoke City Centre",
-     11
+     13
+    ],
+    [
+     "St Lawrence-East Bayfront-The Islands",
+     12
     ],
     [
      "Annex",
@@ -493,11 +685,7 @@
     ],
     [
      "Yonge-Bay Corridor",
-     9
-    ],
-    [
-     "St Lawrence-East Bayfront-The Islands",
-     9
+     10
     ],
     [
      "Bedford Park-Nortown",
@@ -516,11 +704,37 @@
      7
     ]
    ],
-   "top_chains": [
+   "top_megachains": [
     [
      "COBS Bread",
      9
     ],
+    [
+     "Paris Baguette",
+     3
+    ],
+    [
+     "Mrs. Fields",
+     2
+    ],
+    [
+     "Nothing Bundt Cakes",
+     1
+    ],
+    [
+     "Brioche Dorée",
+     1
+    ],
+    [
+     "Insomnia Cookies",
+     1
+    ],
+    [
+     "Crumbl",
+     1
+    ]
+   ],
+   "top_local_repeats": [
     [
      "Caldense Bakery",
      5
@@ -534,7 +748,11 @@
      3
     ],
     [
-     "Paris Baguette",
+     "Hot Oven Bakery",
+     3
+    ],
+    [
+     "Future Bakery",
      3
     ],
     [
@@ -542,102 +760,123 @@
      3
     ],
     [
-     "Mrs. Fields",
+     "Kin Kin Bakery",
+     3
+    ],
+    [
+     "Hazukido",
      2
     ],
     [
-     "Craig’s Cookies",
+     "Lebanese Bakery",
      2
-    ],
-    [
-     "Nothing Bundt Cakes",
-     1
-    ],
-    [
-     "Nino D'Aversa Bakery",
-     1
     ],
     [
      "Circles & Squares Bakery",
-     1
+     2
     ],
     [
-     "Brioche Dorée",
-     1
+     "Bake Code",
+     2
     ],
     [
-     "Insomnia Cookies",
-     1
+     "Nova Era Bakery",
+     2
     ],
     [
-     "Marry Me Mochi",
-     1
+     "Mabel's",
+     2
     ],
     [
-     "Marry me mochi",
-     1
+     "Cake House Bakery",
+     2
+    ],
+    [
+     "Columbus Bakery",
+     2
+    ],
+    [
+     "Kin-Kin",
+     2
+    ],
+    [
+     "Tung Hing Bakery",
+     2
+    ],
+    [
+     "Forno Cultura",
+     2
+    ],
+    [
+     "Goûter",
+     2
+    ],
+    [
+     "Courage Cookies",
+     2
     ]
    ]
   },
   "restaurants": {
    "family": "Food & drink",
    "total": 3661,
-   "branded": 274,
-   "likely_chain": 104,
-   "independent": 3283,
-   "independent_named": 3249,
-   "story_tags_on_independent": {
+   "megachain": 140,
+   "local": 3521,
+   "local_named": 3487,
+   "branded_local": 134,
+   "name_4plus": 186,
+   "story_tags_on_local": {
     "start_date": 10,
-    "wikidata": 29,
-    "wikipedia": 15,
+    "wikidata": 31,
+    "wikipedia": 16,
     "heritage": 0,
-    "description": 30,
-    "website": 1024,
-    "opening_hours": 748
+    "description": 32,
+    "website": 1101,
+    "opening_hours": 831
    },
    "top_neighbourhoods": [
     [
      "Kensington-Chinatown",
-     207
+     214
     ],
     [
      "Wellington Place",
-     119
-    ],
-    [
-     "Annex",
-     111
+     129
     ],
     [
      "Yonge-Bay Corridor",
-     107
+     123
+    ],
+    [
+     "Annex",
+     118
     ],
     [
      "Trinity-Bellwoods",
-     106
+     110
+    ],
+    [
+     "Downtown Yonge East",
+     81
+    ],
+    [
+     "Yonge-Doris",
+     77
     ],
     [
      "South Riverdale",
      71
     ],
     [
-     "Downtown Yonge East",
-     69
-    ],
-    [
-     "Yonge-Doris",
-     67
+     "University",
+     65
     ],
     [
      "Milliken",
-     62
-    ],
-    [
-     "University",
-     61
+     65
     ]
    ],
-   "top_chains": [
+   "top_megachains": [
     [
      "Swiss Chalet",
      27
@@ -650,6 +889,56 @@
      "Pizza Hut",
      19
     ],
+    [
+     "The Keg",
+     10
+    ],
+    [
+     "Boston Pizza",
+     8
+    ],
+    [
+     "Jack Astor's",
+     8
+    ],
+    [
+     "Moxie's",
+     6
+    ],
+    [
+     "Joey",
+     5
+    ],
+    [
+     "Cora",
+     5
+    ],
+    [
+     "Earls",
+     5
+    ],
+    [
+     "Milestones",
+     4
+    ],
+    [
+     "Denny's",
+     4
+    ],
+    [
+     "Nando's",
+     3
+    ],
+    [
+     "Cactus Club Cafe",
+     2
+    ],
+    [
+     "East Side Mario's",
+     2
+    ]
+   ],
+   "top_local_repeats": [
     [
      "Sunset Grill",
      14
@@ -671,18 +960,6 @@
      11
     ],
     [
-     "The Keg",
-     10
-    ],
-    [
-     "Boston Pizza",
-     8
-    ],
-    [
-     "Jack Astor's",
-     8
-    ],
-    [
      "Gabby's",
      8
     ],
@@ -697,79 +974,131 @@
     [
      "Shoeless Joe's",
      7
+    ],
+    [
+     "Sansotei Ramen",
+     6
+    ],
+    [
+     "Monkey Sushi",
+     5
+    ],
+    [
+     "Halibut House",
+     5
+    ],
+    [
+     "Daldongnae",
+     5
+    ],
+    [
+     "Red Lobster",
+     4
+    ],
+    [
+     "Petit Potato",
+     4
+    ],
+    [
+     "Scaddabush",
+     4
+    ],
+    [
+     "Congee Queen",
+     4
+    ],
+    [
+     "Cafe Landwer",
+     4
+    ],
+    [
+     "Latin World",
+     4
+    ],
+    [
+     "Naan Kabob",
+     4
     ]
    ],
    "cuisines_independent": [
     [
      "(none)",
-     1173
+     1209
     ],
     [
      "chinese",
-     256
+     270
+    ],
+    [
+     "japanese",
+     185
     ],
     [
      "indian",
      183
     ],
     [
-     "japanese",
-     169
-    ],
-    [
      "sushi",
-     153
+     166
     ],
     [
      "italian",
-     142
+     148
     ],
     [
      "vietnamese",
-     127
+     129
     ],
     [
      "korean",
-     116
+     122
     ],
     [
      "pizza",
-     93
+     108
     ],
     [
      "thai",
-     90
+     94
     ],
     [
      "mexican",
-     77
+     84
     ],
     [
      "caribbean",
      60
     ],
     [
-     "asian",
-     43
-    ],
-    [
-     "greek",
-     37
-    ],
-    [
-     "burger",
-     35
+     "chicken",
+     58
     ],
     [
      "breakfast",
-     34
+     52
+    ],
+    [
+     "asian",
+     46
+    ],
+    [
+     "burger",
+     45
+    ],
+    [
+     "greek",
+     44
+    ],
+    [
+     "american",
+     42
     ],
     [
      "sandwich",
-     31
+     35
     ],
     [
-     "chicken",
+     "ramen",
      31
     ],
     [
@@ -782,34 +1111,27 @@
     ],
     [
      "barbecue",
+     28
+    ],
+    [
+     "seafood",
      27
     ],
     [
-     "mediterranean",
-     25
-    ],
-    [
-     "middle_eastern",
-     23
-    ],
-    [
-     "jamaican",
-     23
-    ],
-    [
-     "latin_american",
-     22
+     "noodle",
+     27
     ]
    ]
   },
   "markets": {
    "family": "Food & drink",
    "total": 76,
-   "branded": 0,
-   "likely_chain": 0,
-   "independent": 76,
-   "independent_named": 58,
-   "story_tags_on_independent": {
+   "megachain": 0,
+   "local": 76,
+   "local_named": 58,
+   "branded_local": 0,
+   "name_4plus": 0,
+   "story_tags_on_local": {
     "start_date": 0,
     "wikidata": 2,
     "wikipedia": 1,
@@ -860,23 +1182,30 @@
      2
     ]
    ],
-   "top_chains": []
+   "top_megachains": [],
+   "top_local_repeats": [
+    [
+     "Cafeteria",
+     2
+    ]
+   ]
   },
   "books": {
    "family": "Character shops",
    "total": 107,
-   "branded": 14,
-   "likely_chain": 4,
-   "independent": 89,
-   "independent_named": 88,
-   "story_tags_on_independent": {
+   "megachain": 14,
+   "local": 93,
+   "local_named": 92,
+   "branded_local": 1,
+   "name_4plus": 4,
+   "story_tags_on_local": {
     "start_date": 0,
-    "wikidata": 8,
-    "wikipedia": 4,
+    "wikidata": 9,
+    "wikipedia": 5,
     "heritage": 0,
     "description": 4,
-    "website": 43,
-    "opening_hours": 29
+    "website": 46,
+    "opening_hours": 32
    },
    "top_neighbourhoods": [
     [
@@ -920,7 +1249,7 @@
      3
     ]
    ],
-   "top_chains": [
+   "top_megachains": [
     [
      "Indigo",
      9
@@ -930,11 +1259,41 @@
      4
     ],
     [
+     "Indigo Spirit",
+     1
+    ]
+   ],
+   "top_local_repeats": [
+    [
      "Book City",
      4
     ],
     [
+     "BMV Books",
+     3
+    ],
+    [
+     "Christian Science Reading Room",
+     3
+    ],
+    [
+     "Type Books",
+     3
+    ],
+    [
      "University of Toronto Bookstore",
+     2
+    ],
+    [
+     "She Said Boom",
+     2
+    ],
+    [
+     "Ben McNally",
+     2
+    ],
+    [
+     "Red Nails II",
      1
     ]
    ]
@@ -942,11 +1301,12 @@
   "records": {
    "family": "Character shops",
    "total": 33,
-   "branded": 2,
-   "likely_chain": 0,
-   "independent": 31,
-   "independent_named": 30,
-   "story_tags_on_independent": {
+   "megachain": 2,
+   "local": 31,
+   "local_named": 30,
+   "branded_local": 0,
+   "name_4plus": 0,
+   "story_tags_on_local": {
     "start_date": 0,
     "wikidata": 0,
     "wikipedia": 0,
@@ -997,9 +1357,15 @@
      1
     ]
    ],
-   "top_chains": [
+   "top_megachains": [
     [
      "Sunrise Records",
+     2
+    ]
+   ],
+   "top_local_repeats": [
+    [
+     "Kops Records",
      2
     ]
    ]
@@ -1007,18 +1373,19 @@
   "vintage": {
    "family": "Character shops",
    "total": 84,
-   "branded": 17,
-   "likely_chain": 0,
-   "independent": 67,
-   "independent_named": 66,
-   "story_tags_on_independent": {
+   "megachain": 18,
+   "local": 66,
+   "local_named": 65,
+   "branded_local": 0,
+   "name_4plus": 0,
+   "story_tags_on_local": {
     "start_date": 0,
     "wikidata": 0,
     "wikipedia": 0,
     "heritage": 0,
     "description": 2,
-    "website": 23,
-    "opening_hours": 12
+    "website": 22,
+    "opening_hours": 11
    },
    "top_neighbourhoods": [
     [
@@ -1050,19 +1417,19 @@
      3
     ],
     [
-     "University",
-     2
-    ],
-    [
      "Cabbagetown-South St.James Town",
      2
     ],
     [
      "North Riverdale",
      2
+    ],
+    [
+     "Roncesvalles",
+     2
     ]
    ],
-   "top_chains": [
+   "top_megachains": [
     [
      "Value Village",
      15
@@ -1070,17 +1437,52 @@
     [
      "Plato's Closet",
      2
+    ],
+    [
+     "Value Village Boutique",
+     1
+    ]
+   ],
+   "top_local_repeats": [
+    [
+     "Miras Vintage Store",
+     2
+    ],
+    [
+     "National Thrift",
+     2
+    ],
+    [
+     "Tara Thrift",
+     2
+    ],
+    [
+     "Relocation",
+     2
+    ],
+    [
+     "Mrs Huizenga",
+     1
+    ],
+    [
+     "Mrs. Huizenga",
+     1
+    ],
+    [
+     "Twice as Nice",
+     1
     ]
    ]
   },
   "comics_games_toys": {
    "family": "Character shops",
    "total": 85,
-   "branded": 11,
-   "likely_chain": 0,
-   "independent": 74,
-   "independent_named": 74,
-   "story_tags_on_independent": {
+   "megachain": 12,
+   "local": 73,
+   "local_named": 73,
+   "branded_local": 0,
+   "name_4plus": 0,
+   "story_tags_on_local": {
     "start_date": 0,
     "wikidata": 1,
     "wikipedia": 1,
@@ -1131,7 +1533,7 @@
      2
     ]
    ],
-   "top_chains": [
+   "top_megachains": [
     [
      "Mastermind Toys",
      5
@@ -1143,23 +1545,46 @@
     [
      "Lego",
      3
+    ],
+    [
+     "Toys R Us Express",
+     1
+    ]
+   ],
+   "top_local_repeats": [
+    [
+     "Treehouse Toys",
+     2
+    ],
+    [
+     "Red Nails II",
+     1
+    ],
+    [
+     "F.G.Bradley's",
+     1
+    ],
+    [
+     "F.G. Bradley's",
+     1
     ]
    ]
   },
   "specialty_food": {
    "family": "Character shops",
    "total": 300,
-   "branded": 27,
-   "likely_chain": 8,
-   "independent": 265,
-   "independent_named": 262,
-   "story_tags_on_independent": {
+   "megachain": 32,
+   "local": 268,
+   "local_named": 265,
+   "branded_local": 0,
+   "name_4plus": 4,
+   "story_tags_on_local": {
     "start_date": 0,
     "wikidata": 0,
     "wikipedia": 0,
     "heritage": 0,
     "description": 3,
-    "website": 70,
+    "website": 72,
     "opening_hours": 47
    },
    "top_neighbourhoods": [
@@ -1173,7 +1598,7 @@
     ],
     [
      "Kensington-Chinatown",
-     11
+     12
     ],
     [
      "Etobicoke City Centre",
@@ -1200,11 +1625,11 @@
      6
     ],
     [
-     "Leaside-Bennington",
-     5
+     "South Riverdale",
+     6
     ]
    ],
-   "top_chains": [
+   "top_megachains": [
     [
      "Lindt",
      8
@@ -1216,10 +1641,6 @@
     [
      "DavidsTea",
      5
-    ],
-    [
-     "Hooked",
-     4
     ],
     [
      "Laura Secord",
@@ -1248,17 +1669,96 @@
     [
      "Rocky Mountain Chocolate Factory",
      1
+    ],
+    [
+     "Ten Ren's Tea Time",
+     1
+    ]
+   ],
+   "top_local_repeats": [
+    [
+     "Hooked",
+     4
+    ],
+    [
+     "Rowe Farms",
+     3
+    ],
+    [
+     "The Butcher's Son",
+     2
+    ],
+    [
+     "Sweet Olenka's",
+     2
+    ],
+    [
+     "Sanagan's Meat Locker",
+     2
+    ],
+    [
+     "White House Meats",
+     2
+    ],
+    [
+     "Global Cheese",
+     2
+    ],
+    [
+     "Cumbrae's",
+     2
+    ],
+    [
+     "The Meat Department",
+     2
+    ],
+    [
+     "Nosso Talho",
+     2
+    ],
+    [
+     "Avoca",
+     2
+    ],
+    [
+     "It’s Tea",
+     1
+    ],
+    [
+     "Soma Chocolatemaker",
+     1
+    ],
+    [
+     "Kristapsons",
+     1
+    ],
+    [
+     "From There To Here",
+     1
+    ],
+    [
+     "Cheese Garden",
+     1
+    ],
+    [
+     "From There to Here",
+     1
+    ],
+    [
+     "Sweet Addictions",
+     1
     ]
    ]
   },
   "makers_oddities": {
    "family": "Character shops",
    "total": 195,
-   "branded": 14,
-   "likely_chain": 0,
-   "independent": 181,
-   "independent_named": 178,
-   "story_tags_on_independent": {
+   "megachain": 14,
+   "local": 181,
+   "local_named": 178,
+   "branded_local": 0,
+   "name_4plus": 0,
+   "story_tags_on_local": {
     "start_date": 2,
     "wikidata": 0,
     "wikipedia": 0,
@@ -1309,7 +1809,7 @@
      4
     ]
    ],
-   "top_chains": [
+   "top_megachains": [
     [
      "Michaels",
      6
@@ -1330,16 +1830,31 @@
      "YellowKorner",
      1
     ]
+   ],
+   "top_local_repeats": [
+    [
+     "Rebecca Gallery",
+     2
+    ],
+    [
+     "Above Ground Art Supplies",
+     2
+    ],
+    [
+     "Emo Paints",
+     2
+    ]
    ]
   },
   "viewpoints": {
    "family": "Places",
    "total": 59,
-   "branded": 0,
-   "likely_chain": 0,
-   "independent": 59,
-   "independent_named": 8,
-   "story_tags_on_independent": {
+   "megachain": 0,
+   "local": 59,
+   "local_named": 8,
+   "branded_local": 0,
+   "name_4plus": 0,
+   "story_tags_on_local": {
     "start_date": 0,
     "wikidata": 0,
     "wikipedia": 0,
@@ -1390,7 +1905,8 @@
      2
     ]
    ],
-   "top_chains": []
+   "top_megachains": [],
+   "top_local_repeats": []
   }
  }
 }
