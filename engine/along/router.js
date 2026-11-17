@@ -52,7 +52,7 @@
   };
   Router.prototype.speed = function (rid) {
     var r = this.g.routes[rid], m = r[2];
-    if (m === 'bus' && /^9\d\d$/.test(r[0])) return 400;   // express buses
+    if (m === 'bus' && /^9\d\d$/.test(r[0])) return Router.EXPRESS;   // express buses
     return SPEED[m] || 300;
   };
   function walkMin(d) { return d * DETOUR / WALK; }
@@ -172,6 +172,11 @@
     out.sort(function (x, y) { return x.min - y.min; });
     return out.slice(0, max);
   };
+
+  // The timing constants, for apps and tests that word or check times the way the router does.
+  Router.SPEED = SPEED; Router.WALK = WALK; Router.DETOUR = DETOUR; Router.ACCESS = ACCESS; Router.XFER = XFER;
+  Router.BOARD = BOARD; Router.MAXWAIT = MAXWAIT; Router.MINWAIT = MINWAIT; Router.ROUNDS = ROUNDS;
+  Router.EXPRESS = 400;     // metres a minute for express buses (routes numbered 9xx), see speed()
 
   if (typeof module !== 'undefined' && module.exports) module.exports = Router; else root.AlongRouter = Router;
 })(this);

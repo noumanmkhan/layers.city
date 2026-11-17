@@ -56,6 +56,8 @@ the landing page, stop and say so; don't change this repo.
   two places in, a few likely transit routes out (no schedules; routing in the browser), with what's a short walk from each
   stop and each end. Built from the Routes page's data (`docs/<city>/routes/data/`), so it runs after `engine/routes/build.py`
   (refresh-fact-sheets.yml does both). By hand: `python3 engine/along/build.py <city>`. Notes: the project's claude/along-the-way.md.
+  For the iOS app it also publishes `docs/<city>/along/router.js` (a copy of `engine/along/router.js`, which must stay
+  DOM-free) and writes city.json's `along` block (`engine/along/along_meta.py`, also written by assemble.py); contract section 18.
 - **Discovery places** (`engine/discover/build.py`, `cities/<city>/discover.json` and `viewpoints.json`, published as
   `docs/<city>/data/discover.geojson`; Toronto November 17, 2026): the places a city government describes in its own open
   data (Toronto: StrollTO, Public Art, Cultural Hotspot) with its descriptions quoted word for word with credit, plus

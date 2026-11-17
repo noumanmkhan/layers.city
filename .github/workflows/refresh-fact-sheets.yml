@@ -110,7 +110,7 @@ jobs:
           for CITY in $CITIES; do
             git add "docs/$CITY/profiles"
             [ -d "docs/$CITY/routes" ] && git add "docs/$CITY/routes"
-            [ -d "docs/$CITY/along" ] && git add "docs/$CITY/along"
+            [ -d "docs/$CITY/along" ] && git add "docs/$CITY/along" "docs/$CITY/data/city.json"
             for f in ramps.json drive_profiles.json factsheet_walk.log; do [ -f "cities/$CITY/raw/$f" ] && git add "cities/$CITY/raw/$f"; done
           done
           git commit -m "Refresh fact sheets and Routes pages ($CITIES)$([ "$FULL" = true ] && echo ', walk and drive times re-fetched')" || { echo "no changes"; exit 0; }

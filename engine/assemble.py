@@ -88,6 +88,11 @@ if os.path.isfile(rcfg_p) and os.path.isfile(os.path.join(ROOT, 'docs', city, 'r
         # The city's own wording (DATA_CONTRACT.md section 15, "City wording"); absent keys keep Toronto's defaults.
         'words': {k: rc['page'][k] for k in ('lineNames', 'lineGroups', 'at', 'connectWith', 'connectionsLabel', 'mi', 'changeBare', 'overground', 'modeWords', 'ampm', 'lineColors', 'reach') if k in rc['page']},
     }
+# "along": where an app finds the Along the way page's files (engine/along/along_meta.py, DATA_CONTRACT.md section 18).
+sys.path.insert(0, os.path.join(HERE, 'along'))
+from along_meta import along_block
+_ab = along_block(ROOT, city)
+if _ab: pub['along'] = _ab
 cfg_out = os.path.join(ROOT, 'docs', city, 'data', 'city.json')
 os.makedirs(os.path.dirname(cfg_out), exist_ok=True)
 open(cfg_out, 'w', encoding='utf-8').write(json.dumps(pub, ensure_ascii=False, separators=(',', ':')) + '\n')

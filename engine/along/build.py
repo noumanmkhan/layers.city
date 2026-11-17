@@ -52,7 +52,7 @@ DATA = os.path.join(ROOT, 'docs', city, 'data')
 lat0 = sum(s[1] for s in stops) / len(stops)
 ABOUT_N = 24
 KX, KY = 111320 * math.cos(math.radians(lat0)), 110540
-pois, seen = [], set()
+pois, seen, pids = [], set(), set()
 about = {}        # place id -> [text, credit, link, checked]: shown when someone opens a place (cities' discover layer)
 byname = {}       # (kind, name as matched) -> index in pois, for "attach"
 ATTACH_RX = re.compile(r'\b(park|parkette|library|branch|toronto public library)\b')
@@ -110,6 +110,9 @@ for src in CFG['pois']:
                 pts += [list(ring.interpolate(i / k, normalized=True).coords[0]) for i in range(k)]
         seen.add(key)
         pid = pid_of(kind, name, word)
+        if pid in pids:   # the same kind, name and word somewhere else (two parks of one name): the later one adds where it is
+            pid = pid_of(kind, name, f"{word or ''}@{pts[0][0]:.3f},{pts[0][1]:.3f}")
+        pids.add(pid)
         item = [kind, name, word or '', [round(c, 5) for p in pts for c in p[:2]], pid]
         if src.get('about') and keep_about(pid, pr): item.append(1)   # 6th: has text to open
         byname.setdefault((kind, match_name(name)), len(pois))
@@ -156,4 +159,11 @@ html = (tpl.replace('{{RS}}', json.dumps(rs, ensure_ascii=False))
         .replace('{{credits}}', page['credits']).replace('{{mapLink}}', page.get('mapLink', 'Open the map'))
         .replace('{{themeScript}}', THEME_SCRIPT).replace('{{themeCss}}', theme_css(DARK)))
 open(os.path.join(ROOT, 'docs', city, 'along', 'index.html'), 'w', encoding='utf-8').write(html)
-print(f'  along: page written')
+# The router on its own too, byte for byte what the page runs, for apps (DATA_CONTRACT.md section 18).
+open(os.path.join(ROOT, 'docs', city, 'along', 'router.js'), 'wb').write(open(os.path.join(ROOT, 'engine', 'along', 'router.js'), 'rb').read())
+print(f'  along: page and router.js written')
+# ...and city.json's "along" block, whose version changes with these files.
+sys.path.insert(0, os.path.join(ROOT, 'engine', 'along'))
+from along_meta import write_block
+b = write_block(ROOT, city)
+print(f"  along: city.json along block {b['version'] if b else '(none)'}")

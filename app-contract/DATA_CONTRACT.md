@@ -7,6 +7,10 @@
 > maps each old id to its category. Nearby rows (`card.nearby.nearest`) now name `"layer:category"`
 > (`"worship:mosque"`) instead of the old layer id. The data files and feature `cat` values are unchanged.
 
+> **November 17, 2026, evening:** Toronto: `city.json` gains an `along` block naming the Along the way page's files
+> (`graph.json`, `pois.json`, `about/<n>.json`) and its route finder as a standalone `router.js`, with a `version`
+> that changes whenever any of them does. Section 18. Additive; no schema change.
+
 > **November 17, 2026:** Toronto: a new file, `discover.geojson`, the places the City describes in its own open data
 > (public art, local history, parks, libraries, community places) and hand-checked viewpoints, each with the City's
 > own description to quote with credit. Section 17. Additive; no schema change. Later the same day, before any app
@@ -414,6 +418,11 @@ name when `since` is missing.
 
 Where a city's transit stops, routes and live arrivals are, with the wording settings and route badge colours:
 section 15. Only Toronto has it so far.
+
+### `along` (November 17, 2026)
+
+Where a city's Along the way files are (route graph, places, their words, the route finder as `router.js`) and a
+`version` to cache them by: section 18. Only Toronto has it so far.
 
 ## 5. Building the "What's here" card for a coordinate
 
@@ -1346,3 +1355,107 @@ itself (the user, November 17, 2026). The website shows these on the Along the w
   `reportText`, `loadingText`); layers with `"about": true` look their places up in it, and `kind: "discover"` layers
   draw `discover_pts` by `cat`.
 
+## 18. Along the way: routes between two places and what's a short walk from each stop
+
+The website's Along the way page (`/toronto/along/`, `engine/along/`) as files an app can run offline. A city has
+it when its published `city.json` has an `along` block (Toronto as of November 17, 2026):
+
+```
+"along": {
+  "page": "/toronto/along/",
+  "graph": "/toronto/along/data/graph.json",
+  "pois": "/toronto/along/data/pois.json",
+  "about": "/toronto/along/data/about/{n}.json",   null when no place has text
+  "aboutFiles": 24,                                n in about/{n}.json runs 0..aboutFiles-1
+  "router": "/toronto/along/router.js",
+  "skipModes": ["go", "rail"],                     route modes the page leaves out: pass to the router
+  "stopRadius": 350, "endRadius": 700,             metres: the page's place rules below
+  "asof": "2026-11-02",                            the schedule the graph was built from
+  "version": "f16405aa3e8e"                        changes whenever graph, pois, about or router.js changes
+}
+```
+
+Paths are from the site root. Keep the cached copy until `version` changes; then fetch all four kinds of file
+again together (a `pois.json` and its `about` files must come from the same build). The files are rebuilt with the
+Routes page (`refresh-fact-sheets.yml`), so `version` moves at most daily and only when something changed.
+
+### graph.json
+
+```
+{asof: "2026-11-02",
+ routes:   {"<route id>": [short, name, mode, headway]},    e.g. "7": ["7", "Bathurst", "bus", 9]
+ stops:    [[lon, lat, name, stop id]],                       a stop is its index in this list
+ patterns: [[route id, k, [stop index…], [metres along…]]]}
+```
+
+- `routes`: every route the Routes page has except night routes. `mode`: `bus`, `tram`, `subway`, `lrt`, `go`,
+  `rail` (as section 15). `headway`: the typical minutes between vehicles, or `null` when unknown.
+- `stops`: `stop id` is the agency's stop id, the same as in section 15's `stops.json` and in the page's links.
+  `lon`/`lat` are rounded to 5 places.
+- `patterns`: one per route and pattern key `k` (a direction or branch, as section 15's `serve`), its stops in
+  riding order and each stop's distance along the pattern in whole metres (rising). A pattern has at least 2 stops.
+
+### router.js
+
+The page's route finder, byte for byte the script the page runs. Plain ES5, no DOM: in a JavaScript engine
+without `module` it sets `this.AlongRouter`; under Node it is `module.exports`.
+
+```
+var R = new AlongRouter(graph, {skip: along.skipModes});
+R.options([lonA, latA], [lonB, latB], 3)   → up to 3 trips, quickest first (the page's "Quickest" and "Another way")
+R.search(a, b, ban?)                        → one trip, or null
+R.sig(trip)                                 → "72>2>511": the routes ridden, for telling trips apart
+```
+
+A trip is `{min, legs}`. Each leg is a walk (`{walk: true, start?|end?, from?, to?, m?, min}`, stop indexes) or a
+ride (`{route, pat, k, from, to, stops: [stop index…], wait, min, also?}`: `from`/`to` are positions in the
+pattern, `also` lists other routes of the same mode that make the same ride). A trip that is a walk alone has one
+leg with `m`, its street metres. Minutes are fractional; the page rounds trips to 5 (`About 55 min`).
+
+The timing constants are on the constructor, so an app never copies them: `AlongRouter.WALK` (75 metres a minute,
+after the detour), `DETOUR` (1.3, street / straight-line), `BOARD` (2 min a boarding), `MINWAIT`, `MAXWAIT` (1 and
+10 min; a ride's wait is half its headway between these), `SPEED` (metres a minute by mode, stops included),
+`EXPRESS` (400, buses numbered 9xx), `ACCESS` (1000 m to the first stop and from the last), `XFER` (250 m walks to
+change), `ROUNDS` (4 rides at most). A walk of `d` straight-line metres takes `d * DETOUR / WALK` minutes; the page
+words every walk this way ("4 min walk", at least 1).
+
+### pois.json
+
+```
+{kinds: ["landmark", "area", "view", …],   display order
+ about: 24,                                 the number of about files (0: none)
+ pois: [[kind, name, label, [lon, lat, lon, lat, …], id, hasAbout?]]}
+```
+
+- `kind`: one of `kinds`. Today `landmark`, `area` (a name people use for a part of the city: show the name
+  alone, no label), `view`, `art`, `history`, `arts`, `street` (a shopping street), `heritage` (a heritage
+  district), `park`, `nature`, `campus`, `library`, `rec`, `faith`. Each has a colour on the page (`--k-<kind>`).
+- `label`: the short line under the name ("Park", "Sculpture · 1984 · Michael Belmore"), may be empty.
+- The flat list is the place's points: one for a point place; for an area, a point inside it and then a point every
+  ~120 m along its edge. The distance to a place is the distance to its nearest point.
+- `id` (`p[4]`): five base-36 characters, made from the first 32 bits of the SHA-1 of `kind|name|label`. It stays
+  the same across rebuilds while the place's kind, name and label do, and is unique in the file (when two places
+  share all three, the later one also hashes its first point to 3 decimal places). Shared links name kept places by
+  it.
+- `hasAbout` (`p[5]`, `1` when present): the place has words to open. They are in `about/<n>.json` with
+  `n = parseInt(id, 36) % about`: `{"<id>": [text, credit, link, checked]}`, the same four fields and rules as
+  section 17 (quote `text` word for word with `credit`; `checked` is an ISO date, shown "Checked Nov 2026").
+
+### The page's place rules
+
+For a trip, the page lists each place once, at the spot on the trip it is closest to:
+
+1. The spots, in trip order: the start, every stop of every ride (at a change, only the stop where you get off:
+   the next ride's first stop is skipped), the end.
+2. A place belongs to a spot within `stopRadius` (350 m) of a stop or `endRadius` (700 m) of either end, straight
+   line to its nearest point.
+3. When several spots qualify, it goes to the one with the lowest score: the distance, times 0.7 at the two ends
+   (you're on foot there anyway).
+4. Within a spot, places are listed in `kinds` order, then by distance. The walk shown is the distance in minutes
+   as above.
+
+### The link
+
+`/toronto/along/?from=<stop id>&to=<stop id>&way=<n>` opens a trip between two stops (the page puts the stops
+nearest the places typed in the link, never the addresses). `way` is 1-based among `options(…, 3)` and is left out
+for the first. A shared card adds `pick=<id>.<id>…` (the kept places), `card=v|sq|h` and `title=`.
