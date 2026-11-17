@@ -1,0 +1,77 @@
+{
+  "id": "dubai",
+  "schema": 2,
+  "unlisted": true,
+  "title": "Dubai · Layers.City",
+  "heading": "Dubai",
+  "description": "A map of Dubai: its communities, Deira, Bur Dubai and New Dubai, known-as names, landmarks, main streets and highways, with Sharjah and Ajman around it.",
+  "mapLabel": "Map of Dubai",
+  "locale": "en-AE",
+  "distance": "km",
+  "view": {"city": [[24.86, 54.95], [25.36, 55.56]], "region": [[24.75, 54.88], [25.50, 55.76]], "max": [[24.72, 54.86], [25.54, 55.79]]},
+  "scope": {"outer": {"name": "the region"}, "inner": {"name": "Dubai"}},
+  "footprint": "side",
+  "water": [
+    {"name": "Dubai Creek", "at": [25.2555, 55.3065], "cls": "lake-near river"},
+    {"name": "Dubai Creek", "at": [25.2135, 55.3365], "cls": "lake-near river"},
+    {"name": "Al Khan Lagoon", "at": [25.3335, 55.3700], "cls": "lake-near river"},
+    {"name": "Khalid Lagoon", "at": [25.3290, 55.3920], "cls": "lake-near river"}
+  ],
+  "attribution": "Communities, emirates, coast, roads and place names: © OpenStreetMap contributors (ODbL) · Ajman districts: Ajman Open Data (CC BY 4.0)",
+  "example": {"at": [25.1972, 55.2744], "name": "Burj Khalifa (example)"},
+  "search": {
+    "label": "Search an address or place",
+    "country": "ae",
+    "viewbox": "54.95,25.36,55.56,24.86",
+    "regionViewbox": "54.88,25.50,55.76,24.75",
+    "noMatch": "No match around Dubai for “{q}”. Try a community or landmark, like “Al Karama” or “Dubai Mall”.",
+    "more": "Or press Find to search addresses across Dubai, Sharjah and Ajman"
+  },
+  "outside": {
+    "beyond": "That spot is outside Dubai, Sharjah and Ajman on this map.",
+    "regionPill": "{region}",
+    "muniLabel": "Area",
+    "note": "Outside the city. The map shows the areas of Dubai, Sharjah and Ajman here without the city’s other layers.",
+    "appNote": "Outside the city, so its other layers aren’t shown here.",
+    "appBeyond": "That spot is outside Dubai, Sharjah and Ajman on this map."
+  },
+  "focus": {"label": "Focus on a side of the city", "all": "All of Dubai", "noun": "Side", "count": "{n} communities in {name}", "show": "Show all of {name}"},
+  "units": {"singular": "Community", "plural": "communities"},
+  "regionPlaces": {"file": "region_places.json", "sub": "{kind} in {muni} · {region}", "zoom": {"Town": 12, "Village": 13, "Suburb": 13, "Neighbourhood": 14, "Locality": 14, "Hamlet": 13}, "near": ["Town", "Village", "Suburb"]},
+  "lens": {"label": "", "file": "profiles.json", "source": "", "filters": [], "lenses": [{"id": "none", "short": "", "key": "none", "optional": true, "tiers": [["x", "", "--ink-3"]]}]},
+  "card": {
+    "report": {"to": "go@layers.city", "kinds": ["A boundary or area is wrong", "A name, landmark or place is wrong", "Something else"]},
+    "pills": [{"layer": "side", "else": "side"}, {"knownas": 2}],
+    "facts": [
+      {"label": "Side of the city", "layer": "side", "text": "{name}"},
+      {"label": "Community", "layer": "communities", "text": "{name}", "empty": "Not mapped yet"},
+      {"label": "Known as", "knownas": true}
+    ],
+    "outsideFacts": [],
+    "reps": {"file": "representatives.json", "offices": [], "note": ""}
+  },
+  "models3d": [],
+  "groups": [
+    ["Places", [
+      {"id": "side", "kind": "fill", "size": "major", "file": "sides", "name": "Sides of the city", "place": "Side",
+       "note": "Deira, Bur Dubai and New Dubai: the Creek and the Al Ain Road split the old city, and New Dubai runs from Al Barsha to Jebel Ali",
+       "on": true, "colors": {"Deira": "--s-deira", "Bur Dubai": "--s-bur", "New Dubai": "--s-new"}},
+      {"id": "communities", "kind": "units", "file": "communities", "name": "Communities",
+       "note": "The communities OpenStreetMap maps (Al Karama, Mirdif, Business Bay…). Some are missing, like Dubai Marina, JLT and Al Barsha: their names are shown instead",
+       "on": true, "hover": "{name} · {side}"},
+      {"id": "knownas", "kind": "knownas", "file": "knownas", "name": "Known-as names",
+       "note": "Dubai Marina, JLT, the Palm, Al Barsha, Al Fahidi…: the names people give directions by", "on": true},
+      {"id": "landmarks", "kind": "landmarks", "file": "landmarks", "name": "Landmarks",
+       "note": "Burj Khalifa, the Creek, the airports, the big parks, beaches and venues", "on": true}
+    ]],
+    ["Getting around", [
+      {"id": "hwy", "kind": "highways", "files": ["highways", "region_highways", "region_shields"], "name": "Highways",
+       "note": "Sheikh Zayed Road (E11), Sheikh Mohammed bin Zayed Road (E311), Emirates Road (E611), the Al Ain and Hatta roads, Al Khail Road",
+       "on": true, "shields": {}, "tollShield": "Toll"},
+      {"id": "streets", "kind": "streets", "file": "streets", "name": "Main streets",
+       "note": "The arterial roads: Al Wasl Road, Jumeirah Street, Al Khaleej Road…", "on": true},
+      {"id": "coll", "kind": "streets", "file": "collectors", "under": "streets", "labelZoom": 15, "yieldLabels": true,
+       "name": "Collector streets", "note": "The roads linking neighbourhoods to the main streets; from zoom 13", "on": true}
+    ]]
+  ]
+}

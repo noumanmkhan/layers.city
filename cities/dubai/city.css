@@ -1,0 +1,6 @@
+/* Dubai's own colours: the three sides of the city. Everything else comes from the engine. */
+:root{ --s-deira:#E9A15A; --s-bur:#7DAFE0; --s-new:#95CA7E; }
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){ --s-deira:#B8763A; --s-bur:#4C7FB5; --s-new:#5E9A48; }}
+:root[data-theme="dark"]{ --s-deira:#B8763A; --s-bur:#4C7FB5; --s-new:#5E9A48; }
+.sw.side{background:conic-gradient(var(--s-deira) 0 33%,var(--s-bur) 0 66%,var(--s-new) 0)}
+.fill-major.deira{fill:var(--s-deira)} .fill-major.bur-dubai{fill:var(--s-bur)} .fill-major.new-dubai{fill:var(--s-new)}
