@@ -3,6 +3,11 @@
 The first build (November 17, 2026, unlisted). What Toronto has that Dubai doesn't yet, and what would bring it in.
 Sources and reasons: `scouting/dubai/FINDINGS.md`.
 
+**The whole city is parked (the user, November 17, 2026):** too incomplete next to the other cities. It stays live and
+unlisted at /dubai/ (off the hub, sitemap and switcher), and the quarterly skyscrapers fetch still includes it. Pick it
+up when GeoDubai approves the communities below. Ready to add then: bike lanes (OSM cycleways), 3D buildings
+(Overture), places and Nearby across Sharjah and Ajman, and fact sheets.
+
 ## Waiting on an approval
 - **Dubai Municipality's 224 communities and 9 sectors** (Data Dubai 461494, 469026): free under the Dubai Open Data
   Licence, but DM asks for a GeoDubai request before use on a website. Once approved: swap the units, add sectors.
