@@ -1337,4 +1337,12 @@ itself (the user, November 17, 2026). The website shows these on the Along the w
 - One place, one point: rows from different datasets naming the same place within 150 m are merged (the first
   dataset's name and text win; a later one fills in a missing text, link or word).
 - Images: none. The City's own images may be linked to on its pages but are not republished here.
+- The web map's copy (November 17, 2026; the app can ignore these, or use them to avoid downloading the full file):
+  `discover_pts.geojson` (`{shards, features: [{id, cat (the kind), name, sub (the word), x: 1 when it has words}]}`;
+  only the places no other layer draws), `discover_about/<n>.json` (`{id: [text, credit, link, checked]}`, n =
+  parseInt(id, 16) % shards) and `discover_attach.json` (`{shards, m, files: {layer file: [[the layer's own name, lng,
+  lat, id]…]}}`: places a park, library, community-centre or place-of-worship feature already shows, so its popup can
+  quote the words). `city.json` `about` names these files and the popup's words (`moreText`, `checkedText`,
+  `reportText`, `loadingText`); layers with `"about": true` look their places up in it, and `kind: "discover"` layers
+  draw `discover_pts` by `cat`.
 

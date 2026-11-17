@@ -52,7 +52,7 @@ jobs:
         if: always()
         run: |
           for C in $CITIES; do
-            for p in "cities/$C/raw/discover" "docs/$C/data/discover.geojson" "docs/$C/along"; do [ -e "$p" ] && git add "$p"; done
+            for p in "cities/$C/raw/discover" "docs/$C/data/discover.geojson" "docs/$C/data/discover_pts.geojson" "docs/$C/data/discover_attach.json" "docs/$C/data/discover_about" "docs/$C/along"; do [ -e "$p" ] && git add "$p"; done
           done
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git config user.name "github-actions[bot]"

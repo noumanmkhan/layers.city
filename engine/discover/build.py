@@ -158,12 +158,84 @@ def build(city, do_fetch):
         feats.append({'type': 'Feature', 'properties': props, 'geometry': {'type': 'Point', 'coordinates': p['pt']}})
     feats.sort(key=lambda f: (f['properties']['kind'], f['properties']['name']))
     fc = {'type': 'FeatureCollection', 'about': cfg.get('about', ''), 'features': feats}
+    if cfg.get('map'): for_map(city, cfg, feats)
     dst = os.path.join(ROOT, 'docs', city, 'data', 'discover.geojson')
     json.dump(fc, open(dst, 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
     counts = {}
     for f in feats: counts[f['properties']['kind']] = counts.get(f['properties']['kind'], 0) + 1
     print(f'  discover: {len(feats)} places {counts} ({len(places) - len(feats)} duplicates merged), '
           f'{os.path.getsize(dst) / 1e6:.2f} MB')
+
+
+def for_map(city, cfg, feats):
+    """The web map's copy (discover.json "map"): the places as small points (docs/<city>/data/discover_pts.geojson,
+    {id, cat, name, sub, x: has text}), their words split into shards loaded when a popup opens
+    (discover_about/<n>.json, {id: [text, credit, link, checked]}, n = int(id, 16) % shards), and the places that one
+    of the map's own layers already shows (map.attach: {kind: {file, cat?, strip?: a regex taken out of both names
+    before comparing, such as "Library" and "branch"}}), matched by name within attach_m metres:
+    those are left out of the points and listed in discover_attach.json ({file: [[name, lon, lat, id]...]}) so that
+    layer's popup can show the words instead."""
+    M = cfg['map']; out_dir = os.path.join(ROOT, 'docs', city, 'data'); n_sh = M.get('shards', 32); near = M.get('attach_m', 400)
+    targets = {}
+    for kind, t in M.get('attach', {}).items():
+        path = os.path.join(out_dir, t['file'] + '.geojson')
+        if not os.path.exists(path): continue
+        fs = []
+        for f in json.load(open(path, encoding='utf-8'))['features']:
+            pr = f['properties']
+            if t.get('cat') and pr.get('cat') != t['cat']: continue
+            c = f['geometry']['coordinates']; flat = []
+            def walk(c):
+                if isinstance(c[0], (int, float)): flat.append(c)
+                else: [walk(x) for x in c]
+            walk(c)
+            xs, ys = [x[0] for x in flat], [x[1] for x in flat]
+            nm = pr.get('name') or pr.get('n') or ''
+            fs.append((norm(re.sub(t['strip'], ' ', nm) if t.get('strip') else nm), (min(xs), min(ys), max(xs), max(ys)), nm))
+        targets[kind] = (t['file'], fs, t.get('strip'))
+    def bbox_m(pt, b):   # metres from a point to a box (0 inside)
+        x = min(max(pt[0], b[0]), b[2]); y = min(max(pt[1], b[1]), b[3]); return metres(pt, [x, y])
+    def same(a, b):
+        if not a or not b: return False
+        short, long_ = sorted((a, b), key=len)
+        # 2: the same name or nearly; 1: the map's name and more of the same place ("Berczy Park & Gooderham Flatiron
+        # Building", "Brimley Woods Park"); 0: anything else, such as "High Park Nature Centre" or "32 Gothic Avenue &
+        # High Park Mineral Baths", which are other places
+        if a == b or difflib.SequenceMatcher(None, a, b).ratio() >= 0.9: return 2
+        rest = long_[len(short):].strip() if long_.startswith(short + ' ') else None
+        return 1 if rest is not None and len(short) >= 6 and re.match(r'(and\b|park$|trail$|woods$|beach$|lands$|branch$)', rest) else 0
+    pts, attach, shards = [], {}, {}
+    for f in feats:
+        pr, pt = f['properties'], f['geometry']['coordinates']
+        if pr['text'] or pr.get('checked'):
+            shards.setdefault(int(pr['id'], 16) % n_sh, {})[pr['id']] = [pr['text'], pr['credit'], pr['link'], pr.get('checked', '')]
+        hit = None
+        if pr['kind'] in targets:
+            file, fs, strip = targets[pr['kind']]; n = norm(re.sub(strip, ' ', pr['name']) if strip else pr['name'])
+            best = max(((same(n, x[0]), x) for x in fs if bbox_m(pt, x[1]) <= near), key=lambda y: y[0], default=(0, None))
+            hit = best[1] if best[0] else None
+            if hit: hit_score = best[0]
+        if hit:
+            if pr['text']:
+                # one text per place on the map: an exact name beats "and more"
+                L_ = attach.setdefault(file, []); old = next((i for i, y in enumerate(L_) if y[0] == hit[2] and metres(pt, y[1:3]) < 3000), None)
+                row = [hit[2], round(pt[0], 5), round(pt[1], 5), pr['id'], hit_score]
+                if old is None: L_.append(row)
+                elif L_[old][4] < hit_score: L_[old] = row
+            continue
+        if pr['kind'] not in M.get('kinds', []): continue
+        q = {'id': pr['id'], 'cat': pr['kind'], 'name': pr['name'], 'sub': pr['word']}
+        if pr['text'] or pr.get('checked'): q['x'] = 1
+        pts.append({'type': 'Feature', 'properties': q, 'geometry': f['geometry']})
+    json.dump({'type': 'FeatureCollection', 'shards': n_sh, 'features': pts}, open(os.path.join(out_dir, 'discover_pts.geojson'), 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
+    sd = os.path.join(out_dir, 'discover_about'); os.makedirs(sd, exist_ok=True)
+    for old in os.listdir(sd): os.remove(os.path.join(sd, old))
+    for i, d in shards.items(): json.dump(d, open(os.path.join(sd, f'{i}.json'), 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
+    attach = {k: [r[:4] for r in v] for k, v in attach.items()}
+    json.dump({'shards': n_sh, 'm': near, 'files': attach}, open(os.path.join(out_dir, 'discover_attach.json'), 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
+    kc = {}
+    for q in pts: kc[q['properties']['cat']] = kc.get(q['properties']['cat'], 0) + 1
+    print(f"  discover: map: {len(pts)} points {kc}, words attached to {', '.join(f'{len(v)} in {k}' for k, v in attach.items())}")
 
 
 if __name__ == '__main__':

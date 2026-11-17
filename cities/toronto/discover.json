@@ -70,5 +70,6 @@
     {"kind": "history"}
    ]
   }
- ]
+ ],
+ "map": {"kinds": ["art", "history", "view", "arts", "nature", "rec", "faith"], "attach": {"park": {"file": "parks"}, "library": {"file": "community", "cat": "library", "strip": "(?i)toronto public library\\s*-?|\\b(library|branch)\\b"}, "rec": {"file": "community", "cat": "centre"}, "faith": {"file": "faith"}}, "shards": 32, "attach_m": 400}
 }
