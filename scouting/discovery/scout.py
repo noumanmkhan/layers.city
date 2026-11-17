@@ -45,7 +45,8 @@ MEGACHAINS = [
     ('CoCo', ['CoCo Fresh Tea & Juice', 'CoCo Fresh Tea'], None, 'exact'), ('Chatime', []), ('Gong Cha', []),
     ('Real Fruit Bubble Tea', []), ('Kung Fu Tea', []), ('Presotea', []), ('Sharetea', []), ('Tiger Sugar', []),
     ('The Alley', [], ('cafes', 'specialty_food'), 'exact'), ('Xing Fu Tang', []), ('Machi Machi', []), ('Yi Fang', []),
-    ("Ten Ren's Tea", ['Ten Ren']),
+    ("Ten Ren's Tea", ['Ten Ren']), ('Heytea', []), ('Happy Lemon', []), ('Chicha San Chen', []), ('Nespresso', []),
+    ('Cotti Coffee', []),
     # bakeries, sweets
     ('COBS Bread', ['COBS']), ('Paris Baguette', []), ('Tous les Jours', []), ('Brioche Dorée', []), ('Mrs. Fields', []),
     ('Insomnia Cookies', []), ('Nothing Bundt Cakes', []), ('Crumbl', []), ('Cinnabon', []), ('Kernels', []),
@@ -62,6 +63,7 @@ MEGACHAINS = [
     ("Moxie's", []), ('The Old Spaghetti Factory', []), ("Denny's", []), ('Cora', [], ('restaurants',), 'exact'),
     ('Chuck E. Cheese', []), ('Thai Express', []), ('Mucho Burrito', []), ('Sushi Shop', []), ('Manchu Wok', []),
     ("Nando's", []), ('Shake Shack', []), ('Baskin-Robbins', []), ('St-Hubert', []), ('Sbarro', []),
+    ('Red Lobster', []), ('Hooters', []), ('bb.q Chicken', ['bbq Chicken']),
     # shops
     ('Indigo', ['Chapters'], ('books',)), ('Coles', [], ('books',)), ('Sunrise Records', []), ('HMV', []),
     ('Value Village', ['Savers'], ('vintage',)), ("Plato's Closet", []), ('Mastermind Toys', []), ('Toys R Us', ['Toys"R"Us']),
