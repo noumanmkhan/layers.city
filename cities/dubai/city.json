@@ -242,6 +242,118 @@
           "name": "Landmarks",
           "note": "Burj Khalifa, the Creek, the airports, the big parks, beaches and venues",
           "on": true
+        },
+        {
+          "id": "hospitals",
+          "kind": "places",
+          "under": "landmarks",
+          "file": "institutions",
+          "cat": "hospital",
+          "name": "Hospitals",
+          "place": "Hospital",
+          "edText": "Emergency department",
+          "note": "Hospitals OpenStreetMap maps in the city; it marks the emergency department at only some of them"
+        },
+        {
+          "id": "towers",
+          "kind": "towers",
+          "under": "landmarks",
+          "file": "skyscrapers",
+          "name": "Skyscrapers",
+          "place": "Skyscraper",
+          "note": "Buildings 200 m and taller, open or under construction, from Burj Khalifa down",
+          "key": {
+            "res": "Residential",
+            "com": "Commercial (office or hotel)",
+            "mix": "Mixed use",
+            "uc": "Under construction · hollow",
+            "sup": "Supertall, 300 m or more · gold ring"
+          },
+          "purpose": {
+            "Residential": "Residential tower",
+            "Office": "Office tower",
+            "Hotel": "Hotel tower",
+            "Mixed-use": "Mixed-use tower"
+          },
+          "supText": "Supertall",
+          "ucText": "Under construction",
+          "builtText": "Completed",
+          "expectedText": "Expected",
+          "akaText": "Also known as {aka}",
+          "moreText": "More on Wikipedia",
+          "sourceText": "Source: Wikipedia (CC BY-SA 4.0)"
+        },
+        {
+          "id": "heritage",
+          "kind": "places",
+          "file": "heritage_sites",
+          "minZoom": 12,
+          "name": "Heritage sites and museums",
+          "place": "Heritage site or museum",
+          "cats": [
+            [
+              "culture",
+              "Heritage and museums",
+              "Heritage site or museum"
+            ]
+          ],
+          "note": "Al Fahidi Fort, Al Shindagha, the old houses and archaeological sites, and the city’s museums; from zoom 12"
+        }
+      ]
+    ],
+    [
+      "Outdoors",
+      [
+        {
+          "id": "parks",
+          "kind": "parks",
+          "file": "parks",
+          "lazy": true,
+          "optional": true,
+          "on": true,
+          "name": "Parks and beaches",
+          "place": "Park",
+          "note": "Named parks and gardens and the public beaches, shaded green, from OpenStreetMap",
+          "amenities": {},
+          "legend": "",
+          "placeOut": "Park",
+          "reserveOut": "Beach",
+          "fineOut": "Outline from OpenStreetMap, mapped by volunteers."
+        },
+        {
+          "id": "sports",
+          "kind": "places",
+          "file": "sports",
+          "minZoom": 12,
+          "narrow": true,
+          "search": false,
+          "hover": "{name}",
+          "name": "Sports & rec",
+          "place": "Sports and recreation",
+          "cats": [
+            [
+              "sports",
+              "Stadiums",
+              "Stadium"
+            ],
+            [
+              "tennis",
+              "Sports centres",
+              "Sports centre or club"
+            ],
+            [
+              "field",
+              "Golf",
+              "Golf course"
+            ],
+            [
+              "pool",
+              "Water parks",
+              "Water park"
+            ]
+          ],
+          "note": "Stadiums, sports centres, golf courses and water parks; pick any mix below. From zoom 12",
+          "catNote": "Pick one or more; none picked shows them all. From OpenStreetMap, which volunteers keep up."
         }
       ]
     ],
@@ -409,6 +521,110 @@
           "name": "Collector streets",
           "note": "The roads linking neighbourhoods to the main streets; from zoom 13",
           "on": true
+        }
+      ]
+    ],
+    [
+      "Education",
+      [
+        {
+          "id": "schools",
+          "kind": "places",
+          "file": "schools",
+          "icon": "elementary",
+          "minZoom": 13,
+          "cats": [
+            [
+              "elementary",
+              "Schools",
+              "School"
+            ]
+          ],
+          "name": "Schools",
+          "place": "School",
+          "note": "Schools OpenStreetMap maps in the city, public and private; from zoom 13. Not ranked",
+          "catNote": "Tap a school for its name. Ratings aren’t shown."
+        },
+        {
+          "id": "campus",
+          "kind": "places",
+          "file": "institutions",
+          "icon": "university",
+          "cats": [
+            [
+              "university",
+              "Universities and colleges",
+              "University or college"
+            ]
+          ],
+          "name": "Universities & colleges",
+          "place": "Campus",
+          "note": "University and college campuses: Dubai Knowledge Park, Academic City and across the city"
+        }
+      ]
+    ],
+    [
+      "Community & Faith",
+      [
+        {
+          "id": "community",
+          "kind": "places",
+          "file": "community",
+          "icon": "library",
+          "minZoom": 12,
+          "cats": [
+            [
+              "library",
+              "Libraries",
+              "Library"
+            ],
+            [
+              "centre",
+              "Community centres",
+              "Community centre"
+            ]
+          ],
+          "name": "Libraries & community centres",
+          "place": "Public place",
+          "note": "Dubai Public Library’s branches, the Mohammed bin Rashid Library and community centres; from zoom 12"
+        },
+        {
+          "id": "worship",
+          "kind": "places",
+          "file": "faith",
+          "icon": "otherfaith",
+          "minZoom": 13,
+          "cats": [
+            [
+              "mosque",
+              "Mosques",
+              "Mosque"
+            ],
+            [
+              "church",
+              "Churches",
+              "Church"
+            ],
+            [
+              "hindu",
+              "Hindu temples",
+              "Hindu temple"
+            ],
+            [
+              "gurdwara",
+              "Gurdwaras",
+              "Gurdwara"
+            ],
+            [
+              "otherfaith",
+              "Other faiths",
+              "Place of worship"
+            ]
+          ],
+          "name": "Places of worship",
+          "place": "Place of worship",
+          "note": "Mosques, churches, temples and gurdwaras OpenStreetMap names; it maps only some of the city’s mosques. From zoom 13; pick any mix below",
+          "catNote": "Tap a faith to hide or show it."
         }
       ]
     ]

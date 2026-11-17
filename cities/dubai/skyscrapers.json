@@ -1,0 +1,289 @@
+{
+ "_about": "Skyscrapers layer from Wikipedia's list (engine/fetch_skyscrapers.py, fetched from the Mac; engine/skyscrapers.py). Dubai has hundreds of towers over 150 m, so the cut-off is 200 m to keep the Marina and Downtown readable.",
+ "wiki": "List of tallest buildings in Dubai",
+ "city": "Dubai",
+ "min": 200,
+ "heights": [
+  "m",
+  "ft"
+ ],
+ "tables": {
+  "built": "Tallest buildings",
+  "uc": "Tallest under construction, on-hold, approved and proposed > Under construction",
+  "timeline": "Timeline of tallest buildings"
+ },
+ "exclude": {},
+ "geocode": {
+  "suffix": "Dubai, United Arab Emirates",
+  "addresses": {}
+ },
+ "use": {},
+ "open": {
+  "_rule": "A tower listed with this year's date is drawn hollow (under construction) unless marked true here: it must be open for occupancy, not just topped out."
+ },
+ "aka": {},
+ "facts": {},
+ "coords": {
+  "_about": "Positions for towers whose Wikipedia article has no coordinates: OpenStreetMap features of the same name (matched by name, written by hand-run matching on 2026-11-17).",
+  "Marina 101": [
+   55.14862,
+   25.08906
+  ],
+  "Elite Residence": [
+   55.1479,
+   25.08952
+  ],
+  "Gevora Hotel": [
+   55.27715,
+   25.21237
+  ],
+  "Il Primo": [
+   55.27199,
+   25.19627
+  ],
+  "Emirates Office Tower": [
+   55.28237,
+   25.21761
+  ],
+  "The Index": [
+   55.27772,
+   25.20743
+  ],
+  "Mr. C Residences Downtown": [
+   55.26692,
+   25.2009
+  ],
+  "Ocean Heights": [
+   55.14878,
+   25.09067
+  ],
+  "One Za'abeel Tower 1": [
+   55.29254,
+   25.22732
+  ],
+  "Al Wasl Tower Dubai": [
+   55.27892,
+   25.21838
+  ],
+  "The Address Downtown Dubai": [
+   55.27867,
+   25.19425
+  ],
+  "Emirates Crown": [
+   55.14651,
+   25.08826
+  ],
+  "Khalid Al Attar Tower 2": [
+   55.2785,
+   25.21774
+  ],
+  "Sulafa Tower": [
+   55.149,
+   25.08939
+  ],
+  "Opera Grand": [
+   55.271,
+   25.19346
+  ],
+  "Millennium Tower": [
+   55.26588,
+   25.19485
+  ],
+  "ICD Brookfield Place": [
+   55.28044,
+   25.21196
+  ],
+  "Marina Pinnacle": [
+   55.14825,
+   25.08863
+  ],
+  "Five Jumeirah Village Dubai": [
+   55.20688,
+   25.05431
+  ],
+  "Boulevard Point": [
+   55.28097,
+   25.19348
+  ],
+  "Burj Vista Tower 1": [
+   55.27134,
+   25.1988
+  ],
+  "Radisson Royal Hotel Dubai": [
+   55.28444,
+   25.22281
+  ],
+  "Address Sky View Tower 1": [
+   55.27027,
+   25.20121
+  ],
+  "Ubora Tower 1": [
+   55.27117,
+   25.18077
+  ],
+  "The Address Residences Dubai Opera Tower 1": [
+   55.27185,
+   25.19696
+  ],
+  "Conrad Dubai": [
+   55.28337,
+   25.2262
+  ],
+  "Dubai Marriott Harbour Hotel & Suites": [
+   55.14599,
+   25.08793
+  ],
+  "Chelsea Tower": [
+   55.27436,
+   25.21166
+  ],
+  "Rolex Tower": [
+   55.27538,
+   25.20984
+  ],
+  "Al Fattan Tower": [
+   55.13615,
+   25.07935
+  ],
+  "One Za'abeel Tower 2": [
+   55.29142,
+   25.22744
+  ],
+  "Address Sky View Tower 2": [
+   55.27103,
+   25.20171
+  ],
+  "Park Place": [
+   55.28319,
+   25.22453
+  ],
+  "Mag 218 Tower": [
+   55.14901,
+   25.08819
+  ],
+  "The Palm Tower": [
+   55.13997,
+   25.11387
+  ],
+  "Novotel Jumeirah Village Triangle": [
+   55.18727,
+   25.04164
+  ],
+  "Sofitel Dubai The Obelisk": [
+   55.31841,
+   25.23103
+  ],
+  "The Address Residences Dubai Opera Tower 2": [
+   55.27158,
+   25.19758
+  ],
+  "The Bay Gate †": [
+   55.26307,
+   25.18887
+  ],
+  "Burj Royale": [
+   55.28027,
+   25.19164
+  ],
+  "Trident Grand Residence": [
+   55.14108,
+   25.08368
+  ],
+  "1/JBR": [
+   55.13889,
+   25.08388
+  ],
+  "Grosvenor House The Residence": [
+   55.14403,
+   25.08565
+  ],
+  "Al Rostamani Maze Tower": [
+   55.27935,
+   25.21572
+  ],
+  "Latifa Tower": [
+   55.36224,
+   25.29658
+  ],
+  "Marina Heights Tower": [
+   55.14842,
+   25.08723
+  ],
+  "Executive Tower M": [
+   55.26334,
+   25.18943
+  ],
+  "Marina Crown": [
+   55.14831,
+   25.08993
+  ],
+  "Tamani Hotel Marina": [
+   55.14906,
+   25.09101
+  ],
+  "RP Heights": [
+   55.28418,
+   25.19474
+  ],
+  "Nassima Tower": [
+   55.28243,
+   25.22371
+  ],
+  "BLVD Heights Tower 1": [
+   55.26964,
+   25.19312
+  ],
+  "Shangri-La Hotel": [
+   55.27198,
+   25.20814
+  ],
+  "Burj Binghatti Jacob & Co Residences": [
+   55.29301,
+   25.18686
+  ],
+  "Aeternitas Tower": [
+   55.14942,
+   25.08837
+  ],
+  "Al Habtoor City Tower": [
+   55.25316,
+   25.18217
+  ],
+  "One by Binghatti": [
+   55.26369,
+   25.18375
+  ],
+  "Cavalli Tower": [
+   55.15116,
+   25.09122
+  ],
+  "Volta": [
+   55.26715,
+   25.19756
+  ],
+  "W Residences Dubai - Downtown": [
+   55.28033,
+   25.18884
+  ],
+  "Binghatti Skyrise West Tower": [
+   55.27243,
+   25.18195
+  ],
+  "Binghatti Skyrise East Tower": [
+   55.27394,
+   25.18208
+  ],
+  "Binghatti Skyrise South Tower": [
+   55.2731,
+   25.18148
+  ],
+  "Marina Shores": [
+   55.14337,
+   25.08294
+  ],
+  "Marriott Residences JLT": [
+   55.14299,
+   25.06615
+  ]
+ }
+}

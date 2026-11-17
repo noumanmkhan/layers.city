@@ -22,6 +22,9 @@ $PY ../../engine/construction.py dubai  # the Blue Line, from raw/construction/o
 cp tmp/region_areas.geojson tmp/region_areas.raw.geojson
 npx mapshaper -i tmp/region_areas.raw.geojson -simplify interval=80 keep-shapes -o tmp/region_areas.geojson precision=0.00005 format=geojson -quiet
 $PY ../../engine/regions.py dubai
+$PY places_more.py                    # parks and beaches, hospitals, campuses, schools, libraries, worship, sports, heritage
+npx mapshaper -i tmp/parks.geojson -simplify interval=6 keep-shapes -o $OUT/parks.geojson precision=0.00001 format=geojson -quiet
+$PY ../../engine/skyscrapers.py dubai   # 200 m and taller (raw/skyscrapers/: engine/fetch_skyscrapers.py dubai)
 $PY ../../engine/assemble.py dubai
 $PY ../../engine/routes/build.py dubai     # Routes from here (raw/surface/rapid_*.json, sched.json)
 echo "Done. Preview: cd docs && python3 -m http.server 8000"
