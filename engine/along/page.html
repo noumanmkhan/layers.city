@@ -55,6 +55,18 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .tries .lbl{font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
 .chip{border:1px solid var(--rule);background:var(--card);border-radius:999px;padding:6px 12px;min-height:36px;cursor:pointer;font-size:13.5px}
 .chip:hover{border-color:var(--ink)}
+/* What to show: one chip per kind of place on this trip; all on at first */
+.kf{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin:0 0 14px}
+.kf .lbl{font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-right:2px}
+.kf .chip{display:inline-flex;align-items:center;gap:7px;min-height:36px}
+.kf .chip i{width:9px;height:9px;border-radius:50%;background:var(--kc);flex:none}
+.kf .chip small{color:var(--muted);font-size:12px}
+.kf .chip[aria-pressed="true"]{border-color:var(--kc);box-shadow:inset 0 0 0 1px var(--kc)}
+.kf .chip[aria-pressed="false"]{color:var(--muted);background:none;border-style:dashed}
+.kf .chip[aria-pressed="false"] i{background:none;box-shadow:inset 0 0 0 1.5px var(--kc)}
+.kf .chip:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (max-width:520px){.kf{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px 14px;padding:0 16px 2px}.kf::-webkit-scrollbar{display:none}.kf .chip,.kf .all{flex:none}}
+.kf .all{background:none;border:0;padding:0 4px;min-height:36px;color:var(--accent);font-weight:500;cursor:pointer;font-size:13.5px}
 /* The ways to go */
 .res{margin-top:28px}
 .res-head{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;justify-content:space-between;margin-bottom:12px}
@@ -242,6 +254,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       <p class="msg" id="shareMsg" aria-live="polite"></p>
     </div>
     <div class="opts" id="opts" role="group" aria-label="Ways to go"></div>
+    <div class="kf" id="kf" role="group" aria-label="Kinds of place to show" hidden></div>
     <div class="split">
       <div class="mapbox"><div id="map"></div>
         <div class="mapfoot"><span class="key" id="key"></span><a id="maplink" href="../">{{mapLink}} →</a></div>
@@ -320,6 +333,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     }
     return out;
   }
+  const hidden = new Set();   // kinds someone turned off with the chips (all on at first; not kept between visits)
   const KORDER = P0 => Object.fromEntries((P0.kinds || []).map((k, i) => [k, i]));
 
   // ---- the trip as a list: start, each ride (its stops with what's near them), changes, end ----
@@ -338,6 +352,11 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
       if (!best.has(pi) || score < best.get(pi)[1]) best.set(pi, [si, score, m]); }));
     spots.forEach(sp => { sp.places = []; });
     best.forEach(([si, , m], pi) => spots[si].places.push([pi, m]));
+    // every kind on this trip (for the chips), then only the kinds someone left on
+    const found = {};
+    spots.forEach(sp => { sp.places.forEach(([pi]) => { const k = P.pois[pi][0]; found[k] = (found[k] || 0) + 1; });
+      sp.places = sp.places.filter(([pi]) => !hidden.has(P.pois[pi][0])); });
+    spots.found = found;
     const ko = KORDER(P);
     spots.forEach(sp => sp.places.sort((x, y) => (ko[P.pois[x[0]][0]] - ko[P.pois[y[0]][0]]) || x[1] - y[1]));
     return spots;
@@ -784,13 +803,36 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     b.addEventListener('click', () => { cur = i; syncURL(); render(); });
     return b;
   }
+  // One chip per kind of place this trip turns up (in the list's order), with how many; a kind with no word
+  // in along.json (the areas people name) is always shown.
+  function kindChips(found) {
+    const box = $('kf'), ks = (P.kinds || []).filter(k => found[k] && RS.kindWords[k]);
+    box.hidden = ks.length < 2;
+    if (box.hidden) return;
+    const chips = ks.map(k => { const on = !hidden.has(k);
+      const c = el('button', { type: 'button', class: 'chip', 'aria-pressed': String(on), style: `--kc:var(--k-${k})` },
+        [el('i', { 'aria-hidden': 'true' }), RS.kindWords[k], el('small', {}, String(found[k]))]);
+      c.addEventListener('click', () => { if (on) hidden.add(k); else hidden.delete(k); refilter(); });
+      return c; });
+    const kids = [el('span', { class: 'lbl' }, 'Show'), ...chips];
+    if (hidden.size) { const a = el('button', { type: 'button', class: 'all' }, 'Show all');
+      a.addEventListener('click', () => { hidden.clear(); refilter(); }); kids.push(a); }
+    box.replaceChildren(...kids);
+  }
+  async function refilter() {
+    const f = document.activeElement && document.activeElement.closest('#kf') ? [...$('kf').children].indexOf(document.activeElement) : -1;
+    await render();
+    const n = $('kf').children[f]; if (n) n.focus();   // keep the keyboard on the chip just pressed
+    window.umami?.track?.('along-kinds', { off: [...hidden].join(' ') || 'none' });
+  }
   async function render() {
     $('opts').replaceChildren(...opts.map(optionCard));
     $('res').hidden = false;
     const { spots, vias } = await story(opts[cur]);
     trip = { o: opts[cur], spots, vias };
+    kindChips(spots.found);
     await drawMap(opts[cur], spots, vias);
-    if (picking) { const keep = new Set(); spots.forEach(sp => sp.places.forEach(([pi]) => { if (picks.has(pi)) keep.add(pi); })); picks = keep; drawCard(); }
+    if (picking) { const keep = new Set(); spots.forEach(sp => sp.places.forEach(([pi]) => { if (picks.has(pi)) keep.add(pi); })); picks.forEach(pi => { if (hidden.has(P.pois[pi][0])) keep.add(pi); }); picks = keep; drawCard(); }
   }
 
   async function plan(push) {
