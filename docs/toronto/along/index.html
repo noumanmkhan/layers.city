@@ -110,10 +110,13 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .tl .via .ka{font-style:italic;color:var(--accent);font-weight:500}
 .tl .wl{color:var(--muted);font-size:13.5px}
 .ps{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px}
-.ps li{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:8px;align-items:baseline;font-size:14px;line-height:1.35}
-.ps li i{width:9px;height:9px;border-radius:50%;background:var(--kc);align-self:center}
-.ps li.area i{background:none;border:2px solid var(--kc);width:10px;height:10px}
-.ps li .w{color:var(--muted);font-size:12.5px;white-space:nowrap}
+/* Rows line up to the top, with the dot and the walk time set on the name's first line: baseline alignment let a
+   long, wrapping name ride up over the heading above it in Safari. */
+.ps li{--lh:calc(14px * 1.35);display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:8px;align-items:start;font-size:14px;line-height:1.35}
+.ps li i{width:9px;height:9px;border-radius:50%;background:var(--kc);margin-top:calc((var(--lh) - 9px) / 2)}
+.ps li.area i{background:none;border:2px solid var(--kc);width:10px;height:10px;margin-top:calc((var(--lh) - 10px) / 2)}
+.ps li .w{color:var(--muted);font-size:12.5px;line-height:var(--lh);white-space:nowrap}
+.ps li .n{overflow-wrap:anywhere}
 .ps li .n small{color:var(--muted);font-size:12.5px;margin-left:5px}
 .ps li.area .n{font-style:italic;color:var(--accent);font-weight:500}
 .ps li .nb{all:unset;cursor:pointer;border-bottom:1px dotted var(--muted)}
@@ -164,7 +167,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .prev.h svg{max-width:760px}
 .share .msg{font-size:13px;color:var(--muted);min-height:1.3em;margin:6px 0 0}
 .picking .ps li{grid-template-columns:22px 12px minmax(0,1fr) auto;cursor:pointer}
-.ps li input{display:none;margin:0;width:18px;height:18px;accent-color:var(--accent);align-self:center}
+.ps li input{display:none;margin:calc((var(--lh) - 18px) / 2) 0 0;width:18px;height:18px;accent-color:var(--accent)}
 .picking .ps li input{display:block}
 .picking .ps li.off .n,.picking .ps li.off .w{opacity:.45}
 .picking .more{display:none}
@@ -609,12 +612,15 @@ if (typeof module !== 'undefined') module.exports = { reportUrl: reportUrl };
     const row = ([pi, m]) => { const p = P.pois[pi], on = picks.has(pi);
       const box = el('input', { type: 'checkbox', 'aria-label': `Put ${p[1]} on the card` }); box.checked = on;
       const li = el('li', { class: [p[0] === 'area' ? 'area' : '', picking && !on ? 'off' : ''].join(' ').trim() || null, style: `--kc:var(--k-${p[0]})`, 'data-p': pi },
-        [box, el('i', { 'aria-hidden': 'true' }), el('span', { class: 'n' }, [p[5] ? el('button', { type: 'button', class: 'nb', 'aria-expanded': 'false' }, p[1]) : p[1],
+        [box, el('i', { 'aria-hidden': 'true' }), el('span', { class: 'n' }, [p[5] ? el('span', { class: 'nb', role: 'button', tabindex: '0', 'aria-expanded': 'false' }, p[1]) : p[1],
           p[2] && p[0] !== 'area' ? el('small', {}, p[2]) : null]), el('span', { class: 'w' }, walkTxt(m))]);
       box.addEventListener('change', () => togglePick(pi, box, li));
       li.addEventListener('click', e => { if (!picking || e.target === box) return; box.checked = !box.checked; togglePick(pi, box, li); });
       const nb = li.querySelector('.nb');
-      if (nb) nb.addEventListener('click', e => { if (picking) return; e.stopPropagation(); toggleAbout(pi, li, nb); });
+      if (nb) {
+        nb.addEventListener('click', e => { if (picking) return; e.stopPropagation(); toggleAbout(pi, li, nb); });
+        nb.addEventListener('keydown', e => { if (picking || (e.key !== 'Enter' && e.key !== ' ')) return; e.preventDefault(); toggleAbout(pi, li, nb); });
+      }
       return li; };
     list.slice(0, max).forEach(x => ul.append(row(x)));
     const frag = [ul];
