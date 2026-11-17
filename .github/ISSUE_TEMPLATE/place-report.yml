@@ -1,0 +1,45 @@
+name: Report a problem with a place
+description: Tell us a place on Layers.City has closed, moved or has wrong details.
+title: "Place report: "
+labels: ["place-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep the map right. Issues here are public, so please don't include personal information (your name, phone number, email or address).
+  - type: input
+    id: place_id
+    attributes:
+      label: Place ID
+      description: Filled in by the link. Leave as is.
+  - type: input
+    id: place_name
+    attributes:
+      label: Place
+    validations:
+      required: true
+  - type: input
+    id: city
+    attributes:
+      label: City
+  - type: input
+    id: page_url
+    attributes:
+      label: Page
+      description: The page where you saw it.
+  - type: dropdown
+    id: problem
+    attributes:
+      label: What's wrong?
+      options:
+        - Closed or moved
+        - Wrong location
+        - Wrong details
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What did you see? A new address, opening hours or a source helps.
