@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: parks, shopping streets, heritage districts, landmarks and the names people use for each area.">
+<meta name="description" content="Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: public art, local history, viewpoints, parks, shopping streets, heritage districts, landmarks and the names people use for each area.">
 <title>What’s along your commute? · Toronto · Layers.City</title>
 <link rel="canonical" href="https://layers.city/toronto/along/">
 <meta name="robots" content="noindex">
@@ -23,6 +23,7 @@
   /* what each kind of place looks like: its dot on the map and its mark in the list */
   --k-landmark:#C8102E; --k-area:#C8102E; --k-street:#B5651D; --k-heritage:#7A5C3E; --k-park:#3F8F4E;
   --k-campus:#2F5E9E; --k-library:#6B4FA0; --k-tower:#4A5560;
+  --k-view:#1F7A8C; --k-art:#B0307A; --k-history:#9A6A12; --k-community:#6E6A66;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -104,6 +105,14 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .ps li .w{color:var(--muted);font-size:12.5px;white-space:nowrap}
 .ps li .n small{color:var(--muted);font-size:12.5px;margin-left:5px}
 .ps li.area .n{font-style:italic;color:var(--accent);font-weight:500}
+.ps li .nb{all:unset;cursor:pointer;border-bottom:1px dotted var(--muted)}
+.ps li .nb:hover{color:var(--accent);border-color:var(--accent)}
+.ps li .nb:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:2px}
+.ps li .ab{grid-column:2 / -1;margin:2px 0 8px;padding:10px 12px;background:var(--hover);border-radius:8px;font-size:13.5px;line-height:1.5}
+.ps li .ab p{margin:0 0 6px}
+.ps li .ab .cr{margin:0;color:var(--muted);font-size:12.5px;display:flex;flex-wrap:wrap;gap:2px 12px}
+.ps li .ab .cr a{color:var(--accent)}
+.picking .ps li .ab{display:none}
 .more{background:none;border:0;padding:2px 0;min-height:30px;color:var(--accent);font-weight:500;cursor:pointer;font-size:13.5px}
 .note{color:var(--muted);font-size:13px;margin:12px 0 0}
 .empty{background:var(--card);border:1px dashed var(--rule);border-radius:12px;padding:18px;color:var(--muted)}
@@ -183,9 +192,9 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .ln.grp.lGO{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em;background:#00853E;color:#fff}
 
 
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp){background:var(--card)}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE;--k-view:#4FB3C4;--k-art:#E070B0;--k-history:#D6A84E;--k-community:#A8A29E} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp){background:var(--card)}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}
-:root[data-theme="dark"] body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE}
+:root[data-theme="dark"] body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE;--k-view:#4FB3C4;--k-art:#E070B0;--k-history:#D6A84E;--k-community:#A8A29E}
 :root[data-theme="dark"] .rb:not(.tram):not(.exp){background:var(--card)}
 .rb{height:26px;min-width:40px;font-size:14px;box-shadow:inset 0 0 0 2px currentColor}
 </style>
@@ -262,7 +271,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     <p class="note" id="caveat"></p>
   </section>
 
-  <footer class="foot"><span>Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries and boundaries: City of Toronto Open Data · Landmarks, areas and skyscrapers: Layers.City</span><span id="asof"></span></footer>
+  <footer class="foot"><span>Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries, boundaries, and the descriptions of places (StrollTO, Public Art, Cultural Hotspot): City of Toronto Open Data, Open Government Licence – Toronto · Viewpoints: Layers.City · Landmarks, areas and skyscrapers: Layers.City</span><span id="asof"></span></footer>
 </main>
 <script>/* Along the way: find likely transit routes between two points, in the browser.
    No timetables: each ride costs its distance at the mode's typical speed, each boarding costs half the route's
@@ -442,9 +451,32 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   if (typeof module !== 'undefined' && module.exports) module.exports = Router; else root.AlongRouter = Router;
 })(this);
 </script>
+<script>// "Report an issue" link for a place card: opens the place-report issue form
+// (.github/ISSUE_TEMPLATE/place-report.yml) with the place, city and page filled in.
+// Field names must match the form's ids. Issues are public; the form says so.
+// The one approved link from the site's pages to GitHub (see CLAUDE.md).
+// No city names here: the page passes its own city and URL.
+var REPORT_FORM = 'https://github.com/noumanmkhan/layers.city/issues/new';
+
+function reportUrl(place, city, pageUrl) {
+  var p = place || {};
+  var q = {
+    template: 'place-report.yml',
+    title: 'Place report: ' + (p.name || ''),
+    place_id: p.id || p.osm || '',
+    place_name: p.name || '',
+    city: city || '',
+    page_url: pageUrl || (typeof location !== 'undefined' ? location.href : '')
+  };
+  return REPORT_FORM + '?' + Object.keys(q).filter(function (k) { return q[k]; })
+    .map(function (k) { return k + '=' + encodeURIComponent(q[k]); }).join('&');
+}
+
+if (typeof module !== 'undefined') module.exports = { reportUrl: reportUrl };
+</script>
 <script>
 (() => {
-  const RS = {"city": "Toronto", "title": "What’s along your commute?", "short": "Along the way", "description": "Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: parks, shopping streets, heritage districts, landmarks and the names people use for each area.", "lede": "You take the same bus, subway and streetcar every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries and boundaries: City of Toronto Open Data · Landmarks, areas and skyscrapers: Layers.City", "outside": "That spot is too far from a TTC stop. Try an address in Toronto.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noRoute": "No TTC route turned up between those two places. Try spots closer to a bus, streetcar or subway stop.", "mapLink": "Open the map", "kindWords": {"landmark": "Landmarks", "street": "Shopping streets", "heritage": "Heritage districts", "park": "Parks", "campus": "Campuses", "library": "Libraries"}, "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers, so it’s far from everything that’s there.", "tries": [{"name": "Thorncliffe Park to King West", "from": "8344", "to": "10176", "fromLabel": "Thorncliffe Park", "toLabel": "King West"}, {"name": "The Junction to Leslieville", "from": "3508", "to": "3052", "fromLabel": "The Junction", "toLabel": "Leslieville"}, {"name": "Eglinton West to Kipling", "from": "2388", "to": "14724", "fromLabel": "Oakwood & Eglinton", "toLabel": "Kipling Station"}], "cardCredit": "Routes: TTC · Places: City of Toronto, Layers.City", "skipModes": ["go", "rail"]};   // this city's settings and wording (cities/<city>/along.json)
+  const RS = {"city": "Toronto", "title": "What’s along your commute?", "short": "Along the way", "description": "Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: public art, local history, viewpoints, parks, shopping streets, heritage districts, landmarks and the names people use for each area.", "lede": "You take the same bus, subway and streetcar every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries, boundaries, and the descriptions of places (StrollTO, Public Art, Cultural Hotspot): City of Toronto Open Data, Open Government Licence – Toronto · Viewpoints: Layers.City · Landmarks, areas and skyscrapers: Layers.City", "outside": "That spot is too far from a TTC stop. Try an address in Toronto.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noRoute": "No TTC route turned up between those two places. Try spots closer to a bus, streetcar or subway stop.", "mapLink": "Open the map", "kindWords": {"landmark": "Landmarks", "street": "Shopping streets", "heritage": "Heritage districts", "park": "Parks", "campus": "Campuses", "library": "Libraries", "view": "Viewpoints", "art": "Public art", "history": "History", "community": "Community"}, "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers and the places the City of Toronto describes, so it’s far from everything that’s there.", "tries": [{"name": "Thorncliffe Park to King West", "from": "8344", "to": "10176", "fromLabel": "Thorncliffe Park", "toLabel": "King West"}, {"name": "The Junction to Leslieville", "from": "3508", "to": "3052", "fromLabel": "The Junction", "toLabel": "Leslieville"}, {"name": "Eglinton West to Kipling", "from": "2388", "to": "14724", "fromLabel": "Oakwood & Eglinton", "toLabel": "Kipling Station"}], "cardCredit": "Routes: TTC · Places: City of Toronto, Layers.City", "skipModes": ["go", "rail"]};   // this city's settings and wording (cities/<city>/along.json)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'tspan', 'rect', 'g', 'defs', 'clipPath', 'polygon', 'style'];
@@ -529,15 +561,35 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     spots.forEach(sp => sp.places.sort((x, y) => (ko[P.pois[x[0]][0]] - ko[P.pois[y[0]][0]]) || x[1] - y[1]));
     return spots;
   }
+  // ---- what the City (or we) wrote about a place: loaded when someone opens it ----
+  const aboutFile = {};
+  const aboutOf = pid => { const n = parseInt(pid, 36) % P.about;
+    return (aboutFile[n] ||= getJSON('data/about/' + n + '.json').catch(() => ({}))).then(f => f[pid]); };
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  async function toggleAbout(pi, li, nb) {
+    const open = li.querySelector('.ab');
+    if (open) { open.remove(); nb.setAttribute('aria-expanded', 'false'); return; }
+    const p = P.pois[pi], a = await aboutOf(p[4]); if (!a) return;
+    const [text, credit, link, checked] = a;
+    const cr = el('p', { class: 'cr' }, [credit ? el('span', {}, credit) : null,
+      link ? el('a', { href: link, target: '_blank', rel: 'noopener' }, 'More about it →') : null,
+      checked ? el('span', {}, `Checked ${MONTHS[+checked.slice(5, 7) - 1]} ${checked.slice(0, 4)}`) : null,
+      checked && typeof reportUrl === 'function' ? el('a', { href: reportUrl({ id: p[4], name: p[1] }, RS.city, location.href), target: '_blank', rel: 'noopener' }, 'Report a problem') : null]);
+    li.append(el('div', { class: 'ab' }, [...text.split(/\n+/).filter(Boolean).map(t => el('p', {}, t)), cr]));
+    nb.setAttribute('aria-expanded', 'true');
+  }
   function placeList(list, max) {
     if (picking) max = Infinity;
     const ul = el('ul', { class: 'ps' });
     const row = ([pi, m]) => { const p = P.pois[pi], on = picks.has(pi);
       const box = el('input', { type: 'checkbox', 'aria-label': `Put ${p[1]} on the card` }); box.checked = on;
       const li = el('li', { class: [p[0] === 'area' ? 'area' : '', picking && !on ? 'off' : ''].join(' ').trim() || null, style: `--kc:var(--k-${p[0]})`, 'data-p': pi },
-        [box, el('i', { 'aria-hidden': 'true' }), el('span', { class: 'n' }, [p[1], p[2] && p[0] !== 'area' ? el('small', {}, p[2]) : null]), el('span', { class: 'w' }, walkTxt(m))]);
+        [box, el('i', { 'aria-hidden': 'true' }), el('span', { class: 'n' }, [p[5] ? el('button', { type: 'button', class: 'nb', 'aria-expanded': 'false' }, p[1]) : p[1],
+          p[2] && p[0] !== 'area' ? el('small', {}, p[2]) : null]), el('span', { class: 'w' }, walkTxt(m))]);
       box.addEventListener('change', () => togglePick(pi, box, li));
       li.addEventListener('click', e => { if (!picking || e.target === box) return; box.checked = !box.checked; togglePick(pi, box, li); });
+      const nb = li.querySelector('.nb');
+      if (nb) nb.addEventListener('click', e => { if (picking) return; e.stopPropagation(); toggleAbout(pi, li, nb); });
       return li; };
     list.slice(0, max).forEach(x => ul.append(row(x)));
     const frag = [ul];
@@ -730,7 +782,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   // Colours for the card: an image can't read the page's CSS, so plain values (always the light look).
   const CARD_PAL = { water: '#DCE7EC', city: '#F7F4F3', out: '#ECE7E5', edge: '#D8CFCD', hood: '#E2D7D4', major: '#D6CDCA', halo: '#FFFFFF',
     ink: '#1A1414', muted: '#5E5452', accent: '#C8102E', font: 'IBM Plex Sans, sans-serif',
-    kind: k => ({ landmark: '#C8102E', area: '#C8102E', street: '#B5651D', heritage: '#7A5C3E', park: '#3F8F4E', campus: '#2F5E9E', library: '#6B4FA0', tower: '#4A5560' })[k] || '#5E5452' };
+    kind: k => ({ landmark: '#C8102E', area: '#C8102E', street: '#B5651D', heritage: '#7A5C3E', park: '#3F8F4E', campus: '#2F5E9E', library: '#6B4FA0', tower: '#4A5560',
+      view: '#1F7A8C', art: '#B0307A', history: '#9A6A12', community: '#6E6A66' })[k] || '#5E5452' };
   const cap = () => LAYOUTS[layout].cap;
 
   function togglePick(pi, box, li) {

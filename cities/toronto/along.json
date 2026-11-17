@@ -59,16 +59,59 @@
     "( Library)? branch$",
     " library"
    ]
+  },
+  {
+   "file": "discover",
+   "catField": "kind",
+   "label": "word",
+   "about": true,
+   "attach": true,
+   "kindField": "kind",
+   "cats": [
+    "view",
+    "art",
+    "history",
+    "park",
+    "library",
+    "community"
+   ],
+   "attachTo": {
+    "view": [
+     "landmark",
+     "park"
+    ],
+    "art": [
+     "landmark"
+    ],
+    "history": [
+     "landmark",
+     "campus",
+     "heritage"
+    ],
+    "park": [
+     "park"
+    ],
+    "library": [
+     "library"
+    ],
+    "community": [
+     "library",
+     "campus"
+    ]
+   },
+   "promote": [
+    "view"
+   ]
   }
  ],
- "_pois": "What a stop's 5-minute walk can turn up, from the map's own layers, in the order the page lists them. kind: the page's icon and group; word: what it is, under the name (or label: a property holding it); suffix: dropped from the name; skip: names to leave out; minHa: smallest park kept; cats: categories kept; rename: [pattern, replacement].",
+ "_pois": "What a stop's 5-minute walk can turn up, from the map's own layers, in the order the page lists them. kind: the page's icon and group; word: what it is, under the name (or label: a property holding it); suffix: dropped from the name; skip: names to leave out; minHa: smallest park kept; cats: categories kept; rename: [pattern, replacement]. The last source is the City's described places (engine/discover/build.py): kindField takes each place's kind from the layer, about keeps its text to open, attach puts the text on a place an earlier layer already lists under the same name (attachTo: which kinds each may join) instead of listing it twice. promote: kinds that take over the place they join (a park that is a viewpoint is listed as a viewpoint; its id stays).",
  "page": {
   "city": "Toronto",
   "title": "What’s along your commute?",
   "short": "Along the way",
-  "description": "Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: parks, shopping streets, heritage districts, landmarks and the names people use for each area.",
+  "description": "Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: public art, local history, viewpoints, parks, shopping streets, heritage districts, landmarks and the names people use for each area.",
   "lede": "You take the same bus, subway and streetcar every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.",
-  "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries and boundaries: City of Toronto Open Data · Landmarks, areas and skyscrapers: Layers.City",
+  "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries, boundaries, and the descriptions of places (StrollTO, Public Art, Cultural Hotspot): City of Toronto Open Data, Open Government Licence – Toronto · Viewpoints: Layers.City · Landmarks, areas and skyscrapers: Layers.City",
   "outside": "That spot is too far from a TTC stop. Try an address in Toronto.",
   "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.",
   "noRoute": "No TTC route turned up between those two places. Try spots closer to a bus, streetcar or subway stop.",
@@ -79,9 +122,13 @@
    "heritage": "Heritage districts",
    "park": "Parks",
    "campus": "Campuses",
-   "library": "Libraries"
+   "library": "Libraries",
+   "view": "Viewpoints",
+   "art": "Public art",
+   "history": "History",
+   "community": "Community"
   },
-  "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers, so it’s far from everything that’s there.",
+  "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers and the places the City of Toronto describes, so it’s far from everything that’s there.",
   "tries": [
    {
     "name": "Thorncliffe Park to King West",
@@ -106,5 +153,19 @@
    }
   ],
   "cardCredit": "Routes: TTC · Places: City of Toronto, Layers.City"
- }
+ },
+ "order": [
+  "landmark",
+  "area",
+  "view",
+  "art",
+  "history",
+  "street",
+  "heritage",
+  "park",
+  "campus",
+  "library",
+  "community"
+ ],
+ "_order": "The order a stop's places are listed in (kinds); the build order is pois."
 }

@@ -22,6 +22,7 @@
   /* what each kind of place looks like: its dot on the map and its mark in the list */
   --k-landmark:#C8102E; --k-area:#C8102E; --k-street:#B5651D; --k-heritage:#7A5C3E; --k-park:#3F8F4E;
   --k-campus:#2F5E9E; --k-library:#6B4FA0; --k-tower:#4A5560;
+  --k-view:#1F7A8C; --k-art:#B0307A; --k-history:#9A6A12; --k-community:#6E6A66;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -103,6 +104,14 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .ps li .w{color:var(--muted);font-size:12.5px;white-space:nowrap}
 .ps li .n small{color:var(--muted);font-size:12.5px;margin-left:5px}
 .ps li.area .n{font-style:italic;color:var(--accent);font-weight:500}
+.ps li .nb{all:unset;cursor:pointer;border-bottom:1px dotted var(--muted)}
+.ps li .nb:hover{color:var(--accent);border-color:var(--accent)}
+.ps li .nb:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:2px}
+.ps li .ab{grid-column:2 / -1;margin:2px 0 8px;padding:10px 12px;background:var(--hover);border-radius:8px;font-size:13.5px;line-height:1.5}
+.ps li .ab p{margin:0 0 6px}
+.ps li .ab .cr{margin:0;color:var(--muted);font-size:12.5px;display:flex;flex-wrap:wrap;gap:2px 12px}
+.ps li .ab .cr a{color:var(--accent)}
+.picking .ps li .ab{display:none}
 .more{background:none;border:0;padding:2px 0;min-height:30px;color:var(--accent);font-weight:500;cursor:pointer;font-size:13.5px}
 .note{color:var(--muted);font-size:13px;margin:12px 0 0}
 .empty{background:var(--card);border:1px dashed var(--rule);border-radius:12px;padding:18px;color:var(--muted)}
@@ -245,6 +254,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   <footer class="foot"><span>{{credits}}</span><span id="asof"></span></footer>
 </main>
 <script>{{router}}</script>
+<script>{{report}}</script>
 <script>
 (() => {
   const RS = {{RS}};   // this city's settings and wording (cities/<city>/along.json)
@@ -332,15 +342,35 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     spots.forEach(sp => sp.places.sort((x, y) => (ko[P.pois[x[0]][0]] - ko[P.pois[y[0]][0]]) || x[1] - y[1]));
     return spots;
   }
+  // ---- what the City (or we) wrote about a place: loaded when someone opens it ----
+  const aboutFile = {};
+  const aboutOf = pid => { const n = parseInt(pid, 36) % P.about;
+    return (aboutFile[n] ||= getJSON('data/about/' + n + '.json').catch(() => ({}))).then(f => f[pid]); };
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  async function toggleAbout(pi, li, nb) {
+    const open = li.querySelector('.ab');
+    if (open) { open.remove(); nb.setAttribute('aria-expanded', 'false'); return; }
+    const p = P.pois[pi], a = await aboutOf(p[4]); if (!a) return;
+    const [text, credit, link, checked] = a;
+    const cr = el('p', { class: 'cr' }, [credit ? el('span', {}, credit) : null,
+      link ? el('a', { href: link, target: '_blank', rel: 'noopener' }, 'More about it →') : null,
+      checked ? el('span', {}, `Checked ${MONTHS[+checked.slice(5, 7) - 1]} ${checked.slice(0, 4)}`) : null,
+      checked && typeof reportUrl === 'function' ? el('a', { href: reportUrl({ id: p[4], name: p[1] }, RS.city, location.href), target: '_blank', rel: 'noopener' }, 'Report a problem') : null]);
+    li.append(el('div', { class: 'ab' }, [...text.split(/\n+/).filter(Boolean).map(t => el('p', {}, t)), cr]));
+    nb.setAttribute('aria-expanded', 'true');
+  }
   function placeList(list, max) {
     if (picking) max = Infinity;
     const ul = el('ul', { class: 'ps' });
     const row = ([pi, m]) => { const p = P.pois[pi], on = picks.has(pi);
       const box = el('input', { type: 'checkbox', 'aria-label': `Put ${p[1]} on the card` }); box.checked = on;
       const li = el('li', { class: [p[0] === 'area' ? 'area' : '', picking && !on ? 'off' : ''].join(' ').trim() || null, style: `--kc:var(--k-${p[0]})`, 'data-p': pi },
-        [box, el('i', { 'aria-hidden': 'true' }), el('span', { class: 'n' }, [p[1], p[2] && p[0] !== 'area' ? el('small', {}, p[2]) : null]), el('span', { class: 'w' }, walkTxt(m))]);
+        [box, el('i', { 'aria-hidden': 'true' }), el('span', { class: 'n' }, [p[5] ? el('button', { type: 'button', class: 'nb', 'aria-expanded': 'false' }, p[1]) : p[1],
+          p[2] && p[0] !== 'area' ? el('small', {}, p[2]) : null]), el('span', { class: 'w' }, walkTxt(m))]);
       box.addEventListener('change', () => togglePick(pi, box, li));
       li.addEventListener('click', e => { if (!picking || e.target === box) return; box.checked = !box.checked; togglePick(pi, box, li); });
+      const nb = li.querySelector('.nb');
+      if (nb) nb.addEventListener('click', e => { if (picking) return; e.stopPropagation(); toggleAbout(pi, li, nb); });
       return li; };
     list.slice(0, max).forEach(x => ul.append(row(x)));
     const frag = [ul];
@@ -533,7 +563,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   // Colours for the card: an image can't read the page's CSS, so plain values (always the light look).
   const CARD_PAL = { water: '#DCE7EC', city: '#F7F4F3', out: '#ECE7E5', edge: '#D8CFCD', hood: '#E2D7D4', major: '#D6CDCA', halo: '#FFFFFF',
     ink: '#1A1414', muted: '#5E5452', accent: '#C8102E', font: 'IBM Plex Sans, sans-serif',
-    kind: k => ({ landmark: '#C8102E', area: '#C8102E', street: '#B5651D', heritage: '#7A5C3E', park: '#3F8F4E', campus: '#2F5E9E', library: '#6B4FA0', tower: '#4A5560' })[k] || '#5E5452' };
+    kind: k => ({ landmark: '#C8102E', area: '#C8102E', street: '#B5651D', heritage: '#7A5C3E', park: '#3F8F4E', campus: '#2F5E9E', library: '#6B4FA0', tower: '#4A5560',
+      view: '#1F7A8C', art: '#B0307A', history: '#9A6A12', community: '#6E6A66' })[k] || '#5E5452' };
   const cap = () => LAYOUTS[layout].cap;
 
   function togglePick(pi, box, li) {
