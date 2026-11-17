@@ -196,6 +196,73 @@
       "file": "representatives.json",
       "offices": [],
       "note": ""
+    },
+    "nearby": {
+      "file": "nearby.json",
+      "radius": 800,
+      "nearest": [
+        [
+          "library",
+          "Library"
+        ],
+        [
+          "centre",
+          "Community centre"
+        ],
+        [
+          "hospital",
+          "Hospital"
+        ],
+        [
+          "er",
+          "Emergency dept."
+        ],
+        [
+          "mosque",
+          "Mosque",
+          "worship:mosque"
+        ],
+        [
+          "church",
+          "Church",
+          "worship:church"
+        ],
+        [
+          "hindu",
+          "Hindu temple",
+          "worship:hindu"
+        ],
+        [
+          "gurdwara",
+          "Gurdwara",
+          "worship:gurdwara"
+        ]
+      ],
+      "within": "Within 800 m",
+      "counts": [
+        [
+          "park",
+          "park",
+          "parks"
+        ],
+        [
+          "beach",
+          "beach",
+          "beaches"
+        ],
+        [
+          "sports",
+          "sports place",
+          "sports places"
+        ],
+        [
+          "school",
+          "school",
+          "schools"
+        ]
+      ],
+      "note": "Straight-line distances; 800 m is about a 10-minute walk. Everything here is from OpenStreetMap, mapped by volunteers, so some places may be missing; emergency departments only where OpenStreetMap tags one. Places of worship show while their layer is on. Schools are counted, never ranked.",
+      "sources": "Source: OpenStreetMap contributors (libraries, community centres, hospitals, parks, beaches, sports, schools, places of worship)."
     }
   },
   "models3d": [],

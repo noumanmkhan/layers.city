@@ -24,6 +24,7 @@ npx mapshaper -i tmp/region_areas.raw.geojson -simplify interval=80 keep-shapes 
 $PY ../../engine/regions.py dubai
 $PY places_more.py                    # parks and beaches, hospitals, campuses, schools, libraries, worship, sports, heritage
 npx mapshaper -i tmp/parks.geojson -simplify interval=6 keep-shapes -o $OUT/parks.geojson precision=0.00001 format=geojson -quiet
+$PY nearby.py                         # the card's Nearby section, from the layers above
 $PY ../../engine/skyscrapers.py dubai   # 200 m and taller (raw/skyscrapers/: engine/fetch_skyscrapers.py dubai)
 $PY ../../engine/assemble.py dubai
 $PY ../../engine/routes/build.py dubai     # Routes from here (raw/surface/rapid_*.json, sched.json)

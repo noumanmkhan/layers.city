@@ -77,7 +77,7 @@ for f in inside:
     p = f['properties']; n = nm(p)
     if not n: continue
     if p.get('amenity') == 'library' and re.search(r'(?i)librar', n) and n != 'Library Building': com.append(pt(f, {'name': n, 'cat': 'library'}))
-    elif p.get('amenity') == 'community_centre' and re.search(r'(?i)community (centre|center)|cultural', n): com.append(pt(f, {'name': n, 'cat': 'centre'}))
+    elif p.get('amenity') == 'community_centre' and re.search(r'(?i)community (centre|center)|cultural', n): com.append(pt(f, {'name': n.split(' / ')[0], 'cat': 'centre'}))
 com = dedupe(com)
 save('community', com, count=len(com))
 
