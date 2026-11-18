@@ -1,0 +1,95 @@
+{
+ "_about": "Settings for this city's discovery places layer (engine/discover/build.py), docs/chicago/data/discover.geojson: places the City of Chicago describes in its own open data, plus hand-checked viewpoints, for Along the way and the app. No businesses on the website. Keys as Toronto's discover.json (_about there), plus: label = a fixed first part of the line under the name; minText = texts shorter than this are left out (the place stays); textSkip = a regex: a text that matches is left out (notes to the registry rather than about the mural). Sources (City of Chicago Data Portal, its Terms of Use; no endorsement implied): the Mural Registry (DCASE; the registrant's own description, quoted word for word with credit), Individual Landmarks (no description: built, architect), and the National Register of Historic Places list (individual properties only; Chicago Landmarks among them merge into the City's rows). Left out: CPD Park Art (pxyq-qhyd), an inventory frozen in November 2016 that includes works since removed (the Columbus statues, July 2020), and the 2013 Parks - Public Art list (sj6t-9cju), its older copy; Landmark Districts are the map's heritage layer already. Interior murals are left out (not visible from the street).",
+ "about": "Places from the City of Chicago Data Portal (Mural Registry, Individual Landmarks, National Register of Historic Places) and viewpoints checked by Layers.City.",
+ "words": {
+  "art": "Mural",
+  "history": "Local history",
+  "view": "Viewpoint"
+ },
+ "dedupe_m": 150,
+ "viewpoints": "viewpoints.json",
+ "sources": [
+  {
+   "id": "landmarks",
+   "url": "https://data.cityofchicago.org/api/views/uct4-hrvh/rows.csv?accessType=DOWNLOAD",
+   "credit": "City of Chicago, Individual Landmarks",
+   "licence": "City of Chicago Data Portal Terms of Use",
+   "name": "NAME",
+   "geometry": "the_geom",
+   "label": "Chicago Landmark",
+   "word": [
+    "DATE_BUILT",
+    "ARCHITECT"
+   ],
+   "kinds": [
+    {
+     "kind": "history"
+    }
+   ]
+  },
+  {
+   "id": "nrhp",
+   "url": "https://data.cityofchicago.org/api/views/bqx3-yhry/rows.csv?accessType=DOWNLOAD",
+   "credit": "City of Chicago, National Register of Historic Places",
+   "licence": "City of Chicago Data Portal Terms of Use",
+   "name": "NAME",
+   "geometry": "the_geom",
+   "label": "National Register",
+   "keep": {
+    "TYPE": "^1$",
+    "CL": "^(?!CL$)"
+   },
+   "skip": "(?i)\\bMPS\\)|historic district",
+   "kinds": [
+    {
+     "kind": "history"
+    }
+   ]
+  },
+  {
+   "id": "nhl",
+   "url": "https://data.cityofchicago.org/api/views/bqx3-yhry/rows.csv?accessType=DOWNLOAD",
+   "credit": "City of Chicago, National Register of Historic Places",
+   "licence": "City of Chicago Data Portal Terms of Use",
+   "name": "NAME",
+   "geometry": "the_geom",
+   "label": "National Historic Landmark",
+   "keep": {
+    "TYPE": "^3$",
+    "CL": "^(?!CL$)"
+   },
+   "skip": "(?i)\\bMPS\\)|historic district",
+   "kinds": [
+    {
+     "kind": "history"
+    }
+   ]
+  },
+  {
+   "id": "murals",
+   "url": "https://data.cityofchicago.org/api/views/we8h-apcf/rows.csv?accessType=DOWNLOAD",
+   "credit": "City of Chicago, Mural Registry",
+   "licence": "City of Chicago Data Portal Terms of Use",
+   "name": "Artwork Title",
+   "text": "Description of Artwork",
+   "lat": "Latitude",
+   "lon": "Longitude",
+   "label": "Mural",
+   "word": [
+    "Year Installed",
+    "Artist Credit"
+   ],
+   "keep": {
+    "Location Description": "(?i)^(?!.*\\b(interior|inside|indoors?)\\b)"
+   },
+   "skip": "(?i)^(untitled|mural|letter [a-z])$",
+   "minText": 40,
+   "textSkip": "(?i)\\b(granted us|permission|documents?|registr|I have the|we have the|contact (me|us)|see attached|https?://)",
+   "kinds": [
+    {
+     "kind": "art"
+    }
+   ]
+  }
+ ]
+}

@@ -35,7 +35,7 @@ jobs:
       - run: pip install -q shapely
       - name: Which cities
         run: |
-          ALL="toronto"
+          ALL="toronto chicago"
           C="${{ inputs.cities }}"; [ -n "$C" ] || C="$ALL"
           echo "Cities: $C"; echo "CITIES= $C " >> "$GITHUB_ENV"
       - name: Toronto
@@ -46,6 +46,14 @@ jobs:
           set -o pipefail
           python3 -u engine/discover/build.py toronto --fetch
           python3 -u engine/along/build.py toronto
+      - name: Chicago
+        id: chicago
+        if: contains(env.CITIES, ' chicago ')
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          python3 -u engine/discover/build.py chicago --fetch
+          python3 -u engine/along/build.py chicago
       - name: Viewpoints due for a check
         run: python3 scouting/discovery/stale.py || echo "::warning::A viewpoint has no checked date"
       - name: Commit what changed
@@ -65,5 +73,6 @@ jobs:
         run: |
           f=""
           [ "${{ steps.toronto.outcome }}" = failure ] && f="$f Toronto"
+          [ "${{ steps.chicago.outcome }}" = failure ] && f="$f Chicago"
           [ -z "$f" ] && { echo "All cities OK"; exit 0; }
           echo "::error::Failed:$f (the other cities' updates were committed)"; exit 1
