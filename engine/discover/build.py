@@ -136,6 +136,9 @@ def build(city, do_fetch):
     # One place, one point: a later row naming the same place within dedupe_m metres (or a viewpoint's same_as)
     # fills in what the first lacks (text, link, word) and is dropped.
     near = cfg.get('dedupe_m', 150)
+    # sameSpot_m: two sources' places of the same kind this close are one building under two names (a city's
+    # landmark list and the National Register: "Motley, John Lothrop, School" and "John Lathrop Motley Public school").
+    spot = cfg.get('sameSpot_m', 0)
     out, cell = [], {}
     def key(pt): return (int(pt[0] / 0.003), int(pt[1] / 0.003))
     for p in places:
@@ -150,7 +153,8 @@ def build(city, do_fetch):
                     short, long_ = sorted((n, qn), key=len)
                     # the same name, nearly; or, for the same kind, one name inside the other ("Mindshadows" and
                     # "Catherine Widgery 'Mindshadows'", "Cedar Ridge Creative Centre" and "... and Gardens")
-                    if (n in q.get('also', []) or difflib.SequenceMatcher(None, n, qn).ratio() >= 0.86
+                    if ((spot and m <= spot and p['kind'] == q['kind'] and p['src'] != q['src'])
+                            or n in q.get('also', []) or difflib.SequenceMatcher(None, n, qn).ratio() >= 0.86
                             or (p['kind'] == q['kind'] and len(short) >= 5 and re.search(r'\b' + re.escape(short) + r'\b', long_))):
                         hit = q; break
                 if hit: break
