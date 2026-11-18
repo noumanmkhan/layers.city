@@ -1,0 +1,8 @@
+{
+ "_about": "Hand-kept viewpoints for the discovery places layer (engine/discover/build.py via discover.json). Each is a place whose owner's own page names it as a view or lookout (source: the page). 'why' is our own words, kept to what the source says; 'checked' is the day the view and the place were last confirmed against the source (scouting/discovery/stale.py lists any over 180 days old). A short start (November 19, 2026), as Chicago's. Left out until an owner's page describes the view: Ruckers Hill, Northcote (the City of Darebin's heritage page describes the hill, not a view from it).",
+ "credit": "Layers.City, from the Shrine of Remembrance's and the City of Port Phillip's own pages",
+ "places": [
+  {"name": "Shrine of Remembrance", "word": "Balcony view", "why": "The Shrine's balcony, up the stairs from the Sanctuary, has panoramic views of Melbourne and the Shrine Reserve.", "lat": -37.83053, "lon": 144.97345, "same_as": ["Shrine of Remembrance"], "link": "https://www.shrine.org.au/shrine-highlights", "source": "Shrine of Remembrance: Shrine highlights", "checked": "2026-11-19"},
+  {"name": "Point Ormond Lookout", "word": "Bay lookout", "why": "A lookout on Elwood's foreshore, beside Point Ormond Reserve's seaside playground and beacon.", "lat": -37.88141, "lon": 144.97642, "same_as": ["Point Ormond Reserve", "Point Ormond"], "link": "https://portphillip.vic.gov.au/explore-the-city/beaches-parks-and-playgrounds/find-parks-and-playgrounds/point-ormond-reserve", "source": "City of Port Phillip: Point Ormond Reserve", "checked": "2026-11-19"}
+ ]
+}

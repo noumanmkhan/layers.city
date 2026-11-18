@@ -1,0 +1,124 @@
+{
+ "_about": "Settings for this city's discovery places layer (engine/discover/build.py), docs/melbourne/data/discover.geojson: places the City of Melbourne and the Heritage Council of Victoria describe in their own open data, plus hand-checked viewpoints, for Along the way and the app. No businesses on the website. Keys as Toronto's and Chicago's discover.json, plus: latlon = one column holding \"lat, lon\" (Opendatasoft's exports); html = the text is HTML (<br> line breaks, entities): paragraphs kept, tags dropped, words as written; titleCase = the names come in capitals (the Register's); linkFrom = a link made from the row's columns; tidyNames = a maker column as a catalogue writes it (\"Meszaros, Michael Victor (1945 - )\", capitals, doubled apostrophes) made a name, with flip; fullName = names the source cuts at a length (Vicmap's Register, 50 characters) are looked up once in the Heritage Council's API and kept in raw/discover/vhr_names.json; maxHa = a place bigger than this many hectares (a water supply system, a whole headland) is left out, having no one spot to walk to. Sources, all CC BY 4.0: City of Melbourne Open Data's Outdoor artworks (the City's own description of each work, quoted word for word with credit), Public artworks, fountains and monuments, and Public memorials and sculptures (no descriptions; most are in the first list and merge into it), and the Victorian Heritage Register as Vicmap publishes it (open-data-platform:heritage_register, Greater Melbourne's box), each place linked to its Victorian Heritage Database page. The City's lists cover the City of Melbourne only; the Register covers Greater Melbourne. Left out: drinking fountains, temporary works, the Register's objects (a tram, an organ: heritage_object Y), the City's Landmarks and places of interest list (schools, offices, clubs: the map's landmarks layer covers what's left) and the Shrine's plaques.",
+ "about": "Places from City of Melbourne Open Data (Outdoor artworks; Public artworks, fountains and monuments; Public memorials and sculptures), the Victorian Heritage Register (Heritage Council of Victoria, via Vicmap) and viewpoints checked by Layers.City.",
+ "words": {
+  "art": "Public art",
+  "history": "Local history",
+  "view": "Viewpoint"
+ },
+ "dedupe_m": 150,
+ "sameSpot_m": 16,
+ "viewpoints": "viewpoints.json",
+ "sources": [
+  {
+   "id": "artworks",
+   "url": "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/outdoor-artworks/exports/csv?delimiter=%2C",
+   "credit": "City of Melbourne, Outdoor artworks",
+   "licence": "CC BY 4.0",
+   "name": "title",
+   "text": "description",
+   "html": true,
+   "geometry": "geo_shape",
+   "word": [
+    "object_type",
+    "art_date",
+    "makers"
+   ],
+   "keep": {
+    "object_type": "^(?!.*(?i:drinking))",
+    "history": "^(?!.*(?i:temporary))"
+   },
+   "skip": "(?i)^(untitled|artwork|sculpture)$",
+   "minText": 40,
+   "kinds": [
+    {
+     "kind": "history",
+     "field": "object_type",
+     "match": "(?i)memorial|cenotaph|monument|cairn|bust"
+    },
+    {
+     "kind": "art"
+    }
+   ],
+   "tidyNames": true,
+   "flip": [
+    "makers"
+   ]
+  },
+  {
+   "id": "public_art",
+   "url": "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/public-artworks-fountains-and-monuments/exports/csv?delimiter=%2C",
+   "credit": "City of Melbourne, Public artworks, fountains and monuments",
+   "licence": "CC BY 4.0",
+   "name": "name",
+   "latlon": "co_ordinates",
+   "word": [
+    "structure",
+    "art_date",
+    "artist"
+   ],
+   "skip": "(?i)^(untitled|artwork|sculpture)$",
+   "kinds": [
+    {
+     "kind": "history",
+     "field": "asset_type",
+     "match": "^Monument$"
+    },
+    {
+     "kind": "art"
+    }
+   ],
+   "tidyNames": true,
+   "flip": [
+    "artist"
+   ]
+  },
+  {
+   "id": "memorials",
+   "url": "https://data.melbourne.vic.gov.au/api/explore/v2.1/catalog/datasets/public-memorials-and-sculptures/exports/csv?delimiter=%2C",
+   "credit": "City of Melbourne, Public memorials and sculptures",
+   "licence": "CC BY 4.0",
+   "name": "title",
+   "latlon": "co_ordinates",
+   "keep": {
+    "description": "^(?!.*(?i:drinking))"
+   },
+   "kinds": [
+    {
+     "kind": "history",
+     "field": "description",
+     "match": "(?i)memorial|monument|cenotaph"
+    },
+    {
+     "kind": "art"
+    }
+   ]
+  },
+  {
+   "id": "vhr",
+   "url": "https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=open-data-platform:heritage_register&outputFormat=csv&srsName=EPSG:4326&cql_filter=BBOX(geom%2C144.4%2C-38.5%2C145.6%2C-37.4%2C%27EPSG%3A4326%27)",
+   "credit": "Heritage Council of Victoria, Victorian Heritage Register",
+   "licence": "CC BY 4.0 (Vicmap, Victorian Government)",
+   "name": "site_name",
+   "titleCase": true,
+   "geometry": "geom",
+   "maxHa": 40,
+   "label": "Victorian Heritage Register",
+   "linkFrom": "https://vhd.heritagecouncil.vic.gov.au/places/{hermes_num}",
+   "keep": {
+    "heritage_object": "^N$"
+   },
+   "kinds": [
+    {
+     "kind": "history"
+    }
+   ],
+   "skip": "(?i)^(former )?(residence|house|houses|terrace|terraces|shop|shops|shops and residences?|shop and residence|cottage|cottages|villa|flats|dwelling|homestead)$",
+   "fullName": {
+    "url": "https://api.heritagecouncil.vic.gov.au/v1/places/{hermes_num}",
+    "field": "name",
+    "at": 50
+   }
+  }
+ ]
+}

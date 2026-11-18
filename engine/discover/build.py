@@ -53,11 +53,17 @@ def point(row, src):
     if src.get('lat') and src.get('lon'):
         try: return [float(row[src['lon']]), float(row[src['lat']])]
         except (TypeError, ValueError): return None
+    if src.get('latlon'):   # one column "lat, lon", as Opendatasoft's CSV exports write a point
+        try: return [float(x) for x in reversed((row.get(src['latlon']) or '').split(','))]
+        except ValueError: return None
     gv = row.get(src.get('geometry', 'geometry')) or ''
-    if re.match(r'\s*(MULTI)?(POINT|POLYGON|LINESTRING)', gv, re.I):   # WKT, as Socrata's CSV exports write it
+    if re.match(r'\s*(MULTI)?(POINT|POLYGON|LINESTRING)', gv, re.I):   # WKT, as Socrata's and GeoServer's CSV exports write it
         try:
             from shapely import wkt
-            p = wkt.loads(gv).representative_point()
+            g = wkt.loads(gv)
+            # maxHa: a place bigger than this (a water supply system, a whole headland) has no one spot to walk to
+            if src.get('maxHa') and g.area * (111320 * math.cos(math.radians(g.centroid.y))) * 110540 / 1e4 > src['maxHa']: return None
+            p = g.representative_point()
             return [p.x, p.y]
         except Exception:
             return None
@@ -68,6 +74,28 @@ def point(row, src):
         return [float(c[0]), float(c[1])]
     except Exception:
         return None
+
+
+SMALL_WORDS = {'and', 'of', 'the', 'at', 'in', 'on', 'for', 'to', 'a'}
+
+
+def title_case(s):
+    """A register's capitals as a name: 'FORMER CARLTON AND UNITED BREWERY' -> 'Former Carlton and United Brewery'."""
+    w = s.strip().lower().split()
+    out = ' '.join(x if (i and x in SMALL_WORDS) else x[:1].upper() + x[1:] for i, x in enumerate(w))
+    out = re.sub(r"\b(Mc|O')(\w)", lambda m: m.group(1) + m.group(2).upper(), out)
+    out = re.sub(r"(?<=[(\-/])(\w)", lambda m: m.group(1).upper(), out)   # (Upper & Central), Hawthorn-East
+    out = re.sub(r'\b(\w{1,3})&(\w{1,3})\b', lambda m: m.group(0).upper(), out)   # Es&a -> ES&A
+    return re.sub(r'\b(Ii|Iii|Iv|Vi|Vii|Rsl|Mcg|Ymca|Ywca|Cwa|Raaf)\b', lambda m: m.group(1).upper(), out)
+
+
+def html_text(s):
+    """A publisher's text kept as HTML ("…the past.<br><br>Edgar Wilson…"): paragraphs on their own lines, the tags
+    and entities gone, the words as written."""
+    import html
+    s = re.sub(r'(?i)<br\s*/?>|</p>', '\n', s)
+    s = html.unescape(re.sub(r'<[^>]+>', '', s)).replace('\xa0', ' ')
+    return '\n'.join(x for x in (re.sub(r'[ \t]+', ' ', y).strip() for y in s.split('\n')) if x)
 
 
 def kind_of(row, name, src):
@@ -84,10 +112,27 @@ def word_of(row, kind, src, cfg):
     falling back to the kind's word in discover.json "words". Columns in src["flip"] hold "Last, First" names."""
     parts = [src['label']] if src.get('label') else []   # a fixed first part ("Chicago Landmark")
     for c in src.get('word', []):
-        v = re.sub(r'\s+', ' ', clean(row.get(c, '')))   # a form's line breaks ("Port\nMinistries with\n…")
+        v = clean(row.get(c, ''))
+        if src.get('html'): v = html_text(v)
+        v = re.sub(r'\s+', ' ', v).strip()   # a form's line breaks ("Port\nMinistries with\n…")
         if re.fullmatch(r'(?i)unknown|anonymous|various|n/?a', v): v = ''
+        tail = ''
+        if src.get('tidyNames'):
+            # a catalogue's maker field: "O''''Connor, Ailsa", "Meszaros, Michael Victor (1945 - )",
+            # "BODYCOMB, Helen (and the children at ArtPlay)" -> "Ailsa O'Connor", "Michael Victor Meszaros",
+            # "Helen Bodycomb (and the children at ArtPlay)"
+            v = re.sub(r"'{2,}", "'", v)
+            v = re.sub(r'\s*\(\s*(b\.\s*)?\d{4}\s*-\s*(\d{4})?\s*\)', '', v).strip()
+            m = re.match(r'^(.*?)\s*(\([^()]*\))$', v)
+            if m and m.group(1): v, tail = m.group(1), ' ' + m.group(2)
+            v = re.sub(r"\b([A-Z][A-Z'\-]{2,})\b", lambda x: x.group(1).title() if x.group(1).isupper() else x.group(1), v)
+            if c in src.get('flip', []) and ';' in v:   # "Bartlett, Geoffrey; Armstrong, Bruce": each maker flipped
+                ps = [x.strip() for x in v.split(';') if x.strip()]
+                ps = [' '.join(y.strip() for y in reversed(x.split(','))) if x.count(',') == 1 else x for x in ps]
+                v = ', '.join(x for x in ps if len(x.split()) <= 8)   # a sentence in the field isn't a maker
         if c in src.get('flip', []) and v.count(',') == 1 and not re.search(r'(?i)\band\b|&|studio|inc\b|ltd', v):
             v = ' '.join(x.strip() for x in reversed(v.split(',')))   # "Belmore, Michael" -> "Michael Belmore"
+        v += tail
         if v and v not in parts: parts.append(v)
     return ' · '.join(parts) or cfg.get('words', {}).get(kind, '')
 
@@ -113,17 +158,43 @@ def build(city, do_fetch):
         if do_fetch: fetch(src['url'], path)
         if not os.path.exists(path): print(f"  discover: no {src['id']}.csv (run with --fetch)"); continue
         rows = list(csv.DictReader(io.StringIO(open(path, encoding='utf-8-sig').read())))
+        # fullName: a source that cuts names at a length (Vicmap's Register at 50 characters) looks each cut one up
+        # once ({url: a template, field: the name in its JSON, at: the cut length}), kept in raw/discover/<id>_names.json
+        FN, full = src.get('fullName'), {}
+        if FN:
+            fp = os.path.join(raw, src['id'] + '_names.json')
+            full = json.load(open(fp, encoding='utf-8')) if os.path.exists(fp) else {}
+            if do_fetch:
+                for row in rows:
+                    n_ = row.get(src['name'], '')
+                    if len(n_) < FN['at']: continue
+                    u = FN['url'].format(**{k: (v or '').strip() for k, v in row.items() if k})
+                    if u in full: continue
+                    try:
+                        req = urllib.request.Request(u, headers=dict(UA, Accept='application/hal+json'))
+                        with urllib.request.urlopen(req, timeout=60) as r: full[u] = json.loads(r.read()).get(FN['field']) or n_
+                    except Exception as e:
+                        print(f'  discover: no full name for {n_}: {e}')
+                json.dump(full, open(fp, 'w', encoding='utf-8'), indent=0, ensure_ascii=False, sort_keys=True)
         n0, kept = len(places), {}
         for row in rows:
             if any(not re.search(rx, row.get(col, '') or '') for col, rx in src.get('keep', {}).items()): continue
             name = clean(row.get(src['name'], ''))
+            if FN and len(name) >= FN['at']:
+                name = clean(full.get(FN['url'].format(**{k: (v or '').strip() for k, v in row.items() if k}), name))
+            if src.get('titleCase') and name: name = title_case(re.sub(r'\s+', ' ', name))
             if not name or (src.get('skip') and re.search(src['skip'], name)): continue
             pt = point(row, src)
             if not pt or not (-180 <= pt[0] <= 180 and -90 <= pt[1] <= 90) or pt == [0.0, 0.0]: continue
             kind = kind_of(row, name, src)
             if not kind: continue
             link = clean(row.get(src.get('link', ''), ''))
+            if src.get('linkFrom'):   # a link made from the row's columns ("https://…/places/{hermes_num}")
+                try: link = src['linkFrom'].format(**{k: (v or '').strip() for k, v in row.items() if k})
+                except (KeyError, ValueError): link = ''
+                if link.endswith('/'): link = ''
             text = clean(row.get(src.get('text', ''), ''))
+            if src.get('html'): text = html_text(text)
             # a text too short to say anything ("mural"), or a note to the registry rather than about the place, is left
             # out (the place stays): src["minText"] characters, src["textSkip"] a regex
             if len(text) < src.get('minText', 0) or (src.get('textSkip') and re.search(src['textSkip'], text)): text = ''

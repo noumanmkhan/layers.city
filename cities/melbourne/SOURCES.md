@@ -54,3 +54,16 @@ the project's claude/australia-scouting.md.
   (the number on the street, else the street in that suburb) once and keeps the result. Joint centres (one venue
   serving two districts) appear once per district; `voting.py` keeps one. Every early voting centre is also an
   election day centre from this election.
+
+## Discovery places (November 19, 2026, on dev, for Along the way)
+`cities/melbourne/discover.json` and `viewpoints.json` → `engine/discover/build.py melbourne --fetch` → `docs/melbourne/data/discover.geojson`; raw CSVs in `raw/discover/`. Refreshed weekly by `.github/workflows/fetch-discover.yml`. Unlike the `fetch*.py` scripts above, these hosts answer from GitHub Actions and from the Mac.
+
+| Source | Use |
+|---|---|
+| City of Melbourne Open Data, Outdoor artworks (`outdoor-artworks`, updated September 2026) | Public art (kind `art`) and memorials, monuments, busts and cairns (kind `history`): title, type, year, makers; the City's description quoted word for word (HTML line breaks kept as paragraphs) with the credit "City of Melbourne, Outdoor artworks". Drinking fountains and temporary works are left out. |
+| City of Melbourne Open Data, Public artworks, fountains and monuments (`public-artworks-fountains-and-monuments`) | The same works and some more: structure, year, artist; no description. Rows naming a work the first list has merge into it. |
+| City of Melbourne Open Data, Public memorials and sculptures (`public-memorials-and-sculptures`) | Title only; almost all merge into the lists above. Drinking fountains left out. |
+| Victorian Heritage Register, as Vicmap publishes it (`open-data-platform:heritage_register` on opendata.maps.vic.gov.au, Greater Melbourne's box) | Registered places (kind `history`, "Victorian Heritage Register"), each linked to its Victorian Heritage Database page (`hermes_num`). Vicmap cuts names at 50 characters: those are looked up once in the Heritage Council's API (`raw/discover/vhr_names.json`). Registered objects, generic house names ("Residence", "Terrace") and places over 40 ha (water supply systems, headlands) are left out. No description: the Database's own summary opens from the link. |
+| The Shrine of Remembrance's and the City of Port Phillip's own pages | Viewpoints (`viewpoints.json`): only places whose owner's page names the view or the lookout; our own one-line wording; `checked` dates. |
+
+Licence: CC BY 4.0 for every source (City of Melbourne Open Data; Vicmap and the Heritage Council of Victoria, State of Victoria). Credit each with the text, as the page does.
