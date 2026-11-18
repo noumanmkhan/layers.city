@@ -344,7 +344,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   };
   Router.prototype.speed = function (rid) {
     var r = this.g.routes[rid], m = r[2];
-    if (m === 'bus' && /^9\d\d$/.test(r[0])) return Router.EXPRESS;   // express buses
+    if (m === 'bus' && r[4] === 1) return Router.EXPRESS;   // express buses: graph.json marks them (routes' 5th field)
     return SPEED[m] || 300;
   };
   function walkMin(d) { return d * DETOUR / WALK; }
@@ -406,7 +406,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
     legs.push({ walk: true, end: true, from: s, min: egress[s] });
     while (kk > 0) {
       var p = parents[kk][s];
-      if (p.xfer !== undefined) { legs.push({ walk: true, from: p.xfer, to: s, min: walkMin(p.d) }); s = p.xfer; p = parents[kk][s]; }
+      // a walk to change (sometimes two: a stop reached on foot can be where the next walk starts)
+      while (p.xfer !== undefined) { legs.push({ walk: true, from: p.xfer, to: s, min: walkMin(p.d) }); s = p.xfer; p = parents[kk][s]; }
       var pat = g.patterns[p.pat];
       legs.push({ route: pat[0], pat: p.pat, k: pat[1], from: p.from, to: p.to, stops: pat[2].slice(p.from, p.to + 1), wait: this.wait(pat[0]),
                   min: (pat[3][p.to] - pat[3][p.from]) / this.speed(pat[0]) });
@@ -468,7 +469,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   // The timing constants, for apps and tests that word or check times the way the router does.
   Router.SPEED = SPEED; Router.WALK = WALK; Router.DETOUR = DETOUR; Router.ACCESS = ACCESS; Router.XFER = XFER;
   Router.BOARD = BOARD; Router.MAXWAIT = MAXWAIT; Router.MINWAIT = MINWAIT; Router.ROUNDS = ROUNDS;
-  Router.EXPRESS = 400;     // metres a minute for express buses (routes numbered 9xx), see speed()
+  Router.EXPRESS = 400;     // metres a minute for express buses (graph.json routes with a 5th field of 1), see speed()
 
   if (typeof module !== 'undefined' && module.exports) module.exports = Router; else root.AlongRouter = Router;
 })(this);
@@ -498,7 +499,7 @@ if (typeof module !== 'undefined') module.exports = { reportUrl: reportUrl };
 </script>
 <script>
 (() => {
-  const RS = {"city": "Toronto", "title": "What’s along your commute?", "short": "Along the way", "description": "Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: public art, local history, viewpoints, parks, shopping streets, heritage districts, landmarks and the names people use for each area.", "lede": "You take the same bus, subway and streetcar every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries, boundaries, and the descriptions of places (StrollTO, Public Art, Cultural Hotspot): City of Toronto Open Data, Open Government Licence – Toronto · Viewpoints: Layers.City · Landmarks, areas and skyscrapers: Layers.City", "outside": "That spot is too far from a TTC stop. Try an address in Toronto.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noRoute": "No TTC route turned up between those two places. Try spots closer to a bus, streetcar or subway stop.", "mapLink": "Open the map", "appButton": "Take this trip in the app", "appNote": "Needs Layers.City 1.5 on iPhone", "kindWords": {"landmark": "Landmarks", "street": "Shopping streets", "heritage": "Heritage districts", "park": "Parks", "campus": "Campuses", "library": "Libraries", "view": "Viewpoints", "art": "Public art", "history": "Local history", "arts": "Arts spaces", "nature": "Nature", "rec": "Community & recreation", "faith": "Places of worship"}, "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers and the places the City of Toronto describes, so it’s far from everything that’s there.", "tries": [{"name": "Thorncliffe Park to King West", "from": "8344", "to": "10176", "fromLabel": "Thorncliffe Park", "toLabel": "King West"}, {"name": "The Junction to Leslieville", "from": "3508", "to": "3052", "fromLabel": "The Junction", "toLabel": "Leslieville"}, {"name": "Eglinton West to Kipling", "from": "2388", "to": "14724", "fromLabel": "Oakwood & Eglinton", "toLabel": "Kipling Station"}], "cardCredit": "Routes: TTC · Places: City of Toronto, Layers.City", "skipModes": ["go", "rail"]};   // this city's settings and wording (cities/<city>/along.json)
+  const RS = {"city": "Toronto", "title": "What’s along your commute?", "short": "Along the way", "description": "Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: public art, local history, viewpoints, parks, shopping streets, heritage districts, landmarks and the names people use for each area.", "lede": "You take the same bus, subway and streetcar every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries, boundaries, and the descriptions of places (StrollTO, Public Art, Cultural Hotspot): City of Toronto Open Data, Open Government Licence – Toronto · Viewpoints: Layers.City · Landmarks, areas and skyscrapers: Layers.City", "outside": "That spot is too far from a TTC stop. Try an address in Toronto.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noRoute": "No TTC route turned up between those two places. Try spots closer to a bus, streetcar or subway stop.", "mapLink": "Open the map", "appButton": "Take this trip in the app", "appNote": "Needs Layers.City 1.5 on iPhone", "kindWords": {"landmark": "Landmarks", "street": "Shopping streets", "heritage": "Heritage districts", "park": "Parks", "campus": "Campuses", "library": "Libraries", "view": "Viewpoints", "art": "Public art", "history": "Local history", "arts": "Arts spaces", "nature": "Nature", "rec": "Community & recreation", "faith": "Places of worship"}, "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers and the places the City of Toronto describes, so it’s far from everything that’s there.", "tries": [{"name": "Thorncliffe Park to King West", "from": "8344", "to": "10176", "fromLabel": "Thorncliffe Park", "toLabel": "King West"}, {"name": "The Junction to Leslieville", "from": "3508", "to": "3052", "fromLabel": "The Junction", "toLabel": "Leslieville"}, {"name": "Eglinton West to Kipling", "from": "2388", "to": "14724", "fromLabel": "Oakwood & Eglinton", "toLabel": "Kipling Station"}], "cardCredit": "Routes: TTC · Places: City of Toronto, Layers.City", "skipModes": ["go", "rail"], "expBadge": ["900", "902", "903", "904", "905", "906", "924", "925", "927", "929", "935", "937", "938", "939", "941", "943", "944", "945", "952", "953", "954", "960", "968", "984", "985", "986", "989", "995", "996"]};   // this city's settings and wording (cities/<city>/along.json)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'tspan', 'rect', 'g', 'defs', 'clipPath', 'polygon', 'style'];
@@ -528,7 +529,7 @@ if (typeof module !== 'undefined') module.exports = { reportUrl: reportUrl };
   const WORD = { bus: 'bus', tram: 'streetcar', subway: 'subway', lrt: 'LRT' };
   const badge = rid => { const r = G.routes[rid];
     if (isRapid(rid)) return el('span', { class: 'ln l' + r[0], 'aria-hidden': 'true' }, r[0]);
-    return el('span', { class: 'rb' + (r[2] === 'tram' ? ' tram' : /^9\d\d$/.test(r[0]) ? ' exp' : ''), 'aria-hidden': 'true' }, r[0]); };
+    return el('span', { class: 'rb' + (r[2] === 'tram' ? ' tram' : RS.expBadge.includes(rid) ? ' exp' : ''), 'aria-hidden': 'true' }, r[0]); };
   // The colour a route's badge shows, for its line on the map (read from the city's CSS).
   const colourCache = {};
   function colourOf(rid) {

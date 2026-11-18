@@ -117,6 +117,14 @@
   }
  ],
  "_pois": "What a stop's 5-minute walk can turn up, from the map's own layers, in the order the page lists them. kind: the page's icon and group; word: what it is, under the name (or label: a property holding it); suffix: dropped from the name; skip: names to leave out; minHa: smallest park kept; cats: categories kept; rename: [pattern, replacement]. The last source is the City's described places (engine/discover/build.py): kindField takes each place's kind from the layer, about keeps its text to open, attach puts the text on a place an earlier layer already lists under the same name (attachTo: which kinds each may join) instead of listing it twice. promote: kinds that take over the place they join (a park that is a viewpoint is listed as a viewpoint; its id stays).",
+ "attachStrip": [
+  "park",
+  "parkette",
+  "library",
+  "branch",
+  "toronto public library"
+ ],
+ "_attachStrip": "Words dropped from both names when the described places (attach) are matched to a place an earlier layer lists: a park, a library branch.",
  "page": {
   "city": "Toronto",
   "title": "What’s along your commute?",

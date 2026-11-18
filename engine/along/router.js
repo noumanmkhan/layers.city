@@ -52,7 +52,7 @@
   };
   Router.prototype.speed = function (rid) {
     var r = this.g.routes[rid], m = r[2];
-    if (m === 'bus' && /^9\d\d$/.test(r[0])) return Router.EXPRESS;   // express buses
+    if (m === 'bus' && r[4] === 1) return Router.EXPRESS;   // express buses: graph.json marks them (routes' 5th field)
     return SPEED[m] || 300;
   };
   function walkMin(d) { return d * DETOUR / WALK; }
@@ -114,7 +114,8 @@
     legs.push({ walk: true, end: true, from: s, min: egress[s] });
     while (kk > 0) {
       var p = parents[kk][s];
-      if (p.xfer !== undefined) { legs.push({ walk: true, from: p.xfer, to: s, min: walkMin(p.d) }); s = p.xfer; p = parents[kk][s]; }
+      // a walk to change (sometimes two: a stop reached on foot can be where the next walk starts)
+      while (p.xfer !== undefined) { legs.push({ walk: true, from: p.xfer, to: s, min: walkMin(p.d) }); s = p.xfer; p = parents[kk][s]; }
       var pat = g.patterns[p.pat];
       legs.push({ route: pat[0], pat: p.pat, k: pat[1], from: p.from, to: p.to, stops: pat[2].slice(p.from, p.to + 1), wait: this.wait(pat[0]),
                   min: (pat[3][p.to] - pat[3][p.from]) / this.speed(pat[0]) });
@@ -176,7 +177,7 @@
   // The timing constants, for apps and tests that word or check times the way the router does.
   Router.SPEED = SPEED; Router.WALK = WALK; Router.DETOUR = DETOUR; Router.ACCESS = ACCESS; Router.XFER = XFER;
   Router.BOARD = BOARD; Router.MAXWAIT = MAXWAIT; Router.MINWAIT = MINWAIT; Router.ROUNDS = ROUNDS;
-  Router.EXPRESS = 400;     // metres a minute for express buses (routes numbered 9xx), see speed()
+  Router.EXPRESS = 400;     // metres a minute for express buses (graph.json routes with a 5th field of 1), see speed()
 
   if (typeof module !== 'undefined' && module.exports) module.exports = Router; else root.AlongRouter = Router;
 })(this);

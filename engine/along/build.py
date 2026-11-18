@@ -15,6 +15,7 @@ RD = os.path.join(ROOT, 'docs', city, 'routes', 'data')
 OUT = os.path.join(ROOT, 'docs', city, 'along', 'data')
 os.makedirs(OUT, exist_ok=True)
 
+CFG = json.load(open(os.path.join(ROOT, 'cities', city, 'along.json'), encoding='utf-8'))
 S = json.load(open(os.path.join(RD, 'stops.json')))
 stops, sidx, pats = [], {}, {}
 for st in S['stops']:
@@ -26,9 +27,16 @@ for st in S['stops']:
             pats.setdefault((rid, k), []).append((d, i))
 
 routes, plist = {}, []
+EXPRESS = set(CFG['express']) if 'express' in CFG else None
 for rid, r in S['routes'].items():
-    if 'night' in (r[3] or []): continue   # overnight routes: a daytime trip never uses them
+    fam = r[3] or []
+    # night-only routes (the families say overnight and nothing else): a daytime trip never uses them. A route that
+    # also runs by day (frequent, express or regular: a 24-hour trunk route) stays.
+    if 'night' in fam and not set(fam) & {'freq', 'exp', 'reg'}: continue
     routes[rid] = [r[0], r[1], r[2], r[4]]   # short name, long name, mode, typical gap between vehicles (min)
+    # 5th, only when 1: an express route, timed at the router's EXPRESS speed. By default the Routes data's express
+    # family; along.json "express" lists the route numbers instead where the agency's "Express" isn't faster.
+    if (r[0] in EXPRESS) if EXPRESS is not None else ('exp' in fam): routes[rid].append(1)
 for (rid, k), lst in pats.items():
     if rid not in routes: continue
     lst.sort()
@@ -47,7 +55,6 @@ print(f'  along: {len(stops)} stops, {len(plist)} patterns, {os.path.getsize(p)/
 # ---- what's a short walk from each stop: points from the map's published layers (cities/<city>/along.json "pois") ----
 import math, re, hashlib
 from shapely.geometry import shape
-CFG = json.load(open(os.path.join(ROOT, 'cities', city, 'along.json'), encoding='utf-8'))
 DATA = os.path.join(ROOT, 'docs', city, 'data')
 lat0 = sum(s[1] for s in stops) / len(stops)
 ABOUT_N = 24
@@ -55,10 +62,11 @@ KX, KY = 111320 * math.cos(math.radians(lat0)), 110540
 pois, seen, pids = [], set(), set()
 about = {}        # place id -> [text, credit, link, checked]: shown when someone opens a place (cities' discover layer)
 byname = {}       # (kind, name as matched) -> index in pois, for "attach"
-ATTACH_RX = re.compile(r'\b(park|parkette|library|branch|toronto public library)\b')
+# along.json "attachStrip": words dropped from both names before matching ("High Park" and "High", a branch and its library)
+ATTACH_RX = re.compile(r'\b(' + '|'.join(re.escape(w.lower()) for w in CFG.get('attachStrip', [])) + r')\b') if CFG.get('attachStrip') else None
 def match_name(n):
     n = re.sub(r"[^a-z0-9 ]+", ' ', n.lower().replace("'", ''))
-    return ' '.join(ATTACH_RX.sub(' ', n).split())
+    return ' '.join((ATTACH_RX.sub(' ', n) if ATTACH_RX else n).split())
 def pid_of(kind, name, word):
     # a short id that stays the same across rebuilds, for shared links that name the places someone kept
     h = int(hashlib.sha1(f"{kind}|{name}|{word or ''}".encode()).hexdigest()[:8], 16)
@@ -145,7 +153,8 @@ DARK = ['body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;
         '--k-view:#4FB3C4;--k-art:#E070B0;--k-history:#D6A84E;--k-arts:#D07AA6;--k-nature:#9DBB63;--k-rec:#A8A29E;--k-faith:#8AA8C6}',
         '.rb:not(.tram):not(.exp){background:var(--card)}']
 page = CFG['page']
-rs = dict(page, skipModes=CFG.get('skipModes', []))
+# expBadge: the routes the Routes page draws as express (badge colours), which needn't be the ones timed as express
+rs = dict(page, skipModes=CFG.get('skipModes', []), expBadge=sorted(k for k, r in S['routes'].items() if 'exp' in (r[3] or []) and k in routes))
 tpl = open(os.path.join(ROOT, 'engine', 'along', 'page.html'), encoding='utf-8').read()
 css_p = os.path.join(ROOT, 'cities', city, 'factsheet.css')
 html = (tpl.replace('{{RS}}', json.dumps(rs, ensure_ascii=False))

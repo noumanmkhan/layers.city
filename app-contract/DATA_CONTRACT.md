@@ -7,6 +7,10 @@
 > maps each old id to its category. Nearby rows (`card.nearby.nearest`) now name `"layer:category"`
 > (`"worship:mosque"`) instead of the old layer id. The data files and feature `cat` values are unchanged.
 
+> **November 18, 2026, later (dev):** Along's `graph.json` routes may carry a 5th item, `1` for a bus timed as
+> express; `router.js` now reads it instead of matching route numbers 9xx (same Toronto results). Routes that run by
+> day and also overnight now stay in the graph; only night-only routes are left out. Section 18. Additive.
+
 > **November 18, 2026:** the app opens Along trip links (Universal Links through
 > `/.well-known/apple-app-site-association`, and a `layerscity://` button on the page): section 18, "The link".
 
@@ -1386,13 +1390,18 @@ Routes page (`refresh-fact-sheets.yml`), so `version` moves at most daily and on
 
 ```
 {asof: "2026-11-02",
- routes:   {"<route id>": [short, name, mode, headway]},    e.g. "7": ["7", "Bathurst", "bus", 9]
+ routes:   {"<route id>": [short, name, mode, headway, express?]},    e.g. "7": ["7", "Bathurst", "bus", 9]
  stops:    [[lon, lat, name, stop id]],                       a stop is its index in this list
  patterns: [[route id, k, [stop index…], [metres along…]]]}
 ```
 
-- `routes`: every route the Routes page has except night routes. `mode`: `bus`, `tram`, `subway`, `lrt`, `go`,
-  `rail` (as section 15). `headway`: the typical minutes between vehicles, or `null` when unknown.
+- `routes`: every route the Routes page has except night-only routes (a 24-hour route that also runs by day, like
+  Chicago's Owl trunk routes, stays). `mode`: `bus`, `tram`, `subway`, `lrt`, `go`, `rail` (as section 15).
+  `headway`: the typical minutes between vehicles, or `null` when unknown.
+- `express` (5th, optional, added November 18, 2026): present and `1` on a bus timed at `AlongRouter.EXPRESS`;
+  absent otherwise (the array then has 4 items). By default these are the Routes page's express family (Toronto's
+  900s); a city whose "Express" routes aren't faster lists its own in along.json `express` (Chicago). Readers that
+  ignore it keep working; the router reads it, so always run the `router.js` from the same build.
 - `stops`: `stop id` is the agency's stop id, the same as in section 15's `stops.json` and in the page's links.
   `lon`/`lat` are rounded to 5 places.
 - `patterns`: one per route and pattern key `k` (a direction or branch, as section 15's `serve`), its stops in
@@ -1418,7 +1427,7 @@ leg with `m`, its street metres. Minutes are fractional; the page rounds trips t
 The timing constants are on the constructor, so an app never copies them: `AlongRouter.WALK` (75 metres a minute,
 after the detour), `DETOUR` (1.3, street / straight-line), `BOARD` (2 min a boarding), `MINWAIT`, `MAXWAIT` (1 and
 10 min; a ride's wait is half its headway between these), `SPEED` (metres a minute by mode, stops included),
-`EXPRESS` (400, buses numbered 9xx), `ACCESS` (1000 m to the first stop and from the last), `XFER` (250 m walks to
+`EXPRESS` (400, buses whose graph route has `express` 1), `ACCESS` (1000 m to the first stop and from the last), `XFER` (250 m walks to
 change), `ROUNDS` (4 rides at most). A walk of `d` straight-line metres takes `d * DETOUR / WALK` minutes; the page
 words every walk this way ("4 min walk", at least 1).
 

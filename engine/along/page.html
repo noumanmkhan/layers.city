@@ -305,7 +305,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const WORD = { bus: 'bus', tram: 'streetcar', subway: 'subway', lrt: 'LRT' };
   const badge = rid => { const r = G.routes[rid];
     if (isRapid(rid)) return el('span', { class: 'ln l' + r[0], 'aria-hidden': 'true' }, r[0]);
-    return el('span', { class: 'rb' + (r[2] === 'tram' ? ' tram' : /^9\d\d$/.test(r[0]) ? ' exp' : ''), 'aria-hidden': 'true' }, r[0]); };
+    return el('span', { class: 'rb' + (r[2] === 'tram' ? ' tram' : RS.expBadge.includes(rid) ? ' exp' : ''), 'aria-hidden': 'true' }, r[0]); };
   // The colour a route's badge shows, for its line on the map (read from the city's CSS).
   const colourCache = {};
   function colourOf(rid) {
