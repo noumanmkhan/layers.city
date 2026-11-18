@@ -14,6 +14,7 @@ The engine names no city: every dataset, column and rule is in discover.json, wh
 """
 import csv, difflib, hashlib, io, json, math, os, re, sys, time, unicodedata, urllib.request
 
+csv.field_size_limit(1 << 30)   # some exports carry a whole outline in one column
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 UA = {'User-Agent': 'city-layers/1.0 (https://layers.city)'}
 
@@ -52,8 +53,16 @@ def point(row, src):
     if src.get('lat') and src.get('lon'):
         try: return [float(row[src['lon']]), float(row[src['lat']])]
         except (TypeError, ValueError): return None
+    gv = row.get(src.get('geometry', 'geometry')) or ''
+    if re.match(r'\s*(MULTI)?(POINT|POLYGON|LINESTRING)', gv, re.I):   # WKT, as Socrata's CSV exports write it
+        try:
+            from shapely import wkt
+            p = wkt.loads(gv).representative_point()
+            return [p.x, p.y]
+        except Exception:
+            return None
     try:
-        g = json.loads(row[src.get('geometry', 'geometry')])
+        g = json.loads(gv)
         c = g['coordinates']
         while isinstance(c[0], list): c = c[0]
         return [float(c[0]), float(c[1])]
@@ -73,9 +82,9 @@ def kind_of(row, name, src):
 def word_of(row, kind, src, cfg):
     """The short line under the name: src["word"] is a list of columns joined with ' · ' (empty ones dropped),
     falling back to the kind's word in discover.json "words". Columns in src["flip"] hold "Last, First" names."""
-    parts = []
+    parts = [src['label']] if src.get('label') else []   # a fixed first part ("Chicago Landmark")
     for c in src.get('word', []):
-        v = clean(row.get(c, ''))
+        v = re.sub(r'\s+', ' ', clean(row.get(c, '')))   # a form's line breaks ("Port\nMinistries with\n…")
         if re.fullmatch(r'(?i)unknown|anonymous|various|n/?a', v): v = ''
         if c in src.get('flip', []) and v.count(',') == 1 and not re.search(r'(?i)\band\b|&|studio|inc\b|ltd', v):
             v = ' '.join(x.strip() for x in reversed(v.split(',')))   # "Belmore, Michael" -> "Michael Belmore"
@@ -114,8 +123,12 @@ def build(city, do_fetch):
             kind = kind_of(row, name, src)
             if not kind: continue
             link = clean(row.get(src.get('link', ''), ''))
+            text = clean(row.get(src.get('text', ''), ''))
+            # a text too short to say anything ("mural"), or a note to the registry rather than about the place, is left
+            # out (the place stays): src["minText"] characters, src["textSkip"] a regex
+            if len(text) < src.get('minText', 0) or (src.get('textSkip') and re.search(src['textSkip'], text)): text = ''
             places.append({'kind': kind, 'name': name, 'word': word_of(row, kind, src, cfg),
-                           'text': clean(row.get(src.get('text', ''), '')), 'credit': src['credit'],
+                           'text': text, 'credit': src['credit'],
                            'link': link if link.startswith('http') else '', 'src': src['id'], 'pt': [round(pt[0], 6), round(pt[1], 6)]})
             kept[kind] = kept.get(kind, 0) + 1
         print(f"  discover: {src['id']}: {len(places) - n0} of {len(rows)} rows {kept}")
