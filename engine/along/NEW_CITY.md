@@ -11,6 +11,7 @@ How to bring Along the way (web page + iOS 1.5 trip companion) to a city that al
 - **Toronto status:** `cities/toronto/along.json` now has `"unlisted": false` (public). The "unlisted" status in claude/along-the-way.md is out of date.
 
 ## What is Toronto-shaped (fix once, during the first new city)
+Items 1 to 4 were fixed for Chicago (commits 6b6cc9a9, bcf0a8b0, 5aeda262 on dev, Nov 18): night-only routes are the only ones dropped; along.json `express` lists a city's express buses (or the `exp` family is used); `attachStrip` holds the name words; each city has its step in `fetch-discover.yml`.
 1. **Night routes:** `build.py` drops every route flagged `night`. In Toronto that flag means the overnight-only 300s. In Chicago it marks **24-hour Owl service on trunk routes** (4 Cottage Grove, 9 Ashland, 20 Madison, 22 Clark, 49 Western, 66 Chicago, 77 Belmont, 79 79th and others), so as it stands Chicago's busiest buses would disappear from Along. Drop only night-only routes.
 2. **Express speed:** `router.js` treats a bus as express only if its number matches `^9\d\d$` (the TTC's 900s). Chicago's express routes (X4, X9, X49, J14 and others) carry an `exp` flag. Make the rule data-driven, keep Toronto's output identical, and keep router.js plain ES5, since the app runs it byte for byte.
 3. **Name matching:** `ATTACH_RX` in `build.py` has "toronto public library" in it. Move it to the city's `along.json`.
@@ -67,11 +68,20 @@ How to bring Along the way (web page + iOS 1.5 trip companion) to a city that al
 - Flip `unlisted`, add the map's Getting around row and a hub link.
 - Add a Notion row, update the project doc, and optionally make a Reel.
 
+## Learned on Chicago (Nov 18)
+- **Express in name only:** the CTA's "Express" routes ran no faster than locals in the schedule (285 vs 291 m/min). Only the 2, 100, 169 and 192 earn the 400 m/min express speed; along.json `express` lists them. The page's green badge still follows the agency's `exp` family (`RS.expBadge`).
+- **Loop lines:** the Routes build placed a rapid line's platforms by projecting onto its shape, which scrambles lines that pass a point twice (the Loop). Fixed in `engine/routes/build.py` (first pass along the line); it also corrected Melbourne's City Loop.
+- **Badges:** a city whose buses are filled (CTA grey) sets `--rb-ring:none` and `--rb-dark` in `factsheet.css`; the page used to force Toronto's outline on every badge, drawing Chicago's bus legs in white.
+- **Map layers:** along.json `page.mapLines` and `page.mapAreas` name the basemap's line and area layers (Toronto: subway_lines, neighbourhoods).
+- **Two lists, one building:** a city's landmark list and the National Register name the same building differently. discover.json `sameSpot_m` (16 m in Chicago) merges same-kind places from two sources that close.
+- **iOS testing before data is live:** DEBUG builds take `-dataBase http://localhost:8765/` (release/1.5.1) to read the dev site; clear the app group's `refreshed.<city>` default (`xcrun simctl spawn <udid> defaults delete <group plist> refreshed.<city>`) so it re-downloads. `scripts/along-gpx.py --then` chains a second ride.
+- **Report flag:** on the web only checked places (viewpoints) have "Report a problem"; the app has none on Along places. Testers report through TestFlight screenshots.
+
 ## Per-city sheet (copy one per city)
 | Item | Value |
 |---|---|
 | Routes data asof | |
-| skipModes (and why) | Chicago: rail (Metra, South Shore); regional later (user, Nov 18) |
+| skipModes (and why) | |
 | Kind mapping (layer → kind, word) | |
 | Discover sources + licence | |
 | Viewpoints (hand-kept, count) | |
@@ -81,3 +91,18 @@ How to bring Along the way (web page + iOS 1.5 trip companion) to a city that al
 | iOS: data-only or 1.5.x? | |
 | TestFlight group | |
 | Public on | |
+
+### Chicago
+| Item | Value |
+|---|---|
+| Routes data asof | 2026-11-12 (CTA GTFS) |
+| skipModes (and why) | rail (Metra, South Shore): another fare; regional later (user, Nov 18) |
+| Kind mapping (layer → kind, word) | landmarks → landmark; known-as → area "Known as"; Special Service Areas → street "Business district" (industrial ones and Stockyards left out); Landmark Districts → heritage "Landmark district"; parks ≥ 1.5 ha → park; universities and colleges → campus; Chicago Public Library → library; Discover → view / art "Murals" / history "Historic places" |
+| Discover sources + licence | Mural Registry, Individual Landmarks, National Register list (City of Chicago Data Portal, its Terms of Use, disclaimer on Attributions); 954 places (art 406, history 546, view 2) |
+| Viewpoints (hand-kept, count) | 2: Northerly Island, Palmisano Park (checked Nov 18) |
+| Tries (from testers) | placeholders until testers send theirs: Logan Square → the Loop, Hyde Park → River North, Andersonville → the West Loop |
+| Speed calibration (mode, model vs schedule) | 'L' 1.02 of schedule overall (0.76 to 1.37 by trip); local buses 0.90; express list 2, 100, 169, 192; no speed override |
+| Web QA date | Nov 18 (phone light and dark, desktop; screenshots/along-chicago/) |
+| iOS: data-only or 1.5.x? | Data only. release/1.5.1 holds test tooling only (DEBUG `-dataBase`, GPX chaining, Chicago model checks) |
+| TestFlight group | "Chicago" (external; needs Beta App Review) |
+| Public on | (the user decides) |
