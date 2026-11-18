@@ -22,7 +22,7 @@
     {"name": "Lake Michigan", "at": [41.97, -87.57], "cls": "lake-near"},
     {"name": "Lake Michigan", "at": [42.40, -87.55], "cls": "lake-far"}
   ],
-  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Election precincts & vote centers: Chicago Board of Election Commissioners · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Pace routes: Pace GTFS (non-commercial use) · Places of worship: © OpenStreetMap contributors · Halal shops: Halal Monitoring Services · Kosher shops: cRc · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Heritage buildings: City of Chicago Individual Landmarks · Changes: City of Chicago building permits · Street sweeping: City of Chicago Streets and Sanitation · Bike lanes: CDOT Bike Routes via the Data Portal · Divvy stations: Lyft (Divvy Data License Agreement) · EV chargers: U.S. DOE Alternative Fuels Data Center",
+  "attribution": "Boundaries, SSAs & the ‘L’: City of Chicago Data Portal · Election precincts & vote centers: Chicago Board of Election Commissioners · Districts & municipalities: U.S. Census Bureau TIGER · Metra: Metra GTFS · Buses: CTA GTFS · Pace routes: Pace GTFS (non-commercial use) · Places of worship: © OpenStreetMap contributors · Halal shops: Halal Monitoring Services · Kosher shops: cRc · Streets, expressways & address search: © OpenStreetMap contributors via Nominatim · Skyscrapers: Wikipedia (CC BY-SA) · Tree cover: ESA WorldCover 2021 (CC BY 4.0) · Heritage buildings: City of Chicago Individual Landmarks · Murals & historic places: City of Chicago Mural Registry, National Register list · Changes: City of Chicago building permits · Street sweeping: City of Chicago Streets and Sanitation · Bike lanes: CDOT Bike Routes via the Data Portal · Divvy stations: Lyft (Divvy Data License Agreement) · EV chargers: U.S. DOE Alternative Fuels Data Center",
   "example": {"at": [41.8763, -87.6282], "name": "Harold Washington Library (example)"},
 
   "search": {
@@ -70,6 +70,11 @@
     ["Outdoors", [
       {"id": "parks", "kind": "parks", "on": true, "file": "parks", "more": "region_parks", "placeOut": "Park", "reserveOut": "Forest preserve", "fineOut": "Outline from OpenStreetMap. Amenities are listed for Chicago’s parks only.", "lazy": true, "optional": true, "name": "Parks", "place": "Park", "note": "Parks and nature areas shaded green; parks and forest preserves across Chicagoland too", "countNote": "{n} parks and nature areas shaded green; pick a playground or dog area", "amenities": {"play": ["Playground", "Parks with a children’s play area"], "dog": ["Dog area", "Parks with an off-leash dog-friendly area"]}, "legend": "Pick one or more: parks with all of them stay green, the rest fade.", "matchText": "{n} of {total} parks.", "hasLabel": "Has", "fine": "Outlines and amenities from OpenStreetMap as of {parks} (the Park District’s own files on the City portal stopped in 2016). Mostly Chicago Park District parks; Forest Preserve land inside the city is included."},
       {"id": "sports", "kind": "places", "file": "sports", "icon": "tennis", "minZoom": 12, "narrow": true, "search": false, "hover": "{name}", "cats": [["pool", "Pools", "Pool"], ["diamond", "Ball fields", "Ball field"], ["field", "Sports fields", "Sports field"], ["tennis", "Tennis", "Tennis courts"], ["pickleball", "Pickleball", "Pickleball courts"], ["basketball", "Basketball", "Basketball court"], ["skatepark", "Skateparks", "Skatepark"]], "name": "Sports & rec", "place": "Sports and recreation", "note": "Pools, fields and courts in the city’s parks; pick a sport below. From zoom 12", "catNote": "Pick one or more; none picked shows them all. Only what’s inside a park is shown, so school fields and private pools are left out. Tap a pin for what’s there.", "popup": {"rows": [["has", "Has"]], "fine": "From OpenStreetMap as of {asof}; volunteers map some parks in more detail than others, so a few pools, courts and skateparks are missing."}}
+    ]],
+    ["Discover", [
+      {"id": "dart", "kind": "discover", "file": "discover_pts", "cat": "art", "icon": "dart", "lazy": true, "optional": true, "minZoom": 14, "name": "Murals", "place": "Mural", "note": "406 outdoor murals from the City’s Mural Registry; from zoom 14. Tap one for its description"},
+      {"id": "dhistory", "kind": "discover", "file": "discover_pts", "cat": "history", "icon": "dhistory", "lazy": true, "optional": true, "minZoom": 14, "name": "Historic places", "place": "Historic place", "note": "Buildings on the National Register of Historic Places that aren’t Chicago Landmarks (those are under Heritage buildings); from zoom 14"},
+      {"id": "dview", "kind": "discover", "file": "discover_pts", "cat": "view", "icon": "dview", "lazy": true, "optional": true, "wide": true, "name": "Viewpoints", "place": "Viewpoint", "note": "Spots for the skyline, checked against the Park District’s own pages"}
     ]],
     ["Getting around", [
       {"id": "cta", "kind": "metro", "files": ["cta_lines", "cta_stations"], "name": "The ‘L’", "note": "CTA Red, Blue, Brown, Green, Orange, Pink, Purple and Yellow lines", "on": true,
@@ -132,6 +137,7 @@
     ]]
   ],
 
+  "about": {"attach": "discover_attach.json", "dir": "discover_about", "moreText": "More about it", "checkedText": "Checked {date}", "reportText": "Report a problem", "loadingText": "Loading the description…", "_about": "Where the discovery layers' words are (engine/discover/build.py writes them): a mural's popup quotes the registrant's description from the City's Mural Registry."},
   "lens": {
     "label": "Community area lens",
     "file": "ca_profiles.json",

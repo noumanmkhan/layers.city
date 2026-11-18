@@ -91,5 +91,20 @@
     }
    ]
   }
- ]
+ ],
+ "map": {
+  "kinds": [
+   "art",
+   "history",
+   "view"
+  ],
+  "attach": {
+   "history": {
+    "file": "heritage_buildings"
+   }
+  },
+  "shards": 32,
+  "attach_m": 400
+ },
+ "_map": "The web map's copy (engine/discover/build.py for_map): murals, local history and viewpoints as points. Chicago Landmarks the map already draws (its Heritage buildings layer, the same dataset) are matched by name and left out of the points."
 }

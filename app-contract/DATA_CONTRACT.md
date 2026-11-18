@@ -7,6 +7,9 @@
 > maps each old id to its category. Nearby rows (`card.nearby.nearest`) now name `"layer:category"`
 > (`"worship:mosque"`) instead of the old layer id. The data files and feature `cat` values are unchanged.
 
+> **November 18, 2026, later (dev):** Chicago gets `discover.geojson` (section 17: murals, Chicago Landmarks, National
+> Register) and the map's copy. Additive.
+
 > **November 18, 2026, later (dev):** Along's `graph.json` routes may carry a 5th item, `1` for a bus timed as
 > express; `router.js` now reads it instead of matching route numbers 9xx (same Toronto results). Routes that run by
 > day and also overnight now stay in the graph; only night-only routes are left out. Section 18. Additive.
@@ -1327,9 +1330,11 @@ place included): it's the page's, not part of this contract. How the website (an
 
 ## 17. Discovery places
 
-`discover.geojson` (Toronto as of November 17, 2026; a city without the file has none). Written weekly by
+`discover.geojson` (Toronto as of November 17, 2026; Chicago on dev November 18; a city without the file has none). Written weekly by
 `engine/discover/build.py` from `cities/<city>/discover.json`: the places the city government describes in its own
-open data (Toronto: StrollTO, Public Art, Cultural Hotspot, all under the Open Government Licence – Toronto) and a
+open data (Toronto: StrollTO, Public Art, Cultural Hotspot, all under the Open Government Licence – Toronto;
+Chicago: the Mural Registry, Individual Landmarks and the National Register list, under the City of Chicago Data
+Portal Terms of Use, whose disclaimer an app using them must show where it can be downloaded) and a
 short hand-kept list of viewpoints. No businesses: cafés, bakeries, restaurants and shops are for the app to source
 itself (the user, November 17, 2026). The website shows these on the Along the way page.
 
@@ -1348,8 +1353,10 @@ itself (the user, November 17, 2026). The website shows these on the Along the w
   public art has none). Quote it as is, never shortened into a different meaning or rewritten, and always show
   `credit` with it ("City of Toronto, StrollTO"). For `view` places `text` is Layers.City's own short note and
   `credit` says so.
-- `link`: the publisher's page for the place, or empty. `src`: which dataset (`strollto`, `publicart`, `hotspot`,
-  `viewpoints`). `checked` (viewpoints only): the ISO date the place was last confirmed; show it as "Checked Nov 2026".
+- `link`: the publisher's page for the place, or empty. `src`: which dataset (Toronto `strollto`, `publicart`,
+  `hotspot`; Chicago `murals`, `landmarks`, `nrhp`, `nhl`; `viewpoints`). Chicago's mural texts are the registrant's
+  own words (credit "City of Chicago, Mural Registry"); its landmarks have no text, only a word ("Chicago Landmark ·
+  1891 · William LeBaron Jenney"). `checked` (viewpoints only): the ISO date the place was last confirmed; show it as "Checked Nov 2026".
 - One place, one point: rows from different datasets naming the same place within 150 m are merged (the first
   dataset's name and text win; a later one fills in a missing text, link or word).
 - Images: none. The City's own images may be linked to on its pages but are not republished here.
