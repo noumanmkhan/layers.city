@@ -1,7 +1,7 @@
 {
  "_about": "Settings for the Along the way page (engine/along/: build.py, router.js, page.html), at /chicago/along/: pick two places, see a likely CTA route between them and what's a short walk from the stops you pass. Built from the Routes page's data (docs/chicago/routes/data/) and the map's published layers. The engine names no city. Toronto's along.json explains the keys.",
- "unlisted": true,
- "_unlisted": "Live at its URL but kept out of the sitemap, the hub and the map (and marked noindex) until the user makes it public (after testing with riders in Chicago).",
+ "unlisted": false,
+ "_unlisted": "Live at its URL but kept out of the sitemap, the hub and the map (and marked noindex) until the user makes it public. Public since November 18, 2026.",
  "skipModes": [
   "rail"
  ],

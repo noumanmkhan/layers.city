@@ -436,6 +436,7 @@ a.tile:hover{border-color:var(--ink)}
             <a href="/chicago/community-areas/"><i></i><span><b>Guide</b><small>77 community areas</small></span></a>
             <a href="/chicago/profiles/"><i></i><span><b>Fact sheets</b><small>One printable page per place</small></span></a>
             <a href="/chicago/routes/"><i></i><span><b>Where does this line or route go?</b><small>Stops near you and where each route goes</small></span></a>
+            <a href="/chicago/along/"><i></i><span><b>What’s along your commute?</b><small>What’s a short walk from every stop</small></span></a>
             <a href="/chicago/events/"><i></i><span><b>Events</b><small>Concerts, games and park events</small></span></a>
             <a href="/chicago/fun/"><i></i><span><b>Fun maps</b><small>Dunkin’ vs Starbucks, and more</small></span></a>
         </div>
@@ -467,9 +468,9 @@ a.tile:hover{border-color:var(--ink)}
     </section>
   </main>
 
-  <!-- Along the way (engine/along/build.py): a trip in, what's a short walk from each stop out. Toronto only for now. -->
+  <!-- Along the way (engine/along/build.py): a trip in, what's a short walk from each stop out. One card per city. -->
   <div class="sect"><h2 class="kicker" id="along-h">ALONG THE WAY</h2><span>Your commute, stop by stop</span></div>
-  <section class="feats one" aria-labelledby="along-h">
+  <section class="feats" aria-labelledby="along-h">
     <a class="feat" href="/toronto/along/">
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet">
@@ -483,6 +484,22 @@ a.tile:hover{border-color:var(--ink)}
         <span class="k">TORONTO · ANY TWO PLACES</span>
         <h2>What’s along your commute?</h2>
         <p>Put in where you start and where you’re going, and see the likely TTC routes with what’s a short walk from every stop: public art, local history, viewpoints, parks and shopping streets, with the City’s own descriptions. Share the trip as a card.</p>
+        <span class="go">Plan a trip <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </div>
+    </a>
+    <a class="feat" href="/chicago/along/">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 420 220" preserveAspectRatio="xMidYMid meet">
+          <path class="case" d="M40 170 L150 150 L250 92 L380 60"/><path class="built" stroke="#62361B" d="M40 170 L150 150 L250 92 L380 60"/>
+          <g fill="#fff" stroke="#1A1414" stroke-width="3"><circle cx="40" cy="170" r="8"/><circle cx="150" cy="150" r="7"/><circle cx="200" cy="121" r="7"/><circle cx="250" cy="92" r="7"/><circle cx="315" cy="76" r="7"/><circle cx="380" cy="60" r="8"/></g>
+          <g stroke="#fff" stroke-width="2"><circle cx="128" cy="124" r="7" fill="#B0307A"/><circle cx="172" cy="178" r="7" fill="#9A6A12"/><circle cx="222" cy="150" r="7" fill="#3F8F4E"/><circle cx="232" cy="66" r="7" fill="#B0307A"/><circle cx="290" cy="112" r="7" fill="#1F7A8C"/><circle cx="338" cy="44" r="7" fill="#9A6A12"/><circle cx="66" cy="140" r="7" fill="#B5651D"/></g>
+          <text class="yr" x="30" y="212" style="font-size:22px">A → B</text>
+        </svg>
+      </div>
+      <div class="txt">
+        <span class="k">CHICAGO · ANY TWO PLACES</span>
+        <h2>What’s along your commute?</h2>
+        <p>Put in where you start and where you’re going, and see the likely CTA bus and ‘L’ routes with what’s a short walk from every stop: murals, Chicago Landmarks, parks and business districts, with the City’s own descriptions. Share the trip as a card.</p>
         <span class="go">Plan a trip <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
       </div>
     </a>
