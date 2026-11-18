@@ -75,6 +75,7 @@ Items 1 to 4 were fixed for Chicago (commits 6b6cc9a9, bcf0a8b0, 5aeda262 on dev
 - **Map layers:** along.json `page.mapLines` and `page.mapAreas` name the basemap's line and area layers (Toronto: subway_lines, neighbourhoods).
 - **Two lists, one building:** a city's landmark list and the National Register name the same building differently. discover.json `sameSpot_m` (16 m in Chicago) merges same-kind places from two sources that close.
 - **iOS testing before data is live:** DEBUG builds take `-dataBase http://localhost:8765/` (release/1.5.1) to read the dev site; clear the app group's `refreshed.<city>` default (`xcrun simctl spawn <udid> defaults delete <group plist> refreshed.<city>`) so it re-downloads. `scripts/along-gpx.py --then` chains a second ride.
+- **Line badges in the app:** a city whose rail lines are plain dots (`label: ""`) gets its line name minus " Line" on the Along badge (1.5.1); before that, the GTFS id showed.
 - **Report flag:** on the web only checked places (viewpoints) have "Report a problem"; the app has none on Along places. Testers report through TestFlight screenshots.
 
 ## Per-city sheet (copy one per city)
@@ -103,6 +104,6 @@ Items 1 to 4 were fixed for Chicago (commits 6b6cc9a9, bcf0a8b0, 5aeda262 on dev
 | Tries (from testers) | placeholders until testers send theirs: Logan Square → the Loop, Hyde Park → River North, Andersonville → the West Loop |
 | Speed calibration (mode, model vs schedule) | 'L' 1.02 of schedule overall (0.76 to 1.37 by trip); local buses 0.90; express list 2, 100, 169, 192; no speed override |
 | Web QA date | Nov 18 (phone light and dark, desktop; screenshots/along-chicago/) |
-| iOS: data-only or 1.5.x? | Data only. release/1.5.1 holds test tooling only (DEBUG `-dataBase`, GPX chaining, Chicago model checks) |
+| iOS: data-only or 1.5.x? | Works on 1.5 from data alone, but the 'L' trip badge reads "Brn", "Org", "P". release/1.5.1 (507449b) names dot-only lines by colour ("Brown"); plus test tooling (DEBUG `-dataBase`, GPX chaining, Chicago model checks) |
 | TestFlight group | "Chicago" (external; needs Beta App Review) |
 | Public on | (the user decides) |
