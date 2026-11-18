@@ -120,6 +120,25 @@ def merge(parts, out):
     SMALL = {'agency.txt', 'routes.txt', 'stops.txt', 'calendar.txt', 'calendar_dates.txt', 'feed_info.txt'}
     zs = [zipfile.ZipFile(p) for p in parts]
     names = sorted({n for z_ in zs for n in z_.namelist() if n.endswith('.txt')})
+    # A service id two parts define differently (Transport Victoria's trains and trams both have a "T5_1", Mon-Thu
+    # for one and a single Thursday for the other) is renamed in the later part ("2:T5_1") in its calendar,
+    # calendar_dates and trips, so neither takes the other's days. Ids the parts define the same way stay as they are.
+    def svc_rows(z_):
+        out = collections.defaultdict(list)
+        for n in ('calendar.txt', 'calendar_dates.txt'):
+            if n not in z_.namelist(): continue
+            with z_.open(n) as f:
+                for r in csv.DictReader(io.TextIOWrapper(f, encoding='utf-8-sig')):
+                    r = {k.strip(): (v or '').strip() for k, v in r.items() if k}
+                    sid = r.pop('service_id', '')
+                    out[sid].append((n, tuple(sorted(r.items()))))
+        return {k: tuple(sorted(v)) for k, v in out.items()}
+    rename, first_def = [{} for _ in zs], {}
+    for i, z_ in enumerate(zs):
+        for sid, sig in svc_rows(z_).items():
+            if sid not in first_def: first_def[sid] = sig
+            elif first_def[sid] != sig: rename[i][sid] = f'{i}:{sid}'
+    if any(rename): print('  merge: service ids defined differently in two parts, renamed:', sum(map(len, rename)))
     with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as zo:
         for n in names:
             heads = []
@@ -133,13 +152,16 @@ def merge(parts, out):
                 tw = io.TextIOWrapper(fo, encoding='utf-8', newline='')
                 w = csv.writer(tw)
                 w.writerow(heads)
-                for z_ in zs:
+                for zi, z_ in enumerate(zs):
                     if n not in z_.namelist(): continue
+                    ren = rename[zi] if n in ('calendar.txt', 'calendar_dates.txt', 'trips.txt') else None
                     with z_.open(n) as f:
                         r = csv.reader(io.TextIOWrapper(f, encoding='utf-8-sig'))
                         hd = [h.strip() for h in next(r)]
                         for row in r:
-                            d = dict(zip(hd, row)); line = tuple(d.get(h, '') for h in heads)
+                            d = dict(zip(hd, row))
+                            if ren and d.get('service_id', '').strip() in ren: d['service_id'] = ren[d['service_id'].strip()]
+                            line = tuple(d.get(h, '') for h in heads)
                             if n in SMALL:
                                 if line in seen: continue
                                 seen.add(line)
@@ -193,7 +215,7 @@ if src.get('inner'):
 SHA = INNER_SHA or hashlib.sha256(b''.join(open(p, 'rb').read() for p in (parts if urls is None else [ZIP]))).hexdigest()[:16]   # merged feeds: the parts' bytes
 # FORMAT changes when these files gain a field (2: each stop's rider-facing stop code), so the next run rewrites
 # them even from the same feed.
-FORMAT = 5   # 3: rapid_routes.json and rapid_stops.json; 4: each rapid shape's platforms in order; 5: sched.json
+FORMAT = 6   # 3: rapid_routes.json and rapid_stops.json; 4: each rapid shape's platforms in order; 5: sched.json; 6: merged feeds keep each part's service days
 # The options that shape these files (surface.json without its notes): a change to them (a route added to "rapid",
 # "sched" turned on) rewrites the files from the same feed too. Files written before this was kept carry none, and
 # count as matching, so adding it rewrites nothing.
@@ -358,6 +380,9 @@ for tid, (rid, d, sh, days) in trips.items():
         if days[idx[day_]]: counts[rid][k][d][min(h, 29)] += 1
 
 need = {sh for c in shape_use.values() for sh, n in c.items() if sh and n >= 0.1 * sum(c.values())}
+# A direction whose trips are spread over many shapes, none with a tenth of them (Melbourne's Lilydale line in a week
+# of works: 514 shapes), keeps its busiest one, so the route isn't dropped.
+need |= {sh for c in shape_use.values() if not any(s in need for s in c) for sh in [next((s for s, _ in c.most_common() if s), None)] if sh}
 pts = collections.defaultdict(list)
 for r in rows('shapes.txt'):
     if r['shape_id'] in need:
