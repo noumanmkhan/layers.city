@@ -8,6 +8,8 @@
 .rb{background:#45484D;color:#fff;box-shadow:none}
 .rb.exp{background:#fff;color:#00843D;box-shadow:inset 0 0 0 1.5px #00843D}
 .rb.night{background:#fff;color:#1F5BA8;box-shadow:inset 0 0 0 1.5px #1F5BA8}
+/* For pages that ring every badge (Along the way): local badges stay filled, in the dark theme too. */
+.rb{--rb-ring:none;--rb-dark:#45484D} .rb.exp,.rb.night{--rb-ring:inset 0 0 0 2px currentColor;--rb-dark:var(--card)}
 /* The Routes page's 'L' line badges: plain coloured dots, as on the fact sheets (the page's .ln.lb sizes them). */
 .ln.lb.lRed,.ln.lb.lBlue,.ln.lb.lBrown,.ln.lb.lGreen,.ln.lb.lOrange,.ln.lb.lPink,.ln.lb.lPurple,.ln.lb.lYellow{font-size:0}
 /* The Routes page names the 'L' lines by the CTA feed's route ids (Brn, G, Org, P, Y): the same dots. */

@@ -1,0 +1,176 @@
+{
+ "_about": "Settings for the Along the way page (engine/along/: build.py, router.js, page.html), at /chicago/along/: pick two places, see a likely CTA route between them and what's a short walk from the stops you pass. Built from the Routes page's data (docs/chicago/routes/data/) and the map's published layers. The engine names no city. Toronto's along.json explains the keys.",
+ "unlisted": true,
+ "_unlisted": "Live at its URL but kept out of the sitemap, the hub and the map (and marked noindex) until the user makes it public (after testing with riders in Chicago).",
+ "skipModes": [
+  "rail"
+ ],
+ "_skipModes": "Modes left out of the routes: Metra and the South Shore Line (mode rail) are another fare and another kind of trip; regional transit comes later as its own piece of work (the user, November 18, 2026).",
+ "express": [
+  "2",
+  "100",
+  "169",
+  "192"
+ ],
+ "_express": "Buses timed at the router's express speed. The CTA's \"Express\" routes mostly run at local speed (X4, X9, X49 about 285 m a minute end to end; the downtown 120s, 125 and 143 under 200); only these four ran at 390 or faster in the CTA's November 2026 weekday schedule (the user, November 18, 2026). The page still draws every Express route with the express badge.",
+ "attachStrip": [
+  "chicago public library",
+  "library",
+  "branch",
+  "park"
+ ],
+ "_attachStrip": "Words dropped from both names when a described place is matched to a place an earlier layer lists.",
+ "pois": [
+  {
+   "file": "landmarks",
+   "kind": "landmark",
+   "label": "catLabel"
+  },
+  {
+   "file": "knownas",
+   "kind": "area",
+   "word": "Known as"
+  },
+  {
+   "file": "ssa",
+   "kind": "street",
+   "word": "Business district",
+   "skip": "(?i)industrial|^Stockyards$"
+  },
+  {
+   "file": "heritage",
+   "kind": "heritage",
+   "word": "Landmark district"
+  },
+  {
+   "file": "parks",
+   "kind": "park",
+   "name": "n",
+   "word": "Park",
+   "minHa": 1.5,
+   "rename": [
+    "^Park \\d+ \"(.+)\"$",
+    "\\1"
+   ],
+   "skip": "^Park (No\\.|Number) \\d+$|^Forest Preserve District|Job Corps|^UIC |President's Court|Boulevard$"
+  },
+  {
+   "file": "institutions",
+   "kind": "campus",
+   "cats": [
+    "university",
+    "college"
+   ],
+   "sub": "sub",
+   "word": "Campus"
+  },
+  {
+   "file": "community",
+   "kind": "library",
+   "cats": [
+    "library"
+   ],
+   "word": "Library",
+   "rename": [
+    " branch$",
+    " library"
+   ]
+  },
+  {
+   "file": "discover",
+   "catField": "kind",
+   "label": "word",
+   "about": true,
+   "attach": true,
+   "kindField": "kind",
+   "cats": [
+    "view",
+    "art",
+    "history"
+   ],
+   "attachTo": {
+    "view": [
+     "landmark",
+     "park"
+    ],
+    "art": [
+     "landmark"
+    ],
+    "history": [
+     "landmark",
+     "campus",
+     "heritage"
+    ]
+   },
+   "promote": [
+    "view"
+   ]
+  }
+ ],
+ "_pois": "As Toronto's. ssa: Special Service Areas are business districts funded by a local property tax, so the word is \"Business district\" (not \"Shopping street\"); the industrial ones are left out. parks: OpenStreetMap's park outlines (the map's parks layer), 1.5 ha and up; unnamed lots (\"Park No. 538\"), boulevard medians, the Forest Preserve District's own parcel and fields that aren't parks to visit are left out; \"Park 565 \\\"Indian Ridge Marsh\\\"\" becomes its quoted name. The discovery layer (engine/discover/build.py) adds murals (with the registrant's description), Chicago Landmarks and National Register buildings (history) and viewpoints.",
+ "page": {
+  "city": "Chicago",
+  "title": "What’s along your commute?",
+  "short": "Along the way",
+  "description": "Pick where you start and where you’re going in Chicago and see a likely CTA route between them, two or three other ways to go, and what’s a short walk from every stop you pass: murals, Chicago Landmarks, viewpoints, parks, business districts, landmark districts, libraries and the names people use for each neighborhood.",
+  "lede": "You take the same bus and ‘L’ every day, past dozens of stops you’ve never gotten off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.",
+  "credits": "Routes and stops: CTA GTFS (data provided by Chicago Transit Authority) · Murals (Mural Registry, the registrants’ descriptions), Chicago Landmarks, the National Register list, Special Service Areas, landmark districts, libraries and community areas: City of Chicago Data Portal · Viewpoints: Layers.City, from the Chicago Park District’s park pages · Parks: © OpenStreetMap contributors (ODbL) · Landmarks and known-as names: Layers.City",
+  "outside": "That spot is too far from a CTA stop. Try an address in Chicago.",
+  "noMatch": "No match in Chicago for “{q}”. Try the full street address, like “1060 W Addison St”.",
+  "noRoute": "No CTA route turned up between those two places. Try spots closer to a bus stop or ‘L’ station.",
+  "mapLink": "Open the map",
+  "appButton": "Take this trip in the app",
+  "appNote": "Needs Layers.City 1.5 on iPhone",
+  "mapLines": "cta_lines",
+  "mapAreas": "community_areas",
+  "kindWords": {
+   "landmark": "Landmarks",
+   "street": "Business districts",
+   "heritage": "Landmark districts",
+   "park": "Parks",
+   "campus": "Campuses",
+   "library": "Libraries",
+   "view": "Viewpoints",
+   "art": "Murals",
+   "history": "Historic places"
+  },
+  "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the CTA or your maps app before you head out. What’s listed comes from this site’s own layers and the City of Chicago’s data, so it’s far from everything that’s there.",
+  "tries": [
+   {
+    "name": "Logan Square to the Loop",
+    "from": "5467",
+    "to": "1117",
+    "fromLabel": "Logan Square",
+    "toLabel": "State & Madison"
+   },
+   {
+    "name": "Hyde Park to River North",
+    "from": "17646",
+    "to": "764",
+    "fromLabel": "Hyde Park",
+    "toLabel": "River North"
+   },
+   {
+    "name": "Andersonville to the West Loop",
+    "from": "1806",
+    "to": "12754",
+    "fromLabel": "Andersonville",
+    "toLabel": "West Loop"
+   }
+  ],
+  "_tries": "Placeholders until riders in Chicago send three real commutes (the user, November 18, 2026).",
+  "cardCredit": "Routes: CTA · Places: City of Chicago, Layers.City"
+ },
+ "order": [
+  "landmark",
+  "area",
+  "view",
+  "art",
+  "history",
+  "street",
+  "heritage",
+  "park",
+  "campus",
+  "library"
+ ]
+}
