@@ -21,6 +21,7 @@ Usage: python3 engine/routes/build.py <city>
 """
 import json, math, os, re, sys
 from shapely.geometry import shape, LineString, Point
+from shapely.ops import substring
 from shapely.strtree import STRtree
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -437,6 +438,22 @@ def side_of(line, p):
 
 stop_routes = {}    # stop id -> {route id: set of dirs}
 LAST_STOPS = set()  # stops where a pattern ends
+def along_twice(line, p, d):
+    """True when the line passes p closely a second time well away from d (a loop line's way back)."""
+    near = line.distance(p) + 40
+    return any(Point(line.interpolate(x)).distance(p) <= near for x in range(0, int(line.length), 25) if abs(x - d) > 400)
+
+
+def first_pass(line, p, start):
+    """Distance along the line of its first close pass by p at or after `start` (m)."""
+    near = line.distance(p) + 40
+    x = start
+    while x <= line.length and Point(line.interpolate(x)).distance(p) > near: x += 10
+    if x > line.length: return line.project(p)
+    a, b = max(start, x - 50), min(line.length, x + 400)
+    return a + substring(line, a, b).project(p)
+
+
 stop_side = {}      # stop id -> {direction word: count}
 route_index = {}
 for r in routes:
@@ -458,10 +475,17 @@ for r in routes:
         L = line.length
         cs = []
         if r['id'] in rapid_ids:   # platforms in order, from the schedule; each serves one direction
+            # In order along the line: a line that comes back over its own track (a loop downtown and back out)
+            # passes each station twice, so each platform is placed at the first pass after the one before it.
+            prev = 0.0
             for sid in sh.get('stops', []):
                 if sid not in stops: continue
                 p = Point(*m(stops[sid][2], stops[sid][3]))
-                cs.append([round(line.project(p)), sid, True, False, None])
+                d = line.project(p)
+                if d < prev - 50 or along_twice(line, p, d):
+                    d = first_pass(line, p, prev)
+                prev = max(prev, d)
+                cs.append([round(d), sid, True, False, None])
             cands.append((sh, line, cs))
             continue
         for s in on_route:
