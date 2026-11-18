@@ -207,11 +207,12 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 .ln.grp.lGO{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em;background:#00853E;color:#fff}
 
 
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE;--k-view:#4FB3C4;--k-art:#E070B0;--k-history:#D6A84E;--k-arts:#D07AA6;--k-nature:#9DBB63;--k-rec:#A8A29E;--k-faith:#8AA8C6} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp){background:var(--card)}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE;--k-view:#4FB3C4;--k-art:#E070B0;--k-history:#D6A84E;--k-arts:#D07AA6;--k-nature:#9DBB63;--k-rec:#A8A29E;--k-faith:#8AA8C6} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp){background:var(--rb-dark,var(--card))}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}
 :root[data-theme="dark"] body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE;--k-view:#4FB3C4;--k-art:#E070B0;--k-history:#D6A84E;--k-arts:#D07AA6;--k-nature:#9DBB63;--k-rec:#A8A29E;--k-faith:#8AA8C6}
-:root[data-theme="dark"] .rb:not(.tram):not(.exp){background:var(--card)}
-.rb{height:26px;min-width:40px;font-size:14px;box-shadow:inset 0 0 0 2px currentColor}
+:root[data-theme="dark"] .rb:not(.tram):not(.exp){background:var(--rb-dark,var(--card))}
+/* a city whose plain bus badges are filled (no ring) sets --rb-ring: none in its factsheet.css */
+.rb{height:26px;min-width:40px;font-size:14px;box-shadow:var(--rb-ring,inset 0 0 0 2px currentColor)}
 </style>
 </head>
 <body>
@@ -499,7 +500,7 @@ if (typeof module !== 'undefined') module.exports = { reportUrl: reportUrl };
 </script>
 <script>
 (() => {
-  const RS = {"city": "Toronto", "title": "What’s along your commute?", "short": "Along the way", "description": "Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: public art, local history, viewpoints, parks, shopping streets, heritage districts, landmarks and the names people use for each area.", "lede": "You take the same bus, subway and streetcar every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries, boundaries, and the descriptions of places (StrollTO, Public Art, Cultural Hotspot): City of Toronto Open Data, Open Government Licence – Toronto · Viewpoints: Layers.City · Landmarks, areas and skyscrapers: Layers.City", "outside": "That spot is too far from a TTC stop. Try an address in Toronto.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noRoute": "No TTC route turned up between those two places. Try spots closer to a bus, streetcar or subway stop.", "mapLink": "Open the map", "appButton": "Take this trip in the app", "appNote": "Needs Layers.City 1.5 on iPhone", "kindWords": {"landmark": "Landmarks", "street": "Shopping streets", "heritage": "Heritage districts", "park": "Parks", "campus": "Campuses", "library": "Libraries", "view": "Viewpoints", "art": "Public art", "history": "Local history", "arts": "Arts spaces", "nature": "Nature", "rec": "Community & recreation", "faith": "Places of worship"}, "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers and the places the City of Toronto describes, so it’s far from everything that’s there.", "tries": [{"name": "Thorncliffe Park to King West", "from": "8344", "to": "10176", "fromLabel": "Thorncliffe Park", "toLabel": "King West"}, {"name": "The Junction to Leslieville", "from": "3508", "to": "3052", "fromLabel": "The Junction", "toLabel": "Leslieville"}, {"name": "Eglinton West to Kipling", "from": "2388", "to": "14724", "fromLabel": "Oakwood & Eglinton", "toLabel": "Kipling Station"}], "cardCredit": "Routes: TTC · Places: City of Toronto, Layers.City", "skipModes": ["go", "rail"], "expBadge": ["900", "902", "903", "904", "905", "906", "924", "925", "927", "929", "935", "937", "938", "939", "941", "943", "944", "945", "952", "953", "954", "960", "968", "984", "985", "986", "989", "995", "996"]};   // this city's settings and wording (cities/<city>/along.json)
+  const RS = {"city": "Toronto", "title": "What’s along your commute?", "short": "Along the way", "description": "Pick where you start and where you’re going in Toronto and see a likely TTC route between them, two or three other ways to go, and what’s a short walk from every stop you pass: public art, local history, viewpoints, parks, shopping streets, heritage districts, landmarks and the names people use for each area.", "lede": "You take the same bus, subway and streetcar every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.", "credits": "Routes and stops: TTC (Toronto Transit Commission) schedule data via City of Toronto Open Data · Parks, shopping streets (BIAs), heritage districts, libraries, boundaries, and the descriptions of places (StrollTO, Public Art, Cultural Hotspot): City of Toronto Open Data, Open Government Licence – Toronto · Viewpoints: Layers.City · Landmarks, areas and skyscrapers: Layers.City", "outside": "That spot is too far from a TTC stop. Try an address in Toronto.", "noMatch": "No match in Toronto for “{q}”. Try the full street name, like “789 Yonge Street”.", "noRoute": "No TTC route turned up between those two places. Try spots closer to a bus, streetcar or subway stop.", "mapLink": "Open the map", "appButton": "Take this trip in the app", "appNote": "Needs Layers.City 1.5 on iPhone", "kindWords": {"landmark": "Landmarks", "street": "Shopping streets", "heritage": "Heritage districts", "park": "Parks", "campus": "Campuses", "library": "Libraries", "view": "Viewpoints", "art": "Public art", "history": "Local history", "arts": "Arts spaces", "nature": "Nature", "rec": "Community & recreation", "faith": "Places of worship"}, "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between vehicles. Check the TTC or your maps app before you head out. What’s listed comes from this site’s own layers and the places the City of Toronto describes, so it’s far from everything that’s there.", "tries": [{"name": "Thorncliffe Park to King West", "from": "8344", "to": "10176", "fromLabel": "Thorncliffe Park", "toLabel": "King West"}, {"name": "The Junction to Leslieville", "from": "3508", "to": "3052", "fromLabel": "The Junction", "toLabel": "Leslieville"}, {"name": "Eglinton West to Kipling", "from": "2388", "to": "14724", "fromLabel": "Oakwood & Eglinton", "toLabel": "Kipling Station"}], "cardCredit": "Routes: TTC · Places: City of Toronto, Layers.City", "mapLines": "subway_lines", "mapAreas": "neighbourhoods", "skipModes": ["go", "rail"], "expBadge": ["900", "902", "903", "904", "905", "906", "924", "925", "927", "929", "935", "937", "938", "939", "941", "943", "944", "945", "952", "953", "954", "960", "968", "984", "985", "986", "989", "995", "996"]};   // this city's settings and wording (cities/<city>/along.json)
   const $ = id => document.getElementById(id);
   const NS = 'http://www.w3.org/2000/svg';
   const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'tspan', 'rect', 'g', 'defs', 'clipPath', 'polygon', 'style'];
@@ -512,7 +513,7 @@ if (typeof module !== 'undefined') module.exports = { reportUrl: reportUrl };
   const getJSON = async url => { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); };
   const once = f => { let p; return () => (p ||= f()); };
   const gjOrNone = n => getJSON('../data/' + n + '.geojson').catch(() => ({ features: [] }));
-  const basemap = once(() => Promise.all([gjOrNone('base'), gjOrNone('streets'), gjOrNone('subway_lines'), gjOrNone('neighbourhoods')]));
+  const basemap = once(() => Promise.all([gjOrNone('base'), gjOrNone('streets'), gjOrNone(RS.mapLines || 'subway_lines'), gjOrNone(RS.mapAreas || 'neighbourhoods')]));   // along.json page: the map's rapid lines and areas
   const cityCfg = once(() => getJSON('../data/city.json'));
   const routeFile = {};
   const routeData = rid => (routeFile[rid] ||= getJSON('../routes/data/r/' + encodeURIComponent(rid) + '.json').catch(() => null));
@@ -526,17 +527,23 @@ if (typeof module !== 'undefined') module.exports = { reportUrl: reportUrl };
   const walkTxt = m => `${Math.max(1, Math.round(m * AlongRouter.DETOUR / AlongRouter.WALK))} min walk`;
   const clean = n => n.replace(/\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)? ?Platform\b.*$/i, '').replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+-\s+[^-]*Station$/, '').replace(/\s+/g, ' ').trim();
   const isRapid = rid => ['subway', 'lrt', 'rail'].includes(G.routes[rid][2]);
-  const WORD = { bus: 'bus', tram: 'streetcar', subway: 'subway', lrt: 'LRT' };
   const badge = rid => { const r = G.routes[rid];
     if (isRapid(rid)) return el('span', { class: 'ln l' + r[0], 'aria-hidden': 'true' }, r[0]);
     return el('span', { class: 'rb' + (r[2] === 'tram' ? ' tram' : RS.expBadge.includes(rid) ? ' exp' : ''), 'aria-hidden': 'true' }, r[0]); };
+  // A badge is outlined when the city's CSS draws it with an inset ring, or when the dark theme has swapped its fill for
+  // the card's (it then reads as the text on the card); otherwise it is filled. Decided from the CSS, not the city.
+  let cardBg = null;
+  const isFilled = cs => {
+    if (cardBg === null) { const p = el('span', { style: 'position:absolute;left:-999px;background:var(--card)' }); document.body.append(p); cardBg = getComputedStyle(p).backgroundColor; p.remove(); }
+    return !/inset/.test(cs.boxShadow) && cs.backgroundColor !== cardBg;
+  };
   // The colour a route's badge shows, for its line on the map (read from the city's CSS).
   const colourCache = {};
   function colourOf(rid) {
     if (colourCache[rid]) return colourCache[rid];
     const b = badge(rid); b.style.position = 'absolute'; b.style.left = '-999px'; document.body.append(b);
-    // an outlined badge (a regular bus) takes its text colour, a filled one (a streetcar, a subway line) its fill
-    const cs = getComputedStyle(b), filled = !b.classList.contains('rb') || b.classList.contains('tram') || b.classList.contains('exp');
+    // an outlined badge (Toronto's regular bus, Chicago's X routes) takes its text colour, a filled one its fill
+    const cs = getComputedStyle(b), filled = isFilled(cs);
     const c = filled ? cs.backgroundColor : cs.color;
     b.remove(); return (colourCache[rid] = c);
   }
@@ -865,7 +872,7 @@ if (typeof module !== 'undefined') module.exports = { reportUrl: reportUrl };
   // A route's badge, drawn: its colours read from the page's own badge.
   function badgeSVG(g, rid, x, y, h) {
     const r = G.routes[rid], b = badge(rid); b.style.position = 'absolute'; b.style.left = '-999px'; document.body.append(b);
-    const cs = getComputedStyle(b), rapid = isRapid(rid), filled = rapid || b.classList.contains('tram') || b.classList.contains('exp');
+    const cs = getComputedStyle(b), rapid = isRapid(rid), filled = rapid || isFilled(cs);
     const col = filled ? cs.backgroundColor : cs.color, txt = filled ? cs.color : cs.color; b.remove();
     const label = r[0], fs = h * 0.54;
     ctx.font = `700 ${fs}px ${SANS}`;

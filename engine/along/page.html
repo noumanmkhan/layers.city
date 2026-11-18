@@ -192,7 +192,8 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
 /* This city: */
 {{css}}
 {{themeCss}}
-.rb{height:26px;min-width:40px;font-size:14px;box-shadow:inset 0 0 0 2px currentColor}
+/* a city whose plain bus badges are filled (no ring) sets --rb-ring: none in its factsheet.css */
+.rb{height:26px;min-width:40px;font-size:14px;box-shadow:var(--rb-ring,inset 0 0 0 2px currentColor)}
 </style>
 </head>
 <body>
@@ -288,7 +289,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const getJSON = async url => { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); };
   const once = f => { let p; return () => (p ||= f()); };
   const gjOrNone = n => getJSON('../data/' + n + '.geojson').catch(() => ({ features: [] }));
-  const basemap = once(() => Promise.all([gjOrNone('base'), gjOrNone('streets'), gjOrNone('subway_lines'), gjOrNone('neighbourhoods')]));
+  const basemap = once(() => Promise.all([gjOrNone('base'), gjOrNone('streets'), gjOrNone(RS.mapLines || 'subway_lines'), gjOrNone(RS.mapAreas || 'neighbourhoods')]));   // along.json page: the map's rapid lines and areas
   const cityCfg = once(() => getJSON('../data/city.json'));
   const routeFile = {};
   const routeData = rid => (routeFile[rid] ||= getJSON('../routes/data/r/' + encodeURIComponent(rid) + '.json').catch(() => null));
@@ -302,17 +303,23 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   const walkTxt = m => `${Math.max(1, Math.round(m * AlongRouter.DETOUR / AlongRouter.WALK))} min walk`;
   const clean = n => n.replace(/\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)? ?Platform\b.*$/i, '').replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+-\s+[^-]*Station$/, '').replace(/\s+/g, ' ').trim();
   const isRapid = rid => ['subway', 'lrt', 'rail'].includes(G.routes[rid][2]);
-  const WORD = { bus: 'bus', tram: 'streetcar', subway: 'subway', lrt: 'LRT' };
   const badge = rid => { const r = G.routes[rid];
     if (isRapid(rid)) return el('span', { class: 'ln l' + r[0], 'aria-hidden': 'true' }, r[0]);
     return el('span', { class: 'rb' + (r[2] === 'tram' ? ' tram' : RS.expBadge.includes(rid) ? ' exp' : ''), 'aria-hidden': 'true' }, r[0]); };
+  // A badge is outlined when the city's CSS draws it with an inset ring, or when the dark theme has swapped its fill for
+  // the card's (it then reads as the text on the card); otherwise it is filled. Decided from the CSS, not the city.
+  let cardBg = null;
+  const isFilled = cs => {
+    if (cardBg === null) { const p = el('span', { style: 'position:absolute;left:-999px;background:var(--card)' }); document.body.append(p); cardBg = getComputedStyle(p).backgroundColor; p.remove(); }
+    return !/inset/.test(cs.boxShadow) && cs.backgroundColor !== cardBg;
+  };
   // The colour a route's badge shows, for its line on the map (read from the city's CSS).
   const colourCache = {};
   function colourOf(rid) {
     if (colourCache[rid]) return colourCache[rid];
     const b = badge(rid); b.style.position = 'absolute'; b.style.left = '-999px'; document.body.append(b);
-    // an outlined badge (a regular bus) takes its text colour, a filled one (a streetcar, a subway line) its fill
-    const cs = getComputedStyle(b), filled = !b.classList.contains('rb') || b.classList.contains('tram') || b.classList.contains('exp');
+    // an outlined badge (Toronto's regular bus, Chicago's X routes) takes its text colour, a filled one its fill
+    const cs = getComputedStyle(b), filled = isFilled(cs);
     const c = filled ? cs.backgroundColor : cs.color;
     b.remove(); return (colourCache[rid] = c);
   }
@@ -641,7 +648,7 @@ h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-heigh
   // A route's badge, drawn: its colours read from the page's own badge.
   function badgeSVG(g, rid, x, y, h) {
     const r = G.routes[rid], b = badge(rid); b.style.position = 'absolute'; b.style.left = '-999px'; document.body.append(b);
-    const cs = getComputedStyle(b), rapid = isRapid(rid), filled = rapid || b.classList.contains('tram') || b.classList.contains('exp');
+    const cs = getComputedStyle(b), rapid = isRapid(rid), filled = rapid || isFilled(cs);
     const col = filled ? cs.backgroundColor : cs.color, txt = filled ? cs.color : cs.color; b.remove();
     const label = r[0], fs = h * 0.54;
     ctx.font = `700 ${fs}px ${SANS}`;

@@ -151,7 +151,7 @@ from theme import SCRIPT as THEME_SCRIPT, css as theme_css
 DARK = ['body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;'
         '--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE;'
         '--k-view:#4FB3C4;--k-art:#E070B0;--k-history:#D6A84E;--k-arts:#D07AA6;--k-nature:#9DBB63;--k-rec:#A8A29E;--k-faith:#8AA8C6}',
-        '.rb:not(.tram):not(.exp){background:var(--card)}']
+        '.rb:not(.tram):not(.exp){background:var(--rb-dark,var(--card))}']   # --rb-dark: a city's filled bus badge keeps its fill
 page = CFG['page']
 # expBadge: the routes the Routes page draws as express (badge colours), which needn't be the ones timed as express
 rs = dict(page, skipModes=CFG.get('skipModes', []), expBadge=sorted(k for k, r in S['routes'].items() if 'exp' in (r[3] or []) and k in routes))
