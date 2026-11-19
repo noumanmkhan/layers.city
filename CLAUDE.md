@@ -59,9 +59,11 @@ the landing page, stop and say so; don't change this repo.
   For the iOS app it also publishes `docs/<city>/along/router.js` (a copy of `engine/along/router.js`, which must stay
   DOM-free) and writes city.json's `along` block (`engine/along/along_meta.py`, also written by assemble.py); contract section 18.
   Chicago (November 18, 2026, public the same day: a second "Along the way" hub card, a link in its phone panel, the sitemap): the first city after Toronto;
-  bringing another city: `engine/along/NEW_CITY.md` (the workflow, what Chicago taught, a sheet per city).
+  Melbourne (November 19, 2026, on dev, `"unlisted": true` until the user has heard from testers): trams, Metro trains and
+  buses (V/Line, coaches and Night Network buses left out);
+  bringing another city: `engine/along/NEW_CITY.md` (the workflow, what Chicago and Melbourne taught, a sheet per city).
 - **Discovery places** (`engine/discover/build.py`, `cities/<city>/discover.json` and `viewpoints.json`, published as
-  `docs/<city>/data/discover.geojson`; Toronto November 17, 2026, Chicago November 18: murals, Chicago Landmarks, National Register): the places a city government describes in its own open
+  `docs/<city>/data/discover.geojson`; Toronto November 17, 2026, Chicago November 18: murals, Chicago Landmarks, National Register; Melbourne November 19 on dev: the City's public art and memorials, the Victorian Heritage Register without private homes and shops): the places a city government describes in its own open
   data (Toronto: StrollTO, Public Art, Cultural Hotspot) with its descriptions quoted word for word with credit, plus
   hand-checked viewpoints. Along the way reads it (along.json's last `pois` source; tapping a place opens the text);
   so does the map's "Discover" menu (discover.json `map` writes `discover_pts.geojson`, the words in `discover_about/`,

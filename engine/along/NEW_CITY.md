@@ -1,7 +1,7 @@
 # Along the way: bringing it to a new city
 
 
-How to bring Along the way (web page + iOS 1.5 trip companion) to a city that already has a Routes page. Written after Toronto shipped; Chicago is the first city through it (handoff: claude/along-chicago-brief.md). Work runs in Claude Code on the Mac, on the internal drive; chat writes the briefs.
+How to bring Along the way (web page + iOS 1.5 trip companion) to a city that already has a Routes page. Written after Toronto shipped; Chicago was the first city through it (handoff: claude/along-chicago-brief.md), Melbourne the second. Work runs in Claude Code on the Mac, on the internal drive; chat writes the briefs.
 
 ## What is already city-agnostic (checked against main, b855ba8, Nov 18)
 - **Engine:** `engine/along/build.py`, `router.js`, `page.html` name no city. A city joins by adding `cities/<city>/along.json`.
@@ -78,6 +78,19 @@ Items 1 to 4 were fixed for Chicago (commits 6b6cc9a9, bcf0a8b0, 5aeda262 on dev
 - **Line badges in the app:** a city whose rail lines are plain dots (`label: ""`) gets its line name minus " Line" on the Along badge (1.5.1); before that, the GTFS id showed.
 - **Report flag:** on the web only checked places (viewpoints) have "Report a problem"; the app has none on Along places. Testers report through TestFlight screenshots.
 
+## Learned on Melbourne (Nov 19)
+- **Merged feeds collide:** Transport Victoria publishes one GTFS per mode, and their `service_id`s overlap. Merging them gave the Metro trains the trams' service days, so weekday trains vanished. `engine/routes/build.py` now keeps each part's service days apart (9f6761f8).
+- **No night flag:** the Night Network buses (941 to 982) run only on weekend nights, but the feed gives them no night flag, so `build.py` can't drop them by family. along.json `skipRoutes` is a regex fullmatched on the route's short name; matching routes leave the graph.
+- **City-only layers, metro-wide transit:** Melbourne's map layers (the City's parks, art, libraries) cover the City of Melbourne only, while the trams and trains reach Mornington and Pakenham. The map's `region_parks` (OpenStreetMap across Greater Melbourne) fills parks; it needs a `skip` regex for unnamed outlines, retarding basins, pipe and powerline reserves, freeway strips and school grounds. Expect a lower "place within 5 min" share for a big metro (Melbourne 52%, Chicago 68%, Toronto 85%).
+- **Truncated names and private homes:** Vicmap's copy of the Victorian Heritage Register cuts names at 50 characters and names many entries by address. discover.json `lookup` fetches each entry once from the Heritage Council's API (cached in `raw/discover/<id>_places.json`, only new ones fetched after) for its full name and categories; `dropCats` leaves out entries whose every category matches (private houses, terraces, shops, farm buildings; mansions kept). 347 of 1,236 went. Museum houses filed only as homes (Glenfern, McCrae Homestead) go too; add them back by name if testers miss them.
+- **Smaller fixes in Discover:** `keep` per source (the City's public art list includes drinking fountains); `tidyNames` also collapses doubled apostrophes ("Grant''s"); Opendatasoft CSV exports use `;` unless the URL asks for `?delimiter=%2C`.
+- **Waits vs Google:** Google's "leave now" times you to the next departure, so it counts no wait. With the model's waits (half the gap), the tries ran 23% to 32% over Google; without them, within ±13%. Compare both before calling a speed wrong.
+- **Stops listed twice:** feeds list some stops twice in a row under one name (two platforms, both kerbs): 3.6% of hops in Melbourne, 3.4% Chicago, 1.8% Toronto. From release/1.5.1 (7b53c68) the app keeps one stop per name on a ride; the web page still lists both.
+- **The app on a skipped mode:** before 7b53c68, "Ride this" showed on routes the city skips (V/Line here, and Metra in Chicago), because skipModes only reached the router. It now hides there too.
+- **Long line names:** dot-only lines are named in full on the trip badge ("Flemington Racecourse"); 7b53c68 keeps the badge to one line and shrinks it on the Live Activity.
+- **GPX rides south of the equator:** `xcrun simctl location start` read negative latitudes as flags. `scripts/along-gpx.py` now prints `--` before the points.
+- **Stop numbers:** Yarra Trams names stops "Swanston St/Bourke St #6". The number is on the stop sign, so it stays on the web and in the app.
+
 ## Per-city sheet (copy one per city)
 | Item | Value |
 |---|---|
@@ -106,4 +119,19 @@ Items 1 to 4 were fixed for Chicago (commits 6b6cc9a9, bcf0a8b0, 5aeda262 on dev
 | Web QA date | Nov 18 (phone light and dark, desktop; screenshots/along-chicago/) |
 | iOS: data-only or 1.5.x? | Works on 1.5 from data alone, but the 'L' trip badge reads "Brn", "Org", "P". release/1.5.1 (507449b) names dot-only lines by colour ("Brown"); plus test tooling (DEBUG `-dataBase`, GPX chaining, Chicago model checks) |
 | TestFlight group | "Chicago" (external; needs Beta App Review) |
+| Public on | (the user decides) |
+
+### Melbourne
+| Item | Value |
+|---|---|
+| Routes data asof | 2026-11-19 (Transport Victoria GTFS, merged per mode) |
+| skipModes (and why) | rail (V/Line) and coach: regional, another fare (user, Nov 19). skipRoutes `^9[4-8]\d$`: the weekend-only Night Network buses |
+| Kind mapping (layer → kind, word) | landmarks → landmark; known-as → area "Known as"; the City's parks and OpenStreetMap's Greater Melbourne parks ≥ 1.5 ha → park; universities and colleges → campus; libraries → library; Discover → view / art "Public art" / history "Heritage places". No street or district layer |
+| Discover sources + licence | City of Melbourne public art and memorials (CC BY 4.0, with descriptions); Victorian Heritage Register via Vicmap (CC BY 4.0), names and categories from the Heritage Council's API; art 156, history 925 in Discover (848 on Along after attach) |
+| Viewpoints (hand-kept, count) | 2: Shrine of Remembrance, Point Ormond Lookout (checked Nov 19) |
+| Tries (from testers) | placeholders: Brunswick → Southbank, Footscray → Carlton, St Kilda → Fitzroy |
+| Speed calibration (mode, model vs schedule) | same table as Toronto and Chicago (tram 220, subway 530, bus 300 m/min); express list 201, 905 to 908 (440 to 570 m/min in the schedule); tries +6% to +13% of Google without waits |
+| Web QA date | Nov 19 (phone light and dark, desktop; screenshots/along-melbourne/) |
+| iOS: data-only or 1.5.x? | Runs from data on 1.5, but needs release/1.5.1 (7b53c68): no "Ride this" on V/Line, one stop per name, long line badges fit. Screenshots in the iOS repo's screenshots/melbourne-along/ |
+| TestFlight group | "Melbourne" (to make; external, needs Beta App Review) |
 | Public on | (the user decides) |
