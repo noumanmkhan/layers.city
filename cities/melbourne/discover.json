@@ -1,5 +1,5 @@
 {
- "_about": "Settings for this city's discovery places layer (engine/discover/build.py), docs/melbourne/data/discover.geojson: places the City of Melbourne and the Heritage Council of Victoria describe in their own open data, plus hand-checked viewpoints, for Along the way and the app. No businesses on the website. Keys as Toronto's and Chicago's discover.json, plus: latlon = one column holding \"lat, lon\" (Opendatasoft's exports); html = the text is HTML (<br> line breaks, entities): paragraphs kept, tags dropped, words as written; titleCase = the names come in capitals (the Register's); linkFrom = a link made from the row's columns; tidyNames = a maker column as a catalogue writes it (\"Meszaros, Michael Victor (1945 - )\", capitals, doubled apostrophes) made a name, with flip; fullName = names the source cuts at a length (Vicmap's Register, 50 characters) are looked up once in the Heritage Council's API and kept in raw/discover/vhr_names.json; maxHa = a place bigger than this many hectares (a water supply system, a whole headland) is left out, having no one spot to walk to. Sources, all CC BY 4.0: City of Melbourne Open Data's Outdoor artworks (the City's own description of each work, quoted word for word with credit), Public artworks, fountains and monuments, and Public memorials and sculptures (no descriptions; most are in the first list and merge into it), and the Victorian Heritage Register as Vicmap publishes it (open-data-platform:heritage_register, Greater Melbourne's box), each place linked to its Victorian Heritage Database page. The City's lists cover the City of Melbourne only; the Register covers Greater Melbourne. Left out: drinking fountains, temporary works, the Register's objects (a tram, an organ: heritage_object Y), the City's Landmarks and places of interest list (schools, offices, clubs: the map's landmarks layer covers what's left) and the Shrine's plaques.",
+ "_about": "Settings for this city's discovery places layer (engine/discover/build.py), docs/melbourne/data/discover.geojson: places the City of Melbourne and the Heritage Council of Victoria describe in their own open data, plus hand-checked viewpoints, for Along the way and the app. No businesses on the website. Keys as Toronto's and Chicago's discover.json, plus: latlon = one column holding \"lat, lon\" (Opendatasoft's exports); html = the text is HTML (<br> line breaks, entities): paragraphs kept, tags dropped, words as written; titleCase = the names come in capitals (the Register's); linkFrom = a link made from the row's columns; tidyNames = a maker column as a catalogue writes it (\"Meszaros, Michael Victor (1945 - )\", capitals, doubled apostrophes) made a name, with flip; lookup = each Register place is looked up once in the Heritage Council's API (its full name, as Vicmap cuts names at 50 characters, and its categories) and kept in raw/discover/vhr_places.json; dropCats = a place whose categories all match is left out; maxHa = a place bigger than this many hectares (a water supply system, a whole headland) is left out, having no one spot to walk to. Sources, all CC BY 4.0: City of Melbourne Open Data's Outdoor artworks (the City's own description of each work, quoted word for word with credit), Public artworks, fountains and monuments, and Public memorials and sculptures (no descriptions; most are in the first list and merge into it), and the Victorian Heritage Register as Vicmap publishes it (open-data-platform:heritage_register, Greater Melbourne's box), each place linked to its Victorian Heritage Database page. The City's lists cover the City of Melbourne only; the Register covers Greater Melbourne. Left out: drinking fountains, temporary works, the Register's objects (a tram, an organ: heritage_object Y), the City's Landmarks and places of interest list (schools, offices, clubs: the map's landmarks layer covers what's left) and the Shrine's plaques.",
  "about": "Places from City of Melbourne Open Data (Outdoor artworks; Public artworks, fountains and monuments; Public memorials and sculptures), the Victorian Heritage Register (Heritage Council of Victoria, via Vicmap) and viewpoints checked by Layers.City.",
  "words": {
   "art": "Public art",
@@ -117,11 +117,14 @@
     }
    ],
    "skip": "(?i)^(former )?(residence|house|houses|terrace|terraces|shop|shops|shops? (?:and|&) residences?|residences? (?:and|&) shops?|cottage|cottages|villa|flats|dwelling|homestead)$|^Residence( \\d| \\()",
-   "fullName": {
+   "lookup": {
     "url": "https://api.heritagecouncil.vic.gov.au/v1/places/{hermes_num}",
-    "field": "name",
-    "at": 50
-   }
+    "name": "name",
+    "at": 50,
+    "cats": "primary_categories"
+   },
+   "dropCats": "^Residential buildings \\(private\\) › (?!Mansion)|› Garden Residential$|› Shop$|^Farming and Grazing|› Presbytery|› Church Pipe Organ$|› Religious Objects|› Public Lavatory$",
+   "_dropCats": "Left out: places the Register files only as private homes (houses, terraces, cottages, flats, villas: not mansions, several of which are open or landmarks), shops, farm buildings, presbyteries, church organs and public toilets (the user, November 19, 2026)."
   }
  ]
 }

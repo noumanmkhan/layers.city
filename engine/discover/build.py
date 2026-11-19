@@ -158,30 +158,45 @@ def build(city, do_fetch):
         if do_fetch: fetch(src['url'], path)
         if not os.path.exists(path): print(f"  discover: no {src['id']}.csv (run with --fetch)"); continue
         rows = list(csv.DictReader(io.StringIO(open(path, encoding='utf-8-sig').read())))
-        # fullName: a source that cuts names at a length (Vicmap's Register at 50 characters) looks each cut one up
-        # once ({url: a template, field: the name in its JSON, at: the cut length}), kept in raw/discover/<id>_names.json
-        FN, full = src.get('fullName'), {}
-        if FN:
-            fp = os.path.join(raw, src['id'] + '_names.json')
-            full = json.load(open(fp, encoding='utf-8')) if os.path.exists(fp) else {}
+        # lookup: a source whose rows lack something its publisher's API has looks each row up once
+        # ({url: a template on the row, name: the API's name field, at: names at least this long are cut and get the
+        # API's in place (Vicmap's Register, 50 characters), cats: the API's category field, read as "group › type"}),
+        # kept in raw/discover/<id>_places.json, so only new rows are fetched. dropCats: a place every one of whose
+        # categories matches this regex is left out (the Register's private houses and shops).
+        LK, info = src.get('lookup'), {}
+        def lk_url(row): return LK['url'].format(**{k: (v or '').strip() for k, v in row.items() if k})
+        def lk_ok(row): return all(re.search(rx, row.get(col, '') or '') for col, rx in src.get('keep', {}).items())
+        if LK:
+            fp = os.path.join(raw, src['id'] + '_places.json')
+            info = json.load(open(fp, encoding='utf-8')) if os.path.exists(fp) else {}
             if do_fetch:
+                new_ = 0
                 for row in rows:
-                    n_ = row.get(src['name'], '')
-                    if len(n_) < FN['at']: continue
-                    u = FN['url'].format(**{k: (v or '').strip() for k, v in row.items() if k})
-                    if u in full: continue
+                    if not lk_ok(row): continue
+                    u = lk_url(row)
+                    if u in info: continue
                     try:
                         req = urllib.request.Request(u, headers=dict(UA, Accept='application/hal+json'))
-                        with urllib.request.urlopen(req, timeout=60) as r: full[u] = json.loads(r.read()).get(FN['field']) or n_
+                        with urllib.request.urlopen(req, timeout=60) as r: d = json.loads(r.read())
                     except Exception as e:
-                        print(f'  discover: no full name for {n_}: {e}')
-                json.dump(full, open(fp, 'w', encoding='utf-8'), indent=0, ensure_ascii=False, sort_keys=True)
+                        print(f"  discover: no record for {row.get(src['name'], '')}: {e}"); continue
+                    cats = []
+                    for c in (d.get(LK.get('cats', ''), None) or {}).values():
+                        subs = [x.get('name', '') for x in (c.get('secondary_categories') or {}).values()]
+                        cats += [f"{c.get('name', '')} › {x}" for x in subs] or [c.get('name', '')]
+                    info[u] = {'name': d.get(LK.get('name', 'name')) or '', 'cats': cats}
+                    new_ += 1
+                    if new_ % 100 == 0: json.dump(info, open(fp, 'w', encoding='utf-8'), indent=0, ensure_ascii=False, sort_keys=True)
+                json.dump(info, open(fp, 'w', encoding='utf-8'), indent=0, ensure_ascii=False, sort_keys=True)
+                print(f"  discover: {src['id']}: {new_} records looked up, {len(info)} kept")
         n0, kept = len(places), {}
         for row in rows:
-            if any(not re.search(rx, row.get(col, '') or '') for col, rx in src.get('keep', {}).items()): continue
+            if not lk_ok(row): continue
             name = clean(row.get(src['name'], ''))
-            if FN and len(name) >= FN['at']:
-                name = clean(full.get(FN['url'].format(**{k: (v or '').strip() for k, v in row.items() if k}), name))
+            if LK:
+                rec = info.get(lk_url(row)) or {}
+                if src.get('dropCats') and rec.get('cats') and all(re.search(src['dropCats'], c) for c in rec['cats']): continue
+                if len(name) >= LK.get('at', 10 ** 6) and rec.get('name'): name = clean(rec['name'])
             if src.get('titleCase') and name: name = title_case(re.sub(r'\s+', ' ', name))
             if src.get('tidyNames'): name = re.sub(r"'{2,}", "'", name)   # a catalogue's doubled apostrophes ("Grant''s")
             if not name or (src.get('skip') and re.search(src['skip'], name)): continue
