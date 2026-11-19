@@ -28,11 +28,16 @@ for st in S['stops']:
 
 routes, plist = {}, []
 EXPRESS = set(CFG['express']) if 'express' in CFG else None
+# along.json "skipRoutes": a regex on the route number for night-only routes the Routes data doesn't flag as night
+# (Melbourne's Night Network buses carry no families at all).
+import re
+SKIP_RX = re.compile(CFG['skipRoutes']) if CFG.get('skipRoutes') else None
 for rid, r in S['routes'].items():
     fam = r[3] or []
     # night-only routes (the families say overnight and nothing else): a daytime trip never uses them. A route that
     # also runs by day (frequent, express or regular: a 24-hour trunk route) stays.
     if 'night' in fam and not set(fam) & {'freq', 'exp', 'reg'}: continue
+    if SKIP_RX and SKIP_RX.fullmatch(r[0] or ''): continue
     routes[rid] = [r[0], r[1], r[2], r[4]]   # short name, long name, mode, typical gap between vehicles (min)
     # 5th, only when 1: an express route, timed at the router's EXPRESS speed. By default the Routes data's express
     # family; along.json "express" lists the route numbers instead where the agency's "Express" isn't faster.

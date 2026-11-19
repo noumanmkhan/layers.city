@@ -1,0 +1,1216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Pick where you start and where you’re going in Melbourne and see a likely tram, train or bus route between them, two or three other ways to go, and what’s a short walk from every stop you pass: public art, heritage places, viewpoints, parks, landmarks, campuses, libraries and the names people use for parts of the city.">
+<title>What’s along your commute? · Melbourne · Layers.City</title>
+<link rel="canonical" href="https://layers.city/melbourne/along/">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script>try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}</script>
+<style>
+@font-face{font-family:'Archivo';font-weight:700;font-display:swap;src:url(/fonts/archivo-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-weight:800;font-display:swap;src:url(/fonts/archivo-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:400;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Mono';font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format('woff2')}
+:root{
+  --bg:#F7F4F3; --card:#FFFFFF; --ink:#1A1414; --muted:#5E5452; --rule:#E4DCDA; --accent:#C8102E;
+  --display:'Archivo',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
+  --water:#DCE7EC; --m-city:#F7F4F3; --m-out:#ECE7E5; --m-edge:#D8CFCD; --m-hoodline:#E2D7D4;
+  --m-major:#D6CDCA; --m-halo:#FFFFFF; --pill-line:#D8CFCD; --sub:#5C5251; --hover:#F3EEEC;
+  /* what each kind of place looks like: its dot on the map and its mark in the list */
+  --k-landmark:#C8102E; --k-area:#C8102E; --k-street:#B5651D; --k-heritage:#7A5C3E; --k-park:#3F8F4E;
+  --k-campus:#2F5E9E; --k-library:#6B4FA0; --k-tower:#4A5560;
+  --k-view:#1F7A8C; --k-art:#B0307A; --k-history:#9A6A12; --k-arts:#8B3A62; --k-nature:#6E8B3D; --k-rec:#6E6A66; --k-faith:#4F6D8A;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45}
+button,input{font:inherit;color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 40px}
+h1{margin:4px 0 8px;font-family:var(--display);font-weight:800;font-size:44px;line-height:1.02;letter-spacing:-.02em}
+h2{margin:0;font-family:var(--display);font-weight:800;font-size:26px;line-height:1.1;letter-spacing:-.01em}
+.kicker{font-size:12px;font-weight:500;letter-spacing:.12em;color:var(--accent);text-transform:uppercase}
+.lede{max-width:660px;color:var(--muted);margin:0 0 18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;-webkit-appearance:none;appearance:none;padding:8px 16px;border:1.5px solid var(--ink);border-radius:999px;background:var(--card);min-height:44px;font-weight:500;cursor:pointer;text-decoration:none;color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:disabled{opacity:.6;cursor:default}
+.btn:focus-visible,.opt:focus-visible,.ends input:focus-visible,.mini:focus-visible,.more:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+/* Where from, where to */
+.ends{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;max-width:640px}
+.ends .pair{display:grid;gap:8px}
+.ends .f{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:4px 6px 4px 12px}
+.ends .f b{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);width:38px;flex:none}
+.ends input{flex:1;min-width:0;border:0;background:none;padding:8px 2px;min-height:40px;border-radius:6px}
+.ends input:focus{outline:none}
+.mini{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);background:var(--bg);border-radius:999px;padding:0 12px;min-height:36px;cursor:pointer;font-size:13px;font-weight:500;white-space:nowrap}
+.mini:hover{border-color:var(--ink)}
+.swap{align-self:center;width:44px;height:44px;border-radius:50%;border:1px solid var(--rule);background:var(--card);cursor:pointer;display:grid;place-items:center}
+.swap:hover{border-color:var(--ink)}
+.go-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.hint{color:var(--muted);font-size:13.5px;margin:10px 0 0;min-height:1.4em}
+.tries{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:6px}
+.tries .lbl{font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.chip{border:1px solid var(--rule);background:var(--card);border-radius:999px;padding:6px 12px;min-height:36px;cursor:pointer;font-size:13.5px}
+.chip:hover{border-color:var(--ink)}
+/* What to show: one chip per kind of place on this trip; all on at first */
+.kf{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin:0 0 14px}
+.kf .lbl{font-size:12px;font-weight:500;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-right:2px}
+.kf .chip{display:inline-flex;align-items:center;gap:7px;min-height:36px}
+.kf .chip i{width:9px;height:9px;border-radius:50%;background:var(--kc);flex:none}
+.kf .chip small{color:var(--muted);font-size:12px}
+.kf .chip[aria-pressed="true"]{border-color:var(--kc);box-shadow:inset 0 0 0 1px var(--kc)}
+.kf .chip[aria-pressed="false"]{color:var(--muted);background:none;border-style:dashed}
+.kf .chip[aria-pressed="false"] i{background:none;box-shadow:inset 0 0 0 1.5px var(--kc)}
+.kf .chip:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (max-width:520px){.kf{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px 14px;padding:0 16px 2px}.kf::-webkit-scrollbar{display:none}.kf .chip,.kf .all{flex:none}}
+.kf .all{background:none;border:0;padding:0 4px;min-height:36px;color:var(--accent);font-weight:500;cursor:pointer;font-size:13.5px}
+/* The ways to go */
+.res{margin-top:28px}
+.res-head{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+.res-head p{margin:0;color:var(--muted);font-size:13.5px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-bottom:16px}
+.opt{display:flex;flex-direction:column;gap:8px;text-align:left;background:var(--card);border:1.5px solid var(--rule);border-radius:12px;padding:12px 14px;cursor:pointer}
+.opt:hover{border-color:var(--ink)}
+.opt[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.opt .k{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.opt[aria-pressed="true"] .k{color:var(--accent)}
+.opt .chain{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.opt .chain .ar{color:var(--muted);font-size:13px}
+.opt .t{font-weight:500}
+.opt .t small{color:var(--muted);font-weight:400;font-size:13px}
+.split{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;align-items:start}
+.mapbox{background:var(--card);border:1px solid var(--rule);border-radius:12px;overflow:hidden;position:sticky;top:12px}
+.mapbox svg{display:block;width:100%;height:auto;background:var(--water)}
+.mapfoot{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:space-between;align-items:center;padding:10px 14px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--rule)}
+.mapfoot a{color:var(--accent);font-weight:500;text-decoration:none}
+.key{display:flex;flex-wrap:wrap;gap:4px 12px}
+.key i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
+/* The trip, stop by stop */
+.story{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:6px 16px 12px}
+.tl{list-style:none;margin:0;padding:0}
+.tl > li{position:relative;padding:8px 0 8px 28px}
+.tl > li::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:4px;background:var(--line,var(--rule))}
+.tl > li.walk::before{background:none;border-left:3px dotted var(--muted);left:10px;width:0}
+.tl > li.end::before{bottom:calc(100% - 16px)} .tl > li.start::before{top:16px;background:none;border-left:3px dotted var(--muted);left:10px;width:0}
+.tl > li::after{content:'';position:absolute;left:5px;top:13px;width:12px;height:12px;border-radius:50%;background:var(--card);box-shadow:inset 0 0 0 3px var(--line,var(--ink))}
+.tl > li.walk::after{display:none}
+.tl > li.start::after,.tl > li.end::after{width:18px;height:18px;left:2px;top:10px;background:var(--accent);box-shadow:0 0 0 3px var(--card) inset}
+.tl > li.leg::after{display:none}
+.tl > li.leg{padding:12px 0 8px 28px}
+.tl > li.on{background:var(--hover)}
+.tl .h{font-weight:500}
+.tl .h .s{display:block;color:var(--muted);font-weight:400;font-size:13px}
+.tl .big{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.01em;line-height:1.2}
+.tl .lh{display:flex;gap:10px;align-items:center}
+.tl .lh .h{line-height:1.25}
+.tl .via{color:var(--muted);font-size:13.5px;margin-top:4px}
+.tl .via .ka{font-style:italic;color:var(--accent);font-weight:500}
+.tl .wl{color:var(--muted);font-size:13.5px}
+.ps{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px}
+/* Rows line up to the top, with the dot and the walk time set on the name's first line: baseline alignment let a
+   long, wrapping name ride up over the heading above it in Safari. */
+.ps li{--lh:calc(14px * 1.35);display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:8px;align-items:start;font-size:14px;line-height:1.35}
+.ps li i{width:9px;height:9px;border-radius:50%;background:var(--kc);margin-top:calc((var(--lh) - 9px) / 2)}
+.ps li.area i{background:none;border:2px solid var(--kc);width:10px;height:10px;margin-top:calc((var(--lh) - 10px) / 2)}
+.ps li .w{color:var(--muted);font-size:12.5px;line-height:var(--lh);white-space:nowrap}
+.ps li .n{overflow-wrap:anywhere}
+.ps li .n small{color:var(--muted);font-size:12.5px;margin-left:5px}
+.ps li.area .n{font-style:italic;color:var(--accent);font-weight:500}
+.ps li .nb{all:unset;cursor:pointer;border-bottom:1px dotted var(--muted)}
+.ps li .nb:hover{color:var(--accent);border-color:var(--accent)}
+.ps li .nb:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:2px}
+.ps li .ab{grid-column:2 / -1;margin:2px 0 8px;padding:10px 12px;background:var(--hover);border-radius:8px;font-size:13.5px;line-height:1.5}
+.ps li .ab p{margin:0 0 6px}
+.ps li .ab .cr{margin:0;color:var(--muted);font-size:12.5px;display:flex;flex-wrap:wrap;gap:2px 12px}
+.ps li .ab .cr a{color:var(--accent)}
+.picking .ps li .ab{display:none}
+.more{background:none;border:0;padding:2px 0;min-height:30px;color:var(--accent);font-weight:500;cursor:pointer;font-size:13.5px}
+.note{color:var(--muted);font-size:13px;margin:12px 0 0}
+.empty{background:var(--card);border:1px dashed var(--rule);border-radius:12px;padding:18px;color:var(--muted)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;font-size:12px;color:var(--muted);margin-top:36px;border-top:1px solid var(--rule);padding-top:14px}
+/* Badges: shapes here, colours from the city's factsheet.css */
+.rb{display:inline-grid;place-items:center;box-sizing:border-box;height:26px;min-width:40px;padding:0 6px;border-radius:5px;font:700 14px/1 var(--body);background:#fff;color:#1A1414;box-shadow:inset 0 0 0 2px #1A1414;flex:none}
+.ln{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font:800 13px/1 var(--display);color:#fff;background:#5E5452;flex:none}
+.wk{display:inline-grid;place-items:center;width:22px;height:22px;color:var(--muted)}
+@media (max-width:860px){
+  .split{grid-template-columns:minmax(0,1fr)}
+  .mapbox{position:static}
+}
+@media (max-width:520px){
+  .wrap{padding:0 16px 32px}
+  h1{font-size:34px}
+  h2{font-size:22px}
+  .go-row .btn.primary{flex:1 1 100%}
+  .ends .f b{width:32px}
+}
+
+/* Share: pick what goes on the card, pick a shape, save it */
+.res-head .acts{display:flex;gap:8px;align-items:center}
+.app{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:0 0 14px}.app .btn{text-decoration:none}.app small{color:var(--muted);font-size:13px}
+.share{background:var(--card);border:1.5px solid var(--accent);border-radius:12px;padding:14px 16px;margin-bottom:16px}
+.share h3{margin:0 0 4px;font-family:var(--display);font-weight:800;font-size:20px}
+.share .how{margin:0 0 12px;color:var(--muted);font-size:13.5px}
+.share .row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-bottom:12px}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:999px;padding:3px;background:var(--bg)}
+.seg button{border:0;background:none;border-radius:999px;padding:0 14px;min-height:36px;cursor:pointer;font-weight:500;font-size:13.5px;display:inline-flex;gap:7px;align-items:center}
+.seg button i{display:inline-block;border:1.5px solid currentColor;border-radius:2px}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--card)}
+.share label.tt{display:flex;gap:8px;align-items:center;flex:1 1 260px;font-size:13px;color:var(--muted)}
+.share label.tt input{flex:1;min-width:0;border:1px solid var(--rule);border-radius:8px;padding:8px 10px;min-height:40px;background:var(--bg)}
+.count{font-size:13.5px;font-weight:500}
+.count.full{color:var(--accent)}
+.prev{display:grid;place-items:center;background:var(--bg);padding:14px}
+.prev svg{display:block;width:100%;height:auto;max-width:520px;box-shadow:0 10px 30px rgba(26,20,20,.12);border-radius:6px}
+.prev.h svg{max-width:760px}
+.share .msg{font-size:13px;color:var(--muted);min-height:1.3em;margin:6px 0 0}
+.picking .ps li{grid-template-columns:22px 12px minmax(0,1fr) auto;cursor:pointer}
+.ps li input{display:none;margin:calc((var(--lh) - 18px) / 2) 0 0;width:18px;height:18px;accent-color:var(--accent)}
+.picking .ps li input{display:block}
+.picking .ps li.off .n,.picking .ps li.off .w{opacity:.45}
+.picking .more{display:none}
+/* Site header: the same as the maps hub (docs/index.html). */
+.site{max-width:1120px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.site a{color:inherit;text-decoration:none}
+.site .mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.08em}
+.site .brand{display:flex;align-items:center;gap:9px;font-size:24px;letter-spacing:-.01em}
+.site .brand b{font-weight:500;color:var(--accent)}
+.site .sub{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;font-size:13px;letter-spacing:.08em;color:var(--sub)}
+.site .sub:hover{color:var(--ink)}
+.site .sep{width:1.5px;height:16px;background:var(--pill-line)}
+.site .links{display:flex;flex-wrap:wrap;gap:10px}
+.site .pill{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;font-weight:500;font-size:15px;background:var(--card);border:1.5px solid var(--pill-line);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.site .pill .short{display:none}
+.site .pill.instagram{background:linear-gradient(45deg,#F58529 0%,#DD2A7B 45%,#8134AF 75%,#515BD4 100%);border-color:transparent;color:#fff}
+.site .pill:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(26,20,20,.10);border-color:var(--ink)}
+.site .pill.instagram:hover{border-color:transparent}
+.site .pill:focus-visible,.site .mark a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.site .pill{transition:none}.site .pill:hover{transform:none}}
+@media (max-width:520px){.site{padding:20px 16px}.site .links{flex-wrap:nowrap;gap:8px}.site .pill{gap:6px;min-height:40px;padding:0 13px;font-size:14px}.site .pill svg{width:16px;height:16px}.site .pill .full{display:none}.site .pill .short{display:inline}}
+/* This city: */
+/* Line bullets in the train lines' group colours (cities/melbourne/city.css). The lines are named, not lettered,
+   so their bullets are plain dots. The page's class is "l" + the line's name, so a two-word name (Glen Waverley)
+   is matched by its first word. */
+.ln{font-size:10.5px}
+.ln.lAlamein,.ln.lBelgrave,.ln.lCraigieburn,.ln.lCranbourne,.ln.lFlemington,.ln.lFrankston,.ln.lGlen,.ln.lHurstbridge,.ln.lLilydale,.ln.lMernda,.ln.lPakenham,.ln.lSandringham,.ln.lStony,.ln.lSunbury,.ln.lUpfield,.ln.lWerribee,.ln.lWilliamstown{font-size:0;width:14px;height:14px}
+.ln.lAlamein{background:#152C6B}
+.ln.lBelgrave{background:#152C6B}
+.ln.lCraigieburn{background:#FFBE00}
+.ln.lCranbourne{background:#34ACE1}
+.ln.lFlemington{background:#95979A}
+.ln.lFrankston{background:#028430}
+.ln.lGlen{background:#152C6B}
+.ln.lHurstbridge{background:#BE1014}
+.ln.lLilydale{background:#152C6B}
+.ln.lMernda{background:#BE1014}
+.ln.lPakenham{background:#34ACE1}
+.ln.lSandringham{background:#F178AF}
+.ln.lStony{background:#028430}
+.ln.lSunbury{background:#34ACE1}
+.ln.lUpfield{background:#FFBE00}
+.ln.lWerribee{background:#F178AF}
+.ln.lWilliamstown{background:#F178AF}
+/* Route badges in Transport Victoria's mode colours: trams green, buses orange, night buses outlined. */
+.rb{background:#FF8200;color:#fff;box-shadow:none}
+.rb.tram{background:#78BE20;color:#fff;box-shadow:none}
+.rb.exp{background:#fff;color:#FF8200;box-shadow:inset 0 0 0 1.5px #FF8200}
+.rb.night{background:#fff;color:#1F3A93;box-shadow:inset 0 0 0 1.5px #1F3A93}
+/* The Routes page's train line badges: plain coloured dots, as on the fact sheets (the page's .ln.lb sizes them). */
+.ln.lb.lAlamein,.ln.lb.lBelgrave,.ln.lb.lCraigieburn,.ln.lb.lCranbourne,.ln.lb.lFlemington,.ln.lb.lFrankston,.ln.lb.lGlen,.ln.lb.lHurstbridge,.ln.lb.lLilydale,.ln.lb.lMernda,.ln.lb.lPakenham,.ln.lb.lSandringham,.ln.lb.lStony,.ln.lb.lSunbury,.ln.lb.lUpfield,.ln.lb.lWerribee,.ln.lb.lWilliamstown{font-size:0}
+/* The Routes page says V/Line once, as one pill (routes.json page "lineGroups"), in V/Line's purple. */
+.ln.grp.lV\/Line{width:auto;padding:0 5px;border-radius:9px;font-size:9px;letter-spacing:.04em;background:#8F1A95;color:#fff}
+/* V/Line on the Routes page: coaches in V/Line purple (its trains' dots take the same colour from the feed). */
+.rb.m-coach{background:#8F1A95;color:#fff;box-shadow:none;white-space:nowrap;font-size:0}
+/* A coach's code ("Coach V29") means nothing to riders: its badge just says Coach; the row names the route. */
+.rb.m-coach::after{content:'Coach';font-size:13px}.rb.m-coach.big::after{font-size:17px}
+
+
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A} :root:not([data-theme="light"]) body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE;--k-view:#4FB3C4;--k-art:#E070B0;--k-history:#D6A84E;--k-arts:#D07AA6;--k-nature:#9DBB63;--k-rec:#A8A29E;--k-faith:#8AA8C6} :root:not([data-theme="light"]) .rb:not(.tram):not(.exp){background:var(--rb-dark,var(--card))}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#15171B;--card:#1E2126;--ink:#ECEDEF;--ink-2:#C3C6CC;--ink-3:#9AA0A8;--muted:#8A8F97;--rule:#373B42;--accent:#E5364F;--accent-soft:rgba(229,54,79,.16);--soft:rgba(229,54,79,.16);--grid:rgba(236,237,239,.045);--land:#24272D;--street:#3A3E45;--go:#5FB98A}
+:root[data-theme="dark"] body{--water:#18232B;--m-city:#24272D;--m-out:#1C1F24;--m-edge:#3A3E45;--m-hoodline:#30343A;--m-major:#3A3E45;--m-halo:#15171B;--pill-line:#373B42;--sub:#9AA0A8;--hover:#262A30;--k-street:#D9894A;--k-heritage:#B8956E;--k-park:#5CB46C;--k-campus:#6D9BDB;--k-library:#A48BD6;--k-tower:#9AA4AE;--k-view:#4FB3C4;--k-art:#E070B0;--k-history:#D6A84E;--k-arts:#D07AA6;--k-nature:#9DBB63;--k-rec:#A8A29E;--k-faith:#8AA8C6}
+:root[data-theme="dark"] .rb:not(.tram):not(.exp){background:var(--rb-dark,var(--card))}
+/* a city whose plain bus badges are filled (no ring) sets --rb-ring: none in its factsheet.css */
+.rb{height:26px;min-width:40px;font-size:14px;box-shadow:var(--rb-ring,inset 0 0 0 2px currentColor)}
+</style>
+</head>
+<body>
+  <header class="site">
+    <div class="mark">
+      <a class="brand" href="/"><svg width="22" height="28" viewBox="18 6 84 108" aria-hidden="true"><path d="M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z" fill="#C8102E"/><polygon points="60,52 84,63 60,74 36,63" fill="#fff" fill-opacity=".42"/><polygon points="60,39 84,50 60,61 36,50" fill="#fff" fill-opacity=".72"/><polygon points="60,20 90,34 60,48 30,34" fill="#fff"/></svg><span>Layers<b>.City</b></span></a>
+      <span class="sep" aria-hidden="true"></span>
+      <a class="sub" href="https://noumankhan.ca">BY NOUMAN KHAN</a>
+    </div>
+    <nav class="links" aria-label="Elsewhere">
+      <a class="pill" href="mailto:go@layers.city" aria-label="Email go@layers.city">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        <span class="full">go@layers.city</span><span class="short">Email</span>
+      </a>
+      <a class="pill instagram" href="https://www.instagram.com/layers.city" rel="me" aria-label="layers.city on Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
+        layers.city
+      </a>
+    </nav>
+  </header>
+<main class="wrap">
+  <section id="intro">
+    <div class="kicker" id="kicker"></div>
+    <h1>What’s along your commute?</h1>
+    <p class="lede">You take the same tram, train and bus every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.</p>
+    <form id="find" autocomplete="off">
+      <div class="ends">
+        <div class="pair">
+          <div class="f"><b>From</b><label for="qa" class="sr">Where you start</label><input id="qa" type="search" placeholder="Where you start: an address or place" enterkeyhint="next">
+            <button type="button" class="mini" id="locate" aria-label="Start from where I am">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg>Here</button></div>
+          <div class="f"><b>To</b><label for="qb" class="sr">Where you’re going</label><input id="qb" type="search" placeholder="Where you’re going" enterkeyhint="go"></div>
+        </div>
+        <button type="button" class="swap" id="swap" aria-label="Swap start and end"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/></svg></button>
+      </div>
+      <div class="go-row"><button type="submit" class="btn primary" id="go">Show what’s along the way</button></div>
+    </form>
+    <p class="hint" id="hint" aria-live="polite">Routes are worked out in your browser. A shared link names the nearest stops, never your address.</p>
+    <div class="tries" id="tries" hidden></div>
+  </section>
+
+  <section class="res" id="res" hidden>
+    <div class="res-head"><h2 id="resTitle"></h2><div class="acts"><p id="resNote"></p><button type="button" class="btn" id="shareBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/></svg>Share as a card</button></div></div>
+    <p class="app" id="app" hidden><a class="btn" id="appBtn" href="#"></a><small id="appNote"></small></p>
+    <div class="share" id="share" hidden>
+      <h3>Make a card of this trip</h3>
+      <p class="how">Tick the places worth a stop in the list (each gets a number on the map), pick a shape, then save the image. The preview is where the map was.</p>
+      <div class="row">
+        <div class="seg" role="group" aria-label="Card shape">
+          <button type="button" data-lay="v" aria-pressed="true"><i style="width:10px;height:13px"></i>Vertical</button>
+          <button type="button" data-lay="sq" aria-pressed="false"><i style="width:12px;height:12px"></i>Square</button>
+          <button type="button" data-lay="h" aria-pressed="false"><i style="width:16px;height:9px"></i>Horizontal</button>
+        </div>
+        <span class="count" id="count" aria-live="polite"></span>
+      </div>
+      <div class="row"><label class="tt">Title<input id="cardTitle" maxlength="48" placeholder="Title"></label></div>
+      <div class="prev" id="prev"></div>
+      <div class="row acts2">
+        <button type="button" class="btn primary" id="saveImg">Save image</button>
+        <button type="button" class="btn" id="copyLink">Copy link to this card</button>
+        <button type="button" class="btn" id="doneShare">Done</button>
+      </div>
+      <p class="msg" id="shareMsg" aria-live="polite"></p>
+    </div>
+    <div class="opts" id="opts" role="group" aria-label="Ways to go"></div>
+    <div class="kf" id="kf" role="group" aria-label="Kinds of place to show" hidden></div>
+    <div class="split">
+      <div class="mapbox"><div id="map"></div>
+        <div class="mapfoot"><span class="key" id="key"></span><a id="maplink" href="../">Open the map →</a></div>
+      </div>
+      <div class="story"><ol class="tl" id="story"></ol></div>
+    </div>
+    <p class="note" id="caveat"></p>
+  </section>
+
+  <footer class="foot"><span>Routes and stops: Transport Victoria GTFS (CC BY 4.0) · Public art, memorials, the City’s parks and libraries, and the descriptions of artworks: City of Melbourne Open Data (CC BY 4.0) · Heritage places: Victorian Heritage Register, Heritage Council of Victoria via Vicmap (CC BY 4.0) · Viewpoints: Layers.City, from the Shrine of Remembrance’s and the City of Port Phillip’s pages · Parks across Greater Melbourne: © OpenStreetMap contributors (ODbL) · Landmarks and known-as names: Layers.City</span><span id="asof"></span></footer>
+</main>
+<script>/* Along the way: find likely transit routes between two points, in the browser.
+   No timetables: each ride costs its distance at the mode's typical speed, each boarding costs half the route's
+   usual gap between vehicles plus a small penalty, and walking joins nearby stops. Round-based like RAPTOR
+   (round k = k rides). Alternatives come from searching again with the main route's lines left out.
+   Shared by the page and by tests (node). The engine names no city. */
+(function (root) {
+  var SPEED = { bus: 300, tram: 220, subway: 530, lrt: 380, go: 700, rail: 900 };  // metres a minute, stops included
+  var WALK = 75;            // metres a minute, after the 1.3 detour below
+  var DETOUR = 1.3;         // street distance / straight-line distance
+  var ACCESS = 1000;        // furthest walk to the first stop / from the last (m, straight line)
+  var XFER = 250;           // furthest walk between stops to change (m)
+  var BOARD = 2;            // minutes added for every boarding (getting on is a hassle)
+  var MAXWAIT = 10, MINWAIT = 1;
+  var ROUNDS = 4;
+
+  // opts.skip: modes to leave out, e.g. ['go', 'rail'] for local transit only.
+  function Router(g, opts) {
+    this.g = g;
+    var skip = this.skip = {}, sm = (opts && opts.skip) || [];
+    Object.keys(g.routes).forEach(function (rid) { if (sm.indexOf(g.routes[rid][2]) >= 0) skip[rid] = 1; });
+    var lat0 = 0; g.stops.forEach(function (s) { lat0 += s[1]; }); lat0 /= g.stops.length;
+    this.kx = 111320 * Math.cos(lat0 * Math.PI / 180); this.ky = 110540;
+    var xy = this.xy = g.stops.map(function (s) { return [s[0] * this.kx, s[1] * this.ky]; }, this);
+    // grid of stops, 250 m cells
+    var C = this.C = 250, grid = this.grid = {};
+    xy.forEach(function (p, i) { var k = Math.floor(p[0] / C) + ',' + Math.floor(p[1] / C); (grid[k] = grid[k] || []).push(i); });
+    // patterns serving each stop: [pattern index, position]
+    var sp = this.sp = g.stops.map(function () { return []; });
+    g.patterns.forEach(function (p, pi) { p[2].forEach(function (s, j) { sp[s].push(pi, j); }); });
+    // walking transfers, built lazily
+    this.near = {};
+  }
+  Router.prototype.within = function (x, y, r) {
+    var C = this.C, out = [], xy = this.xy, g = this.grid;
+    for (var i = Math.floor((x - r) / C); i <= Math.floor((x + r) / C); i++)
+      for (var j = Math.floor((y - r) / C); j <= Math.floor((y + r) / C); j++) {
+        var c = g[i + ',' + j]; if (!c) continue;
+        for (var n = 0; n < c.length; n++) {
+          var p = xy[c[n]], d = Math.hypot(p[0] - x, p[1] - y);
+          if (d <= r) out.push([c[n], d]);
+        }
+      }
+    return out;
+  };
+  Router.prototype.nearStops = function (s) {
+    if (!this.near[s]) { var p = this.xy[s]; this.near[s] = this.within(p[0], p[1], XFER).filter(function (q) { return q[0] !== s; }); }
+    return this.near[s];
+  };
+  Router.prototype.wait = function (rid) {
+    var h = this.g.routes[rid][3];
+    return h ? Math.max(MINWAIT, Math.min(MAXWAIT, h / 2)) : MAXWAIT;
+  };
+  Router.prototype.speed = function (rid) {
+    var r = this.g.routes[rid], m = r[2];
+    if (m === 'bus' && r[4] === 1) return Router.EXPRESS;   // express buses: graph.json marks them (routes' 5th field)
+    return SPEED[m] || 300;
+  };
+  function walkMin(d) { return d * DETOUR / WALK; }
+
+  // One search. a, b: [lng, lat]. ban: object of route ids to leave out.
+  Router.prototype.search = function (a, b, ban) {
+    ban = Object.assign({}, this.skip, ban || {});
+    var g = this.g, n = g.stops.length, self = this;
+    var ax = a[0] * this.kx, ay = a[1] * this.ky, bx = b[0] * this.kx, by = b[1] * this.ky;
+    var direct = Math.hypot(ax - bx, ay - by);
+    var egress = {}; this.within(bx, by, ACCESS).forEach(function (q) { egress[q[0]] = walkMin(q[1]); });
+    var best = new Float64Array(n).fill(Infinity);      // best over all rounds (for pruning)
+    var labels = [], parents = [];
+    var L0 = new Float64Array(n).fill(Infinity), P0 = new Array(n), marked = [];
+    this.within(ax, ay, ACCESS).forEach(function (q) { var t = walkMin(q[1]); L0[q[0]] = t; best[q[0]] = t; P0[q[0]] = { walk: true, d: q[1] }; marked.push(q[0]); });
+    labels.push(L0); parents.push(P0);
+    var target = direct < 2500 ? walkMin(direct) : Infinity, targetEnd = { walk: true };
+    var ends = [];
+    function checkEnd(k, L) {
+      for (var s in egress) { var t = L[s] + egress[s]; if (t < target) { target = t; } if (isFinite(L[s])) ends.push([t, k, +s]); }
+    }
+    for (var k = 1; k <= ROUNDS && marked.length; k++) {
+      var prev = labels[k - 1], L = new Float64Array(n).fill(Infinity), P = new Array(n);
+      // patterns to scan, from the earliest marked position
+      var scan = {};
+      marked.forEach(function (s) { var a2 = self.sp[s]; for (var i = 0; i < a2.length; i += 2) { var pi = a2[i], j = a2[i + 1]; if (ban[g.patterns[pi][0]]) continue; if (scan[pi] === undefined || j < scan[pi]) scan[pi] = j; } });
+      var improved = [];
+      for (var pk in scan) {
+        var pi = +pk, pat = g.patterns[pi], rid = pat[0], seq = pat[2], dist = pat[3];
+        var v = this.speed(rid), w = this.wait(rid) + BOARD;
+        var on = -1, onCost = Infinity;
+        for (var j = scan[pi]; j < seq.length; j++) {
+          var s = seq[j];
+          if (on >= 0) {
+            var t = onCost + (dist[j] - dist[on]) / v;
+            if (t < L[s] && t < best[s] && t < target) { L[s] = t; best[s] = t; P[s] = { pat: pi, from: on, to: j, prev: k - 1 }; improved.push(s); }
+          }
+          var c = prev[s] + w;
+          if (c < Infinity && (on < 0 || c < onCost + (dist[j] - dist[on]) / v)) { on = j; onCost = c; }
+        }
+      }
+      // walk to nearby stops to change
+      var walked = [];
+      improved.forEach(function (s) {
+        self.nearStops(s).forEach(function (q) {
+          var t = L[s] + walkMin(q[1]);
+          if (t < L[q[0]] && t < best[q[0]] && t < target) { L[q[0]] = t; best[q[0]] = t; P[q[0]] = { xfer: s, d: q[1] }; walked.push(q[0]); }
+        });
+      });
+      labels.push(L); parents.push(P);
+      checkEnd(k, L);
+      marked = improved.concat(walked);
+    }
+    // the best end, then walk back through the parents
+    ends.sort(function (x, y) { return x[0] - y[0]; });
+    var walkOnly = direct < 2500 ? walkMin(direct) : Infinity;
+    if (!ends.length || walkOnly <= ends[0][0]) return isFinite(walkOnly) ? { min: walkOnly, legs: [{ walk: true, m: direct * DETOUR, min: walkOnly }] } : null;
+    var e = ends[0], legs = [], s = e[2], kk = e[1];
+    legs.push({ walk: true, end: true, from: s, min: egress[s] });
+    while (kk > 0) {
+      var p = parents[kk][s];
+      // a walk to change (sometimes two: a stop reached on foot can be where the next walk starts)
+      while (p.xfer !== undefined) { legs.push({ walk: true, from: p.xfer, to: s, min: walkMin(p.d) }); s = p.xfer; p = parents[kk][s]; }
+      var pat = g.patterns[p.pat];
+      legs.push({ route: pat[0], pat: p.pat, k: pat[1], from: p.from, to: p.to, stops: pat[2].slice(p.from, p.to + 1), wait: this.wait(pat[0]),
+                  min: (pat[3][p.to] - pat[3][p.from]) / this.speed(pat[0]) });
+      s = pat[2][p.from]; kk = p.prev;
+    }
+    legs.push({ walk: true, start: true, to: s, min: labels[0][s] });
+    legs.reverse();
+    return { min: e[0], legs: legs };
+  };
+  // Two routes are the same trip when their rides get on and off at the same places (504 or 503 along King):
+  // the second's lines are kept on the first's legs as `also`.
+  Router.prototype.same = function (x, y) {
+    var a = x.legs.filter(function (l) { return l.route; }), b = y.legs.filter(function (l) { return l.route; }), self = this;
+    if (a.length !== b.length) return false;
+    function close(s, t) { var p = self.xy[s], q = self.xy[t]; return Math.hypot(p[0] - q[0], p[1] - q[1]) < 300; }
+    for (var i = 0; i < a.length; i++)
+      if (!close(a[i].stops[0], b[i].stops[0]) || !close(a[i].stops[a[i].stops.length - 1], b[i].stops[b[i].stops.length - 1])) return false;
+    return true;
+  };
+  function sig(r) { return r.legs.filter(function (l) { return l.route; }).map(function (l) { return l.route; }).join('>'); }
+  Router.prototype.sig = sig;
+
+  // Up to `max` different routes, each within `slack` minutes (or 35%) of the quickest.
+  Router.prototype.options = function (a, b, max) {
+    max = max || 3;
+    var first = this.search(a, b);
+    if (!first) return [];
+    var out = [first], seen = {}; seen[sig(first)] = 1;
+    var limit = first.min + Math.max(12, first.min * 0.35);
+    var queue = [{}], tried = {};
+    while (queue.length && out.length < max + 3) {
+      var ban = queue.shift();
+      var base = this.search(a, b, ban);
+      if (!base) continue;
+      var lines = base.legs.filter(function (l) { return l.route; }).map(function (l) { return l.route; });
+      for (var i = 0; i < lines.length; i++) {
+        var b2 = Object.assign({}, ban); b2[lines[i]] = 1;
+        var key = Object.keys(b2).sort().join(',');
+        if (tried[key]) continue; tried[key] = 1;
+        var r = this.search(a, b, b2);
+        if (!r || r.min > limit) continue;
+        var sg = sig(r);
+        if (!seen[sg]) {
+          seen[sg] = 1;
+          var dup = null, self2 = this;
+          for (var o = 0; o < out.length; o++) if (this.same(out[o], r)) { dup = out[o]; break; }
+          if (dup) {
+            var da = dup.legs.filter(function (l) { return l.route; }), ra = r.legs.filter(function (l) { return l.route; });
+            da.forEach(function (l, li) { if (ra[li].route !== l.route && self2.g.routes[ra[li].route][2] === self2.g.routes[l.route][2]) { l.also = l.also || []; if (l.also.indexOf(ra[li].route) < 0) l.also.push(ra[li].route); } });
+          } else out.push(r);
+        }
+        if (Object.keys(b2).length < 2) queue.push(b2);
+      }
+    }
+    out.sort(function (x, y) { return x.min - y.min; });
+    return out.slice(0, max);
+  };
+
+  // The timing constants, for apps and tests that word or check times the way the router does.
+  Router.SPEED = SPEED; Router.WALK = WALK; Router.DETOUR = DETOUR; Router.ACCESS = ACCESS; Router.XFER = XFER;
+  Router.BOARD = BOARD; Router.MAXWAIT = MAXWAIT; Router.MINWAIT = MINWAIT; Router.ROUNDS = ROUNDS;
+  Router.EXPRESS = 400;     // metres a minute for express buses (graph.json routes with a 5th field of 1), see speed()
+
+  if (typeof module !== 'undefined' && module.exports) module.exports = Router; else root.AlongRouter = Router;
+})(this);
+</script>
+<script>// "Report an issue" link for a place card: opens the place-report issue form
+// (.github/ISSUE_TEMPLATE/place-report.yml) with the place, city and page filled in.
+// Field names must match the form's ids. Issues are public; the form says so.
+// The one approved link from the site's pages to GitHub (see CLAUDE.md).
+// No city names here: the page passes its own city and URL.
+var REPORT_FORM = 'https://github.com/noumanmkhan/layers.city/issues/new';
+
+function reportUrl(place, city, pageUrl) {
+  var p = place || {};
+  var q = {
+    template: 'place-report.yml',
+    title: 'Place report: ' + (p.name || ''),
+    place_id: p.id || p.osm || '',
+    place_name: p.name || '',
+    city: city || '',
+    page_url: pageUrl || (typeof location !== 'undefined' ? location.href : '')
+  };
+  return REPORT_FORM + '?' + Object.keys(q).filter(function (k) { return q[k]; })
+    .map(function (k) { return k + '=' + encodeURIComponent(q[k]); }).join('&');
+}
+
+if (typeof module !== 'undefined') module.exports = { reportUrl: reportUrl };
+</script>
+<script>
+(() => {
+  const RS = {"city": "Melbourne", "title": "What’s along your commute?", "short": "Along the way", "description": "Pick where you start and where you’re going in Melbourne and see a likely tram, train or bus route between them, two or three other ways to go, and what’s a short walk from every stop you pass: public art, heritage places, viewpoints, parks, landmarks, campuses, libraries and the names people use for parts of the city.", "lede": "You take the same tram, train and bus every day, past dozens of stops you’ve never got off at. Put in where you start and where you’re going to see what’s a short walk from each one, and a couple of other ways to make the trip.", "credits": "Routes and stops: Transport Victoria GTFS (CC BY 4.0) · Public art, memorials, the City’s parks and libraries, and the descriptions of artworks: City of Melbourne Open Data (CC BY 4.0) · Heritage places: Victorian Heritage Register, Heritage Council of Victoria via Vicmap (CC BY 4.0) · Viewpoints: Layers.City, from the Shrine of Remembrance’s and the City of Port Phillip’s pages · Parks across Greater Melbourne: © OpenStreetMap contributors (ODbL) · Landmarks and known-as names: Layers.City", "outside": "That spot is too far from a tram, train or bus stop. Try an address in Greater Melbourne.", "noMatch": "No match in Melbourne for “{q}”. Try the full street address, like “1 Spring St”.", "noRoute": "No route turned up between those two places. Try spots closer to a tram or bus stop or a station.", "mapLink": "Open the map", "appButton": "Take this trip in the app", "appNote": "Needs Layers.City 1.5 on iPhone", "mapLines": "train_lines", "mapAreas": "suburbs", "kindWords": {"landmark": "Landmarks", "park": "Parks", "campus": "Campuses", "library": "Libraries", "view": "Viewpoints", "art": "Public art", "history": "Heritage places"}, "caveat": "A likely route, not directions: rides are timed at each mode’s usual speed and waits at half the usual gap between services. Check Transport Victoria or your maps app before you head out. What’s listed comes from this site’s own layers, the City of Melbourne’s data and the Victorian Heritage Register, so it’s far from everything that’s there.", "tries": [{"name": "Brunswick to Southbank", "from": "4538", "to": "18215", "fromLabel": "Brunswick", "toLabel": "Southbank"}, {"name": "Footscray to Carlton", "from": "17934", "to": "17878", "fromLabel": "Footscray", "toLabel": "Carlton"}, {"name": "St Kilda to Fitzroy", "from": "20512", "to": "1694", "fromLabel": "St Kilda", "toLabel": "Fitzroy"}], "_tries": "Placeholders until riders in Melbourne send three real commutes (the user, November 19, 2026).", "cardCredit": "Routes: Transport Victoria · Places: City of Melbourne, Heritage Council of Victoria, Layers.City", "skipModes": ["rail", "coach"], "expBadge": ["21-201-aus-1"]};   // this city's settings and wording (cities/<city>/along.json)
+  const $ = id => document.getElementById(id);
+  const NS = 'http://www.w3.org/2000/svg';
+  const SVG_TAGS = ['svg', 'path', 'circle', 'text', 'tspan', 'rect', 'g', 'defs', 'clipPath', 'polygon', 'style'];
+  const el = (tag, attrs = {}, kids) => {
+    const n = SVG_TAGS.includes(tag) ? document.createElementNS(NS, tag) : document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) if (v != null) n.setAttribute(k, v);
+    if (kids != null) (Array.isArray(kids) ? kids : [kids]).forEach(c => c != null && n.append(c));
+    return n;
+  };
+  const getJSON = async url => { const r = await fetch(url); if (!r.ok) throw new Error(url + ' ' + r.status); return r.json(); };
+  const once = f => { let p; return () => (p ||= f()); };
+  const gjOrNone = n => getJSON('../data/' + n + '.geojson').catch(() => ({ features: [] }));
+  const basemap = once(() => Promise.all([gjOrNone('base'), gjOrNone('streets'), gjOrNone(RS.mapLines || 'subway_lines'), gjOrNone(RS.mapAreas || 'neighbourhoods')]));   // along.json page: the map's rapid lines and areas
+  const cityCfg = once(() => getJSON('../data/city.json'));
+  const routeFile = {};
+  const routeData = rid => (routeFile[rid] ||= getJSON('../routes/data/r/' + encodeURIComponent(rid) + '.json').catch(() => null));
+
+  let G = null, R = null, P = null;      // graph, router, places
+  let A = null, B = null;                 // {lon, lat, label, sid}
+  let opts = [], cur = 0, wantPicks = null;
+
+  // ---- words ----
+  const kmBetween = (lon1, lat1, lon2, lat2) => Math.hypot((lon1 - lon2) * 111.32 * Math.cos(lat1 * Math.PI / 180), (lat1 - lat2) * 110.574);
+  const walkTxt = m => `${Math.max(1, Math.round(m * AlongRouter.DETOUR / AlongRouter.WALK))} min walk`;
+  const clean = n => n.replace(/\s*-?\s*\b((North|South|East|West)bound|Subway|LRT)? ?Platform\b.*$/i, '').replace(/\s*\((North|South|East|West)( Side)?\)/gi, '').replace(/\s+(North|South|East|West) Side\b/gi, '').replace(/\s+-\s+[^-]*Station$/, '').replace(/\s+/g, ' ').trim();
+  const isRapid = rid => ['subway', 'lrt', 'rail'].includes(G.routes[rid][2]);
+  const badge = rid => { const r = G.routes[rid];
+    if (isRapid(rid)) return el('span', { class: 'ln l' + r[0], 'aria-hidden': 'true' }, r[0]);
+    return el('span', { class: 'rb' + (r[2] === 'tram' ? ' tram' : RS.expBadge.includes(rid) ? ' exp' : ''), 'aria-hidden': 'true' }, r[0]); };
+  // A badge is outlined when the city's CSS draws it with an inset ring, or when the dark theme has swapped its fill for
+  // the card's (it then reads as the text on the card); otherwise it is filled. Decided from the CSS, not the city.
+  let cardBg = null;
+  const isFilled = cs => {
+    if (cardBg === null) { const p = el('span', { style: 'position:absolute;left:-999px;background:var(--card)' }); document.body.append(p); cardBg = getComputedStyle(p).backgroundColor; p.remove(); }
+    return !/inset/.test(cs.boxShadow) && cs.backgroundColor !== cardBg;
+  };
+  // The colour a route's badge shows, for its line on the map (read from the city's CSS).
+  const colourCache = {};
+  function colourOf(rid) {
+    if (colourCache[rid]) return colourCache[rid];
+    const b = badge(rid); b.style.position = 'absolute'; b.style.left = '-999px'; document.body.append(b);
+    // an outlined badge (Toronto's regular bus, Chicago's X routes) takes its text colour, a filled one its fill
+    const cs = getComputedStyle(b), filled = isFilled(cs);
+    const c = filled ? cs.backgroundColor : cs.color;
+    b.remove(); return (colourCache[rid] = c);
+  }
+  const routeName = rid => { const r = G.routes[rid]; return isRapid(rid) ? r[1].replace(/\s*\(.*\)$/, '') : `${r[0]} ${r[1]}`; };
+  const stopName = s => clean(G.stops[s][2]);
+  // A station's name for the list ("Pape Station"), a stop's cross streets otherwise.
+
+  // ---- places a short walk away ----
+  let grid = null; const CELL = 0.004;
+  function indexPlaces() {
+    grid = new Map();
+    P.pois.forEach((p, i) => { const c = p[3]; for (let j = 0; j < c.length; j += 2) {
+      const k = Math.floor(c[j] / CELL) + ',' + Math.floor(c[j + 1] / CELL);
+      if (!grid.has(k)) grid.set(k, []); grid.get(k).push(i, j); } });
+  }
+  // Every place within r metres of a spot: Map(place index -> metres).
+  function placesNear(lon, lat, r) {
+    const out = new Map(), span = Math.ceil(r / 300) + 1, cx = Math.floor(lon / CELL), cy = Math.floor(lat / CELL);
+    for (let i = cx - span; i <= cx + span; i++) for (let j = cy - span; j <= cy + span; j++) {
+      const a = grid.get(i + ',' + j); if (!a) continue;
+      for (let n = 0; n < a.length; n += 2) { const c = P.pois[a[n]][3], m = kmBetween(lon, lat, c[a[n + 1]], c[a[n + 1] + 1]) * 1000;
+        if (m <= r && (!out.has(a[n]) || m < out.get(a[n]))) out.set(a[n], m); }
+    }
+    return out;
+  }
+  const hidden = new Set();   // kinds someone turned off with the chips (all on at first; not kept between visits)
+  const KORDER = P0 => Object.fromEntries((P0.kinds || []).map((k, i) => [k, i]));
+
+  // ---- the trip as a list: start, each ride (its stops with what's near them), changes, end ----
+  const STOP_R = 350, END_R = 700;   // about a 5-minute walk from a stop, 10 from either end
+  function places(o) {
+    // Every spot on the trip, in order; each place goes to the spot it's closest to.
+    const spots = [{ end: 'a', lon: A.lon, lat: A.lat, r: END_R }];
+    // a change is one spot: where you get off (the next ride's first stop is a short walk from it)
+    let firstRide = true;
+    o.legs.forEach((l, li) => { if (!l.route) return; const fr = firstRide; firstRide = false;
+      l.stops.forEach((s, j) => { if (j === 0 && !fr) return; spots.push({ leg: li, j, s, lon: G.stops[s][0], lat: G.stops[s][1], r: STOP_R }); }); });
+    spots.push({ end: 'b', lon: B.lon, lat: B.lat, r: END_R });
+    const best = new Map();
+    spots.forEach((sp, si) => placesNear(sp.lon, sp.lat, sp.r).forEach((m, pi) => {
+      const score = sp.end ? m * 0.7 : m;   // the ends first: you're on foot there anyway
+      if (!best.has(pi) || score < best.get(pi)[1]) best.set(pi, [si, score, m]); }));
+    spots.forEach(sp => { sp.places = []; });
+    best.forEach(([si, , m], pi) => spots[si].places.push([pi, m]));
+    // every kind on this trip (for the chips), then only the kinds someone left on
+    const found = {};
+    spots.forEach(sp => { sp.places.forEach(([pi]) => { const k = P.pois[pi][0]; found[k] = (found[k] || 0) + 1; });
+      sp.places = sp.places.filter(([pi]) => !hidden.has(P.pois[pi][0])); });
+    spots.found = found;
+    const ko = KORDER(P);
+    spots.forEach(sp => sp.places.sort((x, y) => (ko[P.pois[x[0]][0]] - ko[P.pois[y[0]][0]]) || x[1] - y[1]));
+    return spots;
+  }
+  // ---- what the City (or we) wrote about a place: loaded when someone opens it ----
+  const aboutFile = {};
+  const aboutOf = pid => { const n = parseInt(pid, 36) % P.about;
+    return (aboutFile[n] ||= getJSON('data/about/' + n + '.json').catch(() => ({}))).then(f => f[pid]); };
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  async function toggleAbout(pi, li, nb) {
+    const open = li.querySelector('.ab');
+    if (open) { open.remove(); nb.setAttribute('aria-expanded', 'false'); return; }
+    const p = P.pois[pi], a = await aboutOf(p[4]); if (!a) return;
+    const [text, credit, link, checked] = a;
+    const cr = el('p', { class: 'cr' }, [credit ? el('span', {}, credit) : null,
+      link ? el('a', { href: link, target: '_blank', rel: 'noopener' }, 'More about it →') : null,
+      checked ? el('span', {}, `Checked ${MONTHS[+checked.slice(5, 7) - 1]} ${checked.slice(0, 4)}`) : null,
+      checked && typeof reportUrl === 'function' ? el('a', { href: reportUrl({ id: p[4], name: p[1] }, RS.city, location.href), target: '_blank', rel: 'noopener' }, 'Report a problem') : null]);
+    li.append(el('div', { class: 'ab' }, [...text.split(/\n+/).filter(Boolean).map(t => el('p', {}, t)), cr]));
+    nb.setAttribute('aria-expanded', 'true');
+  }
+  function placeList(list, max) {
+    if (picking) max = Infinity;
+    const ul = el('ul', { class: 'ps' });
+    const row = ([pi, m]) => { const p = P.pois[pi], on = picks.has(pi);
+      const box = el('input', { type: 'checkbox', 'aria-label': `Put ${p[1]} on the card` }); box.checked = on;
+      const li = el('li', { class: [p[0] === 'area' ? 'area' : '', picking && !on ? 'off' : ''].join(' ').trim() || null, style: `--kc:var(--k-${p[0]})`, 'data-p': pi },
+        [box, el('i', { 'aria-hidden': 'true' }), el('span', { class: 'n' }, [p[5] ? el('span', { class: 'nb', role: 'button', tabindex: '0', 'aria-expanded': 'false' }, p[1]) : p[1],
+          p[2] && p[0] !== 'area' ? el('small', {}, p[2]) : null]), el('span', { class: 'w' }, walkTxt(m))]);
+      box.addEventListener('change', () => togglePick(pi, box, li));
+      li.addEventListener('click', e => { if (!picking || e.target === box) return; box.checked = !box.checked; togglePick(pi, box, li); });
+      const nb = li.querySelector('.nb');
+      if (nb) {
+        nb.addEventListener('click', e => { if (picking) return; e.stopPropagation(); toggleAbout(pi, li, nb); });
+        nb.addEventListener('keydown', e => { if (picking || (e.key !== 'Enter' && e.key !== ' ')) return; e.preventDefault(); toggleAbout(pi, li, nb); });
+      }
+      return li; };
+    list.slice(0, max).forEach(x => ul.append(row(x)));
+    const frag = [ul];
+    if (list.length > max) {
+      const b = el('button', { type: 'button', class: 'more' }, `${list.length - max} more nearby`);
+      b.addEventListener('click', () => { list.slice(max).forEach(x => ul.append(row(x))); b.remove(); });
+      frag.push(b);
+    }
+    return frag;
+  }
+
+  function pointAt(line, d) {
+    for (let i = 1; i < line.length; i++) {
+      const [x0, y0, d0] = line[i - 1], [x1, y1, d1] = line[i];
+      if (d <= d1) { const t = d1 > d0 ? (d - d0) / (d1 - d0) : 0; return [x0 + (x1 - x0) * t, y0 + (y1 - y0) * t]; }
+    }
+    const l = line[line.length - 1]; return [l[0], l[1]];
+  }
+  // What a ride runs along, from the Routes page's story of the pattern: its main streets and areas between the stops.
+  async function viaOf(l) {
+    const f = await routeData(l.route); if (!f) return null;
+    const pat = f.patterns.find(p => +p.k === l.k); if (!pat) return null;
+    const d0 = G.patterns[l.pat][3][l.from], d1 = G.patterns[l.pat][3][l.to];
+    const inR = x => x[1] > d0 + 150 && x[0] < d1 - 150;
+    const streets = [...new Set((pat.streets || []).filter(inR).map(x => x[2]))];
+    const known = (pat.known || []).filter(k => k[0] > d0 && k[0] < d1).map(k => k[1]);
+    const L = pat.line || [];
+    const line = L.length > 1 ? [pointAt(L, d0), ...L.filter(p => p[2] > d0 && p[2] < d1).map(p => [p[0], p[1]]), pointAt(L, d1)] : [];
+    return { streets, known, line };
+  }
+
+  async function story(o) {
+    const ol = $('story'); ol.replaceChildren();
+    const spots = places(o);
+    const end = sp => spots.find(x => x.end === sp);
+    const li = (cls, kids, line) => el('li', { class: cls, style: line ? `--line:${line}` : null }, kids);
+    // Start
+    const a = end('a');
+    ol.append(li('start', [el('div', { class: 'h' }, [el('span', { class: 'big' }, A.label || 'Where you start'),
+      el('span', { class: 's' }, a.places.length ? 'Within about 10 minutes’ walk' : 'Nothing from our layers within 10 minutes’ walk')]), ...placeList(a.places, 5)]));
+    const vias = await Promise.all(o.legs.map(l => l.route ? viaOf(l) : null));
+    o.legs.forEach((l, i) => {
+      if (!l.route) {
+        if (l.start || l.end || l.min < 1.5) return;
+        ol.append(li('walk', el('div', { class: 'wl' }, `Walk to ${stopName(l.to)}, about ${Math.max(1, Math.round(l.min))} min`)));
+        return;
+      }
+      const c = colourOf(l.route), r = G.routes[l.route], v = vias[i];
+      const also = (l.also || []).filter(x => G.routes[x]);
+      const lastS = l.stops[l.stops.length - 1];
+      const head = el('div', { class: 'lh' }, [badge(l.route), el('div', { class: 'h' }, [
+        `${routeName(l.route)}${also.length ? ' (or ' + also.map(x => G.routes[x][0]).join(', ') + ')' : ''}`,
+        el('span', { class: 's' }, `${stopName(l.stops[0])} to ${stopName(lastS)} · ${l.stops.length - 1} stop${l.stops.length === 2 ? '' : 's'} · about ${Math.max(1, Math.round(l.min))} min`)])]);
+      const kids = [head];
+      if (v && (v.streets.length || v.known.length)) {
+        const via = el('div', { class: 'via' });
+        if (v.streets.length) via.append(`Along ${v.streets.slice(0, 4).join(', ')}`);
+        if (v.known.length) { via.append(v.streets.length ? ', past ' : 'Past '); v.known.slice(0, 5).forEach((k, j) => { if (j) via.append(', '); via.append(el('span', { class: 'ka' }, k)); }); }
+        kids.push(via);
+      }
+      ol.append(li('leg', kids, c));
+      // the stops on this ride with somewhere a short walk away
+      spots.filter(sp => sp.leg === i).forEach(sp => {
+        const last = sp.j === l.stops.length - 1, first = sp.j === 0;
+        if (!sp.places.length && !(isRapid(l.route) && !first && !last)) return;
+        if (!sp.places.length) { ol.append(li('stop', el('div', { class: 'h' }, [stopName(sp.s), el('span', { class: 's' }, 'Nothing from our layers within 5 minutes')]), c)); return; }
+        const change = last && i < o.legs.length - 1 && o.legs.slice(i + 1).some(x => x.route);
+        const n = el('div', { class: 'h' }, [stopName(sp.s), el('span', { class: 's' }, first ? 'Where you get on' : change ? 'Where you change' : last ? 'Where you get off' : null)]);
+        ol.append(li('stop', [n, ...placeList(sp.places, 3)], c));
+      });
+    });
+    const b = end('b');
+    ol.append(li('end', [el('div', { class: 'h' }, [el('span', { class: 'big' }, B.label || 'Where you’re going'),
+      el('span', { class: 's' }, b.places.length ? 'Within about 10 minutes’ walk' : 'Nothing from our layers within 10 minutes’ walk')]), ...placeList(b.places, 6)]));
+    return { spots, vias };
+  }
+
+  // ---- the map: the whole trip, its rides in their own colours, and the places it turns up ----
+  // Drawn into a W×H box. pal: colours (CSS variables on the page, plain colours on a share card, which is an
+  // image and can't read the page's CSS). numbers: Map(place -> number) to draw numbered pins for those places only.
+  const PAGE_PAL = { water: 'var(--water)', city: 'var(--m-city)', out: 'var(--m-out)', edge: 'var(--m-edge)', hood: 'var(--m-hoodline)',
+    major: 'var(--m-major)', halo: 'var(--m-halo)', ink: 'var(--ink)', muted: 'var(--muted)', accent: 'var(--accent)', kind: k => `var(--k-${k})`, font: 'IBM Plex Sans, sans-serif' };
+  async function tripMap(o, spots, vias, W, H, pal, numbers, s = 1) {
+    const [base, streets, subway, nb] = await basemap();
+    const pts = [[A.lon, A.lat], [B.lon, B.lat]];
+    o.legs.forEach(l => { if (l.route) l.stops.forEach(t => pts.push([G.stops[t][0], G.stops[t][1]])); });
+    if (numbers) numbers.forEach((n, pi) => { const c = P.pois[pi][3]; pts.push([c[0], c[1]]); });
+    let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
+    pts.forEach(([lon, lat]) => { x0 = Math.min(x0, lon); x1 = Math.max(x1, lon); y0 = Math.min(y0, lat); y1 = Math.max(y1, lat); });
+    const kx = Math.cos(((y0 + y1) / 2) * Math.PI / 180);
+    let w = (x1 - x0) * kx, h = y1 - y0;
+    const minSpan = 0.014;
+    if (w < minSpan) { const c = (x0 + x1) / 2; x0 = c - minSpan / kx / 2; x1 = c + minSpan / kx / 2; w = minSpan; }
+    if (h < minSpan) { const c = (y0 + y1) / 2; y0 = c - minSpan / 2; y1 = c + minSpan / 2; h = minSpan; }
+    // pad, then widen or heighten to the box's shape
+    const pad = Math.max(w, h) * 0.08;
+    x0 -= pad / kx; x1 += pad / kx; y0 -= pad; y1 += pad; w += 2 * pad; h += 2 * pad;
+    const want = H / W;
+    if (h / w > want) { const add = (h / want - w) / 2 / kx; x0 -= add; x1 += add; w = h / want; }
+    else { const add = (w * want - h) / 2; y0 -= add; y1 += add; h = w * want; }
+    const sc = W / w;
+    const xy = (lon, lat) => [(lon - x0) * kx * sc, (y1 - lat) * sc];
+    const inside = (lon, lat, m = 0.01) => lon > x0 - m && lon < x1 + m && lat > y0 - m && lat < y1 + m;
+    const pathOf = (coords, close) => coords.map((c, i) => { const [x, y] = xy(c[0], c[1]); return (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1); }).join('') + (close ? 'Z' : '');
+    const rings = g => !g ? [] : g.type === 'Polygon' ? g.coordinates : g.type === 'MultiPolygon' ? g.coordinates.flat() : [];
+    const linesOf = g => g.type === 'LineString' ? [g.coordinates] : g.type === 'MultiLineString' ? g.coordinates : [];
+    const near = cs => cs.some(c => inside(c[0], c[1], 0.02));
+    const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img', 'aria-label': `Map of the trip from ${A.label || 'the start'} to ${B.label || 'the end'}` });
+    svg.append(el('rect', { width: W, height: H, fill: pal.water }));
+    base.features.forEach(f => { if (f.properties.kind === 'outside') return; rings(f.geometry).forEach(r => { if (near(r)) svg.append(el('path', { d: pathOf(r, true), fill: f.properties.kind === 'city' ? pal.city : pal.out, stroke: pal.edge, 'stroke-width': s })); }); });
+    nb.features.forEach(f => rings(f.geometry).forEach(r => { if (near(r)) svg.append(el('path', { d: pathOf(r, true), fill: 'none', stroke: pal.hood, 'stroke-width': s })); }));
+    streets.features.forEach(f => { if (f.properties.cls !== 'major') return; linesOf(f.geometry).forEach(c => { if (near(c)) svg.append(el('path', { d: pathOf(c), fill: 'none', stroke: pal.major, 'stroke-width': 1.8 * s, 'stroke-linecap': 'round' })); }); });
+    subway.features.forEach(f => linesOf(f.geometry).forEach(c => { if (near(c)) svg.append(el('path', { d: pathOf(c), fill: 'none', stroke: f.properties.color || '#888', 'stroke-width': 3 * s, 'stroke-linecap': 'round', 'stroke-opacity': .35 })); }));
+    // walks dotted, rides in the route's colour
+    const legLine = (l, i) => (vias[i] && vias[i].line.length > 1) ? vias[i].line : l.stops.map(t => [G.stops[t][0], G.stops[t][1]]);
+    const dotted = c => svg.append(el('path', { d: pathOf(c), fill: 'none', stroke: pal.muted, 'stroke-width': 2.5 * s, 'stroke-dasharray': `${s} ${6 * s}`, 'stroke-linecap': 'round' }));
+    let prev = [A.lon, A.lat];
+    o.legs.forEach((l, i) => {
+      if (!l.route) return;
+      const ln = legLine(l, i);
+      dotted([prev, [G.stops[l.stops[0]][0], G.stops[l.stops[0]][1]]]);
+      svg.append(el('path', { d: pathOf(ln), fill: 'none', stroke: pal.halo, 'stroke-width': 10 * s, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+      svg.append(el('path', { d: pathOf(ln), fill: 'none', stroke: colourOf(l.route), 'stroke-width': 6 * s, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+      const ls = l.stops[l.stops.length - 1]; prev = [G.stops[ls][0], G.stops[ls][1]];
+    });
+    dotted([prev, [B.lon, B.lat]]);
+    // labels placed in priority order, skipped where they'd overlap
+    const taken = [];
+    const label = (x, y, text, opts = {}) => {
+      const fs = (opts.size || 12.5) * s, wd = text.length * fs * 0.56, left = x > W - wd - 20 * s;
+      const tx = left ? x - 8 * s : x + 8 * s, ty = y + fs * 0.35;
+      const box = [left ? tx - wd : tx, ty - fs, left ? tx : tx + wd, ty + 3 * s];
+      if (box[0] < 2 || box[2] > W - 2 || box[1] < 2 || box[3] > H - 2) return false;
+      if (taken.some(t => box[0] < t[2] && box[2] > t[0] && box[1] < t[3] && box[3] > t[1])) return false;
+      taken.push(box);
+      svg.append(el('text', { x: tx, y: ty, 'text-anchor': left ? 'end' : 'start', 'font-size': fs, 'font-weight': opts.weight || 500, fill: opts.color || pal.ink, 'font-style': opts.italic ? 'italic' : null,
+        stroke: pal.halo, 'stroke-width': 3.5 * s, 'paint-order': 'stroke', 'stroke-linejoin': 'round', 'font-family': pal.font }, text));
+      return true;
+    };
+    // where you get on, change and get off
+    const changes = [];
+    o.legs.forEach(l => { if (l.route) { changes.push(l.stops[0]); changes.push(l.stops[l.stops.length - 1]); } });
+    const changeDots = changes.map(t => { const [x, y] = xy(G.stops[t][0], G.stops[t][1]); svg.append(el('circle', { cx: x, cy: y, r: 6 * s, fill: pal.halo, stroke: pal.ink, 'stroke-width': 2.5 * s })); taken.push([x - 7 * s, y - 7 * s, x + 7 * s, y + 7 * s]); return [t, x, y]; });
+    // the places: dots in their kind's colour, or numbered pins on a card
+    const ko = KORDER(P), shown = [];
+    if (numbers) numbers.forEach((n, pi) => shown.push([pi, 0]));
+    else spots.forEach(sp => sp.places.forEach(([pi, m]) => shown.push([pi, m])));
+    shown.sort((x, y) => (ko[P.pois[x[0]][0]] - ko[P.pois[y[0]][0]]) || x[1] - y[1]);
+    const dots = [];
+    const pin = (lon, lat, txt) => { const [x, y] = xy(lon, lat);
+      const g = el('g', { transform: `translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(${s})` });
+      g.append(el('path', { d: 'M0 0C-3-6-11-11-11-19A11 11 0 0 1 11-19C11-11 3-6 0 0Z', fill: '#C8102E', stroke: '#fff', 'stroke-width': 2 }));
+      g.append(el('text', { y: -15, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 800, fill: '#fff', 'font-family': 'Archivo, sans-serif' }, txt));
+      svg.append(g); taken.push([x - 12 * s, y - 32 * s, x + 12 * s, y + 2 * s]); return [x, y]; };
+    if (numbers) {
+      // numbered pins over everything but the ends; a pin that would sit on another is nudged aside
+      const placed = [[A.lon, A.lat], [B.lon, B.lat]].map(([lo, la]) => { const [x, y] = xy(lo, la); return [x, y - 18 * s]; });
+      [...numbers].sort((a, b) => a[1] - b[1]).forEach(([pi, n]) => { const c = P.pois[pi][3]; let [x, y] = xy(c[0], c[1]);
+        const r = 13 * s;
+        for (let k = 0; k < 12 && placed.some(([px, py]) => Math.hypot(px - x, py - y) < 2 * r); k++) { x += r * 1.1 * Math.cos(k * 2.4); y += r * 1.1 * Math.sin(k * 2.4); }
+        placed.push([x, y]); taken.push([x - r, y - r, x + r, y + r]);
+        svg.append(el('circle', { cx: x, cy: y, r, fill: pal.kind(P.pois[pi][0] === 'area' ? 'landmark' : P.pois[pi][0]), stroke: '#fff', 'stroke-width': 2.5 * s }));
+        svg.append(el('text', { x, y: y + 5 * s, 'text-anchor': 'middle', 'font-size': 14 * s, 'font-weight': 700, fill: '#fff', 'font-family': pal.font }, String(n))); });
+    } else {
+      shown.forEach(([pi]) => { const p = P.pois[pi], c = p[3]; const [x, y] = xy(c[0], c[1]);
+        svg.append(el('circle', { cx: x, cy: y, r: p[0] === 'area' ? 0 : 4.5, fill: pal.kind(p[0]), stroke: pal.halo, 'stroke-width': 1.5, 'data-p': pi }));
+        dots.push([pi, x, y]); });
+    }
+    pin(A.lon, A.lat, 'A'); pin(B.lon, B.lat, 'B');
+    changeDots.forEach(([t, x, y]) => label(x, y, stopName(t).replace(/ Station$/, ''), { size: 12.5, weight: 700 }));
+    dots.forEach(([pi, x, y]) => { const p = P.pois[pi]; label(x, y, p[1], p[0] === 'area' ? { italic: true, color: pal.accent, size: 12.5 } : { size: 12, weight: 500 }); });
+    return { svg, kinds: [...new Set(shown.map(([pi]) => P.pois[pi][0]))].filter(k => k !== 'area') };
+  }
+  async function drawMap(o, spots, vias) {
+    const W = Math.round(Math.min(800, Math.max(320, $('map').clientWidth || 700)));
+    const wide = matchMedia('(min-width:861px)').matches;
+    const { svg, kinds } = await tripMap(o, spots, vias, W, Math.round(W * (wide ? 1 : 1.1)), PAGE_PAL, null);
+    svg.removeAttribute('width'); svg.removeAttribute('height');
+    $('map').replaceChildren(svg);
+    $('key').replaceChildren(...kinds.map(k => el('span', {}, [el('i', { style: `background:var(--k-${k})` }), RS.kindWords[k] || k])));
+    $('maplink').href = `../#pin=${A.lat.toFixed(5)},${A.lon.toFixed(5)}&pin2=${B.lat.toFixed(5)},${B.lon.toFixed(5)}`;
+  }
+
+  // ---- share: a card of the trip with the places someone picked, as an image in three shapes ----
+  let pickedFor = null, picking = false, picks = new Set(), layout = 'v', trip = null, cardTitle = '';
+  const LAYOUTS = {   // card size (px), most places it holds
+    v: { W: 1080, H: 1350, cap: 14, name: 'vertical' },
+    sq: { W: 1080, H: 1080, cap: 8, name: 'square' },
+    h: { W: 1600, H: 900, cap: 10, name: 'horizontal' } };
+  // Colours for the card: an image can't read the page's CSS, so plain values (always the light look).
+  const CARD_PAL = { water: '#DCE7EC', city: '#F7F4F3', out: '#ECE7E5', edge: '#D8CFCD', hood: '#E2D7D4', major: '#D6CDCA', halo: '#FFFFFF',
+    ink: '#1A1414', muted: '#5E5452', accent: '#C8102E', font: 'IBM Plex Sans, sans-serif',
+    kind: k => ({ landmark: '#C8102E', area: '#C8102E', street: '#B5651D', heritage: '#7A5C3E', park: '#3F8F4E', campus: '#2F5E9E', library: '#6B4FA0', tower: '#4A5560',
+      view: '#1F7A8C', art: '#B0307A', history: '#9A6A12', arts: '#8B3A62', nature: '#6E8B3D', rec: '#6E6A66', faith: '#4F6D8A' })[k] || '#5E5452' };
+  const cap = () => LAYOUTS[layout].cap;
+
+  function togglePick(pi, box, li) {
+    if (box.checked && picks.size >= cap()) { box.checked = false; $('shareMsg').textContent = `A ${LAYOUTS[layout].name} card holds ${cap()} places. Untick one to add another.`; return; }
+    if (box.checked) picks.add(pi); else picks.delete(pi);
+    li.classList.toggle('off', !box.checked);
+    $('shareMsg').textContent = '';
+    refreshCard();
+  }
+  // A short card to start from: a couple of places at each end and the best one near each stop, spread along the trip.
+  function defaultPicks(spots, n) {
+    const ko = KORDER(P), best = list => list.filter(([pi]) => P.pois[pi][0] !== 'area').concat(list.filter(([pi]) => P.pois[pi][0] === 'area'));
+    const ends = [], mids = [];
+    spots.forEach(sp => { const l = best(sp.places); if (!l.length) return; if (sp.end) ends.push(...l.slice(0, 2).map(x => x[0])); else mids.push(l[0][0]); });
+    const room = Math.max(0, n - ends.length), take = [];
+    for (let i = 0; i < Math.min(room, mids.length); i++) take.push(mids[Math.floor(i * mids.length / Math.min(room, mids.length))]);
+    return new Set([...ends.slice(0, n), ...take].slice(0, n));
+  }
+  // The kept places in trip order, numbered from 1, each with where it is on the trip.
+  function numbered() {
+    const out = [];
+    trip.spots.forEach(sp => sp.places.forEach(([pi, m]) => { if (picks.has(pi)) out.push({ pi, m, sp }); }));
+    return out.map((x, i) => Object.assign(x, { n: i + 1 }));
+  }
+  function whereOf(x) {
+    const t = Math.max(1, Math.round(x.m * AlongRouter.DETOUR / AlongRouter.WALK));
+    if (x.sp.end) return `${t} min from the ${x.sp.end === 'a' ? 'start' : 'end'}`;
+    return `${t} min from ${stopName(x.sp.s).replace(/ Station$/, '')}`;
+  }
+  // The name of an end for a title: the nearest area people name, else the neighbourhood, else the stop.
+  function placeName(lon, lat, si) {
+    let best = null, bd = 900;
+    placesNear(lon, lat, 900).forEach((m, pi) => { if (P.pois[pi][0] === 'area' && m < bd) { bd = m; best = P.pois[pi][1]; } });
+    return best || stopName(si).replace(/ Station$/, '');
+  }
+  const defaultTitle = () => `${placeName(A.lon, A.lat, A.si)} to ${placeName(B.lon, B.lat, B.si)}`;
+
+  // text widths, measured with the card's own fonts
+  const ctx = document.createElement('canvas').getContext('2d');
+  function fit(text, font, max) {
+    ctx.font = font; if (ctx.measureText(text).width <= max) return text;
+    let t = text; while (t.length > 1 && ctx.measureText(t + '…').width > max) t = t.slice(0, -1);
+    return t.trimEnd() + '…';
+  }
+  const SANS = '"IBM Plex Sans"', DISP = 'Archivo';
+
+  // A route's badge, drawn: its colours read from the page's own badge.
+  function badgeSVG(g, rid, x, y, h) {
+    const r = G.routes[rid], b = badge(rid); b.style.position = 'absolute'; b.style.left = '-999px'; document.body.append(b);
+    const cs = getComputedStyle(b), rapid = isRapid(rid), filled = rapid || isFilled(cs);
+    const col = filled ? cs.backgroundColor : cs.color, txt = filled ? cs.color : cs.color; b.remove();
+    const label = r[0], fs = h * 0.54;
+    ctx.font = `700 ${fs}px ${SANS}`;
+    const w = rapid ? h : Math.max(h * 1.5, ctx.measureText(label).width + h * 0.5);
+    if (rapid) g.append(el('circle', { cx: x + h / 2, cy: y + h / 2, r: h / 2, fill: col }));
+    else g.append(el('rect', { x: x + (filled ? 0 : 1.5), y: y + (filled ? 0 : 1.5), width: w - (filled ? 0 : 3), height: h - (filled ? 0 : 3), rx: h * 0.2, fill: filled ? col : '#fff', stroke: filled ? 'none' : col, 'stroke-width': 3 }));
+    g.append(el('text', { x: x + w / 2, y: y + h / 2 + fs * 0.36, 'text-anchor': 'middle', 'font-size': fs, 'font-weight': rapid ? 800 : 700, fill: filled ? txt : col, 'font-family': rapid ? DISP : SANS }, label));
+    return w;
+  }
+
+  async function cardSVG() {
+    const L = LAYOUTS[layout], { W, H } = L, o = trip.o, list = numbered();
+    const svg = el('svg', { xmlns: NS, viewBox: `0 0 ${W} ${H}`, width: W, height: H });
+    svg.append(el('rect', { width: W, height: H, fill: '#FFFFFF' }));
+    const T = (x, y, text, size, opts = {}) => svg.append(el('text', { x, y, 'font-size': size, 'font-weight': opts.weight || 400, fill: opts.fill || '#1A1414', 'font-family': opts.family || SANS,
+      'letter-spacing': opts.ls || null, 'text-anchor': opts.anchor || null }, text));
+    const horiz = layout === 'h', pad = horiz ? 48 : 56;
+    // where the parts go
+    const box = horiz
+      ? { map: [pad, pad, 820, H - 2 * pad], col: [pad + 820 + 44, W - pad], head: pad + 30, list: 300, foot: H - pad - 26 }
+      : layout === 'v'
+        ? { map: [pad, 236, W - 2 * pad, 620], col: [pad, W - pad], head: pad + 34, list: 896, foot: H - 44, cols: 2 }
+        : { map: [pad, 236, W - 2 * pad, 452], col: [pad, W - pad], head: pad + 26, list: 718, foot: H - 38, cols: 2 };
+    const cx = box.col[0], cw = box.col[1] - box.col[0];
+    // heading: what it is, the title, and the lines you take
+    T(cx, box.head, `ALONG THE WAY · ${RS.city.toUpperCase()}`, 22, { weight: 500, fill: '#C8102E', ls: 3 });
+    const title = cardTitle || defaultTitle();
+    let tsize = horiz ? 46 : 52; while (tsize > 30) { ctx.font = `800 ${tsize}px ${DISP}`; if (ctx.measureText(title).width <= cw) break; tsize -= 2; }
+    T(cx, box.head + tsize + 14, fit(title, `800 ${tsize}px ${DISP}`, cw), tsize, { weight: 800, family: DISP });
+    const chainY = box.head + tsize + 40, bh = 40, chain = el('g');
+    let x = cx;
+    o.legs.filter(l => l.route).forEach((l, j) => {
+      if (j) { chain.append(el('text', { x: x + 6, y: chainY + bh * 0.68, 'font-size': 26, fill: '#5E5452', 'font-family': SANS }, '›')); x += 26; }
+      x += badgeSVG(chain, l.route, x, chainY, bh); });
+    chain.append(el('text', { x: x + 16, y: chainY + bh * 0.68, 'font-size': 26, 'font-weight': 500, fill: '#1A1414', 'font-family': SANS }, `About ${Math.round(o.min / 5) * 5 || Math.round(o.min)} min`));
+    svg.append(chain);
+    // the map
+    const [mx, my, mw, mh] = box.map;
+    const nums = new Map(list.map(x => [x.pi, x.n]));
+    const { svg: map } = await tripMap(o, trip.spots, trip.vias, mw, mh, CARD_PAL, nums, horiz ? 1.25 : 1.55);
+    map.setAttribute('x', mx); map.setAttribute('y', my);
+    const clip = el('clipPath', { id: 'mc' }); clip.append(el('rect', { x: mx, y: my, width: mw, height: mh, rx: 14 }));
+    const defs = el('defs'); defs.append(clip); svg.append(defs);
+    const mg = el('g', { 'clip-path': 'url(#mc)' }); mg.append(map); svg.append(mg);
+    svg.append(el('rect', { x: mx, y: my, width: mw, height: mh, rx: 14, fill: 'none', stroke: '#E4DCDA', 'stroke-width': 2 }));
+    // the list: numbered like the pins
+    const top = horiz ? chainY + bh + 34 : box.list, bottom = box.foot - (horiz ? 50 : 40);
+    const cols = box.cols || 1, gap = 32, colW = (cw - gap * (cols - 1)) / cols;
+    const rows = Math.max(1, Math.ceil(list.length / cols)), rowH = Math.min(horiz ? 62 : layout === 'v' ? 78 : 66, (bottom - top) / Math.max(rows, horiz ? 8 : 4));
+    const fsN = Math.min(26, rowH * 0.42), fsW = Math.min(19, rowH * 0.31);
+    list.forEach((it, i) => {
+      const c = cols === 1 ? 0 : Math.floor(i / rows), r = cols === 1 ? i : i % rows;
+      const x0 = cx + c * (colW + gap), y0 = top + r * rowH, p = P.pois[it.pi], rr = rowH * 0.27;
+      svg.append(el('circle', { cx: x0 + rr, cy: y0 + rowH * 0.36, r: rr, fill: CARD_PAL.kind(p[0] === 'area' ? 'landmark' : p[0]) }));
+      svg.append(el('text', { x: x0 + rr, y: y0 + rowH * 0.36 + rr * 0.38, 'text-anchor': 'middle', 'font-size': rr * 1.05, 'font-weight': 700, fill: '#fff', 'font-family': SANS }, String(it.n)));
+      const tx = x0 + rr * 2 + 14, tw = colW - rr * 2 - 14;
+      T(tx, y0 + rowH * 0.36 + fsN * 0.36, fit(p[1], `500 ${fsN}px ${SANS}`, tw), fsN, { weight: 500 });
+      const kindWord = p[0] === 'area' ? 'Area' : (p[2] || '');
+      T(tx, y0 + rowH * 0.36 + fsN * 0.36 + fsW + 6, fit([kindWord, whereOf(it)].filter(Boolean).join(' · '), `400 ${fsW}px ${SANS}`, tw), fsW, { fill: '#5E5452' });
+    });
+    if (!list.length) T(cx, top + 30, 'Tick places in the list to put them on the card.', 22, { fill: '#5E5452' });
+    // footer: where it's from, and whose data
+    const fy = box.foot;
+    svg.append(el('rect', { x: cx, y: fy - 34, width: cw, height: 1.5, fill: '#E4DCDA' }));
+    const logo = el('g', { transform: `translate(${cx} ${fy - 22}) scale(0.24)` });
+    logo.append(el('path', { d: 'M60 112 C60 112 22 74 22 48 A38 38 0 0 1 98 48 C98 74 60 112 60 112 Z', fill: '#C8102E' }));
+    logo.append(el('polygon', { points: '60,20 90,34 60,48 30,34', fill: '#fff' }));
+    svg.append(logo);
+    svg.append(el('text', { x: cx + 32, y: fy + 1, 'font-size': 24, 'font-weight': 800, fill: '#1A1414', 'font-family': DISP }, [el('tspan', {}, 'Layers'), el('tspan', { fill: '#C8102E', 'font-weight': 500 }, '.City')]));
+    ctx.font = `800 24px ${DISP}`; const wm = ctx.measureText('Layers.City').width;
+    T(cx + 32 + wm + 18, fy + 1, `layers.city/${location.pathname.split('/')[1]}/along`, 18, { fill: '#5E5452' });
+    if (horiz) T(cx, fy + 30, RS.cardCredit || '', 15, { fill: '#5E5452' });
+    else T(box.col[1], fy + 1, RS.cardCredit || '', 15, { fill: '#5E5452', anchor: 'end' });
+    return svg;
+  }
+
+  let cardTimer = 0;
+  function refreshCard() { clearTimeout(cardTimer); cardTimer = setTimeout(drawCard, 60); }
+  async function drawCard() {
+    if (!picking || !trip) return;
+    await fontsReady();
+    const svg = await cardSVG();
+    svg.removeAttribute('width'); svg.removeAttribute('height');
+    svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', 'Preview of the card');
+    $('prev').className = 'prev ' + layout;
+    $('prev').replaceChildren(svg);
+    $('count').textContent = `${picks.size} of ${cap()} places`;
+    $('count').classList.toggle('full', picks.size >= cap());
+  }
+  const fontsReady = once(() => Promise.all([`800 20px ${DISP}`, `500 20px ${SANS}`, `400 20px ${SANS}`, `700 20px ${SANS}`].map(f => document.fonts.load(f))).catch(() => {}));
+  // The image: the card's SVG with its fonts inside it, drawn onto a canvas.
+  const fontData = once(async () => {
+    const files = [['Archivo', 800, 'archivo-latin-800-normal'], ['IBM Plex Sans', 400, 'ibm-plex-sans-latin-400-normal'], ['IBM Plex Sans', 500, 'ibm-plex-sans-latin-500-normal'], ['IBM Plex Sans', 700, 'ibm-plex-sans-latin-500-normal']];
+    const css = await Promise.all(files.map(async ([fam, w, f]) => {
+      const b = await (await fetch('/fonts/' + f + '.woff2')).blob();
+      const url = await new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(b); });
+      return `@font-face{font-family:'${fam}';font-weight:${w};src:url(${url}) format('woff2')}`; }));
+    return css.join('');
+  });
+  async function saveImage() {
+    $('shareMsg').textContent = 'Making the image…';
+    try {
+      const svg = await cardSVG(), { W, H } = LAYOUTS[layout];
+      const st = el('style'); st.textContent = await fontData(); svg.insertBefore(st, svg.firstChild);
+      const blobUrl = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(svg)], { type: 'image/svg+xml' }));
+      const img = new Image(); img.decoding = 'sync';
+      await new Promise((ok, bad) => { img.onload = ok; img.onerror = bad; img.src = blobUrl; });
+      await new Promise(r => setTimeout(r, 120));   // let the embedded fonts settle before drawing
+      const k = layout === 'h' ? 1.5 : 1, cv = document.createElement('canvas'); cv.width = W * k; cv.height = H * k;
+      const c2 = cv.getContext('2d'); c2.scale(k, k); c2.drawImage(img, 0, 0, W, H); URL.revokeObjectURL(blobUrl);
+      const png = await new Promise(r => cv.toBlob(r, 'image/png'));
+      const name = (cardTitle || defaultTitle()).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + `-${LAYOUTS[layout].name}.png`;
+      const file = new File([png], name, { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] }) && matchMedia('(pointer:coarse)').matches) {
+        await navigator.share({ files: [file], title: cardTitle || defaultTitle() }).catch(() => {});
+      } else { const a = el('a', { href: URL.createObjectURL(png), download: name }); document.body.append(a); a.click(); a.remove(); }
+      $('shareMsg').textContent = `Saved ${name}.`;
+      window.umami?.track?.('along-card-image', { layout });
+    } catch (e) { console.error(e); $('shareMsg').textContent = 'Couldn’t make the image in this browser. Try another browser, or a screenshot of the preview.'; }
+  }
+  function cardLink() {
+    const q = new URLSearchParams(location.search);
+    q.set('pick', [...picks].map(pi => P.pois[pi][4]).join('.'));
+    q.set('card', layout);
+    if (cardTitle) q.set('title', cardTitle); else q.delete('title');
+    return location.origin + location.pathname + '?' + q;
+  }
+  async function openShare(fromLink) {
+    picking = true; $('share').hidden = false;
+    // the preview takes the map's place beside the list, so it stays in view while ticking (it's sticky on wide screens)
+    const mb = $('map').closest('.mapbox'); mb.prepend($('prev')); $('map').hidden = true; mb.querySelector('.mapfoot').hidden = true; $('story').closest('.story').classList.add('picking'); $('shareBtn').hidden = true; $('app').hidden = true;
+    if (!fromLink && (pickedFor !== trip.o || !picks.size)) picks = defaultPicks(trip.spots, Math.min(cap(), 8));
+    pickedFor = trip.o;
+    $('cardTitle').placeholder = defaultTitle(); $('cardTitle').value = cardTitle;
+    document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lay === layout)));
+    await story(opts[cur]); await drawCard();
+  }
+  async function closeShare() {
+    picking = false; $('share').hidden = true; appLink();
+    const mb = $('map').closest('.mapbox'); $('share').insertBefore($('prev'), $('share').querySelector('.acts2')); $('map').hidden = false; mb.querySelector('.mapfoot').hidden = false; $('story').closest('.story').classList.remove('picking'); $('shareBtn').hidden = false; $('shareMsg').textContent = '';
+    await story(opts[cur]);
+  }
+  $('shareBtn').addEventListener('click', () => { openShare(false); $('share').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+  $('doneShare').addEventListener('click', closeShare);
+  $('saveImg').addEventListener('click', saveImage);
+  $('copyLink').addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(cardLink()); $('shareMsg').textContent = 'Link copied. It opens this card with your picks.'; }
+    catch (e) { $('shareMsg').textContent = cardLink(); }
+  });
+  $('cardTitle').addEventListener('input', () => { cardTitle = $('cardTitle').value.trim(); refreshCard(); });
+  document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => {
+    layout = b.dataset.lay;
+    document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    if (picks.size > cap()) { const keep = numbered().slice(0, cap()).map(x => x.pi); picks = new Set(keep); story(opts[cur]); $('shareMsg').textContent = `A ${LAYOUTS[layout].name} card holds ${cap()} places, so the last ones were left off.`; }
+    drawCard(); }));
+
+  // ---- results ----
+  function optionCard(o, i) {
+    const chain = el('span', { class: 'chain' });
+    o.legs.filter(l => l.route).forEach((l, j) => { if (j) chain.append(el('span', { class: 'ar', 'aria-hidden': 'true' }, '›')); chain.append(badge(l.route)); });
+    const rides = o.legs.filter(l => l.route);
+    const desc = rides.map(l => routeName(l.route)).join(', then ');
+    const b = el('button', { type: 'button', class: 'opt', 'aria-pressed': String(i === cur), 'aria-label': `Option ${i + 1}: ${desc}, about ${Math.round(o.min)} minutes` }, [
+      el('span', { class: 'k' }, i === 0 ? 'Quickest' : 'Another way'),
+      chain,
+      el('span', { class: 't' }, [`About ${Math.round(o.min / 5) * 5 || Math.round(o.min)} min`, el('small', {}, ` · ${rides.length === 1 ? 'no changes' : rides.length - 1 + (rides.length === 2 ? ' change' : ' changes')}`)])]);
+    b.addEventListener('click', () => { cur = i; syncURL(); render(); });
+    return b;
+  }
+  // One chip per kind of place this trip turns up (in the list's order), with how many; a kind with no word
+  // in along.json (the areas people name) is always shown.
+  function kindChips(found) {
+    const box = $('kf'), ks = (P.kinds || []).filter(k => found[k] && RS.kindWords[k]);
+    box.hidden = ks.length < 2;
+    if (box.hidden) return;
+    const chips = ks.map(k => { const on = !hidden.has(k);
+      const c = el('button', { type: 'button', class: 'chip', 'aria-pressed': String(on), style: `--kc:var(--k-${k})` },
+        [el('i', { 'aria-hidden': 'true' }), RS.kindWords[k], el('small', {}, String(found[k]))]);
+      c.addEventListener('click', () => { if (on) hidden.add(k); else hidden.delete(k); refilter(); });
+      return c; });
+    const kids = [el('span', { class: 'lbl' }, 'Show'), ...chips];
+    if (hidden.size) { const a = el('button', { type: 'button', class: 'all' }, 'Show all');
+      a.addEventListener('click', () => { hidden.clear(); refilter(); }); kids.push(a); }
+    box.replaceChildren(...kids);
+  }
+  async function refilter() {
+    const f = document.activeElement && document.activeElement.closest('#kf') ? [...$('kf').children].indexOf(document.activeElement) : -1;
+    await render();
+    const n = $('kf').children[f]; if (n) n.focus();   // keep the keyboard on the chip just pressed
+    window.umami?.track?.('along-kinds', { off: [...hidden].join(' ') || 'none' });
+  }
+  // The app opens the same trip (the link with the app's scheme: a Universal Link tapped on its own site stays in
+  // the browser). Only on iPhone and iPad, and only for a city whose along.json words it.
+  const IOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+  function appLink() {
+    if (!IOS || !RS.appButton || !A || !B || picking) { $('app').hidden = true; return; }
+    const q = new URLSearchParams({ from: G.stops[A.si][3], to: G.stops[B.si][3] }); if (cur) q.set('way', cur + 1);
+    $('appBtn').href = `layerscity://${location.host}${location.pathname}?${q}`;
+    $('appBtn').textContent = RS.appButton; $('appNote').textContent = RS.appNote || '';
+    $('app').hidden = false;
+  }
+  async function render() {
+    $('opts').replaceChildren(...opts.map(optionCard));
+    $('res').hidden = false;
+    appLink();
+    const { spots, vias } = await story(opts[cur]);
+    trip = { o: opts[cur], spots, vias };
+    kindChips(spots.found);
+    await drawMap(opts[cur], spots, vias);
+    if (picking) { const keep = new Set(); spots.forEach(sp => sp.places.forEach(([pi]) => { if (picks.has(pi)) keep.add(pi); })); picks.forEach(pi => { if (hidden.has(P.pois[pi][0])) keep.add(pi); }); picks = keep; drawCard(); }
+  }
+
+  async function plan(push) {
+    if (!A || !B) return;
+    $('hint').textContent = 'Working out the ways to go…';
+    await new Promise(r => setTimeout(r, 20));
+    opts = R.options([A.lon, A.lat], [B.lon, B.lat], 3).filter(o => o.legs.some(l => l.route));
+    if (!opts.length) { $('res').hidden = true; $('hint').textContent = RS.noRoute; return; }
+    if (cur >= opts.length) cur = 0;
+    $('hint').textContent = '';
+    $('resTitle').textContent = opts.length > 1 ? `${opts.length} ways to go` : 'One way to go';
+    $('resNote').textContent = 'Times are rough: no schedules, no live delays';
+    $('caveat').textContent = RS.caveat || '';
+    if (push) syncURL();
+    await render();
+    if (push) $('res').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ---- the link: the stops nearest each end (never the address someone typed), and which way ----
+  function nearestStop(lon, lat) { let b = -1, bd = Infinity; G.stops.forEach((s, i) => { const d = kmBetween(lon, lat, s[0], s[1]); if (d < bd) { bd = d; b = i; } }); return [b, bd]; }
+  function syncURL() {
+    const q = new URLSearchParams();
+    if (A && B) { q.set('from', G.stops[A.si][3]); q.set('to', G.stops[B.si][3]); if (cur) q.set('way', cur + 1); }
+    history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : ''));
+  }
+  const byId = new Map();
+  function fromURL() {
+    const q = new URLSearchParams(location.search);
+    const a = byId.get(q.get('from') || ''), b = byId.get(q.get('to') || '');
+    if (a == null || b == null) return false;
+    A = spotAt(G.stops[a][0], G.stops[a][1], 'Near ' + stopName(a)); B = spotAt(G.stops[b][0], G.stops[b][1], 'Near ' + stopName(b));
+    $('qa').value = A.label; $('qb').value = B.label;
+    cur = Math.max(0, (+q.get('way') || 1) - 1);
+    if (q.get('pick') != null) {
+      const ids = new Map(P.pois.map((p, i) => [p[4], i]));
+      wantPicks = new Set(q.get('pick').split('.').map(id => ids.get(id)).filter(i => i != null));
+      if (LAYOUTS[q.get('card')]) layout = q.get('card');
+      cardTitle = (q.get('title') || '').slice(0, 48);
+    }
+    return true;
+  }
+  function spotAt(lon, lat, label) { const [si, d] = nearestStop(lon, lat); return { lon, lat, label, si, far: d }; }
+
+  // ---- finding the two places: the device's location, or one address search per press (Nominatim's usage policy) ----
+  let lastSearch = 0;
+  async function geocode(text) {
+    const wait = 1100 - (Date.now() - lastSearch);
+    if (wait > 0) await new Promise(r => setTimeout(r, wait));
+    lastSearch = Date.now();
+    const cfg = (await cityCfg()).search;
+    const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&bounded=1&countrycodes=' + cfg.country + '&viewbox=' + cfg.viewbox + '&q=' + encodeURIComponent(text);
+    for (const r of await getJSON(url)) { const s = spotAt(+r.lon, +r.lat, text); if (s.far <= 1.2) return s; }
+    return null;
+  }
+  let here = null;
+  $('locate').addEventListener('click', () => {
+    if (!navigator.geolocation) { $('hint').textContent = 'This browser can’t share your location. Type an address instead.'; return; }
+    $('hint').textContent = 'Finding you…';
+    navigator.geolocation.getCurrentPosition(p => {
+      const s = spotAt(p.coords.longitude, p.coords.latitude, 'Where you are');
+      if (s.far > 1.2) { $('hint').textContent = RS.outside; return; }
+      here = s; A = s; $('qa').value = 'Where you are'; $('hint').textContent = ''; if (!$('qb').value) $('qb').focus(); },
+      e => { $('hint').textContent = e.code === 1 ? 'Location is turned off for this site. Type an address instead.' : 'Couldn’t find your location. Type an address instead.'; },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 });
+  });
+  $('swap').addEventListener('click', () => { [A, B] = [B, A]; const t = $('qa').value; $('qa').value = $('qb').value; $('qb').value = t; if (A && B) plan(true); });
+  $('qa').addEventListener('keydown', e => { if (e.key === 'Enter' && !$('qb').value) { e.preventDefault(); $('qb').focus(); } });
+  let busy = false;
+  $('find').addEventListener('submit', async e => {
+    e.preventDefault();
+    if (busy) return;
+    const ta = $('qa').value.trim(), tb = $('qb').value.trim();
+    if (!ta || !tb) { $('hint').textContent = 'Put in both: where you start and where you’re going.'; (ta ? $('qb') : $('qa')).focus(); return; }
+    busy = true; $('go').disabled = true;
+    try {
+      $('hint').textContent = 'Finding those places…';
+      if (!A || A.label !== ta) { A = ta === 'Where you are' && here ? here : await geocode(ta); if (!A) { $('hint').textContent = RS.noMatch.replace('{q}', ta); return; } }
+      if (!B || B.label !== tb) { B = await geocode(tb); if (!B) { $('hint').textContent = RS.noMatch.replace('{q}', tb); return; } }
+      cur = 0; if (picking) await closeShare();
+      await plan(true);
+    } catch (err) {
+      console.error(err);
+      $('hint').textContent = 'Address search isn’t responding right now. Try again in a moment.';
+    } finally { busy = false; $('go').disabled = false; }
+  });
+
+  async function init() {
+    $('kicker').textContent = `${RS.short} · ${RS.city}`;
+    [G, P] = await Promise.all([getJSON('data/graph.json'), getJSON('data/pois.json')]);
+    R = new AlongRouter(G, { skip: RS.skipModes || [] });
+    G.stops.forEach((s, i) => byId.set(s[3], i));
+    indexPlaces();
+    if (G.asof) $('asof').textContent = `Schedule as of ${G.asof}`;
+    // a few trips to try, from the city's settings
+    if (RS.tries && RS.tries.length) {
+      const t = $('tries'); t.hidden = false;
+      t.append(el('span', { class: 'lbl' }, 'Try'));
+      RS.tries.forEach(x => { const a = byId.get(x.from), b = byId.get(x.to); if (a == null || b == null) return;
+        const c = el('button', { type: 'button', class: 'chip' }, x.name);
+        c.addEventListener('click', () => { A = spotAt(G.stops[a][0], G.stops[a][1], x.fromLabel || 'Near ' + stopName(a)); B = spotAt(G.stops[b][0], G.stops[b][1], x.toLabel || 'Near ' + stopName(b));
+          $('qa').value = A.label; $('qb').value = B.label; cur = 0; plan(true); });
+        t.append(c); });
+    }
+    if (fromURL()) { await plan(false); if (wantPicks && trip) { picks = new Set([...wantPicks].filter(pi => trip.spots.some(sp => sp.places.some(x => x[0] === pi))).slice(0, cap())); await openShare(true); } }
+  }
+  init().catch(e => { console.error(e); $('hint').textContent = 'This page could not load. Try again in a moment.'; });
+})();
+</script>
+</body>
+</html>

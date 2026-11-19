@@ -71,7 +71,10 @@
    "tidyNames": true,
    "flip": [
     "artist"
-   ]
+   ],
+   "keep": {
+    "structure": "^(?!.*(?i:drinking))"
+   }
   },
   {
    "id": "memorials",
@@ -113,7 +116,7 @@
      "kind": "history"
     }
    ],
-   "skip": "(?i)^(former )?(residence|house|houses|terrace|terraces|shop|shops|shops and residences?|shop and residence|cottage|cottages|villa|flats|dwelling|homestead)$",
+   "skip": "(?i)^(former )?(residence|house|houses|terrace|terraces|shop|shops|shops? (?:and|&) residences?|residences? (?:and|&) shops?|cottage|cottages|villa|flats|dwelling|homestead)$|^Residence( \\d| \\()",
    "fullName": {
     "url": "https://api.heritagecouncil.vic.gov.au/v1/places/{hermes_num}",
     "field": "name",

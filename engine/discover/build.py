@@ -183,6 +183,7 @@ def build(city, do_fetch):
             if FN and len(name) >= FN['at']:
                 name = clean(full.get(FN['url'].format(**{k: (v or '').strip() for k, v in row.items() if k}), name))
             if src.get('titleCase') and name: name = title_case(re.sub(r'\s+', ' ', name))
+            if src.get('tidyNames'): name = re.sub(r"'{2,}", "'", name)   # a catalogue's doubled apostrophes ("Grant''s")
             if not name or (src.get('skip') and re.search(src['skip'], name)): continue
             pt = point(row, src)
             if not pt or not (-180 <= pt[0] <= 180 and -90 <= pt[1] <= 90) or pt == [0.0, 0.0]: continue
