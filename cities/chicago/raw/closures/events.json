@@ -1,5 +1,5 @@
 {
-"fetched": "2026-11-18T06:58",
+"fetched": "2026-11-19T06:54",
 "source": "https://data.cityofchicago.org/resource/pubx-yq2d.json",
 "permits": [
 {
@@ -221,7 +221,7 @@
 "start": "2026-11-20T00:00",
 "end": "2026-11-22T23:59",
 "day": true,
-"desc": "Festival permit (application still in review; closures may change).",
+"desc": "Festival permit.",
 "coords": [
 [
 -87.626059,
@@ -242,7 +242,7 @@
 "start": "2026-11-20T00:00",
 "end": "2026-11-22T23:59",
 "day": true,
-"desc": "Festival permit (application still in review; closures may change).",
+"desc": "Festival permit.",
 "coords": [
 [
 -87.62604,
@@ -1192,6 +1192,48 @@
 [
 -87.683907,
 41.694807
+]
+]
+},
+{
+"who": "Block party on Olcott Ave",
+"street": "N Olcott Ave",
+"extent": "7400\u20137459 N Olcott Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-11-28T00:00",
+"end": "2026-11-28T23:59",
+"day": true,
+"desc": "Block party permit.",
+"coords": [
+[
+-87.814062,
+42.015251
+],
+[
+-87.814062,
+42.016325
+]
+]
+},
+{
+"who": "Block party on 105th St",
+"street": "E 105th St",
+"extent": "3615\u20133627 E 105th St",
+"kind": "closed",
+"both": true,
+"start": "2026-11-21T00:00",
+"end": "2026-11-21T23:59",
+"day": true,
+"desc": "Block party permit.",
+"coords": [
+[
+-87.535848,
+41.704456
+],
+[
+-87.535557,
+41.704456
 ]
 ]
 }
