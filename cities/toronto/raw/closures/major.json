@@ -1,28 +1,28 @@
 {
-"fetched": "2026-11-19T07:54",
+"fetched": "2026-11-20T07:46",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
 {
-"id": "Tor-RD012026-2038",
-"street": "Keele St",
-"extent": "Keele St 19 m North of Jackson Pl to 28 m South of Vine Ave",
+"id": "Tor-RD52026-7636-3",
+"street": "Woodbine Ave",
+"extent": "Woodbine Ave 13 m North of C N R to 36 m North of C N R",
 "kind": "closed",
 "both": true,
-"start": "2026-11-18T09:30",
-"end": "2026-11-19T15:30",
-"hours": "09:30\u201315:30",
+"start": "2026-11-19T09:00",
+"end": "2026-11-27T16:00",
+"hours": "09:00\u201316:00",
 "days": "weekdays",
-"who": "npl canada",
-"desc": "Occupying both lanes North bound of Keele St during construction - maintaining one lane North bound and one lane South bound. No impact to pedestrians or TTC services. Third party traffic control services will be on site at all times. Work being directly coordinated with the developers at 403 Keele St to install their gas service so that they can continue to construct their new building at this site.",
+"who": "Aqua Tech Solutions Inc",
+"desc": "City Contract -- City Contract 26TW-CPI-15PCU Chamber Adjustments South-East Wards",
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.46486,
-43.66616
+-79.31135,
+43.68225
 ],
 [
--79.46494,
-43.66634
+-79.31144,
+43.68245
 ]
 ]
 },
@@ -47,6 +47,30 @@
 [
 -79.33667,
 43.76268
+]
+]
+},
+{
+"id": "Tor-RD1M2026-12-8",
+"street": "Highway 404 S",
+"extent": "Highway 404 S at Don Valley Parkway S to 58 m North of Don Valley Parkway S",
+"kind": "closed",
+"both": true,
+"start": "2026-11-04T10:00",
+"end": "2026-11-25T14:00",
+"hours": "10:00\u201314:00",
+"days": "weekdays",
+"who": "WSP Canada",
+"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
+"roadClass": "Expressway",
+"coords": [
+[
+-79.33685,
+43.76223
+],
+[
+-79.33696,
+43.76274
 ]
 ]
 },
@@ -531,26 +555,170 @@
 ]
 },
 {
-"id": "Tor-RD1M2026-12-8",
-"street": "Highway 404 S",
-"extent": "Highway 404 S at Don Valley Parkway S to 58 m North of Don Valley Parkway S",
+"id": "Tor-RD52026-6470-3",
+"street": "Eastern Ave Diversion",
+"extent": "Eastern Ave Diversion at Eastern Ave to 34 m East of Broadview S Eastern W Ramp",
 "kind": "closed",
 "both": true,
-"start": "2026-11-04T10:00",
-"end": "2026-11-25T14:00",
-"hours": "10:00\u201314:00",
-"days": "weekdays",
-"who": "WSP Canada",
-"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
-"roadClass": "Expressway",
+"start": "2026-11-23T21:00",
+"end": "2026-11-24T05:30",
+"hours": "21:00\u201305:30",
+"days": "daily",
+"who": "Soncin Construction",
+"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, etc.",
+"roadClass": "Major Arterial Road",
 "coords": [
 [
--79.33685,
-43.76223
+-79.3574,
+43.65452
 ],
 [
--79.33696,
-43.76274
+-79.35697,
+43.65474
+],
+[
+-79.35697,
+43.65474
+],
+[
+-79.35606,
+43.65517
+],
+[
+-79.35585,
+43.65536
+],
+[
+-79.35585,
+43.65536
+],
+[
+-79.35497,
+43.65572
+],
+[
+-79.35497,
+43.65572
+],
+[
+-79.35422,
+43.65606
+],
+[
+-79.35422,
+43.65606
+],
+[
+-79.35343,
+43.65637
+],
+[
+-79.35343,
+43.65637
+],
+[
+-79.35327,
+43.65644
+],
+[
+-79.35327,
+43.65644
+],
+[
+-79.35322,
+43.65646
+],
+[
+-79.35317,
+43.65648
+],
+[
+-79.35314,
+43.6565
+],
+[
+-79.35314,
+43.6565
+],
+[
+-79.35294,
+43.65657
+],
+[
+-79.35294,
+43.65657
+],
+[
+-79.35255,
+43.65669
+],
+[
+-79.35255,
+43.65669
+],
+[
+-79.3525,
+43.6567
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35244,
+43.65672
+],
+[
+-79.35211,
+43.65681
+],
+[
+-79.35177,
+43.65687
+],
+[
+-79.35153,
+43.65691
+],
+[
+-79.35153,
+43.65691
+],
+[
+-79.35116,
+43.65697
+],
+[
+-79.35089,
+43.65699
+],
+[
+-79.35061,
+43.657
+],
+[
+-79.35032,
+43.65698
+],
+[
+-79.35007,
+43.65695
+],
+[
+-79.34986,
+43.65691
+],
+[
+-79.34986,
+43.65691
+],
+[
+-79.34947,
+43.65681
 ]
 ]
 },
@@ -735,174 +903,6 @@
 [
 -79.35389,
 43.65611
-]
-]
-},
-{
-"id": "Tor-RD52026-6470-3",
-"street": "Eastern Ave Diversion",
-"extent": "Eastern Ave Diversion at Eastern Ave to 34 m East of Broadview S Eastern W Ramp",
-"kind": "closed",
-"both": true,
-"start": "2026-11-23T21:00",
-"end": "2026-11-24T05:30",
-"hours": "21:00\u201305:30",
-"days": "daily",
-"who": "Soncin Construction",
-"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, etc.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.3574,
-43.65452
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35606,
-43.65517
-],
-[
--79.35585,
-43.65536
-],
-[
--79.35585,
-43.65536
-],
-[
--79.35497,
-43.65572
-],
-[
--79.35497,
-43.65572
-],
-[
--79.35422,
-43.65606
-],
-[
--79.35422,
-43.65606
-],
-[
--79.35343,
-43.65637
-],
-[
--79.35343,
-43.65637
-],
-[
--79.35327,
-43.65644
-],
-[
--79.35327,
-43.65644
-],
-[
--79.35322,
-43.65646
-],
-[
--79.35317,
-43.65648
-],
-[
--79.35314,
-43.6565
-],
-[
--79.35314,
-43.6565
-],
-[
--79.35294,
-43.65657
-],
-[
--79.35294,
-43.65657
-],
-[
--79.35255,
-43.65669
-],
-[
--79.35255,
-43.65669
-],
-[
--79.3525,
-43.6567
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35211,
-43.65681
-],
-[
--79.35177,
-43.65687
-],
-[
--79.35153,
-43.65691
-],
-[
--79.35153,
-43.65691
-],
-[
--79.35116,
-43.65697
-],
-[
--79.35089,
-43.65699
-],
-[
--79.35061,
-43.657
-],
-[
--79.35032,
-43.65698
-],
-[
--79.35007,
-43.65695
-],
-[
--79.34986,
-43.65691
-],
-[
--79.34986,
-43.65691
-],
-[
--79.34947,
-43.65681
 ]
 ]
 },
@@ -1143,38 +1143,6 @@
 ]
 },
 {
-"id": "Tor-RD52026-4345-2",
-"street": "College St",
-"extent": "College St 18 m East of Bay St to Carlton St",
-"kind": "closed",
-"both": true,
-"start": "2026-07-28T00:00",
-"end": "2026-12-31T19:00",
-"hours": "24h",
-"days": "daily",
-"who": "Sanscon Construction Ltd.",
-"desc": "TTC Track and sewer work on College Street from Bay Street to Church Street including Yonge/College intersection",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.38564,
-43.66086
-],
-[
--79.38371,
-43.66125
-],
-[
--79.38371,
-43.66125
-],
-[
--79.38311,
-43.66137
-]
-]
-},
-{
 "id": "Tor-RD52026-4345-3",
 "street": "Carlton St",
 "extent": "Carlton St from Church St to Yonge St",
@@ -1219,6 +1187,38 @@
 [
 -79.38258,
 43.66138
+],
+[
+-79.38311,
+43.66137
+]
+]
+},
+{
+"id": "Tor-RD52026-4345-2",
+"street": "College St",
+"extent": "College St 18 m East of Bay St to Carlton St",
+"kind": "closed",
+"both": true,
+"start": "2026-07-28T00:00",
+"end": "2026-12-31T19:00",
+"hours": "24h",
+"days": "daily",
+"who": "Sanscon Construction Ltd.",
+"desc": "TTC Track and sewer work on College Street from Bay Street to Church Street including Yonge/College intersection",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.38564,
+43.66086
+],
+[
+-79.38371,
+43.66125
+],
+[
+-79.38371,
+43.66125
 ],
 [
 -79.38311,
