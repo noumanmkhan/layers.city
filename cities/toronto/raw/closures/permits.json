@@ -1,71 +1,7 @@
 {
-"fetched": "2026-11-20T07:46",
+"fetched": "2026-11-21T07:32",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
-{
-"id": "Tor-RD042026-1451-1",
-"street": "Wallace Ave",
-"extent": "Wallace Ave 33 m West of Ln 2 W Lansdowne S Wallace to 2 m East of Rankin Cres",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-09T07:00",
-"end": "2026-11-30T20:00",
-"hours": "07:00\u201320:00",
-"days": "weekdays",
-"who": "Graham Construction and Engineering LP",
-"desc": "- install electrical conduits, light pole base, handwell; Civil works including curb and sidewalk removal, supply and installation of asphalt, planting soil, planting, new hardscape works (concrete paving and curbs), beacon foundation and installation",
-"roadClass": "Local Road",
-"coords": [
-[
--79.44632,
-43.66193
-],
-[
--79.44681,
-43.66183
-],
-[
--79.44681,
-43.66183
-],
-[
--79.44745,
-43.66169
-]
-]
-},
-{
-"id": "Tor-RD042026-1451-2",
-"street": "Wallace Ave",
-"extent": "Wallace Ave 33 m West of Ln 2 W Lansdowne S Wallace to Rankin Cres",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-09T07:00",
-"end": "2026-11-30T20:00",
-"hours": "07:00\u201320:00",
-"days": "weekdays",
-"who": "Graham Construction and Engineering LP",
-"desc": "- install electrical conduits, light pole base, handwell; Civil works including curb and sidewalk removal, supply and installation of asphalt, planting soil, planting, new hardscape works (concrete paving and curbs), beacon foundation and installation",
-"roadClass": "Local Road",
-"coords": [
-[
--79.44632,
-43.66193
-],
-[
--79.44681,
-43.66183
-],
-[
--79.44681,
-43.66183
-],
-[
--79.44747,
-43.66168
-]
-]
-},
 {
 "id": "Tor-RD042026-1428-1",
 "street": "Eglinton Ave W",
@@ -127,110 +63,6 @@
 [
 -79.49893,
 43.6848
-]
-]
-},
-{
-"id": "Tor-RD042026-1257-1",
-"street": "Galloway Rd",
-"extent": "Galloway Rd from Waldock St to Dearham Wood",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-02T21:00",
-"end": "2026-11-21T05:00",
-"hours": "21:00\u201305:00",
-"days": "daily",
-"who": "ONxpress Civils Contractor GP",
-"desc": "The proposed work involves borehole drilling to support Phase II of the Environmental Site Assessment (ESA). Please note that only one traffic control setup and location will be occupied at any given time, with drilling limited to one borehole per location. We can confirm that work will be completed in multiple stages as shown in the attached TCPs. Also, I have attached the proposed boreholes drilling schedule for your easy reference.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.19304,
-43.75817
-],
-[
--79.19292,
-43.75787
-],
-[
--79.19292,
-43.75787
-],
-[
--79.19235,
-43.75655
-],
-[
--79.19235,
-43.75655
-],
-[
--79.19216,
-43.7561
-],
-[
--79.19216,
-43.7561
-],
-[
--79.19177,
-43.7552
-],
-[
--79.19177,
-43.7552
-],
-[
--79.19163,
-43.75488
-],
-[
--79.19163,
-43.75488
-],
-[
--79.19073,
-43.75279
-]
-]
-},
-{
-"id": "Tor-RD042026-1500-1",
-"street": "Kipling Ave",
-"extent": "Kipling Ave 23 m South of Eglinton Ave West Trl to 20 m North of Eglinton Ave W",
-"kind": "narrowed",
-"both": true,
-"start": "2026-11-18T21:00",
-"end": "2026-11-21T05:00",
-"hours": "21:00\u201305:00",
-"days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.55076,
-43.67688
-],
-[
--79.55085,
-43.67708
-],
-[
--79.55085,
-43.67708
-],
-[
--79.55089,
-43.67718
-],
-[
--79.55089,
-43.67718
-],
-[
--79.55097,
-43.67735
 ]
 ]
 },
@@ -331,94 +163,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1500-2",
-"street": "Eglinton Ave W",
-"extent": "Eglinton Ave W 30 m West of Kipling Ave to 39 m East of Kipling Ave",
-"kind": "narrowed",
-"both": true,
-"start": "2026-11-18T21:00",
-"end": "2026-11-21T05:00",
-"hours": "21:00\u201305:00",
-"days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.55124,
-43.6771
-],
-[
--79.55089,
-43.67718
-],
-[
--79.55089,
-43.67718
-],
-[
--79.55043,
-43.67729
-]
-]
-},
-{
-"id": "Tor-RD042026-885-3",
-"street": "Gertrude Pl",
-"extent": "Gertrude Pl at Pape Ave to 25 m West of Muriel Ave",
-"kind": "narrowed",
-"both": true,
-"start": "2026-07-01T00:00",
-"end": "2026-12-31T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
-"desc": "This is a very short duration closure for taking reading of instruments at the road.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.34543,
-43.68044
-],
-[
--79.3449,
-43.68054
-]
-]
-},
-{
-"id": "Tor-RD042026-885-1",
-"street": "Danforth Ave",
-"extent": "Danforth Ave 34 m East of Ln E Pape S Danforth to Pape Ave",
-"kind": "narrowed",
-"both": true,
-"start": "2026-07-01T00:00",
-"end": "2026-12-31T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
-"desc": "This is a very short duration closure for taking reading of instruments at the road.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.34396,
-43.67913
-],
-[
--79.34437,
-43.67905
-],
-[
--79.34437,
-43.67905
-],
-[
--79.34484,
-43.67895
-]
-]
-},
-{
 "id": "Tor-RD042026-885-2",
 "street": "Pape Ave",
 "extent": "Pape Ave from Danforth Ave to Gertrude Pl",
@@ -463,6 +207,126 @@
 ]
 },
 {
+"id": "Tor-RD042026-885-1",
+"street": "Danforth Ave",
+"extent": "Danforth Ave 34 m East of Ln E Pape S Danforth to Pape Ave",
+"kind": "narrowed",
+"both": true,
+"start": "2026-07-01T00:00",
+"end": "2026-12-31T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
+"desc": "This is a very short duration closure for taking reading of instruments at the road.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.34396,
+43.67913
+],
+[
+-79.34437,
+43.67905
+],
+[
+-79.34437,
+43.67905
+],
+[
+-79.34484,
+43.67895
+]
+]
+},
+{
+"id": "Tor-RD042026-885-3",
+"street": "Gertrude Pl",
+"extent": "Gertrude Pl at Pape Ave to 25 m West of Muriel Ave",
+"kind": "narrowed",
+"both": true,
+"start": "2026-07-01T00:00",
+"end": "2026-12-31T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
+"desc": "This is a very short duration closure for taking reading of instruments at the road.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.34543,
+43.68044
+],
+[
+-79.3449,
+43.68054
+]
+]
+},
+{
+"id": "Tor-RD042026-1451-1",
+"street": "Wallace Ave",
+"extent": "Wallace Ave 33 m West of Ln 2 W Lansdowne S Wallace to 2 m East of Rankin Cres",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-09T07:00",
+"end": "2026-11-30T20:00",
+"hours": "07:00\u201320:00",
+"days": "weekdays",
+"who": "Graham Construction and Engineering LP",
+"desc": "- install electrical conduits, light pole base, handwell; Civil works including curb and sidewalk removal, supply and installation of asphalt, planting soil, planting, new hardscape works (concrete paving and curbs), beacon foundation and installation",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.44632,
+43.66193
+],
+[
+-79.44681,
+43.66183
+],
+[
+-79.44681,
+43.66183
+],
+[
+-79.44745,
+43.66169
+]
+]
+},
+{
+"id": "Tor-RD042026-1451-2",
+"street": "Wallace Ave",
+"extent": "Wallace Ave 33 m West of Ln 2 W Lansdowne S Wallace to Rankin Cres",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-09T07:00",
+"end": "2026-11-30T20:00",
+"hours": "07:00\u201320:00",
+"days": "weekdays",
+"who": "Graham Construction and Engineering LP",
+"desc": "- install electrical conduits, light pole base, handwell; Civil works including curb and sidewalk removal, supply and installation of asphalt, planting soil, planting, new hardscape works (concrete paving and curbs), beacon foundation and installation",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.44632,
+43.66193
+],
+[
+-79.44681,
+43.66183
+],
+[
+-79.44681,
+43.66183
+],
+[
+-79.44747,
+43.66168
+]
+]
+},
+{
 "id": "Tor-RD042026-1456",
 "street": "Millwood Rd",
 "extent": "Millwood Rd 74 m West of Hepc to 74 m West of Hepc",
@@ -483,6 +347,130 @@
 [
 -79.35528,
 43.70199
+]
+]
+},
+{
+"id": "Tor-RD042026-1434",
+"street": "Eglinton Ave W",
+"extent": "Eglinton Ave W 152 m West of Islington Ave to 227 m East of Bemersyde Dr",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-02T09:00",
+"end": "2026-11-26T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "West End Connectors",
+"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.54083,
+43.67944
+],
+[
+-79.54201,
+43.67918
+],
+[
+-79.54217,
+43.67915
+]
+]
+},
+{
+"id": "Tor-RD042026-1441",
+"street": "Eglinton Ave W",
+"extent": "Eglinton Ave W 19 m West of Islington Ave to 155 m West of Islington Ave",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-02T09:00",
+"end": "2026-11-30T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "West End Connectors",
+"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.53924,
+43.67979
+],
+[
+-79.54086,
+43.67943
+]
+]
+},
+{
+"id": "Tor-RD042026-1487",
+"street": "Eglinton Ave W",
+"extent": "Eglinton Ave W 220 m West of Royal York Rd to 198 m East of Eden Valley Dr",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-18T09:00",
+"end": "2026-11-30T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "West End Connectors",
+"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.52925,
+43.6818
+],
+[
+-79.52928,
+43.6818
+],
+[
+-79.52953,
+43.68176
+],
+[
+-79.5299,
+43.6817
+],
+[
+-79.53045,
+43.68159
+]
+]
+},
+{
+"id": "Tor-RD042026-1147",
+"street": "Sheppard Ave W",
+"extent": "Sheppard Ave W 55 m East of Bakersfield St to 6 m West of Downsview Park Trl",
+"kind": "narrowed",
+"both": true,
+"start": "2026-08-20T09:00",
+"end": "2026-11-30T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "Grascan Construction Ltd.",
+"desc": "Metrolinx Contract RFP-2017-CBA-064: Construction of new railway bridge over Sheppard Ave West. NOTE: Only 1 sidewalk will be closed at a time (north OR south, never both). NOTE: Only 1 eastbound lane and / or 1 westbound lane will be closed at a time. 1 lane in each direction will always be maintained.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.47963,
+43.75446
+],
+[
+-79.4795,
+43.75449
+],
+[
+-79.47858,
+43.7547
+],
+[
+-79.47858,
+43.7547
+],
+[
+-79.47595,
+43.75529
 ]
 ]
 },
@@ -527,154 +515,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1434",
-"street": "Eglinton Ave W",
-"extent": "Eglinton Ave W 152 m West of Islington Ave to 227 m East of Bemersyde Dr",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-02T09:00",
-"end": "2026-11-26T16:00",
-"hours": "09:00\u201316:00",
-"days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.54083,
-43.67944
-],
-[
--79.54201,
-43.67918
-],
-[
--79.54217,
-43.67915
-]
-]
-},
-{
-"id": "Tor-RD042026-1147",
-"street": "Sheppard Ave W",
-"extent": "Sheppard Ave W 55 m East of Bakersfield St to 6 m West of Downsview Park Trl",
-"kind": "narrowed",
-"both": true,
-"start": "2026-08-20T09:00",
-"end": "2026-11-30T16:00",
-"hours": "09:00\u201316:00",
-"days": "daily",
-"who": "Grascan Construction Ltd.",
-"desc": "Metrolinx Contract RFP-2017-CBA-064: Construction of new railway bridge over Sheppard Ave West. NOTE: Only 1 sidewalk will be closed at a time (north OR south, never both). NOTE: Only 1 eastbound lane and / or 1 westbound lane will be closed at a time. 1 lane in each direction will always be maintained.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.47963,
-43.75446
-],
-[
--79.4795,
-43.75449
-],
-[
--79.47858,
-43.7547
-],
-[
--79.47858,
-43.7547
-],
-[
--79.47595,
-43.75529
-]
-]
-},
-{
-"id": "Tor-RD042026-1441",
-"street": "Eglinton Ave W",
-"extent": "Eglinton Ave W 19 m West of Islington Ave to 155 m West of Islington Ave",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-02T09:00",
-"end": "2026-11-30T16:00",
-"hours": "09:00\u201316:00",
-"days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.53924,
-43.67979
-],
-[
--79.54086,
-43.67943
-]
-]
-},
-{
-"id": "Tor-RD042026-1478",
-"street": "Old Weston Rd",
-"extent": "Old Weston Rd from Ln N Davenport E Old Weston to Davenport Rd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-17T08:00",
-"end": "2026-12-04T16:00",
-"hours": "08:00\u201316:00",
-"days": "weekdays",
-"who": "Graham Construction and Engineering LP",
-"desc": "Sidewalk closure to support the safe demolition of City-Owned properties to support future Davenport Road extension works.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.46241,
-43.67137
-],
-[
--79.46232,
-43.67104
-]
-]
-},
-{
-"id": "Tor-RD042026-1487",
-"street": "Eglinton Ave W",
-"extent": "Eglinton Ave W 220 m West of Royal York Rd to 198 m East of Eden Valley Dr",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-18T09:00",
-"end": "2026-11-30T16:00",
-"hours": "09:00\u201316:00",
-"days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.52925,
-43.6818
-],
-[
--79.52928,
-43.6818
-],
-[
--79.52953,
-43.68176
-],
-[
--79.5299,
-43.6817
-],
-[
--79.53045,
-43.68159
-]
-]
-},
-{
 "id": "Tor-RDAR2024-3900-1",
 "street": "Ln S Queen W Spadina",
 "extent": "Ln S Queen W Spadina 19m West of Spadina Ave",
@@ -715,6 +555,54 @@
 [
 -79.39638,
 43.64877
+]
+]
+},
+{
+"id": "Tor-RD042026-1478",
+"street": "Old Weston Rd",
+"extent": "Old Weston Rd from Ln N Davenport E Old Weston to Davenport Rd",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-17T08:00",
+"end": "2026-12-04T16:00",
+"hours": "08:00\u201316:00",
+"days": "weekdays",
+"who": "Graham Construction and Engineering LP",
+"desc": "Sidewalk closure to support the safe demolition of City-Owned properties to support future Davenport Road extension works.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.46241,
+43.67137
+],
+[
+-79.46232,
+43.67104
+]
+]
+},
+{
+"id": "Tor-RD042026-1516",
+"street": "Lawrence Ave E",
+"extent": "Lawrence Ave E 65 m West of West Highland Creek to 4 m East of McCowan Rd",
+"kind": "narrowed",
+"both": true,
+"start": "2026-11-20T08:00",
+"end": "2027-02-28T17:00",
+"hours": "24h",
+"days": "daily",
+"who": "Scarborough Transit Connect",
+"desc": "Diverting traffic to South of Lawrence to achieve approved Main Traffic Stage 2",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.24401,
+43.75584
+],
+[
+-79.24538,
+43.75556
 ]
 ]
 },
@@ -911,30 +799,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1502-2",
-"street": "Eglinton Ave W",
-"extent": "Eglinton Ave W at Kipling Ave to 64 m West of Kipling Ave",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-23T09:00",
-"end": "2027-01-08T16:00",
-"hours": "24h",
-"days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.55089,
-43.67718
-],
-[
--79.55165,
-43.677
-]
-]
-},
-{
 "id": "Tor-RD042026-1502-1",
 "street": "Kipling Ave",
 "extent": "Kipling Ave 25 m South of Dryden Way to Eglinton Ave W",
@@ -955,6 +819,30 @@
 [
 -79.55089,
 43.67718
+]
+]
+},
+{
+"id": "Tor-RD042026-1502-2",
+"street": "Eglinton Ave W",
+"extent": "Eglinton Ave W at Kipling Ave to 64 m West of Kipling Ave",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-23T09:00",
+"end": "2027-01-08T16:00",
+"hours": "24h",
+"days": "daily",
+"who": "West End Connectors",
+"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.55089,
+43.67718
+],
+[
+-79.55165,
+43.677
 ]
 ]
 },
@@ -1211,38 +1099,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1458-1",
-"street": "Carlaw Ave",
-"extent": "Carlaw Ave 11 m South of Ln S Victor W Carlaw to 11 m North of Gerrard St E",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-03T00:00",
-"end": "2027-03-04T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "Trillium Guideway Partners",
-"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.34319,
-43.66868
-],
-[
--79.34309,
-43.66845
-],
-[
--79.34309,
-43.66845
-],
-[
--79.3428,
-43.66773
-]
-]
-},
-{
 "id": "Tor-RD042026-1458-2",
 "street": "Gerrard St E",
 "extent": "Gerrard St E 7 m East of Carlaw Ave to 39 m East of C N R",
@@ -1275,26 +1131,34 @@
 ]
 },
 {
-"id": "Tor-RD042026-1445-2",
-"street": "Bain Ave",
-"extent": "Bain Ave 11 m East of Pape Ave to 45 m East of Pape Ave",
+"id": "Tor-RD042026-1458-1",
+"street": "Carlaw Ave",
+"extent": "Carlaw Ave 11 m South of Ln S Victor W Carlaw to 11 m North of Gerrard St E",
 "kind": "narrowed",
 "both": false,
-"start": "2026-11-05T17:00",
-"end": "2026-12-31T23:59",
+"start": "2026-11-03T00:00",
+"end": "2027-03-04T23:59",
 "hours": "24h",
 "days": "daily",
-"who": "Pape North Connect",
-"desc": "PTUS - Pape North Connect",
-"roadClass": "Local Road",
+"who": "Trillium Guideway Partners",
+"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
+"roadClass": "Minor Arterial Road",
 "coords": [
 [
--79.34227,
-43.67297
+-79.34319,
+43.66868
 ],
 [
--79.34188,
-43.67307
+-79.34309,
+43.66845
+],
+[
+-79.34309,
+43.66845
+],
+[
+-79.3428,
+43.66773
 ]
 ]
 },
@@ -1327,6 +1191,30 @@
 [
 -79.34212,
 43.67226
+]
+]
+},
+{
+"id": "Tor-RD042026-1445-2",
+"street": "Bain Ave",
+"extent": "Bain Ave 11 m East of Pape Ave to 45 m East of Pape Ave",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-05T17:00",
+"end": "2026-12-31T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "Pape North Connect",
+"desc": "PTUS - Pape North Connect",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.34227,
+43.67297
+],
+[
+-79.34188,
+43.67307
 ]
 ]
 },
