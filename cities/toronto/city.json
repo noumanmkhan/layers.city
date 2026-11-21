@@ -144,7 +144,7 @@
       {"id": "schools", "kind": "places", "file": "schools", "icon": "elementary", "minZoom": 13, "cats": [["elementary", "Elementary", "Elementary school"], ["secondary", "Secondary", "Secondary school"]], "name": "Schools", "place": "School", "note": "Every TDSB, TCDSB, Viamonde and MonAvenir school, by level; from zoom 13", "catNote": "Elementary runs from kindergarten (JK) to grade 8, secondary from grade 9 to 12. Tap a school for its grades and website.", "groups": [["fr", "French-language"], ["imm", "French immersion"]], "groupLabel": "French programs", "allText": "All schools", "countText": "{n} shown.", "allNote": "", "groupNote": "French-language: Viamonde and MonAvenir, taught in French, for children with a francophone parent or by admission. Immersion: TDSB and TCDSB schools teaching mostly in French, from the boards’ 2026–27 lists.", "popup": {"rows": [["g", "Grades"], ["b", "Board"], ["a", "Address"]], "linkText": "School website", "fine": "Ontario Ministry of Education school list, {asof} school year. The board, not distance, sets which school a home is zoned for: check the board’s school locator."}, "replaces": {"frschools": "@fr", "immersion": "@imm"}},
       {"id": "campus", "kind": "places", "file": "institutions", "icon": "university", "cats": [["university", "Universities", "University"], ["college", "Colleges", "College"]], "name": "Colleges & universities", "place": "Campus", "note": "Public and nonprofit universities and public colleges, one point per campus; no private career colleges or partnership campuses", "aliases": {"University of Toronto": ["U of T", "UofT", "UT St. George", "St. George campus"], "Toronto Metropolitan University": ["TMU", "Ryerson", "Ryerson University", "TMet"], "York University": ["York U", "YorkU"], "University of Toronto Scarborough": ["UTSC", "U of T Scarborough"]}, "replaces": {"unis": "university", "colleges": "college"}}
     ]],
-    ["Parking & Charging", [
+    ["Driving", [
       {"id": "greenp", "kind": "spots", "mark": "lot", "file": "parking", "cat": "gp", "countKey": "greenp", "lazy": true, "optional": true, "minZoom": 11,
        "name": "Green P parking", "note": "City-run car parks: garages filled, surface lots outlined, bigger for more spaces. From zoom 11.",
        "countNote": "{n} Green P car parks with {spaces} spaces, from the City’s 2019 list. From zoom 11.",
@@ -164,9 +164,7 @@
        "dcLabel": "DC fast", "l2Label": "Level 2", "l1Label": "Level 1", "portText": ["{n} port", "{n} ports"], "kwText": "up to {kw} kW",
        "addressLabel": "Address", "operatorLabel": "Run by", "networkLabel": "Network", "hoursLabel": "Hours", "h24Text": "24 hours", "priceLabel": "Price",
        "accessLabel": "Access", "teslaText": "Tesla drivers only", "statusLabel": "Status", "offText": "Temporarily unavailable",
-       "fine": "Natural Resources Canada’s station locator (U.S. AFDC data) as of {date}[; this listing last confirmed {conf}]. Chargers can be busy or out of order: check the network’s app before you go."}
-    ]],
-    ["Road cameras", [
+       "fine": "Natural Resources Canada’s station locator (U.S. AFDC data) as of {date}[; this listing last confirmed {conf}]. Chargers can be busy or out of order: check the network’s app before you go."},
       {"id": "rlc", "kind": "yearly", "file": "cameras/rlc.json", "lazy": true, "optional": true,
        "name": "Red light cameras", "note": "Every red light camera, bigger for more tickets in the year you pick.",
        "noun": "Red light camera", "retiredNoun": "Red light camera, retired",

@@ -91,7 +91,7 @@ Fetched into `raw/parking/` by `fetch_parking.py` (*Fetch Toronto parking* Actio
 
 ## Cameras (scouting, November 21, 2026; built the same day on dev)
 Built: `fetch_cameras.py` (fetch-cameras.yml, monthly) writes `raw/cameras/`; `cameras.py` writes `docs/toronto/data/cameras/`
-(`rlc.json`, `ase.json`, `meta.json`); the map's *Road cameras* group (`rlc`, kind `yearly`; `ase`, kind `ended`). Since the
+(`rlc.json`, `ase.json`, `meta.json`); the map's *Driving* group (`rlc`, kind `yearly`; `ase`, kind `ended`). Since the
 scouting below, the charges file marks Rexdale and Islington (2796) with one `*` (decommissioned, `#N/A` dates) instead of
 `**`; it shows as retired. Placement from text: 20 retired red light cameras at their centreline intersection; 259 ASE sites
 80 m along the main street toward the stated side, or at the house number ("near 123"); checked against the 258 sites with a
