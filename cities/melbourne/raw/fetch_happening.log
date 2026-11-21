@@ -1,65 +1,49 @@
-listing: 532 events over 27 pages
-  retry https://whatson.melbourne.vic.gov.au/things-to-do/downtown-the-petula-clark-and- HTTP Error 403: Forbidden
-  retry https://whatson.melbourne.vic.gov.au/things-to-do/downtown-the-petula-clark-and- HTTP Error 403: Forbidden
-  page /things-to-do/downtown-the-petula-clark-and-carole-king-essentials HTTP Error 403: Forbidden
-  retry https://whatson.melbourne.vic.gov.au/things-to-do/christmas-magic-mirror HTTP Error 403: Forbidden
-  retry https://whatson.melbourne.vic.gov.au/things-to-do/christmas-magic-mirror HTTP Error 403: Forbidden
-pages: 26 fetched, 532 kept
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap Christmas River Show|Yarra Promenade|Melbourne|3004 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap Whitehart Bar|22 Whitehart Ln|Melbourne|3000 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap Sticky Institute|Campbell Arcade|Melbourne|3000 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap Nona Lee Sports Centre|Building/103 Tin Alley|Parkville|3010 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap CAVES|Rm 5 Level 8/37 Nicholas Bldg Swanston St|Melbourne|3000 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap Crown Conference Centre|Crown Promenade|Southbank|3006 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap |1 Convention Centre Pl|South Wharf|3006 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap Trades Hall Place|Trades Hall Pl|Melbourne|3004 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap 1 Hotel Melbourne|9 Maritime Pl|Docklands|3008 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap Miscellania|2/401 Swanston St|Melbourne|3004 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-  retry 1 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 2 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 3 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  retry 4 https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0 HTTP Error 504: Gateway Time-out
-  vicmap 1 Hotel Melbourne|9 Maritime Pl|Docklands|3008 failed: https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&request=GetCapabilities&version=2.0.0
-placed: Counter({'address': 136, 'known': 58, 'near': 58, 'street': 39, None: 11, 'corner': 1}) ; unplaced venues: ['-', '1 Hotel Melbourne', 'CAVES', 'Christmas River Show', 'City Square/Swanston St', 'Crown Conference Centre', 'East End', 'Metropolis Events', 'Miscellania', 'Nona Lee Sports Centre', 'Sticky Institute', 'Trades Hall Place', 'Whitehart Bar']
-415 events at 177 places, 2026-11-21 to 2026-12-05
-Events page: 532 events (18 with no place, 2 outside the City), 2026-11-21 to 2026-12-21
+listing: 510 events over 26 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/good-food-and-wine-show-christ HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/good-food-and-wine-show-christ HTTP Error 403: Forbidden
+  page /things-to-do/good-food-and-wine-show-christmas-edition HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/christmas/12-days-of-christmas HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/christmas/12-days-of-christmas HTTP Error 403: Forbidden
+  50 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/with-one-voice-city-square-car HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/drylands-walk HTTP Error 403: Forbidden
+  100 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/high-tea-on-little-lonsdale HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/high-tea-on-little-lonsdale HTTP Error 403: Forbidden
+  150 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/kyivska-perepichka HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/kyivska-perepichka HTTP Error 403: Forbidden
+  page /things-to-do/kyivska-perepichka HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/the-green-bus HTTP Error 403: Forbidden
+  200 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/oil-and-acrylics-painting-work HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/oil-and-acrylics-painting-work HTTP Error 403: Forbidden
+  250 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/schadenfreude-cabaret HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/schadenfreude-cabaret HTTP Error 403: Forbidden
+  page /things-to-do/schadenfreude-cabaret HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/a-fairy-merry-christmas HTTP Error 403: Forbidden
+  300 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/melbourne-makers-market HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/melbourne-makers-market HTTP Error 403: Forbidden
+  page /things-to-do/melbourne-makers-market HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/mystiko HTTP Error 403: Forbidden
+  350 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/historic-architecture-tour HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/historic-architecture-tour HTTP Error 403: Forbidden
+  page /things-to-do/historic-architecture-tour HTTP Error 403: Forbidden
+  350 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/cocktail-candle-making HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/bonza-christmas-cruise HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/bonza-christmas-cruise HTTP Error 403: Forbidden
+  400 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/the-thursday-tease HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/the-thursday-tease HTTP Error 403: Forbidden
+  page /things-to-do/the-thursday-tease HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/bar-humbug-comedy HTTP Error 403: Forbidden
+pages: 447 fetched, 510 kept
+  address layers: ['open-data-platform:address', 'open-data-platform:address_main', 'open-data-platform:address_sup', 'open-data-platform:v_property_mp_address']
+  using open-data-platform:address ; fields {'ufi': 817464285, 'pfi': '51566847', 'property_pfi': '1334321', 'ezi_address': '136 DAVID HILL ROAD MONBULK 3793', 'source': 'LGO', 'source_verified': '2009-12-09T00:00:00Z', 'is_primary': 'Y', 'property_status': 'A', 'geocode_feature': 'V', 'distance_related_flag': 'N', 'location_descriptor': None, 'blg_unit_type': None, 'hsa_flag': 'N', 'hsa_unit_id': None, 'blg_unit_prefix_1': None, 'blg_unit_id_1': None, 'blg_unit_suffix_1': None, 'blg_unit_prefix_2': None, 'blg_unit_id_2': None, 'blg_unit_suffix_2': None, 'floor_type': None, 'floor_prefix_1': None, 'floor_no_1': None, 'floor_suffix_1': None, 'floor_prefix_2': None, 'floor_no_2': None, 'floor_suffix_2': None, 'building_name': None, 'complex_name': None, 'house_prefix_1': None, 'house_number_1': 136, 'house_suffix_1': None, 'house_prefix_2': None, 'house_number_2': None, 'house_suffix_2': None, 'disp_prefix_1': None, 'disp_number_1': None, 'disp_suffix_1': None, 'disp_prefix_2': None, 'disp_number_2': None, 'disp_suffix_2': None, 'road_name': 'DAVID HILL', 'road_type': 'ROAD', 'road_suffix': None, 'locality_name': 'MONBULK', 'lga_code': '377', 'state': 'VIC', 'postcode': '3793', 'mesh_block': '20660530000', 'num_road_address': '136 DAVID HILL ROAD', 'num_address': '136', 'address_class': 'S', 'add_access_type': 'L', 'outside_property': 'N', 'complex_site': 'N', 'label_address': 'Y', 'feature_quality_id': None, 'pfi_created': None, 'ufi_created': '2023-12-19T02:36:12Z', 'ufi_old': 460359887, 'task_id': 417948}
+placed: Counter({'address': 138, 'known': 58, 'near': 58, 'street': 39, None: 12, 'corner': 1}) ; unplaced venues: ['-', 'Christmas River Show', 'City Square/Swanston St', 'Crown Conference Centre', 'East End', 'Metropolis Events', 'Nona Lee Sports Centre', 'Trades Hall Place', 'Whitehart Bar']
+402 events at 170 places, 2026-11-22 to 2026-12-06
+Events page: 510 events (12 with no place, 2 outside the City), 2026-11-22 to 2026-12-22
