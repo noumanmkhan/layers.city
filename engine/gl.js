@@ -382,6 +382,47 @@ function geo(fc, opts){
   g.setData = d => { d.features.forEach(gidOf); g.fc = d; gl.getSource(src).setData(d); };
   return g;
 }
+/* Points sized by a value (a count): radius per feature, opts.r(f) in px (0 hides it), times opts.scale (zoom steps
+   [[zoom, factor]…]); bigger ones drawn under smaller. Colours, stroke width and opacity from the CSS class opts.cls.
+   With opts.ring the marks are ring images drawn from that class (its stroke-dasharray too, which MapLibre circles
+   can't draw), one image per whole-pixel radius so the line stays the same width at every size.
+   g.resize() re-reads opts.r after what it depends on changes (a picked year). */
+function sizedDots(fc, opts){
+  fc = {type: 'FeatureCollection', features: fc.features.map(f => { gidOf(f); return {type: 'Feature', geometry: f.geometry, properties: {_gid: f.properties._gid}}; })};
+  const setR = () => fc.features.forEach(f => { f.properties._r = Math.max(0, +opts.r(FEAT[f.properties._gid]) || 0); });
+  setR();
+  const src = source(fc), P = pathProbe(opts.cls), id = uid(opts.ring ? 'rg' : 'sd'), sc = opts.scale || [[0, 1]];
+  const show = ['>', ['get', '_r'], 0], sort = ['-', 0, ['get', '_r']];
+  // A zoom step whose every stop is an expression of that stop's factor (MapLibre wants zoom at the top level).
+  const byStep = f => sc.length === 1 ? f(sc[0][1]) : ['step', ['zoom'], f(sc[0][1]), ...sc.slice(1).flatMap(([z, k]) => [LZ(z), f(k)])];
+  if (!opts.ring){
+    addL(hidden({id, type: 'circle', source: src, filter: show, layout: {'circle-sort-key': sort}, paint: {'circle-radius': byStep(k => ['*', ['get', '_r'], k])}}), opts.pane || 'pts');
+    styled(id, () => ({paint: {'circle-color': byZoom(P, v => v.fill, 'rgba(0,0,0,0)'), 'circle-opacity': byZoom(P, v => v.fill ? (v.disp ? 1 : 0) * v.op * v.fo : 0, 0),
+      'circle-stroke-color': byZoom(P, v => v.stroke, 'rgba(0,0,0,0)'), 'circle-stroke-width': byZoom(P, v => v.w == null ? 1 : v.w, 1),
+      'circle-stroke-opacity': byZoom(P, v => v.stroke ? (v.disp ? 1 : 0) * v.op * v.so : 0, 0)}, range: zoomRange(P)}));
+  } else {
+    const key = 'ring|' + opts.cls + '|', MAXR = 30;
+    // icon-image per zoom step: the rounded radius at that step's factor, clamped to the images made.
+    const imgAt = k => ['concat', key, ['to-string', ['max', 2, ['min', MAXR, ['round', ['*', ['get', '_r'], k]]]]]];
+    const image = byStep(imgAt);
+    addL(hidden({id, type: 'symbol', source: src, filter: show, layout: {'icon-image': image, 'icon-allow-overlap': true, 'icon-ignore-placement': true, 'symbol-sort-key': sort}}), opts.pane || 'pts');
+    const set = {redraw(){ const v = at(P, x => x, 14), w = v.w == null ? 1.5 : v.w, d = v.dash;
+      for (let r = 2; r <= MAXR; r++){ const S = 2 * (r + w) + 2, c = S / 2;
+        svgImage(key + r, '<svg xmlns="' + NS + '" width="' + S * PR + '" height="' + S * PR + '" viewBox="0 0 ' + S + ' ' + S + '"><circle cx="' + c + '" cy="' + c + '" r="' + r +
+          '" fill="' + (v.fill || 'none') + '" fill-opacity="' + (v.fill ? v.fo : 0) + '" stroke="' + (v.stroke || 'none') + '" stroke-opacity="' + v.so + '" stroke-width="' + w + '"' +
+          (d ? ' stroke-dasharray="' + dashFor(r, d) + '"' : '') + '/></svg>'); } }};
+    // Dashes spaced evenly round the ring, about as long as the CSS asks, never fewer than eight.
+    function dashFor(r, d){ const c = 2 * Math.PI * r, per = (d[0] || 3) + (d[1] || d[0] || 2), n = Math.max(8, Math.round(c / per)), u = c / n, on = u * (d[0] || 3) / per;
+      return on.toFixed(2) + ' ' + (u - on).toFixed(2); }
+    ICONSETS.push(set); Promise.resolve().then(() => set.redraw());
+    styled(id, () => ({paint: {'icon-opacity': byZoom(P, v => (v.disp ? 1 : 0) * v.op, 1)}, range: zoomRange(P)}));
+  }
+  if (opts.hover) HOVER.set(id, f => opts.hover(f));
+  if (opts.tap) TAP.set(id, opts.tap);
+  const g = grp([id]);
+  g.resize = () => { setR(); if (gl.getSource(src)) gl.getSource(src).setData(fc); };
+  return g;
+}
 /* Shapes whose class changes per feature at run time (lens tiers, party colours): one fill and one line layer, the
    colours baked into each feature from its current classes. g._recls() re-reads them. */
 function baked(fc, opts){

@@ -439,6 +439,53 @@ const KINDS = {
     g.on('add', () => ensureFile(it.file).then(() => setTimeout(draw)));
     return g;
   },
+  // Counts per year at points (e.g. tickets at each red light camera): a dot per point sized by its count in the year
+  // picked in the panel (the latest full year first), on one scale across all years so years compare. Points that
+  // ended before that year (p.end) show as a small hollow ring; ones not started yet are left off. Loads on first use.
+  // Tap: yearPopup. File: {years: [first…last], partial: {year, to}, features: [{t: [count or null per year], n, since,
+  // end, r (retired), ap (approach), ax (placed from its text)}]}.
+  yearly: it => {
+    const g = grp(); let on = null, gone = null;
+    const draw = () => {
+      const D = loaded[it.file];
+      if (!map.hasLayer(g) || !D) return;
+      if (!on){
+        const max = Math.max(1, ...D.features.flatMap(f => f.properties.t.map(x => x || 0)));
+        const val = f => f.properties.t[D.years.indexOf(yearPick[it.id])];
+        const ended = f => { const p = f.properties; return p.r && p.end && +p.end.slice(0, 4) < yearPick[it.id]; };
+        const tip = f => { const v = val(f), p = f.properties;
+          return esc(p.n) + ' · ' + (ended(f) ? esc(fill(it.endedText || 'ended {date}', {date: niceDate(p.end, true)})) : esc(fill(it.countText || '{n} in {year}', {n: (v || 0).toLocaleString(CITY.locale), year: yearPick[it.id]}))); };
+        const tap = (f, e) => { yearPopup(it, f, D, e ? e.latlng : ll(f.geometry.coordinates)); };
+        on = sizedDots(D, {cls: 'yc ' + it.id, r: f => { const v = val(f); return v == null || ended(f) ? 0 : v === 0 ? 1.6 : 2 + (it.maxR || 13) * Math.sqrt(v / max); },
+          scale: it.scale || [[0, .75], [12, 1], [14, 1.3], [16, 1.6]], hover: tip, tap});
+        gone = sizedDots(D, {cls: 'yc gone ' + it.id, r: f => ended(f) ? 3 : 0, scale: it.scale || [[0, .75], [12, 1], [14, 1.3], [16, 1.6]], hover: tip, tap});
+        g.addLayer(gone); g.addLayer(on);
+      } else { on.resize(); gone.resize(); }
+      const n = document.getElementById('ynote-' + it.id);
+      if (n){ const i = D.years.indexOf(yearPick[it.id]), c = D.features.filter(f => f.properties.t[i] > 0), sum = c.reduce((a, f) => a + (f.properties.t[i] || 0), 0);
+        n.textContent = fill(it.yearNote || '{n} at {count} points in {year}.', {n: sum.toLocaleString(CITY.locale), count: c.length.toLocaleString(CITY.locale), year: yearLabel(it, D, yearPick[it.id])}); }
+    };
+    g._draw = draw;
+    g.on('add', () => ensureFile(it.file).then(D => { if (D){ if (yearPick[it.id] == null) yearPick[it.id] = latestFull(D); drawYearBox(it, D); } setTimeout(draw); }));
+    return g;
+  },
+  // The sites of a program that has ended (e.g. former speed cameras): a dashed ring per site sized by its total count,
+  // in a muted colour. Loads on first use. Tap: endedPopup. File: {months: [first, last], features: [{n, tot, mo (months
+  // with a count), first, last ("YYYY-MM"), p: [[start, end]…] dates in use, ax (placed from its text)}]}.
+  ended: it => {
+    const g = grp(); let made = false;
+    g.on('add', () => ensureFile(it.file).then(D => {
+      if (made || !D) return; made = true;
+      const max = Math.max(1, ...D.features.map(f => f.properties.tot));
+      g.addLayer(sizedDots(D, {cls: 'xs ' + it.id, ring: true, r: f => 3.5 + (it.maxR || 12) * Math.sqrt(f.properties.tot / max),
+        scale: it.scale || [[0, .75], [12, 1], [14, 1.3], [16, 1.6]],
+        hover: f => esc(f.properties.n) + ' · ' + esc(fill(it.totalText || '{n} in all', {n: f.properties.tot.toLocaleString(CITY.locale)})),
+        tap: (f, e) => endedPopup(it, f.properties, e ? e.latlng : ll(f.geometry.coordinates))}));
+      const n = document.getElementById('xnote-' + it.id);
+      if (n && it.countNote) n.textContent = fill(it.countNote, {sites: D.features.length.toLocaleString(CITY.locale), n: D.features.reduce((a, f) => a + f.properties.tot, 0).toLocaleString(CITY.locale)});
+    }));
+    return g;
+  },
   // Skyscrapers: a square badge per tower, its glyph showing use (residential, commercial, mixed);
   // filled once open for occupancy, hollow while under construction; a gold ring at 300 m+ (supertall).
   // Supertall icons from zoom 12 and names from 13; the rest from 14 and 15 (the CSS says when).
@@ -1118,6 +1165,57 @@ function dkPopup(p, latlng){
     rows.map(([k, v]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(v) + '</span></div>').join('') +
     (DOCK.fine ? '<p class="bk-fine">' + esc(fill(DOCK.fine, {date: D.asof ? niceDate(D.asof, true) : ''})) + '</p>' : '')).openOn(map);
 }
+/* ---------- counts per year (kind "yearly") and ended programs (kind "ended") ----------
+   Words come from the layer (city.json): card {approachLabel, sinceLabel, endLabel, countText, rankText, approxText,
+   fine}, fine {amount, from, currency, text, beforeText} for an estimate at a set amount (never "collected"). */
+const yearPick = {};   // layer id -> year shown
+const latestFull = D => { const ys = D.years.filter(y => !D.partial || y !== D.partial.year); return ys[ys.length - 1]; };
+const yearLabel = (it, D, y) => D.partial && y === D.partial.year ? fill(it.partialText || '{year} (to {to})', {year: y, to: niceDate(D.partial.to, false)}) : String(y);
+const cash = (v, cur) => v.toLocaleString(CITY.locale, {style: 'currency', currency: cur || 'CAD', maximumFractionDigits: v % 1 ? 2 : 0});
+const monthName = ym => new Date(+ym.slice(0, 4), +ym.slice(5, 7) - 1, 15).toLocaleDateString(CITY.locale, {month: 'short', year: 'numeric'});
+function drawYearBox(it, D){
+  const el = document.getElementById('ypk-' + it.id); if (!el || el.dataset.done) return;
+  el.dataset.done = '1';
+  el.innerHTML = '<label class="ysel"><span>' + esc(it.yearLabel || 'Year') + '</span><select aria-label="' + esc(it.yearLabel || 'Year') + '">' +
+    D.years.slice().reverse().map(y => '<option value="' + y + '"' + (y === yearPick[it.id] ? ' selected' : '') + '>' + esc(yearLabel(it, D, y)) + '</option>').join('') + '</select></label>';
+  el.querySelector('select').addEventListener('change', e => setYear(it.id, +e.target.value));
+}
+function setYear(id, y){
+  yearPick[id] = y;
+  const s = document.querySelector('#ypk-' + id + ' select'); if (s && +s.value !== y) s.value = String(y);
+  if (layers[id] && layers[id]._draw) layers[id]._draw();
+  logEvent('layer_year', {id: id + ':' + y});
+}
+function yearPopup(it, f, D, latlng){
+  const p = f.properties, y = yearPick[it.id], i = D.years.indexOf(y), v = p.t[i], C = it.card || {}, F = it.fine;
+  const all = D.features.map(x => x.properties.t[i]).filter(x => x > 0), rank = v != null ? 1 + all.filter(x => x > v).length : 0;
+  const rows = [p.ap && [C.approachLabel || 'Approach', p.ap], p.since && [C.sinceLabel || 'Since', niceDate(p.since, true)],
+    p.end && [C.endLabel || 'Ended', niceDate(p.end, true)],
+    v != null && [yearLabel(it, D, y), fill(C.countText || '{n}', {n: v.toLocaleString(CITY.locale)}) + (v ? ' · ' + fill(C.rankText || '{rank} of {count}', {rank: rank.toLocaleString(CITY.locale), count: all.length.toLocaleString(CITY.locale)}) : '')]].filter(Boolean);
+  // A bar per year, on this point's own scale; the year shown is marked, a part year is faint.
+  const top = Math.max(1, ...p.t.map(x => x || 0));
+  const strip = '<div class="ys" role="img" aria-label="' + esc(C.stripLabel || 'By year') + '">' + D.years.map((yr, j) => { const x = p.t[j];
+    return '<span class="' + (yr === y ? 'on' : '') + (D.partial && yr === D.partial.year ? ' pt' : '') + '" title="' + esc(yearLabel(it, D, yr) + ': ' + (x == null ? '–' : x.toLocaleString(CITY.locale))) + '"><i style="height:' + (x ? Math.max(4, Math.round(100 * x / top)) : 0) + '%"></i></span>'; }).join('') +
+    '</div><div class="ys-ax"><span>' + D.years[0] + '</span><span>' + D.years[D.years.length - 1] + '</span></div>';
+  const est = F && v ? (y >= F.from ? fill(F.text, {amount: cash(v * F.amount >= 10000 ? Math.round(v * F.amount / 1000) * 1000 : v * F.amount, F.currency), each: cash(F.amount, F.currency), year: y}) : F.beforeText) : '';
+  lpopup({className: 'info-pop yc-pop', maxWidth: 300, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.n) + '</b><small><i class="yc-key' + (p.r ? ' gone' : '') + '"></i>' + esc(p.r ? (it.retiredNoun || it.noun || '') : (it.noun || '')) + '</small>' +
+    rows.map(([k, x]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(x) + '</span></div>').join('') + strip +
+    (est ? '<p class="yc-est">' + esc(est) + '</p>' : '') + (p.built && C.builtText ? '<p class="bk-fine">' + esc(C.builtText) + '</p>' : '') + (p.ax && C.approxText ? '<p class="bk-fine">' + esc(C.approxText) + '</p>' : '') +
+    (C.fine ? '<p class="bk-fine">' + esc(C.fine) + '</p>' : '')).openOn(map);
+}
+function endedPopup(it, p, latlng){
+  const C = it.card || {}, per = p.p || [];
+  const span = ([a, b]) => monthName(a.slice(0, 7)) + (b && b.slice(0, 7) !== a.slice(0, 7) ? ' – ' + monthName(b.slice(0, 7)) : '');
+  const used = per.slice(0, 4).map(span).join(', ') + (per.length > 4 ? ' ' + fill(C.moreText || '+{n} more', {n: per.length - 4}) : '');
+  const rows = [used && [C.usedLabel || 'In use', used], p.mo && [C.monthsLabel || 'Months with a count', String(p.mo)],
+    [C.totalLabel || 'In all', p.tot.toLocaleString(CITY.locale)], p.peak && [C.peakLabel || 'Most in a month', p.peak.toLocaleString(CITY.locale)]].filter(Boolean);
+  lpopup({className: 'info-pop xs-pop', maxWidth: 300, autoPanPadding: [24, 24]}).setLatLng(latlng).setContent(
+    '<b>' + esc(p.n) + '</b><small><i class="xs-key"></i>' + esc(it.noun || '') + '</small>' +
+    rows.map(([k, x]) => '<div class="kv"><span>' + esc(k) + '</span><span>' + esc(x) + '</span></div>').join('') +
+    (C.endedText ? '<p class="yc-est">' + esc(C.endedText) + '</p>' : '') + (p.ax && C.approxText ? '<p class="bk-fine">' + esc(C.approxText) + '</p>' : '') +
+    (C.fine ? '<p class="bk-fine">' + esc(C.fine) + '</p>' : '')).openOn(map);
+}
 /* ---------- parking spots (kind "spots") ----------
    One points file shared by its layers (e.g. parking.geojson: Green P car parks and EV chargers), each layer's own
    picked by p.c === it.cat. Top level asof {cat: date} and count. Lots: n name or address, t "g" garage or "s"
@@ -1474,7 +1572,7 @@ function transitHere(x, y){
   return '<div class="live transit"><dl>' + rows + '</dl><p>' + esc(fill(TR.note, {week: niceDate(T.week)})) + '</p></div>';
 }
 // Drawing order: the order layers join the map decides which sits on top within a pane.
-const RANK = it => ({fill: it.size === 'major' ? 0 : 1, landuse: -1, buildings: 2.9, lens: 2, suburbs: 2, patches: 3, parks: 2.8, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, discover: 14, towers: 14.5})[it.kind];
+const RANK = it => ({fill: it.size === 'major' ? 0 : 1, landuse: -1, buildings: 2.9, lens: 2, suburbs: 2, patches: 3, parks: 2.8, districts: 3, units: 4, boards: 4.5, badges: 8.5, outline: {national: 5, state: 6, city: 7}[it.level], knownas: 8, streets: it.under ? 8.9 : 9, bikes: 9.2, docks: 13.8, spots: 13.85, highways: 10, addresses: 9.5, rail: 11, changes: 12.4, yearly: 12.45, ended: 12.42, heritage: 13.5, regional: 11.2, buses: 11.5, streetcars: 11.6, metro: 12, construction: 12.3, closures: 12.6, events: 12.7, landmarks: 13, places: 14, discover: 14, towers: 14.5})[it.kind];
 const ORDER = LAYERS.map(it => it).sort((a, b) => RANK(a) - RANK(b));
 
 /* ---------- panel ---------- */
@@ -1539,6 +1637,12 @@ CITY.groups.forEach(([title, items]) => {
         applyFilter(); queueHash();
       }));
       box.querySelector('#fclear').addEventListener('click', () => { clearFilters(); applyFilter(); queueHash(); });
+    }
+    if (it.kind === 'yearly' || it.kind === 'ended'){   // the year picker (filled once the file loads) and a note
+      const box = document.createElement('div'); box.className = 'lensbox'; box.id = (it.kind === 'yearly' ? 'yb-' : 'xb-') + it.id; box.hidden = !it.on;
+      box.innerHTML = (it.kind === 'yearly' ? '<div class="ypick" id="ypk-' + it.id + '"></div>' : '') +
+        '<div class="legend"><small><span id="' + (it.kind === 'yearly' ? 'ynote-' : 'xnote-') + it.id + '"></span>' + (it.legend ? ' ' + esc(it.legend) : '') + '</small></div>';
+      grp.appendChild(box);
     }
     if (it.kind === 'boards' && it.boards.length > 1){   // one board: nothing to pick
       const box = document.createElement('div'); box.className = 'lensbox'; box.id = 'brd-' + it.id; box.hidden = !it.on;
@@ -1818,6 +1922,7 @@ function setLayer(id, on){
   if (kindOf(id) === 'bikes'){ const b = document.getElementById('bkbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'parks'){ const b = document.getElementById('pkbox'); if (b) b.hidden = !on; }
   if (kindOf(id) === 'spots'){ const b = document.getElementById('spbox-' + id); if (b) b.hidden = !on; }
+  if (kindOf(id) === 'yearly' || kindOf(id) === 'ended'){ const b = document.getElementById((kindOf(id) === 'yearly' ? 'yb-' : 'xb-') + id); if (b) b.hidden = !on; }
   { const b = document.getElementById('pc-' + id); if (b) b.hidden = !on; }
   { const b = document.getElementById('pg-' + id); if (b){ b.hidden = !on; drawPlacePick(id); } }
   if (kindOf(id) === 'buses' || kindOf(id) === 'streetcars' || kindOf(id) === 'regional') drawStops();
