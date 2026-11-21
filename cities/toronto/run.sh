@@ -56,6 +56,7 @@ python3 ../../engine/regions.py toronto   # outlines for Focus on a county / reg
 [ -f raw/bikes.geojson ] && python3 ../../engine/bikes.py toronto   # bike lanes (fetch-bikes.yml, monthly)
 [ -f raw/voting/places.geojson ] && python3 voting.py   # where to vote: subdivisions and voting places (fetch-voting.yml, daily in October)
 [ -f raw/collection/areas.geojson ] && python3 collection.py   # curbside collection areas and calendar for the card (fetch-toronto-collection.yml, monthly)
+[ -f raw/cameras/rlc_charges.json ] && python3 cameras.py   # red light cameras and former speed cameras (fetch-cameras.yml, monthly)
 python3 ../../engine/addresses.py toronto   # after streets and collectors: how addresses work (cities/toronto/addresses.json)
 python3 ../../engine/badges.py toronto    # neighbourhood badges: drawings in badges/, the rest as fitted names
 python3 ../../engine/assemble.py toronto

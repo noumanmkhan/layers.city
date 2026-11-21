@@ -1,0 +1,39 @@
+name: Fetch road cameras
+# Toronto's red light cameras (points and charges by year) and its former speed cameras (ASE sites and charges by
+# month, frozen since the program ended on November 14, 2025) from City of Toronto Open Data into
+# cities/toronto/raw/cameras/ (cities/toronto/fetch_cameras.py), then docs/toronto/data/cameras/ with
+# cities/toronto/cameras.py. The charges file is refreshed about twice a year and cameras are added or retired
+# now and then, so monthly is plenty. Monthly (the 9th), on change, or by hand.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 7 9 * *'
+  push:
+    branches: [main]
+    paths: ['cities/toronto/fetch_cameras.py', 'cities/toronto/cameras.py', '.github/workflows/fetch-cameras.yml']
+permissions:
+  contents: write
+concurrency: fetch-cameras
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q openpyxl pyproj
+      # A failed fetch stops the run before anything is built or committed.
+      - run: |
+          set -o pipefail
+          mkdir -p cities/toronto/raw/cameras
+          python3 -u cities/toronto/fetch_cameras.py 2>&1 | tee cities/toronto/raw/cameras/fetch.log
+          python3 -u cities/toronto/cameras.py 2>&1 | tee -a cities/toronto/raw/cameras/fetch.log
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add cities/toronto/raw/cameras docs/toronto/data/cameras
+          git commit -m "Update road cameras" || echo "no changes"
+          git pull --rebase
+          git push
