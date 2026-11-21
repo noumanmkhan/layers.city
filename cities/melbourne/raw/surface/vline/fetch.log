@@ -1,28 +1,28 @@
-  got https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/8af7737c-5c9e-4022-aa98-911aa04370a7/download/gtfs.zip 310635000 bytes
+  got https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/8af7737c-5c9e-4022-aa98-911aa04370a7/download/gtfs.zip 286232937 bytes
   merged 2 feeds into one: ['agency.txt', 'calendar.txt', 'calendar_dates.txt', 'levels.txt', 'pathways.txt', 'routes.txt', 'shapes.txt', 'stop_times.txt', 'stops.txt', 'transfers.txt', 'trips.txt']
-routes kept: 65
-feed 2026-11-11 - 2027-02-14 · week from 2026-11-16 · days {'wk': '2026-11-18', 'sat': '2026-11-21', 'sun': '2026-11-22'}
-trips in the week: 2834
-rapid lines written: [('Albury', 'rail', 9), ('Ararat', 'rail', 8), ('Echuca', 'rail', 8), ('Bendigo', 'rail', 6), ('Seymour', 'rail', 4), ('Ballarat', 'rail', 6), ('Swan Hill', 'rail', 9), ('Traralgon', 'rail', 10), ('Bairnsdale', 'rail', 9), ('Shepparton', 'rail', 3), ('Maryborough', 'rail', 7), ('Warrnambool', 'rail', 9)] · platforms 110
-sched.json: 972 stops · 49 kinds of day · 4502 span lists · 838894 bytes
-routes written: 50 · trams 0 · stops 857
+routes kept: 64
+feed 2026-11-19 - 2027-02-21 · week from 2026-11-23 · days {'wk': '2026-11-25', 'sat': '2026-11-28', 'sun': '2026-11-29'}
+trips in the week: 2822
+rapid lines written: [('Albury', 'rail', 10), ('Ararat', 'rail', 8), ('Echuca', 'rail', 8), ('Bendigo', 'rail', 6), ('Geelong', 'rail', 2), ('Seymour', 'rail', 4), ('Ballarat', 'rail', 6), ('Swan Hill', 'rail', 9), ('Traralgon', 'rail', 9), ('Bairnsdale', 'rail', 9), ('Shepparton', 'rail', 4), ('Maryborough', 'rail', 7), ('Warrnambool', 'rail', 9)] · platforms 111
+sched.json: 966 stops · 45 kinds of day · 4277 span lists · 760782 bytes
+routes written: 51 · trams 0 · stops 853
   coach Coach 995 Warrnambool - Melbourne via Ararat shapes 6  midday/5h   0  1-5am 0
-  coach Coach ART Ararat - Melbourne via Ballarat    shapes 3  midday/5h   0  1-5am 0
+  coach Coach ABY Albury - Melbourne via Seymour     shapes 12  midday/5h   1  1-5am 0
+  coach Coach ART Ararat - Melbourne via Ballarat    shapes 4  midday/5h   0  1-5am 0
   coach Coach BAT Ballarat/Wendouree - Melbourne via shapes 6  midday/5h   0  1-5am 0
   coach Coach BDE Bairnsdale - Melbourne via Sale &  shapes 13  midday/5h   1  1-5am 1
-  coach Coach BGO Bendigo - Melbourne via Gisborne   shapes 5  midday/5h   0  1-5am 0
+  coach Coach BGO Bendigo - Melbourne via Gisborne   shapes 7  midday/5h   0  1-5am 0
   coach Coach EC2 Echuca/Moama - Melbourne via Shepp shapes 14  midday/5h   1  1-5am 0
   coach Coach ECH Echuca/Moama - Melbourne via Bendi shapes 6  midday/5h   1  1-5am 0
-  coach Coach GEL Geelong - Melbourne                shapes 7  midday/5h   0  1-5am 0
+  coach Coach GEL Geelong - Melbourne                shapes 2  midday/5h   0  1-5am 0
   coach Coach SER Seymour - Melbourne via Broadmeado shapes 6  midday/5h   0  1-5am 0
-  coach Coach SNH Shepparton - Melbourne via Seymour shapes 4  midday/5h   0  1-5am 0
   coach Coach SWL Swan Hill - Melbourne via Bendigo  shapes 9  midday/5h   0  1-5am 0
-  coach Coach TRN Traralgon - Melbourne via Morwell, shapes 8  midday/5h   0  1-5am 0
+  coach Coach TRN Traralgon - Melbourne via Morwell, shapes 4  midday/5h   0  1-5am 0
   coach Coach V02 Adelaide - Melbourne via Horsham,  shapes 2  midday/5h   1  1-5am 0
   coach Coach V03 Adelaide - Melbourne via Nhill & B shapes 10  midday/5h   0  1-5am 0
   coach Coach V06 Ballarat - Warrnambool via Skipton shapes 10  midday/5h   1  1-5am 0
   coach Coach V07 Barmah - Melbourne via Shepparton  shapes 8  midday/5h   1  1-5am 0
-  coach Coach V09 Batemans Bay - Melbourne via Bairn shapes 5  midday/5h   1  1-5am 0
+  coach Coach V09 Batemans Bay - Melbourne via Bairn shapes 7  midday/5h   1  1-5am 0
   coach Coach V10 Barham - Melbourne via Bendigo     shapes 10  midday/5h   0  1-5am 0
   coach Coach V11 Albury - Bendigo via Wangaratta &  shapes 6  midday/5h   1  1-5am 0
   coach Coach V13 Canberra - Melbourne via Bairnsdal shapes 4  midday/5h   0  1-5am 0
@@ -36,10 +36,10 @@ routes written: 50 · trams 0 · stops 857
   coach Coach V22 Geelong - Bendigo via Ballarat     shapes 6  midday/5h   1  1-5am 0
   coach Coach V24 Halls Gap - Melbourne via Stawell  shapes 9  midday/5h   0  1-5am 0
   coach Coach V25 Marlo - Lake Tyers Beach - Melbour shapes 6  midday/5h   3  1-5am 1
-  coach Coach V27 Maryborough - Melbourne via Castle shapes 7  midday/5h   1  1-5am 0
+  coach Coach V27 Maryborough - Melbourne via Castle shapes 8  midday/5h   1  1-5am 0
   coach Coach V28 Mt Buller/Mansfield - Melbourne vi shapes 8  midday/5h   1  1-5am 0
   coach Coach V29 Mount Gambier - Melbourne via Hami shapes 12  midday/5h   1  1-5am 0
-  coach Coach V30 Mount Gambier - Melbourne via Warr shapes 2  midday/5h   1  1-5am 1
+  coach Coach V30 Mount Gambier - Melbourne via Warr shapes 4  midday/5h   1  1-5am 1
   coach Coach V31 Mildura - Albury via Kerang & Shep shapes 7  midday/5h   2  1-5am 1
   coach Coach V32 Mildura - Ballarat via Swan Hill & shapes 10  midday/5h   1  1-5am 0
   coach Coach V34 Mildura - Melbourne via Ballarat & shapes 6  midday/5h   0  1-5am 0
@@ -47,7 +47,8 @@ routes written: 50 · trams 0 · stops 857
   coach Coach V36 Mulwala - Melbourne via Benalla &  shapes 8  midday/5h   1  1-5am 0
   coach Coach V37 Nhill - Melbourne via Ararat & Bal shapes 5  midday/5h   3  1-5am 1
   coach Coach V38 Ouyen - Melbourne via Warracknabea shapes 9  midday/5h   1  1-5am 0
-  coach Coach V39 Sea Lake - Melbourne via Charlton  shapes 12  midday/5h   0  1-5am 0
+  coach Coach V39 Sea Lake - Melbourne via Charlton  shapes 10  midday/5h   0  1-5am 0
+  coach Coach V41 Griffith - Melbourne via Shepparto shapes 2  midday/5h   1  1-5am 2
   coach Coach V43 Sale - Melbourne via Maffra & Trar shapes 7  midday/5h   1  1-5am 0
   coach Coach V47 Sydney - Adelaide via Albury       shapes 10  midday/5h   0  1-5am 1
   coach Coach V50 Warrnambool - Melbourne via Apollo shapes 4  midday/5h   4  1-5am 0

@@ -1,4 +1,5 @@
-  got https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/8af7737c-5c9e-4022-aa98-911aa04370a7/download/gtfs.zip 310635000 bytes
+  got https://opendata.transport.vic.gov.au/dataset/3f4e292e-7f8a-4ffe-831f-1953be0fe448/resource/8af7737c-5c9e-4022-aa98-911aa04370a7/download/gtfs.zip 286232937 bytes
+  merge: service ids defined differently in two parts, renamed: 17
   merged 3 feeds into one: ['agency.txt', 'calendar.txt', 'calendar_dates.txt', 'levels.txt', 'pathways.txt', 'routes.txt', 'shapes.txt', 'stop_times.txt', 'stops.txt', 'transfers.txt', 'trips.txt']
   not kept (rail or other): aus:vic:vic-02-ALM-R: 'Replacement Bus' 'Alamein Line' 400
   not kept (rail or other): aus:vic:vic-02-BEG-R: 'Replacement Bus' 'Belgrave Line' 400
@@ -17,11 +18,11 @@
   not kept (rail or other): aus:vic:vic-02-UFD-R: 'Replacement Bus' 'Upfield Line' 400
   not kept (rail or other): aus:vic:vic-02-WER-R: 'Replacement Bus' 'Werribee Line' 400
   not kept (rail or other): aus:vic:vic-02-WIL-R: 'Replacement Bus' 'Williamstown Line' 400
-routes kept: 780
-feed 2026-11-11 - 2027-02-14 · week from 2026-11-16 · days {'wk': '2026-11-18', 'sat': '2026-11-21', 'sun': '2026-11-22'}
-trips in the week: 133810
-rapid lines written: [('Mernda', 'subway', 6), ('Alamein', 'subway', 5), ('Sunbury', 'subway', 8), ('Upfield', 'subway', 6), ('Belgrave', 'subway', 4), ('Lilydale', 'subway', 2), ('Pakenham', 'subway', 4), ('Werribee', 'subway', 6), ('Frankston', 'subway', 8), ('Cranbourne', 'subway', 5), ('Craigieburn', 'subway', 5), ('Hurstbridge', 'subway', 4), ('Sandringham', 'subway', 5), ('Stony Point', 'subway', 4), ('Williamstown', 'subway', 7), ('Glen Waverley', 'subway', 7), ('Flemington Racecourse', 'subway', 2)] · platforms 493
-sched.json: 24555 stops · 52 kinds of day · 79438 span lists · 11093594 bytes
+routes kept: 779
+feed 2026-11-19 - 2027-02-21 · week from 2026-11-23 · days {'wk': '2026-11-25', 'sat': '2026-11-28', 'sun': '2026-11-29'}
+trips in the week: 131131
+rapid lines written: [('Mernda', 'subway', 6), ('Alamein', 'subway', 5), ('Sunbury', 'subway', 8), ('Upfield', 'subway', 6), ('Belgrave', 'subway', 2), ('Lilydale', 'subway', 2), ('Pakenham', 'subway', 8), ('Werribee', 'subway', 6), ('Frankston', 'subway', 5), ('Cranbourne', 'subway', 8), ('Craigieburn', 'subway', 7), ('Hurstbridge', 'subway', 6), ('Sandringham', 'subway', 5), ('Stony Point', 'subway', 4), ('Williamstown', 'subway', 9), ('Glen Waverley', 'subway', 5), ('Flemington Racecourse', 'subway', 8)] · platforms 494
+sched.json: 24539 stops · 51 kinds of day · 69578 span lists · 11111282 bytes
 routes written: 709 · trams 24 · stops 24016
   tram     1 East Coburg - South Melbourne Beac shapes 12  midday/5h  29  1-5am 1
   bus      1 North Shore Station - Deakin Unive shapes 3  midday/5h  16  1-5am 1
@@ -212,7 +213,7 @@ routes written: 709 · trams 24 · stops 24016
   bus     71 Strathfieldsaye SC Loop via Strath shapes 1  midday/5h   0  1-5am 0
   bus     71 Strathfieldsaye SC Loop via Strath shapes 2  midday/5h   2  1-5am 0
   tram    72 Melbourne University - Camberwell  shapes 12  midday/5h  26  1-5am 1
-  tram    75 Vermont South - Central Pier Dockl shapes 12  midday/5h  31  1-5am 3
+  tram    75 Vermont South - Central Pier Dockl shapes 14  midday/5h  31  1-5am 3
   tram    78 North Richmond - Balaclava         shapes 12  midday/5h  26  1-5am 0
   bus     80 Warragul Station - Warragul South  shapes 2  midday/5h   8  1-5am 0
   bus     81 Warragul Station - Warragul North  shapes 2  midday/5h   8  1-5am 0
@@ -448,7 +449,7 @@ routes written: 709 · trams 24 · stops 24016
   bus    580 Diamond Creek - Eltham Station via shapes 2  midday/5h  10  1-5am 0
   bus    582 Eltham Town Service via Woodridge  shapes 1  midday/5h  15  1-5am 0
   bus    600 St Kilda Station - Southland Shopp shapes 5  midday/5h  10  1-5am 0
-  bus    601 Huntingdale -  Monash University ( shapes 2  midday/5h  93  1-5am 0
+  bus    601 Huntingdale -  Monash University ( shapes 2  midday/5h  37  1-5am 0
   bus    603 Burnley Station - Brighton Beach S shapes 2  midday/5h  16  1-5am 0
   bus    604 Anzac Station - Elsternwick Statio shapes 2  midday/5h  15  1-5am 0
   bus    605 City (Queen Victoria Market) - Gar shapes 2  midday/5h  16  1-5am 0
