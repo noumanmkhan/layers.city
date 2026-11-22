@@ -1,5 +1,5 @@
 {
-"fetched": "2026-11-21T07:32",
+"fetched": "2026-11-22T07:30",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
 {
@@ -23,6 +23,30 @@
 [
 -79.31144,
 43.68245
+]
+]
+},
+{
+"id": "Tor-RD1M2026-12-8",
+"street": "Highway 404 S",
+"extent": "Highway 404 S at Don Valley Parkway S to 58 m North of Don Valley Parkway S",
+"kind": "closed",
+"both": true,
+"start": "2026-11-04T10:00",
+"end": "2026-11-25T14:00",
+"hours": "10:00\u201314:00",
+"days": "weekdays",
+"who": "WSP Canada",
+"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
+"roadClass": "Expressway",
+"coords": [
+[
+-79.33685,
+43.76223
+],
+[
+-79.33696,
+43.76274
 ]
 ]
 },
@@ -527,30 +551,6 @@
 [
 -79.33209,
 43.7395
-]
-]
-},
-{
-"id": "Tor-RD1M2026-12-8",
-"street": "Highway 404 S",
-"extent": "Highway 404 S at Don Valley Parkway S to 58 m North of Don Valley Parkway S",
-"kind": "closed",
-"both": true,
-"start": "2026-11-04T10:00",
-"end": "2026-11-25T14:00",
-"hours": "10:00\u201314:00",
-"days": "weekdays",
-"who": "WSP Canada",
-"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
-"roadClass": "Expressway",
-"coords": [
-[
--79.33685,
-43.76223
-],
-[
--79.33696,
-43.76274
 ]
 ]
 },

@@ -1,10 +1,10 @@
 {
-"fetched": "2026-11-21T07:32",
+"fetched": "2026-11-22T07:30",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
 {
-"id": "12417999-34",
-"street": "Yonge St",
+"id": "12417999-41",
+"street": "Richmond St W",
 "extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
 "kind": "closed",
 "both": false,
@@ -17,12 +17,60 @@
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.381226,
-43.657038
+-79.381777,
+43.651071
 ],
 [
--79.380926,
-43.656329
+-79.382666,
+43.650868
+]
+]
+},
+{
+"id": "12417999-42",
+"street": "Richmond St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.382666,
+43.650868
+],
+[
+-79.384651,
+43.650441
+]
+]
+},
+{
+"id": "12417999-43",
+"street": "Richmond St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.384651,
+43.650441
+],
+[
+-79.385111,
+43.650342
 ]
 ]
 },
@@ -47,730 +95,6 @@
 [
 -79.386291,
 43.650087
-]
-]
-},
-{
-"id": "12417999-36",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.380675,
-43.655774
-],
-[
--79.379974,
-43.654063
-]
-]
-},
-{
-"id": "12417999-1",
-"street": "Bloor St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.401539,
-43.667162
-],
-[
--79.399836,
-43.667517
-]
-]
-},
-{
-"id": "12417999-2",
-"street": "Bloor St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.399836,
-43.667517
-],
-[
--79.398365,
-43.667832
-]
-]
-},
-{
-"id": "12417999-3",
-"street": "Bloor St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.398365,
-43.667832
-],
-[
--79.397381,
-43.668033
-]
-]
-},
-{
-"id": "12417999-4",
-"street": "Bloor St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.397381,
-43.668033
-],
-[
--79.395876,
-43.668333
-],
-[
--79.394141,
-43.66872
-]
-]
-},
-{
-"id": "12417999-5",
-"street": "Bloor St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.394141,
-43.66872
-],
-[
--79.391027,
-43.669358
-]
-]
-},
-{
-"id": "12417999-6",
-"street": "Bloor St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.391027,
-43.669358
-],
-[
--79.390585,
-43.669447
-]
-]
-},
-{
-"id": "12417999-8",
-"street": "Bloor St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.389508,
-43.669669
-],
-[
--79.388018,
-43.669974
-]
-]
-},
-{
-"id": "12417999-9",
-"street": "Bloor St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.388018,
-43.669974
-],
-[
--79.387408,
-43.6701
-]
-]
-},
-{
-"id": "12417999-10",
-"street": "Bloor St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.387408,
-43.6701
-],
-[
--79.386788,
-43.670226
-]
-]
-},
-{
-"id": "12417999-11",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.386788,
-43.670226
-],
-[
--79.386557,
-43.669687
-],
-[
--79.386425,
-43.669368
-]
-]
-},
-{
-"id": "12417999-7",
-"street": "Bloor St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.390585,
-43.669447
-],
-[
--79.389508,
-43.669669
-]
-]
-},
-{
-"id": "12417999-12",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.386425,
-43.669368
-],
-[
--79.38616,
-43.668742
-]
-]
-},
-{
-"id": "12417999-13",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.38616,
-43.668742
-],
-[
--79.386113,
-43.668631
-]
-]
-},
-{
-"id": "12417999-14",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.386113,
-43.668631
-],
-[
--79.385856,
-43.667996
-]
-]
-},
-{
-"id": "12417999-46",
-"street": "University Ave",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.385556,
-43.648869
-],
-[
--79.38536,
-43.648557
-],
-[
--79.385349,
-43.648539
-]
-]
-},
-{
-"id": "12417999-47",
-"street": "University Ave",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.385349,
-43.648539
-],
-[
--79.385187,
-43.648282
-]
-]
-},
-{
-"id": "12417999-48",
-"street": "University Ave",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.385187,
-43.648282
-],
-[
--79.384807,
-43.647662
-]
-]
-},
-{
-"id": "12417999-49",
-"street": "University Ave",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.384807,
-43.647662
-],
-[
--79.3841,
-43.646384
-]
-]
-},
-{
-"id": "12417999-45",
-"street": "University Ave",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.386291,
-43.650087
-],
-[
--79.385556,
-43.648869
-]
-]
-},
-{
-"id": "12417999-50",
-"street": "University Ave",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.3841,
-43.646384
-],
-[
--79.383858,
-43.645975
-],
-[
--79.383792,
-43.645868
-]
-]
-},
-{
-"id": "12417999-16",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.385692,
-43.667562
-],
-[
--79.38534,
-43.666695
-]
-]
-},
-{
-"id": "12417999-17",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.38534,
-43.666695
-],
-[
--79.385327,
-43.66667
-],
-[
--79.385259,
-43.666547
-]
-]
-},
-{
-"id": "12417999-18",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.385259,
-43.666547
-],
-[
--79.385052,
-43.666064
-]
-]
-},
-{
-"id": "12417999-19",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.385052,
-43.666064
-],
-[
--79.38504,
-43.666038
-],
-[
--79.384954,
-43.66584
-]
-]
-},
-{
-"id": "12417999-15",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.385856,
-43.667996
-],
-[
--79.385692,
-43.667562
-]
-]
-},
-{
-"id": "12417999-20",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.384954,
-43.66584
-],
-[
--79.384596,
-43.664937
-]
-]
-},
-{
-"id": "12417999-21",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.384596,
-43.664937
-],
-[
--79.384158,
-43.663904
-]
-]
-},
-{
-"id": "12417999-22",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.384158,
-43.663904
-],
-[
--79.384137,
-43.663855
-],
-[
--79.383789,
-43.663021
 ]
 ]
 },
@@ -1043,6 +367,778 @@
 ]
 },
 {
+"id": "12417999-34",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.381226,
+43.657038
+],
+[
+-79.380926,
+43.656329
+]
+]
+},
+{
+"id": "12417999-35",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.380926,
+43.656329
+],
+[
+-79.380675,
+43.655774
+]
+]
+},
+{
+"id": "12417999-36",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.380675,
+43.655774
+],
+[
+-79.379974,
+43.654063
+]
+]
+},
+{
+"id": "12417999-8",
+"street": "Bloor St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.389508,
+43.669669
+],
+[
+-79.388018,
+43.669974
+]
+]
+},
+{
+"id": "12417999-9",
+"street": "Bloor St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.388018,
+43.669974
+],
+[
+-79.387408,
+43.6701
+]
+]
+},
+{
+"id": "12417999-10",
+"street": "Bloor St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.387408,
+43.6701
+],
+[
+-79.386788,
+43.670226
+]
+]
+},
+{
+"id": "12417999-11",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.386788,
+43.670226
+],
+[
+-79.386557,
+43.669687
+],
+[
+-79.386425,
+43.669368
+]
+]
+},
+{
+"id": "12417999-7",
+"street": "Bloor St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.390585,
+43.669447
+],
+[
+-79.389508,
+43.669669
+]
+]
+},
+{
+"id": "12417999-12",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.386425,
+43.669368
+],
+[
+-79.38616,
+43.668742
+]
+]
+},
+{
+"id": "12417999-13",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.38616,
+43.668742
+],
+[
+-79.386113,
+43.668631
+]
+]
+},
+{
+"id": "12417999-14",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.386113,
+43.668631
+],
+[
+-79.385856,
+43.667996
+]
+]
+},
+{
+"id": "12417999-16",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.385692,
+43.667562
+],
+[
+-79.38534,
+43.666695
+]
+]
+},
+{
+"id": "12417999-17",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.38534,
+43.666695
+],
+[
+-79.385327,
+43.66667
+],
+[
+-79.385259,
+43.666547
+]
+]
+},
+{
+"id": "12417999-18",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.385259,
+43.666547
+],
+[
+-79.385052,
+43.666064
+]
+]
+},
+{
+"id": "12417999-19",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.385052,
+43.666064
+],
+[
+-79.38504,
+43.666038
+],
+[
+-79.384954,
+43.66584
+]
+]
+},
+{
+"id": "12417999-15",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.385856,
+43.667996
+],
+[
+-79.385692,
+43.667562
+]
+]
+},
+{
+"id": "12417999-20",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.384954,
+43.66584
+],
+[
+-79.384596,
+43.664937
+]
+]
+},
+{
+"id": "12417999-21",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.384596,
+43.664937
+],
+[
+-79.384158,
+43.663904
+]
+]
+},
+{
+"id": "12417999-22",
+"street": "Yonge St",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.384158,
+43.663904
+],
+[
+-79.384137,
+43.663855
+],
+[
+-79.383789,
+43.663021
+]
+]
+},
+{
+"id": "12417999-1",
+"street": "Bloor St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.401539,
+43.667162
+],
+[
+-79.399836,
+43.667517
+]
+]
+},
+{
+"id": "12417999-2",
+"street": "Bloor St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.399836,
+43.667517
+],
+[
+-79.398365,
+43.667832
+]
+]
+},
+{
+"id": "12417999-3",
+"street": "Bloor St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.398365,
+43.667832
+],
+[
+-79.397381,
+43.668033
+]
+]
+},
+{
+"id": "12417999-4",
+"street": "Bloor St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.397381,
+43.668033
+],
+[
+-79.395876,
+43.668333
+],
+[
+-79.394141,
+43.66872
+]
+]
+},
+{
+"id": "12417999-5",
+"street": "Bloor St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.394141,
+43.66872
+],
+[
+-79.391027,
+43.669358
+]
+]
+},
+{
+"id": "12417999-6",
+"street": "Bloor St W",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.391027,
+43.669358
+],
+[
+-79.390585,
+43.669447
+]
+]
+},
+{
+"id": "12417999-46",
+"street": "University Ave",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.385556,
+43.648869
+],
+[
+-79.38536,
+43.648557
+],
+[
+-79.385349,
+43.648539
+]
+]
+},
+{
+"id": "12417999-47",
+"street": "University Ave",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.385349,
+43.648539
+],
+[
+-79.385187,
+43.648282
+]
+]
+},
+{
+"id": "12417999-48",
+"street": "University Ave",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.385187,
+43.648282
+],
+[
+-79.384807,
+43.647662
+]
+]
+},
+{
+"id": "12417999-49",
+"street": "University Ave",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.384807,
+43.647662
+],
+[
+-79.3841,
+43.646384
+]
+]
+},
+{
+"id": "12417999-45",
+"street": "University Ave",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.386291,
+43.650087
+],
+[
+-79.385556,
+43.648869
+]
+]
+},
+{
+"id": "12417999-50",
+"street": "University Ave",
+"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T11:45",
+"end": "2026-11-22T12:30",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.3841,
+43.646384
+],
+[
+-79.383858,
+43.645975
+],
+[
+-79.383792,
+43.645868
+]
+]
+},
+{
 "id": "12417999-51",
 "street": "University Ave",
 "extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
@@ -1251,102 +1347,6 @@
 ]
 },
 {
-"id": "12417999-35",
-"street": "Yonge St",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.380926,
-43.656329
-],
-[
--79.380675,
-43.655774
-]
-]
-},
-{
-"id": "12417999-43",
-"street": "Richmond St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.384651,
-43.650441
-],
-[
--79.385111,
-43.650342
-]
-]
-},
-{
-"id": "12417999-42",
-"street": "Richmond St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.382666,
-43.650868
-],
-[
--79.384651,
-43.650441
-]
-]
-},
-{
-"id": "12417999-41",
-"street": "Richmond St W",
-"extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T11:45",
-"end": "2026-11-22T12:30",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.381777,
-43.651071
-],
-[
--79.382666,
-43.650868
-]
-]
-},
-{
 "id": "12417999-37",
 "street": "Yonge St",
 "extent": "Bloor St W at Huron St, to Yonge St, to Richmond St W, to University Ave, to Wellington St E",
@@ -1443,7 +1443,7 @@
 ]
 },
 {
-"id": "12417790-3",
+"id": "12417790-1",
 "street": "Bay St",
 "extent": "Bay St at Cumberland St to Charles St W",
 "kind": "closed",
@@ -1457,12 +1457,12 @@
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.389508,
-43.669669
+-79.389844,
+43.670562
 ],
 [
--79.388869,
-43.668197
+-79.389734,
+43.670269
 ]
 ]
 },
@@ -1491,7 +1491,7 @@
 ]
 },
 {
-"id": "12417790-1",
+"id": "12417790-3",
 "street": "Bay St",
 "extent": "Bay St at Cumberland St to Charles St W",
 "kind": "closed",
@@ -1505,12 +1505,12 @@
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.389844,
-43.670562
+-79.389508,
+43.669669
 ],
 [
--79.389734,
-43.670269
+-79.388869,
+43.668197
 ]
 ]
 },
@@ -1539,7 +1539,7 @@
 ]
 },
 {
-"id": "12417776-3",
+"id": "12417776-1",
 "street": "Bloor St W",
 "extent": "Bloor St W at Dovercourt Rd to Ossington Ave",
 "kind": "closed",
@@ -1553,12 +1553,12 @@
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.428054,
-43.661481
+-79.429438,
+43.661151
 ],
 [
--79.426858,
-43.661737
+-79.428205,
+43.661436
 ]
 ]
 },
@@ -1587,7 +1587,7 @@
 ]
 },
 {
-"id": "12417776-1",
+"id": "12417776-3",
 "street": "Bloor St W",
 "extent": "Bloor St W at Dovercourt Rd to Ossington Ave",
 "kind": "closed",
@@ -1601,12 +1601,12 @@
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.429438,
-43.661151
+-79.428054,
+43.661481
 ],
 [
--79.428205,
-43.661436
+-79.426858,
+43.661737
 ]
 ]
 },
@@ -1659,30 +1659,6 @@
 ]
 },
 {
-"id": "12417767-1",
-"street": "Spadina Ave",
-"extent": "Spadina Ave at Sussex Ave, to Spadina Rd, to Lowther Ave",
-"kind": "closed",
-"both": false,
-"start": "2026-11-22T12:00",
-"end": "2026-11-22T15:00",
-"hours": "24h",
-"days": "daily",
-"who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.402732,
-43.664637
-],
-[
--79.403109,
-43.66551
-]
-]
-},
-{
 "id": "12417767-2",
 "street": "Spadina Ave",
 "extent": "Spadina Ave at Sussex Ave, to Spadina Rd, to Lowther Ave",
@@ -1707,9 +1683,9 @@
 ]
 },
 {
-"id": "12417755-4",
-"street": "Bathurst St",
-"extent": "Bathurst St at Lennox St to London St",
+"id": "12417767-1",
+"street": "Spadina Ave",
+"extent": "Spadina Ave at Sussex Ave, to Spadina Rd, to Lowther Ave",
 "kind": "closed",
 "both": false,
 "start": "2026-11-22T12:00",
@@ -1717,16 +1693,16 @@
 "hours": "24h",
 "days": "daily",
 "who": "",
-"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run.",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run",
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.411415,
-43.665643
+-79.402732,
+43.664637
 ],
 [
--79.411788,
-43.666621
+-79.403109,
+43.66551
 ]
 ]
 },
@@ -1799,6 +1775,30 @@
 [
 -79.411213,
 43.665116
+]
+]
+},
+{
+"id": "12417755-4",
+"street": "Bathurst St",
+"extent": "Bathurst St at Lennox St to London St",
+"kind": "closed",
+"both": false,
+"start": "2026-11-22T12:00",
+"end": "2026-11-22T15:00",
+"hours": "24h",
+"days": "daily",
+"who": "",
+"desc": "Road is closed for the Santa Claus Parade and Holly Jolly Fun Run.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.411415,
+43.665643
+],
+[
+-79.411788,
+43.666621
 ]
 ]
 }
