@@ -1,6 +1,55 @@
 {
- "fetched": "2026-11-22T07:30",
+ "fetched": "2026-11-23T09:29",
  "source": "https://gtfsrt.ttc.ca/alerts/subway?format=binary",
  "licence": "Open Government Licence – Toronto",
- "closures": []
+ "closures": [
+  {
+   "id": "80918",
+   "line": "1",
+   "name": "Line 1 Yonge-University",
+   "from": "Bloor-Yonge",
+   "to": "Osgoode",
+   "windows": [
+    [
+     "2026-11-23T23:59",
+     "2026-11-24T03:30"
+    ],
+    [
+     "2026-11-24T23:59",
+     "2026-11-25T03:30"
+    ],
+    [
+     "2026-11-25T23:59",
+     "2026-11-26T03:30"
+    ],
+    [
+     "2026-11-26T23:59",
+     "2026-11-27T03:30"
+    ]
+   ],
+   "text": "There is no subway service between Bloor-Yonge and Osgoode stations due to planned track work. Shuttle buses are running.",
+   "shuttle": true,
+   "start": "2026-11-23T23:59",
+   "end": "2026-11-27T03:30",
+   "effect": "Early closure"
+  },
+  {
+   "id": "80920",
+   "line": "1",
+   "name": "Line 1 Yonge-University",
+   "from": "College",
+   "to": "Osgoode",
+   "windows": [
+    [
+     "2026-11-27T23:59",
+     "2026-11-28T03:30"
+    ]
+   ],
+   "text": "There is no subway service between College and Osgoode stations due to planned track work. Shuttle buses are running.",
+   "shuttle": true,
+   "start": "2026-11-27T23:59",
+   "end": "2026-11-28T03:30",
+   "effect": "Full closure"
+  }
+ ]
 }
