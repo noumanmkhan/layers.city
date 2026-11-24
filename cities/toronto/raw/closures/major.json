@@ -1,5 +1,5 @@
 {
-"fetched": "2026-11-23T09:29",
+"fetched": "2026-11-24T09:46",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
 {
@@ -23,54 +23,6 @@
 [
 -79.31144,
 43.68245
-]
-]
-},
-{
-"id": "Tor-RD1M2026-12-8",
-"street": "Highway 404 S",
-"extent": "Highway 404 S at Don Valley Parkway S to 58 m North of Don Valley Parkway S",
-"kind": "closed",
-"both": true,
-"start": "2026-11-04T10:00",
-"end": "2026-11-25T14:00",
-"hours": "10:00\u201314:00",
-"days": "weekdays",
-"who": "WSP Canada",
-"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
-"roadClass": "Expressway",
-"coords": [
-[
--79.33685,
-43.76223
-],
-[
--79.33696,
-43.76274
-]
-]
-},
-{
-"id": "Tor-RD1M2026-12-1",
-"street": "Dvp 401",
-"extent": "Dvp 401 19 m North of Don Valley Parkway N to Don Valley Parkway N",
-"kind": "closed",
-"both": true,
-"start": "2026-11-04T10:00",
-"end": "2026-11-25T14:00",
-"hours": "10:00\u201314:00",
-"days": "weekdays",
-"who": "WSP Canada",
-"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
-"roadClass": "Expressway",
-"coords": [
-[
--79.33668,
-43.76285
-],
-[
--79.33667,
-43.76268
 ]
 ]
 },
@@ -555,462 +507,78 @@
 ]
 },
 {
-"id": "Tor-RD52026-7363",
-"street": "Bay St N Gardiner Xy Ramp",
-"extent": "Bay St N Gardiner Xy Ramp 15 m North of Bay St to Gardiner E Lower Jarvis Ramp",
-"kind": "closed",
-"both": false,
-"start": "2026-11-27T00:00",
-"end": "2026-11-27T05:00",
-"hours": "00:00\u201305:00",
-"days": "daily",
-"who": "Doug Dixon & Associates Inc.",
-"desc": "Hammer sounding of underside of FG Gardiner Expressway",
-"roadClass": "Expressway Ramp",
-"coords": [
-[
--79.37765,
-43.64279
-],
-[
--79.37765,
-43.64281
-],
-[
--79.37762,
-43.64293
-],
-[
--79.37759,
-43.64301
-]
-]
-},
-{
-"id": "Tor-RD52026-6470-1",
-"street": "Adelaide St E",
-"extent": "Adelaide St E 6 m Northeast of Parliament St to 47 m Southwest of Bayview Ave",
-"kind": "closed",
-"both": false,
-"start": "2026-11-23T21:00",
-"end": "2026-11-24T05:30",
-"hours": "21:00\u201305:30",
-"days": "daily",
-"who": "Soncin Construction",
-"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, etc.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.36353,
-43.65361
-],
-[
--79.36274,
-43.65408
-],
-[
--79.36274,
-43.65408
-],
-[
--79.36238,
-43.65431
-],
-[
--79.36216,
-43.65446
-],
-[
--79.36195,
-43.65458
-],
-[
--79.36177,
-43.65466
-],
-[
--79.36156,
-43.65475
-],
-[
--79.36134,
-43.65482
-],
-[
--79.36116,
-43.65487
-],
-[
--79.36105,
-43.6549
-],
-[
--79.36105,
-43.6549
-],
-[
--79.36086,
-43.65494
-],
-[
--79.36086,
-43.65494
-],
-[
--79.36072,
-43.65496
-],
-[
--79.36072,
-43.65496
-],
-[
--79.36049,
-43.65499
-],
-[
--79.36028,
-43.655
-],
-[
--79.36007,
-43.655
-],
-[
--79.35982,
-43.65499
-],
-[
--79.35941,
-43.65495
-],
-[
--79.35941,
-43.65495
-],
-[
--79.35847,
-43.65487
-],
-[
--79.35847,
-43.65487
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35682,
-43.65474
-],
-[
--79.3567,
-43.65474
-],
-[
--79.35653,
-43.65475
-],
-[
--79.3564,
-43.65477
-],
-[
--79.35629,
-43.65479
-],
-[
--79.35617,
-43.65482
-],
-[
--79.35607,
-43.65484
-],
-[
--79.35596,
-43.65488
-],
-[
--79.35587,
-43.6549
-],
-[
--79.35572,
-43.65497
-],
-[
--79.35562,
-43.65502
-],
-[
--79.35552,
-43.65508
-],
-[
--79.35552,
-43.65508
-],
-[
--79.35482,
-43.65557
-],
-[
--79.35482,
-43.65557
-],
-[
--79.35389,
-43.65611
-]
-]
-},
-{
-"id": "Tor-RD52026-6470-3",
-"street": "Eastern Ave Diversion",
-"extent": "Eastern Ave Diversion at Eastern Ave to 34 m East of Broadview S Eastern W Ramp",
+"id": "Tor-RD1M2026-12-1",
+"street": "Dvp 401",
+"extent": "Dvp 401 19 m North of Don Valley Parkway N to Don Valley Parkway N",
 "kind": "closed",
 "both": true,
-"start": "2026-11-23T21:00",
-"end": "2026-11-24T05:30",
-"hours": "21:00\u201305:30",
-"days": "daily",
-"who": "Soncin Construction",
-"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, etc.",
-"roadClass": "Major Arterial Road",
+"start": "2026-11-04T10:00",
+"end": "2026-11-25T14:00",
+"hours": "10:00\u201314:00",
+"days": "weekdays",
+"who": "WSP Canada",
+"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
+"roadClass": "Expressway",
 "coords": [
 [
--79.3574,
-43.65452
+-79.33668,
+43.76285
 ],
 [
--79.35697,
-43.65474
-],
-[
--79.35697,
-43.65474
-],
-[
--79.35606,
-43.65517
-],
-[
--79.35585,
-43.65536
-],
-[
--79.35585,
-43.65536
-],
-[
--79.35497,
-43.65572
-],
-[
--79.35497,
-43.65572
-],
-[
--79.35422,
-43.65606
-],
-[
--79.35422,
-43.65606
-],
-[
--79.35343,
-43.65637
-],
-[
--79.35343,
-43.65637
-],
-[
--79.35327,
-43.65644
-],
-[
--79.35327,
-43.65644
-],
-[
--79.35322,
-43.65646
-],
-[
--79.35317,
-43.65648
-],
-[
--79.35314,
-43.6565
-],
-[
--79.35314,
-43.6565
-],
-[
--79.35294,
-43.65657
-],
-[
--79.35294,
-43.65657
-],
-[
--79.35255,
-43.65669
-],
-[
--79.35255,
-43.65669
-],
-[
--79.3525,
-43.6567
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35244,
-43.65672
-],
-[
--79.35211,
-43.65681
-],
-[
--79.35177,
-43.65687
-],
-[
--79.35153,
-43.65691
-],
-[
--79.35153,
-43.65691
-],
-[
--79.35116,
-43.65697
-],
-[
--79.35089,
-43.65699
-],
-[
--79.35061,
-43.657
-],
-[
--79.35032,
-43.65698
-],
-[
--79.35007,
-43.65695
-],
-[
--79.34986,
-43.65691
-],
-[
--79.34986,
-43.65691
-],
-[
--79.34947,
-43.65681
+-79.33667,
+43.76268
 ]
 ]
 },
 {
-"id": "Tor-RD52026-6468-1",
-"street": "Dvp S Eastern Av W Ramp",
-"extent": "Dvp S Eastern Av W Ramp 45 m North of Queen St E to 4 m South of Don River",
+"id": "Tor-RD1M2026-12-8",
+"street": "Highway 404 S",
+"extent": "Highway 404 S at Don Valley Parkway S to 58 m North of Don Valley Parkway S",
 "kind": "closed",
-"both": false,
-"start": "2026-11-23T22:30",
-"end": "2026-11-24T05:30",
-"hours": "22:30\u201305:30",
-"days": "daily",
-"who": "Soncin Construction",
-"desc": "Project No. 24ECS-BE-09SB - Rehabilitation of the Eastern bridge. Project requires closures to facilitate the rehabilitation of the numerous bridge structures in the area. Work includes, concrete removal and reinstatement, electrical rehab, asphalt, waterproofing, structural coating, bearing replacement etc.",
-"roadClass": "Expressway Ramp",
+"both": true,
+"start": "2026-11-04T10:00",
+"end": "2026-11-25T14:00",
+"hours": "10:00\u201314:00",
+"days": "weekdays",
+"who": "WSP Canada",
+"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
+"roadClass": "Expressway",
 "coords": [
 [
--79.35412,
-43.65834
+-79.33685,
+43.76223
 ],
 [
--79.35407,
-43.65823
+-79.33696,
+43.76274
+]
+]
+},
+{
+"id": "Tor-RD1S2026-1342",
+"street": "Richmond St E",
+"extent": "Richmond St E from George St to Stonecutters Lane",
+"kind": "closed",
+"both": false,
+"start": "2026-11-29T22:00",
+"end": "2026-11-30T05:00",
+"hours": "22:00\u201305:00",
+"days": "daily",
+"who": "ROC Corp",
+"desc": "hoisting a unit onto 255 Richmond Street East using a 350 TON crane",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.37157,
+43.65283
 ],
 [
--79.35392,
-43.65796
+-79.37114,
+43.65292
 ],
 [
--79.35392,
-43.65796
-],
-[
--79.35378,
-43.65776
-],
-[
--79.35358,
-43.65753
-],
-[
--79.35346,
-43.65738
-],
-[
--79.35343,
-43.65734
-],
-[
--79.35339,
-43.65727
-],
-[
--79.35336,
-43.65721
-],
-[
--79.35335,
-43.65715
-],
-[
--79.35334,
-43.65704
-],
-[
--79.35338,
-43.65693
-],
-[
--79.35338,
-43.65693
-],
-[
--79.35339,
-43.65689
+-79.36963,
+43.65327
 ]
 ]
 },
