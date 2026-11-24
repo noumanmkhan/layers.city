@@ -1,11 +1,11 @@
-listing: 498 events over 25 pages
-  retry https://whatson.melbourne.vic.gov.au/things-to-do/best-of-2026 HTTP Error 403: Forbidden
-  retry https://whatson.melbourne.vic.gov.au/things-to-do/best-of-2026 HTTP Error 403: Forbidden
-  page /things-to-do/best-of-2026 HTTP Error 403: Forbidden
-  retry https://whatson.melbourne.vic.gov.au/things-to-do/nbl-melbourne-united-v-cairns- HTTP Error 403: Forbidden
-pages: 29 fetched, 498 kept
+listing: 516 events over 26 pages
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/christmas-treasure-hunt HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/christmas-treasure-hunt HTTP Error 403: Forbidden
+  page /things-to-do/christmas-treasure-hunt HTTP Error 403: Forbidden
+  retry https://whatson.melbourne.vic.gov.au/things-to-do/pop-choir-australia-city-squar HTTP Error 403: Forbidden
+pages: 39 fetched, 515 kept
   address layers: ['open-data-platform:address', 'open-data-platform:address_main', 'open-data-platform:address_sup', 'open-data-platform:v_property_mp_address']
   using open-data-platform:address ; fields {'ufi': 817464285, 'pfi': '51566847', 'property_pfi': '1334321', 'ezi_address': '136 DAVID HILL ROAD MONBULK 3793', 'source': 'LGO', 'source_verified': '2009-12-09T00:00:00Z', 'is_primary': 'Y', 'property_status': 'A', 'geocode_feature': 'V', 'distance_related_flag': 'N', 'location_descriptor': None, 'blg_unit_type': None, 'hsa_flag': 'N', 'hsa_unit_id': None, 'blg_unit_prefix_1': None, 'blg_unit_id_1': None, 'blg_unit_suffix_1': None, 'blg_unit_prefix_2': None, 'blg_unit_id_2': None, 'blg_unit_suffix_2': None, 'floor_type': None, 'floor_prefix_1': None, 'floor_no_1': None, 'floor_suffix_1': None, 'floor_prefix_2': None, 'floor_no_2': None, 'floor_suffix_2': None, 'building_name': None, 'complex_name': None, 'house_prefix_1': None, 'house_number_1': 136, 'house_suffix_1': None, 'house_prefix_2': None, 'house_number_2': None, 'house_suffix_2': None, 'disp_prefix_1': None, 'disp_number_1': None, 'disp_suffix_1': None, 'disp_prefix_2': None, 'disp_number_2': None, 'disp_suffix_2': None, 'road_name': 'DAVID HILL', 'road_type': 'ROAD', 'road_suffix': None, 'locality_name': 'MONBULK', 'lga_code': '377', 'state': 'VIC', 'postcode': '3793', 'mesh_block': '20660530000', 'num_road_address': '136 DAVID HILL ROAD', 'num_address': '136', 'address_class': 'S', 'add_access_type': 'L', 'outside_property': 'N', 'complex_site': 'N', 'label_address': 'Y', 'feature_quality_id': None, 'pfi_created': None, 'ufi_created': '2023-12-19T02:36:12Z', 'ufi_old': 460359887, 'task_id': 417948}
-placed: Counter({'address': 139, 'known': 59, 'near': 58, 'street': 39, None: 12, 'corner': 1}) ; unplaced venues: ['-', 'Christmas River Show', 'City Square/Swanston St', 'Crown Conference Centre', 'East End', 'Metropolis Events', 'Nona Lee Sports Centre', 'Trades Hall Place', 'Whitehart Bar']
-388 events at 167 places, 2026-11-23 to 2026-12-07
-Events page: 498 events (12 with no place, 2 outside the City), 2026-11-23 to 2026-12-23
+placed: Counter({'address': 145, 'known': 60, 'near': 60, 'street': 40, None: 13, 'corner': 1}) ; unplaced venues: ['-', 'Christmas River Show', 'City Square/Swanston St', 'Crown Conference Centre', 'East End', 'Eureka 89 - Dining & Events', 'Nona Lee Sports Centre', 'Trades Hall Place', 'Whitehart Bar']
+400 events at 171 places, 2026-11-24 to 2026-12-08
+Events page: 515 events (12 with no place, 3 outside the City), 2026-11-24 to 2026-12-24
