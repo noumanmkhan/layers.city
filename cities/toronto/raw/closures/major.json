@@ -1,31 +1,7 @@
 {
-"fetched": "2026-11-25T09:13",
+"fetched": "2026-11-26T08:48",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
-{
-"id": "Tor-RD52026-7636-3",
-"street": "Woodbine Ave",
-"extent": "Woodbine Ave 13 m North of C N R to 36 m North of C N R",
-"kind": "closed",
-"both": true,
-"start": "2026-11-19T09:00",
-"end": "2026-11-27T16:00",
-"hours": "09:00\u201316:00",
-"days": "weekdays",
-"who": "Aqua Tech Solutions Inc",
-"desc": "City Contract -- City Contract 26TW-CPI-15PCU Chamber Adjustments South-East Wards",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.31135,
-43.68225
-],
-[
--79.31144,
-43.68245
-]
-]
-},
 {
 "id": "Tor-RD1H2026-2518-5",
 "street": "Yonge St",
@@ -59,530 +35,50 @@
 ]
 },
 {
-"id": "Tor-RD1M2026-12-8",
-"street": "Highway 404 S",
-"extent": "Highway 404 S at Don Valley Parkway S to 58 m North of Don Valley Parkway S",
+"id": "Tor-RD52026-7636-3",
+"street": "Woodbine Ave",
+"extent": "Woodbine Ave 13 m North of C N R to 36 m North of C N R",
 "kind": "closed",
 "both": true,
-"start": "2026-11-04T10:00",
-"end": "2026-11-25T14:00",
-"hours": "10:00\u201314:00",
+"start": "2026-11-19T09:00",
+"end": "2026-11-27T16:00",
+"hours": "09:00\u201316:00",
 "days": "weekdays",
-"who": "WSP Canada",
-"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
-"roadClass": "Expressway",
+"who": "Aqua Tech Solutions Inc",
+"desc": "City Contract -- City Contract 26TW-CPI-15PCU Chamber Adjustments South-East Wards",
+"roadClass": "Major Arterial Road",
 "coords": [
 [
--79.33685,
-43.76223
+-79.31135,
+43.68225
 ],
 [
--79.33696,
-43.76274
+-79.31144,
+43.68245
 ]
 ]
 },
 {
-"id": "Tor-RD1M2026-12-2",
-"street": "Don Valley Parkway N",
-"extent": "Don Valley Parkway N from Highway 404 N to Lawrence Ave E",
+"id": "Tor-RD52026-7766-3",
+"street": "Woodbine Ave",
+"extent": "Woodbine Ave 21 m North of Springdale Blvd to 42 m North of Springdale Blvd",
 "kind": "closed",
 "both": true,
-"start": "2026-11-04T10:00",
-"end": "2026-11-25T14:00",
-"hours": "10:00\u201314:00",
+"start": "2026-11-23T09:00",
+"end": "2026-11-27T16:00",
+"hours": "09:00\u201316:00",
 "days": "weekdays",
-"who": "WSP Canada",
-"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
-"roadClass": "Expressway",
+"who": "PTR Paving Inc.",
+"desc": "Permanent Surface Reinstatement to Toronto water repairs.",
+"roadClass": "Major Arterial Road",
 "coords": [
 [
--79.33667,
-43.76268
+-79.31459,
+43.68983
 ],
 [
--79.3366,
-43.76229
-],
-[
--79.3366,
-43.76229
-],
-[
--79.33621,
-43.76076
-],
-[
--79.3356,
-43.75832
-],
-[
--79.3356,
-43.75832
-],
-[
--79.33555,
-43.75809
-],
-[
--79.33555,
-43.75809
-],
-[
--79.33544,
-43.75762
-],
-[
--79.33528,
-43.75705
-],
-[
--79.33506,
-43.75646
-],
-[
--79.33461,
-43.75531
-],
-[
--79.33461,
-43.75531
-],
-[
--79.33461,
-43.7553
-],
-[
--79.33457,
-43.7552
-],
-[
--79.33453,
-43.75508
-],
-[
--79.33449,
-43.75497
-],
-[
--79.33445,
-43.75485
-],
-[
--79.33442,
-43.75474
-],
-[
--79.33438,
-43.75463
-],
-[
--79.33434,
-43.75451
-],
-[
--79.33431,
-43.7544
-],
-[
--79.33428,
-43.75428
-],
-[
--79.33424,
-43.75417
-],
-[
--79.33421,
-43.75405
-],
-[
--79.33418,
-43.75394
-],
-[
--79.33415,
-43.75382
-],
-[
--79.33412,
-43.75371
-],
-[
--79.33409,
-43.75359
-],
-[
--79.33406,
-43.7535
-],
-[
--79.33403,
-43.75342
-],
-[
--79.33401,
-43.75333
-],
-[
--79.33398,
-43.75325
-],
-[
--79.33396,
-43.75316
-],
-[
--79.33393,
-43.75308
-],
-[
--79.33391,
-43.75299
-],
-[
--79.33389,
-43.7529
-],
-[
--79.33387,
-43.75282
-],
-[
--79.33385,
-43.75273
-],
-[
--79.33383,
-43.75265
-],
-[
--79.33381,
-43.75256
-],
-[
--79.33379,
-43.75247
-],
-[
--79.33377,
-43.75239
-],
-[
--79.33376,
-43.7523
-],
-[
--79.33374,
-43.75221
-],
-[
--79.33373,
-43.75213
-],
-[
--79.33371,
-43.75204
-],
-[
--79.3337,
-43.75198
-],
-[
--79.3337,
-43.75198
-],
-[
--79.3337,
-43.75195
-],
-[
--79.33369,
-43.75186
-],
-[
--79.33368,
-43.75178
-],
-[
--79.33366,
-43.75166
-],
-[
--79.33364,
-43.75154
-],
-[
--79.33362,
-43.75143
-],
-[
--79.3336,
-43.75131
-],
-[
--79.33358,
-43.75119
-],
-[
--79.33357,
-43.75107
-],
-[
--79.33355,
-43.75096
-],
-[
--79.33354,
-43.75084
-],
-[
--79.33352,
-43.75072
-],
-[
--79.33351,
-43.7506
-],
-[
--79.3335,
-43.75049
-],
-[
--79.33349,
-43.75037
-],
-[
--79.33348,
-43.75025
-],
-[
--79.33347,
-43.75013
-],
-[
--79.33346,
-43.75001
-],
-[
--79.33344,
-43.74984
-],
-[
--79.33343,
-43.74966
-],
-[
--79.33343,
-43.74956
-],
-[
--79.33343,
-43.74956
-],
-[
--79.33327,
-43.74786
-],
-[
--79.33317,
-43.74704
-],
-[
--79.33309,
-43.74659
-],
-[
--79.33295,
-43.74596
-],
-[
--79.33275,
-43.74511
-],
-[
--79.33249,
-43.74403
-],
-[
--79.33224,
-43.74284
-],
-[
--79.33224,
-43.74284
-],
-[
--79.33223,
-43.74281
-],
-[
--79.33222,
-43.74272
-],
-[
--79.3322,
-43.74262
-],
-[
--79.33219,
-43.74253
-],
-[
--79.33218,
-43.74243
-],
-[
--79.33216,
-43.74234
-],
-[
--79.33215,
-43.74224
-],
-[
--79.33214,
-43.74215
-],
-[
--79.33213,
-43.74205
-],
-[
--79.33212,
-43.74196
-],
-[
--79.33212,
-43.74186
-],
-[
--79.33211,
-43.74177
-],
-[
--79.3321,
-43.74167
-],
-[
--79.3321,
-43.74154
-],
-[
--79.3321,
-43.74154
-],
-[
--79.3321,
-43.7415
-],
-[
--79.3321,
-43.74145
-],
-[
--79.3321,
-43.74141
-],
-[
--79.3321,
-43.74136
-],
-[
--79.3321,
-43.74131
-],
-[
--79.3321,
-43.74127
-],
-[
--79.3321,
-43.74122
-],
-[
--79.33211,
-43.74117
-],
-[
--79.3321,
-43.74102
-],
-[
--79.3321,
-43.74087
-],
-[
--79.33209,
-43.74081
-],
-[
--79.33209,
-43.74081
-],
-[
--79.33209,
-43.74072
-],
-[
--79.33209,
-43.74057
-],
-[
--79.33209,
-43.74042
-],
-[
--79.33208,
-43.74027
-],
-[
--79.33208,
-43.74012
-],
-[
--79.33208,
-43.73997
-],
-[
--79.33208,
-43.73981
-],
-[
--79.33209,
-43.73966
-],
-[
--79.33209,
-43.73951
-],
-[
--79.33209,
-43.7395
-]
-]
-},
-{
-"id": "Tor-RD1M2026-12-1",
-"street": "Dvp 401",
-"extent": "Dvp 401 19 m North of Don Valley Parkway N to Don Valley Parkway N",
-"kind": "closed",
-"both": true,
-"start": "2026-11-04T10:00",
-"end": "2026-11-25T14:00",
-"hours": "10:00\u201314:00",
-"days": "weekdays",
-"who": "WSP Canada",
-"desc": "Verifying existing ITS infrastructure along the DVP. From Highway 401 to Eastern Ave. Will stop on the shoulder for very short duration (under 30 mins). No actual lane or shoulder will be closed. Vehicle will be 100% within the shoulder.",
-"roadClass": "Expressway",
-"coords": [
-[
--79.33668,
-43.76285
-],
-[
--79.33667,
-43.76268
+-79.31467,
+43.69001
 ]
 ]
 },

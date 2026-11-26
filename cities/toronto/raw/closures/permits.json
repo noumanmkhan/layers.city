@@ -1,7 +1,535 @@
 {
-"fetched": "2026-11-25T09:13",
+"fetched": "2026-11-26T08:48",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
+{
+"id": "Tor-RD042026-1478",
+"street": "Old Weston Rd",
+"extent": "Old Weston Rd from Ln N Davenport E Old Weston to Davenport Rd",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-17T08:00",
+"end": "2026-12-04T16:00",
+"hours": "08:00\u201316:00",
+"days": "weekdays",
+"who": "Graham Construction and Engineering LP",
+"desc": "Sidewalk closure to support the safe demolition of City-Owned properties to support future Davenport Road extension works.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.46241,
+43.67137
+],
+[
+-79.46232,
+43.67104
+]
+]
+},
+{
+"id": "Tor-RD042026-1451-2",
+"street": "Wallace Ave",
+"extent": "Wallace Ave 33 m West of Ln 2 W Lansdowne S Wallace to Rankin Cres",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-09T07:00",
+"end": "2026-11-30T20:00",
+"hours": "07:00\u201320:00",
+"days": "weekdays",
+"who": "Graham Construction and Engineering LP",
+"desc": "- install electrical conduits, light pole base, handwell; Civil works including curb and sidewalk removal, supply and installation of asphalt, planting soil, planting, new hardscape works (concrete paving and curbs), beacon foundation and installation",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.44632,
+43.66193
+],
+[
+-79.44681,
+43.66183
+],
+[
+-79.44681,
+43.66183
+],
+[
+-79.44747,
+43.66168
+]
+]
+},
+{
+"id": "Tor-RD042026-1451-1",
+"street": "Wallace Ave",
+"extent": "Wallace Ave 33 m West of Ln 2 W Lansdowne S Wallace to 2 m East of Rankin Cres",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-09T07:00",
+"end": "2026-11-30T20:00",
+"hours": "07:00\u201320:00",
+"days": "weekdays",
+"who": "Graham Construction and Engineering LP",
+"desc": "- install electrical conduits, light pole base, handwell; Civil works including curb and sidewalk removal, supply and installation of asphalt, planting soil, planting, new hardscape works (concrete paving and curbs), beacon foundation and installation",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.44632,
+43.66193
+],
+[
+-79.44681,
+43.66183
+],
+[
+-79.44681,
+43.66183
+],
+[
+-79.44745,
+43.66169
+]
+]
+},
+{
+"id": "Tor-RD042026-1428-1",
+"street": "Eglinton Ave W",
+"extent": "Eglinton Ave W 54 m West of Eglinton Ave West Trl to Jane St",
+"kind": "narrowed",
+"both": false,
+"start": "2026-10-26T04:00",
+"end": "2026-11-30T06:00",
+"hours": "04:00\u201306:00",
+"days": "daily",
+"who": "Aecon Infrastructure Management Inc",
+"desc": "This street occupancy is required for rebar delivery to the job site.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.49971,
+43.68427
+],
+[
+-79.49906,
+43.68442
+],
+[
+-79.49906,
+43.68442
+],
+[
+-79.49882,
+43.68448
+]
+]
+},
+{
+"id": "Tor-RD042026-1428-2",
+"street": "Jane St",
+"extent": "Jane St at Eglinton Ave W to 16 m North of Eglinton Ave West Trl",
+"kind": "narrowed",
+"both": false,
+"start": "2026-10-26T04:00",
+"end": "2026-11-30T06:00",
+"hours": "04:00\u201306:00",
+"days": "daily",
+"who": "Aecon Infrastructure Management Inc",
+"desc": "This street occupancy is required for rebar delivery to the job site.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.49882,
+43.68448
+],
+[
+-79.49888,
+43.68466
+],
+[
+-79.49888,
+43.68466
+],
+[
+-79.49893,
+43.6848
+]
+]
+},
+{
+"id": "Tor-RD042026-1157",
+"street": "Jane St",
+"extent": "Jane St 8 m North of Eglinton Ave West Trl to 14 m North of Eglinton Ave West Trl",
+"kind": "closed",
+"both": true,
+"start": "2026-08-24T21:00",
+"end": "2026-11-30T05:00",
+"hours": "21:00\u201305:00",
+"days": "daily",
+"who": "Aecon Infrastructure Management Inc",
+"desc": "This work is for the installation of falsework spanning across Jane Street, north of Eglinton Avenue - at the intersection of Jane and Eglinton. At the centreline of Jane Street a shoring tower will be installed. The traffic mitigation will be covered with a PDO and will sequentially close the northbound and southbound lanes separately.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.49879,
+43.68438
+],
+[
+-79.49882,
+43.68448
+],
+[
+-79.49882,
+43.68448
+],
+[
+-79.49888,
+43.68466
+],
+[
+-79.49888,
+43.68466
+],
+[
+-79.49892,
+43.68478
+]
+]
+},
+{
+"id": "Tor-RD042026-1505-2",
+"street": "Castlefield Ave",
+"extent": "Castlefield Ave 29 m East of C N R to 40 m West of C N R",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-25T22:00",
+"end": "2026-11-27T04:00",
+"hours": "22:00\u201304:00",
+"days": "daily",
+"who": "ONxpress Civils Contractor GP",
+"desc": "SUE B Investigations (no intrusive works) at 1425 Castlefield Ave, York, ON M6M 1Y3. Lane closures will be required in the areas marked in the attached TCPS as SUE B. Since the work extends across all lanes, each lane will be closed one at a time as the crew progresses. Closures will be short-term (20-30 minutes per lane). The investigation will also include the sidewalk; however, no full sidewalk closure will be required. A PDO will be utilized during this operation.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.4662,
+43.69785
+],
+[
+-79.46639,
+43.6978
+],
+[
+-79.46655,
+43.69777
+],
+[
+-79.46655,
+43.69777
+],
+[
+-79.46663,
+43.69776
+],
+[
+-79.46678,
+43.69772
+],
+[
+-79.46699,
+43.69766
+],
+[
+-79.46701,
+43.69765
+]
+]
+},
+{
+"id": "Tor-RD042026-885-3",
+"street": "Gertrude Pl",
+"extent": "Gertrude Pl at Pape Ave to 25 m West of Muriel Ave",
+"kind": "narrowed",
+"both": true,
+"start": "2026-07-01T00:00",
+"end": "2026-12-31T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
+"desc": "This is a very short duration closure for taking reading of instruments at the road.",
+"roadClass": "Local Road",
+"coords": [
+[
+-79.34543,
+43.68044
+],
+[
+-79.3449,
+43.68054
+]
+]
+},
+{
+"id": "Tor-RD042026-885-1",
+"street": "Danforth Ave",
+"extent": "Danforth Ave 34 m East of Ln E Pape S Danforth to Pape Ave",
+"kind": "narrowed",
+"both": true,
+"start": "2026-07-01T00:00",
+"end": "2026-12-31T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
+"desc": "This is a very short duration closure for taking reading of instruments at the road.",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.34396,
+43.67913
+],
+[
+-79.34437,
+43.67905
+],
+[
+-79.34437,
+43.67905
+],
+[
+-79.34484,
+43.67895
+]
+]
+},
+{
+"id": "Tor-RD042026-885-2",
+"street": "Pape Ave",
+"extent": "Pape Ave from Danforth Ave to Gertrude Pl",
+"kind": "narrowed",
+"both": true,
+"start": "2026-07-01T00:00",
+"end": "2026-12-31T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
+"desc": "This is a very short duration closure for taking reading of instruments at the road.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.34484,
+43.67895
+],
+[
+-79.34502,
+43.67937
+],
+[
+-79.34503,
+43.67938
+],
+[
+-79.34503,
+43.67938
+],
+[
+-79.34516,
+43.67968
+],
+[
+-79.34516,
+43.67968
+],
+[
+-79.34543,
+43.68044
+]
+]
+},
+{
+"id": "Tor-RD042026-1456",
+"street": "Millwood Rd",
+"extent": "Millwood Rd 74 m West of Hepc to 74 m West of Hepc",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-03T09:00",
+"end": "2026-11-30T17:00",
+"hours": "09:00\u201317:00",
+"days": "daily",
+"who": "Leaside Valley Builders",
+"desc": "The Don Valley Crossing is a key component of the new Ontario Line subway project in Toronto. https://www.metrolinx.com/en/projects-and-programs/ontario-line/what-were-building/don-valley-crossings",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.35553,
+43.70196
+],
+[
+-79.35528,
+43.70199
+]
+]
+},
+{
+"id": "Tor-RD042026-1526",
+"street": "McCowan Rd",
+"extent": "McCowan Rd 24 m South of Hurley Cres to 9 m South of Ww S Ellesmere W Mccowan",
+"kind": "narrowed",
+"both": true,
+"start": "2026-11-30T17:00",
+"end": "2027-02-28T17:00",
+"hours": "24h",
+"days": "daily",
+"who": "Scarborough Transit Connect",
+"desc": "Stage 2 implementation",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.25031,
+43.76888
+],
+[
+-79.2504,
+43.76909
+],
+[
+-79.2504,
+43.76909
+],
+[
+-79.25076,
+43.77005
+],
+[
+-79.25078,
+43.7701
+]
+]
+},
+{
+"id": "Tor-RD042026-1487",
+"street": "Eglinton Ave W",
+"extent": "Eglinton Ave W 220 m West of Royal York Rd to 198 m East of Eden Valley Dr",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-18T09:00",
+"end": "2026-11-30T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "West End Connectors",
+"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.52925,
+43.6818
+],
+[
+-79.52928,
+43.6818
+],
+[
+-79.52953,
+43.68176
+],
+[
+-79.5299,
+43.6817
+],
+[
+-79.53045,
+43.68159
+]
+]
+},
+{
+"id": "Tor-RD042026-1489",
+"street": "Eglinton Ave E",
+"extent": "Eglinton Ave E 51 m West of Don River W Branch to 35 m East of West Don River Trl",
+"kind": "narrowed",
+"both": true,
+"start": "2026-11-25T09:00",
+"end": "2026-11-27T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "Hatch Ltd.",
+"desc": "Visual inspection of the West Don River Bridge",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.35321,
+43.71606
+],
+[
+-79.35263,
+43.71623
+],
+[
+-79.35263,
+43.71623
+],
+[
+-79.35237,
+43.71631
+],
+[
+-79.35237,
+43.71631
+],
+[
+-79.35196,
+43.71641
+]
+]
+},
+{
+"id": "Tor-RD042026-1434",
+"street": "Eglinton Ave W",
+"extent": "Eglinton Ave W 152 m West of Islington Ave to 227 m East of Bemersyde Dr",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-02T09:00",
+"end": "2026-11-26T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "West End Connectors",
+"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.54083,
+43.67944
+],
+[
+-79.54201,
+43.67918
+],
+[
+-79.54217,
+43.67915
+]
+]
+},
+{
+"id": "Tor-RD042026-1441",
+"street": "Eglinton Ave W",
+"extent": "Eglinton Ave W 19 m West of Islington Ave to 155 m West of Islington Ave",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-02T09:00",
+"end": "2026-11-30T16:00",
+"hours": "09:00\u201316:00",
+"days": "daily",
+"who": "West End Connectors",
+"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.53924,
+43.67979
+],
+[
+-79.54086,
+43.67943
+]
+]
+},
 {
 "id": "Tor-RD042026-1147",
 "street": "Sheppard Ave W",
@@ -79,46 +607,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1489",
-"street": "Eglinton Ave E",
-"extent": "Eglinton Ave E 51 m West of Don River W Branch to 35 m East of West Don River Trl",
-"kind": "narrowed",
-"both": true,
-"start": "2026-11-25T09:00",
-"end": "2026-11-27T16:00",
-"hours": "09:00\u201316:00",
-"days": "daily",
-"who": "Hatch Ltd.",
-"desc": "Visual inspection of the West Don River Bridge",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.35321,
-43.71606
-],
-[
--79.35263,
-43.71623
-],
-[
--79.35263,
-43.71623
-],
-[
--79.35237,
-43.71631
-],
-[
--79.35237,
-43.71631
-],
-[
--79.35196,
-43.71641
-]
-]
-},
-{
 "id": "Tor-RDAR2024-3900-1",
 "street": "Ln S Queen W Spadina",
 "extent": "Ln S Queen W Spadina 19m West of Spadina Ave",
@@ -163,406 +651,130 @@
 ]
 },
 {
-"id": "Tor-RD042026-1456",
-"street": "Millwood Rd",
-"extent": "Millwood Rd 74 m West of Hepc to 74 m West of Hepc",
+"id": "Tor-RD042026-1439-2",
+"street": "Overlea Blvd",
+"extent": "Overlea Blvd 158 m Northeast of Thorncliffe Park Dr to 102 m Northeast of Thorncliffe Park Dr",
 "kind": "narrowed",
 "both": false,
-"start": "2026-11-03T09:00",
-"end": "2026-11-30T17:00",
-"hours": "09:00\u201317:00",
+"start": "2026-11-27T09:00",
+"end": "2026-11-27T12:00",
+"hours": "09:00\u201312:00",
 "days": "daily",
-"who": "Leaside Valley Builders",
-"desc": "The Don Valley Crossing is a key component of the new Ontario Line subway project in Toronto. https://www.metrolinx.com/en/projects-and-programs/ontario-line/what-were-building/don-valley-crossings",
+"who": "Trillium Guideway Partners",
+"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.35553,
-43.70196
+-79.34859,
+43.70613
 ],
 [
--79.35528,
-43.70199
+-79.34869,
+43.70607
+],
+[
+-79.3488,
+43.70599
+],
+[
+-79.34896,
+43.70587
+],
+[
+-79.34905,
+43.7058
+],
+[
+-79.34908,
+43.70577
 ]
 ]
 },
 {
-"id": "Tor-RD042026-1434",
-"street": "Eglinton Ave W",
-"extent": "Eglinton Ave W 152 m West of Islington Ave to 227 m East of Bemersyde Dr",
+"id": "Tor-RD042026-1439-1",
+"street": "Overlea Blvd",
+"extent": "Overlea Blvd 102 m Northeast of Thorncliffe Park Dr to 154 m Northeast of Thorncliffe Park Dr",
 "kind": "narrowed",
 "both": false,
-"start": "2026-11-02T09:00",
-"end": "2026-11-26T16:00",
-"hours": "09:00\u201316:00",
+"start": "2026-11-26T09:00",
+"end": "2026-11-26T15:00",
+"hours": "09:00\u201315:00",
 "days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"who": "Trillium Guideway Partners",
+"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.54083,
-43.67944
+-79.34908,
+43.70577
 ],
 [
--79.54201,
-43.67918
+-79.34905,
+43.7058
 ],
 [
--79.54217,
-43.67915
+-79.34896,
+43.70587
+],
+[
+-79.3488,
+43.70599
+],
+[
+-79.34869,
+43.70607
+],
+[
+-79.34863,
+43.70611
 ]
 ]
 },
 {
-"id": "Tor-RD042026-1441",
-"street": "Eglinton Ave W",
-"extent": "Eglinton Ave W 19 m West of Islington Ave to 155 m West of Islington Ave",
+"id": "Tor-RD042026-1513-2",
+"street": "Eglinton Ave E",
+"extent": "Eglinton Ave E 11 m Northeast of Don Mills Rd to 27 m Northeast of Don Mills Rd",
 "kind": "narrowed",
 "both": false,
-"start": "2026-11-02T09:00",
-"end": "2026-11-30T16:00",
-"hours": "09:00\u201316:00",
+"start": "2026-11-30T21:00",
+"end": "2026-12-01T04:00",
+"hours": "21:00\u201304:00",
 "days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"who": "Trillium Guideway Partners",
+"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.53924,
-43.67979
+-79.33875,
+43.72054
 ],
 [
--79.54086,
-43.67943
+-79.33857,
+43.7206
 ]
 ]
 },
 {
-"id": "Tor-RD042026-1487",
-"street": "Eglinton Ave W",
-"extent": "Eglinton Ave W 220 m West of Royal York Rd to 198 m East of Eden Valley Dr",
+"id": "Tor-RD042026-1513-1",
+"street": "Eglinton Ave E",
+"extent": "Eglinton Ave E 62 m Northeast of Mike Palmateer Rd to 69 m Southwest of Don Mills Rd",
 "kind": "narrowed",
 "both": false,
-"start": "2026-11-18T09:00",
-"end": "2026-11-30T16:00",
-"hours": "09:00\u201316:00",
+"start": "2026-11-30T21:00",
+"end": "2026-12-01T04:00",
+"hours": "21:00\u201304:00",
 "days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"who": "Trillium Guideway Partners",
+"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
 "roadClass": "Major Arterial Road",
 "coords": [
 [
--79.52925,
-43.6818
+-79.34049,
+43.72001
 ],
 [
--79.52928,
-43.6818
-],
-[
--79.52953,
-43.68176
-],
-[
--79.5299,
-43.6817
-],
-[
--79.53045,
-43.68159
-]
-]
-},
-{
-"id": "Tor-RD042026-1478",
-"street": "Old Weston Rd",
-"extent": "Old Weston Rd from Ln N Davenport E Old Weston to Davenport Rd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-17T08:00",
-"end": "2026-12-04T16:00",
-"hours": "08:00\u201316:00",
-"days": "weekdays",
-"who": "Graham Construction and Engineering LP",
-"desc": "Sidewalk closure to support the safe demolition of City-Owned properties to support future Davenport Road extension works.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.46241,
-43.67137
-],
-[
--79.46232,
-43.67104
-]
-]
-},
-{
-"id": "Tor-RD042026-1451-1",
-"street": "Wallace Ave",
-"extent": "Wallace Ave 33 m West of Ln 2 W Lansdowne S Wallace to 2 m East of Rankin Cres",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-09T07:00",
-"end": "2026-11-30T20:00",
-"hours": "07:00\u201320:00",
-"days": "weekdays",
-"who": "Graham Construction and Engineering LP",
-"desc": "- install electrical conduits, light pole base, handwell; Civil works including curb and sidewalk removal, supply and installation of asphalt, planting soil, planting, new hardscape works (concrete paving and curbs), beacon foundation and installation",
-"roadClass": "Local Road",
-"coords": [
-[
--79.44632,
-43.66193
-],
-[
--79.44681,
-43.66183
-],
-[
--79.44681,
-43.66183
-],
-[
--79.44745,
-43.66169
-]
-]
-},
-{
-"id": "Tor-RD042026-1451-2",
-"street": "Wallace Ave",
-"extent": "Wallace Ave 33 m West of Ln 2 W Lansdowne S Wallace to Rankin Cres",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-09T07:00",
-"end": "2026-11-30T20:00",
-"hours": "07:00\u201320:00",
-"days": "weekdays",
-"who": "Graham Construction and Engineering LP",
-"desc": "- install electrical conduits, light pole base, handwell; Civil works including curb and sidewalk removal, supply and installation of asphalt, planting soil, planting, new hardscape works (concrete paving and curbs), beacon foundation and installation",
-"roadClass": "Local Road",
-"coords": [
-[
--79.44632,
-43.66193
-],
-[
--79.44681,
-43.66183
-],
-[
--79.44681,
-43.66183
-],
-[
--79.44747,
-43.66168
-]
-]
-},
-{
-"id": "Tor-RD042026-1428-2",
-"street": "Jane St",
-"extent": "Jane St at Eglinton Ave W to 16 m North of Eglinton Ave West Trl",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-26T04:00",
-"end": "2026-11-30T06:00",
-"hours": "04:00\u201306:00",
-"days": "daily",
-"who": "Aecon Infrastructure Management Inc",
-"desc": "This street occupancy is required for rebar delivery to the job site.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.49882,
-43.68448
-],
-[
--79.49888,
-43.68466
-],
-[
--79.49888,
-43.68466
-],
-[
--79.49893,
-43.6848
-]
-]
-},
-{
-"id": "Tor-RD042026-1428-1",
-"street": "Eglinton Ave W",
-"extent": "Eglinton Ave W 54 m West of Eglinton Ave West Trl to Jane St",
-"kind": "narrowed",
-"both": false,
-"start": "2026-10-26T04:00",
-"end": "2026-11-30T06:00",
-"hours": "04:00\u201306:00",
-"days": "daily",
-"who": "Aecon Infrastructure Management Inc",
-"desc": "This street occupancy is required for rebar delivery to the job site.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.49971,
-43.68427
-],
-[
--79.49906,
-43.68442
-],
-[
--79.49906,
-43.68442
-],
-[
--79.49882,
-43.68448
-]
-]
-},
-{
-"id": "Tor-RD042026-1157",
-"street": "Jane St",
-"extent": "Jane St 8 m North of Eglinton Ave West Trl to 14 m North of Eglinton Ave West Trl",
-"kind": "closed",
-"both": true,
-"start": "2026-08-24T21:00",
-"end": "2026-11-30T05:00",
-"hours": "21:00\u201305:00",
-"days": "daily",
-"who": "Aecon Infrastructure Management Inc",
-"desc": "This work is for the installation of falsework spanning across Jane Street, north of Eglinton Avenue - at the intersection of Jane and Eglinton. At the centreline of Jane Street a shoring tower will be installed. The traffic mitigation will be covered with a PDO and will sequentially close the northbound and southbound lanes separately.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.49879,
-43.68438
-],
-[
--79.49882,
-43.68448
-],
-[
--79.49882,
-43.68448
-],
-[
--79.49888,
-43.68466
-],
-[
--79.49888,
-43.68466
-],
-[
--79.49892,
-43.68478
-]
-]
-},
-{
-"id": "Tor-RD042026-885-2",
-"street": "Pape Ave",
-"extent": "Pape Ave from Danforth Ave to Gertrude Pl",
-"kind": "narrowed",
-"both": true,
-"start": "2026-07-01T00:00",
-"end": "2026-12-31T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
-"desc": "This is a very short duration closure for taking reading of instruments at the road.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.34484,
-43.67895
-],
-[
--79.34502,
-43.67937
-],
-[
--79.34503,
-43.67938
-],
-[
--79.34503,
-43.67938
-],
-[
--79.34516,
-43.67968
-],
-[
--79.34516,
-43.67968
-],
-[
--79.34543,
-43.68044
-]
-]
-},
-{
-"id": "Tor-RD042026-885-3",
-"street": "Gertrude Pl",
-"extent": "Gertrude Pl at Pape Ave to 25 m West of Muriel Ave",
-"kind": "narrowed",
-"both": true,
-"start": "2026-07-01T00:00",
-"end": "2026-12-31T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
-"desc": "This is a very short duration closure for taking reading of instruments at the road.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.34543,
-43.68044
-],
-[
--79.3449,
-43.68054
-]
-]
-},
-{
-"id": "Tor-RD042026-885-1",
-"street": "Danforth Ave",
-"extent": "Danforth Ave 34 m East of Ln E Pape S Danforth to Pape Ave",
-"kind": "narrowed",
-"both": true,
-"start": "2026-07-01T00:00",
-"end": "2026-12-31T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "GREEN INFRASTRUCTURE PARTNERS INC.",
-"desc": "This is a very short duration closure for taking reading of instruments at the road.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.34396,
-43.67913
-],
-[
--79.34437,
-43.67905
-],
-[
--79.34437,
-43.67905
-],
-[
--79.34484,
-43.67895
+-79.33967,
+43.72026
 ]
 ]
 },
@@ -591,30 +803,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1491-2",
-"street": "Carlaw Ave",
-"extent": "Carlaw Ave from Gerrard St E to C N R",
-"kind": "narrowed",
-"both": false,
-"start": "2026-12-01T00:00",
-"end": "2026-12-24T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "Trillium Guideway Partners",
-"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
-"roadClass": "Minor Arterial Road",
-"coords": [
-[
--79.34276,
-43.66763
-],
-[
--79.34265,
-43.66734
-]
-]
-},
-{
 "id": "Tor-RD042026-1491-1",
 "street": "Carlaw Ave",
 "extent": "Carlaw Ave 34 m North of Gerrard St E to Gerrard St E",
@@ -635,6 +823,30 @@
 [
 -79.34276,
 43.66763
+]
+]
+},
+{
+"id": "Tor-RD042026-1491-2",
+"street": "Carlaw Ave",
+"extent": "Carlaw Ave from Gerrard St E to C N R",
+"kind": "narrowed",
+"both": false,
+"start": "2026-12-01T00:00",
+"end": "2026-12-24T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "Trillium Guideway Partners",
+"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.34276,
+43.66763
+],
+[
+-79.34265,
+43.66734
 ]
 ]
 },
@@ -679,30 +891,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1514-1",
-"street": "Eglinton Ave E",
-"extent": "Eglinton Ave E 62 m Northeast of Mike Palmateer Rd to 69 m Southwest of Don Mills Rd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-27T04:00",
-"end": "2027-01-16T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "Trillium Guideway Partners",
-"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.34049,
-43.72001
-],
-[
--79.33967,
-43.72026
-]
-]
-},
-{
 "id": "Tor-RD042026-1514-2",
 "street": "Eglinton Ave E",
 "extent": "Eglinton Ave E 11 m Northeast of Don Mills Rd to 27 m Northeast of Don Mills Rd",
@@ -727,14 +915,14 @@
 ]
 },
 {
-"id": "Tor-RD042026-1513-1",
+"id": "Tor-RD042026-1514-1",
 "street": "Eglinton Ave E",
 "extent": "Eglinton Ave E 62 m Northeast of Mike Palmateer Rd to 69 m Southwest of Don Mills Rd",
 "kind": "narrowed",
 "both": false,
-"start": "2026-11-26T21:00",
-"end": "2026-11-27T04:00",
-"hours": "21:00\u201304:00",
+"start": "2026-11-27T04:00",
+"end": "2027-01-16T23:59",
+"hours": "24h",
 "days": "daily",
 "who": "Trillium Guideway Partners",
 "desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
@@ -747,54 +935,6 @@
 [
 -79.33967,
 43.72026
-]
-]
-},
-{
-"id": "Tor-RD042026-1513-2",
-"street": "Eglinton Ave E",
-"extent": "Eglinton Ave E 11 m Northeast of Don Mills Rd to 27 m Northeast of Don Mills Rd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-26T21:00",
-"end": "2026-11-27T04:00",
-"hours": "21:00\u201304:00",
-"days": "daily",
-"who": "Trillium Guideway Partners",
-"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.33875,
-43.72054
-],
-[
--79.33857,
-43.7206
-]
-]
-},
-{
-"id": "Tor-RD042026-1502-1",
-"street": "Kipling Ave",
-"extent": "Kipling Ave 25 m South of Dryden Way to Eglinton Ave W",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-23T09:00",
-"end": "2027-01-08T16:00",
-"hours": "24h",
-"days": "daily",
-"who": "West End Connectors",
-"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.55103,
-43.67749
-],
-[
--79.55089,
-43.67718
 ]
 ]
 },
@@ -819,6 +959,30 @@
 [
 -79.55165,
 43.677
+]
+]
+},
+{
+"id": "Tor-RD042026-1502-1",
+"street": "Kipling Ave",
+"extent": "Kipling Ave 25 m South of Dryden Way to Eglinton Ave W",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-23T09:00",
+"end": "2027-01-08T16:00",
+"hours": "24h",
+"days": "daily",
+"who": "West End Connectors",
+"desc": "https://www.metrolinx.com/en/projects-and-programs/eglinton-crosstown-west-extension",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.55103,
+43.67749
+],
+[
+-79.55089,
+43.67718
 ]
 ]
 },
@@ -903,78 +1067,6 @@
 ]
 },
 {
-"id": "Tor-RD042026-1505-2",
-"street": "Castlefield Ave",
-"extent": "Castlefield Ave 29 m East of C N R to 40 m West of C N R",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-25T22:00",
-"end": "2026-11-27T04:00",
-"hours": "22:00\u201304:00",
-"days": "daily",
-"who": "ONxpress Civils Contractor GP",
-"desc": "SUE B Investigations (no intrusive works) at 1425 Castlefield Ave, York, ON M6M 1Y3. Lane closures will be required in the areas marked in the attached TCPS as SUE B. Since the work extends across all lanes, each lane will be closed one at a time as the crew progresses. Closures will be short-term (20-30 minutes per lane). The investigation will also include the sidewalk; however, no full sidewalk closure will be required. A PDO will be utilized during this operation.",
-"roadClass": "Local Road",
-"coords": [
-[
--79.4662,
-43.69785
-],
-[
--79.46639,
-43.6978
-],
-[
--79.46655,
-43.69777
-],
-[
--79.46655,
-43.69777
-],
-[
--79.46663,
-43.69776
-],
-[
--79.46678,
-43.69772
-],
-[
--79.46699,
-43.69766
-],
-[
--79.46701,
-43.69765
-]
-]
-},
-{
-"id": "Tor-RD042026-1476-1",
-"street": "Eglinton Ave E",
-"extent": "Eglinton Ave E 62 m Northeast of Mike Palmateer Rd to 69 m Southwest of Don Mills Rd",
-"kind": "narrowed",
-"both": false,
-"start": "2026-11-14T00:00",
-"end": "2026-11-27T23:59",
-"hours": "24h",
-"days": "daily",
-"who": "Trillium Guideway Partners",
-"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
-"roadClass": "Major Arterial Road",
-"coords": [
-[
--79.34049,
-43.72001
-],
-[
--79.33967,
-43.72026
-]
-]
-},
-{
 "id": "Tor-RD042026-1476-2",
 "street": "Eglinton Ave E",
 "extent": "Eglinton Ave E 11 m Northeast of Don Mills Rd to 27 m Northeast of Don Mills Rd",
@@ -999,34 +1091,26 @@
 ]
 },
 {
-"id": "Tor-RD042026-1457-1",
-"street": "Queen St E",
-"extent": "Queen St E 10 m West of C N R to 7 m West of Mc Gee St",
+"id": "Tor-RD042026-1476-1",
+"street": "Eglinton Ave E",
+"extent": "Eglinton Ave E 62 m Northeast of Mike Palmateer Rd to 69 m Southwest of Don Mills Rd",
 "kind": "narrowed",
 "both": false,
-"start": "2026-11-03T00:00",
-"end": "2027-03-15T23:59",
+"start": "2026-11-14T00:00",
+"end": "2026-11-27T23:59",
 "hours": "24h",
 "days": "daily",
 "who": "Trillium Guideway Partners",
 "desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
-"roadClass": "Minor Arterial Road",
+"roadClass": "Major Arterial Road",
 "coords": [
 [
--79.34592,
-43.65976
+-79.34049,
+43.72001
 ],
 [
--79.3458,
-43.65979
-],
-[
--79.3458,
-43.65979
-],
-[
--79.34551,
-43.65985
+-79.33967,
+43.72026
 ]
 ]
 },
@@ -1083,6 +1167,38 @@
 [
 -79.34611,
 43.65984
+]
+]
+},
+{
+"id": "Tor-RD042026-1457-1",
+"street": "Queen St E",
+"extent": "Queen St E 10 m West of C N R to 7 m West of Mc Gee St",
+"kind": "narrowed",
+"both": false,
+"start": "2026-11-03T00:00",
+"end": "2027-03-15T23:59",
+"hours": "24h",
+"days": "daily",
+"who": "Trillium Guideway Partners",
+"desc": "Ontario Line Elevated Guideway and Stations: The scope of work for the contract includes: three kilometres of an elevated guideway; five elevated stations (Riverside-Leslieville, Gerrard, Thorncliffe Park, Flemington Park, Science Centre); and two emergency egress buildings. Additionally, there are interfaces with the Maintenance and Storage Facility; Eglinton Crosstown LRT Line 5; and other sections/contracts of the Ontario Line project.",
+"roadClass": "Minor Arterial Road",
+"coords": [
+[
+-79.34592,
+43.65976
+],
+[
+-79.3458,
+43.65979
+],
+[
+-79.3458,
+43.65979
+],
+[
+-79.34551,
+43.65985
 ]
 ]
 },
