@@ -1,5 +1,5 @@
 {
-"fetched": "2026-11-26T08:48",
+"fetched": "2026-11-27T08:46",
 "source": "https://secure.toronto.ca/opendata/cart/road_restrictions/v3?format=json",
 "permits": [
 {
@@ -35,26 +35,178 @@
 ]
 },
 {
-"id": "Tor-RD52026-7636-3",
-"street": "Woodbine Ave",
-"extent": "Woodbine Ave 13 m North of C N R to 36 m North of C N R",
+"id": "Tor-RD52026-7620-2",
+"street": "William R Allen Rd S",
+"extent": "William R Allen Rd S at Ranee Ave to 82 m South of Ranee Ave",
 "kind": "closed",
-"both": true,
-"start": "2026-11-19T09:00",
-"end": "2026-11-27T16:00",
-"hours": "09:00\u201316:00",
-"days": "weekdays",
-"who": "Aqua Tech Solutions Inc",
-"desc": "City Contract -- City Contract 26TW-CPI-15PCU Chamber Adjustments South-East Wards",
-"roadClass": "Major Arterial Road",
+"both": false,
+"start": "2026-11-27T23:00",
+"end": "2026-11-28T05:00",
+"hours": "23:00\u201305:00",
+"days": "daily",
+"who": "Capital Traffic Management Solutions",
+"desc": "PVMS and Camera Maintenance",
+"roadClass": "Expressway Ramp",
 "coords": [
 [
--79.31135,
-43.68225
+-79.44734,
+43.72355
 ],
 [
--79.31144,
-43.68245
+-79.44706,
+43.72283
+]
+]
+},
+{
+"id": "Tor-RD52026-7882-3",
+"street": "Kipling N Gardiner C W Ramp",
+"extent": "Kipling N Gardiner C W Ramp 56 m East of Kipling Ave to 33 m North of Kipling Ave",
+"kind": "closed",
+"both": true,
+"start": "2026-12-01T23:00",
+"end": "2026-12-03T05:00",
+"hours": "23:00\u201305:00",
+"days": "weekdays",
+"who": "GHD Limited",
+"desc": "Lane closure for geotechnical investigation",
+"roadClass": "Expressway Ramp",
+"coords": [
+[
+-79.52517,
+43.61836
+],
+[
+-79.52509,
+43.61838
+],
+[
+-79.52501,
+43.61841
+],
+[
+-79.52495,
+43.61844
+],
+[
+-79.52489,
+43.61847
+],
+[
+-79.52483,
+43.61853
+],
+[
+-79.5248,
+43.61857
+],
+[
+-79.52477,
+43.61861
+],
+[
+-79.52475,
+43.61868
+],
+[
+-79.52474,
+43.61876
+],
+[
+-79.52475,
+43.61883
+],
+[
+-79.52478,
+43.61889
+],
+[
+-79.52481,
+43.61894
+],
+[
+-79.52484,
+43.61897
+],
+[
+-79.52489,
+43.61902
+],
+[
+-79.52495,
+43.61905
+],
+[
+-79.525,
+43.61908
+],
+[
+-79.52508,
+43.61911
+],
+[
+-79.52514,
+43.61912
+],
+[
+-79.52519,
+43.61913
+],
+[
+-79.52526,
+43.61913
+],
+[
+-79.52532,
+43.61913
+],
+[
+-79.52538,
+43.61912
+],
+[
+-79.52548,
+43.6191
+],
+[
+-79.52553,
+43.61907
+],
+[
+-79.5256,
+43.61904
+],
+[
+-79.52565,
+43.61901
+],
+[
+-79.52569,
+43.61897
+],
+[
+-79.52573,
+43.61892
+],
+[
+-79.52575,
+43.61888
+],
+[
+-79.52577,
+43.61885
+],
+[
+-79.52578,
+43.61879
+],
+[
+-79.52577,
+43.61854
+],
+[
+-79.52578,
+43.61848
 ]
 ]
 },
@@ -79,6 +231,30 @@
 [
 -79.31467,
 43.69001
+]
+]
+},
+{
+"id": "Tor-RD52026-7636-3",
+"street": "Woodbine Ave",
+"extent": "Woodbine Ave 13 m North of C N R to 36 m North of C N R",
+"kind": "closed",
+"both": true,
+"start": "2026-11-19T09:00",
+"end": "2026-11-27T16:00",
+"hours": "09:00\u201316:00",
+"days": "weekdays",
+"who": "Aqua Tech Solutions Inc",
+"desc": "City Contract -- City Contract 26TW-CPI-15PCU Chamber Adjustments South-East Wards",
+"roadClass": "Major Arterial Road",
+"coords": [
+[
+-79.31135,
+43.68225
+],
+[
+-79.31144,
+43.68245
 ]
 ]
 },
